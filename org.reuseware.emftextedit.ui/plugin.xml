@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         id="problem"
+         name="EMF Text Edit Problem"
+         point="org.eclipse.core.resources.markers">
+      <persistent value="true"/>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.core.resources.textmarker"/>
+   </extension>
+
+   <extension  
+            point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.reuseware.emftextedit.ui.generateresourcecontributor"
+            nameFilter="*.cs*"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.reuseware.emftextedit.ui.actions.GenerateResourceAction"
+               enablesFor="1"
+               id="org.reuseware.emftextedit.ui.actions.generateresourceaction"
+               label="Generate Text Resource"
+               menubarPath="additions"/>
+      </objectContribution>
+   </extension>
+   
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.reuseware.emftextedit.ui.preferences.PreferenceInitializer"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.reuseware.emftextedit.ui.preferences.MainPreferencePage"
+            id="org.reuseware.emftextedit.ui.preferences.main"
+            name="EMF Text Edit"/>
+      <page
+            category="org.reuseware.emftextedit.ui.preferences.main"
+            class="org.reuseware.emftextedit.ui.preferences.SyntaxColoringPreferencePage"
+            id="org.reuseware.emftextedit.ui.preferences.SyntaxColoringPreferencePage"
+            name="Syntax coloring"/>
+    </extension>
+
+    <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.reuseware.emftextedit.ui.editor.EMFTextEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            icon="icons/editor.gif"
+            id="org.reuseware.emftextedit.ui.texteditor"
+            name="EMF Text Editor">
+         <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
+      </editor>
+   </extension>
+
+</plugin>
