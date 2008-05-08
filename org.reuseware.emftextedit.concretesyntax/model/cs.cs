@@ -2,21 +2,33 @@ SYNTAXDEF cs
 FOR       <http://www.reuseware.org/emftextedit/concretesyntax>
 START     ConcreteSyntax
 
+TOKENS{
+	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$; 
+	PREDEFINED TEXT;
+	DEFINE QNAME $('A'..'Z'|'a'..'z'|'_')('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+$;
+}
+//asasdasd
+
+
 RULES {
 
-  ConcreteSyntax ::= "SYNTAXDEF" name ! "FOR" "<" #0 package #0 ">" ! "START" startSymbols ("," startSymbols)* ! ! ("IMPORTS" "{" ( !2 imports)* ! "}")? ! ! "RULES" "{" ( !2 rules+) ! "}";
+  ConcreteSyntax ::= "SYNTAXDEF" name[] !0 "FOR" package['<','>']  !0 "START" startSymbols[] ("," startSymbols[])* !0 !0 ("IMPORTS" "{" ( !2 imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
 
-  Import         ::= prefix ":" "<" #0 package #0 ">" ("WITH" "SYNTAX" concreteSyntax)?;
+  Import         ::= prefix[] ":" package['<','>'] ("WITH" "SYNTAX" concreteSyntax[])?;
 
-  Rule           ::= metaclass "::=" definition #0 ";";
-  
+  Rule           ::= ( metaclass[] | metaclass[QNAME] ) "::=" definition #0 ";";
+ 
   Sequence       ::= parts+;
-
+ 
   Choice         ::= options ("|" options)* #0;	
 
-  CsString       ::= ('"' #0 value #0 '"') | ("'" #0 value #0 "'");
+  CsString       ::= value['"','"'];
   
-  Terminal      ::= feature #0 cardinality?;
+  DefinedPlaceholder ::= feature[] "["  #0 token[] #0  "]" #0 cardinality?;
+  
+  DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] ("," #0 suffix['\'','\''] )? #0)? "]" #0 cardinality?;
+  
+  Containment ::=  feature[] #0 cardinality?;
   
   CompoundDefinition ::= "(" definitions ")" #0 cardinality?;
 
@@ -24,7 +36,11 @@ RULES {
   STAR ::= "*";   
   QUESTIONMARK ::= "?";
   
-  WhiteSpaces    ::= "#" ammount?;
-  LineBreak      ::= "!" tab?;
+  WhiteSpaces    ::= ammount['#'];
+  LineBreak      ::= tab['!'];
+  
+  NormalToken ::= "DEFINE" name[] regex['$','$'] !0;
+  DecoratedToken ::= "DEFINE" name[] ( "[" #0 ( prefix['\'','\''] ) #0  "]" ) regex['$','$']  ( "[" #0 ( suffix['\'','\'']) #0 "]" ) !0;
+  PreDefinedToken ::= "PREDEFINED" name[];
 
 }

@@ -17,6 +17,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="allRules" lowerBound="1"
         upperBound="-1" eType="#//Rule" changeable="false" volatile="true" transient="true"
         derived="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
+        eType="#//TokenDefinition" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"
@@ -45,7 +47,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="cardinality" eType="#//Cardinality"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Terminal" eSuperTypes="#//Definition">
+  <eClassifiers xsi:type="ecore:EClass" name="Terminal" abstract="true" eSuperTypes="#//Definition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
   </eClassifiers>
@@ -66,4 +68,32 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="definitions" eType="#//Choice"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenDefinition" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferences" upperBound="-1"
+        eType="#//DefinedPlaceholder" eOpposite="#//DefinedPlaceholder/token"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NormalToken" eSuperTypes="#//NewDefinedToken"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DecoratedToken" eSuperTypes="#//NewDefinedToken">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffix" lowerBound="1"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NewDefinedToken" abstract="true" eSuperTypes="#//TokenDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regex" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreDefinedToken" eSuperTypes="#//TokenDefinition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Containment" eSuperTypes="#//Terminal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DefinedPlaceholder" eSuperTypes="#//Placeholder">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="token" lowerBound="1" eType="#//TokenDefinition"
+        eOpposite="#//TokenDefinition/attributeReferences"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DerivedPlaceholder" eSuperTypes="#//Placeholder">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
+        defaultValueLiteral=""/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Placeholder" abstract="true" eSuperTypes="#//Terminal"/>
 </ecore:EPackage>
