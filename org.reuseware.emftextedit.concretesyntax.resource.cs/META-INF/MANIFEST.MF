@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_13-121 ("Apple Computer, Inc.")
+Bundle-ManifestVersion: 2
+Bundle-Name: Reuseware Concretesyntax Metamodel Text Syntax
+Bundle-SymbolicName: org.reuseware.emftextedit.concretesyntax.resource
+ .cs; singleton:=true
+Bundle-Version: 0.8.0.v200804111500
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore,org.reu
+ seware.emftextedit,org.eclipse.core.resources
+Eclipse-LazyStart: true
+Export-Package: org.reuseware.emftextedit.concretesyntax.resource.cs
+
