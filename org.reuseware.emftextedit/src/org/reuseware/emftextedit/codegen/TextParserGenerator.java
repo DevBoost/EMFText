@@ -348,6 +348,13 @@ public class TextParserGenerator extends BaseGenerator{
             
             printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,proxyReferences,"\t");
             
+            Collection<GenClass> subClasses = getSubClassesWithCS(rule.getMetaclass());
+            if(!subClasses.isEmpty()){
+            	out.println("\t|//derived choice rules for sub-classes: ");
+            	printSubClassChoices(out,subClasses);
+            	out.println();
+            }
+            
             out.println(";");
             out.println();
             
@@ -536,20 +543,10 @@ public class TextParserGenerator extends BaseGenerator{
         
     	for(GenClass referencedClass : eClassesReferenced.keySet()) {
             if(!cointainsEqualByName(eClassesWithSyntax,referencedClass)) {
-               //rule not explicitly defined in CS: most likely a choice rule in the AS
-               Collection<GenClass> subClasses = new HashSet<GenClass>();
-               //collect all the subclasses for which concrete syntax is defined
-               for(Rule rule : source.getAllRules()) {
-            	   	GenClass subClassCand = rule.getMetaclass();
-               		//There seem to be multiple instances of metaclasses when accessed through the genmodel. Therefore, we compare by name
-               		for(EClass superClass : subClassCand.getEcoreClass().getEAllSuperTypes()) {
-               			if (superClass.getName().equals(referencedClass.getEcoreClass().getName()) && 
-               					superClass.getEPackage().getNsURI().equals(referencedClass.getEcoreClass().getEPackage().getNsURI())) {
-               				subClasses.add(subClassCand);
-               			}
-               		} 
-               }
-               if (subClasses.isEmpty()) {
+            	//rule not explicitly defined in CS: most likely a choice rule in the AS
+            	Collection<GenClass> subClasses = getSubClassesWithCS(referencedClass);
+            	
+            	if (subClasses.isEmpty()) {
             	  String message = "Referenced class '"+referencedClass.getName()+"' has no defined concrete Syntax.";
             	  for(Terminal terminal:eClassesReferenced.get(referencedClass)){
             		  addProblem(new GenerationProblem(message,terminal));
@@ -560,14 +557,7 @@ public class TextParserGenerator extends BaseGenerator{
                    out.println(getLowerCase(referencedClass.getName()));
                    out.println("returns [" + referencedClass.getName() + " element = null]");
                    out.println(":");
-                   int count = 0;
-                   for(Iterator<GenClass> i = subClasses.iterator(); i.hasNext(); ) {
-                       GenClass subRef = i.next();
-                       out.print("\tc" + count + " = " + getLowerCase(subRef.getName()) + "{ element = c" + count + "; }"); 
-                       if (i.hasNext()) 
-                    	   out.println("\t|");
-                       count++;
-                   }
+                   printSubClassChoices(out,subClasses);
                    out.println();
                    out.println(";");
                    out.println();
@@ -581,6 +571,39 @@ public class TextParserGenerator extends BaseGenerator{
                
            }
        }	
+    }
+    
+    private void printSubClassChoices(PrintWriter out, Collection<GenClass> subClasses){
+        int count = 0;
+        for(Iterator<GenClass> i = subClasses.iterator(); i.hasNext(); ) {
+            GenClass subRef = i.next();
+            out.print("\tc" + count + " = " + getLowerCase(subRef.getName()) + "{ element = c" + count + "; }"); 
+            if (i.hasNext()) 
+         	   out.println("\t|");
+            count++;
+        }
+    }
+    
+    /**
+     *  Collects all the subclasses for which concrete syntax is defined.
+     * 
+     * @return
+     */
+    private Collection<GenClass> getSubClassesWithCS(GenClass genClass){
+        Collection<GenClass> subClasses = new HashSet<GenClass>();
+
+        for(Rule rule : source.getAllRules()) {
+     	   	GenClass subClassCand = rule.getMetaclass();
+        		//There seem to be multiple instances of metaclasses when accessed through the genmodel. Therefore, we compare by name
+        		for(EClass superClass : subClassCand.getEcoreClass().getEAllSuperTypes()) {
+        			if (superClass.getName().equals(genClass.getEcoreClass().getName()) && 
+        					superClass.getEPackage().getNsURI().equals(genClass.getEcoreClass().getEPackage().getNsURI())) {
+        				subClasses.add(subClassCand);
+        			}
+        		} 
+        }
+        return subClasses;
+
     }
       
     private boolean cointainsEqualByName(EList<GenClass> list, GenClass o){
