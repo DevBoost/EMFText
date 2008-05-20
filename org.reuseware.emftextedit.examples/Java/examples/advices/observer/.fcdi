@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:org.reuseware.coconut.fragment="http://www.reuseware.org/coconut/2007/Fragment" xmi:id="_dC9R8AuPEd2NAZFkWk3BLw" type="Fragment" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_dC9R8QuPEd2NAZFkWk3BLw"/>
+  <element xmi:type="org.reuseware.coconut.fragment:Fragment" href="http://reuseware.org/stores/src/advices/observer#/"/>
+</notation:Diagram>

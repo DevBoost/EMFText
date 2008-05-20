@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmlns:org.reuseware.coconut.fragment="http://www.reuseware.org/coconut/2007/Fragment" xmi:id="_gVsOAAuPEd2NAZFkWk3BLw" type="Fragment" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_n51fcAuQEd2raNbluEV2Jw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_n537sAuQEd2raNbluEV2Jw" type="4001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_n537sQuQEd2raNbluEV2Jw" y="5"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_n51fcQuQEd2raNbluEV2Jw" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/core#/0/@containedPorts.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_n51fcguQEd2raNbluEV2Jw"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_n55J0AuQEd2raNbluEV2Jw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_n55w4AuQEd2raNbluEV2Jw" type="4001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_n55w4QuQEd2raNbluEV2Jw" x="-93" y="7"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_n55J0QuQEd2raNbluEV2Jw" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/core#/0/@containedPorts.1"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_n55J0guQEd2raNbluEV2Jw" x="279" y="252"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_n55w4guQEd2raNbluEV2Jw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_n56X8AuQEd2raNbluEV2Jw" type="4001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_n56X8QuQEd2raNbluEV2Jw" y="5"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_n55w4wuQEd2raNbluEV2Jw" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/core#/0/@containedPorts.2"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_n55w5AuQEd2raNbluEV2Jw" y="160"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_n56X8guQEd2raNbluEV2Jw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_n56_AAuQEd2raNbluEV2Jw" type="4001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_n56_AQuQEd2raNbluEV2Jw" y="5"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_n56X8wuQEd2raNbluEV2Jw" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/core#/0/@containedPorts.3"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_n56X9AuQEd2raNbluEV2Jw" y="240"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_n56_AguQEd2raNbluEV2Jw" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_n57mEAuQEd2raNbluEV2Jw" type="4001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_n57mEQuQEd2raNbluEV2Jw" x="-116" y="7"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_n56_AwuQEd2raNbluEV2Jw" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/core#/0/@containedPorts.4"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_n56_BAuQEd2raNbluEV2Jw" x="288" y="288"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_8t8gMAuTEd2jzebqztKHCA" type="1003">
+    <children xmi:type="notation:Node" xmi:id="_8t-8cAuTEd2jzebqztKHCA" type="4004"/>
+    <children xmi:type="notation:Node" xmi:id="_AJW3IAuUEd2jzebqztKHCA" type="2001">
+      <children xmi:type="notation:Node" xmi:id="_AJXeMAuUEd2jzebqztKHCA" type="4003">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_AJXeMQuUEd2jzebqztKHCA" y="5"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_AJW3IQuUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+      <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/advices/observer/Subject.java#/0/@containedPorts.0"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AJW3IguUEd2jzebqztKHCA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_AJXeMguUEd2jzebqztKHCA" type="2001">
+      <children xmi:type="notation:Node" xmi:id="_AJXeNQuUEd2jzebqztKHCA" type="4003">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_AJXeNguUEd2jzebqztKHCA" y="5"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_AJXeMwuUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+      <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/advices/observer/Subject.java#/0/@containedPorts.1"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AJXeNAuUEd2jzebqztKHCA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_AJYFQAuUEd2jzebqztKHCA" type="2001">
+      <children xmi:type="notation:Node" xmi:id="_AJYFQwuUEd2jzebqztKHCA" type="4003">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_AJYFRAuUEd2jzebqztKHCA" x="22" y="2"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_AJYFQQuUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+      <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/advices/observer/Subject.java#/0/@containedPorts.2"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AJYFQguUEd2jzebqztKHCA" x="-19" y="250"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_AJYsUAuUEd2jzebqztKHCA" type="2001">
+      <children xmi:type="notation:Node" xmi:id="_AJYsUwuUEd2jzebqztKHCA" type="4003">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_AJYsVAuUEd2jzebqztKHCA" y="5"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_AJYsUQuUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+      <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/advices/observer/Observer.java#/0/@containedPorts.0"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AJYsUguUEd2jzebqztKHCA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_AJZTYAuUEd2jzebqztKHCA" type="2001">
+      <children xmi:type="notation:Node" xmi:id="_AJZTYwuUEd2jzebqztKHCA" type="4003">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_AJZTZAuUEd2jzebqztKHCA" y="5"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_AJZTYQuUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+      <element xmi:type="org.reuseware.coconut.fragment:Port" href="http://reuseware.org/stores/src/advices/observer/Observer.java#/0/@containedPorts.1"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AJZTYguUEd2jzebqztKHCA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_8t8gMQuTEd2jzebqztKHCA" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:FragmentImport" href="http://reuseware.org/stores/src/core#/0/@importedFragments.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8t8gMguTEd2jzebqztKHCA" x="468" y="63" width="226" height="271"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_PYTGgAuUEd2jzebqztKHCA" type="1002">
+    <children xmi:type="notation:Node" xmi:id="_PcRnkAuUEd2jzebqztKHCA" type="4002"/>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_PYTGgQuUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:CompositionStep" href="http://reuseware.org/stores/src/core#/0/@compositionProgram.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PYTGgguUEd2jzebqztKHCA" x="333" y="99" width="100" height="64"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_gVsOAQuPEd2NAZFkWk3BLw"/>
+  <element xmi:type="org.reuseware.coconut.fragment:Fragment" href="http://reuseware.org/stores/src/core#/0"/>
+  <edges xmi:type="notation:Edge" xmi:id="_KlEBAAuUEd2jzebqztKHCA" type="3002" source="_AJYsUAuUEd2jzebqztKHCA" target="_n56_AguQEd2raNbluEV2Jw">
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_KlEoEAuUEd2jzebqztKHCA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_KlEoEQuUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:CompositionLink" href="http://reuseware.org/stores/src/core#/0/@containedLinks.0"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_KlEoEguUEd2jzebqztKHCA" points="[-10, -3, 160, -3]$[-172, -10, -2, -10]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_LO_HwAuUEd2jzebqztKHCA" type="3002" source="_AJW3IAuUEd2jzebqztKHCA" target="_n55J0AuQEd2raNbluEV2Jw">
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_LO_HwQuUEd2jzebqztKHCA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_LO_HwguUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+    <element xmi:type="org.reuseware.coconut.fragment:CompositionLink" href="http://reuseware.org/stores/src/core#/0/@containedLinks.1"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_LO_HwwuUEd2jzebqztKHCA" points="[-10, 0, 160, -54]$[-176, 0, -6, -54]$[-176, 44, -6, -10]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_RYTPYAuUEd2jzebqztKHCA" type="3001" source="_PYTGgAuUEd2jzebqztKHCA" target="_KlEBAAuUEd2jzebqztKHCA">
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_RYTPYQuUEd2jzebqztKHCA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_RYTPYguUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RYTPYwuUEd2jzebqztKHCA" points="[4, 32, 10, -45]$[-9, 77, -3, 0]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RYy-oAuUEd2jzebqztKHCA" id="(0.519337,0.45945945)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_R5780AuUEd2jzebqztKHCA" type="3001" source="_PYTGgAuUEd2jzebqztKHCA" target="_LO_HwAuUEd2jzebqztKHCA">
+    <styles xmi:type="notation:RoutingStyle" xmi:id="_R5780QuUEd2jzebqztKHCA"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_R5780guUEd2jzebqztKHCA" fontName="Lucida Grande"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_R5780wuUEd2jzebqztKHCA" points="[-82, 0, -33, -87]$[-108, 0, -59, -87]$[-108, 53, -59, -34]$[-87, 65, -38, -22]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R59yAAuUEd2jzebqztKHCA" id="(0.82,0.6875)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R5-ZEAuUEd2jzebqztKHCA" id="(0.59116024,0.5405405)"/>
+  </edges>
+</notation:Diagram>
