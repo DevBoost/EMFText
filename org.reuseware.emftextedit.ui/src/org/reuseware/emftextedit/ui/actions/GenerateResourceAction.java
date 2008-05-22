@@ -198,20 +198,15 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         s.append("      </concretesyntax>\n");
         s.append("   </extension>\n\n");
         
-
- /*TODO: For automatic editor registrations
-  *        s.append("<extension\n");
-        s.append("point=\"org.eclipse.ui.editors\">\n");
-        s.append("  <editor\n");
-        s.append("   class=\"de.tudresden.reuseware.coconut.ui.eclipse.editors.ReusewareTextEditor\"\n");
-        s.append("   contributorClass=\"org.eclipse.ui.texteditor.BasicTextEditorActionContributor." + name + "\"\n");
-        s.append("   extensions=\"" + name + "\"\n");
-        s.append("    icon=\"icons/coconut.gif\"\n");
-        s.append("    id=\"de.tudresden.reuseware.coconut.ui.eclipse.texteditor." + name + "\"\n");
-        s.append("    name=\"Reuseware Text Editor for " + name + " files\">\n");
-        s.append("  <contentTypeBinding contentTypeId=\"org.eclipse.core.runtime.text\"/>\n");
-        s.append("  </editor>\n");
-        s.append("</extension>\n"); */
+        //registers the file extension for the EMF Text Editor
+        s.append("   <extension\n");
+        s.append("         point=\"org.eclipse.core.contenttype.contentTypes\">\n");
+        s.append("      <file-association\n");
+        s.append("            content-type=\"org.reuseware.emftextedit.filetype\"\n");
+        s.append("            file-extensions=\""+cSyntax.getName()+ "\">\n");
+        s.append("      </file-association>\n");
+        s.append("   </extension>\n\n");
+        
 
         s.append("</plugin>\n");
         
