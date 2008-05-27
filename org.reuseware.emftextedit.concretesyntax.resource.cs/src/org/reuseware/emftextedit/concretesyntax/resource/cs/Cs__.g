@@ -39,57 +39,57 @@ T36 : '?' ;
 T37 : 'DEFINE' ;
 T38 : 'PREDEFINED' ;
 
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 400
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 461
 COMMENTS
 :
 	'//'(~('\n'|'\r'))*{ channel=99; }
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 404
-QNAME
-:
-	('A'..'Z'|'a'..'z'|'_')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
-;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 408
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 465
 TEXT
 :
 	('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 412
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 469
+QNAME
+:
+	('A'..'Z'|'a'..'z'|'_')('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
+;
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 473
 TEXT_33_
 :
 	('!')('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 416
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 477
 LB
 :
 	('\r\n' | '\r' | '\n'){ channel=99; }
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 420
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 481
 TEXT_35_
 :
 	('#')('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 424
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 485
 WS
 :
 	(' ' | '\t' | '\f'){ channel=99; }
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 428
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 489
 QUOTED_60_62
 :
 	('<')(~('>')|('\\''>'))*('>')
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 432
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 493
 QUOTED_39_39
 :
 	('\'')(~('\'')|('\\''\''))*('\'')
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 436
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 497
 QUOTED_36_36
 :
 	('$')(~('$')|('\\''$'))*('$')
 ;
-// $ANTLR src "C:\Dokumente und Einstellungen\skarol\reuseware\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 440
+// $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 501
 QUOTED_34_34
 :
 	('"')(~('"')|('\\''"'))*('"')

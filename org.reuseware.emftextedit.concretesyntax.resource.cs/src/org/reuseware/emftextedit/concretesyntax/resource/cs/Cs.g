@@ -19,68 +19,129 @@ package org.reuseware.emftextedit.concretesyntax.resource.cs;
 @header{
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
+//+++++++++++++++++++++++imports for org.reuseware.emftextedit.concretesyntax begin++++++++++++++++++++++
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl
 import org.reuseware.emftextedit.concretesyntax.Import;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ImportImpl
 import org.reuseware.emftextedit.concretesyntax.Rule;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.RuleImpl
 import org.reuseware.emftextedit.concretesyntax.Choice;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ChoiceImpl
 import org.reuseware.emftextedit.concretesyntax.Sequence;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.SequenceImpl
 import org.reuseware.emftextedit.concretesyntax.Definition;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinitionImpl
 import org.reuseware.emftextedit.concretesyntax.Terminal;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TerminalImpl
 import org.reuseware.emftextedit.concretesyntax.CsString;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CsStringImpl
 import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.WhiteSpacesImpl
 import org.reuseware.emftextedit.concretesyntax.LineBreak;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.LineBreakImpl
 import org.reuseware.emftextedit.concretesyntax.Cardinality;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CardinalityImpl
 import org.reuseware.emftextedit.concretesyntax.PLUS;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PLUSImpl
 import org.reuseware.emftextedit.concretesyntax.STAR;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.STARImpl
 import org.reuseware.emftextedit.concretesyntax.QUESTIONMARK;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.QUESTIONMARKImpl
 import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CompoundDefinitionImpl
 import org.reuseware.emftextedit.concretesyntax.TokenDefinition;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TokenDefinitionImpl
 import org.reuseware.emftextedit.concretesyntax.NormalToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NormalTokenImpl
 import org.reuseware.emftextedit.concretesyntax.DecoratedToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DecoratedTokenImpl
 import org.reuseware.emftextedit.concretesyntax.NewDefinedToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NewDefinedTokenImpl
 import org.reuseware.emftextedit.concretesyntax.PreDefinedToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PreDefinedTokenImpl
 import org.reuseware.emftextedit.concretesyntax.Containment;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ContainmentImpl
 import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinedPlaceholderImpl
 import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DerivedPlaceholderImpl
 import org.reuseware.emftextedit.concretesyntax.Placeholder;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PlaceholderImpl
 import org.reuseware.emftextedit.concretesyntax.*;
 import org.reuseware.emftextedit.concretesyntax.impl.*;
+//+++++++++++++++++++++++imports for org.eclipse.emf.ecore begin++++++++++++++++++++++
 import org.eclipse.emf.ecore.EAttribute;
+//Implementation: org.eclipse.emf.ecore.impl.EAttributeImpl
 import org.eclipse.emf.ecore.EAnnotation;
+//Implementation: org.eclipse.emf.ecore.impl.EAnnotationImpl
 import org.eclipse.emf.ecore.EClass;
+//Implementation: org.eclipse.emf.ecore.impl.EClassImpl
 import org.eclipse.emf.ecore.EClassifier;
+//Implementation: org.eclipse.emf.ecore.impl.EClassifierImpl
 import org.eclipse.emf.ecore.EDataType;
+//Implementation: org.eclipse.emf.ecore.impl.EDataTypeImpl
 import org.eclipse.emf.ecore.EEnum;
+//Implementation: org.eclipse.emf.ecore.impl.EEnumImpl
 import org.eclipse.emf.ecore.EEnumLiteral;
+//Implementation: org.eclipse.emf.ecore.impl.EEnumLiteralImpl
 import org.eclipse.emf.ecore.EFactory;
+//Implementation: org.eclipse.emf.ecore.impl.EFactoryImpl
 import org.eclipse.emf.ecore.EModelElement;
+//Implementation: org.eclipse.emf.ecore.impl.EModelElementImpl
 import org.eclipse.emf.ecore.ENamedElement;
+//Implementation: org.eclipse.emf.ecore.impl.ENamedElementImpl
 import org.eclipse.emf.ecore.EObject;
+//Implementation: org.eclipse.emf.ecore.impl.EObjectImpl
 import org.eclipse.emf.ecore.EOperation;
+//Implementation: org.eclipse.emf.ecore.impl.EOperationImpl
 import org.eclipse.emf.ecore.EPackage;
+//Implementation: org.eclipse.emf.ecore.impl.EPackageImpl
 import org.eclipse.emf.ecore.EParameter;
+//Implementation: org.eclipse.emf.ecore.impl.EParameterImpl
 import org.eclipse.emf.ecore.EReference;
+//Implementation: org.eclipse.emf.ecore.impl.EReferenceImpl
 import org.eclipse.emf.ecore.EStructuralFeature;
+//Implementation: org.eclipse.emf.ecore.impl.EStructuralFeatureImpl
 import org.eclipse.emf.ecore.ETypedElement;
+//Implementation: org.eclipse.emf.ecore.impl.ETypedElementImpl
 import java.util.Map.Entry;
+//Implementation: org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl
 import org.eclipse.emf.ecore.EGenericType;
+//Implementation: org.eclipse.emf.ecore.impl.EGenericTypeImpl
 import org.eclipse.emf.ecore.ETypeParameter;
+//Implementation: org.eclipse.emf.ecore.impl.ETypeParameterImpl
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.*;
+//+++++++++++++++++++++++imports for org.eclipse.emf.codegen.ecore.genmodel begin++++++++++++++++++++++
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenClassImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenFeatureImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenBase;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenBaseImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenEnumImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenEnumLiteral;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenEnumLiteralImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenClassifierImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenDataTypeImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenOperation;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenOperationImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenParameter;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenParameterImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenTypedElement;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenTypedElementImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenAnnotation;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenAnnotationImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenTypeParameter;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenTypeParameterImpl
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.emf.codegen.ecore.genmodel.impl.*;
 import org.reuseware.emftextedit.resource.*;
@@ -369,45 +430,45 @@ predefinedtoken returns [PreDefinedToken element = null]
 	a0 = TEXT{java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
 ;
 
-definition
-returns [Definition element = null]
+tokendefinition
+returns [TokenDefinition element = null]
 :
-	c0 = linebreak{ element = c0; }	|
-	c1 = compounddefinition{ element = c1; }	|
-	c2 = containment{ element = c2; }	|
-	c3 = whitespaces{ element = c3; }	|
-	c4 = csstring{ element = c4; }	|
-	c5 = definedplaceholder{ element = c5; }	|
-	c6 = derivedplaceholder{ element = c6; }
+	c0 = decoratedtoken{ element = c0; }	|
+	c1 = predefinedtoken{ element = c1; }	|
+	c2 = normaltoken{ element = c2; }
 ;
 
 cardinality
 returns [Cardinality element = null]
 :
 	c0 = star{ element = c0; }	|
-	c1 = plus{ element = c1; }	|
-	c2 = questionmark{ element = c2; }
+	c1 = questionmark{ element = c1; }	|
+	c2 = plus{ element = c2; }
 ;
 
-tokendefinition
-returns [TokenDefinition element = null]
+definition
+returns [Definition element = null]
 :
-	c0 = normaltoken{ element = c0; }	|
-	c1 = predefinedtoken{ element = c1; }	|
-	c2 = decoratedtoken{ element = c2; }
+	c0 = csstring{ element = c0; }	|
+	c1 = compounddefinition{ element = c1; }	|
+	c2 = derivedplaceholder{ element = c2; }	|
+	c3 = containment{ element = c3; }	|
+	c4 = linebreak{ element = c4; }	|
+	c5 = whitespaces{ element = c5; }	|
+	c6 = definedplaceholder{ element = c6; }
 ;
 
 COMMENTS
 :
 	'//'(~('\n'|'\r'))*{ channel=99; }
 ;
-QNAME
-:
-	('A'..'Z'|'a'..'z'|'_')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
-;
 TEXT
 :
 	('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
+;
+QNAME
+:
+	('A'..'Z'|'a'..'z'|'_')('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
 ;
 TEXT_33_
 :

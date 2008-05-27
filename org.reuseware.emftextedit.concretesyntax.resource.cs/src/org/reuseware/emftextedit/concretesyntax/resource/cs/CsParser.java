@@ -1,69 +1,130 @@
-// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-07 12:39:13
+// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-27 12:00:09
 
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
+//+++++++++++++++++++++++imports for org.reuseware.emftextedit.concretesyntax begin++++++++++++++++++++++
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl
 import org.reuseware.emftextedit.concretesyntax.Import;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ImportImpl
 import org.reuseware.emftextedit.concretesyntax.Rule;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.RuleImpl
 import org.reuseware.emftextedit.concretesyntax.Choice;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ChoiceImpl
 import org.reuseware.emftextedit.concretesyntax.Sequence;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.SequenceImpl
 import org.reuseware.emftextedit.concretesyntax.Definition;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinitionImpl
 import org.reuseware.emftextedit.concretesyntax.Terminal;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TerminalImpl
 import org.reuseware.emftextedit.concretesyntax.CsString;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CsStringImpl
 import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.WhiteSpacesImpl
 import org.reuseware.emftextedit.concretesyntax.LineBreak;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.LineBreakImpl
 import org.reuseware.emftextedit.concretesyntax.Cardinality;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CardinalityImpl
 import org.reuseware.emftextedit.concretesyntax.PLUS;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PLUSImpl
 import org.reuseware.emftextedit.concretesyntax.STAR;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.STARImpl
 import org.reuseware.emftextedit.concretesyntax.QUESTIONMARK;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.QUESTIONMARKImpl
 import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CompoundDefinitionImpl
 import org.reuseware.emftextedit.concretesyntax.TokenDefinition;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TokenDefinitionImpl
 import org.reuseware.emftextedit.concretesyntax.NormalToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NormalTokenImpl
 import org.reuseware.emftextedit.concretesyntax.DecoratedToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DecoratedTokenImpl
 import org.reuseware.emftextedit.concretesyntax.NewDefinedToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NewDefinedTokenImpl
 import org.reuseware.emftextedit.concretesyntax.PreDefinedToken;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PreDefinedTokenImpl
 import org.reuseware.emftextedit.concretesyntax.Containment;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ContainmentImpl
 import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinedPlaceholderImpl
 import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DerivedPlaceholderImpl
 import org.reuseware.emftextedit.concretesyntax.Placeholder;
+//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PlaceholderImpl
 import org.reuseware.emftextedit.concretesyntax.*;
 import org.reuseware.emftextedit.concretesyntax.impl.*;
+//+++++++++++++++++++++++imports for org.eclipse.emf.ecore begin++++++++++++++++++++++
 import org.eclipse.emf.ecore.EAttribute;
+//Implementation: org.eclipse.emf.ecore.impl.EAttributeImpl
 import org.eclipse.emf.ecore.EAnnotation;
+//Implementation: org.eclipse.emf.ecore.impl.EAnnotationImpl
 import org.eclipse.emf.ecore.EClass;
+//Implementation: org.eclipse.emf.ecore.impl.EClassImpl
 import org.eclipse.emf.ecore.EClassifier;
+//Implementation: org.eclipse.emf.ecore.impl.EClassifierImpl
 import org.eclipse.emf.ecore.EDataType;
+//Implementation: org.eclipse.emf.ecore.impl.EDataTypeImpl
 import org.eclipse.emf.ecore.EEnum;
+//Implementation: org.eclipse.emf.ecore.impl.EEnumImpl
 import org.eclipse.emf.ecore.EEnumLiteral;
+//Implementation: org.eclipse.emf.ecore.impl.EEnumLiteralImpl
 import org.eclipse.emf.ecore.EFactory;
+//Implementation: org.eclipse.emf.ecore.impl.EFactoryImpl
 import org.eclipse.emf.ecore.EModelElement;
+//Implementation: org.eclipse.emf.ecore.impl.EModelElementImpl
 import org.eclipse.emf.ecore.ENamedElement;
+//Implementation: org.eclipse.emf.ecore.impl.ENamedElementImpl
 import org.eclipse.emf.ecore.EObject;
+//Implementation: org.eclipse.emf.ecore.impl.EObjectImpl
 import org.eclipse.emf.ecore.EOperation;
+//Implementation: org.eclipse.emf.ecore.impl.EOperationImpl
 import org.eclipse.emf.ecore.EPackage;
+//Implementation: org.eclipse.emf.ecore.impl.EPackageImpl
 import org.eclipse.emf.ecore.EParameter;
+//Implementation: org.eclipse.emf.ecore.impl.EParameterImpl
 import org.eclipse.emf.ecore.EReference;
+//Implementation: org.eclipse.emf.ecore.impl.EReferenceImpl
 import org.eclipse.emf.ecore.EStructuralFeature;
+//Implementation: org.eclipse.emf.ecore.impl.EStructuralFeatureImpl
 import org.eclipse.emf.ecore.ETypedElement;
+//Implementation: org.eclipse.emf.ecore.impl.ETypedElementImpl
 import java.util.Map.Entry;
+//Implementation: org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl
 import org.eclipse.emf.ecore.EGenericType;
+//Implementation: org.eclipse.emf.ecore.impl.EGenericTypeImpl
 import org.eclipse.emf.ecore.ETypeParameter;
+//Implementation: org.eclipse.emf.ecore.impl.ETypeParameterImpl
 import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.impl.*;
+//+++++++++++++++++++++++imports for org.eclipse.emf.codegen.ecore.genmodel begin++++++++++++++++++++++
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenClassImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenFeatureImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenBase;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenBaseImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenEnumImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenEnumLiteral;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenEnumLiteralImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenClassifierImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenDataTypeImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenOperation;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenOperationImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenParameter;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenParameterImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenTypedElement;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenTypedElementImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenAnnotation;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenAnnotationImpl
 import org.eclipse.emf.codegen.ecore.genmodel.GenTypeParameter;
+//Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenTypeParameterImpl
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.emf.codegen.ecore.genmodel.impl.*;
 import org.reuseware.emftextedit.resource.*;
@@ -103,7 +164,7 @@ public class CsParser extends EMFTextParserImpl {
         
 
     public String[] getTokenNames() { return tokenNames; }
-    public String getGrammarFileName() { return "C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g"; }
+    public String getGrammarFileName() { return "C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g"; }
 
     
     	private TokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
@@ -117,7 +178,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start start
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:103:1: start returns [ EObject element = null] : c0= concretesyntax ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:164:1: start returns [ EObject element = null] : c0= concretesyntax ;
     public final EObject start() throws RecognitionException {
         EObject element =  null;
 
@@ -125,8 +186,8 @@ public class CsParser extends EMFTextParserImpl {
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:105:1: (c0= concretesyntax )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:106:1: c0= concretesyntax
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:166:1: (c0= concretesyntax )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:167:1: c0= concretesyntax
             {
             pushFollow(FOLLOW_concretesyntax_in_start61);
             c0=concretesyntax();
@@ -151,7 +212,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start concretesyntax
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:110:1: concretesyntax returns [ConcreteSyntax element = null] : 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' a2= TEXT ( ( ',' a3= TEXT ) )* ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a6= rule )+ ) '}' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:171:1: concretesyntax returns [ConcreteSyntax element = null] : 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' a2= TEXT ( ( ',' a3= TEXT ) )* ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a6= rule )+ ) '}' ;
     public final ConcreteSyntax concretesyntax() throws RecognitionException {
         ConcreteSyntax element =  null;
 
@@ -170,8 +231,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:114:1: ( 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' a2= TEXT ( ( ',' a3= TEXT ) )* ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a6= rule )+ ) '}' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:115:2: 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' a2= TEXT ( ( ',' a3= TEXT ) )* ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a6= rule )+ ) '}'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:175:1: ( 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' a2= TEXT ( ( ',' a3= TEXT ) )* ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a6= rule )+ ) '}' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:176:2: 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' a2= TEXT ( ( ',' a3= TEXT ) )* ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a6= rule )+ ) '}'
             {
             match(input,15,FOLLOW_15_in_concretesyntax81); if (failed) return element;
             a0=(Token)input.LT(1);
@@ -191,7 +252,7 @@ public class CsParser extends EMFTextParserImpl {
             if ( backtracking==0 ) {
               String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a2.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); 
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:121:2: ( ( ',' a3= TEXT ) )*
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:182:2: ( ( ',' a3= TEXT ) )*
             loop1:
             do {
                 int alt1=2;
@@ -204,10 +265,10 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:122:3: ( ',' a3= TEXT )
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:183:3: ( ',' a3= TEXT )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:122:3: ( ',' a3= TEXT )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:123:4: ',' a3= TEXT
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:183:3: ( ',' a3= TEXT )
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:184:4: ',' a3= TEXT
             	    {
             	    match(input,18,FOLLOW_18_in_concretesyntax123); if (failed) return element;
             	    a3=(Token)input.LT(1);
@@ -227,7 +288,7 @@ public class CsParser extends EMFTextParserImpl {
                 }
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:127:2: ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:188:2: ( ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -236,14 +297,14 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt3) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:128:3: ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:189:3: ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' )
                     {
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:128:3: ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' )
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:129:4: 'IMPORTS' '{' ( (a4= imporx ) )* '}'
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:189:3: ( 'IMPORTS' '{' ( (a4= imporx ) )* '}' )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:190:4: 'IMPORTS' '{' ( (a4= imporx ) )* '}'
                     {
                     match(input,19,FOLLOW_19_in_concretesyntax153); if (failed) return element;
                     match(input,20,FOLLOW_20_in_concretesyntax158); if (failed) return element;
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:131:4: ( (a4= imporx ) )*
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:192:4: ( (a4= imporx ) )*
                     loop2:
                     do {
                         int alt2=2;
@@ -256,10 +317,10 @@ public class CsParser extends EMFTextParserImpl {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:132:5: (a4= imporx )
+                    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:193:5: (a4= imporx )
                     	    {
-                    	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:132:5: (a4= imporx )
-                    	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:133:6: a4= imporx
+                    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:193:5: (a4= imporx )
+                    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:194:6: a4= imporx
                     	    {
                     	    pushFollow(FOLLOW_imporx_in_concretesyntax180);
                     	    a4=imporx();
@@ -290,7 +351,7 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:139:2: ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:200:2: ( ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -299,14 +360,14 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt5) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:140:3: ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:201:3: ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' )
                     {
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:140:3: ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' )
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:141:4: 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}'
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:201:3: ( 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}' )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:202:4: 'TOKENS' '{' ( (a5= tokendefinition ';' ) )* '}'
                     {
                     match(input,22,FOLLOW_22_in_concretesyntax218); if (failed) return element;
                     match(input,20,FOLLOW_20_in_concretesyntax223); if (failed) return element;
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:143:4: ( (a5= tokendefinition ';' ) )*
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:204:4: ( (a5= tokendefinition ';' ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -319,10 +380,10 @@ public class CsParser extends EMFTextParserImpl {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:144:5: (a5= tokendefinition ';' )
+                    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:205:5: (a5= tokendefinition ';' )
                     	    {
-                    	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:144:5: (a5= tokendefinition ';' )
-                    	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:145:6: a5= tokendefinition ';'
+                    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:205:5: (a5= tokendefinition ';' )
+                    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:206:6: a5= tokendefinition ';'
                     	    {
                     	    pushFollow(FOLLOW_tokendefinition_in_concretesyntax245);
                     	    a5=tokendefinition();
@@ -356,10 +417,10 @@ public class CsParser extends EMFTextParserImpl {
 
             match(input,24,FOLLOW_24_in_concretesyntax281); if (failed) return element;
             match(input,20,FOLLOW_20_in_concretesyntax284); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:154:2: ( (a6= rule )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:155:3: (a6= rule )+
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:215:2: ( (a6= rule )+ )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:216:3: (a6= rule )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:155:3: (a6= rule )+
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:216:3: (a6= rule )+
             int cnt6=0;
             loop6:
             do {
@@ -373,7 +434,7 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt6) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:156:4: a6= rule
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:217:4: a6= rule
             	    {
             	    pushFollow(FOLLOW_rule_in_concretesyntax300);
             	    a6=rule();
@@ -416,7 +477,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start imporx
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:162:1: imporx returns [Import element = null] : a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )? ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:223:1: imporx returns [Import element = null] : a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )? ;
     public final Import imporx() throws RecognitionException {
         Import element =  null;
 
@@ -428,8 +489,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createImport();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:166:1: (a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )? )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:167:2: a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:227:1: (a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )? )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:228:2: a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )?
             {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_imporx334); if (failed) return element;
@@ -442,7 +503,7 @@ public class CsParser extends EMFTextParserImpl {
             if ( backtracking==0 ) {
               String resolved = (String) tokenResolverFactory.createTokenResolver("QUOTED_60_62").resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setPackage(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:170:2: ( ( 'WITH' 'SYNTAX' a2= TEXT ) )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:231:2: ( ( 'WITH' 'SYNTAX' a2= TEXT ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -451,10 +512,10 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt7) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:171:3: ( 'WITH' 'SYNTAX' a2= TEXT )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:232:3: ( 'WITH' 'SYNTAX' a2= TEXT )
                     {
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:171:3: ( 'WITH' 'SYNTAX' a2= TEXT )
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:172:4: 'WITH' 'SYNTAX' a2= TEXT
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:232:3: ( 'WITH' 'SYNTAX' a2= TEXT )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:233:4: 'WITH' 'SYNTAX' a2= TEXT
                     {
                     match(input,26,FOLLOW_26_in_imporx358); if (failed) return element;
                     match(input,27,FOLLOW_27_in_imporx363); if (failed) return element;
@@ -488,7 +549,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start rule
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:179:1: rule returns [Rule element = null] : (a0= TEXT | a1= QNAME ) '::=' a2= choice ';' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:240:1: rule returns [Rule element = null] : (a0= TEXT | a1= QNAME ) '::=' a2= choice ';' ;
     public final Rule rule() throws RecognitionException {
         Rule element =  null;
 
@@ -501,10 +562,10 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createRule();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:183:1: ( (a0= TEXT | a1= QNAME ) '::=' a2= choice ';' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:184:2: (a0= TEXT | a1= QNAME ) '::=' a2= choice ';'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:244:1: ( (a0= TEXT | a1= QNAME ) '::=' a2= choice ';' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:245:2: (a0= TEXT | a1= QNAME ) '::=' a2= choice ';'
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:184:2: (a0= TEXT | a1= QNAME )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:245:2: (a0= TEXT | a1= QNAME )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -517,13 +578,13 @@ public class CsParser extends EMFTextParserImpl {
             else {
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("184:2: (a0= TEXT | a1= QNAME )", 8, 0, input);
+                    new NoViableAltException("245:2: (a0= TEXT | a1= QNAME )", 8, 0, input);
 
                 throw nvae;
             }
             switch (alt8) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:185:3: a0= TEXT
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:246:3: a0= TEXT
                     {
                     a0=(Token)input.LT(1);
                     match(input,TEXT,FOLLOW_TEXT_in_rule407); if (failed) return element;
@@ -534,7 +595,7 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:188:3: a1= QNAME
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:249:3: a1= QNAME
                     {
                     a1=(Token)input.LT(1);
                     match(input,QNAME,FOLLOW_QNAME_in_rule421); if (failed) return element;
@@ -572,7 +633,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start sequence
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:195:1: sequence returns [Sequence element = null] : (a0= definition )+ ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:256:1: sequence returns [Sequence element = null] : (a0= definition )+ ;
     public final Sequence sequence() throws RecognitionException {
         Sequence element =  null;
 
@@ -583,10 +644,10 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createSequence();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:199:1: ( (a0= definition )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:200:2: (a0= definition )+
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:260:1: ( (a0= definition )+ )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:261:2: (a0= definition )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:200:2: (a0= definition )+
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:261:2: (a0= definition )+
             int cnt9=0;
             loop9:
             do {
@@ -600,7 +661,7 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:201:3: a0= definition
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:262:3: a0= definition
             	    {
             	    pushFollow(FOLLOW_definition_in_sequence465);
             	    a0=definition();
@@ -639,7 +700,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start choice
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:205:1: choice returns [Choice element = null] : a0= sequence ( ( '|' a1= sequence ) )* ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:266:1: choice returns [Choice element = null] : a0= sequence ( ( '|' a1= sequence ) )* ;
     public final Choice choice() throws RecognitionException {
         Choice element =  null;
 
@@ -652,8 +713,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createChoice();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:209:1: (a0= sequence ( ( '|' a1= sequence ) )* )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:210:2: a0= sequence ( ( '|' a1= sequence ) )*
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:270:1: (a0= sequence ( ( '|' a1= sequence ) )* )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:271:2: a0= sequence ( ( '|' a1= sequence ) )*
             {
             pushFollow(FOLLOW_sequence_in_choice492);
             a0=sequence();
@@ -662,7 +723,7 @@ public class CsParser extends EMFTextParserImpl {
             if ( backtracking==0 ) {
               element.getOptions().add(a0); getResource().setElementCharStart(element, getResource().getElementCharStart(a0)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a0)); getResource().setElementColumn(element, getResource().getElementColumn(a0)); getResource().setElementLine(element, getResource().getElementLine(a0));
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:211:2: ( ( '|' a1= sequence ) )*
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:272:2: ( ( '|' a1= sequence ) )*
             loop10:
             do {
                 int alt10=2;
@@ -675,10 +736,10 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:212:3: ( '|' a1= sequence )
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:273:3: ( '|' a1= sequence )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:212:3: ( '|' a1= sequence )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:213:4: '|' a1= sequence
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:273:3: ( '|' a1= sequence )
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:274:4: '|' a1= sequence
             	    {
             	    match(input,29,FOLLOW_29_in_choice505); if (failed) return element;
             	    pushFollow(FOLLOW_sequence_in_choice514);
@@ -716,7 +777,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start csstring
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:219:1: csstring returns [CsString element = null] : a0= QUOTED_34_34 ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:280:1: csstring returns [CsString element = null] : a0= QUOTED_34_34 ;
     public final CsString csstring() throws RecognitionException {
         CsString element =  null;
 
@@ -726,8 +787,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createCsString();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:223:1: (a0= QUOTED_34_34 )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:224:2: a0= QUOTED_34_34
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:284:1: (a0= QUOTED_34_34 )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:285:2: a0= QUOTED_34_34
             {
             a0=(Token)input.LT(1);
             match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_csstring545); if (failed) return element;
@@ -750,7 +811,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start definedplaceholder
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:227:1: definedplaceholder returns [DefinedPlaceholder element = null] : a0= TEXT '[' a1= TEXT ']' (a2= cardinality )? ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:288:1: definedplaceholder returns [DefinedPlaceholder element = null] : a0= TEXT '[' a1= TEXT ']' (a2= cardinality )? ;
     public final DefinedPlaceholder definedplaceholder() throws RecognitionException {
         DefinedPlaceholder element =  null;
 
@@ -763,8 +824,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createDefinedPlaceholder();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:231:1: (a0= TEXT '[' a1= TEXT ']' (a2= cardinality )? )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:232:2: a0= TEXT '[' a1= TEXT ']' (a2= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:292:1: (a0= TEXT '[' a1= TEXT ']' (a2= cardinality )? )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:293:2: a0= TEXT '[' a1= TEXT ']' (a2= cardinality )?
             {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_definedplaceholder568); if (failed) return element;
@@ -778,7 +839,7 @@ public class CsParser extends EMFTextParserImpl {
               String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a1.getText(),element.eClass().getEStructuralFeature("token"),element,getResource());NormalToken proxy = ConcretesyntaxFactory.eINSTANCE.createNormalToken();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setToken(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
             }
             match(input,31,FOLLOW_31_in_definedplaceholder583); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:236:2: (a2= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:297:2: (a2= cardinality )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -787,7 +848,7 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt11) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:237:3: a2= cardinality
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:298:3: a2= cardinality
                     {
                     pushFollow(FOLLOW_cardinality_in_definedplaceholder594);
                     a2=cardinality();
@@ -818,7 +879,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start derivedplaceholder
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:241:1: derivedplaceholder returns [DerivedPlaceholder element = null] : a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )? ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:302:1: derivedplaceholder returns [DerivedPlaceholder element = null] : a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )? ;
     public final DerivedPlaceholder derivedplaceholder() throws RecognitionException {
         DerivedPlaceholder element =  null;
 
@@ -832,8 +893,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createDerivedPlaceholder();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:245:1: (a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )? )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:246:2: a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:306:1: (a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )? )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:307:2: a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )?
             {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_derivedplaceholder621); if (failed) return element;
@@ -841,7 +902,7 @@ public class CsParser extends EMFTextParserImpl {
               String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
             }
             match(input,30,FOLLOW_30_in_derivedplaceholder625); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:248:2: ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:309:2: ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -850,17 +911,17 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt13) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:249:3: (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:310:3: (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? )
                     {
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:249:3: (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? )
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:250:4: a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )?
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:310:3: (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? )
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:311:4: a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )?
                     {
                     a1=(Token)input.LT(1);
                     match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder641); if (failed) return element;
                     if ( backtracking==0 ) {
                       java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_39_39").resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); 
                     }
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:251:4: ( ( ',' a2= QUOTED_39_39 ) )?
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:312:4: ( ( ',' a2= QUOTED_39_39 ) )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -869,10 +930,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     switch (alt12) {
                         case 1 :
-                            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:252:5: ( ',' a2= QUOTED_39_39 )
+                            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:313:5: ( ',' a2= QUOTED_39_39 )
                             {
-                            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:252:5: ( ',' a2= QUOTED_39_39 )
-                            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:253:6: ',' a2= QUOTED_39_39
+                            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:313:5: ( ',' a2= QUOTED_39_39 )
+                            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:314:6: ',' a2= QUOTED_39_39
                             {
                             match(input,18,FOLLOW_18_in_derivedplaceholder660); if (failed) return element;
                             a2=(Token)input.LT(1);
@@ -899,7 +960,7 @@ public class CsParser extends EMFTextParserImpl {
             }
 
             match(input,31,FOLLOW_31_in_derivedplaceholder695); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:260:2: (a3= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:321:2: (a3= cardinality )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -908,7 +969,7 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt14) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:261:3: a3= cardinality
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:322:3: a3= cardinality
                     {
                     pushFollow(FOLLOW_cardinality_in_derivedplaceholder706);
                     a3=cardinality();
@@ -939,7 +1000,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start containment
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:265:1: containment returns [Containment element = null] : a0= TEXT (a1= cardinality )? ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:326:1: containment returns [Containment element = null] : a0= TEXT (a1= cardinality )? ;
     public final Containment containment() throws RecognitionException {
         Containment element =  null;
 
@@ -951,15 +1012,15 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createContainment();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:269:1: (a0= TEXT (a1= cardinality )? )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:270:2: a0= TEXT (a1= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:330:1: (a0= TEXT (a1= cardinality )? )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:331:2: a0= TEXT (a1= cardinality )?
             {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_containment733); if (failed) return element;
             if ( backtracking==0 ) {
               String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:271:2: (a1= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:332:2: (a1= cardinality )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -968,7 +1029,7 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt15) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:272:3: a1= cardinality
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:333:3: a1= cardinality
                     {
                     pushFollow(FOLLOW_cardinality_in_containment745);
                     a1=cardinality();
@@ -999,7 +1060,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start compounddefinition
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:276:1: compounddefinition returns [CompoundDefinition element = null] : '(' a0= choice ')' (a1= cardinality )? ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:337:1: compounddefinition returns [CompoundDefinition element = null] : '(' a0= choice ')' (a1= cardinality )? ;
     public final CompoundDefinition compounddefinition() throws RecognitionException {
         CompoundDefinition element =  null;
 
@@ -1012,8 +1073,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:280:1: ( '(' a0= choice ')' (a1= cardinality )? )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:281:2: '(' a0= choice ')' (a1= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:341:1: ( '(' a0= choice ')' (a1= cardinality )? )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:342:2: '(' a0= choice ')' (a1= cardinality )?
             {
             match(input,32,FOLLOW_32_in_compounddefinition768); if (failed) return element;
             pushFollow(FOLLOW_choice_in_compounddefinition775);
@@ -1024,7 +1085,7 @@ public class CsParser extends EMFTextParserImpl {
               element.setDefinitions(a0); getResource().setElementCharStart(element, getResource().getElementCharStart(a0)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a0)); getResource().setElementColumn(element, getResource().getElementColumn(a0)); getResource().setElementLine(element, getResource().getElementLine(a0));
             }
             match(input,33,FOLLOW_33_in_compounddefinition779); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:284:2: (a1= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:345:2: (a1= cardinality )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1033,7 +1094,7 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt16) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:285:3: a1= cardinality
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:346:3: a1= cardinality
                     {
                     pushFollow(FOLLOW_cardinality_in_compounddefinition790);
                     a1=cardinality();
@@ -1064,7 +1125,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start plus
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:289:1: plus returns [PLUS element = null] : '+' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:350:1: plus returns [PLUS element = null] : '+' ;
     public final PLUS plus() throws RecognitionException {
         PLUS element =  null;
 
@@ -1072,8 +1133,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createPLUS();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:293:1: ( '+' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:294:2: '+'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:354:1: ( '+' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:355:2: '+'
             {
             match(input,34,FOLLOW_34_in_plus813); if (failed) return element;
 
@@ -1092,7 +1153,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start star
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:297:1: star returns [STAR element = null] : '*' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:358:1: star returns [STAR element = null] : '*' ;
     public final STAR star() throws RecognitionException {
         STAR element =  null;
 
@@ -1100,8 +1161,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createSTAR();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:301:1: ( '*' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:302:2: '*'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:362:1: ( '*' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:363:2: '*'
             {
             match(input,35,FOLLOW_35_in_star831); if (failed) return element;
 
@@ -1120,7 +1181,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start questionmark
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:305:1: questionmark returns [QUESTIONMARK element = null] : '?' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:366:1: questionmark returns [QUESTIONMARK element = null] : '?' ;
     public final QUESTIONMARK questionmark() throws RecognitionException {
         QUESTIONMARK element =  null;
 
@@ -1128,8 +1189,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createQUESTIONMARK();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:309:1: ( '?' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:310:2: '?'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:370:1: ( '?' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:371:2: '?'
             {
             match(input,36,FOLLOW_36_in_questionmark849); if (failed) return element;
 
@@ -1148,7 +1209,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start whitespaces
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:313:1: whitespaces returns [WhiteSpaces element = null] : a0= TEXT_35_ ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:374:1: whitespaces returns [WhiteSpaces element = null] : a0= TEXT_35_ ;
     public final WhiteSpaces whitespaces() throws RecognitionException {
         WhiteSpaces element =  null;
 
@@ -1158,8 +1219,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:317:1: (a0= TEXT_35_ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:318:2: a0= TEXT_35_
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:378:1: (a0= TEXT_35_ )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:379:2: a0= TEXT_35_
             {
             a0=(Token)input.LT(1);
             match(input,TEXT_35_,FOLLOW_TEXT_35__in_whitespaces871); if (failed) return element;
@@ -1182,7 +1243,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start linebreak
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:321:1: linebreak returns [LineBreak element = null] : a0= TEXT_33_ ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:382:1: linebreak returns [LineBreak element = null] : a0= TEXT_33_ ;
     public final LineBreak linebreak() throws RecognitionException {
         LineBreak element =  null;
 
@@ -1192,8 +1253,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createLineBreak();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:325:1: (a0= TEXT_33_ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:326:2: a0= TEXT_33_
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:386:1: (a0= TEXT_33_ )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:387:2: a0= TEXT_33_
             {
             a0=(Token)input.LT(1);
             match(input,TEXT_33_,FOLLOW_TEXT_33__in_linebreak894); if (failed) return element;
@@ -1216,7 +1277,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start normaltoken
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:329:1: normaltoken returns [NormalToken element = null] : 'DEFINE' a0= TEXT a1= QUOTED_36_36 ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:390:1: normaltoken returns [NormalToken element = null] : 'DEFINE' a0= TEXT a1= QUOTED_36_36 ;
     public final NormalToken normaltoken() throws RecognitionException {
         NormalToken element =  null;
 
@@ -1227,8 +1288,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:333:1: ( 'DEFINE' a0= TEXT a1= QUOTED_36_36 )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:334:2: 'DEFINE' a0= TEXT a1= QUOTED_36_36
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:394:1: ( 'DEFINE' a0= TEXT a1= QUOTED_36_36 )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:395:2: 'DEFINE' a0= TEXT a1= QUOTED_36_36
             {
             match(input,37,FOLLOW_37_in_normaltoken913); if (failed) return element;
             a0=(Token)input.LT(1);
@@ -1257,7 +1318,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start decoratedtoken
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:339:1: decoratedtoken returns [DecoratedToken element = null] : 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:400:1: decoratedtoken returns [DecoratedToken element = null] : 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) ;
     public final DecoratedToken decoratedtoken() throws RecognitionException {
         DecoratedToken element =  null;
 
@@ -1270,8 +1331,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createDecoratedToken();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:343:1: ( 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:344:2: 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:404:1: ( 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:405:2: 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' )
             {
             match(input,37,FOLLOW_37_in_decoratedtoken947); if (failed) return element;
             a0=(Token)input.LT(1);
@@ -1279,12 +1340,12 @@ public class CsParser extends EMFTextParserImpl {
             if ( backtracking==0 ) {
               java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:346:2: ( '[' (a1= QUOTED_39_39 ) ']' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:347:3: '[' (a1= QUOTED_39_39 ) ']'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:407:2: ( '[' (a1= QUOTED_39_39 ) ']' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:408:3: '[' (a1= QUOTED_39_39 ) ']'
             {
             match(input,30,FOLLOW_30_in_decoratedtoken962); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:348:3: (a1= QUOTED_39_39 )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:349:4: a1= QUOTED_39_39
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:409:3: (a1= QUOTED_39_39 )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:410:4: a1= QUOTED_39_39
             {
             a1=(Token)input.LT(1);
             match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken975); if (failed) return element;
@@ -1303,12 +1364,12 @@ public class CsParser extends EMFTextParserImpl {
             if ( backtracking==0 ) {
               java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_36_36").resolve(a2.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());element.setRegex(resolved); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); 
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:354:2: ( '[' (a3= QUOTED_39_39 ) ']' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:355:3: '[' (a3= QUOTED_39_39 ) ']'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:415:2: ( '[' (a3= QUOTED_39_39 ) ']' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:416:3: '[' (a3= QUOTED_39_39 ) ']'
             {
             match(input,30,FOLLOW_30_in_decoratedtoken1002); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:356:3: (a3= QUOTED_39_39 )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:357:4: a3= QUOTED_39_39
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:417:3: (a3= QUOTED_39_39 )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:418:4: a3= QUOTED_39_39
             {
             a3=(Token)input.LT(1);
             match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1015); if (failed) return element;
@@ -1338,7 +1399,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start predefinedtoken
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:363:1: predefinedtoken returns [PreDefinedToken element = null] : 'PREDEFINED' a0= TEXT ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:424:1: predefinedtoken returns [PreDefinedToken element = null] : 'PREDEFINED' a0= TEXT ;
     public final PreDefinedToken predefinedtoken() throws RecognitionException {
         PreDefinedToken element =  null;
 
@@ -1348,8 +1409,8 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createPreDefinedToken();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:367:1: ( 'PREDEFINED' a0= TEXT )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:368:2: 'PREDEFINED' a0= TEXT
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:428:1: ( 'PREDEFINED' a0= TEXT )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:429:2: 'PREDEFINED' a0= TEXT
             {
             match(input,38,FOLLOW_38_in_predefinedtoken1045); if (failed) return element;
             a0=(Token)input.LT(1);
@@ -1372,97 +1433,67 @@ public class CsParser extends EMFTextParserImpl {
     // $ANTLR end predefinedtoken
 
 
-    // $ANTLR start definition
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:372:1: definition returns [Definition element = null] : (c0= linebreak | c1= compounddefinition | c2= containment | c3= whitespaces | c4= csstring | c5= definedplaceholder | c6= derivedplaceholder );
-    public final Definition definition() throws RecognitionException {
-        Definition element =  null;
+    // $ANTLR start tokendefinition
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );
+    public final TokenDefinition tokendefinition() throws RecognitionException {
+        TokenDefinition element =  null;
 
-        LineBreak c0 = null;
+        DecoratedToken c0 = null;
 
-        CompoundDefinition c1 = null;
+        PreDefinedToken c1 = null;
 
-        Containment c2 = null;
-
-        WhiteSpaces c3 = null;
-
-        CsString c4 = null;
-
-        DefinedPlaceholder c5 = null;
-
-        DerivedPlaceholder c6 = null;
+        NormalToken c2 = null;
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:374:1: (c0= linebreak | c1= compounddefinition | c2= containment | c3= whitespaces | c4= csstring | c5= definedplaceholder | c6= derivedplaceholder )
-            int alt17=7;
-            switch ( input.LA(1) ) {
-            case TEXT_33_:
-                {
-                alt17=1;
-                }
-                break;
-            case 32:
-                {
-                alt17=2;
-                }
-                break;
-            case TEXT:
-                {
-                int LA17_3 = input.LA(2);
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:435:1: (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken )
+            int alt17=3;
+            int LA17_0 = input.LA(1);
 
-                if ( (LA17_3==30) ) {
-                    int LA17_6 = input.LA(3);
+            if ( (LA17_0==37) ) {
+                int LA17_1 = input.LA(2);
 
-                    if ( (LA17_6==TEXT) ) {
-                        alt17=6;
+                if ( (LA17_1==TEXT) ) {
+                    int LA17_3 = input.LA(3);
+
+                    if ( (LA17_3==QUOTED_36_36) ) {
+                        alt17=3;
                     }
-                    else if ( (LA17_6==QUOTED_39_39||LA17_6==31) ) {
-                        alt17=7;
+                    else if ( (LA17_3==30) ) {
+                        alt17=1;
                     }
                     else {
                         if (backtracking>0) {failed=true; return element;}
                         NoViableAltException nvae =
-                            new NoViableAltException("372:1: definition returns [Definition element = null] : (c0= linebreak | c1= compounddefinition | c2= containment | c3= whitespaces | c4= csstring | c5= definedplaceholder | c6= derivedplaceholder );", 17, 6, input);
+                            new NoViableAltException("433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );", 17, 3, input);
 
                         throw nvae;
                     }
                 }
-                else if ( (LA17_3==EOF||LA17_3==TEXT||LA17_3==QUOTED_34_34||(LA17_3>=TEXT_35_ && LA17_3<=TEXT_33_)||LA17_3==23||LA17_3==29||(LA17_3>=32 && LA17_3<=36)) ) {
-                    alt17=3;
-                }
                 else {
                     if (backtracking>0) {failed=true; return element;}
                     NoViableAltException nvae =
-                        new NoViableAltException("372:1: definition returns [Definition element = null] : (c0= linebreak | c1= compounddefinition | c2= containment | c3= whitespaces | c4= csstring | c5= definedplaceholder | c6= derivedplaceholder );", 17, 3, input);
+                        new NoViableAltException("433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );", 17, 1, input);
 
                     throw nvae;
                 }
-                }
-                break;
-            case TEXT_35_:
-                {
-                alt17=4;
-                }
-                break;
-            case QUOTED_34_34:
-                {
-                alt17=5;
-                }
-                break;
-            default:
+            }
+            else if ( (LA17_0==38) ) {
+                alt17=2;
+            }
+            else {
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("372:1: definition returns [Definition element = null] : (c0= linebreak | c1= compounddefinition | c2= containment | c3= whitespaces | c4= csstring | c5= definedplaceholder | c6= derivedplaceholder );", 17, 0, input);
+                    new NoViableAltException("433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );", 17, 0, input);
 
                 throw nvae;
             }
-
             switch (alt17) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:375:2: c0= linebreak
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:436:2: c0= decoratedtoken
                     {
-                    pushFollow(FOLLOW_linebreak_in_definition1071);
-                    c0=linebreak();
+                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1071);
+                    c0=decoratedtoken();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1472,10 +1503,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:376:2: c1= compounddefinition
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:437:2: c1= predefinedtoken
                     {
-                    pushFollow(FOLLOW_compounddefinition_in_definition1081);
-                    c1=compounddefinition();
+                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1081);
+                    c1=predefinedtoken();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1485,66 +1516,14 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:377:2: c2= containment
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:438:2: c2= normaltoken
                     {
-                    pushFollow(FOLLOW_containment_in_definition1091);
-                    c2=containment();
+                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1091);
+                    c2=normaltoken();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
                        element = c2; 
-                    }
-
-                    }
-                    break;
-                case 4 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:378:2: c3= whitespaces
-                    {
-                    pushFollow(FOLLOW_whitespaces_in_definition1101);
-                    c3=whitespaces();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c3; 
-                    }
-
-                    }
-                    break;
-                case 5 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:379:2: c4= csstring
-                    {
-                    pushFollow(FOLLOW_csstring_in_definition1111);
-                    c4=csstring();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c4; 
-                    }
-
-                    }
-                    break;
-                case 6 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:380:2: c5= definedplaceholder
-                    {
-                    pushFollow(FOLLOW_definedplaceholder_in_definition1121);
-                    c5=definedplaceholder();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c5; 
-                    }
-
-                    }
-                    break;
-                case 7 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:381:2: c6= derivedplaceholder
-                    {
-                    pushFollow(FOLLOW_derivedplaceholder_in_definition1131);
-                    c6=derivedplaceholder();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c6; 
                     }
 
                     }
@@ -1560,23 +1539,23 @@ public class CsParser extends EMFTextParserImpl {
         }
         return element;
     }
-    // $ANTLR end definition
+    // $ANTLR end tokendefinition
 
 
     // $ANTLR start cardinality
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:384:1: cardinality returns [Cardinality element = null] : (c0= star | c1= plus | c2= questionmark );
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:441:1: cardinality returns [Cardinality element = null] : (c0= star | c1= questionmark | c2= plus );
     public final Cardinality cardinality() throws RecognitionException {
         Cardinality element =  null;
 
         STAR c0 = null;
 
-        PLUS c1 = null;
+        QUESTIONMARK c1 = null;
 
-        QUESTIONMARK c2 = null;
+        PLUS c2 = null;
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:386:1: (c0= star | c1= plus | c2= questionmark )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:443:1: (c0= star | c1= questionmark | c2= plus )
             int alt18=3;
             switch ( input.LA(1) ) {
             case 35:
@@ -1584,12 +1563,12 @@ public class CsParser extends EMFTextParserImpl {
                 alt18=1;
                 }
                 break;
-            case 34:
+            case 36:
                 {
                 alt18=2;
                 }
                 break;
-            case 36:
+            case 34:
                 {
                 alt18=3;
                 }
@@ -1597,16 +1576,16 @@ public class CsParser extends EMFTextParserImpl {
             default:
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("384:1: cardinality returns [Cardinality element = null] : (c0= star | c1= plus | c2= questionmark );", 18, 0, input);
+                    new NoViableAltException("441:1: cardinality returns [Cardinality element = null] : (c0= star | c1= questionmark | c2= plus );", 18, 0, input);
 
                 throw nvae;
             }
 
             switch (alt18) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:387:2: c0= star
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:444:2: c0= star
                     {
-                    pushFollow(FOLLOW_star_in_cardinality1150);
+                    pushFollow(FOLLOW_star_in_cardinality1110);
                     c0=star();
                     _fsp--;
                     if (failed) return element;
@@ -1617,10 +1596,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:388:2: c1= plus
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:445:2: c1= questionmark
                     {
-                    pushFollow(FOLLOW_plus_in_cardinality1160);
-                    c1=plus();
+                    pushFollow(FOLLOW_questionmark_in_cardinality1120);
+                    c1=questionmark();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1630,10 +1609,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:389:2: c2= questionmark
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:446:2: c2= plus
                     {
-                    pushFollow(FOLLOW_questionmark_in_cardinality1170);
-                    c2=questionmark();
+                    pushFollow(FOLLOW_plus_in_cardinality1130);
+                    c2=plus();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1656,67 +1635,97 @@ public class CsParser extends EMFTextParserImpl {
     // $ANTLR end cardinality
 
 
-    // $ANTLR start tokendefinition
-    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:392:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= predefinedtoken | c2= decoratedtoken );
-    public final TokenDefinition tokendefinition() throws RecognitionException {
-        TokenDefinition element =  null;
+    // $ANTLR start definition
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );
+    public final Definition definition() throws RecognitionException {
+        Definition element =  null;
 
-        NormalToken c0 = null;
+        CsString c0 = null;
 
-        PreDefinedToken c1 = null;
+        CompoundDefinition c1 = null;
 
-        DecoratedToken c2 = null;
+        DerivedPlaceholder c2 = null;
+
+        Containment c3 = null;
+
+        LineBreak c4 = null;
+
+        WhiteSpaces c5 = null;
+
+        DefinedPlaceholder c6 = null;
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:394:1: (c0= normaltoken | c1= predefinedtoken | c2= decoratedtoken )
-            int alt19=3;
-            int LA19_0 = input.LA(1);
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:451:1: (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder )
+            int alt19=7;
+            switch ( input.LA(1) ) {
+            case QUOTED_34_34:
+                {
+                alt19=1;
+                }
+                break;
+            case 32:
+                {
+                alt19=2;
+                }
+                break;
+            case TEXT:
+                {
+                int LA19_3 = input.LA(2);
 
-            if ( (LA19_0==37) ) {
-                int LA19_1 = input.LA(2);
+                if ( (LA19_3==30) ) {
+                    int LA19_6 = input.LA(3);
 
-                if ( (LA19_1==TEXT) ) {
-                    int LA19_3 = input.LA(3);
-
-                    if ( (LA19_3==QUOTED_36_36) ) {
-                        alt19=1;
+                    if ( (LA19_6==TEXT) ) {
+                        alt19=7;
                     }
-                    else if ( (LA19_3==30) ) {
+                    else if ( (LA19_6==QUOTED_39_39||LA19_6==31) ) {
                         alt19=3;
                     }
                     else {
                         if (backtracking>0) {failed=true; return element;}
                         NoViableAltException nvae =
-                            new NoViableAltException("392:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= predefinedtoken | c2= decoratedtoken );", 19, 3, input);
+                            new NoViableAltException("449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );", 19, 6, input);
 
                         throw nvae;
                     }
                 }
+                else if ( (LA19_3==EOF||LA19_3==TEXT||LA19_3==QUOTED_34_34||(LA19_3>=TEXT_35_ && LA19_3<=TEXT_33_)||LA19_3==23||LA19_3==29||(LA19_3>=32 && LA19_3<=36)) ) {
+                    alt19=4;
+                }
                 else {
                     if (backtracking>0) {failed=true; return element;}
                     NoViableAltException nvae =
-                        new NoViableAltException("392:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= predefinedtoken | c2= decoratedtoken );", 19, 1, input);
+                        new NoViableAltException("449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );", 19, 3, input);
 
                     throw nvae;
                 }
-            }
-            else if ( (LA19_0==38) ) {
-                alt19=2;
-            }
-            else {
+                }
+                break;
+            case TEXT_33_:
+                {
+                alt19=5;
+                }
+                break;
+            case TEXT_35_:
+                {
+                alt19=6;
+                }
+                break;
+            default:
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("392:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= predefinedtoken | c2= decoratedtoken );", 19, 0, input);
+                    new NoViableAltException("449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );", 19, 0, input);
 
                 throw nvae;
             }
+
             switch (alt19) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:395:2: c0= normaltoken
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:452:2: c0= csstring
                     {
-                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1189);
-                    c0=normaltoken();
+                    pushFollow(FOLLOW_csstring_in_definition1149);
+                    c0=csstring();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1726,10 +1735,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:396:2: c1= predefinedtoken
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:453:2: c1= compounddefinition
                     {
-                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1199);
-                    c1=predefinedtoken();
+                    pushFollow(FOLLOW_compounddefinition_in_definition1159);
+                    c1=compounddefinition();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1739,14 +1748,66 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:397:2: c2= decoratedtoken
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:454:2: c2= derivedplaceholder
                     {
-                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1209);
-                    c2=decoratedtoken();
+                    pushFollow(FOLLOW_derivedplaceholder_in_definition1169);
+                    c2=derivedplaceholder();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
                        element = c2; 
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:455:2: c3= containment
+                    {
+                    pushFollow(FOLLOW_containment_in_definition1179);
+                    c3=containment();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c3; 
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:456:2: c4= linebreak
+                    {
+                    pushFollow(FOLLOW_linebreak_in_definition1189);
+                    c4=linebreak();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c4; 
+                    }
+
+                    }
+                    break;
+                case 6 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:457:2: c5= whitespaces
+                    {
+                    pushFollow(FOLLOW_whitespaces_in_definition1199);
+                    c5=whitespaces();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c5; 
+                    }
+
+                    }
+                    break;
+                case 7 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:458:2: c6= definedplaceholder
+                    {
+                    pushFollow(FOLLOW_definedplaceholder_in_definition1209);
+                    c6=definedplaceholder();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c6; 
                     }
 
                     }
@@ -1762,7 +1823,7 @@ public class CsParser extends EMFTextParserImpl {
         }
         return element;
     }
-    // $ANTLR end tokendefinition
+    // $ANTLR end definition
 
 
  
@@ -1842,18 +1903,18 @@ public class CsParser extends EMFTextParserImpl {
     public static final BitSet FOLLOW_31_in_decoratedtoken1024 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_38_in_predefinedtoken1045 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_TEXT_in_predefinedtoken1052 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_linebreak_in_definition1071 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_compounddefinition_in_definition1081 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_containment_in_definition1091 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_whitespaces_in_definition1101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_csstring_in_definition1111 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_definedplaceholder_in_definition1121 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_derivedplaceholder_in_definition1131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_star_in_cardinality1150 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_plus_in_cardinality1160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_questionmark_in_cardinality1170 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1189 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1071 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1091 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_star_in_cardinality1110 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_questionmark_in_cardinality1120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_plus_in_cardinality1130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_csstring_in_definition1149 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compounddefinition_in_definition1159 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_derivedplaceholder_in_definition1169 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_containment_in_definition1179 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_linebreak_in_definition1189 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_whitespaces_in_definition1199 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_definedplaceholder_in_definition1209 = new BitSet(new long[]{0x0000000000000002L});
 
 }
