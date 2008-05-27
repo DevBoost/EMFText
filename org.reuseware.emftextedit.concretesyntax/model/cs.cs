@@ -7,7 +7,7 @@ TOKENS{
 	PREDEFINED TEXT;
 	DEFINE QNAME $('A'..'Z'|'a'..'z'|'_')('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+$;
 }
-//asasdasd
+//comment
 
 
 RULES {
