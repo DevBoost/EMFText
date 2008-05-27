@@ -4,7 +4,7 @@ Created-By: 1.5.0_13-121 ("Apple Computer, Inc.")
 Bundle-ManifestVersion: 2
 Bundle-Name: Reuseware EMFTextEdit
 Bundle-SymbolicName: org.reuseware.emftextedit; singleton:=true
-Bundle-Version: 0.8.0.v200804111500
+Bundle-Version: 0.8.0.v200805271120
 Bundle-Activator: org.reuseware.emftextedit.EMFTextEditPlugin
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.codegen.ecore
  ;visibility:=reexport,org.reuseware.emftextedit.concretesyntax;visibi
