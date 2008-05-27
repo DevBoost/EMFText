@@ -5,7 +5,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Reuseware Concretesyntax Metamodel
 Bundle-SymbolicName: org.reuseware.emftextedit.concretesyntax; singlet
  on:=true
-Bundle-Version: 0.8.0.v200804111500
+Bundle-Version: 0.8.0.v200805271120
 Bundle-ClassPath: .
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Localization: plugin
