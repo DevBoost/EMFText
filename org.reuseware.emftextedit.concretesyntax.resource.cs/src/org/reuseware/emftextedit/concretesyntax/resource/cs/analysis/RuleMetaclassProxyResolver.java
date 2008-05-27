@@ -42,7 +42,7 @@ public class RuleMetaclassProxyResolver extends ProxyResolverImpl {
 	}
 
 	@Override
-	protected String produceErrorMessage(InternalEObject proxy,
+	protected String produceResolveErrorMessage(InternalEObject proxy,
 			EObject container, EReference reference, TextResource resource) {
 		String message = "EClass \"" + proxy.eProxyURI().fragment() + "\" does not exist";
 		return message;

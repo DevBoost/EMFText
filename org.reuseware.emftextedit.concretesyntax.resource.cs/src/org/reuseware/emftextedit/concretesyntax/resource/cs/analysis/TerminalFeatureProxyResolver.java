@@ -39,13 +39,13 @@ public class TerminalFeatureProxyResolver extends ProxyResolverImpl {
 			}
 		}
 		
-		produceErrorMessage(proxy,container,reference,resource);
+		produceResolveErrorMessage(proxy,container,reference,resource);
 		
 		return null;
 	}
 
 	@Override
-	protected String produceErrorMessage(InternalEObject proxy,
+	protected String produceResolveErrorMessage(InternalEObject proxy,
 			EObject container, EReference reference, TextResource resource) {
 		String msg = "Feature \"" + proxy.eProxyURI().fragment() + "\" does not exist.";
 		return msg;

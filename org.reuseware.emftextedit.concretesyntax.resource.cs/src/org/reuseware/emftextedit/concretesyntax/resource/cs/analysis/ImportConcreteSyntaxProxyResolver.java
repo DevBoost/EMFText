@@ -17,7 +17,7 @@ public class ImportConcreteSyntaxProxyResolver extends ProxyResolverImpl {
 	}
 
 	@Override
-	protected String produceErrorMessage(InternalEObject proxy,
+	protected String produceResolveErrorMessage(InternalEObject proxy,
 			EObject container, EReference reference, TextResource resource) {
 		String message = "Concrete syntax definition \"" + proxy.eProxyURI().fragment() + "\" for \"" + 
 		((Import)proxy.eContainer()).getPackage().getNSURI() + "\" could not be resolved";

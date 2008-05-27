@@ -17,7 +17,7 @@ public class ConcreteSyntaxPackageProxyResolver extends ProxyResolverImpl {
 	}
 
 	@Override
-	protected String produceErrorMessage(InternalEObject proxy,
+	protected String produceResolveErrorMessage(InternalEObject proxy,
 			EObject container, EReference reference, TextResource resource) {
 		String message = "Generator model \"" + proxy.eProxyURI().fragment() + "\" could not be resolved";
 		return message;
