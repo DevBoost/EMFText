@@ -75,11 +75,21 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 			s.append("\tprotected " + generatedClassName + " " + low(generatedClassName) + " = new " + generatedClassName + "();\n\n");			
 		}
 		
-		s.append("\tprotected EObject resolveProxy(InternalEObject proxy, EObject container, EReference reference, TextResource resource, boolean reportErrors) {\n");
+		s.append("\tpublic EObject resolve(InternalEObject proxy, EObject container, EReference reference, TextResource resource, boolean reportErrors) {\n");
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String generatedClassName = proxyReferences.get(proxyReference);
 			s.append("\t\tif (container instanceof " + proxyReference.getGenClass().getName() + " && reference.getFeatureID() == " + proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID() + ") {\n");		
 			s.append("\t\t\treturn " + low(generatedClassName)+".resolve(proxy,container,reference,resource,reportErrors);\n");			
+			s.append("\t\t\t}\n");			
+		}
+		s.append("\t\treturn null;\n");
+		s.append("\t}\n\n");   
+        
+		s.append("\tpublic String deResolve(EObject refObject, EObject container, EReference reference) {\n");
+		for(GenFeature proxyReference : proxyReferences.keySet()) {
+			String generatedClassName = proxyReferences.get(proxyReference);
+			s.append("\t\tif (container instanceof " + proxyReference.getGenClass().getName() + " && reference.getFeatureID() == " + proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID() + ") {\n");		
+			s.append("\t\t\treturn " + low(generatedClassName)+".deResolve(refObject,container,reference);\n");			
 			s.append("\t\t\t}\n");			
 		}
 		s.append("\t\treturn null;\n");

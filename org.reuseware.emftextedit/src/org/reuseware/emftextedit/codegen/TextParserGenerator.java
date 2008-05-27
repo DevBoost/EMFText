@@ -216,6 +216,7 @@ public class TextParserGenerator extends BaseGenerator{
 	//TODO Mapping only for strings might possibly cause name clashes ...
 	private Map<String, Collection<String>> genClasses2superNames;
 	private Collection<GenClass> allGenClasses;
+	private Map<DerivedPlaceholder,String> placeholder2TokenName;
 	
 	
 	public TextParserGenerator(ConcreteSyntax cs, String csClassName,String csPackageName, String tokenResolverFactoryName){
@@ -227,6 +228,7 @@ public class TextParserGenerator extends BaseGenerator{
 	private void initCaches(){
 		proxyReferences = new LinkedList<GenFeature>();
 		derivedTokens = new HashMap<String,InternalTokenDefinition>();
+		placeholder2TokenName = new HashMap<DerivedPlaceholder,String>();
 		
 		derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false));
 		derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false));
@@ -348,7 +350,7 @@ public class TextParserGenerator extends BaseGenerator{
             
             printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,proxyReferences,"\t");
             
-            Collection<GenClass> subClasses = getSubClassesWithCS(rule.getMetaclass());
+            Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
             if(!subClasses.isEmpty()){
             	out.println("\t|//derived choice rules for sub-classes: ");
             	printSubClassChoices(out,subClasses);
@@ -444,6 +446,7 @@ public class TextParserGenerator extends BaseGenerator{
         		DerivedPlaceholder placeholder = (DerivedPlaceholder)terminal;
          		InternalTokenDefinition definition = deriveTokenDefinition(placeholder.getPrefix(),placeholder.getSuffix());
         		tokenName = definition.getName();
+            	placeholder2TokenName.put(placeholder,tokenName);
         	}
         	else{
         		assert terminal instanceof DefinedPlaceholder;
@@ -544,7 +547,7 @@ public class TextParserGenerator extends BaseGenerator{
     	for(GenClass referencedClass : eClassesReferenced.keySet()) {
             if(!cointainsEqualByName(eClassesWithSyntax,referencedClass)) {
             	//rule not explicitly defined in CS: most likely a choice rule in the AS
-            	Collection<GenClass> subClasses = getSubClassesWithCS(referencedClass);
+            	Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(referencedClass,source.getAllRules());
             	
             	if (subClasses.isEmpty()) {
             	  String message = "Referenced class '"+referencedClass.getName()+"' has no defined concrete Syntax.";
@@ -584,27 +587,7 @@ public class TextParserGenerator extends BaseGenerator{
         }
     }
     
-    /**
-     *  Collects all the subclasses for which concrete syntax is defined.
-     * 
-     * @return
-     */
-    private Collection<GenClass> getSubClassesWithCS(GenClass genClass){
-        Collection<GenClass> subClasses = new HashSet<GenClass>();
-
-        for(Rule rule : source.getAllRules()) {
-     	   	GenClass subClassCand = rule.getMetaclass();
-        		//There seem to be multiple instances of metaclasses when accessed through the genmodel. Therefore, we compare by name
-        		for(EClass superClass : subClassCand.getEcoreClass().getEAllSuperTypes()) {
-        			if (superClass.getName().equals(genClass.getEcoreClass().getName()) && 
-        					superClass.getEPackage().getNsURI().equals(genClass.getEcoreClass().getEPackage().getNsURI())) {
-        				subClasses.add(subClassCand);
-        			}
-        		} 
-        }
-        return subClasses;
-
-    }
+ 
       
     private boolean cointainsEqualByName(EList<GenClass> list, GenClass o){
     	for(GenClass entry:list){
@@ -816,6 +799,14 @@ public class TextParserGenerator extends BaseGenerator{
 	
 	public Collection<GenFeature> getProxyReferences(){
 		return proxyReferences;
+	}
+	
+	/**
+	 * 
+	 * @return A mapping between derived Placeholders and Tokennames
+	 */
+	public Map<DerivedPlaceholder,String> getPlaceHolderTokenMapping(){
+		return placeholder2TokenName;
 	}
 	
     

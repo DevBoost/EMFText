@@ -28,7 +28,8 @@ public class ResourcePackageGenerator {
 	public static void generate(ResourcePackage pck){
 	    String capCsName = BaseGenerator.cap(pck.getConcreteSyntax().getName());
 		IFolder targetFolder = pck.getTargetFolder();
-	    TextResource csResource = (TextResource)pck.getConcreteSyntax().eResource(); 
+		
+		TextResource csResource = (TextResource)pck.getConcreteSyntax().eResource(); 
 		try{
 			if(!targetFolder.exists())
 		    	targetFolder.create(false,true,new NullProgressMonitor());
@@ -37,6 +38,7 @@ public class ResourcePackageGenerator {
   		
   		IFile antlrFile = targetFolder.getFile(csPackagePath.append(capCsName + ".g"));
 	    IFile printerFile = targetFolder.getFile(csPackagePath.append(capCsName + "Printer.java"));
+	    IFile printerBaseFile = targetFolder.getFile(csPackagePath.append(capCsName + "PrinterBase.java"));
 	    IFile resourceFile = targetFolder.getFile(csPackagePath.append(capCsName + "ResourceImpl.java"));
         IFile resourceFactoryFile = targetFolder.getFile(csPackagePath.append(capCsName + "ResourceFactoryImpl.java"));
 	    IFile treeAnalyserFile = targetFolder.getFile(csPackagePath.append(capCsName + "TreeAnalyser.java"));
@@ -44,6 +46,7 @@ public class ResourcePackageGenerator {
 	    
 	    String antlrName = capCsName;
 	    String printerName = capCsName + "Printer";
+	    String printerBaseName = capCsName + "PrinterBase";
 	    String resourceName = capCsName + "ResourceImpl";
 	    String resourceFactoryName = capCsName + "ResourceFactoryImpl";
 	    String treeAnalyserName = capCsName + "TreeAnalyser";
@@ -51,7 +54,6 @@ public class ResourcePackageGenerator {
         
 	    
 	    BaseGenerator antlrGen = new TextParserGenerator(pck.getConcreteSyntax(),antlrName,pck.getCsPackageName(),tokenResolverFactoryName);
-	    BaseGenerator printerGen = new TextPrinterGenerator(pck.getConcreteSyntax(),printerName,pck.getCsPackageName());
 	    BaseGenerator resourceGen = new TextResourceGenerator(resourceName,pck.getCsPackageName(),capCsName,printerName,treeAnalyserName);
 	    BaseGenerator resourceFactoryGen = new ResourceFactoryGenerator(resourceFactoryName,pck.getCsPackageName(),resourceName);
 	    
@@ -62,7 +64,6 @@ public class ResourcePackageGenerator {
 	    else
 	    	return;
 	    
-	    setContents(printerFile,invokeGeneration(printerGen,csResource));
 		setContents(resourceFile,invokeGeneration(resourceGen,csResource));
 		setContents(resourceFactoryFile,invokeGeneration(resourceFactoryGen,csResource));
 		
@@ -72,6 +73,13 @@ public class ResourcePackageGenerator {
         antlrTool.process();
 
         
+	    BaseGenerator printerBaseGen = new TextPrinterBaseGenerator(pck.getConcreteSyntax(),printerBaseName,pck.getCsPackageName(),antlrName,tokenResolverFactoryName,((TextParserGenerator)antlrGen).getPlaceHolderTokenMapping(),treeAnalyserName);
+	    setContents(printerBaseFile,invokeGeneration(printerBaseGen,csResource));
+
+	    if(!printerFile.exists()){
+		    BaseGenerator printerGen = new TextPrinterGenerator(printerName,pck.getCsPackageName(),printerBaseName);
+		    setContents(printerFile,invokeGeneration(printerGen,csResource));
+	    }
 		
 		HashMap<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
 		for(GenFeature proxyReference:((TextParserGenerator)antlrGen).getProxyReferences()){
