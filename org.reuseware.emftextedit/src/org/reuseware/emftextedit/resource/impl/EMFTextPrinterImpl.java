@@ -2,6 +2,10 @@ package org.reuseware.emftextedit.resource.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.BufferedOutputStream;
+import java.io.PrintWriter;
+import java.util.Map;
+import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.reuseware.emftextedit.resource.EMFTextPrinter;
@@ -14,7 +18,8 @@ import org.reuseware.emftextedit.resource.TextResource;
  * @author Jendrik Johannes
  */
 public abstract class EMFTextPrinterImpl implements EMFTextPrinter {
-
+	
+	protected static String newline = (System.getProperties().getProperty("line.separator"));
     protected OutputStream o;
     protected TextResource resource;
     
@@ -33,16 +38,17 @@ public abstract class EMFTextPrinterImpl implements EMFTextPrinter {
      * This method should will be overridden by generated subclasses.
      * This implementation does nothing.
      */
-    protected String doPrint(EObject element, String globaltab) {return "";};
+    protected void doPrint(EObject element,PrintWriter out,String globaltab) {};
     
     /**
      * Calls {@link #doPrint(EObject, String)} and writes the result to the underlying
      * output stream.
      */
-    public void print(EObject element) throws IOException {
-        String result = doPrint(element, "");
-
-        o.write(result.getBytes());
+    public void print(EObject element)  {
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(o));
+        doPrint(element,out,"");
+    	out.flush();
+    	out.close();
     }
 
 }

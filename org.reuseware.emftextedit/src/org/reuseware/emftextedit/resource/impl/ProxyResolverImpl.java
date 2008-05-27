@@ -48,7 +48,7 @@ public class ProxyResolverImpl implements ProxyResolver {
 				!element.eClass().getEAllSuperTypes().contains(type))) {
 
 			if (reportErrors) {
-				String msg = produceErrorMessage((InternalEObject)proxy, container, reference, resource);
+				String msg = produceResolveErrorMessage((InternalEObject)proxy, container, reference, resource);
 				resource.addError(msg, proxy);
 			}
 			return null;
@@ -105,16 +105,24 @@ public class ProxyResolverImpl implements ProxyResolver {
 	 * @param resource  The resource containing the proxy and replacement candidates. 
 	 * @return The error message.
 	 */
-	protected String produceErrorMessage(InternalEObject proxy, EObject container,
+	protected String produceResolveErrorMessage(InternalEObject proxy, EObject container,
 			EReference reference, TextResource resource) {
-		
+		System.err.println(this);
 		String msg = reference.getEType().getName() + " \"" + proxy.eProxyURI().fragment() + "\" not declared";  
 		return msg;
 		
 	}
-
-	public String deResolve(EObject element, EObject container,
+	
+	protected String produceDeResolveErrorMessage(EObject refObject, EObject container,
 			EReference reference, TextResource resource) {
+		
+		String msg = reference.getEType().getName() + " \"" + refObject.toString() + "\" not de-resolveable";  
+		return msg;
+		
+	}
+	
+	protected String doDeResolve(EObject element, EObject container,
+			EReference reference) {
 		return getName(element);
 	}
 	
@@ -163,5 +171,12 @@ public class ProxyResolverImpl implements ProxyResolver {
 		}
 		return null;
 	}
+
+	@Override
+	public String deResolve(EObject element, EObject container,
+			EReference reference) {
+		return doDeResolve(element,container,reference);
+	}
+
 
 }

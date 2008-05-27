@@ -26,6 +26,7 @@ public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	@SuppressWarnings("unchecked")
 	public void analyse(TextResource resource) {
 		
+		//for fixpoint iteration
 		boolean changed        = true;
 		boolean reportErrors   = false;
 		
@@ -45,7 +46,7 @@ public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 							EList<EObject> l = (EList<EObject>) value;
 							for(Object proxy : new BasicEList<EObject>(l)) {
 								if (((EObject)proxy).eIsProxy()) {
-									EObject element = resolveProxy((InternalEObject)proxy, container, 
+									EObject element = resolve((InternalEObject)proxy, container, 
 											reference, resource, reportErrors);
 									
 									if (element != null) {
@@ -56,7 +57,7 @@ public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 							}
 						}
 						else if (value != null && ((EObject)value).eIsProxy()) {
-							EObject element = resolveProxy((InternalEObject)value, container, 
+							EObject element = resolve((InternalEObject)value, container, 
 									reference, resource, reportErrors);
 							
 							if (element != null) {
@@ -71,8 +72,17 @@ public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		
 	}
 	
-	protected EObject resolveProxy(InternalEObject proxy, EObject container, EReference reference, TextResource resource, boolean reportErrors) {
+	public EObject resolve(InternalEObject proxy, EObject container, EReference reference, TextResource resource) {
+		return proxyResolver.resolve(proxy, container, reference, resource,true);
+	}
+	
+	public EObject resolve(InternalEObject proxy, EObject container, EReference reference, TextResource resource, boolean reportErrors) {
 		return proxyResolver.resolve(proxy, container, reference, resource, reportErrors);
 	}
+	
+	public String deResolve(EObject refObject, EObject container, EReference reference) {
+		return proxyResolver.deResolve(refObject, container, reference);
+	}
 
+	
 }
