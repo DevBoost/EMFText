@@ -5,7 +5,7 @@ START     ConcreteSyntax
 TOKENS{
 	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$; 
 	PREDEFINED TEXT;
-	DEFINE QNAME $('A'..'Z'|'a'..'z'|'_')('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+$;
+	DEFINE QNAME $('A'..'Z'|'a'..'z'|'_')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+$;
 }
 //comment
 
