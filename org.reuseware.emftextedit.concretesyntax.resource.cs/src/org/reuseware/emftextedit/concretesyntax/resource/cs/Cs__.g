@@ -52,7 +52,7 @@ TEXT
 // $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 469
 QNAME
 :
-	('A'..'Z'|'a'..'z'|'_')('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
+	('A'..'Z'|'a'..'z'|'_')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
 ;
 // $ANTLR src "C:\Dokumente und Einstellungen\skarol\runtime-New_configuration\org.reuseware.emftextedit.concretesyntax.resource.cs\src\org\reuseware\emftextedit\concretesyntax\resource\cs\Cs.g" 473
 TEXT_33_

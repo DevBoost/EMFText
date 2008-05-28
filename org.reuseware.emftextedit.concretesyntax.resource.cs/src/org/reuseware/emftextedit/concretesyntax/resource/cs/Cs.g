@@ -430,32 +430,32 @@ predefinedtoken returns [PreDefinedToken element = null]
 	a0 = TEXT{java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
 ;
 
-tokendefinition
-returns [TokenDefinition element = null]
-:
-	c0 = decoratedtoken{ element = c0; }	|
-	c1 = predefinedtoken{ element = c1; }	|
-	c2 = normaltoken{ element = c2; }
-;
-
 cardinality
 returns [Cardinality element = null]
 :
-	c0 = star{ element = c0; }	|
+	c0 = plus{ element = c0; }	|
 	c1 = questionmark{ element = c1; }	|
-	c2 = plus{ element = c2; }
+	c2 = star{ element = c2; }
 ;
 
 definition
 returns [Definition element = null]
 :
-	c0 = csstring{ element = c0; }	|
-	c1 = compounddefinition{ element = c1; }	|
+	c0 = whitespaces{ element = c0; }	|
+	c1 = containment{ element = c1; }	|
 	c2 = derivedplaceholder{ element = c2; }	|
-	c3 = containment{ element = c3; }	|
+	c3 = csstring{ element = c3; }	|
 	c4 = linebreak{ element = c4; }	|
-	c5 = whitespaces{ element = c5; }	|
+	c5 = compounddefinition{ element = c5; }	|
 	c6 = definedplaceholder{ element = c6; }
+;
+
+tokendefinition
+returns [TokenDefinition element = null]
+:
+	c0 = predefinedtoken{ element = c0; }	|
+	c1 = decoratedtoken{ element = c1; }	|
+	c2 = normaltoken{ element = c2; }
 ;
 
 COMMENTS
@@ -468,7 +468,7 @@ TEXT
 ;
 QNAME
 :
-	('A'..'Z'|'a'..'z'|'_')('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
+	('A'..'Z'|'a'..'z'|'_')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
 ;
 TEXT_33_
 :

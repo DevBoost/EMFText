@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-27 12:00:09
+// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-28 18:02:16
 
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
@@ -1433,160 +1433,51 @@ public class CsParser extends EMFTextParserImpl {
     // $ANTLR end predefinedtoken
 
 
-    // $ANTLR start tokendefinition
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );
-    public final TokenDefinition tokendefinition() throws RecognitionException {
-        TokenDefinition element =  null;
-
-        DecoratedToken c0 = null;
-
-        PreDefinedToken c1 = null;
-
-        NormalToken c2 = null;
-
-
-        try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:435:1: (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken )
-            int alt17=3;
-            int LA17_0 = input.LA(1);
-
-            if ( (LA17_0==37) ) {
-                int LA17_1 = input.LA(2);
-
-                if ( (LA17_1==TEXT) ) {
-                    int LA17_3 = input.LA(3);
-
-                    if ( (LA17_3==QUOTED_36_36) ) {
-                        alt17=3;
-                    }
-                    else if ( (LA17_3==30) ) {
-                        alt17=1;
-                    }
-                    else {
-                        if (backtracking>0) {failed=true; return element;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );", 17, 3, input);
-
-                        throw nvae;
-                    }
-                }
-                else {
-                    if (backtracking>0) {failed=true; return element;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );", 17, 1, input);
-
-                    throw nvae;
-                }
-            }
-            else if ( (LA17_0==38) ) {
-                alt17=2;
-            }
-            else {
-                if (backtracking>0) {failed=true; return element;}
-                NoViableAltException nvae =
-                    new NoViableAltException("433:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= predefinedtoken | c2= normaltoken );", 17, 0, input);
-
-                throw nvae;
-            }
-            switch (alt17) {
-                case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:436:2: c0= decoratedtoken
-                    {
-                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1071);
-                    c0=decoratedtoken();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c0; 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:437:2: c1= predefinedtoken
-                    {
-                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1081);
-                    c1=predefinedtoken();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c1; 
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:438:2: c2= normaltoken
-                    {
-                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1091);
-                    c2=normaltoken();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c2; 
-                    }
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return element;
-    }
-    // $ANTLR end tokendefinition
-
-
     // $ANTLR start cardinality
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:441:1: cardinality returns [Cardinality element = null] : (c0= star | c1= questionmark | c2= plus );
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:433:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= questionmark | c2= star );
     public final Cardinality cardinality() throws RecognitionException {
         Cardinality element =  null;
 
-        STAR c0 = null;
+        PLUS c0 = null;
 
         QUESTIONMARK c1 = null;
 
-        PLUS c2 = null;
+        STAR c2 = null;
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:443:1: (c0= star | c1= questionmark | c2= plus )
-            int alt18=3;
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:435:1: (c0= plus | c1= questionmark | c2= star )
+            int alt17=3;
             switch ( input.LA(1) ) {
-            case 35:
+            case 34:
                 {
-                alt18=1;
+                alt17=1;
                 }
                 break;
             case 36:
                 {
-                alt18=2;
+                alt17=2;
                 }
                 break;
-            case 34:
+            case 35:
                 {
-                alt18=3;
+                alt17=3;
                 }
                 break;
             default:
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("441:1: cardinality returns [Cardinality element = null] : (c0= star | c1= questionmark | c2= plus );", 18, 0, input);
+                    new NoViableAltException("433:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= questionmark | c2= star );", 17, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt18) {
+            switch (alt17) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:444:2: c0= star
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:436:2: c0= plus
                     {
-                    pushFollow(FOLLOW_star_in_cardinality1110);
-                    c0=star();
+                    pushFollow(FOLLOW_plus_in_cardinality1071);
+                    c0=plus();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1596,9 +1487,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:445:2: c1= questionmark
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:437:2: c1= questionmark
                     {
-                    pushFollow(FOLLOW_questionmark_in_cardinality1120);
+                    pushFollow(FOLLOW_questionmark_in_cardinality1081);
                     c1=questionmark();
                     _fsp--;
                     if (failed) return element;
@@ -1609,10 +1500,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:446:2: c2= plus
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:438:2: c2= star
                     {
-                    pushFollow(FOLLOW_plus_in_cardinality1130);
-                    c2=plus();
+                    pushFollow(FOLLOW_star_in_cardinality1091);
+                    c2=star();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1636,96 +1527,96 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start definition
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );
     public final Definition definition() throws RecognitionException {
         Definition element =  null;
 
-        CsString c0 = null;
+        WhiteSpaces c0 = null;
 
-        CompoundDefinition c1 = null;
+        Containment c1 = null;
 
         DerivedPlaceholder c2 = null;
 
-        Containment c3 = null;
+        CsString c3 = null;
 
         LineBreak c4 = null;
 
-        WhiteSpaces c5 = null;
+        CompoundDefinition c5 = null;
 
         DefinedPlaceholder c6 = null;
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:451:1: (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder )
-            int alt19=7;
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:443:1: (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder )
+            int alt18=7;
             switch ( input.LA(1) ) {
-            case QUOTED_34_34:
+            case TEXT_35_:
                 {
-                alt19=1;
-                }
-                break;
-            case 32:
-                {
-                alt19=2;
+                alt18=1;
                 }
                 break;
             case TEXT:
                 {
-                int LA19_3 = input.LA(2);
+                int LA18_2 = input.LA(2);
 
-                if ( (LA19_3==30) ) {
-                    int LA19_6 = input.LA(3);
+                if ( (LA18_2==30) ) {
+                    int LA18_6 = input.LA(3);
 
-                    if ( (LA19_6==TEXT) ) {
-                        alt19=7;
+                    if ( (LA18_6==TEXT) ) {
+                        alt18=7;
                     }
-                    else if ( (LA19_6==QUOTED_39_39||LA19_6==31) ) {
-                        alt19=3;
+                    else if ( (LA18_6==QUOTED_39_39||LA18_6==31) ) {
+                        alt18=3;
                     }
                     else {
                         if (backtracking>0) {failed=true; return element;}
                         NoViableAltException nvae =
-                            new NoViableAltException("449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );", 19, 6, input);
+                            new NoViableAltException("441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );", 18, 6, input);
 
                         throw nvae;
                     }
                 }
-                else if ( (LA19_3==EOF||LA19_3==TEXT||LA19_3==QUOTED_34_34||(LA19_3>=TEXT_35_ && LA19_3<=TEXT_33_)||LA19_3==23||LA19_3==29||(LA19_3>=32 && LA19_3<=36)) ) {
-                    alt19=4;
+                else if ( (LA18_2==EOF||LA18_2==TEXT||LA18_2==QUOTED_34_34||(LA18_2>=TEXT_35_ && LA18_2<=TEXT_33_)||LA18_2==23||LA18_2==29||(LA18_2>=32 && LA18_2<=36)) ) {
+                    alt18=2;
                 }
                 else {
                     if (backtracking>0) {failed=true; return element;}
                     NoViableAltException nvae =
-                        new NoViableAltException("449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );", 19, 3, input);
+                        new NoViableAltException("441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );", 18, 2, input);
 
                     throw nvae;
                 }
                 }
                 break;
-            case TEXT_33_:
+            case QUOTED_34_34:
                 {
-                alt19=5;
+                alt18=4;
                 }
                 break;
-            case TEXT_35_:
+            case TEXT_33_:
                 {
-                alt19=6;
+                alt18=5;
+                }
+                break;
+            case 32:
+                {
+                alt18=6;
                 }
                 break;
             default:
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("449:1: definition returns [Definition element = null] : (c0= csstring | c1= compounddefinition | c2= derivedplaceholder | c3= containment | c4= linebreak | c5= whitespaces | c6= definedplaceholder );", 19, 0, input);
+                    new NoViableAltException("441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );", 18, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt19) {
+            switch (alt18) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:452:2: c0= csstring
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:444:2: c0= whitespaces
                     {
-                    pushFollow(FOLLOW_csstring_in_definition1149);
-                    c0=csstring();
+                    pushFollow(FOLLOW_whitespaces_in_definition1110);
+                    c0=whitespaces();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1735,10 +1626,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:453:2: c1= compounddefinition
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:445:2: c1= containment
                     {
-                    pushFollow(FOLLOW_compounddefinition_in_definition1159);
-                    c1=compounddefinition();
+                    pushFollow(FOLLOW_containment_in_definition1120);
+                    c1=containment();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1748,9 +1639,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:454:2: c2= derivedplaceholder
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:446:2: c2= derivedplaceholder
                     {
-                    pushFollow(FOLLOW_derivedplaceholder_in_definition1169);
+                    pushFollow(FOLLOW_derivedplaceholder_in_definition1130);
                     c2=derivedplaceholder();
                     _fsp--;
                     if (failed) return element;
@@ -1761,10 +1652,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 4 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:455:2: c3= containment
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:447:2: c3= csstring
                     {
-                    pushFollow(FOLLOW_containment_in_definition1179);
-                    c3=containment();
+                    pushFollow(FOLLOW_csstring_in_definition1140);
+                    c3=csstring();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1774,9 +1665,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 5 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:456:2: c4= linebreak
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:448:2: c4= linebreak
                     {
-                    pushFollow(FOLLOW_linebreak_in_definition1189);
+                    pushFollow(FOLLOW_linebreak_in_definition1150);
                     c4=linebreak();
                     _fsp--;
                     if (failed) return element;
@@ -1787,10 +1678,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 6 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:457:2: c5= whitespaces
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:449:2: c5= compounddefinition
                     {
-                    pushFollow(FOLLOW_whitespaces_in_definition1199);
-                    c5=whitespaces();
+                    pushFollow(FOLLOW_compounddefinition_in_definition1160);
+                    c5=compounddefinition();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1800,9 +1691,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 7 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:458:2: c6= definedplaceholder
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:450:2: c6= definedplaceholder
                     {
-                    pushFollow(FOLLOW_definedplaceholder_in_definition1209);
+                    pushFollow(FOLLOW_definedplaceholder_in_definition1170);
                     c6=definedplaceholder();
                     _fsp--;
                     if (failed) return element;
@@ -1824,6 +1715,115 @@ public class CsParser extends EMFTextParserImpl {
         return element;
     }
     // $ANTLR end definition
+
+
+    // $ANTLR start tokendefinition
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );
+    public final TokenDefinition tokendefinition() throws RecognitionException {
+        TokenDefinition element =  null;
+
+        PreDefinedToken c0 = null;
+
+        DecoratedToken c1 = null;
+
+        NormalToken c2 = null;
+
+
+        try {
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:455:1: (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken )
+            int alt19=3;
+            int LA19_0 = input.LA(1);
+
+            if ( (LA19_0==38) ) {
+                alt19=1;
+            }
+            else if ( (LA19_0==37) ) {
+                int LA19_2 = input.LA(2);
+
+                if ( (LA19_2==TEXT) ) {
+                    int LA19_3 = input.LA(3);
+
+                    if ( (LA19_3==QUOTED_36_36) ) {
+                        alt19=3;
+                    }
+                    else if ( (LA19_3==30) ) {
+                        alt19=2;
+                    }
+                    else {
+                        if (backtracking>0) {failed=true; return element;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );", 19, 3, input);
+
+                        throw nvae;
+                    }
+                }
+                else {
+                    if (backtracking>0) {failed=true; return element;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );", 19, 2, input);
+
+                    throw nvae;
+                }
+            }
+            else {
+                if (backtracking>0) {failed=true; return element;}
+                NoViableAltException nvae =
+                    new NoViableAltException("453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );", 19, 0, input);
+
+                throw nvae;
+            }
+            switch (alt19) {
+                case 1 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:456:2: c0= predefinedtoken
+                    {
+                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1189);
+                    c0=predefinedtoken();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c0; 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:457:2: c1= decoratedtoken
+                    {
+                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1199);
+                    c1=decoratedtoken();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c1; 
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:458:2: c2= normaltoken
+                    {
+                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1209);
+                    c2=normaltoken();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c2; 
+                    }
+
+                    }
+                    break;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return element;
+    }
+    // $ANTLR end tokendefinition
 
 
  
@@ -1903,18 +1903,18 @@ public class CsParser extends EMFTextParserImpl {
     public static final BitSet FOLLOW_31_in_decoratedtoken1024 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_38_in_predefinedtoken1045 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_TEXT_in_predefinedtoken1052 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1071 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1081 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1091 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_star_in_cardinality1110 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_questionmark_in_cardinality1120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_plus_in_cardinality1130 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_csstring_in_definition1149 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_compounddefinition_in_definition1159 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_derivedplaceholder_in_definition1169 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_containment_in_definition1179 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_linebreak_in_definition1189 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_whitespaces_in_definition1199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_definedplaceholder_in_definition1209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_plus_in_cardinality1071 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_questionmark_in_cardinality1081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_star_in_cardinality1091 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_whitespaces_in_definition1110 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_containment_in_definition1120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_derivedplaceholder_in_definition1130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_csstring_in_definition1140 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_linebreak_in_definition1150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compounddefinition_in_definition1160 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_definedplaceholder_in_definition1170 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1189 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1199 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1209 = new BitSet(new long[]{0x0000000000000002L});
 
 }

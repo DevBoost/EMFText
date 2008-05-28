@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-27 12:00:09
+// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-28 18:02:16
 
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
@@ -620,49 +620,78 @@ public class CsLexer extends Lexer {
     public final void mQNAME() throws RecognitionException {
         try {
             int _type = QNAME;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:470:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:470:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
             {
-            if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse =
-                    new MismatchedSetException(null,input);
-                recover(mse);    throw mse;
-            }
-
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:25: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
-            int cnt4=0;
-            loop4:
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+
+            int cnt3=0;
+            loop3:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt3=2;
+                int LA3_0 = input.LA(1);
 
-                if ( (LA4_0=='.') ) {
-                    alt4=1;
+                if ( ((LA3_0>='A' && LA3_0<='Z')||LA3_0=='_'||(LA3_0>='a' && LA3_0<='z')) ) {
+                    alt3=1;
                 }
 
 
-                switch (alt4) {
+                switch (alt3) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:26: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
+            	    {
+            	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse =
+            	            new MismatchedSetException(null,input);
+            	        recover(mse);    throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt3 >= 1 ) break loop3;
+                        EarlyExitException eee =
+                            new EarlyExitException(3, input);
+                        throw eee;
+                }
+                cnt3++;
+            } while (true);
+
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:26: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            int cnt5=0;
+            loop5:
+            do {
+                int alt5=2;
+                int LA5_0 = input.LA(1);
+
+                if ( (LA5_0=='.') ) {
+                    alt5=1;
+                }
+
+
+                switch (alt5) {
+            	case 1 :
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:27: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    {
             	    match('.'); 
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:29: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
-            	    int cnt3=0;
-            	    loop3:
+            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:471:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    int cnt4=0;
+            	    loop4:
             	    do {
-            	        int alt3=2;
-            	        int LA3_0 = input.LA(1);
+            	        int alt4=2;
+            	        int LA4_0 = input.LA(1);
 
-            	        if ( (LA3_0=='-'||(LA3_0>='0' && LA3_0<='9')||(LA3_0>='A' && LA3_0<='Z')||LA3_0=='_'||(LA3_0>='a' && LA3_0<='z')) ) {
-            	            alt3=1;
+            	        if ( (LA4_0=='-'||(LA4_0>='0' && LA4_0<='9')||(LA4_0>='A' && LA4_0<='Z')||LA4_0=='_'||(LA4_0>='a' && LA4_0<='z')) ) {
+            	            alt4=1;
             	        }
 
 
-            	        switch (alt3) {
+            	        switch (alt4) {
             	    	case 1 :
             	    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    	    {
@@ -681,12 +710,12 @@ public class CsLexer extends Lexer {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt3 >= 1 ) break loop3;
+            	    	    if ( cnt4 >= 1 ) break loop4;
             	                EarlyExitException eee =
-            	                    new EarlyExitException(3, input);
+            	                    new EarlyExitException(4, input);
             	                throw eee;
             	        }
-            	        cnt3++;
+            	        cnt4++;
             	    } while (true);
 
 
@@ -694,12 +723,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt4 >= 1 ) break loop4;
+            	    if ( cnt5 >= 1 ) break loop5;
                         EarlyExitException eee =
-                            new EarlyExitException(4, input);
+                            new EarlyExitException(5, input);
                         throw eee;
                 }
-                cnt4++;
+                cnt5++;
             } while (true);
 
 
@@ -727,18 +756,18 @@ public class CsLexer extends Lexer {
             }
 
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:475:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
-            int cnt5=0;
-            loop5:
+            int cnt6=0;
+            loop6:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( (LA5_0=='-'||(LA5_0>='0' && LA5_0<='9')||(LA5_0>='A' && LA5_0<='Z')||LA5_0=='_'||(LA5_0>='a' && LA5_0<='z')) ) {
-                    alt5=1;
+                if ( (LA6_0=='-'||(LA6_0>='0' && LA6_0<='9')||(LA6_0>='A' && LA6_0<='Z')||LA6_0=='_'||(LA6_0>='a' && LA6_0<='z')) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt6) {
             	case 1 :
             	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
@@ -757,12 +786,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt5 >= 1 ) break loop5;
+            	    if ( cnt6 >= 1 ) break loop6;
                         EarlyExitException eee =
-                            new EarlyExitException(5, input);
+                            new EarlyExitException(6, input);
                         throw eee;
                 }
-                cnt5++;
+                cnt6++;
             } while (true);
 
 
@@ -783,28 +812,28 @@ public class CsLexer extends Lexer {
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:479:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:479:2: ( '\\r\\n' | '\\r' | '\\n' )
-            int alt6=3;
-            int LA6_0 = input.LA(1);
+            int alt7=3;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA6_0=='\r') ) {
-                int LA6_1 = input.LA(2);
+            if ( (LA7_0=='\r') ) {
+                int LA7_1 = input.LA(2);
 
-                if ( (LA6_1=='\n') ) {
-                    alt6=1;
+                if ( (LA7_1=='\n') ) {
+                    alt7=1;
                 }
                 else {
-                    alt6=2;}
+                    alt7=2;}
             }
-            else if ( (LA6_0=='\n') ) {
-                alt6=3;
+            else if ( (LA7_0=='\n') ) {
+                alt7=3;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("479:2: ( '\\r\\n' | '\\r' | '\\n' )", 6, 0, input);
+                    new NoViableAltException("479:2: ( '\\r\\n' | '\\r' | '\\n' )", 7, 0, input);
 
                 throw nvae;
             }
-            switch (alt6) {
+            switch (alt7) {
                 case 1 :
                     // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:479:3: '\\r\\n'
                     {
@@ -856,18 +885,18 @@ public class CsLexer extends Lexer {
             }
 
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:483:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
-            int cnt7=0;
-            loop7:
+            int cnt8=0;
+            loop8:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( (LA7_0=='-'||(LA7_0>='0' && LA7_0<='9')||(LA7_0>='A' && LA7_0<='Z')||LA7_0=='_'||(LA7_0>='a' && LA7_0<='z')) ) {
-                    alt7=1;
+                if ( (LA8_0=='-'||(LA8_0>='0' && LA8_0<='9')||(LA8_0>='A' && LA8_0<='Z')||LA8_0=='_'||(LA8_0>='a' && LA8_0<='z')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
             	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
@@ -886,12 +915,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt7 >= 1 ) break loop7;
+            	    if ( cnt8 >= 1 ) break loop8;
                         EarlyExitException eee =
-                            new EarlyExitException(7, input);
+                            new EarlyExitException(8, input);
                         throw eee;
                 }
-                cnt7++;
+                cnt8++;
             } while (true);
 
 
@@ -947,38 +976,38 @@ public class CsLexer extends Lexer {
             }
 
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:491:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
-            loop8:
+            loop9:
             do {
-                int alt8=3;
-                int LA8_0 = input.LA(1);
+                int alt9=3;
+                int LA9_0 = input.LA(1);
 
-                if ( (LA8_0=='\\') ) {
-                    int LA8_2 = input.LA(2);
+                if ( (LA9_0=='\\') ) {
+                    int LA9_2 = input.LA(2);
 
-                    if ( (LA8_2=='>') ) {
-                        int LA8_4 = input.LA(3);
+                    if ( (LA9_2=='>') ) {
+                        int LA9_4 = input.LA(3);
 
-                        if ( ((LA8_4>='\u0000' && LA8_4<='\uFFFE')) ) {
-                            alt8=2;
+                        if ( ((LA9_4>='\u0000' && LA9_4<='\uFFFE')) ) {
+                            alt9=2;
                         }
 
                         else {
-                            alt8=1;
+                            alt9=1;
                         }
 
                     }
-                    else if ( ((LA8_2>='\u0000' && LA8_2<='=')||(LA8_2>='?' && LA8_2<='\uFFFE')) ) {
-                        alt8=1;
+                    else if ( ((LA9_2>='\u0000' && LA9_2<='=')||(LA9_2>='?' && LA9_2<='\uFFFE')) ) {
+                        alt9=1;
                     }
 
 
                 }
-                else if ( ((LA8_0>='\u0000' && LA8_0<='=')||(LA8_0>='?' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFE')) ) {
-                    alt8=1;
+                else if ( ((LA9_0>='\u0000' && LA9_0<='=')||(LA9_0>='?' && LA9_0<='[')||(LA9_0>=']' && LA9_0<='\uFFFE')) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
             	case 1 :
             	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:491:8: ~ ( '>' )
             	    {
@@ -1011,7 +1040,7 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop8;
+            	    break loop9;
                 }
             } while (true);
 
@@ -1047,38 +1076,38 @@ public class CsLexer extends Lexer {
             }
 
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:495:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
-            loop9:
+            loop10:
             do {
-                int alt9=3;
-                int LA9_0 = input.LA(1);
+                int alt10=3;
+                int LA10_0 = input.LA(1);
 
-                if ( (LA9_0=='\\') ) {
-                    int LA9_2 = input.LA(2);
+                if ( (LA10_0=='\\') ) {
+                    int LA10_2 = input.LA(2);
 
-                    if ( (LA9_2=='\'') ) {
-                        int LA9_4 = input.LA(3);
+                    if ( (LA10_2=='\'') ) {
+                        int LA10_4 = input.LA(3);
 
-                        if ( ((LA9_4>='\u0000' && LA9_4<='\uFFFE')) ) {
-                            alt9=2;
+                        if ( ((LA10_4>='\u0000' && LA10_4<='\uFFFE')) ) {
+                            alt10=2;
                         }
 
                         else {
-                            alt9=1;
+                            alt10=1;
                         }
 
                     }
-                    else if ( ((LA9_2>='\u0000' && LA9_2<='&')||(LA9_2>='(' && LA9_2<='\uFFFE')) ) {
-                        alt9=1;
+                    else if ( ((LA10_2>='\u0000' && LA10_2<='&')||(LA10_2>='(' && LA10_2<='\uFFFE')) ) {
+                        alt10=1;
                     }
 
 
                 }
-                else if ( ((LA9_0>='\u0000' && LA9_0<='&')||(LA9_0>='(' && LA9_0<='[')||(LA9_0>=']' && LA9_0<='\uFFFE')) ) {
-                    alt9=1;
+                else if ( ((LA10_0>='\u0000' && LA10_0<='&')||(LA10_0>='(' && LA10_0<='[')||(LA10_0>=']' && LA10_0<='\uFFFE')) ) {
+                    alt10=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt10) {
             	case 1 :
             	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:495:9: ~ ( '\\'' )
             	    {
@@ -1111,7 +1140,7 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop10;
                 }
             } while (true);
 
@@ -1147,38 +1176,38 @@ public class CsLexer extends Lexer {
             }
 
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:499:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
-            loop10:
+            loop11:
             do {
-                int alt10=3;
-                int LA10_0 = input.LA(1);
+                int alt11=3;
+                int LA11_0 = input.LA(1);
 
-                if ( (LA10_0=='\\') ) {
-                    int LA10_2 = input.LA(2);
+                if ( (LA11_0=='\\') ) {
+                    int LA11_2 = input.LA(2);
 
-                    if ( (LA10_2=='$') ) {
-                        int LA10_4 = input.LA(3);
+                    if ( (LA11_2=='$') ) {
+                        int LA11_4 = input.LA(3);
 
-                        if ( ((LA10_4>='\u0000' && LA10_4<='\uFFFE')) ) {
-                            alt10=2;
+                        if ( ((LA11_4>='\u0000' && LA11_4<='\uFFFE')) ) {
+                            alt11=2;
                         }
 
                         else {
-                            alt10=1;
+                            alt11=1;
                         }
 
                     }
-                    else if ( ((LA10_2>='\u0000' && LA10_2<='#')||(LA10_2>='%' && LA10_2<='\uFFFE')) ) {
-                        alt10=1;
+                    else if ( ((LA11_2>='\u0000' && LA11_2<='#')||(LA11_2>='%' && LA11_2<='\uFFFE')) ) {
+                        alt11=1;
                     }
 
 
                 }
-                else if ( ((LA10_0>='\u0000' && LA10_0<='#')||(LA10_0>='%' && LA10_0<='[')||(LA10_0>=']' && LA10_0<='\uFFFE')) ) {
-                    alt10=1;
+                else if ( ((LA11_0>='\u0000' && LA11_0<='#')||(LA11_0>='%' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFE')) ) {
+                    alt11=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt11) {
             	case 1 :
             	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:499:8: ~ ( '$' )
             	    {
@@ -1211,7 +1240,7 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop10;
+            	    break loop11;
                 }
             } while (true);
 
@@ -1247,38 +1276,38 @@ public class CsLexer extends Lexer {
             }
 
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:503:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
-            loop11:
+            loop12:
             do {
-                int alt11=3;
-                int LA11_0 = input.LA(1);
+                int alt12=3;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA11_0=='\\') ) {
-                    int LA11_2 = input.LA(2);
+                if ( (LA12_0=='\\') ) {
+                    int LA12_2 = input.LA(2);
 
-                    if ( (LA11_2=='\"') ) {
-                        int LA11_4 = input.LA(3);
+                    if ( (LA12_2=='\"') ) {
+                        int LA12_4 = input.LA(3);
 
-                        if ( ((LA11_4>='\u0000' && LA11_4<='\uFFFE')) ) {
-                            alt11=2;
+                        if ( ((LA12_4>='\u0000' && LA12_4<='\uFFFE')) ) {
+                            alt12=2;
                         }
 
                         else {
-                            alt11=1;
+                            alt12=1;
                         }
 
                     }
-                    else if ( ((LA11_2>='\u0000' && LA11_2<='!')||(LA11_2>='#' && LA11_2<='\uFFFE')) ) {
-                        alt11=1;
+                    else if ( ((LA12_2>='\u0000' && LA12_2<='!')||(LA12_2>='#' && LA12_2<='\uFFFE')) ) {
+                        alt12=1;
                     }
 
 
                 }
-                else if ( ((LA11_0>='\u0000' && LA11_0<='!')||(LA11_0>='#' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFE')) ) {
-                    alt11=1;
+                else if ( ((LA12_0>='\u0000' && LA12_0<='!')||(LA12_0>='#' && LA12_0<='[')||(LA12_0>=']' && LA12_0<='\uFFFE')) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt11) {
+                switch (alt12) {
             	case 1 :
             	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:503:8: ~ ( '\"' )
             	    {
@@ -1311,7 +1340,7 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop11;
+            	    break loop12;
                 }
             } while (true);
 
@@ -1334,699 +1363,9 @@ public class CsLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:8: ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 )
-        int alt12=35;
-        switch ( input.LA(1) ) {
-        case 'S':
-            {
-            switch ( input.LA(2) ) {
-            case 'Y':
-                {
-                int LA12_33 = input.LA(3);
-
-                if ( (LA12_33=='N') ) {
-                    int LA12_45 = input.LA(4);
-
-                    if ( (LA12_45=='T') ) {
-                        int LA12_54 = input.LA(5);
-
-                        if ( (LA12_54=='A') ) {
-                            int LA12_63 = input.LA(6);
-
-                            if ( (LA12_63=='X') ) {
-                                switch ( input.LA(7) ) {
-                                case 'D':
-                                    {
-                                    int LA12_78 = input.LA(8);
-
-                                    if ( (LA12_78=='E') ) {
-                                        int LA12_84 = input.LA(9);
-
-                                        if ( (LA12_84=='F') ) {
-                                            int LA12_87 = input.LA(10);
-
-                                            if ( (LA12_87=='-'||(LA12_87>='0' && LA12_87<='9')||(LA12_87>='A' && LA12_87<='Z')||LA12_87=='_'||(LA12_87>='a' && LA12_87<='z')) ) {
-                                                alt12=26;
-                                            }
-                                            else {
-                                                alt12=1;}
-                                        }
-                                        else {
-                                            alt12=26;}
-                                    }
-                                    else {
-                                        alt12=26;}
-                                    }
-                                    break;
-                                case '-':
-                                case '0':
-                                case '1':
-                                case '2':
-                                case '3':
-                                case '4':
-                                case '5':
-                                case '6':
-                                case '7':
-                                case '8':
-                                case '9':
-                                case 'A':
-                                case 'B':
-                                case 'C':
-                                case 'E':
-                                case 'F':
-                                case 'G':
-                                case 'H':
-                                case 'I':
-                                case 'J':
-                                case 'K':
-                                case 'L':
-                                case 'M':
-                                case 'N':
-                                case 'O':
-                                case 'P':
-                                case 'Q':
-                                case 'R':
-                                case 'S':
-                                case 'T':
-                                case 'U':
-                                case 'V':
-                                case 'W':
-                                case 'X':
-                                case 'Y':
-                                case 'Z':
-                                case '_':
-                                case 'a':
-                                case 'b':
-                                case 'c':
-                                case 'd':
-                                case 'e':
-                                case 'f':
-                                case 'g':
-                                case 'h':
-                                case 'i':
-                                case 'j':
-                                case 'k':
-                                case 'l':
-                                case 'm':
-                                case 'n':
-                                case 'o':
-                                case 'p':
-                                case 'q':
-                                case 'r':
-                                case 's':
-                                case 't':
-                                case 'u':
-                                case 'v':
-                                case 'w':
-                                case 'x':
-                                case 'y':
-                                case 'z':
-                                    {
-                                    alt12=26;
-                                    }
-                                    break;
-                                default:
-                                    alt12=13;}
-
-                            }
-                            else {
-                                alt12=26;}
-                        }
-                        else {
-                            alt12=26;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case 'T':
-                {
-                int LA12_34 = input.LA(3);
-
-                if ( (LA12_34=='A') ) {
-                    int LA12_46 = input.LA(4);
-
-                    if ( (LA12_46=='R') ) {
-                        int LA12_55 = input.LA(5);
-
-                        if ( (LA12_55=='T') ) {
-                            int LA12_64 = input.LA(6);
-
-                            if ( (LA12_64=='-'||(LA12_64>='0' && LA12_64<='9')||(LA12_64>='A' && LA12_64<='Z')||LA12_64=='_'||(LA12_64>='a' && LA12_64<='z')) ) {
-                                alt12=26;
-                            }
-                            else {
-                                alt12=3;}
-                        }
-                        else {
-                            alt12=26;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case 'F':
-            {
-            switch ( input.LA(2) ) {
-            case 'O':
-                {
-                int LA12_36 = input.LA(3);
-
-                if ( (LA12_36=='R') ) {
-                    int LA12_47 = input.LA(4);
-
-                    if ( (LA12_47=='-'||(LA12_47>='0' && LA12_47<='9')||(LA12_47>='A' && LA12_47<='Z')||LA12_47=='_'||(LA12_47>='a' && LA12_47<='z')) ) {
-                        alt12=26;
-                    }
-                    else {
-                        alt12=2;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case ',':
-            {
-            alt12=4;
-            }
-            break;
-        case 'I':
-            {
-            switch ( input.LA(2) ) {
-            case 'M':
-                {
-                int LA12_37 = input.LA(3);
-
-                if ( (LA12_37=='P') ) {
-                    int LA12_48 = input.LA(4);
-
-                    if ( (LA12_48=='O') ) {
-                        int LA12_57 = input.LA(5);
-
-                        if ( (LA12_57=='R') ) {
-                            int LA12_65 = input.LA(6);
-
-                            if ( (LA12_65=='T') ) {
-                                int LA12_73 = input.LA(7);
-
-                                if ( (LA12_73=='S') ) {
-                                    int LA12_80 = input.LA(8);
-
-                                    if ( (LA12_80=='-'||(LA12_80>='0' && LA12_80<='9')||(LA12_80>='A' && LA12_80<='Z')||LA12_80=='_'||(LA12_80>='a' && LA12_80<='z')) ) {
-                                        alt12=26;
-                                    }
-                                    else {
-                                        alt12=5;}
-                                }
-                                else {
-                                    alt12=26;}
-                            }
-                            else {
-                                alt12=26;}
-                        }
-                        else {
-                            alt12=26;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case '{':
-            {
-            alt12=6;
-            }
-            break;
-        case '}':
-            {
-            alt12=7;
-            }
-            break;
-        case 'T':
-            {
-            switch ( input.LA(2) ) {
-            case 'O':
-                {
-                int LA12_38 = input.LA(3);
-
-                if ( (LA12_38=='K') ) {
-                    int LA12_49 = input.LA(4);
-
-                    if ( (LA12_49=='E') ) {
-                        int LA12_58 = input.LA(5);
-
-                        if ( (LA12_58=='N') ) {
-                            int LA12_66 = input.LA(6);
-
-                            if ( (LA12_66=='S') ) {
-                                int LA12_74 = input.LA(7);
-
-                                if ( (LA12_74=='-'||(LA12_74>='0' && LA12_74<='9')||(LA12_74>='A' && LA12_74<='Z')||LA12_74=='_'||(LA12_74>='a' && LA12_74<='z')) ) {
-                                    alt12=26;
-                                }
-                                else {
-                                    alt12=8;}
-                            }
-                            else {
-                                alt12=26;}
-                        }
-                        else {
-                            alt12=26;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case ';':
-            {
-            alt12=9;
-            }
-            break;
-        case 'R':
-            {
-            switch ( input.LA(2) ) {
-            case 'U':
-                {
-                int LA12_39 = input.LA(3);
-
-                if ( (LA12_39=='L') ) {
-                    int LA12_50 = input.LA(4);
-
-                    if ( (LA12_50=='E') ) {
-                        int LA12_59 = input.LA(5);
-
-                        if ( (LA12_59=='S') ) {
-                            int LA12_67 = input.LA(6);
-
-                            if ( (LA12_67=='-'||(LA12_67>='0' && LA12_67<='9')||(LA12_67>='A' && LA12_67<='Z')||LA12_67=='_'||(LA12_67>='a' && LA12_67<='z')) ) {
-                                alt12=26;
-                            }
-                            else {
-                                alt12=10;}
-                        }
-                        else {
-                            alt12=26;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case ':':
-            {
-            int LA12_10 = input.LA(2);
-
-            if ( (LA12_10==':') ) {
-                alt12=14;
-            }
-            else {
-                alt12=11;}
-            }
-            break;
-        case 'W':
-            {
-            switch ( input.LA(2) ) {
-            case 'I':
-                {
-                int LA12_42 = input.LA(3);
-
-                if ( (LA12_42=='T') ) {
-                    int LA12_51 = input.LA(4);
-
-                    if ( (LA12_51=='H') ) {
-                        int LA12_60 = input.LA(5);
-
-                        if ( (LA12_60=='-'||(LA12_60>='0' && LA12_60<='9')||(LA12_60>='A' && LA12_60<='Z')||LA12_60=='_'||(LA12_60>='a' && LA12_60<='z')) ) {
-                            alt12=26;
-                        }
-                        else {
-                            alt12=12;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case '|':
-            {
-            alt12=15;
-            }
-            break;
-        case '[':
-            {
-            alt12=16;
-            }
-            break;
-        case ']':
-            {
-            alt12=17;
-            }
-            break;
-        case '(':
-            {
-            alt12=18;
-            }
-            break;
-        case ')':
-            {
-            alt12=19;
-            }
-            break;
-        case '+':
-            {
-            alt12=20;
-            }
-            break;
-        case '*':
-            {
-            alt12=21;
-            }
-            break;
-        case '?':
-            {
-            alt12=22;
-            }
-            break;
-        case 'D':
-            {
-            switch ( input.LA(2) ) {
-            case 'E':
-                {
-                int LA12_43 = input.LA(3);
-
-                if ( (LA12_43=='F') ) {
-                    int LA12_52 = input.LA(4);
-
-                    if ( (LA12_52=='I') ) {
-                        int LA12_61 = input.LA(5);
-
-                        if ( (LA12_61=='N') ) {
-                            int LA12_69 = input.LA(6);
-
-                            if ( (LA12_69=='E') ) {
-                                int LA12_76 = input.LA(7);
-
-                                if ( (LA12_76=='-'||(LA12_76>='0' && LA12_76<='9')||(LA12_76>='A' && LA12_76<='Z')||LA12_76=='_'||(LA12_76>='a' && LA12_76<='z')) ) {
-                                    alt12=26;
-                                }
-                                else {
-                                    alt12=23;}
-                            }
-                            else {
-                                alt12=26;}
-                        }
-                        else {
-                            alt12=26;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case 'P':
-            {
-            switch ( input.LA(2) ) {
-            case 'R':
-                {
-                int LA12_44 = input.LA(3);
-
-                if ( (LA12_44=='E') ) {
-                    int LA12_53 = input.LA(4);
-
-                    if ( (LA12_53=='D') ) {
-                        int LA12_62 = input.LA(5);
-
-                        if ( (LA12_62=='E') ) {
-                            int LA12_70 = input.LA(6);
-
-                            if ( (LA12_70=='F') ) {
-                                int LA12_77 = input.LA(7);
-
-                                if ( (LA12_77=='I') ) {
-                                    int LA12_83 = input.LA(8);
-
-                                    if ( (LA12_83=='N') ) {
-                                        int LA12_86 = input.LA(9);
-
-                                        if ( (LA12_86=='E') ) {
-                                            int LA12_88 = input.LA(10);
-
-                                            if ( (LA12_88=='D') ) {
-                                                int LA12_90 = input.LA(11);
-
-                                                if ( (LA12_90=='-'||(LA12_90>='0' && LA12_90<='9')||(LA12_90>='A' && LA12_90<='Z')||LA12_90=='_'||(LA12_90>='a' && LA12_90<='z')) ) {
-                                                    alt12=26;
-                                                }
-                                                else {
-                                                    alt12=24;}
-                                            }
-                                            else {
-                                                alt12=26;}
-                                        }
-                                        else {
-                                            alt12=26;}
-                                    }
-                                    else {
-                                        alt12=26;}
-                                }
-                                else {
-                                    alt12=26;}
-                            }
-                            else {
-                                alt12=26;}
-                        }
-                        else {
-                            alt12=26;}
-                    }
-                    else {
-                        alt12=26;}
-                }
-                else {
-                    alt12=26;}
-                }
-                break;
-            case '.':
-                {
-                alt12=27;
-                }
-                break;
-            default:
-                alt12=26;}
-
-            }
-            break;
-        case '/':
-            {
-            alt12=25;
-            }
-            break;
-        case 'A':
-        case 'B':
-        case 'C':
-        case 'E':
-        case 'G':
-        case 'H':
-        case 'J':
-        case 'K':
-        case 'L':
-        case 'M':
-        case 'N':
-        case 'O':
-        case 'Q':
-        case 'U':
-        case 'V':
-        case 'X':
-        case 'Y':
-        case 'Z':
-        case '_':
-        case 'a':
-        case 'b':
-        case 'c':
-        case 'd':
-        case 'e':
-        case 'f':
-        case 'g':
-        case 'h':
-        case 'i':
-        case 'j':
-        case 'k':
-        case 'l':
-        case 'm':
-        case 'n':
-        case 'o':
-        case 'p':
-        case 'q':
-        case 'r':
-        case 's':
-        case 't':
-        case 'u':
-        case 'v':
-        case 'w':
-        case 'x':
-        case 'y':
-        case 'z':
-            {
-            int LA12_23 = input.LA(2);
-
-            if ( (LA12_23=='.') ) {
-                alt12=27;
-            }
-            else {
-                alt12=26;}
-            }
-            break;
-        case '-':
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-            {
-            alt12=26;
-            }
-            break;
-        case '!':
-            {
-            alt12=28;
-            }
-            break;
-        case '\n':
-        case '\r':
-            {
-            alt12=29;
-            }
-            break;
-        case '#':
-            {
-            alt12=30;
-            }
-            break;
-        case '\t':
-        case '\f':
-        case ' ':
-            {
-            alt12=31;
-            }
-            break;
-        case '<':
-            {
-            alt12=32;
-            }
-            break;
-        case '\'':
-            {
-            alt12=33;
-            }
-            break;
-        case '$':
-            {
-            alt12=34;
-            }
-            break;
-        case '\"':
-            {
-            alt12=35;
-            }
-            break;
-        default:
-            NoViableAltException nvae =
-                new NoViableAltException("1:1: Tokens : ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 );", 12, 0, input);
-
-            throw nvae;
-        }
-
-        switch (alt12) {
+        int alt13=35;
+        alt13 = dfa13.predict(input);
+        switch (alt13) {
             case 1 :
                 // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:10: T15
                 {
@@ -2278,6 +1617,177 @@ public class CsLexer extends Lexer {
     }
 
 
+    protected DFA13 dfa13 = new DFA13(this);
+    static final String DFA13_eotS =
+        "\1\uffff\2\30\1\uffff\1\30\2\uffff\1\30\1\uffff\1\30\1\51\1\30\10"+
+        "\uffff\2\30\1\uffff\1\30\11\uffff\2\30\1\uffff\4\30\2\uffff\5\30"+
+        "\1\70\10\30\1\uffff\3\30\1\104\3\30\1\110\2\30\1\113\1\uffff\2\30"+
+        "\1\117\1\uffff\1\30\1\121\1\uffff\1\122\2\30\1\uffff\1\125\2\uffff"+
+        "\2\30\1\uffff\1\30\1\131\1\30\1\uffff\1\133\1\uffff";
+    static final String DFA13_eofS =
+        "\134\uffff";
+    static final String DFA13_minS =
+        "\1\11\2\56\1\uffff\1\56\2\uffff\1\56\1\uffff\1\56\1\72\1\56\10\uffff"+
+        "\2\56\1\uffff\1\56\11\uffff\2\56\1\uffff\4\56\2\uffff\5\56\1\55"+
+        "\10\56\1\uffff\3\56\1\55\3\56\1\55\2\56\1\55\1\uffff\2\56\1\55\1"+
+        "\uffff\1\56\1\55\1\uffff\1\55\2\56\1\uffff\1\55\2\uffff\2\56\1\uffff"+
+        "\1\56\1\55\1\56\1\uffff\1\55\1\uffff";
+    static final String DFA13_maxS =
+        "\1\175\2\172\1\uffff\1\172\2\uffff\1\172\1\uffff\1\172\1\72\1\172"+
+        "\10\uffff\2\172\1\uffff\1\172\11\uffff\2\172\1\uffff\4\172\2\uffff"+
+        "\16\172\1\uffff\13\172\1\uffff\3\172\1\uffff\2\172\1\uffff\3\172"+
+        "\1\uffff\1\172\2\uffff\2\172\1\uffff\3\172\1\uffff\1\172\1\uffff";
+    static final String DFA13_acceptS =
+        "\3\uffff\1\4\1\uffff\1\6\1\7\1\uffff\1\11\3\uffff\1\17\1\20\1\21"+
+        "\1\22\1\23\1\24\1\25\1\26\2\uffff\1\31\1\uffff\1\32\1\34\1\35\1"+
+        "\36\1\37\1\40\1\41\1\42\1\43\2\uffff\1\33\4\uffff\1\16\1\13\16\uffff"+
+        "\1\2\13\uffff\1\14\3\uffff\1\3\2\uffff\1\12\3\uffff\1\15\1\uffff"+
+        "\1\10\1\27\2\uffff\1\5\3\uffff\1\1\1\uffff\1\30";
+    static final String DFA13_specialS =
+        "\134\uffff}>";
+    static final String[] DFA13_transitionS = {
+            "\1\34\1\32\1\uffff\1\34\1\32\22\uffff\1\34\1\31\1\40\1\33\1"+
+            "\37\2\uffff\1\36\1\17\1\20\1\22\1\21\1\3\1\30\1\uffff\1\26\12"+
+            "\30\1\12\1\10\1\35\2\uffff\1\23\1\uffff\3\27\1\24\1\27\1\2\2"+
+            "\27\1\4\6\27\1\25\1\27\1\11\1\1\1\7\2\27\1\13\3\27\1\15\1\uffff"+
+            "\1\16\1\uffff\1\27\1\uffff\32\27\1\5\1\14\1\6",
+            "\1\43\22\uffff\23\27\1\42\4\27\1\41\1\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "\1\43\22\uffff\16\27\1\44\13\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\43\22\uffff\14\27\1\45\15\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "",
+            "\1\43\22\uffff\16\27\1\46\13\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\43\22\uffff\24\27\1\47\5\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\50",
+            "\1\43\22\uffff\10\27\1\52\21\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\43\22\uffff\4\27\1\53\25\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\21\27\1\54\10\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\43\22\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\43\22\uffff\15\27\1\55\14\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\1\56\31\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\43\22\uffff\21\27\1\57\10\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\17\27\1\60\12\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\12\27\1\61\17\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\13\27\1\62\16\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "",
+            "\1\43\22\uffff\23\27\1\63\6\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\5\27\1\64\24\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\4\27\1\65\25\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\23\27\1\66\6\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\21\27\1\67\10\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "\1\43\22\uffff\16\27\1\71\13\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\4\27\1\72\25\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\4\27\1\73\25\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\7\27\1\74\22\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\10\27\1\75\21\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\3\27\1\76\26\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\1\77\31\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\23\27\1\100\6\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\43\22\uffff\21\27\1\101\10\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\15\27\1\102\14\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\22\27\1\103\7\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "\1\43\22\uffff\15\27\1\105\14\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\4\27\1\106\25\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\27\27\1\107\2\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "\1\43\22\uffff\23\27\1\111\6\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\22\27\1\112\7\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "",
+            "\1\43\22\uffff\4\27\1\114\25\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\5\27\1\115\24\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\3\27\1\116\26\27\4\uffff\1"+
+            "\27\1\uffff\32\27",
+            "",
+            "\1\43\22\uffff\22\27\1\120\7\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "\1\43\22\uffff\10\27\1\123\21\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\4\27\1\124\25\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "",
+            "",
+            "\1\43\22\uffff\15\27\1\126\14\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\43\22\uffff\5\27\1\127\24\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\43\22\uffff\4\27\1\130\25\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            "\1\43\22\uffff\3\27\1\132\26\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
+            "\32\27",
+            ""
+    };
+
+    static final short[] DFA13_eot = DFA.unpackEncodedString(DFA13_eotS);
+    static final short[] DFA13_eof = DFA.unpackEncodedString(DFA13_eofS);
+    static final char[] DFA13_min = DFA.unpackEncodedStringToUnsignedChars(DFA13_minS);
+    static final char[] DFA13_max = DFA.unpackEncodedStringToUnsignedChars(DFA13_maxS);
+    static final short[] DFA13_accept = DFA.unpackEncodedString(DFA13_acceptS);
+    static final short[] DFA13_special = DFA.unpackEncodedString(DFA13_specialS);
+    static final short[][] DFA13_transition;
+
+    static {
+        int numStates = DFA13_transitionS.length;
+        DFA13_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA13_transition[i] = DFA.unpackEncodedString(DFA13_transitionS[i]);
+        }
+    }
+
+    class DFA13 extends DFA {
+
+        public DFA13(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 13;
+            this.eot = DFA13_eot;
+            this.eof = DFA13_eof;
+            this.min = DFA13_min;
+            this.max = DFA13_max;
+            this.accept = DFA13_accept;
+            this.special = DFA13_special;
+            this.transition = DFA13_transition;
+        }
+        public String getDescription() {
+            return "1:1: Tokens : ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 );";
+        }
+    }
  
 
 }
