@@ -12,11 +12,11 @@ TOKENS{
 
 RULES {
 
-  ConcreteSyntax ::= "SYNTAXDEF" name[] !0 "FOR" package['<','>']  !0 "START" startSymbols[] ("," startSymbols[])* !0 !0 ("IMPORTS" "{" ( !2 imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
+  ConcreteSyntax ::= "SYNTAXDEF" name[] !0 "FOR" package['<','>']  !0 "START" startSymbols[] ("," startSymbols[])* !0 !0 ("IMPORTS" "{" !2 (imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
 
-  Import         ::= prefix[] ":" package['<','>'] ("WITH" "SYNTAX" concreteSyntax[])?;
+  Import         ::=  prefix[] ":" package['<','>'] ("WITH" "SYNTAX" concreteSyntax[])? !0;
 
-  Rule           ::= ( metaclass[] | metaclass[QNAME] ) "::=" definition #0 ";";
+  Rule           ::= !0 ( metaclass[] | metaclass[QNAME] ) "::=" definition ";" !0;
  
   Sequence       ::= parts+;
  
@@ -24,13 +24,13 @@ RULES {
 
   CsString       ::= value['"','"'];
   
-  DefinedPlaceholder ::= feature[] "["  #0 token[] #0  "]" #0 cardinality?;
+  DefinedPlaceholder ::= feature[] "["  token[] "]" cardinality?;
   
-  DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] ("," #0 suffix['\'','\''] )? #0)? "]" #0 cardinality?;
+  DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] ("," suffix['\'','\''] )? )? "]" #0 cardinality?;
   
-  Containment ::=  feature[] #0 cardinality?;
+  Containment ::=  feature[] cardinality?;
   
-  CompoundDefinition ::= "(" definitions ")" #0 cardinality?;
+  CompoundDefinition ::= "(" definitions ")" cardinality?;
 
   PLUS ::= "+";
   STAR ::= "*";   
@@ -39,8 +39,8 @@ RULES {
   WhiteSpaces    ::= ammount['#'];
   LineBreak      ::= tab['!'];
   
-  NormalToken ::= "DEFINE" name[] regex['$','$'] !0;
-  DecoratedToken ::= "DEFINE" name[] ( "[" #0 ( prefix['\'','\''] ) #0  "]" ) regex['$','$']  ( "[" #0 ( suffix['\'','\'']) #0 "]" ) !0;
+  NormalToken ::= "DEFINE" name[] regex['$','$'];
+  DecoratedToken ::= "DEFINE" name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" );
   PreDefinedToken ::= "PREDEFINED" name[];
 
 }
