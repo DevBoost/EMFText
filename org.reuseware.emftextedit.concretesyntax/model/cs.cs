@@ -12,9 +12,9 @@ TOKENS{
 
 RULES {
 
-  ConcreteSyntax ::= "SYNTAXDEF" name[] !0 "FOR" package['<','>']  !0 "START" startSymbols[] ("," startSymbols[])* !0 !0 ("IMPORTS" "{" !2 (imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
+  ConcreteSyntax ::= "SYNTAXDEF" #0 name[] !0 "FOR" #0 package['<','>']  !0 "START" #0 startSymbols[] ("," startSymbols[])* !0 !0 ("IMPORTS" "{" ( !2 imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
 
-  Import         ::=  prefix[] ":" package['<','>'] ("WITH" "SYNTAX" concreteSyntax[])? !0;
+  Import         ::=  prefix[] ":" package['<','>'] ("WITH" "SYNTAX" concreteSyntax[])?;
 
   Rule           ::= !0 ( metaclass[] | metaclass[QNAME] ) "::=" definition ";" !0;
  
@@ -22,13 +22,13 @@ RULES {
  
   Choice         ::= options ("|" options)* #0;	
 
-  CsString       ::= value['"','"'];
+  CsString       ::= #0 value['"','"'] #0 ;
   
   DefinedPlaceholder ::= feature[] "["  token[] "]" cardinality?;
   
   DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] ("," suffix['\'','\''] )? )? "]" #0 cardinality?;
   
-  Containment ::=  feature[] cardinality?;
+  Containment ::=  ( feature[] cardinality | feature[] ) #0 ;
   
   CompoundDefinition ::= "(" definitions ")" cardinality?;
 
@@ -36,11 +36,11 @@ RULES {
   STAR ::= "*";   
   QUESTIONMARK ::= "?";
   
-  WhiteSpaces    ::= ammount['#'];
-  LineBreak      ::= tab['!'];
+  WhiteSpaces    ::= ammount['#'] #0;
+  LineBreak      ::= tab['!'] #0;
   
-  NormalToken ::= "DEFINE" name[] regex['$','$'];
-  DecoratedToken ::= "DEFINE" name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" );
-  PreDefinedToken ::= "PREDEFINED" name[];
+  NormalToken ::= "DEFINE" #0 name[] regex['$','$'];
+  DecoratedToken ::= "DEFINE" #0 name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" );
+  PreDefinedToken ::= "PREDEFINED" #0 name[];
 
 }
