@@ -212,12 +212,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 				}					
 			}
 			
-			printChoice(rule.getDefinition(),out,true,rule.getMetaclass().getEcoreClass());		
+			printChoice(rule.getDefinition(),out,rule.getMetaclass().getEcoreClass());		
 			out.println("\t\t}");
 			for(Choice choice:rule2SubChoice.get(rule)){
 				out.println("\t\tpublic void print"+choice2Name.get(choice)+"("+elementClassName+" element,String outertab,PrintWriter out,HashMap<String,Integer> printCountingMap){");
 				out.println("\t\t\tString localtab = outertab;");
-				printChoice(choice,out,false,rule.getMetaclass().getEcoreClass());
+				printChoice(choice,out,rule.getMetaclass().getEcoreClass());
 				out.println("\t\t}");
 			}
 		}
@@ -227,7 +227,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 		return true;
 	}
 	
-	private void printChoice(Choice choice, PrintWriter out, boolean prefix, EClass metaClass){
+	private void printChoice(Choice choice, PrintWriter out, EClass metaClass){
 		if(choice.getOptions().size()>1){
 			out.println("\t\t\tint count;");
 			out.println("\t\t\tint alt=-1;");
@@ -249,13 +249,13 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 					out.println("\t\t\tif(temp>matches){alt="+count+";matches=temp;}");
 					
 					out1.println("\t\t\t\tcase "+count+":");
-					printSequence(seq,out1,prefix,metaClass,"\t\t\t\t\t");
+					printSequence(seq,out1,metaClass,"\t\t\t\t\t");
 					out1.println("\t\t\t\tbreak;");
 					count++;
 				}
 				
 				out1.println("\t\t\t\tdefault:");
-				printSequence(firstSeq,out1,prefix,metaClass,"\t\t\t\t\t");
+				printSequence(firstSeq,out1,metaClass,"\t\t\t\t\t");
 				out1.println("\t\t\t}");
 				out1.flush();
 				out1.close();
@@ -264,7 +264,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 		}
 		else if(choice.getOptions().size()==1){
 			out.println("\t\t\tint count;");
-			printSequence(choice.getOptions().get(0),out,prefix,metaClass,"\t\t\t");
+			printSequence(choice.getOptions().get(0),out,metaClass,"\t\t\t");
 		}
 		
 
@@ -278,13 +278,13 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 	}
 
 	
-	private void printSequence(Sequence seq, PrintWriter out, boolean prefix, EClass metaClass, String basetab){
+	private void printSequence(Sequence seq, PrintWriter out, EClass metaClass, String basetab){
 		Set<String> neededFeatures = new HashSet<String>(sequence2NecessaryFeatures.get(seq));
 		boolean needsCompoundDecl = true;
 		boolean needsIterateDecl = true;
 		for(Definition definition:seq.getParts()){
 			out.println(basetab+"//////////////DEFINITION PART BEGINS ("+definition.eClass().getName()+"):");
-			String printPrefix = prefix?"out.print(localtab+":"out.print(";
+			String printPrefix = "out.print(";
 			if(definition instanceof LineBreak){
 				int count = ((LineBreak)definition).getTab();
 				if(count>0){
@@ -295,7 +295,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 					out.println(basetab+"localtab += \""+tab+"\";");		
 				}
 				out.println(basetab+"out.println();");
-				prefix = true;
+				out.println(basetab+"out.print(localtab);");
 			}
 			else {
 				if(definition instanceof WhiteSpaces){
@@ -308,7 +308,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 				}
 				else if (definition instanceof CsString) {
 				     CsString terminal = (CsString) definition;
-				     out.println(basetab + printPrefix + "\"" + terminal.getValue().replaceAll("\"", "\\\\\"") + " \");");
+				     out.println(basetab + printPrefix + "\"" + terminal.getValue().replaceAll("\"", "\\\\\"") + "\");");
 
 				}
 				else{
@@ -371,14 +371,14 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 								out.println(tab+"\t\tout1.flush();");
 								out.println(tab+"\t\tout1.close();");
 								out.println(tab+"\t\tout.print(sWriter.toString());");								
-								out.println(tab+"\t\tprintCountingMap = printCountingMap1;");
+								out.println(tab+"\t\tprintCountingMap.putAll(printCountingMap1);");
 								out.println(tab+"\t}");
 							}
 							else{
 								out.println(tab+"\tout1.flush();");
 								out.println(tab+"\tout1.close();");
 								out.println(tab+"\tout.print(sWriter.toString());");								
-								out.println(tab+"\tprintCountingMap = printCountingMap1;");								
+								out.println(tab+"\tprintCountingMap.putAll(printCountingMap1);");								
 							}
 							out.println(tab+"}");
 							if(isMany)
@@ -411,7 +411,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 						}
 						else{
 							assert terminal instanceof Containment;
-							printStatement = "out.println();doPrint((EObject)o,out,localtab);out.println();";
+							printStatement = "doPrint((EObject)o,out,localtab);";
 						}
 						
 						out.println(basetab+"if(count>0){");
@@ -448,7 +448,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 						out.println(basetab+"}");	//tab for if(count>0)				
 					}
 				}
-			    prefix=false;
 			}
 		}
 

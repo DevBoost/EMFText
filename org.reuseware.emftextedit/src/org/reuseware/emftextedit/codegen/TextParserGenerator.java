@@ -459,6 +459,11 @@ public class TextParserGenerator extends BaseGenerator{
         	
         	String targetTypeName = null;
         	String resolvedIdent = "resolved";
+        	String preResolved = resolvedIdent+"Object";
+        	String resolverIdent = resolvedIdent+"Resolver";
+           	resolvements += "TokenResolver " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
+        	resolvements += "Object " + preResolved + " ="+resolverIdent+".resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
+        	resolvements += "if(" + preResolved + "==null)throw new TokenConversionException("+ident+","+resolverIdent+".getErrorMessage());";
         	
         	if(sf instanceof EReference){
         		targetTypeName = "String";
@@ -484,7 +489,9 @@ public class TextParserGenerator extends BaseGenerator{
             		genPackagePrefix = instanceType.getGenPackage().getPrefix();
             	}
             	
-	           	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
+            	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";";
+	           	
+            	//resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
 	           	resolvements += proxyTypeName + " " + expressionToBeSet + " = " + genPackagePrefix + "Factory.eINSTANCE.create" + proxyTypeName + "();" 
 				+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI(resource.getURI().appendFragment(" + resolvedIdent + ")); ";
 	        
@@ -501,7 +508,7 @@ public class TextParserGenerator extends BaseGenerator{
         		else{
             		targetTypeName = attr.getEAttributeType().getInstanceClassName();        			
         		}
-               	resolvements += targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
+               	resolvements += targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";";
         		expressionToBeSet = "resolved";
         	}
         }

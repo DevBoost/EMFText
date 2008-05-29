@@ -20,6 +20,7 @@ import org.antlr.runtime.TokenStream;
 import org.eclipse.emf.ecore.EObject;
 import org.reuseware.emftextedit.resource.EMFTextParser;
 import org.reuseware.emftextedit.resource.TextResource;
+import org.reuseware.emftextedit.resource.TokenConversionException;
 
 /**
  * Base implementation for all generated ANTLR parsers. 
@@ -70,7 +71,6 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
             //? can be caused if a null is set on EMF models where not allowed;
             //? this will just happen if other errors occurred before
         }
-
         for(RecognitionException re: lexerExceptions){
         	reportLexicalError(re);
         }
@@ -87,7 +87,10 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
     public void reportError(RecognitionException e)  {
         String message = "";
         
-        if ( e instanceof MismatchedTokenException ) {
+        if( e instanceof TokenConversionException){
+        	message = e.getMessage();
+        }
+        else if ( e instanceof MismatchedTokenException ) {
             MismatchedTokenException mte = (MismatchedTokenException)e;
             String tokenName="<unknown>";
             if ( mte.expecting==Token.EOF ) {
@@ -218,5 +221,7 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
 
     	resource.addError(message, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
     }
-
+    
+    
+    
 }

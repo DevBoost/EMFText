@@ -16,7 +16,9 @@ import org.reuseware.emftextedit.resource.TextResource;
  */
 
 public class JavaBasedTokenResolver implements TokenResolver {
-
+	
+	private String message = null;
+	
 	@Override
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
 		return value.toString();
@@ -65,10 +67,10 @@ public class JavaBasedTokenResolver implements TokenResolver {
 					}
 				}
 				catch(NumberFormatException e){
-					resource.addError("Could not convert '"+lexem+"' to "+typeName+".",container);
+					message = "Could not convert '"+lexem+"' to "+typeName+".";
 					return null;
 				}
-				resource.addError("The type "+typeName+" is unknown.",container );
+				message = "The type "+typeName+" is unknown.";
 				return null;
 			}
 
@@ -77,6 +79,11 @@ public class JavaBasedTokenResolver implements TokenResolver {
 			return lexem;
 		}
 		
+	}
+
+	@Override
+	public String getErrorMessage() {
+		return message;
 	}
 
 }

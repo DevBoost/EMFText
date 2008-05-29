@@ -43,16 +43,18 @@ public class TokenResolverGenerator extends BaseGenerator {
 		out.println("\t@Override");
 		out.println("\tpublic String deResolve(Object value, EStructuralFeature feature, EObject container) {");
 		out.println("\t\tString result = super.deResolve(value,feature,container);");
-		if(definition.getPrefix()!=null){
-			out.println("\t\tresult = \"" + escapeChars(definition.getPrefix()) + "\" + result;");
-		}
 		if(definition.getSuffix()!=null){
 			String escapedSuffix = escapeChars(definition.getSuffix());
-			out.println("\t\tresult += \"" + escapedSuffix + "\";");
 			if(definition.isDerived()){
 				out.println("\t\tresult = result.replaceAll(java.util.regex.Pattern.quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
 			}
+			out.println("\t\tresult += \"" + escapedSuffix + "\";");
+		}	
+		
+		if(definition.getPrefix()!=null){
+			out.println("\t\tresult = \"" + escapeChars(definition.getPrefix()) + "\" + result;");
 		}
+
 		out.println("\t\treturn result;");
 		out.println("\t}");
 		out.println();
