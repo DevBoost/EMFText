@@ -4,6 +4,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.concretesyntax.Import;
 import org.reuseware.emftextedit.concretesyntax.Rule;
 import org.reuseware.emftextedit.resource.TextResource;
@@ -46,6 +47,26 @@ public class RuleMetaclassProxyResolver extends ProxyResolverImpl {
 			EObject container, EReference reference, TextResource resource) {
 		String message = "EClass \"" + proxy.eProxyURI().fragment() + "\" does not exist";
 		return message;
+	}
+	
+	public String deResolve(EObject element, EObject container,EReference reference){
+		GenClass genClass = (GenClass)element;
+		genClass.getGenPackage().getNSName();
+		Rule rule = (Rule) container;
+		ConcreteSyntax cs = rule.getSyntax();
+		if(cs.getPackage().getNSName().equals(genClass.getGenPackage().getNSName()))
+			return genClass.getName();
+		else{
+			String prefix = "";
+			for (Import aImport : cs.getImports()) {
+				if(aImport.getPackage().getNSName().equals(genClass.getGenPackage().getNSName())){
+					prefix = aImport.getPrefix()+".";					
+				}
+
+			}
+			return prefix+genClass.getName();
+		}
+
 	}
 
 }

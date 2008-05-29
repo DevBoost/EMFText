@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-28 18:02:16
+// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-05-29 16:47:33
 
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
@@ -238,19 +238,19 @@ public class CsParser extends EMFTextParserImpl {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_concretesyntax88); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
             match(input,16,FOLLOW_16_in_concretesyntax92); if (failed) return element;
             a1=(Token)input.LT(1);
             match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_concretesyntax99); if (failed) return element;
             if ( backtracking==0 ) {
-              String resolved = (String) tokenResolverFactory.createTokenResolver("QUOTED_60_62").resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setPackage(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setPackage(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
             }
             match(input,17,FOLLOW_17_in_concretesyntax103); if (failed) return element;
             a2=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_concretesyntax110); if (failed) return element;
             if ( backtracking==0 ) {
-              String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a2.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); 
             }
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:182:2: ( ( ',' a3= TEXT ) )*
             loop1:
@@ -274,7 +274,7 @@ public class CsParser extends EMFTextParserImpl {
             	    a3=(Token)input.LT(1);
             	    match(input,TEXT,FOLLOW_TEXT_in_concretesyntax132); if (failed) return element;
             	    if ( backtracking==0 ) {
-            	      String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a3.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(element, a3.getCharPositionInLine()); getResource().setElementLine(element, a3.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(proxy, a3.getCharPositionInLine()); getResource().setElementLine(proxy, a3.getLine()); 
+            	      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(element, a3.getCharPositionInLine()); getResource().setElementLine(element, a3.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(proxy, a3.getCharPositionInLine()); getResource().setElementLine(proxy, a3.getLine()); 
             	    }
 
             	    }
@@ -495,13 +495,13 @@ public class CsParser extends EMFTextParserImpl {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_imporx334); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
             match(input,25,FOLLOW_25_in_imporx338); if (failed) return element;
             a1=(Token)input.LT(1);
             match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_imporx345); if (failed) return element;
             if ( backtracking==0 ) {
-              String resolved = (String) tokenResolverFactory.createTokenResolver("QUOTED_60_62").resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setPackage(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setPackage(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
             }
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:231:2: ( ( 'WITH' 'SYNTAX' a2= TEXT ) )?
             int alt7=2;
@@ -522,7 +522,7 @@ public class CsParser extends EMFTextParserImpl {
                     a2=(Token)input.LT(1);
                     match(input,TEXT,FOLLOW_TEXT_in_imporx372); if (failed) return element;
                     if ( backtracking==0 ) {
-                      String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a2.getText(),element.eClass().getEStructuralFeature("concreteSyntax"),element,getResource());ConcreteSyntax proxy = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setConcreteSyntax(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); 
+                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("concreteSyntax"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;ConcreteSyntax proxy = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setConcreteSyntax(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); 
                     }
 
                     }
@@ -589,7 +589,7 @@ public class CsParser extends EMFTextParserImpl {
                     a0=(Token)input.LT(1);
                     match(input,TEXT,FOLLOW_TEXT_in_rule407); if (failed) return element;
                     if ( backtracking==0 ) {
-                      String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setMetaclass(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
+                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setMetaclass(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
                     }
 
                     }
@@ -600,7 +600,7 @@ public class CsParser extends EMFTextParserImpl {
                     a1=(Token)input.LT(1);
                     match(input,QNAME,FOLLOW_QNAME_in_rule421); if (failed) return element;
                     if ( backtracking==0 ) {
-                      String resolved = (String) tokenResolverFactory.createTokenResolver("QNAME").resolve(a1.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setMetaclass(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
+                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setMetaclass(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
                     }
 
                     }
@@ -793,7 +793,7 @@ public class CsParser extends EMFTextParserImpl {
             a0=(Token)input.LT(1);
             match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_csstring545); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_34_34").resolve(a0.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());element.setValue(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setValue(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
 
             }
@@ -830,13 +830,13 @@ public class CsParser extends EMFTextParserImpl {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_definedplaceholder568); if (failed) return element;
             if ( backtracking==0 ) {
-              String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
             }
             match(input,30,FOLLOW_30_in_definedplaceholder572); if (failed) return element;
             a1=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_definedplaceholder579); if (failed) return element;
             if ( backtracking==0 ) {
-              String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a1.getText(),element.eClass().getEStructuralFeature("token"),element,getResource());NormalToken proxy = ConcretesyntaxFactory.eINSTANCE.createNormalToken();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setToken(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("token"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;NormalToken proxy = ConcretesyntaxFactory.eINSTANCE.createNormalToken();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setToken(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); 
             }
             match(input,31,FOLLOW_31_in_definedplaceholder583); if (failed) return element;
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:297:2: (a2= cardinality )?
@@ -899,7 +899,7 @@ public class CsParser extends EMFTextParserImpl {
             a0=(Token)input.LT(1);
             match(input,TEXT,FOLLOW_TEXT_in_derivedplaceholder621); if (failed) return element;
             if ( backtracking==0 ) {
-              String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
             }
             match(input,30,FOLLOW_30_in_derivedplaceholder625); if (failed) return element;
             // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:309:2: ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )?
@@ -919,7 +919,7 @@ public class CsParser extends EMFTextParserImpl {
                     a1=(Token)input.LT(1);
                     match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder641); if (failed) return element;
                     if ( backtracking==0 ) {
-                      java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_39_39").resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); 
+                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); 
                     }
                     // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:312:4: ( ( ',' a2= QUOTED_39_39 ) )?
                     int alt12=2;
@@ -939,7 +939,7 @@ public class CsParser extends EMFTextParserImpl {
                             a2=(Token)input.LT(1);
                             match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder671); if (failed) return element;
                             if ( backtracking==0 ) {
-                              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_39_39").resolve(a2.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());element.setSuffix(resolved); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); 
+                              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setSuffix(resolved); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); 
                             }
 
                             }
@@ -1000,11 +1000,12 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start containment
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:326:1: containment returns [Containment element = null] : a0= TEXT (a1= cardinality )? ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:326:1: containment returns [Containment element = null] : (a0= TEXT a1= cardinality | a2= TEXT ) ;
     public final Containment containment() throws RecognitionException {
         Containment element =  null;
 
         Token a0=null;
+        Token a2=null;
         Cardinality a1 = null;
 
 
@@ -1012,31 +1013,63 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createContainment();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:330:1: (a0= TEXT (a1= cardinality )? )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:331:2: a0= TEXT (a1= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:330:1: ( (a0= TEXT a1= cardinality | a2= TEXT ) )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:331:2: (a0= TEXT a1= cardinality | a2= TEXT )
             {
-            a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_containment733); if (failed) return element;
-            if ( backtracking==0 ) {
-              String resolved = (String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
-            }
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:332:2: (a1= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:331:2: (a0= TEXT a1= cardinality | a2= TEXT )
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( ((LA15_0>=34 && LA15_0<=36)) ) {
-                alt15=1;
+            if ( (LA15_0==TEXT) ) {
+                int LA15_1 = input.LA(2);
+
+                if ( ((LA15_1>=34 && LA15_1<=36)) ) {
+                    alt15=1;
+                }
+                else if ( (LA15_1==EOF||LA15_1==TEXT||LA15_1==QUOTED_34_34||(LA15_1>=TEXT_35_ && LA15_1<=TEXT_33_)||LA15_1==23||LA15_1==29||(LA15_1>=32 && LA15_1<=33)) ) {
+                    alt15=2;
+                }
+                else {
+                    if (backtracking>0) {failed=true; return element;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("331:2: (a0= TEXT a1= cardinality | a2= TEXT )", 15, 1, input);
+
+                    throw nvae;
+                }
+            }
+            else {
+                if (backtracking>0) {failed=true; return element;}
+                NoViableAltException nvae =
+                    new NoViableAltException("331:2: (a0= TEXT a1= cardinality | a2= TEXT )", 15, 0, input);
+
+                throw nvae;
             }
             switch (alt15) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:333:3: a1= cardinality
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:332:3: a0= TEXT a1= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_containment745);
+                    a0=(Token)input.LT(1);
+                    match(input,TEXT,FOLLOW_TEXT_in_containment737); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); 
+                    }
+                    pushFollow(FOLLOW_cardinality_in_containment746);
                     a1=cardinality();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
                       element.setCardinality(a1); getResource().setElementCharStart(element, getResource().getElementCharStart(a1)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a1)); getResource().setElementColumn(element, getResource().getElementColumn(a1)); getResource().setElementLine(element, getResource().getElementLine(a1));
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:336:3: a2= TEXT
+                    {
+                    a2=(Token)input.LT(1);
+                    match(input,TEXT,FOLLOW_TEXT_in_containment760); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI(resource.getURI().appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); 
                     }
 
                     }
@@ -1060,7 +1093,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start compounddefinition
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:337:1: compounddefinition returns [CompoundDefinition element = null] : '(' a0= choice ')' (a1= cardinality )? ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:340:1: compounddefinition returns [CompoundDefinition element = null] : '(' a0= choice ')' (a1= cardinality )? ;
     public final CompoundDefinition compounddefinition() throws RecognitionException {
         CompoundDefinition element =  null;
 
@@ -1073,19 +1106,19 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:341:1: ( '(' a0= choice ')' (a1= cardinality )? )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:342:2: '(' a0= choice ')' (a1= cardinality )?
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:344:1: ( '(' a0= choice ')' (a1= cardinality )? )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:345:2: '(' a0= choice ')' (a1= cardinality )?
             {
-            match(input,32,FOLLOW_32_in_compounddefinition768); if (failed) return element;
-            pushFollow(FOLLOW_choice_in_compounddefinition775);
+            match(input,32,FOLLOW_32_in_compounddefinition782); if (failed) return element;
+            pushFollow(FOLLOW_choice_in_compounddefinition789);
             a0=choice();
             _fsp--;
             if (failed) return element;
             if ( backtracking==0 ) {
               element.setDefinitions(a0); getResource().setElementCharStart(element, getResource().getElementCharStart(a0)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a0)); getResource().setElementColumn(element, getResource().getElementColumn(a0)); getResource().setElementLine(element, getResource().getElementLine(a0));
             }
-            match(input,33,FOLLOW_33_in_compounddefinition779); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:345:2: (a1= cardinality )?
+            match(input,33,FOLLOW_33_in_compounddefinition793); if (failed) return element;
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:348:2: (a1= cardinality )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1094,9 +1127,9 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt16) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:346:3: a1= cardinality
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:349:3: a1= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_compounddefinition790);
+                    pushFollow(FOLLOW_cardinality_in_compounddefinition804);
                     a1=cardinality();
                     _fsp--;
                     if (failed) return element;
@@ -1125,7 +1158,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start plus
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:350:1: plus returns [PLUS element = null] : '+' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:353:1: plus returns [PLUS element = null] : '+' ;
     public final PLUS plus() throws RecognitionException {
         PLUS element =  null;
 
@@ -1133,10 +1166,10 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createPLUS();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:354:1: ( '+' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:355:2: '+'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:357:1: ( '+' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:358:2: '+'
             {
-            match(input,34,FOLLOW_34_in_plus813); if (failed) return element;
+            match(input,34,FOLLOW_34_in_plus827); if (failed) return element;
 
             }
 
@@ -1153,7 +1186,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start star
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:358:1: star returns [STAR element = null] : '*' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:361:1: star returns [STAR element = null] : '*' ;
     public final STAR star() throws RecognitionException {
         STAR element =  null;
 
@@ -1161,10 +1194,10 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createSTAR();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:362:1: ( '*' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:363:2: '*'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:365:1: ( '*' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:366:2: '*'
             {
-            match(input,35,FOLLOW_35_in_star831); if (failed) return element;
+            match(input,35,FOLLOW_35_in_star845); if (failed) return element;
 
             }
 
@@ -1181,7 +1214,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start questionmark
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:366:1: questionmark returns [QUESTIONMARK element = null] : '?' ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:369:1: questionmark returns [QUESTIONMARK element = null] : '?' ;
     public final QUESTIONMARK questionmark() throws RecognitionException {
         QUESTIONMARK element =  null;
 
@@ -1189,10 +1222,10 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createQUESTIONMARK();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:370:1: ( '?' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:371:2: '?'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:373:1: ( '?' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:374:2: '?'
             {
-            match(input,36,FOLLOW_36_in_questionmark849); if (failed) return element;
+            match(input,36,FOLLOW_36_in_questionmark863); if (failed) return element;
 
             }
 
@@ -1209,7 +1242,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start whitespaces
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:374:1: whitespaces returns [WhiteSpaces element = null] : a0= TEXT_35_ ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:377:1: whitespaces returns [WhiteSpaces element = null] : a0= TEXT_35_ ;
     public final WhiteSpaces whitespaces() throws RecognitionException {
         WhiteSpaces element =  null;
 
@@ -1219,13 +1252,13 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:378:1: (a0= TEXT_35_ )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:379:2: a0= TEXT_35_
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:381:1: (a0= TEXT_35_ )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:382:2: a0= TEXT_35_
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT_35_,FOLLOW_TEXT_35__in_whitespaces871); if (failed) return element;
+            match(input,TEXT_35_,FOLLOW_TEXT_35__in_whitespaces885); if (failed) return element;
             if ( backtracking==0 ) {
-              int resolved = (Integer) tokenResolverFactory.createTokenResolver("TEXT_35_").resolve(a0.getText(),element.eClass().getEStructuralFeature("ammount"),element,getResource());element.setAmmount(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_35_");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("ammount"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (Integer)resolvedObject;element.setAmmount(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
 
             }
@@ -1243,7 +1276,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start linebreak
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:382:1: linebreak returns [LineBreak element = null] : a0= TEXT_33_ ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:385:1: linebreak returns [LineBreak element = null] : a0= TEXT_33_ ;
     public final LineBreak linebreak() throws RecognitionException {
         LineBreak element =  null;
 
@@ -1253,13 +1286,13 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createLineBreak();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:386:1: (a0= TEXT_33_ )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:387:2: a0= TEXT_33_
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:389:1: (a0= TEXT_33_ )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:390:2: a0= TEXT_33_
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT_33_,FOLLOW_TEXT_33__in_linebreak894); if (failed) return element;
+            match(input,TEXT_33_,FOLLOW_TEXT_33__in_linebreak908); if (failed) return element;
             if ( backtracking==0 ) {
-              int resolved = (Integer) tokenResolverFactory.createTokenResolver("TEXT_33_").resolve(a0.getText(),element.eClass().getEStructuralFeature("tab"),element,getResource());element.setTab(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_33_");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("tab"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (Integer)resolvedObject;element.setTab(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
 
             }
@@ -1277,7 +1310,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start normaltoken
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:390:1: normaltoken returns [NormalToken element = null] : 'DEFINE' a0= TEXT a1= QUOTED_36_36 ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:393:1: normaltoken returns [NormalToken element = null] : 'DEFINE' a0= TEXT a1= QUOTED_36_36 ;
     public final NormalToken normaltoken() throws RecognitionException {
         NormalToken element =  null;
 
@@ -1288,19 +1321,19 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:394:1: ( 'DEFINE' a0= TEXT a1= QUOTED_36_36 )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:395:2: 'DEFINE' a0= TEXT a1= QUOTED_36_36
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:397:1: ( 'DEFINE' a0= TEXT a1= QUOTED_36_36 )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:398:2: 'DEFINE' a0= TEXT a1= QUOTED_36_36
             {
-            match(input,37,FOLLOW_37_in_normaltoken913); if (failed) return element;
+            match(input,37,FOLLOW_37_in_normaltoken927); if (failed) return element;
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_normaltoken920); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_normaltoken934); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
             a1=(Token)input.LT(1);
-            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_normaltoken928); if (failed) return element;
+            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_normaltoken942); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_36_36").resolve(a1.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());element.setRegex(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setRegex(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); 
             }
 
             }
@@ -1318,7 +1351,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start decoratedtoken
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:400:1: decoratedtoken returns [DecoratedToken element = null] : 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:403:1: decoratedtoken returns [DecoratedToken element = null] : 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) ;
     public final DecoratedToken decoratedtoken() throws RecognitionException {
         DecoratedToken element =  null;
 
@@ -1331,55 +1364,55 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createDecoratedToken();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:404:1: ( 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:405:2: 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:407:1: ( 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:408:2: 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' )
             {
-            match(input,37,FOLLOW_37_in_decoratedtoken947); if (failed) return element;
+            match(input,37,FOLLOW_37_in_decoratedtoken961); if (failed) return element;
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_decoratedtoken954); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_decoratedtoken968); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:407:2: ( '[' (a1= QUOTED_39_39 ) ']' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:408:3: '[' (a1= QUOTED_39_39 ) ']'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:410:2: ( '[' (a1= QUOTED_39_39 ) ']' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:411:3: '[' (a1= QUOTED_39_39 ) ']'
             {
-            match(input,30,FOLLOW_30_in_decoratedtoken962); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:409:3: (a1= QUOTED_39_39 )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:410:4: a1= QUOTED_39_39
+            match(input,30,FOLLOW_30_in_decoratedtoken976); if (failed) return element;
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:412:3: (a1= QUOTED_39_39 )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:413:4: a1= QUOTED_39_39
             {
             a1=(Token)input.LT(1);
-            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken975); if (failed) return element;
+            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken989); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_39_39").resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); 
             }
 
             }
 
-            match(input,31,FOLLOW_31_in_decoratedtoken984); if (failed) return element;
+            match(input,31,FOLLOW_31_in_decoratedtoken998); if (failed) return element;
 
             }
 
             a2=(Token)input.LT(1);
-            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_decoratedtoken994); if (failed) return element;
+            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_decoratedtoken1008); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_36_36").resolve(a2.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());element.setRegex(resolved); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setRegex(resolved); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); 
             }
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:415:2: ( '[' (a3= QUOTED_39_39 ) ']' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:416:3: '[' (a3= QUOTED_39_39 ) ']'
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:418:2: ( '[' (a3= QUOTED_39_39 ) ']' )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:419:3: '[' (a3= QUOTED_39_39 ) ']'
             {
-            match(input,30,FOLLOW_30_in_decoratedtoken1002); if (failed) return element;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:417:3: (a3= QUOTED_39_39 )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:418:4: a3= QUOTED_39_39
+            match(input,30,FOLLOW_30_in_decoratedtoken1016); if (failed) return element;
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:420:3: (a3= QUOTED_39_39 )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:421:4: a3= QUOTED_39_39
             {
             a3=(Token)input.LT(1);
-            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1015); if (failed) return element;
+            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1029); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("QUOTED_39_39").resolve(a3.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());element.setSuffix(resolved); getResource().setElementCharStart(element, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(element, a3.getCharPositionInLine()); getResource().setElementLine(element, a3.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setSuffix(resolved); getResource().setElementCharStart(element, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(element, a3.getCharPositionInLine()); getResource().setElementLine(element, a3.getLine()); 
             }
 
             }
 
-            match(input,31,FOLLOW_31_in_decoratedtoken1024); if (failed) return element;
+            match(input,31,FOLLOW_31_in_decoratedtoken1038); if (failed) return element;
 
             }
 
@@ -1399,7 +1432,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start predefinedtoken
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:424:1: predefinedtoken returns [PreDefinedToken element = null] : 'PREDEFINED' a0= TEXT ;
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:427:1: predefinedtoken returns [PreDefinedToken element = null] : 'PREDEFINED' a0= TEXT ;
     public final PreDefinedToken predefinedtoken() throws RecognitionException {
         PreDefinedToken element =  null;
 
@@ -1409,14 +1442,14 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createPreDefinedToken();
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:428:1: ( 'PREDEFINED' a0= TEXT )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:429:2: 'PREDEFINED' a0= TEXT
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:431:1: ( 'PREDEFINED' a0= TEXT )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:432:2: 'PREDEFINED' a0= TEXT
             {
-            match(input,38,FOLLOW_38_in_predefinedtoken1045); if (failed) return element;
+            match(input,38,FOLLOW_38_in_predefinedtoken1059); if (failed) return element;
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_predefinedtoken1052); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_predefinedtoken1066); if (failed) return element;
             if ( backtracking==0 ) {
-              java.lang.String resolved = (java.lang.String) tokenResolverFactory.createTokenResolver("TEXT").resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
+              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); 
             }
 
             }
@@ -1434,27 +1467,27 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start cardinality
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:433:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= questionmark | c2= star );
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:436:1: cardinality returns [Cardinality element = null] : (c0= questionmark | c1= plus | c2= star );
     public final Cardinality cardinality() throws RecognitionException {
         Cardinality element =  null;
 
-        PLUS c0 = null;
+        QUESTIONMARK c0 = null;
 
-        QUESTIONMARK c1 = null;
+        PLUS c1 = null;
 
         STAR c2 = null;
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:435:1: (c0= plus | c1= questionmark | c2= star )
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:438:1: (c0= questionmark | c1= plus | c2= star )
             int alt17=3;
             switch ( input.LA(1) ) {
-            case 34:
+            case 36:
                 {
                 alt17=1;
                 }
                 break;
-            case 36:
+            case 34:
                 {
                 alt17=2;
                 }
@@ -1467,17 +1500,17 @@ public class CsParser extends EMFTextParserImpl {
             default:
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("433:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= questionmark | c2= star );", 17, 0, input);
+                    new NoViableAltException("436:1: cardinality returns [Cardinality element = null] : (c0= questionmark | c1= plus | c2= star );", 17, 0, input);
 
                 throw nvae;
             }
 
             switch (alt17) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:436:2: c0= plus
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:439:2: c0= questionmark
                     {
-                    pushFollow(FOLLOW_plus_in_cardinality1071);
-                    c0=plus();
+                    pushFollow(FOLLOW_questionmark_in_cardinality1085);
+                    c0=questionmark();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1487,10 +1520,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:437:2: c1= questionmark
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:440:2: c1= plus
                     {
-                    pushFollow(FOLLOW_questionmark_in_cardinality1081);
-                    c1=questionmark();
+                    pushFollow(FOLLOW_plus_in_cardinality1095);
+                    c1=plus();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1500,9 +1533,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:438:2: c2= star
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:441:2: c2= star
                     {
-                    pushFollow(FOLLOW_star_in_cardinality1091);
+                    pushFollow(FOLLOW_star_in_cardinality1105);
                     c2=star();
                     _fsp--;
                     if (failed) return element;
@@ -1526,97 +1559,67 @@ public class CsParser extends EMFTextParserImpl {
     // $ANTLR end cardinality
 
 
-    // $ANTLR start definition
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );
-    public final Definition definition() throws RecognitionException {
-        Definition element =  null;
+    // $ANTLR start tokendefinition
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:444:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= normaltoken | c2= predefinedtoken );
+    public final TokenDefinition tokendefinition() throws RecognitionException {
+        TokenDefinition element =  null;
 
-        WhiteSpaces c0 = null;
+        DecoratedToken c0 = null;
 
-        Containment c1 = null;
+        NormalToken c1 = null;
 
-        DerivedPlaceholder c2 = null;
-
-        CsString c3 = null;
-
-        LineBreak c4 = null;
-
-        CompoundDefinition c5 = null;
-
-        DefinedPlaceholder c6 = null;
+        PreDefinedToken c2 = null;
 
 
         try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:443:1: (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder )
-            int alt18=7;
-            switch ( input.LA(1) ) {
-            case TEXT_35_:
-                {
-                alt18=1;
-                }
-                break;
-            case TEXT:
-                {
-                int LA18_2 = input.LA(2);
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:446:1: (c0= decoratedtoken | c1= normaltoken | c2= predefinedtoken )
+            int alt18=3;
+            int LA18_0 = input.LA(1);
 
-                if ( (LA18_2==30) ) {
-                    int LA18_6 = input.LA(3);
+            if ( (LA18_0==37) ) {
+                int LA18_1 = input.LA(2);
 
-                    if ( (LA18_6==TEXT) ) {
-                        alt18=7;
+                if ( (LA18_1==TEXT) ) {
+                    int LA18_3 = input.LA(3);
+
+                    if ( (LA18_3==QUOTED_36_36) ) {
+                        alt18=2;
                     }
-                    else if ( (LA18_6==QUOTED_39_39||LA18_6==31) ) {
-                        alt18=3;
+                    else if ( (LA18_3==30) ) {
+                        alt18=1;
                     }
                     else {
                         if (backtracking>0) {failed=true; return element;}
                         NoViableAltException nvae =
-                            new NoViableAltException("441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );", 18, 6, input);
+                            new NoViableAltException("444:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= normaltoken | c2= predefinedtoken );", 18, 3, input);
 
                         throw nvae;
                     }
                 }
-                else if ( (LA18_2==EOF||LA18_2==TEXT||LA18_2==QUOTED_34_34||(LA18_2>=TEXT_35_ && LA18_2<=TEXT_33_)||LA18_2==23||LA18_2==29||(LA18_2>=32 && LA18_2<=36)) ) {
-                    alt18=2;
-                }
                 else {
                     if (backtracking>0) {failed=true; return element;}
                     NoViableAltException nvae =
-                        new NoViableAltException("441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );", 18, 2, input);
+                        new NoViableAltException("444:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= normaltoken | c2= predefinedtoken );", 18, 1, input);
 
                     throw nvae;
                 }
-                }
-                break;
-            case QUOTED_34_34:
-                {
-                alt18=4;
-                }
-                break;
-            case TEXT_33_:
-                {
-                alt18=5;
-                }
-                break;
-            case 32:
-                {
-                alt18=6;
-                }
-                break;
-            default:
+            }
+            else if ( (LA18_0==38) ) {
+                alt18=3;
+            }
+            else {
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("441:1: definition returns [Definition element = null] : (c0= whitespaces | c1= containment | c2= derivedplaceholder | c3= csstring | c4= linebreak | c5= compounddefinition | c6= definedplaceholder );", 18, 0, input);
+                    new NoViableAltException("444:1: tokendefinition returns [TokenDefinition element = null] : (c0= decoratedtoken | c1= normaltoken | c2= predefinedtoken );", 18, 0, input);
 
                 throw nvae;
             }
-
             switch (alt18) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:444:2: c0= whitespaces
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:447:2: c0= decoratedtoken
                     {
-                    pushFollow(FOLLOW_whitespaces_in_definition1110);
-                    c0=whitespaces();
+                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1124);
+                    c0=decoratedtoken();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1626,10 +1629,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:445:2: c1= containment
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:448:2: c1= normaltoken
                     {
-                    pushFollow(FOLLOW_containment_in_definition1120);
-                    c1=containment();
+                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1134);
+                    c1=normaltoken();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1639,10 +1642,149 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:446:2: c2= derivedplaceholder
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:449:2: c2= predefinedtoken
                     {
-                    pushFollow(FOLLOW_derivedplaceholder_in_definition1130);
-                    c2=derivedplaceholder();
+                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1144);
+                    c2=predefinedtoken();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c2; 
+                    }
+
+                    }
+                    break;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return element;
+    }
+    // $ANTLR end tokendefinition
+
+
+    // $ANTLR start definition
+    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:452:1: definition returns [Definition element = null] : (c0= compounddefinition | c1= linebreak | c2= containment | c3= derivedplaceholder | c4= whitespaces | c5= csstring | c6= definedplaceholder );
+    public final Definition definition() throws RecognitionException {
+        Definition element =  null;
+
+        CompoundDefinition c0 = null;
+
+        LineBreak c1 = null;
+
+        Containment c2 = null;
+
+        DerivedPlaceholder c3 = null;
+
+        WhiteSpaces c4 = null;
+
+        CsString c5 = null;
+
+        DefinedPlaceholder c6 = null;
+
+
+        try {
+            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:454:1: (c0= compounddefinition | c1= linebreak | c2= containment | c3= derivedplaceholder | c4= whitespaces | c5= csstring | c6= definedplaceholder )
+            int alt19=7;
+            switch ( input.LA(1) ) {
+            case 32:
+                {
+                alt19=1;
+                }
+                break;
+            case TEXT_33_:
+                {
+                alt19=2;
+                }
+                break;
+            case TEXT:
+                {
+                int LA19_3 = input.LA(2);
+
+                if ( (LA19_3==30) ) {
+                    int LA19_6 = input.LA(3);
+
+                    if ( (LA19_6==TEXT) ) {
+                        alt19=7;
+                    }
+                    else if ( (LA19_6==QUOTED_39_39||LA19_6==31) ) {
+                        alt19=4;
+                    }
+                    else {
+                        if (backtracking>0) {failed=true; return element;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("452:1: definition returns [Definition element = null] : (c0= compounddefinition | c1= linebreak | c2= containment | c3= derivedplaceholder | c4= whitespaces | c5= csstring | c6= definedplaceholder );", 19, 6, input);
+
+                        throw nvae;
+                    }
+                }
+                else if ( (LA19_3==EOF||LA19_3==TEXT||LA19_3==QUOTED_34_34||(LA19_3>=TEXT_35_ && LA19_3<=TEXT_33_)||LA19_3==23||LA19_3==29||(LA19_3>=32 && LA19_3<=36)) ) {
+                    alt19=3;
+                }
+                else {
+                    if (backtracking>0) {failed=true; return element;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("452:1: definition returns [Definition element = null] : (c0= compounddefinition | c1= linebreak | c2= containment | c3= derivedplaceholder | c4= whitespaces | c5= csstring | c6= definedplaceholder );", 19, 3, input);
+
+                    throw nvae;
+                }
+                }
+                break;
+            case TEXT_35_:
+                {
+                alt19=5;
+                }
+                break;
+            case QUOTED_34_34:
+                {
+                alt19=6;
+                }
+                break;
+            default:
+                if (backtracking>0) {failed=true; return element;}
+                NoViableAltException nvae =
+                    new NoViableAltException("452:1: definition returns [Definition element = null] : (c0= compounddefinition | c1= linebreak | c2= containment | c3= derivedplaceholder | c4= whitespaces | c5= csstring | c6= definedplaceholder );", 19, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt19) {
+                case 1 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:455:2: c0= compounddefinition
+                    {
+                    pushFollow(FOLLOW_compounddefinition_in_definition1163);
+                    c0=compounddefinition();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c0; 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:456:2: c1= linebreak
+                    {
+                    pushFollow(FOLLOW_linebreak_in_definition1173);
+                    c1=linebreak();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                       element = c1; 
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:457:2: c2= containment
+                    {
+                    pushFollow(FOLLOW_containment_in_definition1183);
+                    c2=containment();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1652,10 +1794,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 4 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:447:2: c3= csstring
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:458:2: c3= derivedplaceholder
                     {
-                    pushFollow(FOLLOW_csstring_in_definition1140);
-                    c3=csstring();
+                    pushFollow(FOLLOW_derivedplaceholder_in_definition1193);
+                    c3=derivedplaceholder();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1665,10 +1807,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 5 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:448:2: c4= linebreak
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:459:2: c4= whitespaces
                     {
-                    pushFollow(FOLLOW_linebreak_in_definition1150);
-                    c4=linebreak();
+                    pushFollow(FOLLOW_whitespaces_in_definition1203);
+                    c4=whitespaces();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1678,10 +1820,10 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 6 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:449:2: c5= compounddefinition
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:460:2: c5= csstring
                     {
-                    pushFollow(FOLLOW_compounddefinition_in_definition1160);
-                    c5=compounddefinition();
+                    pushFollow(FOLLOW_csstring_in_definition1213);
+                    c5=csstring();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
@@ -1691,9 +1833,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 7 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:450:2: c6= definedplaceholder
+                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:461:2: c6= definedplaceholder
                     {
-                    pushFollow(FOLLOW_definedplaceholder_in_definition1170);
+                    pushFollow(FOLLOW_definedplaceholder_in_definition1223);
                     c6=definedplaceholder();
                     _fsp--;
                     if (failed) return element;
@@ -1715,115 +1857,6 @@ public class CsParser extends EMFTextParserImpl {
         return element;
     }
     // $ANTLR end definition
-
-
-    // $ANTLR start tokendefinition
-    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );
-    public final TokenDefinition tokendefinition() throws RecognitionException {
-        TokenDefinition element =  null;
-
-        PreDefinedToken c0 = null;
-
-        DecoratedToken c1 = null;
-
-        NormalToken c2 = null;
-
-
-        try {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:455:1: (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken )
-            int alt19=3;
-            int LA19_0 = input.LA(1);
-
-            if ( (LA19_0==38) ) {
-                alt19=1;
-            }
-            else if ( (LA19_0==37) ) {
-                int LA19_2 = input.LA(2);
-
-                if ( (LA19_2==TEXT) ) {
-                    int LA19_3 = input.LA(3);
-
-                    if ( (LA19_3==QUOTED_36_36) ) {
-                        alt19=3;
-                    }
-                    else if ( (LA19_3==30) ) {
-                        alt19=2;
-                    }
-                    else {
-                        if (backtracking>0) {failed=true; return element;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );", 19, 3, input);
-
-                        throw nvae;
-                    }
-                }
-                else {
-                    if (backtracking>0) {failed=true; return element;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );", 19, 2, input);
-
-                    throw nvae;
-                }
-            }
-            else {
-                if (backtracking>0) {failed=true; return element;}
-                NoViableAltException nvae =
-                    new NoViableAltException("453:1: tokendefinition returns [TokenDefinition element = null] : (c0= predefinedtoken | c1= decoratedtoken | c2= normaltoken );", 19, 0, input);
-
-                throw nvae;
-            }
-            switch (alt19) {
-                case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:456:2: c0= predefinedtoken
-                    {
-                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1189);
-                    c0=predefinedtoken();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c0; 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:457:2: c1= decoratedtoken
-                    {
-                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1199);
-                    c1=decoratedtoken();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c1; 
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:458:2: c2= normaltoken
-                    {
-                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1209);
-                    c2=normaltoken();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                       element = c2; 
-                    }
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return element;
-    }
-    // $ANTLR end tokendefinition
 
 
  
@@ -1878,43 +1911,44 @@ public class CsParser extends EMFTextParserImpl {
     public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder671 = new BitSet(new long[]{0x0000000080000000L});
     public static final BitSet FOLLOW_31_in_derivedplaceholder695 = new BitSet(new long[]{0x0000001C00000002L});
     public static final BitSet FOLLOW_cardinality_in_derivedplaceholder706 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_containment733 = new BitSet(new long[]{0x0000001C00000002L});
-    public static final BitSet FOLLOW_cardinality_in_containment745 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_compounddefinition768 = new BitSet(new long[]{0x0000000100000690L});
-    public static final BitSet FOLLOW_choice_in_compounddefinition775 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_compounddefinition779 = new BitSet(new long[]{0x0000001C00000002L});
-    public static final BitSet FOLLOW_cardinality_in_compounddefinition790 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_plus813 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_star831 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_questionmark849 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_35__in_whitespaces871 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_33__in_linebreak894 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_normaltoken913 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_normaltoken920 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_QUOTED_36_36_in_normaltoken928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_decoratedtoken947 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_decoratedtoken954 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_decoratedtoken962 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken975 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_decoratedtoken984 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_QUOTED_36_36_in_decoratedtoken994 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_decoratedtoken1002 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1015 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_decoratedtoken1024 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_predefinedtoken1045 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_predefinedtoken1052 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_plus_in_cardinality1071 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_questionmark_in_cardinality1081 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_star_in_cardinality1091 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_whitespaces_in_definition1110 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_containment_in_definition1120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_derivedplaceholder_in_definition1130 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_csstring_in_definition1140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_linebreak_in_definition1150 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_compounddefinition_in_definition1160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_definedplaceholder_in_definition1170 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1189 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_containment737 = new BitSet(new long[]{0x0000001C00000000L});
+    public static final BitSet FOLLOW_cardinality_in_containment746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_containment760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_compounddefinition782 = new BitSet(new long[]{0x0000000100000690L});
+    public static final BitSet FOLLOW_choice_in_compounddefinition789 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_compounddefinition793 = new BitSet(new long[]{0x0000001C00000002L});
+    public static final BitSet FOLLOW_cardinality_in_compounddefinition804 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_plus827 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_star845 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_questionmark863 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_35__in_whitespaces885 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_33__in_linebreak908 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_normaltoken927 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_normaltoken934 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_QUOTED_36_36_in_normaltoken942 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_decoratedtoken961 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_decoratedtoken968 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_decoratedtoken976 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken989 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_decoratedtoken998 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_QUOTED_36_36_in_decoratedtoken1008 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_decoratedtoken1016 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1029 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_decoratedtoken1038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_predefinedtoken1059 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_predefinedtoken1066 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_questionmark_in_cardinality1085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_plus_in_cardinality1095 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_star_in_cardinality1105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1124 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1134 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compounddefinition_in_definition1163 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_linebreak_in_definition1173 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_containment_in_definition1183 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_derivedplaceholder_in_definition1193 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_whitespaces_in_definition1203 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_csstring_in_definition1213 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_definedplaceholder_in_definition1223 = new BitSet(new long[]{0x0000000000000002L});
 
 }

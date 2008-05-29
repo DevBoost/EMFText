@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.MetamodelManager;
 import org.reuseware.emftextedit.resource.TextResource;
 import org.reuseware.emftextedit.resource.impl.ProxyResolverImpl;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 
 public class ConcreteSyntaxPackageProxyResolver extends ProxyResolverImpl {
 
@@ -21,5 +22,10 @@ public class ConcreteSyntaxPackageProxyResolver extends ProxyResolverImpl {
 			EObject container, EReference reference, TextResource resource) {
 		String message = "Generator model \"" + proxy.eProxyURI().fragment() + "\" could not be resolved";
 		return message;
+	}
+	
+	public String deResolve(EObject element, EObject container,EReference reference){
+		GenPackage pck = (GenPackage)element;
+		return pck.getNSURI();
 	}
 }

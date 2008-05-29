@@ -27,5 +27,10 @@ public class ImportPackageProxyResolver extends ProxyResolverImpl {
 		String message = "Genarator model \"" + proxy.eProxyURI().fragment() + "\" could not be resolved";
 		return message;
 	}
+	
+	public String deResolve(EObject element, EObject container,EReference reference){
+		GenPackage pck = (GenPackage)element;
+		return pck.getNSURI();
+	}
 
 }

@@ -50,4 +50,22 @@ public class ConcreteSyntaxStartSymbolsProxyResolver extends ProxyResolverImpl {
 		String message = "EClass \"" + proxy.eProxyURI().fragment() + "\" does not exist";
 		return message;
 	}
+	public String deResolve(EObject element, EObject container,EReference reference){
+		GenClass genClass = (GenClass)element;
+		genClass.getGenPackage().getNSName();
+		ConcreteSyntax cs = (ConcreteSyntax) container;
+		if(cs.getPackage().getNSName().equals(genClass.getGenPackage().getNSName()))
+			return genClass.getName();
+		else{
+			String prefix = "";
+			for (Import aImport : cs.getImports()) {
+				if(aImport.getPackage().getNSName().equals(genClass.getGenPackage().getNSName())){
+					prefix = aImport.getPrefix()+".";					
+				}
+
+			}
+			return prefix+genClass.getName();
+		}
+
+	}
 }

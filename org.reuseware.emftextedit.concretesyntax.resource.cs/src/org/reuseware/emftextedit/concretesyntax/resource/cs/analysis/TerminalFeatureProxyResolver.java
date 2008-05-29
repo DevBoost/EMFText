@@ -50,4 +50,10 @@ public class TerminalFeatureProxyResolver extends ProxyResolverImpl {
 		String msg = "Feature \"" + proxy.eProxyURI().fragment() + "\" does not exist.";
 		return msg;
 	}
+	
+	public String deResolve(EObject element, EObject container,EReference reference){
+		GenFeature feature = (GenFeature)element;
+		return feature.getName();
+	}
+	
 }

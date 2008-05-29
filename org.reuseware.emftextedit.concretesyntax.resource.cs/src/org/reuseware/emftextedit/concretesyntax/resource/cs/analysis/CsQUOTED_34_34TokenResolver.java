@@ -10,9 +10,9 @@ public class CsQUOTED_34_34TokenResolver extends JavaBasedTokenResolver implemen
 	@Override
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
 		String result = super.deResolve(value,feature,container);
-		result = "\"" + result;
-		result += "\"";
 		result = result.replaceAll(java.util.regex.Pattern.quote("\""),"\\\\\"");
+		result += "\"";
+		result = "\"" + result;
 		return result;
 	}
 
