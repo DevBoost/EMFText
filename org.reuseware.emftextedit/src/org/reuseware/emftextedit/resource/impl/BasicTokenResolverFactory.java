@@ -15,7 +15,6 @@ public class BasicTokenResolverFactory implements TokenResolverFactory {
 		tokenName2TokenResolver = new HashMap<String,TokenResolver>();
 	}
 	
-	@Override
 	public TokenResolver createTokenResolver(String tokenName) {		
 		if(tokenName2TokenResolver.containsKey(tokenName)){
 			return tokenName2TokenResolver.get(tokenName);

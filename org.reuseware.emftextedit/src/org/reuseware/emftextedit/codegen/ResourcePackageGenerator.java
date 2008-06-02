@@ -158,12 +158,12 @@ public class ResourcePackageGenerator {
     	   else{
     		   LinkedList<IResource> stack = new LinkedList<IResource>();
     		   if(!target.getParent().exists()){
-    			   stack.push(target.getParent());
+    			   stack.addFirst(target.getParent());
     			   while(!stack.isEmpty()){
     				   if(!stack.peek().getParent().exists())
-    					   stack.push(stack.peek().getParent());
+    					   stack.addFirst(stack.peek().getParent());
     				   else
-    					   ((IFolder)stack.pop()).create(false,false,new NullProgressMonitor());
+    					   ((IFolder)stack.removeFirst()).create(false,false,new NullProgressMonitor());
     			   }
     		   }
        		   target.create(in,false,new NullProgressMonitor());

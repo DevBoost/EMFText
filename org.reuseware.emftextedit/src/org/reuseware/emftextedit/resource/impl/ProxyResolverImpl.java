@@ -172,7 +172,6 @@ public class ProxyResolverImpl implements ProxyResolver {
 		return null;
 	}
 
-	@Override
 	public String deResolve(EObject element, EObject container,
 			EReference reference) {
 		return doDeResolve(element,container,reference);

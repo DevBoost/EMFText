@@ -19,12 +19,10 @@ public class JavaBasedTokenResolver implements TokenResolver {
 	
 	private String message = null;
 	
-	@Override
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
 		return value.toString();
 	}
 	
-	@Override
 	public Object resolve(String lexem, EStructuralFeature feature, EObject container, TextResource resource) {
 		
 		if(feature instanceof EAttribute){
@@ -81,7 +79,6 @@ public class JavaBasedTokenResolver implements TokenResolver {
 		
 	}
 
-	@Override
 	public String getErrorMessage() {
 		return message;
 	}
