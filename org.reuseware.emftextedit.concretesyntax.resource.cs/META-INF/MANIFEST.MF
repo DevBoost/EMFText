@@ -5,11 +5,12 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Reuseware Concretesyntax Metamodel Text Syntax
 Bundle-SymbolicName: org.reuseware.emftextedit.concretesyntax.resource
  .cs; singleton:=true
-Bundle-Version: 0.8.0.v200805271120
+Bundle-Version: 0.8.0.v200805291729
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore,org.reu
- seware.emftextedit,org.eclipse.core.resources
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore,org.ecl
+ ipse.core.resources,org.reuseware.emfsync,org.reuseware.emftextedit,o
+ rg.reuseware.emftextedit.test
 Eclipse-LazyStart: true
 Export-Package: org.reuseware.emftextedit.concretesyntax.resource.cs
 
