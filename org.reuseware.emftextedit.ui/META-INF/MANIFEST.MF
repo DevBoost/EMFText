@@ -4,7 +4,7 @@ Created-By: 1.5.0_13-121 ("Apple Computer, Inc.")
 Bundle-ManifestVersion: 2
 Bundle-Name: Reuseware EMFTextEdit Eclipse UI
 Bundle-SymbolicName: org.reuseware.emftextedit.ui; singleton:=true
-Bundle-Version: 0.8.0.v200804111500
+Bundle-Version: 0.8.0.v200805291729
 Bundle-Activator: org.reuseware.emftextedit.ui.EMFTextEditUIPlugin
 Require-Bundle: org.eclipse.ui,org.eclipse.ui.ide,org.eclipse.ui.edito
  rs,org.eclipse.core.runtime,org.eclipse.core.resources,org.eclipse.jd

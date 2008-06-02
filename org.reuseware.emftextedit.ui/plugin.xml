@@ -58,15 +58,7 @@
                contentTypeId="org.reuseware.emftextedit.filetype">
          </contentTypeBinding> 
       </editor>
-      
-      <extension
-          point="org.eclipse.core.contenttype.contentTypes">
-       <content-type
-             file-extensions="cs"
-             id="org.reuseware.emftextedit.filetype"
-             name="EMFTextFile">
-       </content-type>
-    </extension> 
+     
         
    </extension>
 

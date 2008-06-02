@@ -207,9 +207,25 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         s.append("      </file-association>\n");
         s.append("   </extension>\n\n");
         
-
-        s.append("</plugin>\n");
+        String baseId = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getName();
         
+        s.append("\t<extension\n");
+        s.append("\t\t\tpoint=\"org.eclipse.ui.popupMenus\">\n");
+        s.append("\t\t<objectContribution\n");
+        s.append("\t\t\t\tid=\""+baseId+".contributions\"\n");
+        s.append("\t\t\t\tobjectClass=\"org.eclipse.core.resources.IFile\"\n");
+        s.append("\t\t\t\tnameFilter=\"*."+cSyntax.getName()+"\">\n");
+        s.append("\t\t\t<action\n");
+        s.append("\t\t\t\t\tclass=\"org.reuseware.emftextedit.test.actions.ValidateParserPrinterAction\"\n");
+        s.append("\t\t\t\t\tenablesFor=\"1\"\n");
+        s.append("\t\t\t\t\tid=\""+baseId+".validate\"\n");
+        s.append("\t\t\t\t\tlabel=\"Validate\"\n");
+        s.append("\t\t\t\t\tmenubarPath=\"org.reuseware.emftextedit.test.menu1/group1\">\n");
+        s.append("\t\t\t</action>\n");
+        s.append("\t\t</objectContribution>\n");
+        s.append("\t</extension>\n");
+        s.append("</plugin>\n");
+      
         return s.toString();
     }
 
@@ -233,6 +249,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         s.append("Require-Bundle: org.eclipse.core.runtime,\n");
         s.append("  org.eclipse.emf.ecore,\n");
         s.append("  " + cSyntax.getPackage().getGenModel().getModelPluginID() + ",\n");
+        s.append("  org.reuseware.emftextedit.test,\n");
         EList<GenModel> importedPlugins = new BasicEList<GenModel>();
         for(Import aImport : cSyntax.getImports()) {
         	GenModel m = aImport.getPackage().getGenModel();
