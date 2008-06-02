@@ -15,14 +15,4 @@
 
       </objectContribution>
    </extension>
-
-   <extension
-         point="org.eclipse.ui.propertyPages">
-      <page 
-            class="org.reuseware.emftextedit.test.WorkbenchPropertyPage1"
-            id="org.reuseware.emftextedit.test.page1"
-            name="name">
-      </page>
-   </extension>
-
 </plugin>
