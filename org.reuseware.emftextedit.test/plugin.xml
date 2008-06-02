@@ -6,14 +6,16 @@
       <objectContribution
             id="org.reuseware.emftextedit.test.contribution1"
             objectClass="org.eclipse.core.resources.IFile">
-         <menu
+       <menu
                id="org.reuseware.emftextedit.test.menu1"
                label="EMFText Actions"
                path="additions">
+               
          </menu>
 
       </objectContribution>
    </extension>
+
    <extension
          point="org.eclipse.ui.propertyPages">
       <page 
