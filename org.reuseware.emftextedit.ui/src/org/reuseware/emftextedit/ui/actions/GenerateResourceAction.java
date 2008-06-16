@@ -70,7 +70,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 	 * 
 	 * @param file The file that contains the concrete syntax definition.
 	 */
-    public void process(final IFile file) {
+    public static void process(final IFile file) {
         try {                  
             ResourceSet rs = new ResourceSetImpl();
             Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
@@ -107,8 +107,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
              
              IFolder srcFolder = project.getFolder("/src");
              IFolder outFolder = project.getFolder("/bin");
-             String  absSrcFolderName = Platform.getInstanceLocation().getURL().getFile() + projectName + "/src";
-             
+ 
              IJavaProject jp = JavaCore.create(project);
              
              jp.setRawClasspath(new IClasspathEntry [] {
@@ -131,11 +130,23 @@ public class GenerateResourceAction implements IObjectActionDelegate {
              IFolder metaFolder = project.getFolder("/META-INF");
              IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
              IFile pluginXMLFile = project.getFile("/plugin.xml");
-             if (!metaFolder.exists()) metaFolder.create(true, true, new SubProgressMonitor(new NullProgressMonitor(),1));
-             if (manifestMFFile.exists()) manifestMFFile.delete(true, new SubProgressMonitor(new NullProgressMonitor(),1));
-             manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,new NullProgressMonitor());
-             if (pluginXMLFile.exists()) pluginXMLFile.delete(true, new SubProgressMonitor(new NullProgressMonitor(),1));
-             pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true, new SubProgressMonitor(new NullProgressMonitor(),1));
+             if (!metaFolder.exists()) 
+            	 metaFolder.create(true, true, new SubProgressMonitor(new NullProgressMonitor(),1));
+             
+             if (manifestMFFile.exists()){
+            	 manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true,new NullProgressMonitor());
+             }
+             else{
+                 manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,new NullProgressMonitor());            	 
+             }
+             
+             if (pluginXMLFile.exists()){
+            	 pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,new NullProgressMonitor());
+             }
+             else{
+               	 pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,new NullProgressMonitor());
+ 
+             }
              project.refreshLocal(IProject.DEPTH_INFINITE, new NullProgressMonitor());
              
              //also mark errors on imported concrete syntaxes
@@ -152,15 +163,10 @@ public class GenerateResourceAction implements IObjectActionDelegate {
              if (!modelsFolder.exists()) modelsFolder.create(true, true, new NullProgressMonitor());
              URI csFileURI = URI.createPlatformResourceURI(modelsFolder.getFullPath().append(cSyntax.getName() + ".cs").toString(), true);
              csResource.setURI(csFileURI);
-             /*try {
-				csResource.save(null);
-			} catch (IOException e) {
-				//throw new CoreException(new Status(e)); TODO
-				e.printStackTrace();
-			}*/
-             
-
-        } catch (CoreException e) {e.printStackTrace();}
+        } 
+        catch (CoreException e) {
+        	e.printStackTrace();
+        }
     }
     
     /**
@@ -170,7 +176,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
      * @param packageName Name of the Java package.
      * @return Generated code.
      */
-    private String generatePluginXml(ConcreteSyntax cSyntax, String packageName) {
+    private static String generatePluginXml(ConcreteSyntax cSyntax, String packageName) {
         StringBuffer s = new StringBuffer();
         String factoryClassName = cSyntax.getName().substring(0, 1).toUpperCase() + 
         						  cSyntax.getName().substring(1) + "ResourceFactoryImpl";
@@ -236,7 +242,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
      * @param packageName Name of the Java package.
      * @return Generated code.
      */
-    private String generateManifestMF(ConcreteSyntax cSyntax, String packageName) {
+    private static String generateManifestMF(ConcreteSyntax cSyntax, String packageName) {
         StringBuffer s = new StringBuffer();
         
         s.append("Manifest-Version: 1.0\n");
