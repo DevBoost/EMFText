@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFTextEdit Parser Plugin: cs
+Bundle-SymbolicName: org.reuseware.emftextedit.concretesyntax.resource.cs;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Engineering Group - TU Dresden Germany
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.reuseware.emftextedit.concretesyntax,
+ org.reuseware.emftextedit.test,
+ org.reuseware.emftextedit.concretesyntax,
+ org.reuseware.emftextedit,
+ org.eclipse.core.resources
+Eclipse-LazyStart: true
+Export-Package: org.reuseware.emftextedit.concretesyntax.resource.cs
