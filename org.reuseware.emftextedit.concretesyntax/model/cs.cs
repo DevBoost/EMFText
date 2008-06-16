@@ -4,7 +4,7 @@ START     cs.ConcreteSyntax
 
 IMPORTS{
 		cs:<http://www.reuseware.org/emftextedit/concretesyntax>
-		} 
+} 
 
 TOKENS{
 	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$; 
