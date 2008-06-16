@@ -70,7 +70,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 	 * 
 	 * @param file The file that contains the concrete syntax definition.
 	 */
-    private void process(final IFile file) {
+    public void process(final IFile file) {
         try {                  
             ResourceSet rs = new ResourceSetImpl();
             Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
