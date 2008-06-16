@@ -1,6 +1,10 @@
 SYNTAXDEF cs 
 FOR       <http://www.reuseware.org/emftextedit/concretesyntax>
-START     ConcreteSyntax
+START     cs.ConcreteSyntax
+
+IMPORTS{
+		cs:<http://www.reuseware.org/emftextedit/concretesyntax>
+		} 
 
 TOKENS{
 	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$; 
@@ -12,7 +16,7 @@ TOKENS{
 
 RULES {
 
-  ConcreteSyntax ::= "SYNTAXDEF" #0 name[] !0 "FOR" #0 package['<','>']  !0 "START" #0 startSymbols[] ("," startSymbols[])* !0 !0 ("IMPORTS" "{" ( !2 imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
+  ConcreteSyntax ::= "SYNTAXDEF" #0 name[] !0 "FOR" #0 package['<','>']  !0 "START" #0 (startSymbols[] | startSymbols[QNAME]) ("," (startSymbols[] | startSymbols[QNAME]))* !0 !0 ("IMPORTS" "{" ( !2 imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
 
   Import         ::=  prefix[] ":" package['<','>'] ("WITH" "SYNTAX" concreteSyntax[])?;
 
