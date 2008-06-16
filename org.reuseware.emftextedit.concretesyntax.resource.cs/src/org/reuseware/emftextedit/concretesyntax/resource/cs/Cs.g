@@ -497,29 +497,29 @@ predefinedtoken returns [PreDefinedToken element = null]
 definition
 returns [Definition element = null]
 :
-	c0 = linebreak{ element = c0; }	|
-	c1 = derivedplaceholder{ element = c1; }	|
-	c2 = compounddefinition{ element = c2; }	|
-	c3 = csstring{ element = c3; }	|
+	c0 = derivedplaceholder{ element = c0; }	|
+	c1 = csstring{ element = c1; }	|
+	c2 = definedplaceholder{ element = c2; }	|
+	c3 = linebreak{ element = c3; }	|
 	c4 = whitespaces{ element = c4; }	|
-	c5 = definedplaceholder{ element = c5; }	|
+	c5 = compounddefinition{ element = c5; }	|
 	c6 = containment{ element = c6; }
 ;
 
 tokendefinition
 returns [TokenDefinition element = null]
 :
-	c0 = predefinedtoken{ element = c0; }	|
-	c1 = normaltoken{ element = c1; }	|
-	c2 = decoratedtoken{ element = c2; }
+	c0 = decoratedtoken{ element = c0; }	|
+	c1 = predefinedtoken{ element = c1; }	|
+	c2 = normaltoken{ element = c2; }
 ;
 
 cardinality
 returns [Cardinality element = null]
 :
-	c0 = plus{ element = c0; }	|
-	c1 = star{ element = c1; }	|
-	c2 = questionmark{ element = c2; }
+	c0 = star{ element = c0; }	|
+	c1 = questionmark{ element = c1; }	|
+	c2 = plus{ element = c2; }
 ;
 
 COMMENTS
