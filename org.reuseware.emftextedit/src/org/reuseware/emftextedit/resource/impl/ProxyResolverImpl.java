@@ -82,8 +82,7 @@ public class ProxyResolverImpl implements ProxyResolver {
 			EObject element = i.next();
 			if (!element.eIsProxy()) {
 				if (element.eClass().equals(type) || element.eClass().getEAllSuperTypes().contains(type)) {
-					String name = getName(element);
-					if (proxyURI.equals(name)) {
+					if (matches(element, proxyURI)) {
 						return element;
 					}
 				}
@@ -126,6 +125,52 @@ public class ProxyResolverImpl implements ProxyResolver {
 		return getName(element);
 	}
 	
+	private boolean matches(EObject element, String proxyUri) {
+		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature("name");
+		if (nameAttr instanceof EAttribute) {
+			if (proxyUri.equals(element.eGet(nameAttr))) return true;
+		}
+		else {
+			//try any other string attribute found
+			for(EAttribute strAttribute : element.eClass().getEAllAttributes()) {
+				if (strAttribute.getEType().getInstanceClassName().equals("java.lang.String")) {
+					if (proxyUri.equals(element.eGet(strAttribute))) return true;
+				}
+			}
+			
+			for (EOperation o : element.eClass().getEAllOperations()) {
+				if (o.getName().toLowerCase().endsWith("name") && o.getEParameters().size() == 0 ) {
+					Method method;
+					try {
+						method = element.getClass().getMethod(o.getName(), new Class[]{});
+						if (method != null) {
+							Object result = method.invoke(element, new Object[]{});
+							if (proxyUri.equals(result)) return true;
+						}
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchMethodException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			}
+			
+		}
+		return false;
+	}
+
 	private String getName(EObject element) {
 		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature("name");
 		if (nameAttr instanceof EAttribute) {
@@ -140,13 +185,13 @@ public class ProxyResolverImpl implements ProxyResolver {
 			}
 			
 			for (EOperation o : element.eClass().getEAllOperations()) {
-				if (o.getName().equals("getName")) {
+				if (o.getName().toLowerCase().endsWith("name") && o.getEParameters().size() == 0 ) {
 					Method method;
 					try {
-						method = element.getClass().getMethod("getName", new Class[]{});
+						method = element.getClass().getMethod(o.getName(), new Class[]{});
 						if (method != null) {
 							Object result = method.invoke(element, new Object[]{});
-							return result.toString();
+							return (String) result;
 						}
 					} catch (SecurityException e) {
 						// TODO Auto-generated catch block
@@ -172,6 +217,7 @@ public class ProxyResolverImpl implements ProxyResolver {
 		return null;
 	}
 
+	
 	public String deResolve(EObject element, EObject container,
 			EReference reference) {
 		return doDeResolve(element,container,reference);
