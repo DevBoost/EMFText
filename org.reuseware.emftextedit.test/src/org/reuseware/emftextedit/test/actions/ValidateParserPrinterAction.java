@@ -47,6 +47,8 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		String path = currentSelection.getFullPath().toString();
+		String inName = currentSelection.getName();
+		String outName = "test"+inName;
 		TextResource currentTextResource = (TextResource) resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
 			try {
 				currentTextResource.load(currentSelection.getContents(),null);
@@ -55,7 +57,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 				s.flush();
 				s.close();
 				IFolder parent = (IFolder)currentSelection.getParent();
-				IFile outFile = parent.getFile("test"+currentSelection.getName());
+				IFile outFile = parent.getFile(outName);
 				if(outFile.exists())
 					outFile.setContents(new ByteArrayInputStream(s.toByteArray()),false,true,null);
 				else
@@ -64,6 +66,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 				Shell shell = new Shell();
 				MessageDialog.openInformation(shell,e.getClass().getName(),e.getMessage());
 				e.printStackTrace();
+				return;
 			}
 
 
@@ -71,7 +74,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 		MessageDialog.openInformation(
 			shell,
 			"EMFTextEdit Tests",
-			"New Action was executed.");
+			"Successfully loaded and resolved model from " + inName +".\nSuccessfully deresolved and printed model to "+outName+".");
 	}
 
 	/**

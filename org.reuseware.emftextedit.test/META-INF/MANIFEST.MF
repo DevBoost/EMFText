@@ -4,7 +4,7 @@ Created-By: 10.0-b19 (Sun Microsystems Inc.)
 Bundle-ManifestVersion: 2
 Bundle-Name: Reuseware EMFTextEdit Tests
 Bundle-SymbolicName: org.reuseware.emftextedit.test; singleton:=true
-Bundle-Version: 0.8.0.v200805291729
+Bundle-Version: 0.8.0.v200806161729
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.ui,org.eclipse.core.resources,org.eclipse.
  core.runtime,org.eclipse.emf.ecore,org.reuseware.emftextedit
