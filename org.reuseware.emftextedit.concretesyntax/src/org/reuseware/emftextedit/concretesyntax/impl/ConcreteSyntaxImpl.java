@@ -243,7 +243,7 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<Rule> getAllRules() {
 		EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_RULES;		
