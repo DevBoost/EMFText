@@ -6,9 +6,13 @@ Bundle-Name: Reuseware EMFTextEdit
 Bundle-SymbolicName: org.reuseware.emftextedit; singleton:=true
 Bundle-Version: 0.8.0.v200805271120
 Bundle-Activator: org.reuseware.emftextedit.EMFTextEditPlugin
-Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.codegen.ecore
- ;visibility:=reexport,org.reuseware.emftextedit.concretesyntax;visibi
- lity:=reexport,org.eclipse.core.resources,org.eclipse.jdt.core
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.codegen.ecore;visibility:=reexport,
+ org.reuseware.emftextedit.concretesyntax;visibility:=reexport,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.emf.workspace,
+ org.eclipse.ocl.ecore
 Eclipse-LazyStart: true
 Bundle-ClassPath: antlr-3.0.1.jar,antlr-2.7.7.jar,stringtemplate.jar,.
 Export-Package: org.antlr.runtime,org.antlr.runtime.debug,org.antlr.ru

@@ -1,10 +1,18 @@
 package org.reuseware.emftextedit.resource.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.reuseware.emftextedit.resource.EMFTextOCLValidator;
 import org.reuseware.emftextedit.resource.EMFTextParser;
 import org.reuseware.emftextedit.resource.TextResource;
 
@@ -33,7 +41,27 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		lineInfo.clear();
 		charStartInfo.clear();
 		charEndInfo.clear();
+		
+		
 	}
+	
+
+	@Override
+	public void load(Map<?, ?> options) throws IOException {
+		super.load(options);
+		
+		EList<EObject> contents = getContents();
+		EMFTextOCLValidator oclValidator = new EMFTextOCLValidator();
+		Set<EObject> distinctObjects = new HashSet<EObject>();
+		distinctObjects.addAll(contents);
+		for (EObject eobject : distinctObjects) {
+			// TODO check if this leads to performance problems  
+			// - due to traversing some objects more than once
+		
+			oclValidator.analyse(eobject);
+		}
+	}
+
 
 	/**
 	 * Creates a empty instance.
