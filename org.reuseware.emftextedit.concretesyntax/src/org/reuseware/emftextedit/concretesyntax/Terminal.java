@@ -22,6 +22,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  *
  * @see org.reuseware.emftextedit.concretesyntax.ConcretesyntaxPackage#getTerminal()
  * @model abstract="true"
+ *        annotation="OCL Multiplicity\040of\040Structurural\040Feature\040does\040not\040match\040Cardinality='if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) \r\n\tthen true \r\n\telse (self.feature.ecoreFeature.upperBound = -1) \r\nendif'"
  * @generated
  */
 public interface Terminal extends Definition {

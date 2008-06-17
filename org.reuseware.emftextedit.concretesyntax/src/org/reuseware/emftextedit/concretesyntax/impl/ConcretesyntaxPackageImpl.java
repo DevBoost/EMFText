@@ -999,6 +999,26 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// OCL
+		createOCLAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>OCL</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createOCLAnnotations() {
+		String source = "OCL";		
+		addAnnotation
+		  (terminalEClass, 
+		   source, 
+		   new String[] {
+			 "Multiplicity of Structurural Feature does not match Cardinality", "if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) \r\n\tthen true \r\n\telse (self.feature.ecoreFeature.upperBound = -1) \r\nendif"
+		   });
 	}
 
 } //ConcretesyntaxPackageImpl

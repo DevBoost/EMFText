@@ -48,6 +48,10 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Terminal" abstract="true" eSuperTypes="#//Definition">
+    <eAnnotations source="OCL">
+      <details key="Multiplicity of Structurural Feature does not match Cardinality"
+          value="if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) &#xD;&#xA;&#x9;then true &#xD;&#xA;&#x9;else (self.feature.ecoreFeature.upperBound = -1) &#xD;&#xA;endif"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
   </eClassifiers>
