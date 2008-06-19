@@ -207,7 +207,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 				out.println("\t\t\tHashMap<String,Integer> printCountingMap = new HashMap<String,Integer>("+featureList.size()+");");
 				out.println("\t\t\tObject temp;");
 				for(EStructuralFeature feature:featureList){
-					if (feature instanceof EAttribute && ((EAttribute) feature).getEAttributeType().getName().equals("EBoolean") ) {
+					if (feature instanceof EAttribute 
+							&& ( ((EAttribute) feature).getEAttributeType().getName().equals("EBoolean")
+								|| ((EAttribute) feature).getEAttributeType().getName().equals("EBooleanObject")	
+								) ) {
 						out.println("\t\t\ttemp = element.is"+cap(feature.getName())+"();"); 
 					} 
 					else {
