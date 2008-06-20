@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 /**
  * A basic implementation for generators which generate java or antlr code. 
  * 
@@ -113,6 +115,8 @@ public abstract class BaseGenerator implements IGenerator{
         String t = s.substring(1);      
         return h + t ;
     }
+    
+  
     
     /**
      * Converts the first letter of the given string to lower case.
