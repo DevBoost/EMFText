@@ -2,9 +2,10 @@ package org.reuseware.emftextedit.codegen;
 
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.eclipse.core.resources.IFolder;
+import java.util.Map;
 
 /**
- * A resource package provides all information which are needed bye the ResourcePackageGenerator. 
+ * A resource package provides all information which are needed by the ResourcePackageGenerator. 
  * This means an resolved concrete syntax, a package name for parser and printer, 
  * a package name for resolvers (proxy and token resolvers) and a resource targetfolder.
  * 
@@ -19,14 +20,16 @@ public class ResourcePackage {
 	private String csPackageName;
 	private String resolverPackageName;
 	private IFolder targetFolder;
+	private Map<String,Boolean> preferences;
 	
-	public ResourcePackage(ConcreteSyntax csSource,String csPackageName,IFolder targetFolder){
+	public ResourcePackage(ConcreteSyntax csSource,String csPackageName,IFolder targetFolder, Map<String,Boolean> preferences){
 		if(csSource==null||targetFolder==null)
 			throw new NullPointerException("A ConcreteSyntax and an IFolder have to be specified!");
 		this.csSource = csSource;
 		this.targetFolder = targetFolder;
 		this.csPackageName = csPackageName;
 		resolverPackageName = (csPackageName==null||csPackageName.equals("")?"":csPackageName+  ".") + "analysis";
+		this.preferences = preferences;
 	}
 	
 	/**
@@ -56,6 +59,10 @@ public class ResourcePackage {
 	 */
 	public IFolder getTargetFolder(){
 		return targetFolder;
+	}
+	
+	public boolean getPreference(String name){
+		return preferences==null?false:(preferences.get(name)==null?false:preferences.get(name));
 	}
 	
 }

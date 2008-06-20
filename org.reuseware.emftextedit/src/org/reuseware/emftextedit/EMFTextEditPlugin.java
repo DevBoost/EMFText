@@ -16,15 +16,11 @@ import org.osgi.framework.BundleContext;
  * @author Jendrik Johannes (jj2)
  */
 public class EMFTextEditPlugin extends Plugin {
-
-	// The plug-in ID
-	public static final String PLUGIN_ID = "org.reuseware.ecoretextedit";
-
-	// The shared instance
-	private static EMFTextEditPlugin plugin;
 	
-	//The cs extension point id
-    public static final String EP_CONCRETESYNTAX_ID     = "org.reuseware.emftextedit.concretesyntax";
+	
+	public static final String PLUGIN_ID = "org.reuseware.ecoretextedit";
+	private static EMFTextEditPlugin plugin;
+	public static final String EP_CONCRETESYNTAX_ID     = "org.reuseware.emftextedit.concretesyntax";
 	
 	/**
 	 * The constructor
