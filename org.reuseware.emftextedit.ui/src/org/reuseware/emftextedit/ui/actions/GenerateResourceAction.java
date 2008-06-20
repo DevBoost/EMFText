@@ -1,7 +1,9 @@
 package org.reuseware.emftextedit.ui.actions;
 
 import java.io.ByteArrayInputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
+import java.util.HashMap;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
@@ -10,10 +12,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -28,13 +29,17 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.reuseware.emftextedit.EMFTextEditPlugin;
 import org.reuseware.emftextedit.codegen.ResourcePackage;
 import org.reuseware.emftextedit.codegen.ResourcePackageGenerator;
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.concretesyntax.Import;
+import org.reuseware.emftextedit.ui.EMFTextEditUIPlugin;
 import org.reuseware.emftextedit.ui.MarkerHelper;
 
 /**
@@ -61,7 +66,6 @@ public class GenerateResourceAction implements IObjectActionDelegate {
                     if (file.getFileExtension().startsWith("cs")) process(file);
                 }
             }
-
 		}
 	}
     
@@ -70,104 +74,137 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 	 * 
 	 * @param file The file that contains the concrete syntax definition.
 	 */
-    public static void process(final IFile file) {
-        try {                  
-            ResourceSet rs = new ResourceSetImpl();
-            Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
-  
-            MarkerHelper.unmark(csResource);
-            if (!csResource.getErrors().isEmpty()) {
-            	MarkerHelper.mark(csResource);
-            	return;
-            }
-            
-            final ConcreteSyntax cSyntax = (ConcreteSyntax) csResource.getContents().get(0);
-            String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
-            String projectName = csPackageName;
-    
-            if (projectName == null) 
-            	return;
-            
-             //create a project
-             IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-             if (!project.exists()) {
-                 project.create(new NullProgressMonitor());
-             }
-             project.open(new NullProgressMonitor());
-             IProjectDescription description = project.getDescription();
-             description.setNatureIds(new String [] {JavaCore.NATURE_ID, "org.eclipse.pde.PluginNature"});
-             ICommand command1 = description.newCommand();
-             command1.setBuilderName("org.eclipse.jdt.core.javabuilder");
-             ICommand command2 = description.newCommand();
-             command2.setBuilderName("org.eclipse.pde.ManifestBuilder");
-             ICommand command3 = description.newCommand();
-             command3.setBuilderName("org.eclipse.pde.SchemaBuilder");
-             description.setBuildSpec(new ICommand [] {command1,command2,command3});
-             project.setDescription(description,null);
-             
-             IFolder srcFolder = project.getFolder("/src");
-             IFolder outFolder = project.getFolder("/bin");
- 
-             IJavaProject jp = JavaCore.create(project);
-             
-             jp.setRawClasspath(new IClasspathEntry [] {
-                     JavaCore.newSourceEntry(srcFolder.getFullPath()), 
-                     JavaRuntime.getJREVariableEntry(), 
-                     JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins"))},
-                     outFolder.getFullPath(), new NullProgressMonitor());
-             
-             //generate the resource class, parser, and printer
-             //generator.generate(absSrcFolderName);
-             ResourcePackage pck = new ResourcePackage(cSyntax,csPackageName,srcFolder);
-             ResourcePackageGenerator.generate(pck);
-             
-             //erors from parser generator?
-             if (!csResource.getErrors().isEmpty()) {
-            	 MarkerHelper.mark(csResource);
-             }
-  
-             
-             IFolder metaFolder = project.getFolder("/META-INF");
-             IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
-             IFile pluginXMLFile = project.getFile("/plugin.xml");
-             if (!metaFolder.exists()) 
-            	 metaFolder.create(true, true, new SubProgressMonitor(new NullProgressMonitor(),1));
-             
-             if (manifestMFFile.exists()){
-            	 manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true,new NullProgressMonitor());
-             }
-             else{
-                 manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,new NullProgressMonitor());            	 
-             }
-             
-             if (pluginXMLFile.exists()){
-            	 pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,new NullProgressMonitor());
-             }
-             else{
-               	 pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,new NullProgressMonitor());
- 
-             }
-             project.refreshLocal(IProject.DEPTH_INFINITE, new NullProgressMonitor());
-             
-             //also mark errors on imported concrete syntaxes
-             for(Import aImport : cSyntax.getImports()) {
-            	 ConcreteSyntax importedCS = aImport.getConcreteSyntax();
-            	 if (importedCS != null) {
-	                 MarkerHelper.unmark(importedCS.eResource());
-	            	 MarkerHelper.mark(aImport.eResource());
-            	 }
-             }
-             
-             //copy the cs definition to the plugin for reuse
-             IFolder modelsFolder = project.getFolder("/model");
-             if (!modelsFolder.exists()) modelsFolder.create(true, true, new NullProgressMonitor());
-             URI csFileURI = URI.createPlatformResourceURI(modelsFolder.getFullPath().append(cSyntax.getName() + ".cs").toString(), true);
-             csResource.setURI(csFileURI);
-        } 
-        catch (CoreException e) {
+    public void process(final IFile file) {
+        try {                 
+        	
+        	IRunnableWithProgress runnable = new IRunnableWithProgress(){
+        		public void run(IProgressMonitor monitor)throws InvocationTargetException, InterruptedException {
+        			try{
+        				SubMonitor progress = SubMonitor.convert(monitor, 100);
+        				ResourceSet rs = new ResourceSetImpl();
+        				Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
+			  
+        				MarkerHelper.unmark(csResource);
+        				if (!csResource.getErrors().isEmpty()) {
+        					MarkerHelper.mark(csResource);
+        					return;
+        				}
+			            
+        				final ConcreteSyntax cSyntax = (ConcreteSyntax) csResource.getContents().get(0);
+        				String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
+        				String projectName = csPackageName;
+			    
+        				if (projectName == null) 
+        					return;
+        				
+        				//create a project
+        				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+        				if (!project.exists()) {
+        					project.create(progress.newChild(10));
+        				}
+        				project.open(progress.newChild(10));
+        				IProjectDescription description = project.getDescription();
+        				description.setNatureIds(new String [] {JavaCore.NATURE_ID, "org.eclipse.pde.PluginNature"});
+        				ICommand command1 = description.newCommand();
+        				command1.setBuilderName("org.eclipse.jdt.core.javabuilder");
+        				ICommand command2 = description.newCommand();
+        				command2.setBuilderName("org.eclipse.pde.ManifestBuilder");
+        				ICommand command3 = description.newCommand();
+        				command3.setBuilderName("org.eclipse.pde.SchemaBuilder");
+        				description.setBuildSpec(new ICommand [] {command1,command2,command3});
+        				project.setDescription(description,null);
+			             
+        				IFolder srcFolder = project.getFolder("/src");
+        				IFolder outFolder = project.getFolder("/bin");
+			 
+        				IJavaProject jp = JavaCore.create(project);
+			             
+        				jp.setRawClasspath(
+        				   new IClasspathEntry [] {
+        						JavaCore.newSourceEntry(srcFolder.getFullPath()), 
+        						JavaRuntime.getJREVariableEntry(), 
+        						JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins"))},
+			               outFolder.getFullPath(), progress.newChild(5));
+			             
+        				//generate the resource class, parser, and printer
+        				//generator.generate(absSrcFolderName);
+        				ResourcePackage pck = new ResourcePackage(cSyntax,csPackageName,srcFolder,copyMapFromPreferenceStore());
+        				ResourcePackageGenerator.generate(pck,progress.newChild(50));
+			             
+        				//erors from parser generator?
+        				if (!csResource.getErrors().isEmpty()) {
+        					MarkerHelper.mark(csResource);
+        				}
+			  
+			             
+        				IFolder metaFolder = project.getFolder("/META-INF");
+        				IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
+        				IFile pluginXMLFile = project.getFile("/plugin.xml");
+        				if (!metaFolder.exists()) 
+        					metaFolder.create(true, true, progress.newChild(5));
+			             
+        				if (manifestMFFile.exists()){
+        					manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true,progress.newChild(5));
+        				}
+        				else{
+        					manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,progress.newChild(5));            	 
+        				}
+			             
+        				if (pluginXMLFile.exists()){
+        					pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,progress.newChild(5));
+        				}
+        				else{
+        					pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,progress.newChild(5));
+			 
+        				}
+        				project.refreshLocal(IProject.DEPTH_INFINITE,progress.newChild(10));
+			             
+        				//also mark errors on imported concrete syntaxes
+        				for(Import aImport : cSyntax.getImports()) {
+        					ConcreteSyntax importedCS = aImport.getConcreteSyntax();
+        					if (importedCS != null) {
+        						MarkerHelper.unmark(importedCS.eResource());
+        						MarkerHelper.mark(aImport.eResource());
+        					}
+        				}
+			             
+        				//copy the cs definition to the plugin for reuse
+        				IFolder modelsFolder = project.getFolder("/model");
+        				if (!modelsFolder.exists()) 
+        					modelsFolder.create(true, true, progress.newChild(5));
+        			     URI csFileURI = URI.createPlatformResourceURI(modelsFolder.getFullPath().append(cSyntax.getName() + ".cs").toString(), true);
+        				csResource.setURI(csFileURI);
+        			}
+			        catch (CoreException e) {
+			        	throw new InvocationTargetException(e);
+			        }
+        		}
+        		
+        	};
+        	
+        	PlatformUI.getWorkbench().getProgressService().busyCursorWhile(runnable);
+         } 
+        catch (InvocationTargetException e){
+        	e.getTargetException().printStackTrace();
+        }
+        catch (InterruptedException e){
         	e.printStackTrace();
         }
+     }
+    
+    private static HashMap<String,Boolean> copyMapFromPreferenceStore(){
+    	HashMap<String,Boolean> preferences = new HashMap<String,Boolean>();
+    	IPreferenceStore store = EMFTextEditUIPlugin.getDefault().getPreferenceStore();
+    	preferences.put(ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME,store.getBoolean(ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME));
+    	preferences.put(ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME,store.getBoolean(ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME));
+    	preferences.put(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME,store.getBoolean(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME));
+    	preferences.put(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME,store.getBoolean(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME));
+    	preferences.put(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME,store.getBoolean(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME));
+    	preferences.put(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVERS_NAME,store.getBoolean(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVERS_NAME));
+    	preferences.put(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME,store.getBoolean(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME));
+    	return preferences;
     }
+    
     
     /**
      * Generate the XML file describing the plugin.
@@ -213,23 +250,26 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         s.append("      </file-association>\n");
         s.append("   </extension>\n\n");
         
-        String baseId = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getName();
-        
-        s.append("\t<extension\n");
-        s.append("\t\t\tpoint=\"org.eclipse.ui.popupMenus\">\n");
-        s.append("\t\t<objectContribution\n");
-        s.append("\t\t\t\tid=\""+baseId+".contributions\"\n");
-        s.append("\t\t\t\tobjectClass=\"org.eclipse.core.resources.IFile\"\n");
-        s.append("\t\t\t\tnameFilter=\"*."+cSyntax.getName()+"\">\n");
-        s.append("\t\t\t<action\n");
-        s.append("\t\t\t\t\tclass=\"org.reuseware.emftextedit.test.actions.ValidateParserPrinterAction\"\n");
-        s.append("\t\t\t\t\tenablesFor=\"1\"\n");
-        s.append("\t\t\t\t\tid=\""+baseId+".validate\"\n");
-        s.append("\t\t\t\t\tlabel=\"Validate\"\n");
-        s.append("\t\t\t\t\tmenubarPath=\"org.reuseware.emftextedit.test.menu1/group1\">\n");
-        s.append("\t\t\t</action>\n");
-        s.append("\t\t</objectContribution>\n");
-        s.append("\t</extension>\n");
+        if(EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.GENERATE_TEST_ACTION_NAME)){
+            String baseId = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getName();
+            
+            s.append("\t<extension\n");
+            s.append("\t\t\tpoint=\"org.eclipse.ui.popupMenus\">\n");
+            s.append("\t\t<objectContribution\n");
+            s.append("\t\t\t\tid=\""+baseId+".contributions\"\n");
+            s.append("\t\t\t\tobjectClass=\"org.eclipse.core.resources.IFile\"\n");
+            s.append("\t\t\t\tnameFilter=\"*."+cSyntax.getName()+"\">\n");
+            s.append("\t\t\t<action\n");
+            s.append("\t\t\t\t\tclass=\"org.reuseware.emftextedit.test.actions.ValidateParserPrinterAction\"\n");
+            s.append("\t\t\t\t\tenablesFor=\"1\"\n");
+            s.append("\t\t\t\t\tid=\""+baseId+".validate\"\n");
+            s.append("\t\t\t\t\tlabel=\"Validate\"\n");
+            s.append("\t\t\t\t\tmenubarPath=\"org.reuseware.emftextedit.test.menu1/group1\">\n");
+            s.append("\t\t\t</action>\n");
+            s.append("\t\t</objectContribution>\n");
+            s.append("\t</extension>\n");        	
+        }
+ 
         s.append("</plugin>\n");
       
         return s.toString();
@@ -255,7 +295,9 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         s.append("Require-Bundle: org.eclipse.core.runtime,\n");
         s.append("  org.eclipse.emf.ecore,\n");
         s.append("  " + cSyntax.getPackage().getGenModel().getModelPluginID() + ",\n");
-        s.append("  org.reuseware.emftextedit.test,\n");
+        if(EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.GENERATE_TEST_ACTION_NAME)){
+            s.append("  org.reuseware.emftextedit.test,\n");	
+        }
         EList<GenModel> importedPlugins = new BasicEList<GenModel>();
         for(Import aImport : cSyntax.getImports()) {
         	GenModel m = aImport.getPackage().getGenModel();
