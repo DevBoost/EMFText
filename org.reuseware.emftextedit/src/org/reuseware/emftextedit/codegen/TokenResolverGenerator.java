@@ -2,8 +2,6 @@ package org.reuseware.emftextedit.codegen;
 
 import java.io.PrintWriter;
 
-import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
-
 /**
  * A TokenResolverGenerator generates TokenResolvers for the given TokenDefinitions.
  * 

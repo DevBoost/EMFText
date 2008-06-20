@@ -1,26 +1,6 @@
 package org.reuseware.emftextedit.codegen;
 
 import java.io.PrintWriter;
-import java.util.Iterator;
-
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.reuseware.emftextedit.concretesyntax.Choice;
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
-import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
-import org.reuseware.emftextedit.concretesyntax.CsString;
-import org.reuseware.emftextedit.concretesyntax.Definition;
-import org.reuseware.emftextedit.concretesyntax.LineBreak;
-import org.reuseware.emftextedit.concretesyntax.PLUS;
-import org.reuseware.emftextedit.concretesyntax.Rule;
-import org.reuseware.emftextedit.concretesyntax.STAR;
-import org.reuseware.emftextedit.concretesyntax.Sequence;
-import org.reuseware.emftextedit.concretesyntax.Terminal;
-import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
-
 
 public class TextPrinterGenerator extends BaseGenerator{
 	

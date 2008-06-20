@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 /**
  * A basic implementation for generators which generate java or antlr code. 
  * 
@@ -92,7 +90,7 @@ public abstract class BaseGenerator implements IGenerator{
 	
 	
 	/**
-	 * Can be used by base classes to collect porblems.
+	 * Can be used by base classes to collect problems.
 	 * 
 	 * @param problem
 	 */
