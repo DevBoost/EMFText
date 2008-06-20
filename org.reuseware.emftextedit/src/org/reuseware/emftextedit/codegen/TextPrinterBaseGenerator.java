@@ -207,15 +207,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 				out.println("\t\t\tHashMap<String,Integer> printCountingMap = new HashMap<String,Integer>("+featureList.size()+");");
 				out.println("\t\t\tObject temp;");
 				for(EStructuralFeature feature:featureList){
-					if (feature instanceof EAttribute 
-							&& ( ((EAttribute) feature).getEAttributeType().getName().equals("EBoolean")
-								|| ((EAttribute) feature).getEAttributeType().getName().equals("EBooleanObject")	
-								) ) {
-						out.println("\t\t\ttemp = element.is"+cap(feature.getName())+"();"); 
-					} 
-					else {
-						out.println("\t\t\ttemp = element.get"+cap(feature.getName())+"();"); 	
-					}
+					out.println("\t\t\ttemp = element."+ generateAccessMethod(feature) +";"); 	
 					out.println("\t\t\tprintCountingMap.put(\""+feature.getName()+"\",temp ==null?0:"+(feature.getUpperBound()==-1?"((Collection)temp).size()":"1")+ ");");
 				}					
 			}
@@ -424,7 +416,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 						
 						out.println(basetab+"if(count>0){");
 						if(cardinality == null || ( cardinality instanceof QUESTIONMARK && !neededFeatures.contains(featureName))){
-							out.println(basetab+"\tObject o =element.get"+cap(feature.getName())+"();");
+							out.println(basetab+"\tObject o =element."+ generateAccessMethod(feature) +";");
 							if(feature.getUpperBound()!=1)
 								out.println(basetab+"\to = ((List<Object>)o).get(((List<Object>)o).size()-count);");
 							out.println(basetab+"\t"+printStatement);
@@ -433,7 +425,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 						}
 						else if(cardinality instanceof PLUS || cardinality instanceof STAR){
 								if(feature.getUpperBound()!=1){
-									out.println(basetab+"\tListIterator it  = ((List)element.get"+cap(feature.getName())+"()).listIterator(((List)element.get"+cap(feature.getName())+"()).size()-count);");
+									out.println(basetab+"\tListIterator it  = ((List)element."+ generateAccessMethod(feature) +").listIterator(((List)element."+ generateAccessMethod(feature)+").size()-count);");
 									out.println(basetab+"\twhile(it.hasNext()){");
 									out.println(basetab+"\t\tObject o = it.next();");
 									if(cardinality instanceof STAR&&neededFeatures.contains(featureName)){
@@ -445,7 +437,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 									out.println(basetab+"\tprintCountingMap.put(\"" +featureName+ "\",0);");
 								}
 								else if(cardinality instanceof PLUS){
-									out.println(basetab+"\tObject o =element.get"+cap(feature.getName())+"();");
+									out.println(basetab+"\tObject o =element."+ generateAccessMethod(feature) + ";");
 									out.println(basetab+"\t"+printStatement);
 									out.println(basetab+"\tprintCountingMap.put(\"" +featureName+ "\",count-1);");									
 								}
@@ -495,5 +487,20 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 	   out.println("\t}");
 	}
 
+	  protected static String generateAccessMethod(EStructuralFeature f) {
+	    	String method = "";
+	    	if (f instanceof EAttribute 
+	    			&& ( ((EAttribute) f).getEAttributeType().getName().equals("EBoolean")
+						|| ((EAttribute) f).getEAttributeType().getName().equals("EBooleanObject")	
+						) 
+				) 
+	    	{
+				method = "is" + cap(f.getName())+"()"; 
+			} 
+			else {
+				method = "get" + cap(f.getName())+"()"; 
+			}
+	    	return method;
+	    }
 
 }

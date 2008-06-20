@@ -2,6 +2,8 @@ package org.reuseware.emftextedit.codegen;
 
 import java.io.PrintWriter;
 
+import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
+
 /**
  * A TokenResolverGenerator generates TokenResolvers for the given TokenDefinitions.
  * 
@@ -54,7 +56,6 @@ public class TokenResolverGenerator extends BaseGenerator {
 		if(definition.getPrefix()!=null){
 			out.println("\t\tresult = \"" + escapeChars(definition.getPrefix()) + "\" + result;");
 		}
-
 		out.println("\t\treturn result;");
 		out.println("\t}");
 		out.println();
@@ -73,6 +74,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 				out.println("\t\tlexem = lexem.replaceAll(\"\\\\\\\\\"+java.util.regex.Pattern.quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
 			}
 		}
+		
 		out.println("\t\treturn super.resolve(lexem,feature,container,resource);");
 		out.println("\t}");
 		
