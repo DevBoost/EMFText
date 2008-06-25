@@ -48,7 +48,9 @@ public class MetamodelManager {
 			            	}
 			            	// added to resolve imported GenPackages too. 
 			            	for(GenPackage gp : genModel.getUsedGenPackages()) {
-			            		genPackages.put(gp.getNSURI(), gp);
+			            		if(gp.getEcorePackage() != null) {
+			            			genPackages.put(gp.getNSURI(), gp);
+			            		}
 			            	}
 						}
 						return false;
