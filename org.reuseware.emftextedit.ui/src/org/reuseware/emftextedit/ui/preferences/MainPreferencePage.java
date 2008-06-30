@@ -38,6 +38,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage implements
 		generatorGroup.setLayoutData(new GridData((GridData.GRAB_HORIZONTAL|GridData.FILL_HORIZONTAL)));
 		
 		BooleanFieldEditor genTestAction = new BooleanFieldEditor(EMFTextEditUIPlugin.GENERATE_TEST_ACTION_NAME, "&Contribute Test Action",BooleanFieldEditor.DEFAULT, generatorGroup);
+		BooleanFieldEditor ovrPluginConfig = new BooleanFieldEditor(EMFTextEditUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME, "&Allways Override 'plugin.xml' and 'MANIFEST.MF'",BooleanFieldEditor.DEFAULT, generatorGroup);
 		BooleanFieldEditor ovrAntlrSpec = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME, "&Allways Override ANTLR grammar",BooleanFieldEditor.DEFAULT, generatorGroup);
 		BooleanFieldEditor ovrProxyResolvers = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME, "&Allways Override Proxy Resolvers",BooleanFieldEditor.DEFAULT, generatorGroup);
 		BooleanFieldEditor ovrTreeAnalyser = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME, "&Allways Override Tree Analyser",BooleanFieldEditor.DEFAULT, generatorGroup);
@@ -47,6 +48,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage implements
 		BooleanFieldEditor ovrPrinter = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME, "&Allways Override Printer",BooleanFieldEditor.DEFAULT, generatorGroup);
 	
 		addField(genTestAction);
+		addField(ovrPluginConfig);
 		addField(ovrAntlrSpec);
 		addField(ovrProxyResolvers);
 		addField(ovrTreeAnalyser);

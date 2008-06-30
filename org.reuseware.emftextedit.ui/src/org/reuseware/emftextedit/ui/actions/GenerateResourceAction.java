@@ -136,7 +136,8 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         					MarkerHelper.mark(csResource);
         				}
 			  
-			             
+			            boolean overridePluginConfig = EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME);
+        			      	  
         				IFolder metaFolder = project.getFolder("/META-INF");
         				IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
         				IFile pluginXMLFile = project.getFile("/plugin.xml");
@@ -144,14 +145,16 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         					metaFolder.create(true, true, progress.newChild(5));
 			             
         				if (manifestMFFile.exists()){
-        					manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true,progress.newChild(5));
+        					if(overridePluginConfig)
+        						manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true,progress.newChild(5));
         				}
         				else{
         					manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,progress.newChild(5));            	 
         				}
 			             
         				if (pluginXMLFile.exists()){
-        					pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,progress.newChild(5));
+        					if(overridePluginConfig)
+        						pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,progress.newChild(5));
         				}
         				else{
         					pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,progress.newChild(5));
