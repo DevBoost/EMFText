@@ -630,7 +630,7 @@ public class TextParserGenerator extends BaseGenerator{
     		if(pref!=null&&pref.length()>0){
     			derivedTokenName = DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(pref) + "_" + deriveCodeSequence(suff);
     			if(!derivedTokens.containsKey(derivedTokenName)){
-    				derivedExpression = "(~('"+ escapeRegexChars(suff) +"')|('\\\\''"+escapeRegexChars(suff)+"'))*";
+    				derivedExpression = "(~('"+ escapeLiteralChars(suff) +"')|('\\\\''"+escapeLiteralChars(suff)+"'))*";
     				InternalTokenDefinition result =  new InternalTokenDefinitionImpl(derivedTokenName,derivedExpression,pref,suff,null,true);
     				derivedTokens.put(derivedTokenName,result);
     			}	
@@ -638,7 +638,7 @@ public class TextParserGenerator extends BaseGenerator{
     		else{
        			derivedTokenName = DERIVED_TOKEN_NAME + "_" + "_" + deriveCodeSequence(suff);
     			if(!derivedTokens.containsKey(derivedTokenName)){
-    				derivedExpression =  "(~('"+ escapeRegexChars(suff) +"')|( '\\\\' '"+escapeRegexChars(suff)+"' ))* '";
+    				derivedExpression =  "(~('"+ escapeLiteralChars(suff) +"')|( '\\\\' '"+escapeLiteralChars(suff)+"' ))* '";
     				InternalTokenDefinition result =  new InternalTokenDefinitionImpl(derivedTokenName,derivedExpression,null,suff,null,true);
     				derivedTokens.put(derivedTokenName,result);
     			}	
@@ -678,10 +678,10 @@ public class TextParserGenerator extends BaseGenerator{
     }
     
     
-    private String escapeRegexChar(char candidate){
+    private String escapeLiteralChar(char candidate){
     	String result = "";
     	switch (candidate){
-    		case '\'': case '\\': case '~': case '*' : case '+' :case '?': case '(' : case ')': 
+    		case '\'': case '\\': 
     			result += "\\";
     		default:
     			result += candidate;
@@ -689,13 +689,21 @@ public class TextParserGenerator extends BaseGenerator{
     	return result;
     }
     
-    private String escapeRegexChars(String candidate){
+    /**
+     * Used to escape prefix/suffix strings (surrounded by "'" in ANTLR).
+     * 
+     */
+    private String escapeLiteralChars(String candidate){
     	StringBuffer escaped = new StringBuffer();
     	char[] chars = candidate.toCharArray();
-    	for(int i=0;i<chars.length;i++)
-    		escaped.append(escapeRegexChar(chars[i]));
+    	for(int i=0;i<chars.length;i++){
+    		escaped.append(escapeLiteralChar(chars[i]));
+    	}
+    		
     	return escaped.toString();
     }
+    
+  
 	
 	private void printTokenDefinitions(PrintWriter out){
 		Set<String> processedTokenNames = new HashSet<String>();
@@ -747,14 +755,14 @@ public class TextParserGenerator extends BaseGenerator{
 		out.print("\t");
 		
 		if(def.getPrefix()!=null && def.getPrefix().length()>0){
-			String regex = "('" + escapeRegexChars(def.getPrefix()) + "')";
+			String regex = "('" + escapeLiteralChars(def.getPrefix()) + "')";
 			out.print(regex);
 		}
 		
 		out.print(def.getExpression());
 		
 		if(def.getSuffix()!=null && def.getPrefix().length()>0){
-			String regex = "('" + escapeRegexChars(def.getSuffix()) + "')";
+			String regex = "('" + escapeLiteralChars(def.getSuffix()) + "')";
 			out.print(regex);
 		}
 		
