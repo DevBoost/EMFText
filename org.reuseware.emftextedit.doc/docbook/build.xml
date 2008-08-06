@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+This is a simple ANT buildfile for docbook transformations. Allows for standard XML-to-XML 
+transformations (makexsldoc target), eclipse help generation (makeeclipsedoc target, defaul) 
+and staged XML-to-XMLFO-to-NonXML transformations (makefodoc target).   
+
+Parametrizsation can be done via build.properties.  
+
+BUG:
+XSL Processor XALAN 2.7.1 works fine, unless you do not use a XSL skript with multiple output 
+(e.g. XHTML-Chunks) and pathnames with blanks (e.g. c:\Dokumente und Einstellungen\...). 
+In the case of multiple output files, blanks will be escaped by XALAN (e.g. c:\Dokument%2520und%2520Einstellungen)! 
+
+-->
+
+<project basedir="./" default="makeeclipsedoc" name="Docbook">
+	
+	<property file="build.properties"/>
+	
+	<!--including fop task to enable fo-stylesheet processing-->
+	<taskdef name="fop" classname="org.apache.fop.tools.anttasks.Fop">
+	  <classpath>
+	    <fileset dir="lib">
+	      <include name="*.jar"/>
+	      <exclude name="fop.jar"/>
+	    </fileset>
+	    <fileset dir="lib">
+	      <include name="fop.jar"/>
+	    </fileset>
+	  </classpath>
+	</taskdef>
+	
+	<!-- clean output folders -->
+	<target name="clean" >	
+		<delete dir="${documentation.folder}"></delete>
+		<delete dir="${fo.temp}"></delete>
+	</target>
+	
+	<!--basic xsl task used to define xsl transformations-->
+	<macrodef name="xslmacro" >
+	    <attribute name="documentation.folder"/>
+		<attribute name="xsl.style"/>
+		<attribute name="xsl.format"/>
+	    <sequential>
+		   <mkdir dir="@{documentation.folder}"></mkdir>
+	 	   <xslt basedir="${documentation.basedir}" includes="${documentation.source}" classpath="lib/xalan.jar" destdir="@{documentation.folder}" extension=".@{xsl.format}" style="@{xsl.style}" >
+	    	</xslt>
+	       <copy todir="@{documentation.folder}">
+			   <fileset dir="${documentation.basedir}">
+			  	  <include name="*/**"/>
+			   	  <exclude name="${documentation.source}"/> 
+			  	  <exclude name="${documentation.subsources}"/>
+			   </fileset> 
+			</copy>
+	    </sequential>
+	</macrodef>
+	
+	<!--standard xsl task: creation of xml output (e.g. html) -->	
+	<target name="makexsldoc" depends="clean">
+		<xslmacro documentation.folder="${documentation.folder}" xsl.format="${xsl.format}" xsl.style="${xsl.style}"/>
+	</target>
+	
+	<!--default task: creation of fo-files and further fop transformation to other format (e.g. pdf) -->
+	<target name="makefodoc" depends="clean">
+		<xslmacro documentation.folder="${fo.temp}" xsl.format="fo" xsl.style="${fo.style}"/>
+		<mkdir dir="${documentation.folder}"/>
+		<fop outdir="${documentation.folder}" format="${fo.format}">
+			<fileset dir="${fo.temp}">
+				<include name="*.fo"/>
+			</fileset>
+		</fop>
+		<delete dir="${fo.temp}" />
+	</target>
+	
+	<!-- extra target for eclipse ... extra parameters for plugin.xml and specific folder structure needed  -->
+	<target name="makeeclipsedoc" depends="clean">
+		<mkdir dir="${documentation.folder}"></mkdir>
+	 	<xslt basedir="${documentation.basedir}" includes="${documentation.source}" classpath="lib/xalan.jar" destdir="${documentation.folder}" style="${eclipse.style}" >
+	    	<param name="base.dir" expression="${eclipse.html.subfolder}"/>
+	 		<param name="eclipse.plugin.name" expression="${eclipse.plugin.name}"/>
+	 		<param name="eclipse.plugin.id" expression="${eclipse.plugin.id}"/>
+	 		<param name="eclipse.plugin.provider" expression="${eclipse.plugin.provider}"/>
+	 	</xslt>
+	    <!-- copy all, except images -->
+		<copy todir="${documentation.folder}">
+		   <fileset dir="${documentation.basedir}">
+		  	  <include name="*/**"/>
+		   	  <exclude name="images/"/>
+		   	  <exclude name="${documentation.source}"/> 
+		  	  <exclude name="${documentation.subsources}"/>
+		   </fileset> 
+		</copy>
+		 <!-- copy images to html subfolder -->
+	    <copy todir="${documentation.folder}/${eclipse.html.subfolder}">
+		   <fileset dir="${documentation.basedir}">
+		  	  <include name="images/"/>
+		   </fileset> 
+		</copy>
+		<copy todir="${eclipse.plugin.root}">
+		   <fileset dir="${documentation.folder}">
+		   		<exclude name="emftext.html"/>
+		   </fileset>
+       </copy>
+	</target>
+</project>

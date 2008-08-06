@@ -1,0 +1,35 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter&nbsp;2.&nbsp;Using EMFTextEdit</title><meta content="DocBook XSL Stylesheets V1.74.0" name="generator"><link rel="home" href="index.html" title="EMFTextEdit User Documentation"><link rel="up" href="index.html" title="EMFTextEdit User Documentation"><link rel="prev" href="ch01.html" title="Chapter&nbsp;1.&nbsp;Introduction"><link rel="next" href="ch02s02.html" title="Development Process"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter&nbsp;2.&nbsp;Using EMFTextEdit</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="ch01.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch02s02.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="N20042"></a>Chapter&nbsp;2.&nbsp;Using EMFTextEdit</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="ch02.html#N20047">Installation and Requirements</a></span></dt><dt><span class="section"><a href="ch02s02.html">Development Process</a></span></dt></dl></div>
+  
+  <div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="N20047"></a>Installation and Requirements</h2></div></div></div>
+    
+
+    <p>EMFTextEdit (Version 0.8.3) currently runs on Eclipse 3.4. For
+    installing the tool simply select the <span class="emphasis"><em>org.reuseware.emftextedit</em></span>
+    feature from the Reuseware Update Site. Note that there are dependencies
+    to several related plugins from the <a class="link" href="???" target="_top">Eclipse Modeling Project</a> which also have
+    to be installed. Although these dependencies can normally be resolved by
+    the Eclipse update manager we list required features here: </p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>org.eclipse.emf.ecore.edit (2.4.0 recommended)</p>
+      </li><li>
+        <p>org.eclipse.emf.workspace (1.2.0 recommended)</p>
+      </li><li>
+        <p>org.eclipse.ocl (1.2.0)</p>
+      </li><li>
+        <p>org.eclipse.emf.ecore (2.4.0 recommended)</p>
+      </li><li>
+        <p>org.eclipse.emf.ecore.codegen (2.4.0 recommended)</p>
+      </li></ul></div>
+   <p>EMFTextEdit consists of several plugins. org.reuseware.emftextedit contains all components being 
+    responsible for code generation, e.g. printer generator and parser generator. It also contains an 
+    ANTLR 3.0 distribution. org.reuseware.emftextedit.concretesyntax contains the Ecore based metamodel for 
+    concrete syntax. Since EMFTextEdit is bootstrapped
+    org.reuseware.emftextedit.concretesyntax.resource.cs contains the textual syntax for concrete syntax 
+    called cs defined by itself. The user interface is located in org.reuseware.emftextedit.ui and covers UI 
+    elements for parser/printer generation and for editing models using the generated components.
+    Documentation and tests are contained in org.reuseware.emftextedit.doc and org.reuseware.emftextedit.test.</p>
+  </div>	
+  
+  
+ </div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="ch01.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch02s02.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">Chapter&nbsp;1.&nbsp;Introduction&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Development Process</td></tr></table></div></body></html>

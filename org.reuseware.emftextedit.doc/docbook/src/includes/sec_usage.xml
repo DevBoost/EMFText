@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <title>Using EMFTextEdit</title>
+  <section>
+    <title>Installation and Requirements</title>
+
+    <para>EMFTextEdit (Version 0.8.3) currently runs on Eclipse 3.4. For
+    installing the tool simply select the <emphasis>org.reuseware.emftextedit</emphasis>
+    feature from the Reuseware Update Site. Note that there are dependencies
+    to several related plugins from the <link
+    xlink:href="???">Eclipse Modeling Project</link> which also have
+    to be installed. Although these dependencies can normally be resolved by
+    the Eclipse update manager we list required features here: </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>org.eclipse.emf.ecore.edit (2.4.0 recommended)</para>
+      </listitem>
+      <listitem>
+        <para>org.eclipse.emf.workspace (1.2.0 recommended)</para>
+      </listitem>
+      <listitem>
+        <para>org.eclipse.ocl (1.2.0)</para>
+      </listitem>    
+     <listitem>
+        <para>org.eclipse.emf.ecore (2.4.0 recommended)</para>
+      </listitem>
+      <listitem>
+        <para>org.eclipse.emf.ecore.codegen (2.4.0 recommended)</para>
+      </listitem>   
+    </itemizedlist>
+   <para>EMFTextEdit consists of several plugins. org.reuseware.emftextedit contains all components being 
+    responsible for code generation, e.g. printer generator and parser generator. It also contains an 
+    ANTLR 3.0 distribution. org.reuseware.emftextedit.concretesyntax contains the Ecore based metamodel for 
+    concrete syntax. Since EMFTextEdit is bootstrapped
+    org.reuseware.emftextedit.concretesyntax.resource.cs contains the textual syntax for concrete syntax 
+    called cs defined by itself. The user interface is located in org.reuseware.emftextedit.ui and covers UI 
+    elements for parser/printer generation and for editing models using the generated components.
+    Documentation and tests are contained in org.reuseware.emftextedit.doc and org.reuseware.emftextedit.test.</para>
+  </section>	
+  
+  <section>
+  	<title>Development Process</title>
+  	<para>To create parsers, printers and editors with EMFTextEdit several steps have to be made. Figure 2 shows an activity diagram
+  	roughly depicting the necessary steps.     
+ 	<figure>
+      <title>EMFTextEdit Usage Process</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/emftext_process.png" version=""></imagedata>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    Starting point usually is the Ecore based model serving as an abstract syntax and as a skeleton for concrete syntax. The model can be a  
+  	graph or tree definition. Although Ecore models are specified as XML files, it is recommended  to use the Ecore model 
+  	editor or an other graphical editor to create and edit such models. To later unambiguously refer models, users
+  	have to specify a unique namespace (property NS URI in the .ecore file) for their models as well as a package name . 
+  	To enable EMFTextEdit to use models at runtime,
+  	a model plugin must be generated. For this, EMF provides a generation-metamodel (GenModel) allowing to enrich Ecore models with specific
+  	information for code generation. The EMF Model wizard facilitates the creation of GenModels.<sbr/>
+  	The next step is to define the base package 
+  	name which will be the common prefix for all subsequently generated Java packages. After finishing configuration, the EMF model plugin 
+  	is ready to be generated. EMFTextEdit will later use these classes to construct a model instance.
+  	</para>
+  	<para>
+    Since now our metamodel is defined, we can start to specify our concrete Syntax. For this, a textual specification has to be written, which has the
+    ending <emphasis>cs</emphasis>. It consists of four sections: In the first part, a unique name has to be specified. This name later will be used to 
+	refer to the syntax as a specific resource type. Furthermore, the metamodel, whose textual syntax shall be defined, has to be referenced by its 
+	unique namespace URI and a start symbol must be selected from the model elements. In the second part, productions from other concrete syntax specifications can be imported. 
+	This is especially useful if the metamodel is compositionally structured, e.g. reuses large parts from other models which have an already specified concrete syntax. 
+	The third part allows for specifying token types as it is usual for parser generators, but in contrast, EMFTextEdit also allows to leave them out: If no token definitions are given,
+	default rules are used. Another specialty for token definitions are optional pre- and suffixes which are transparently removed (after parsing) and added (before printing) 
+	by the generated token resolvers. And last but not least, EBNF like productions have to be defined for each non-abstract model element reachable from the start symbol. They have to be defined
+	with respect to the attributes and references of the model element and thus do not contain nonterminals in the classic sense.	  
+  	</para>
+ 
+  </section>
+ </chapter>

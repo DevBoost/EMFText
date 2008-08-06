@@ -1,0 +1,68 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter&nbsp;1.&nbsp;Introduction</title><meta content="DocBook XSL Stylesheets V1.74.0" name="generator"><link rel="home" href="index.html" title="EMFTextEdit User Documentation"><link rel="up" href="index.html" title="EMFTextEdit User Documentation"><link rel="prev" href="index.html" title="EMFTextEdit User Documentation"><link rel="next" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Using EMFTextEdit"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table summary="Navigation header" width="100%"><tr><th align="center" colspan="3">Chapter&nbsp;1.&nbsp;Introduction</th></tr><tr><td align="left" width="20%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><th align="center" width="60%">&nbsp;</th><td align="right" width="20%">&nbsp;<a accesskey="n" href="ch02.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="N20012"></a>Chapter&nbsp;1.&nbsp;Introduction</h2></div></div></div>
+    
+
+    <p>EMFTextEdit is a tool which allows users to define a plain textual
+    syntax for Ecore based metamodels and to generate components to load,
+    edit and store model instances. The syntax is specified by a so called
+    concrete syntax specification which are usually stored as files with the
+    suffix <span class="emphasis"><em>cs</em></span>. A <span class="emphasis"><em>cs</em></span>specification is directly related to one ore more Ecore
+    metamodel(s) whose structure implicitly pretends a grammar skeleton. The
+    following figure gives an overview on how the generator part of
+    EMFTextEdit works and what components it actually generates.</p>
+
+    <div class="figure"><a name="N20020"></a><p class="title"><b>Figure&nbsp;1.1.&nbsp;EMFTextEdit Generation Artifacts</b></p><div class="figure-contents">
+      
+
+      <div class="mediaobject"><img src="images/emftext_schema.png" alt="EMFTextEdit Generation Artifacts"></div>
+    </div></div><br class="figure-break">
+
+    <p>Through combining metamodel and cs specification, EMFTextEdit
+    derives a context-free grammar and exports it as an ANTLR parser
+    specification. This specification contains annotated semantic actions
+    which cover the largest part of metamodel instantiation. EMFTextEdit then
+    transparently delegates parser and lexer generation to ANTLR by passing
+    the generated grammar file. Since ANTLR does not cover the whole class of
+    context-free grammars we can not guarantee the generation of a working
+    parser for arbitrary cases. However, in most cases generation should be
+    sufficient.</p>
+
+    <p>While parsers are used to load model instances from textual
+    representations a printer is needed to do the inverse, e.g. to print an
+    in-memory instance of the metamodel back to a textual representation. The
+    printed results then should again be parseable by the corresponding
+    parser. Both instances (printed and loaded) should be equal. Furthermore,
+    printers should produce a formatted and human-readable output. The
+    EMFTextEdit built-in printer generator tries to achieve these goals by
+    interpreting the cs file and the derived grammar. <span class="emphasis"><em>specifications</em></span>  can be
+    enriched by special operators to indicate that on a specific position
+    white-spaces or newlines have to be printed. Additionally, it uses
+    information about literals (e.g. keywords) in defined languages which are
+    removed from model instances. As for parser generation, EMFTextEdit does
+    not guarantee that printer generation works for arbitrary cases but mostly
+    it is be a convenient solution.</p>
+
+    <p>EMFTextEdit also generates a set of resolvers. Resolvers convert
+    parsed token strings to an adequate representation in the metamodel
+    instance.</p>
+
+    <p>TokenResolvers implement a mapping from the string value of a
+    specific token to a native Java type (e.g. boolean, int, String etc.). In
+    the standard implementation TokenResolvers can automatically remove and
+    add (printing) pre- and suffixes. The conversion to native Java data types
+    is done by delegation to the corresponding Java type conversion functions.
+    For example, Integer.parseInt("42") results in an int valued 42. Since
+    this behavior is only desirable for concrete syntaxes mirroring exactly
+    (or at least partially) the Java syntax for primitive types, users are
+    expected to implement more adequate mapping functions as needed.</p>
+
+    <p>Resolvments depending on context are meant to be realised by
+    implementing ProxyResolvers. For these only stubs are generated. While
+    TokenResolvers are directly invoked by parsers, ProxyResolvers come into
+    play during an additional tree analysis phase. A TreeAnalyser iterates
+    over the tree and invokes resolvers if necessary until it reaches a
+    fix-point. In the base implementation a simple name analysis is performed.
+    An additional feature is the evaluation of eventually annotated OCL
+    constraints. With OCL, consistency conditions can be declared on the
+    metamodel to further improve quality of EMFTextEdit based
+    developments.</p>
+  </div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tr><td align="left" width="40%"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><td align="center" width="20%">&nbsp;</td><td align="right" width="40%">&nbsp;<a accesskey="n" href="ch02.html">Next</a></td></tr><tr><td valign="top" align="left" width="40%">EMFTextEdit User Documentation&nbsp;</td><td align="center" width="20%"><a accesskey="h" href="index.html">Home</a></td><td valign="top" align="right" width="40%">&nbsp;Chapter&nbsp;2.&nbsp;Using EMFTextEdit</td></tr></table></div></body></html>

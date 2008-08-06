@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article 
+	[<!ENTITY introduction SYSTEM "includes/sec_introduction.xml">
+	<!ENTITY usage SYSTEM "includes/sec_usage.xml">
+	<!ENTITY concretesyntax SYSTEM "includes/sec_concretesyntax.xml">
+	<!ENTITY configuration SYSTEM "includes/sec_configuration.xml">
+	<!ENTITY resolvers SYSTEM "includes/sec_resolvers.xml">
+	<!ENTITY examples SYSTEM "includes/sec_examples.xml">]
+>
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+
+         
+  <title>EMFTextEdit User Documentation</title>
+  &introduction;
+  &usage;
+  &concretesyntax;
+  &resolvers;
+  &configuration;
+  &examples;
+
+</book>
