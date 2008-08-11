@@ -1,6 +1,7 @@
 package org.reuseware.emftextedit.concretesyntax.resource.cs.analysis; 
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -30,7 +31,12 @@ public class TerminalFeatureProxyResolver extends ProxyResolverImpl {
 		
 		
 		for(GenFeature feature : rule.getMetaclass().getAllGenFeatures()) {
-			if (feature.getName().equals(proxy.eProxyURI().fragment())) {
+			URI proxyURI = proxy.eProxyURI();
+			String featureName = feature.getName();
+			if (featureName == null) {
+				continue;
+			}
+			if (featureName.equals(proxyURI.fragment())) {
 				boolean isContainment = feature.getEcoreFeature() instanceof EReference && ((EReference)feature.getEcoreFeature()).isContainment();
 				
 				if(container instanceof Placeholder && !isContainment
