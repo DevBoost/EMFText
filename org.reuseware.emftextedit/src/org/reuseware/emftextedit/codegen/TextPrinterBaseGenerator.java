@@ -1,59 +1,53 @@
 package org.reuseware.emftextedit.codegen;
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.Map;
-import java.util.List;
-import java.util.Queue;
+import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.io.StringWriter;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
-
-import org.reuseware.emftextedit.concretesyntax.Choice;
-import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
-import org.reuseware.emftextedit.concretesyntax.Containment;
-import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.reuseware.emftextedit.concretesyntax.Cardinality;
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
+import org.reuseware.emftextedit.concretesyntax.Choice;
 import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
+import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
+import org.reuseware.emftextedit.concretesyntax.Containment;
 import org.reuseware.emftextedit.concretesyntax.CsString;
+import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
 import org.reuseware.emftextedit.concretesyntax.Definition;
+import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
 import org.reuseware.emftextedit.concretesyntax.LineBreak;
 import org.reuseware.emftextedit.concretesyntax.PLUS;
+import org.reuseware.emftextedit.concretesyntax.Placeholder;
 import org.reuseware.emftextedit.concretesyntax.QUESTIONMARK;
 import org.reuseware.emftextedit.concretesyntax.Rule;
 import org.reuseware.emftextedit.concretesyntax.STAR;
 import org.reuseware.emftextedit.concretesyntax.Sequence;
 import org.reuseware.emftextedit.concretesyntax.Terminal;
-import org.reuseware.emftextedit.concretesyntax.Placeholder;
 import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
 
 /**
- *Needs test cases and test engine!
- *
+ * TODO Add test cases to test engine
  */
 public class TextPrinterBaseGenerator extends BaseGenerator{
 	
 	private ConcreteSyntax csSource;
 	private String tokenResolverFactoryClassName;
-	private static String newline = System.getProperties().getProperty("line.separator");
-	private String csClassName; 
-	//maps all choices to a methodname
+	//private static String newline = System.getProperties().getProperty("line.separator");
+	//private String csClassName;
+	
+	//maps all choices to a method name
 	private Map<Choice,String> choice2Name;
 	//maps all rules to choices nested somewhere, but not to the root choice! 
 	private Map<Rule,Set<Choice>> rule2SubChoice;
@@ -72,7 +66,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 								String treeAnalyserClassName){
 		super(csPrinterClassName, csPackageName);
 		csSource = cs;
-		this.csClassName = csClassName;
+		//this.csClassName = csClassName;
 		this.tokenResolverFactoryClassName = tokenResolverFactoryClassName;
 		this.placeholder2TokenName = placeholder2TokenName;
 		this.treeAnalyserClassName = treeAnalyserClassName;

@@ -1,7 +1,6 @@
 package org.reuseware.emftextedit.resource.impl;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -13,7 +12,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.reuseware.emftextedit.resource.EMFTextOCLValidator;
-import org.reuseware.emftextedit.resource.EMFTextParser;
 import org.reuseware.emftextedit.resource.TextResource;
 
 /**

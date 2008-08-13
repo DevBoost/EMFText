@@ -12,5 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.reuseware.emftextedit.concretesyntax,
  org.reuseware.emftextedit,
  org.eclipse.core.resources
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Export-Package: org.reuseware.emftextedit.concretesyntax.resource.cs
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

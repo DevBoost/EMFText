@@ -52,7 +52,7 @@ import org.reuseware.emftextedit.ui.MarkerHelper;
 public class GenerateResourceAction implements IObjectActionDelegate {
     
 	private ISelection selection;
-    private IWorkbenchPart part;
+    //private IWorkbenchPart part;
 
     /**
      * Calls {@link #process(IFile)} for all selected <i>cs</i> files .
@@ -335,7 +335,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 	 *      org.eclipse.ui.IWorkbenchPart)
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-        this.part = targetPart;
+        //this.part = targetPart;
 	}
     
 

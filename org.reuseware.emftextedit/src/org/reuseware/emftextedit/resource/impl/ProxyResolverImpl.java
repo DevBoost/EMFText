@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.reuseware.emftextedit.resource.EMFTextTreeAnalyser;
 import org.reuseware.emftextedit.resource.ProxyResolver;
 import org.reuseware.emftextedit.resource.TextResource;
 

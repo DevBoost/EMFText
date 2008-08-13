@@ -20,7 +20,6 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.ocl.Query;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.ecore.OCLExpression;
-import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
 
 public class EMFTextOCLValidator {
 	

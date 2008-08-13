@@ -10,10 +10,11 @@ Require-Bundle: org.eclipse.ui,org.eclipse.ui.ide,org.eclipse.ui.edito
  rs,org.eclipse.core.runtime,org.eclipse.core.resources,org.eclipse.jd
  t.core,org.eclipse.jdt.launching,org.eclipse.jface.text,org.eclipse.e
  mf.ecore.edit,org.reuseware.emftextedit
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Export-Package: org.reuseware.emftextedit.ui,org.reuseware.emftextedit
  .ui.actions,org.reuseware.emftextedit.ui.editor,org.reuseware.emftext
  edit.ui.preferences
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 

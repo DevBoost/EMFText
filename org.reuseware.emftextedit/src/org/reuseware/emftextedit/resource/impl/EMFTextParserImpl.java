@@ -123,7 +123,7 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
                                tokenName;
         }
         else if ( e instanceof NoViableAltException ) {
-            NoViableAltException nvae = (NoViableAltException)e;
+            //NoViableAltException nvae = (NoViableAltException)e;
             message = "Syntax error on token \"" + e.token.getText() + "\", check following tokens";
             
             /*message = //"decision=<<"+nvae.grammarDecisionDescription+">>"+
@@ -133,7 +133,7 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
                                e.token; */
         }
         else if ( e instanceof EarlyExitException ) {
-            EarlyExitException eee = (EarlyExitException)e;
+            //EarlyExitException eee = (EarlyExitException) e;
             message = "Syntax error on token \"" + e.token.getText() + "\", delete this token";
             /*message = "required (...)+ loop (decision="+
                                eee.decisionNumber+
@@ -185,7 +185,7 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
                     + "' on line " + e.line + "; expecting char '"
                     + (char) mte.expecting + "'";*/
         } else if (e instanceof NoViableAltException) {
-            NoViableAltException nvae = (NoViableAltException) e;
+            //NoViableAltException nvae = (NoViableAltException) e;
             message = "Syntax error on token \"" + ((char) e.c) + "\", delete this token";
             /*message =nvae.grammarDecisionDescription + " state "
                     + nvae.stateNumber + " (decision=" + nvae.decisionNumber

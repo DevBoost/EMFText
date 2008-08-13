@@ -1,11 +1,8 @@
 package org.reuseware.emftextedit.resource.impl;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.BufferedOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Map;
-import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.reuseware.emftextedit.resource.EMFTextPrinter;

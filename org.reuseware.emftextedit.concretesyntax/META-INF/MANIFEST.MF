@@ -15,5 +15,5 @@ Export-Package: org.reuseware.emftextedit.concretesyntax,org.reuseware
  ntax.util
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
  ity:=reexport,org.eclipse.emf.codegen.ecore
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 
