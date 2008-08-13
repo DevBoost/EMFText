@@ -5,9 +5,9 @@
          xmlns:svg="http://www.w3.org/2000/svg"
          xmlns:m="http://www.w3.org/1998/Math/MathML"
          xmlns:html="http://www.w3.org/1999/xhtml"
-         xmlns:db="http://docbook.org/ns/docbook">
+         xmlns:db="http://docbook.org/ns/docbook" id="usage">
   <title>Using EMFTextEdit</title>
-  <section>
+  <section id="usage-requirements">
     <title>Installation and Requirements</title>
 
     <para>EMFTextEdit (Version 0.8.3) currently runs on Eclipse 3.4. For
@@ -20,22 +20,22 @@
 
     <itemizedlist>
       <listitem>
-        <para>org.eclipse.emf.ecore.edit (2.4.0 recommended)</para>
+        <para id="usage-dependendies-ecore-editor">org.eclipse.emf.ecore.edit (2.4.0 recommended)</para>
       </listitem>
       <listitem>
-        <para>org.eclipse.emf.workspace (1.2.0 recommended)</para>
+        <para id="usage-dependencies-emf">org.eclipse.emf.workspace (1.2.0 recommended)</para>
       </listitem>
       <listitem>
-        <para>org.eclipse.ocl (1.2.0)</para>
+        <para id="usage-dependencies-ocl">org.eclipse.ocl (1.2.0)</para>
       </listitem>    
      <listitem>
-        <para>org.eclipse.emf.ecore (2.4.0 recommended)</para>
+        <para id="usage-dependencies-ecore">org.eclipse.emf.ecore (2.4.0 recommended)</para>
       </listitem>
       <listitem>
-        <para>org.eclipse.emf.ecore.codegen (2.4.0 recommended)</para>
+        <para id="usage-dependencies-ecore-codegen">org.eclipse.emf.ecore.codegen (2.4.0 recommended)</para>
       </listitem>   
     </itemizedlist>
-   <para>EMFTextEdit consists of several plugins. org.reuseware.emftextedit contains all components being 
+   <para id="usage-plugin-structure">EMFTextEdit consists of several plugins. org.reuseware.emftextedit contains all components being 
     responsible for code generation, e.g. printer generator and parser generator. It also contains an 
     ANTLR 3.0 distribution. org.reuseware.emftextedit.concretesyntax contains the Ecore based metamodel for 
     concrete syntax. Since EMFTextEdit is bootstrapped
@@ -45,14 +45,14 @@
     Documentation and tests are contained in org.reuseware.emftextedit.doc and org.reuseware.emftextedit.test.</para>
   </section>	
   
-  <section>
+  <section id="usage-development-process">
   	<title>Development Process</title>
-  	<para>To create parsers, printers and editors with EMFTextEdit several steps have to be made. Figure 2 shows an activity diagram
+  	<para id="usage-development-process-emfpart">To create parsers, printers and editors with EMFTextEdit several steps have to be made. Figure 2 shows an activity diagram
   	roughly depicting the necessary steps.     
  	<figure>
       <title>EMFTextEdit Usage Process</title>
 
-      <mediaobject>
+      <mediaobject id="usage-development-process-image">
         <imageobject>
           <imagedata fileref="images/emftext_process.png" version=""></imagedata>
         </imageobject>
@@ -69,7 +69,7 @@
   	name which will be the common prefix for all subsequently generated Java packages. After finishing configuration, the EMF model plugin 
   	is ready to be generated. EMFTextEdit will later use these classes to construct a model instance.
   	</para>
-  	<para>
+  	<para id="usage-development-process-cspart">
     Since now our metamodel is defined, we can start to specify our concrete Syntax. For this, a textual specification has to be written, which has the
     ending <emphasis>cs</emphasis>. It consists of four sections: In the first part, a unique name has to be specified. This name later will be used to 
 	refer to the syntax as a specific resource type. Furthermore, the metamodel, whose textual syntax shall be defined, has to be referenced by its 
