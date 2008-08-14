@@ -243,7 +243,11 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 					out.println("\t\t\tif(temp>matches){alt="+count+";matches=temp;}");
 					
 					out1.println("\t\t\t\tcase "+count+":");
-					printSequence(seq,out1,metaClass,"\t\t\t\t\t");
+					//extra scope for case begin
+					out1.println("\t\t\t\t\t{");
+					printSequence(seq,out1,metaClass,"\t\t\t\t\t\t");
+					//extra scope for case end
+					out1.println("\t\t\t\t\t}");
 					out1.println("\t\t\t\tbreak;");
 					count++;
 				}
