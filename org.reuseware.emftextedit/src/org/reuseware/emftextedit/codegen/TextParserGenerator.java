@@ -493,7 +493,7 @@ public class TextParserGenerator extends BaseGenerator{
 	           	
             	//resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
 	           	resolvements += proxyTypeName + " " + expressionToBeSet + " = " + genPackagePrefix + "Factory.eINSTANCE.create" + proxyTypeName + "();" 
-				+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI(resource.getURI().appendFragment(" + resolvedIdent + ")); ";
+				+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI((resource.getURI()==null?URI.create(\"dummy\"):resource.getURI()).appendFragment(" + resolvedIdent + ")); ";
 	        
 	           	//remember where proxies have to be resolved
             	proxyReferences.add(terminal.getFeature());
