@@ -11,47 +11,61 @@ import java.util.Map;
  * A basic implementation for generators which generate java or antlr code. 
  * 
  * @author skarol
- *
  */
-
-
-public abstract class BaseGenerator implements IGenerator{
-	/**
-	 * Map that holds alternative names for rules which would conflict with Java keywords in the generated code. 
-	 */
-	protected static final Map<String, String> validIdentifierMapping;
-	static {
-		validIdentifierMapping = new HashMap<String, String>();
-		
-		validIdentifierMapping.put("start", "starx");
-		validIdentifierMapping.put("package", "packag");
-		validIdentifierMapping.put("class","clazz");
-		validIdentifierMapping.put("interface","interfaze");
-		validIdentifierMapping.put("static","statix");
-		validIdentifierMapping.put("public","publix");
-		validIdentifierMapping.put("private","privat");
-		validIdentifierMapping.put("protected","protectet");
-		validIdentifierMapping.put("import","imporx");
-		validIdentifierMapping.put("parameter", "parameta");
-		validIdentifierMapping.put("final", "finel");
-		validIdentifierMapping.put("continue", "continu");
-		validIdentifierMapping.put("throw", "throv");
-		validIdentifierMapping.put("return", "retrn");
-		validIdentifierMapping.put("break", "brak");
-		validIdentifierMapping.put("assert", "azzert");
-		
-		validIdentifierMapping.put("boolean", "boolan");
-		validIdentifierMapping.put("char", "khar");
-		validIdentifierMapping.put("byte", "pyte");
-		validIdentifierMapping.put("long", "lonk");
-		validIdentifierMapping.put("float", "fload");
-		validIdentifierMapping.put("double", "duble");
-		validIdentifierMapping.put("int", "ind");
-		validIdentifierMapping.put("short", "zhort");
-		validIdentifierMapping.put("void", "voit");
-		
-		//TODO add more...
-	}
+public abstract class BaseGenerator implements IGenerator {
+	
+	private static String[] RESERVED_WORDS = new String[] {
+		"abstract", 
+		"assert", 
+		"boolean", 
+		"break", 
+		"byte", 
+		"case", 
+		"catch", 
+		"char", 
+		"class", 
+		"const", 
+		"continue", 
+		"default", 
+		"do", 
+		"double", 
+		"else", 
+		"enum", 
+		"extends", 
+		"final", 
+		"finally", 
+		"float", 
+		"for", 
+		"goto", 
+		"if", 
+		"implements", 
+		"import", 
+		"instanceof", 
+		"int", 
+		"interface", 
+		"long", 
+		"native", 
+		"new", 
+		"package", 
+		"private", 
+		"protected", 
+		"public", 
+		"return", 
+		"short", 
+		"static", 
+		"strictfp", 
+		"super", 
+		"switch", 
+		"synchronized", 
+		"this", 
+		"throw", 
+		"throws", 
+		"transient", 
+		"try", 
+		"void", 
+		"volatile", 
+		"while", 
+	};
 	
 	protected static final Map<String, String> javaNativeTypeMapping;
 	static {
@@ -129,22 +143,31 @@ public abstract class BaseGenerator implements IGenerator{
     }
 	
 	/**
-	 * Returns a valid identifier using the <code>validIdentifierMapping</code> if the given
-	 * identifier is conflicting with Java keywords. Otherwise the identifier itself is used.
-	 * The identifier is also converted to lower string.
+	 * Returns a valid identifier using the list of <code>RESERVED_WORDS</code>. If the given
+	 * identifier is a Java keywords it is prefixed with an underscore. Otherwise the identifier 
+	 * itself is returned. The identifier is also converted to lower string.
 	 * 
 	 * @param identifier an identifier.
 	 * @return an identifier that does not lead to conflicts.
 	 */
     protected static String getLowerCase(String identifier) {
     	identifier = identifier.toLowerCase();
-    	if (validIdentifierMapping.containsKey(identifier)) {
-    		return validIdentifierMapping.get(identifier);
+    	if (isReserveredWord(identifier)) {
+    		return "keyword" + identifier;
     	}
     	return identifier;
     }
     
-    protected String getResourceClassName(){
+    private static boolean isReserveredWord(String identifier) {
+		for (String word : RESERVED_WORDS) {
+			if (word.equals(identifier)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected String getResourceClassName(){
     	return className;
     }
     
