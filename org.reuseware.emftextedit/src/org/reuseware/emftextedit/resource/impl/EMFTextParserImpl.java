@@ -100,8 +100,8 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
                 tokenName = getTokenNames()[mte.expecting];
                 tokenName = tokenName.substring(1, tokenName.length() - 1);
             }
-            message = "Syntax error on token " + e.token.getText()
-            			+ ", " + tokenName + " expected";
+            message = "Syntax error on token \"" + e.token.getText()
+            			+ "\", \"" + tokenName + "\" expected";
             
             /* message = "mismatched token: "+
                                e.token+
