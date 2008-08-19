@@ -25,13 +25,14 @@ public abstract class BaseGenerator implements IGenerator {
 		"char", 
 		"class", 
 		"const", 
-		"continue", 
+		"continue",  
 		"default", 
 		"do", 
 		"double", 
 		"else", 
 		"enum", 
-		"extends", 
+		"extends",
+		"false", 
 		"final", 
 		"finally", 
 		"float", 
@@ -46,6 +47,7 @@ public abstract class BaseGenerator implements IGenerator {
 		"long", 
 		"native", 
 		"new", 
+		"null",
 		"package", 
 		"private", 
 		"protected", 
@@ -60,7 +62,8 @@ public abstract class BaseGenerator implements IGenerator {
 		"this", 
 		"throw", 
 		"throws", 
-		"transient", 
+		"transient",
+		"true",
 		"try", 
 		"void", 
 		"volatile", 
@@ -160,7 +163,7 @@ public abstract class BaseGenerator implements IGenerator {
     
     private static boolean isReserveredWord(String identifier) {
 		for (String word : RESERVED_WORDS) {
-			if (word.equals(identifier)) {
+			if (word.toLowerCase().equals(identifier)) {
 				return true;
 			}
 		}
