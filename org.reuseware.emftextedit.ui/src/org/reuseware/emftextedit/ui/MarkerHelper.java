@@ -6,7 +6,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.reuseware.emftextedit.resource.TextResource.TextDiagnostic;
+import org.reuseware.emftextedit.resource.TextDiagnostic;
 
 /**
  * Helper class to add markers to test files based on EMF's <code>Resource.Diagnostic</code>.

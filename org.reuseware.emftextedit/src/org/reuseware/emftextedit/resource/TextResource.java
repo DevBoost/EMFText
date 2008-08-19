@@ -86,21 +86,4 @@ public interface TextResource extends Resource {
 	 * @return A scanner.
 	 */
 	public Object getScanner();
-	
-	/**
-	 * An extended diagnostic that gives access to the exact position of the problem
-	 * in a character stream.
-	 */
-	public interface TextDiagnostic extends Resource.Diagnostic {
-		
-		/**
-		 * @return Position of the first character of the problem area.
-		 */
-		public int getCharStart();
-		
-		/**
-		 * @return Position of the last character of the problem area.
-		 */
-		public int getCharEnd();
-	}
 }

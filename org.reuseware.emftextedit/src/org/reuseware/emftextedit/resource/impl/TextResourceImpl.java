@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.reuseware.emftextedit.resource.EMFTextOCLValidator;
+import org.reuseware.emftextedit.resource.TextDiagnostic;
 import org.reuseware.emftextedit.resource.TextResource;
 
 /**
@@ -150,7 +151,7 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		return null;
 	}
 	
-	public class ElementBasedTextDiagnosticImpl implements TextResource.TextDiagnostic {
+	public class ElementBasedTextDiagnosticImpl implements TextDiagnostic {
 
 		protected EObject element;
 		protected String message;
@@ -190,7 +191,7 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		
 	}
 	
-	public class PositionBasedTextDiagnosticImpl implements TextResource.TextDiagnostic {
+	public class PositionBasedTextDiagnosticImpl implements TextDiagnostic {
 
 		protected int column;
 		protected int line;
