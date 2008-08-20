@@ -198,18 +198,18 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 			List<EStructuralFeature> featureList = rule.getMetaclass().getEcoreClass().getEAllStructuralFeatures();
 
 			if(featureList.size()>0){
-				out.println("\t\t\tHashMap<String,Integer> printCountingMap = new HashMap<String,Integer>("+featureList.size()+");");
+				out.println("\t\t\tHashMap<java.lang.String, java.lang.Integer> printCountingMap = new HashMap<java.lang.String, java.lang.Integer>("+featureList.size()+");");
 				out.println("\t\t\tObject temp;");
 				for(EStructuralFeature feature:featureList){
 					out.println("\t\t\ttemp = element."+ generateAccessMethod(feature) +";"); 	
-					out.println("\t\t\tprintCountingMap.put(\""+feature.getName()+"\",temp ==null?0:"+(feature.getUpperBound()==-1?"((Collection)temp).size()":"1")+ ");");
+					out.println("\t\t\tprintCountingMap.put(\""+feature.getName()+"\",temp == null ? 0:"+(feature.getUpperBound()==-1?"((Collection)temp).size()":"1")+ ");");
 				}					
 			}
 			
 			printChoice(rule.getDefinition(),out,rule.getMetaclass().getEcoreClass());		
 			out.println("\t\t}");
 			for(Choice choice:rule2SubChoice.get(rule)){
-				out.println("\t\tpublic void print"+choice2Name.get(choice)+"("+elementClassName+" element,String outertab,PrintWriter out,HashMap<String,Integer> printCountingMap){");
+				out.println("\t\tpublic void print"+choice2Name.get(choice)+"("+elementClassName+" element,String outertab,PrintWriter out, HashMap<java.lang.String, java.lang.Integer> printCountingMap){");
 				out.println("\t\t\tString localtab = outertab;");
 				printChoice(choice,out,rule.getMetaclass().getEcoreClass());
 				out.println("\t\t}");
@@ -235,12 +235,15 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 				out.println("\t\t\talt="+count+++";");
 				out.print("\t\t\tint matches=");
 				printMatchCall(firstSeq,out);
-				out.println("\t\t\tint temp;");
+				out.println("\t\t\tint tempMatchCount;");
 				while(seqIt.hasNext()){
 					Sequence seq = seqIt.next();	
-					out.print("\t\t\ttemp=");
+					out.print("\t\t\ttempMatchCount=");
 					printMatchCall(seq,out);
-					out.println("\t\t\tif(temp>matches){alt="+count+";matches=temp;}");
+					out.println("\t\t\tif (tempMatchCount > matches) {");
+					out.println("\t\t\t\talt = " + count + ";");
+					out.println("\t\t\t\tmatches = tempMatchCount;");
+					out.println("\t\t\t}");
 					
 					out1.println("\t\t\t\tcase "+count+":");
 					//extra scope for case begin
@@ -338,7 +341,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 							}
 							out.println(tab+(needsCompoundDecl?"StringWriter ":"")+"sWriter = new StringWriter();");
 							out.println(tab+(needsCompoundDecl?"PrintWriter ":"")+ "out1 = new PrintWriter(sWriter);");
-							out.println(tab+(needsCompoundDecl?"HashMap<String,Integer> ":"")+"printCountingMap1 = new HashMap<String,Integer>(printCountingMap);");
+							out.println(tab+(needsCompoundDecl?"HashMap<java.lang.String, java.lang.Integer> ":"")+"printCountingMap1 = new HashMap<java.lang.String, java.lang.Integer>(printCountingMap);");
 							if(!isMany)
 								needsCompoundDecl=false;
 							out.println(tab+"print"+choice2Name.get(compound.getDefinitions())+"(element,localtab,out1,printCountingMap1);");
@@ -467,7 +470,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 	}
 	
 	private void printMatchRule(PrintWriter out){
-	   out.println("\tprotected static int matchCount(Map<String,Integer> featureCounter,Collection<String> needed){");
+	   out.println("\tprotected static int matchCount(Map<java.lang.String, java.lang.Integer> featureCounter, Collection<java.lang.String> needed){");
 	   out.println("\t\tint pos = 0;");
 	   out.println("\t\tint neg = 0;");
 	   out.println();	
