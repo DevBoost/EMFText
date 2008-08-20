@@ -53,7 +53,7 @@ public class TerminalFeatureProxyResolver extends ProxyResolverImpl {
 	@Override
 	protected String produceResolveErrorMessage(InternalEObject proxy,
 			EObject container, EReference reference, TextResource resource) {
-		String msg = "Feature \"" + proxy.eProxyURI().fragment() + "\" does not exist.";
+		String msg = "Feature \"" + proxy.eProxyURI().fragment() + "\" does not exist or has wrong containment type.";
 		return msg;
 	}
 	

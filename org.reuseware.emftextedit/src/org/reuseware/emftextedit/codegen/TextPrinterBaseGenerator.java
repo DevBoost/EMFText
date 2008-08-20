@@ -197,8 +197,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 			out.println("\t\t\tString localtab = outertab;");
 			List<EStructuralFeature> featureList = rule.getMetaclass().getEcoreClass().getEAllStructuralFeatures();
 
+			out.println("\t\t\tHashMap<java.lang.String, java.lang.Integer> printCountingMap = new HashMap<java.lang.String, java.lang.Integer>("+featureList.size()+");");
 			if(featureList.size()>0){
-				out.println("\t\t\tHashMap<java.lang.String, java.lang.Integer> printCountingMap = new HashMap<java.lang.String, java.lang.Integer>("+featureList.size()+");");
 				out.println("\t\t\tObject temp;");
 				for(EStructuralFeature feature:featureList){
 					out.println("\t\t\ttemp = element."+ generateAccessMethod(feature) +";"); 	
