@@ -25,20 +25,4 @@
             file-extensions="cs">
       </file-association>
    </extension>
-
-	<extension
-			point="org.eclipse.ui.popupMenus">
-		<objectContribution
-				id="org.reuseware.emftextedit.cs.contributions"
-				objectClass="org.eclipse.core.resources.IFile"
-				nameFilter="*.cs">
-			<action
-					class="org.reuseware.emftextedit.test.actions.ValidateParserPrinterAction"
-					enablesFor="1"
-					id="org.reuseware.emftextedit.cs.validate"
-					label="Validate"
-					menubarPath="org.reuseware.emftextedit.test.menu1/group1">
-			</action>
-		</objectContribution>
-	</extension>
 </plugin>
