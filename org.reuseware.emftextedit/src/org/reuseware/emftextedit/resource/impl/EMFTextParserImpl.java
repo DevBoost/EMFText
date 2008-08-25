@@ -98,7 +98,7 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
             }
             else {
                 tokenName = getTokenNames()[mte.expecting];
-                //tokenName = tokenName.substring(1, tokenName.length() - 1);
+                tokenName = formatTokenName(tokenName);
             }
             message = "Syntax error on token \"" + e.token.getText()
             			+ "\", \"" + tokenName + "\" expected";
@@ -168,6 +168,16 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
         }
 
     }
+
+	public static String formatTokenName(String tokenName) {
+		if (tokenName.length() > 0 && tokenName.charAt(0) == '\'') {
+			tokenName = tokenName.substring(1, tokenName.length());
+		}
+		if (tokenName.length() > 0 && tokenName.charAt(tokenName.length() - 1) == '\'') {
+			tokenName = tokenName.substring(0, tokenName.length() - 1);
+		}
+		return tokenName;
+	}
 
     /**
      * Translates errors thrown by the lexer into human readable messages.
