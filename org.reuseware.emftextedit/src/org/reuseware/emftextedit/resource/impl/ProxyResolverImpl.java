@@ -105,8 +105,7 @@ public class ProxyResolverImpl implements ProxyResolver {
 	 */
 	protected String produceResolveErrorMessage(InternalEObject proxy, EObject container,
 			EReference reference, TextResource resource) {
-		System.err.println(this);
-		String msg = reference.getEType().getName() + " \"" + proxy.eProxyURI().fragment() + "\" not declared";  
+		String msg = getClass().getSimpleName() + ": " + reference.getEType().getName() + " \"" + proxy.eProxyURI().fragment() + "\" not declared";  
 		return msg;
 		
 	}
@@ -114,7 +113,7 @@ public class ProxyResolverImpl implements ProxyResolver {
 	protected String produceDeResolveErrorMessage(EObject refObject, EObject container,
 			EReference reference, TextResource resource) {
 		
-		String msg = reference.getEType().getName() + " \"" + refObject.toString() + "\" not de-resolveable";  
+		String msg = getClass().getSimpleName() + ": " + reference.getEType().getName() + " \"" + refObject.toString() + "\" not de-resolveable";  
 		return msg;
 		
 	}
