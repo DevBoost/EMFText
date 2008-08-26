@@ -133,13 +133,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__TOKENS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Options</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__OPTIONS = 7;
+
+	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX_FEATURE_COUNT = 7;
+	int CONCRETE_SYNTAX_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.reuseware.emftextedit.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -985,6 +994,44 @@ public interface ConcretesyntaxPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.reuseware.emftextedit.concretesyntax.impl.OptionImpl <em>Option</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.reuseware.emftextedit.concretesyntax.impl.OptionImpl
+	 * @see org.reuseware.emftextedit.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
+	 * @generated
+	 */
+	int OPTION = 24;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPTION__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPTION__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Option</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPTION_FEATURE_COUNT = 2;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.reuseware.emftextedit.concretesyntax.ConcreteSyntax <em>Concrete Syntax</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1070,6 +1117,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConcreteSyntax_Tokens();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.reuseware.emftextedit.concretesyntax.ConcreteSyntax#getOptions <em>Options</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Options</em>'.
+	 * @see org.reuseware.emftextedit.concretesyntax.ConcreteSyntax#getOptions()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax_Options();
 
 	/**
 	 * Returns the meta object for class '{@link org.reuseware.emftextedit.concretesyntax.Import <em>Import</em>}'.
@@ -1544,6 +1602,38 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getPlaceholder();
 
 	/**
+	 * Returns the meta object for class '{@link org.reuseware.emftextedit.concretesyntax.Option <em>Option</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Option</em>'.
+	 * @see org.reuseware.emftextedit.concretesyntax.Option
+	 * @generated
+	 */
+	EClass getOption();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.reuseware.emftextedit.concretesyntax.Option#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.reuseware.emftextedit.concretesyntax.Option#getName()
+	 * @see #getOption()
+	 * @generated
+	 */
+	EAttribute getOption_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.reuseware.emftextedit.concretesyntax.Option#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.reuseware.emftextedit.concretesyntax.Option#getValue()
+	 * @see #getOption()
+	 * @generated
+	 */
+	EAttribute getOption_Value();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1630,6 +1720,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONCRETE_SYNTAX__TOKENS = eINSTANCE.getConcreteSyntax_Tokens();
+
+		/**
+		 * The meta object literal for the '<em><b>Options</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__OPTIONS = eINSTANCE.getConcreteSyntax_Options();
 
 		/**
 		 * The meta object literal for the '{@link org.reuseware.emftextedit.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -2036,6 +2134,32 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass PLACEHOLDER = eINSTANCE.getPlaceholder();
+
+		/**
+		 * The meta object literal for the '{@link org.reuseware.emftextedit.concretesyntax.impl.OptionImpl <em>Option</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.reuseware.emftextedit.concretesyntax.impl.OptionImpl
+		 * @see org.reuseware.emftextedit.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
+		 * @generated
+		 */
+		EClass OPTION = eINSTANCE.getOption();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPTION__NAME = eINSTANCE.getOption_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPTION__VALUE = eINSTANCE.getOption_Value();
 
 	}
 

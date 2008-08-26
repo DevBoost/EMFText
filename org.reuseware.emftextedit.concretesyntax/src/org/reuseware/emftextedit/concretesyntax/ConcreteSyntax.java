@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.reuseware.emftextedit.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}</li>
  *   <li>{@link org.reuseware.emftextedit.concretesyntax.ConcreteSyntax#getAllRules <em>All Rules</em>}</li>
  *   <li>{@link org.reuseware.emftextedit.concretesyntax.ConcreteSyntax#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.reuseware.emftextedit.concretesyntax.ConcreteSyntax#getOptions <em>Options</em>}</li>
  * </ul>
  * </p>
  *
@@ -169,5 +170,21 @@ public interface ConcreteSyntax extends EObject {
 	 * @generated
 	 */
 	EList<TokenDefinition> getTokens();
+
+	/**
+	 * Returns the value of the '<em><b>Options</b></em>' containment reference list.
+	 * The list contents are of type {@link org.reuseware.emftextedit.concretesyntax.Option}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Options</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Options</em>' containment reference list.
+	 * @see org.reuseware.emftextedit.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_Options()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Option> getOptions();
 
 } // ConcreteSyntax
