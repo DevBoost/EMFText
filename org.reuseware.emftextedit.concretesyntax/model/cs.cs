@@ -3,23 +3,32 @@ FOR       <http://www.reuseware.org/emftextedit/concretesyntax>
 START     cs.ConcreteSyntax
 
 IMPORTS{
-		cs:<http://www.reuseware.org/emftextedit/concretesyntax>
+	cs:<http://www.reuseware.org/emftextedit/concretesyntax>
 } 
+
+OPTIONS{
+	tokenspace=0;
+}
 
 TOKENS{
 	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$; 
 	PREDEFINED TEXT;
 	DEFINE QNAME $('A'..'Z'|'a'..'z'|'_')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+$;
 }
-//comment
 
 
 RULES {
 
-  ConcreteSyntax ::= "SYNTAXDEF" #1 name[] !0 "FOR" #1 package['<','>']  !0 "START" #1 (startSymbols[] | startSymbols[QNAME]) ("," (startSymbols[] | startSymbols[QNAME]))* !0 !0 ("IMPORTS" "{" ( !2 imports)* !0 "}")? !0 !0 ("TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
+  ConcreteSyntax ::= "SYNTAXDEF" #1 name[] !0 "FOR" #1 package['<','>']  !0 "START" #1 (startSymbols[] | startSymbols[QNAME]) ("," (startSymbols[] | startSymbols[QNAME]))* ( !0 !0  "IMPORTS" "{" ( !2 imports)* !0 "}")? ( !0 !0 "OPTIONS" "{" (!2 options ";" )*  !0 "}")?   (!0 !0 "TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
 
   Import         ::=  prefix[] ":" package['<','>'] ("WITH" "SYNTAX" concreteSyntax[])?;
-
+ 
+  //Note: There is an additional OCL expression in the model which checks whether an option is allowed
+  //Currently allowed are:
+  //		 tokenspace = 0..x
+  
+  Option 		::= name[] "=" value[];
+ 
   Rule           ::= !0 ( metaclass[] | metaclass[QNAME] ) "::=" definition ";" !0;
  
   Sequence       ::= parts+;
