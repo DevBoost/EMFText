@@ -6,6 +6,7 @@ import java.util.HashSet;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.reuseware.emftextedit.concretesyntax.Rule;
+import org.reuseware.emftextedit.concretesyntax.Option;
 
 public class GeneratorUtil {
 
@@ -45,4 +46,17 @@ public class GeneratorUtil {
         return false;
 
     }
+    
+    public static Option getOptionByName(String optionName, Collection<Option> options){
+    	if(options!=null&&!options.isEmpty()){
+    		for(Option option:options){
+    			if(optionName.equals(option.getName())){
+    				return option;
+    			}
+    		}
+    	}
+    	return null;
+    }
+    
+
 }

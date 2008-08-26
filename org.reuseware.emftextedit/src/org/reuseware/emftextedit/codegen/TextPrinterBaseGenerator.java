@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,17 +37,22 @@ import org.reuseware.emftextedit.concretesyntax.STAR;
 import org.reuseware.emftextedit.concretesyntax.Sequence;
 import org.reuseware.emftextedit.concretesyntax.Terminal;
 import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
+import org.reuseware.emftextedit.concretesyntax.Option;
 
 /**
  * TODO Add test cases to test engine
  */
 public class TextPrinterBaseGenerator extends BaseGenerator{
 	
+	public static String CS_OPTION_TOKENSPACE = "tokespace";
+	
 	private ConcreteSyntax csSource;
 	private String tokenResolverFactoryClassName;
 	//private static String newline = System.getProperties().getProperty("line.separator");
 	//private String csClassName;
 	
+	
+	private int tokenSpace;
 	//maps all choices to a method name
 	private Map<Choice,String> choice2Name;
 	//maps all rules to choices nested somewhere, but not to the root choice! 
@@ -129,6 +135,20 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 		sequence2ReachableFeatures = new HashMap<Sequence,Set<String>>(rules.size());
 		rule2SubChoice = new HashMap<Rule,Set<Choice>>(rules.size());
 		extractChoices(rules,rule2SubChoice,choice2Name,sequence2NecessaryFeatures,sequence2ReachableFeatures);	
+		Option tokenSpaceOption = GeneratorUtil.getOptionByName(CS_OPTION_TOKENSPACE, csSource.getOptions());
+		tokenSpace = 0;
+		if(tokenSpaceOption!=null){
+			try{
+				int tempSpace = Integer.parseInt(tokenSpaceOption.getValue());
+				if(tempSpace<0)
+					this.addProblem(new GenerationProblem("Only positive Integers are allowed in token-space options.",tokenSpaceOption));
+				else
+					tokenSpace = tempSpace;
+			}
+			catch(NumberFormatException e){			
+				this.addProblem(new GenerationProblem("No valid Integer in Option.",tokenSpaceOption));
+			}
+		}
 		return rules;
 	}
 	
@@ -283,7 +303,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 		Set<String> neededFeatures = new HashSet<String>(sequence2NecessaryFeatures.get(seq));
 		boolean needsCompoundDecl = true;
 		boolean needsIterateDecl = true;
-		for(Definition definition:seq.getParts()){
+		ListIterator<Definition> defIt = seq.getParts().listIterator();
+		while(defIt.hasNext()){
+			Definition definition = defIt.next();
 			out.println(basetab+"//////////////DEFINITION PART BEGINS ("+definition.eClass().getName()+"):");
 			String printPrefix = "out.print(";
 			if(definition instanceof LineBreak){
@@ -301,11 +323,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 			else {
 				if(definition instanceof WhiteSpaces){
 					int count = ((WhiteSpaces)definition).getAmmount();
-					String spaces = "";
-					for(int i=0;i<count;i++){
-						spaces += " "; 
+					if(count>0){
+						String spaces = getWhiteSpaceString(count);										
+						out.println(basetab+printPrefix+"\""+spaces+"\");");
 					}
-					out.println(basetab+printPrefix+"\""+spaces+"\");");
 				}
 				else if (definition instanceof CsString) {
 				     CsString terminal = (CsString) definition;
@@ -402,13 +423,29 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 								assert terminal instanceof DerivedPlaceholder;
 								tokenName = placeholder2TokenName.get((DerivedPlaceholder)terminal);	
 							}
+							 
 							if(feature instanceof EReference){
 								printStatement = printPrefix + "tokenResolverFactory.createTokenResolver(\""+tokenName +"\").deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature(\""+featureName+"\")),element.eClass().getEStructuralFeature(\""+featureName+"\"),element));";
 							}
 							else{
 								printStatement = printPrefix + "tokenResolverFactory.createTokenResolver(\""+tokenName +"\").deResolve((Object)o,element.eClass().getEStructuralFeature(\""+featureName+"\"),element));";
 							}
-							 
+							
+							//1-Part lookahead for whitespace printing directive which may override a default tokenSpace
+							//if no whitespace directly follows after the current Placeholder (directives in Compounds are not considered!)
+							//the given tokenSpace (>0) causes an additional print statement to be printed
+							if(tokenSpace>0){
+								Definition lookahead = null;
+								if(defIt.hasNext())
+									lookahead = defIt.next();
+								if(lookahead==null||!(lookahead instanceof WhiteSpaces)){
+									String printSuffix = getWhiteSpaceString(tokenSpace);
+									printStatement = printStatement + "print(\""+printSuffix+"\");";
+								}
+								//switching back to previous position	
+								defIt.previous();	
+							}
+							
 						}
 						else{
 							assert terminal instanceof Containment;
@@ -503,5 +540,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 			}
 	    	return method;
 	    }
-
+	  
+	  private static String getWhiteSpaceString(int count){
+			String spaces = "";
+			for(int i=0;i<count;i++){
+				spaces += " "; 
+			}						
+			return spaces;
+	  }
 }
