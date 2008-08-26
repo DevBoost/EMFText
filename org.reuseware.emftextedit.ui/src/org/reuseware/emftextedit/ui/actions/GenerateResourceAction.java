@@ -85,10 +85,12 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         				Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
 			  
         				MarkerHelper.unmark(csResource);
-        				if (!csResource.getErrors().isEmpty()) {
+        				if (!csResource.getErrors().isEmpty()
+        						|| !csResource.getWarnings().isEmpty()) {
         					MarkerHelper.mark(csResource);
         					return;
         				}
+        				
 			            
         				final ConcreteSyntax cSyntax = (ConcreteSyntax) csResource.getContents().get(0);
         				String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
@@ -132,7 +134,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         				ResourcePackageGenerator.generate(pck,progress.newChild(50));
 			             
         				//erors from parser generator?
-        				if (!csResource.getErrors().isEmpty()) {
+        				if (!csResource.getErrors().isEmpty() || !csResource.getWarnings().isEmpty()) {
         					MarkerHelper.mark(csResource);
         				}
 			  
