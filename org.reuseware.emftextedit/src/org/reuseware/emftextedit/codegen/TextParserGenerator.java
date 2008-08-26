@@ -1,10 +1,12 @@
 package org.reuseware.emftextedit.codegen;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.LinkedList;
@@ -14,6 +16,7 @@ import java.io.BufferedOutputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.tool.LeftRecursionCyclesMessage;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -21,14 +24,19 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass; 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.reuseware.emftextedit.codegen.IGenerator.GenerationProblem;
+import org.reuseware.emftextedit.codegen.IGenerator.GenerationProblem.Severity;
 import org.reuseware.emftextedit.codegen.regex.ANTLRexpLexer;
 import org.reuseware.emftextedit.codegen.regex.ANTLRexpParser;
 import org.reuseware.emftextedit.concretesyntax.Choice;
 import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
+import org.reuseware.emftextedit.concretesyntax.ConcretesyntaxPackage;
 import org.reuseware.emftextedit.concretesyntax.CsString;
 import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
 import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
@@ -39,6 +47,7 @@ import org.reuseware.emftextedit.concretesyntax.PLUS;
 import org.reuseware.emftextedit.concretesyntax.Cardinality;
 import org.reuseware.emftextedit.concretesyntax.QUESTIONMARK;
 import org.reuseware.emftextedit.concretesyntax.Rule;
+import org.reuseware.emftextedit.concretesyntax.STAR;
 import org.reuseware.emftextedit.concretesyntax.Sequence;
 import org.reuseware.emftextedit.concretesyntax.Terminal;
 import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
@@ -336,9 +345,144 @@ public class TextParserGenerator extends BaseGenerator{
         out.println();
 	}
 	
+	private void printRightRecursion(PrintWriter out, Rule rule, EList<GenClass> eClassesWithSyntax, Map<GenClass, Collection<Terminal>> classesReferenced) {
+		
+		String ruleName = rule.getMetaclass().getName();
+		GenClass recursiveType = rule.getMetaclass();
+		GenPackage genPackage = rule.getMetaclass().getGenPackage();
+		
+		Rule tailCopy = (Rule) EcoreUtil.copy(rule);
+		Rule ruleCopy = (Rule) EcoreUtil.copy(rule);
+	    
+		
+        EList<Sequence> options = tailCopy.getDefinition().getOptions();
+        
+        String recurseName = "";
+        List<Sequence> sequencesToRemove = new ArrayList<Sequence>();
+        
+        for (Sequence sequence : options) {
+        	int indexRecurse = 0;
+        	
+        	EList<Definition> parts = sequence.getParts();
+			for (Definition definition : parts) {
+				if (definition instanceof Containment) {
+					Containment c = (Containment) definition;
+					GenClass featureType = c.getFeature().getTypeGenClass();
+					if (recursiveType.equals(featureType) || 
+							this.genClasses2superNames.get(featureType.getName()).contains(recursiveType.getName()) ||
+							this.genClasses2superNames.get(recursiveType.getName()).contains(featureType.getName())) {
+						indexRecurse = parts.indexOf(definition);	
+						recurseName = c.getFeature().getName();
+						break;	
+					}
+				}
+			}
+			if (parts.size()-1 == indexRecurse ) {
+				sequencesToRemove.add(sequence);
+			} else {
+				
+				for (int i = 0; i <= indexRecurse; i++)	{
+					parts.remove(i);
+				}
+			}
+			
+        }
+        for (Sequence sequence : sequencesToRemove) {
+			tailCopy.getDefinition().getOptions().remove(sequence);
+		}
+        
+    	out.print(getLowerCase(ruleName) +  "_tail");
+        out.println(" returns [DummyEObject element = null]");
+        out.println("@init{");
+        out.println("\telement = new DummyEObject(\""+ ruleName +"\", \""+recurseName+"\");");
+        out.println("}");
+        out.println(":");
+        
+        printChoice(tailCopy.getDefinition(),tailCopy,out,0,classesReferenced,proxyReferences,"\t");
+        
+        out.println(";");
+        out.println();
+        
+        
+        out.print(getLowerCase(ruleName));
+        out.println(" returns [" + ruleName + " element = null]");
+        out.println("@init{");
+        out.println("\telement = " + genPackage.getPrefix() + "Factory.eINSTANCE.create" + rule.getMetaclass().getName() + "();");
+        out.println("\tList<EObject> dummyEObjects  = new ArrayList<EObject>();");
+        out.println("}");
+        out.println(":");
+       
+        Choice choice = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createChoice();
+        
+        Sequence newSequence = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createSequence();
+        Choice reducedChoice = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createChoice();
+        
+        CompoundDefinition compound = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createCompoundDefinition();
+        compound.setDefinitions(reducedChoice);
+        newSequence.getParts().add(compound);
+        
+        choice.getOptions().add(newSequence);
+        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
+        
+        LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
+        
+        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
+        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
+        	if (leftProducingRule == null) {
+        		recursionFreeSequences.add(sequence);
+ 			}	
+		}
+        reducedChoice.getOptions().addAll(recursionFreeSequences);
+        
+        ruleCopy.setDefinition(choice);
+        
+        printChoice(ruleCopy.getDefinition(),ruleCopy,out,0,classesReferenced,proxyReferences,"\t");
+        
+        
+        out.println(" ( dummyEObject = "+ getLowerCase(ruleName) +  "_tail { dummyEObjects.add(dummyEObject);} )*");
+        out.println("{\n\telement = (" + ruleName+ ") apply(element, dummyEObjects);}");
+        out.println(";");
+        out.println();
+        
+        eClassesWithSyntax.add(rule.getMetaclass());
+        
+	}
+	
 	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
         for(Rule rule : source.getAllRules()) {
-            String ruleName = rule.getMetaclass().getName();
+        	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
+        	Rule recursionRule = lrd.findLeftRecursion(rule);
+            if (recursionRule != null) {
+            	
+            	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
+            		System.out.println();
+                	printRightRecursion(out, rule, eClassesWithSyntax, eClassesReferenced);	
+                	
+					
+					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
+                    if(!subClasses.isEmpty()){
+                    	out.println("\t|//derived choice rules for sub-classes: ");
+                    	printSubClassChoices(out,subClasses);
+                    	out.println();
+                    }
+                    
+                    String message = "Warning: Rule " +  rule.getMetaclass().getName() + " is direct left recursive by rule " + recursionRule.getMetaclass().getName()+ 
+                	". Appling experimental autofix!";
+                	GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
+            		addProblem(generationWarning);
+                	
+                	continue;
+            	}
+            	else {
+            		String message = "Rule " +  rule.getMetaclass().getName() + " is mutual left recursive by rule " + recursionRule.getMetaclass().getName()+" ! Please restructure the grammar.";
+            		addProblem(new GenerationProblem(message,rule));
+            		continue;
+            	}
+            
+            }
+            
+            
+         	String ruleName = rule.getMetaclass().getName();
             GenPackage genPackage = rule.getMetaclass().getGenPackage();
             
             out.print(getLowerCase(ruleName));
@@ -364,7 +508,11 @@ public class TextParserGenerator extends BaseGenerator{
         }
 	}
 	
-    private int printChoice(Choice choice, Rule rule, PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent) {
+   
+
+	
+
+	private int printChoice(Choice choice, Rule rule, PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent) {
     	Iterator<Sequence> it = choice.getOptions().iterator();
     	while(it.hasNext()){
     		Sequence seq = it.next();
@@ -515,14 +663,13 @@ public class TextParserGenerator extends BaseGenerator{
         	
     	out.print("{");
     	out.print(resolvements);
-    	
         if(sf.getUpperBound()==1){
-           out.print("element.set" + cap(sf.getName()) + "(" + expressionToBeSet +"); ");
+           out.print("element.eSet(element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"), " + expressionToBeSet +"); ");
         }
         else{
             //TODO Warning, if a value is used twice. 
         	//whatever...
-            out.print("element.get" + cap(sf.getName()) + "().add(" + expressionToBeSet +"); ");
+            out.print("((List) element.eGet(element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"))).add(" + expressionToBeSet +"); ");
         }
         
         if(terminal instanceof Containment){

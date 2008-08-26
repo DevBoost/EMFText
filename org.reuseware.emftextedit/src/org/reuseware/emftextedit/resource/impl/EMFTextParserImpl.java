@@ -2,7 +2,15 @@ package org.reuseware.emftextedit.resource.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.impl.EClassImpl;
+import org.eclipse.emf.ecore.impl.EClassifierImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
 
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.EarlyExitException;
@@ -17,7 +25,16 @@ import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypeParameter;
 import org.reuseware.emftextedit.resource.EMFTextParser;
 import org.reuseware.emftextedit.resource.TextResource;
 import org.reuseware.emftextedit.resource.TokenConversionException;
@@ -30,6 +47,88 @@ import org.reuseware.emftextedit.resource.TokenConversionException;
  */
 public abstract class EMFTextParserImpl extends Parser implements EMFTextParser {    
     
+	
+	protected EObject apply(EObject target, List<EObject> dummyEObjects) {
+		EObject currentTarget = target;
+		
+		for (EObject object : dummyEObjects) {
+			assert(object instanceof DummyEObject);
+			DummyEObject dummy = (DummyEObject) object;
+			EObject newEObject = dummy.applyTo(currentTarget);
+			
+			currentTarget = newEObject;
+		}
+		
+		return currentTarget;
+	}
+	
+	public class DummyEStructuralFeature extends EStructuralFeatureImpl {
+		private String dummyName;
+		
+		public DummyEStructuralFeature(String name) {
+			this.dummyName = name;
+		}
+		
+		public String getName() {
+			return dummyName;
+		}
+	
+	}
+
+	public class DummyEClass extends EClassImpl {
+				
+		// dummy method
+		public EStructuralFeature getEStructuralFeature(String name) {
+			return new DummyEStructuralFeature(name);
+		}
+	}
+
+	public class DummyEObject extends EObjectImpl  {
+		private Map<EStructuralFeature, Object> keyValueMap;
+		private String recurseFeatureName;
+		private String typeName;
+
+		public DummyEObject(String typeName, String recurseFeatureName) {
+			this.recurseFeatureName = recurseFeatureName;
+			this.typeName = typeName;
+			keyValueMap = new HashMap<EStructuralFeature, Object>();
+		}
+
+		public EObject applyTo(EObject currentTarget) {
+			EStructuralFeature recurseFeature = currentTarget.eClass().getEStructuralFeature(this.recurseFeatureName);
+			EClass type = (EClass) currentTarget.eClass().getEPackage().getEClassifier(typeName);
+			EObject newEObject = currentTarget.eClass().getEPackage().getEFactoryInstance().create(type);
+			for (EStructuralFeature f : keyValueMap.keySet()) {
+				EStructuralFeature structuralFeature = newEObject.eClass().getEStructuralFeature(f.getName());
+				newEObject.eSet(structuralFeature, keyValueMap.get(f));
+			}
+			
+			newEObject.eSet(recurseFeature, currentTarget);
+			return newEObject;
+		}
+
+		// dummy method
+		public EClass eClass() {
+			return new DummyEClass();
+		}
+		
+
+		public void eSet(EStructuralFeature structuralFeature, Object a0) {
+			this.keyValueMap.put(structuralFeature, a0);
+			
+		}
+		
+		public String toString() {
+			String keyValuePairs = recurseFeatureName + ": ";
+			for (EStructuralFeature f : keyValueMap.keySet()) {
+				keyValuePairs += f.getName() + " = " + keyValueMap.get(f) + "\n";
+			}
+			return keyValuePairs;
+		}
+	}
+
+	
+	
     public EMFTextParserImpl(TokenStream input) {
     	super(input);
     }
