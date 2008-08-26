@@ -78,6 +78,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.CONTAINMENT: return createContainment();
 			case ConcretesyntaxPackage.DEFINED_PLACEHOLDER: return createDefinedPlaceholder();
 			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER: return createDerivedPlaceholder();
+			case ConcretesyntaxPackage.OPTION: return createOption();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -261,6 +262,16 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public DerivedPlaceholder createDerivedPlaceholder() {
 		DerivedPlaceholderImpl derivedPlaceholder = new DerivedPlaceholderImpl();
 		return derivedPlaceholder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Option createOption() {
+		OptionImpl option = new OptionImpl();
+		return option;
 	}
 
 	/**

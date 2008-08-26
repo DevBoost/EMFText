@@ -27,12 +27,14 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.concretesyntax.ConcretesyntaxPackage;
 import org.reuseware.emftextedit.concretesyntax.Import;
+import org.reuseware.emftextedit.concretesyntax.Option;
 import org.reuseware.emftextedit.concretesyntax.Rule;
 import org.reuseware.emftextedit.concretesyntax.TokenDefinition;
 
@@ -50,6 +52,7 @@ import org.reuseware.emftextedit.concretesyntax.TokenDefinition;
  *   <li>{@link org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl#getAllRules <em>All Rules</em>}</li>
  *   <li>{@link org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl#getOptions <em>Options</em>}</li>
  * </ul>
  * </p>
  *
@@ -125,6 +128,16 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 	 * @ordered
 	 */
 	protected EList<TokenDefinition> tokens;
+
+	/**
+	 * The cached value of the '{@link #getOptions() <em>Options</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOptions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Option> options;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -258,6 +271,7 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
     	return new EcoreEList.UnmodifiableEList<Rule>(this, eFeature, l.size(), l.toArray());
  	}
 
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -268,6 +282,18 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 			tokens = new EObjectContainmentEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
 		}
 		return tokens;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Option> getOptions() {
+		if (options == null) {
+			options = new EObjectContainmentEList<Option>(Option.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS);
+		}
+		return options;
 	}
 
 	/**
@@ -299,6 +325,8 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				return ((InternalEList<?>)getTokens()).basicRemove(otherEnd, msgs);
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+				return ((InternalEList<?>)getOptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -326,6 +354,8 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 				return getAllRules();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				return getTokens();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+				return getOptions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -361,6 +391,10 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 				getTokens().clear();
 				getTokens().addAll((Collection<? extends TokenDefinition>)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+				getOptions().clear();
+				getOptions().addAll((Collection<? extends Option>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -391,6 +425,9 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				getTokens().clear();
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+				getOptions().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -417,6 +454,8 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 				return !getAllRules().isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				return tokens != null && !tokens.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+				return options != null && !options.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

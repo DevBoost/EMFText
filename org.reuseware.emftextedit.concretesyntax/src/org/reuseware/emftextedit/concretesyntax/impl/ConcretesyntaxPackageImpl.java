@@ -32,6 +32,7 @@ import org.reuseware.emftextedit.concretesyntax.Import;
 import org.reuseware.emftextedit.concretesyntax.LineBreak;
 import org.reuseware.emftextedit.concretesyntax.NewDefinedToken;
 import org.reuseware.emftextedit.concretesyntax.NormalToken;
+import org.reuseware.emftextedit.concretesyntax.Option;
 import org.reuseware.emftextedit.concretesyntax.Placeholder;
 import org.reuseware.emftextedit.concretesyntax.PreDefinedToken;
 import org.reuseware.emftextedit.concretesyntax.Rule;
@@ -216,6 +217,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	private EClass placeholderEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass optionEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -272,7 +280,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackage.eINSTANCE.eClass();
 		GenModelPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
@@ -357,6 +364,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EReference getConcreteSyntax_Tokens() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcreteSyntax_Options() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -769,6 +785,33 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getOption() {
+		return optionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOption_Name() {
+		return (EAttribute)optionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOption_Value() {
+		return (EAttribute)optionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConcretesyntaxFactory getConcretesyntaxFactory() {
 		return (ConcretesyntaxFactory)getEFactoryInstance();
 	}
@@ -800,6 +843,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__RULES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_RULES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKENS);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__OPTIONS);
 
 		importEClass = createEClass(IMPORT);
 		createEAttribute(importEClass, IMPORT__PREFIX);
@@ -868,6 +912,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(derivedPlaceholderEClass, DERIVED_PLACEHOLDER__SUFFIX);
 
 		placeholderEClass = createEClass(PLACEHOLDER);
+
+		optionEClass = createEClass(OPTION);
+		createEAttribute(optionEClass, OPTION__NAME);
+		createEAttribute(optionEClass, OPTION__VALUE);
 	}
 
 	/**
@@ -928,6 +976,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEReference(getConcreteSyntax_Rules(), this.getRule(), this.getRule_Syntax(), "rules", null, 1, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_AllRules(), this.getRule(), null, "allRules", null, 1, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Tokens(), this.getTokenDefinition(), null, "tokens", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax_Options(), this.getOption(), null, "options", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImport_Prefix(), ecorePackage.getEString(), "prefix", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -997,6 +1046,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		initEClass(placeholderEClass, Placeholder.class, "Placeholder", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOption_Name(), ecorePackage.getEString(), "name", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOption_Value(), ecorePackage.getEString(), "value", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Create resource
 		createResource(eNS_URI);
 
@@ -1018,6 +1071,18 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "Multiplicity of Structurural Feature does not match Cardinality", "if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) \r\n\tthen true \r\n\telse (self.feature.ecoreFeature.upperBound = -1) \r\nendif"
+		   });		
+		addAnnotation
+		  (optionEClass, 
+		   source, 
+		   new String[] {
+			 "This generation option is not allowed.", "if(self.name=\'tokenspace\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
+		   });		
+		addAnnotation
+		  (optionEClass, 
+		   source, 
+		   new String[] {
+			 "Only positive integers are allowed.", "if(self.name=\'tokenspace\' and self.value.toInteger()>=0)\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
 		   });
 	}
 
