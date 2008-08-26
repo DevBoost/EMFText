@@ -91,9 +91,17 @@ public class EMFTextOCLValidator {
 								exp);
 
 						Object eval = query.evaluate(targetObject);
-
-						if ((eval instanceof Boolean)
-								&& !((Boolean) eval).booleanValue()) {
+						boolean report = false;
+						
+						if ((eval instanceof Boolean)){	
+							report = !((Boolean) eval).booleanValue(); 
+						}
+						else if(eval instanceof EObject){
+							report = ((EObject)eval).eClass().getName().equals("Invalid_Class");
+						}
+						
+						
+						if(report){
 							errors++;
 							String errorMsg = key.toString();
 							if (textResource != null) {
@@ -110,6 +118,7 @@ public class EMFTextOCLValidator {
 								marker.setAttribute(IMarker.LOCATION, targetObject
 										.toString());
 							}							
+		
 						}
 					} catch (org.eclipse.ocl.ParserException e) {
 						// TODO Auto-generated catch block
