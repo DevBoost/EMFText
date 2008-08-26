@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-06-16 17:42:06
+// $ANTLR 3.0.1 C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g 2008-08-26 18:10:38
 
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
@@ -18,10 +18,11 @@ public class CsLexer extends Lexer {
     public static final int T26=26;
     public static final int TEXT=4;
     public static final int T25=25;
-    public static final int Tokens=39;
+    public static final int Tokens=41;
     public static final int T24=24;
     public static final int EOF=-1;
     public static final int T23=23;
+    public static final int T40=40;
     public static final int T22=22;
     public static final int T21=21;
     public static final int T20=20;
@@ -34,6 +35,7 @@ public class CsLexer extends Lexer {
     public static final int T38=38;
     public static final int T37=37;
     public static final int QUOTED_60_62=5;
+    public static final int T39=39;
     public static final int T34=34;
     public static final int T15=15;
     public static final int T33=33;
@@ -61,14 +63,14 @@ public class CsLexer extends Lexer {
     public CsLexer(CharStream input) {
         super(input);
     }
-    public String getGrammarFileName() { return "C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g"; }
+    public String getGrammarFileName() { return "C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g"; }
 
     // $ANTLR start T15
     public final void mT15() throws RecognitionException {
         try {
             int _type = T15;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:17:5: ( 'SYNTAXDEF' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:17:7: 'SYNTAXDEF'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:17:5: ( 'SYNTAXDEF' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:17:7: 'SYNTAXDEF'
             {
             match("SYNTAXDEF"); 
 
@@ -86,8 +88,8 @@ public class CsLexer extends Lexer {
     public final void mT16() throws RecognitionException {
         try {
             int _type = T16;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:18:5: ( 'FOR' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:18:7: 'FOR'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:18:5: ( 'FOR' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:18:7: 'FOR'
             {
             match("FOR"); 
 
@@ -105,8 +107,8 @@ public class CsLexer extends Lexer {
     public final void mT17() throws RecognitionException {
         try {
             int _type = T17;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:19:5: ( 'START' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:19:7: 'START'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:19:5: ( 'START' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:19:7: 'START'
             {
             match("START"); 
 
@@ -124,8 +126,8 @@ public class CsLexer extends Lexer {
     public final void mT18() throws RecognitionException {
         try {
             int _type = T18;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:20:5: ( ',' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:20:7: ','
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:20:5: ( ',' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:20:7: ','
             {
             match(','); 
 
@@ -142,8 +144,8 @@ public class CsLexer extends Lexer {
     public final void mT19() throws RecognitionException {
         try {
             int _type = T19;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:21:5: ( 'IMPORTS' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:21:7: 'IMPORTS'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:21:5: ( 'IMPORTS' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:21:7: 'IMPORTS'
             {
             match("IMPORTS"); 
 
@@ -161,8 +163,8 @@ public class CsLexer extends Lexer {
     public final void mT20() throws RecognitionException {
         try {
             int _type = T20;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:22:5: ( '{' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:22:7: '{'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:22:5: ( '{' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:22:7: '{'
             {
             match('{'); 
 
@@ -179,8 +181,8 @@ public class CsLexer extends Lexer {
     public final void mT21() throws RecognitionException {
         try {
             int _type = T21;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:23:5: ( '}' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:23:7: '}'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:23:5: ( '}' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:23:7: '}'
             {
             match('}'); 
 
@@ -197,10 +199,10 @@ public class CsLexer extends Lexer {
     public final void mT22() throws RecognitionException {
         try {
             int _type = T22;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:24:5: ( 'TOKENS' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:24:7: 'TOKENS'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:24:5: ( 'OPTIONS' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:24:7: 'OPTIONS'
             {
-            match("TOKENS"); 
+            match("OPTIONS"); 
 
 
             }
@@ -216,8 +218,8 @@ public class CsLexer extends Lexer {
     public final void mT23() throws RecognitionException {
         try {
             int _type = T23;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:25:5: ( ';' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:25:7: ';'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:25:5: ( ';' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:25:7: ';'
             {
             match(';'); 
 
@@ -234,10 +236,10 @@ public class CsLexer extends Lexer {
     public final void mT24() throws RecognitionException {
         try {
             int _type = T24;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:26:5: ( 'RULES' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:26:7: 'RULES'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:26:5: ( 'TOKENS' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:26:7: 'TOKENS'
             {
-            match("RULES"); 
+            match("TOKENS"); 
 
 
             }
@@ -253,10 +255,11 @@ public class CsLexer extends Lexer {
     public final void mT25() throws RecognitionException {
         try {
             int _type = T25;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:27:5: ( ':' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:27:7: ':'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:27:5: ( 'RULES' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:27:7: 'RULES'
             {
-            match(':'); 
+            match("RULES"); 
+
 
             }
 
@@ -271,11 +274,10 @@ public class CsLexer extends Lexer {
     public final void mT26() throws RecognitionException {
         try {
             int _type = T26;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:28:5: ( 'WITH' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:28:7: 'WITH'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:28:5: ( ':' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:28:7: ':'
             {
-            match("WITH"); 
-
+            match(':'); 
 
             }
 
@@ -290,10 +292,10 @@ public class CsLexer extends Lexer {
     public final void mT27() throws RecognitionException {
         try {
             int _type = T27;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:29:5: ( 'SYNTAX' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:29:7: 'SYNTAX'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:29:5: ( 'WITH' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:29:7: 'WITH'
             {
-            match("SYNTAX"); 
+            match("WITH"); 
 
 
             }
@@ -309,10 +311,10 @@ public class CsLexer extends Lexer {
     public final void mT28() throws RecognitionException {
         try {
             int _type = T28;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:30:5: ( '::=' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:30:7: '::='
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:30:5: ( 'SYNTAX' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:30:7: 'SYNTAX'
             {
-            match("::="); 
+            match("SYNTAX"); 
 
 
             }
@@ -328,10 +330,10 @@ public class CsLexer extends Lexer {
     public final void mT29() throws RecognitionException {
         try {
             int _type = T29;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:31:5: ( '|' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:31:7: '|'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:31:5: ( '=' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:31:7: '='
             {
-            match('|'); 
+            match('='); 
 
             }
 
@@ -346,10 +348,11 @@ public class CsLexer extends Lexer {
     public final void mT30() throws RecognitionException {
         try {
             int _type = T30;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:32:5: ( '[' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:32:7: '['
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:32:5: ( '::=' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:32:7: '::='
             {
-            match('['); 
+            match("::="); 
+
 
             }
 
@@ -364,10 +367,10 @@ public class CsLexer extends Lexer {
     public final void mT31() throws RecognitionException {
         try {
             int _type = T31;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:33:5: ( ']' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:33:7: ']'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:33:5: ( '|' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:33:7: '|'
             {
-            match(']'); 
+            match('|'); 
 
             }
 
@@ -382,10 +385,10 @@ public class CsLexer extends Lexer {
     public final void mT32() throws RecognitionException {
         try {
             int _type = T32;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:34:5: ( '(' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:34:7: '('
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:34:5: ( '[' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:34:7: '['
             {
-            match('('); 
+            match('['); 
 
             }
 
@@ -400,10 +403,10 @@ public class CsLexer extends Lexer {
     public final void mT33() throws RecognitionException {
         try {
             int _type = T33;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:35:5: ( ')' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:35:7: ')'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:35:5: ( ']' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:35:7: ']'
             {
-            match(')'); 
+            match(']'); 
 
             }
 
@@ -418,10 +421,10 @@ public class CsLexer extends Lexer {
     public final void mT34() throws RecognitionException {
         try {
             int _type = T34;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:36:5: ( '+' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:36:7: '+'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:36:5: ( '(' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:36:7: '('
             {
-            match('+'); 
+            match('('); 
 
             }
 
@@ -436,10 +439,10 @@ public class CsLexer extends Lexer {
     public final void mT35() throws RecognitionException {
         try {
             int _type = T35;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:37:5: ( '*' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:37:7: '*'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:37:5: ( ')' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:37:7: ')'
             {
-            match('*'); 
+            match(')'); 
 
             }
 
@@ -454,10 +457,10 @@ public class CsLexer extends Lexer {
     public final void mT36() throws RecognitionException {
         try {
             int _type = T36;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:38:5: ( '?' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:38:7: '?'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:38:5: ( '+' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:38:7: '+'
             {
-            match('?'); 
+            match('+'); 
 
             }
 
@@ -472,11 +475,10 @@ public class CsLexer extends Lexer {
     public final void mT37() throws RecognitionException {
         try {
             int _type = T37;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:39:5: ( 'DEFINE' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:39:7: 'DEFINE'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:39:5: ( '*' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:39:7: '*'
             {
-            match("DEFINE"); 
-
+            match('*'); 
 
             }
 
@@ -491,8 +493,45 @@ public class CsLexer extends Lexer {
     public final void mT38() throws RecognitionException {
         try {
             int _type = T38;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:40:5: ( 'PREDEFINED' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:40:7: 'PREDEFINED'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:40:5: ( '?' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:40:7: '?'
+            {
+            match('?'); 
+
+            }
+
+            this.type = _type;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end T38
+
+    // $ANTLR start T39
+    public final void mT39() throws RecognitionException {
+        try {
+            int _type = T39;
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:41:5: ( 'DEFINE' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:41:7: 'DEFINE'
+            {
+            match("DEFINE"); 
+
+
+            }
+
+            this.type = _type;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end T39
+
+    // $ANTLR start T40
+    public final void mT40() throws RecognitionException {
+        try {
+            int _type = T40;
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:42:5: ( 'PREDEFINED' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:42:7: 'PREDEFINED'
             {
             match("PREDEFINED"); 
 
@@ -504,18 +543,18 @@ public class CsLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end T38
+    // $ANTLR end T40
 
     // $ANTLR start COMMENTS
     public final void mCOMMENTS() throws RecognitionException {
         try {
             int _type = COMMENTS;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:526:1: ( '//' (~ ( '\\n' | '\\r' ) )* )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:527:2: '//' (~ ( '\\n' | '\\r' ) )*
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:553:1: ( '//' (~ ( '\\n' | '\\r' ) )* )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:554:2: '//' (~ ( '\\n' | '\\r' ) )*
             {
             match("//"); 
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:527:6: (~ ( '\\n' | '\\r' ) )*
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:554:6: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -528,7 +567,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:527:7: ~ ( '\\n' | '\\r' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:554:7: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -564,10 +603,10 @@ public class CsLexer extends Lexer {
     public final void mTEXT() throws RecognitionException {
         try {
             int _type = TEXT;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:530:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:531:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:557:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:558:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:531:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:558:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt2=0;
             loop2:
             do {
@@ -581,7 +620,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -620,10 +659,10 @@ public class CsLexer extends Lexer {
     public final void mQNAME() throws RecognitionException {
         try {
             int _type = QNAME;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:534:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:535:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:561:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:562:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:535:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:562:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+
             int cnt3=0;
             loop3:
             do {
@@ -637,7 +676,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -662,7 +701,7 @@ public class CsLexer extends Lexer {
                 cnt3++;
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:535:26: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:562:26: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
             int cnt5=0;
             loop5:
             do {
@@ -676,10 +715,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:535:27: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:562:27: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    {
             	    match('.'); 
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:535:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:562:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    int cnt4=0;
             	    loop4:
             	    do {
@@ -693,7 +732,7 @@ public class CsLexer extends Lexer {
 
             	        switch (alt4) {
             	    	case 1 :
-            	    	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
+            	    	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    	    {
             	    	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	    	        input.consume();
@@ -745,17 +784,17 @@ public class CsLexer extends Lexer {
     public final void mTEXT_33_() throws RecognitionException {
         try {
             int _type = TEXT_33_;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:538:1: ( ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:539:2: ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:565:1: ( ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:566:2: ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:539:2: ( '!' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:539:3: '!'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:566:2: ( '!' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:566:3: '!'
             {
             match('!'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:539:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:566:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt6=0;
             loop6:
             do {
@@ -769,7 +808,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -808,10 +847,10 @@ public class CsLexer extends Lexer {
     public final void mLB() throws RecognitionException {
         try {
             int _type = LB;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:542:1: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:543:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:569:1: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:570:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:543:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:570:2: ( '\\r\\n' | '\\r' | '\\n' )
             int alt7=3;
             int LA7_0 = input.LA(1);
 
@@ -829,13 +868,13 @@ public class CsLexer extends Lexer {
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("543:2: ( '\\r\\n' | '\\r' | '\\n' )", 7, 0, input);
+                    new NoViableAltException("570:2: ( '\\r\\n' | '\\r' | '\\n' )", 7, 0, input);
 
                 throw nvae;
             }
             switch (alt7) {
                 case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:543:3: '\\r\\n'
+                    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:570:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -843,14 +882,14 @@ public class CsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:543:12: '\\r'
+                    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:570:12: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:543:19: '\\n'
+                    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:570:19: '\\n'
                     {
                     match('\n'); 
 
@@ -874,17 +913,17 @@ public class CsLexer extends Lexer {
     public final void mTEXT_35_() throws RecognitionException {
         try {
             int _type = TEXT_35_;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:546:1: ( ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:547:2: ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:573:1: ( ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:574:2: ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:547:2: ( '#' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:547:3: '#'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:574:2: ( '#' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:574:3: '#'
             {
             match('#'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:547:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:574:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt8=0;
             loop8:
             do {
@@ -898,7 +937,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -937,8 +976,8 @@ public class CsLexer extends Lexer {
     public final void mWS() throws RecognitionException {
         try {
             int _type = WS;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:550:1: ( ( ' ' | '\\t' | '\\f' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:551:2: ( ' ' | '\\t' | '\\f' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:577:1: ( ( ' ' | '\\t' | '\\f' ) )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:578:2: ( ' ' | '\\t' | '\\f' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -965,17 +1004,17 @@ public class CsLexer extends Lexer {
     public final void mQUOTED_60_62() throws RecognitionException {
         try {
             int _type = QUOTED_60_62;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:554:1: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:581:1: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:2: ( '<' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:3: '<'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:2: ( '<' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:3: '<'
             {
             match('<'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
             loop9:
             do {
                 int alt9=3;
@@ -1009,7 +1048,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:8: ~ ( '>' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:8: ~ ( '>' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -1025,10 +1064,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:15: ( '\\\\' '>' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:15: ( '\\\\' '>' )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:15: ( '\\\\' '>' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:16: '\\\\' '>'
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:15: ( '\\\\' '>' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:16: '\\\\' '>'
             	    {
             	    match('\\'); 
             	    match('>'); 
@@ -1044,8 +1083,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:26: ( '>' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:555:27: '>'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:26: ( '>' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:582:27: '>'
             {
             match('>'); 
 
@@ -1065,17 +1104,17 @@ public class CsLexer extends Lexer {
     public final void mQUOTED_39_39() throws RecognitionException {
         try {
             int _type = QUOTED_39_39;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:558:1: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:585:1: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:2: ( '\\'' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:3: '\\''
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:2: ( '\\'' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:3: '\\''
             {
             match('\''); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
             loop10:
             do {
                 int alt10=3;
@@ -1109,7 +1148,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:9: ~ ( '\\'' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:9: ~ ( '\\'' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -1125,10 +1164,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:17: ( '\\\\' '\\'' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:17: ( '\\\\' '\\'' )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:17: ( '\\\\' '\\'' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:18: '\\\\' '\\''
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:17: ( '\\\\' '\\'' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:18: '\\\\' '\\''
             	    {
             	    match('\\'); 
             	    match('\''); 
@@ -1144,8 +1183,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:29: ( '\\'' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:559:30: '\\''
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:29: ( '\\'' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:586:30: '\\''
             {
             match('\''); 
 
@@ -1165,17 +1204,17 @@ public class CsLexer extends Lexer {
     public final void mQUOTED_36_36() throws RecognitionException {
         try {
             int _type = QUOTED_36_36;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:562:1: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:589:1: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:2: ( '$' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:3: '$'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:2: ( '$' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:3: '$'
             {
             match('$'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
             loop11:
             do {
                 int alt11=3;
@@ -1209,7 +1248,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:8: ~ ( '$' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:8: ~ ( '$' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -1225,10 +1264,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:15: ( '\\\\' '$' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:15: ( '\\\\' '$' )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:15: ( '\\\\' '$' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:16: '\\\\' '$'
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:15: ( '\\\\' '$' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:16: '\\\\' '$'
             	    {
             	    match('\\'); 
             	    match('$'); 
@@ -1244,8 +1283,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:26: ( '$' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:563:27: '$'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:26: ( '$' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:590:27: '$'
             {
             match('$'); 
 
@@ -1265,17 +1304,17 @@ public class CsLexer extends Lexer {
     public final void mQUOTED_34_34() throws RecognitionException {
         try {
             int _type = QUOTED_34_34;
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:566:1: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:593:1: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:2: ( '\"' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:3: '\"'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:2: ( '\"' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:3: '\"'
             {
             match('\"'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
             loop12:
             do {
                 int alt12=3;
@@ -1309,7 +1348,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:8: ~ ( '\"' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:8: ~ ( '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -1325,10 +1364,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:15: ( '\\\\' '\"' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:15: ( '\\\\' '\"' )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:15: ( '\\\\' '\"' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:16: '\\\\' '\"'
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:15: ( '\\\\' '\"' )
+            	    // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:16: '\\\\' '\"'
             	    {
             	    match('\\'); 
             	    match('\"'); 
@@ -1344,8 +1383,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:26: ( '\"' )
-            // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:567:27: '\"'
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:26: ( '\"' )
+            // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:594:27: '\"'
             {
             match('\"'); 
 
@@ -1362,250 +1401,264 @@ public class CsLexer extends Lexer {
     // $ANTLR end QUOTED_34_34
 
     public void mTokens() throws RecognitionException {
-        // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:8: ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 )
-        int alt13=35;
+        // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:8: ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | T39 | T40 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 )
+        int alt13=37;
         alt13 = dfa13.predict(input);
         switch (alt13) {
             case 1 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:10: T15
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:10: T15
                 {
                 mT15(); 
 
                 }
                 break;
             case 2 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:14: T16
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:14: T16
                 {
                 mT16(); 
 
                 }
                 break;
             case 3 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:18: T17
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:18: T17
                 {
                 mT17(); 
 
                 }
                 break;
             case 4 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:22: T18
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:22: T18
                 {
                 mT18(); 
 
                 }
                 break;
             case 5 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:26: T19
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:26: T19
                 {
                 mT19(); 
 
                 }
                 break;
             case 6 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:30: T20
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:30: T20
                 {
                 mT20(); 
 
                 }
                 break;
             case 7 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:34: T21
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:34: T21
                 {
                 mT21(); 
 
                 }
                 break;
             case 8 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:38: T22
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:38: T22
                 {
                 mT22(); 
 
                 }
                 break;
             case 9 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:42: T23
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:42: T23
                 {
                 mT23(); 
 
                 }
                 break;
             case 10 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:46: T24
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:46: T24
                 {
                 mT24(); 
 
                 }
                 break;
             case 11 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:50: T25
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:50: T25
                 {
                 mT25(); 
 
                 }
                 break;
             case 12 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:54: T26
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:54: T26
                 {
                 mT26(); 
 
                 }
                 break;
             case 13 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:58: T27
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:58: T27
                 {
                 mT27(); 
 
                 }
                 break;
             case 14 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:62: T28
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:62: T28
                 {
                 mT28(); 
 
                 }
                 break;
             case 15 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:66: T29
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:66: T29
                 {
                 mT29(); 
 
                 }
                 break;
             case 16 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:70: T30
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:70: T30
                 {
                 mT30(); 
 
                 }
                 break;
             case 17 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:74: T31
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:74: T31
                 {
                 mT31(); 
 
                 }
                 break;
             case 18 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:78: T32
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:78: T32
                 {
                 mT32(); 
 
                 }
                 break;
             case 19 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:82: T33
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:82: T33
                 {
                 mT33(); 
 
                 }
                 break;
             case 20 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:86: T34
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:86: T34
                 {
                 mT34(); 
 
                 }
                 break;
             case 21 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:90: T35
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:90: T35
                 {
                 mT35(); 
 
                 }
                 break;
             case 22 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:94: T36
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:94: T36
                 {
                 mT36(); 
 
                 }
                 break;
             case 23 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:98: T37
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:98: T37
                 {
                 mT37(); 
 
                 }
                 break;
             case 24 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:102: T38
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:102: T38
                 {
                 mT38(); 
 
                 }
                 break;
             case 25 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:106: COMMENTS
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:106: T39
+                {
+                mT39(); 
+
+                }
+                break;
+            case 26 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:110: T40
+                {
+                mT40(); 
+
+                }
+                break;
+            case 27 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:114: COMMENTS
                 {
                 mCOMMENTS(); 
 
                 }
                 break;
-            case 26 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:115: TEXT
+            case 28 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:123: TEXT
                 {
                 mTEXT(); 
 
                 }
                 break;
-            case 27 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:120: QNAME
+            case 29 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:128: QNAME
                 {
                 mQNAME(); 
 
                 }
                 break;
-            case 28 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:126: TEXT_33_
+            case 30 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:134: TEXT_33_
                 {
                 mTEXT_33_(); 
 
                 }
                 break;
-            case 29 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:135: LB
+            case 31 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:143: LB
                 {
                 mLB(); 
 
                 }
                 break;
-            case 30 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:138: TEXT_35_
+            case 32 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:146: TEXT_35_
                 {
                 mTEXT_35_(); 
 
                 }
                 break;
-            case 31 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:147: WS
+            case 33 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:155: WS
                 {
                 mWS(); 
 
                 }
                 break;
-            case 32 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:150: QUOTED_60_62
+            case 34 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:158: QUOTED_60_62
                 {
                 mQUOTED_60_62(); 
 
                 }
                 break;
-            case 33 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:163: QUOTED_39_39
+            case 35 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:171: QUOTED_39_39
                 {
                 mQUOTED_39_39(); 
 
                 }
                 break;
-            case 34 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:176: QUOTED_36_36
+            case 36 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:184: QUOTED_36_36
                 {
                 mQUOTED_36_36(); 
 
                 }
                 break;
-            case 35 :
-                // C:\\Dokumente und Einstellungen\\skarol\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:189: QUOTED_34_34
+            case 37 :
+                // C:\\workspaces\\reuseware2\\org.reuseware.emftextedit.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\concretesyntax\\resource\\cs\\Cs.g:1:197: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 
@@ -1619,62 +1672,51 @@ public class CsLexer extends Lexer {
 
     protected DFA13 dfa13 = new DFA13(this);
     static final String DFA13_eotS =
-        "\1\uffff\2\30\1\uffff\1\30\2\uffff\1\30\1\uffff\1\30\1\51\1\30\10"+
-        "\uffff\2\30\1\uffff\1\30\11\uffff\2\30\1\uffff\4\30\2\uffff\5\30"+
-        "\1\70\10\30\1\uffff\3\30\1\104\3\30\1\110\2\30\1\113\1\uffff\2\30"+
-        "\1\117\1\uffff\1\30\1\121\1\uffff\1\122\2\30\1\uffff\1\125\2\uffff"+
-        "\2\30\1\uffff\1\30\1\131\1\30\1\uffff\1\133\1\uffff";
+        "\1\uffff\2\32\1\uffff\1\32\2\uffff\1\32\1\uffff\2\32\1\54\1\32\11"+
+        "\uffff\2\32\1\uffff\1\32\11\uffff\2\32\1\uffff\5\32\2\uffff\5\32"+
+        "\1\74\11\32\1\uffff\4\32\1\112\3\32\1\116\3\32\1\122\1\uffff\2\32"+
+        "\1\126\1\uffff\2\32\1\131\1\uffff\1\132\2\32\1\uffff\1\135\1\136"+
+        "\2\uffff\2\32\2\uffff\1\32\1\142\1\32\1\uffff\1\144\1\uffff";
     static final String DFA13_eofS =
-        "\134\uffff";
+        "\145\uffff";
     static final String DFA13_minS =
-        "\1\11\2\56\1\uffff\1\56\2\uffff\1\56\1\uffff\1\56\1\72\1\56\10\uffff"+
-        "\2\56\1\uffff\1\56\11\uffff\2\56\1\uffff\4\56\2\uffff\5\56\1\55"+
-        "\10\56\1\uffff\3\56\1\55\3\56\1\55\2\56\1\55\1\uffff\2\56\1\55\1"+
-        "\uffff\1\56\1\55\1\uffff\1\55\2\56\1\uffff\1\55\2\uffff\2\56\1\uffff"+
+        "\1\11\2\56\1\uffff\1\56\2\uffff\1\56\1\uffff\2\56\1\72\1\56\11\uffff"+
+        "\2\56\1\uffff\1\56\11\uffff\2\56\1\uffff\5\56\2\uffff\5\56\1\55"+
+        "\11\56\1\uffff\4\56\1\55\3\56\1\55\3\56\1\55\1\uffff\2\56\1\55\1"+
+        "\uffff\2\56\1\55\1\uffff\1\55\2\56\1\uffff\2\55\2\uffff\2\56\2\uffff"+
         "\1\56\1\55\1\56\1\uffff\1\55\1\uffff";
     static final String DFA13_maxS =
-        "\1\175\2\172\1\uffff\1\172\2\uffff\1\172\1\uffff\1\172\1\72\1\172"+
-        "\10\uffff\2\172\1\uffff\1\172\11\uffff\2\172\1\uffff\4\172\2\uffff"+
-        "\16\172\1\uffff\13\172\1\uffff\3\172\1\uffff\2\172\1\uffff\3\172"+
-        "\1\uffff\1\172\2\uffff\2\172\1\uffff\3\172\1\uffff\1\172\1\uffff";
+        "\1\175\2\172\1\uffff\1\172\2\uffff\1\172\1\uffff\2\172\1\72\1\172"+
+        "\11\uffff\2\172\1\uffff\1\172\11\uffff\2\172\1\uffff\5\172\2\uffff"+
+        "\17\172\1\uffff\15\172\1\uffff\3\172\1\uffff\3\172\1\uffff\3\172"+
+        "\1\uffff\2\172\2\uffff\2\172\2\uffff\3\172\1\uffff\1\172\1\uffff";
     static final String DFA13_acceptS =
-        "\3\uffff\1\4\1\uffff\1\6\1\7\1\uffff\1\11\3\uffff\1\17\1\20\1\21"+
-        "\1\22\1\23\1\24\1\25\1\26\2\uffff\1\31\1\uffff\1\32\1\34\1\35\1"+
-        "\36\1\37\1\40\1\41\1\42\1\43\2\uffff\1\33\4\uffff\1\16\1\13\16\uffff"+
-        "\1\2\13\uffff\1\14\3\uffff\1\3\2\uffff\1\12\3\uffff\1\15\1\uffff"+
-        "\1\10\1\27\2\uffff\1\5\3\uffff\1\1\1\uffff\1\30";
+        "\3\uffff\1\4\1\uffff\1\6\1\7\1\uffff\1\11\4\uffff\1\17\1\21\1\22"+
+        "\1\23\1\24\1\25\1\26\1\27\1\30\2\uffff\1\33\1\uffff\1\34\1\36\1"+
+        "\37\1\40\1\41\1\42\1\43\1\44\1\45\2\uffff\1\35\5\uffff\1\20\1\14"+
+        "\17\uffff\1\2\15\uffff\1\15\3\uffff\1\3\3\uffff\1\13\3\uffff\1\16"+
+        "\2\uffff\1\12\1\31\2\uffff\1\5\1\10\3\uffff\1\1\1\uffff\1\32";
     static final String DFA13_specialS =
-        "\134\uffff}>";
+        "\145\uffff}>";
     static final String[] DFA13_transitionS = {
-            "\1\34\1\32\1\uffff\1\34\1\32\22\uffff\1\34\1\31\1\40\1\33\1"+
-            "\37\2\uffff\1\36\1\17\1\20\1\22\1\21\1\3\1\30\1\uffff\1\26\12"+
-            "\30\1\12\1\10\1\35\2\uffff\1\23\1\uffff\3\27\1\24\1\27\1\2\2"+
-            "\27\1\4\6\27\1\25\1\27\1\11\1\1\1\7\2\27\1\13\3\27\1\15\1\uffff"+
-            "\1\16\1\uffff\1\27\1\uffff\32\27\1\5\1\14\1\6",
-            "\1\43\22\uffff\23\27\1\42\4\27\1\41\1\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "\1\43\22\uffff\16\27\1\44\13\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\36\1\34\1\uffff\1\36\1\34\22\uffff\1\36\1\33\1\42\1\35\1"+
+            "\41\2\uffff\1\40\1\21\1\22\1\24\1\23\1\3\1\32\1\uffff\1\30\12"+
+            "\32\1\13\1\10\1\37\1\15\1\uffff\1\25\1\uffff\3\31\1\26\1\31"+
+            "\1\2\2\31\1\4\5\31\1\7\1\27\1\31\1\12\1\1\1\11\2\31\1\14\3\31"+
+            "\1\17\1\uffff\1\20\1\uffff\1\31\1\uffff\32\31\1\5\1\16\1\6",
+            "\1\45\22\uffff\23\31\1\44\4\31\1\43\1\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "\1\45\22\uffff\16\31\1\46\13\31\4\uffff\1\31\1\uffff\32\31",
             "",
-            "\1\43\22\uffff\14\27\1\45\15\27\4\uffff\1\27\1\uffff\32\27",
-            "",
-            "",
-            "\1\43\22\uffff\16\27\1\46\13\27\4\uffff\1\27\1\uffff\32\27",
-            "",
-            "\1\43\22\uffff\24\27\1\47\5\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\50",
-            "\1\43\22\uffff\10\27\1\52\21\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\45\22\uffff\14\31\1\47\15\31\4\uffff\1\31\1\uffff\32\31",
             "",
             "",
+            "\1\45\22\uffff\17\31\1\50\12\31\4\uffff\1\31\1\uffff\32\31",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\43\22\uffff\4\27\1\53\25\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\21\27\1\54\10\27\4\uffff\1\27\1\uffff\32\27",
-            "",
-            "\1\43\22\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\45\22\uffff\16\31\1\51\13\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\24\31\1\52\5\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\53",
+            "\1\45\22\uffff\10\31\1\55\21\31\4\uffff\1\31\1\uffff\32\31",
             "",
             "",
             "",
@@ -1684,74 +1726,95 @@ public class CsLexer extends Lexer {
             "",
             "",
             "",
-            "\1\43\22\uffff\15\27\1\55\14\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\1\56\31\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\45\22\uffff\4\31\1\56\25\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\21\31\1\57\10\31\4\uffff\1\31\1\uffff\32\31",
             "",
-            "\1\43\22\uffff\21\27\1\57\10\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\17\27\1\60\12\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\12\27\1\61\17\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\13\27\1\62\16\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\45\22\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
             "",
             "",
-            "\1\43\22\uffff\23\27\1\63\6\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\5\27\1\64\24\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\4\27\1\65\25\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\23\27\1\66\6\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\21\27\1\67\10\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "\1\43\22\uffff\16\27\1\71\13\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\4\27\1\72\25\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\4\27\1\73\25\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\7\27\1\74\22\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\10\27\1\75\21\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\3\27\1\76\26\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\1\77\31\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\23\27\1\100\6\27\4\uffff\1\27\1\uffff\32\27",
-            "",
-            "\1\43\22\uffff\21\27\1\101\10\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\15\27\1\102\14\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\22\27\1\103\7\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "\1\43\22\uffff\15\27\1\105\14\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\4\27\1\106\25\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\27\27\1\107\2\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "\1\43\22\uffff\23\27\1\111\6\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\22\27\1\112\7\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "",
-            "\1\43\22\uffff\4\27\1\114\25\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\5\27\1\115\24\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\3\27\1\116\26\27\4\uffff\1"+
-            "\27\1\uffff\32\27",
-            "",
-            "\1\43\22\uffff\22\27\1\120\7\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "\1\43\22\uffff\10\27\1\123\21\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\4\27\1\124\25\27\4\uffff\1\27\1\uffff\32\27",
-            "",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
             "",
             "",
-            "\1\43\22\uffff\15\27\1\126\14\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\43\22\uffff\5\27\1\127\24\27\4\uffff\1\27\1\uffff\32\27",
             "",
-            "\1\43\22\uffff\4\27\1\130\25\27\4\uffff\1\27\1\uffff\32\27",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
-            "\1\43\22\uffff\3\27\1\132\26\27\4\uffff\1\27\1\uffff\32\27",
             "",
-            "\1\30\1\43\1\uffff\12\30\7\uffff\32\27\4\uffff\1\27\1\uffff"+
-            "\32\27",
+            "",
+            "",
+            "",
+            "\1\45\22\uffff\15\31\1\60\14\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\1\61\31\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "\1\45\22\uffff\21\31\1\62\10\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\17\31\1\63\12\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\23\31\1\64\6\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\12\31\1\65\17\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\13\31\1\66\16\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "",
+            "\1\45\22\uffff\23\31\1\67\6\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\5\31\1\70\24\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\4\31\1\71\25\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\23\31\1\72\6\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\21\31\1\73\10\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "\1\45\22\uffff\16\31\1\75\13\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\10\31\1\76\21\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\4\31\1\77\25\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\4\31\1\100\25\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\7\31\1\101\22\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\10\31\1\102\21\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\3\31\1\103\26\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\1\104\31\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\23\31\1\105\6\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "\1\45\22\uffff\21\31\1\106\10\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\16\31\1\107\13\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\15\31\1\110\14\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\22\31\1\111\7\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "\1\45\22\uffff\15\31\1\113\14\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\4\31\1\114\25\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\27\31\1\115\2\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "\1\45\22\uffff\23\31\1\117\6\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\15\31\1\120\14\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\22\31\1\121\7\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "",
+            "\1\45\22\uffff\4\31\1\123\25\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\5\31\1\124\24\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\3\31\1\125\26\31\4\uffff\1"+
+            "\31\1\uffff\32\31",
+            "",
+            "\1\45\22\uffff\22\31\1\127\7\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\22\31\1\130\7\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "\1\45\22\uffff\10\31\1\133\21\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\4\31\1\134\25\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "",
+            "",
+            "\1\45\22\uffff\15\31\1\137\14\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\45\22\uffff\5\31\1\140\24\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "",
+            "\1\45\22\uffff\4\31\1\141\25\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
+            "\1\45\22\uffff\3\31\1\143\26\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "\1\32\1\45\1\uffff\12\32\7\uffff\32\31\4\uffff\1\31\1\uffff"+
+            "\32\31",
             ""
     };
 
@@ -1785,7 +1848,7 @@ public class CsLexer extends Lexer {
             this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 );";
+            return "1:1: Tokens : ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | T39 | T40 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 );";
         }
     }
  
