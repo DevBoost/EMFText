@@ -16,6 +16,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Concretesyntax.ecore#//ConcreteSyntax/rules"/>
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference Concretesyntax.ecore#//ConcreteSyntax/allRules"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Concretesyntax.ecore#//ConcreteSyntax/tokens"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Concretesyntax.ecore#//ConcreteSyntax/options"/>
     </genClasses>
     <genClasses ecoreClass="Concretesyntax.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//Import/prefix"/>
@@ -77,5 +78,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//DerivedPlaceholder/suffix"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Concretesyntax.ecore#//Placeholder"/>
+    <genClasses ecoreClass="Concretesyntax.ecore#//Option">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//Option/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//Option/value"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
