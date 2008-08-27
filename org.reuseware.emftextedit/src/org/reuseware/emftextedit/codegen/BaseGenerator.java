@@ -74,13 +74,14 @@ public abstract class BaseGenerator implements IGenerator {
 	static {
 		javaNativeTypeMapping = new HashMap<String, String>();
 		
-		javaNativeTypeMapping.put("int", "Integer");
-		javaNativeTypeMapping.put("short", "Short");
-		javaNativeTypeMapping.put("long","Long");
-		javaNativeTypeMapping.put("double","Double");
-		javaNativeTypeMapping.put("byte","Byte");
-		javaNativeTypeMapping.put("boolean","Boolean");
-		javaNativeTypeMapping.put("float","Float");
+		javaNativeTypeMapping.put("int", "java.lang.Integer");
+		javaNativeTypeMapping.put("short", "java.lang.Short");
+		javaNativeTypeMapping.put("long", "java.lang.Long");
+		javaNativeTypeMapping.put("double", "java.lang.Double");
+		javaNativeTypeMapping.put("byte", "java.lang.Byte");
+		javaNativeTypeMapping.put("boolean", "java.lang.Boolean");
+		javaNativeTypeMapping.put("float", "java.lang.Float");
+		javaNativeTypeMapping.put("char", "java.lang.Character");
 	}
 
 	
