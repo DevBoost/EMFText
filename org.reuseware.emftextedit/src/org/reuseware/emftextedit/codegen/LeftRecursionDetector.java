@@ -9,8 +9,6 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.xml.type.internal.RegEx.REUtil;
 import org.reuseware.emftextedit.concretesyntax.Choice;
 import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
