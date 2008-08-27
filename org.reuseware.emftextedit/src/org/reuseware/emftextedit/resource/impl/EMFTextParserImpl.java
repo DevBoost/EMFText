@@ -167,6 +167,7 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
         } catch (RecognitionException re) {
             reportError(re);
         } catch (IllegalArgumentException e) {
+        	e.printStackTrace();
             //? can be caused if a null is set on EMF models where not allowed;
             //? this will just happen if other errors occurred before
         }
