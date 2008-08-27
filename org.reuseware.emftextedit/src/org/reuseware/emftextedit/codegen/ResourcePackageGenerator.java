@@ -5,9 +5,11 @@ import java.io.BufferedOutputStream;
 import java.io.PrintWriter;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.HashMap;
 
+import org.reuseware.emftextedit.codegen.IGenerator.GenerationProblem;
 import org.reuseware.emftextedit.resource.TextResource;
 import org.antlr.Tool;
 import org.antlr.tool.ErrorManager;
@@ -162,8 +164,9 @@ public class ResourcePackageGenerator {
         }
         finally{
    	   	    out.close();
-   	 	    if(gen.getOccuredProblems()!=null){
-   	   	    	for(IGenerator.GenerationProblem problem:gen.getOccuredProblems()){
+   	 	    Collection<GenerationProblem> occuredWarningsAndErrors = gen.getOccuredWarningsAndErrors();
+			if(occuredWarningsAndErrors!=null) {
+   	   	    	for(IGenerator.GenerationProblem problem:occuredWarningsAndErrors){
    	   	    		if(problem.getSeverity() == IGenerator.GenerationProblem.Severity.HINT){
    	   	    			csResource.addWarning(problem.getMessage(),problem.getCause());
    	   	    		

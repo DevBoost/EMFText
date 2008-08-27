@@ -43,6 +43,7 @@ import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
 import org.reuseware.emftextedit.concretesyntax.Containment;
 import org.reuseware.emftextedit.concretesyntax.Definition;
 import org.reuseware.emftextedit.concretesyntax.LineBreak;
+import org.reuseware.emftextedit.concretesyntax.Option;
 import org.reuseware.emftextedit.concretesyntax.PLUS;
 import org.reuseware.emftextedit.concretesyntax.Cardinality;
 import org.reuseware.emftextedit.concretesyntax.QUESTIONMARK;
@@ -72,6 +73,7 @@ import org.reuseware.emftextedit.concretesyntax.DecoratedToken;
 
 public class TextParserGenerator extends BaseGenerator{
 	
+	private static final String CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION = "autofixSimpleLeftrecursion";
 	/**
 	 * The standard token type name (used when no userdefined tokentype is referenced 
 	 * and no pre- and suffixes are given).
@@ -323,7 +325,7 @@ public class TextParserGenerator extends BaseGenerator{
 	    
 	    printTokenDefinitions(out);
 	    
-	    return this.getOccuredProblems()==null;
+	    return this.getOccuredErrors()==null;
 
 	}
 	
@@ -449,67 +451,82 @@ public class TextParserGenerator extends BaseGenerator{
 	}
 	
 	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
-        for(Rule rule : source.getAllRules()) {
+        
+		for(Rule rule : source.getAllRules()) {
         	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-            	
+            	Option option = GeneratorUtil.getOptionByName(CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION, source.getOptions());
+            	boolean autofix = (option == null) ? false : Boolean.parseBoolean(option.getValue());
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
-            		System.out.println();
-                	printRightRecursion(out, rule, eClassesWithSyntax, eClassesReferenced);	
-                	
-					
-					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
-                    if(!subClasses.isEmpty()){
-                    	out.println("\t|//derived choice rules for sub-classes: ");
-                    	printSubClassChoices(out,subClasses);
-                    	out.println();
-                    }
-                    
-                    String message = "Warning: Rule " +  rule.getMetaclass().getName() + " is direct left recursive by rule " + recursionRule.getMetaclass().getName()+ 
-                	". Appling experimental autofix!";
-                	GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
-            		addProblem(generationWarning);
-                	
-                	continue;
+            		if (autofix) {
+            			System.out.println();
+                    	printRightRecursion(out, rule, eClassesWithSyntax, eClassesReferenced);	
+                    	
+    					
+    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
+                        if(!subClasses.isEmpty()){
+                        	out.println("\t|//derived choice rules for sub-classes: ");
+                        	printSubClassChoices(out,subClasses);
+                        	out.println();
+                        }
+                        
+                        String message = "Applied experimental autofix: Rule " +  rule.getMetaclass().getName() + " is direct left recursive by rule " + recursionRule.getMetaclass().getName()+ 
+                    	".";
+                    	GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
+                		addProblem(generationWarning);
+                		continue;
+            		}
+            		else {
+            			String message = "Warning: Rule " +  rule.getMetaclass().getName() + " is direct left recursive by rule " + recursionRule.getMetaclass().getName();
+                  		GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
+                  		addProblem(generationWarning);
+                		printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
+            		}
             	}
             	else {
             		String message = "Rule " +  rule.getMetaclass().getName() + " is mutual left recursive by rule " + recursionRule.getMetaclass().getName()+" ! Please restructure the grammar.";
-            		addProblem(new GenerationProblem(message,rule));
-            		continue;
+            		GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
+              		addProblem(generationWarning);
+            		printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
             	}
             
             }
-            
-            
-         	String ruleName = rule.getMetaclass().getName();
-            GenPackage genPackage = rule.getMetaclass().getGenPackage();
-            
-            out.print(getLowerCase(ruleName));
-            out.println(" returns [" + ruleName + " element = null]");
-            out.println("@init{");
-            out.println("\telement = " + genPackage.getPrefix() + "Factory.eINSTANCE.create" + rule.getMetaclass().getName() + "();");
-            out.println("}");
-            out.println(":");
-            
-            printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,proxyReferences,"\t");
-            
-            Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
-            if(!subClasses.isEmpty()){
-            	out.println("\t|//derived choice rules for sub-classes: ");
-            	printSubClassChoices(out,subClasses);
-            	out.println();
+            else {
+            	printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
             }
             
-            out.println(";");
-            out.println();
             
-            eClassesWithSyntax.add(rule.getMetaclass());
+         	
         }
 	}
 	
    
-
+	private void printGrammarRule(Rule rule, PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
+		String ruleName = rule.getMetaclass().getName();
+        GenPackage genPackage = rule.getMetaclass().getGenPackage();
+        
+        out.print(getLowerCase(ruleName));
+        out.println(" returns [" + ruleName + " element = null]");
+        out.println("@init{");
+        out.println("\telement = " + genPackage.getPrefix() + "Factory.eINSTANCE.create" + rule.getMetaclass().getName() + "();");
+        out.println("}");
+        out.println(":");
+        
+        printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,proxyReferences,"\t");
+        
+        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
+        if(!subClasses.isEmpty()){
+        	out.println("\t|//derived choice rules for sub-classes: ");
+        	printSubClassChoices(out,subClasses);
+        	out.println();
+        }
+        
+        out.println(";");
+        out.println();
+        
+        eClassesWithSyntax.add(rule.getMetaclass());
+	}
 	
 
 	private int printChoice(Choice choice, Rule rule, PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent) {

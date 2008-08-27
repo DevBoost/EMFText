@@ -84,13 +84,15 @@ public abstract class BaseGenerator implements IGenerator {
 	}
 
 	
-	private List<GenerationProblem> problems;
+	private List<GenerationProblem> errors;
+	private List<GenerationProblem> warnings;
 	private String className;
 	private String packageName;
 
 	
 	public BaseGenerator(String className, String packageName){
-		problems = new LinkedList<GenerationProblem>();
+		errors = new LinkedList<GenerationProblem>();
+		warnings = new LinkedList<GenerationProblem>();
 		this.className = className;
 		this.packageName = packageName;
 	}
@@ -112,12 +114,29 @@ public abstract class BaseGenerator implements IGenerator {
 	 * @param problem
 	 */
 	protected void addProblem(GenerationProblem problem){
-		problems.add(problem);
+		if (problem.getSeverity().equals(GenerationProblem.Severity.ERROR)) {
+			errors.add(problem);
+		}
+		else {
+			warnings.add(problem);
+		}
 	}
 	
-	public Collection<GenerationProblem> getOccuredProblems(){
-		return (problems.isEmpty()?null:problems);
+	
+	public Collection<GenerationProblem> getOccuredErrors(){
+		return (errors.isEmpty()?null:errors);
 	}
+	
+	public Collection<GenerationProblem> getOccuredWarnings(){
+		return (warnings.isEmpty()?null:warnings);
+	}
+	
+	public Collection<GenerationProblem> getOccuredWarningsAndErrors(){
+		List<GenerationProblem> allProblems = new LinkedList<GenerationProblem>(errors);
+		allProblems.addAll(warnings);
+		return (allProblems.isEmpty()?null:allProblems);
+	}
+	
 	
     /**
      * Capitalizes the first letter of the given string.

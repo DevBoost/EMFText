@@ -54,6 +54,6 @@ public interface IGenerator {
 
 	public abstract boolean generate(PrintWriter out);
 	
-	public abstract Collection<GenerationProblem> getOccuredProblems();
+	public abstract Collection<GenerationProblem> getOccuredErrors();
 
 }

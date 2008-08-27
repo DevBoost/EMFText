@@ -104,10 +104,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="Placeholder" abstract="true" eSuperTypes="#//Terminal"/>
   <eClassifiers xsi:type="ecore:EClass" name="Option">
     <eAnnotations source="OCL">
-      <details key="This generation option is not allowed." value="if(self.name='tokenspace')&#xD;&#xA;&#x9;then true&#xD;&#xA;else&#xD;&#xA;&#x9;false&#xD;&#xA;endif"/>
+      <details key="This generation option is not allowed." value="if(self.name='tokenspace' or self.name='autofixSimpleLeftrecursion')&#xD;&#xA;&#x9;then true&#xD;&#xA;else&#xD;&#xA;&#x9;false&#xD;&#xA;endif"/>
     </eAnnotations>
     <eAnnotations source="OCL">
-      <details key="Only positive integers are allowed." value="if(self.name='tokenspace' and self.value.toInteger()>=0)&#xD;&#xA;&#x9;then true&#xD;&#xA;else&#xD;&#xA;&#x9;false&#xD;&#xA;endif"/>
+      <details key="Only positive integers are allowed." value="if (self.name='tokenspace') &#xD;&#xA;&#x9;then if( self.value.toInteger()>=0)&#xD;&#xA;&#x9;&#x9;then true&#xD;&#xA;&#x9;&#x9;else false&#xD;&#xA;&#x9;endif&#x9;&#xD;&#xA;&#x9;else true&#xD;&#xA;endif"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

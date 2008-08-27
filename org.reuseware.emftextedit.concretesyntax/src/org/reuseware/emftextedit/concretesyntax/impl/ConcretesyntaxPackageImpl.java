@@ -1076,13 +1076,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionEClass, 
 		   source, 
 		   new String[] {
-			 "This generation option is not allowed.", "if(self.name=\'tokenspace\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
+			 "This generation option is not allowed.", "if(self.name=\'tokenspace\' or self.name=\'autofixSimpleLeftrecursion\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
 		   });		
 		addAnnotation
 		  (optionEClass, 
 		   source, 
 		   new String[] {
-			 "Only positive integers are allowed.", "if(self.name=\'tokenspace\' and self.value.toInteger()>=0)\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
+			 "Only positive integers are allowed.", "if (self.name=\'tokenspace\') \r\n\tthen if( self.value.toInteger()>=0)\r\n\t\tthen true\r\n\t\telse false\r\n\tendif\t\r\n\telse true\r\nendif"
 		   });
 	}
 

@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.reuseware.emftextedit.concretesyntax.ConcretesyntaxPackage#getOption()
- * @model annotation="OCL This\040generation\040option\040is\040not\040allowed.='if(self.name=\'tokenspace\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif'"
- *        annotation="OCL Only\040positive\040integers\040are\040allowed.='if(self.name=\'tokenspace\' and self.value.toInteger()>=0)\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif'"
+ * @model annotation="OCL This\040generation\040option\040is\040not\040allowed.='if(self.name=\'tokenspace\' or self.name=\'autofixSimpleLeftrecursion\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif'"
+ *        annotation="OCL Only\040positive\040integers\040are\040allowed.='if (self.name=\'tokenspace\') \r\n\tthen if( self.value.toInteger()>=0)\r\n\t\tthen true\r\n\t\telse false\r\n\tendif\t\r\n\telse true\r\nendif'"
  * @generated
  */
 public interface Option extends EObject {
