@@ -145,10 +145,10 @@ public abstract class BaseGenerator implements IGenerator {
      * @param s a string.
      * @return the modified string.
      */
-    protected static String cap(String s) {
+    public static String cap(String s) {
         String h = s.substring(0, 1).toUpperCase();
         String t = s.substring(1);      
-        return h + t ;
+        return h + t;
     }
     
   

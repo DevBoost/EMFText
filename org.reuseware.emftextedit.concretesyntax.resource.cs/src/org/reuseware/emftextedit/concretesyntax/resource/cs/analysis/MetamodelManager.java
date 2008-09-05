@@ -31,7 +31,7 @@ public class MetamodelManager {
 		final ResourceSet rs = new ResourceSetImpl();
 		final Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
 		
-        //search the current project  generator models
+        //search the current project generator models
 		IProject thisProject = ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true)).getProject();        
 		try {
 			thisProject.accept(new IResourceVisitor() {

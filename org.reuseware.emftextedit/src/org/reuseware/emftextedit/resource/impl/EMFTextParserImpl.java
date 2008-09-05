@@ -156,10 +156,13 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
 
         } catch (RecognitionException re) {
             reportError(re);
-        } catch (IllegalArgumentException e) {
-        	e.printStackTrace();
-            //? can be caused if a null is set on EMF models where not allowed;
-            //? this will just happen if other errors occurred before
+        } catch (IllegalArgumentException iae) {
+        	if ("The 'no null' constraint is violated".equals(iae.getMessage())) {
+                //? can be caused if a null is set on EMF models where not allowed;
+                //? this will just happen if other errors occurred before
+        	} else {
+        		iae.printStackTrace();
+        	}
         }
         for(RecognitionException re: lexerExceptions){
         	reportLexicalError(re);

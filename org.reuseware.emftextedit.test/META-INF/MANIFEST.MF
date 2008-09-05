@@ -6,8 +6,12 @@ Bundle-Name: Reuseware EMFTextEdit Tests
 Bundle-SymbolicName: org.reuseware.emftextedit.test; singleton:=true
 Bundle-Version: 0.8.0.v200806161729
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.ui,org.eclipse.core.resources,org.eclipse.
- core.runtime,org.eclipse.emf.ecore,org.reuseware.emftextedit
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.reuseware.emftextedit,
+ org.junit4
 Export-Package: org.reuseware.emftextedit.test.actions
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 

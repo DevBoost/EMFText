@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EObject;
  * @author skarol
  *
  */
-
 public interface IGenerator {
 	
 	public static class GenerationProblem {
@@ -52,8 +51,8 @@ public interface IGenerator {
 	
 	}
 
-	public abstract boolean generate(PrintWriter out);
+	public boolean generate(PrintWriter out);
 	
-	public abstract Collection<GenerationProblem> getOccuredErrors();
-
+	public Collection<GenerationProblem> getOccuredErrors();
+	public Collection<GenerationProblem> getOccuredWarningsAndErrors();
 }

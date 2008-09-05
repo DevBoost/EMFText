@@ -5,15 +5,15 @@ import org.eclipse.core.resources.IFolder;
 import java.util.Map;
 
 /**
- * A resource package provides all information which are needed by the ResourcePackageGenerator. 
- * This means an resolved concrete syntax, a package name for parser and printer, 
- * a package name for resolvers (proxy and token resolvers) and a resource targetfolder.
+ * A resource package provides all information that is needed by the 
+ * ResourcePackageGenerator. This includes a resolved concrete syntax, 
+ * a package name for parser and printer, a package name for resolvers 
+ * (proxy and token resolvers) and a resource target folder.
  * 
  * @see org.reuseware.emftextedit.codegen.ResourcePackageGenerator
+ * 
  * @author skarol
- *
  */
-
 public class ResourcePackage {
 	
 	private ConcreteSyntax csSource;

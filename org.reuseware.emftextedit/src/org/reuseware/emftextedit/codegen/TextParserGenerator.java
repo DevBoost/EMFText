@@ -1005,21 +1005,21 @@ public class TextParserGenerator extends BaseGenerator{
     	w.close(); 
     	
     	try{
-    		ANTLRexpLexer l = new ANTLRexpLexer(new ANTLRInputStream(new  ByteArrayInputStream(out.toByteArray())));
-    		ANTLRexpParser p = new ANTLRexpParser(new CommonTokenStream(l));
-         	p.root();
-         	if(!p.recExceptions.isEmpty()){
-         		for(RecognitionException e:p.recExceptions){
-         			String message = l.getErrorMessage(e,l.getTokenNames());
+    		ANTLRexpLexer lexer = new ANTLRexpLexer(new ANTLRInputStream(new  ByteArrayInputStream(out.toByteArray())));
+    		ANTLRexpParser parser = new ANTLRexpParser(new CommonTokenStream(lexer));
+         	parser.root();
+         	if(!parser.recExceptions.isEmpty()){
+         		for(RecognitionException e:parser.recExceptions){
+         			String message = lexer.getErrorMessage(e,lexer.getTokenNames());
          			if(message==null||message.equals(""))
-         				message = p.getErrorMessage(e,p.getTokenNames());
-         			addProblem(new GenerationProblem(message,def.getBaseDefinition()));
+         				message = parser.getErrorMessage(e,parser.getTokenNames());
+         			addProblem(new GenerationProblem(message, def.getBaseDefinition()));
          		}
          		return false;
          	}
          	
         }catch(Exception e){
-        	addProblem(new GenerationProblem(e.getMessage(),def.getBaseDefinition()));
+        	addProblem(new GenerationProblem(e.getMessage(), def.getBaseDefinition()));
         	return false;
         }
        return true;

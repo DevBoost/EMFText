@@ -133,7 +133,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         				ResourcePackage pck = new ResourcePackage(cSyntax,csPackageName,srcFolder,copyMapFromPreferenceStore());
         				ResourcePackageGenerator.generate(pck,progress.newChild(50));
 			             
-        				//erors from parser generator?
+        				//errors from parser generator?
         				if (!csResource.getErrors().isEmpty() || !csResource.getWarnings().isEmpty()) {
         					MarkerHelper.mark(csResource);
         				}
@@ -296,7 +296,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         s.append("Bundle-SymbolicName: " + packageName + ";singleton:=true\n");
         s.append("Bundle-Version: 1.0.0\n");
         s.append("Bundle-Vendor: Software Engineering Group - TU Dresden Germany\n");
-        s.append("Bundle-Localization: plugin\n");
+        //s.append("Bundle-Localization: plugin\n");
         s.append("Require-Bundle: org.eclipse.core.runtime,\n");
         s.append("  org.eclipse.emf.ecore,\n");
         s.append("  " + cSyntax.getPackage().getGenModel().getModelPluginID() + ",\n");
@@ -312,7 +312,8 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         	}
         }
         s.append(" org.reuseware.emftextedit\n");
-        s.append("Eclipse-LazyStart: true\n");
+        s.append("Bundle-ActivationPolicy: lazy\n");
+        s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
         // export the generated package
         s.append("Export-Package: " + packageName + "\n");
         

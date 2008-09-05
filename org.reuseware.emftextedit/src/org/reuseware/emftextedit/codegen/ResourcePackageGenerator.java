@@ -66,9 +66,9 @@ public class ResourcePackageGenerator {
 	    String tokenResolverFactoryName = capCsName + "TokenResolverFactory";
         
 	    
-	    BaseGenerator antlrGen = new TextParserGenerator(pck.getConcreteSyntax(),antlrName,pck.getCsPackageName(),tokenResolverFactoryName);
-	    BaseGenerator resourceGen = new TextResourceGenerator(resourceName,pck.getCsPackageName(),capCsName,printerName,treeAnalyserName);
-	    BaseGenerator resourceFactoryGen = new ResourceFactoryGenerator(resourceFactoryName,pck.getCsPackageName(),resourceName);
+	    IGenerator antlrGen = new TextParserGenerator(pck.getConcreteSyntax(),antlrName,pck.getCsPackageName(),tokenResolverFactoryName);
+	    IGenerator resourceGen = new TextResourceGenerator(resourceName,pck.getCsPackageName(),capCsName,printerName,treeAnalyserName);
+	    IGenerator resourceFactoryGen = new ResourceFactoryGenerator(resourceFactoryName,pck.getCsPackageName(),resourceName);
 	    
 	    InputStream content = null;
 	    progress.setTaskName("deriving grammar...");
@@ -152,19 +152,19 @@ public class ResourcePackageGenerator {
 		    
 	  }
        
-	private static InputStream invokeGeneration(BaseGenerator gen, TextResource csResource){
+	private static InputStream invokeGeneration(IGenerator generator, TextResource csResource){
 	   PrintWriter out;
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
        out = new PrintWriter(new BufferedOutputStream(stream));
        try{
-    	   if(gen.generate(out)){
+    	   if(generator.generate(out)){
     		   out.flush();
     		   return new ByteArrayInputStream(stream.toByteArray());
        	   }	
         }
         finally{
    	   	    out.close();
-   	 	    Collection<GenerationProblem> occuredWarningsAndErrors = gen.getOccuredWarningsAndErrors();
+   	 	    Collection<GenerationProblem> occuredWarningsAndErrors = generator.getOccuredWarningsAndErrors();
 			if(occuredWarningsAndErrors!=null) {
    	   	    	for(IGenerator.GenerationProblem problem:occuredWarningsAndErrors){
    	   	    		if(problem.getSeverity() == IGenerator.GenerationProblem.Severity.HINT){
