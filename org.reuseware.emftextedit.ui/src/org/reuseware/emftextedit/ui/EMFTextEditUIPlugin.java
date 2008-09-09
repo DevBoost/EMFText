@@ -3,6 +3,9 @@ package org.reuseware.emftextedit.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import  org.reuseware.emftextedit.codegen.ResourcePackageGenerator;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.MetamodelManager;
+import org.reuseware.emftextedit.ui.actions.GenPackageInRegistryFinder;
+import org.reuseware.emftextedit.ui.actions.GenPackageInWorkspaceFinder;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -15,6 +18,8 @@ public class EMFTextEditUIPlugin extends AbstractUIPlugin {
 	private static EMFTextEditUIPlugin plugin;
 	
 	public EMFTextEditUIPlugin() {
+		MetamodelManager.INSTANCE.addGenPackageFinder(new GenPackageInWorkspaceFinder());
+		MetamodelManager.INSTANCE.addGenPackageFinder(new GenPackageInRegistryFinder());
 	}
 
 	/*

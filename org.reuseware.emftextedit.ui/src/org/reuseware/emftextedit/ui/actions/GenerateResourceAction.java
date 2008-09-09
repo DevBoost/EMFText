@@ -52,7 +52,6 @@ import org.reuseware.emftextedit.ui.MarkerHelper;
 public class GenerateResourceAction implements IObjectActionDelegate {
     
 	private ISelection selection;
-    //private IWorkbenchPart part;
 
     /**
      * Calls {@link #process(IFile)} for all selected <i>cs</i> files .

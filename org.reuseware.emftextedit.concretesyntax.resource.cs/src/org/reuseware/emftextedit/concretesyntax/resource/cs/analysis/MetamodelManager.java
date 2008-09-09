@@ -1,6 +1,8 @@
 package org.reuseware.emftextedit.concretesyntax.resource.cs.analysis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -9,10 +11,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -23,71 +23,26 @@ import org.reuseware.emftextedit.resource.TextResource;
 public class MetamodelManager {
 	
 	public static MetamodelManager INSTANCE = new MetamodelManager();
-
 	
-	public GenPackage findGenPackage(String nsURI, TextResource resource) {
-		if (nsURI == null) return null;
-		
-		final ResourceSet rs = new ResourceSetImpl();
-		final Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
-		
-        //search the current project generator models
-		IProject thisProject = ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true)).getProject();        
-		try {
-			thisProject.accept(new IResourceVisitor() {
-				//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
-				public boolean visit(IResource resource) throws CoreException {
-					if(resource instanceof IFile) {
-						IFile file = (IFile) resource;
-						if ("genmodel".equals(file.getFileExtension())) {
-							URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			            	Resource genModelResource = rs.getResource(genModelURI, true);
-			            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-			            	for(GenPackage genPackage : genModel.getGenPackages()) {
-			            		genPackages.put(genPackage.getNSURI(), genPackage);
-			            	}
-			            	// added to resolve imported GenPackages too. 
-			            	for(GenPackage gp : genModel.getUsedGenPackages()) {
-			            		if(gp.getEcorePackage() != null) {
-			            			genPackages.put(gp.getNSURI(), gp);
-			            		}
-			            	}
-						}
-						return false;
-					}
-					return true;
-				}
-			});
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if (genPackages.containsKey(nsURI)) {
-			return genPackages.get(nsURI);
-		}
-		
+	private List<GenPackageFinder> finders = new ArrayList<GenPackageFinder>();
 	
-		
-        //search all registered generator models
-        for(URI genModelURI : EcorePlugin.getEPackageNsURIToGenModelLocationMap().values()) {
-        	try {
-        		Resource genModelResource = rs.getResource(genModelURI, true);
-            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-            	for(GenPackage genPackage : genModel.getGenPackages()) {
-            		if (nsURI.equals(genPackage.getNSURI())) {
-            			return genPackage;
-            		}
-            	}
-        	} catch (Exception e ) {
-        		//FIXME print exception into error log
-        	}
-
-        }
-
-        return null;
+	public void addGenPackageFinder(GenPackageFinder finder) {
+		finders.add(finder);
 	}
-	
+
+	public GenPackage findGenPackage(String nsURI, TextResource resource) {
+		if (nsURI == null) {
+			return null;
+		}
+		for (GenPackageFinder finder : finders) {
+			GenPackage foundPackage = finder.findGenPackage(nsURI, resource);
+			if (foundPackage != null) {
+				return foundPackage;
+			}
+		}
+		return null;
+	}
+
 	public ConcreteSyntax findConcreteSyntax(String cs, GenPackage genPackage, TextResource resource) {
 		if (cs == null || genPackage == null) return null;
 		
