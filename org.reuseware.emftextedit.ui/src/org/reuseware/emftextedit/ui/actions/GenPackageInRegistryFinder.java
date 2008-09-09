@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.GenPackageFinder;
+import org.reuseware.emftextedit.GenPackageFinder;
 import org.reuseware.emftextedit.resource.TextResource;
 
 public class GenPackageInRegistryFinder implements GenPackageFinder {

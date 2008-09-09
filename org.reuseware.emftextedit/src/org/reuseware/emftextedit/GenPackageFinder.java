@@ -1,4 +1,4 @@
-package org.reuseware.emftextedit.concretesyntax.resource.cs.analysis;
+package org.reuseware.emftextedit;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.reuseware.emftextedit.resource.TextResource;

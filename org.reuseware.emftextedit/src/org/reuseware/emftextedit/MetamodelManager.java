@@ -1,4 +1,4 @@
-package org.reuseware.emftextedit.concretesyntax.resource.cs.analysis;
+package org.reuseware.emftextedit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.reuseware.emftextedit.EMFTextEditPlugin;
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.resource.TextResource;
 
@@ -25,6 +24,10 @@ public class MetamodelManager {
 	public static MetamodelManager INSTANCE = new MetamodelManager();
 	
 	private List<GenPackageFinder> finders = new ArrayList<GenPackageFinder>();
+	
+	private MetamodelManager() {
+		super();
+	}
 	
 	public void addGenPackageFinder(GenPackageFinder finder) {
 		finders.add(finder);
@@ -93,9 +96,4 @@ public class MetamodelManager {
 	
 		return null;
 	}
-	
-	
-
-	
-
 }
