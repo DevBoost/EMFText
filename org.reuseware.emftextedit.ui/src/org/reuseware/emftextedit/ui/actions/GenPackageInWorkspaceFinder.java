@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.reuseware.emftextedit.GenPackageFinder;
+import org.reuseware.emftextedit.MetamodelManager;
 import org.reuseware.emftextedit.resource.TextResource;
 
 public class GenPackageInWorkspaceFinder implements GenPackageFinder {
@@ -26,9 +27,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		if (platformString == null) {
 			return null;
 		}
-		final ResourceSet rs = new ResourceSetImpl();
-		GenPackage foundPackage = findGenPackageInCurrentProject(nsURI, rs, platformString);
-		return foundPackage;
+		return findGenPackageInCurrentProject(nsURI, platformString);
 	}
 
 	/**
@@ -39,8 +38,8 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 	 * @param platformString
 	 * @return
 	 */
-	private GenPackage findGenPackageInCurrentProject(String nsURI, final ResourceSet rs,
-			String platformString) {
+	private GenPackage findGenPackageInCurrentProject(String nsURI, String platformString) {
+		final ResourceSet rs = new ResourceSetImpl();
 		final Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
 		IResource member = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
 		IProject thisProject = member.getProject();        
@@ -54,15 +53,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 							URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 			            	Resource genModelResource = rs.getResource(genModelURI, true);
 			            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-			            	for(GenPackage genPackage : genModel.getGenPackages()) {
-			            		genPackages.put(genPackage.getNSURI(), genPackage);
-			            	}
-			            	// added to resolve imported GenPackages too. 
-			            	for(GenPackage gp : genModel.getUsedGenPackages()) {
-			            		if(gp.getEcorePackage() != null) {
-			            			genPackages.put(gp.getNSURI(), gp);
-			            		}
-			            	}
+			            	genPackages.putAll(MetamodelManager.getGenPackages(genModel));
 						}
 						return false;
 					}

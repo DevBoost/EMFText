@@ -11,6 +11,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -95,5 +96,19 @@ public class MetamodelManager {
 		}
 	
 		return null;
+	}
+	
+	public static Map<String, GenPackage> getGenPackages(GenModel genModel) {
+		Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
+		for(GenPackage genPackage : genModel.getGenPackages()) {
+			genPackages.put(genPackage.getNSURI(), genPackage);
+		}
+		// added to resolve imported GenPackages too. 
+		for(GenPackage gp : genModel.getUsedGenPackages()) {
+			if(gp.getEcorePackage() != null) {
+				genPackages.put(gp.getNSURI(), gp);
+			}
+		}
+		return genPackages;
 	}
 }
