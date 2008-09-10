@@ -18,6 +18,8 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
@@ -25,6 +27,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -601,6 +604,28 @@ public class TextParserGenerator extends BaseGenerator{
             }
             expressionToBeSet = ident;
     	}
+    	else if (sf instanceof EAttribute && sf.getEType() instanceof EEnum) {
+    		
+    		EEnum enumeration = (EEnum) sf.getEType();
+    		out.print("(");
+    		String resolvedLiteral = "resolvedLiteral";
+    		EList<EEnumLiteral> literals = enumeration.getELiterals();
+			if (literals.size() > 0) {
+    			out.print("'" + literals.get(0) + "'" );
+    			for (EEnumLiteral lit : literals.subList(1, literals.size())) {
+        			out.print(" | " + "'" + lit + "'");
+        		}
+			}
+    		
+    		out.print(")");
+    		
+    		
+			String packagePrefix = sf.getEType().getEPackage().getName();
+			resolvements += "Object " + resolvedLiteral + " = " + sf.getEType().getName() + ".get("+ ident + ".getText());"; 
+    		expressionToBeSet = resolvedLiteral;
+        	
+    	    
+    	}
         else {
         	
         	String tokenName = null;
@@ -662,13 +687,10 @@ public class TextParserGenerator extends BaseGenerator{
 
         	}
         	else{
+        		
         		EAttribute attr = (EAttribute)sf;
-        		if(attr.getEType() instanceof EEnum){
-        			EEnum enumType = (EEnum)attr.getEType();
-        			targetTypeName = enumType.getName();
-        		}
-        		else{
-            		targetTypeName = attr.getEAttributeType().getInstanceClassName();        			
+        		if (! ( attr.getEType() instanceof EEnum) ){
+                   	targetTypeName = attr.getEAttributeType().getInstanceClassName();        			
         		}
                	resolvements += targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";";
         		expressionToBeSet = "resolved";
@@ -944,6 +966,14 @@ public class TextParserGenerator extends BaseGenerator{
 	               out.println("//Implementation: "+genClass.getQualifiedClassName());
 			   }
             }
+			for(GenEnum genEnum : p.getGenEnums()) {
+				   if(genEnum.getEcoreEnum().getName() == null){
+					   out.println("//No ecore class for genClass: " + genEnum.getName());
+				   }else{
+		               out.println("import " + genEnum.getQualifiedName() + ";");        	
+		               out.println("//Implementation: "+genEnum.getQualifiedName());
+				   }
+	            }
             String usedPackagePrefix = p.getBasePackage()==null?"":(p.getBasePackage() + ".");
         	out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".*;");
 			out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".impl.*;");
