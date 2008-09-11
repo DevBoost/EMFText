@@ -1,10 +1,13 @@
 package org.reuseware.emftextedit.resource.impl;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-public class EMFTextParserImplTest extends TestCase {
+import org.junit.Test;
 
-	public void testFormatTokenName() {
+public class EMFTextParserImplTest {
+
+	@Test
+	public void formatTokenName() {
 		assertEquals("a", EMFTextParserImpl.formatTokenName("'a'"));
 		assertEquals("NUMBER", EMFTextParserImpl.formatTokenName("NUMBER"));
 	}
