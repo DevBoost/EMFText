@@ -18,8 +18,6 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
-import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
@@ -27,10 +25,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.reuseware.emftextedit.codegen.IGenerator.GenerationProblem.Severity;
 import org.reuseware.emftextedit.codegen.regex.ANTLRexpLexer;
 import org.reuseware.emftextedit.codegen.regex.ANTLRexpParser;
@@ -353,101 +351,108 @@ public class TextParserGenerator extends BaseGenerator{
 		GenClass recursiveType = rule.getMetaclass();
 		GenPackage genPackage = rule.getMetaclass().getGenPackage();
 		
-		Rule tailCopy = (Rule) EcoreUtil.copy(rule);
-		Rule ruleCopy = (Rule) EcoreUtil.copy(rule);
-	    
 		
-        EList<Sequence> options = tailCopy.getDefinition().getOptions();
-        
-        String recurseName = "";
-        List<Sequence> sequencesToRemove = new ArrayList<Sequence>();
-        
-        for (Sequence sequence : options) {
-        	int indexRecurse = 0;
-        	
-        	EList<Definition> parts = sequence.getParts();
-			for (Definition definition : parts) {
-				if (definition instanceof Containment) {
-					Containment c = (Containment) definition;
-					GenClass featureType = c.getFeature().getTypeGenClass();
-					if (recursiveType.equals(featureType) || 
-							this.genClasses2superNames.get(featureType.getName()).contains(recursiveType.getName()) ||
-							this.genClasses2superNames.get(recursiveType.getName()).contains(featureType.getName())) {
-						indexRecurse = parts.indexOf(definition);	
-						recurseName = c.getFeature().getName();
-						break;	
+		{	
+			Copier copier = new Copier(true, true);
+			Rule ruleCopy = (Rule) copier.copy(rule);
+			copier.copyReferences();	    
+			
+	 
+	        
+	        out.print(getLowerCase(ruleName));
+	        out.println(" returns [" + ruleName + " element = null]");
+	        out.println("@init{");
+	        out.println("\telement = " + genPackage.getPrefix() + "Factory.eINSTANCE.create" + rule.getMetaclass().getName() + "();");
+	        out.println("\tList<EObject> dummyEObjects  = new ArrayList<EObject>();");
+	        out.println("}");
+	        out.println(":");
+	       
+	        Choice choice = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createChoice();
+	        
+	        Sequence newSequence = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createSequence();
+	        Choice reducedChoice = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createChoice();
+	        
+	        CompoundDefinition compound = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createCompoundDefinition();
+	        compound.setDefinitions(reducedChoice);
+	        newSequence.getParts().add(compound);
+	        
+	        choice.getOptions().add(newSequence);
+	        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
+	        
+	        LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
+	        
+	        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
+	        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
+	        	if (leftProducingRule == null) {
+	        		recursionFreeSequences.add(sequence);
+	 			}	
+			}
+	        reducedChoice.getOptions().addAll(recursionFreeSequences);
+	        
+	        ruleCopy.setDefinition(choice);
+	        
+	        printChoice(ruleCopy.getDefinition(),ruleCopy,out,0,classesReferenced,proxyReferences,"\t");
+	        
+	        
+	        out.println(" ( dummyEObject = "+ getLowerCase(ruleName) +  "_tail { dummyEObjects.add(dummyEObject);} )*");
+	        out.println("{\n\telement = (" + ruleName+ ") apply(element, dummyEObjects);}");
+	        out.println(";");
+	        out.println();
+		}
+			
+		{
+			Rule tailCopy = rule;
+			
+	        EList<Sequence> options = tailCopy.getDefinition().getOptions();
+	        
+	        String recurseName = "";
+	        List<Sequence> sequencesToRemove = new ArrayList<Sequence>();
+	        
+	        for (Sequence sequence : options) {
+	        	int indexRecurse = 0;
+	        	
+	        	EList<Definition> parts = sequence.getParts();
+				for (Definition definition : parts) {
+					if (definition instanceof Containment) {
+						Containment c = (Containment) definition;
+						GenClass featureType = c.getFeature().getTypeGenClass();
+						if (recursiveType.equals(featureType) || 
+								this.genClasses2superNames.get(featureType.getName()).contains(recursiveType.getName()) ||
+								this.genClasses2superNames.get(recursiveType.getName()).contains(featureType.getName())) {
+							indexRecurse = parts.indexOf(definition);	
+							recurseName = c.getFeature().getName();
+							break;	
+						}
 					}
 				}
-			}
-			if (parts.size()-1 == indexRecurse ) {
-				sequencesToRemove.add(sequence);
-			} else {
-				
-				for (int i = 0; i <= indexRecurse; i++)	{
-					parts.remove(i);
+				if (parts.size()-1 == indexRecurse ) {
+					sequencesToRemove.add(sequence);
+				} else {
+					
+					for (int i = 0; i <= indexRecurse; i++)	{
+						parts.remove(i);
+					}
 				}
+				
+	        }
+	        for (Sequence sequence : sequencesToRemove) {
+				tailCopy.getDefinition().getOptions().remove(sequence);
 			}
-			
-        }
-        for (Sequence sequence : sequencesToRemove) {
-			tailCopy.getDefinition().getOptions().remove(sequence);
+	        
+	    	out.print(getLowerCase(ruleName) +  "_tail");
+	        out.println(" returns [DummyEObject element = null]");
+	        out.println("@init{");
+	        out.println("\telement = new DummyEObject(" + genPackage.getPrefix() + "Package.eINSTANCE.get" + rule.getMetaclass().getName() + "()" +", \""+recurseName+"\");");
+	        out.println("}");
+	        out.println(":");
+	        
+	        printChoice(tailCopy.getDefinition(),tailCopy,out,0,classesReferenced,proxyReferences,"\t");
+	        
+	        out.println(";");
+	        out.println();
 		}
-        
-    	out.print(getLowerCase(ruleName) +  "_tail");
-        out.println(" returns [DummyEObject element = null]");
-        out.println("@init{");
-        out.println("\telement = new DummyEObject(\""+ ruleName +"\", \""+recurseName+"\");");
-        out.println("}");
-        out.println(":");
-        
-        printChoice(tailCopy.getDefinition(),tailCopy,out,0,classesReferenced,proxyReferences,"\t");
-        
-        out.println(";");
-        out.println();
-        
-        
-        out.print(getLowerCase(ruleName));
-        out.println(" returns [" + ruleName + " element = null]");
-        out.println("@init{");
-        out.println("\telement = " + genPackage.getPrefix() + "Factory.eINSTANCE.create" + rule.getMetaclass().getName() + "();");
-        out.println("\tList<EObject> dummyEObjects  = new ArrayList<EObject>();");
-        out.println("}");
-        out.println(":");
-       
-        Choice choice = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createChoice();
-        
-        Sequence newSequence = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createSequence();
-        Choice reducedChoice = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createChoice();
-        
-        CompoundDefinition compound = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory().createCompoundDefinition();
-        compound.setDefinitions(reducedChoice);
-        newSequence.getParts().add(compound);
-        
-        choice.getOptions().add(newSequence);
-        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
-        
-        LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
-        
-        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
-        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
-        	if (leftProducingRule == null) {
-        		recursionFreeSequences.add(sequence);
- 			}	
-		}
-        reducedChoice.getOptions().addAll(recursionFreeSequences);
-        
-        ruleCopy.setDefinition(choice);
-        
-        printChoice(ruleCopy.getDefinition(),ruleCopy,out,0,classesReferenced,proxyReferences,"\t");
-        
-        
-        out.println(" ( dummyEObject = "+ getLowerCase(ruleName) +  "_tail { dummyEObjects.add(dummyEObject);} )*");
-        out.println("{\n\telement = (" + ruleName+ ") apply(element, dummyEObjects);}");
-        out.println(";");
-        out.println();
-        
-        eClassesWithSyntax.add(rule.getMetaclass());
-        
+	    eClassesWithSyntax.add(rule.getMetaclass());
+	        
 	}
 	
 	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
@@ -604,28 +609,6 @@ public class TextParserGenerator extends BaseGenerator{
             }
             expressionToBeSet = ident;
     	}
-    	else if (sf instanceof EAttribute && sf.getEType() instanceof EEnum) {
-    		
-    		EEnum enumeration = (EEnum) sf.getEType();
-    		out.print("(");
-    		String resolvedLiteral = "resolvedLiteral";
-    		EList<EEnumLiteral> literals = enumeration.getELiterals();
-			if (literals.size() > 0) {
-    			out.print("'" + literals.get(0) + "'" );
-    			for (EEnumLiteral lit : literals.subList(1, literals.size())) {
-        			out.print(" | " + "'" + lit + "'");
-        		}
-			}
-    		
-    		out.print(")");
-    		
-    		
-			String packagePrefix = sf.getEType().getEPackage().getName();
-			resolvements += "Object " + resolvedLiteral + " = " + sf.getEType().getName() + ".get("+ ident + ".getText());"; 
-    		expressionToBeSet = resolvedLiteral;
-        	
-    	    
-    	}
         else {
         	
         	String tokenName = null;
@@ -687,10 +670,13 @@ public class TextParserGenerator extends BaseGenerator{
 
         	}
         	else{
-        		
         		EAttribute attr = (EAttribute)sf;
-        		if (! ( attr.getEType() instanceof EEnum) ){
-                   	targetTypeName = attr.getEAttributeType().getInstanceClassName();        			
+        		if(attr.getEType() instanceof EEnum){
+        			EEnum enumType = (EEnum)attr.getEType();
+        			targetTypeName = enumType.getName();
+        		}
+        		else{
+            		targetTypeName = attr.getEAttributeType().getInstanceClassName();        			
         		}
                	resolvements += targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";";
         		expressionToBeSet = "resolved";
@@ -966,14 +952,6 @@ public class TextParserGenerator extends BaseGenerator{
 	               out.println("//Implementation: "+genClass.getQualifiedClassName());
 			   }
             }
-			for(GenEnum genEnum : p.getGenEnums()) {
-				   if(genEnum.getEcoreEnum().getName() == null){
-					   out.println("//No ecore class for genClass: " + genEnum.getName());
-				   }else{
-		               out.println("import " + genEnum.getQualifiedName() + ";");        	
-		               out.println("//Implementation: "+genEnum.getQualifiedName());
-				   }
-	            }
             String usedPackagePrefix = p.getBasePackage()==null?"":(p.getBasePackage() + ".");
         	out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".*;");
 			out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".impl.*;");

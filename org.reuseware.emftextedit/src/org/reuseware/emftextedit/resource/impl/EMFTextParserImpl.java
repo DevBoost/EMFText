@@ -52,41 +52,40 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
 		return currentTarget;
 	}
 	
-	public class DummyEStructuralFeature extends EStructuralFeatureImpl {
-		private String dummyName;
-		
-		public DummyEStructuralFeature(String name) {
-			this.dummyName = name;
-		}
-		
-		public String getName() {
-			return dummyName;
-		}
-	
-	}
+//	public class DummyEStructuralFeature extends EStructuralFeatureImpl {
+//		private String dummyName;
+//		
+//		public DummyEStructuralFeature(String name) {
+//			this.dummyName = name;
+//		}
+//		
+//		public String getName() {
+//			return dummyName;
+//		}
+//	
+//	}
 
-	public class DummyEClass extends EClassImpl {
-				
-		// dummy method
-		public EStructuralFeature getEStructuralFeature(String name) {
-			return new DummyEStructuralFeature(name);
-		}
-	}
+//	public class DummyEClass extends EClassImpl {
+//				
+//		// dummy method
+//		public EStructuralFeature getEStructuralFeature(String name) {
+//			return new DummyEStructuralFeature(name);
+//		}
+//	}
 
 	public class DummyEObject extends EObjectImpl  {
 		private Map<EStructuralFeature, Object> keyValueMap;
 		private String recurseFeatureName;
-		private String typeName;
+		private EClass type;
 
-		public DummyEObject(String typeName, String recurseFeatureName) {
+		public DummyEObject(EClass type, String recurseFeatureName) {
 			this.recurseFeatureName = recurseFeatureName;
-			this.typeName = typeName;
+			this.type = type;
 			keyValueMap = new HashMap<EStructuralFeature, Object>();
 		}
 
 		public EObject applyTo(EObject currentTarget) {
 			EStructuralFeature recurseFeature = currentTarget.eClass().getEStructuralFeature(this.recurseFeatureName);
-			EClass type = (EClass) currentTarget.eClass().getEPackage().getEClassifier(typeName);
 			EObject newEObject = currentTarget.eClass().getEPackage().getEFactoryInstance().create(type);
 			for (EStructuralFeature f : keyValueMap.keySet()) {
 				EStructuralFeature structuralFeature = newEObject.eClass().getEStructuralFeature(f.getName());
@@ -97,9 +96,9 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
 			return newEObject;
 		}
 
-		// dummy method
+		// proxy method
 		public EClass eClass() {
-			return new DummyEClass();
+			return type;
 		}
 		
 
