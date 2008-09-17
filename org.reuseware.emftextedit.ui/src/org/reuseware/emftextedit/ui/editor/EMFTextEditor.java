@@ -4,12 +4,19 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.reuseware.emftextedit.resource.TextResource;
 import org.reuseware.emftextedit.ui.MarkerHelper;
 
@@ -25,10 +32,38 @@ import org.reuseware.emftextedit.ui.MarkerHelper;
  */
 public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvider*/ {
 
+
+	
 	private ColorManager colorManager;
 
 	private ResourceSet resourceSet;
 
+	private EMFTextOutlinePage emfTextEditorOutlinePage;
+
+	
+	
+	@Override
+	public Object getAdapter(Class required) {
+		if (IContentOutlinePage.class.equals(required)) {
+			if (emfTextEditorOutlinePage == null) {
+				emfTextEditorOutlinePage = new EMFTextOutlinePage(this);
+				emfTextEditorOutlinePage
+						.addSelectionChangedListener(new ISelectionChangedListener() {
+							// This ensures that we handle selections correctly.
+							//
+							public void selectionChanged(
+									SelectionChangedEvent event) {
+								handleContentOutlineSelection(event
+										.getSelection());
+							}
+						});
+			}
+			return emfTextEditorOutlinePage;
+		}
+		return super.getAdapter(required);
+	}
+	
+	
 	public EMFTextEditor() {
 		super();
 		colorManager = new ColorManager();
@@ -42,8 +77,22 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		super.dispose();
 	}
 	
-	
-	
+	 public void handleContentOutlineSelection(ISelection selection) {
+		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
+			Object selectedElement = ((IStructuredSelection) selection)
+					.getFirstElement();
+			if (selectedElement instanceof EObject) {
+				EObject selectedEObject = (EObject) selectedElement;
+				Resource resource = selectedEObject.eResource();
+				if (resource instanceof TextResource) {
+					TextResource textResource = (TextResource) resource;
+					int elementCharStart = textResource.getElementCharStart(selectedEObject);
+					int elementCharEnd = textResource.getElementCharEnd(selectedEObject);
+					this.selectAndReveal(elementCharStart, elementCharEnd - elementCharStart);
+				}
+			}
+		}
+	}
 	@Override
 	protected void performSave(boolean overwrite,
 			IProgressMonitor progressMonitor) {
