@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFTextEdit Parser Plugin: cs
+Bundle-Name: EMFTextEdit Parser Plugin for cs files
 Bundle-SymbolicName: org.reuseware.emftextedit.concretesyntax.resource.cs;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Engineering Group - TU Dresden Germany
