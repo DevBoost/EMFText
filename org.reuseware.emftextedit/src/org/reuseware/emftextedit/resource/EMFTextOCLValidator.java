@@ -115,7 +115,7 @@ public class EMFTextOCLValidator {
 							errorMsg = key.toString();
 						} else {
 							errorMsg = constructErrorMsg(result);
-							if (!errorMsg.isEmpty()) {
+							if (errorMsg.length() > 0) {
 								errors ++;
 								errorMsg = key + ": " + errorMsg;
 							}
@@ -125,7 +125,7 @@ public class EMFTextOCLValidator {
 					}
 					
 
-					if (!errorMsg.isEmpty()) {
+					if (errorMsg.length() > 0) {
 						addErrorMessage(targetObject, file, errorMsg);
 					}
 				}
@@ -144,7 +144,7 @@ public class EMFTextOCLValidator {
 					} catch (ParserException e) {
 						errorMsg += "Parse Error for OCL Expression: " + value;
 					}
-					if (!errorMsg.isEmpty()) {
+					if (errorMsg.length() > 0) {
 						addErrorMessage(targetObject, file, errorMsg);
 					}
 				}
