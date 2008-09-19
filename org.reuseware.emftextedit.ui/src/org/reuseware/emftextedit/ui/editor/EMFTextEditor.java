@@ -87,7 +87,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 					TextResource textResource = (TextResource) resource;
 					int elementCharStart = textResource.getElementCharStart(selectedEObject);
 					int elementCharEnd = textResource.getElementCharEnd(selectedEObject);
-					this.selectAndReveal(elementCharStart, elementCharEnd - elementCharStart);
+					selectAndReveal(elementCharStart, elementCharEnd - elementCharStart + 1);
 				}
 			}
 		}
@@ -95,8 +95,6 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	@Override
 	protected void performSave(boolean overwrite,
 			IProgressMonitor progressMonitor) {
-		
-	    
 		
 		super.performSave(overwrite, progressMonitor); 
 		FileEditorInput input = (FileEditorInput) getEditorInput();
@@ -117,8 +115,6 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	@Override
 	protected void performSaveAs(IProgressMonitor progressMonitor) {
@@ -142,8 +138,8 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
 	public ResourceSet getResourceSet() {
 		FileEditorInput input = (FileEditorInput) getEditorInput();
 		String path = input.getFile().getFullPath().toString();

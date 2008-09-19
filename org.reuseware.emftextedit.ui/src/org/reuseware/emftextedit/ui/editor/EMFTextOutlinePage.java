@@ -12,63 +12,70 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 
 /**
- * Simple Outline Page using the ReflectiveItemAdapters provided by EMF 
+ * Simple Outline Page using the ReflectiveItemAdapters provided by EMF
  * 
  * @author cw
- *
+ * 
  */
-public class EMFTextOutlinePage  extends ContentOutlinePage {
-      private TreeViewer contentOutlineViewer;
+public class EMFTextOutlinePage extends ContentOutlinePage {
+
+	private TreeViewer contentOutlineViewer;
 	private EMFTextEditor editor;
 
 	public EMFTextOutlinePage(EMFTextEditor textEditor) {
 		this.editor = textEditor;
-		
-	  }
+	}
 
 	@Override
-      public void createControl(Composite parent)
-      {
-        super.createControl(parent);
-        contentOutlineViewer = getTreeViewer();
-        contentOutlineViewer.addSelectionChangedListener(this);
+	public void createControl(Composite parent) {
+		super.createControl(parent);
+		contentOutlineViewer = getTreeViewer();
+		contentOutlineViewer.addSelectionChangedListener(this);
 
-        // Set up the tree viewer.
-        //
-  
-        ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		// Set up the tree viewer.
+		//
 
-        adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
-        adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
-        adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
-        
-        contentOutlineViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-        contentOutlineViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-        contentOutlineViewer.setInput(editor.getResourceSet().getResources().get(0));
+		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
+				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
-        // Make sure our popups work.
-        //
-        //createContextMenuFor(contentOutlineViewer);
+		adapterFactory
+				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
+		adapterFactory
+				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
-        if (!editor.getResourceSet().getResources().isEmpty())
-        {
-          // Select the root object in the view.
-          //
-          contentOutlineViewer.setSelection(new StructuredSelection(editor.getResourceSet().getResources().get(0)), true);
-        }
-      }
+		contentOutlineViewer
+				.setContentProvider(new AdapterFactoryContentProvider(
+						adapterFactory));
+		contentOutlineViewer.setLabelProvider(new AdapterFactoryLabelProvider(
+				adapterFactory));
+		contentOutlineViewer.setInput(editor.getResourceSet().getResources()
+				.get(0));
 
-//      @Override
-//      public void makeContributions(IMenuManager menuManager, IToolBarManager toolBarManager, IStatusLineManager statusLineManager)
-//      {
-//        super.makeContributions(menuManager, toolBarManager, statusLineManager);
-//        contentOutlineStatusLineManager = statusLineManager;
-//      }
-//
-//      @Override
-//      public void setActionBars(IActionBars actionBars)
-//      {
-//        super.setActionBars(actionBars);
-//        getActionBarContributor().shareGlobalActions(this, actionBars);
-//      }
+		// Make sure our popups work.
+		//
+		// createContextMenuFor(contentOutlineViewer);
+
+		if (!editor.getResourceSet().getResources().isEmpty()) {
+			// Select the root object in the view.
+			//
+			contentOutlineViewer.setSelection(new StructuredSelection(editor
+					.getResourceSet().getResources().get(0)), true);
+		}
+	}
+
+	// @Override
+	// public void makeContributions(IMenuManager menuManager, IToolBarManager
+	// toolBarManager, IStatusLineManager statusLineManager)
+	// {
+	// super.makeContributions(menuManager, toolBarManager, statusLineManager);
+	// contentOutlineStatusLineManager = statusLineManager;
+	// }
+	//
+	// @Override
+	// public void setActionBars(IActionBars actionBars)
+	// {
+	// super.setActionBars(actionBars);
+	// getActionBarContributor().shareGlobalActions(this, actionBars);
+	// }
 }
