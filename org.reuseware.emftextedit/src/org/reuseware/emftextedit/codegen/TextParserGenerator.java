@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -252,13 +253,12 @@ public class TextParserGenerator extends BaseGenerator{
 		}
 		
 	    for (GenClass genClass : allGenClasses) {
-			HashSet<String> supertypes = new HashSet<String>();
+			Collection<String> supertypes = new LinkedList<String>();
 			for (EClass c : genClass.getEcoreClass().getEAllSuperTypes()) {
 				supertypes.add(c.getName());
 			}
-			this.genClasses2superNames.put(genClass.getEcoreClass().getName(), supertypes);
+			genClasses2superNames.put(genClass.getEcoreClass().getName(), supertypes);
 		}
-
 	}
 	
 	public boolean generate(PrintWriter out){
@@ -315,11 +315,10 @@ public class TextParserGenerator extends BaseGenerator{
         printStartRule(out);
         
 		EList<GenClass> eClassesWithSyntax = new BasicEList<GenClass>();
-	    Map<GenClass,Collection<Terminal>> eClassesReferenced = new HashMap<GenClass,Collection<Terminal>>();
+	    Map<GenClass, Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass, Collection<Terminal>>();
 	    
-	    printGrammarRules(out,eClassesWithSyntax,eClassesReferenced);
-	
-	    printImplicitChoiceRules(out,eClassesWithSyntax,eClassesReferenced);
+	    printGrammarRules(out, eClassesWithSyntax, eClassesReferenced);
+	    printImplicitChoiceRules(out, eClassesWithSyntax, eClassesReferenced);
 	    
 	    printTokenDefinitions(out);
 	    

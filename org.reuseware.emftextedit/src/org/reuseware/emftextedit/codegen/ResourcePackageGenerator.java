@@ -234,16 +234,15 @@ public class ResourcePackageGenerator {
 	}
        
 	private static InputStream invokeGeneration(IGenerator generator, TextResource csResource){
-	   PrintWriter out;
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-       out = new PrintWriter(new BufferedOutputStream(stream));
-       try{
+	   PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
+       try {
     	   if(generator.generate(out)){
     		   out.flush();
     		   return new ByteArrayInputStream(stream.toByteArray());
-       	   }	
+       	   }
         }
-        finally{
+        finally {
    	   	    out.close();
    	 	    Collection<GenerationProblem> occuredWarningsAndErrors = generator.getOccuredWarningsAndErrors();
 			if(occuredWarningsAndErrors!=null) {

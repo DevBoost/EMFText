@@ -2,6 +2,7 @@ package org.reuseware.emftextedit.codegen;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
@@ -14,20 +15,20 @@ public class GeneratorUtil {
      *  Collects all the subclasses for which concrete syntax is defined.
      */
     public static Collection<GenClass> getSubClassesWithCS(GenClass genClass, Collection<Rule> source){
-        Collection<GenClass> subClasses = new HashSet<GenClass>();
+        Collection<GenClass> subClasses = new LinkedList<GenClass>();
 
-        for(Rule rule : source) {
+        for (Rule rule : source) {
      	   	GenClass subClassCand = rule.getMetaclass();
         		//There seem to be multiple instances of metaclasses when accessed through the genmodel. Therefore, we compare by name
         		for(EClass superClass : subClassCand.getEcoreClass().getEAllSuperTypes()) {
-        			if (superClass.getName().equals(genClass.getEcoreClass().getName()) && 
-        					superClass.getEPackage().getNsURI().equals(genClass.getEcoreClass().getEPackage().getNsURI())) {
+        			EClass ecoreClass = genClass.getEcoreClass();
+					if (superClass.getName().equals(ecoreClass.getName()) && 
+        					superClass.getEPackage().getNsURI().equals(ecoreClass.getEPackage().getNsURI())) {
         				subClasses.add(subClassCand);
         			}
         		} 
         }
         return subClasses;
-
     }
     
 	/**
