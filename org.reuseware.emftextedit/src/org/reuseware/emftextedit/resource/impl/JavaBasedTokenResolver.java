@@ -20,6 +20,9 @@ public class JavaBasedTokenResolver implements TokenResolver {
 	private String message = null;
 	
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
+		if (value == null) {
+			return "null";
+		}
 		return value.toString();
 	}
 	

@@ -1,14 +1,18 @@
 package org.reuseware.emftextedit.resource.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.antlr.runtime.BitSet;
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.EarlyExitException;
 import org.antlr.runtime.FailedPredicateException;
+import org.antlr.runtime.IntStream;
 import org.antlr.runtime.MismatchedNotSetException;
 import org.antlr.runtime.MismatchedRangeException;
 import org.antlr.runtime.MismatchedSetException;
@@ -22,9 +26,7 @@ import org.antlr.runtime.TokenStream;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.impl.EClassImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.impl.EStructuralFeatureImpl;
 import org.reuseware.emftextedit.resource.EMFTextParser;
 import org.reuseware.emftextedit.resource.TextResource;
 import org.reuseware.emftextedit.resource.TokenConversionException;
@@ -37,6 +39,7 @@ import org.reuseware.emftextedit.resource.TokenConversionException;
  */
 public abstract class EMFTextParserImpl extends Parser implements EMFTextParser {    
     
+	private int mismatchedTokenRecoveryTries = 0;
 	
 	protected EObject apply(EObject target, List<EObject> dummyEObjects) {
 		EObject currentTarget = target;
@@ -323,7 +326,20 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
 
     	resource.addError(message, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
     }
-    
-    
-    
+
+	@Override
+	public void recoverFromMismatchedToken(IntStream arg0,
+			RecognitionException arg1, int arg2, BitSet arg3)
+			throws RecognitionException {
+		mismatchedTokenRecoveryTries++;
+		// redirect error stream to suppress 'BR.recoverFromMismatchedToken' message
+		PrintStream originalErr = System.err;
+		System.setErr(new PrintStream(new ByteArrayOutputStream()));
+		super.recoverFromMismatchedToken(arg0, arg1, arg2, arg3);
+		System.setErr(originalErr);
+	}
+
+	public int getMismatchedTokenRecoveryTries() {
+		return mismatchedTokenRecoveryTries;
+	}
 }
