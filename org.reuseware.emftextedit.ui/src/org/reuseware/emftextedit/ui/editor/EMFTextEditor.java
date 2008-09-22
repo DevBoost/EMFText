@@ -39,8 +39,6 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 
 	private EMFTextOutlinePage emfTextEditorOutlinePage;
 
-	
-	
 	@Override
 	public Object getAdapter(Class required) {
 		if (IContentOutlinePage.class.equals(required)) {
