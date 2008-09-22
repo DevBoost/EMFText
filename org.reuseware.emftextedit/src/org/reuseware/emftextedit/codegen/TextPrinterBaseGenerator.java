@@ -217,19 +217,20 @@ public class TextPrinterBaseGenerator extends BaseGenerator{
 			out.println("\t\t\tString localtab = outertab;");
 			List<EStructuralFeature> featureList = rule.getMetaclass().getEcoreClass().getEAllStructuralFeatures();
 
-			out.println("\t\t\tHashMap<java.lang.String, java.lang.Integer> printCountingMap = new HashMap<java.lang.String, java.lang.Integer>("+featureList.size()+");");
+			out.println("\t\t\tjava.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>("+featureList.size()+");");
 			if(featureList.size()>0){
 				out.println("\t\t\tObject temp;");
 				for(EStructuralFeature feature:featureList){
 					out.println("\t\t\ttemp = element."+ generateAccessMethod(feature) +";"); 	
-					out.println("\t\t\tprintCountingMap.put(\""+feature.getName()+"\",temp == null ? 0:"+(feature.getUpperBound()==-1?"((Collection)temp).size()":"1")+ ");");
+					String featureSize = feature.getUpperBound() == -1 ? "((java.util.Collection<?>)temp).size()" : "1";
+					out.println("\t\t\tprintCountingMap.put(\""+feature.getName()+"\", temp == null || (!(temp instanceof java.util.Collection)) ? 0 : " + featureSize + ");");
 				}					
 			}
 			
 			printChoice(rule.getDefinition(),out,rule.getMetaclass().getEcoreClass());		
 			out.println("\t\t}");
 			for(Choice choice:rule2SubChoice.get(rule)){
-				out.println("\t\tpublic void print"+choice2Name.get(choice)+"("+elementClassName+" element,String outertab,PrintWriter out, HashMap<java.lang.String, java.lang.Integer> printCountingMap){");
+				out.println("\t\tpublic void print"+choice2Name.get(choice)+"("+elementClassName+" element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){");
 				out.println("\t\t\tString localtab = outertab;");
 				printChoice(choice,out,rule.getMetaclass().getEcoreClass());
 				out.println("\t\t}");
