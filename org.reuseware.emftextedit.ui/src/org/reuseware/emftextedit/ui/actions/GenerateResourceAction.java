@@ -184,7 +184,8 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         				csResource.setURI(csFileURI);
         				
         				//call EMF code gen when specified
-						autoEMFGen(cSyntax.getPackage(), monitor);
+        			    if(EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.GENERATE_GEN_MODEL))
+        			    	autoEMFGen(cSyntax.getPackage(), monitor);
         
         				
         			}
@@ -205,6 +206,11 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         }
      }
     
+    /**
+     * Copies general generator settings to be passed to the resource package generator.
+     * 
+     * @return a preference mapping
+     */
     private static HashMap<String,Boolean> copyMapFromPreferenceStore(){
     	HashMap<String,Boolean> preferences = new HashMap<String,Boolean>();
     	IPreferenceStore store = EMFTextEditUIPlugin.getDefault().getPreferenceStore();
