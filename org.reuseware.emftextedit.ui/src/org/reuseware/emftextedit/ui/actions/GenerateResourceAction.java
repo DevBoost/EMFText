@@ -2,8 +2,8 @@ package org.reuseware.emftextedit.ui.actions;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
@@ -15,8 +15,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -27,13 +31,13 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.reuseware.emftextedit.EMFTextEditPlugin;
 import org.reuseware.emftextedit.codegen.ResourcePackage;
 import org.reuseware.emftextedit.codegen.ResourcePackageGenerator;
@@ -178,6 +182,11 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         					modelsFolder.create(true, true, progress.newChild(5));
         			     URI csFileURI = URI.createPlatformResourceURI(modelsFolder.getFullPath().append(cSyntax.getName() + ".cs").toString(), true);
         				csResource.setURI(csFileURI);
+        				
+        				//call EMF code gen when specified
+						autoEMFGen(cSyntax.getPackage(), monitor);
+        
+        				
         			}
 			        catch (CoreException e) {
 			        	throw new InvocationTargetException(e);
@@ -318,6 +327,22 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         
         return s.toString();
     }
+    
+    private static void autoEMFGen(GenPackage genPackage, IProgressMonitor monitor) {
+    	GenModel genModel = genPackage.getGenModel();
+
+        //generate the code
+		Generator generator = new Generator();
+
+		genModel.setCanGenerate(true);
+		
+		generator.setInput(genModel);
+	
+		generator.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, 
+				new BasicMonitor.EclipseSubProgress(monitor, 10));
+ 
+    }
+    
 
 
 	/*

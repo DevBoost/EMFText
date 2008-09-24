@@ -1,5 +1,7 @@
 package org.reuseware.emftextedit.ui.actions;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +12,12 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -53,6 +59,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 							URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 			            	Resource genModelResource = rs.getResource(genModelURI, true);
 			            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
+			            	updateGenModle(genModel);
 			            	genPackages.putAll(MetamodelManager.getGenPackages(genModel));
 						}
 						return false;
@@ -70,4 +77,31 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		}
 		return null;
 	}
+	
+	private void updateGenModle(GenModel oldGenModel) {
+	   	//update the gen model
+        Resource genModelResource = oldGenModel.eResource();
+        EList<EPackage> ePackages = new BasicEList<EPackage>();        
+        for(GenPackage genPackage : oldGenModel.getGenPackages()) {
+        	ePackages.add(genPackage.getEcorePackage());
+        }
+        
+        GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
+
+        genModel.initialize(ePackages);
+        
+        if(oldGenModel != null) {
+        	genModel.reconcile(oldGenModel);
+        }
+        
+        genModelResource.getContents().clear();
+        genModelResource.getContents().add(genModel);
+        //save the gen model
+        try {
+			genModelResource.save(Collections.EMPTY_MAP);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
