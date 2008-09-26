@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFTextEdit Parser Plugin: simplegui
+Bundle-SymbolicName: org.reuseware.emftextedit.language.simple_gui.resource.simplegui;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: Software Engineering Group - TU Dresden Germany
+Require-Bundle: org.eclipse.core.runtime,
+  org.eclipse.emf.ecore,
+  org.reuseware.emftextedit.language.simple_gui,
+ org.reuseware.emftextedit
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.reuseware.emftextedit.language.simple_gui.resource.simplegui
