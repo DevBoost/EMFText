@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.reuseware.emftextedit.language.simple_gui/src_gen"
+    modelPluginID="org.reuseware.emftextedit.language.simple_gui" modelName="Simple_gui"
+    complianceLevel="5.0" copyrightFields="false">
+  <genPackages prefix="Simple_gui" basePackage="org.reuseware.emftextedit.language"
+      disposableProviderFactory="true" ecorePackage="simple_gui.ecore#/">
+    <genClasses image="false" ecoreClass="simple_gui.ecore#//UIElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute simple_gui.ecore#//UIElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="simple_gui.ecore#//Container">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference simple_gui.ecore#//Container/children"/>
+    </genClasses>
+    <genClasses ecoreClass="simple_gui.ecore#//Frame"/>
+    <genClasses ecoreClass="simple_gui.ecore#//Panel"/>
+    <genClasses ecoreClass="simple_gui.ecore#//Button"/>
+    <genClasses ecoreClass="simple_gui.ecore#//Label"/>
+    <genClasses ecoreClass="simple_gui.ecore#//Image">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute simple_gui.ecore#//Image/key"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
