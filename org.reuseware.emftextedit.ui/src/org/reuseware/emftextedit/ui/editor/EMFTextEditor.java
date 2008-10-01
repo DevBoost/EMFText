@@ -1,6 +1,10 @@
 package org.reuseware.emftextedit.ui.editor;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
@@ -18,6 +22,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.reuseware.emftextedit.resource.TextResource;
 import org.reuseware.emftextedit.ui.MarkerHelper;
+import org.reuseware.emftextedit.ui.SaveListener;
 
 /**
  * <i>
@@ -31,13 +36,15 @@ import org.reuseware.emftextedit.ui.MarkerHelper;
  */
 public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvider*/ {
 
+	private static final String SAVE_PERFORMED_EXTENSION_POINT_ID = "org.reuseware.emftextedit.ui.perform_save";
 
-	
 	private ColorManager colorManager;
 
 	private ResourceSet resourceSet;
 
 	private EMFTextOutlinePage emfTextEditorOutlinePage;
+	
+	private Resource resource;
 
 	@Override
 	public Object getAdapter(Class required) {
@@ -69,6 +76,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
         setDocumentProvider(new FileDocumentProvider());
 		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,colorManager));
 	}
+	
 	public void dispose() {
 		colorManager.dispose();
 		super.dispose();
@@ -101,7 +109,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		thisFile.unload();
 		try {
 			thisFile.load(null);
-			
+			fireSaveEvent(thisFile);
 			//TODO Test warnings / errors
 			/*thisFile.addWarning(
 					"hups",
@@ -114,6 +122,21 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		}
 	}
 	
+	private void fireSaveEvent(TextResource resource) {
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.SAVE_PERFORMED_EXTENSION_POINT_ID);
+		for (IConfigurationElement element : configurationElements) {
+			try {
+				SaveListener listener = (SaveListener) element.createExecutableExtension("class");//$NON-NLS-1$
+				listener.savePerformed(resource);
+			} catch (CoreException ce) {
+				// TODO log this to the error view
+				ce.printStackTrace();
+			}
+		}
+	}
+
+
 	@Override
 	protected void performSaveAs(IProgressMonitor progressMonitor) {
 		FileEditorInput input = (FileEditorInput) getEditorInput();
@@ -168,6 +191,21 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 			}
 		return resourceSet;
 	}
+	
+	public void markResource() {
+		try {
+			MarkerHelper.unmark(resource);
+			MarkerHelper.mark(resource);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	public Resource getResource() {
+		return resource;
+	}
 
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
 }
