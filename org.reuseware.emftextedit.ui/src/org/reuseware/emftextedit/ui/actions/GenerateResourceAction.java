@@ -150,148 +150,6 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 			        }
         		}
 
-				private IProject createProject(SubMonitor progress,
-						String projectName) throws CoreException,
-						JavaModelException {
-					IJavaProject javaProject = createJavaProject(progress, projectName);
-					IProject project = javaProject.getProject();
-					setClasspath(javaProject, progress);
-					return project;
-				}
-
-				private void createMetaModelCode(SubMonitor progress,
-						final ConcreteSyntax cSyntax) {
-					//call EMF code generator if specified
-					if (EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.GENERATE_GEN_MODEL)) {
-						generateMetaModelCode(cSyntax.getPackage(), progress.newChild(TICKS_GENERATE_METAMODEL_CODE));
-					} else {
-						progress.internalWorked(TICKS_GENERATE_METAMODEL_CODE);
-					}
-				}
-
-				private IJavaProject createJavaProject(SubMonitor progress,
-						String projectName) throws CoreException,
-						JavaModelException {
-					IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-					if (!project.exists()) {
-						project.create(progress.newChild(TICKS_CREATE_PROJECT));
-					} else {
-						progress.internalWorked(TICKS_CREATE_PROJECT);
-					}
-					project.open(progress.newChild(TICKS_OPEN_PROJECT));
-					IProjectDescription description = project.getDescription();
-					description.setNatureIds(new String [] {JavaCore.NATURE_ID, "org.eclipse.pde.PluginNature"});
-					ICommand command1 = description.newCommand();
-					command1.setBuilderName("org.eclipse.jdt.core.javabuilder");
-					ICommand command2 = description.newCommand();
-					command2.setBuilderName("org.eclipse.pde.ManifestBuilder");
-					ICommand command3 = description.newCommand();
-					command3.setBuilderName("org.eclipse.pde.SchemaBuilder");
-					description.setBuildSpec(new ICommand [] {command1,command2,command3});
-					project.setDescription(description,null);
-					
-					IJavaProject javaProject = JavaCore.create(project);
-					return javaProject;
-				}
-
-				private IFolder getSrcFolder(IProject project) {
-					return project.getFolder("/src");
-				}
-
-				private IFolder getOutFolder(IProject project) {
-					return project.getFolder("/bin");
-				}
-
-				private void setClasspath(IJavaProject javaProject, SubMonitor progress) throws JavaModelException {
-					IFolder srcFolder = getSrcFolder(javaProject.getProject());
-					IFolder outFolder = getOutFolder(javaProject.getProject());
-					javaProject.setRawClasspath(
-					   new IClasspathEntry [] {
-							JavaCore.newSourceEntry(srcFolder.getFullPath()), 
-							JavaRuntime.getJREVariableEntry(), 
-							JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins"))},
-					   outFolder.getFullPath(), progress.newChild(TICKS_SET_CLASSPATH));
-				}
-
-				private Resource getResource(final IFile file) {
-					ResourceSet rs = new ResourceSetImpl();
-					Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
-					return csResource;
-				}
-
-				private boolean containsProblems(Resource csResource) {
-					return !csResource.getErrors().isEmpty()
-							|| !csResource.getWarnings().isEmpty();
-				}
-
-				private void createMetaFolder(SubMonitor progress,
-						IProject project) throws CoreException {
-					IFolder metaFolder = project.getFolder("/META-INF");
-					if (!metaFolder.exists()) {
-						metaFolder.create(true, true, progress.newChild(TICKS_CREATE_META_FOLDER));
-					} else {
-						progress.internalWorked(TICKS_CREATE_META_FOLDER);
-					}
-				}
-
-				private void createManifest(SubMonitor progress,
-						final ConcreteSyntax cSyntax, String projectName,
-						boolean overridePluginConfig, IProject project)
-						throws CoreException {
-    				IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
-					if (manifestMFFile.exists()){
-						if (overridePluginConfig) {
-							manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true, progress.newChild(TICKS_CREATE_MANIFEST));
-						} else {
-							progress.internalWorked(TICKS_CREATE_MANIFEST);
-						}
-					}
-					else {
-						manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true, progress.newChild(TICKS_CREATE_MANIFEST));            	 
-					}
-				}
-
-				private void createPluginXML(SubMonitor progress,
-						final ConcreteSyntax cSyntax, String projectName,
-						boolean overridePluginConfig, IProject project)
-						throws CoreException {
-    				IFile pluginXMLFile = project.getFile("/plugin.xml");
-					if (pluginXMLFile.exists()){
-						if (overridePluginConfig) {
-							pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
-						} else {
-							progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
-						}
-					}
-					else {
-						pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
-					}
-				}
-
-				private void markErrors(final ConcreteSyntax cSyntax)
-						throws CoreException {
-					//also mark errors on imported concrete syntaxes
-					for(Import aImport : cSyntax.getImports()) {
-						ConcreteSyntax importedCS = aImport.getConcreteSyntax();
-						if (importedCS != null) {
-							MarkerHelper.unmark(importedCS.eResource());
-							MarkerHelper.mark(aImport.eResource());
-						}
-					}
-				}
-
-				private IFolder createModelFolder(SubMonitor progress,
-						IProject project) throws CoreException {
-					//copy the cs definition to the plugin for reuse
-					IFolder modelsFolder = project.getFolder("/model");
-					if (!modelsFolder.exists()) {
-						modelsFolder.create(true, true, progress.newChild(TICKS_CREATE_MODELS_FOLDER));
-					} else {
-						progress.internalWorked(TICKS_CREATE_MODELS_FOLDER);
-					}
-					return modelsFolder;
-				}
-        		
         	};
         	
         	PlatformUI.getWorkbench().getProgressService().busyCursorWhile(runnable);
@@ -309,7 +167,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
      * 
      * @return a preference mapping
      */
-    private static Map<String,Boolean> copyMapFromPreferenceStore(){
+    private Map<String,Boolean> copyMapFromPreferenceStore(){
     	Map<String,Boolean> preferences = new HashMap<String,Boolean>();
     	IPreferenceStore store = EMFTextEditUIPlugin.getDefault().getPreferenceStore();
     	preferences.put(ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME,store.getBoolean(ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME));
@@ -330,7 +188,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
      * @param packageName Name of the Java package.
      * @return Generated code.
      */
-    private static String generatePluginXml(ConcreteSyntax cSyntax, String packageName) {
+    private String generatePluginXml(ConcreteSyntax cSyntax, String packageName) {
         StringBuffer s = new StringBuffer();
         String factoryClassName = cSyntax.getName().substring(0, 1).toUpperCase() + 
         						  cSyntax.getName().substring(1) + "ResourceFactoryImpl";
@@ -399,7 +257,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
      * @param packageName Name of the Java package.
      * @return Generated code.
      */
-    private static String generateManifestMF(ConcreteSyntax cSyntax, String packageName) {
+    private String generateManifestMF(ConcreteSyntax cSyntax, String packageName) {
         StringBuffer s = new StringBuffer();
         
         s.append("Manifest-Version: 1.0\n");
@@ -432,7 +290,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         return s.toString();
     }
     
-    private static void generateMetaModelCode(GenPackage genPackage, IProgressMonitor monitor) {
+    private void generateMetaModelCode(GenPackage genPackage, IProgressMonitor monitor) {
     	monitor.setTaskName("generating metamodel code...");
     	GenModel genModel = genPackage.getGenModel();
 		genModel.setCanGenerate(true);
@@ -444,6 +302,148 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 				new BasicMonitor.EclipseSubProgress(monitor, 100));
     }
 
+	private IProject createProject(SubMonitor progress,
+			String projectName) throws CoreException,
+			JavaModelException {
+		IJavaProject javaProject = createJavaProject(progress, projectName);
+		IProject project = javaProject.getProject();
+		setClasspath(javaProject, progress);
+		return project;
+	}
+
+	private void createMetaModelCode(SubMonitor progress,
+			final ConcreteSyntax cSyntax) {
+		//call EMF code generator if specified
+		if (EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.GENERATE_GEN_MODEL)) {
+			generateMetaModelCode(cSyntax.getPackage(), progress.newChild(TICKS_GENERATE_METAMODEL_CODE));
+		} else {
+			progress.internalWorked(TICKS_GENERATE_METAMODEL_CODE);
+		}
+	}
+
+	private IJavaProject createJavaProject(SubMonitor progress,
+			String projectName) throws CoreException,
+			JavaModelException {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+		if (!project.exists()) {
+			project.create(progress.newChild(TICKS_CREATE_PROJECT));
+		} else {
+			progress.internalWorked(TICKS_CREATE_PROJECT);
+		}
+		project.open(progress.newChild(TICKS_OPEN_PROJECT));
+		IProjectDescription description = project.getDescription();
+		description.setNatureIds(new String [] {JavaCore.NATURE_ID, "org.eclipse.pde.PluginNature"});
+		ICommand command1 = description.newCommand();
+		command1.setBuilderName("org.eclipse.jdt.core.javabuilder");
+		ICommand command2 = description.newCommand();
+		command2.setBuilderName("org.eclipse.pde.ManifestBuilder");
+		ICommand command3 = description.newCommand();
+		command3.setBuilderName("org.eclipse.pde.SchemaBuilder");
+		description.setBuildSpec(new ICommand [] {command1,command2,command3});
+		project.setDescription(description,null);
+		
+		IJavaProject javaProject = JavaCore.create(project);
+		return javaProject;
+	}
+
+	private IFolder getSrcFolder(IProject project) {
+		return project.getFolder("/src");
+	}
+
+	private IFolder getOutFolder(IProject project) {
+		return project.getFolder("/bin");
+	}
+
+	private void setClasspath(IJavaProject javaProject, SubMonitor progress) throws JavaModelException {
+		IFolder srcFolder = getSrcFolder(javaProject.getProject());
+		IFolder outFolder = getOutFolder(javaProject.getProject());
+		javaProject.setRawClasspath(
+		   new IClasspathEntry [] {
+				JavaCore.newSourceEntry(srcFolder.getFullPath()), 
+				JavaRuntime.getJREVariableEntry(), 
+				JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins"))},
+		   outFolder.getFullPath(), progress.newChild(TICKS_SET_CLASSPATH));
+	}
+
+	private Resource getResource(final IFile file) {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
+		return csResource;
+	}
+
+	private boolean containsProblems(Resource csResource) {
+		return !csResource.getErrors().isEmpty()
+				|| !csResource.getWarnings().isEmpty();
+	}
+
+	private void createMetaFolder(SubMonitor progress,
+			IProject project) throws CoreException {
+		IFolder metaFolder = project.getFolder("/META-INF");
+		if (!metaFolder.exists()) {
+			metaFolder.create(true, true, progress.newChild(TICKS_CREATE_META_FOLDER));
+		} else {
+			progress.internalWorked(TICKS_CREATE_META_FOLDER);
+		}
+	}
+
+	private void createManifest(SubMonitor progress,
+			final ConcreteSyntax cSyntax, String projectName,
+			boolean overridePluginConfig, IProject project)
+			throws CoreException {
+		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
+		if (manifestMFFile.exists()){
+			if (overridePluginConfig) {
+				manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true, progress.newChild(TICKS_CREATE_MANIFEST));
+			} else {
+				progress.internalWorked(TICKS_CREATE_MANIFEST);
+			}
+		}
+		else {
+			manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true, progress.newChild(TICKS_CREATE_MANIFEST));            	 
+		}
+	}
+
+	private void createPluginXML(SubMonitor progress,
+			final ConcreteSyntax cSyntax, String projectName,
+			boolean overridePluginConfig, IProject project)
+			throws CoreException {
+		IFile pluginXMLFile = project.getFile("/plugin.xml");
+		if (pluginXMLFile.exists()){
+			if (overridePluginConfig) {
+				pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
+			} else {
+				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
+			}
+		}
+		else {
+			pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
+		}
+	}
+
+	private void markErrors(final ConcreteSyntax cSyntax)
+			throws CoreException {
+		//also mark errors on imported concrete syntaxes
+		for(Import aImport : cSyntax.getImports()) {
+			ConcreteSyntax importedCS = aImport.getConcreteSyntax();
+			if (importedCS != null) {
+				MarkerHelper.unmark(importedCS.eResource());
+				MarkerHelper.mark(aImport.eResource());
+			}
+		}
+	}
+
+	private IFolder createModelFolder(SubMonitor progress,
+			IProject project) throws CoreException {
+		//copy the cs definition to the plugin for reuse
+		IFolder modelsFolder = project.getFolder("/model");
+		if (!modelsFolder.exists()) {
+			modelsFolder.create(true, true, progress.newChild(TICKS_CREATE_MODELS_FOLDER));
+		} else {
+			progress.internalWorked(TICKS_CREATE_MODELS_FOLDER);
+		}
+		return modelsFolder;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
