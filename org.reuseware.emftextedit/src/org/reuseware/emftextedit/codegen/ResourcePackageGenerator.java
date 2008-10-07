@@ -43,7 +43,7 @@ public class ResourcePackageGenerator {
 	public static String OVERRIDE_PRINTER_NAME = "ovrPrinter";
 
 	public static void generate(ResourcePackage resourcePackage, IProgressMonitor monitor)throws CoreException{
-		SubMonitor progress = SubMonitor.convert(monitor,"generating resources...",100);
+		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
 	    String capCsName = BaseGenerator.cap(resourcePackage.getConcreteSyntax().getName());
 		IFolder targetFolder = resourcePackage.getTargetFolder();
 		
