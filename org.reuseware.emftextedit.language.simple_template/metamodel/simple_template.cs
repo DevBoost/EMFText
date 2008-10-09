@@ -9,6 +9,8 @@ RULES {
 	
 	Loop ::= "<%" "for" "(" count[] ")" "{" "%>" body "<%" "}" "%>" ;
 	
+	Placeholder ::= "<%=" pathToInputModelElement[] "%>" ;
+	
 	CompoundSection ::= contents* ;
 	
 	Static ::= text[];

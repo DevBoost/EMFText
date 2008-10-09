@@ -24,6 +24,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute simple_template.ecore#//Loop/count"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference simple_template.ecore#//Loop/body"/>
     </genClasses>
-    <genClasses ecoreClass="simple_template.ecore#//Placeholder"/>
+    <genClasses ecoreClass="simple_template.ecore#//Placeholder">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute simple_template.ecore#//Placeholder/pathToInputModelElement"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

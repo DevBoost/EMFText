@@ -25,5 +25,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//CompoundSection"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Placeholder" eSuperTypes="#//Section"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Placeholder" eSuperTypes="#//Section">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pathToInputModelElement"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>
