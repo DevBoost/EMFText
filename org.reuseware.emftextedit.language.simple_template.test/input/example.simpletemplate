@@ -1,0 +1,9 @@
+test123
+<% if (true) { %>
+	something in here
+<% } %>
+something in between
+<% for (5) { %>
+	something that must be inserted five times
+<% } %>
+something at the end

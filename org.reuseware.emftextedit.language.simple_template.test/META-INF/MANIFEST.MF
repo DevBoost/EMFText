@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.reuseware.emftextedit.language.simple_template.test
+Bundle-Version: 1.0.0
+Export-Package: org.reuseware.emftextedit.language.simple_template.test
+Require-Bundle: org.reuseware.emftextedit.language.simple_template;bundle-version="1.0.0",
+ org.reuseware.emftextedit.language.simple_template.resource.simpletemplate;bundle-version="1.0.0",
+ org.reuseware.emftextedit;bundle-version="0.8.0",
+ org.junit4,
+ org.reuseware.emftextedit.language.simple_template.interpreter;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
