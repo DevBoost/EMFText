@@ -9,7 +9,7 @@ RULES {
 	
 	Loop ::= "<%" "for" "(" count[] ")" "{" "%>" body "<%" "}" "%>" ;
 	
-	CompoundSection ::= (contents ";")* ;
+	CompoundSection ::= contents* ;
 	
-	Static ::= text[] ";";
+	Static ::= text[];
 }

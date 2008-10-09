@@ -4,7 +4,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.reuseware.emftextedit.language.simple_template/src_gen"
     modelPluginID="org.reuseware.emftextedit.language.simple_template" modelName="Simple_template"
     complianceLevel="5.0" copyrightFields="false">
-  <genPackages prefix="Simple_template" disposableProviderFactory="true" ecorePackage="simple_template.ecore#/">
+  <genPackages prefix="Simple_template" basePackage="org.reuseware.emftextedit.language"
+      disposableProviderFactory="true" ecorePackage="simple_template.ecore#/">
     <genClasses ecoreClass="simple_template.ecore#//Template">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference simple_template.ecore#//Template/content"/>
     </genClasses>

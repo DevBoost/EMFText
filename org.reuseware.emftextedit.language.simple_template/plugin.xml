@@ -13,7 +13,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.reuseware.org/simple_template"
-            class="simple_template.Simple_templatePackage"/>
+            class="org.reuseware.emftextedit.language.simple_template.Simple_templatePackage"/>
    </extension>
 
 </plugin>
