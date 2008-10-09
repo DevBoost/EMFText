@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.reuseware.emftextedit.codegen.IGenerator.GenerationProblem.Severity;
 import org.reuseware.emftextedit.codegen.regex.ANTLRexpLexer;
@@ -475,21 +474,21 @@ public class TextParserGenerator extends BaseGenerator{
                         	out.println();
                         }
                         
-                        String message = "Applied experimental autofix: Rule " +  rule.getMetaclass().getName() + " is direct left recursive by rule " + recursionRule.getMetaclass().getName()+ 
-                    	".";
+                        String message = "Applied experimental autofix: Rule \"" +  rule.getMetaclass().getName() + "\" is direct left recursive by rule \"" + recursionRule.getMetaclass().getName() + 
+                    	"\".";
                     	GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
                 		addProblem(generationWarning);
                 		continue;
             		}
             		else {
-            			String message = "Warning: Rule " +  rule.getMetaclass().getName() + " is direct left recursive by rule " + recursionRule.getMetaclass().getName();
+            			String message = "Warning: Rule \"" +  rule.getMetaclass().getName() + "\" is direct left recursive by rule \"" + recursionRule.getMetaclass().getName() + "\".";
                   		GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
                   		addProblem(generationWarning);
                 		printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
             		}
             	}
             	else {
-            		String message = "Rule " +  rule.getMetaclass().getName() + " is mutual left recursive by rule " + recursionRule.getMetaclass().getName()+" ! Please restructure the grammar.";
+            		String message = "Rule \"" +  rule.getMetaclass().getName() + "\" is mutual left recursive by rule \"" + recursionRule.getMetaclass().getName()+"\"! Please restructure the grammar.";
             		GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
               		addProblem(generationWarning);
             		printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
@@ -499,9 +498,6 @@ public class TextParserGenerator extends BaseGenerator{
             else {
             	printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
             }
-            
-            
-         	
         }
 	}
 	
