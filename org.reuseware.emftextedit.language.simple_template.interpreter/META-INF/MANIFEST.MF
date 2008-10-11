@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Interpreter
-Bundle-SymbolicName: org.reuseware.emftextedit.language.simple_template.interpreter
-Bundle-Version: 1.0.0
-Export-Package: org.reuseware.emftextedit.language.simple_template.interpreter
-Require-Bundle: org.reuseware.emftextedit.language.simple_template;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
