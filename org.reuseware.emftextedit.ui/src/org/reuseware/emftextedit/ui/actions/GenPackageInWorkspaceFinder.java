@@ -60,7 +60,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 			            	Resource genModelResource = rs.getResource(genModelURI, true);
 			            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
 			            	try {
-			            		updateGenModle(genModel);
+			            		updateGenModel(genModel);
 			            	} catch (Exception e){
 			            		e.printStackTrace();
 			            	}
@@ -82,7 +82,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		return null;
 	}
 	
-	private void updateGenModle(GenModel oldGenModel) {
+	private void updateGenModel(GenModel oldGenModel) {
 	   	//update the gen model
         Resource genModelResource = oldGenModel.eResource();
         EList<EPackage> ePackages = new BasicEList<EPackage>();        
