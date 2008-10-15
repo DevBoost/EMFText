@@ -59,7 +59,11 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 							URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 			            	Resource genModelResource = rs.getResource(genModelURI, true);
 			            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-			            	updateGenModle(genModel);
+			            	try {
+			            		updateGenModle(genModel);
+			            	} catch (Exception e){
+			            		e.printStackTrace();
+			            	}
 			            	genPackages.putAll(MetamodelManager.getGenPackages(genModel));
 						}
 						return false;
