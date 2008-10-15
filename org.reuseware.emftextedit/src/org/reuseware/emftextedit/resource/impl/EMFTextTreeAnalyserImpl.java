@@ -45,7 +45,8 @@ public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 						if(value instanceof EList<?>) {
 							EList<EObject> l = (EList<EObject>) value;
 							for(Object proxy : new BasicEList<EObject>(l)) {
-								if (((EObject)proxy).eIsProxy()) {
+								if (((EObject)proxy).eIsProxy()
+										&& /*check if proxy is local*/ ((InternalEObject)value).eProxyURI().trimFragment().equals(resource.getURI()) ) {
 									EObject element = resolve((InternalEObject)proxy, container, 
 											reference, resource, reportErrors);
 									
@@ -56,7 +57,8 @@ public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 								}
 							}
 						}
-						else if (value != null && ((EObject)value).eIsProxy()) {
+						else if (value != null && ((EObject)value).eIsProxy() 
+								&& /*check if proxy is local*/ ((InternalEObject)value).eProxyURI().trimFragment().equals(resource.getURI()) ) {
 							EObject element = resolve((InternalEObject)value, container, 
 									reference, resource, reportErrors);
 							
