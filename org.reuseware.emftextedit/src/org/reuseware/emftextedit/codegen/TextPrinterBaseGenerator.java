@@ -45,7 +45,7 @@ import org.reuseware.emftextedit.concretesyntax.Option;
  */
 public class TextPrinterBaseGenerator extends BaseGenerator {
 
-	public static String CS_OPTION_TOKENSPACE = "tokespace";
+	public static String CS_OPTION_TOKENSPACE = "tokenspace";
 
 	private ConcreteSyntax csSource;
 	private String tokenResolverFactoryClassName;
