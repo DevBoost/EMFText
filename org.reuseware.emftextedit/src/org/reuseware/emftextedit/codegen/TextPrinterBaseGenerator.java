@@ -350,6 +350,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				.listIterator();
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
+			
 			out.println(basetab + "//////////////DEFINITION PART BEGINS ("
 					+ definition.eClass().getName() + "):");
 			String printPrefix = "out.print(";
@@ -374,6 +375,24 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 					out.println(basetab + printPrefix + "\""
 							+ terminal.getValue().replaceAll("\"", "\\\\\"")
 							+ "\");");
+
+					// the given tokenSpace (>0) causes an additional
+					// print statement to be printed
+					if (tokenSpace > 0) {
+						Definition lookahead = null;
+						if (definitionIterator.hasNext()){
+							lookahead = definitionIterator.next();
+							definitionIterator.previous();
+						}
+							
+						if (lookahead == null
+								|| !(lookahead instanceof WhiteSpaces)) {
+							String printSuffix = getWhiteSpaceString(tokenSpace);
+							
+							out.println(basetab + printPrefix + "\"" + printSuffix + "\");");
+						}
+							
+					}
 
 				} else {
 					Cardinality cardinality = definition.getCardinality();
@@ -527,25 +546,23 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ featureName + "\"),element));";
 							}
 
-							// 1-Part lookahead for whitespace printing
-							// directive which may override a default tokenSpace
-							// if no whitespace directly follows after the
-							// current Placeholder (directives in Compounds are
-							// not considered!)
+
 							// the given tokenSpace (>0) causes an additional
 							// print statement to be printed
 							if (tokenSpace > 0) {
 								Definition lookahead = null;
-								if (definitionIterator.hasNext())
+								if (definitionIterator.hasNext()){
 									lookahead = definitionIterator.next();
+									definitionIterator.previous();
+								}
+									
 								if (lookahead == null
 										|| !(lookahead instanceof WhiteSpaces)) {
 									String printSuffix = getWhiteSpaceString(tokenSpace);
 									printStatement = printStatement
-											+ "print(\"" + printSuffix + "\");";
+											+ "out.print(\"" + printSuffix + "\");";
 								}
-								// switching back to previous position
-								definitionIterator.previous();
+									
 							}
 
 						} else {
@@ -628,6 +645,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		out.println("));");
 	}
 
+
 	private void printMatchRule(PrintWriter out) {
 		out
 				.println("\tprotected static int matchCount(Map<java.lang.String, java.lang.Integer> featureCounter, Collection<java.lang.String> needed){");
@@ -669,6 +687,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		return getRepeatingString(count, ' ');
 	}
 
+	
 	private String getRepeatingString(int count, char character) {
 		StringBuffer spaces = new StringBuffer();
 		for (int i = 0; i < count; i++) {
