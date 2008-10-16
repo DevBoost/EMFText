@@ -52,7 +52,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		out.println("\t}");
         out.println();
 		
-        out.println("\tpublic void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {");
+        out.println("\tprotected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {");
         out.println("\t\tEMFTextParser p = new " + csClassName + "Parser(new CommonTokenStream(new " + csClassName + "Lexer(new ANTLRInputStream(inputStream))));");
         out.println("\t\tp.setResource(this);");
         out.println("\t\tEObject root = p.parse();");
@@ -65,7 +65,7 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t}");
         out.println();
         
-        out.println("\tpublic void doSave(OutputStream outputStream, Map<?,?> options) throws IOException {");
+        out.println("\tprotected void doSave(OutputStream outputStream, Map<?,?> options) throws IOException {");
         out.println("\t\tEMFTextPrinter p = new " + printerClassName + "(outputStream, this);");
         out.println("\t\tfor(EObject root : getContents()) {");
         out.println("\t\t\tp.print(root);");
