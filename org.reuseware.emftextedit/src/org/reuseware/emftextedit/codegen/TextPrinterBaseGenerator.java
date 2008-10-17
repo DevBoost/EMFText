@@ -263,7 +263,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				out
 						.println("\t\t\tprintCountingMap.put(\""
 								+ feature.getName()
-								+ "\", temp == null || (!(temp instanceof java.util.Collection)) ? 0 : "
+								+ "\", temp == null ? 0 : "
 								+ featureSize + ");");
 			}
 		}
