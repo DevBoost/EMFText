@@ -247,7 +247,7 @@ public class ResourcePackageGenerator {
    	 	    Collection<GenerationProblem> occuredWarningsAndErrors = generator.getOccuredWarningsAndErrors();
 			if(occuredWarningsAndErrors!=null) {
    	   	    	for(IGenerator.GenerationProblem problem:occuredWarningsAndErrors){
-   	   	    		if(problem.getSeverity() == IGenerator.GenerationProblem.Severity.HINT){
+   	   	    		if(problem.getSeverity() == IGenerator.GenerationProblem.Severity.WARNING){
    	   	    			csResource.addWarning(problem.getMessage(),problem.getCause());
    	   	    		}
    	   	    		else{

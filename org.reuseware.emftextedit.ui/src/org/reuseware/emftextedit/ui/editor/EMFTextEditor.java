@@ -36,6 +36,30 @@ import org.reuseware.emftextedit.ui.SaveListener;
  */
 public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvider*/ {
 
+	private final class MarkerAdapter extends AdapterImpl {
+		private boolean enabled = true;
+		
+		public boolean isAdapterForType(Object type) {
+			return type == EMFTextEditor.class;
+		}
+
+		public void notifyChanged(Notification notification) {
+			if (!enabled) {
+				return;
+			}
+			try {
+				MarkerHelper.unmark((Resource)getTarget());
+				MarkerHelper.mark((Resource)getTarget());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void setEnabled(boolean enabled) {
+			this.enabled = enabled;
+		}
+	}
+
 	private static final String SAVE_PERFORMED_EXTENSION_POINT_ID = "org.reuseware.emftextedit.ui.perform_save";
 
 	private ColorManager colorManager;
@@ -45,6 +69,8 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	private EMFTextOutlinePage emfTextEditorOutlinePage;
 	
 	private Resource resource;
+
+	private MarkerAdapter markerAdapter = new MarkerAdapter();
 
 	@Override
 	public Object getAdapter(Class required) {
@@ -108,13 +134,12 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		TextResource thisFile = (TextResource) resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
 		thisFile.unload();
 		try {
+			markerAdapter.setEnabled(false);
 			thisFile.load(null);
+			markerAdapter.setEnabled(true);
+			
 			fireSaveEvent(thisFile);
-			//TODO Test warnings / errors
-			/*thisFile.addWarning(
-					"hups",
-					thisFile.getContents().get(0).eContents().get(0).eContents().get(0).eContents().get(4)
-			);*/
+			
 			MarkerHelper.unmark(thisFile);
 			MarkerHelper.mark(thisFile);
 		} catch (Exception e) {
@@ -170,22 +195,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 				thisFile = resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
 				MarkerHelper.unmark(thisFile);
 				MarkerHelper.mark(thisFile);
-				thisFile.eAdapters().add(new AdapterImpl() {
-
-					public boolean isAdapterForType(Object type) {
-						return type == EMFTextEditor.class;
-					}
-					
-					public void notifyChanged(Notification notification) {
-						try {
-							MarkerHelper.unmark((Resource)getTarget());
-							MarkerHelper.mark((Resource)getTarget());
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-					
-				});
+				thisFile.eAdapters().add(markerAdapter);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

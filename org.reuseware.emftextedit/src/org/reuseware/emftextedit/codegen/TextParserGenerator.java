@@ -476,20 +476,20 @@ public class TextParserGenerator extends BaseGenerator{
                         
                         String message = "Applied experimental autofix: Rule \"" +  rule.getMetaclass().getName() + "\" is direct left recursive by rule \"" + recursionRule.getMetaclass().getName() + 
                     	"\".";
-                    	GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
+                    	GenerationProblem generationWarning = new GenerationProblem(message, rule, Severity.WARNING);
                 		addProblem(generationWarning);
                 		continue;
             		}
             		else {
             			String message = "Warning: Rule \"" +  rule.getMetaclass().getName() + "\" is direct left recursive by rule \"" + recursionRule.getMetaclass().getName() + "\".";
-                  		GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
+                  		GenerationProblem generationWarning = new GenerationProblem(message, rule, Severity.WARNING);
                   		addProblem(generationWarning);
                 		printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
             		}
             	}
             	else {
             		String message = "Rule \"" +  rule.getMetaclass().getName() + "\" is mutual left recursive by rule \"" + recursionRule.getMetaclass().getName()+"\"! Please restructure the grammar.";
-            		GenerationProblem generationWarning = new GenerationProblem(message, Severity.HINT, rule, null);
+            		GenerationProblem generationWarning = new GenerationProblem(message, rule, Severity.WARNING);
               		addProblem(generationWarning);
             		printGrammarRule(rule, out, eClassesWithSyntax, eClassesReferenced);
             	}
@@ -653,7 +653,9 @@ public class TextParserGenerator extends BaseGenerator{
             		proxyTypeName = instanceType.getName();
             		genPackagePrefix = instanceType.getGenPackage().getPrefix();
             	}
-            	
+            	if (genPackagePrefix == null) {
+            		addProblem(new GenerationProblem("The type of non-containment reference '" + sf.getName() + "' is abstract and has no concrete sub classes.", sf, GenerationProblem.Severity.ERROR));
+            	}
             	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";";
 	           	
             	//resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";

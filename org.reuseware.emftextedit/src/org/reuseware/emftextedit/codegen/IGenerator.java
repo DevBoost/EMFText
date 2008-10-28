@@ -9,28 +9,31 @@ import org.eclipse.emf.ecore.EObject;
  * in org.reuseware.emftextedit.codegen.* .
  * 
  * @author skarol
- *
  */
 public interface IGenerator {
 	
 	public static class GenerationProblem {
 		
-		public static enum Severity {HINT, ERROR}
+		public static enum Severity {WARNING, ERROR}
 		
 		private Severity severity ; 
 		private String message ;
 		private Exception exceptionThrown;
 		private EObject cause;
 		
-		public GenerationProblem(String message, Severity severity,EObject cause, Exception e){
+		public GenerationProblem(String message, EObject cause, Severity severity, Exception e){
 			this.message = message;
-			this.severity = severity;
 			this.cause = cause;
+			this.severity = severity;
 			this.exceptionThrown = e;
 		}
 		
+		public GenerationProblem(String message, EObject cause, Severity severity){
+			this(message, cause, severity, null);
+		}
+		
 		public GenerationProblem(String message, EObject cause){
-			this(message,Severity.ERROR,cause,null);
+			this(message, cause, Severity.ERROR);
 		}
 		
 		public Severity getSeverity() {

@@ -25,8 +25,6 @@ import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -55,7 +53,7 @@ import org.reuseware.emftextedit.ui.MarkerHelper;
  * @author jj2
  *
  */
-public class GenerateResourceAction implements IObjectActionDelegate {
+public class GenerateResourceAction extends AbstractConcreteSyntaxAction implements IObjectActionDelegate {
     
 	// these must add up to 100
 	protected static final int TICKS_CREATE_PROJECT = 2;
@@ -108,9 +106,9 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         					return;
         				}
 			            
-        				final ConcreteSyntax cSyntax = (ConcreteSyntax) csResource.getContents().get(0);
-        				String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
-        				String projectName = csPackageName;
+        				final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
+        				final String csPackageName = getPackageName(concreteSyntax);
+        				final String projectName = csPackageName;
 			    
         				if (projectName == null) { 
         					return;
@@ -120,7 +118,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
         				IProject project = createProject(progress, projectName);
 			            
         				//generate the resource class, parser, and printer
-        				ResourcePackage pck = new ResourcePackage(cSyntax, csPackageName, getSrcFolder(project), copyMapFromPreferenceStore());
+        				ResourcePackage pck = new ResourcePackage(concreteSyntax, csPackageName, getSrcFolder(project), copyMapFromPreferenceStore());
         				ResourcePackageGenerator.generate(pck, progress.newChild(TICKS_GENERATE_RESOURCE));
 			             
         				//errors from parser generator?
@@ -131,17 +129,17 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 			            boolean overridePluginConfig = EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME);
         			      	  
         				createMetaFolder(progress, project);
-        				createManifest(progress, cSyntax, projectName, overridePluginConfig, project);
-        				createPluginXML(progress, cSyntax, projectName, overridePluginConfig, project);
+        				createManifest(progress, concreteSyntax, projectName, overridePluginConfig, project);
+        				createPluginXML(progress, concreteSyntax, projectName, overridePluginConfig, project);
         				
-        				markErrors(cSyntax);
+        				markErrors(concreteSyntax);
 			             
         				IFolder modelsFolder = createModelFolder(progress,
 								project);
-        				URI csFileURI = URI.createPlatformResourceURI(modelsFolder.getFullPath().append(cSyntax.getName() + ".cs").toString(), true);
+        				URI csFileURI = URI.createPlatformResourceURI(modelsFolder.getFullPath().append(concreteSyntax.getName() + ".cs").toString(), true);
         				csResource.setURI(csFileURI);
         				
-        				createMetaModelCode(progress, cSyntax);
+        				createMetaModelCode(progress, concreteSyntax);
         				
         				project.refreshLocal(IProject.DEPTH_INFINITE, progress.newChild(TICKS_REFRESH_PROJECT));
         			}
@@ -149,6 +147,10 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 			        	throw new InvocationTargetException(e);
 			        }
         		}
+
+				private String getPackageName(final ConcreteSyntax cSyntax) {
+					return (cSyntax.getPackage().getBasePackage() == null ? "" : cSyntax.getPackage().getBasePackage() + ".") + cSyntax.getPackage().getEcorePackage().getName() + ".resource." + cSyntax.getName();
+				}
 
         	};
         	
@@ -363,17 +365,6 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 				JavaRuntime.getJREVariableEntry(), 
 				JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins"))},
 		   outFolder.getFullPath(), progress.newChild(TICKS_SET_CLASSPATH));
-	}
-
-	private Resource getResource(final IFile file) {
-		ResourceSet rs = new ResourceSetImpl();
-		Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
-		return csResource;
-	}
-
-	private boolean containsProblems(Resource csResource) {
-		return !csResource.getErrors().isEmpty()
-				|| !csResource.getWarnings().isEmpty();
 	}
 
 	private void createMetaFolder(SubMonitor progress,
