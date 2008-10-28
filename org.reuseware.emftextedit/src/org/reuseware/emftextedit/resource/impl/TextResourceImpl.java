@@ -26,7 +26,13 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 	protected EMap<EObject, Integer> columnInfo    = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> lineInfo      = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> charStartInfo = new BasicEMap<EObject, Integer>();
-	protected EMap<EObject, Integer> charEndInfo   = new BasicEMap<EObject, Integer>();	
+	protected EMap<EObject, Integer> charEndInfo   = new BasicEMap<EObject, Integer>();
+	
+	/**
+	 * Used during {@link #load(java.util.Map)} to determine whether OCL
+	 * constraints should be validated.
+	 */
+	public static final String OPTION_NO_VALIDATE = "TR_NO_VALIDATE_OCL"; 
 	
 	/**
 	 * Extends the super implementation by clearing all information about element
@@ -48,16 +54,21 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
 		super.load(options);
-		
-		EList<EObject> contents = getContents();
-		EMFTextOCLValidator oclValidator = new EMFTextOCLValidator();
-		Set<EObject> distinctObjects = new HashSet<EObject>();
-		distinctObjects.addAll(contents);
-		for (EObject eobject : distinctObjects) {
-			// TODO check if this leads to performance problems  
-			// - due to traversing some objects more than once
-		
-			oclValidator.analyse(eobject);
+
+		if (options != null
+				&& Boolean.TRUE.equals(options
+						.get(TextResourceImpl.OPTION_NO_VALIDATE))) {
+		} else {
+			EList<EObject> contents = getContents();
+			EMFTextOCLValidator oclValidator = new EMFTextOCLValidator();
+			Set<EObject> distinctObjects = new HashSet<EObject>();
+			distinctObjects.addAll(contents);
+			for (EObject eobject : distinctObjects) {
+				// TODO check if this leads to performance problems
+				// - due to traversing some objects more than once
+	
+				oclValidator.analyse(eobject);
+			}
 		}
 	}
 
