@@ -3,7 +3,7 @@ package org.reuseware.emftextedit.codegen;
 import java.io.PrintWriter;
 
 /**
- * Generates the resource. Its <code>doLoad()</cope> and <code>doSave()</code> methods will
+ * Generates the resource. Its <code>doLoad()</code> and <code>doSave()</code> methods will
  * call the generated parser, analyser and printer.
  * 
  * @see org.reuseware.emftextedit.resource.TextResource
