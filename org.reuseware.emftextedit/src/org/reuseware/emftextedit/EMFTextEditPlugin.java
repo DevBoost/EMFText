@@ -77,8 +77,7 @@ public class EMFTextEditPlugin extends Plugin {
 	        	String uri       = parserPoints[i].getAttribute("uri");
 	            String csName    = parserPoints[i].getAttribute("csName");
 	            String file      = parserPoints[i].getAttribute("csDefinition");
-	            String pluginID  = parserPoints[i].getDeclaringExtension().getContributor().getName();
-	            URI fileURI = URI.createPlatformPluginURI("/" + pluginID + "/" + file, true);
+	            URI fileURI = URI.createPlatformPluginURI("/" + file, true);
 	            
 	            URIToConcreteSyntaxLocationMap.put(uri + "%%" + csName, fileURI);
 	        }
