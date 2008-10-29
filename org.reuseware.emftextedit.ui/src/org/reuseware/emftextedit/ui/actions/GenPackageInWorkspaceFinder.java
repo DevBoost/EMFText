@@ -48,36 +48,38 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		final ResourceSet rs = new ResourceSetImpl();
 		final Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
 		IResource member = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
-		IProject thisProject = member.getProject();        
-		try {
-			thisProject.accept(new IResourceVisitor() {
-				//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
-				public boolean visit(IResource resource) throws CoreException {
-					if(resource instanceof IFile) {
-						IFile file = (IFile) resource;
-						if ("genmodel".equals(file.getFileExtension())) {
-							URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			            	Resource genModelResource = rs.getResource(genModelURI, true);
-			            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-			            	try {
-			            		updateGenModel(genModel);
-			            	} catch (Exception e){
-			            		e.printStackTrace();
-			            	}
-			            	genPackages.putAll(MetamodelManager.getGenPackages(genModel));
+		if (member != null) {
+			IProject thisProject = member.getProject();        
+			try {
+				thisProject.accept(new IResourceVisitor() {
+					//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
+					public boolean visit(IResource resource) throws CoreException {
+						if(resource instanceof IFile) {
+							IFile file = (IFile) resource;
+							if ("genmodel".equals(file.getFileExtension())) {
+								URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+				            	Resource genModelResource = rs.getResource(genModelURI, true);
+				            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
+				            	try {
+				            		updateGenModel(genModel);
+				            	} catch (Exception e){
+				            		e.printStackTrace();
+				            	}
+				            	genPackages.putAll(MetamodelManager.getGenPackages(genModel));
+							}
+							return false;
 						}
-						return false;
+						return true;
 					}
-					return true;
-				}
-			});
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				});
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		if (genPackages.containsKey(nsURI)) {
-			return genPackages.get(nsURI);
+			if (genPackages.containsKey(nsURI)) {
+				return genPackages.get(nsURI);
+			}
 		}
 		return null;
 	}
