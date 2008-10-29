@@ -9,9 +9,14 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
+import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -20,6 +25,8 @@ import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.reuseware.emftextedit.resource.TextResource;
 import org.reuseware.emftextedit.ui.MarkerHelper;
 import org.reuseware.emftextedit.ui.SaveListener;
@@ -72,6 +79,8 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 
 	private MarkerAdapter markerAdapter = new MarkerAdapter();
 
+	private PropertySheetPage propertySheetPage;
+
 	@Override
 	public Object getAdapter(Class required) {
 		if (IContentOutlinePage.class.equals(required)) {
@@ -89,6 +98,8 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 						});
 			}
 			return emfTextEditorOutlinePage;
+		} else if (required.equals(IPropertySheetPage.class)) {
+				return getPropertySheetPage();
 		}
 		return super.getAdapter(required);
 	}
@@ -217,5 +228,38 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 
 	public void setResource(Resource resource) {
 		this.resource = resource;
+	}
+	
+	public IPropertySheetPage getPropertySheetPage() {
+		if (propertySheetPage == null) {
+			propertySheetPage = new PropertySheetPage() {
+
+				@Override
+				public void handleEntrySelection(ISelection selection) {
+					// TODO Auto-generated method stub
+					super.handleEntrySelection(selection);
+					propertySheetPage.getControl().setEnabled(false);
+				}
+				
+			};
+			ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
+					ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
+			adapterFactory
+					.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+			adapterFactory
+					.addAdapterFactory(new EcoreItemProviderAdapterFactory());
+			adapterFactory
+					.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+
+			propertySheetPage
+					.setPropertySourceProvider(new AdapterFactoryContentProvider(
+							adapterFactory));
+			
+		}
+		
+		
+		
+		return propertySheetPage;
 	}
 }
