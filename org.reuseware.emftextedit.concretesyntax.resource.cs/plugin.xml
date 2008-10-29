@@ -14,7 +14,7 @@
       <concretesyntax
             uri="http://www.reuseware.org/emftextedit/concretesyntax"
             csName="cs"
-            csDefinition="model/cs.cs">
+            csDefinition="org.reuseware.emftextedit.concretesyntax/model/cs.cs">
       </concretesyntax>
    </extension>
 
