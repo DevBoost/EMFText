@@ -1,7 +1,0 @@
-SYNTAXDEF 
-FOR 
-START 
-
-RULES{
-		
-}
