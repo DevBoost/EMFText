@@ -23,7 +23,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -127,17 +126,12 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
         				}
 			  
 			            boolean overridePluginConfig = EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME);
-        			      	  
+        			    
         				createMetaFolder(progress, project);
         				createManifest(progress, concreteSyntax, projectName, overridePluginConfig, project);
-        				createPluginXML(progress, concreteSyntax, projectName, overridePluginConfig, project);
+        				createPluginXML(progress, concreteSyntax, projectName, overridePluginConfig, project, file);
         				
         				markErrors(concreteSyntax);
-			             
-        				IFolder modelsFolder = createModelFolder(progress,
-								project);
-        				URI csFileURI = URI.createPlatformResourceURI(modelsFolder.getFullPath().append(concreteSyntax.getName() + ".cs").toString(), true);
-        				csResource.setURI(csFileURI);
         				
         				createMetaModelCode(progress, concreteSyntax);
         				
@@ -188,9 +182,10 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
      * 
      * @param cSyntax Concrete syntax model.
      * @param packageName Name of the Java package.
+     * @param file File representation of the concrete syntax definition.
      * @return Generated code.
      */
-    private String generatePluginXml(ConcreteSyntax cSyntax, String packageName) {
+    private String generatePluginXml(ConcreteSyntax cSyntax, String packageName, IFile file) {
         StringBuffer s = new StringBuffer();
         String factoryClassName = cSyntax.getName().substring(0, 1).toUpperCase() + 
         						  cSyntax.getName().substring(1) + "ResourceFactoryImpl";
@@ -214,7 +209,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
         s.append("      <concretesyntax\n");
         s.append("            uri=\"" + cSyntax.getPackage().getNSURI() + "\"\n");
         s.append("            csName=\"" + cSyntax.getName() + "\"\n");
-        s.append("            csDefinition=\"model/" + cSyntax.getName() + ".cs\">\n");
+        s.append("            csDefinition=\"" + file.getProject().getName() + file.getProjectRelativePath() + "\">\n");
         s.append("      </concretesyntax>\n");
         s.append("   </extension>\n\n");
         
@@ -396,18 +391,18 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
 
 	private void createPluginXML(SubMonitor progress,
 			final ConcreteSyntax cSyntax, String projectName,
-			boolean overridePluginConfig, IProject project)
+			boolean overridePluginConfig, IProject project, IFile file)
 			throws CoreException {
 		IFile pluginXMLFile = project.getFile("/plugin.xml");
 		if (pluginXMLFile.exists()){
 			if (overridePluginConfig) {
-				pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
+				pluginXMLFile.setContents(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName, file).getBytes()),true,true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
 			} else {
 				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
 			}
 		}
 		else {
-			pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName).getBytes()),true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
+			pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(cSyntax, projectName, file).getBytes()),true,progress.newChild(TICKS_CREATE_PLUGIN_XML));
 		}
 	}
 
@@ -421,18 +416,6 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
 				MarkerHelper.mark(aImport.eResource());
 			}
 		}
-	}
-
-	private IFolder createModelFolder(SubMonitor progress,
-			IProject project) throws CoreException {
-		//copy the cs definition to the plugin for reuse
-		IFolder modelsFolder = project.getFolder("/model");
-		if (!modelsFolder.exists()) {
-			modelsFolder.create(true, true, progress.newChild(TICKS_CREATE_MODELS_FOLDER));
-		} else {
-			progress.internalWorked(TICKS_CREATE_MODELS_FOLDER);
-		}
-		return modelsFolder;
 	}
 	
 	/*
