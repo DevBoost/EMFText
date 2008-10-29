@@ -209,7 +209,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
         s.append("      <concretesyntax\n");
         s.append("            uri=\"" + cSyntax.getPackage().getNSURI() + "\"\n");
         s.append("            csName=\"" + cSyntax.getName() + "\"\n");
-        s.append("            csDefinition=\"" + file.getProject().getName() + file.getProjectRelativePath() + "\">\n");
+        s.append("            csDefinition=\"" + file.getProject().getName() + "/" + file.getProjectRelativePath() + "\">\n");
         s.append("      </concretesyntax>\n");
         s.append("   </extension>\n\n");
         
