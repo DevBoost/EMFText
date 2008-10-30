@@ -25,6 +25,28 @@ public class MetamodelManager {
 	public static MetamodelManager INSTANCE = new MetamodelManager();
 	
 	private List<GenPackageFinder> finders = new ArrayList<GenPackageFinder>();
+	private MetamodelCache modelCache = new MetamodelCache();
+	
+	private class MetamodelCache {
+		
+		private Map<String,IGenPackageFinderResult> internalCache = new HashMap<String,IGenPackageFinderResult>();
+		
+		public boolean isCached(String nsURI) {
+			IGenPackageFinderResult result = internalCache.get(nsURI);
+			if (result != null) {
+				return !result.hasChanged();
+			}
+			return false;
+		}
+		
+		public GenPackage load(String nsURI) {
+			return internalCache.get(nsURI).getResult();
+		}
+		
+		public void store(String nsURI, IGenPackageFinderResult foundPackage) {
+			internalCache.put(nsURI, foundPackage);
+		}
+	}
 	
 	private MetamodelManager() {
 		super();
@@ -38,10 +60,16 @@ public class MetamodelManager {
 		if (nsURI == null) {
 			return null;
 		}
+		
+		if (modelCache.isCached(nsURI)) {
+			return modelCache.load(nsURI);
+		}
+		
 		for (GenPackageFinder finder : finders) {
-			GenPackage foundPackage = finder.findGenPackage(nsURI, resource);
+			IGenPackageFinderResult foundPackage = finder.findGenPackage(nsURI, resource);
 			if (foundPackage != null) {
-				return foundPackage;
+				modelCache.store(nsURI, foundPackage);
+				return foundPackage.getResult();
 			}
 		}
 		return null;
