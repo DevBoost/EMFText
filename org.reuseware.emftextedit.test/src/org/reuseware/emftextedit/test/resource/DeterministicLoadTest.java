@@ -1,6 +1,7 @@
 package org.reuseware.emftextedit.test.resource;
 
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Collections;
 
@@ -42,6 +43,8 @@ public class DeterministicLoadTest {
 
 	@Before
 	public void setUp() throws Exception {
+		assertNotNull("Concrete syntax URI not found", csUri);
+		
 		createOutputProject(OUTPUT_PROJECT, OUTPUT_FOLDER);
 
 		MetamodelManager.INSTANCE
