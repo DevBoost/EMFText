@@ -22,12 +22,32 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.reuseware.emftextedit.GenPackageFinder;
+import org.reuseware.emftextedit.IGenPackageFinderResult;
 import org.reuseware.emftextedit.MetamodelManager;
 import org.reuseware.emftextedit.resource.TextResource;
 
 public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 	
-	public GenPackage findGenPackage(String nsURI, TextResource resource) {
+	private class GenPackageInWorkspaceFinderResult implements IGenPackageFinderResult {
+
+		private IFile file;
+		private GenPackage genPackage;
+		
+		public GenPackageInWorkspaceFinderResult(GenPackage genPackage, IFile file) {
+			this.genPackage = genPackage;
+			this.file = file;
+		}
+		
+		public GenPackage getResult() {
+			return genPackage;
+		}
+
+		public boolean hasChanged() {
+			return genPackage.eResource().getTimeStamp() != file.getModificationStamp();
+		}
+	}
+	
+	public IGenPackageFinderResult findGenPackage(String nsURI, TextResource resource) {
 		URI uri = resource.getURI();
 		String platformString = uri.toPlatformString(true);
 		if (platformString == null) {
@@ -44,9 +64,9 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 	 * @param platformString
 	 * @return
 	 */
-	private GenPackage findGenPackageInCurrentProject(String nsURI, String platformString) {
+	private IGenPackageFinderResult findGenPackageInCurrentProject(String nsURI, String platformString) {
 		final ResourceSet rs = new ResourceSetImpl();
-		final Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
+		final Map<String, GenPackageInWorkspaceFinderResult> genPackages = new HashMap<String, GenPackageInWorkspaceFinderResult>();
 		IResource member = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
 		if (member != null) {
 			IProject thisProject = member.getProject();        
@@ -65,7 +85,11 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 				            	} catch (Exception e){
 				            		e.printStackTrace();
 				            	}
-				            	genPackages.putAll(MetamodelManager.getGenPackages(genModel));
+				            	
+				            	Map<String,GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
+				            	for (String uri : packages.keySet()) {
+				            		genPackages.put(uri, new GenPackageInWorkspaceFinderResult(packages.get(uri), file));
+				            	}
 							}
 							return false;
 						}
@@ -85,7 +109,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 	}
 	
 	private void updateGenModel(GenModel oldGenModel) {
-	   	//update the gen model
+		//update the gen model
         Resource genModelResource = oldGenModel.eResource();
         EList<EPackage> ePackages = new BasicEList<EPackage>();        
         for(GenPackage genPackage : oldGenModel.getGenPackages()) {
