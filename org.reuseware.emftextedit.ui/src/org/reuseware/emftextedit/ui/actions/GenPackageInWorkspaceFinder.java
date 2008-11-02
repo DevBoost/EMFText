@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
@@ -31,11 +32,16 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 	private class GenPackageInWorkspaceFinderResult implements IGenPackageFinderResult {
 
 		private IFile file;
+		private long initialModifiedStamp;
 		private GenPackage genPackage;
 		
 		public GenPackageInWorkspaceFinderResult(GenPackage genPackage, IFile file) {
+			Assert.isNotNull(genPackage);
+			Assert.isNotNull(file);
+			
 			this.genPackage = genPackage;
 			this.file = file;
+			this.initialModifiedStamp = file.getModificationStamp();
 		}
 		
 		public GenPackage getResult() {
@@ -43,18 +49,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		}
 
 		public boolean hasChanged() {
-			// TODO fheidenreich: shall we return true or false if we have no
-			// genPackage, resource or file?
-			if (genPackage == null) {
-				return true;
-			}
-			if (genPackage.eResource() == null) {
-				return true;
-			}
-			if (file == null) {
-				return true;
-			}
-			return genPackage.eResource().getTimeStamp() != file.getModificationStamp();
+			return initialModifiedStamp != file.getModificationStamp();
 		}
 	}
 	
