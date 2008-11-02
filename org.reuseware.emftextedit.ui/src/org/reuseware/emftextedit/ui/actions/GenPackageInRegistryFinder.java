@@ -1,5 +1,6 @@
 package org.reuseware.emftextedit.ui.actions;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
@@ -18,6 +19,8 @@ public class GenPackageInRegistryFinder implements GenPackageFinder {
 		private GenPackage genPackage;
 		
 		public GenPackageInRegistryFinderResult(GenPackage genPackage) {
+			Assert.isNotNull(genPackage);
+			
 			this.genPackage = genPackage;
 		}
 		
