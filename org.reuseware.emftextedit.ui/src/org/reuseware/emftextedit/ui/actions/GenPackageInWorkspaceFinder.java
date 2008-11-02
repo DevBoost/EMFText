@@ -43,6 +43,17 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		}
 
 		public boolean hasChanged() {
+			// TODO fheidenreich: shall we return true or false if we have no
+			// genPackage, resource or file?
+			if (genPackage == null) {
+				return true;
+			}
+			if (genPackage.eResource() == null) {
+				return true;
+			}
+			if (file == null) {
+				return true;
+			}
 			return genPackage.eResource().getTimeStamp() != file.getModificationStamp();
 		}
 	}
