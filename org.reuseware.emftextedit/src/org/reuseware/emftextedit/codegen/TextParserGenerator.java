@@ -932,7 +932,7 @@ public class TextParserGenerator extends BaseGenerator{
 			out.print(regex);
 		}
 		
-		out.println(def.isReferenced()?"":"{ channel=99; }");
+		out.println(def.isReferenced() ? "" : "{ channel=99; }");
 		out.println(";");
 	}
 	
