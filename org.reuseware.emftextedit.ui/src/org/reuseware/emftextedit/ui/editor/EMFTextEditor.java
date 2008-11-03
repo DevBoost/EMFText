@@ -81,6 +81,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 
 	private PropertySheetPage propertySheetPage;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Class required) {
 		if (IContentOutlinePage.class.equals(required)) {
