@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-132 ("Apple Computer, Inc.")
+Bundle-ManifestVersion: 2
+Bundle-Name: Reuseware Dependencies: ANTLR3, ANTLR3, STRINGTEMPLATE
+Bundle-SymbolicName: org.reuseware.emftextedit.antlr; singleton:=true
+Bundle-Version: 0.8.9.v200811031303
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: antlr,antlr.actions.cpp,antlr.actions.csharp,antlr.act
+ ions.java,antlr.actions.python,antlr.ASdebug,antlr.build,antlr.collec
+ tions,antlr.collections.impl,antlr.debug,antlr.debug.misc,antlr.prepr
+ ocessor,org.antlr,org.antlr.analysis,org.antlr.codegen,org.antlr.misc
+ ,org.antlr.runtime,org.antlr.runtime.debug,org.antlr.runtime.misc,org
+ .antlr.runtime.tree,org.antlr.stringtemplate,org.antlr.stringtemplate
+ .language,org.antlr.stringtemplate.misc,org.antlr.tool
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+

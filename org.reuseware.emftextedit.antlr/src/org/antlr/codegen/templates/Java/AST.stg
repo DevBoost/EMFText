@@ -1,0 +1,460 @@
+/*
+ [The "BSD licence"]
+ Copyright (c) 2005-2006 Terence Parr
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+group AST;
+
+@outputFile.imports() ::= <<
+<@super.imports()>
+<if(!TREE_PARSER)><! tree parser would already have imported !>
+import org.antlr.runtime.tree.*;<\n>
+<endif>
+>>
+
+@genericParser.members() ::= <<
+<@super.members()>
+<parserMembers()>
+>>
+
+/** Add an adaptor property that knows how to build trees */
+parserMembers() ::= <<
+protected TreeAdaptor adaptor = new CommonTreeAdaptor();<\n>
+public void setTreeAdaptor(TreeAdaptor adaptor) {
+    this.adaptor = adaptor;
+}
+public TreeAdaptor getTreeAdaptor() {
+    return adaptor;
+}
+>>
+
+@returnScope.ruleReturnMembers() ::= <<
+<ASTLabelType> tree;
+public Object getTree() { return tree; }
+>>
+
+/** Add a variable to track rule's return AST */
+ruleDeclarations() ::= <<
+<super.ruleDeclarations()>
+<ASTLabelType> root_0 = null;<\n>
+>>
+
+ruleLabelDefs() ::= <<
+<super.ruleLabelDefs()>
+<ruleDescriptor.tokenLabels:{<ASTLabelType> <it.label.text>_tree=null;}; separator="\n">
+<ruleDescriptor.tokenListLabels:{<ASTLabelType> <it.label.text>_tree=null;}; separator="\n">
+<ruleDescriptor.allTokenRefsInAltsWithRewrites
+    :{RewriteRuleTokenStream stream_<it>=new RewriteRuleTokenStream(adaptor,"token <it>");}; separator="\n">
+<ruleDescriptor.allRuleRefsInAltsWithRewrites
+    :{RewriteRuleSubtreeStream stream_<it>=new RewriteRuleSubtreeStream(adaptor,"rule <it>");}; separator="\n">
+>>
+
+ruleCleanUp() ::= <<
+<super.ruleCleanUp()>
+<if(ruleDescriptor.hasMultipleReturnValues)>
+<if(backtracking)>
+if ( backtracking==0 ) {<\n>
+<endif>
+    retval.tree = (<ASTLabelType>)adaptor.rulePostProcessing(root_0);
+    adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+<if(backtracking)>
+}
+<endif>
+<endif>
+>>
+
+/** When doing auto AST construction, we must define some variables;
+ *  These should be turned off if doing rewrites.  This must be a "mode"
+ *  as a rule could have both rewrite and AST within the same alternative
+ *  block.
+ */
+@alt.declarations() ::= <<
+<if(autoAST)>
+<if(outerAlt)>
+root_0 = (<ASTLabelType>)adaptor.nil();<\n>
+<endif>
+<endif>
+>>
+
+// TOKEN AST STUFF
+
+/** ID and output=AST */
+tokenRef(token,label,elementIndex) ::= <<
+<super.tokenRef(...)>
+<if(backtracking)>if ( backtracking==0 ) {<endif>
+<label>_tree = (<ASTLabelType>)adaptor.create(<label>);
+adaptor.addChild(root_0, <label>_tree);
+<if(backtracking)>}<endif>
+>>
+
+/** ID! and output=AST (same as plain tokenRef) */
+tokenRefBang(token,label,elementIndex) ::= "<super.tokenRef(...)>"
+
+/** ID^ and output=AST */
+tokenRefRuleRoot(token,label,elementIndex) ::= <<
+<super.tokenRef(...)>
+<if(backtracking)>if ( backtracking==0 ) {<endif>
+<label>_tree = (<ASTLabelType>)adaptor.create(<label>);
+root_0 = (<ASTLabelType>)adaptor.becomeRoot(<label>_tree, root_0);
+<if(backtracking)>}<endif>
+>>
+
+/** ids+=ID! and output=AST */
+tokenRefBangAndListLabel(token,label,elementIndex) ::= <<
+<tokenRefBang(...)>
+<listLabel(elem=label,...)>
+>>
+
+/** label+=TOKEN when output=AST but not rewrite alt */
+tokenRefAndListLabel(token,label,elementIndex) ::= <<
+<tokenRef(...)>
+<listLabel(elem=label,...)>
+>>
+
+/** Match label+=TOKEN^ when output=AST but not rewrite alt */
+tokenRefRuleRootAndListLabel(token,label,elementIndex) ::= <<
+<tokenRefRuleRoot(...)>
+<listLabel(elem=label,...)>
+>>
+
+/** ID but track it for use in a rewrite rule */
+tokenRefTrack(token,label,elementIndex) ::= <<
+<super.tokenRef(...)>
+<if(backtracking)>if ( backtracking==0 ) <endif>stream_<token>.add(<label>);<\n>
+>>
+
+/** ids+=ID and track it for use in a rewrite rule; adds to ids *and*
+ *  to the tracking list stream_ID for use in the rewrite.
+ */
+tokenRefTrackAndListLabel(token,label,elementIndex) ::= <<
+<tokenRefTrack(...)>
+<listLabel(elem=label,...)>
+>>
+
+// SET AST
+
+// the match set stuff is interesting in that it uses an argument list
+// to pass code to the default matchSet; another possible way to alter
+// inherited code.  I don't use the region stuff because I need to pass
+// different chunks depending on the operator.  I don't like making
+// the template name have the operator as the number of templates gets
+// large but this is the most flexible--this is as opposed to having
+// the code generator call matchSet then add root code or ruleroot code
+// plus list label plus ...  The combinations might require complicated
+// rather than just added on code.  Investigate that refactoring when
+// I have more time.
+
+matchSet(s,label,elementIndex,postmatchCode) ::= <<
+<super.matchSet(..., postmatchCode={<if(backtracking)>if ( backtracking==0 ) <endif>adaptor.addChild(root_0, adaptor.create(<label>));})>
+>>
+
+matchSetBang(s,label,elementIndex,postmatchCode) ::= "<super.matchSet(...)>"
+
+// note there is no matchSetTrack because -> rewrites force sets to be
+// plain old blocks of alts: (A|B|...|C)
+
+matchSetRuleRoot(s,label,elementIndex,debug) ::= <<
+<super.matchSet(..., postmatchCode={<if(backtracking)>if ( backtracking==0 ) <endif>root_0 = (<ASTLabelType>)adaptor.becomeRoot(adaptor.create(<label>), root_0);})>
+>>
+
+// RULE REF AST
+
+/** rule when output=AST */
+ruleRef(rule,label,elementIndex,args) ::= <<
+<super.ruleRef(...)>
+<if(backtracking)>if ( backtracking==0 ) <endif>adaptor.addChild(root_0, <label>.getTree());
+>>
+
+/** rule! is same as normal rule ref */
+ruleRefBang(rule,label,elementIndex,args) ::= "<super.ruleRef(...)>"
+
+/** rule^ */
+ruleRefRuleRoot(rule,label,elementIndex,args) ::= <<
+<super.ruleRef(...)>
+<if(backtracking)>if ( backtracking==0 ) <endif>root_0 = (<ASTLabelType>)adaptor.becomeRoot(<label>.getTree(), root_0);
+>>
+
+/** rule when output=AST and tracking for rewrite */
+ruleRefTrack(rule,label,elementIndex,args) ::= <<
+<super.ruleRef(...)>
+<if(backtracking)>if ( backtracking==0 ) <endif>stream_<rule>.add(<label>.getTree());
+>>
+
+/** x+=rule when output=AST and tracking for rewrite */
+ruleRefTrackAndListLabel(rule,label,elementIndex,args) ::= <<
+<ruleRefTrack(...)>
+<listLabel(elem=label,...)>
+>>
+
+/** x+=rule when output=AST */
+ruleRefAndListLabel(rule,label,elementIndex,args) ::= <<
+<ruleRef(...)>
+<listLabel(elem=label+".getTree()",...)>
+>>
+
+/** x+=rule! when output=AST is a rule ref with list addition */
+ruleRefBangAndListLabel(rule,label,elementIndex,args) ::= <<
+<ruleRefBang(...)>
+<listLabel(elem=label+".getTree()",...)>
+>>
+
+/** x+=rule^ */
+ruleRefRuleRootAndListLabel(rule,label,elementIndex,args) ::= <<
+<ruleRefRuleRoot(...)>
+<listLabel(elem=label+".getTree()",...)>
+>>
+
+// WILDCARD AST
+
+wildcard(label,elementIndex) ::= <<
+<super.wildcard(...)>
+<if(backtracking)>if ( backtracking==0 ) {<endif>
+<label>_tree = (<ASTLabelType>)adaptor.create(<label>);
+adaptor.addChild(root_0, <label>_tree);
+<if(backtracking)>}<endif>
+>>
+
+wildcardBang(label,elementIndex) ::= "<super.wildcard(...)>"
+
+wildcardRuleRoot(label,elementIndex) ::= <<
+<super.wildcard(...)>
+<if(backtracking)>if ( backtracking==0 ) {<endif>
+<label>_tree = (<ASTLabelType>)adaptor.create(<label>);
+root_0 = (<ASTLabelType>)adaptor.becomeRoot(<label>_tree, root_0);
+<if(backtracking)>}<endif>
+>>
+
+// TODO: ugh, am i really missing the combinations for Track and ListLabel?
+// there's got to be a better way
+
+// R e w r i t e
+
+rewriteCode(
+	alts, description,
+	referencedElementsDeep, // ALL referenced elements to right of ->
+	referencedTokenLabels,
+	referencedTokenListLabels,
+	referencedRuleLabels,
+	referencedRuleListLabels,
+	rewriteBlockLevel, enclosingTreeLevel, treeLevel) ::=
+<<
+
+// AST REWRITE
+// elements: <referencedElementsDeep; separator=", ">
+// token labels: <referencedTokenLabels; separator=", ">
+// rule labels: <referencedRuleLabels; separator=", ">
+// token list labels: <referencedTokenListLabels; separator=", ">
+// rule list labels: <referencedRuleListLabels; separator=", ">
+<if(backtracking)>
+if ( backtracking==0 ) {<\n>
+<endif>
+<prevRuleRootRef()>.tree = root_0;
+<rewriteCodeLabels()>
+root_0 = (<ASTLabelType>)adaptor.nil();
+<alts:rewriteAlt(); separator="else ">
+<if(backtracking)>
+}
+<endif>
+>>
+
+rewriteCodeLabels() ::= <<
+<referencedTokenLabels
+    :{RewriteRuleTokenStream stream_<it>=new RewriteRuleTokenStream(adaptor,"token <it>",<it>);};
+    separator="\n"
+>
+<referencedTokenListLabels
+    :{RewriteRuleTokenStream stream_<it>=new RewriteRuleTokenStream(adaptor,"token <it>", list_<it>);};
+    separator="\n"
+>
+<referencedRuleLabels
+    :{RewriteRuleSubtreeStream stream_<it>=new RewriteRuleSubtreeStream(adaptor,"token <it>",<it>!=null?<it>.tree:null);};
+    separator="\n"
+>
+<referencedRuleListLabels
+    :{RewriteRuleSubtreeStream stream_<it>=new RewriteRuleSubtreeStream(adaptor,"token <it>",list_<it>);};
+    separator="\n"
+>
+>>
+
+/** Generate code for an optional rewrite block; note it uses the deep ref'd element
+  *  list rather shallow like other blocks.
+  */
+rewriteOptionalBlock(
+	alt,rewriteBlockLevel,
+	referencedElementsDeep, // all nested refs
+	referencedElements, // elements in immediately block; no nested blocks
+	description) ::=
+<<
+// <fileName>:<description>
+if ( <referencedElementsDeep:{el | stream_<el>.hasNext()}; separator="||"> ) {
+    <alt>
+}
+<referencedElementsDeep:{el | stream_<el>.reset();<\n>}>
+>>
+
+rewriteClosureBlock(
+	alt,rewriteBlockLevel,
+	referencedElementsDeep, // all nested refs
+	referencedElements, // elements in immediately block; no nested blocks
+	description) ::=
+<<
+// <fileName>:<description>
+while ( <referencedElements:{el | stream_<el>.hasNext()}; separator="||"> ) {
+    <alt>
+}
+<referencedElements:{el | stream_<el>.reset();<\n>}>
+>>
+
+rewritePositiveClosureBlock(
+	alt,rewriteBlockLevel,
+	referencedElementsDeep, // all nested refs
+	referencedElements, // elements in immediately block; no nested blocks
+	description) ::=
+<<
+if ( !(<referencedElements:{el | stream_<el>.hasNext()}; separator="||">) ) {
+    throw new RewriteEarlyExitException();
+}
+while ( <referencedElements:{el | stream_<el>.hasNext()}; separator="||"> ) {
+    <alt>
+}
+<referencedElements:{el | stream_<el>.reset();<\n>}>
+>>
+
+rewriteAlt(a) ::= <<
+// <a.description>
+<if(a.pred)>
+if (<a.pred>) {
+    <a.alt>
+}<\n>
+<else>
+{
+    <a.alt>
+}<\n>
+<endif>
+>>
+
+/** For empty rewrites: "r : ... -> ;" */
+rewriteEmptyAlt() ::= "root_0 = null;"
+
+rewriteTree(root,children,description,enclosingTreeLevel,treeLevel) ::= <<
+// <fileName>:<description>
+{
+<ASTLabelType> root_<treeLevel> = (<ASTLabelType>)adaptor.nil();
+<root:rewriteElement()>
+<children:rewriteElement()>
+adaptor.addChild(root_<enclosingTreeLevel>, root_<treeLevel>);
+}<\n>
+>>
+
+rewriteElementList(elements) ::= "<elements:rewriteElement()>"
+
+rewriteElement(e) ::= <<
+<@pregen()>
+<e.el>
+>>
+
+/** Gen ID or ID[args] */
+rewriteTokenRef(token,elementIndex,args) ::= <<
+adaptor.addChild(root_<treeLevel>, <if(args)>adaptor.create(<token>,<args; separator=", ">)<else>stream_<token>.next()<endif>);<\n>
+>>
+
+/** Gen $label ... where defined via label=ID */
+rewriteTokenLabelRef(label,elementIndex) ::= <<
+adaptor.addChild(root_<treeLevel>, stream_<label>.next());<\n>
+>>
+
+/** Gen $label ... where defined via label+=ID */
+rewriteTokenListLabelRef(label,elementIndex) ::= <<
+adaptor.addChild(root_<treeLevel>, stream_<label>.next());<\n>
+>>
+
+/** Gen ^($label ...) */
+rewriteTokenLabelRefRoot(label,elementIndex) ::= <<
+root_<treeLevel> = (<ASTLabelType>)adaptor.becomeRoot(stream_<label>.next(), root_<treeLevel>);<\n>
+>>
+
+/** Gen ^($label ...) where label+=... */
+rewriteTokenListLabelRefRoot ::= rewriteTokenLabelRefRoot
+
+/** Gen ^(ID ...) or ^(ID[args] ...) */
+rewriteTokenRefRoot(token,elementIndex,args) ::= <<
+root_<treeLevel> = (<ASTLabelType>)adaptor.becomeRoot(<if(args)>adaptor.create(<token>,<args; separator=", ">)<else>stream_<token>.next()<endif>, root_<treeLevel>);<\n>
+>>
+
+rewriteImaginaryTokenRef(args,token,elementIndex) ::= <<
+adaptor.addChild(root_<treeLevel>, adaptor.create(<token>, <args; separator=", "><if(!args)>"<token>"<endif>));<\n>
+>>
+
+rewriteImaginaryTokenRefRoot(args,token,elementIndex) ::= <<
+root_<treeLevel> = (<ASTLabelType>)adaptor.becomeRoot(adaptor.create(<token>, <args; separator=", "><if(!args)>"<token>"<endif>), root_<treeLevel>);<\n>
+>>
+
+/** plain -> {foo} action */
+rewriteAction(action) ::= <<
+root_0 = <action>;<\n>
+>>
+
+/** What is the name of the previous value of this rule's root tree?  This
+ *  let's us refer to $rule to mean previous value.  I am reusing the
+ *  variable 'tree' sitting in retval struct to hold the value of root_0 right
+ *  before I set it during rewrites.  The assign will be to retval.tree.
+ */
+prevRuleRootRef() ::= "retval"
+
+rewriteRuleRef(rule) ::= <<
+adaptor.addChild(root_<treeLevel>, stream_<rule>.next());<\n>
+>>
+
+rewriteRuleRefRoot(rule) ::= <<
+root_<treeLevel> = (<ASTLabelType>)adaptor.becomeRoot(stream_<rule>.nextNode(), root_<treeLevel>);<\n>
+>>
+
+rewriteNodeAction(action) ::= <<
+adaptor.addChild(root_<treeLevel>, <action>);<\n>
+>>
+
+rewriteNodeActionRoot(action) ::= <<
+root_<treeLevel> = (<ASTLabelType>)adaptor.becomeRoot(<action>, root_<treeLevel>);<\n>
+>>
+
+/** Gen $ruleLabel ... where defined via ruleLabel=rule */
+rewriteRuleLabelRef(label) ::= <<
+adaptor.addChild(root_<treeLevel>, stream_<label>.next());<\n>
+>>
+
+/** Gen $ruleLabel ... where defined via ruleLabel+=rule */
+rewriteRuleListLabelRef(label) ::= <<
+adaptor.addChild(root_<treeLevel>, ((<if(TREE_PARSER)>Tree<else>Parser<endif>RuleReturnScope)stream_<label>.next()).getTree());<\n>
+>>
+
+/** Gen ^($ruleLabel ...) where ruleLabel=rule */
+rewriteRuleLabelRefRoot(label) ::= <<
+root_<treeLevel> = (<ASTLabelType>)adaptor.becomeRoot(stream_<label>.nextNode(), root_<treeLevel>);<\n>
+>>
+
+/** Gen ^($ruleLabel ...) where ruleLabel+=rule */
+rewriteRuleListLabelRefRoot(label) ::= <<
+root_<treeLevel> = (<ASTLabelType>)adaptor.becomeRoot(stream_<label>.nextNode(), root_<treeLevel>);<\n>
+>>

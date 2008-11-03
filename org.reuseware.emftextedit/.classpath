@@ -4,8 +4,5 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src_test"/>
-	<classpathentry exported="true" kind="lib" path="antlr-3.0.1.jar" sourcepath="org.reuseware.emftexteditsrc.zip"/>
-	<classpathentry exported="true" kind="lib" path="antlr-2.7.7.jar" sourcepath="org.reuseware.emftexteditsrc.zip"/>
-	<classpathentry exported="true" kind="lib" path="stringtemplate.jar" sourcepath="org.reuseware.emftexteditsrc.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
