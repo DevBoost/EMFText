@@ -278,7 +278,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
         		importedPlugins.add(m);
         	}
         }
-        s.append(" org.reuseware.emftextedit\n");
+        s.append("  org.reuseware.emftextedit\n");
         s.append("Bundle-ActivationPolicy: lazy\n");
         s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
         // export the generated package
