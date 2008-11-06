@@ -128,7 +128,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
 			            boolean overridePluginConfig = EMFTextEditUIPlugin.getDefault().getPreferenceStore().getBoolean(EMFTextEditUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME);
         			    
         				createMetaFolder(progress, project);
-        				createManifest(progress, concreteSyntax, projectName, overridePluginConfig, project);
+        				createManifest(progress, concreteSyntax, projectName, overridePluginConfig, project, pck);
         				createPluginXML(progress, concreteSyntax, projectName, overridePluginConfig, project, file);
         				
         				markErrors(concreteSyntax);
@@ -252,9 +252,10 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
      * 
      * @param cSyntax Concrete syntax model.
      * @param packageName Name of the Java package.
+     * @param resourcePackage 
      * @return Generated code.
      */
-    private String generateManifestMF(ConcreteSyntax cSyntax, String packageName) {
+    private String generateManifestMF(ConcreteSyntax cSyntax, String packageName, ResourcePackage resourcePackage) {
         StringBuffer s = new StringBuffer();
         
         s.append("Manifest-Version: 1.0\n");
@@ -281,8 +282,9 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
         s.append("  org.reuseware.emftextedit\n");
         s.append("Bundle-ActivationPolicy: lazy\n");
         s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
-        // export the generated package
-        s.append("Export-Package: " + packageName + "\n");
+        // export the generated packages
+        s.append("Export-Package: " + packageName + ",\n");
+        s.append("  " + resourcePackage.getResolverPackageName() + "\n");
         
         return s.toString();
     }
@@ -374,18 +376,18 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction impleme
 
 	private void createManifest(SubMonitor progress,
 			final ConcreteSyntax cSyntax, String projectName,
-			boolean overridePluginConfig, IProject project)
+			boolean overridePluginConfig, IProject project, ResourcePackage resourcePackage)
 			throws CoreException {
 		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
 		if (manifestMFFile.exists()){
 			if (overridePluginConfig) {
-				manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true,true, progress.newChild(TICKS_CREATE_MANIFEST));
+				manifestMFFile.setContents(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName, resourcePackage).getBytes()),true,true, progress.newChild(TICKS_CREATE_MANIFEST));
 			} else {
 				progress.internalWorked(TICKS_CREATE_MANIFEST);
 			}
 		}
 		else {
-			manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName).getBytes()),true, progress.newChild(TICKS_CREATE_MANIFEST));            	 
+			manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(cSyntax, projectName, resourcePackage).getBytes()),true, progress.newChild(TICKS_CREATE_MANIFEST));            	 
 		}
 	}
 
