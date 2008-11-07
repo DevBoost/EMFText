@@ -72,6 +72,10 @@ import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
 public class TextParserGenerator extends BaseGenerator{
 	
 	private static final String CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION = "autofixSimpleLeftrecursion";
+	private static final String CS_OPTION_FORCE_EOF = "forceEOF";
+	private static final String CS_OPTION_STD_TOKEN_NAME = "standardTextTokenName";
+	private static final String CS_OPTION_USE_DEFAULT_TOKENS = "useDefaultTokens";
+	
 	/**
 	 * The standard token type name (used when no userdefined tokentype is referenced 
 	 * and no pre- and suffixes are given).
@@ -97,6 +101,10 @@ public class TextParserGenerator extends BaseGenerator{
 	 */
 	public static final String DERIVED_TOKEN_NAME= "QUOTED";
 	
+	/**
+	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
+	 */
+	public static final String EOF_TOKEN_NAME = "EOF";
 	
 	/**
 	 * These class/interface definitions bring automatically derived TokenDefinitions 
@@ -227,11 +235,27 @@ public class TextParserGenerator extends BaseGenerator{
 	private Collection<GenClass> allGenClasses;
 	private Map<DerivedPlaceholder,String> placeholder2TokenName;
 	
+	private String standardTextTokenName;
+	private boolean forceEOFToken;
+	private boolean useDefaultTokens;
 	
 	public TextParserGenerator(ConcreteSyntax cs, String csClassName,String csPackageName, String tokenResolverFactoryName){
 		super(csClassName,csPackageName);
 		source = cs;
 		this.tokenResolverFactoryName = tokenResolverFactoryName;
+	}
+	
+	private void initOptions(){
+		Option currentOption = GeneratorUtil.getOptionByName(CS_OPTION_STD_TOKEN_NAME,source.getOptions());
+		standardTextTokenName = currentOption==null?STD_TOKEN_NAME:currentOption.getValue();
+		char firstLetter = standardTextTokenName.charAt(0); 
+		//can this check be done by OCL?
+		if(!(firstLetter>='A'&&firstLetter<='Z'))
+				this.addProblem(new GenerationProblem("Token names have to start with a capital letter.",currentOption,Severity.ERROR));
+		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_FORCE_EOF,source.getOptions());
+		forceEOFToken = currentOption==null?false:Boolean.parseBoolean(currentOption.getValue());
+		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_USE_DEFAULT_TOKENS,source.getOptions());
+		useDefaultTokens = currentOption==null?true:(currentOption.equals("false")?false:true);
 	}
 	
 	private void initCaches(){
@@ -261,6 +285,7 @@ public class TextParserGenerator extends BaseGenerator{
 	}
 	
 	public boolean generate(PrintWriter out){
+		initOptions();
 		initCaches();
 		
 	    EList<GenPackage> usedGenpackages = new BasicEList<GenPackage>(source.getPackage().getGenModel().getUsedGenPackages()); 
@@ -338,6 +363,8 @@ public class TextParserGenerator extends BaseGenerator{
             	out.println("\t|  ");
             count++;
         }
+        if(forceEOFToken)
+        	out.println("\t"+EOF_TOKEN_NAME);
         out.println();
         out.println(";");
         out.println();
@@ -813,7 +840,7 @@ public class TextParserGenerator extends BaseGenerator{
     	else{
     		if(pref!=null&&pref.length()>0){
 				String derivedExpression = null;
-    			derivedTokenName = STD_TOKEN_NAME + "_" + deriveCodeSequence(pref) + "_";
+    			derivedTokenName = standardTextTokenName + "_" + deriveCodeSequence(pref) + "_";
 				if(!derivedTokens.containsKey(derivedTokenName)){
 					derivedExpression =  STD_TOKEN_DEF;
 					InternalTokenDefinition result = new InternalTokenDefinitionImpl(derivedTokenName,derivedExpression,pref,null,null,true);
@@ -821,7 +848,7 @@ public class TextParserGenerator extends BaseGenerator{
 				}
     		}
     		else{
-    			derivedTokenName = STD_TOKEN_NAME;
+    			derivedTokenName = standardTextTokenName;
     			if(!derivedTokens.containsKey(derivedTokenName)){
     				InternalTokenDefinition result = new InternalTokenDefinitionImpl(derivedTokenName,STD_TOKEN_DEF,null,null,null,true);
     				derivedTokens.put(derivedTokenName,result);
