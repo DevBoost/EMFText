@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.reuseware.emftextedit.test/src"
+    modelPluginID="org.reuseware.emftextedit.test" modelName="Glue" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>glue.ecore</foreignModel>
+  <genPackages prefix="Gluetest" basePackage="org.reuseware.test" disposableProviderFactory="true"
+      ecorePackage="glue.ecore#/">
+    <genClasses ecoreClass="glue.ecore#//Root">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference glue.ecore#//Root/parts"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="glue.ecore#//Part">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference glue.ecore#//Part/comments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference glue.ecore#//Part/linebreaks"/>
+    </genClasses>
+    <genClasses ecoreClass="glue.ecore#//Pair"/>
+    <genClasses ecoreClass="glue.ecore#//Triple"/>
+    <genClasses ecoreClass="glue.ecore#//Comment"/>
+    <genClasses ecoreClass="glue.ecore#//NewLine"/>
+  </genPackages>
+</genmodel:GenModel>
