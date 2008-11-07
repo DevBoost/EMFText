@@ -25,7 +25,7 @@ public class PutEverywhereFeatureTest {
 
 	@Test
 	public void testPutEverywhereSyntaxExtension() throws FileNotFoundException, IOException {
-		String path = "src\\org\\reuseware\\emftextedit\\test\\glue\\glue.cs";
+		String path = "src\\org\\reuseware\\emftextedit\\test\\puteverywhere\\glue.cs";
 		String absolutePath = new File(path).getAbsolutePath();
 		URI fileURI = URI.createFileURI(absolutePath);
 		File result = generateANTLRGrammarToTempFile(fileURI, false);
