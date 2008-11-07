@@ -15,10 +15,12 @@ public class ImportPackageProxyResolver extends ProxyResolverImpl {
 	@Override
 	protected EObject doResolve(InternalEObject proxy, EObject container,
 			EReference reference, TextResource resource) {
-		GenPackage p = MetamodelManager.INSTANCE.findGenPackage(proxy.eProxyURI().fragment(), resource);
-		ConcreteSyntax cs = (ConcreteSyntax)((Import)container).eContainer();
-		cs.getPackage().getGenModel().getUsedGenPackages().add(p);
-		return p;
+		GenPackage genPackage = MetamodelManager.INSTANCE.findGenPackage(proxy.eProxyURI().fragment(), resource);
+		if (genPackage != null) {
+			ConcreteSyntax cs = (ConcreteSyntax)((Import)container).eContainer();
+			cs.getPackage().getGenModel().getUsedGenPackages().add(genPackage);
+		}
+		return genPackage;
 	}
 	
 
