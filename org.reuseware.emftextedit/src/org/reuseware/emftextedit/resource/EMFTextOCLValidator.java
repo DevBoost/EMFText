@@ -35,21 +35,23 @@ public class EMFTextOCLValidator {
 			ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
 	private TextResource textResource;
+	private IFile resourceFile;
 
 	public void analyse(EObject rootObject) {
 
 		Resource resource = rootObject.eResource();
+		// we do either use the text resource or the file
+		// containing the resource to annotate errors
 		if (resource instanceof TextResource) {
-			this.textResource = (TextResource) resource;
+			textResource = (TextResource) resource;
+		} else {
+			resourceFile = WorkspaceSynchronizer.getFile(resource);
 		}
 		TreeIterator<EObject> allContents = resource.getAllContents();
-		IFile file = WorkspaceSynchronizer.getFile(resource);
 
-		int errors = 0;
 		while (allContents.hasNext()) {
-			errors += evaluate((EObject) allContents.next(), file);
+			evaluate((EObject) allContents.next());
 		}
-
 	}
 
 	private Collection<EClass> getAllMetaclasses(EObject object) {
@@ -89,9 +91,7 @@ public class EMFTextOCLValidator {
 		return eval;
 	}
 
-	private int evaluate(EObject targetObject, IFile file) {
-		int errors = 0;
-
+	private void evaluate(EObject targetObject) {
 		List<EAnnotation> annotations = new ArrayList<EAnnotation>();
 		Collection<EClass> metaclasses = getAllMetaclasses(targetObject);
 
@@ -111,12 +111,10 @@ public class EMFTextOCLValidator {
 						
 						if ((result instanceof Boolean)
 								&& ((Boolean) result).booleanValue() == false) {
-							errors++;
 							errorMsg = key.toString();
 						} else {
 							errorMsg = constructErrorMsg(result);
 							if (errorMsg.length() > 0) {
-								errors ++;
 								errorMsg = key + ": " + errorMsg;
 							}
 						}
@@ -126,7 +124,7 @@ public class EMFTextOCLValidator {
 					
 
 					if (errorMsg.length() > 0) {
-						addErrorMessage(targetObject, file, errorMsg);
+						addErrorMessage(targetObject, errorMsg);
 					}
 				}
 			} else if (annotation.getSource().equals("OCL_Derivation")) {
@@ -145,30 +143,30 @@ public class EMFTextOCLValidator {
 						errorMsg += "Parse Error for OCL Expression: " + value;
 					}
 					if (errorMsg.length() > 0) {
-						addErrorMessage(targetObject, file, errorMsg);
+						addErrorMessage(targetObject, errorMsg);
 					}
 				}
 
 			}
 		}
-		return errors;
 	}
 
 	
 	/**
 	 * @param targetObject
-	 * @param file
-	 * @param errorMsg
+	 * @param resourceFile
+	 * @param errorMesssage
 	 */
-	private void addErrorMessage(EObject targetObject, IFile file, String errorMsg) {
+	private void addErrorMessage(EObject targetObject, String errorMesssage) {
 		if (textResource != null) {
-			textResource.addError(errorMsg, targetObject);
-		} else {
+			textResource.addError(errorMesssage, targetObject);
+		}
+		if (resourceFile != null) {
 			IMarker marker;
 			try {
-				marker = file.createMarker(IMarker.PROBLEM);
+				marker = resourceFile.createMarker(IMarker.PROBLEM);
 
-				marker.setAttribute(IMarker.MESSAGE, errorMsg);
+				marker.setAttribute(IMarker.MESSAGE, errorMesssage);
 				marker.setAttribute(IMarker.SEVERITY,
 						IMarker.SEVERITY_WARNING);
 
