@@ -18,18 +18,17 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.reuseware.emftextedit.resource.TextResource;
 
-
 public class ValidateParserPrinterAction implements IObjectActionDelegate {
-	
+
 	private ResourceSet resourceSet;
 	private IFile currentSelection;
-	
+
 	/**
 	 * Constructor for Action1.
 	 */
 	public ValidateParserPrinterAction() {
 		super();
-		 resourceSet = new ResourceSetImpl();
+		resourceSet = new ResourceSetImpl();
 	}
 
 	/**
@@ -44,49 +43,49 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 	public void run(IAction action) {
 		String path = currentSelection.getFullPath().toString();
 		String inName = currentSelection.getName();
-		String outName = "test"+inName;
-		TextResource currentTextResource = (TextResource) resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
-			try {
-				currentTextResource.load(currentSelection.getContents(),null);
-				ByteArrayOutputStream s = new ByteArrayOutputStream();
-				currentTextResource.save(s,null);
-				s.flush();
-				s.close();
-				IFolder parent = (IFolder)currentSelection.getParent();
-				IFile outFile = parent.getFile(outName);
-				if(outFile.exists())
-					outFile.setContents(new ByteArrayInputStream(s.toByteArray()),false,true,null);
-				else
-					outFile.create(new ByteArrayInputStream(s.toByteArray()),false,null);
-			} catch (Exception e) {
-				Shell shell = new Shell();
-				MessageDialog.openInformation(shell,e.getClass().getName(),e.getMessage());
-				e.printStackTrace();
-				return;
+		String outName = "test" + inName;
+		TextResource currentTextResource = (TextResource) resourceSet
+				.getResource(URI.createPlatformResourceURI(path, true), true);
+		try {
+			currentTextResource.load(currentSelection.getContents(), null);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			currentTextResource.save(outputStream, null);
+			outputStream.flush();
+			outputStream.close();
+			IFolder parent = (IFolder) currentSelection.getParent();
+			IFile outFile = parent.getFile(outName);
+			if (outFile.exists()) {
+				outFile.setContents(new ByteArrayInputStream(outputStream.toByteArray()),
+						false, true, null);
+			} else {
+				outFile.create(new ByteArrayInputStream(outputStream.toByteArray()),
+						false, null);
 			}
-
+		} catch (Exception e) {
+			Shell shell = new Shell();
+			MessageDialog.openInformation(shell, e.getClass().getName(), e
+					.getMessage());
+			e.printStackTrace();
+			return;
+		}
 
 		Shell shell = new Shell();
-		MessageDialog.openInformation(
-			shell,
-			"EMFTextEdit Tests",
-			"Successfully loaded and resolved model from " + inName +".\nSuccessfully deresolved and printed model to "+outName+".");
+		MessageDialog.openInformation(shell, "EMFTextEdit Tests",
+				"Successfully loaded and resolved model from " + inName
+						+ ".\nSuccessfully deresolved and printed model to "
+						+ outName + ".");
 	}
 
 	/**
 	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
-		if(selection instanceof IStructuredSelection){
-			IStructuredSelection structuredSelection = (IStructuredSelection)selection;
-			if(structuredSelection.getFirstElement() instanceof IFile){
-				currentSelection = (IFile)structuredSelection.getFirstElement();
-				
-
+		if (selection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			if (structuredSelection.getFirstElement() instanceof IFile) {
+				currentSelection = (IFile) structuredSelection
+						.getFirstElement();
 			}
-
 		}
-	
 	}
-
 }
