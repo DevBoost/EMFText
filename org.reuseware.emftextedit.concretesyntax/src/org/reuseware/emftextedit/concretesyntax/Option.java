@@ -22,8 +22,9 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.reuseware.emftextedit.concretesyntax.ConcretesyntaxPackage#getOption()
- * @model annotation="OCL This\040generation\040option\040is\040not\040allowed.='if(self.name=\'tokenspace\' or self.name=\'autofixSimpleLeftrecursion\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif'"
+ * @model annotation="OCL This\040generation\040option\040is\040not\040allowed.='if(self.name=\'tokenspace\' or \r\n\tself.name=\'autofixSimpleLeftrecursion\' or \r\n\t\tself.name=\'forceEOF\' or \r\n\t\t\tself.name=\'standardTextTokenName\' or\r\n\t\t\t\tself.name=\'useDefaultTokens\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif'"
  *        annotation="OCL Only\040positive\040integers\040are\040allowed.='if (self.name=\'tokenspace\') \r\n\tthen if( self.value.toInteger()>=0)\r\n\t\tthen true\r\n\t\telse false\r\n\tendif\t\r\n\telse true\r\nendif'"
+ *        annotation="OCL Please\040provide\040a\040String\040with\040at\040least\040two\040letters.='if (self.name=\'standardTextTokenName\') \r\n\tthen if( self.value.size()<2)\r\n\t\tthen false\r\n\t\telse \r\n\t\t\ttrue\r\n\telse true\r\nendif'"
  * @generated
  */
 public interface Option extends EObject {

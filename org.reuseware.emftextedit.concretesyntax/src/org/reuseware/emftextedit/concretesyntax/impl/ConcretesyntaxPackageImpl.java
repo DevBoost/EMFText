@@ -1076,13 +1076,19 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionEClass, 
 		   source, 
 		   new String[] {
-			 "This generation option is not allowed.", "if(self.name=\'tokenspace\' or self.name=\'autofixSimpleLeftrecursion\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
+			 "This generation option is not allowed.", "if(self.name=\'tokenspace\' or \r\n\tself.name=\'autofixSimpleLeftrecursion\' or \r\n\t\tself.name=\'forceEOF\' or \r\n\t\t\tself.name=\'standardTextTokenName\' or\r\n\t\t\t\tself.name=\'useDefaultTokens\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
 		   });		
 		addAnnotation
 		  (optionEClass, 
 		   source, 
 		   new String[] {
 			 "Only positive integers are allowed.", "if (self.name=\'tokenspace\') \r\n\tthen if( self.value.toInteger()>=0)\r\n\t\tthen true\r\n\t\telse false\r\n\tendif\t\r\n\telse true\r\nendif"
+		   });		
+		addAnnotation
+		  (optionEClass, 
+		   source, 
+		   new String[] {
+			 "Please provide a String with at least two letters.", "if (self.name=\'standardTextTokenName\') \r\n\tthen if( self.value.size()<2)\r\n\t\tthen false\r\n\t\telse \r\n\t\t\ttrue\r\n\telse true\r\nendif"
 		   });
 	}
 
