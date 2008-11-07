@@ -1088,7 +1088,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		  (optionEClass, 
 		   source, 
 		   new String[] {
-			 "Please provide a String with at least two letters.", "if (self.name=\'standardTextTokenName\') \r\n\tthen if( self.value.size()<2)\r\n\t\tthen false\r\n\t\telse \r\n\t\t\ttrue\r\n\telse true\r\nendif"
+			 "Please provide a String with at least two letters.", "if (self.name=\'standardTextTokenName\') \r\n\tthen if( self.value.size()<2)\r\n\t\tthen false\r\n\t\telse \r\n\t\t\ttrue\r\n\t\tendif\r\n\telse true\r\nendif"
 		   });
 	}
 

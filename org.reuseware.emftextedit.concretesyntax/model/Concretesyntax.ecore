@@ -110,7 +110,7 @@
       <details key="Only positive integers are allowed." value="if (self.name='tokenspace') &#xD;&#xA;&#x9;then if( self.value.toInteger()>=0)&#xD;&#xA;&#x9;&#x9;then true&#xD;&#xA;&#x9;&#x9;else false&#xD;&#xA;&#x9;endif&#x9;&#xD;&#xA;&#x9;else true&#xD;&#xA;endif"/>
     </eAnnotations>
     <eAnnotations source="OCL">
-      <details key="Please provide a String with at least two letters." value="if (self.name='standardTextTokenName') &#xD;&#xA;&#x9;then if( self.value.size()&lt;2)&#xD;&#xA;&#x9;&#x9;then false&#xD;&#xA;&#x9;&#x9;else &#xD;&#xA;&#x9;&#x9;&#x9;true&#xD;&#xA;&#x9;else true&#xD;&#xA;endif"/>
+      <details key="Please provide a String with at least two letters." value="if (self.name='standardTextTokenName') &#xD;&#xA;&#x9;then if( self.value.size()&lt;2)&#xD;&#xA;&#x9;&#x9;then false&#xD;&#xA;&#x9;&#x9;else &#xD;&#xA;&#x9;&#x9;&#x9;true&#xD;&#xA;&#x9;&#x9;endif&#xD;&#xA;&#x9;else true&#xD;&#xA;endif"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
