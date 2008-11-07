@@ -125,17 +125,17 @@ public abstract class BaseGenerator implements IGenerator {
 	
 	
 	public Collection<GenerationProblem> getOccuredErrors(){
-		return (errors.isEmpty()?null:errors);
+		return errors;
 	}
 	
 	public Collection<GenerationProblem> getOccuredWarnings(){
-		return (warnings.isEmpty()?null:warnings);
+		return warnings;
 	}
 	
 	public Collection<GenerationProblem> getOccuredWarningsAndErrors(){
 		List<GenerationProblem> allProblems = new LinkedList<GenerationProblem>(errors);
 		allProblems.addAll(warnings);
-		return (allProblems.isEmpty()?null:allProblems);
+		return allProblems;
 	}
 	
 	

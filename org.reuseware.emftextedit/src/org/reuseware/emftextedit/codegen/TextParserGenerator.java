@@ -247,8 +247,11 @@ public class TextParserGenerator extends BaseGenerator{
 	
 	private void initOptions(){
 		Option currentOption = GeneratorUtil.getOptionByName(CS_OPTION_STD_TOKEN_NAME,source.getOptions());
-		standardTextTokenName = currentOption==null?STD_TOKEN_NAME:currentOption.getValue();
-		char firstLetter = standardTextTokenName.charAt(0); 
+		standardTextTokenName = currentOption == null ? STD_TOKEN_NAME : currentOption.getValue();
+		if (standardTextTokenName == null) {
+			standardTextTokenName = STD_TOKEN_NAME;
+		}
+		char firstLetter = standardTextTokenName.charAt(0);
 		//can this check be done by OCL?
 		if(!(firstLetter>='A'&&firstLetter<='Z'))
 				this.addProblem(new GenerationProblem("Token names have to start with a capital letter.",currentOption,Severity.ERROR));
@@ -346,8 +349,7 @@ public class TextParserGenerator extends BaseGenerator{
 	    
 	    printTokenDefinitions(out);
 	    
-	    return this.getOccuredErrors()==null;
-
+	    return getOccuredErrors().size() == 0;
 	}
 	
 	private void printStartRule(PrintWriter out){
