@@ -82,14 +82,20 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 					public boolean visit(IResource resource) throws CoreException {
 						if(resource instanceof IFile) {
 							IFile file = (IFile) resource;
+							
 							if ("genmodel".equals(file.getFileExtension())) {
 								URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-				            	Resource genModelResource = rs.getResource(genModelURI, true);
+								Resource genModelResource = rs.getResource(genModelURI, true);
 				            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-				            	try {
-				            		updateGenModel(genModel);
-				            	} catch (Exception e){
-				            		e.printStackTrace();
+				            	
+				            	if(!file.isReadOnly()){
+					            	try {
+					            		//TODO Sven: update method needs fix make your file readonly to skip it
+					            		//				I would fix it if I would know what exactly it should do :-)
+					            		updateGenModel(genModel);
+					            	} catch (Exception e){
+					            		e.printStackTrace();
+					            	}				            		
 				            	}
 				            	
 				            	Map<String,GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
@@ -129,7 +135,6 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
         if(oldGenModel != null) {
         	genModel.reconcile(oldGenModel);
         }
-        
         genModelResource.getContents().clear();
         genModelResource.getContents().add(genModel);
         //save the gen model
