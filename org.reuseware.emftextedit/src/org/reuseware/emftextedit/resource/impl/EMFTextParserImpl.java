@@ -140,10 +140,9 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
     protected List<Integer>              lexerExceptionsPosition = Collections.synchronizedList(new ArrayList<Integer>());
     
     /**
-     * This method should will be overridden by generated subclasses.
-     * This implementation does nothing.
+     * This method must be overridden by generated subclasses.
      */
-    protected  EObject doParse() throws RecognitionException { return null; };
+    protected abstract EObject doParse() throws RecognitionException;
     
     /**
      * Implementation that calls {@link #doParse()}  and handles the thrown
