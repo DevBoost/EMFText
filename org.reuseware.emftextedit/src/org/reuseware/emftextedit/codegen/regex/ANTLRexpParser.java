@@ -3,10 +3,13 @@
 package org.reuseware.emftextedit.codegen.regex; 
 
 
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
+import org.antlr.runtime.BitSet;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.Parser;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.TokenStream;
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
 Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/

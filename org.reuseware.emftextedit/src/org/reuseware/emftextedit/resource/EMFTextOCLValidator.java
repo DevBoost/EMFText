@@ -194,7 +194,7 @@ public class EMFTextOCLValidator {
 			error = "'" + result + "'";
 		} 
 		else if (result instanceof Tuple) {
-			Object[] array = ((Tuple) result).getTupleType().oclProperties().toArray(new Object[]{});
+			Object[] array = ((Tuple<?,?>) result).getTupleType().oclProperties().toArray(new Object[]{});
 			if (array.length > 0) {
 				error += constructErrorMsg(array[0]);
 			}
@@ -203,7 +203,7 @@ public class EMFTextOCLValidator {
 			}
 		} 
 		else if (result instanceof Collection) { 
-			Object[] array = ((Collection) result).toArray(new Object[]{});
+			Object[] array = ((Collection<?>) result).toArray(new Object[]{});
 			if (array.length > 0) {
 				error += constructErrorMsg(array[0]);
 			}

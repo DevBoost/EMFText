@@ -12,7 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.codegen.ecore
  lipse.emf.workspace,org.eclipse.ocl.ecore,org.junit4,org.reuseware.em
  ftextedit.antlr;visibility:=reexport
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: antlr-3.0.1.jar,antlr-2.7.7.jar,stringtemplate.jar,.
 Export-Package: org.reuseware.emftextedit,org.reuseware.emftextedit.co
  degen,org.reuseware.emftextedit.codegen.regex,org.reuseware.emftexted
  it.resource,org.reuseware.emftextedit.resource.impl
