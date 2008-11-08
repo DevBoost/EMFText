@@ -721,21 +721,12 @@ public class TextParserGenerator extends BaseGenerator{
         }
         
         if(terminal instanceof Containment){
-            out.print("getResource().setElementCharStart(element, getResource().getElementCharStart(" + ident + ")); "); 
-            out.print("getResource().setElementCharEnd(element, getResource().getElementCharEnd(" + ident + ")); "); 
-            out.print("getResource().setElementColumn(element, getResource().getElementColumn(" + ident + ")); "); 
-            out.print("getResource().setElementLine(element, getResource().getElementLine(" + ident + "));"); 
+            out.print("copyLocalizationInfos(" + ident + ", element); "); 
         }else{
-            out.print("getResource().setElementCharStart(element, ((CommonToken)" + ident + ").getStartIndex()); "); 
-            out.print("getResource().setElementCharEnd(element, ((CommonToken)" + ident + ").getStopIndex()); ");    
-            out.print("getResource().setElementColumn(element, " + ident + ".getCharPositionInLine()); ");    
-            out.print("getResource().setElementLine(element, " + ident + ".getLine()); ");
+            out.print("copyLocalizationInfos((CommonToken) " + ident + ", element); "); 
             if(sf instanceof EReference){
             	//additionally set position information for the proxy instance	
-                out.print("getResource().setElementCharStart(" + proxyIdent + ", ((CommonToken)" + ident + ").getStartIndex()); "); 
-                out.print("getResource().setElementCharEnd(" + proxyIdent + ", ((CommonToken)" + ident + ").getStopIndex()); ");    
-                out.print("getResource().setElementColumn(" + proxyIdent + ", " + ident + ".getCharPositionInLine()); ");    
-                out.print("getResource().setElementLine(" + proxyIdent + ", " + ident + ".getLine()); ");
+                out.print("copyLocalizationInfos((CommonToken) " + ident + ", " + proxyIdent + "); "); 
             }
         }
     	

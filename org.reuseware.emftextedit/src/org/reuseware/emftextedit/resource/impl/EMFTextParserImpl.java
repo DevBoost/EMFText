@@ -134,6 +134,20 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
     public TextResource getResource() {
     	return this.resource;
     }
+    
+    protected void copyLocalizationInfos(EObject source, EObject target) {
+        getResource().setElementCharStart(target, getResource().getElementCharStart(source)); 
+        getResource().setElementCharEnd(target, getResource().getElementCharEnd(source)); 
+        getResource().setElementColumn(target, getResource().getElementColumn(source)); 
+        getResource().setElementLine(target, getResource().getElementLine(source));
+    }
+    
+    protected void copyLocalizationInfos(CommonToken source, EObject target) {
+        getResource().setElementCharStart(target, source.getStartIndex()); 
+        getResource().setElementCharEnd(target, source.getStopIndex());    
+        getResource().setElementColumn(target, source.getCharPositionInLine());    
+        getResource().setElementLine(target, source.getLine());
+    }
 
     //helper lists to allow a lexer to pass errors to its parser
     protected List<RecognitionException> lexerExceptions = Collections.synchronizedList(new ArrayList<RecognitionException>());
