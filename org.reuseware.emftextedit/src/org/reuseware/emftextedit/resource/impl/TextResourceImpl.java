@@ -46,8 +46,6 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		lineInfo.clear();
 		charStartInfo.clear();
 		charEndInfo.clear();
-		
-		
 	}
 	
 
@@ -72,7 +70,6 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		}
 	}
 
-
 	/**
 	 * Creates a empty instance.
 	 */
@@ -89,50 +86,55 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		super(uri);	
 	}
 	  
+	private int getMapValue(EMap<EObject, Integer> map, EObject element) {
+		if (!map.containsKey(element)) return -1;
+		return map.get(element);
+	}
+	
+	private void setMapValue(EMap<EObject, Integer> map, EObject element, int line) {
+		if (element == null) return;
+		if (map.containsKey(element)) return;
+		map.put(element, line);
+	}
+	
 	public void setElementLine(EObject element, int line) {
-		if (element == null) return;
-		if (lineInfo.containsKey(element)) return;
-		lineInfo.put(element, line);
+		setMapValue(lineInfo, element, line);
 	}
-	
+
 	public int getElementLine(EObject element) {
-		if (!lineInfo.containsKey(element)) return -1;
-		return lineInfo.get(element);
+		return getMapValue(lineInfo, element);
 	}
-	
+
 	public void setElementColumn(EObject element, int column) {
-		if (element == null) return;
-		if (columnInfo.containsKey(element)) return;
-		columnInfo.put(element, column);
+		setMapValue(columnInfo, element, column);
 	}	
 	
 	public int getElementColumn(EObject element) {
-		if (!columnInfo.containsKey(element)) return -1;
-		return columnInfo.get(element);
+		return getMapValue(columnInfo, element);
 	}
 	
 	public void setElementCharStart(EObject element, int charStart) {
-		if (element == null) return;
-		if (charStartInfo.containsKey(element)) return;
-		charStartInfo.put(element, charStart);
+		setMapValue(charStartInfo, element, charStart);
 	}	
 	
 	public int getElementCharStart(EObject element) {
-		if (!charStartInfo.containsKey(element)) return -1;
-		return charStartInfo.get(element);
+		return getMapValue(charStartInfo, element);
 	}	
 	
 	public void setElementCharEnd(EObject element, int charEnd) {
 		if (element == null) return;
 		if (charEndInfo.containsKey(element)) {
+			// TODO jjohannes: this is strange behavior since
+			// it deviates from the other set methods. maybe 
+			// this code should be better placed in callers of
+			// this method?
 			if (charEndInfo.get(element) > charEnd) return;
 		}
 		charEndInfo.put(element, charEnd);
 	}	
 	
 	public int getElementCharEnd(EObject element) {
-		if (!charEndInfo.containsKey(element)) return -1;
-		return charEndInfo.get(element);
+		return getMapValue(charEndInfo, element);
 	}	
 	
 	public void addError(String message, EObject element) {
@@ -146,7 +148,6 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 	public void addError(String message, int column, int line, int charStart,
 			int charEnd) {
 		getErrors().add(new PositionBasedTextDiagnosticImpl(message, column, line, charStart, charEnd));
-		
 	}
 
 	public void addWarning(String message, int column, int line, int charStart,
@@ -158,6 +159,7 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		return new String[]{};
 	}
 	
+	// TODO jjohannes: should we replace this method with an abstract one?
 	public Object getScanner() {
 		return null;
 	}
@@ -172,24 +174,27 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 			this.message = message;
 		}
 		
-		public int getCharStart() {
-			if (!charStartInfo.containsKey(element)) return 0;
-			return charStartInfo.get(element);
+		private int getMapValue(EMap<EObject,Integer> map) {
+			if (!map.containsKey(element)) {
+				return 0;
+			}
+			return map.get(element);
 		}
 		
+		public int getCharStart() {
+			return getMapValue(charStartInfo);
+		}
+
 		public int getCharEnd() {
-			if (!charEndInfo.containsKey(element)) return 0;
-			return charEndInfo.get(element);
+			return getMapValue(charEndInfo);
 		}
 		
 		public int getColumn() {
-			if (!columnInfo.containsKey(element)) return 0;
-			return columnInfo.get(element);
+			return getMapValue(columnInfo);
 		}
 
 		public int getLine() {
-			if (!lineInfo.containsKey(element)) return 0;
-			return lineInfo.get(element);
+			return getMapValue(lineInfo);
 		}
 
 		public String getLocation() {
