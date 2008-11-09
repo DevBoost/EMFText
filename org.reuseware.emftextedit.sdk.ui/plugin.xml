@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension  
+            point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.reuseware.emftextedit.ui.generateresourcecontributor"
+            nameFilter="*.cs*"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.reuseware.emftextedit.sdk.ui.actions.GenerateResourceAction"
+               enablesFor="1"
+               id="org.reuseware.emftextedit.ui.actions.generateresourceaction"
+               label="Generate Text Resource"
+               menubarPath="additions"/>
+      </objectContribution>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.reuseware.emftextedit.sdk.ui.preferences.MainPreferencePage"
+            id="org.reuseware.emftextedit.ui.preferences.main"
+            name="EMFTextEdit SDK"/>
+    </extension>
+</plugin>

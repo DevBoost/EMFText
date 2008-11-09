@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="org.reuseware.emftextedit.runtime.ui.perform_save" name="Save Document Listener" schema="schema/org.reuseware.emftextedit.ui.perform_save.exsd"/>
+
+   <extension
+         id="org.reuseware.emftextedit.runtime.ui.problem"
+         name="EMF Text Edit Problem"
+         point="org.eclipse.core.resources.markers">
+      <persistent value="true"/>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.core.resources.textmarker"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.reuseware.emftextedit.runtime.ui.preferences.PreferenceInitializer"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.reuseware.emftextedit.runtime.ui.preferences.SyntaxColoringPreferencePage"
+            id="org.reuseware.emftextedit.runtime.ui.preferences.SyntaxColoringPreferencePage"
+            name="EMFTextEdit Syntax Coloring"/>
+    </extension>
+
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            id="org.reuseware.emftextedit.filetype"
+            name="EMF Text Editor Files">
+      </content-type>
+   </extension>
+   
+    <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.reuseware.emftextedit.runtime.ui.editor.EMFTextEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            icon="icons/editor.gif"
+            id="org.reuseware.emftextedit.runtime.ui.texteditor"
+            name="EMF Text Editor">
+         <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
+         <contentTypeBinding
+               contentTypeId="org.reuseware.emftextedit.filetype">
+         </contentTypeBinding> 
+      </editor>
+   </extension>
+
+</plugin>

@@ -3,15 +3,20 @@ package org.reuseware.emftextedit.concretesyntax.resource.cs;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.reuseware.emftextedit.resource.TextResource;
-import org.reuseware.emftextedit.resource.impl.*;
-
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
-import org.reuseware.emftextedit.concretesyntax.Rule;
 import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
 import org.reuseware.emftextedit.concretesyntax.Import;
+import org.reuseware.emftextedit.concretesyntax.Rule;
 import org.reuseware.emftextedit.concretesyntax.Terminal;
-import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.*;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.ConcreteSyntaxPackageProxyResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.ConcreteSyntaxStartSymbolsProxyResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.DefinedPlaceholderTokenProxyResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.ImportConcreteSyntaxProxyResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.ImportPackageProxyResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.RuleMetaclassProxyResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.TerminalFeatureProxyResolver;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
+import org.reuseware.emftextedit.runtime.resource.impl.EMFTextTreeAnalyserImpl;
 
 public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 

@@ -11,8 +11,8 @@ import java.io.IOException;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
-import org.reuseware.emftextedit.GenPackageByNameFinder;
-import org.reuseware.emftextedit.MetamodelManager;
+import org.reuseware.emftextedit.runtime.MetamodelManager;
+import org.reuseware.emftextedit.sdk.GenPackageByNameFinder;
 
 public class PutEverywhereFeatureTest {
 

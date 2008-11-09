@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.reuseware.emftextedit.resource.TextResource;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 public class ValidateParserPrinterAction implements IObjectActionDelegate {
 

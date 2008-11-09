@@ -4,3 +4,18 @@ Bundle-Name: EMFTextEdit SDK Plug-in
 Bundle-SymbolicName: org.reuseware.emftextedit.sdk
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.codegen.ecore;visibility:=reexport,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.emf.workspace,
+ org.eclipse.ocl.ecore,
+ org.junit4,
+ org.reuseware.emftextedit.antlr;visibility:=reexport,
+ org.reuseware.emftextedit.concretesyntax;visibility:=reexport,
+ org.reuseware.emftextedit.runtime
+Export-Package: org.reuseware.emftextedit.sdk,
+ org.reuseware.emftextedit.sdk.codegen,
+ org.reuseware.emftextedit.sdk.codegen.regex
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+

@@ -1,7 +1,8 @@
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
 import java.io.OutputStream;
-import org.reuseware.emftextedit.resource.*;
+
+import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 /**
 * This is the printer class used by EMFText.

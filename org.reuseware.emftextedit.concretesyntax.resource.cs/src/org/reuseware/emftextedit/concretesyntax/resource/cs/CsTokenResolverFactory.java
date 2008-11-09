@@ -1,9 +1,15 @@
 package org.reuseware.emftextedit.concretesyntax.resource.cs;
 
-import org.reuseware.emftextedit.resource.TokenResolverFactory;
-import org.reuseware.emftextedit.resource.impl.BasicTokenResolverFactory;
-
-import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.*;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsQNAMETokenResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsQUOTED_34_34TokenResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsQUOTED_36_36TokenResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsQUOTED_39_39TokenResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsQUOTED_60_62TokenResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsTEXTTokenResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsTEXT_33_TokenResolver;
+import org.reuseware.emftextedit.concretesyntax.resource.cs.analysis.CsTEXT_35_TokenResolver;
+import org.reuseware.emftextedit.runtime.resource.TokenResolverFactory;
+import org.reuseware.emftextedit.runtime.resource.impl.BasicTokenResolverFactory;
 
 public class CsTokenResolverFactory extends BasicTokenResolverFactory implements TokenResolverFactory{
 

@@ -3,10 +3,10 @@ package org.reuseware.emftextedit.concretesyntax.resource.cs.analysis;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.reuseware.emftextedit.MetamodelManager;
 import org.reuseware.emftextedit.concretesyntax.Import;
-import org.reuseware.emftextedit.resource.TextResource;
-import org.reuseware.emftextedit.resource.impl.ProxyResolverImpl;
+import org.reuseware.emftextedit.runtime.MetamodelManager;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
+import org.reuseware.emftextedit.runtime.resource.impl.ProxyResolverImpl;
 
 public class ImportConcreteSyntaxProxyResolver extends ProxyResolverImpl {
 

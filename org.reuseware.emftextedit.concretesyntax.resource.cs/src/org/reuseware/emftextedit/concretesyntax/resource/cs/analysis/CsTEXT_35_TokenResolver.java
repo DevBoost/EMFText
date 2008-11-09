@@ -1,10 +1,10 @@
 package org.reuseware.emftextedit.concretesyntax.resource.cs.analysis;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EObject;
-import org.reuseware.emftextedit.resource.TokenResolver;
-import org.reuseware.emftextedit.resource.TextResource;
-import org.reuseware.emftextedit.resource.impl.JavaBasedTokenResolver;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
+import org.reuseware.emftextedit.runtime.resource.TokenResolver;
+import org.reuseware.emftextedit.runtime.resource.impl.JavaBasedTokenResolver;
 
 public class CsTEXT_35_TokenResolver extends JavaBasedTokenResolver implements TokenResolver{ 
 	@Override

@@ -6,8 +6,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.concretesyntax.Import;
-import org.reuseware.emftextedit.resource.TextResource;
-import org.reuseware.emftextedit.resource.impl.ProxyResolverImpl;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
+import org.reuseware.emftextedit.runtime.resource.impl.ProxyResolverImpl;
 
 public class ConcreteSyntaxStartSymbolsProxyResolver extends ProxyResolverImpl {
 

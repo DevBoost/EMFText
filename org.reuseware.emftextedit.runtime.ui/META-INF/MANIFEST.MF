@@ -1,7 +1,26 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFTextEdit Runtime UI Plug-in
-Bundle-SymbolicName: org.reuseware.emftextedit.runtime.ui
+Bundle-SymbolicName: org.reuseware.emftextedit.runtime.ui;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-Activator: org.reuseware.emftextedit.runtime.ui.EMFTextEditRuntimeUIPlugin
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.edit,
+ org.eclipse.ui,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.views,
+ org.reuseware.emftextedit.runtime,
+ org.eclipse.ui.ide,
+ org.eclipse.emf.edit.ui,
+ org.eclipse.emf.ecore.editor,
+ org.eclipse.jface.text,
+ org.eclipse.core.resources,
+ org.reuseware.emftextedit.antlr
+Export-Package: org.reuseware.emftextedit.runtime.ui,
+ org.reuseware.emftextedit.runtime.ui.editor,
+ org.reuseware.emftextedit.runtime.ui.outline,
+ org.reuseware.emftextedit.runtime.ui.preferences

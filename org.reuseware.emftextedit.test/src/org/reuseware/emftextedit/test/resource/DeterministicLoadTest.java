@@ -25,11 +25,11 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.Before;
 import org.junit.Test;
-import org.reuseware.emftextedit.EMFTextEditPlugin;
-import org.reuseware.emftextedit.MetamodelManager;
 import org.reuseware.emftextedit.concretesyntax.resource.cs.CsResourceFactoryImpl;
-import org.reuseware.emftextedit.resource.impl.TextResourceImpl;
-import org.reuseware.emftextedit.ui.actions.GenPackageInRegistryFinder;
+import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
+import org.reuseware.emftextedit.runtime.MetamodelManager;
+import org.reuseware.emftextedit.runtime.GenPackageInRegistryFinder;
+import org.reuseware.emftextedit.runtime.resource.impl.TextResourceImpl;
 
 public class DeterministicLoadTest {
 

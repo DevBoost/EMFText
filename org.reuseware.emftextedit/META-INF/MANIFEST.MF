@@ -5,16 +5,12 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Reuseware EMFTextEdit
 Bundle-SymbolicName: org.reuseware.emftextedit; singleton:=true
 Bundle-Version: 0.8.3.v200808061508
-Bundle-Activator: org.reuseware.emftextedit.EMFTextEditPlugin
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.codegen.ecore
  ;visibility:=reexport,org.reuseware.emftextedit.concretesyntax;visibi
  lity:=reexport,org.eclipse.core.resources,org.eclipse.jdt.core,org.ec
  lipse.emf.workspace,org.eclipse.ocl.ecore,org.junit4,org.reuseware.em
  ftextedit.antlr;visibility:=reexport
 Bundle-ActivationPolicy: lazy
-Export-Package: org.reuseware.emftextedit,org.reuseware.emftextedit.co
- degen,org.reuseware.emftextedit.codegen.regex,org.reuseware.emftexted
- it.resource,org.reuseware.emftextedit.resource.impl
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 

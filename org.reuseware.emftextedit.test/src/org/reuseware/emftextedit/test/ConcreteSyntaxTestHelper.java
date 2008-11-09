@@ -19,15 +19,15 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.reuseware.emftextedit.codegen.BaseGenerator;
-import org.reuseware.emftextedit.codegen.IGenerator;
-import org.reuseware.emftextedit.codegen.PutEverywhereSyntaxExtender;
-import org.reuseware.emftextedit.codegen.ResourcePackageGenerator;
-import org.reuseware.emftextedit.codegen.TextParserGenerator;
-import org.reuseware.emftextedit.codegen.IGenerator.GenerationProblem;
 import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.concretesyntax.resource.cs.CsResourceImpl;
-import org.reuseware.emftextedit.resource.impl.TextResourceImpl;
+import org.reuseware.emftextedit.runtime.resource.impl.TextResourceImpl;
+import org.reuseware.emftextedit.sdk.codegen.BaseGenerator;
+import org.reuseware.emftextedit.sdk.codegen.IGenerator;
+import org.reuseware.emftextedit.sdk.codegen.PutEverywhereSyntaxExtender;
+import org.reuseware.emftextedit.sdk.codegen.ResourcePackageGenerator;
+import org.reuseware.emftextedit.sdk.codegen.TextParserGenerator;
+import org.reuseware.emftextedit.sdk.codegen.IGenerator.GenerationProblem;
 
 public class ConcreteSyntaxTestHelper {
 

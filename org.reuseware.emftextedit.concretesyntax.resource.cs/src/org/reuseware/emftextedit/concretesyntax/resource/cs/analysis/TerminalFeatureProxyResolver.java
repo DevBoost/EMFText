@@ -5,11 +5,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.reuseware.emftextedit.concretesyntax.Rule;
 import org.reuseware.emftextedit.concretesyntax.Containment;
-import org.reuseware.emftextedit.resource.TextResource;
-import org.reuseware.emftextedit.resource.impl.ProxyResolverImpl;
 import org.reuseware.emftextedit.concretesyntax.Placeholder;
+import org.reuseware.emftextedit.concretesyntax.Rule;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
+import org.reuseware.emftextedit.runtime.resource.impl.ProxyResolverImpl;
 
 public class TerminalFeatureProxyResolver extends ProxyResolverImpl {
 	
