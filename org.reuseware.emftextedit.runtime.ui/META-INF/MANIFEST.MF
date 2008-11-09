@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMFTextEdit Runtime UI Plug-in
+Bundle-SymbolicName: org.reuseware.emftextedit.runtime.ui
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
