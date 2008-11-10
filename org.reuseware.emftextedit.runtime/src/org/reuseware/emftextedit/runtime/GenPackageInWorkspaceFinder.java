@@ -87,6 +87,12 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 								Resource genModelResource = rs.getResource(genModelURI, true);
 				            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
 				            	
+				            	// TODO fheidenreich: After looking more closely on this code, I finally think that updating the
+				            	// genmodel is not necessary here. We're checking whether the genmodel itself has been changed via
+				            	// the cache and building/reconciling the genmodel should be done by the user, not manually by the
+				            	// tool
+				            	// TODO skarol What do you think?
+				            	// TODO mseifert WHat do you think?
 				            	if(!file.isReadOnly()){
 					            	try {
 					            		//TODO Sven: update method needs fix make your file readonly to skip it
