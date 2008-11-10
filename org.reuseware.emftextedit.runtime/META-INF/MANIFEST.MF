@@ -19,6 +19,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.reuseware.emftextedit.antlr;visibility:=reexport,
  org.eclipse.emf.edit,
  org.eclipse.emf.workspace,
- org.reuseware.emftextedit.concretesyntax,
+ org.reuseware.emftextedit.sdk.concretesyntax,
  org.eclipse.emf.codegen.ecore
 Bundle-Vendor: Software Technology Group - TU Dresden Germany

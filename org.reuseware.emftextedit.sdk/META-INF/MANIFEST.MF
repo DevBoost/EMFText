@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ocl.ecore,
  org.junit4,
  org.reuseware.emftextedit.antlr;visibility:=reexport,
- org.reuseware.emftextedit.concretesyntax;visibility:=reexport,
+ org.reuseware.emftextedit.sdk.concretesyntax;visibility:=reexport,
  org.reuseware.emftextedit.runtime
 Export-Package: org.reuseware.emftextedit.sdk,
  org.reuseware.emftextedit.sdk.codegen,
