@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: EMFTextEdit Examples Plug-in
-Bundle-SymbolicName: org.reuseware.emftextedit.examples
-Bundle-Version: 1.0.0
