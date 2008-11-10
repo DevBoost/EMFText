@@ -40,6 +40,15 @@ import org.reuseware.emftextedit.runtime.resource.TokenConversionException;
 public abstract class EMFTextParserImpl extends Parser implements EMFTextParser {    
     
 	private int mismatchedTokenRecoveryTries = 0;
+	private Map<?, ?> options;
+	
+	public void setOptions(Map<?,?> options) {
+		this.options = options;
+	}
+	
+	protected Map<?,?> getOptions() {
+		return options;
+	}
 	
 	protected EObject apply(EObject target, List<EObject> dummyEObjects) {
 		EObject currentTarget = target;

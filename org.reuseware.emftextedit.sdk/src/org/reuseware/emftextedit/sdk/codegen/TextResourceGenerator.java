@@ -55,6 +55,7 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\tprotected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {");
         out.println("\t\tEMFTextParser p = new " + csClassName + "Parser(new CommonTokenStream(new " + csClassName + "Lexer(new ANTLRInputStream(inputStream))));");
         out.println("\t\tp.setResource(this);");
+        out.println("\t\tp.setOptions(options);");
         out.println("\t\tEObject root = p.parse();");
         out.println("\t\twhile (root != null) {");
         out.println("\t\t\tgetContents().add(root);");

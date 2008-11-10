@@ -531,18 +531,22 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							}
 
 							if (feature instanceof EReference) {
-								printStatement = printPrefix
-										+ "tokenResolverFactory.createTokenResolver(\""
+								printStatement = 
+										"TokenResolver resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
-										+ "\").deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature(\""
+										+ "\");resolver.setOptions(getOptions());"
+										+ printPrefix 
+										+ "resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature(\""
 										+ featureName
 										+ "\")),element.eClass().getEStructuralFeature(\""
 										+ featureName + "\"),element));";
 							} else {
-								printStatement = printPrefix
-										+ "tokenResolverFactory.createTokenResolver(\""
+								printStatement = 
+										"TokenResolver resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
-										+ "\").deResolve((Object)o,element.eClass().getEStructuralFeature(\""
+										+ "\");resolver.setOptions(getOptions());"
+										+ printPrefix
+										+ "resolver.deResolve((Object)o,element.eClass().getEStructuralFeature(\""
 										+ featureName + "\"),element));";
 							}
 

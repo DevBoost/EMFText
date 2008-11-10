@@ -3,6 +3,7 @@ package org.reuseware.emftextedit.runtime.resource.impl;
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.reuseware.emftextedit.runtime.resource.EMFTextPrinter;
@@ -19,6 +20,7 @@ public abstract class EMFTextPrinterImpl implements EMFTextPrinter {
 	protected static String newline = (System.getProperties().getProperty("line.separator"));
     protected OutputStream o;
     protected TextResource resource;
+	private Map<?, ?> options;
     
     /**
      * Standard constructor.
@@ -27,15 +29,23 @@ public abstract class EMFTextPrinterImpl implements EMFTextPrinter {
      * @param resource The associated resource.
      */
     public EMFTextPrinterImpl(OutputStream o, TextResource resource) {
-        this.o =o;
+        this.o = o;
         this.resource = resource;
+    }
+    
+    public void setOptions(Map<?,?> options) {
+    	this.options = options;
+    }
+    
+    public Map<?,?> getOptions() {
+    	return options;
     }
     
     /**
      * This method should will be overridden by generated subclasses.
      * This implementation does nothing.
      */
-    protected void doPrint(EObject element,PrintWriter out,String globaltab) {};
+    protected abstract void doPrint(EObject element,PrintWriter out,String globaltab);
     
     /**
      * Calls {@link #doPrint(EObject, String)} and writes the result to the underlying

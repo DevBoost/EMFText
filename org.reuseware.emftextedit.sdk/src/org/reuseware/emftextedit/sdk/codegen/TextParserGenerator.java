@@ -644,6 +644,7 @@ public class TextParserGenerator extends BaseGenerator{
         	String preResolved = resolvedIdent+"Object";
         	String resolverIdent = resolvedIdent+"Resolver";
            	resolvements += "TokenResolver " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
+           	resolvements += resolverIdent +".setOptions(getOptions());";
         	resolvements += "Object " + preResolved + " ="+resolverIdent+".resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
         	resolvements += "if(" + preResolved + "==null)throw new TokenConversionException("+ident+","+resolverIdent+".getErrorMessage());";
         	
@@ -676,6 +677,7 @@ public class TextParserGenerator extends BaseGenerator{
             	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";";
 	           	
             	//resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
+            	// TODO if the code above will be used again 'resolvements += resolverIdent +".setOptions(getOptions()));";' must be added!
 	           	resolvements += proxyTypeName + " " + expressionToBeSet + " = " + genPackagePrefix + "Factory.eINSTANCE.create" + proxyTypeName + "();" 
 				+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI((resource.getURI()==null?URI.createURI(\"dummy\"):resource.getURI()).appendFragment(" + resolvedIdent + ")); ";
 	        

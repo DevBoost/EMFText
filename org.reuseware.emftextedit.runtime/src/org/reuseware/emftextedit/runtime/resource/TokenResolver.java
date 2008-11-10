@@ -1,5 +1,7 @@
 package org.reuseware.emftextedit.runtime.resource;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EObject;
 
@@ -15,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  *
  */
 public interface TokenResolver {
+	
+	public void setOptions(Map<?,?> options);
 	
 	/**
 	 * Converts a parsed String into an Object (might be a String again). 

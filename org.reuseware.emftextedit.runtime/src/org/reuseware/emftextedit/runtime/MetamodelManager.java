@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
 
+// TODO mseifert move this class to the SDK plug-in
+// TODO mseifert remove dependency to sdk.concretesyntax
 public class MetamodelManager {
 	
 	public static MetamodelManager INSTANCE = new MetamodelManager();

@@ -1,5 +1,7 @@
 package org.reuseware.emftextedit.runtime.resource.impl;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -18,6 +20,7 @@ import org.reuseware.emftextedit.runtime.resource.TokenResolver;
 public class JavaBasedTokenResolver implements TokenResolver {
 	
 	private String message = null;
+	private Map<?, ?> options;
 	
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
 		if (value == null) {
@@ -86,4 +89,11 @@ public class JavaBasedTokenResolver implements TokenResolver {
 		return message;
 	}
 
+	public void setOptions(Map<?, ?> options) {
+		this.options = options;
+	}
+
+	public Map<?, ?> getOptions() {
+		return options;
+	}
 }
