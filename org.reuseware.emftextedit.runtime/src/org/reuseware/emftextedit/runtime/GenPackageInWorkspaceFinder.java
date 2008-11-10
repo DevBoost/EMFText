@@ -16,6 +16,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -117,22 +119,25 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		return null;
 	}
 	
-	private void updateGenModel(GenModel oldGenModel) {
+	private void updateGenModel(GenModel oldGenModel) throws DiagnosticException {
 		//update the gen model
         Resource genModelResource = oldGenModel.eResource();
         EList<EPackage> ePackages = new BasicEList<EPackage>();        
-        for(GenPackage genPackage : oldGenModel.getGenPackages()) {
+        for(GenPackage genPackage : oldGenModel.getUsedGenPackages()) {
         	ePackages.add(genPackage.getEcorePackage());
         }
         
         GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
 
         genModel.initialize(ePackages);
+        genModel.reconcile(oldGenModel);
         
-        if(oldGenModel != null) {
-        	genModel.reconcile(oldGenModel);
+        Diagnostic diag = genModel.diagnose();
+        if (diag.getSeverity() != Diagnostic.OK) {
+        	throw new DiagnosticException(diag);
         }
-        genModelResource.getContents().clear();
+        
+        genModelResource.getContents().remove(oldGenModel);
         genModelResource.getContents().add(genModel);
         //save the gen model
         try {
