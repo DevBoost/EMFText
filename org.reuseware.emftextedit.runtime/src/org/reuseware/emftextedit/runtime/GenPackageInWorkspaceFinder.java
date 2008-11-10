@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.internal.resources.ResourceException;
+import org.eclipse.core.internal.resources.ResourceStatus;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -12,6 +14,7 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -112,23 +115,20 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		return null;
 	}
 	
-	private void updateGenModel(GenModel oldGenModel) throws DiagnosticException {
-        Resource genModelResource = oldGenModel.eResource();
+	private void updateGenModel(final GenModel genModel) throws Exception {
+        final Resource genModelResource = genModel.eResource();
+ 
+		final boolean reconcileSucceeded = genModel.reconcile();
+		if (!reconcileSucceeded) {
+			throw new RuntimeException("Reconciliation of genmodel failed.");
+		}
         
-		// Update genmodel
-		oldGenModel.reconcile();
-        
-        Diagnostic diag = oldGenModel.diagnose();
+        final Diagnostic diag = genModel.diagnose();
         if (diag.getSeverity() != Diagnostic.OK) {
         	throw new DiagnosticException(diag);
         }
         
-        // Save updated genmodel
-        try {
-			genModelResource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			EMFTextEditPlugin.logError("Error while saving updated genmodel resource.", e);
-		}
+		genModelResource.save(Collections.EMPTY_MAP);
 	}
 	
 }
