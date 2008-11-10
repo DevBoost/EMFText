@@ -13,14 +13,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticException;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -87,19 +83,11 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 								Resource genModelResource = rs.getResource(genModelURI, true);
 				            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
 				            	
-				            	// TODO fheidenreich: After looking more closely on this code, I finally think that updating the
-				            	// genmodel is not necessary here. We're checking whether the genmodel itself has been changed via
-				            	// the cache and building/reconciling the genmodel should be done by the user, not manually by the
-				            	// tool
-				            	// TODO skarol What do you think?
-				            	// TODO mseifert WHat do you think?
 				            	if(!file.isReadOnly()){
 					            	try {
-					            		//TODO Sven: update method needs fix make your file readonly to skip it
-					            		//				I would fix it if I would know what exactly it should do :-)
 					            		updateGenModel(genModel);
 					            	} catch (Exception e){
-					            		e.printStackTrace();
+					            		EMFTextEditPlugin.logError("Error while updating genmodel " + file, e);
 					            	}				            		
 				            	}
 				            	
@@ -114,8 +102,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 					}
 				});
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				EMFTextEditPlugin.logError("Error while traversing resources.", e);
 			}
 		
 			if (genPackages.containsKey(nsURI)) {
@@ -126,30 +113,21 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 	}
 	
 	private void updateGenModel(GenModel oldGenModel) throws DiagnosticException {
-		//update the gen model
         Resource genModelResource = oldGenModel.eResource();
-        EList<EPackage> ePackages = new BasicEList<EPackage>();        
-        for(GenPackage genPackage : oldGenModel.getGenPackages()) {
-        	ePackages.add(genPackage.getEcorePackage());
-        }
         
-        GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
-
-        genModel.initialize(ePackages);
-        genModel.reconcile(oldGenModel);
+		// Update genmodel
+		oldGenModel.reconcile();
         
-        Diagnostic diag = genModel.diagnose();
+        Diagnostic diag = oldGenModel.diagnose();
         if (diag.getSeverity() != Diagnostic.OK) {
         	throw new DiagnosticException(diag);
         }
         
-        genModelResource.getContents().remove(oldGenModel);
-        genModelResource.getContents().add(genModel);
-        //save the gen model
+        // Save updated genmodel
         try {
 			genModelResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
-			e.printStackTrace();
+			EMFTextEditPlugin.logError("Error while saving updated genmodel resource.", e);
 		}
 	}
 	
