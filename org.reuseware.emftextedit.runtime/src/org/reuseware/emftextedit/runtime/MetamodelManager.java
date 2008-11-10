@@ -17,8 +17,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
 
 public class MetamodelManager {
 	
