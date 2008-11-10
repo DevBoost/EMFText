@@ -35,18 +35,16 @@ public class EMFTextOCLValidator {
 			ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
 	private TextResource textResource;
-	private IFile resourceFile;
 
 	public void analyse(EObject rootObject) {
 
 		Resource resource = rootObject.eResource();
-		// we do either use the text resource or the file
-		// containing the resource to annotate errors
+
+		// Since the resource is loaded with ETE
+		// it is necessarily a TextResource
 		if (resource instanceof TextResource) {
 			textResource = (TextResource) resource;
-		} else {
-			resourceFile = WorkspaceSynchronizer.getFile(resource);
-		}
+		} 
 		TreeIterator<EObject> allContents = resource.getAllContents();
 
 		while (allContents.hasNext()) {
@@ -161,22 +159,7 @@ public class EMFTextOCLValidator {
 		if (textResource != null) {
 			textResource.addError(errorMesssage, targetObject);
 		}
-		if (resourceFile != null) {
-			IMarker marker;
-			try {
-				marker = resourceFile.createMarker(IMarker.PROBLEM);
 
-				marker.setAttribute(IMarker.MESSAGE, errorMesssage);
-				marker.setAttribute(IMarker.SEVERITY,
-						IMarker.SEVERITY_WARNING);
-
-				marker.setAttribute(IMarker.LOCATION,
-						targetObject.toString());
-			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
 	
 
