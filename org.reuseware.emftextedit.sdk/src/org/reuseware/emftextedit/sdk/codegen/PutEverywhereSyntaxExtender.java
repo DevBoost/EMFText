@@ -7,14 +7,14 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
-import org.reuseware.emftextedit.concretesyntax.Choice;
-import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
-import org.reuseware.emftextedit.concretesyntax.ConcretesyntaxFactory;
-import org.reuseware.emftextedit.concretesyntax.Containment;
-import org.reuseware.emftextedit.concretesyntax.Definition;
-import org.reuseware.emftextedit.concretesyntax.Rule;
-import org.reuseware.emftextedit.concretesyntax.Sequence;
+import org.reuseware.emftextedit.sdk.concretesyntax.Choice;
+import org.reuseware.emftextedit.sdk.concretesyntax.CompoundDefinition;
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcretesyntaxFactory;
+import org.reuseware.emftextedit.sdk.concretesyntax.Containment;
+import org.reuseware.emftextedit.sdk.concretesyntax.Definition;
+import org.reuseware.emftextedit.sdk.concretesyntax.Rule;
+import org.reuseware.emftextedit.sdk.concretesyntax.Sequence;
 
 public class PutEverywhereSyntaxExtender {
 	

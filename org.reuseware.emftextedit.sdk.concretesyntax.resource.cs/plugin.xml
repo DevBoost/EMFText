@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.emf.ecore.extension_parser">
       <parser
-            class="org.reuseware.emftextedit.concretesyntax.resource.cs.CsResourceFactoryImpl"
+            class="org.reuseware.emftextedit.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl"
             type="cs">
       </parser>
    </extension>
@@ -12,9 +12,9 @@
    <extension
          point="org.reuseware.emftextedit.runtime.concretesyntax">
       <concretesyntax
-            uri="http://www.reuseware.org/emftextedit/concretesyntax"
+            uri="http://www.reuseware.org/emftextedit/sdk/concretesyntax"
             csName="cs"
-            csDefinition="org.reuseware.emftextedit.concretesyntax/model/cs.cs">
+            csDefinition="org.reuseware.emftextedit.sdk.concretesyntax/model/cs.cs">
       </concretesyntax>
    </extension>
 

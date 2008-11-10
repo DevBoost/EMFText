@@ -1,6 +1,6 @@
 package org.reuseware.emftextedit.sdk.codegen;
 
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
 import org.eclipse.core.resources.IFolder;
 import java.util.Map;
 

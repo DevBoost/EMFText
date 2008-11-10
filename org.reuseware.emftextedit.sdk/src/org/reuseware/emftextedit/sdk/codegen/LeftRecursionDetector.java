@@ -9,14 +9,14 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
-import org.reuseware.emftextedit.concretesyntax.Choice;
-import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
-import org.reuseware.emftextedit.concretesyntax.Containment;
-import org.reuseware.emftextedit.concretesyntax.Definition;
-import org.reuseware.emftextedit.concretesyntax.PLUS;
-import org.reuseware.emftextedit.concretesyntax.Rule;
-import org.reuseware.emftextedit.concretesyntax.Sequence;
+import org.reuseware.emftextedit.sdk.concretesyntax.Choice;
+import org.reuseware.emftextedit.sdk.concretesyntax.CompoundDefinition;
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
+import org.reuseware.emftextedit.sdk.concretesyntax.Containment;
+import org.reuseware.emftextedit.sdk.concretesyntax.Definition;
+import org.reuseware.emftextedit.sdk.concretesyntax.PLUS;
+import org.reuseware.emftextedit.sdk.concretesyntax.Rule;
+import org.reuseware.emftextedit.sdk.concretesyntax.Sequence;
 
 public class LeftRecursionDetector {
 	

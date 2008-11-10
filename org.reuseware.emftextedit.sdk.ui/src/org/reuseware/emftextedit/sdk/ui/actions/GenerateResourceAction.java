@@ -37,12 +37,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
-import org.reuseware.emftextedit.concretesyntax.Import;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.ui.MarkerHelper;
 import org.reuseware.emftextedit.sdk.codegen.ResourcePackage;
 import org.reuseware.emftextedit.sdk.codegen.ResourcePackageGenerator;
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
+import org.reuseware.emftextedit.sdk.concretesyntax.Import;
 import org.reuseware.emftextedit.sdk.ui.EMFTextEditSDKUIPlugin;
 
 /**

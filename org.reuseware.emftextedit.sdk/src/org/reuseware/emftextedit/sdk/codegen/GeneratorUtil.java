@@ -5,8 +5,8 @@ import java.util.LinkedList;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
-import org.reuseware.emftextedit.concretesyntax.Rule;
-import org.reuseware.emftextedit.concretesyntax.Option;
+import org.reuseware.emftextedit.sdk.concretesyntax.Option;
+import org.reuseware.emftextedit.sdk.concretesyntax.Rule;
 
 public class GeneratorUtil {
 
