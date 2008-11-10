@@ -123,7 +123,7 @@ public class GenPackageInWorkspaceFinder implements GenPackageFinder {
 		//update the gen model
         Resource genModelResource = oldGenModel.eResource();
         EList<EPackage> ePackages = new BasicEList<EPackage>();        
-        for(GenPackage genPackage : oldGenModel.getUsedGenPackages()) {
+        for(GenPackage genPackage : oldGenModel.getGenPackages()) {
         	ePackages.add(genPackage.getEcorePackage());
         }
         
