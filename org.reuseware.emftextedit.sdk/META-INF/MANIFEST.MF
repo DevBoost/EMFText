@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
  org.eclipse.ocl.ecore,
  org.reuseware.emftextedit.sdk.concretesyntax;visibility:=reexport,
  org.reuseware.emftextedit.runtime,
- org.reuseware.emftextedit.antlr;bundle-version="0.8.9"
+ org.reuseware.emftextedit.sdk.antlr;bundle-version="0.8.9"
 Export-Package: org.reuseware.emftextedit.sdk,
  org.reuseware.emftextedit.sdk.codegen,
  org.reuseware.emftextedit.sdk.codegen.regex
