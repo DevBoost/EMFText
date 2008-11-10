@@ -544,10 +544,11 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								printStatement = 
 										"TokenResolver resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
-										+ "\");resolver.setOptions(getOptions());"
+										+ "\");\n\t\t\t\t"
+										+ "resolver.setOptions(getOptions());\n\t\t\t\t"
 										+ printPrefix
 										+ "resolver.deResolve((Object)o,element.eClass().getEStructuralFeature(\""
-										+ featureName + "\"),element));";
+										+ featureName + "\"),element));\n\t\t\t\t";
 							}
 
 
