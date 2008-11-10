@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.BundleContext;
 
@@ -84,6 +86,22 @@ public class EMFTextEditPlugin extends Plugin {
 			
 		}
 		return URIToConcreteSyntaxLocationMap;
+	}
+	
+	/**
+	 * Helper method for error logging.
+	 * 
+	 * @param message
+	 *            the error message
+	 * @param exception
+	 *            the exception that describes the error in detail
+	 * @return the status object describing the error
+	 */
+	public static IStatus logError(String message, Throwable exception) {
+		IStatus status = new Status(IStatus.ERROR, EMFTextEditPlugin.PLUGIN_ID,
+				0, message, exception);
+		EMFTextEditPlugin.getDefault().getLog().log(status);
+		return status;
 	}
 
 }
