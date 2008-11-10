@@ -37,6 +37,7 @@ public class MarkerHelper {
             marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
             marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
         	if (diagnostic instanceof TextDiagnostic) {
+        		marker.setAttribute(IMarker.LINE_NUMBER, ((TextDiagnostic)diagnostic).getLine());
                 marker.setAttribute(IMarker.CHAR_START, ((TextDiagnostic)diagnostic).getCharStart());
                 marker.setAttribute(IMarker.CHAR_END, ((TextDiagnostic)diagnostic).getCharEnd() + 1);		
         	}
@@ -51,6 +52,7 @@ public class MarkerHelper {
             marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
             marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
         	if (diagnostic instanceof TextDiagnostic) {
+        		marker.setAttribute(IMarker.LINE_NUMBER, ((TextDiagnostic)diagnostic).getLine());
                 marker.setAttribute(IMarker.CHAR_START, ((TextDiagnostic)diagnostic).getCharStart());
                 marker.setAttribute(IMarker.CHAR_END, ((TextDiagnostic)diagnostic).getCharEnd() + 1);		
         	}
