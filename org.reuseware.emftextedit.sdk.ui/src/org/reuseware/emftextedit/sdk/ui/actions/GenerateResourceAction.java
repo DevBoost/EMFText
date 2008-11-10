@@ -337,7 +337,6 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		s.append("  org.eclipse.emf.ecore,\n");
 		s.append("  " + cSyntax.getPackage().getGenModel().getModelPluginID()
 				+ ",\n");
-		s.append("  org.reuseware.emftextedit.runtime,\n");
 		if (EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
 				EMFTextEditSDKUIPlugin.GENERATE_TEST_ACTION_NAME)) {
 			s.append("  org.reuseware.emftextedit.test,\n");
@@ -350,7 +349,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 				importedPlugins.add(m);
 			}
 		}
-		s.append("  org.reuseware.emftextedit\n");
+		s.append("  org.reuseware.emftextedit.runtime\n");
 		s.append("Bundle-ActivationPolicy: lazy\n");
 		s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
 		// export the generated packages
