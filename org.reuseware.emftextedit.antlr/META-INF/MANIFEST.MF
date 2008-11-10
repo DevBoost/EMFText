@@ -6,12 +6,26 @@ Bundle-Name: Reuseware Dependencies: ANTLR3, ANTLR3, STRINGTEMPLATE
 Bundle-SymbolicName: org.reuseware.emftextedit.antlr; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: antlr,antlr.actions.cpp,antlr.actions.csharp,antlr.act
- ions.java,antlr.actions.python,antlr.ASdebug,antlr.build,antlr.collec
- tions,antlr.collections.impl,antlr.debug,antlr.debug.misc,antlr.prepr
- ocessor,org.antlr,org.antlr.analysis,org.antlr.codegen,org.antlr.misc
- ,org.antlr.runtime,org.antlr.runtime.debug,org.antlr.runtime.misc,org
- .antlr.runtime.tree,org.antlr.stringtemplate,org.antlr.stringtemplate
- .language,org.antlr.stringtemplate.misc,org.antlr.tool
+Export-Package: antlr,
+ antlr.ASdebug,
+ antlr.actions.cpp,
+ antlr.actions.csharp,
+ antlr.actions.java,
+ antlr.actions.python,
+ antlr.build,
+ antlr.collections,
+ antlr.collections.impl,
+ antlr.debug,
+ antlr.debug.misc,
+ antlr.preprocessor,
+ org.antlr,
+ org.antlr.analysis,
+ org.antlr.codegen,
+ org.antlr.misc,
+ org.antlr.stringtemplate,
+ org.antlr.stringtemplate.language,
+ org.antlr.stringtemplate.misc,
+ org.antlr.tool
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Require-Bundle: org.antlr.runtime;bundle-version="3.0.0"
 
