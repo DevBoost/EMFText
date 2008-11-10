@@ -3,15 +3,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.reuseware.emftextedit.runtime.resource.EMFTextParser;
-import org.reuseware.emftextedit.runtime.resource.EMFTextPrinter;
-import org.reuseware.emftextedit.runtime.resource.EMFTextTreeAnalyser;
-import org.reuseware.emftextedit.runtime.resource.impl.TextResourceImpl;
+import org.reuseware.emftextedit.runtime.resource.*;
+import org.reuseware.emftextedit.runtime.resource.impl.*;
 
 public class CsResourceImpl extends TextResourceImpl {
 	public CsResourceImpl(){

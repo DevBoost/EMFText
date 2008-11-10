@@ -45,7 +45,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//CsString/value"/>
     </genClasses>
     <genClasses ecoreClass="Concretesyntax.ecore#//WhiteSpaces">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//WhiteSpaces/ammount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//WhiteSpaces/amount"/>
     </genClasses>
     <genClasses ecoreClass="Concretesyntax.ecore#//LineBreak">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//LineBreak/tab"/>

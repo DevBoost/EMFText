@@ -551,7 +551,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWhiteSpaces_Ammount() {
+	public EAttribute getWhiteSpaces_Amount() {
 		return (EAttribute)whiteSpacesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -871,7 +871,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(csStringEClass, CS_STRING__VALUE);
 
 		whiteSpacesEClass = createEClass(WHITE_SPACES);
-		createEAttribute(whiteSpacesEClass, WHITE_SPACES__AMMOUNT);
+		createEAttribute(whiteSpacesEClass, WHITE_SPACES__AMOUNT);
 
 		lineBreakEClass = createEClass(LINE_BREAK);
 		createEAttribute(lineBreakEClass, LINE_BREAK__TAB);
@@ -1004,7 +1004,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getCsString_Value(), ecorePackage.getEString(), "value", null, 1, 1, CsString.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(whiteSpacesEClass, WhiteSpaces.class, "WhiteSpaces", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getWhiteSpaces_Ammount(), ecorePackage.getEInt(), "ammount", null, 0, 1, WhiteSpaces.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWhiteSpaces_Amount(), ecorePackage.getEInt(), "amount", null, 0, 1, WhiteSpaces.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(lineBreakEClass, LineBreak.class, "LineBreak", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLineBreak_Tab(), ecorePackage.getEInt(), "tab", null, 0, 1, LineBreak.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

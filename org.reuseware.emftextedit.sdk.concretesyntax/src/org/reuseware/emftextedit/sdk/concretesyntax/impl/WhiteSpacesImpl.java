@@ -22,7 +22,7 @@ import org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.reuseware.emftextedit.sdk.concretesyntax.impl.WhiteSpacesImpl#getAmmount <em>Ammount</em>}</li>
+ *   <li>{@link org.reuseware.emftextedit.sdk.concretesyntax.impl.WhiteSpacesImpl#getAmount <em>Amount</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,24 +30,24 @@ import org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces;
  */
 public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	/**
-	 * The default value of the '{@link #getAmmount() <em>Ammount</em>}' attribute.
+	 * The default value of the '{@link #getAmount() <em>Amount</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAmmount()
+	 * @see #getAmount()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int AMMOUNT_EDEFAULT = 0;
+	protected static final int AMOUNT_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getAmmount() <em>Ammount</em>}' attribute.
+	 * The cached value of the '{@link #getAmount() <em>Amount</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAmmount()
+	 * @see #getAmount()
 	 * @generated
 	 * @ordered
 	 */
-	protected int ammount = AMMOUNT_EDEFAULT;
+	protected int amount = AMOUNT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,8 +73,8 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getAmmount() {
-		return ammount;
+	public int getAmount() {
+		return amount;
 	}
 
 	/**
@@ -82,11 +82,11 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAmmount(int newAmmount) {
-		int oldAmmount = ammount;
-		ammount = newAmmount;
+	public void setAmount(int newAmount) {
+		int oldAmount = amount;
+		amount = newAmount;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.WHITE_SPACES__AMMOUNT, oldAmmount, ammount));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.WHITE_SPACES__AMOUNT, oldAmount, amount));
 	}
 
 	/**
@@ -97,8 +97,8 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.WHITE_SPACES__AMMOUNT:
-				return new Integer(getAmmount());
+			case ConcretesyntaxPackage.WHITE_SPACES__AMOUNT:
+				return new Integer(getAmount());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,8 +111,8 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.WHITE_SPACES__AMMOUNT:
-				setAmmount(((Integer)newValue).intValue());
+			case ConcretesyntaxPackage.WHITE_SPACES__AMOUNT:
+				setAmount(((Integer)newValue).intValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -126,8 +126,8 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.WHITE_SPACES__AMMOUNT:
-				setAmmount(AMMOUNT_EDEFAULT);
+			case ConcretesyntaxPackage.WHITE_SPACES__AMOUNT:
+				setAmount(AMOUNT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -141,8 +141,8 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.WHITE_SPACES__AMMOUNT:
-				return ammount != AMMOUNT_EDEFAULT;
+			case ConcretesyntaxPackage.WHITE_SPACES__AMOUNT:
+				return amount != AMOUNT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -157,8 +157,8 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (ammount: ");
-		result.append(ammount);
+		result.append(" (amount: ");
+		result.append(amount);
 		result.append(')');
 		return result.toString();
 	}

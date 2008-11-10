@@ -15,7 +15,7 @@ package org.reuseware.emftextedit.sdk.concretesyntax;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmmount <em>Ammount</em>}</li>
+ *   <li>{@link org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmount <em>Amount</em>}</li>
  * </ul>
  * </p>
  *
@@ -25,29 +25,29 @@ package org.reuseware.emftextedit.sdk.concretesyntax;
  */
 public interface WhiteSpaces extends Definition {
 	/**
-	 * Returns the value of the '<em><b>Ammount</b></em>' attribute.
+	 * Returns the value of the '<em><b>Amount</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ammount</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Amount</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ammount</em>' attribute.
-	 * @see #setAmmount(int)
-	 * @see org.reuseware.emftextedit.sdk.concretesyntax.ConcretesyntaxPackage#getWhiteSpaces_Ammount()
+	 * @return the value of the '<em>Amount</em>' attribute.
+	 * @see #setAmount(int)
+	 * @see org.reuseware.emftextedit.sdk.concretesyntax.ConcretesyntaxPackage#getWhiteSpaces_Amount()
 	 * @model
 	 * @generated
 	 */
-	int getAmmount();
+	int getAmount();
 
 	/**
-	 * Sets the value of the '{@link org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmmount <em>Ammount</em>}' attribute.
+	 * Sets the value of the '{@link org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmount <em>Amount</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ammount</em>' attribute.
-	 * @see #getAmmount()
+	 * @param value the new value of the '<em>Amount</em>' attribute.
+	 * @see #getAmount()
 	 * @generated
 	 */
-	void setAmmount(int value);
+	void setAmount(int value);
 
 } // WhiteSpaces

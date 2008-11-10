@@ -31,7 +31,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 */
 	public static ConcretesyntaxFactory init() {
 		try {
-			ConcretesyntaxFactory theConcretesyntaxFactory = (ConcretesyntaxFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.reuseware.org/emftextedit/concretesyntax"); 
+			ConcretesyntaxFactory theConcretesyntaxFactory = (ConcretesyntaxFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.reuseware.org/emftextedit/sdk/concretesyntax"); 
 			if (theConcretesyntaxFactory != null) {
 				return theConcretesyntaxFactory;
 			}

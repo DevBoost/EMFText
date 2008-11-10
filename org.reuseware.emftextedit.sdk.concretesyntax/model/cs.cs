@@ -49,7 +49,7 @@ RULES {
   STAR ::= "*";   
   QUESTIONMARK ::= "?";
   
-  WhiteSpaces    ::= ammount['#'] #1;
+  WhiteSpaces    ::= amount['#'] #1;
   LineBreak      ::= tab['!'] #1;
   
   NormalToken ::= "DEFINE" #1 name[] regex['$','$'];

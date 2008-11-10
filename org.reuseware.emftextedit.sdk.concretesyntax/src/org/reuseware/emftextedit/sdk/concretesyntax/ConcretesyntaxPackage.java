@@ -41,7 +41,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.reuseware.org/emftextedit/concretesyntax";
+	String eNS_URI = "http://www.reuseware.org/emftextedit/sdk/concretesyntax";
 
 	/**
 	 * The package namespace name.
@@ -49,7 +49,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.reuseware.emftextedit.concretesyntax";
+	String eNS_PREFIX = "org.reuseware.emftextedit.sdk.concretesyntax";
 
 	/**
 	 * The singleton instance of the package.
@@ -420,13 +420,13 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int WHITE_SPACES__CARDINALITY = DEFINITION__CARDINALITY;
 
 	/**
-	 * The feature id for the '<em><b>Ammount</b></em>' attribute.
+	 * The feature id for the '<em><b>Amount</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHITE_SPACES__AMMOUNT = DEFINITION_FEATURE_COUNT + 0;
+	int WHITE_SPACES__AMOUNT = DEFINITION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>White Spaces</em>' class.
@@ -1331,15 +1331,15 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getWhiteSpaces();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmmount <em>Ammount</em>}'.
+	 * Returns the meta object for the attribute '{@link org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmount <em>Amount</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ammount</em>'.
-	 * @see org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmmount()
+	 * @return the meta object for the attribute '<em>Amount</em>'.
+	 * @see org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces#getAmount()
 	 * @see #getWhiteSpaces()
 	 * @generated
 	 */
-	EAttribute getWhiteSpaces_Ammount();
+	EAttribute getWhiteSpaces_Amount();
 
 	/**
 	 * Returns the meta object for class '{@link org.reuseware.emftextedit.sdk.concretesyntax.LineBreak <em>Line Break</em>}'.
@@ -1898,12 +1898,12 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass WHITE_SPACES = eINSTANCE.getWhiteSpaces();
 
 		/**
-		 * The meta object literal for the '<em><b>Ammount</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Amount</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute WHITE_SPACES__AMMOUNT = eINSTANCE.getWhiteSpaces_Ammount();
+		EAttribute WHITE_SPACES__AMOUNT = eINSTANCE.getWhiteSpaces_Amount();
 
 		/**
 		 * The meta object literal for the '{@link org.reuseware.emftextedit.sdk.concretesyntax.impl.LineBreakImpl <em>Line Break</em>}' class.

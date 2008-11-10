@@ -2,7 +2,7 @@ grammar Cs;
 options {superClass = EMFTextParserImpl; backtrack = true;}
 
 @lexer::header{
-package org.reuseware.emftextedit.concretesyntax.resource.cs;
+package org.reuseware.emftextedit.sdk.concretesyntax.resource.cs;
 
 }
 
@@ -17,61 +17,61 @@ package org.reuseware.emftextedit.concretesyntax.resource.cs;
 	}
 }
 @header{
-package org.reuseware.emftextedit.concretesyntax.resource.cs;
+package org.reuseware.emftextedit.sdk.concretesyntax.resource.cs;
 
-//+++++++++++++++++++++++imports for org.reuseware.emftextedit.concretesyntax begin++++++++++++++++++++++
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl
-import org.reuseware.emftextedit.concretesyntax.Import;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ImportImpl
-import org.reuseware.emftextedit.concretesyntax.Rule;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.RuleImpl
-import org.reuseware.emftextedit.concretesyntax.Choice;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ChoiceImpl
-import org.reuseware.emftextedit.concretesyntax.Sequence;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.SequenceImpl
-import org.reuseware.emftextedit.concretesyntax.Definition;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinitionImpl
-import org.reuseware.emftextedit.concretesyntax.Terminal;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TerminalImpl
-import org.reuseware.emftextedit.concretesyntax.CsString;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CsStringImpl
-import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.WhiteSpacesImpl
-import org.reuseware.emftextedit.concretesyntax.LineBreak;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.LineBreakImpl
-import org.reuseware.emftextedit.concretesyntax.Cardinality;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CardinalityImpl
-import org.reuseware.emftextedit.concretesyntax.PLUS;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PLUSImpl
-import org.reuseware.emftextedit.concretesyntax.STAR;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.STARImpl
-import org.reuseware.emftextedit.concretesyntax.QUESTIONMARK;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.QUESTIONMARKImpl
-import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CompoundDefinitionImpl
-import org.reuseware.emftextedit.concretesyntax.TokenDefinition;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TokenDefinitionImpl
-import org.reuseware.emftextedit.concretesyntax.NormalToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NormalTokenImpl
-import org.reuseware.emftextedit.concretesyntax.DecoratedToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DecoratedTokenImpl
-import org.reuseware.emftextedit.concretesyntax.NewDefinedToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NewDefinedTokenImpl
-import org.reuseware.emftextedit.concretesyntax.PreDefinedToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PreDefinedTokenImpl
-import org.reuseware.emftextedit.concretesyntax.Containment;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ContainmentImpl
-import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinedPlaceholderImpl
-import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DerivedPlaceholderImpl
-import org.reuseware.emftextedit.concretesyntax.Placeholder;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PlaceholderImpl
-import org.reuseware.emftextedit.concretesyntax.Option;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.OptionImpl
-import org.reuseware.emftextedit.concretesyntax.*;
-import org.reuseware.emftextedit.concretesyntax.impl.*;
+//+++++++++++++++++++++++imports for org.reuseware.emftextedit.sdk.concretesyntax begin++++++++++++++++++++++
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ConcreteSyntaxImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Import;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ImportImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Rule;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.RuleImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Choice;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ChoiceImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Sequence;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.SequenceImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Definition;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinitionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Terminal;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TerminalImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.CsString;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CsStringImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.WhiteSpacesImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.LineBreak;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.LineBreakImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Cardinality;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CardinalityImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.PLUS;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PLUSImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.STAR;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.STARImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.QUESTIONMARK;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.QUESTIONMARKImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.CompoundDefinition;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CompoundDefinitionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.TokenDefinition;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TokenDefinitionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.NormalToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NormalTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.DecoratedToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DecoratedTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.NewDefinedToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NewDefinedTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.PreDefinedToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PreDefinedTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Containment;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ContainmentImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.DefinedPlaceholder;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinedPlaceholderImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.DerivedPlaceholder;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DerivedPlaceholderImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Placeholder;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PlaceholderImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Option;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.OptionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.*;
+import org.reuseware.emftextedit.sdk.concretesyntax.impl.*;
 //+++++++++++++++++++++++imports for org.eclipse.emf.ecore begin++++++++++++++++++++++
 import org.eclipse.emf.ecore.EAttribute;
 //Implementation: org.eclipse.emf.ecore.impl.EAttributeImpl
@@ -146,61 +146,61 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenTypeParameter;
 //Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenTypeParameterImpl
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.emf.codegen.ecore.genmodel.impl.*;
-//+++++++++++++++++++++++imports for org.reuseware.emftextedit.concretesyntax begin++++++++++++++++++++++
-import org.reuseware.emftextedit.concretesyntax.ConcreteSyntax;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ConcreteSyntaxImpl
-import org.reuseware.emftextedit.concretesyntax.Import;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ImportImpl
-import org.reuseware.emftextedit.concretesyntax.Rule;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.RuleImpl
-import org.reuseware.emftextedit.concretesyntax.Choice;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ChoiceImpl
-import org.reuseware.emftextedit.concretesyntax.Sequence;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.SequenceImpl
-import org.reuseware.emftextedit.concretesyntax.Definition;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinitionImpl
-import org.reuseware.emftextedit.concretesyntax.Terminal;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TerminalImpl
-import org.reuseware.emftextedit.concretesyntax.CsString;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CsStringImpl
-import org.reuseware.emftextedit.concretesyntax.WhiteSpaces;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.WhiteSpacesImpl
-import org.reuseware.emftextedit.concretesyntax.LineBreak;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.LineBreakImpl
-import org.reuseware.emftextedit.concretesyntax.Cardinality;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CardinalityImpl
-import org.reuseware.emftextedit.concretesyntax.PLUS;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PLUSImpl
-import org.reuseware.emftextedit.concretesyntax.STAR;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.STARImpl
-import org.reuseware.emftextedit.concretesyntax.QUESTIONMARK;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.QUESTIONMARKImpl
-import org.reuseware.emftextedit.concretesyntax.CompoundDefinition;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.CompoundDefinitionImpl
-import org.reuseware.emftextedit.concretesyntax.TokenDefinition;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.TokenDefinitionImpl
-import org.reuseware.emftextedit.concretesyntax.NormalToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NormalTokenImpl
-import org.reuseware.emftextedit.concretesyntax.DecoratedToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DecoratedTokenImpl
-import org.reuseware.emftextedit.concretesyntax.NewDefinedToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.NewDefinedTokenImpl
-import org.reuseware.emftextedit.concretesyntax.PreDefinedToken;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PreDefinedTokenImpl
-import org.reuseware.emftextedit.concretesyntax.Containment;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.ContainmentImpl
-import org.reuseware.emftextedit.concretesyntax.DefinedPlaceholder;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DefinedPlaceholderImpl
-import org.reuseware.emftextedit.concretesyntax.DerivedPlaceholder;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.DerivedPlaceholderImpl
-import org.reuseware.emftextedit.concretesyntax.Placeholder;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.PlaceholderImpl
-import org.reuseware.emftextedit.concretesyntax.Option;
-//Implementation: org.reuseware.emftextedit.concretesyntax.impl.OptionImpl
-import org.reuseware.emftextedit.concretesyntax.*;
-import org.reuseware.emftextedit.concretesyntax.impl.*;
-import org.reuseware.emftextedit.resource.*;
-import org.reuseware.emftextedit.resource.impl.*;
+//+++++++++++++++++++++++imports for org.reuseware.emftextedit.sdk.concretesyntax begin++++++++++++++++++++++
+import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ConcreteSyntaxImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Import;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ImportImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Rule;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.RuleImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Choice;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ChoiceImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Sequence;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.SequenceImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Definition;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinitionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Terminal;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TerminalImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.CsString;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CsStringImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.WhiteSpacesImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.LineBreak;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.LineBreakImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Cardinality;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CardinalityImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.PLUS;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PLUSImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.STAR;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.STARImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.QUESTIONMARK;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.QUESTIONMARKImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.CompoundDefinition;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CompoundDefinitionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.TokenDefinition;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TokenDefinitionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.NormalToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NormalTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.DecoratedToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DecoratedTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.NewDefinedToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NewDefinedTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.PreDefinedToken;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PreDefinedTokenImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Containment;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ContainmentImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.DefinedPlaceholder;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinedPlaceholderImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.DerivedPlaceholder;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DerivedPlaceholderImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Placeholder;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PlaceholderImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.Option;
+//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.OptionImpl
+import org.reuseware.emftextedit.sdk.concretesyntax.*;
+import org.reuseware.emftextedit.sdk.concretesyntax.impl.*;
+import org.reuseware.emftextedit.runtime.resource.*;
+import org.reuseware.emftextedit.runtime.resource.impl.*;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.common.util.URI;
@@ -229,24 +229,24 @@ concretesyntax returns [ConcreteSyntax element = null]
 }
 :
 	'SYNTAXDEF'
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 	'FOR'
-	a1 = QUOTED_60_62{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setPackage(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); }
+	a1 = QUOTED_60_62{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("package"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); }
 	'START'
 	(
-		a2 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); }
+		a2 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); }
 
 		|
-		a3 = QNAME{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(element, a3.getCharPositionInLine()); getResource().setElementLine(element, a3.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(proxy, a3.getCharPositionInLine()); getResource().setElementLine(proxy, a3.getLine()); }
+		a3 = QNAME{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a3, element); copyLocalizationInfos((CommonToken) a3, proxy); }
 	)
 	(
 		(
 			','
 			(
-				a4 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a4.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a4,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a4).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a4).getStopIndex()); getResource().setElementColumn(element, a4.getCharPositionInLine()); getResource().setElementLine(element, a4.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a4).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a4).getStopIndex()); getResource().setElementColumn(proxy, a4.getCharPositionInLine()); getResource().setElementLine(proxy, a4.getLine()); }
+				a4 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a4.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a4,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a4, element); copyLocalizationInfos((CommonToken) a4, proxy); }
 
 				|
-				a5 = QNAME{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a5,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.getStartSymbols().add(proxy); getResource().setElementCharStart(element, ((CommonToken)a5).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a5).getStopIndex()); getResource().setElementColumn(element, a5.getCharPositionInLine()); getResource().setElementLine(element, a5.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a5).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a5).getStopIndex()); getResource().setElementColumn(proxy, a5.getCharPositionInLine()); getResource().setElementLine(proxy, a5.getLine()); }
+				a5 = QNAME{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a5,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a5, element); copyLocalizationInfos((CommonToken) a5, proxy); }
 			)
 		)
 	)*
@@ -256,7 +256,7 @@ concretesyntax returns [ConcreteSyntax element = null]
 			'{'
 			(
 				(
-					a6 = keywordimport{element.getImports().add(a6); getResource().setElementCharStart(element, getResource().getElementCharStart(a6)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a6)); getResource().setElementColumn(element, getResource().getElementColumn(a6)); getResource().setElementLine(element, getResource().getElementLine(a6));}
+					a6 = keywordimport{((List) element.eGet(element.eClass().getEStructuralFeature("imports"))).add(a6); copyLocalizationInfos(a6, element); }
 				)
 			)*
 			'}'
@@ -268,7 +268,7 @@ concretesyntax returns [ConcreteSyntax element = null]
 			'{'
 			(
 				(
-					a7 = option{element.getOptions().add(a7); getResource().setElementCharStart(element, getResource().getElementCharStart(a7)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a7)); getResource().setElementColumn(element, getResource().getElementColumn(a7)); getResource().setElementLine(element, getResource().getElementLine(a7));}
+					a7 = option{((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a7); copyLocalizationInfos(a7, element); }
 					';'
 				)
 			)*
@@ -281,7 +281,7 @@ concretesyntax returns [ConcreteSyntax element = null]
 			'{'
 			(
 				(
-					a8 = tokendefinition{element.getTokens().add(a8); getResource().setElementCharStart(element, getResource().getElementCharStart(a8)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a8)); getResource().setElementColumn(element, getResource().getElementColumn(a8)); getResource().setElementLine(element, getResource().getElementLine(a8));}
+					a8 = tokendefinition{((List) element.eGet(element.eClass().getEStructuralFeature("tokens"))).add(a8); copyLocalizationInfos(a8, element); }
 					';'
 				)
 			)*
@@ -292,7 +292,7 @@ concretesyntax returns [ConcreteSyntax element = null]
 	'{'
 	(
 		(
-			a9 = rule{element.getRules().add(a9); getResource().setElementCharStart(element, getResource().getElementCharStart(a9)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a9)); getResource().setElementColumn(element, getResource().getElementColumn(a9)); getResource().setElementLine(element, getResource().getElementLine(a9));}
+			a9 = rule{((List) element.eGet(element.eClass().getEStructuralFeature("rules"))).add(a9); copyLocalizationInfos(a9, element); }
 		)+
 	)
 	'}'
@@ -303,14 +303,14 @@ keywordimport returns [Import element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createImport();
 }
 :
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 	':'
-	a1 = QUOTED_60_62{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setPackage(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); }
+	a1 = QUOTED_60_62{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("package"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); }
 	(
 		(
 			'WITH'
 			'SYNTAX'
-			a2 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("concreteSyntax"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;ConcreteSyntax proxy = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setConcreteSyntax(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); }
+			a2 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("concreteSyntax"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;ConcreteSyntax proxy = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("concreteSyntax"), proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); }
 		)
 	)?
 ;
@@ -320,9 +320,9 @@ option returns [Option element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createOption();
 }
 :
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 	'='
-	a1 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setValue(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); }
+	a1 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("value"), resolved); copyLocalizationInfos((CommonToken) a1, element); }
 ;
 
 rule returns [Rule element = null]
@@ -331,13 +331,13 @@ rule returns [Rule element = null]
 }
 :
 	(
-		a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setMetaclass(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); }
+		a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); }
 
 		|
-		a1 = QNAME{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setMetaclass(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); }
+		a1 = QNAME{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); }
 	)
 	'::='
-	a2 = choice{element.setDefinition(a2); getResource().setElementCharStart(element, getResource().getElementCharStart(a2)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a2)); getResource().setElementColumn(element, getResource().getElementColumn(a2)); getResource().setElementLine(element, getResource().getElementLine(a2));}
+	a2 = choice{element.eSet(element.eClass().getEStructuralFeature("definition"), a2); copyLocalizationInfos(a2, element); }
 	';'
 ;
 
@@ -347,7 +347,7 @@ sequence returns [Sequence element = null]
 }
 :
 	(
-		a0 = definition{element.getParts().add(a0); getResource().setElementCharStart(element, getResource().getElementCharStart(a0)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a0)); getResource().setElementColumn(element, getResource().getElementColumn(a0)); getResource().setElementLine(element, getResource().getElementLine(a0));}
+		a0 = definition{((List) element.eGet(element.eClass().getEStructuralFeature("parts"))).add(a0); copyLocalizationInfos(a0, element); }
 	)+
 ;
 
@@ -356,11 +356,11 @@ choice returns [Choice element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createChoice();
 }
 :
-	a0 = sequence{element.getOptions().add(a0); getResource().setElementCharStart(element, getResource().getElementCharStart(a0)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a0)); getResource().setElementColumn(element, getResource().getElementColumn(a0)); getResource().setElementLine(element, getResource().getElementLine(a0));}
+	a0 = sequence{((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a0); copyLocalizationInfos(a0, element); }
 	(
 		(
 			'|'
-			a1 = sequence{element.getOptions().add(a1); getResource().setElementCharStart(element, getResource().getElementCharStart(a1)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a1)); getResource().setElementColumn(element, getResource().getElementColumn(a1)); getResource().setElementLine(element, getResource().getElementLine(a1));}
+			a1 = sequence{((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a1); copyLocalizationInfos(a1, element); }
 		)
 	)*
 ;
@@ -370,7 +370,7 @@ csstring returns [CsString element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createCsString();
 }
 :
-	a0 = QUOTED_34_34{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setValue(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = QUOTED_34_34{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("value"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 ;
 
 definedplaceholder returns [DefinedPlaceholder element = null]
@@ -378,12 +378,12 @@ definedplaceholder returns [DefinedPlaceholder element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createDefinedPlaceholder();
 }
 :
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); }
 	'['
-	a1 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("token"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;NormalToken proxy = ConcretesyntaxFactory.eINSTANCE.createNormalToken();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setToken(proxy); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(proxy, a1.getCharPositionInLine()); getResource().setElementLine(proxy, a1.getLine()); }
+	a1 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("token"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;NormalToken proxy = ConcretesyntaxFactory.eINSTANCE.createNormalToken();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("token"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); }
 	']'
 	(
-		a2 = cardinality{element.setCardinality(a2); getResource().setElementCharStart(element, getResource().getElementCharStart(a2)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a2)); getResource().setElementColumn(element, getResource().getElementColumn(a2)); getResource().setElementLine(element, getResource().getElementLine(a2));}
+		a2 = cardinality{element.eSet(element.eClass().getEStructuralFeature("cardinality"), a2); copyLocalizationInfos(a2, element); }
 	)?
 ;
 
@@ -392,22 +392,22 @@ derivedplaceholder returns [DerivedPlaceholder element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createDerivedPlaceholder();
 }
 :
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); }
 	'['
 	(
 		(
-			a1 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); }
+			a1 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a1, element); }
 			(
 				(
 					','
-					a2 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setSuffix(resolved); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); }
+					a2 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); copyLocalizationInfos((CommonToken) a2, element); }
 				)
 			)?
 		)
 	)?
 	']'
 	(
-		a3 = cardinality{element.setCardinality(a3); getResource().setElementCharStart(element, getResource().getElementCharStart(a3)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a3)); getResource().setElementColumn(element, getResource().getElementColumn(a3)); getResource().setElementLine(element, getResource().getElementLine(a3));}
+		a3 = cardinality{element.eSet(element.eClass().getEStructuralFeature("cardinality"), a3); copyLocalizationInfos(a3, element); }
 	)?
 ;
 
@@ -417,11 +417,11 @@ containment returns [Containment element = null]
 }
 :
 	(
-		a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(proxy, a0.getCharPositionInLine()); getResource().setElementLine(proxy, a0.getLine()); }
-		a1 = cardinality{element.setCardinality(a1); getResource().setElementCharStart(element, getResource().getElementCharStart(a1)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a1)); getResource().setElementColumn(element, getResource().getElementColumn(a1)); getResource().setElementLine(element, getResource().getElementLine(a1));}
+		a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); }
+		a1 = cardinality{element.eSet(element.eClass().getEStructuralFeature("cardinality"), a1); copyLocalizationInfos(a1, element); }
 
 		|
-		a2 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.setFeature(proxy); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); getResource().setElementCharStart(proxy, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(proxy, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(proxy, a2.getCharPositionInLine()); getResource().setElementLine(proxy, a2.getLine()); }
+		a2 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); }
 	)
 ;
 
@@ -431,10 +431,10 @@ compounddefinition returns [CompoundDefinition element = null]
 }
 :
 	'('
-	a0 = choice{element.setDefinitions(a0); getResource().setElementCharStart(element, getResource().getElementCharStart(a0)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a0)); getResource().setElementColumn(element, getResource().getElementColumn(a0)); getResource().setElementLine(element, getResource().getElementLine(a0));}
+	a0 = choice{element.eSet(element.eClass().getEStructuralFeature("definitions"), a0); copyLocalizationInfos(a0, element); }
 	')'
 	(
-		a1 = cardinality{element.setCardinality(a1); getResource().setElementCharStart(element, getResource().getElementCharStart(a1)); getResource().setElementCharEnd(element, getResource().getElementCharEnd(a1)); getResource().setElementColumn(element, getResource().getElementColumn(a1)); getResource().setElementLine(element, getResource().getElementLine(a1));}
+		a1 = cardinality{element.eSet(element.eClass().getEStructuralFeature("cardinality"), a1); copyLocalizationInfos(a1, element); }
 	)?
 ;
 
@@ -467,7 +467,7 @@ whitespaces returns [WhiteSpaces element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
 }
 :
-	a0 = TEXT_35_{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_35_");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("ammount"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (Integer)resolvedObject;element.setAmmount(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = TEXT_35_{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_35_");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("amount"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (java.lang.Integer)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("amount"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 ;
 
 linebreak returns [LineBreak element = null]
@@ -475,7 +475,7 @@ linebreak returns [LineBreak element = null]
 	element = ConcretesyntaxFactory.eINSTANCE.createLineBreak();
 }
 :
-	a0 = TEXT_33_{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_33_");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("tab"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (Integer)resolvedObject;element.setTab(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = TEXT_33_{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_33_");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("tab"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (java.lang.Integer)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("tab"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 ;
 
 normaltoken returns [NormalToken element = null]
@@ -484,8 +484,8 @@ normaltoken returns [NormalToken element = null]
 }
 :
 	'DEFINE'
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
-	a1 = QUOTED_36_36{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setRegex(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
+	a1 = QUOTED_36_36{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); copyLocalizationInfos((CommonToken) a1, element); }
 ;
 
 decoratedtoken returns [DecoratedToken element = null]
@@ -494,19 +494,19 @@ decoratedtoken returns [DecoratedToken element = null]
 }
 :
 	'DEFINE'
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 	(
 		'['
 		(
-			a1 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setPrefix(resolved); getResource().setElementCharStart(element, ((CommonToken)a1).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a1).getStopIndex()); getResource().setElementColumn(element, a1.getCharPositionInLine()); getResource().setElementLine(element, a1.getLine()); }
+			a1 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a1, element); }
 		)
 		']'
 	)
-	a2 = QUOTED_36_36{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setRegex(resolved); getResource().setElementCharStart(element, ((CommonToken)a2).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a2).getStopIndex()); getResource().setElementColumn(element, a2.getCharPositionInLine()); getResource().setElementLine(element, a2.getLine()); }
+	a2 = QUOTED_36_36{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); copyLocalizationInfos((CommonToken) a2, element); }
 	(
 		'['
 		(
-			a3 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setSuffix(resolved); getResource().setElementCharStart(element, ((CommonToken)a3).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a3).getStopIndex()); getResource().setElementColumn(element, a3.getCharPositionInLine()); getResource().setElementLine(element, a3.getLine()); }
+			a3 = QUOTED_39_39{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); copyLocalizationInfos((CommonToken) a3, element); }
 		)
 		']'
 	)
@@ -518,35 +518,35 @@ predefinedtoken returns [PreDefinedToken element = null]
 }
 :
 	'PREDEFINED'
-	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.setName(resolved); getResource().setElementCharStart(element, ((CommonToken)a0).getStartIndex()); getResource().setElementCharEnd(element, ((CommonToken)a0).getStopIndex()); getResource().setElementColumn(element, a0.getCharPositionInLine()); getResource().setElementLine(element, a0.getLine()); }
+	a0 = TEXT{TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); }
 ;
 
 tokendefinition
 returns [TokenDefinition element = null]
 :
-	c0 = predefinedtoken{ element = c0; }	|
+	c0 = normaltoken{ element = c0; }	|
 	c1 = decoratedtoken{ element = c1; }	|
-	c2 = normaltoken{ element = c2; }
-;
-
-cardinality
-returns [Cardinality element = null]
-:
-	c0 = questionmark{ element = c0; }	|
-	c1 = star{ element = c1; }	|
-	c2 = plus{ element = c2; }
+	c2 = predefinedtoken{ element = c2; }
 ;
 
 definition
 returns [Definition element = null]
 :
-	c0 = whitespaces{ element = c0; }	|
-	c1 = compounddefinition{ element = c1; }	|
-	c2 = definedplaceholder{ element = c2; }	|
-	c3 = csstring{ element = c3; }	|
-	c4 = linebreak{ element = c4; }	|
-	c5 = containment{ element = c5; }	|
-	c6 = derivedplaceholder{ element = c6; }
+	c0 = csstring{ element = c0; }	|
+	c1 = definedplaceholder{ element = c1; }	|
+	c2 = derivedplaceholder{ element = c2; }	|
+	c3 = containment{ element = c3; }	|
+	c4 = compounddefinition{ element = c4; }	|
+	c5 = whitespaces{ element = c5; }	|
+	c6 = linebreak{ element = c6; }
+;
+
+cardinality
+returns [Cardinality element = null]
+:
+	c0 = plus{ element = c0; }	|
+	c1 = star{ element = c1; }	|
+	c2 = questionmark{ element = c2; }
 ;
 
 COMMENTS
@@ -565,9 +565,17 @@ TEXT_33_
 :
 	('!')('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-LB
+QUOTED_36_36
 :
-	('\r\n' | '\r' | '\n'){ channel=99; }
+	('$')(~('$')|('\\''$'))*('$')
+;
+QUOTED_39_39
+:
+	('\'')(~('\'')|('\\''\''))*('\'')
+;
+QUOTED_60_62
+:
+	('<')(~('>')|('\\''>'))*('>')
 ;
 TEXT_35_
 :
@@ -577,17 +585,9 @@ WS
 :
 	(' ' | '\t' | '\f'){ channel=99; }
 ;
-QUOTED_60_62
+LB
 :
-	('<')(~('>')|('\\''>'))*('>')
-;
-QUOTED_39_39
-:
-	('\'')(~('\'')|('\\''\''))*('\'')
-;
-QUOTED_36_36
-:
-	('$')(~('$')|('\\''$'))*('$')
+	('\r\n' | '\r' | '\n'){ channel=99; }
 ;
 QUOTED_34_34
 :

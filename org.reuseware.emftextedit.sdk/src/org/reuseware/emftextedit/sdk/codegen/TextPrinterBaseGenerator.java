@@ -364,7 +364,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				out.println(basetab + "out.print(localtab);");
 			} else {
 				if (definition instanceof WhiteSpaces) {
-					int count = ((WhiteSpaces) definition).getAmmount();
+					int count = ((WhiteSpaces) definition).getAmount();
 					if (count > 0) {
 						String spaces = getWhiteSpaceString(count);
 						out.println(basetab + printPrefix + "\"" + spaces
