@@ -70,7 +70,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		}
 	}
 
-	private static final String SAVE_PERFORMED_EXTENSION_POINT_ID = "org.reuseware.emftextedit.ui.perform_save";
+	private static final String SAVE_PERFORMED_EXTENSION_POINT_ID = "org.reuseware.emftextedit.runtime.ui.perform_save";
 
 	private ColorManager colorManager;
 
