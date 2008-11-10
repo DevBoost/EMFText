@@ -16,7 +16,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.compare.diff,
  org.eclipse.emf.compare.match,
  org.eclipse.emf.ecore.xmi,
- org.reuseware.emftextedit,
  org.reuseware.emftextedit.runtime,
  org.reuseware.emftextedit.sdk
 Export-Package: org.reuseware.emftextedit.test,
