@@ -36,7 +36,7 @@ public class DeterministicLoadTest {
 	private static final String CS_FILE_EXTENSION = "cs";
 	private static final URI csUri = EMFTextEditPlugin
 			.getURIToConcreteSyntaxLocationMap().get(
-					"http://www.reuseware.org/emftextedit/concretesyntax%%cs");
+					"http://www.reuseware.org/emftextedit/sdk/concretesyntax%%cs");
 
 	private static final String OUTPUT_FOLDER = "snapshots";
 	private static final String OUTPUT_PROJECT = "DeterministicLoadTest";
