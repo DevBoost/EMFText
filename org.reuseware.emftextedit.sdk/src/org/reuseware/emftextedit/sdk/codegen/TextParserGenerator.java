@@ -644,9 +644,11 @@ public class TextParserGenerator extends BaseGenerator{
         		if(!useDefaultTokens&&((placeholder.getPrefix()==null||placeholder.getPrefix().length()==0)&&(placeholder.getSuffix()==null||placeholder.getSuffix().length()==0))){
         			addProblem(new GenerationProblem("Default tokens switched off. Define prefix/suffix or token reference here.",placeholder));
          		} 
-        		definition = deriveTokenDefinition(placeholder.getPrefix(),placeholder.getSuffix());
-        		tokenName = definition.getName();
-            	placeholder2TokenName.put(placeholder,tokenName);
+        		else{
+            		definition = deriveTokenDefinition(placeholder.getPrefix(),placeholder.getSuffix());
+            		tokenName = definition.getName();
+                	placeholder2TokenName.put(placeholder,tokenName);        			
+        		}
         	}
         	else{
         		assert terminal instanceof DefinedPlaceholder;
