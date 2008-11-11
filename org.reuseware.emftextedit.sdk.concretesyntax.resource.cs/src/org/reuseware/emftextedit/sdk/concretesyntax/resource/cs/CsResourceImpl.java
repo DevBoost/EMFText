@@ -22,6 +22,7 @@ public class CsResourceImpl extends TextResourceImpl {
 	protected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {
 		EMFTextParser p = new CsParser(new CommonTokenStream(new CsLexer(new ANTLRInputStream(inputStream))));
 		p.setResource(this);
+		p.setOptions(options);
 		EObject root = p.parse();
 		while (root != null) {
 			getContents().add(root);
