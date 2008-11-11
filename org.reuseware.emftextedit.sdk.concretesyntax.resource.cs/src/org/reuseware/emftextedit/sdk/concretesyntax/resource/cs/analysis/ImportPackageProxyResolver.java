@@ -18,7 +18,9 @@ public class ImportPackageProxyResolver extends ProxyResolverImpl {
 		GenPackage genPackage = MetamodelManager.INSTANCE.findGenPackage(proxy.eProxyURI().fragment(), resource);
 		if (genPackage != null) {
 			ConcreteSyntax cs = (ConcreteSyntax)((Import)container).eContainer();
-			cs.getPackage().getGenModel().getUsedGenPackages().add(genPackage);
+			if(!cs.getPackage().equals(genPackage)&&!cs.getPackage().getNSURI().equals(genPackage.getNSURI()))
+				cs.getPackage().getGenModel().getUsedGenPackages().add(genPackage);
+			
 		}
 		return genPackage;
 	}
