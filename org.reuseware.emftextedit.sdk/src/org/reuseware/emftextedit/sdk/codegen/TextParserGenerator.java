@@ -246,7 +246,7 @@ public class TextParserGenerator extends BaseGenerator{
 		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_FORCE_EOF,source.getOptions());
 		forceEOFToken = currentOption==null?false:Boolean.parseBoolean(currentOption.getValue());
 		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_USE_DEFAULT_TOKENS,source.getOptions());
-		useDefaultTokens = currentOption==null?true:(currentOption.equals("false")?false:true);
+		useDefaultTokens = currentOption==null?true:(currentOption.getValue().equals("false")?false:true);
 	}
 	
 	private void initCaches(){
@@ -254,8 +254,10 @@ public class TextParserGenerator extends BaseGenerator{
 		derivedTokens = new HashMap<String,InternalTokenDefinition>();
 		placeholder2TokenName = new HashMap<DerivedPlaceholder,String>();
 		
-		derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false));
-		derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false));
+		if(useDefaultTokens){
+			derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false));
+			derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false));			
+		}
 		
 		printedTokens = new LinkedList<InternalTokenDefinition>();
 		
@@ -636,8 +638,13 @@ public class TextParserGenerator extends BaseGenerator{
         	
         	String tokenName = null;
         	if(terminal instanceof DerivedPlaceholder){
+        		
         		DerivedPlaceholder placeholder = (DerivedPlaceholder)terminal;
-         		InternalTokenDefinition definition = deriveTokenDefinition(placeholder.getPrefix(),placeholder.getSuffix());
+        		InternalTokenDefinition definition = null;
+        		if(!useDefaultTokens&&((placeholder.getPrefix()==null||placeholder.getPrefix().length()==0)&&(placeholder.getSuffix()==null||placeholder.getSuffix().length()==0))){
+        			addProblem(new GenerationProblem("Default tokens switched off. Define prefix/suffix or token reference here.",placeholder));
+         		} 
+        		definition = deriveTokenDefinition(placeholder.getPrefix(),placeholder.getSuffix());
         		tokenName = definition.getName();
             	placeholder2TokenName.put(placeholder,tokenName);
         	}
