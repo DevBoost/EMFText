@@ -16,6 +16,20 @@ import org.reuseware.emftextedit.sdk.concretesyntax.Definition;
 import org.reuseware.emftextedit.sdk.concretesyntax.Rule;
 import org.reuseware.emftextedit.sdk.concretesyntax.Sequence;
 
+/**
+ * The PutEverywhereSyntaxExtender extends an existing concrete syntax with
+ * additional containment references. This is useful if a syntax must 
+ * explicitly parse comments or white-space characters (i.e., syntax elements 
+ * that can occur everywhere).
+ * 
+ * In order to keep to the original syntax clean, users can use this extension
+ * mechanism to generate parsers that create instances of the meta model for
+ * comments or white-space characters.
+ * 
+ * The meta classes that shall be allowed everywhere must be tagged with the
+ * PUT_EVERYWHERE_ANNOTATION. The concrete syntax for all subclasses of these 
+ * is then extended by the PutEverywhereSyntaxExtender automatically.
+ */
 public class PutEverywhereSyntaxExtender {
 	
 	public final static String PUT_EVERYWHERE_ANNOTATION = "isPutEverywhere";
@@ -25,8 +39,7 @@ public class PutEverywhereSyntaxExtender {
 	public void generatePutEverywhereExtensions(ConcreteSyntax concreteSyntax) {
 		List<Rule> rules = concreteSyntax.getRules();
 		for (Rule rule : rules) {
-			System.out.println("generatePutEverywhereExtensions() rule: "
-					+ rule.getMetaclass().getEcoreClass().getName());
+			//System.out.println("generatePutEverywhereExtensions() rule: " + rule.getMetaclass().getEcoreClass().getName());
 			List<GenFeature> glueFeatures = getPutEverywhereFeatures(rule);
 			Choice choice = rule.getDefinition();
 			generatePutEverywhereExtension(rule, choice, glueFeatures);
@@ -59,7 +72,7 @@ public class PutEverywhereSyntaxExtender {
 
 	private void generatePutEverywhereExtension(Rule rule, Choice choice,
 			List<GenFeature> glueFeatures) {
-		System.out.println("generatePutEverywhereExtension() " + choice);
+		//System.out.println("generatePutEverywhereExtension() " + choice);
 		if (glueFeatures.size() == 0) {
 			return;
 		}
@@ -77,7 +90,7 @@ public class PutEverywhereSyntaxExtender {
 				} else {
 					// TODO handle all glue features
 					for (GenFeature glueFeature : glueFeatures) {
-						System.out.println("adding put everywhere feature " + glueFeature.getName());
+						//System.out.println("adding put everywhere feature " + glueFeature.getName());
 						Containment containment = csFactory.createContainment();
 						containment.setFeature(glueFeature);
 						containment.setCardinality(csFactory.createSTAR());
