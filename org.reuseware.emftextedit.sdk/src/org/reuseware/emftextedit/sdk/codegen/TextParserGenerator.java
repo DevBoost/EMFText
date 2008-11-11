@@ -260,8 +260,13 @@ public class TextParserGenerator extends BaseGenerator{
 		printedTokens = new LinkedList<InternalTokenDefinition>();
 		
 	    genClasses2superNames = new HashMap<String, Collection<String>>();
-	    allGenClasses = new LinkedList<GenClass>(source.getPackage().getGenClasses()); 
-	        	
+	    
+	    allGenClasses = new LinkedList<GenClass>();
+	    
+	    for(GenPackage includedGP : source.getPackage().getGenModel().getGenPackages()){
+	    	allGenClasses.addAll(includedGP.getGenClasses());
+	    }
+	    
 	    for(GenPackage usedGP : source.getPackage().getGenModel().getUsedGenPackages()) {
 			allGenClasses.addAll(usedGP.getGenClasses());
 		}
@@ -280,7 +285,13 @@ public class TextParserGenerator extends BaseGenerator{
 		initCaches();
 		
 	    EList<GenPackage> usedGenpackages = new BasicEList<GenPackage>(source.getPackage().getGenModel().getUsedGenPackages()); 
-		usedGenpackages.add(0,source.getPackage());
+	    
+	    for(GenPackage includedGP : source.getPackage().getGenModel().getGenPackages()){
+	    	if(!source.getPackage().equals(includedGP)&&!source.getPackage().getNSURI().equals(includedGP)){
+	    		usedGenpackages.add(includedGP);
+	    	}
+	    }
+	    usedGenpackages.add(0,source.getPackage());
 	    
         String csName = super.getResourceClassName();
 
