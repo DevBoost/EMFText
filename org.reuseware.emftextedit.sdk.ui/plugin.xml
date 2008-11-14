@@ -17,6 +17,22 @@
       </objectContribution>
    </extension>
 
+   <extension  
+            point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.reuseware.emftextedit.ui.generatehutncontributor"
+            nameFilter="*.genmodel*"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.reuseware.emftextedit.sdk.ui.actions.GenerateHUTNAction"
+               enablesFor="1"
+               id="org.reuseware.emftextedit.ui.actions.generatehtunaction"
+               label="Generate HUTN Syntax"
+               menubarPath="additions"/>
+      </objectContribution>
+   </extension>
+
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
