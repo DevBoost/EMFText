@@ -1,10 +1,10 @@
 package org.reuseware.emftextedit.runtime.resource.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.reuseware.emftextedit.runtime.resource.TokenResolver;
 import org.reuseware.emftextedit.runtime.resource.TokenResolverFactory;
-
-import java.util.Map;
-import java.util.HashMap;
 
 public class BasicTokenResolverFactory implements TokenResolverFactory {
 
