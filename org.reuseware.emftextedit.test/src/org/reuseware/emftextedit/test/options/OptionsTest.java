@@ -13,7 +13,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
-import org.reuseware.emftextedit.runtime.resource.impl.TextResourceImpl;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.sdk.GenPackageByNameFinder;
 import org.reuseware.emftextedit.sdk.MetamodelHelper;
 
@@ -31,7 +31,7 @@ public class OptionsTest {
 		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put(MetamodelHelper.GEN_PACKAGE_FINDER_KEY, new GenPackageByNameFinder());
-		options.put(TextResourceImpl.OPTION_NO_VALIDATE, Boolean.TRUE);
+		options.put(TextResource.OPTION_NO_VALIDATE, Boolean.TRUE);
 
 		File result = generateANTLRGrammarToTempFile(fileURI, options);
 		assertNotNull(result);

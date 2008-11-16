@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
-import org.reuseware.emftextedit.runtime.resource.impl.TextResourceImpl;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.sdk.GenPackageInRegistryFinder;
 import org.reuseware.emftextedit.sdk.MetamodelHelper;
 import org.reuseware.emftextedit.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl;
@@ -102,7 +102,7 @@ public class DeterministicLoadTest {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		registerFactory(resourceSet);
 		
-		resourceSet.getLoadOptions().put(TextResourceImpl.OPTION_NO_VALIDATE,
+		resourceSet.getLoadOptions().put(TextResource.OPTION_NO_VALIDATE,
 				true);
 		resourceSet.getLoadOptions().put(MetamodelHelper.GEN_PACKAGE_FINDER_KEY, new GenPackageInRegistryFinder());
 

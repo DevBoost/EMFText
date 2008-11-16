@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.sdk.codegen.BaseGenerator;
 import org.reuseware.emftextedit.sdk.codegen.GenerationProblem;
 import org.reuseware.emftextedit.sdk.codegen.IGenerator;
@@ -48,7 +49,7 @@ public class ConcreteSyntaxTestHelper {
 	}
 
 	public static Resource getConcreteSyntaxResource(URI fileURI, Map<?, ?> options) {
-		CsResourceImpl resource = new CsResourceImpl(fileURI);
+		TextResource resource = new CsResourceImpl(fileURI);
 		try {
 			resource.load(options);
 		} catch (IOException e) {
