@@ -27,6 +27,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.runtime.ui.ColorManager;
 import org.reuseware.emftextedit.runtime.ui.EMFTextEditorConfiguration;
@@ -170,8 +171,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 				ISaveListener listener = (ISaveListener) element.createExecutableExtension("class");//$NON-NLS-1$
 				listener.savePerformed(resource);
 			} catch (CoreException ce) {
-				// TODO log this to the error view
-				ce.printStackTrace();
+				EMFTextEditPlugin.logError("Exception while calling save listeners for text resource.", ce);
 			}
 		}
 	}
@@ -240,7 +240,6 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 
 				@Override
 				public void handleEntrySelection(ISelection selection) {
-					// TODO Auto-generated method stub
 					super.handleEntrySelection(selection);
 					propertySheetPage.getControl().setEnabled(false);
 				}

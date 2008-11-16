@@ -203,8 +203,7 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 					addLoadOption(loadOptions, key, options.get(key));
 				}
 			} catch (CoreException ce) {
-				// TODO log this to the error view
-				ce.printStackTrace();
+				EMFTextEditPlugin.logError("Exception while getting default options.", ce);
 			}
 		}
 	}

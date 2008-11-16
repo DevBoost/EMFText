@@ -526,7 +526,7 @@ public class SyntaxColoringPreferencePage
 
         private Control createPreviewer(Composite parent) {
             
-            //TODO return Text as preview formated (SourceViewver?)
+            //TODO return Text as preview formated (SourceViewer?)
             
             
             

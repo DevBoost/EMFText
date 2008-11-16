@@ -105,8 +105,7 @@ public class MetamodelManager {
 				}
 			});
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EMFTextEditPlugin.logError("Exception while looking up concrete syntax.", e);
 		} 
 
         if (concreteSyntaxes.containsKey(csURI)) {

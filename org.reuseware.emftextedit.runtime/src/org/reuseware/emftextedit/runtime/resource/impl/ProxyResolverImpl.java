@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.resource.ProxyResolver;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
@@ -22,6 +23,8 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
  * @author Jendrik Johannes (jj2)
  */
 public class ProxyResolverImpl implements ProxyResolver {
+
+	public final static String NAME_FEATURE = "name";
 
 	private Map<?, ?> options;
 
@@ -127,47 +130,30 @@ public class ProxyResolverImpl implements ProxyResolver {
 	}
 	
 	private boolean matches(EObject element, String proxyUri) {
-		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature("name");
+		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
 		if (nameAttr instanceof EAttribute) {
-			if (proxyUri.equals(element.eGet(nameAttr))) return true;
+			if (proxyUri.equals(element.eGet(nameAttr))) {
+				return true;
+			}
 		}
 		else {
 			//try any other string attribute found
 			for(EAttribute strAttribute : element.eClass().getEAllAttributes()) {
-				if (strAttribute.getEType().getInstanceClassName().equals("java.lang.String")) {
-					if (proxyUri.equals(element.eGet(strAttribute))) return true;
+				if (strAttribute.getEType().getInstanceClassName().equals(String.class.getName())) {
+					if (proxyUri.equals(element.eGet(strAttribute))) {
+						return true;
+					}
 				}
 			}
 			
 			for (EOperation o : element.eClass().getEAllOperations()) {
-				if (o.getName().toLowerCase().endsWith("name") && o.getEParameters().size() == 0 ) {
-					Method method;
-					try {
-						method = element.getClass().getMethod(o.getName(), new Class[]{});
-						if (method != null) {
-							Object result = method.invoke(element, new Object[]{});
-							if (proxyUri.equals(result)) return true;
-						}
-					} catch (SecurityException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {
+					String result = invokeOperation(element, o);
+					if (proxyUri.equals(result)) {
+						return true;
 					}
-					
 				}
 			}
-			
 		}
 		return false;
 	}
@@ -187,33 +173,35 @@ public class ProxyResolverImpl implements ProxyResolver {
 			
 			for (EOperation o : element.eClass().getEAllOperations()) {
 				if (o.getName().toLowerCase().endsWith("name") && o.getEParameters().size() == 0 ) {
-					Method method;
-					try {
-						method = element.getClass().getMethod(o.getName(), new Class[]{});
-						if (method != null) {
-							Object result = method.invoke(element, new Object[]{});
-							return (String) result;
-						}
-					} catch (SecurityException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					String result = invokeOperation(element, o);
+					if (result != null) {
+						return result;
 					}
-					
 				}
 			}
 			
+		}
+		return null;
+	}
+
+	private String invokeOperation(EObject element, EOperation o) {
+		Method method;
+		try {
+			method = element.getClass().getMethod(o.getName(), new Class[]{});
+			if (method != null) {
+				Object result = method.invoke(element, new Object[]{});
+				return (String) result;
+			}
+		} catch (SecurityException e) {
+			EMFTextEditPlugin.logError("Exception while matching proxy URI.", e);
+		} catch (NoSuchMethodException e) {
+			EMFTextEditPlugin.logError("Exception while matching proxy URI.", e);
+		} catch (IllegalArgumentException e) {
+			EMFTextEditPlugin.logError("Exception while matching proxy URI.", e);
+		} catch (IllegalAccessException e) {
+			EMFTextEditPlugin.logError("Exception while matching proxy URI.", e);
+		} catch (InvocationTargetException e) {
+			EMFTextEditPlugin.logError("Exception while matching proxy URI.", e);
 		}
 		return null;
 	}
