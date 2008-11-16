@@ -18,7 +18,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi,
  org.reuseware.emftextedit.runtime,
  org.reuseware.emftextedit.sdk
-Export-Package: org.reuseware.emftextedit.test,
- org.reuseware.emftextedit.test.actions
+Export-Package: org.reuseware.emftextedit.test
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 

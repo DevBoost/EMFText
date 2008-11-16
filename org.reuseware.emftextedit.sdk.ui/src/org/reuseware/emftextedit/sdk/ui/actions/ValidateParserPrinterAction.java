@@ -1,4 +1,4 @@
-package org.reuseware.emftextedit.test.actions;
+package org.reuseware.emftextedit.sdk.ui.actions;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,7 +18,6 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
-// TODO mseifert: move this action to the sdk.ui plug-in
 public class ValidateParserPrinterAction implements IObjectActionDelegate {
 
 	private ResourceSet resourceSet;

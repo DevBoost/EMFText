@@ -294,12 +294,12 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 			s.append("\t\t\t\tnameFilter=\"*." + cSyntax.getName() + "\">\n");
 			s.append("\t\t\t<action\n");
 			s
-					.append("\t\t\t\t\tclass=\"org.reuseware.emftextedit.test.actions.ValidateParserPrinterAction\"\n");
+					.append("\t\t\t\t\tclass=\"org.reuseware.emftextedit.sdk.ui.actions.ValidateParserPrinterAction\"\n");
 			s.append("\t\t\t\t\tenablesFor=\"1\"\n");
 			s.append("\t\t\t\t\tid=\"" + baseId + ".validate\"\n");
 			s.append("\t\t\t\t\tlabel=\"Validate\"\n");
 			s
-					.append("\t\t\t\t\tmenubarPath=\"org.reuseware.emftextedit.test.menu1/group1\">\n");
+					.append("\t\t\t\t\tmenubarPath=\"org.reuseware.emftextedit.sdk.ui.menu1/group1\">\n");
 			s.append("\t\t\t</action>\n");
 			s.append("\t\t</objectContribution>\n");
 			s.append("\t</extension>\n");
@@ -339,7 +339,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 				+ ",\n");
 		if (EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
 				EMFTextEditSDKUIPlugin.GENERATE_TEST_ACTION_NAME)) {
-			s.append("  org.reuseware.emftextedit.test,\n");
+			s.append("  org.reuseware.emftextedit.sdk.ui,\n");
 		}
 		EList<GenModel> importedPlugins = new BasicEList<GenModel>();
 		for (Import aImport : cSyntax.getImports()) {
