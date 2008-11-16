@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.reuseware.emftextedit.sdk.codegen.IGenerator.GenerationProblem.Severity;
+import org.reuseware.emftextedit.sdk.codegen.GenerationProblem.Severity;
 import org.reuseware.emftextedit.sdk.codegen.regex.ANTLRexpLexer;
 import org.reuseware.emftextedit.sdk.codegen.regex.ANTLRexpParser;
 import org.reuseware.emftextedit.sdk.concretesyntax.Cardinality;

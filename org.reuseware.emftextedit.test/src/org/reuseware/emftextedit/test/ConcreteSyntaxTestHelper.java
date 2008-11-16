@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.reuseware.emftextedit.sdk.codegen.BaseGenerator;
+import org.reuseware.emftextedit.sdk.codegen.GenerationProblem;
 import org.reuseware.emftextedit.sdk.codegen.IGenerator;
 import org.reuseware.emftextedit.sdk.codegen.PutEverywhereSyntaxExtender;
 import org.reuseware.emftextedit.sdk.codegen.ResourcePackageGenerator;
 import org.reuseware.emftextedit.sdk.codegen.TextParserGenerator;
-import org.reuseware.emftextedit.sdk.codegen.IGenerator.GenerationProblem;
 import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
 import org.reuseware.emftextedit.sdk.concretesyntax.resource.cs.CsResourceImpl;
 

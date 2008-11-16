@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.reuseware.emftextedit.runtime.resource.TextResource;
-import org.reuseware.emftextedit.sdk.codegen.IGenerator.GenerationProblem;
 import org.antlr.Tool;
 import org.antlr.tool.ErrorManager;
 import org.eclipse.core.runtime.CoreException;
@@ -246,8 +245,8 @@ public class ResourcePackageGenerator {
    	   	    out.close();
    	 	    Collection<GenerationProblem> occuredWarningsAndErrors = generator.getOccuredWarningsAndErrors();
 			if(occuredWarningsAndErrors!=null) {
-   	   	    	for(IGenerator.GenerationProblem problem:occuredWarningsAndErrors){
-   	   	    		if(problem.getSeverity() == IGenerator.GenerationProblem.Severity.WARNING){
+   	   	    	for(GenerationProblem problem:occuredWarningsAndErrors){
+   	   	    		if(problem.getSeverity() == GenerationProblem.Severity.WARNING){
    	   	    			csResource.addWarning(problem.getMessage(),problem.getCause());
    	   	    		}
    	   	    		else{
