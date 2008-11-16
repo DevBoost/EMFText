@@ -56,7 +56,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 	@Override
 	public void load(Map<?, ?> loadOptions) throws IOException {
 		// get default options
-		Map<Object, Object> options = castSafelyToObjectToObjectMap(loadOptions); 
+		Map<Object, Object> options = copySafelyToObjectToObjectMap(loadOptions); 
 		addDefaultLoadOptions(options);
 		
 		super.load(options);
@@ -203,7 +203,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 				// if the current value is a list, we add the new value to
 				// this list
 				List<?> currentValueAsList = (List<?>) currentValue;
-				List<Object> currentValueAsObjectList = safeCopyToObjectList(currentValueAsList);
+				List<Object> currentValueAsObjectList = copySafelyToObjectList(currentValueAsList);
 				currentValueAsObjectList.add(value);
 				options.put(key, currentValueAsObjectList);
 			} else {
@@ -219,7 +219,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		}
 	}
 
-	private Map<Object, Object> castSafelyToObjectToObjectMap(Map<?, ?> map) {
+	private Map<Object, Object> copySafelyToObjectToObjectMap(Map<?, ?> map) {
 		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
 		Iterator<?> it = map.keySet().iterator();
 		while (it.hasNext()) {
@@ -229,12 +229,12 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		return castedCopy;
 	}
 
-	private List<Object> safeCopyToObjectList(List<?> list) {
+	private List<Object> copySafelyToObjectList(List<?> list) {
 		Iterator<?> it = list.iterator();
-		List<Object> objectList = new ArrayList<Object>();
+		List<Object> castedCopy = new ArrayList<Object>();
 		while (it.hasNext()) {
-			objectList.add(it.next());
+			castedCopy.add(it.next());
 		}
-		return objectList;
+		return castedCopy;
 	}
 }
