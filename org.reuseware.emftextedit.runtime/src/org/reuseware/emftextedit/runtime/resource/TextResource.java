@@ -14,6 +14,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 public interface TextResource extends Resource {
 	
 	/**
+	 * Used during {@link #load(java.util.Map)} to determine whether OCL
+	 * constraints should be validated.
+	 */
+	public static final String OPTION_NO_VALIDATE = "TR_NO_VALIDATE_OCL"; 
+	
+	/**
 	 * Used by parsers to set location information.
 	 */
 	public void setElementLine(EObject element, int line);

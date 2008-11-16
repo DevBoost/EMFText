@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.IOptionProvider;
 import org.reuseware.emftextedit.runtime.resource.EMFTextOCLValidator;
-import org.reuseware.emftextedit.runtime.resource.TextDiagnostic;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 /**
@@ -32,18 +31,12 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
  * 
  * @author Jendrik Johannes (jj2)
  */
-public class TextResourceImpl extends ResourceImpl implements TextResource {
+public abstract class TextResourceImpl extends ResourceImpl implements TextResource {
 	
 	protected EMap<EObject, Integer> columnInfo    = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> lineInfo      = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> charStartInfo = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> charEndInfo   = new BasicEMap<EObject, Integer>();
-	
-	/**
-	 * Used during {@link #load(java.util.Map)} to determine whether OCL
-	 * constraints should be validated.
-	 */
-	public static final String OPTION_NO_VALIDATE = "TR_NO_VALIDATE_OCL"; 
 	
 	/**
 	 * Extends the super implementation by clearing all information about element
@@ -84,17 +77,6 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 			}
 		}
 	}
-
-	private Map<Object, Object> castSafelyToObjectToObjectMap(Map<?, ?> map) {
-		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
-		Iterator<?> it = map.keySet().iterator();
-		while (it.hasNext()) {
-			Object nextKey = it.next();
-			castedCopy.put(nextKey, map.get(nextKey));
-		}
-		return castedCopy;
-	}
-
 
 	/**
 	 * Creates a empty instance.
@@ -164,30 +146,25 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 	}	
 	
 	public void addError(String message, EObject element) {
-		getErrors().add(new ElementBasedTextDiagnosticImpl(message, element));
+		getErrors().add(new ElementBasedTextDiagnosticImpl(this, message, element));
 	}
 	
 	public void addWarning(String message, EObject element) {
-		getWarnings().add(new ElementBasedTextDiagnosticImpl(message, element));
+		getWarnings().add(new ElementBasedTextDiagnosticImpl(this, message, element));
 	}
 	
 	public void addError(String message, int column, int line, int charStart,
 			int charEnd) {
-		getErrors().add(new PositionBasedTextDiagnosticImpl(message, column, line, charStart, charEnd));
+		getErrors().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd));
 	}
 
 	public void addWarning(String message, int column, int line, int charStart,
 			int charEnd) {
-		getWarnings().add(new PositionBasedTextDiagnosticImpl(message, column, line, charStart, charEnd));
+		getWarnings().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd));
 	}
 	
 	public String[] getTokenNames() {
 		return new String[]{};
-	}
-	
-	// TODO jjohannes: should we replace this method with an abstract one?
-	public Object getScanner() {
-		return null;
 	}
 	
 	private void addDefaultLoadOptions(Map<Object, Object> loadOptions) {
@@ -242,6 +219,16 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		}
 	}
 
+	private Map<Object, Object> castSafelyToObjectToObjectMap(Map<?, ?> map) {
+		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
+		Iterator<?> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			Object nextKey = it.next();
+			castedCopy.put(nextKey, map.get(nextKey));
+		}
+		return castedCopy;
+	}
+
 	private List<Object> safeCopyToObjectList(List<?> list) {
 		Iterator<?> it = list.iterator();
 		List<Object> objectList = new ArrayList<Object>();
@@ -249,91 +236,5 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 			objectList.add(it.next());
 		}
 		return objectList;
-	}
-
-	public class ElementBasedTextDiagnosticImpl implements TextDiagnostic {
-
-		protected EObject element;
-		protected String message;
-		
-		protected ElementBasedTextDiagnosticImpl(String message, EObject element) {
-			this.element = element;
-			this.message = message;
-		}
-		
-		private int getMapValue(EMap<EObject,Integer> map) {
-			if (!map.containsKey(element)) {
-				return 0;
-			}
-			return map.get(element);
-		}
-		
-		public int getCharStart() {
-			return getMapValue(charStartInfo);
-		}
-
-		public int getCharEnd() {
-			return getMapValue(charEndInfo);
-		}
-		
-		public int getColumn() {
-			return getMapValue(columnInfo);
-		}
-
-		public int getLine() {
-			return getMapValue(lineInfo);
-		}
-
-		public String getLocation() {
-			return getURI().toString();
-		}
-
-		public String getMessage() {
-			return message;
-		}
-		
-	}
-	
-	public class PositionBasedTextDiagnosticImpl implements TextDiagnostic {
-
-		protected int column;
-		protected int line;
-		protected int charStart;
-		protected int charEnd;
-		protected String message;
-		
-		protected PositionBasedTextDiagnosticImpl(String message,int column, int line, int charStart,
-				int charEnd) {
-			
-			this.column = column;
-			this.line = line;
-			this.charStart = charStart;
-			this.charEnd = charEnd;
-			this.message = message;
-		}
-		
-		public int getCharStart() {
-			return charStart;
-		}
-		
-		public int getCharEnd() {
-			return charEnd;
-		}
-		
-		public int getColumn() {
-			return column;
-		}
-
-		public int getLine() {
-			return line;
-		}
-
-		public String getLocation() {
-			return getURI().toString();
-		}
-
-		public String getMessage() {
-			return message;
-		}
 	}
 }
