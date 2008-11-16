@@ -1,10 +1,12 @@
 package org.reuseware.emftextedit.runtime.resource.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,10 +21,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
+import org.reuseware.emftextedit.runtime.IOptionProvider;
 import org.reuseware.emftextedit.runtime.resource.EMFTextOCLValidator;
 import org.reuseware.emftextedit.runtime.resource.TextDiagnostic;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
-import org.reuseware.emftextedit.runtime.IOptionProvider;
 
 /**
  * Base implementation for all generated text resources. 
@@ -194,18 +196,60 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
 		for (IConfigurationElement element : configurationElements) {
 			try {
-				IOptionProvider listener = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
-				final Map<? extends Object, ? extends Object> options = listener.getOptions();
-				final Collection<? extends Object> keys = options.keySet();
+				IOptionProvider provider = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
+				final Map<?, ?> options = provider.getOptions();
+				final Collection<?> keys = options.keySet();
 				for (Object key : keys) {
-					// TODO mseifert: check if there is already an option set
-					loadOptions.put(key, options.get(key));
+					addLoadOption(loadOptions, key, options.get(key));
 				}
 			} catch (CoreException ce) {
 				// TODO log this to the error view
 				ce.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Adds a new key,value pair to the list of options. If there
+	 * is already an option with the same key, the two values are 
+	 * collected in a list.
+	 * 
+	 * @param options
+	 * @param key
+	 * @param value
+	 */
+	private void addLoadOption(Map<Object, Object> options,
+			Object key, Object value) {
+		// check if there is already an option set
+		if (options.containsKey(key)) {
+			Object currentValue = options.get(key);
+			if (currentValue instanceof List) {
+				// if the current value is a list, we add the new value to
+				// this list
+				List<?> currentValueAsList = (List<?>) currentValue;
+				List<Object> currentValueAsObjectList = safeCopyToObjectList(currentValueAsList);
+				currentValueAsObjectList.add(value);
+				options.put(key, currentValueAsObjectList);
+			} else {
+				// if the current value is not a list, we create a fresh list
+				// and add both the old (current) and the new value to this list
+				List<Object> newValueList = new ArrayList<Object>();
+				newValueList.add(currentValue);
+				newValueList.add(value);
+				options.put(key, newValueList);
+			}
+		} else {
+			options.put(key, value);
+		}
+	}
+
+	private List<Object> safeCopyToObjectList(List<?> list) {
+		Iterator<?> it = list.iterator();
+		List<Object> objectList = new ArrayList<Object>();
+		while (it.hasNext()) {
+			objectList.add(it.next());
+		}
+		return objectList;
 	}
 
 	public class ElementBasedTextDiagnosticImpl implements TextDiagnostic {
