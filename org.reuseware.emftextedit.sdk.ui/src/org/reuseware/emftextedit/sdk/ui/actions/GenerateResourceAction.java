@@ -1,6 +1,8 @@
 package org.reuseware.emftextedit.sdk.ui.actions;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,9 +22,7 @@ import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.BasicMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -37,8 +37,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.ui.MarkerHelper;
+import org.reuseware.emftextedit.sdk.codegen.ManifestGenerator;
+import org.reuseware.emftextedit.sdk.codegen.PluginXMLGenerator;
 import org.reuseware.emftextedit.sdk.codegen.ResourcePackage;
 import org.reuseware.emftextedit.sdk.codegen.ResourcePackageGenerator;
 import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
@@ -220,145 +221,6 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		return preferences;
 	}
 
-	/**
-	 * Generate the XML file describing the plugin.
-	 * 
-	 * @param cSyntax
-	 *            Concrete syntax model.
-	 * @param packageName
-	 *            Name of the Java package.
-	 * @param file
-	 *            File representation of the concrete syntax definition.
-	 * @return Generated code.
-	 */
-	private String generatePluginXml(ConcreteSyntax cSyntax,
-			String packageName, IFile file) {
-		StringBuffer s = new StringBuffer();
-		String factoryClassName = cSyntax.getName().substring(0, 1)
-				.toUpperCase()
-				+ cSyntax.getName().substring(1) + "ResourceFactoryImpl";
-
-		s.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		s.append("<?eclipse version=\"3.2\"?>\n");
-		s.append("<plugin>\n");
-
-		// register the generated resource factory
-		s.append("   <extension\n");
-		s
-				.append("         point=\"org.eclipse.emf.ecore.extension_parser\">\n");
-		s.append("      <parser\n");
-		s.append("            class=\"" + packageName + "." + factoryClassName
-				+ "\"\n");
-		s.append("            type=\"" + cSyntax.getName() + "\">\n");
-		s.append("      </parser>\n");
-		s.append("   </extension>\n\n");
-
-		// register the cs file
-		s.append("   <extension\n");
-		s.append("         point=\"" + EMFTextEditPlugin.EP_CONCRETESYNTAX_ID
-				+ "\">\n");
-		s.append("      <concretesyntax\n");
-		s.append("            uri=\"" + cSyntax.getPackage().getNSURI()
-				+ "\"\n");
-		s.append("            csName=\"" + cSyntax.getName() + "\"\n");
-		s.append("            csDefinition=\"" + file.getProject().getName()
-				+ "/" + file.getProjectRelativePath() + "\">\n");
-		s.append("      </concretesyntax>\n");
-		s.append("   </extension>\n\n");
-
-		// registers the file extension for the EMF Text Editor
-		s.append("   <extension\n");
-		s
-				.append("         point=\"org.eclipse.core.contenttype.contentTypes\">\n");
-		s.append("      <file-association\n");
-		s
-				.append("            content-type=\"org.reuseware.emftextedit.filetype\"\n");
-		s
-				.append("            file-extensions=\"" + cSyntax.getName()
-						+ "\">\n");
-		s.append("      </file-association>\n");
-		s.append("   </extension>\n\n");
-
-		if (EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
-				EMFTextEditSDKUIPlugin.GENERATE_TEST_ACTION_NAME)) {
-			String baseId = (cSyntax.getPackage().getBasePackage() == null ? ""
-					: cSyntax.getPackage().getBasePackage() + ".")
-					+ cSyntax.getName();
-
-			s.append("\t<extension\n");
-			s.append("\t\t\tpoint=\"org.eclipse.ui.popupMenus\">\n");
-			s.append("\t\t<objectContribution\n");
-			s.append("\t\t\t\tid=\"" + baseId + ".contributions\"\n");
-			s
-					.append("\t\t\t\tobjectClass=\"org.eclipse.core.resources.IFile\"\n");
-			s.append("\t\t\t\tnameFilter=\"*." + cSyntax.getName() + "\">\n");
-			s.append("\t\t\t<action\n");
-			s
-					.append("\t\t\t\t\tclass=\"org.reuseware.emftextedit.sdk.ui.actions.ValidateParserPrinterAction\"\n");
-			s.append("\t\t\t\t\tenablesFor=\"1\"\n");
-			s.append("\t\t\t\t\tid=\"" + baseId + ".validate\"\n");
-			s.append("\t\t\t\t\tlabel=\"Validate\"\n");
-			s
-					.append("\t\t\t\t\tmenubarPath=\"org.reuseware.emftextedit.sdk.ui.menu1/group1\">\n");
-			s.append("\t\t\t</action>\n");
-			s.append("\t\t</objectContribution>\n");
-			s.append("\t</extension>\n");
-		}
-
-		s.append("</plugin>\n");
-
-		return s.toString();
-	}
-
-	/**
-	 * Generate the MANIFEST.MF file for the plugin
-	 * 
-	 * @param cSyntax
-	 *            Concrete syntax model.
-	 * @param packageName
-	 *            Name of the Java package.
-	 * @param resourcePackage
-	 * @return Generated code.
-	 */
-	private String generateManifestMF(ConcreteSyntax cSyntax,
-			String packageName, ResourcePackage resourcePackage) {
-		StringBuffer s = new StringBuffer();
-
-		s.append("Manifest-Version: 1.0\n");
-		s.append("Bundle-ManifestVersion: 2\n");
-		s.append("Bundle-Name: EMFTextEdit Parser Plugin: " + cSyntax.getName()
-				+ "\n");
-		s.append("Bundle-SymbolicName: " + packageName + ";singleton:=true\n");
-		s.append("Bundle-Version: 1.0.0\n");
-		s
-				.append("Bundle-Vendor: Software Engineering Group - TU Dresden Germany\n");
-		// s.append("Bundle-Localization: plugin\n");
-		s.append("Require-Bundle: org.eclipse.core.runtime,\n");
-		s.append("  org.eclipse.emf.ecore,\n");
-		s.append("  " + cSyntax.getPackage().getGenModel().getModelPluginID()
-				+ ",\n");
-		if (EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
-				EMFTextEditSDKUIPlugin.GENERATE_TEST_ACTION_NAME)) {
-			s.append("  org.reuseware.emftextedit.sdk.ui,\n");
-		}
-		EList<GenModel> importedPlugins = new BasicEList<GenModel>();
-		for (Import aImport : cSyntax.getImports()) {
-			GenModel m = aImport.getPackage().getGenModel();
-			if (!importedPlugins.contains(m)) {
-				s.append("  " + m.getModelPluginID() + ",\n");
-				importedPlugins.add(m);
-			}
-		}
-		s.append("  org.reuseware.emftextedit.runtime\n");
-		s.append("Bundle-ActivationPolicy: lazy\n");
-		s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
-		// export the generated packages
-		s.append("Export-Package: " + packageName + ",\n");
-		s.append("  " + resourcePackage.getResolverPackageName() + "\n");
-
-		return s.toString();
-	}
-
 	private void generateMetaModelCode(GenPackage genPackage,
 			IProgressMonitor monitor) {
 		monitor.setTaskName("generating metamodel code...");
@@ -458,16 +320,20 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
 		if (manifestMFFile.exists()) {
 			if (overridePluginConfig) {
+				ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled());
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				mGenerator.generate(new PrintWriter(outputStream));
 				manifestMFFile.setContents(new ByteArrayInputStream(
-						generateManifestMF(cSyntax, projectName,
-								resourcePackage).getBytes()), true, true,
+						outputStream.toByteArray()), true, true,
 						progress.newChild(TICKS_CREATE_MANIFEST));
 			} else {
 				progress.internalWorked(TICKS_CREATE_MANIFEST);
 			}
 		} else {
-			manifestMFFile.create(new ByteArrayInputStream(generateManifestMF(
-					cSyntax, projectName, resourcePackage).getBytes()), true,
+			ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled());
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			mGenerator.generate(new PrintWriter(outputStream));
+			manifestMFFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true,
 					progress.newChild(TICKS_CREATE_MANIFEST));
 		}
 	}
@@ -479,18 +345,33 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		IFile pluginXMLFile = project.getFile("/plugin.xml");
 		if (pluginXMLFile.exists()) {
 			if (overridePluginConfig) {
+				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(
+						cSyntax, projectName, file,
+						isGenerateTestActionEnabled()
+				);
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				pluginXMLGenerator.generate(new PrintWriter(outputStream));
 				pluginXMLFile.setContents(new ByteArrayInputStream(
-						generatePluginXml(cSyntax, projectName, file)
-								.getBytes()), true, true, progress
+						outputStream.toByteArray()), true, true, progress
 						.newChild(TICKS_CREATE_PLUGIN_XML));
 			} else {
 				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
 			}
 		} else {
-			pluginXMLFile.create(new ByteArrayInputStream(generatePluginXml(
-					cSyntax, projectName, file).getBytes()), true, progress
+			PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(
+					cSyntax, projectName, file,
+					isGenerateTestActionEnabled()
+			);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			pluginXMLGenerator.generate(new PrintWriter(outputStream));
+			pluginXMLFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true, progress
 					.newChild(TICKS_CREATE_PLUGIN_XML));
 		}
+	}
+
+	private boolean isGenerateTestActionEnabled() {
+		return EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
+				EMFTextEditSDKUIPlugin.GENERATE_TEST_ACTION_NAME);
 	}
 
 	private void markErrors(final ConcreteSyntax cSyntax) throws CoreException {

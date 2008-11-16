@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * A basic implementation for generators which generate java or antlr code. 
+ * A basic implementation for generators which generate Java or ANTLR code. 
  * 
  * @author skarol
  */
