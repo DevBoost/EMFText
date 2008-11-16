@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EReference;
  * @author Jendrik Johannes (jj2)
  *
  */
-public interface ProxyResolver {
+public interface ProxyResolver extends Configurable {
 	
 	/**
 	 * Attempts to resolve a proxy object.

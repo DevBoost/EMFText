@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -19,7 +18,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.reuseware.emftextedit.runtime.resource.impl.TextResourceImpl;
 import org.reuseware.emftextedit.sdk.codegen.BaseGenerator;
 import org.reuseware.emftextedit.sdk.codegen.IGenerator;
 import org.reuseware.emftextedit.sdk.codegen.PutEverywhereSyntaxExtender;
@@ -49,12 +47,8 @@ public class ConcreteSyntaxTestHelper {
 		return concreteSyntax;
 	}
 
-	public static Resource getConcreteSyntaxResource(URI fileURI, boolean validateOCL) {
+	public static Resource getConcreteSyntaxResource(URI fileURI, Map<?, ?> options) {
 		CsResourceImpl resource = new CsResourceImpl(fileURI);
-		Map<String, Object> options = new HashMap<String, Object>();
-		if (!validateOCL) {
-			options.put(TextResourceImpl.OPTION_NO_VALIDATE, Boolean.TRUE);
-		}
 		try {
 			resource.load(options);
 		} catch (IOException e) {
@@ -86,9 +80,9 @@ public class ConcreteSyntaxTestHelper {
 		return antlrGenerator;
 	}
 
-	public static File generateANTLRGrammarToTempFile(URI fileURI, boolean validateOCL) throws IOException,
+	public static File generateANTLRGrammarToTempFile(URI fileURI, Map<?,?> options) throws IOException,
 			FileNotFoundException {
-		ConcreteSyntax concreteSyntax = getConcreteSyntax(getConcreteSyntaxResource(fileURI, validateOCL));
+		ConcreteSyntax concreteSyntax = getConcreteSyntax(getConcreteSyntaxResource(fileURI, options));
 		assertNotNull("The concrete syntax should be successfully loaded.",
 				concreteSyntax);
 		new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(concreteSyntax);

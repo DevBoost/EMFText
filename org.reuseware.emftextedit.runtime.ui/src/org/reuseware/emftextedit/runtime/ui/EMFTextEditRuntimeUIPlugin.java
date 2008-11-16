@@ -2,19 +2,13 @@ package org.reuseware.emftextedit.runtime.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.reuseware.emftextedit.runtime.GenPackageInRegistryFinder;
-import org.reuseware.emftextedit.runtime.GenPackageInWorkspaceFinder;
-import org.reuseware.emftextedit.runtime.MetamodelManager;
 
 public class EMFTextEditRuntimeUIPlugin extends AbstractUIPlugin {
 	
 	private static EMFTextEditRuntimeUIPlugin plugin;
 	
 	public EMFTextEditRuntimeUIPlugin() {
-		// TODO mseifert: this should be done in the SDK UI plug-in, but
-		// the activator there is started too late
-		MetamodelManager.INSTANCE.addGenPackageFinder(new GenPackageInWorkspaceFinder());
-		MetamodelManager.INSTANCE.addGenPackageFinder(new GenPackageInRegistryFinder());
+		super();
 	}
 
 	/*

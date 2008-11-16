@@ -1,4 +1,4 @@
-package org.reuseware.emftextedit.runtime;
+package org.reuseware.emftextedit.sdk;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 public class GenPackageInWorkspaceFinder implements GenPackageFinder {

@@ -8,9 +8,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.reuseware.emftextedit.runtime.GenPackageFinder;
-import org.reuseware.emftextedit.runtime.IGenPackageFinderResult;
-import org.reuseware.emftextedit.runtime.MetamodelManager;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 /**

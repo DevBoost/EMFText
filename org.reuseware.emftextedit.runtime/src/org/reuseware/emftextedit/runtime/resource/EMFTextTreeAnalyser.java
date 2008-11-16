@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * @author Jendrik Johannes (jj2)
  */
-public interface EMFTextTreeAnalyser {
+public interface EMFTextTreeAnalyser extends Configurable {
 	
 	/**
 	 * Do the analysis. Resolves all proxies or attaches diagnostics to the given text resource,

@@ -1,5 +1,8 @@
 package org.reuseware.emftextedit.runtime.ui.editor;
 
+import java.util.Collection;
+import java.util.Map;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -31,6 +34,7 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.runtime.ui.ColorManager;
 import org.reuseware.emftextedit.runtime.ui.EMFTextEditorConfiguration;
 import org.reuseware.emftextedit.runtime.ui.MarkerHelper;
+import org.reuseware.emftextedit.runtime.ui.OptionProvider;
 import org.reuseware.emftextedit.runtime.ui.SaveListener;
 import org.reuseware.emftextedit.runtime.ui.outline.EMFTextOutlinePage;
 
@@ -71,6 +75,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	}
 
 	private static final String SAVE_PERFORMED_EXTENSION_POINT_ID = "org.reuseware.emftextedit.runtime.ui.perform_save";
+	private static final String DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_ID = "org.reuseware.emftextedit.runtime.ui.default_load_options";
 
 	private ColorManager colorManager;
 
@@ -113,11 +118,32 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		super();
 		colorManager = new ColorManager();
 		resourceSet = new ResourceSetImpl();
+		addDefaultLoadOptions(resourceSet.getLoadOptions());
 		
         setDocumentProvider(new FileDocumentProvider());
 		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,colorManager));
 	}
 	
+	private void addDefaultLoadOptions(Map<Object, Object> loadOptions) {
+		// find default load option providers
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_ID);
+		for (IConfigurationElement element : configurationElements) {
+			try {
+				OptionProvider listener = (OptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
+				final Map<?, ?> options = listener.getOptions();
+				final Collection<?> keys = options.keySet();
+				for (Object key : keys) {
+					// TODO mseifert: check if there is already an option set
+					loadOptions.put(key, options.get(key));
+				}
+			} catch (CoreException ce) {
+				// TODO log this to the error view
+				ce.printStackTrace();
+			}
+		}
+	}
+
 	public void dispose() {
 		colorManager.dispose();
 		super.dispose();
@@ -150,7 +176,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		thisFile.unload();
 		try {
 			markerAdapter.setEnabled(false);
-			thisFile.load(null);
+			thisFile.load(resourceSet.getLoadOptions());
 			markerAdapter.setEnabled(true);
 			
 			fireSaveEvent(thisFile);

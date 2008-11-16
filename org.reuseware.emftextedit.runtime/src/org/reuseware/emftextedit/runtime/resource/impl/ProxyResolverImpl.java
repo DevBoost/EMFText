@@ -3,6 +3,7 @@ package org.reuseware.emftextedit.runtime.resource.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -21,6 +22,8 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
  * @author Jendrik Johannes (jj2)
  */
 public class ProxyResolverImpl implements ProxyResolver {
+
+	private Map<?, ?> options;
 
 	public ProxyResolverImpl() {
 		init();
@@ -221,5 +224,11 @@ public class ProxyResolverImpl implements ProxyResolver {
 		return doDeResolve(element,container,reference);
 	}
 
+	public void setOptions(Map<?, ?> options) {
+		this.options = options;
+	}
 
+	public Map<?, ?> getOptions() {
+		return options;
+	}
 }

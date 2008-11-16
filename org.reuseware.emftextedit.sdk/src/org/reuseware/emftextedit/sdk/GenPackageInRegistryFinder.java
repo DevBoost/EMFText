@@ -1,4 +1,4 @@
-package org.reuseware.emftextedit.runtime;
+package org.reuseware.emftextedit.sdk;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;

@@ -13,11 +13,13 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.reuseware.emftextedit.sdk.ui.DefaultOptionProvider;
 
 public abstract class AbstractConcreteSyntaxAction {
 
 	protected Resource getResource(final IFile file) {
 		ResourceSet rs = new ResourceSetImpl();
+		rs.getLoadOptions().putAll(new DefaultOptionProvider().getOptions());
 		Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
 		return csResource;
 	}

@@ -11,7 +11,6 @@ Export-Package: org.reuseware.emftextedit.runtime,
 Require-Bundle: org.junit4,
  org.eclipse.ocl.ecore,
  org.eclipse.emf.workspace,
- org.reuseware.emftextedit.sdk.concretesyntax,
  org.eclipse.emf.codegen.ecore,
  org.antlr.runtime;bundle-version="3.0.0";visibility:=reexport
 Bundle-Vendor: Software Technology Group - TU Dresden Germany

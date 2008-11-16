@@ -1,4 +1,4 @@
-package org.reuseware.emftextedit.runtime;
+package org.reuseware.emftextedit.sdk;
 
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 

@@ -1,7 +1,7 @@
 package org.reuseware.emftextedit.test.resource;
 
-import static org.junit.Assert.fail;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 
@@ -26,9 +26,9 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
-import org.reuseware.emftextedit.runtime.MetamodelManager;
-import org.reuseware.emftextedit.runtime.GenPackageInRegistryFinder;
 import org.reuseware.emftextedit.runtime.resource.impl.TextResourceImpl;
+import org.reuseware.emftextedit.sdk.GenPackageInRegistryFinder;
+import org.reuseware.emftextedit.sdk.MetamodelHelper;
 import org.reuseware.emftextedit.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl;
 
 public class DeterministicLoadTest {
@@ -47,8 +47,6 @@ public class DeterministicLoadTest {
 		
 		createOutputProject(OUTPUT_PROJECT, OUTPUT_FOLDER);
 
-		MetamodelManager.INSTANCE
-				.addGenPackageFinder(new GenPackageInRegistryFinder());
 	}
 
 	@Test
@@ -102,10 +100,11 @@ public class DeterministicLoadTest {
 	private Resource loadModelResource(final URI modelFileUri) {
 		// every resource is loaded in its own ResourceSet to prevent caching effects
 		ResourceSet resourceSet = new ResourceSetImpl();
-
 		registerFactory(resourceSet);
+		
 		resourceSet.getLoadOptions().put(TextResourceImpl.OPTION_NO_VALIDATE,
 				true);
+		resourceSet.getLoadOptions().put(MetamodelHelper.GEN_PACKAGE_FINDER_KEY, new GenPackageInRegistryFinder());
 
 		return resourceSet.getResource(modelFileUri, true);
 	}

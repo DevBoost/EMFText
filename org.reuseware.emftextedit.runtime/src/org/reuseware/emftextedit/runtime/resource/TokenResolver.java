@@ -1,9 +1,7 @@
 package org.reuseware.emftextedit.runtime.resource;
 
-import java.util.Map;
-
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * Basic Interface to directly manipulate parsed tokens and convert them into the attribute type in the metamodel.
@@ -16,9 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * @author skarol
  *
  */
-public interface TokenResolver {
-	
-	public void setOptions(Map<?,?> options);
+public interface TokenResolver extends Configurable {
 	
 	/**
 	 * Converts a parsed String into an Object (might be a String again). 

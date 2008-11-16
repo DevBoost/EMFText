@@ -86,7 +86,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 			String generatedClassName = proxyReferences.get(proxyReference);
 			s.append("\t\tif (container instanceof " + proxyReference.getGenClass().getName() + " && reference.getFeatureID() == " + proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID() + ") {\n");		
 			s.append("\t\t\treturn " + low(generatedClassName)+".resolve(proxy,container,reference,resource,reportErrors);\n");			
-			s.append("\t\t\t}\n");			
+			s.append("\t\t}\n");			
 		}
 		s.append("\t\treturn null;\n");
 		s.append("\t}\n\n");   
@@ -96,11 +96,19 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 			String generatedClassName = proxyReferences.get(proxyReference);
 			s.append("\t\tif (container instanceof " + proxyReference.getGenClass().getName() + " && reference.getFeatureID() == " + proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID() + ") {\n");		
 			s.append("\t\t\treturn " + low(generatedClassName)+".deResolve(refObject,container,reference);\n");			
-			s.append("\t\t\t}\n");			
+			s.append("\t\t}\n");			
 		}
 		s.append("\t\treturn null;\n");
 		s.append("\t}\n\n");   
-        s.append("}\n");
+        
+        s.append("\tpublic void setOptions(java.util.Map<?, ?> options) {\n");
+		for(GenFeature proxyReference : proxyReferences.keySet()) {
+			String generatedClassName = proxyReferences.get(proxyReference);
+			s.append("\t\t" + low(generatedClassName) + ".setOptions(options);\n");			
+		}
+		s.append("\t}\n");
+
+		s.append("}\n");
         
     	return s.toString();	
     }

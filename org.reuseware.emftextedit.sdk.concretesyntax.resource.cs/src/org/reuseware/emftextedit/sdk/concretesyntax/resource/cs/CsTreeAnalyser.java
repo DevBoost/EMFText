@@ -1,5 +1,7 @@
 package org.reuseware.emftextedit.sdk.concretesyntax.resource.cs; 
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -28,6 +30,16 @@ public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 	protected ImportPackageProxyResolver importPackageProxyResolver = new ImportPackageProxyResolver();
 
 	protected TerminalFeatureProxyResolver terminalFeatureProxyResolver = new TerminalFeatureProxyResolver();
+
+	public void setOptions(Map<?, ?> options) {
+		concreteSyntaxPackageProxyResolver.setOptions(options);
+		definedPlaceholderTokenProxyResolver.setOptions(options);
+		ruleMetaclassProxyResolver.setOptions(options);
+		importConcreteSyntaxProxyResolver.setOptions(options);
+		concreteSyntaxStartSymbolsProxyResolver.setOptions(options);
+		importPackageProxyResolver.setOptions(options);
+		terminalFeatureProxyResolver.setOptions(options);
+	}
 
 	public EObject resolve(InternalEObject proxy, EObject container, EReference reference, TextResource resource, boolean reportErrors) {
 		if (container instanceof ConcreteSyntax && reference.getFeatureID() == 1) {
@@ -78,5 +90,4 @@ public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 			}
 		return null;
 	}
-
 }

@@ -51,6 +51,8 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
+		// TODO mseifert: get default options
+		
 		super.load(options);
 
 		if (options != null

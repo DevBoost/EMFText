@@ -1,7 +1,5 @@
 package org.reuseware.emftextedit.runtime.resource;
 
-import java.util.Map;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -11,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
  * @author Jendrik Johannes (jj2)
  *
  */
-public interface EMFTextParser {
+public interface EMFTextParser extends Configurable {
 
 	/**
 	 * Set the associate text resource.
@@ -26,8 +24,6 @@ public interface EMFTextParser {
      * @return The text resource.
      */
     public TextResource getResource();
-    
-    public void setOptions(Map<?,?> options);
     
     /**
      * Return the root element of the <code>EObject</code>-Tree. 

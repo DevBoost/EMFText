@@ -19,7 +19,7 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
  * 
  * @author Jendrik Johannes (jj2)
  */
-public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
+public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	
 	protected ProxyResolver proxyResolver = new ProxyResolverImpl();
 	
@@ -86,6 +86,4 @@ public class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	public String deResolve(EObject refObject, EObject container, EReference reference) {
 		return proxyResolver.deResolve(refObject, container, reference);
 	}
-
-	
 }
