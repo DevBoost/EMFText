@@ -27,6 +27,7 @@ public class ManifestGenerator implements IGenerator {
 
 	public boolean generate(PrintWriter out) {
 		out.write(getManifestContent());
+		out.flush();
 		return true;
 	}
 

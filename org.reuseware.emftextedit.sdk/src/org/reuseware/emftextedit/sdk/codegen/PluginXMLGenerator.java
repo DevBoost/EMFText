@@ -26,6 +26,7 @@ public class PluginXMLGenerator implements IGenerator {
 
 	public boolean generate(PrintWriter out) {
 		out.write(getContentOfPluginXML());
+		out.flush();
 		return true;
 	}
 
