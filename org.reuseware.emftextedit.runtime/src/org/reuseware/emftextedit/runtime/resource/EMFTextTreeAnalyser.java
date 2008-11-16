@@ -1,8 +1,8 @@
 package org.reuseware.emftextedit.runtime.resource;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.InternalEObject;
 
 /**
  * Analyses the output of a <code>EMFTextParser</code> (that is a tree of <code>EObject</code>s)
