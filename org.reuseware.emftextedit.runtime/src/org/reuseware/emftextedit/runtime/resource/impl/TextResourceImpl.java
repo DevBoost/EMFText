@@ -1,19 +1,28 @@
 package org.reuseware.emftextedit.runtime.resource.impl;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.resource.EMFTextOCLValidator;
 import org.reuseware.emftextedit.runtime.resource.TextDiagnostic;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
+import org.reuseware.emftextedit.runtime.IOptionProvider;
 
 /**
  * Base implementation for all generated text resources. 
@@ -50,8 +59,10 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 	
 
 	@Override
-	public void load(Map<?, ?> options) throws IOException {
-		// TODO mseifert: get default options
+	public void load(Map<?, ?> loadOptions) throws IOException {
+		// get default options
+		Map<Object, Object> options = castSafelyToObjectToObjectMap(loadOptions); 
+		addDefaultLoadOptions(options);
 		
 		super.load(options);
 
@@ -71,6 +82,17 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 			}
 		}
 	}
+
+	private Map<Object, Object> castSafelyToObjectToObjectMap(Map<?, ?> map) {
+		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
+		Iterator<?> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			Object nextKey = it.next();
+			castedCopy.put(nextKey, map.get(nextKey));
+		}
+		return castedCopy;
+	}
+
 
 	/**
 	 * Creates a empty instance.
@@ -166,6 +188,26 @@ public class TextResourceImpl extends ResourceImpl implements TextResource {
 		return null;
 	}
 	
+	private void addDefaultLoadOptions(Map<Object, Object> loadOptions) {
+		// find default load option providers
+		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
+		for (IConfigurationElement element : configurationElements) {
+			try {
+				IOptionProvider listener = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
+				final Map<? extends Object, ? extends Object> options = listener.getOptions();
+				final Collection<? extends Object> keys = options.keySet();
+				for (Object key : keys) {
+					// TODO mseifert: check if there is already an option set
+					loadOptions.put(key, options.get(key));
+				}
+			} catch (CoreException ce) {
+				// TODO log this to the error view
+				ce.printStackTrace();
+			}
+		}
+	}
+
 	public class ElementBasedTextDiagnosticImpl implements TextDiagnostic {
 
 		protected EObject element;

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.reuseware.emftextedit.runtime.ui.IOptionProvider;
+import org.reuseware.emftextedit.runtime.IOptionProvider;
 import org.reuseware.emftextedit.sdk.IGenPackageFinder;
 import org.reuseware.emftextedit.sdk.GenPackageInRegistryFinder;
 import org.reuseware.emftextedit.sdk.GenPackageInWorkspaceFinder;

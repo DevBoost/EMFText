@@ -21,6 +21,7 @@ public class EMFTextEditPlugin extends Plugin {
 	
 	public static final String PLUGIN_ID = "org.reuseware.ecoretextedit.runtime";
 	public static final String EP_CONCRETESYNTAX_ID = "org.reuseware.emftextedit.runtime.concretesyntax";
+	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = "org.reuseware.emftextedit.runtime.default_load_options";
 	
 	private static EMFTextEditPlugin plugin;
 	

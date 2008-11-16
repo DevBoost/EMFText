@@ -2,4 +2,5 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension-point id="concretesyntax" name="Concrete Syntax Definition" schema="schema/concretesyntax.exsd"/>
+   <extension-point id="org.reuseware.emftextedit.runtime.default_load_options" name="Default Load Options" schema="schema/org.reuseware.emftextedit.runtime.default_load_options.exsd"/>
 </plugin>

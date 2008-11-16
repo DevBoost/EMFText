@@ -41,7 +41,7 @@
             name="EMFTextEdit SDK"/>
     </extension>
    <extension
-         point="org.reuseware.emftextedit.runtime.ui.default_load_options">
+         point="org.reuseware.emftextedit.runtime.default_load_options">
       <provider
             class="org.reuseware.emftextedit.sdk.ui.DefaultOptionProvider"
             id="org.reuseware.emftextedit.sdk.ui.default_option_provider">

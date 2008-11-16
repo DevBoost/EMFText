@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.reuseware.emftextedit.runtime.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.reuseware.emftextedit.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.reuseware.emftextedit.runtime.ui" id="org.reuseware.emftextedit.runtime.ui.default_load_options" name="Default Load Options"/>
+         <meta.schema plugin="org.reuseware.emftextedit.runtime" id="org.reuseware.emftextedit.runtime.default_load_options" name="Default Load Options"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]

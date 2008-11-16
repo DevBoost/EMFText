@@ -1,4 +1,4 @@
-package org.reuseware.emftextedit.runtime.ui;
+package org.reuseware.emftextedit.runtime;
 
 import java.util.Map;
 
