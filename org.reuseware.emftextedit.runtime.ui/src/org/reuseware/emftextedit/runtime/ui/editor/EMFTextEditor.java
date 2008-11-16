@@ -34,8 +34,8 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.runtime.ui.ColorManager;
 import org.reuseware.emftextedit.runtime.ui.EMFTextEditorConfiguration;
 import org.reuseware.emftextedit.runtime.ui.MarkerHelper;
-import org.reuseware.emftextedit.runtime.ui.OptionProvider;
-import org.reuseware.emftextedit.runtime.ui.SaveListener;
+import org.reuseware.emftextedit.runtime.ui.IOptionProvider;
+import org.reuseware.emftextedit.runtime.ui.ISaveListener;
 import org.reuseware.emftextedit.runtime.ui.outline.EMFTextOutlinePage;
 
 /**
@@ -130,7 +130,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_ID);
 		for (IConfigurationElement element : configurationElements) {
 			try {
-				OptionProvider listener = (OptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
+				IOptionProvider listener = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
 				final Map<?, ?> options = listener.getOptions();
 				final Collection<?> keys = options.keySet();
 				for (Object key : keys) {
@@ -193,7 +193,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.SAVE_PERFORMED_EXTENSION_POINT_ID);
 		for (IConfigurationElement element : configurationElements) {
 			try {
-				SaveListener listener = (SaveListener) element.createExecutableExtension("class");//$NON-NLS-1$
+				ISaveListener listener = (ISaveListener) element.createExecutableExtension("class");//$NON-NLS-1$
 				listener.savePerformed(resource);
 			} catch (CoreException ce) {
 				// TODO log this to the error view

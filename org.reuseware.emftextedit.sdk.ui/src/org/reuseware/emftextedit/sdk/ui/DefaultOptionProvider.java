@@ -5,24 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.reuseware.emftextedit.runtime.ui.OptionProvider;
-import org.reuseware.emftextedit.sdk.GenPackageFinder;
+import org.reuseware.emftextedit.runtime.ui.IOptionProvider;
+import org.reuseware.emftextedit.sdk.IGenPackageFinder;
 import org.reuseware.emftextedit.sdk.GenPackageInRegistryFinder;
 import org.reuseware.emftextedit.sdk.GenPackageInWorkspaceFinder;
 import org.reuseware.emftextedit.sdk.MetamodelHelper;
 
-public class DefaultOptionProvider implements OptionProvider {
+public class DefaultOptionProvider implements IOptionProvider {
 
 	public DefaultOptionProvider() {
 		super();
 	}
 
 	public Map<?, ?> getOptions() {
-		List<GenPackageFinder> finders = new ArrayList<GenPackageFinder>(2);
+		List<IGenPackageFinder> finders = new ArrayList<IGenPackageFinder>(2);
 		finders.add(new GenPackageInWorkspaceFinder());
 		finders.add(new GenPackageInRegistryFinder());
 		
-		Map<String, List<GenPackageFinder>> options = new HashMap<String, List<GenPackageFinder>>();
+		Map<String, List<IGenPackageFinder>> options = new HashMap<String, List<IGenPackageFinder>>();
 		options.put(MetamodelHelper.GEN_PACKAGE_FINDER_KEY, finders);
 		return options;
 	}

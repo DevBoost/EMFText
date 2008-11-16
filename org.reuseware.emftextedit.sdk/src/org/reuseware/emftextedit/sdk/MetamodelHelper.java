@@ -25,15 +25,15 @@ public class MetamodelHelper {
 
 	private MetamodelManager createMetaModelManager(Map<?, ?> options) {
 		MetamodelManager mmManager = new MetamodelManager();
-		List<GenPackageFinder> finders = findGenPackageFinder(options);
-		for (GenPackageFinder finder : finders) {
+		List<IGenPackageFinder> finders = findGenPackageFinder(options);
+		for (IGenPackageFinder finder : finders) {
 			mmManager.addGenPackageFinder(finder);
 		}
 		return mmManager;
 	}
 
-	private List<GenPackageFinder> findGenPackageFinder(Map<?, ?> options) {
-		List<GenPackageFinder> finders = new ArrayList<GenPackageFinder>();
+	private List<IGenPackageFinder> findGenPackageFinder(Map<?, ?> options) {
+		List<IGenPackageFinder> finders = new ArrayList<IGenPackageFinder>();
 		if (options == null) {
 			return finders;
 		}
@@ -44,15 +44,15 @@ public class MetamodelHelper {
 		if (value == null) {
 			return finders;
 		}
-		if (value instanceof GenPackageFinder) {
-			finders.add((GenPackageFinder) value);
+		if (value instanceof IGenPackageFinder) {
+			finders.add((IGenPackageFinder) value);
 			return finders;
 		}
 		if (value instanceof List) {
 			List<?> values = (List<?>) value;
 			for (Object next : values) {
-				if (next instanceof GenPackageFinder) {
-					finders.add((GenPackageFinder) next);
+				if (next instanceof IGenPackageFinder) {
+					finders.add((IGenPackageFinder) next);
 				}
 			}
 		}

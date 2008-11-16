@@ -14,7 +14,7 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
  * An GenPackageFinder that searches for the generator model by removing the
  * file extension ('.cs') from the syntax definition and adding '.genmodel'.
  */
-public class GenPackageByNameFinder implements GenPackageFinder {
+public class GenPackageByNameFinder implements IGenPackageFinder {
 	public IGenPackageFinderResult findGenPackage(String nsURI,
 			TextResource resource) {
 		ResourceSet rs = new ResourceSetImpl();

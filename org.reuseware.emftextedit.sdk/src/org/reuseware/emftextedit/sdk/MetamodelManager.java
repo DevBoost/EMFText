@@ -23,7 +23,7 @@ import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
 
 public class MetamodelManager {
 	
-	private List<GenPackageFinder> finders = new ArrayList<GenPackageFinder>();
+	private List<IGenPackageFinder> finders = new ArrayList<IGenPackageFinder>();
 	private MetamodelCache modelCache = new MetamodelCache();
 	
 	private class MetamodelCache {
@@ -51,7 +51,7 @@ public class MetamodelManager {
 		super();
 	}
 	
-	public void addGenPackageFinder(GenPackageFinder finder) {
+	public void addGenPackageFinder(IGenPackageFinder finder) {
 		if (finder == null) {
 			return;
 		}
@@ -67,7 +67,7 @@ public class MetamodelManager {
 			return modelCache.load(nsURI);
 		}
 		
-		for (GenPackageFinder finder : finders) {
+		for (IGenPackageFinder finder : finders) {
 			IGenPackageFinderResult foundPackage = finder.findGenPackage(nsURI, resource);
 			if (foundPackage != null) {
 				modelCache.store(nsURI, foundPackage);

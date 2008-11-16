@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
-public class GenPackageInRegistryFinder implements GenPackageFinder {
+public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
 	private class GenPackageInRegistryFinderResult implements IGenPackageFinderResult {
 

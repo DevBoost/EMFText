@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
-public class GenPackageInWorkspaceFinder implements GenPackageFinder {
+public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 	
 	private class GenPackageInWorkspaceFinderResult implements IGenPackageFinderResult {
 
