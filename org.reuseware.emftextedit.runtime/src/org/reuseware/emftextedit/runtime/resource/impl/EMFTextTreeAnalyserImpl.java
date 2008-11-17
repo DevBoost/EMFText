@@ -23,6 +23,8 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	
 	protected ProxyResolver proxyResolver = new ProxyResolverImpl();
 	
+	private final static String DUPLICATE_EXCEPTION_MESSAGE = "The 'no duplicates' constraint is violated";
+	
 	@SuppressWarnings("unchecked")
 	public void analyse(TextResource resource) {
 		
@@ -44,16 +46,24 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 						
 						if(value instanceof EList<?>) {
 							EList<EObject> l = (EList<EObject>) value;
-							for(Object proxy : new BasicEList<EObject>(l)) {
-								if (((EObject)proxy).eIsProxy()
+							for(EObject proxy : new BasicEList<EObject>(l)) {
+								if (proxy.eIsProxy()
 										&& /*check if proxy is local*/ ((InternalEObject)proxy
 												).eProxyURI().trimFragment().equals(resource.getURI()) ) {
 									EObject element = resolve((InternalEObject)proxy, container, 
 											reference, resource, reportErrors);
 									
 									if (element != null) {
-										EcoreUtil.replace(container, reference, proxy, element);
-										changed = true;
+										try {
+											EcoreUtil.replace(container, reference, proxy, element);
+											changed = true;
+										} catch (IllegalArgumentException iae) {
+											if (DUPLICATE_EXCEPTION_MESSAGE.equals(iae.getMessage())) {
+												resource.addError("Reference " + container.eClass().getName() + "." + reference.getName() + " is unique, but same element of type " + element.eClass().getName() + " was found twice.", proxy);
+											} else {
+												iae.printStackTrace();
+											}
+										}
 									}
 								}
 							}
