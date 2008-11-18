@@ -23,6 +23,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -224,6 +225,8 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 	private void generateMetaModelCode(GenPackage genPackage,
 			IProgressMonitor monitor) {
 		monitor.setTaskName("generating metamodel code...");
+		
+	
 		GenModel genModel = genPackage.getGenModel();
 		genModel.setCanGenerate(true);
 
@@ -245,6 +248,11 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 
 	private void createMetaModelCode(SubMonitor progress,
 			final ConcreteSyntax cSyntax) {
+		// do not generate code for genmodels imported from deployed plugins
+		if (cSyntax.getPackage().eResource().getURI().segments()[0].equals("plugin")) {
+			return;
+		}
+		
 		// call EMF code generator if specified
 		if (EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
 				EMFTextEditSDKUIPlugin.GENERATE_GEN_MODEL)) {
