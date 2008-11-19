@@ -168,19 +168,21 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 	}
 	
 	private void addDefaultLoadOptions(Map<Object, Object> loadOptions) {
-		// find default load option providers
-		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
-		for (IConfigurationElement element : configurationElements) {
-			try {
-				IOptionProvider provider = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
-				final Map<?, ?> options = provider.getOptions();
-				final Collection<?> keys = options.keySet();
-				for (Object key : keys) {
-					addLoadOption(loadOptions, key, options.get(key));
+		if (Platform.isRunning()) {
+			// find default load option providers
+			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+			IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
+			for (IConfigurationElement element : configurationElements) {
+				try {
+					IOptionProvider provider = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
+					final Map<?, ?> options = provider.getOptions();
+					final Collection<?> keys = options.keySet();
+					for (Object key : keys) {
+						addLoadOption(loadOptions, key, options.get(key));
+					}
+				} catch (CoreException ce) {
+					EMFTextEditPlugin.logError("Exception while getting default options.", ce);
 				}
-			} catch (CoreException ce) {
-				EMFTextEditPlugin.logError("Exception while getting default options.", ce);
 			}
 		}
 	}
@@ -221,6 +223,11 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 
 	private Map<Object, Object> copySafelyToObjectToObjectMap(Map<?, ?> map) {
 		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
+		
+		if(map == null) {
+			return castedCopy;
+		}
+		
 		Iterator<?> it = map.keySet().iterator();
 		while (it.hasNext()) {
 			Object nextKey = it.next();
