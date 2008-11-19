@@ -981,7 +981,7 @@ public class TextParserGenerator extends BaseGenerator{
             }
             String usedPackagePrefix = p.getBasePackage()==null?"":(p.getBasePackage() + ".");
         	out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".*;");
-			out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".impl.*;");
+			//out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".impl.*;");
         }		
 	}
 	
