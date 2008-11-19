@@ -2,13 +2,13 @@ package org.reuseware.emftextedit.runtime.resource.impl;
 
 import java.util.Iterator;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.reuseware.emftextedit.runtime.resource.EMFTextTreeAnalyser;
 import org.reuseware.emftextedit.runtime.resource.ProxyResolver;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
@@ -46,7 +46,8 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 						
 						if(value instanceof EList<?>) {
 							EList<EObject> l = (EList<EObject>) value;
-							for(EObject proxy : new BasicEList<EObject>(l)) {
+							//iterate over a list copy with unresolved value
+							for(EObject proxy : ((InternalEList<EObject>)l).basicList()) {
 								if (proxy.eIsProxy()
 										&& /*check if proxy is local*/ ((InternalEObject)proxy
 												).eProxyURI().trimFragment().equals(resource.getURI()) ) {
