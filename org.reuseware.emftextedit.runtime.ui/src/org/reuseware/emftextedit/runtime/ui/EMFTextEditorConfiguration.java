@@ -1,9 +1,6 @@
 package org.reuseware.emftextedit.runtime.ui;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
@@ -13,6 +10,7 @@ import org.eclipse.jface.text.source.DefaultAnnotationHover;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
+import org.eclipse.ui.part.FileEditorInput;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.runtime.ui.editor.EMFTextEditor;
 
@@ -47,12 +45,11 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 	 * @return
 	 */
     protected ITokenScanner getScanner(String fileName) {
-    	ResourceSet rs = new ResourceSetImpl();
-    	Resource tempResource = rs.createResource(URI.createURI(fileName));
-    	
-    	TextResource tr = (TextResource) tempResource;
+		FileEditorInput input = (FileEditorInput) theEditor.getEditorInput();
+		String path = input.getFile().getFullPath().toString();
+		TextResource thisFile = (TextResource) theEditor.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
         
-        return new AntlrTokenScanner(tr, fileName.substring(fileName.lastIndexOf(".") + 1), colorManager);
+        return new AntlrTokenScanner(thisFile, fileName.substring(fileName.lastIndexOf(".") + 1), colorManager);
     }
 
     /**
