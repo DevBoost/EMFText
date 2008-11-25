@@ -671,16 +671,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		out.println("\t}");
 	}
 
-	protected static String generateAccessMethod(EStructuralFeature f) {
-		String method = "";
-		if (f instanceof EAttribute
-				&& (((EAttribute) f).getEAttributeType().getName().equals(
-						"EBoolean") || ((EAttribute) f).getEAttributeType()
-						.getName().equals("EBooleanObject"))) {
-			method = "is" + cap(f.getName()) + "()";
-		} else {
-			method = "get" + cap(f.getName()) + "()";
-		}
+	protected static String generateAccessMethod(EStructuralFeature feature) {
+		String method = "eGet(element.eClass().getEStructuralFeature(\"" + feature.getName() + "\"))";
 		return method;
 	}
 
