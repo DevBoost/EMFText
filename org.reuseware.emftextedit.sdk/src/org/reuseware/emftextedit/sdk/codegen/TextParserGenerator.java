@@ -168,12 +168,19 @@ public class TextParserGenerator extends BaseGenerator{
 	
 	private static class TokenDefinitionAdapter implements InternalTokenDefinition{
 		private NewDefinedToken adaptee;
+		private boolean implicitlyReferenced;
 		
 		public TokenDefinitionAdapter(NewDefinedToken adaptee){
+			this(adaptee,false);
+		}
+		
+		public TokenDefinitionAdapter(NewDefinedToken adaptee,boolean implicitlyReferenced){
 			if(adaptee==null)
 				throw new NullPointerException("Adaptee shouldnt be null!");
 			this.adaptee = adaptee;
+			this.implicitlyReferenced = implicitlyReferenced;
 		}
+		
 
 		public TokenDefinition getBaseDefinition() {
 			return adaptee;
@@ -200,7 +207,7 @@ public class TextParserGenerator extends BaseGenerator{
 		}
 		
 		public boolean isReferenced(){
-			return !adaptee.getAttributeReferences().isEmpty();
+			return implicitlyReferenced||!adaptee.getAttributeReferences().isEmpty();
 		}
 		
 		public boolean isDerived(){
@@ -914,15 +921,21 @@ public class TextParserGenerator extends BaseGenerator{
 				continue;
 			}
 			if(def instanceof NewDefinedToken){
-				InternalTokenDefinition defAdapter = new TokenDefinitionAdapter((NewDefinedToken)def);
+				InternalTokenDefinition derivedDef = derivedTokens.remove(def.getName());
+				InternalTokenDefinition defAdapter = null;
+				if(derivedDef==null){
+					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)def);
+				}		
+				else{
+					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)def,derivedDef.isReferenced());
+				}
 				
 				if(!checkANTLRRegex(defAdapter)){ 
-					
-					continue;
+						continue;
 				}
 				printToken(defAdapter,out);
 				processedTokenNames.add(defAdapter.getName().toLowerCase());
-				printedTokens.add(defAdapter);
+				printedTokens.add(defAdapter);					
 			}
 			else if(def instanceof PreDefinedToken){
 				if(derivedTokens.get(def.getName())!=null){
