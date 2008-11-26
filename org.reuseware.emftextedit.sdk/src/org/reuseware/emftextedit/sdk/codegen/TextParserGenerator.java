@@ -599,8 +599,7 @@ public class TextParserGenerator extends BaseGenerator{
                 out.print(indent+")");
     		}
     		else if(def instanceof CsString){
-    			CsString terminal = (CsString) def;
-    	        out.print(indent+"'" + terminal.getValue().replaceAll("'", "\\\\'") + "'");
+    			count = printCsString((CsString) def, rule, out, count, eClassesReferenced, proxyReferences, indent);
     		}
     		else{
     			assert def instanceof Terminal;
@@ -615,6 +614,14 @@ public class TextParserGenerator extends BaseGenerator{
     			out.println();
     	}
     	return count;
+    }
+    
+    private int printCsString(CsString csString,Rule rule,PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent){
+    	final String ident = "a" + count;
+    	out.print(indent+ident+" = '" + csString.getValue().replaceAll("'", "\\\\'") + "'");
+    	out.print("{copyLocalizationInfos((CommonToken)" + ident + ", element); }"); 
+    	return ++count;
+
     }
     
     private int printTerminal(Terminal terminal,Rule rule,PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent){
