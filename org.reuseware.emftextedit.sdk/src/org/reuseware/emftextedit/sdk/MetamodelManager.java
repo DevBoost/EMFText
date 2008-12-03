@@ -58,7 +58,7 @@ public class MetamodelManager {
 		finders.add(finder);
 	}
 
-	public GenPackage findGenPackage(String nsURI, TextResource resource) {
+	public GenPackage findGenPackage(String nsURI, Resource resource) {
 		if (nsURI == null) {
 			return null;
 		}
