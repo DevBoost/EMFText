@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
@@ -31,7 +30,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 		}
 	}
 
-	public IGenPackageFinderResult findGenPackage(String nsURI, TextResource resource) {
+	public IGenPackageFinderResult findGenPackage(String nsURI, Resource resource) {
 		final ResourceSet rs = new ResourceSetImpl();
 		//search all registered generator models
         for(URI genModelURI : EcorePlugin.getEPackageNsURIToGenModelLocationMap().values()) {

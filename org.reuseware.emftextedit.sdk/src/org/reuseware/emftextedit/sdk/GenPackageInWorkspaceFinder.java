@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
-import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 	
@@ -48,7 +47,7 @@ public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 		}
 	}
 	
-	public IGenPackageFinderResult findGenPackage(String nsURI, TextResource resource) {
+	public IGenPackageFinderResult findGenPackage(String nsURI, Resource resource) {
 		URI uri = resource.getURI();
 		String platformString = uri.toPlatformString(true);
 		if (platformString == null) {

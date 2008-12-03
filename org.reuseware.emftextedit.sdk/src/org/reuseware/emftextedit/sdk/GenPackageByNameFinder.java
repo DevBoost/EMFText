@@ -8,7 +8,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 /**
  * An GenPackageFinder that searches for the generator model by removing the
@@ -16,7 +15,7 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
  */
 public class GenPackageByNameFinder implements IGenPackageFinder {
 	public IGenPackageFinderResult findGenPackage(String nsURI,
-			TextResource resource) {
+			Resource resource) {
 		ResourceSet rs = new ResourceSetImpl();
 		URI resourceURI = resource.getURI();
 		resourceURI = resourceURI.trimFileExtension();
