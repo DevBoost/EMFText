@@ -358,9 +358,13 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
 		mismatchedTokenRecoveryTries++;
 		// redirect error stream to suppress 'BR.recoverFromMismatchedToken' message
 		PrintStream originalErr = System.err;
-		System.setErr(new PrintStream(new ByteArrayOutputStream()));
-		super.recoverFromMismatchedToken(arg0, arg1, arg2, arg3);
-		System.setErr(originalErr);
+		try{
+			System.setErr(new PrintStream(new ByteArrayOutputStream()));
+			super.recoverFromMismatchedToken(arg0, arg1, arg2, arg3);			
+		}
+		finally{
+			System.setErr(originalErr);			
+		}
 	}
 
 	public int getMismatchedTokenRecoveryTries() {
