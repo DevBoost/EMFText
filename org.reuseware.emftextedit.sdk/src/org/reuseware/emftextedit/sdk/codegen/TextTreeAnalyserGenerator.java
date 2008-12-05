@@ -117,12 +117,12 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		}
 		s.append("\t}\n\n");
 		
-		s.append("\tpublic void resolveFuzzy(java.lang.String proxyURIFragment, EObject container, int position, " + ResolveResult.class.getName() + " result) {\n\n");
+		s.append("\tpublic void resolveFuzzy(java.lang.String identifier, EObject container, int position, " + ResolveResult.class.getName() + " result) {\n\n");
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String genClassName = proxyReference.getGenClass().getName();
 			String generatedClassName = proxyReferences.get(proxyReference);
 			int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
-			s.append("\t\tresolveFuzzy(" + genClassName + ".class, proxyURIFragment, container, position, " + featureID + ", " + low(generatedClassName) + ", result);\n");
+			s.append("\t\tresolveFuzzy(" + genClassName + ".class, identifier, container, position, " + featureID + ", " + low(generatedClassName) + ", result);\n");
 		}
 		s.append("\t}\n\n");
 		

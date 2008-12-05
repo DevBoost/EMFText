@@ -23,18 +23,18 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 	}
 
 	private void doResolveStrict(
-			final String proxyURIFragment, EObject container, ResolveResult result) {
+			final String identifier, EObject container, ResolveResult result) {
 		final String pack;
 		final String clazz;
-		if (proxyURIFragment.contains(".")) {
-			pack = proxyURIFragment.split("\\.")[0];
-			clazz = proxyURIFragment.split("\\.")[1];
+		if (identifier.contains(".")) {
+			pack = identifier.split("\\.")[0];
+			clazz = identifier.split("\\.")[1];
 		} else {
 			pack = null;
-			clazz = proxyURIFragment;
+			clazz = identifier;
 		}
 
-		doResolveStartSymbol(proxyURIFragment, container, new ReferenceFilter<GenClass>() {
+		doResolveStartSymbol(identifier, container, new ReferenceFilter<GenClass>() {
 
 			public String accept(GenClass genClass) {
 				String genClassName = genClass.getName();
@@ -53,16 +53,16 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		}, result);
 	}
 
-	public void doResolveFuzzy(final String proxyURIFragment, EObject container, ResolveResult result) {
+	public void doResolveFuzzy(final String identifier, EObject container, ResolveResult result) {
 		
-		doResolveStartSymbol(proxyURIFragment, container, new ReferenceFilter<GenClass>() {
+		doResolveStartSymbol(identifier, container, new ReferenceFilter<GenClass>() {
 
 			public String accept(GenClass genClass) {
 				String genClassName = genClass.getName();
 				if (genClassName == null) {
 					return null;
 				}
-				if (genClassName.startsWith(proxyURIFragment)) {
+				if (genClassName.startsWith(identifier)) {
 					return genClassName;
 				}
 				return null;
@@ -71,30 +71,30 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		}, result);
 	}
 
-	private void doResolveStartSymbol(String proxyURIFragment, EObject container, ReferenceFilter<GenClass> filter, ResolveResult result) {
+	private void doResolveStartSymbol(String identifier, EObject container, ReferenceFilter<GenClass> filter, ResolveResult result) {
 		ConcreteSyntax cs = (ConcreteSyntax) container;
 		
 		if (cs.getPackage().eIsProxy()) {
-			result.setErrorMessage(getErrorMessage(proxyURIFragment));
+			result.setErrorMessage(getErrorMessage(identifier));
 			return;
 		}
 		
 		for (Import aImport : cs.getImports()) {
 			for(GenClass genClass : aImport.getPackage().getGenClasses()) {
-				String identifier = filter.accept(genClass);
-				if (identifier != null) {
-					result.addMapping(identifier, genClass);
+				String foundIdentifier = filter.accept(genClass);
+				if (foundIdentifier != null) {
+					result.addMapping(foundIdentifier, genClass);
 				}
 			}				
 		}
 		for(GenClass genClass : cs.getPackage().getGenClasses()) {
-			String identifier = filter.accept(genClass);
-			if (identifier != null) {
-				result.addMapping(identifier, genClass);
+			String foundIdentifier = filter.accept(genClass);
+			if (foundIdentifier != null) {
+				result.addMapping(foundIdentifier, genClass);
 			}
 		}
 		
-		result.setErrorMessage(getErrorMessage(proxyURIFragment));
+		result.setErrorMessage(getErrorMessage(identifier));
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		}
 	}
 
-	private String getErrorMessage(String proxyURIFragment) {
-		return "EClass \"" + proxyURIFragment + "\" does not exist";
+	private String getErrorMessage(String identifier) {
+		return "EClass \"" + identifier + "\" does not exist";
 	}
 }

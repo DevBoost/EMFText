@@ -126,14 +126,14 @@ public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 		return null;
 	}
 
-	public void resolveFuzzy(String proxyURIFragment, EObject container, ResolveResult result) {
-		resolveFuzzy(ConcreteSyntax.class, proxyURIFragment, container, 3, concreteSyntaxStartSymbolsReferenceResolver, result);
-		resolveFuzzy(ConcreteSyntax.class, proxyURIFragment, container, 1, concreteSyntaxPackageReferenceResolver, result);
-		resolveFuzzy(DefinedPlaceholder.class, proxyURIFragment, container, 2, definedPlaceholderTokenReferenceResolver, result);
-		resolveFuzzy(Rule.class, proxyURIFragment, container, 1, ruleMetaclassReferenceResolver, result);
-		resolveFuzzy(Import.class, proxyURIFragment, container, 1, importConcreteSyntaxReferenceResolver, result);
-		resolveFuzzy(Import.class, proxyURIFragment, container, 2, importPackageReferenceResolver, result);
-		resolveFuzzy(Terminal.class, proxyURIFragment, container, 1, terminalFeatureReferenceResolver, result);
+	public void resolveFuzzy(String identifier, EObject container, ResolveResult result) {
+		resolveFuzzy(ConcreteSyntax.class, identifier, container, 3, concreteSyntaxStartSymbolsReferenceResolver, result);
+		resolveFuzzy(ConcreteSyntax.class, identifier, container, 1, concreteSyntaxPackageReferenceResolver, result);
+		resolveFuzzy(DefinedPlaceholder.class, identifier, container, 2, definedPlaceholderTokenReferenceResolver, result);
+		resolveFuzzy(Rule.class, identifier, container, 1, ruleMetaclassReferenceResolver, result);
+		resolveFuzzy(Import.class, identifier, container, 1, importConcreteSyntaxReferenceResolver, result);
+		resolveFuzzy(Import.class, identifier, container, 2, importPackageReferenceResolver, result);
+		resolveFuzzy(Terminal.class, identifier, container, 1, terminalFeatureReferenceResolver, result);
 	}
 
 	protected void resolveFuzzy(Class<?> clazz, String identifier, EObject container,

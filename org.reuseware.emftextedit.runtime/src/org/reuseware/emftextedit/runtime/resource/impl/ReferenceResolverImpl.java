@@ -40,8 +40,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 	public void resolve(String identifier, EObject container, 
 			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
 		
-		String proxyURIFragment = identifier;
-		doResolve(proxyURIFragment, container, reference, position, resolveFuzzy, result);
+		doResolve(identifier, container, reference, position, resolveFuzzy, result);
 		EObject element = null;
 		if (result.wasResolvedUniquely()) {
 			ReferenceMapping next = result.getMappings().iterator().next();
@@ -80,7 +79,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 	 * @param resolveFuzzy 
 	 * @return The resolved object or null if resolving fails.
 	 */
-	protected void doResolve(String proxyURIFragment, EObject container,
+	protected void doResolve(String identifier, EObject container,
 			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
 		
 		//TODO trivial implementation - enhancements:
@@ -88,15 +87,14 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 		//      - use not only name attribute (e.g. "id", or only existing String attribute)
 	
 		EClass type     = reference.getEReferenceType();
-		String proxyURI = proxyURIFragment; // proxy.eProxyURI().fragment();
 		EObject root = findRoot(container);
 		for (Iterator<EObject> i = root.eAllContents(); i.hasNext(); ) {
 			EObject element = i.next();
 			if (!element.eIsProxy()) {
 				EClass eClass = element.eClass();
 				if (eClass.equals(type) || eClass.getEAllSuperTypes().contains(type)) {
-					if (matches(element, proxyURI)) {
-						result.addMapping(proxyURI, element);
+					if (matches(element, identifier)) {
+						result.addMapping(identifier, element);
 						if (!resolveFuzzy) {
 							return;
 						}
