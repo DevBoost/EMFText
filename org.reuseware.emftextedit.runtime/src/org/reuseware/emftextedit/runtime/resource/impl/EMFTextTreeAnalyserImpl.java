@@ -92,7 +92,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 				}
 			}
 			
-			// remove the resolve proxies from the set of unresolved proxies
+			// remove the resolved proxies from the set of unresolved proxies
 			for (UnresolvedProxy nextProxy : resolvedProxies) {
 				unresolvedProxies.remove(nextProxy);
 			}
