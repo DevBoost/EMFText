@@ -39,11 +39,6 @@ public class EMFTextEditorCompletionProcessor implements
 	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
 			int documentOffset) {
 		long startTime = System.currentTimeMillis();
-		// TODO mseifert: this is a dummy call to make sure the resource field in
-		// the editor is set. the correct way would be to make sure that this field
-		// contains the correct value at every point in time (by changing the editor
-		// accordingly).
-		editor.getResourceSet();
 		Resource resource = editor.getResource();
 		TextResource textResource = (TextResource) resource;
 		LocationMap locationMap = textResource.getLocationMap();
