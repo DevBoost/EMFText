@@ -53,8 +53,8 @@ public class TerminalFeatureReferenceResolver extends ReferenceResolverImpl {
 			return result.wasResolvedUniquely();
 		}
 
-		public void addError(String message) {
-			result.addError(message);
+		public void setErrorMessage(String message) {
+			result.setErrorMessage(message);
 		}
 
 		public void addMapping(String identifier, EObject target) {
@@ -185,9 +185,9 @@ public class TerminalFeatureReferenceResolver extends ReferenceResolverImpl {
 		}
 		if (resultForFeature.foundFeatureWithCorrectName() && !result.wasResolved()) {
 			// found a feature with correct name, but wrong containment
-			result.addError(createFeatureHasWrongContainmentTypeResult(identifier, getExpectedContainmentValue(container)));
+			result.setErrorMessage(createFeatureHasWrongContainmentTypeResult(identifier, getExpectedContainmentValue(container)));
 		} else {
-			result.addError(createFeatureNotExistsResult(identifier));
+			result.setErrorMessage(createFeatureNotExistsResult(identifier));
 		}
 	}
 

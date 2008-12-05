@@ -92,7 +92,7 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 				result.addMapping(identifier, genClass);
 			}
 		}
-		result.addError("EClass \"" + mergeIdentifier(packageAndClass) + "\" does not exist");
+		result.setErrorMessage("EClass \"" + mergeIdentifier(packageAndClass) + "\" does not exist");
 	}
 
 	@Override

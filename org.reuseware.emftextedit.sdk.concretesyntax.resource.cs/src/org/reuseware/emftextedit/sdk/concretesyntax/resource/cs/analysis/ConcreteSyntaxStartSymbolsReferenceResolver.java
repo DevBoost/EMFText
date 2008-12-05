@@ -75,7 +75,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		ConcreteSyntax cs = (ConcreteSyntax) container;
 		
 		if (cs.getPackage().eIsProxy()) {
-			result.addError(getErrorMessage(proxyURIFragment));
+			result.setErrorMessage(getErrorMessage(proxyURIFragment));
 			return;
 		}
 		
@@ -94,7 +94,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 			}
 		}
 		
-		result.addError(getErrorMessage(proxyURIFragment));
+		result.setErrorMessage(getErrorMessage(proxyURIFragment));
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class ResolveResultImpl implements ResolveResult {
 		return mappings != null && mappings.size() == 1;
 	}
 
-	public void addError(String message) {
+	public void setErrorMessage(String message) {
 		if (mappings != null) {
 			return;
 		}

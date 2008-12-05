@@ -17,14 +17,14 @@ public class ImportConcreteSyntaxReferenceResolver extends ReferenceResolverImpl
 			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
 		
 		if (!(container instanceof Import)) {
-			result.addError(createErrorMessage(identifier));
+			result.setErrorMessage(createErrorMessage(identifier));
 			return;
 		}
 		EObject concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, 
 				((Import) container).getPackage(), (TextResource) container.eResource());
 
 		if (concreteSyntax == null) {
-			result.addError(createErrorMessage(identifier));
+			result.setErrorMessage(createErrorMessage(identifier));
 			return;
 		}
 		result.addMapping(identifier, concreteSyntax);

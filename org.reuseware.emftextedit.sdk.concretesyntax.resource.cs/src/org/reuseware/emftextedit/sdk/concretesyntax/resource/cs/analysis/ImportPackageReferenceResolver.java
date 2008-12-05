@@ -26,7 +26,7 @@ public class ImportPackageReferenceResolver extends ReferenceResolverImpl {
 			
 		}
 		if (genPackage == null) {
-			result.addError("Genarator model \"" + identifier + "\" could not be resolved");
+			result.setErrorMessage("Genarator model \"" + identifier + "\" could not be resolved");
 			return;
 		}
 		result.addMapping(identifier, genPackage);

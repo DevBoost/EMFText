@@ -17,7 +17,7 @@ public class ConcreteSyntaxPackageReferenceResolver extends ReferenceResolverImp
 			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
 		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), identifier, (TextResource) container.eResource());
 		if (genPackage == null) {
-			result.addError("Generator model \"" + identifier + "\" could not be resolved");
+			result.setErrorMessage("Generator model \"" + identifier + "\" could not be resolved");
 		} else {
 			result.addMapping(identifier, genPackage);
 		}

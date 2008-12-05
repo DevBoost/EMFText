@@ -12,13 +12,38 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ResolveResult {
 	
-	public void addError(String message);
+	/**
+	 * Sets the error message that describes what went wrong while
+	 * resolving a reference. If a mapping for the reference was 
+	 * already found (i.e., addMapping() was called before), the 
+	 * call to this method is ignored. If addMapping() is called
+	 * afterwards, the error message is also discarded.
+	 * 
+	 * @param message the error that prevented resolving the reference
+	 */
+	public void setErrorMessage(String message);
 	
 	// TODO mseifert: addWarning
 	// warnings have to be added to the resource even if the identifier was resolved
 	
+	/**
+	 * Adds a mapping from the given identifier to the given object.
+	 * Adding such a mapping means that the identifier was resolved
+	 * to reference the target object.
+	 * Previous errors as well as future ones will be discarded. Once
+	 * a mapping is found, resolve errors have no meaning any more.
+	 */
 	public void addMapping(String identifier, EObject target);
 	
+	/**
+	 * Adds a mapping from the given identifier to another identifier.
+	 * This is useful for multilevel resolving where internal identifiers
+	 * are replace by external ones depending on the context. Usually
+	 * the external identifiers are replaced by target object later on.
+	 * 
+	 * @param identifier
+	 * @param newIdentifier
+	 */
 	public void addMapping(String identifier, String newIdentifier);
 
 	/**

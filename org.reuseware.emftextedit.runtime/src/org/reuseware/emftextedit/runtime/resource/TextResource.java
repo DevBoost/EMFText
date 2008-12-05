@@ -19,9 +19,21 @@ public interface TextResource extends Resource {
 	 */
 	public static final String OPTION_NO_VALIDATE = "TR_NO_VALIDATE_OCL"; 
 
-	// TODO mseifert add documentation
+	/**
+	 * Returns a map containing information about the location of model
+	 * elements in the text.
+	 * 
+	 * @return the model element to text location mapping
+	 */
 	public LocationMap getLocationMap();
-	// TODO mseifert add documentation
+	
+	/**
+	 * Returns the tree analyser used by this resource. The analyser
+	 * can be used to resolve references after the resource has been
+	 * loaded.
+	 * 
+	 * @return the tree analyser
+	 */
 	public EMFTextTreeAnalyser getTreeAnalyser();
 	
 	/**
