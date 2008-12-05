@@ -30,6 +30,7 @@ public class CsResourceImpl extends TextResourceImpl {
 		}
 
 		EMFTextTreeAnalyser a = new CsTreeAnalyser();
+
 		a.setOptions(options);
 		a.analyse(this);
 	}

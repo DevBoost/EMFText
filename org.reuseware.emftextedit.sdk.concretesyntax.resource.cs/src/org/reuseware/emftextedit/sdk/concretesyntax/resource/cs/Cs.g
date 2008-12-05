@@ -71,7 +71,6 @@ import org.reuseware.emftextedit.sdk.concretesyntax.Placeholder;
 import org.reuseware.emftextedit.sdk.concretesyntax.Option;
 //Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.OptionImpl
 import org.reuseware.emftextedit.sdk.concretesyntax.*;
-import org.reuseware.emftextedit.sdk.concretesyntax.impl.*;
 //+++++++++++++++++++++++imports for org.eclipse.emf.ecore begin++++++++++++++++++++++
 import org.eclipse.emf.ecore.EAttribute;
 //Implementation: org.eclipse.emf.ecore.impl.EAttributeImpl
@@ -114,7 +113,6 @@ import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.ETypeParameter;
 //Implementation: org.eclipse.emf.ecore.impl.ETypeParameterImpl
 import org.eclipse.emf.ecore.*;
-import org.eclipse.emf.ecore.impl.*;
 //+++++++++++++++++++++++imports for org.eclipse.emf.codegen.ecore.genmodel begin++++++++++++++++++++++
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 //Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelImpl
@@ -145,60 +143,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenAnnotation;
 import org.eclipse.emf.codegen.ecore.genmodel.GenTypeParameter;
 //Implementation: org.eclipse.emf.codegen.ecore.genmodel.impl.GenTypeParameterImpl
 import org.eclipse.emf.codegen.ecore.genmodel.*;
-import org.eclipse.emf.codegen.ecore.genmodel.impl.*;
-//+++++++++++++++++++++++imports for org.reuseware.emftextedit.sdk.concretesyntax begin++++++++++++++++++++++
-import org.reuseware.emftextedit.sdk.concretesyntax.ConcreteSyntax;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ConcreteSyntaxImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Import;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ImportImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Rule;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.RuleImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Choice;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ChoiceImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Sequence;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.SequenceImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Definition;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinitionImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Terminal;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TerminalImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.CsString;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CsStringImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.WhiteSpacesImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.LineBreak;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.LineBreakImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Cardinality;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CardinalityImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.PLUS;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PLUSImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.STAR;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.STARImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.QUESTIONMARK;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.QUESTIONMARKImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.CompoundDefinition;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CompoundDefinitionImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.TokenDefinition;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TokenDefinitionImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.NormalToken;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NormalTokenImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.DecoratedToken;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DecoratedTokenImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.NewDefinedToken;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NewDefinedTokenImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.PreDefinedToken;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PreDefinedTokenImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Containment;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ContainmentImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.DefinedPlaceholder;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinedPlaceholderImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.DerivedPlaceholder;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DerivedPlaceholderImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Placeholder;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PlaceholderImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.Option;
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.OptionImpl
-import org.reuseware.emftextedit.sdk.concretesyntax.*;
-import org.reuseware.emftextedit.sdk.concretesyntax.impl.*;
 import org.reuseware.emftextedit.runtime.resource.*;
 import org.reuseware.emftextedit.runtime.resource.impl.*;
 import org.eclipse.emf.ecore.EObject;
@@ -565,17 +509,9 @@ TEXT_33_
 :
 	('!')('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-QUOTED_36_36
+LB
 :
-	('$')(~('$')|('\\''$'))*('$')
-;
-QUOTED_39_39
-:
-	('\'')(~('\'')|('\\''\''))*('\'')
-;
-QUOTED_60_62
-:
-	('<')(~('>')|('\\''>'))*('>')
+	('\r\n' | '\r' | '\n'){ channel=99; }
 ;
 TEXT_35_
 :
@@ -585,9 +521,17 @@ WS
 :
 	(' ' | '\t' | '\f'){ channel=99; }
 ;
-LB
+QUOTED_60_62
 :
-	('\r\n' | '\r' | '\n'){ channel=99; }
+	('<')(~('>')|('\\''>'))*('>')
+;
+QUOTED_39_39
+:
+	('\'')(~('\'')|('\\''\''))*('\'')
+;
+QUOTED_36_36
+:
+	('$')(~('$')|('\\''$'))*('$')
 ;
 QUOTED_34_34
 :

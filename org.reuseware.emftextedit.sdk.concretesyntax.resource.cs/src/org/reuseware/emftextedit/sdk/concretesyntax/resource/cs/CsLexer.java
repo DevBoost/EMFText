@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2008-11-11 10:03:09
+// $ANTLR 3.0.1 C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2008-12-05 16:25:02
 
 package org.reuseware.emftextedit.sdk.concretesyntax.resource.cs;
 
@@ -10,45 +10,45 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class CsLexer extends Lexer {
-    public static final int T21=21;
+    public static final int QUOTED_39_39=8;
     public static final int T29=29;
-    public static final int T33=33;
-    public static final int T22=22;
-    public static final int QUOTED_36_36=11;
-    public static final int T36=36;
-    public static final int WS=13;
+    public static final int TEXT_35_=9;
     public static final int T28=28;
+    public static final int T27=27;
+    public static final int T26=26;
+    public static final int TEXT=4;
+    public static final int T25=25;
+    public static final int Tokens=41;
+    public static final int T24=24;
+    public static final int EOF=-1;
     public static final int T23=23;
     public static final int T40=40;
-    public static final int T35=35;
-    public static final int COMMENTS=12;
-    public static final int QUOTED_60_62=5;
-    public static final int TEXT_35_=9;
-    public static final int T34=34;
+    public static final int T22=22;
+    public static final int T21=21;
     public static final int T20=20;
-    public static final int T25=25;
-    public static final int T37=37;
-    public static final int T18=18;
-    public static final int T26=26;
-    public static final int T15=15;
-    public static final int EOF=-1;
-    public static final int LB=14;
-    public static final int T32=32;
-    public static final int TEXT=4;
-    public static final int T17=17;
-    public static final int Tokens=41;
-    public static final int T31=31;
-    public static final int T16=16;
-    public static final int T38=38;
-    public static final int T27=27;
     public static final int TEXT_33_=10;
-    public static final int QUOTED_39_39=8;
-    public static final int T30=30;
-    public static final int T24=24;
-    public static final int T19=19;
-    public static final int T39=39;
     public static final int QNAME=6;
+    public static final int WS=14;
+    public static final int COMMENTS=12;
+    public static final int QUOTED_36_36=11;
+    public static final int LB=13;
+    public static final int T38=38;
+    public static final int T37=37;
+    public static final int QUOTED_60_62=5;
+    public static final int T39=39;
+    public static final int T34=34;
+    public static final int T15=15;
+    public static final int T33=33;
+    public static final int T16=16;
+    public static final int T36=36;
+    public static final int T17=17;
+    public static final int T35=35;
     public static final int QUOTED_34_34=7;
+    public static final int T18=18;
+    public static final int T30=30;
+    public static final int T19=19;
+    public static final int T32=32;
+    public static final int T31=31;
 
     	public java.util.List<RecognitionException> lexerExceptions  = new java.util.ArrayList<RecognitionException>();
     	public java.util.List<Integer> lexerExceptionsPosition       = new java.util.ArrayList<Integer>();
@@ -63,14 +63,14 @@ public class CsLexer extends Lexer {
     public CsLexer(CharStream input) {
         super(input);
     }
-    public String getGrammarFileName() { return "C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g"; }
+    public String getGrammarFileName() { return "C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g"; }
 
     // $ANTLR start T15
     public final void mT15() throws RecognitionException {
         try {
             int _type = T15;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:5: ( 'SYNTAXDEF' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:7: 'SYNTAXDEF'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:5: ( 'SYNTAXDEF' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:7: 'SYNTAXDEF'
             {
             match("SYNTAXDEF"); 
 
@@ -88,8 +88,8 @@ public class CsLexer extends Lexer {
     public final void mT16() throws RecognitionException {
         try {
             int _type = T16;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:5: ( 'FOR' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:7: 'FOR'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:5: ( 'FOR' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:7: 'FOR'
             {
             match("FOR"); 
 
@@ -107,8 +107,8 @@ public class CsLexer extends Lexer {
     public final void mT17() throws RecognitionException {
         try {
             int _type = T17;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:5: ( 'START' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:7: 'START'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:5: ( 'START' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:7: 'START'
             {
             match("START"); 
 
@@ -126,8 +126,8 @@ public class CsLexer extends Lexer {
     public final void mT18() throws RecognitionException {
         try {
             int _type = T18;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:5: ( ',' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:7: ','
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:5: ( ',' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:7: ','
             {
             match(','); 
 
@@ -144,8 +144,8 @@ public class CsLexer extends Lexer {
     public final void mT19() throws RecognitionException {
         try {
             int _type = T19;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:5: ( 'IMPORTS' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:7: 'IMPORTS'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:5: ( 'IMPORTS' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:7: 'IMPORTS'
             {
             match("IMPORTS"); 
 
@@ -163,8 +163,8 @@ public class CsLexer extends Lexer {
     public final void mT20() throws RecognitionException {
         try {
             int _type = T20;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:5: ( '{' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:7: '{'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:5: ( '{' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:7: '{'
             {
             match('{'); 
 
@@ -181,8 +181,8 @@ public class CsLexer extends Lexer {
     public final void mT21() throws RecognitionException {
         try {
             int _type = T21;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:5: ( '}' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:7: '}'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:5: ( '}' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:7: '}'
             {
             match('}'); 
 
@@ -199,8 +199,8 @@ public class CsLexer extends Lexer {
     public final void mT22() throws RecognitionException {
         try {
             int _type = T22;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:5: ( 'OPTIONS' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:7: 'OPTIONS'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:5: ( 'OPTIONS' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:7: 'OPTIONS'
             {
             match("OPTIONS"); 
 
@@ -218,8 +218,8 @@ public class CsLexer extends Lexer {
     public final void mT23() throws RecognitionException {
         try {
             int _type = T23;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:5: ( ';' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:7: ';'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:5: ( ';' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:7: ';'
             {
             match(';'); 
 
@@ -236,8 +236,8 @@ public class CsLexer extends Lexer {
     public final void mT24() throws RecognitionException {
         try {
             int _type = T24;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:5: ( 'TOKENS' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:7: 'TOKENS'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:5: ( 'TOKENS' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:7: 'TOKENS'
             {
             match("TOKENS"); 
 
@@ -255,8 +255,8 @@ public class CsLexer extends Lexer {
     public final void mT25() throws RecognitionException {
         try {
             int _type = T25;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:5: ( 'RULES' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:7: 'RULES'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:5: ( 'RULES' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:7: 'RULES'
             {
             match("RULES"); 
 
@@ -274,8 +274,8 @@ public class CsLexer extends Lexer {
     public final void mT26() throws RecognitionException {
         try {
             int _type = T26;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:5: ( ':' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:7: ':'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:5: ( ':' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:7: ':'
             {
             match(':'); 
 
@@ -292,8 +292,8 @@ public class CsLexer extends Lexer {
     public final void mT27() throws RecognitionException {
         try {
             int _type = T27;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:5: ( 'WITH' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:7: 'WITH'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:5: ( 'WITH' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:7: 'WITH'
             {
             match("WITH"); 
 
@@ -311,8 +311,8 @@ public class CsLexer extends Lexer {
     public final void mT28() throws RecognitionException {
         try {
             int _type = T28;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:5: ( 'SYNTAX' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:7: 'SYNTAX'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:5: ( 'SYNTAX' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:7: 'SYNTAX'
             {
             match("SYNTAX"); 
 
@@ -330,8 +330,8 @@ public class CsLexer extends Lexer {
     public final void mT29() throws RecognitionException {
         try {
             int _type = T29;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:5: ( '=' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:7: '='
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:5: ( '=' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:7: '='
             {
             match('='); 
 
@@ -348,8 +348,8 @@ public class CsLexer extends Lexer {
     public final void mT30() throws RecognitionException {
         try {
             int _type = T30;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:5: ( '::=' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:7: '::='
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:5: ( '::=' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:7: '::='
             {
             match("::="); 
 
@@ -367,8 +367,8 @@ public class CsLexer extends Lexer {
     public final void mT31() throws RecognitionException {
         try {
             int _type = T31;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:5: ( '|' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:7: '|'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:5: ( '|' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:7: '|'
             {
             match('|'); 
 
@@ -385,8 +385,8 @@ public class CsLexer extends Lexer {
     public final void mT32() throws RecognitionException {
         try {
             int _type = T32;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:5: ( '[' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:7: '['
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:5: ( '[' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:7: '['
             {
             match('['); 
 
@@ -403,8 +403,8 @@ public class CsLexer extends Lexer {
     public final void mT33() throws RecognitionException {
         try {
             int _type = T33;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:5: ( ']' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:7: ']'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:5: ( ']' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:7: ']'
             {
             match(']'); 
 
@@ -421,8 +421,8 @@ public class CsLexer extends Lexer {
     public final void mT34() throws RecognitionException {
         try {
             int _type = T34;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:5: ( '(' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:7: '('
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:5: ( '(' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:7: '('
             {
             match('('); 
 
@@ -439,8 +439,8 @@ public class CsLexer extends Lexer {
     public final void mT35() throws RecognitionException {
         try {
             int _type = T35;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:5: ( ')' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:7: ')'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:5: ( ')' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:7: ')'
             {
             match(')'); 
 
@@ -457,8 +457,8 @@ public class CsLexer extends Lexer {
     public final void mT36() throws RecognitionException {
         try {
             int _type = T36;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:5: ( '+' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:7: '+'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:5: ( '+' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:7: '+'
             {
             match('+'); 
 
@@ -475,8 +475,8 @@ public class CsLexer extends Lexer {
     public final void mT37() throws RecognitionException {
         try {
             int _type = T37;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:5: ( '*' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:7: '*'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:5: ( '*' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:7: '*'
             {
             match('*'); 
 
@@ -493,8 +493,8 @@ public class CsLexer extends Lexer {
     public final void mT38() throws RecognitionException {
         try {
             int _type = T38;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:5: ( '?' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:7: '?'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:5: ( '?' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:7: '?'
             {
             match('?'); 
 
@@ -511,8 +511,8 @@ public class CsLexer extends Lexer {
     public final void mT39() throws RecognitionException {
         try {
             int _type = T39;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:5: ( 'DEFINE' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:7: 'DEFINE'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:5: ( 'DEFINE' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:7: 'DEFINE'
             {
             match("DEFINE"); 
 
@@ -530,8 +530,8 @@ public class CsLexer extends Lexer {
     public final void mT40() throws RecognitionException {
         try {
             int _type = T40;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:5: ( 'PREDEFINED' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:7: 'PREDEFINED'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:5: ( 'PREDEFINED' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:7: 'PREDEFINED'
             {
             match("PREDEFINED"); 
 
@@ -549,12 +549,12 @@ public class CsLexer extends Lexer {
     public final void mCOMMENTS() throws RecognitionException {
         try {
             int _type = COMMENTS;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:553:1: ( '//' (~ ( '\\n' | '\\r' ) )* )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:554:2: '//' (~ ( '\\n' | '\\r' ) )*
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:497:1: ( '//' (~ ( '\\n' | '\\r' ) )* )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:498:2: '//' (~ ( '\\n' | '\\r' ) )*
             {
             match("//"); 
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:554:6: (~ ( '\\n' | '\\r' ) )*
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:498:6: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -567,7 +567,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:554:7: ~ ( '\\n' | '\\r' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:498:7: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -603,10 +603,10 @@ public class CsLexer extends Lexer {
     public final void mTEXT() throws RecognitionException {
         try {
             int _type = TEXT;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:557:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:558:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:501:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:502:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:558:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:502:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt2=0;
             loop2:
             do {
@@ -620,7 +620,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -659,10 +659,10 @@ public class CsLexer extends Lexer {
     public final void mQNAME() throws RecognitionException {
         try {
             int _type = QNAME;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:561:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:562:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:505:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:506:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:562:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:506:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+
             int cnt3=0;
             loop3:
             do {
@@ -676,7 +676,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -701,7 +701,7 @@ public class CsLexer extends Lexer {
                 cnt3++;
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:562:26: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:506:26: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
             int cnt5=0;
             loop5:
             do {
@@ -715,10 +715,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:562:27: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:506:27: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    {
             	    match('.'); 
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:562:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:506:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    int cnt4=0;
             	    loop4:
             	    do {
@@ -732,7 +732,7 @@ public class CsLexer extends Lexer {
 
             	        switch (alt4) {
             	    	case 1 :
-            	    	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
             	    	    {
             	    	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	    	        input.consume();
@@ -784,17 +784,17 @@ public class CsLexer extends Lexer {
     public final void mTEXT_33_() throws RecognitionException {
         try {
             int _type = TEXT_33_;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:565:1: ( ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:566:2: ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:509:1: ( ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:510:2: ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:566:2: ( '!' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:566:3: '!'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:510:2: ( '!' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:510:3: '!'
             {
             match('!'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:566:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:510:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt6=0;
             loop6:
             do {
@@ -808,7 +808,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -843,96 +843,62 @@ public class CsLexer extends Lexer {
     }
     // $ANTLR end TEXT_33_
 
-    // $ANTLR start QUOTED_36_36
-    public final void mQUOTED_36_36() throws RecognitionException {
+    // $ANTLR start LB
+    public final void mLB() throws RecognitionException {
         try {
-            int _type = QUOTED_36_36;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:569:1: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
+            int _type = LB;
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:513:1: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:514:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:2: ( '$' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:3: '$'
-            {
-            match('$'); 
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:514:2: ( '\\r\\n' | '\\r' | '\\n' )
+            int alt7=3;
+            int LA7_0 = input.LA(1);
 
-            }
+            if ( (LA7_0=='\r') ) {
+                int LA7_1 = input.LA(2);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
-            loop7:
-            do {
-                int alt7=3;
-                int LA7_0 = input.LA(1);
-
-                if ( (LA7_0=='\\') ) {
-                    int LA7_2 = input.LA(2);
-
-                    if ( (LA7_2=='$') ) {
-                        int LA7_4 = input.LA(3);
-
-                        if ( ((LA7_4>='\u0000' && LA7_4<='\uFFFE')) ) {
-                            alt7=2;
-                        }
-
-                        else {
-                            alt7=1;
-                        }
-
-                    }
-                    else if ( ((LA7_2>='\u0000' && LA7_2<='#')||(LA7_2>='%' && LA7_2<='\uFFFE')) ) {
-                        alt7=1;
-                    }
-
-
-                }
-                else if ( ((LA7_0>='\u0000' && LA7_0<='#')||(LA7_0>='%' && LA7_0<='[')||(LA7_0>=']' && LA7_0<='\uFFFE')) ) {
+                if ( (LA7_1=='\n') ) {
                     alt7=1;
                 }
+                else {
+                    alt7=2;}
+            }
+            else if ( (LA7_0=='\n') ) {
+                alt7=3;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("514:2: ( '\\r\\n' | '\\r' | '\\n' )", 7, 0, input);
+
+                throw nvae;
+            }
+            switch (alt7) {
+                case 1 :
+                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:514:3: '\\r\\n'
+                    {
+                    match("\r\n"); 
 
 
-                switch (alt7) {
-            	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:8: ~ ( '$' )
-            	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFE') ) {
-            	        input.consume();
+                    }
+                    break;
+                case 2 :
+                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:514:12: '\\r'
+                    {
+                    match('\r'); 
 
-            	    }
-            	    else {
-            	        MismatchedSetException mse =
-            	            new MismatchedSetException(null,input);
-            	        recover(mse);    throw mse;
-            	    }
+                    }
+                    break;
+                case 3 :
+                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:514:19: '\\n'
+                    {
+                    match('\n'); 
 
-
-            	    }
-            	    break;
-            	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:15: ( '\\\\' '$' )
-            	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:15: ( '\\\\' '$' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:16: '\\\\' '$'
-            	    {
-            	    match('\\'); 
-            	    match('$'); 
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop7;
-                }
-            } while (true);
-
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:26: ( '$' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:570:27: '$'
-            {
-            match('$'); 
+                    }
+                    break;
 
             }
 
+             channel=99; 
 
             }
 
@@ -941,59 +907,39 @@ public class CsLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end QUOTED_36_36
+    // $ANTLR end LB
 
-    // $ANTLR start QUOTED_39_39
-    public final void mQUOTED_39_39() throws RecognitionException {
+    // $ANTLR start TEXT_35_
+    public final void mTEXT_35_() throws RecognitionException {
         try {
-            int _type = QUOTED_39_39;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:573:1: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
+            int _type = TEXT_35_;
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:517:1: ( ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:518:2: ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:2: ( '\\'' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:3: '\\''
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:518:2: ( '#' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:518:3: '#'
             {
-            match('\''); 
+            match('#'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:518:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            int cnt8=0;
             loop8:
             do {
-                int alt8=3;
+                int alt8=2;
                 int LA8_0 = input.LA(1);
 
-                if ( (LA8_0=='\\') ) {
-                    int LA8_2 = input.LA(2);
-
-                    if ( (LA8_2=='\'') ) {
-                        int LA8_4 = input.LA(3);
-
-                        if ( ((LA8_4>='\u0000' && LA8_4<='\uFFFE')) ) {
-                            alt8=2;
-                        }
-
-                        else {
-                            alt8=1;
-                        }
-
-                    }
-                    else if ( ((LA8_2>='\u0000' && LA8_2<='&')||(LA8_2>='(' && LA8_2<='\uFFFE')) ) {
-                        alt8=1;
-                    }
-
-
-                }
-                else if ( ((LA8_0>='\u0000' && LA8_0<='&')||(LA8_0>='(' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFE')) ) {
+                if ( (LA8_0=='-'||(LA8_0>='0' && LA8_0<='9')||(LA8_0>='A' && LA8_0<='Z')||LA8_0=='_'||(LA8_0>='a' && LA8_0<='z')) ) {
                     alt8=1;
                 }
 
 
                 switch (alt8) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:9: ~ ( '\\'' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFE') ) {
+            	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
 
             	    }
@@ -1006,32 +952,15 @@ public class CsLexer extends Lexer {
 
             	    }
             	    break;
-            	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:17: ( '\\\\' '\\'' )
-            	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:17: ( '\\\\' '\\'' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:18: '\\\\' '\\''
-            	    {
-            	    match('\\'); 
-            	    match('\''); 
-
-            	    }
-
-
-            	    }
-            	    break;
 
             	default :
-            	    break loop8;
+            	    if ( cnt8 >= 1 ) break loop8;
+                        EarlyExitException eee =
+                            new EarlyExitException(8, input);
+                        throw eee;
                 }
+                cnt8++;
             } while (true);
-
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:29: ( '\\'' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:30: '\\''
-            {
-            match('\''); 
-
-            }
 
 
             }
@@ -1041,23 +970,51 @@ public class CsLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end QUOTED_39_39
+    // $ANTLR end TEXT_35_
+
+    // $ANTLR start WS
+    public final void mWS() throws RecognitionException {
+        try {
+            int _type = WS;
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:521:1: ( ( ' ' | '\\t' | '\\f' ) )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:522:2: ( ' ' | '\\t' | '\\f' )
+            {
+            if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse =
+                    new MismatchedSetException(null,input);
+                recover(mse);    throw mse;
+            }
+
+             channel=99; 
+
+            }
+
+            this.type = _type;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end WS
 
     // $ANTLR start QUOTED_60_62
     public final void mQUOTED_60_62() throws RecognitionException {
         try {
             int _type = QUOTED_60_62;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:577:1: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:525:1: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:2: ( '<' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:3: '<'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:2: ( '<' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:3: '<'
             {
             match('<'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
             loop9:
             do {
                 int alt9=3;
@@ -1091,7 +1048,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:8: ~ ( '>' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:8: ~ ( '>' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -1107,10 +1064,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:15: ( '\\\\' '>' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:15: ( '\\\\' '>' )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:15: ( '\\\\' '>' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:16: '\\\\' '>'
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:15: ( '\\\\' '>' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:16: '\\\\' '>'
             	    {
             	    match('\\'); 
             	    match('>'); 
@@ -1126,8 +1083,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:26: ( '>' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:578:27: '>'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:26: ( '>' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:526:27: '>'
             {
             match('>'); 
 
@@ -1143,37 +1100,57 @@ public class CsLexer extends Lexer {
     }
     // $ANTLR end QUOTED_60_62
 
-    // $ANTLR start TEXT_35_
-    public final void mTEXT_35_() throws RecognitionException {
+    // $ANTLR start QUOTED_39_39
+    public final void mQUOTED_39_39() throws RecognitionException {
         try {
-            int _type = TEXT_35_;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:581:1: ( ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:582:2: ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            int _type = QUOTED_39_39;
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:529:1: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:582:2: ( '#' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:582:3: '#'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:2: ( '\\'' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:3: '\\''
             {
-            match('#'); 
+            match('\''); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:582:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
-            int cnt10=0;
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
             loop10:
             do {
-                int alt10=2;
+                int alt10=3;
                 int LA10_0 = input.LA(1);
 
-                if ( (LA10_0=='-'||(LA10_0>='0' && LA10_0<='9')||(LA10_0>='A' && LA10_0<='Z')||LA10_0=='_'||(LA10_0>='a' && LA10_0<='z')) ) {
+                if ( (LA10_0=='\\') ) {
+                    int LA10_2 = input.LA(2);
+
+                    if ( (LA10_2=='\'') ) {
+                        int LA10_4 = input.LA(3);
+
+                        if ( ((LA10_4>='\u0000' && LA10_4<='\uFFFE')) ) {
+                            alt10=2;
+                        }
+
+                        else {
+                            alt10=1;
+                        }
+
+                    }
+                    else if ( ((LA10_2>='\u0000' && LA10_2<='&')||(LA10_2>='(' && LA10_2<='\uFFFE')) ) {
+                        alt10=1;
+                    }
+
+
+                }
+                else if ( ((LA10_0>='\u0000' && LA10_0<='&')||(LA10_0>='(' && LA10_0<='[')||(LA10_0>=']' && LA10_0<='\uFFFE')) ) {
                     alt10=1;
                 }
 
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:9: ~ ( '\\'' )
             	    {
-            	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
 
             	    }
@@ -1186,16 +1163,33 @@ public class CsLexer extends Lexer {
 
             	    }
             	    break;
+            	case 2 :
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:17: ( '\\\\' '\\'' )
+            	    {
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:17: ( '\\\\' '\\'' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:18: '\\\\' '\\''
+            	    {
+            	    match('\\'); 
+            	    match('\''); 
+
+            	    }
+
+
+            	    }
+            	    break;
 
             	default :
-            	    if ( cnt10 >= 1 ) break loop10;
-                        EarlyExitException eee =
-                            new EarlyExitException(10, input);
-                        throw eee;
+            	    break loop10;
                 }
-                cnt10++;
             } while (true);
 
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:29: ( '\\'' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:30: '\\''
+            {
+            match('\''); 
+
+            }
+
 
             }
 
@@ -1204,92 +1198,98 @@ public class CsLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end TEXT_35_
+    // $ANTLR end QUOTED_39_39
 
-    // $ANTLR start WS
-    public final void mWS() throws RecognitionException {
+    // $ANTLR start QUOTED_36_36
+    public final void mQUOTED_36_36() throws RecognitionException {
         try {
-            int _type = WS;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:585:1: ( ( ' ' | '\\t' | '\\f' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:586:2: ( ' ' | '\\t' | '\\f' )
+            int _type = QUOTED_36_36;
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:533:1: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
             {
-            if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse =
-                    new MismatchedSetException(null,input);
-                recover(mse);    throw mse;
-            }
-
-             channel=99; 
-
-            }
-
-            this.type = _type;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end WS
-
-    // $ANTLR start LB
-    public final void mLB() throws RecognitionException {
-        try {
-            int _type = LB;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:589:1: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:590:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:2: ( '$' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:3: '$'
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:590:2: ( '\\r\\n' | '\\r' | '\\n' )
-            int alt11=3;
-            int LA11_0 = input.LA(1);
+            match('$'); 
 
-            if ( (LA11_0=='\r') ) {
-                int LA11_1 = input.LA(2);
+            }
 
-                if ( (LA11_1=='\n') ) {
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
+            loop11:
+            do {
+                int alt11=3;
+                int LA11_0 = input.LA(1);
+
+                if ( (LA11_0=='\\') ) {
+                    int LA11_2 = input.LA(2);
+
+                    if ( (LA11_2=='$') ) {
+                        int LA11_4 = input.LA(3);
+
+                        if ( ((LA11_4>='\u0000' && LA11_4<='\uFFFE')) ) {
+                            alt11=2;
+                        }
+
+                        else {
+                            alt11=1;
+                        }
+
+                    }
+                    else if ( ((LA11_2>='\u0000' && LA11_2<='#')||(LA11_2>='%' && LA11_2<='\uFFFE')) ) {
+                        alt11=1;
+                    }
+
+
+                }
+                else if ( ((LA11_0>='\u0000' && LA11_0<='#')||(LA11_0>='%' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFE')) ) {
                     alt11=1;
                 }
-                else {
-                    alt11=2;}
+
+
+                switch (alt11) {
+            	case 1 :
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:8: ~ ( '$' )
+            	    {
+            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFE') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse =
+            	            new MismatchedSetException(null,input);
+            	        recover(mse);    throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+            	case 2 :
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:15: ( '\\\\' '$' )
+            	    {
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:15: ( '\\\\' '$' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:16: '\\\\' '$'
+            	    {
+            	    match('\\'); 
+            	    match('$'); 
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop11;
+                }
+            } while (true);
+
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:26: ( '$' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:27: '$'
+            {
+            match('$'); 
+
             }
-            else if ( (LA11_0=='\n') ) {
-                alt11=3;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("590:2: ( '\\r\\n' | '\\r' | '\\n' )", 11, 0, input);
 
-                throw nvae;
-            }
-            switch (alt11) {
-                case 1 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:590:3: '\\r\\n'
-                    {
-                    match("\r\n"); 
-
-
-                    }
-                    break;
-                case 2 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:590:12: '\\r'
-                    {
-                    match('\r'); 
-
-                    }
-                    break;
-                case 3 :
-                    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:590:19: '\\n'
-                    {
-                    match('\n'); 
-
-                    }
-                    break;
-
-            }
-
-             channel=99; 
 
             }
 
@@ -1298,23 +1298,23 @@ public class CsLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end LB
+    // $ANTLR end QUOTED_36_36
 
     // $ANTLR start QUOTED_34_34
     public final void mQUOTED_34_34() throws RecognitionException {
         try {
             int _type = QUOTED_34_34;
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:593:1: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:537:1: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
             {
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:2: ( '\"' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:3: '\"'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:2: ( '\"' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:3: '\"'
             {
             match('\"'); 
 
             }
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
             loop12:
             do {
                 int alt12=3;
@@ -1348,7 +1348,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:8: ~ ( '\"' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:8: ~ ( '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFE') ) {
             	        input.consume();
@@ -1364,10 +1364,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:15: ( '\\\\' '\"' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:15: ( '\\\\' '\"' )
             	    {
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:15: ( '\\\\' '\"' )
-            	    // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:16: '\\\\' '\"'
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:15: ( '\\\\' '\"' )
+            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:16: '\\\\' '\"'
             	    {
             	    match('\\'); 
             	    match('\"'); 
@@ -1383,8 +1383,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:26: ( '\"' )
-            // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:594:27: '\"'
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:26: ( '\"' )
+            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:538:27: '\"'
             {
             match('\"'); 
 
@@ -1401,264 +1401,264 @@ public class CsLexer extends Lexer {
     // $ANTLR end QUOTED_34_34
 
     public void mTokens() throws RecognitionException {
-        // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:8: ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | T39 | T40 | COMMENTS | TEXT | QNAME | TEXT_33_ | QUOTED_36_36 | QUOTED_39_39 | QUOTED_60_62 | TEXT_35_ | WS | LB | QUOTED_34_34 )
+        // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:8: ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | T39 | T40 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 )
         int alt13=37;
         alt13 = dfa13.predict(input);
         switch (alt13) {
             case 1 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:10: T15
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:10: T15
                 {
                 mT15(); 
 
                 }
                 break;
             case 2 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:14: T16
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:14: T16
                 {
                 mT16(); 
 
                 }
                 break;
             case 3 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:18: T17
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:18: T17
                 {
                 mT17(); 
 
                 }
                 break;
             case 4 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:22: T18
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:22: T18
                 {
                 mT18(); 
 
                 }
                 break;
             case 5 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:26: T19
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:26: T19
                 {
                 mT19(); 
 
                 }
                 break;
             case 6 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:30: T20
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:30: T20
                 {
                 mT20(); 
 
                 }
                 break;
             case 7 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:34: T21
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:34: T21
                 {
                 mT21(); 
 
                 }
                 break;
             case 8 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:38: T22
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:38: T22
                 {
                 mT22(); 
 
                 }
                 break;
             case 9 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:42: T23
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:42: T23
                 {
                 mT23(); 
 
                 }
                 break;
             case 10 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:46: T24
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:46: T24
                 {
                 mT24(); 
 
                 }
                 break;
             case 11 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:50: T25
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:50: T25
                 {
                 mT25(); 
 
                 }
                 break;
             case 12 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:54: T26
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:54: T26
                 {
                 mT26(); 
 
                 }
                 break;
             case 13 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:58: T27
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:58: T27
                 {
                 mT27(); 
 
                 }
                 break;
             case 14 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:62: T28
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:62: T28
                 {
                 mT28(); 
 
                 }
                 break;
             case 15 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:66: T29
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:66: T29
                 {
                 mT29(); 
 
                 }
                 break;
             case 16 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:70: T30
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:70: T30
                 {
                 mT30(); 
 
                 }
                 break;
             case 17 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:74: T31
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:74: T31
                 {
                 mT31(); 
 
                 }
                 break;
             case 18 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:78: T32
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:78: T32
                 {
                 mT32(); 
 
                 }
                 break;
             case 19 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:82: T33
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:82: T33
                 {
                 mT33(); 
 
                 }
                 break;
             case 20 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:86: T34
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:86: T34
                 {
                 mT34(); 
 
                 }
                 break;
             case 21 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:90: T35
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:90: T35
                 {
                 mT35(); 
 
                 }
                 break;
             case 22 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:94: T36
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:94: T36
                 {
                 mT36(); 
 
                 }
                 break;
             case 23 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:98: T37
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:98: T37
                 {
                 mT37(); 
 
                 }
                 break;
             case 24 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:102: T38
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:102: T38
                 {
                 mT38(); 
 
                 }
                 break;
             case 25 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:106: T39
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:106: T39
                 {
                 mT39(); 
 
                 }
                 break;
             case 26 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:110: T40
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:110: T40
                 {
                 mT40(); 
 
                 }
                 break;
             case 27 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:114: COMMENTS
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:114: COMMENTS
                 {
                 mCOMMENTS(); 
 
                 }
                 break;
             case 28 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:123: TEXT
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:123: TEXT
                 {
                 mTEXT(); 
 
                 }
                 break;
             case 29 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:128: QNAME
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:128: QNAME
                 {
                 mQNAME(); 
 
                 }
                 break;
             case 30 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:134: TEXT_33_
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:134: TEXT_33_
                 {
                 mTEXT_33_(); 
 
                 }
                 break;
             case 31 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:143: QUOTED_36_36
-                {
-                mQUOTED_36_36(); 
-
-                }
-                break;
-            case 32 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:156: QUOTED_39_39
-                {
-                mQUOTED_39_39(); 
-
-                }
-                break;
-            case 33 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:169: QUOTED_60_62
-                {
-                mQUOTED_60_62(); 
-
-                }
-                break;
-            case 34 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:182: TEXT_35_
-                {
-                mTEXT_35_(); 
-
-                }
-                break;
-            case 35 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:191: WS
-                {
-                mWS(); 
-
-                }
-                break;
-            case 36 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:194: LB
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:143: LB
                 {
                 mLB(); 
 
                 }
                 break;
+            case 32 :
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:146: TEXT_35_
+                {
+                mTEXT_35_(); 
+
+                }
+                break;
+            case 33 :
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:155: WS
+                {
+                mWS(); 
+
+                }
+                break;
+            case 34 :
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:158: QUOTED_60_62
+                {
+                mQUOTED_60_62(); 
+
+                }
+                break;
+            case 35 :
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:171: QUOTED_39_39
+                {
+                mQUOTED_39_39(); 
+
+                }
+                break;
+            case 36 :
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:184: QUOTED_36_36
+                {
+                mQUOTED_36_36(); 
+
+                }
+                break;
             case 37 :
-                // C:\\Dokumente und Einstellungen\\skarol\\runtime-New_configuration\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:197: QUOTED_34_34
+                // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:197: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 
@@ -1699,9 +1699,9 @@ public class CsLexer extends Lexer {
     static final String DFA13_specialS =
         "\145\uffff}>";
     static final String[] DFA13_transitionS = {
-            "\1\40\1\41\1\uffff\1\40\1\41\22\uffff\1\40\1\33\1\42\1\37\1"+
-            "\34\2\uffff\1\35\1\21\1\22\1\24\1\23\1\3\1\32\1\uffff\1\30\12"+
-            "\32\1\13\1\10\1\36\1\15\1\uffff\1\25\1\uffff\3\31\1\26\1\31"+
+            "\1\36\1\34\1\uffff\1\36\1\34\22\uffff\1\36\1\33\1\42\1\35\1"+
+            "\41\2\uffff\1\40\1\21\1\22\1\24\1\23\1\3\1\32\1\uffff\1\30\12"+
+            "\32\1\13\1\10\1\37\1\15\1\uffff\1\25\1\uffff\3\31\1\26\1\31"+
             "\1\2\2\31\1\4\5\31\1\7\1\27\1\31\1\12\1\1\1\11\2\31\1\14\3\31"+
             "\1\17\1\uffff\1\20\1\uffff\1\31\1\uffff\32\31\1\5\1\16\1\6",
             "\1\45\22\uffff\23\31\1\44\4\31\1\43\1\31\4\uffff\1\31\1\uffff"+
@@ -1848,7 +1848,7 @@ public class CsLexer extends Lexer {
             this.transition = DFA13_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | T39 | T40 | COMMENTS | TEXT | QNAME | TEXT_33_ | QUOTED_36_36 | QUOTED_39_39 | QUOTED_60_62 | TEXT_35_ | WS | LB | QUOTED_34_34 );";
+            return "1:1: Tokens : ( T15 | T16 | T17 | T18 | T19 | T20 | T21 | T22 | T23 | T24 | T25 | T26 | T27 | T28 | T29 | T30 | T31 | T32 | T33 | T34 | T35 | T36 | T37 | T38 | T39 | T40 | COMMENTS | TEXT | QNAME | TEXT_33_ | LB | TEXT_35_ | WS | QUOTED_60_62 | QUOTED_39_39 | QUOTED_36_36 | QUOTED_34_34 );";
         }
     }
  

@@ -296,43 +296,6 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print(";");
 		}
-		public void printConcreteSyntax_2(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-			String localtab = outertab;
-			int count;
-			//////////////DEFINITION PART BEGINS (LineBreak):
-			out.println();
-			out.print(localtab);
-			//////////////DEFINITION PART BEGINS (LineBreak):
-			out.println();
-			out.print(localtab);
-			//////////////DEFINITION PART BEGINS (CsString):
-			out.print("IMPORTS");
-			//////////////DEFINITION PART BEGINS (CsString):
-			out.print("{");
-			//////////////DEFINITION PART BEGINS (CompoundDefinition):
-			boolean iterate = true;
-			while(iterate){
-				StringWriter sWriter = new StringWriter();
-				PrintWriter out1 = new PrintWriter(sWriter);
-				HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
-				printConcreteSyntax_2_0(element,localtab,out1,printCountingMap1);
-				if(printCountingMap.equals(printCountingMap1)){
-					iterate = false;
-					out1.close();
-				}
-				else{
-					out1.flush();
-					out1.close();
-					out.print(sWriter.toString());
-					printCountingMap.putAll(printCountingMap1);
-				}
-			}
-			//////////////DEFINITION PART BEGINS (LineBreak):
-			out.println();
-			out.print(localtab);
-			//////////////DEFINITION PART BEGINS (CsString):
-			out.print("}");
-		}
 		public void printConcreteSyntax_0(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
@@ -369,30 +332,6 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 					}
 			}
 		}
-		public void printConcreteSyntax_2_0(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-			String localtab = outertab;
-			int count;
-			//////////////DEFINITION PART BEGINS (LineBreak):
-			localtab += "		";
-			out.println();
-			out.print(localtab);
-			//////////////DEFINITION PART BEGINS (Containment):
-			count = printCountingMap.get("imports");
-			if(count>0){
-				Object o =element.getImports();
-				o = ((List<Object>)o).get(((List<Object>)o).size()-count);
-				doPrint((EObject)o,out,localtab);
-				printCountingMap.put("imports",count-1);
-			}
-		}
-		public void printConcreteSyntax_1(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-			String localtab = outertab;
-			int count;
-			//////////////DEFINITION PART BEGINS (CsString):
-			out.print(",");
-			//////////////DEFINITION PART BEGINS (CompoundDefinition):
-			printConcreteSyntax_1_0(element,localtab,out,printCountingMap);
-		}
 		public void printConcreteSyntax_4_0(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
@@ -411,7 +350,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print(";");
 		}
-		public void printConcreteSyntax_4(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		public void printConcreteSyntax_3(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
 			//////////////DEFINITION PART BEGINS (LineBreak):
@@ -421,7 +360,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			out.println();
 			out.print(localtab);
 			//////////////DEFINITION PART BEGINS (CsString):
-			out.print("TOKENS");
+			out.print("OPTIONS");
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print("{");
 			//////////////DEFINITION PART BEGINS (CompoundDefinition):
@@ -430,7 +369,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 				StringWriter sWriter = new StringWriter();
 				PrintWriter out1 = new PrintWriter(sWriter);
 				HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
-				printConcreteSyntax_4_0(element,localtab,out1,printCountingMap1);
+				printConcreteSyntax_3_0(element,localtab,out1,printCountingMap1);
 				if(printCountingMap.equals(printCountingMap1)){
 					iterate = false;
 					out1.close();
@@ -484,7 +423,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 					}
 			}
 		}
-		public void printConcreteSyntax_3(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		public void printConcreteSyntax_4(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
 			//////////////DEFINITION PART BEGINS (LineBreak):
@@ -494,7 +433,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			out.println();
 			out.print(localtab);
 			//////////////DEFINITION PART BEGINS (CsString):
-			out.print("OPTIONS");
+			out.print("TOKENS");
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print("{");
 			//////////////DEFINITION PART BEGINS (CompoundDefinition):
@@ -503,7 +442,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 				StringWriter sWriter = new StringWriter();
 				PrintWriter out1 = new PrintWriter(sWriter);
 				HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
-				printConcreteSyntax_3_0(element,localtab,out1,printCountingMap1);
+				printConcreteSyntax_4_0(element,localtab,out1,printCountingMap1);
 				if(printCountingMap.equals(printCountingMap1)){
 					iterate = false;
 					out1.close();
@@ -520,6 +459,67 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			out.print(localtab);
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print("}");
+		}
+		public void printConcreteSyntax_2(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+			String localtab = outertab;
+			int count;
+			//////////////DEFINITION PART BEGINS (LineBreak):
+			out.println();
+			out.print(localtab);
+			//////////////DEFINITION PART BEGINS (LineBreak):
+			out.println();
+			out.print(localtab);
+			//////////////DEFINITION PART BEGINS (CsString):
+			out.print("IMPORTS");
+			//////////////DEFINITION PART BEGINS (CsString):
+			out.print("{");
+			//////////////DEFINITION PART BEGINS (CompoundDefinition):
+			boolean iterate = true;
+			while(iterate){
+				StringWriter sWriter = new StringWriter();
+				PrintWriter out1 = new PrintWriter(sWriter);
+				HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+				printConcreteSyntax_2_0(element,localtab,out1,printCountingMap1);
+				if(printCountingMap.equals(printCountingMap1)){
+					iterate = false;
+					out1.close();
+				}
+				else{
+					out1.flush();
+					out1.close();
+					out.print(sWriter.toString());
+					printCountingMap.putAll(printCountingMap1);
+				}
+			}
+			//////////////DEFINITION PART BEGINS (LineBreak):
+			out.println();
+			out.print(localtab);
+			//////////////DEFINITION PART BEGINS (CsString):
+			out.print("}");
+		}
+		public void printConcreteSyntax_1(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+			String localtab = outertab;
+			int count;
+			//////////////DEFINITION PART BEGINS (CsString):
+			out.print(",");
+			//////////////DEFINITION PART BEGINS (CompoundDefinition):
+			printConcreteSyntax_1_0(element,localtab,out,printCountingMap);
+		}
+		public void printConcreteSyntax_2_0(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+			String localtab = outertab;
+			int count;
+			//////////////DEFINITION PART BEGINS (LineBreak):
+			localtab += "		";
+			out.println();
+			out.print(localtab);
+			//////////////DEFINITION PART BEGINS (Containment):
+			count = printCountingMap.get("imports");
+			if(count>0){
+				Object o =element.getImports();
+				o = ((List<Object>)o).get(((List<Object>)o).size()-count);
+				doPrint((EObject)o,out,localtab);
+				printCountingMap.put("imports",count-1);
+			}
 		}
 		public void printConcreteSyntax_5(ConcreteSyntax element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
@@ -587,10 +587,16 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 		public void printImport_0(Import element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
+			//////////////DEFINITION PART BEGINS (WhiteSpaces):
+			out.print(" ");
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print("WITH");
+			//////////////DEFINITION PART BEGINS (WhiteSpaces):
+			out.print(" ");
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print("SYNTAX");
+			//////////////DEFINITION PART BEGINS (WhiteSpaces):
+			out.print(" ");
 			//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
 			count = printCountingMap.get("concreteSyntax");
 			if(count>0){
@@ -873,22 +879,6 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 				printCountingMap.put("cardinality",count-1);
 			}
 		}
-		public void printDerivedPlaceholder_0_0(DerivedPlaceholder element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-			String localtab = outertab;
-			int count;
-			//////////////DEFINITION PART BEGINS (CsString):
-			out.print(",");
-			//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
-			count = printCountingMap.get("suffix");
-			if(count>0){
-				Object o =element.getSuffix();
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("suffix"),element));
-				
-				printCountingMap.put("suffix",count-1);
-			}
-		}
 		public void printDerivedPlaceholder_0(DerivedPlaceholder element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
@@ -917,6 +907,22 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 				printCountingMap.putAll(printCountingMap1);
 			}
 		}
+		public void printDerivedPlaceholder_0_0(DerivedPlaceholder element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+			String localtab = outertab;
+			int count;
+			//////////////DEFINITION PART BEGINS (CsString):
+			out.print(",");
+			//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
+			count = printCountingMap.get("suffix");
+			if(count>0){
+				Object o =element.getSuffix();
+				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("suffix"),element));
+				
+				printCountingMap.put("suffix",count-1);
+			}
+		}
 		public void printContainment(Containment element,String outertab,PrintWriter out){
 			String localtab = outertab;
 			java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(2);
@@ -936,7 +942,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			int count;
 			int alt=-1;
 			alt=0;
-			int matches=matchCount(printCountingMap,Arrays.asList("cardinality","feature"));
+			int matches=matchCount(printCountingMap,Arrays.asList("feature","cardinality"));
 			int tempMatchCount;
 			tempMatchCount=matchCount(printCountingMap,Arrays.asList("feature"));
 			if (tempMatchCount > matches) {
@@ -1155,15 +1161,19 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			//////////////DEFINITION PART BEGINS (CsString):
 			out.print("]");
 		}
-		public void printDecoratedToken_1(DecoratedToken element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		public void printDecoratedToken_0_0(DecoratedToken element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
-			//////////////DEFINITION PART BEGINS (CsString):
-			out.print("[");
-			//////////////DEFINITION PART BEGINS (CompoundDefinition):
-			printDecoratedToken_1_0(element,localtab,out,printCountingMap);
-			//////////////DEFINITION PART BEGINS (CsString):
-			out.print("]");
+			//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
+			count = printCountingMap.get("prefix");
+			if(count>0){
+				Object o =element.getPrefix();
+				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("prefix"),element));
+				
+				printCountingMap.put("prefix",count-1);
+			}
 		}
 		public void printDecoratedToken_1_0(DecoratedToken element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
@@ -1179,19 +1189,15 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 				printCountingMap.put("suffix",count-1);
 			}
 		}
-		public void printDecoratedToken_0_0(DecoratedToken element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		public void printDecoratedToken_1(DecoratedToken element,String outertab,PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 			String localtab = outertab;
 			int count;
-			//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
-			count = printCountingMap.get("prefix");
-			if(count>0){
-				Object o =element.getPrefix();
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("prefix"),element));
-				
-				printCountingMap.put("prefix",count-1);
-			}
+			//////////////DEFINITION PART BEGINS (CsString):
+			out.print("[");
+			//////////////DEFINITION PART BEGINS (CompoundDefinition):
+			printDecoratedToken_1_0(element,localtab,out,printCountingMap);
+			//////////////DEFINITION PART BEGINS (CsString):
+			out.print("]");
 		}
 		public void printPreDefinedToken(PreDefinedToken element,String outertab,PrintWriter out){
 			String localtab = outertab;
