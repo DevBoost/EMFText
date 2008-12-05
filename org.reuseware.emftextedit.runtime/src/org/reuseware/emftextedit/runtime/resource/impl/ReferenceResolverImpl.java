@@ -57,7 +57,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 		} else if (!result.wasResolved()) {
 			return;
 		}
-		// TODO mseifert: can we move this type check to the tree analyser?
+		// TODO @jjohannes: can we move this type check to the tree analyser?
 		EClass type = reference.getEReferenceType();
 		if (element == null || (!element.eClass().equals(type) && 
 				!element.eClass().getEAllSuperTypes().contains(type))) {
