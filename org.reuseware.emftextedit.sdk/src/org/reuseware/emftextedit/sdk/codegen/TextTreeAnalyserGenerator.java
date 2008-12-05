@@ -91,7 +91,9 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		s.append("\tpublic void resolveStrict(String identifier, EObject container, EReference reference, int position, " + ResolveResult.class.getName() + " result) {\n");		
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String generatedClassName = proxyReferences.get(proxyReference);
-			s.append("\t\tif (container instanceof " + proxyReference.getGenClass().getName() + " && reference.getFeatureID() == " + proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID() + ") {\n");		
+			final int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
+			// TODO we should use the featureID constant instead of the integer value
+			s.append("\t\tif (container instanceof " + proxyReference.getGenClass().getName() + " && reference.getFeatureID() == " + featureID + ") {\n");		
 			s.append("\t\t\t" + low(generatedClassName) + ".resolve(identifier, container, reference, position, false, result);\n");
 			s.append("\t\t\treturn;\n");
 			s.append("\t\t}\n");			
@@ -102,6 +104,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String generatedClassName = proxyReferences.get(proxyReference);
 			String genClassName = proxyReference.getGenClass().getName();
+			// TODO we should use the featureID constant instead of the integer value
 			int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
 			s.append("\t\tif (container instanceof " + genClassName + " && reference.getFeatureID() == " + featureID + ") {\n");		
 			s.append("\t\t\treturn " + low(generatedClassName)+".deResolve(refObject,container,reference);\n");			
@@ -121,6 +124,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String genClassName = proxyReference.getGenClass().getName();
 			String generatedClassName = proxyReferences.get(proxyReference);
+			// TODO we should use the featureID constant instead of the integer value
 			int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
 			s.append("\t\tresolveFuzzy(" + genClassName + ".class, identifier, container, position, " + featureID + ", " + low(generatedClassName) + ", result);\n");
 		}
