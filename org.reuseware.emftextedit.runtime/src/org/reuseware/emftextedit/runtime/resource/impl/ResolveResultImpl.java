@@ -11,7 +11,6 @@ import org.reuseware.emftextedit.runtime.resource.ResolveResult;
 public class ResolveResultImpl implements ResolveResult {
 	
 	private Collection<ReferenceMapping> mappings;
-	private Collection<IdentifierMapping> identifierMappings;
 	private String errorMessage;
 
 	public ResolveResultImpl() {
@@ -56,9 +55,9 @@ public class ResolveResultImpl implements ResolveResult {
 	}
 
 	public void addMapping(String identifier, String newIdentifier) {
-		if (identifierMappings == null) {
-			identifierMappings = new ArrayList<IdentifierMapping>();
+		if (mappings == null) {
+			mappings = new ArrayList<ReferenceMapping>();
 		}
-		identifierMappings.add(new IdentifierMappingImpl(identifier, newIdentifier));
+		mappings.add(new IdentifierMappingImpl(identifier, newIdentifier));
 	}
 }

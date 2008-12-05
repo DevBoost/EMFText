@@ -131,7 +131,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		s.append("\t\t\t" + ReferenceResolver.class.getName() + " resolver, " + ResolveResult.class.getName() + " result\n");
 		s.append("\t\t\t) {\n");
 		s.append("\n");
-		s.append("\t\t//if (clazz.isInstance(container)) {\n");
+		s.append("\t\t//if (clazz.isInstance(container)) {\n"); //TODO @mseifert this should be activated and use the reflective API (EClass)
 		s.append("\t\t\t" + EStructuralFeature.class.getName() + " feature = container.eClass().getEStructuralFeature(featureID);\n");
 		s.append("\t\t\tif (!(feature instanceof EReference)) {\n");
 		s.append("\t\t\t\treturn;\n");
