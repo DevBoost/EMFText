@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EReference;
  *
  * @author Jendrik Johannes (jj2)
  *
- * TODO mseifert (after update): rename this class to ReferenceResolver
  * TODO mseifert (future): this class should have a type parameter for the resolved types
  */
 public interface ReferenceResolver extends Configurable {
