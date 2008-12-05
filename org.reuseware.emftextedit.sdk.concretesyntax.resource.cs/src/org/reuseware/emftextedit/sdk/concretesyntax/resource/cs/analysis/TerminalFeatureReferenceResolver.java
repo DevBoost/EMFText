@@ -41,8 +41,8 @@ public class TerminalFeatureReferenceResolver extends ReferenceResolverImpl {
 			return result.getMappings();
 		}
 
-		public boolean wasNotResolved() {
-			return result.wasNotResolved();
+		public boolean wasResolved() {
+			return result.wasResolved();
 		}
 
 		public boolean wasResolvedMultiple() {
@@ -183,7 +183,7 @@ public class TerminalFeatureReferenceResolver extends ReferenceResolverImpl {
 		for (GenFeature feature : rule.getMetaclass().getAllGenFeatures()) {
 			filter.accept(feature, resultForFeature);
 		}
-		if (resultForFeature.foundFeatureWithCorrectName() && result.wasNotResolved()) {
+		if (resultForFeature.foundFeatureWithCorrectName() && !result.wasResolved()) {
 			// found a feature with correct name, but wrong containment
 			result.addError(createFeatureHasWrongContainmentTypeResult(identifier, getExpectedContainmentValue(container)));
 		} else {

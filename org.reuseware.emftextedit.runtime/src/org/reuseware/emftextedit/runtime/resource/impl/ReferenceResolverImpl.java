@@ -54,7 +54,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 			if (next instanceof ElementMapping) {
 				element = ((ElementMapping) next).getTargetElement();
 			}
-		} else if (result.wasNotResolved()) {
+		} else if (!result.wasResolved()) {
 			return;
 		}
 		// TODO mseifert: can we move this type check to the tree analyser?

@@ -26,8 +26,8 @@ public class ResolveResultImpl implements ResolveResult {
 		return mappings;
 	}
 
-	public boolean wasNotResolved() {
-		return mappings == null;
+	public boolean wasResolved() {
+		return mappings != null;
 	}
 
 	public boolean wasResolvedMultiple() {

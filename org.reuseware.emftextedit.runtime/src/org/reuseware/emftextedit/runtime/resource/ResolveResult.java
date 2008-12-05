@@ -28,7 +28,7 @@ public interface ResolveResult {
 	 * 
 	 * @return
 	 */
-	public boolean wasNotResolved();
+	public boolean wasResolved();
 	
 	/**
 	 * Indicates the type of the result. Depending on the type of
