@@ -131,7 +131,6 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 					if (value instanceof InternalEList<?>) {
 						InternalEList<EObject> list = castTo(value);
 						//iterate over a list copy with unresolved value
-						int position = 0;
 						final Iterator<?> iterator = list.basicList().iterator();
 						while (iterator.hasNext()) {
 							Object nextObject = iterator.next();
@@ -143,7 +142,6 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 								continue;
 							}
 							unresolvedProxies.add(new UnresolvedProxy(proxy, container, reference, list));
-							position++;
 						}
 					} else if (value != null && ((EObject) value).eIsProxy()) {
 						EObject proxy = (EObject) value;
