@@ -23,9 +23,6 @@ public interface ResolveResult {
 	 */
 	public void setErrorMessage(String message);
 	
-	// TODO mseifert: addWarning
-	// warnings have to be added to the resource even if the identifier was resolved
-	
 	/**
 	 * Adds a mapping from the given identifier to the given object.
 	 * Adding such a mapping means that the identifier was resolved
