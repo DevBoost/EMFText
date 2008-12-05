@@ -107,10 +107,11 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			ResolveResult result = unresolvedProxy.getResolveResult();
 			assert result != null;
 			String errorMessage = result.getErrorMessage();
+			final EObject proxy = unresolvedProxy.getProxy();
 			if (errorMessage == null) {
-				resource.addError(getErrorMessage(((InternalEObject) unresolvedProxy).eProxyURI().fragment()), unresolvedProxy.getProxy());
+				resource.addError(getErrorMessage(((InternalEObject) proxy).eProxyURI().fragment()), proxy);
 			} else {
-				resource.addError(errorMessage, unresolvedProxy.getProxy());
+				resource.addError(errorMessage, proxy);
 			}
 		}
 	}
