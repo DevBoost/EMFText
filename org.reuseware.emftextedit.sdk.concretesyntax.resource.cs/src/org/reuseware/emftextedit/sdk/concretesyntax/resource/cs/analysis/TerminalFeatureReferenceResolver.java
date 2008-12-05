@@ -1,13 +1,11 @@
 package org.reuseware.emftextedit.sdk.concretesyntax.resource.cs.analysis; 
 
-import java.util.Collection;
-
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.reuseware.emftextedit.runtime.resource.ReferenceMapping;
 import org.reuseware.emftextedit.runtime.resource.ResolveResult;
+import org.reuseware.emftextedit.runtime.resource.impl.DelegatingResolveResultImpl;
 import org.reuseware.emftextedit.runtime.resource.impl.ReferenceResolverImpl;
 import org.reuseware.emftextedit.sdk.concretesyntax.Containment;
 import org.reuseware.emftextedit.sdk.concretesyntax.Placeholder;
@@ -20,53 +18,20 @@ public class TerminalFeatureReferenceResolver extends ReferenceResolverImpl {
 		public void setFoundFeatureWithCorrectName();
 	}
 	
-	private class FeatureResolveResultImpl implements FeatureResolveResult {
+	private class FeatureResolveResultImpl extends DelegatingResolveResultImpl implements FeatureResolveResult {
 		
-		private ResolveResult result;
 		private boolean foundFeatureWithCorrectName = false;
 
 		public FeatureResolveResultImpl(ResolveResult result) {
-			this.result = result;
+			super(result);
 		}
 
 		public boolean foundFeatureWithCorrectName() {
 			return foundFeatureWithCorrectName;
 		}
 
-		public String getErrorMessage() {
-			return result.getErrorMessage();
-		}
-
-		public Collection<ReferenceMapping> getMappings() {
-			return result.getMappings();
-		}
-
-		public boolean wasResolved() {
-			return result.wasResolved();
-		}
-
-		public boolean wasResolvedMultiple() {
-			return result.wasResolvedMultiple();
-		}
-
-		public boolean wasResolvedUniquely() {
-			return result.wasResolvedUniquely();
-		}
-
-		public void setErrorMessage(String message) {
-			result.setErrorMessage(message);
-		}
-
-		public void addMapping(String identifier, EObject target) {
-			result.addMapping(identifier, target);
-		}
-
 		public void setFoundFeatureWithCorrectName() {
 			foundFeatureWithCorrectName = true;
-		}
-
-		public void addMapping(String identifier, String newIdentifier) {
-			result.addMapping(identifier, newIdentifier);
 		}
 	}
 	

@@ -2,19 +2,13 @@ package org.reuseware.emftextedit.runtime.resource.impl;
 
 import org.reuseware.emftextedit.runtime.resource.IdentifierMapping;
 
-public class IdentifierMappingImpl implements IdentifierMapping {
+public class IdentifierMappingImpl extends ReferenceMappingImpl implements IdentifierMapping {
 	
-	private String identifier;
 	private String newIdentifier;
 	
-	public IdentifierMappingImpl(String identifier, String newIdentifier) {
-		super();
-		this.identifier = identifier;
+	public IdentifierMappingImpl(String identifier, String newIdentifier, String warning) {
+		super(identifier, warning);
 		this.newIdentifier = newIdentifier;
-	}
-
-	public String getIdentifier() {
-		return identifier;
 	}
 
 	public String getTargetIdentifier() {

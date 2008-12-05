@@ -32,7 +32,11 @@ public interface ResolveResult {
 	 * to reference the target object.
 	 * Previous errors as well as future ones will be discarded. Once
 	 * a mapping is found, resolve errors have no meaning any more.
+	 * 
+	 * Optionally a warning can be passed to this method if resolving
+	 * the reference was successful, but not accurate.
 	 */
+	public void addMapping(String identifier, EObject target, String warning);
 	public void addMapping(String identifier, EObject target);
 	
 	/**
@@ -41,9 +45,13 @@ public interface ResolveResult {
 	 * are replace by external ones depending on the context. Usually
 	 * the external identifiers are replaced by target object later on.
 	 * 
+	 * Optionally a warning can be passed to this method if resolving
+	 * the reference was successful, but not accurate.
+	 * 
 	 * @param identifier
 	 * @param newIdentifier
 	 */
+	public void addMapping(String identifier, String newIdentifier, String warning);
 	public void addMapping(String identifier, String newIdentifier);
 
 	/**

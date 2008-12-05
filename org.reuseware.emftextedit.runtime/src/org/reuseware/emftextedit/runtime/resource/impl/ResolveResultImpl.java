@@ -46,17 +46,25 @@ public class ResolveResultImpl implements ResolveResult {
 	}
 
 	public void addMapping(String identifier, EObject target) {
+		addMapping(identifier, target, null);
+	}
+
+	public void addMapping(String identifier, EObject target, String warning) {
 		if (mappings == null) {
 			mappings = new ArrayList<ReferenceMapping>();
 		}
-		mappings.add(new ElementMappingImpl(identifier, target));
+		mappings.add(new ElementMappingImpl(identifier, target, warning));
 		errorMessage = null;
 	}
 
 	public void addMapping(String identifier, String newIdentifier) {
+		addMapping(identifier, newIdentifier, null);
+	}
+	
+	public void addMapping(String identifier, String newIdentifier, String warning) {
 		if (mappings == null) {
 			mappings = new ArrayList<ReferenceMapping>();
 		}
-		mappings.add(new IdentifierMappingImpl(identifier, newIdentifier));
+		mappings.add(new IdentifierMappingImpl(identifier, newIdentifier, warning));
 	}
 }
