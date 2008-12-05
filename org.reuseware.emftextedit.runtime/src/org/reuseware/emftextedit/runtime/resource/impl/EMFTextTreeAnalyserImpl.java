@@ -74,30 +74,34 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		// collect an initial set of unresolved proxies
 		List<UnresolvedProxy> unresolvedProxies = getUnresolvedProxies(resource);
 		// prepare a set of resolved proxies that can be thrown away after one iteration
-		List<UnresolvedProxy> resolvedProxies = new ArrayList<UnresolvedProxy>(); 
+		List<UnresolvedProxy> resolvedProxiesInIteration = new ArrayList<UnresolvedProxy>();
+		List<UnresolvedProxy> allResolvedProxies = new ArrayList<UnresolvedProxy>();
 
 		// stop flag for fix-point iteration
 		boolean changed = true;
 		// stop the fix-point iteration if the set has not changed or all proxies are resolved
 		while (changed && unresolvedProxies.size() > 0) {
 			changed = false;
-			resolvedProxies.clear();
+			resolvedProxiesInIteration.clear();
 			// try to resolve each proxy in the current list of unresolved proxies
 			for (UnresolvedProxy nextProxy : unresolvedProxies) {
 				tryToResolve(nextProxy);
 				boolean wasResolved = nextProxy.getResolveResult().wasResolved();
 				if (wasResolved) {
-					resolvedProxies.add(nextProxy);
+					resolvedProxiesInIteration.add(nextProxy);
 					changed = true;
 				}
 			}
 			
 			// remove the resolved proxies from the set of unresolved proxies
-			unresolvedProxies.removeAll(resolvedProxies);
+			unresolvedProxies.removeAll(resolvedProxiesInIteration);
+			allResolvedProxies.addAll(resolvedProxiesInIteration);
 		}
 		
 		// mark errors for the remaining unresolved proxies
 		attachErrors(resource, unresolvedProxies);
+		// mark warnings for all resolved proxies
+		attachWarnings(resource, allResolvedProxies);
 	}
 
 	private void attachErrors(TextResource resource,
@@ -112,6 +116,30 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 				resource.addError(getErrorMessage(((InternalEObject) proxy).eProxyURI().fragment()), proxy);
 			} else {
 				resource.addError(errorMessage, proxy);
+			}
+		}
+	}
+
+	private void attachWarnings(TextResource resource,
+			List<UnresolvedProxy> resolvedProxies) {
+		for (UnresolvedProxy resolvedProxy : resolvedProxies) {
+			ResolveResult result = resolvedProxy.getResolveResult();
+			assert result != null;
+			assert result.wasResolved();
+			
+			for (ReferenceMapping mapping : result.getMappings()) {
+				String warningMessage = mapping.getWarning();
+				if (warningMessage == null) {
+					continue;
+				}
+				if (mapping instanceof ElementMapping) {
+					final EObject target = ((ElementMapping) mapping).getTargetElement();
+					resource.addWarning(warningMessage, target);
+				} else if (mapping instanceof IdentifierMapping) {
+					resource.addWarning(warningMessage, null);
+				} else {
+					assert false;
+				}
 			}
 		}
 	}
