@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.reuseware.emftextedit.runtime.resource.IdentifierMapping;
 import org.reuseware.emftextedit.runtime.resource.ReferenceMapping;
 import org.reuseware.emftextedit.runtime.resource.ResolveResult;
 
