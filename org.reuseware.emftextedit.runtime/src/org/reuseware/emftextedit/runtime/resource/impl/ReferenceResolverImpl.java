@@ -11,55 +11,61 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
-import org.reuseware.emftextedit.runtime.resource.ProxyResolver;
+import org.reuseware.emftextedit.runtime.resource.ElementMapping;
+import org.reuseware.emftextedit.runtime.resource.ReferenceMapping;
+import org.reuseware.emftextedit.runtime.resource.ReferenceResolver;
+import org.reuseware.emftextedit.runtime.resource.ResolveResult;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 /**
  * Base implementation for all generated proxy resolvers. 
- * It implements the specifications from {@link ProxyResolver}.
+ * It implements the specifications from {@link ReferenceResolver}.
  * 
  * @author Jendrik Johannes (jj2)
  */
-public class ProxyResolverImpl implements ProxyResolver {
+public abstract class ReferenceResolverImpl implements ReferenceResolver {
 
 	public final static String NAME_FEATURE = "name";
 
 	private Map<?, ?> options;
 
-	public ProxyResolverImpl() {
+	public ReferenceResolverImpl() {
 		init();
 	}
 	
 	protected void init() {
 	}
 	
-	public EObject resolve(EObject proxy, EObject container,
-			EReference reference, TextResource resource) {
-		return resolve(proxy, container, reference, resource, true);
-	}
-
-	public EObject resolve(EObject proxy, EObject container,
-			EReference reference, TextResource resource, boolean reportErrors) {
+	public void resolve(String identifier, EObject container, 
+			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
 		
-		if (!((InternalEObject)proxy).eIsProxy()) {
-			return proxy;
+		String proxyURIFragment = identifier;
+		doResolve(proxyURIFragment, container, reference, position, resolveFuzzy, result);
+		EObject element = null;
+		if (result.wasResolvedUniquely()) {
+			ReferenceMapping next = result.getMappings().iterator().next();
+			if (next instanceof ElementMapping) {
+				element = ((ElementMapping) next).getTargetElement();
+			}
+		} else if (result.wasResolvedMultiple()) {
+			ReferenceMapping next = result.getMappings().iterator().next();
+			// TODO mseifert: handle multiple elements
+			if (next instanceof ElementMapping) {
+				element = ((ElementMapping) next).getTargetElement();
+			}
+		} else if (result.wasNotResolved()) {
+			return;
 		}
-		
-		EObject element = doResolve((InternalEObject)proxy, container, reference, resource);
-		EClass type     = reference.getEReferenceType();	
+		// TODO mseifert: can we move this type check to the tree analyser?
+		EClass type = reference.getEReferenceType();
 		if (element == null || (!element.eClass().equals(type) && 
 				!element.eClass().getEAllSuperTypes().contains(type))) {
 
-			if (reportErrors) {
-				String msg = produceResolveErrorMessage((InternalEObject)proxy, container, reference, resource);
-				resource.addError(msg, proxy);
-			}
-			return null;
+			//return ResolveResultFactory.INSTANCE.createResolveResult(getErrorMessage(identifier, container, reference));
 		}
 		
-		return element;
+		return;
 	}
 	
 	/**
@@ -71,51 +77,44 @@ public class ProxyResolverImpl implements ProxyResolver {
 	 * @param container The object referencing the proxy.
 	 * @param reference The reference that holds the proxy.
 	 * @param resource  The resource containing the proxy and replacement candidates. 
+	 * @param resolveFuzzy 
 	 * @return The resolved object or null if resolving fails.
 	 */
-	protected EObject doResolve(InternalEObject proxy, EObject container,
-			EReference reference, TextResource resource) {
+	protected void doResolve(String proxyURIFragment, EObject container,
+			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
 		
 		//TODO trivial implementation - enhancements:
 		//      - take tree depths into account
 		//      - use not only name attribute (e.g. "id", or only existing String attribute)
 	
 		EClass type     = reference.getEReferenceType();
-		String proxyURI = proxy.eProxyURI().fragment();
-
-		for(Iterator<EObject> i = resource.getAllContents(); i.hasNext(); ) {
+		String proxyURI = proxyURIFragment; // proxy.eProxyURI().fragment();
+		EObject root = findRoot(container);
+		for (Iterator<EObject> i = root.eAllContents(); i.hasNext(); ) {
 			EObject element = i.next();
 			if (!element.eIsProxy()) {
-				if (element.eClass().equals(type) || element.eClass().getEAllSuperTypes().contains(type)) {
+				EClass eClass = element.eClass();
+				if (eClass.equals(type) || eClass.getEAllSuperTypes().contains(type)) {
 					if (matches(element, proxyURI)) {
-						return element;
+						result.addMapping(proxyURI, element);
+						if (!resolveFuzzy) {
+							return;
+						}
 					}
 				}
 			}
 		}
-		return null;
 	}
 	
-	/**
-	 * This method is called by <code>resolve()</code>. Clients may or may not override
-	 * it manually.
-	 * This method is called if error reporting is activated and a proxy resolving failed.
-	 * This implementation produces a standard error message using the reference type
-	 * and the proxy URI fragment.
-	 * 
-	 * @param proxy The proxy.
-	 * @param container The object referencing the proxy.
-	 * @param reference The reference that holds the proxy.
-	 * @param resource  The resource containing the proxy and replacement candidates. 
-	 * @return The error message.
-	 */
-	protected String produceResolveErrorMessage(InternalEObject proxy, EObject container,
-			EReference reference, TextResource resource) {
-		String msg = getClass().getSimpleName() + ": " + reference.getEType().getName() + " \"" + proxy.eProxyURI().fragment() + "\" not declared";  
-		return msg;
-		
+	private EObject findRoot(EObject object) {
+		EObject container = object.eContainer();
+		if (container != null) {
+			return findRoot(container);
+		} else {
+			return object;
+		}
 	}
-	
+
 	protected String produceDeResolveErrorMessage(EObject refObject, EObject container,
 			EReference reference, TextResource resource) {
 		

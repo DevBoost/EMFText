@@ -1,5 +1,7 @@
 package org.reuseware.emftextedit.runtime.ui.editor;
 
+import java.util.ResourceBundle;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -17,17 +19,25 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.text.DocumentEvent;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.texteditor.ContentAssistAction;
+import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
+import org.reuseware.emftextedit.runtime.resource.LocationMap;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.runtime.ui.ColorManager;
 import org.reuseware.emftextedit.runtime.ui.EMFTextEditorConfiguration;
@@ -81,6 +91,8 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	
 	private Resource resource;
 
+	private Resource resourceCopy;
+
 	private MarkerAdapter markerAdapter = new MarkerAdapter();
 
 	private PropertySheetPage propertySheetPage;
@@ -119,6 +131,62 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,colorManager));
 	}
 	
+	@Override
+	protected void doSetInput(IEditorInput editorInput) throws CoreException {
+		super.doSetInput(editorInput);
+		
+		initializeResourceObject(editorInput);
+		
+		IDocument document = getDocumentProvider().getDocument(getEditorInput());
+		document.addDocumentListener(new IDocumentListener() {
+
+			public void documentAboutToBeChanged(DocumentEvent event) {
+			}
+
+			public void documentChanged(DocumentEvent event) {
+				// TODO mseifert: enable this feature once it is implemented
+				/*
+				String contents = event.getDocument().get();
+				try {
+					resourceCopy.unload();
+					resourceCopy.load(new ByteArrayInputStream(contents.getBytes()), null);
+					boolean hasErrors = resourceCopy.getErrors().size() > 0;
+					if (hasErrors) {
+						setStatusLineMessage("Found error(s)");
+						for (Diagnostic d : resourceCopy.getErrors()) {
+							System.out.println("ERROR: " + d.getMessage());
+						}
+					} else {
+						setStatusLineMessage("Ok");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				*/
+			}
+		});
+	}
+
+
+	private void initializeResourceObject(IEditorInput editorInput) {
+		FileEditorInput input = (FileEditorInput) editorInput;
+		String path = input.getFile().getFullPath().toString();
+		URI uri = URI.createPlatformResourceURI(path, true);
+		resource = resourceSet.getResource(uri, false);
+		if (resource == null) {
+			try {
+				resource = resourceSet.getResource(uri, true);
+				resourceCopy = new ResourceSetImpl().createResource(uri);
+				MarkerHelper.unmark(resource);
+				MarkerHelper.mark(resource);
+				resource.eAdapters().add(markerAdapter);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
 	public void dispose() {
 		colorManager.dispose();
 		super.dispose();
@@ -133,8 +201,9 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 				Resource resource = selectedEObject.eResource();
 				if (resource instanceof TextResource) {
 					TextResource textResource = (TextResource) resource;
-					int elementCharStart = textResource.getElementCharStart(selectedEObject);
-					int elementCharEnd = textResource.getElementCharEnd(selectedEObject);
+					LocationMap locationMap = textResource.getLocationMap();
+					int elementCharStart = locationMap.getCharStart(selectedEObject);
+					int elementCharEnd = locationMap.getCharEnd(selectedEObject);
 					selectAndReveal(elementCharStart, elementCharEnd - elementCharStart + 1);
 				}
 			}
@@ -202,18 +271,6 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	}
 	
 	public ResourceSet getResourceSet() {
-		FileEditorInput input = (FileEditorInput) getEditorInput();
-		String path = input.getFile().getFullPath().toString();
-		Resource thisFile = resourceSet.getResource(URI.createPlatformResourceURI(path, true), false);
-		if (thisFile == null)
-			try {
-				thisFile = resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
-				MarkerHelper.unmark(thisFile);
-				MarkerHelper.mark(thisFile);
-				thisFile.eAdapters().add(markerAdapter);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		return resourceSet;
 	}
 	
@@ -264,5 +321,20 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		
 		
 		return propertySheetPage;
+	}
+
+
+	@Override
+	protected void createActions() {
+		super.createActions();
+		
+		ResourceBundle aResourceBundle = ResourceBundle.getBundle("org.reuseware.emftextedit.runtime.ui.EMFTextEditorMessages");
+		String actionId = "actionId";
+		
+		IAction action= new ContentAssistAction(aResourceBundle, "ContentAssistProposal.", this); //$NON-NLS-1$
+		action.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
+		setAction(actionId, action); //$NON-NLS-1$
+		markAsStateDependentAction(actionId, true); //$NON-NLS-1$
+		//PlatformUI.getWorkbench().getHelpSystem().setHelp(action, helpContextId);
 	}
 }

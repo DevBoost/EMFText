@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.reuseware.emftextedit.runtime.resource.EMFTextParser;
+import org.reuseware.emftextedit.runtime.resource.LocationMap;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.reuseware.emftextedit.runtime.resource.TokenConversionException;
 
@@ -145,19 +146,19 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
     }
     
     protected void copyLocalizationInfos(EObject source, EObject target) {
-        final TextResource resource = getResource();
-		resource.setElementCharStart(target, resource.getElementCharStart(source)); 
-        resource.setElementCharEnd(target, resource.getElementCharEnd(source)); 
-        resource.setElementColumn(target, resource.getElementColumn(source)); 
-        resource.setElementLine(target, resource.getElementLine(source));
+        final LocationMap locationsMap = getResource().getLocationMap();
+		locationsMap.setCharStart(target, locationsMap.getCharStart(source)); 
+        locationsMap.setCharEnd(target, locationsMap.getCharEnd(source)); 
+        locationsMap.setColumn(target, locationsMap.getColumn(source)); 
+        locationsMap.setLine(target, locationsMap.getLine(source));
     }
     
     protected void copyLocalizationInfos(CommonToken source, EObject target) {
-        final TextResource resource = getResource();
-		resource.setElementCharStart(target, source.getStartIndex()); 
-        resource.setElementCharEnd(target, source.getStopIndex());    
-        resource.setElementColumn(target, source.getCharPositionInLine());    
-        resource.setElementLine(target, source.getLine());
+        final LocationMap locationsMap = getResource().getLocationMap();
+        locationsMap.setCharStart(target, source.getStartIndex()); 
+        locationsMap.setCharEnd(target, source.getStopIndex());    
+        locationsMap.setColumn(target, source.getCharPositionInLine());    
+        locationsMap.setLine(target, source.getLine());
     }
 
     //helper lists to allow a lexer to pass errors to its parser

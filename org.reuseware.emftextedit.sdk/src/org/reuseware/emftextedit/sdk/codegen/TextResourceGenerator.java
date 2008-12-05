@@ -42,6 +42,8 @@ public class TextResourceGenerator extends BaseGenerator {
         
 		out.println("public class " + super.getResourceClassName() + " extends TextResourceImpl {");
 
+		out.println("\tprivate EMFTextTreeAnalyser analyser;\n\n");
+		
 		out.println("\tpublic " + super.getResourceClassName() + "(){");
 		out.println("\t\tsuper();");
 		out.println("\t}");
@@ -53,17 +55,18 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println();
 		
         out.println("\tprotected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {");
+        out.println("\t\tjava.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);");
         out.println("\t\tEMFTextParser p = new " + csClassName + "Parser(new CommonTokenStream(new " + csClassName + "Lexer(new ANTLRInputStream(inputStream))));");
         out.println("\t\tp.setResource(this);");
-        out.println("\t\tp.setOptions(options);");
+        out.println("\t\tp.setOptions(loadOptions);");
         out.println("\t\tEObject root = p.parse();");
         out.println("\t\twhile (root != null) {");
         out.println("\t\t\tgetContents().add(root);");
         out.println("\t\t\troot = null; //p.parse();");
         out.println("\t\t}\n");
-        out.println("\t\tEMFTextTreeAnalyser a = new " + analyserClassName + "();\n");
-        out.println("\t\ta.setOptions(options);");
-        out.println("\t\ta.analyse(this);");
+        out.println("\t\tEMFTextTreeAnalyser analyser = getTreeAnalyser();\n");
+        out.println("\t\tanalyser.setOptions(loadOptions);");
+        out.println("\t\tanalyser.analyse(this);");
         out.println("\t}");
         out.println();
         
@@ -85,6 +88,13 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t}");
         out.println();
         
+        out.println("\tpublic EMFTextTreeAnalyser getTreeAnalyser() {");
+        out.println("\t\tif (analyser == null) {");
+        out.println("\t\t\tanalyser = new " + analyserClassName + "();");
+        out.println("\t\t}");
+        out.println("\t\treturn analyser;");
+        out.println("\t}");
+
         out.println("}");
     	
     	return true;

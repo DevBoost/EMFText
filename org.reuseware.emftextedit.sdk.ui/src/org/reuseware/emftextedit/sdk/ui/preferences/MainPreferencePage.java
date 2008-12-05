@@ -53,7 +53,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage implements
 
 		
 		BooleanFieldEditor ovrAntlrSpec = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME, "&Allways Override ANTLR Grammar",BooleanFieldEditor.DEFAULT, generatorGroup);
-		BooleanFieldEditor ovrProxyResolvers = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME, "&Allways Override Proxy Resolvers",BooleanFieldEditor.DEFAULT, generatorGroup);
+		BooleanFieldEditor ovrReferenceResolvers = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME, "&Allways Override Proxy Resolvers",BooleanFieldEditor.DEFAULT, generatorGroup);
 		BooleanFieldEditor ovrTreeAnalyser = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME, "&Allways Override Tree Analyser",BooleanFieldEditor.DEFAULT, generatorGroup);
 		BooleanFieldEditor ovrTokenResolvers = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVERS_NAME, "&Allways Override Token Resolvers",BooleanFieldEditor.DEFAULT, generatorGroup);
 		BooleanFieldEditor ovrTokenResolverFactory = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME, "&Allways Override Token Resolver Factory",BooleanFieldEditor.DEFAULT, generatorGroup);
@@ -61,7 +61,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage implements
 		BooleanFieldEditor ovrPrinter = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME, "&Allways Override Printer",BooleanFieldEditor.DEFAULT, generatorGroup);
 
 		addField(ovrAntlrSpec);
-		addField(ovrProxyResolvers);
+		addField(ovrReferenceResolvers);
 		addField(ovrTreeAnalyser);
 		addField(ovrTokenResolvers);
 		addField(ovrTokenResolverFactory);

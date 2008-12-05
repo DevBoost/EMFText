@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.reuseware.emftextedit.runtime.resource.ReferenceResolver;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 import org.antlr.Tool;
 import org.antlr.tool.ErrorManager;
@@ -36,7 +37,7 @@ public class ResourcePackageGenerator {
 	public static String GENERATE_PRINTER_STUB_ONLY_NAME = "genPrinterStubOnly";
 	public static String OVERRIDE_ANTLR_SPEC_NAME = "ovrAntlrSpec";
 	public static String OVERRIDE_TOKEN_RESOLVERS_NAME = "ovrTokenResolvers";
-	public static String OVERRIDE_PROXY_RESOLVERS_NAME = "ovrProxyResolvers";
+	public static String OVERRIDE_PROXY_RESOLVERS_NAME = "ovrReferenceResolvers";
 	public static String OVERRIDE_TREE_ANALYSER_NAME = "ovrTreeAnalyser";
 	public static String OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME = "ovrTokenResolverFactory";
 	public static String OVERRIDE_PRINTER_NAME = "ovrPrinter";
@@ -93,7 +94,7 @@ public class ResourcePackageGenerator {
 				printerBaseFile, antlrName, printerName, printerBaseName,
 				treeAnalyserName, tokenResolverFactoryName, antlrGenenerator);
 	    
-	    Map<GenFeature, String> proxy2Name = generateProxyResolver(resourcePackage,
+	    Map<GenFeature, String> proxy2Name = generateReferenceResolver(resourcePackage,
 				progress, targetFolder, csResource, resolverPackagePath,
 				antlrGenenerator);
 		
@@ -158,18 +159,18 @@ public class ResourcePackageGenerator {
 		progress.worked(5);
 	}
 
-	private static Map<GenFeature, String> generateProxyResolver(
+	private static Map<GenFeature, String> generateReferenceResolver(
 			ResourcePackage pck, SubMonitor progress, IFolder targetFolder,
 			TextResource csResource, IPath resolverPackagePath,
 			TextParserGenerator antlrGen) throws CoreException {
 		progress.setTaskName("generating proxy resolvers...");
 		Map<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
 		for(GenFeature proxyReference : antlrGen.getProxyReferences()){
-			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + "ProxyResolver";
+			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + ReferenceResolver.class.getSimpleName();
 			proxy2Name.put(proxyReference,className);
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className +JAVA_EXT));
 			if(!resolverFile.exists()||pck.getPreference(OVERRIDE_PROXY_RESOLVERS_NAME)){
-				BaseGenerator proxyGen = new ProxyResolverGenerator(className,pck.getResolverPackageName());
+				BaseGenerator proxyGen = new ReferenceResolverGenerator(className,pck.getResolverPackageName());
 				setContents(resolverFile, invokeGeneration(proxyGen,csResource));		
 			}
 		}

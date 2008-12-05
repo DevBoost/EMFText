@@ -11,6 +11,9 @@ import org.reuseware.emftextedit.runtime.resource.*;
 import org.reuseware.emftextedit.runtime.resource.impl.*;
 
 public class CsResourceImpl extends TextResourceImpl {
+	
+	private EMFTextTreeAnalyser analyser;
+	
 	public CsResourceImpl(){
 		super();
 	}
@@ -20,19 +23,21 @@ public class CsResourceImpl extends TextResourceImpl {
 	}
 
 	protected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {
+		// get default options
+		Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
+		
 		EMFTextParser p = new CsParser(new CommonTokenStream(new CsLexer(new ANTLRInputStream(inputStream))));
 		p.setResource(this);
-		p.setOptions(options);
+		p.setOptions(loadOptions);
 		EObject root = p.parse();
 		while (root != null) {
 			getContents().add(root);
 			root = null; //p.parse();
 		}
 
-		EMFTextTreeAnalyser a = new CsTreeAnalyser();
-
-		a.setOptions(options);
-		a.analyse(this);
+		EMFTextTreeAnalyser analyser = getTreeAnalyser();
+		analyser.setOptions(loadOptions);
+		analyser.analyse(this);
 	}
 
 	protected void doSave(OutputStream outputStream, Map<?,?> options) throws IOException {
@@ -50,4 +55,10 @@ public class CsResourceImpl extends TextResourceImpl {
 		return new CsLexer();
 	}
 
+	public EMFTextTreeAnalyser getTreeAnalyser() {
+		if (analyser == null) {
+			analyser = new CsTreeAnalyser();
+		}
+		return analyser;
+	}
 }

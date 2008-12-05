@@ -2,6 +2,8 @@ package org.reuseware.emftextedit.runtime.ui;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
@@ -30,6 +32,19 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
         this.colorManager = colorManager;      
 	}
     
+	public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
+
+		ContentAssistant assistant= new ContentAssistant();
+		assistant.setContentAssistProcessor(new EMFTextEditorCompletionProcessor(theEditor), IDocument.DEFAULT_CONTENT_TYPE);
+		assistant.enableAutoActivation(true);
+		assistant.setAutoActivationDelay(500);
+		assistant.setProposalPopupOrientation(IContentAssistant.PROPOSAL_OVERLAY);
+		assistant.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
+		//assistant.setContextInformationPopupBackground(new Color(new RGB(255, 0, 0)));
+
+		return assistant;
+	}
+	
 	/**
 	 * 
 	 */

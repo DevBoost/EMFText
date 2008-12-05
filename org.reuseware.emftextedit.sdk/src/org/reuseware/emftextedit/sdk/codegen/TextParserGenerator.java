@@ -64,19 +64,16 @@ import org.reuseware.emftextedit.sdk.concretesyntax.WhiteSpaces;
 
 /**
  * The text parser generator maps from one or more concrete syntaxes (*.cs) and 
- * one or more ecore gen-models to an ANTLR parser specification. 
+ * one or more Ecore generator models to an ANTLR parser specification. 
  * If the derived specification does not contain syntactical conflicts which 
  * could break the ANTLR generation algorithm or the ANTLR parsing algorithm 
- * (e.g. ambiguities in the cfg or in token definitions which are not checked by this generator) 
- * it can be used to generate a text parser which allows to create metamodel 
- * instances from plain text files.
- * 
+ * (e.g. ambiguities in the configuration or in token definitions which are 
+ * not checked by this generator) it can be used to generate a text parser 
+ * which allows to create metamodel instances from plain text files.
  * 
  * @author skarol
- *
  */
-
-public class TextParserGenerator extends BaseGenerator{
+public class TextParserGenerator extends BaseGenerator {
 	
 	private static final String CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION = "autofixSimpleLeftrecursion";
 	private static final String CS_OPTION_FORCE_EOF = "forceEOF";
@@ -96,14 +93,10 @@ public class TextParserGenerator extends BaseGenerator{
 	
 	/**
 	 * These class/interface definitions bring automatically derived TokenDefinitions 
-	 * and userdefined TokenDefinitions together. 
-	 * 
+	 * and user-defined TokenDefinitions together. 
 	 * 
 	 * @author skarol
-	 *
 	 */
-	
-	
 	public static interface InternalTokenDefinition{
 		public String getName();
 		public String getExpression();
@@ -248,8 +241,9 @@ public class TextParserGenerator extends BaseGenerator{
 		}
 		char firstLetter = standardTextTokenName.charAt(0);
 		//can this check be done by OCL?
-		if(!(firstLetter>='A'&&firstLetter<='Z'))
-				this.addProblem(new GenerationProblem("Token names have to start with a capital letter.",currentOption,Severity.ERROR));
+		if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
+			addProblem(new GenerationProblem("Token names must start with a capital letter.", currentOption,Severity.ERROR));
+		}
 		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_FORCE_EOF,source.getOptions());
 		forceEOFToken = currentOption==null?false:Boolean.parseBoolean(currentOption.getValue());
 		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_USE_DEFAULT_TOKENS,source.getOptions());
@@ -373,8 +367,9 @@ public class TextParserGenerator extends BaseGenerator{
             	out.println("\t|  ");
             count++;
         }
-        if(forceEOFToken)
+        if(forceEOFToken) {
         	out.println("\t"+EOF_TOKEN_NAME);
+        }
         out.println();
         out.println(";");
         out.println();
@@ -653,22 +648,24 @@ public class TextParserGenerator extends BaseGenerator{
         	String tokenName = null;
         	if(terminal instanceof DerivedPlaceholder){
         		
-        		DerivedPlaceholder placeholder = (DerivedPlaceholder)terminal;
-        		InternalTokenDefinition definition = null;
-        		if(!useDefaultTokens&&((placeholder.getPrefix()==null||placeholder.getPrefix().length()==0)&&(placeholder.getSuffix()==null||placeholder.getSuffix().length()==0))){
+        		DerivedPlaceholder placeholder = (DerivedPlaceholder) terminal;
+        		String prefix = placeholder.getPrefix();
+				String suffix = placeholder.getSuffix();
+				boolean prefixIsEmpty = prefix==null || prefix.length()==0;
+				boolean suffixIsEmpty = suffix==null || suffix.length()==0;
+				
+				if(!useDefaultTokens && prefixIsEmpty && suffixIsEmpty) {
         			addProblem(new GenerationProblem("Default tokens switched off. Define prefix/suffix or token reference here.",placeholder));
-         		} 
-        		else{
-            		definition = deriveTokenDefinition(placeholder.getPrefix(),placeholder.getSuffix());
+         		} else {
+        			InternalTokenDefinition definition = deriveTokenDefinition(prefix, suffix);
             		tokenName = definition.getName();
-                	placeholder2TokenName.put(placeholder,tokenName);        			
+                	placeholder2TokenName.put(placeholder,tokenName);
         		}
         	}
         	else{
         		assert terminal instanceof DefinedPlaceholder;
-        		DefinedPlaceholder placeholder = (DefinedPlaceholder)terminal;
+        		DefinedPlaceholder placeholder = (DefinedPlaceholder) terminal;
         		tokenName = placeholder.getToken().getName();
-        	
         	}
         	
         	out.print(tokenName);
@@ -828,53 +825,75 @@ public class TextParserGenerator extends BaseGenerator{
      * excepting the suffix, is created and returned. The name of this definition is the conjunction of the value 
      * in DERIVED_TOKEN_NAME, "_", prefix, "_" and suffix. </p>
      * 
-     * @param pref
-     * @param suff
+     * @param prefix
+     * @param suffix
      * @return
      */
     
-    private InternalTokenDefinition deriveTokenDefinition(String pref, String suff){
+    private InternalTokenDefinition deriveTokenDefinition(String prefix, String suffix) {
     	String derivedTokenName = null;
-    	if(suff!=null&&suff.length()>0){
+    	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
+		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
+		
+		if (suffixIsSet) {
         	String derivedExpression = null;
-    		if(pref!=null&&pref.length()>0){
-    			derivedTokenName = DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(pref) + "_" + deriveCodeSequence(suff);
-    			if(!derivedTokens.containsKey(derivedTokenName)){
-    				derivedExpression = "(~('"+ escapeLiteralChars(suff) +"')|('\\\\''"+escapeLiteralChars(suff)+"'))*";
-    				InternalTokenDefinition result =  new InternalTokenDefinitionImpl(derivedTokenName,derivedExpression,pref,suff,null,true);
-    				derivedTokens.put(derivedTokenName,result);
-    			}	
-    		}
-    		else{
-       			derivedTokenName = DERIVED_TOKEN_NAME + "_" + "_" + deriveCodeSequence(suff);
-    			if(!derivedTokens.containsKey(derivedTokenName)){
-    				derivedExpression =  "(~('"+ escapeLiteralChars(suff) +"')|( '\\\\' '"+escapeLiteralChars(suff)+"' ))* '";
-    				InternalTokenDefinition result =  new InternalTokenDefinitionImpl(derivedTokenName,derivedExpression,null,suff,null,true);
-    				derivedTokens.put(derivedTokenName,result);
+    		if (prefixIsSet) {
+    			derivedTokenName = DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(prefix) + "_" + deriveCodeSequence(suffix);
+    			if (!tokenExists(derivedTokenName)) {
+    				derivedExpression = "(~('" + escapeLiteralChars(suffix) + "')|('\\\\''" + escapeLiteralChars(suffix) + "'))*";
+    				addTokenDefinition(derivedTokenName, derivedExpression, prefix, suffix);
+    			}
+    		} else {
+       			derivedTokenName = DERIVED_TOKEN_NAME + "_" + "_" + deriveCodeSequence(suffix);
+    			if (!tokenExists(derivedTokenName)) {
+    				derivedExpression =  "(~('" + escapeLiteralChars(suffix) + "')|( '\\\\' '" + escapeLiteralChars(suffix)+"' ))* '";
+    				addTokenDefinition(derivedTokenName, derivedExpression, null, suffix);
     			}	
     		}
 		}
     	else{
-    		if(pref!=null&&pref.length()>0){
+    		if (prefixIsSet) {
 				String derivedExpression = null;
-    			derivedTokenName = standardTextTokenName + "_" + deriveCodeSequence(pref) + "_";
-				if(!derivedTokens.containsKey(derivedTokenName)){
-					derivedExpression =  STD_TOKEN_DEF;
-					InternalTokenDefinition result = new InternalTokenDefinitionImpl(derivedTokenName,derivedExpression,pref,null,null,true);
-					derivedTokens.put(derivedTokenName,result);
+    			derivedTokenName = standardTextTokenName + "_" + deriveCodeSequence(prefix) + "_";
+				if (!tokenExists(derivedTokenName)) {
+					derivedExpression = getStandardTokenExpression();
+    				addTokenDefinition(derivedTokenName, derivedExpression, prefix, null);
 				}
-    		}
-    		else{
+    		} else {
     			derivedTokenName = standardTextTokenName;
-    			if(!derivedTokens.containsKey(derivedTokenName)){
-    				InternalTokenDefinition result = new InternalTokenDefinitionImpl(derivedTokenName,STD_TOKEN_DEF,null,null,null,true);
-    				derivedTokens.put(derivedTokenName,result);
+    			if (!tokenExists(derivedTokenName)) {
+    				addTokenDefinition(derivedTokenName, getStandardTokenExpression(), null, null);
     			}
-
     		}
     	}
     	return derivedTokens.get(derivedTokenName);
     }
+
+	private String getStandardTokenExpression() {
+		if (!STD_TOKEN_NAME.equals(standardTextTokenName)) {
+			Collection<TokenDefinition> tokens = source.getTokens();
+			for (TokenDefinition token : tokens) {
+				String tokenName = token.getName();
+				if (tokenName.equals(standardTextTokenName)) {
+					if (token instanceof NewDefinedToken) {
+						return new TokenDefinitionAdapter((NewDefinedToken) token).getExpression();
+					}
+				}
+			}
+		}
+		return STD_TOKEN_DEF;
+	}
+
+	private boolean tokenExists(String derivedTokenName) {
+		boolean exists = derivedTokens.containsKey(derivedTokenName);
+		return exists;
+	}
+
+	private void addTokenDefinition(String tokenName, String expression, String prefix, String suffix) {
+		System.out.println("TextParserGenerator.addTokenDefinition(" + tokenName + ", " + expression + ")");
+		InternalTokenDefinition newDefintion =  new InternalTokenDefinitionImpl(tokenName,expression,prefix,suffix,null,true);
+		derivedTokens.put(tokenName, newDefintion);
+	}
     
     private String deriveCodeSequence(String original){
     	char[] chars = original.toCharArray();
@@ -882,7 +901,7 @@ public class TextParserGenerator extends BaseGenerator{
     	for(int i=0;i<chars.length;i++){
     		if(chars[i]<10)
     			result += "0";
-    		result += (int)chars[i];                     
+    		result += (int)chars[i];
     	}
     	return result;
     }
@@ -920,7 +939,7 @@ public class TextParserGenerator extends BaseGenerator{
 		Collection<TokenDefinition> userDefinedTokens = source.getTokens();
 		for(TokenDefinition def:userDefinedTokens){
 			if(def.getName().charAt(0)<'A'||def.getName().charAt(0)>'Z'){
-				addProblem(new GenerationProblem("Token names must start with capital letter.",def));
+				addProblem(new GenerationProblem("Token names must start with a capital letter.",def));
 				continue;
 			}
 			if(processedTokenNames.contains(def.getName().toLowerCase())){
@@ -1079,5 +1098,4 @@ public class TextParserGenerator extends BaseGenerator{
         }
        return true;
     }
-    
 }

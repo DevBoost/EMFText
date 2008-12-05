@@ -18,46 +18,11 @@ public interface TextResource extends Resource {
 	 * constraints should be validated.
 	 */
 	public static final String OPTION_NO_VALIDATE = "TR_NO_VALIDATE_OCL"; 
-	
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public void setElementLine(EObject element, int line);
 
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public int getElementLine(EObject element);
-	
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public void setElementColumn(EObject element, int column);
-	
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public int getElementColumn(EObject element);
-	
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public void setElementCharStart(EObject element, int charStart);
-	
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public int getElementCharStart(EObject element);
-	
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public void setElementCharEnd(EObject element, int charEnd);
-	
-	/**
-	 * Used by parsers to set location information.
-	 */
-	public int getElementCharEnd(EObject element);
+	// TODO mseifert add documentation
+	public LocationMap getLocationMap();
+	// TODO mseifert add documentation
+	public EMFTextTreeAnalyser getTreeAnalyser();
 	
 	/**
 	 * Add an error that should be displayed at the position of the given element.

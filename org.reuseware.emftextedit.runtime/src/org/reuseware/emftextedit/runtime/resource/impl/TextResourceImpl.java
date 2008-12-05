@@ -14,15 +14,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.reuseware.emftextedit.runtime.EMFTextEditPlugin;
 import org.reuseware.emftextedit.runtime.IOptionProvider;
 import org.reuseware.emftextedit.runtime.resource.EMFTextOCLValidator;
+import org.reuseware.emftextedit.runtime.resource.LocationMap;
 import org.reuseware.emftextedit.runtime.resource.TextResource;
 
 /**
@@ -33,10 +32,7 @@ import org.reuseware.emftextedit.runtime.resource.TextResource;
  */
 public abstract class TextResourceImpl extends ResourceImpl implements TextResource {
 	
-	protected EMap<EObject, Integer> columnInfo    = new BasicEMap<EObject, Integer>();
-	protected EMap<EObject, Integer> lineInfo      = new BasicEMap<EObject, Integer>();
-	protected EMap<EObject, Integer> charStartInfo = new BasicEMap<EObject, Integer>();
-	protected EMap<EObject, Integer> charEndInfo   = new BasicEMap<EObject, Integer>();
+	private LocationMap locationMap = new LocationMapImpl();
 	
 	/**
 	 * Extends the super implementation by clearing all information about element
@@ -46,19 +42,12 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		super.doUnload();
 		
 		//clear concrete syntax information
-		columnInfo.clear();
-		lineInfo.clear();
-		charStartInfo.clear();
-		charEndInfo.clear();
+		locationMap = new LocationMapImpl();
 	}
 	
 
 	@Override
-	public void load(Map<?, ?> loadOptions) throws IOException {
-		// get default options
-		Map<Object, Object> options = copySafelyToObjectToObjectMap(loadOptions); 
-		addDefaultLoadOptions(options);
-		
+	public void load(Map<?, ?> options) throws IOException {
 		super.load(options);
 
 		if (options != null
@@ -93,64 +82,17 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 	public TextResourceImpl(URI uri) {
 		super(uri);	
 	}
+	
+	public LocationMap getLocationMap() {
+		return locationMap;
+	}
 	  
-	private int getMapValue(EMap<EObject, Integer> map, EObject element) {
-		if (!map.containsKey(element)) return -1;
-		return map.get(element);
-	}
-	
-	private void setMapValue(EMap<EObject, Integer> map, EObject element, int line) {
-		if (element == null) return;
-		if (map.containsKey(element)) return;
-		map.put(element, line);
-	}
-	
-	public void setElementLine(EObject element, int line) {
-		setMapValue(lineInfo, element, line);
-	}
-
-	public int getElementLine(EObject element) {
-		return getMapValue(lineInfo, element);
-	}
-
-	public void setElementColumn(EObject element, int column) {
-		setMapValue(columnInfo, element, column);
-	}	
-	
-	public int getElementColumn(EObject element) {
-		return getMapValue(columnInfo, element);
-	}
-	
-	public void setElementCharStart(EObject element, int charStart) {
-		setMapValue(charStartInfo, element, charStart);
-	}	
-	
-	public int getElementCharStart(EObject element) {
-		return getMapValue(charStartInfo, element);
-	}	
-	
-	public void setElementCharEnd(EObject element, int charEnd) {
-		if (element == null) return;
-		if (charEndInfo.containsKey(element)) {
-			// TODO jjohannes: this is strange behavior since
-			// it deviates from the other set methods. maybe 
-			// this code should be better placed in callers of
-			// this method?
-			if (charEndInfo.get(element) > charEnd) return;
-		}
-		charEndInfo.put(element, charEnd);
-	}	
-	
-	public int getElementCharEnd(EObject element) {
-		return getMapValue(charEndInfo, element);
-	}	
-	
 	public void addError(String message, EObject element) {
-		getErrors().add(new ElementBasedTextDiagnosticImpl(this, message, element));
+		getErrors().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element));
 	}
 	
 	public void addWarning(String message, EObject element) {
-		getWarnings().add(new ElementBasedTextDiagnosticImpl(this, message, element));
+		getWarnings().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element));
 	}
 	
 	public void addError(String message, int column, int line, int charStart,
@@ -167,7 +109,8 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		return new String[]{};
 	}
 	
-	private void addDefaultLoadOptions(Map<Object, Object> loadOptions) {
+	protected Map<Object, Object> addDefaultLoadOptions(Map<?, ?> loadOptions) {
+		Map<Object, Object> loadOptionsCopy = copySafelyToObjectToObjectMap(loadOptions); 
 		if (Platform.isRunning()) {
 			// find default load option providers
 			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -178,13 +121,14 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 					final Map<?, ?> options = provider.getOptions();
 					final Collection<?> keys = options.keySet();
 					for (Object key : keys) {
-						addLoadOption(loadOptions, key, options.get(key));
+						addLoadOption(loadOptionsCopy, key, options.get(key));
 					}
 				} catch (CoreException ce) {
 					EMFTextEditPlugin.logError("Exception while getting default options.", ce);
 				}
 			}
 		}
+		return loadOptionsCopy;
 	}
 
 	/**
@@ -221,7 +165,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		}
 	}
 
-	private Map<Object, Object> copySafelyToObjectToObjectMap(Map<?, ?> map) {
+	protected Map<Object, Object> copySafelyToObjectToObjectMap(Map<?, ?> map) {
 		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
 		
 		if(map == null) {

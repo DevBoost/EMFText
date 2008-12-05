@@ -3,51 +3,49 @@
  */
 package org.reuseware.emftextedit.runtime.resource.impl;
 
-import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.reuseware.emftextedit.runtime.resource.TextDiagnostic;
+import org.reuseware.emftextedit.runtime.resource.LocationMap;
 
 public class ElementBasedTextDiagnosticImpl implements TextDiagnostic {
 
-	private final TextResourceImpl textResource;
-	protected EObject element;
-	protected String message;
+	private final LocationMap locationMap;
+	private final URI uri;
+	private final EObject element;
+	private final String message;
 
-	protected ElementBasedTextDiagnosticImpl(TextResourceImpl textResource,
+	protected ElementBasedTextDiagnosticImpl(LocationMap locationMap,
+			URI uri,
 			String message, EObject element) {
-		this.textResource = textResource;
+		this.uri = uri;
+		this.locationMap = locationMap;
 		this.element = element;
 		this.message = message;
 	}
 
-	public int getCharStart() {
-		return getMapValue(textResource.charStartInfo);
-	}
-
-	public int getCharEnd() {
-		return getMapValue(textResource.charEndInfo);
-	}
-
-	public int getColumn() {
-		return getMapValue(textResource.columnInfo);
-	}
-
-	public int getLine() {
-		return getMapValue(textResource.lineInfo);
-	}
-
-	public String getLocation() {
-		return this.textResource.getURI().toString();
-	}
 
 	public String getMessage() {
 		return message;
 	}
+	
+	public String getLocation() {
+		return uri.toString();
+	}
 
-	private int getMapValue(EMap<EObject, Integer> map) {
-		if (!map.containsKey(element)) {
-			return 0;
-		}
-		return map.get(element);
+	public int getCharStart() {
+		return Math.max(0, locationMap.getCharStart(element));
+	}
+
+	public int getCharEnd() {
+		return Math.max(0, locationMap.getCharEnd(element));
+	}
+
+	public int getColumn() {
+		return Math.max(0, locationMap.getColumn(element));
+	}
+
+	public int getLine() {
+		return Math.max(0, locationMap.getLine(element));
 	}
 }
