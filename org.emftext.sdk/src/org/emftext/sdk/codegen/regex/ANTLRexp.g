@@ -34,7 +34,7 @@ grammar ANTLRexp;
 @rulecatch { catch (RecognitionException e) { recExceptions.add(e); } } 
 
 @lexer::header{
-package org.reuseware.emftextedit.codegen.regex; 
+package org.emftext.sdk.codegen.regex; 
 
 }
 
@@ -49,7 +49,7 @@ package org.reuseware.emftextedit.codegen.regex;
 } 
 
 @header{
-package org.reuseware.emftextedit.codegen.regex; 
+package org.emftext.sdk.codegen.regex; 
 }
 
 @members{

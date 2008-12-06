@@ -5,7 +5,7 @@ import java.util.Collection;
 
 /**
  * Basic generator interfaces which should be implemented by all generators 
- * in org.reuseware.emftextedit.codegen.* .
+ * in org.emftext.sdk.codegen.* .
  * 
  * @author skarol
  */

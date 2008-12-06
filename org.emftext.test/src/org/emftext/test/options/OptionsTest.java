@@ -25,7 +25,7 @@ public class OptionsTest {
 
 	@Test
 	public void testOptions() throws FileNotFoundException, IOException {
-		String path = "src\\org\\reuseware\\emftextedit\\test\\options\\options.cs";
+		String path = "src\\org\\emftext\\test\\options\\options.cs";
 		String absolutePath = new File(path).getAbsolutePath();
 		URI fileURI = URI.createFileURI(absolutePath);
 		

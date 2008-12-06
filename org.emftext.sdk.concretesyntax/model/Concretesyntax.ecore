@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="concretesyntax"
-    nsURI="http://www.reuseware.org/emftextedit/sdk/concretesyntax" nsPrefix="org.reuseware.emftextedit.sdk.concretesyntax">
+    nsURI="http://www.emftext.org/sdk/concretesyntax" nsPrefix="org.emftext.sdk.concretesyntax">
   <eClassifiers xsi:type="ecore:EClass" name="ConcreteSyntax">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" lowerBound="1"

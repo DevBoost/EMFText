@@ -70,7 +70,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 		}
 
 		Shell shell = new Shell();
-		MessageDialog.openInformation(shell, "EMFTextEdit Tests",
+		MessageDialog.openInformation(shell, "EMFText Tests",
 				"Successfully loaded and resolved model from " + inName
 						+ ".\nSuccessfully deresolved and printed model to "
 						+ outName + ".");

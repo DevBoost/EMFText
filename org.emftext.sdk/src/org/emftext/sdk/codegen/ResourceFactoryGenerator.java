@@ -8,7 +8,7 @@ import java.io.PrintWriter;
  * It can be registered at the EMF resource framework.
  * 
  * @see org.emftext.sdk.codegen.TextResourceGenerator
- * @see org.reuseware.emftextedit.runtime.resource.resueware.emftextedit.resource.TextResource
+ * @see org.emftext.runtime.resource.TextResource
  */
 
 public class ResourceFactoryGenerator extends BaseGenerator {

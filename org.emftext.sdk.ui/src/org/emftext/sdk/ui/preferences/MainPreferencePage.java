@@ -11,7 +11,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
-import org.emftext.sdk.ui.EMFTextEditSDKUIPlugin;
+import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 public class MainPreferencePage extends FieldEditorPreferencePage implements
         IWorkbenchPreferencePage {
@@ -19,7 +19,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage implements
 	
 	public MainPreferencePage(){
 		super(FieldEditorPreferencePage.FLAT);
-		setPreferenceStore(EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(EMFTextSDKUIPlugin.getDefault().getPreferenceStore());
 	}
   	
     public void init(IWorkbench workbench) {
@@ -37,9 +37,9 @@ public class MainPreferencePage extends FieldEditorPreferencePage implements
 		platformGeneratorGroup.setText("Eclipse specific settings");
 		platformGeneratorGroup.setLayoutData(new GridData((GridData.GRAB_HORIZONTAL|GridData.FILL_HORIZONTAL)));
 
-		BooleanFieldEditor genTestAction = new BooleanFieldEditor(EMFTextEditSDKUIPlugin.GENERATE_TEST_ACTION_NAME, "&Contribute Test Action",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
-		BooleanFieldEditor ovrPluginConfig = new BooleanFieldEditor(EMFTextEditSDKUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME, "&Allways Override 'plugin.xml' and 'MANIFEST.MF'",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
-		BooleanFieldEditor genGenModel = new BooleanFieldEditor(EMFTextEditSDKUIPlugin.GENERATE_GEN_MODEL, "&Auto-generate GenModel from Ecore",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
+		BooleanFieldEditor genTestAction = new BooleanFieldEditor(EMFTextSDKUIPlugin.GENERATE_TEST_ACTION_NAME, "&Contribute Test Action",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
+		BooleanFieldEditor ovrPluginConfig = new BooleanFieldEditor(EMFTextSDKUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME, "&Allways Override 'plugin.xml' and 'MANIFEST.MF'",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
+		BooleanFieldEditor genGenModel = new BooleanFieldEditor(EMFTextSDKUIPlugin.GENERATE_GEN_MODEL, "&Auto-generate GenModel from Ecore",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
 
 		
 		addField(genTestAction);

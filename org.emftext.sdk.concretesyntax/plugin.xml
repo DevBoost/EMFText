@@ -12,7 +12,7 @@
 
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http://www.reuseware.org/emftextedit/sdk/concretesyntax" 
+       uri = "http://www.emftext.org/sdk/concretesyntax" 
        class = "org.emftext.sdk.concretesyntax.ConcretesyntaxPackage"
        genModel = "model/Concretesyntax.genmodel" /> 
   </extension>

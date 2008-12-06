@@ -36,8 +36,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		out.println("import org.eclipse.emf.common.util.URI;"); 
 		out.println("import org.eclipse.emf.ecore.EObject;");
 		
-		out.println("import org.reuseware.emftextedit.runtime.resource.*;");
-		out.println("import org.reuseware.emftextedit.runtime.resource.impl.*;");
+		out.println("import org.emftext.runtime.resource.*;");
+		out.println("import org.emftext.runtime.resource.impl.*;");
 		out.println();
         
 		out.println("public class " + super.getResourceClassName() + " extends TextResourceImpl {");

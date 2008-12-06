@@ -187,8 +187,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		out.println("import java.io.OutputStream;");
 		out.println("import java.io.PrintWriter;");
 		out.println("import java.io.StringWriter;");
-		out.println("import org.reuseware.emftextedit.runtime.resource.*;");
-		out.println("import org.reuseware.emftextedit.runtime.resource.impl.*;");
+		out.println("import org.emftext.runtime.resource.*;");
+		out.println("import org.emftext.runtime.resource.impl.*;");
 		out.println();
 		out.println("public abstract class " + super.getResourceClassName()
 				+ " extends EMFTextPrinterImpl {");

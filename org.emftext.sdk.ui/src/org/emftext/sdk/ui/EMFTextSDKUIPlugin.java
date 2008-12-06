@@ -7,17 +7,15 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class EMFTextEditSDKUIPlugin extends AbstractUIPlugin {
-	
-	//public final static String PLUGIN_ID = "org.reuseware.emftextedit.sdk.ui";
+public class EMFTextSDKUIPlugin extends AbstractUIPlugin {
 	
 	public final static String GENERATE_TEST_ACTION_NAME = "genTestAction";
 	public final static String GENERATE_GEN_MODEL = "genGenModel";
 	public final static String OVERRIDE_PLUGIN_CONFIG_NAME = "ovrPluginConfig";
 	
-	private static EMFTextEditSDKUIPlugin plugin;
+	private static EMFTextSDKUIPlugin plugin;
 	
-	public EMFTextEditSDKUIPlugin() {
+	public EMFTextSDKUIPlugin() {
 		super();
 	}
 
@@ -45,7 +43,7 @@ public class EMFTextEditSDKUIPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static EMFTextEditSDKUIPlugin getDefault() {
+	public static EMFTextSDKUIPlugin getDefault() {
 		return plugin;
 	}
 

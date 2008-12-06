@@ -44,7 +44,7 @@ import org.emftext.sdk.codegen.ResourcePackage;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.ui.EMFTextEditSDKUIPlugin;
+import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**
  * An action that calls the generator and in addition generates a
@@ -135,11 +135,11 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 							MarkerHelper.mark(csResource);
 						}
 
-						boolean overridePluginConfig = EMFTextEditSDKUIPlugin
+						boolean overridePluginConfig = EMFTextSDKUIPlugin
 								.getDefault()
 								.getPreferenceStore()
 								.getBoolean(
-										EMFTextEditSDKUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME);
+										EMFTextSDKUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME);
 
 						createMetaFolder(progress, project);
 						createManifest(progress, concreteSyntax, projectName,
@@ -184,7 +184,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 	 */
 	private Map<String, Boolean> copyMapFromPreferenceStore() {
 		Map<String, Boolean> preferences = new HashMap<String, Boolean>();
-		IPreferenceStore store = EMFTextEditSDKUIPlugin.getDefault()
+		IPreferenceStore store = EMFTextSDKUIPlugin.getDefault()
 				.getPreferenceStore();
 		preferences
 				.put(
@@ -253,8 +253,8 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		}
 		
 		// call EMF code generator if specified
-		if (EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
-				EMFTextEditSDKUIPlugin.GENERATE_GEN_MODEL)) {
+		if (EMFTextSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
+				EMFTextSDKUIPlugin.GENERATE_GEN_MODEL)) {
 			generateMetaModelCode(cSyntax.getPackage(), progress
 					.newChild(TICKS_GENERATE_METAMODEL_CODE));
 		} else {
@@ -377,8 +377,8 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 	}
 
 	private boolean isGenerateTestActionEnabled() {
-		return EMFTextEditSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
-				EMFTextEditSDKUIPlugin.GENERATE_TEST_ACTION_NAME);
+		return EMFTextSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
+				EMFTextSDKUIPlugin.GENERATE_TEST_ACTION_NAME);
 	}
 
 	private void markErrors(final ConcreteSyntax cSyntax) throws CoreException {

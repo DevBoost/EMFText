@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
-import org.emftext.runtime.EMFTextEditPlugin;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class PluginXMLGenerator implements IGenerator {
@@ -64,7 +64,7 @@ public class PluginXMLGenerator implements IGenerator {
 
 		// register the cs file
 		s.append("   <extension\n");
-		s.append("         point=\"" + EMFTextEditPlugin.EP_CONCRETESYNTAX_ID
+		s.append("         point=\"" + EMFTextPlugin.EP_CONCRETESYNTAX_ID
 				+ "\">\n");
 		s.append("      <concretesyntax\n");
 		s.append("            uri=\"" + cSyntax.getPackage().getNSURI()
@@ -81,7 +81,7 @@ public class PluginXMLGenerator implements IGenerator {
 				.append("         point=\"org.eclipse.core.contenttype.contentTypes\">\n");
 		s.append("      <file-association\n");
 		s
-				.append("            content-type=\"org.reuseware.emftextedit.filetype\"\n");
+				.append("            content-type=\"org.emftext.filetype\"\n");
 		s
 				.append("            file-extensions=\"" + cSyntax.getName()
 						+ "\">\n");
@@ -102,12 +102,12 @@ public class PluginXMLGenerator implements IGenerator {
 			s.append("\t\t\t\tnameFilter=\"*." + cSyntax.getName() + "\">\n");
 			s.append("\t\t\t<action\n");
 			s
-					.append("\t\t\t\t\tclass=\"org.reuseware.emftextedit.sdk.ui.actions.ValidateParserPrinterAction\"\n");
+					.append("\t\t\t\t\tclass=\"org.emftext.sdk.ui.actions.ValidateParserPrinterAction\"\n");
 			s.append("\t\t\t\t\tenablesFor=\"1\"\n");
 			s.append("\t\t\t\t\tid=\"" + baseId + ".validate\"\n");
 			s.append("\t\t\t\t\tlabel=\"Validate\"\n");
 			s
-					.append("\t\t\t\t\tmenubarPath=\"org.reuseware.emftextedit.sdk.ui.menu1/group1\">\n");
+					.append("\t\t\t\t\tmenubarPath=\"org.emftext.sdk.ui.menu1/group1\">\n");
 			s.append("\t\t\t</action>\n");
 			s.append("\t\t</objectContribution>\n");
 			s.append("\t</extension>\n");

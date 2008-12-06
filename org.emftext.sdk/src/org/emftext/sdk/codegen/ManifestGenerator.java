@@ -47,7 +47,7 @@ public class ManifestGenerator implements IGenerator {
 
 		s.append("Manifest-Version: 1.0\n");
 		s.append("Bundle-ManifestVersion: 2\n");
-		s.append("Bundle-Name: EMFTextEdit Parser Plugin: " + cSyntax.getName()
+		s.append("Bundle-Name: EMFText Parser Plugin: " + cSyntax.getName()
 				+ "\n");
 		s.append("Bundle-SymbolicName: " + packageName + ";singleton:=true\n");
 		s.append("Bundle-Version: 1.0.0\n");
@@ -59,7 +59,7 @@ public class ManifestGenerator implements IGenerator {
 		s.append("  " + cSyntax.getPackage().getGenModel().getModelPluginID()
 				+ ",\n");
 		if (generateTestAction) {
-			s.append("  org.reuseware.emftextedit.sdk.ui,\n");
+			s.append("  org.emftext.sdk.ui,\n");
 		}
 		EList<GenModel> importedPlugins = new BasicEList<GenModel>();
 		for (Import aImport : cSyntax.getImports()) {
@@ -69,7 +69,7 @@ public class ManifestGenerator implements IGenerator {
 				importedPlugins.add(m);
 			}
 		}
-		s.append("  org.reuseware.emftextedit.runtime\n");
+		s.append("  org.emftext.runtime\n");
 		s.append("Bundle-ActivationPolicy: lazy\n");
 		s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
 		// export the generated packages

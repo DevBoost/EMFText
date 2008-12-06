@@ -19,7 +19,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextEditPlugin;
+import org.emftext.runtime.EMFTextPlugin;
 
 public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 	
@@ -86,7 +86,7 @@ public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 					            	try {
 					            		updateGenModel(genModel);
 					            	} catch (Exception e){
-					            		EMFTextEditPlugin.logError("Error while updating genmodel " + file, e);
+					            		EMFTextPlugin.logError("Error while updating genmodel " + file, e);
 					            	}				            		
 				            	}
 				            	
@@ -101,7 +101,7 @@ public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 					}
 				});
 			} catch (CoreException e) {
-				EMFTextEditPlugin.logError("Error while traversing resources.", e);
+				EMFTextPlugin.logError("Error while traversing resources.", e);
 			}
 		
 			if (genPackages.containsKey(nsURI)) {

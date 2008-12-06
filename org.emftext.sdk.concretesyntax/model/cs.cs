@@ -1,9 +1,9 @@
 SYNTAXDEF cs 
-FOR       <http://www.reuseware.org/emftextedit/sdk/concretesyntax>
+FOR       <http://www.emftext.org/sdk/concretesyntax>
 START     cs.ConcreteSyntax
 
 IMPORTS{
-	cs:<http://www.reuseware.org/emftextedit/sdk/concretesyntax>
+	cs:<http://www.emftext.org/sdk/concretesyntax>
 } 
 
 OPTIONS{

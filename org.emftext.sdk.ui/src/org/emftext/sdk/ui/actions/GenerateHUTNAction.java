@@ -27,7 +27,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.emftext.runtime.EMFTextEditPlugin;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -233,7 +233,7 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
         				try {
 							csResource.save(null);
 						} catch (IOException e) {
-							EMFTextEditPlugin.logError("Exception while saving resource.", e);
+							EMFTextPlugin.logError("Exception while saving resource.", e);
 						}
         		}
 

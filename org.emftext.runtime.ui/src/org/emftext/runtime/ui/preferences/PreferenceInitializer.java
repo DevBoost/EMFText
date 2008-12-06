@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.emftext.runtime.StandardTokenDefinitions;
 import org.emftext.runtime.resource.TextResource;
-import org.emftext.runtime.ui.EMFTextEditRuntimeUIPlugin;
+import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 
 /**
  * Class used to initialize default preference values.
@@ -23,7 +23,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
 	 */
 	public void initializeDefaultPreferences() {
-		IPreferenceStore store = EMFTextEditRuntimeUIPlugin.getDefault()
+		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault()
 				.getPreferenceStore();
 
 		Map<String, Object> extensionToFactoryMap = 

@@ -33,8 +33,8 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {
 		out.println("package " + super.getResourcePackageName() + ";");
 		out.println();
-		out.println("import org.reuseware.emftextedit.runtime.resource.TokenResolverFactory;");
-		out.println("import org.reuseware.emftextedit.runtime.resource.impl.BasicTokenResolverFactory;");
+		out.println("import org.emftext.runtime.resource.TokenResolverFactory;");
+		out.println("import org.emftext.runtime.resource.impl.BasicTokenResolverFactory;");
 		out.println();
 		out.println("import " + resolverPackageName + ".*;");
 		out.println();

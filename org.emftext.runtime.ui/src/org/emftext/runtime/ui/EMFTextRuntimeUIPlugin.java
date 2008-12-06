@@ -3,11 +3,11 @@ package org.emftext.runtime.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-public class EMFTextEditRuntimeUIPlugin extends AbstractUIPlugin {
+public class EMFTextRuntimeUIPlugin extends AbstractUIPlugin {
 	
-	private static EMFTextEditRuntimeUIPlugin plugin;
+	private static EMFTextRuntimeUIPlugin plugin;
 	
-	public EMFTextEditRuntimeUIPlugin() {
+	public EMFTextRuntimeUIPlugin() {
 		super();
 	}
 
@@ -34,7 +34,7 @@ public class EMFTextEditRuntimeUIPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static EMFTextEditRuntimeUIPlugin getDefault() {
+	public static EMFTextRuntimeUIPlugin getDefault() {
 		return plugin;
 	}
 }

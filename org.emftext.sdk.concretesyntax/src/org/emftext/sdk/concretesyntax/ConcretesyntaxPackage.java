@@ -41,7 +41,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.reuseware.org/emftextedit/sdk/concretesyntax";
+	String eNS_URI = "http://www.emftext.org/sdk/concretesyntax";
 
 	/**
 	 * The package namespace name.
@@ -49,7 +49,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "org.reuseware.emftextedit.sdk.concretesyntax";
+	String eNS_PREFIX = "org.emftext.sdk.concretesyntax";
 
 	/**
 	 * The singleton instance of the package.

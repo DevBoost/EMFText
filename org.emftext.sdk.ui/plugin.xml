@@ -5,13 +5,13 @@
             point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
-            id="org.reuseware.emftextedit.sdk.ui.generateresourcecontributor"
+            id="org.emftext.sdk.ui.generateresourcecontributor"
             nameFilter="*.cs*"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                class="org.emftext.sdk.ui.actions.GenerateResourceAction"
                enablesFor="1"
-               id="org.reuseware.emftextedit.sdk.ui.actions.generateresourceaction"
+               id="org.emftext.sdk.ui.actions.generateresourceaction"
                label="Generate Text Resource"
                menubarPath="additions"/>
       </objectContribution>
@@ -21,13 +21,13 @@
             point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
-            id="org.reuseware.emftextedit.ui.generatehutncontributor"
+            id="org.emftext.ui.generatehutncontributor"
             nameFilter="*.genmodel*"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                class="org.emftext.sdk.ui.actions.GenerateHUTNAction"
                enablesFor="1"
-               id="org.reuseware.emftextedit.ui.actions.generatehtunaction"
+               id="org.emftext.ui.actions.generatehutnaction"
                label="Generate HUTN Syntax"
                menubarPath="additions"/>
       </objectContribution>
@@ -37,14 +37,14 @@
          point="org.eclipse.ui.preferencePages">
       <page
             class="org.emftext.sdk.ui.preferences.MainPreferencePage"
-            id="org.reuseware.emftextedit.sdk.ui.preferences.main"
-            name="EMFTextEdit SDK"/>
+            id="org.emftext.sdk.ui.preferences.main"
+            name="EMFText SDK"/>
     </extension>
    <extension
-         point="org.reuseware.emftextedit.runtime.default_load_options">
+         point="org.emftext.runtime.default_load_options">
       <provider
             class="org.emftext.sdk.ui.DefaultOptionProvider"
-            id="org.reuseware.emftextedit.sdk.ui.default_option_provider">
+            id="org.emftext.sdk.ui.default_option_provider">
       </provider>
    </extension>
 </plugin>

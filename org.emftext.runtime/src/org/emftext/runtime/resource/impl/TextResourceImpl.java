@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.emftext.runtime.EMFTextEditPlugin;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.resource.EMFTextOCLValidator;
 import org.emftext.runtime.resource.LocationMap;
@@ -114,7 +114,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		if (Platform.isRunning()) {
 			// find default load option providers
 			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-			IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
+			IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
 			for (IConfigurationElement element : configurationElements) {
 				try {
 					IOptionProvider provider = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
@@ -124,7 +124,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 						addLoadOption(loadOptionsCopy, key, options.get(key));
 					}
 				} catch (CoreException ce) {
-					EMFTextEditPlugin.logError("Exception while getting default options.", ce);
+					EMFTextPlugin.logError("Exception while getting default options.", ce);
 				}
 			}
 		}

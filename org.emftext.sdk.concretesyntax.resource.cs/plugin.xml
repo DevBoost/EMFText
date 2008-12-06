@@ -12,16 +12,16 @@
    <extension
          point="org.emftext.runtime.concretesyntax">
       <concretesyntax
-            uri="http://www.reuseware.org/emftextedit/sdk/concretesyntax"
+            uri="http://www.emftext.org/sdk/concretesyntax"
             csName="cs"
-            csDefinition="org.reuseware.emftextedit.sdk.concretesyntax/model/cs.cs">
+            csDefinition="org.emftext.sdk.concretesyntax/model/cs.cs">
       </concretesyntax>
    </extension>
 
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
       <file-association
-            content-type="org.reuseware.emftextedit.filetype"
+            content-type="org.emftext.filetype"
             file-extensions="cs">
       </file-association>
    </extension>

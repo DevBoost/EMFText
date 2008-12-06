@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextEditPlugin;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.TextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -105,7 +105,7 @@ public class MetamodelManager {
 				}
 			});
 		} catch (CoreException e) {
-			EMFTextEditPlugin.logError("Exception while looking up concrete syntax.", e);
+			EMFTextPlugin.logError("Exception while looking up concrete syntax.", e);
 		} 
 
         if (concreteSyntaxes.containsKey(csURI)) {
@@ -114,8 +114,8 @@ public class MetamodelManager {
 		
         //find all registered concrete syntax definitions
 		if (concreteSyntaxes.isEmpty()) {
-	        for(String candCsURI : EMFTextEditPlugin.getURIToConcreteSyntaxLocationMap().keySet()) {
-	        	URI csLocation = EMFTextEditPlugin.getURIToConcreteSyntaxLocationMap().get(csURI);
+	        for(String candCsURI : EMFTextPlugin.getURIToConcreteSyntaxLocationMap().keySet()) {
+	        	URI csLocation = EMFTextPlugin.getURIToConcreteSyntaxLocationMap().get(csURI);
 	        	Resource aCsResource = rs.getResource(csLocation, true);
 	        	ConcreteSyntax csDef = (ConcreteSyntax) aCsResource.getContents().get(0);
 	        	if (csURI.equals(candCsURI)) {

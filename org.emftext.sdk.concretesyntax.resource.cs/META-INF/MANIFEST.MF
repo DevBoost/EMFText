@@ -13,18 +13,18 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.codegen.ecore;bundle-version="2.4.1"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.emftext.sdk.concretesyntax.resource.cs;
-  uses:="org.reuseware.emftextedit.concretesyntax,
+  uses:="org.emftext.concretesyntax,
    org.eclipse.emf.ecore.resource,
    org.eclipse.emf.ecore,
-   org.reuseware.emftextedit.resource,
+   org.emftext.resource,
    org.eclipse.emf.common.util,
    org.antlr.runtime,
-   org.reuseware.emftextedit.concretesyntax.resource.cs.analysis,
-   org.reuseware.emftextedit.resource.impl",
+   org.emftext.concretesyntax.resource.cs.analysis,
+   org.emftext.resource.impl",
  org.emftext.sdk.concretesyntax.resource.cs.analysis;
-  uses:="org.reuseware.emftextedit.concretesyntax,
+  uses:="org.emftext.concretesyntax,
    org.eclipse.emf.codegen.ecore.genmodel,
    org.eclipse.emf.ecore,
-   org.reuseware.emftextedit.resource,
-   org.reuseware.emftextedit.resource.impl"
+   org.emftext.resource,
+   org.emftext.resource.impl"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

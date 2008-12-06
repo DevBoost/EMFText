@@ -1025,8 +1025,8 @@ public class TextParserGenerator extends BaseGenerator {
 	}
 	
 	private void printDefaultImports(PrintWriter out){
-        out.println("import org.reuseware.emftextedit.runtime.resource.*;");
-        out.println("import org.reuseware.emftextedit.runtime.resource.impl.*;");
+        out.println("import org.emftext.runtime.resource.*;");
+        out.println("import org.emftext.runtime.resource.impl.*;");
         out.println("import org.eclipse.emf.ecore.EObject;");
         out.println("import org.eclipse.emf.ecore.InternalEObject;");
         out.println("import org.eclipse.emf.common.util.URI;");

@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.resource.TextResource;
-import org.emftext.runtime.ui.EMFTextEditRuntimeUIPlugin;
+import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 
 /**
  * This class represents a preference page that
@@ -588,7 +588,7 @@ public class SyntaxColoringPreferencePage
         	}
         }
    
-		setPreferenceStore(EMFTextEditRuntimeUIPlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
 		setDescription("Define the syntax coloring for components and composition programs.");
     }
     

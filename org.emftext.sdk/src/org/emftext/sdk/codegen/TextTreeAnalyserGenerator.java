@@ -53,7 +53,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 
         s.append("import org.eclipse.emf.ecore.EObject;\n");
         s.append("import org.eclipse.emf.ecore.EReference;\n\n");
-        s.append("import org.reuseware.emftextedit.runtime.resource.impl.*;\n\n");
+        s.append("import org.emftext.runtime.resource.impl.*;\n\n");
         
         //import required EClasses
         EList<GenClass> importedClasses = new BasicEList<GenClass>();

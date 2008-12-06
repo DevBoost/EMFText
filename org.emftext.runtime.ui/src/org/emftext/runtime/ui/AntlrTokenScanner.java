@@ -31,7 +31,7 @@ public class AntlrTokenScanner implements ITokenScanner {
         this.lexer      = (Lexer) resource.getScanner();
         this.tokenNames = resource.getTokenNames();
         this.languageId = fileExtension;
-        this.store      = EMFTextEditRuntimeUIPlugin.getDefault().getPreferenceStore();
+        this.store      = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
         this.colorManager = colorManager;
     }
 

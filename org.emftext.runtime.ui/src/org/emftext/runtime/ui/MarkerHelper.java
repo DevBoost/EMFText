@@ -17,7 +17,7 @@ import org.emftext.runtime.resource.TextDiagnostic;
  */
 public class MarkerHelper {
     
-    public static final String MARKER_TYPE = "org.reuseware.emftextedit.runtime.ui.problem";
+    public static final String MARKER_TYPE = "org.emftext.runtime.ui.problem";
     
     /**
      * Marks a file with markers.

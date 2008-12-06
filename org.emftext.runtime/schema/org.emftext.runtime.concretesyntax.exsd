@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.reuseware.emftextedit.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.emftext" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.reuseware.emftextedit.ui" id="org.reuseware.emftextedit.ui.perform_save" name="Save Document Listener"/>
+         <meta.schema plugin="org.emftext" id="concretesyntax" name="Concrete Syntax Definition Registry"/>
       </appinfo>
       <documentation>
-         Using this extension point it is possible to listen to save events of documents opened in the EMFTextEditor.
+         Concrete syntax definition files can be registered here to be reused in other concrete syntax definitions.
       </documentation>
    </annotation>
 
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence>
-            <element ref="listener"/>
+            <element ref="concretesyntax" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,30 +47,32 @@
       </complexType>
    </element>
 
-   <element name="listener">
+   <element name="concretesyntax">
+      <annotation>
+         <appinfo>
+            <meta.element labelAttribute="csDefinition"/>
+         </appinfo>
+      </annotation>
       <complexType>
-         <attribute name="id" type="string" use="required">
+         <attribute name="uri" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="name" type="string">
+         <attribute name="csName" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="class" type="string" use="required">
+         <attribute name="csDefinition" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.reuseware.emftextedit.ui.SaveListener"/>
-               </appinfo>
             </annotation>
          </attribute>
       </complexType>
@@ -96,7 +98,7 @@
 
    <annotation>
       <appinfo>
-         <meta.section type="apiinfo"/>
+         <meta.section type="apiInfo"/>
       </appinfo>
       <documentation>
          [Enter API information here.]

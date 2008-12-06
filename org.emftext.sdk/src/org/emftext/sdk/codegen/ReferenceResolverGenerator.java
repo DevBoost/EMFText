@@ -2,6 +2,10 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
+import javax.naming.spi.ResolveResult;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
 
 /**
@@ -17,9 +21,9 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {     
 	    out.println("package " + getResourcePackageName() + ";");	
 	    out.println();
-	    out.println("import org.eclipse.emf.ecore.EObject;");
-	    out.println("import org.eclipse.emf.ecore.EReference;");
-	    out.println("import org.reuseware.emftextedit.runtime.resource.ResolveResult;");
+	    out.println("import " + EObject.class.getName() + ";");
+	    out.println("import " + EReference.class.getName() + ";");
+	    out.println("import " + ResolveResult.class.getName() + ";");
 	    out.println();
 	    out.println("public class " + getResourceClassName() + " extends " + ReferenceResolverImpl.class.getName() + " {\n");
 		out.println("\t@Override");

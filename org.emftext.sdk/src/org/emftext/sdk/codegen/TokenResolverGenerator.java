@@ -34,9 +34,9 @@ public class TokenResolverGenerator extends BaseGenerator {
 		
 		out.println("import org.eclipse.emf.ecore.EStructuralFeature;");
 		out.println("import org.eclipse.emf.ecore.EObject;");
-		out.println("import org.reuseware.emftextedit.runtime.resource.TokenResolver;");
-		out.println("import org.reuseware.emftextedit.runtime.resource.TextResource;");
-		out.println("import org.reuseware.emftextedit.runtime.resource.impl.JavaBasedTokenResolver;");
+		out.println("import org.emftext.runtime.resource.TokenResolver;");
+		out.println("import org.emftext.runtime.resource.TextResource;");
+		out.println("import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;");
 		out.println();
 		
 		out.println("public class " + super.getResourceClassName() + " extends JavaBasedTokenResolver implements TokenResolver{ ");

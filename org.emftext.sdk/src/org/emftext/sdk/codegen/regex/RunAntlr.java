@@ -17,7 +17,7 @@ public class RunAntlr {
 	 */
 	public static void main(String[] args) throws Exception{
 		System.out.println(System.getProperty("user.dir"));
-	      Tool antlrTool = new Tool(new String[]{"-o",System.getProperty("user.dir"), "src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g"});
+	      Tool antlrTool = new Tool(new String[]{"-o",System.getProperty("user.dir"), "src/org/emftext/codegen/regex/ANTLRexp.g"});
 	        antlrTool.process();
 
 	     	ByteArrayOutputStream out = new ByteArrayOutputStream();

@@ -17,7 +17,7 @@ public class TextPrinterGenerator extends BaseGenerator{
 		out.println("package " + super.getResourcePackageName() + ";");
 		out.println();
 	    out.println("import java.io.OutputStream;");
-	    out.println("import org.reuseware.emftextedit.runtime.resource.*;");
+	    out.println("import org.emftext.runtime.resource.*;");
 	    if(basenull){
 	    	out.println("import java.io.IOException;");
 	    	out.println("import org.eclipse.emf.ecore.EObject;");

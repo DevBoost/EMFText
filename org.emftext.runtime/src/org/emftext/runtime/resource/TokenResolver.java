@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * All generated TokenResolvers inherit from JavaBasedTokenResolver which does the standard conversion to Java Types.
  * 
  * @see org.emftext.runtime.resource.impl.JavaBasedTokenResolver
- * @see org.reuseware.emftextedit.codegen.TokenResolverGenerator
+ * @see org.emftext.sdk.codegen.TokenResolverGenerator
  * 
  * 
  * @author skarol

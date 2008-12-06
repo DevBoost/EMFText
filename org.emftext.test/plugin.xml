@@ -4,10 +4,10 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="org.reuseware.emftextedit.test.contribution1"
+            id="org.emftext.test.contribution1"
             objectClass="org.eclipse.core.resources.IFile">
        <menu
-               id="org.reuseware.emftextedit.test.menu1"
+               id="org.emftext.test.menu1"
                label="EMFText Actions"
                path="additions">
                

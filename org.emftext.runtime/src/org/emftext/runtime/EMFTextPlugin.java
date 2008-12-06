@@ -17,18 +17,18 @@ import org.osgi.framework.BundleContext;
  * 
  * @author Jendrik Johannes (jj2)
  */
-public class EMFTextEditPlugin extends Plugin {
+public class EMFTextPlugin extends Plugin {
 	
 	public static final String PLUGIN_ID = "org.reuseware.ecoretextedit.runtime";
-	public static final String EP_CONCRETESYNTAX_ID = "org.reuseware.emftextedit.runtime.concretesyntax";
-	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = "org.reuseware.emftextedit.runtime.default_load_options";
+	public static final String EP_CONCRETESYNTAX_ID = "org.emftext.runtime.concretesyntax";
+	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = "org.emftext.runtime.default_load_options";
 	
-	private static EMFTextEditPlugin plugin;
+	private static EMFTextPlugin plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public EMFTextEditPlugin() {
+	public EMFTextPlugin() {
 	}
 
 	/*
@@ -54,7 +54,7 @@ public class EMFTextEditPlugin extends Plugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static EMFTextEditPlugin getDefault() {
+	public static EMFTextPlugin getDefault() {
 		return plugin;
 	}
 	
@@ -99,9 +99,9 @@ public class EMFTextEditPlugin extends Plugin {
 	 * @return the status object describing the error
 	 */
 	public static IStatus logError(String message, Throwable exception) {
-		IStatus status = new Status(IStatus.ERROR, EMFTextEditPlugin.PLUGIN_ID,
+		IStatus status = new Status(IStatus.ERROR, EMFTextPlugin.PLUGIN_ID,
 				0, message, exception);
-		EMFTextEditPlugin.getDefault().getLog().log(status);
+		EMFTextPlugin.getDefault().getLog().log(status);
 		return status;
 	}
 
