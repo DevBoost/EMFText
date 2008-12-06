@@ -13,7 +13,7 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "http://www.reuseware.org/emftextedit/sdk/concretesyntax" 
-       class = "org.reuseware.emftextedit.sdk.concretesyntax.ConcretesyntaxPackage"
+       class = "org.emftext.sdk.concretesyntax.ConcretesyntaxPackage"
        genModel = "model/Concretesyntax.genmodel" /> 
   </extension>
 

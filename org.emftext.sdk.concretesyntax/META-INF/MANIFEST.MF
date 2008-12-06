@@ -9,9 +9,9 @@ Bundle-ClassPath: .
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.reuseware.emftextedit.sdk.concretesyntax,
- org.reuseware.emftextedit.sdk.concretesyntax.impl,
- org.reuseware.emftextedit.sdk.concretesyntax.util
+Export-Package: org.emftext.sdk.concretesyntax,
+ org.emftext.sdk.concretesyntax.impl,
+ org.emftext.sdk.concretesyntax.util
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
  ity:=reexport,org.eclipse.emf.codegen.ecore
 Bundle-ActivationPolicy: lazy

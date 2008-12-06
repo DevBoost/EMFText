@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.emftext.runtime,
  org.eclipse.emf.codegen.ecore;bundle-version="2.4.1"
 Bundle-ActivationPolicy: lazy
-Export-Package: org.reuseware.emftextedit.sdk.concretesyntax.resource.cs;
+Export-Package: org.emftext.sdk.concretesyntax.resource.cs;
   uses:="org.reuseware.emftextedit.concretesyntax,
    org.eclipse.emf.ecore.resource,
    org.eclipse.emf.ecore,
@@ -21,7 +21,7 @@ Export-Package: org.reuseware.emftextedit.sdk.concretesyntax.resource.cs;
    org.antlr.runtime,
    org.reuseware.emftextedit.concretesyntax.resource.cs.analysis,
    org.reuseware.emftextedit.resource.impl",
- org.reuseware.emftextedit.sdk.concretesyntax.resource.cs.analysis;
+ org.emftext.sdk.concretesyntax.resource.cs.analysis;
   uses:="org.reuseware.emftextedit.concretesyntax,
    org.eclipse.emf.codegen.ecore.genmodel,
    org.eclipse.emf.ecore,

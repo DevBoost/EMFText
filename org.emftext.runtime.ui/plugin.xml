@@ -14,13 +14,13 @@
 
    <extension
          point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.reuseware.emftextedit.runtime.ui.preferences.PreferenceInitializer"/>
+      <initializer class="org.emftext.runtime.ui.preferences.PreferenceInitializer"/>
    </extension>
    
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.reuseware.emftextedit.runtime.ui.preferences.SyntaxColoringPreferencePage"
+            class="org.emftext.runtime.ui.preferences.SyntaxColoringPreferencePage"
             id="org.reuseware.emftextedit.runtime.ui.preferences.SyntaxColoringPreferencePage"
             name="EMFTextEdit Syntax Coloring"/>
     </extension>
@@ -36,7 +36,7 @@
     <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="org.reuseware.emftextedit.runtime.ui.editor.EMFTextEditor"
+            class="org.emftext.runtime.ui.editor.EMFTextEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             icon="icons/editor.gif"
             id="org.reuseware.emftextedit.runtime.ui.texteditor"
