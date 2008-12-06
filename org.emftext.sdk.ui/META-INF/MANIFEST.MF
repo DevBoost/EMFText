@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFTextEdit SDK UI Plug-in
-Bundle-SymbolicName: org.reuseware.emftextedit.sdk.ui;singleton:=true
+Bundle-Name: EMFText SDK UI Plug-in
+Bundle-SymbolicName: org.emftext.sdk.ui;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.reuseware.emftextedit.sdk.ui.EMFTextEditSDKUIPlugin
 Bundle-ActivationPolicy: lazy
@@ -12,9 +12,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching,
- org.reuseware.emftextedit.runtime,
- org.reuseware.emftextedit.runtime.ui,
- org.reuseware.emftextedit.sdk
+ org.emftext.runtime,
+ org.emftext.runtime.ui,
+ org.emftext.sdk
 Export-Package: org.reuseware.emftextedit.sdk.ui,
  org.reuseware.emftextedit.sdk.ui.actions,
  org.reuseware.emftextedit.sdk.ui.preferences

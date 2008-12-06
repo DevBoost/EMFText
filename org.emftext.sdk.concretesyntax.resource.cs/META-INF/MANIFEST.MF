@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFTextEdit Parser Plugin for cs files
-Bundle-SymbolicName: org.reuseware.emftextedit.sdk.concretesyntax.resource.cs;singleton:=true
+Bundle-Name: EMFText Parser Plugin for cs files
+Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
- org.reuseware.emftextedit.sdk,
- org.reuseware.emftextedit.sdk.concretesyntax,
+ org.emftext.sdk,
+ org.emftext.sdk.concretesyntax,
  org.eclipse.core.resources,
- org.reuseware.emftextedit.runtime,
+ org.emftext.runtime,
  org.eclipse.emf.codegen.ecore;bundle-version="2.4.1"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.reuseware.emftextedit.sdk.concretesyntax.resource.cs;

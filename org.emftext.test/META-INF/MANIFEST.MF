@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.7.0
 Created-By: 10.0-b19 (Sun Microsystems Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: Reuseware EMFTextEdit Tests
-Bundle-SymbolicName: org.reuseware.emftextedit.test; singleton:=true
+Bundle-Name: EMFText Tests
+Bundle-SymbolicName: org.emftext.test;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.ui,
@@ -11,13 +11,13 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.junit4,
- org.reuseware.emftextedit.sdk.concretesyntax.resource.cs,
+ org.emftext.sdk.concretesyntax.resource.cs,
  org.eclipse.emf.compare,
  org.eclipse.emf.compare.diff,
  org.eclipse.emf.compare.match,
  org.eclipse.emf.ecore.xmi,
- org.reuseware.emftextedit.runtime,
- org.reuseware.emftextedit.sdk
+ org.emftext.runtime,
+ org.emftext.sdk
 Export-Package: org.reuseware.emftextedit.test
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 

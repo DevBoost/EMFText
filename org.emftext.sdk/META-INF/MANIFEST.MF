@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFTextEdit SDK Plug-in
-Bundle-SymbolicName: org.reuseware.emftextedit.sdk
+Bundle-SymbolicName: org.emftext.sdk
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
  org.eclipse.emf.workspace,
  org.eclipse.ocl.ecore,
- org.reuseware.emftextedit.runtime,
- org.reuseware.emftextedit.sdk.antlr,
- org.reuseware.emftextedit.sdk.concretesyntax;visibility:=reexport
+ org.emftext.runtime,
+ org.emftext.sdk.antlr,
+ org.emftext.sdk.concretesyntax;visibility:=reexport
 Export-Package: org.reuseware.emftextedit.sdk,
  org.reuseware.emftextedit.sdk.codegen,
  org.reuseware.emftextedit.sdk.codegen.regex

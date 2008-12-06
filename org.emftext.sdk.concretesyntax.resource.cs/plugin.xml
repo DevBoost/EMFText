@@ -10,7 +10,7 @@
    </extension>
 
    <extension
-         point="org.reuseware.emftextedit.runtime.concretesyntax">
+         point="org.emftext.runtime.concretesyntax">
       <concretesyntax
             uri="http://www.reuseware.org/emftextedit/sdk/concretesyntax"
             csName="cs"
