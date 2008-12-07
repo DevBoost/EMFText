@@ -32,7 +32,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 		out.println("\t}\n");
 		out.println("\t@Override");
 		out.println("\tprotected void doResolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {");
-		out.println("\t\tdoResolve(identifier, container, reference, position, resolveFuzzy, result);");
+		out.println("\t\tsuper.doResolve(identifier, container, reference, position, resolveFuzzy, result);");
 		out.println("\t}");
 		out.println("}");
 		
