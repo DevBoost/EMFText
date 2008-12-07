@@ -1,5 +1,7 @@
 package org.emftext.runtime.ui.editor;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.CoreException;
@@ -43,6 +45,9 @@ import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
 import org.emftext.runtime.ui.ISaveListener;
 import org.emftext.runtime.ui.MarkerHelper;
+import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
+import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
+import org.emftext.runtime.ui.editor.bg_parsing.NoBackgroundParsingStrategy;
 import org.emftext.runtime.ui.outline.EMFTextOutlinePage;
 
 /**
@@ -56,6 +61,34 @@ import org.emftext.runtime.ui.outline.EMFTextOutlinePage;
  *
  */
 public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvider*/ {
+
+	public IBackgroundParsingStrategy bgParsingStrategy = new NoBackgroundParsingStrategy();
+	public IBackgroundParsingListener bgParsingListener;
+
+	private final class DocumentListener implements IDocumentListener {
+		
+		public void documentAboutToBeChanged(DocumentEvent event) {}
+
+		public void documentChanged(DocumentEvent event) {
+			if (!bgParsingStrategy.isParsingRequired(event)) {
+				return;
+			}
+			// TODO mseifert: enable this feature once it is implemented
+			parseNewContents(event);
+			bgParsingListener.parsingCompleted(resourceCopy);
+		}
+
+		private void parseNewContents(DocumentEvent event) {
+			String contents = event.getDocument().get();
+			try {
+				resourceCopy.unload();
+				resourceCopy.load(new ByteArrayInputStream(contents.getBytes()), null);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 
 	private final class MarkerAdapter extends AdapterImpl {
 		private boolean enabled = true;
@@ -138,33 +171,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		initializeResourceObject(editorInput);
 		
 		IDocument document = getDocumentProvider().getDocument(getEditorInput());
-		document.addDocumentListener(new IDocumentListener() {
-
-			public void documentAboutToBeChanged(DocumentEvent event) {
-			}
-
-			public void documentChanged(DocumentEvent event) {
-				// TODO mseifert: enable this feature once it is implemented
-				/*
-				String contents = event.getDocument().get();
-				try {
-					resourceCopy.unload();
-					resourceCopy.load(new ByteArrayInputStream(contents.getBytes()), null);
-					boolean hasErrors = resourceCopy.getErrors().size() > 0;
-					if (hasErrors) {
-						setStatusLineMessage("Found error(s)");
-						for (Diagnostic d : resourceCopy.getErrors()) {
-							System.out.println("ERROR: " + d.getMessage());
-						}
-					} else {
-						setStatusLineMessage("Ok");
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				*/
-			}
-		});
+		document.addDocumentListener(new DocumentListener());
 	}
 
 
@@ -328,7 +335,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	protected void createActions() {
 		super.createActions();
 		
-		ResourceBundle aResourceBundle = ResourceBundle.getBundle("org.reuseware.emftextedit.runtime.ui.EMFTextEditorMessages");
+		ResourceBundle aResourceBundle = ResourceBundle.getBundle("org.emftext.runtime.ui.EMFTextEditorMessages");
 		String actionId = "actionId";
 		
 		IAction action= new ContentAssistAction(aResourceBundle, "ContentAssistProposal.", this); //$NON-NLS-1$
