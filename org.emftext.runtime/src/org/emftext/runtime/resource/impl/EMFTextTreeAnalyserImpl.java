@@ -113,7 +113,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			String errorMessage = result.getErrorMessage();
 			final EObject proxy = unresolvedProxy.getProxy();
 			if (errorMessage == null) {
-				resource.addError(getErrorMessage(((InternalEObject) proxy).eProxyURI().fragment()), proxy);
+				assert(false);
 			} else {
 				resource.addError(errorMessage, proxy);
 			}
@@ -204,6 +204,9 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			return;
 		}
 		ResolveResult result = new ResolveResultImpl();
+		//set an initial default error message
+		result.setErrorMessage(getErrorMessage(proxy, reference));
+		
 		resolve(getFragment(proxy), container, 
 				reference, list.indexOf(proxy), false, result);
 		unresolvedProxy.setResolveResult(result);
@@ -252,6 +255,8 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			return;
 		}
 		ResolveResult result = new ResolveResultImpl();
+		//set an initial default error message
+		result.setErrorMessage(getErrorMessage(proxy, reference));
 		resolve(getFragment(proxy), container, reference, 0, false, result);
 		unresolvedProxy.setResolveResult(result);
 		
@@ -288,13 +293,14 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	 * Produces a standard error message using the reference type
 	 * and the proxy URI fragment.
 	 * 
-	 * @param identifier The proxy.
-	 * @param container The object referencing the proxy.
+	 * @param proxy The proxy.
 	 * @param reference The reference that holds the proxy.
-	 * @param resource  The resource containing the proxy and replacement candidates. 
 	 * @return The error message.
 	 */
-	private String getErrorMessage(String identifier) {
-		return " \"" + identifier + "\" not declared";  
+	private String getErrorMessage(EObject proxy, EReference reference) {
+		String identifier = ((InternalEObject)proxy).eProxyURI().fragment();
+		String typeName   = reference.getEType().getName();
+		String msg = typeName + " '" + identifier + "' not declared";  
+		return msg;
 	}
 }
