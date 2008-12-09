@@ -261,7 +261,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 					
 					// TODO fheidenreich: implement highlighting
 					/*
-					StyleRange range = (StyleRange) new StyleRange();
+					StyleRange range = new StyleRange();
 					range.background = new Color(Display.getCurrent(), new RGB(255,255,0));
 					range.start = 1;
 					range.length = 3;
