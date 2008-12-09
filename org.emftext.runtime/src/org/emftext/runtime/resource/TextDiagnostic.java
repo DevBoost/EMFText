@@ -8,6 +8,10 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public interface TextDiagnostic extends Resource.Diagnostic {
 	
+	public enum TextDiagnosticType {
+		RESOLVE_PROBLEM
+	}
+	
 	/**
 	 * @return Position of the first character of the problem area.
 	 */
@@ -20,4 +24,6 @@ public interface TextDiagnostic extends Resource.Diagnostic {
 
 	public int getColumn();
 	public int getLine();
+	
+	public TextDiagnosticType getType();
 }

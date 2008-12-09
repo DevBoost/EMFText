@@ -6,9 +6,8 @@ package org.emftext.runtime.resource.impl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.LocationMap;
-import org.emftext.runtime.resource.TextDiagnostic;
 
-public class ElementBasedTextDiagnosticImpl implements TextDiagnostic {
+public class ElementBasedTextDiagnosticImpl extends AbstractTextDiagnostic {
 
 	private final LocationMap locationMap;
 	private final URI uri;
@@ -17,7 +16,8 @@ public class ElementBasedTextDiagnosticImpl implements TextDiagnostic {
 
 	protected ElementBasedTextDiagnosticImpl(LocationMap locationMap,
 			URI uri,
-			String message, EObject element) {
+			String message, EObject element, TextDiagnosticType type) {
+		super(type);
 		this.uri = uri;
 		this.locationMap = locationMap;
 		this.element = element;

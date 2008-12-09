@@ -17,6 +17,7 @@ import org.emftext.runtime.resource.IdentifierMapping;
 import org.emftext.runtime.resource.ReferenceMapping;
 import org.emftext.runtime.resource.ResolveResult;
 import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
 
 /**
  * Base implementation for all generated tree analysers. 
@@ -115,7 +116,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			if (errorMessage == null) {
 				assert(false);
 			} else {
-				resource.addError(errorMessage, proxy);
+				resource.addError(errorMessage, proxy, TextDiagnosticType.RESOLVE_PROBLEM);
 			}
 		}
 	}

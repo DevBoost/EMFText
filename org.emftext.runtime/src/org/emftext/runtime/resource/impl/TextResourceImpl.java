@@ -23,6 +23,7 @@ import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.resource.EMFTextOCLValidator;
 import org.emftext.runtime.resource.LocationMap;
 import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
 
 /**
  * Base implementation for all generated text resources. 
@@ -88,21 +89,39 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 	}
 	  
 	public void addError(String message, EObject element) {
-		getErrors().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element));
+		getErrors().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, null));
+	}
+	
+	public void addError(String message, EObject element, TextDiagnosticType type) {
+		getErrors().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, type));
 	}
 	
 	public void addWarning(String message, EObject element) {
-		getWarnings().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element));
+		getWarnings().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, null));
+	}
+	
+	public void addWarning(String message, EObject element, TextDiagnosticType type) {
+		getWarnings().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, type));
 	}
 	
 	public void addError(String message, int column, int line, int charStart,
 			int charEnd) {
-		getErrors().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd));
+		getErrors().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, null));
+	}
+
+	public void addError(String message, int column, int line, int charStart,
+			int charEnd, TextDiagnosticType type) {
+		getErrors().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, type));
 	}
 
 	public void addWarning(String message, int column, int line, int charStart,
 			int charEnd) {
-		getWarnings().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd));
+		getWarnings().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, null));
+	}
+	
+	public void addWarning(String message, int column, int line, int charStart,
+			int charEnd, TextDiagnosticType type) {
+		getWarnings().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, type));
 	}
 	
 	public String[] getTokenNames() {

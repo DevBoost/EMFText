@@ -1,12 +1,8 @@
-/**
- * 
- */
 package org.emftext.runtime.resource.impl;
 
 import org.eclipse.emf.common.util.URI;
-import org.emftext.runtime.resource.TextDiagnostic;
 
-public class PositionBasedTextDiagnosticImpl implements TextDiagnostic {
+public class PositionBasedTextDiagnosticImpl extends AbstractTextDiagnostic {
 
 	private final URI uri;
 
@@ -17,7 +13,9 @@ public class PositionBasedTextDiagnosticImpl implements TextDiagnostic {
 	protected String message;
 
 	protected PositionBasedTextDiagnosticImpl(URI uri, String message,
-			int column, int line, int charStart, int charEnd) {
+			int column, int line, int charStart, int charEnd, TextDiagnosticType type) {
+		
+		super(type);
 
 		this.uri = uri;
 		this.column = column;

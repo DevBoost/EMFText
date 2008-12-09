@@ -2,6 +2,7 @@ package org.emftext.runtime.resource;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
 
 /**
  * An extended resource that can hold information about the exact positions 
@@ -40,21 +41,25 @@ public interface TextResource extends Resource {
 	 * Add an error that should be displayed at the position of the given element.
 	 */
 	public void addError(String message, EObject element);
+	public void addError(String message, EObject element, TextDiagnosticType type);
 	
 	/**
 	 * Add a warning that should be displayed at the position of the given element.
 	 */
 	public void addWarning(String message, EObject element);
+	public void addWarning(String message, EObject element, TextDiagnosticType type);
 	
 	/**
 	 * Add an error to be displayed at the indicated position.
 	 */
 	public void addError(String message, int column, int line, int charStart, int charEnd);
+	public void addError(String message, int column, int line, int charStart, int charEnd, TextDiagnosticType type);
 	
 	/**
 	 * Add a warning to be displayed at the indicated position.
 	 */
 	public void addWarning(String message, int column, int line, int charStart, int charEnd);
+	public void addWarning(String message, int column, int line, int charStart, int charEnd, TextDiagnosticType type);
 	
 	/**
 	 * Helper method to access the names of different tokens that may exist in the underlying text file.
