@@ -49,7 +49,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		}
 
 		public void setResolveResult(ResolveResult result) {
-			assert !result.wasResolved();
+			assert this.result == null || !this.result.wasResolved();
 			this.result = result;
 		}
 
