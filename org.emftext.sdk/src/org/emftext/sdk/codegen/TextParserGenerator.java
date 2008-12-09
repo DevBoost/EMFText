@@ -249,7 +249,7 @@ public class TextParserGenerator extends BaseGenerator {
 			addProblem(new GenerationProblem("Token names must start with a capital letter.", currentOption,Severity.ERROR));
 		}
 		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_FORCE_EOF,source.getOptions());
-		forceEOFToken = currentOption==null?false:Boolean.parseBoolean(currentOption.getValue());
+		forceEOFToken = currentOption == null ? true : Boolean.parseBoolean(currentOption.getValue());
 		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_USE_DEFAULT_TOKENS,source.getOptions());
 		useDefaultTokens = currentOption==null?true:(currentOption.getValue().equals("false")?false:true);
 	}
