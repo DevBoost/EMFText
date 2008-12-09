@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.Lexer;
 import org.emftext.runtime.resource.EMFTextParser;
 import org.emftext.runtime.resource.EMFTextPrinter;
 import org.emftext.runtime.resource.EMFTextTreeAnalyser;
