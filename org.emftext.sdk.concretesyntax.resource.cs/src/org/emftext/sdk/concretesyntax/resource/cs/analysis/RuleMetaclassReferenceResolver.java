@@ -80,6 +80,8 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 		Rule rule = (Rule) container;
 		for (Import aImport : rule.getSyntax().getImports()) {
 			for(GenClass genClass : aImport.getPackage().getGenClasses()) {
+				if(genClass.getEcoreClass().isAbstract()||genClass.getEcoreClass().isInterface())
+					continue;
 				String identifier = filter.accept(aImport, genClass);
 				if (identifier != null) {
 					result.addMapping(identifier, genClass);
@@ -87,6 +89,8 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 			}				
 		}
 		for(GenClass genClass : rule.getSyntax().getPackage().getGenClasses()) {
+			if(genClass.getEcoreClass().isAbstract()||genClass.getEcoreClass().isInterface())
+				continue;
 			String identifier = filter.accept(null, genClass);
 			if (identifier != null) {
 				result.addMapping(identifier, genClass);
