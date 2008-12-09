@@ -3,6 +3,8 @@ package org.emftext.sdk.codegen;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import org.emftext.runtime.resource.TokenResolverFactory;
+import org.emftext.runtime.resource.impl.BasicTokenResolverFactory;
 import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
 
 /**
@@ -33,12 +35,9 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {
 		out.println("package " + super.getResourcePackageName() + ";");
 		out.println();
-		out.println("import org.emftext.runtime.resource.TokenResolverFactory;");
-		out.println("import org.emftext.runtime.resource.impl.BasicTokenResolverFactory;");
-		out.println();
 		out.println("import " + resolverPackageName + ".*;");
 		out.println();
-		out.println("public class " + super.getResourceClassName() + " extends BasicTokenResolverFactory implements TokenResolverFactory{");
+		out.println("public class " + super.getResourceClassName() + " extends " + BasicTokenResolverFactory.class.getName() + " implements " + TokenResolverFactory.class.getName() + " {");
 		out.println();
 		out.println("\tpublic " + super.getResourceClassName() + "(){");
 		for(InternalTokenDefinition def:printedTokens.keySet()){

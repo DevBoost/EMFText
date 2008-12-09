@@ -23,7 +23,6 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	    out.println();
 	    out.println("import " + EObject.class.getName() + ";");
 	    out.println("import " + EReference.class.getName() + ";");
-	    out.println("import " + ResolveResult.class.getName() + ";");
 	    out.println();
 	    out.println("public class " + getResourceClassName() + " extends " + ReferenceResolverImpl.class.getName() + " {\n");
 		out.println("\t@Override");
@@ -31,7 +30,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 		out.println("\t\treturn super.doDeResolve(element, container, reference);");
 		out.println("\t}\n");
 		out.println("\t@Override");
-		out.println("\tprotected void doResolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {");
+		out.println("\tprotected void doResolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, " + ResolveResult.class.getName() + " result) {");
 		out.println("\t\tsuper.doResolve(identifier, container, reference, position, resolveFuzzy, result);");
 		out.println("\t}");
 		out.println("}");

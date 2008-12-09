@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ReferenceResolver;
 import org.emftext.runtime.resource.ResolveResult;
+import org.emftext.runtime.resource.impl.EMFTextTreeAnalyserImpl;
 
 public class TextTreeAnalyserGenerator extends BaseGenerator {
 	
@@ -53,7 +54,6 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 
         s.append("import org.eclipse.emf.ecore.EObject;\n");
         s.append("import org.eclipse.emf.ecore.EReference;\n\n");
-        s.append("import org.emftext.runtime.resource.impl.*;\n\n");
         
         //import required EClasses
         EList<GenClass> importedClasses = new BasicEList<GenClass>();
@@ -70,7 +70,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 
         if (!proxyReferences.isEmpty()) s.append("import " + resolverImplementationPackage + ".*;\n\n");
 		
-		s.append("public class " + super.getResourceClassName() + " extends EMFTextTreeAnalyserImpl {\n\n");
+		s.append("public class " + super.getResourceClassName() + " extends " + EMFTextTreeAnalyserImpl.class.getName() + " {\n\n");
 		
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String generatedClassName = proxyReferences.get(proxyReference);

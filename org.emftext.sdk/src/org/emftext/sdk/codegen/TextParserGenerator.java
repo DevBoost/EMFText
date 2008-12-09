@@ -36,6 +36,10 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.emftext.runtime.resource.TokenConversionException;
+import org.emftext.runtime.resource.TokenResolver;
+import org.emftext.runtime.resource.TokenResolverFactory;
+import org.emftext.runtime.resource.impl.EMFTextParserImpl;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
 import org.emftext.sdk.codegen.regex.ANTLRexpParser;
@@ -299,7 +303,7 @@ public class TextParserGenerator extends BaseGenerator {
         String csName = super.getResourceClassName();
 
         out.println("grammar " + csName + ";");
-        out.println("options {superClass = EMFTextParserImpl; backtrack = true;}");
+        out.println("options {superClass = " + EMFTextParserImpl.class.getSimpleName() + "; backtrack = true;}");
         out.println();
         
         //the lexer: package def. and error handling
@@ -331,7 +335,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println();
         
         out.println("@members{");  
-        out.println("\tprivate TokenResolverFactory tokenResolverFactory = new " + tokenResolverFactoryName +"();");
+        out.println("\tprivate " + TokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
         out.println();
         out.println("\tprotected EObject doParse() throws RecognitionException {");
         out.println("\t\t((" + csName + "Lexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
@@ -674,10 +678,10 @@ public class TextParserGenerator extends BaseGenerator {
         	String resolvedIdent = "resolved";
         	String preResolved = resolvedIdent+"Object";
         	String resolverIdent = resolvedIdent+"Resolver";
-           	resolvements += "TokenResolver " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
+           	resolvements += TokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
            	resolvements += resolverIdent +".setOptions(getOptions());";
         	resolvements += "Object " + preResolved + " ="+resolverIdent+".resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
-        	resolvements += "if(" + preResolved + "==null)throw new TokenConversionException("+ident+","+resolverIdent+".getErrorMessage());";
+        	resolvements += "if(" + preResolved + "==null) throw new " + TokenConversionException.class.getName() + "("+ident+","+resolverIdent+".getErrorMessage());";
         	
         	if(sf instanceof EReference){
         		targetTypeName = "String";
@@ -1025,11 +1029,10 @@ public class TextParserGenerator extends BaseGenerator {
 	}
 	
 	private void printDefaultImports(PrintWriter out){
-        out.println("import org.emftext.runtime.resource.*;");
-        out.println("import org.emftext.runtime.resource.impl.*;");
         out.println("import org.eclipse.emf.ecore.EObject;");
         out.println("import org.eclipse.emf.ecore.InternalEObject;");
         out.println("import org.eclipse.emf.common.util.URI;");
+        out.println("import " + EMFTextParserImpl.class.getName() + ";");
 	}
 	
 

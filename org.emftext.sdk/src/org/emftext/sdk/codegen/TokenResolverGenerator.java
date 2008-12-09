@@ -2,6 +2,10 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
+import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.TokenResolver;
+import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
+
 /**
  * A TokenResolverGenerator generates TokenResolvers for the given TokenDefinitions.
  * 
@@ -34,12 +38,9 @@ public class TokenResolverGenerator extends BaseGenerator {
 		
 		out.println("import org.eclipse.emf.ecore.EStructuralFeature;");
 		out.println("import org.eclipse.emf.ecore.EObject;");
-		out.println("import org.emftext.runtime.resource.TokenResolver;");
-		out.println("import org.emftext.runtime.resource.TextResource;");
-		out.println("import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;");
 		out.println();
 		
-		out.println("public class " + super.getResourceClassName() + " extends JavaBasedTokenResolver implements TokenResolver{ ");
+		out.println("public class " + super.getResourceClassName() + " extends " + JavaBasedTokenResolver.class.getName() + " implements " + TokenResolver.class.getName() + " {");
 		out.println("\t@Override");
 		out.println("\tpublic String deResolve(Object value, EStructuralFeature feature, EObject container) {");
 		out.println("\t\tString result = super.deResolve(value,feature,container);");
@@ -58,7 +59,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		out.println("\t}");
 		out.println();
 		out.println("\t@Override");
-		out.println("\tpublic Object resolve(String lexem, EStructuralFeature feature, EObject container, TextResource resource) {");
+		out.println("\tpublic Object resolve(String lexem, EStructuralFeature feature, EObject container, " + TextResource.class.getName() + " resource) {");
 		if(definition.getPrefix()!=null){
 			int count = definition.getPrefix().length();
 			out.println("\t\tlexem = lexem.substring(" + count + ");");			
