@@ -1,4 +1,4 @@
-// $ANTLR 3.0.1 src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g 2008-04-30 20:00:16
+// $ANTLR 3.0.1 src/org/emftext/codegen/regex/ANTLRexp.g 2008-04-30 20:00:16
 
 package org.emftext.sdk.codegen.regex; 
 
@@ -44,14 +44,14 @@ public class ANTLRexpLexer extends Lexer {
     public ANTLRexpLexer(CharStream input) {
         super(input);
     }
-    public String getGrammarFileName() { return "src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g"; }
+    public String getGrammarFileName() { return "src/org/emftext/codegen/regex/ANTLRexp.g"; }
 
     // $ANTLR start T10
     public final void mT10() throws RecognitionException {
         try {
             int _type = T10;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:16:5: ( '|' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:16:7: '|'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:16:5: ( '|' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:16:7: '|'
             {
             match('|'); 
 
@@ -68,8 +68,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT11() throws RecognitionException {
         try {
             int _type = T11;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:17:5: ( '?' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:17:7: '?'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:17:5: ( '?' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:17:7: '?'
             {
             match('?'); 
 
@@ -86,8 +86,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT12() throws RecognitionException {
         try {
             int _type = T12;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:18:5: ( '*' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:18:7: '*'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:18:5: ( '*' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:18:7: '*'
             {
             match('*'); 
 
@@ -104,8 +104,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT13() throws RecognitionException {
         try {
             int _type = T13;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:19:5: ( '+' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:19:7: '+'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:19:5: ( '+' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:19:7: '+'
             {
             match('+'); 
 
@@ -122,8 +122,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT14() throws RecognitionException {
         try {
             int _type = T14;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:20:5: ( '^' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:20:7: '^'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:20:5: ( '^' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:20:7: '^'
             {
             match('^'); 
 
@@ -140,8 +140,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT15() throws RecognitionException {
         try {
             int _type = T15;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:21:5: ( '!' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:21:7: '!'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:21:5: ( '!' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:21:7: '!'
             {
             match('!'); 
 
@@ -158,8 +158,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT16() throws RecognitionException {
         try {
             int _type = T16;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:22:5: ( '..' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:22:7: '..'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:22:5: ( '..' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:22:7: '..'
             {
             match(".."); 
 
@@ -177,8 +177,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT17() throws RecognitionException {
         try {
             int _type = T17;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:23:5: ( '.' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:23:7: '.'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:23:5: ( '.' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:23:7: '.'
             {
             match('.'); 
 
@@ -195,8 +195,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT18() throws RecognitionException {
         try {
             int _type = T18;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:24:5: ( '(' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:24:7: '('
+            // src/org/emftext/codegen/regex/ANTLRexp.g:24:5: ( '(' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:24:7: '('
             {
             match('('); 
 
@@ -213,8 +213,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT19() throws RecognitionException {
         try {
             int _type = T19;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:25:5: ( ')' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:25:7: ')'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:25:5: ( ')' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:25:7: ')'
             {
             match(')'); 
 
@@ -231,8 +231,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mT20() throws RecognitionException {
         try {
             int _type = T20;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:26:5: ( '~' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:26:7: '~'
+            // src/org/emftext/codegen/regex/ANTLRexp.g:26:5: ( '~' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:26:7: '~'
             {
             match('~'); 
 
@@ -249,8 +249,8 @@ public class ANTLRexpLexer extends Lexer {
     public final void mCHAR_LITERAL() throws RecognitionException {
         try {
             int _type = CHAR_LITERAL;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:91:14: ( '\\'' LITERAL_CHAR '\\'' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:91:16: '\\'' LITERAL_CHAR '\\''
+            // src/org/emftext/codegen/regex/ANTLRexp.g:91:14: ( '\\'' LITERAL_CHAR '\\'' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:91:16: '\\'' LITERAL_CHAR '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
@@ -269,12 +269,12 @@ public class ANTLRexpLexer extends Lexer {
     public final void mSTRING_LITERAL() throws RecognitionException {
         try {
             int _type = STRING_LITERAL;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:93:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:93:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
+            // src/org/emftext/codegen/regex/ANTLRexp.g:93:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:93:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:93:36: ( LITERAL_CHAR )*
+            // src/org/emftext/codegen/regex/ANTLRexp.g:93:36: ( LITERAL_CHAR )*
             loop1:
             do {
                 int alt1=2;
@@ -287,7 +287,7 @@ public class ANTLRexpLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:93:36: LITERAL_CHAR
+            	    // src/org/emftext/codegen/regex/ANTLRexp.g:93:36: LITERAL_CHAR
             	    {
             	    mLITERAL_CHAR(); 
 
@@ -313,7 +313,7 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start LITERAL_CHAR
     public final void mLITERAL_CHAR() throws RecognitionException {
         try {
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:95:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:95:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -331,14 +331,14 @@ public class ANTLRexpLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:95:25: ESC
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:95:25: ESC
                     {
                     mESC(); 
 
                     }
                     break;
                 case 2 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:95:32: ~ ( '\\'' | '\\\\' )
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:95:32: ~ ( '\\'' | '\\\\' )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFE') ) {
                         input.consume();
@@ -364,11 +364,11 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start ESC
     public final void mESC() throws RecognitionException {
         try {
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:97:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:97:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             {
             match('\\'); 
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:97:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             int alt3=11;
             int LA3_0 = input.LA(1);
 
@@ -419,70 +419,70 @@ public class ANTLRexpLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:23: 'n'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:23: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 2 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:30: 'r'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:30: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 3 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:37: 't'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:37: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 4 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:45: 'b'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:45: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:51: 'f'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:51: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:57: '\"'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:57: '\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 7 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:62: '\\''
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:62: '\\''
                     {
                     match('\''); 
 
                     }
                     break;
                 case 8 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:69: '\\\\'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:69: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 9 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:76: '>'
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:76: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 10 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
                     {
                     match('u'); 
                     mXDIGIT(); 
@@ -493,7 +493,7 @@ public class ANTLRexpLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:97:116: .
+                    // src/org/emftext/codegen/regex/ANTLRexp.g:97:116: .
                     {
                     matchAny(); 
 
@@ -514,8 +514,8 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start XDIGIT
     public final void mXDIGIT() throws RecognitionException {
         try {
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:99:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:
+            // src/org/emftext/codegen/regex/ANTLRexp.g:99:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -540,10 +540,10 @@ public class ANTLRexpLexer extends Lexer {
     public final void mWS() throws RecognitionException {
         try {
             int _type = WS;
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // src/org/emftext/codegen/regex/ANTLRexp.g:101:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
+            // src/org/emftext/codegen/regex/ANTLRexp.g:101:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             {
-            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // src/org/emftext/codegen/regex/ANTLRexp.g:101:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             int cnt5=0;
             loop5:
             do {
@@ -570,23 +570,23 @@ public class ANTLRexpLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:8: ' '
+            	    // src/org/emftext/codegen/regex/ANTLRexp.g:101:8: ' '
             	    {
             	    match(' '); 
 
             	    }
             	    break;
             	case 2 :
-            	    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:14: '\\t'
+            	    // src/org/emftext/codegen/regex/ANTLRexp.g:101:14: '\\t'
             	    {
             	    match('\t'); 
 
             	    }
             	    break;
             	case 3 :
-            	    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:20: ( '\\r' )? '\\n'
+            	    // src/org/emftext/codegen/regex/ANTLRexp.g:101:20: ( '\\r' )? '\\n'
             	    {
-            	    // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:20: ( '\\r' )?
+            	    // src/org/emftext/codegen/regex/ANTLRexp.g:101:20: ( '\\r' )?
             	    int alt4=2;
             	    int LA4_0 = input.LA(1);
 
@@ -595,7 +595,7 @@ public class ANTLRexpLexer extends Lexer {
             	    }
             	    switch (alt4) {
             	        case 1 :
-            	            // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:101:20: '\\r'
+            	            // src/org/emftext/codegen/regex/ANTLRexp.g:101:20: '\\r'
             	            {
             	            match('\r'); 
 
@@ -630,7 +630,7 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR end WS
 
     public void mTokens() throws RecognitionException {
-        // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:8: ( T10 | T11 | T12 | T13 | T14 | T15 | T16 | T17 | T18 | T19 | T20 | CHAR_LITERAL | STRING_LITERAL | WS )
+        // src/org/emftext/codegen/regex/ANTLRexp.g:1:8: ( T10 | T11 | T12 | T13 | T14 | T15 | T16 | T17 | T18 | T19 | T20 | CHAR_LITERAL | STRING_LITERAL | WS )
         int alt6=14;
         switch ( input.LA(1) ) {
         case '|':
@@ -975,98 +975,98 @@ public class ANTLRexpLexer extends Lexer {
 
         switch (alt6) {
             case 1 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:10: T10
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:10: T10
                 {
                 mT10(); 
 
                 }
                 break;
             case 2 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:14: T11
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:14: T11
                 {
                 mT11(); 
 
                 }
                 break;
             case 3 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:18: T12
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:18: T12
                 {
                 mT12(); 
 
                 }
                 break;
             case 4 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:22: T13
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:22: T13
                 {
                 mT13(); 
 
                 }
                 break;
             case 5 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:26: T14
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:26: T14
                 {
                 mT14(); 
 
                 }
                 break;
             case 6 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:30: T15
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:30: T15
                 {
                 mT15(); 
 
                 }
                 break;
             case 7 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:34: T16
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:34: T16
                 {
                 mT16(); 
 
                 }
                 break;
             case 8 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:38: T17
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:38: T17
                 {
                 mT17(); 
 
                 }
                 break;
             case 9 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:42: T18
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:42: T18
                 {
                 mT18(); 
 
                 }
                 break;
             case 10 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:46: T19
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:46: T19
                 {
                 mT19(); 
 
                 }
                 break;
             case 11 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:50: T20
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:50: T20
                 {
                 mT20(); 
 
                 }
                 break;
             case 12 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:54: CHAR_LITERAL
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:54: CHAR_LITERAL
                 {
                 mCHAR_LITERAL(); 
 
                 }
                 break;
             case 13 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:67: STRING_LITERAL
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:67: STRING_LITERAL
                 {
                 mSTRING_LITERAL(); 
 
                 }
                 break;
             case 14 :
-                // src/org/reuseware/emftextedit/codegen/regex/ANTLRexp.g:1:82: WS
+                // src/org/emftext/codegen/regex/ANTLRexp.g:1:82: WS
                 {
                 mWS(); 
 
