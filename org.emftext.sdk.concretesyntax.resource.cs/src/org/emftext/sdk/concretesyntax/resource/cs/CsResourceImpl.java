@@ -11,9 +11,9 @@ import org.emftext.runtime.resource.*;
 import org.emftext.runtime.resource.impl.*;
 
 public class CsResourceImpl extends TextResourceImpl {
-	
 	private EMFTextTreeAnalyser analyser;
-	
+
+
 	public CsResourceImpl(){
 		super();
 	}
@@ -23,9 +23,7 @@ public class CsResourceImpl extends TextResourceImpl {
 	}
 
 	protected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {
-		// get default options
-		Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
-		
+		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 		EMFTextParser p = new CsParser(new CommonTokenStream(new CsLexer(new ANTLRInputStream(inputStream))));
 		p.setResource(this);
 		p.setOptions(loadOptions);
@@ -36,6 +34,7 @@ public class CsResourceImpl extends TextResourceImpl {
 		}
 
 		EMFTextTreeAnalyser analyser = getTreeAnalyser();
+
 		analyser.setOptions(loadOptions);
 		analyser.analyse(this);
 	}

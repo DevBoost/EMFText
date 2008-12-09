@@ -1,33 +1,59 @@
-// $ANTLR 3.0.1 C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2008-12-05 16:25:02
+// $ANTLR 3.0.1 C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2008-12-09 13:00:02
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-//+++++++++++++++++++++++imports for org.reuseware.emftextedit.sdk.concretesyntax begin++++++++++++++++++++++
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ConcreteSyntaxImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ImportImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.RuleImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ChoiceImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.SequenceImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinitionImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TerminalImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CsStringImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.WhiteSpacesImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.LineBreakImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CardinalityImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PLUSImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.STARImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.QUESTIONMARKImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.CompoundDefinitionImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.TokenDefinitionImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NormalTokenImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DecoratedTokenImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.NewDefinedTokenImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PreDefinedTokenImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.ContainmentImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DefinedPlaceholderImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.DerivedPlaceholderImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.PlaceholderImpl
-//Implementation: org.reuseware.emftextedit.sdk.concretesyntax.impl.OptionImpl
+//+++++++++++++++++++++++imports for org.emftext.sdk.concretesyntax begin++++++++++++++++++++++
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+//Implementation: org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl
+import org.emftext.sdk.concretesyntax.Import;
+//Implementation: org.emftext.sdk.concretesyntax.impl.ImportImpl
+import org.emftext.sdk.concretesyntax.Rule;
+//Implementation: org.emftext.sdk.concretesyntax.impl.RuleImpl
+import org.emftext.sdk.concretesyntax.Choice;
+//Implementation: org.emftext.sdk.concretesyntax.impl.ChoiceImpl
+import org.emftext.sdk.concretesyntax.Sequence;
+//Implementation: org.emftext.sdk.concretesyntax.impl.SequenceImpl
+import org.emftext.sdk.concretesyntax.Definition;
+//Implementation: org.emftext.sdk.concretesyntax.impl.DefinitionImpl
+import org.emftext.sdk.concretesyntax.Terminal;
+//Implementation: org.emftext.sdk.concretesyntax.impl.TerminalImpl
+import org.emftext.sdk.concretesyntax.CsString;
+//Implementation: org.emftext.sdk.concretesyntax.impl.CsStringImpl
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
+//Implementation: org.emftext.sdk.concretesyntax.impl.WhiteSpacesImpl
+import org.emftext.sdk.concretesyntax.LineBreak;
+//Implementation: org.emftext.sdk.concretesyntax.impl.LineBreakImpl
+import org.emftext.sdk.concretesyntax.Cardinality;
+//Implementation: org.emftext.sdk.concretesyntax.impl.CardinalityImpl
+import org.emftext.sdk.concretesyntax.PLUS;
+//Implementation: org.emftext.sdk.concretesyntax.impl.PLUSImpl
+import org.emftext.sdk.concretesyntax.STAR;
+//Implementation: org.emftext.sdk.concretesyntax.impl.STARImpl
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+//Implementation: org.emftext.sdk.concretesyntax.impl.QUESTIONMARKImpl
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+//Implementation: org.emftext.sdk.concretesyntax.impl.CompoundDefinitionImpl
+import org.emftext.sdk.concretesyntax.TokenDefinition;
+//Implementation: org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl
+import org.emftext.sdk.concretesyntax.NormalToken;
+//Implementation: org.emftext.sdk.concretesyntax.impl.NormalTokenImpl
+import org.emftext.sdk.concretesyntax.DecoratedToken;
+//Implementation: org.emftext.sdk.concretesyntax.impl.DecoratedTokenImpl
+import org.emftext.sdk.concretesyntax.NewDefinedToken;
+//Implementation: org.emftext.sdk.concretesyntax.impl.NewDefinedTokenImpl
+import org.emftext.sdk.concretesyntax.PreDefinedToken;
+//Implementation: org.emftext.sdk.concretesyntax.impl.PreDefinedTokenImpl
+import org.emftext.sdk.concretesyntax.Containment;
+//Implementation: org.emftext.sdk.concretesyntax.impl.ContainmentImpl
+import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
+//Implementation: org.emftext.sdk.concretesyntax.impl.DefinedPlaceholderImpl
+import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
+//Implementation: org.emftext.sdk.concretesyntax.impl.DerivedPlaceholderImpl
+import org.emftext.sdk.concretesyntax.Placeholder;
+//Implementation: org.emftext.sdk.concretesyntax.impl.PlaceholderImpl
+import org.emftext.sdk.concretesyntax.Option;
+//Implementation: org.emftext.sdk.concretesyntax.impl.OptionImpl
+import org.emftext.sdk.concretesyntax.*;
 //+++++++++++++++++++++++imports for org.eclipse.emf.ecore begin++++++++++++++++++++++
 import org.eclipse.emf.ecore.EAttribute;
 //Implementation: org.eclipse.emf.ecore.impl.EAttributeImpl
@@ -103,9 +129,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.common.util.URI;
-import org.emftext.runtime.resource.*;
-import org.emftext.runtime.resource.impl.*;
-import org.emftext.sdk.concretesyntax.*;
+import org.emftext.runtime.resource.impl.EMFTextParserImpl;
 
 
 import org.antlr.runtime.*;
@@ -138,10 +162,10 @@ public class CsParser extends EMFTextParserImpl {
         
 
     public String[] getTokenNames() { return tokenNames; }
-    public String getGrammarFileName() { return "C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g"; }
+    public String getGrammarFileName() { return "C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g"; }
 
 
-    	private TokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
+    	private org.emftext.runtime.resource.TokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
 
     	protected EObject doParse() throws RecognitionException {
     		((CsLexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
@@ -152,7 +176,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start start
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:163:1: start returns [ EObject element = null] : c0= concretesyntax ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:162:1: start returns [ EObject element = null] : c0= concretesyntax ;
     public final EObject start() throws RecognitionException {
         EObject element =  null;
 
@@ -160,8 +184,8 @@ public class CsParser extends EMFTextParserImpl {
 
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:165:1: (c0= concretesyntax )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:166:1: c0= concretesyntax
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:164:1: (c0= concretesyntax )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:165:1: c0= concretesyntax
             {
             pushFollow(FOLLOW_concretesyntax_in_start61);
             c0=concretesyntax();
@@ -186,7 +210,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start concretesyntax
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:170:1: concretesyntax returns [ConcreteSyntax element = null] : 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' (a2= TEXT | a3= QNAME ) ( ( ',' (a4= TEXT | a5= QNAME ) ) )* ( ( 'IMPORTS' '{' ( (a6= keywordimport ) )* '}' ) )? ( ( 'OPTIONS' '{' ( (a7= option ';' ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a8= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a9= rule )+ ) '}' ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:169:1: concretesyntax returns [ConcreteSyntax element = null] : a0= 'SYNTAXDEF' a1= TEXT a2= 'FOR' a3= QUOTED_60_62 a4= 'START' (a5= TEXT | a6= QNAME ) ( (a7= ',' (a8= TEXT | a9= QNAME ) ) )* ( (a10= 'IMPORTS' a11= '{' ( (a12= keywordimport ) )* a13= '}' ) )? ( (a14= 'OPTIONS' a15= '{' ( (a16= option a17= ';' ) )* a18= '}' ) )? ( (a19= 'TOKENS' a20= '{' ( (a21= tokendefinition a22= ';' ) )* a23= '}' ) )? a24= 'RULES' a25= '{' ( (a26= rule )+ ) a27= '}' ;
     public final ConcreteSyntax concretesyntax() throws RecognitionException {
         ConcreteSyntax element =  null;
 
@@ -196,36 +220,66 @@ public class CsParser extends EMFTextParserImpl {
         Token a3=null;
         Token a4=null;
         Token a5=null;
-        Import a6 = null;
+        Token a6=null;
+        Token a7=null;
+        Token a8=null;
+        Token a9=null;
+        Token a10=null;
+        Token a11=null;
+        Token a13=null;
+        Token a14=null;
+        Token a15=null;
+        Token a17=null;
+        Token a18=null;
+        Token a19=null;
+        Token a20=null;
+        Token a22=null;
+        Token a23=null;
+        Token a24=null;
+        Token a25=null;
+        Token a27=null;
+        Import a12 = null;
 
-        Option a7 = null;
+        Option a16 = null;
 
-        TokenDefinition a8 = null;
+        TokenDefinition a21 = null;
 
-        Rule a9 = null;
+        Rule a26 = null;
 
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:174:1: ( 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' (a2= TEXT | a3= QNAME ) ( ( ',' (a4= TEXT | a5= QNAME ) ) )* ( ( 'IMPORTS' '{' ( (a6= keywordimport ) )* '}' ) )? ( ( 'OPTIONS' '{' ( (a7= option ';' ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a8= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a9= rule )+ ) '}' )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:175:2: 'SYNTAXDEF' a0= TEXT 'FOR' a1= QUOTED_60_62 'START' (a2= TEXT | a3= QNAME ) ( ( ',' (a4= TEXT | a5= QNAME ) ) )* ( ( 'IMPORTS' '{' ( (a6= keywordimport ) )* '}' ) )? ( ( 'OPTIONS' '{' ( (a7= option ';' ) )* '}' ) )? ( ( 'TOKENS' '{' ( (a8= tokendefinition ';' ) )* '}' ) )? 'RULES' '{' ( (a9= rule )+ ) '}'
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:173:1: (a0= 'SYNTAXDEF' a1= TEXT a2= 'FOR' a3= QUOTED_60_62 a4= 'START' (a5= TEXT | a6= QNAME ) ( (a7= ',' (a8= TEXT | a9= QNAME ) ) )* ( (a10= 'IMPORTS' a11= '{' ( (a12= keywordimport ) )* a13= '}' ) )? ( (a14= 'OPTIONS' a15= '{' ( (a16= option a17= ';' ) )* a18= '}' ) )? ( (a19= 'TOKENS' a20= '{' ( (a21= tokendefinition a22= ';' ) )* a23= '}' ) )? a24= 'RULES' a25= '{' ( (a26= rule )+ ) a27= '}' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:174:2: a0= 'SYNTAXDEF' a1= TEXT a2= 'FOR' a3= QUOTED_60_62 a4= 'START' (a5= TEXT | a6= QNAME ) ( (a7= ',' (a8= TEXT | a9= QNAME ) ) )* ( (a10= 'IMPORTS' a11= '{' ( (a12= keywordimport ) )* a13= '}' ) )? ( (a14= 'OPTIONS' a15= '{' ( (a16= option a17= ';' ) )* a18= '}' ) )? ( (a19= 'TOKENS' a20= '{' ( (a21= tokendefinition a22= ';' ) )* a23= '}' ) )? a24= 'RULES' a25= '{' ( (a26= rule )+ ) a27= '}'
             {
-            match(input,15,FOLLOW_15_in_concretesyntax81); if (failed) return element;
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_concretesyntax88); if (failed) return element;
+            match(input,15,FOLLOW_15_in_concretesyntax85); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              copyLocalizationInfos((CommonToken)a0, element); 
             }
-            match(input,16,FOLLOW_16_in_concretesyntax92); if (failed) return element;
             a1=(Token)input.LT(1);
-            match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_concretesyntax99); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_concretesyntax93); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("package"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
             }
-            match(input,17,FOLLOW_17_in_concretesyntax103); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:180:2: (a2= TEXT | a3= QNAME )
+            a2=(Token)input.LT(1);
+            match(input,16,FOLLOW_16_in_concretesyntax101); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a2, element); 
+            }
+            a3=(Token)input.LT(1);
+            match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_concretesyntax109); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a3,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("package"), proxy); copyLocalizationInfos((CommonToken) a3, element); copyLocalizationInfos((CommonToken) a3, proxy); 
+            }
+            a4=(Token)input.LT(1);
+            match(input,17,FOLLOW_17_in_concretesyntax117); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a4, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:179:2: (a5= TEXT | a6= QNAME )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -238,29 +292,29 @@ public class CsParser extends EMFTextParserImpl {
             else {
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("180:2: (a2= TEXT | a3= QNAME )", 1, 0, input);
+                    new NoViableAltException("179:2: (a5= TEXT | a6= QNAME )", 1, 0, input);
 
                 throw nvae;
             }
             switch (alt1) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:181:3: a2= TEXT
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:180:3: a5= TEXT
                     {
-                    a2=(Token)input.LT(1);
-                    match(input,TEXT,FOLLOW_TEXT_in_concretesyntax114); if (failed) return element;
+                    a5=(Token)input.LT(1);
+                    match(input,TEXT,FOLLOW_TEXT_in_concretesyntax129); if (failed) return element;
                     if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); 
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a5,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a5, element); copyLocalizationInfos((CommonToken) a5, proxy); 
                     }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:184:3: a3= QNAME
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:183:3: a6= QNAME
                     {
-                    a3=(Token)input.LT(1);
-                    match(input,QNAME,FOLLOW_QNAME_in_concretesyntax128); if (failed) return element;
+                    a6=(Token)input.LT(1);
+                    match(input,QNAME,FOLLOW_QNAME_in_concretesyntax143); if (failed) return element;
                     if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, proxy); copyLocalizationInfos((CommonToken) a3, element); copyLocalizationInfos((CommonToken) a3, proxy); 
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a6.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a6,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a6, element); copyLocalizationInfos((CommonToken) a6, proxy); 
                     }
 
                     }
@@ -268,7 +322,7 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:186:2: ( ( ',' (a4= TEXT | a5= QNAME ) ) )*
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:185:2: ( (a7= ',' (a8= TEXT | a9= QNAME ) ) )*
             loop3:
             do {
                 int alt3=2;
@@ -281,13 +335,17 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt3) {
             	case 1 :
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:187:3: ( ',' (a4= TEXT | a5= QNAME ) )
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:186:3: (a7= ',' (a8= TEXT | a9= QNAME ) )
             	    {
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:187:3: ( ',' (a4= TEXT | a5= QNAME ) )
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:188:4: ',' (a4= TEXT | a5= QNAME )
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:186:3: (a7= ',' (a8= TEXT | a9= QNAME ) )
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:187:4: a7= ',' (a8= TEXT | a9= QNAME )
             	    {
-            	    match(input,18,FOLLOW_18_in_concretesyntax144); if (failed) return element;
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:189:4: (a4= TEXT | a5= QNAME )
+            	    a7=(Token)input.LT(1);
+            	    match(input,18,FOLLOW_18_in_concretesyntax163); if (failed) return element;
+            	    if ( backtracking==0 ) {
+            	      copyLocalizationInfos((CommonToken)a7, element); 
+            	    }
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:188:4: (a8= TEXT | a9= QNAME )
             	    int alt2=2;
             	    int LA2_0 = input.LA(1);
 
@@ -300,29 +358,29 @@ public class CsParser extends EMFTextParserImpl {
             	    else {
             	        if (backtracking>0) {failed=true; return element;}
             	        NoViableAltException nvae =
-            	            new NoViableAltException("189:4: (a4= TEXT | a5= QNAME )", 2, 0, input);
+            	            new NoViableAltException("188:4: (a8= TEXT | a9= QNAME )", 2, 0, input);
 
             	        throw nvae;
             	    }
             	    switch (alt2) {
             	        case 1 :
-            	            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:190:5: a4= TEXT
+            	            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:189:5: a8= TEXT
             	            {
-            	            a4=(Token)input.LT(1);
-            	            match(input,TEXT,FOLLOW_TEXT_in_concretesyntax159); if (failed) return element;
+            	            a8=(Token)input.LT(1);
+            	            match(input,TEXT,FOLLOW_TEXT_in_concretesyntax179); if (failed) return element;
             	            if ( backtracking==0 ) {
-            	              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a4.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a4,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, proxy); copyLocalizationInfos((CommonToken) a4, element); copyLocalizationInfos((CommonToken) a4, proxy); 
+            	              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a8.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a8,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a8, element); copyLocalizationInfos((CommonToken) a8, proxy); 
             	            }
 
             	            }
             	            break;
             	        case 2 :
-            	            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:193:5: a5= QNAME
+            	            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:192:5: a9= QNAME
             	            {
-            	            a5=(Token)input.LT(1);
-            	            match(input,QNAME,FOLLOW_QNAME_in_concretesyntax177); if (failed) return element;
+            	            a9=(Token)input.LT(1);
+            	            match(input,QNAME,FOLLOW_QNAME_in_concretesyntax197); if (failed) return element;
             	            if ( backtracking==0 ) {
-            	              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a5,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, proxy); copyLocalizationInfos((CommonToken) a5, element); copyLocalizationInfos((CommonToken) a5, proxy); 
+            	              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a9.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a9,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); copyLocalizationInfos((CommonToken) a9, element); copyLocalizationInfos((CommonToken) a9, proxy); 
             	            }
 
             	            }
@@ -342,7 +400,7 @@ public class CsParser extends EMFTextParserImpl {
                 }
             } while (true);
 
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:197:2: ( ( 'IMPORTS' '{' ( (a6= keywordimport ) )* '}' ) )?
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:196:2: ( (a10= 'IMPORTS' a11= '{' ( (a12= keywordimport ) )* a13= '}' ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -351,14 +409,22 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt5) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:198:3: ( 'IMPORTS' '{' ( (a6= keywordimport ) )* '}' )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:197:3: (a10= 'IMPORTS' a11= '{' ( (a12= keywordimport ) )* a13= '}' )
                     {
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:198:3: ( 'IMPORTS' '{' ( (a6= keywordimport ) )* '}' )
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:199:4: 'IMPORTS' '{' ( (a6= keywordimport ) )* '}'
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:197:3: (a10= 'IMPORTS' a11= '{' ( (a12= keywordimport ) )* a13= '}' )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:198:4: a10= 'IMPORTS' a11= '{' ( (a12= keywordimport ) )* a13= '}'
                     {
-                    match(input,19,FOLLOW_19_in_concretesyntax203); if (failed) return element;
-                    match(input,20,FOLLOW_20_in_concretesyntax208); if (failed) return element;
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:201:4: ( (a6= keywordimport ) )*
+                    a10=(Token)input.LT(1);
+                    match(input,19,FOLLOW_19_in_concretesyntax227); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a10, element); 
+                    }
+                    a11=(Token)input.LT(1);
+                    match(input,20,FOLLOW_20_in_concretesyntax237); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a11, element); 
+                    }
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:200:4: ( (a12= keywordimport ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -371,17 +437,17 @@ public class CsParser extends EMFTextParserImpl {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:202:5: (a6= keywordimport )
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:201:5: (a12= keywordimport )
                     	    {
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:202:5: (a6= keywordimport )
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:203:6: a6= keywordimport
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:201:5: (a12= keywordimport )
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:202:6: a12= keywordimport
                     	    {
-                    	    pushFollow(FOLLOW_keywordimport_in_concretesyntax230);
-                    	    a6=keywordimport();
+                    	    pushFollow(FOLLOW_keywordimport_in_concretesyntax260);
+                    	    a12=keywordimport();
                     	    _fsp--;
                     	    if (failed) return element;
                     	    if ( backtracking==0 ) {
-                    	      ((List) element.eGet(element.eClass().getEStructuralFeature("imports"))).add(a6); copyLocalizationInfos(a6, element); 
+                    	      ((List) element.eGet(element.eClass().getEStructuralFeature("imports"))).add(a12); copyLocalizationInfos(a12, element); 
                     	    }
 
                     	    }
@@ -395,7 +461,11 @@ public class CsParser extends EMFTextParserImpl {
                         }
                     } while (true);
 
-                    match(input,21,FOLLOW_21_in_concretesyntax248); if (failed) return element;
+                    a13=(Token)input.LT(1);
+                    match(input,21,FOLLOW_21_in_concretesyntax282); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a13, element); 
+                    }
 
                     }
 
@@ -405,7 +475,7 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:209:2: ( ( 'OPTIONS' '{' ( (a7= option ';' ) )* '}' ) )?
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:208:2: ( (a14= 'OPTIONS' a15= '{' ( (a16= option a17= ';' ) )* a18= '}' ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -414,14 +484,22 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt7) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:210:3: ( 'OPTIONS' '{' ( (a7= option ';' ) )* '}' )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:209:3: (a14= 'OPTIONS' a15= '{' ( (a16= option a17= ';' ) )* a18= '}' )
                     {
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:210:3: ( 'OPTIONS' '{' ( (a7= option ';' ) )* '}' )
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:211:4: 'OPTIONS' '{' ( (a7= option ';' ) )* '}'
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:209:3: (a14= 'OPTIONS' a15= '{' ( (a16= option a17= ';' ) )* a18= '}' )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:210:4: a14= 'OPTIONS' a15= '{' ( (a16= option a17= ';' ) )* a18= '}'
                     {
-                    match(input,22,FOLLOW_22_in_concretesyntax268); if (failed) return element;
-                    match(input,20,FOLLOW_20_in_concretesyntax273); if (failed) return element;
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:213:4: ( (a7= option ';' ) )*
+                    a14=(Token)input.LT(1);
+                    match(input,22,FOLLOW_22_in_concretesyntax307); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a14, element); 
+                    }
+                    a15=(Token)input.LT(1);
+                    match(input,20,FOLLOW_20_in_concretesyntax317); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a15, element); 
+                    }
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:212:4: ( (a16= option a17= ';' ) )*
                     loop6:
                     do {
                         int alt6=2;
@@ -434,19 +512,23 @@ public class CsParser extends EMFTextParserImpl {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:214:5: (a7= option ';' )
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:213:5: (a16= option a17= ';' )
                     	    {
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:214:5: (a7= option ';' )
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:215:6: a7= option ';'
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:213:5: (a16= option a17= ';' )
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:214:6: a16= option a17= ';'
                     	    {
-                    	    pushFollow(FOLLOW_option_in_concretesyntax295);
-                    	    a7=option();
+                    	    pushFollow(FOLLOW_option_in_concretesyntax340);
+                    	    a16=option();
                     	    _fsp--;
                     	    if (failed) return element;
                     	    if ( backtracking==0 ) {
-                    	      ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a7); copyLocalizationInfos(a7, element); 
+                    	      ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a16); copyLocalizationInfos(a16, element); 
                     	    }
-                    	    match(input,23,FOLLOW_23_in_concretesyntax303); if (failed) return element;
+                    	    a17=(Token)input.LT(1);
+                    	    match(input,23,FOLLOW_23_in_concretesyntax352); if (failed) return element;
+                    	    if ( backtracking==0 ) {
+                    	      copyLocalizationInfos((CommonToken)a17, element); 
+                    	    }
 
                     	    }
 
@@ -459,7 +541,11 @@ public class CsParser extends EMFTextParserImpl {
                         }
                     } while (true);
 
-                    match(input,21,FOLLOW_21_in_concretesyntax320); if (failed) return element;
+                    a18=(Token)input.LT(1);
+                    match(input,21,FOLLOW_21_in_concretesyntax374); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a18, element); 
+                    }
 
                     }
 
@@ -469,7 +555,7 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:222:2: ( ( 'TOKENS' '{' ( (a8= tokendefinition ';' ) )* '}' ) )?
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:221:2: ( (a19= 'TOKENS' a20= '{' ( (a21= tokendefinition a22= ';' ) )* a23= '}' ) )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -478,14 +564,22 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt9) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:223:3: ( 'TOKENS' '{' ( (a8= tokendefinition ';' ) )* '}' )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:222:3: (a19= 'TOKENS' a20= '{' ( (a21= tokendefinition a22= ';' ) )* a23= '}' )
                     {
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:223:3: ( 'TOKENS' '{' ( (a8= tokendefinition ';' ) )* '}' )
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:224:4: 'TOKENS' '{' ( (a8= tokendefinition ';' ) )* '}'
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:222:3: (a19= 'TOKENS' a20= '{' ( (a21= tokendefinition a22= ';' ) )* a23= '}' )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:223:4: a19= 'TOKENS' a20= '{' ( (a21= tokendefinition a22= ';' ) )* a23= '}'
                     {
-                    match(input,24,FOLLOW_24_in_concretesyntax340); if (failed) return element;
-                    match(input,20,FOLLOW_20_in_concretesyntax345); if (failed) return element;
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:226:4: ( (a8= tokendefinition ';' ) )*
+                    a19=(Token)input.LT(1);
+                    match(input,24,FOLLOW_24_in_concretesyntax399); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a19, element); 
+                    }
+                    a20=(Token)input.LT(1);
+                    match(input,20,FOLLOW_20_in_concretesyntax409); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a20, element); 
+                    }
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:225:4: ( (a21= tokendefinition a22= ';' ) )*
                     loop8:
                     do {
                         int alt8=2;
@@ -498,19 +592,23 @@ public class CsParser extends EMFTextParserImpl {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:227:5: (a8= tokendefinition ';' )
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:226:5: (a21= tokendefinition a22= ';' )
                     	    {
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:227:5: (a8= tokendefinition ';' )
-                    	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:228:6: a8= tokendefinition ';'
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:226:5: (a21= tokendefinition a22= ';' )
+                    	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:227:6: a21= tokendefinition a22= ';'
                     	    {
-                    	    pushFollow(FOLLOW_tokendefinition_in_concretesyntax367);
-                    	    a8=tokendefinition();
+                    	    pushFollow(FOLLOW_tokendefinition_in_concretesyntax432);
+                    	    a21=tokendefinition();
                     	    _fsp--;
                     	    if (failed) return element;
                     	    if ( backtracking==0 ) {
-                    	      ((List) element.eGet(element.eClass().getEStructuralFeature("tokens"))).add(a8); copyLocalizationInfos(a8, element); 
+                    	      ((List) element.eGet(element.eClass().getEStructuralFeature("tokens"))).add(a21); copyLocalizationInfos(a21, element); 
                     	    }
-                    	    match(input,23,FOLLOW_23_in_concretesyntax375); if (failed) return element;
+                    	    a22=(Token)input.LT(1);
+                    	    match(input,23,FOLLOW_23_in_concretesyntax444); if (failed) return element;
+                    	    if ( backtracking==0 ) {
+                    	      copyLocalizationInfos((CommonToken)a22, element); 
+                    	    }
 
                     	    }
 
@@ -523,7 +621,11 @@ public class CsParser extends EMFTextParserImpl {
                         }
                     } while (true);
 
-                    match(input,21,FOLLOW_21_in_concretesyntax392); if (failed) return element;
+                    a23=(Token)input.LT(1);
+                    match(input,21,FOLLOW_21_in_concretesyntax466); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a23, element); 
+                    }
 
                     }
 
@@ -533,12 +635,20 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            match(input,25,FOLLOW_25_in_concretesyntax403); if (failed) return element;
-            match(input,20,FOLLOW_20_in_concretesyntax406); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:237:2: ( (a9= rule )+ )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:238:3: (a9= rule )+
+            a24=(Token)input.LT(1);
+            match(input,25,FOLLOW_25_in_concretesyntax482); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a24, element); 
+            }
+            a25=(Token)input.LT(1);
+            match(input,20,FOLLOW_20_in_concretesyntax490); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a25, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:236:2: ( (a26= rule )+ )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:237:3: (a26= rule )+
             {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:238:3: (a9= rule )+
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:237:3: (a26= rule )+
             int cnt10=0;
             loop10:
             do {
@@ -552,14 +662,14 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:239:4: a9= rule
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:238:4: a26= rule
             	    {
-            	    pushFollow(FOLLOW_rule_in_concretesyntax422);
-            	    a9=rule();
+            	    pushFollow(FOLLOW_rule_in_concretesyntax507);
+            	    a26=rule();
             	    _fsp--;
             	    if (failed) return element;
             	    if ( backtracking==0 ) {
-            	      ((List) element.eGet(element.eClass().getEStructuralFeature("rules"))).add(a9); copyLocalizationInfos(a9, element); 
+            	      ((List) element.eGet(element.eClass().getEStructuralFeature("rules"))).add(a26); copyLocalizationInfos(a26, element); 
             	    }
 
             	    }
@@ -578,7 +688,11 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            match(input,21,FOLLOW_21_in_concretesyntax434); if (failed) return element;
+            a27=(Token)input.LT(1);
+            match(input,21,FOLLOW_21_in_concretesyntax523); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a27, element); 
+            }
 
             }
 
@@ -594,41 +708,41 @@ public class CsParser extends EMFTextParserImpl {
     // $ANTLR end concretesyntax
 
 
-	private void addProxy(ConcreteSyntax element, GenClass proxy) {
-		EStructuralFeature feature = element.eClass().getEStructuralFeature("startSymbols");
-		List list = (List) element.eGet(feature);
-		list.add(proxy);
-	}
-
-
     // $ANTLR start keywordimport
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:245:1: keywordimport returns [Import element = null] : a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )? ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:244:1: keywordimport returns [Import element = null] : a0= TEXT a1= ':' a2= QUOTED_60_62 ( (a3= 'WITH' a4= 'SYNTAX' a5= TEXT ) )? ;
     public final Import keywordimport() throws RecognitionException {
         Import element =  null;
 
         Token a0=null;
         Token a1=null;
         Token a2=null;
+        Token a3=null;
+        Token a4=null;
+        Token a5=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createImport();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:249:1: (a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )? )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:250:2: a0= TEXT ':' a1= QUOTED_60_62 ( ( 'WITH' 'SYNTAX' a2= TEXT ) )?
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:248:1: (a0= TEXT a1= ':' a2= QUOTED_60_62 ( (a3= 'WITH' a4= 'SYNTAX' a5= TEXT ) )? )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:249:2: a0= TEXT a1= ':' a2= QUOTED_60_62 ( (a3= 'WITH' a4= 'SYNTAX' a5= TEXT ) )?
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_keywordimport456); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_keywordimport546); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
             }
-            match(input,26,FOLLOW_26_in_keywordimport460); if (failed) return element;
             a1=(Token)input.LT(1);
-            match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_keywordimport467); if (failed) return element;
+            match(input,26,FOLLOW_26_in_keywordimport554); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("package"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); 
+              copyLocalizationInfos((CommonToken)a1, element); 
             }
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:253:2: ( ( 'WITH' 'SYNTAX' a2= TEXT ) )?
+            a2=(Token)input.LT(1);
+            match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_keywordimport562); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("package"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenPackage proxy = GenModelFactory.eINSTANCE.createGenPackage();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("package"), proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:252:2: ( (a3= 'WITH' a4= 'SYNTAX' a5= TEXT ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -637,17 +751,25 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt11) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:254:3: ( 'WITH' 'SYNTAX' a2= TEXT )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:253:3: (a3= 'WITH' a4= 'SYNTAX' a5= TEXT )
                     {
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:254:3: ( 'WITH' 'SYNTAX' a2= TEXT )
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:255:4: 'WITH' 'SYNTAX' a2= TEXT
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:253:3: (a3= 'WITH' a4= 'SYNTAX' a5= TEXT )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:254:4: a3= 'WITH' a4= 'SYNTAX' a5= TEXT
                     {
-                    match(input,27,FOLLOW_27_in_keywordimport480); if (failed) return element;
-                    match(input,28,FOLLOW_28_in_keywordimport485); if (failed) return element;
-                    a2=(Token)input.LT(1);
-                    match(input,TEXT,FOLLOW_TEXT_in_keywordimport494); if (failed) return element;
+                    a3=(Token)input.LT(1);
+                    match(input,27,FOLLOW_27_in_keywordimport579); if (failed) return element;
                     if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("concreteSyntax"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;ConcreteSyntax proxy = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("concreteSyntax"), proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); 
+                      copyLocalizationInfos((CommonToken)a3, element); 
+                    }
+                    a4=(Token)input.LT(1);
+                    match(input,28,FOLLOW_28_in_keywordimport589); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      copyLocalizationInfos((CommonToken)a4, element); 
+                    }
+                    a5=(Token)input.LT(1);
+                    match(input,TEXT,FOLLOW_TEXT_in_keywordimport599); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("concreteSyntax"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a5,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;ConcreteSyntax proxy = ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("concreteSyntax"), proxy); copyLocalizationInfos((CommonToken) a5, element); copyLocalizationInfos((CommonToken) a5, proxy); 
                     }
 
                     }
@@ -674,30 +796,35 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start option
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:262:1: option returns [Option element = null] : a0= TEXT '=' a1= TEXT ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:261:1: option returns [Option element = null] : a0= TEXT a1= '=' a2= TEXT ;
     public final Option option() throws RecognitionException {
         Option element =  null;
 
         Token a0=null;
         Token a1=null;
+        Token a2=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createOption();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:266:1: (a0= TEXT '=' a1= TEXT )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:267:2: a0= TEXT '=' a1= TEXT
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:265:1: (a0= TEXT a1= '=' a2= TEXT )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:266:2: a0= TEXT a1= '=' a2= TEXT
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_option525); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_option630); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
             }
-            match(input,29,FOLLOW_29_in_option529); if (failed) return element;
             a1=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_option536); if (failed) return element;
+            match(input,29,FOLLOW_29_in_option638); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("value"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
+              copyLocalizationInfos((CommonToken)a1, element); 
+            }
+            a2=(Token)input.LT(1);
+            match(input,TEXT,FOLLOW_TEXT_in_option646); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("value"), resolved); copyLocalizationInfos((CommonToken) a2, element); 
             }
 
             }
@@ -715,23 +842,25 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start rule
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:272:1: rule returns [Rule element = null] : (a0= TEXT | a1= QNAME ) '::=' a2= choice ';' ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:271:1: rule returns [Rule element = null] : (a0= TEXT | a1= QNAME ) a2= '::=' a3= choice a4= ';' ;
     public final Rule rule() throws RecognitionException {
         Rule element =  null;
 
         Token a0=null;
         Token a1=null;
-        Choice a2 = null;
+        Token a2=null;
+        Token a4=null;
+        Choice a3 = null;
 
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createRule();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:276:1: ( (a0= TEXT | a1= QNAME ) '::=' a2= choice ';' )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:277:2: (a0= TEXT | a1= QNAME ) '::=' a2= choice ';'
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:275:1: ( (a0= TEXT | a1= QNAME ) a2= '::=' a3= choice a4= ';' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:276:2: (a0= TEXT | a1= QNAME ) a2= '::=' a3= choice a4= ';'
             {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:277:2: (a0= TEXT | a1= QNAME )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:276:2: (a0= TEXT | a1= QNAME )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -744,29 +873,29 @@ public class CsParser extends EMFTextParserImpl {
             else {
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("277:2: (a0= TEXT | a1= QNAME )", 12, 0, input);
+                    new NoViableAltException("276:2: (a0= TEXT | a1= QNAME )", 12, 0, input);
 
                 throw nvae;
             }
             switch (alt12) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:278:3: a0= TEXT
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:277:3: a0= TEXT
                     {
                     a0=(Token)input.LT(1);
-                    match(input,TEXT,FOLLOW_TEXT_in_rule563); if (failed) return element;
+                    match(input,TEXT,FOLLOW_TEXT_in_rule673); if (failed) return element;
                     if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
                     }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:281:3: a1= QNAME
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:280:3: a1= QNAME
                     {
                     a1=(Token)input.LT(1);
-                    match(input,QNAME,FOLLOW_QNAME_in_rule577); if (failed) return element;
+                    match(input,QNAME,FOLLOW_QNAME_in_rule687); if (failed) return element;
                     if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); 
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("metaclass"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenClass proxy = GenModelFactory.eINSTANCE.createGenClass();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); 
                     }
 
                     }
@@ -774,15 +903,23 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            match(input,30,FOLLOW_30_in_rule584); if (failed) return element;
-            pushFollow(FOLLOW_choice_in_rule591);
-            a2=choice();
+            a2=(Token)input.LT(1);
+            match(input,30,FOLLOW_30_in_rule698); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a2, element); 
+            }
+            pushFollow(FOLLOW_choice_in_rule706);
+            a3=choice();
             _fsp--;
             if (failed) return element;
             if ( backtracking==0 ) {
-              element.eSet(element.eClass().getEStructuralFeature("definition"), a2); copyLocalizationInfos(a2, element); 
+              element.eSet(element.eClass().getEStructuralFeature("definition"), a3); copyLocalizationInfos(a3, element); 
             }
-            match(input,23,FOLLOW_23_in_rule595); if (failed) return element;
+            a4=(Token)input.LT(1);
+            match(input,23,FOLLOW_23_in_rule714); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a4, element); 
+            }
 
             }
 
@@ -799,7 +936,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start sequence
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:288:1: sequence returns [Sequence element = null] : (a0= definition )+ ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:287:1: sequence returns [Sequence element = null] : (a0= definition )+ ;
     public final Sequence sequence() throws RecognitionException {
         Sequence element =  null;
 
@@ -810,10 +947,10 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createSequence();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:292:1: ( (a0= definition )+ )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:293:2: (a0= definition )+
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:291:1: ( (a0= definition )+ )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:292:2: (a0= definition )+
             {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:293:2: (a0= definition )+
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:292:2: (a0= definition )+
             int cnt13=0;
             loop13:
             do {
@@ -827,9 +964,9 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt13) {
             	case 1 :
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:294:3: a0= definition
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:293:3: a0= definition
             	    {
-            	    pushFollow(FOLLOW_definition_in_sequence621);
+            	    pushFollow(FOLLOW_definition_in_sequence741);
             	    a0=definition();
             	    _fsp--;
             	    if (failed) return element;
@@ -866,30 +1003,31 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start choice
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:298:1: choice returns [Choice element = null] : a0= sequence ( ( '|' a1= sequence ) )* ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:297:1: choice returns [Choice element = null] : a0= sequence ( (a1= '|' a2= sequence ) )* ;
     public final Choice choice() throws RecognitionException {
         Choice element =  null;
 
+        Token a1=null;
         Sequence a0 = null;
 
-        Sequence a1 = null;
+        Sequence a2 = null;
 
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createChoice();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:302:1: (a0= sequence ( ( '|' a1= sequence ) )* )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:303:2: a0= sequence ( ( '|' a1= sequence ) )*
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:301:1: (a0= sequence ( (a1= '|' a2= sequence ) )* )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:302:2: a0= sequence ( (a1= '|' a2= sequence ) )*
             {
-            pushFollow(FOLLOW_sequence_in_choice648);
+            pushFollow(FOLLOW_sequence_in_choice768);
             a0=sequence();
             _fsp--;
             if (failed) return element;
             if ( backtracking==0 ) {
               ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a0); copyLocalizationInfos(a0, element); 
             }
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:304:2: ( ( '|' a1= sequence ) )*
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:303:2: ( (a1= '|' a2= sequence ) )*
             loop14:
             do {
                 int alt14=2;
@@ -902,18 +1040,22 @@ public class CsParser extends EMFTextParserImpl {
 
                 switch (alt14) {
             	case 1 :
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:305:3: ( '|' a1= sequence )
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:304:3: (a1= '|' a2= sequence )
             	    {
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:305:3: ( '|' a1= sequence )
-            	    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:306:4: '|' a1= sequence
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:304:3: (a1= '|' a2= sequence )
+            	    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:305:4: a1= '|' a2= sequence
             	    {
-            	    match(input,31,FOLLOW_31_in_choice661); if (failed) return element;
-            	    pushFollow(FOLLOW_sequence_in_choice670);
-            	    a1=sequence();
+            	    a1=(Token)input.LT(1);
+            	    match(input,31,FOLLOW_31_in_choice785); if (failed) return element;
+            	    if ( backtracking==0 ) {
+            	      copyLocalizationInfos((CommonToken)a1, element); 
+            	    }
+            	    pushFollow(FOLLOW_sequence_in_choice795);
+            	    a2=sequence();
             	    _fsp--;
             	    if (failed) return element;
             	    if ( backtracking==0 ) {
-            	      ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a1); copyLocalizationInfos(a1, element); 
+            	      ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a2); copyLocalizationInfos(a2, element); 
             	    }
 
             	    }
@@ -943,7 +1085,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start csstring
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:312:1: csstring returns [CsString element = null] : a0= QUOTED_34_34 ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:311:1: csstring returns [CsString element = null] : a0= QUOTED_34_34 ;
     public final CsString csstring() throws RecognitionException {
         CsString element =  null;
 
@@ -953,13 +1095,13 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createCsString();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:316:1: (a0= QUOTED_34_34 )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:317:2: a0= QUOTED_34_34
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:315:1: (a0= QUOTED_34_34 )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:316:2: a0= QUOTED_34_34
             {
             a0=(Token)input.LT(1);
-            match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_csstring701); if (failed) return element;
+            match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_csstring826); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("value"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("value"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("value"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
             }
 
             }
@@ -977,35 +1119,45 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start definedplaceholder
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:320:1: definedplaceholder returns [DefinedPlaceholder element = null] : a0= TEXT '[' a1= TEXT ']' (a2= cardinality )? ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:319:1: definedplaceholder returns [DefinedPlaceholder element = null] : a0= TEXT a1= '[' a2= TEXT a3= ']' (a4= cardinality )? ;
     public final DefinedPlaceholder definedplaceholder() throws RecognitionException {
         DefinedPlaceholder element =  null;
 
         Token a0=null;
         Token a1=null;
-        Cardinality a2 = null;
+        Token a2=null;
+        Token a3=null;
+        Cardinality a4 = null;
 
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createDefinedPlaceholder();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:324:1: (a0= TEXT '[' a1= TEXT ']' (a2= cardinality )? )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:325:2: a0= TEXT '[' a1= TEXT ']' (a2= cardinality )?
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:323:1: (a0= TEXT a1= '[' a2= TEXT a3= ']' (a4= cardinality )? )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:324:2: a0= TEXT a1= '[' a2= TEXT a3= ']' (a4= cardinality )?
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_definedplaceholder724); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_definedplaceholder849); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
             }
-            match(input,32,FOLLOW_32_in_definedplaceholder728); if (failed) return element;
             a1=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_definedplaceholder735); if (failed) return element;
+            match(input,32,FOLLOW_32_in_definedplaceholder857); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("token"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;NormalToken proxy = ConcretesyntaxFactory.eINSTANCE.createNormalToken();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("token"), proxy); copyLocalizationInfos((CommonToken) a1, element); copyLocalizationInfos((CommonToken) a1, proxy); 
+              copyLocalizationInfos((CommonToken)a1, element); 
             }
-            match(input,33,FOLLOW_33_in_definedplaceholder739); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:329:2: (a2= cardinality )?
+            a2=(Token)input.LT(1);
+            match(input,TEXT,FOLLOW_TEXT_in_definedplaceholder865); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("token"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;NormalToken proxy = ConcretesyntaxFactory.eINSTANCE.createNormalToken();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("token"), proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); 
+            }
+            a3=(Token)input.LT(1);
+            match(input,33,FOLLOW_33_in_definedplaceholder873); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a3, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:328:2: (a4= cardinality )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1014,14 +1166,14 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt15) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:330:3: a2= cardinality
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:329:3: a4= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_definedplaceholder750);
-                    a2=cardinality();
+                    pushFollow(FOLLOW_cardinality_in_definedplaceholder885);
+                    a4=cardinality();
                     _fsp--;
                     if (failed) return element;
                     if ( backtracking==0 ) {
-                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a2); copyLocalizationInfos(a2, element); 
+                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a4); copyLocalizationInfos(a4, element); 
                     }
 
                     }
@@ -1045,30 +1197,37 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start derivedplaceholder
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:334:1: derivedplaceholder returns [DerivedPlaceholder element = null] : a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )? ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:333:1: derivedplaceholder returns [DerivedPlaceholder element = null] : a0= TEXT a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )? ;
     public final DerivedPlaceholder derivedplaceholder() throws RecognitionException {
         DerivedPlaceholder element =  null;
 
         Token a0=null;
         Token a1=null;
         Token a2=null;
-        Cardinality a3 = null;
+        Token a3=null;
+        Token a4=null;
+        Token a5=null;
+        Cardinality a6 = null;
 
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createDerivedPlaceholder();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:338:1: (a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )? )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:339:2: a0= TEXT '[' ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )? ']' (a3= cardinality )?
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:337:1: (a0= TEXT a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )? )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:338:2: a0= TEXT a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )?
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_derivedplaceholder777); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_derivedplaceholder912); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
             }
-            match(input,32,FOLLOW_32_in_derivedplaceholder781); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:341:2: ( (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? ) )?
+            a1=(Token)input.LT(1);
+            match(input,32,FOLLOW_32_in_derivedplaceholder920); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a1, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:340:2: ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1077,17 +1236,17 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt17) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:342:3: (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:341:3: (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? )
                     {
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:342:3: (a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )? )
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:343:4: a1= QUOTED_39_39 ( ( ',' a2= QUOTED_39_39 ) )?
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:341:3: (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? )
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:342:4: a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )?
                     {
-                    a1=(Token)input.LT(1);
-                    match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder797); if (failed) return element;
+                    a2=(Token)input.LT(1);
+                    match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder937); if (failed) return element;
                     if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a2, element); 
                     }
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:344:4: ( ( ',' a2= QUOTED_39_39 ) )?
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:343:4: ( (a3= ',' a4= QUOTED_39_39 ) )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -1096,16 +1255,20 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     switch (alt16) {
                         case 1 :
-                            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:345:5: ( ',' a2= QUOTED_39_39 )
+                            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:344:5: (a3= ',' a4= QUOTED_39_39 )
                             {
-                            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:345:5: ( ',' a2= QUOTED_39_39 )
-                            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:346:6: ',' a2= QUOTED_39_39
+                            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:344:5: (a3= ',' a4= QUOTED_39_39 )
+                            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:345:6: a3= ',' a4= QUOTED_39_39
                             {
-                            match(input,18,FOLLOW_18_in_derivedplaceholder816); if (failed) return element;
-                            a2=(Token)input.LT(1);
-                            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder827); if (failed) return element;
+                            a3=(Token)input.LT(1);
+                            match(input,18,FOLLOW_18_in_derivedplaceholder960); if (failed) return element;
                             if ( backtracking==0 ) {
-                              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); copyLocalizationInfos((CommonToken) a2, element); 
+                              copyLocalizationInfos((CommonToken)a3, element); 
+                            }
+                            a4=(Token)input.LT(1);
+                            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder972); if (failed) return element;
+                            if ( backtracking==0 ) {
+                              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a4.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a4,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); copyLocalizationInfos((CommonToken) a4, element); 
                             }
 
                             }
@@ -1125,8 +1288,12 @@ public class CsParser extends EMFTextParserImpl {
 
             }
 
-            match(input,33,FOLLOW_33_in_derivedplaceholder851); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:353:2: (a3= cardinality )?
+            a5=(Token)input.LT(1);
+            match(input,33,FOLLOW_33_in_derivedplaceholder1000); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a5, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:352:2: (a6= cardinality )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1135,9 +1302,177 @@ public class CsParser extends EMFTextParserImpl {
             }
             switch (alt18) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:354:3: a3= cardinality
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:353:3: a6= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_derivedplaceholder862);
+                    pushFollow(FOLLOW_cardinality_in_derivedplaceholder1012);
+                    a6=cardinality();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a6); copyLocalizationInfos(a6, element); 
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return element;
+    }
+    // $ANTLR end derivedplaceholder
+
+
+    // $ANTLR start containment
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:357:1: containment returns [Containment element = null] : (a0= TEXT a1= cardinality | a2= TEXT ) ;
+    public final Containment containment() throws RecognitionException {
+        Containment element =  null;
+
+        Token a0=null;
+        Token a2=null;
+        Cardinality a1 = null;
+
+
+
+        	element = ConcretesyntaxFactory.eINSTANCE.createContainment();
+
+        try {
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:361:1: ( (a0= TEXT a1= cardinality | a2= TEXT ) )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:362:2: (a0= TEXT a1= cardinality | a2= TEXT )
+            {
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:362:2: (a0= TEXT a1= cardinality | a2= TEXT )
+            int alt19=2;
+            int LA19_0 = input.LA(1);
+
+            if ( (LA19_0==TEXT) ) {
+                int LA19_1 = input.LA(2);
+
+                if ( (LA19_1==EOF||LA19_1==TEXT||LA19_1==QUOTED_34_34||(LA19_1>=TEXT_35_ && LA19_1<=TEXT_33_)||LA19_1==23||LA19_1==31||(LA19_1>=34 && LA19_1<=35)) ) {
+                    alt19=2;
+                }
+                else if ( ((LA19_1>=36 && LA19_1<=38)) ) {
+                    alt19=1;
+                }
+                else {
+                    if (backtracking>0) {failed=true; return element;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("362:2: (a0= TEXT a1= cardinality | a2= TEXT )", 19, 1, input);
+
+                    throw nvae;
+                }
+            }
+            else {
+                if (backtracking>0) {failed=true; return element;}
+                NoViableAltException nvae =
+                    new NoViableAltException("362:2: (a0= TEXT a1= cardinality | a2= TEXT )", 19, 0, input);
+
+                throw nvae;
+            }
+            switch (alt19) {
+                case 1 :
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:363:3: a0= TEXT a1= cardinality
+                    {
+                    a0=(Token)input.LT(1);
+                    match(input,TEXT,FOLLOW_TEXT_in_containment1043); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
+                    }
+                    pushFollow(FOLLOW_cardinality_in_containment1052);
+                    a1=cardinality();
+                    _fsp--;
+                    if (failed) return element;
+                    if ( backtracking==0 ) {
+                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a1); copyLocalizationInfos(a1, element); 
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:367:3: a2= TEXT
+                    {
+                    a2=(Token)input.LT(1);
+                    match(input,TEXT,FOLLOW_TEXT_in_containment1066); if (failed) return element;
+                    if ( backtracking==0 ) {
+                      org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); 
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return element;
+    }
+    // $ANTLR end containment
+
+
+    // $ANTLR start compounddefinition
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:371:1: compounddefinition returns [CompoundDefinition element = null] : a0= '(' a1= choice a2= ')' (a3= cardinality )? ;
+    public final CompoundDefinition compounddefinition() throws RecognitionException {
+        CompoundDefinition element =  null;
+
+        Token a0=null;
+        Token a2=null;
+        Choice a1 = null;
+
+        Cardinality a3 = null;
+
+
+
+        	element = ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
+
+        try {
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:375:1: (a0= '(' a1= choice a2= ')' (a3= cardinality )? )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:376:2: a0= '(' a1= choice a2= ')' (a3= cardinality )?
+            {
+            a0=(Token)input.LT(1);
+            match(input,34,FOLLOW_34_in_compounddefinition1092); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a0, element); 
+            }
+            pushFollow(FOLLOW_choice_in_compounddefinition1100);
+            a1=choice();
+            _fsp--;
+            if (failed) return element;
+            if ( backtracking==0 ) {
+              element.eSet(element.eClass().getEStructuralFeature("definitions"), a1); copyLocalizationInfos(a1, element); 
+            }
+            a2=(Token)input.LT(1);
+            match(input,35,FOLLOW_35_in_compounddefinition1108); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a2, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:379:2: (a3= cardinality )?
+            int alt20=2;
+            int LA20_0 = input.LA(1);
+
+            if ( ((LA20_0>=36 && LA20_0<=38)) ) {
+                alt20=1;
+            }
+            switch (alt20) {
+                case 1 :
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:380:3: a3= cardinality
+                    {
+                    pushFollow(FOLLOW_cardinality_in_compounddefinition1120);
                     a3=cardinality();
                     _fsp--;
                     if (failed) return element;
@@ -1162,180 +1497,28 @@ public class CsParser extends EMFTextParserImpl {
         }
         return element;
     }
-    // $ANTLR end derivedplaceholder
-
-
-    // $ANTLR start containment
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:358:1: containment returns [Containment element = null] : (a0= TEXT a1= cardinality | a2= TEXT ) ;
-    public final Containment containment() throws RecognitionException {
-        Containment element =  null;
-
-        Token a0=null;
-        Token a2=null;
-        Cardinality a1 = null;
-
-
-
-        	element = ConcretesyntaxFactory.eINSTANCE.createContainment();
-
-        try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:362:1: ( (a0= TEXT a1= cardinality | a2= TEXT ) )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:363:2: (a0= TEXT a1= cardinality | a2= TEXT )
-            {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:363:2: (a0= TEXT a1= cardinality | a2= TEXT )
-            int alt19=2;
-            int LA19_0 = input.LA(1);
-
-            if ( (LA19_0==TEXT) ) {
-                int LA19_1 = input.LA(2);
-
-                if ( (LA19_1==EOF||LA19_1==TEXT||LA19_1==QUOTED_34_34||(LA19_1>=TEXT_35_ && LA19_1<=TEXT_33_)||LA19_1==23||LA19_1==31||(LA19_1>=34 && LA19_1<=35)) ) {
-                    alt19=2;
-                }
-                else if ( ((LA19_1>=36 && LA19_1<=38)) ) {
-                    alt19=1;
-                }
-                else {
-                    if (backtracking>0) {failed=true; return element;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("363:2: (a0= TEXT a1= cardinality | a2= TEXT )", 19, 1, input);
-
-                    throw nvae;
-                }
-            }
-            else {
-                if (backtracking>0) {failed=true; return element;}
-                NoViableAltException nvae =
-                    new NoViableAltException("363:2: (a0= TEXT a1= cardinality | a2= TEXT )", 19, 0, input);
-
-                throw nvae;
-            }
-            switch (alt19) {
-                case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:364:3: a0= TEXT a1= cardinality
-                    {
-                    a0=(Token)input.LT(1);
-                    match(input,TEXT,FOLLOW_TEXT_in_containment893); if (failed) return element;
-                    if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a0, element); copyLocalizationInfos((CommonToken) a0, proxy); 
-                    }
-                    pushFollow(FOLLOW_cardinality_in_containment902);
-                    a1=cardinality();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a1); copyLocalizationInfos(a1, element); 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:368:3: a2= TEXT
-                    {
-                    a2=(Token)input.LT(1);
-                    match(input,TEXT,FOLLOW_TEXT_in_containment916); if (failed) return element;
-                    if ( backtracking==0 ) {
-                      TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("feature"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;GenFeature proxy = GenModelFactory.eINSTANCE.createGenFeature();((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); copyLocalizationInfos((CommonToken) a2, element); copyLocalizationInfos((CommonToken) a2, proxy); 
-                    }
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return element;
-    }
-    // $ANTLR end containment
-
-
-    // $ANTLR start compounddefinition
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:372:1: compounddefinition returns [CompoundDefinition element = null] : '(' a0= choice ')' (a1= cardinality )? ;
-    public final CompoundDefinition compounddefinition() throws RecognitionException {
-        CompoundDefinition element =  null;
-
-        Choice a0 = null;
-
-        Cardinality a1 = null;
-
-
-
-        	element = ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
-
-        try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:376:1: ( '(' a0= choice ')' (a1= cardinality )? )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:377:2: '(' a0= choice ')' (a1= cardinality )?
-            {
-            match(input,34,FOLLOW_34_in_compounddefinition938); if (failed) return element;
-            pushFollow(FOLLOW_choice_in_compounddefinition945);
-            a0=choice();
-            _fsp--;
-            if (failed) return element;
-            if ( backtracking==0 ) {
-              element.eSet(element.eClass().getEStructuralFeature("definitions"), a0); copyLocalizationInfos(a0, element); 
-            }
-            match(input,35,FOLLOW_35_in_compounddefinition949); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:380:2: (a1= cardinality )?
-            int alt20=2;
-            int LA20_0 = input.LA(1);
-
-            if ( ((LA20_0>=36 && LA20_0<=38)) ) {
-                alt20=1;
-            }
-            switch (alt20) {
-                case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:381:3: a1= cardinality
-                    {
-                    pushFollow(FOLLOW_cardinality_in_compounddefinition960);
-                    a1=cardinality();
-                    _fsp--;
-                    if (failed) return element;
-                    if ( backtracking==0 ) {
-                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a1); copyLocalizationInfos(a1, element); 
-                    }
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-        }
-        return element;
-    }
     // $ANTLR end compounddefinition
 
 
     // $ANTLR start plus
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:385:1: plus returns [PLUS element = null] : '+' ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:384:1: plus returns [PLUS element = null] : a0= '+' ;
     public final PLUS plus() throws RecognitionException {
         PLUS element =  null;
+
+        Token a0=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createPLUS();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:389:1: ( '+' )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:390:2: '+'
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:388:1: (a0= '+' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:389:2: a0= '+'
             {
-            match(input,36,FOLLOW_36_in_plus983); if (failed) return element;
+            a0=(Token)input.LT(1);
+            match(input,36,FOLLOW_36_in_plus1147); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a0, element); 
+            }
 
             }
 
@@ -1352,18 +1535,24 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start star
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:393:1: star returns [STAR element = null] : '*' ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:392:1: star returns [STAR element = null] : a0= '*' ;
     public final STAR star() throws RecognitionException {
         STAR element =  null;
+
+        Token a0=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createSTAR();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:397:1: ( '*' )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:398:2: '*'
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:396:1: (a0= '*' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:397:2: a0= '*'
             {
-            match(input,37,FOLLOW_37_in_star1001); if (failed) return element;
+            a0=(Token)input.LT(1);
+            match(input,37,FOLLOW_37_in_star1170); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a0, element); 
+            }
 
             }
 
@@ -1380,18 +1569,24 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start questionmark
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:401:1: questionmark returns [QUESTIONMARK element = null] : '?' ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:400:1: questionmark returns [QUESTIONMARK element = null] : a0= '?' ;
     public final QUESTIONMARK questionmark() throws RecognitionException {
         QUESTIONMARK element =  null;
+
+        Token a0=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createQUESTIONMARK();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:405:1: ( '?' )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:406:2: '?'
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:404:1: (a0= '?' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:405:2: a0= '?'
             {
-            match(input,38,FOLLOW_38_in_questionmark1019); if (failed) return element;
+            a0=(Token)input.LT(1);
+            match(input,38,FOLLOW_38_in_questionmark1193); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a0, element); 
+            }
 
             }
 
@@ -1408,7 +1603,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start whitespaces
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:409:1: whitespaces returns [WhiteSpaces element = null] : a0= TEXT_35_ ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:408:1: whitespaces returns [WhiteSpaces element = null] : a0= TEXT_35_ ;
     public final WhiteSpaces whitespaces() throws RecognitionException {
         WhiteSpaces element =  null;
 
@@ -1418,13 +1613,13 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:413:1: (a0= TEXT_35_ )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:414:2: a0= TEXT_35_
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:412:1: (a0= TEXT_35_ )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:413:2: a0= TEXT_35_
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT_35_,FOLLOW_TEXT_35__in_whitespaces1041); if (failed) return element;
+            match(input,TEXT_35_,FOLLOW_TEXT_35__in_whitespaces1216); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_35_");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("amount"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (java.lang.Integer)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("amount"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_35_");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("amount"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (java.lang.Integer)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("amount"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
             }
 
             }
@@ -1442,7 +1637,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start linebreak
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:417:1: linebreak returns [LineBreak element = null] : a0= TEXT_33_ ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:416:1: linebreak returns [LineBreak element = null] : a0= TEXT_33_ ;
     public final LineBreak linebreak() throws RecognitionException {
         LineBreak element =  null;
 
@@ -1452,13 +1647,13 @@ public class CsParser extends EMFTextParserImpl {
         	element = ConcretesyntaxFactory.eINSTANCE.createLineBreak();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:421:1: (a0= TEXT_33_ )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:422:2: a0= TEXT_33_
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:420:1: (a0= TEXT_33_ )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:421:2: a0= TEXT_33_
             {
             a0=(Token)input.LT(1);
-            match(input,TEXT_33_,FOLLOW_TEXT_33__in_linebreak1064); if (failed) return element;
+            match(input,TEXT_33_,FOLLOW_TEXT_33__in_linebreak1239); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_33_");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("tab"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (java.lang.Integer)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("tab"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT_33_");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("tab"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a0,resolvedResolver.getErrorMessage());int resolved = (java.lang.Integer)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("tab"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
             }
 
             }
@@ -1476,30 +1671,35 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start normaltoken
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:425:1: normaltoken returns [NormalToken element = null] : 'DEFINE' a0= TEXT a1= QUOTED_36_36 ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:424:1: normaltoken returns [NormalToken element = null] : a0= 'DEFINE' a1= TEXT a2= QUOTED_36_36 ;
     public final NormalToken normaltoken() throws RecognitionException {
         NormalToken element =  null;
 
         Token a0=null;
         Token a1=null;
+        Token a2=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:429:1: ( 'DEFINE' a0= TEXT a1= QUOTED_36_36 )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:430:2: 'DEFINE' a0= TEXT a1= QUOTED_36_36
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:428:1: (a0= 'DEFINE' a1= TEXT a2= QUOTED_36_36 )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:429:2: a0= 'DEFINE' a1= TEXT a2= QUOTED_36_36
             {
-            match(input,39,FOLLOW_39_in_normaltoken1083); if (failed) return element;
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_normaltoken1090); if (failed) return element;
+            match(input,39,FOLLOW_39_in_normaltoken1262); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              copyLocalizationInfos((CommonToken)a0, element); 
             }
             a1=(Token)input.LT(1);
-            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_normaltoken1098); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_normaltoken1270); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
+            }
+            a2=(Token)input.LT(1);
+            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_normaltoken1278); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); copyLocalizationInfos((CommonToken) a2, element); 
             }
 
             }
@@ -1517,7 +1717,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start decoratedtoken
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:435:1: decoratedtoken returns [DecoratedToken element = null] : 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:434:1: decoratedtoken returns [DecoratedToken element = null] : a0= 'DEFINE' a1= TEXT (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) ;
     public final DecoratedToken decoratedtoken() throws RecognitionException {
         DecoratedToken element =  null;
 
@@ -1525,60 +1725,85 @@ public class CsParser extends EMFTextParserImpl {
         Token a1=null;
         Token a2=null;
         Token a3=null;
+        Token a4=null;
+        Token a5=null;
+        Token a6=null;
+        Token a7=null;
+        Token a8=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createDecoratedToken();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:439:1: ( 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' ) )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:440:2: 'DEFINE' a0= TEXT ( '[' (a1= QUOTED_39_39 ) ']' ) a2= QUOTED_36_36 ( '[' (a3= QUOTED_39_39 ) ']' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:438:1: (a0= 'DEFINE' a1= TEXT (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:439:2: a0= 'DEFINE' a1= TEXT (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' )
             {
-            match(input,39,FOLLOW_39_in_decoratedtoken1117); if (failed) return element;
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_decoratedtoken1124); if (failed) return element;
+            match(input,39,FOLLOW_39_in_decoratedtoken1301); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              copyLocalizationInfos((CommonToken)a0, element); 
             }
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:442:2: ( '[' (a1= QUOTED_39_39 ) ']' )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:443:3: '[' (a1= QUOTED_39_39 ) ']'
-            {
-            match(input,32,FOLLOW_32_in_decoratedtoken1132); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:444:3: (a1= QUOTED_39_39 )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:445:4: a1= QUOTED_39_39
-            {
             a1=(Token)input.LT(1);
-            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1145); if (failed) return element;
+            match(input,TEXT,FOLLOW_TEXT_in_decoratedtoken1309); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
             }
-
-            }
-
-            match(input,33,FOLLOW_33_in_decoratedtoken1154); if (failed) return element;
-
-            }
-
-            a2=(Token)input.LT(1);
-            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_decoratedtoken1164); if (failed) return element;
-            if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a2.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a2,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); copyLocalizationInfos((CommonToken) a2, element); 
-            }
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:450:2: ( '[' (a3= QUOTED_39_39 ) ']' )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:451:3: '[' (a3= QUOTED_39_39 ) ']'
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:441:2: (a2= '[' (a3= QUOTED_39_39 ) a4= ']' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:442:3: a2= '[' (a3= QUOTED_39_39 ) a4= ']'
             {
-            match(input,32,FOLLOW_32_in_decoratedtoken1172); if (failed) return element;
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:452:3: (a3= QUOTED_39_39 )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:453:4: a3= QUOTED_39_39
+            a2=(Token)input.LT(1);
+            match(input,32,FOLLOW_32_in_decoratedtoken1321); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a2, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:443:3: (a3= QUOTED_39_39 )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:444:4: a3= QUOTED_39_39
             {
             a3=(Token)input.LT(1);
-            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1185); if (failed) return element;
+            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1335); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a3,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); copyLocalizationInfos((CommonToken) a3, element); 
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a3.getText(),element.eClass().getEStructuralFeature("prefix"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a3,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); copyLocalizationInfos((CommonToken) a3, element); 
             }
 
             }
 
-            match(input,33,FOLLOW_33_in_decoratedtoken1194); if (failed) return element;
+            a4=(Token)input.LT(1);
+            match(input,33,FOLLOW_33_in_decoratedtoken1348); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a4, element); 
+            }
+
+            }
+
+            a5=(Token)input.LT(1);
+            match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_decoratedtoken1359); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("regex"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a5,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); copyLocalizationInfos((CommonToken) a5, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:449:2: (a6= '[' (a7= QUOTED_39_39 ) a8= ']' )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:450:3: a6= '[' (a7= QUOTED_39_39 ) a8= ']'
+            {
+            a6=(Token)input.LT(1);
+            match(input,32,FOLLOW_32_in_decoratedtoken1371); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a6, element); 
+            }
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:451:3: (a7= QUOTED_39_39 )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:452:4: a7= QUOTED_39_39
+            {
+            a7=(Token)input.LT(1);
+            match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1385); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a7.getText(),element.eClass().getEStructuralFeature("suffix"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a7,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); copyLocalizationInfos((CommonToken) a7, element); 
+            }
+
+            }
+
+            a8=(Token)input.LT(1);
+            match(input,33,FOLLOW_33_in_decoratedtoken1398); if (failed) return element;
+            if ( backtracking==0 ) {
+              copyLocalizationInfos((CommonToken)a8, element); 
+            }
 
             }
 
@@ -1598,24 +1823,29 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start predefinedtoken
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:459:1: predefinedtoken returns [PreDefinedToken element = null] : 'PREDEFINED' a0= TEXT ;
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:458:1: predefinedtoken returns [PreDefinedToken element = null] : a0= 'PREDEFINED' a1= TEXT ;
     public final PreDefinedToken predefinedtoken() throws RecognitionException {
         PreDefinedToken element =  null;
 
         Token a0=null;
+        Token a1=null;
 
 
         	element = ConcretesyntaxFactory.eINSTANCE.createPreDefinedToken();
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:463:1: ( 'PREDEFINED' a0= TEXT )
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:464:2: 'PREDEFINED' a0= TEXT
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:462:1: (a0= 'PREDEFINED' a1= TEXT )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:463:2: a0= 'PREDEFINED' a1= TEXT
             {
-            match(input,40,FOLLOW_40_in_predefinedtoken1215); if (failed) return element;
             a0=(Token)input.LT(1);
-            match(input,TEXT,FOLLOW_TEXT_in_predefinedtoken1222); if (failed) return element;
+            match(input,40,FOLLOW_40_in_predefinedtoken1424); if (failed) return element;
             if ( backtracking==0 ) {
-              TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a0.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null)throw new TokenConversionException(a0,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a0, element); 
+              copyLocalizationInfos((CommonToken)a0, element); 
+            }
+            a1=(Token)input.LT(1);
+            match(input,TEXT,FOLLOW_TEXT_in_predefinedtoken1432); if (failed) return element;
+            if ( backtracking==0 ) {
+              org.emftext.runtime.resource.TokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a1.getText(),element.eClass().getEStructuralFeature("name"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a1,resolvedResolver.getErrorMessage());java.lang.String resolved = (java.lang.String)resolvedObject;element.eSet(element.eClass().getEStructuralFeature("name"), resolved); copyLocalizationInfos((CommonToken) a1, element); 
             }
 
             }
@@ -1633,7 +1863,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start tokendefinition
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:468:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:467:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );
     public final TokenDefinition tokendefinition() throws RecognitionException {
         TokenDefinition element =  null;
 
@@ -1645,7 +1875,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:470:1: (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:469:1: (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken )
             int alt21=3;
             int LA21_0 = input.LA(1);
 
@@ -1664,7 +1894,7 @@ public class CsParser extends EMFTextParserImpl {
                     else {
                         if (backtracking>0) {failed=true; return element;}
                         NoViableAltException nvae =
-                            new NoViableAltException("468:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );", 21, 3, input);
+                            new NoViableAltException("467:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );", 21, 3, input);
 
                         throw nvae;
                     }
@@ -1672,7 +1902,7 @@ public class CsParser extends EMFTextParserImpl {
                 else {
                     if (backtracking>0) {failed=true; return element;}
                     NoViableAltException nvae =
-                        new NoViableAltException("468:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );", 21, 1, input);
+                        new NoViableAltException("467:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );", 21, 1, input);
 
                     throw nvae;
                 }
@@ -1683,15 +1913,15 @@ public class CsParser extends EMFTextParserImpl {
             else {
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("468:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );", 21, 0, input);
+                    new NoViableAltException("467:1: tokendefinition returns [TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );", 21, 0, input);
 
                 throw nvae;
             }
             switch (alt21) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:471:2: c0= normaltoken
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:470:2: c0= normaltoken
                     {
-                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1241);
+                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1451);
                     c0=normaltoken();
                     _fsp--;
                     if (failed) return element;
@@ -1702,9 +1932,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:472:2: c1= decoratedtoken
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:471:2: c1= decoratedtoken
                     {
-                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1251);
+                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1461);
                     c1=decoratedtoken();
                     _fsp--;
                     if (failed) return element;
@@ -1715,9 +1945,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:473:2: c2= predefinedtoken
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:472:2: c2= predefinedtoken
                     {
-                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1261);
+                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1471);
                     c2=predefinedtoken();
                     _fsp--;
                     if (failed) return element;
@@ -1742,7 +1972,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start definition
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:476:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:475:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );
     public final Definition definition() throws RecognitionException {
         Definition element =  null;
 
@@ -1762,7 +1992,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:478:1: (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:477:1: (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak )
             int alt22=7;
             switch ( input.LA(1) ) {
             case QUOTED_34_34:
@@ -1786,7 +2016,7 @@ public class CsParser extends EMFTextParserImpl {
                     else {
                         if (backtracking>0) {failed=true; return element;}
                         NoViableAltException nvae =
-                            new NoViableAltException("476:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );", 22, 6, input);
+                            new NoViableAltException("475:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );", 22, 6, input);
 
                         throw nvae;
                     }
@@ -1797,7 +2027,7 @@ public class CsParser extends EMFTextParserImpl {
                 else {
                     if (backtracking>0) {failed=true; return element;}
                     NoViableAltException nvae =
-                        new NoViableAltException("476:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );", 22, 2, input);
+                        new NoViableAltException("475:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );", 22, 2, input);
 
                     throw nvae;
                 }
@@ -1821,16 +2051,16 @@ public class CsParser extends EMFTextParserImpl {
             default:
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("476:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );", 22, 0, input);
+                    new NoViableAltException("475:1: definition returns [Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );", 22, 0, input);
 
                 throw nvae;
             }
 
             switch (alt22) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:479:2: c0= csstring
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:478:2: c0= csstring
                     {
-                    pushFollow(FOLLOW_csstring_in_definition1280);
+                    pushFollow(FOLLOW_csstring_in_definition1490);
                     c0=csstring();
                     _fsp--;
                     if (failed) return element;
@@ -1841,9 +2071,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:480:2: c1= definedplaceholder
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:479:2: c1= definedplaceholder
                     {
-                    pushFollow(FOLLOW_definedplaceholder_in_definition1290);
+                    pushFollow(FOLLOW_definedplaceholder_in_definition1500);
                     c1=definedplaceholder();
                     _fsp--;
                     if (failed) return element;
@@ -1854,9 +2084,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:481:2: c2= derivedplaceholder
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:480:2: c2= derivedplaceholder
                     {
-                    pushFollow(FOLLOW_derivedplaceholder_in_definition1300);
+                    pushFollow(FOLLOW_derivedplaceholder_in_definition1510);
                     c2=derivedplaceholder();
                     _fsp--;
                     if (failed) return element;
@@ -1867,9 +2097,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:482:2: c3= containment
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:481:2: c3= containment
                     {
-                    pushFollow(FOLLOW_containment_in_definition1310);
+                    pushFollow(FOLLOW_containment_in_definition1520);
                     c3=containment();
                     _fsp--;
                     if (failed) return element;
@@ -1880,9 +2110,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:483:2: c4= compounddefinition
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:482:2: c4= compounddefinition
                     {
-                    pushFollow(FOLLOW_compounddefinition_in_definition1320);
+                    pushFollow(FOLLOW_compounddefinition_in_definition1530);
                     c4=compounddefinition();
                     _fsp--;
                     if (failed) return element;
@@ -1893,9 +2123,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:484:2: c5= whitespaces
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:483:2: c5= whitespaces
                     {
-                    pushFollow(FOLLOW_whitespaces_in_definition1330);
+                    pushFollow(FOLLOW_whitespaces_in_definition1540);
                     c5=whitespaces();
                     _fsp--;
                     if (failed) return element;
@@ -1906,9 +2136,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:485:2: c6= linebreak
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:484:2: c6= linebreak
                     {
-                    pushFollow(FOLLOW_linebreak_in_definition1340);
+                    pushFollow(FOLLOW_linebreak_in_definition1550);
                     c6=linebreak();
                     _fsp--;
                     if (failed) return element;
@@ -1933,7 +2163,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
     // $ANTLR start cardinality
-    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:488:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= star | c2= questionmark );
+    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:487:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= star | c2= questionmark );
     public final Cardinality cardinality() throws RecognitionException {
         Cardinality element =  null;
 
@@ -1945,7 +2175,7 @@ public class CsParser extends EMFTextParserImpl {
 
 
         try {
-            // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:490:1: (c0= plus | c1= star | c2= questionmark )
+            // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:489:1: (c0= plus | c1= star | c2= questionmark )
             int alt23=3;
             switch ( input.LA(1) ) {
             case 36:
@@ -1966,16 +2196,16 @@ public class CsParser extends EMFTextParserImpl {
             default:
                 if (backtracking>0) {failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("488:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= star | c2= questionmark );", 23, 0, input);
+                    new NoViableAltException("487:1: cardinality returns [Cardinality element = null] : (c0= plus | c1= star | c2= questionmark );", 23, 0, input);
 
                 throw nvae;
             }
 
             switch (alt23) {
                 case 1 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:491:2: c0= plus
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:490:2: c0= plus
                     {
-                    pushFollow(FOLLOW_plus_in_cardinality1359);
+                    pushFollow(FOLLOW_plus_in_cardinality1569);
                     c0=plus();
                     _fsp--;
                     if (failed) return element;
@@ -1986,9 +2216,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:492:2: c1= star
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:491:2: c1= star
                     {
-                    pushFollow(FOLLOW_star_in_cardinality1369);
+                    pushFollow(FOLLOW_star_in_cardinality1579);
                     c1=star();
                     _fsp--;
                     if (failed) return element;
@@ -1999,9 +2229,9 @@ public class CsParser extends EMFTextParserImpl {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\svenhart\\workspaces\\reuseware-development-st3\\org.reuseware.emftextedit.sdk.concretesyntax.resource.cs\\src\\org\\reuseware\\emftextedit\\sdk\\concretesyntax\\resource\\cs\\Cs.g:493:2: c2= questionmark
+                    // C:\\Users\\svenhart\\workspaces\\runtime-EclipseApplication(1)\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:492:2: c2= questionmark
                     {
-                    pushFollow(FOLLOW_questionmark_in_cardinality1379);
+                    pushFollow(FOLLOW_questionmark_in_cardinality1589);
                     c2=questionmark();
                     _fsp--;
                     if (failed) return element;
@@ -2028,103 +2258,103 @@ public class CsParser extends EMFTextParserImpl {
  
 
     public static final BitSet FOLLOW_concretesyntax_in_start61 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_concretesyntax81 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_concretesyntax88 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_concretesyntax92 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_concretesyntax99 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_concretesyntax103 = new BitSet(new long[]{0x0000000000000050L});
-    public static final BitSet FOLLOW_TEXT_in_concretesyntax114 = new BitSet(new long[]{0x00000000034C0000L});
-    public static final BitSet FOLLOW_QNAME_in_concretesyntax128 = new BitSet(new long[]{0x00000000034C0000L});
-    public static final BitSet FOLLOW_18_in_concretesyntax144 = new BitSet(new long[]{0x0000000000000050L});
-    public static final BitSet FOLLOW_TEXT_in_concretesyntax159 = new BitSet(new long[]{0x00000000034C0000L});
-    public static final BitSet FOLLOW_QNAME_in_concretesyntax177 = new BitSet(new long[]{0x00000000034C0000L});
-    public static final BitSet FOLLOW_19_in_concretesyntax203 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_concretesyntax208 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_keywordimport_in_concretesyntax230 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_21_in_concretesyntax248 = new BitSet(new long[]{0x0000000003400000L});
-    public static final BitSet FOLLOW_22_in_concretesyntax268 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_concretesyntax273 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_option_in_concretesyntax295 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_concretesyntax303 = new BitSet(new long[]{0x0000000000200010L});
-    public static final BitSet FOLLOW_21_in_concretesyntax320 = new BitSet(new long[]{0x0000000003000000L});
-    public static final BitSet FOLLOW_24_in_concretesyntax340 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_concretesyntax345 = new BitSet(new long[]{0x0000018000200000L});
-    public static final BitSet FOLLOW_tokendefinition_in_concretesyntax367 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_concretesyntax375 = new BitSet(new long[]{0x0000018000200000L});
-    public static final BitSet FOLLOW_21_in_concretesyntax392 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_concretesyntax403 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_concretesyntax406 = new BitSet(new long[]{0x0000000000000050L});
-    public static final BitSet FOLLOW_rule_in_concretesyntax422 = new BitSet(new long[]{0x0000000000200050L});
-    public static final BitSet FOLLOW_21_in_concretesyntax434 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_keywordimport456 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_keywordimport460 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_keywordimport467 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_27_in_keywordimport480 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_keywordimport485 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_keywordimport494 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_option525 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_option529 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_option536 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_rule563 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_QNAME_in_rule577 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_rule584 = new BitSet(new long[]{0x0000000400000690L});
-    public static final BitSet FOLLOW_choice_in_rule591 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_rule595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_definition_in_sequence621 = new BitSet(new long[]{0x0000000400000692L});
-    public static final BitSet FOLLOW_sequence_in_choice648 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_31_in_choice661 = new BitSet(new long[]{0x0000000400000690L});
-    public static final BitSet FOLLOW_sequence_in_choice670 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_QUOTED_34_34_in_csstring701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_definedplaceholder724 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_definedplaceholder728 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_definedplaceholder735 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_definedplaceholder739 = new BitSet(new long[]{0x0000007000000002L});
-    public static final BitSet FOLLOW_cardinality_in_definedplaceholder750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_derivedplaceholder777 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_derivedplaceholder781 = new BitSet(new long[]{0x0000000200000100L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder797 = new BitSet(new long[]{0x0000000200040000L});
-    public static final BitSet FOLLOW_18_in_derivedplaceholder816 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder827 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_derivedplaceholder851 = new BitSet(new long[]{0x0000007000000002L});
-    public static final BitSet FOLLOW_cardinality_in_derivedplaceholder862 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_containment893 = new BitSet(new long[]{0x0000007000000000L});
-    public static final BitSet FOLLOW_cardinality_in_containment902 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_containment916 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_compounddefinition938 = new BitSet(new long[]{0x0000000400000690L});
-    public static final BitSet FOLLOW_choice_in_compounddefinition945 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_compounddefinition949 = new BitSet(new long[]{0x0000007000000002L});
-    public static final BitSet FOLLOW_cardinality_in_compounddefinition960 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_plus983 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_star1001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_questionmark1019 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_35__in_whitespaces1041 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_33__in_linebreak1064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_normaltoken1083 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_normaltoken1090 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_QUOTED_36_36_in_normaltoken1098 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_decoratedtoken1117 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_decoratedtoken1124 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_decoratedtoken1132 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1145 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_decoratedtoken1154 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_QUOTED_36_36_in_decoratedtoken1164 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_decoratedtoken1172 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1185 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_decoratedtoken1194 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_predefinedtoken1215 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_TEXT_in_predefinedtoken1222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1251 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_csstring_in_definition1280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_definedplaceholder_in_definition1290 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_derivedplaceholder_in_definition1300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_containment_in_definition1310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_compounddefinition_in_definition1320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_whitespaces_in_definition1330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_linebreak_in_definition1340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_plus_in_cardinality1359 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_star_in_cardinality1369 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_questionmark_in_cardinality1379 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_concretesyntax85 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_concretesyntax93 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_concretesyntax101 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_concretesyntax109 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_concretesyntax117 = new BitSet(new long[]{0x0000000000000050L});
+    public static final BitSet FOLLOW_TEXT_in_concretesyntax129 = new BitSet(new long[]{0x00000000034C0000L});
+    public static final BitSet FOLLOW_QNAME_in_concretesyntax143 = new BitSet(new long[]{0x00000000034C0000L});
+    public static final BitSet FOLLOW_18_in_concretesyntax163 = new BitSet(new long[]{0x0000000000000050L});
+    public static final BitSet FOLLOW_TEXT_in_concretesyntax179 = new BitSet(new long[]{0x00000000034C0000L});
+    public static final BitSet FOLLOW_QNAME_in_concretesyntax197 = new BitSet(new long[]{0x00000000034C0000L});
+    public static final BitSet FOLLOW_19_in_concretesyntax227 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_concretesyntax237 = new BitSet(new long[]{0x0000000000200010L});
+    public static final BitSet FOLLOW_keywordimport_in_concretesyntax260 = new BitSet(new long[]{0x0000000000200010L});
+    public static final BitSet FOLLOW_21_in_concretesyntax282 = new BitSet(new long[]{0x0000000003400000L});
+    public static final BitSet FOLLOW_22_in_concretesyntax307 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_concretesyntax317 = new BitSet(new long[]{0x0000000000200010L});
+    public static final BitSet FOLLOW_option_in_concretesyntax340 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_concretesyntax352 = new BitSet(new long[]{0x0000000000200010L});
+    public static final BitSet FOLLOW_21_in_concretesyntax374 = new BitSet(new long[]{0x0000000003000000L});
+    public static final BitSet FOLLOW_24_in_concretesyntax399 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_concretesyntax409 = new BitSet(new long[]{0x0000018000200000L});
+    public static final BitSet FOLLOW_tokendefinition_in_concretesyntax432 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_concretesyntax444 = new BitSet(new long[]{0x0000018000200000L});
+    public static final BitSet FOLLOW_21_in_concretesyntax466 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_25_in_concretesyntax482 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_concretesyntax490 = new BitSet(new long[]{0x0000000000000050L});
+    public static final BitSet FOLLOW_rule_in_concretesyntax507 = new BitSet(new long[]{0x0000000000200050L});
+    public static final BitSet FOLLOW_21_in_concretesyntax523 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_keywordimport546 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_keywordimport554 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_keywordimport562 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_27_in_keywordimport579 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_keywordimport589 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_keywordimport599 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_option630 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_option638 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_option646 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_rule673 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_QNAME_in_rule687 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_rule698 = new BitSet(new long[]{0x0000000400000690L});
+    public static final BitSet FOLLOW_choice_in_rule706 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_rule714 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_definition_in_sequence741 = new BitSet(new long[]{0x0000000400000692L});
+    public static final BitSet FOLLOW_sequence_in_choice768 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_31_in_choice785 = new BitSet(new long[]{0x0000000400000690L});
+    public static final BitSet FOLLOW_sequence_in_choice795 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_QUOTED_34_34_in_csstring826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_definedplaceholder849 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_definedplaceholder857 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_definedplaceholder865 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_definedplaceholder873 = new BitSet(new long[]{0x0000007000000002L});
+    public static final BitSet FOLLOW_cardinality_in_definedplaceholder885 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_derivedplaceholder912 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_derivedplaceholder920 = new BitSet(new long[]{0x0000000200000100L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder937 = new BitSet(new long[]{0x0000000200040000L});
+    public static final BitSet FOLLOW_18_in_derivedplaceholder960 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder972 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_derivedplaceholder1000 = new BitSet(new long[]{0x0000007000000002L});
+    public static final BitSet FOLLOW_cardinality_in_derivedplaceholder1012 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_containment1043 = new BitSet(new long[]{0x0000007000000000L});
+    public static final BitSet FOLLOW_cardinality_in_containment1052 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_containment1066 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_compounddefinition1092 = new BitSet(new long[]{0x0000000400000690L});
+    public static final BitSet FOLLOW_choice_in_compounddefinition1100 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_compounddefinition1108 = new BitSet(new long[]{0x0000007000000002L});
+    public static final BitSet FOLLOW_cardinality_in_compounddefinition1120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_plus1147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_star1170 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_questionmark1193 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_35__in_whitespaces1216 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_33__in_linebreak1239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_normaltoken1262 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_normaltoken1270 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_QUOTED_36_36_in_normaltoken1278 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_decoratedtoken1301 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_decoratedtoken1309 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_decoratedtoken1321 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1335 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_decoratedtoken1348 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_QUOTED_36_36_in_decoratedtoken1359 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_decoratedtoken1371 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1385 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_decoratedtoken1398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_predefinedtoken1424 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_TEXT_in_predefinedtoken1432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1451 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1461 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1471 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_csstring_in_definition1490 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_definedplaceholder_in_definition1500 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_derivedplaceholder_in_definition1510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_containment_in_definition1520 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compounddefinition_in_definition1530 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_whitespaces_in_definition1540 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_linebreak_in_definition1550 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_plus_in_cardinality1569 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_star_in_cardinality1579 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_questionmark_in_cardinality1589 = new BitSet(new long[]{0x0000000000000002L});
 
 }
