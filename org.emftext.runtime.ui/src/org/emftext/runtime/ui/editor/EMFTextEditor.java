@@ -25,10 +25,15 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
+import org.eclipse.jface.text.ITextPresentationListener;
+import org.eclipse.jface.text.TextPresentation;
+import org.eclipse.jface.text.TextViewer;
+import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
@@ -193,7 +198,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		}
 	}
 
-
+	@Override
 	public void dispose() {
 		colorManager.dispose();
 		super.dispose();
@@ -239,6 +244,35 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		}
 	}
 	
+	public void createPartControl(Composite parent){
+		super.createPartControl(parent);
+
+		ISourceViewer viewer = getSourceViewer();
+		if (viewer != null) {
+			registerTextPresentationListener(viewer);
+		}
+	}		 
+	
+	private void registerTextPresentationListener(ISourceViewer viewer) {
+		if (viewer instanceof TextViewer) {
+			((TextViewer) viewer).addTextPresentationListener(new ITextPresentationListener() {
+				public void applyTextPresentation(TextPresentation textPresentation) {
+					return;
+					
+					// TODO fheidenreich: implement highlighting
+					/*
+					StyleRange range = (StyleRange) new StyleRange();
+					range.background = new Color(Display.getCurrent(), new RGB(255,255,0));
+					range.start = 1;
+					range.length = 3;
+					textPresentation.replaceStyleRange(range);
+					*/
+				}
+			});
+		}
+	}
+
+
 	private void fireSaveEvent(TextResource resource) {
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.SAVE_PERFORMED_EXTENSION_POINT_ID);
