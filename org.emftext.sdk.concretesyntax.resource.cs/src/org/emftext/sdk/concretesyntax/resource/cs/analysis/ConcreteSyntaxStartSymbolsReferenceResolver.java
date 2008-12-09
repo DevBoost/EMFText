@@ -11,6 +11,20 @@ import org.emftext.sdk.concretesyntax.Import;
 // TODO mseifert: check whether resolving start symbols with dots does still work
 public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolverImpl {
 	
+	//struct to hold GenClass and declarad namespace prefix in cs
+	private static class PrefixGenClassParam{
+		public final GenClass genClass;
+		public final String importPrefix;
+		
+		public PrefixGenClassParam(GenClass genClass, String prefix){
+			this.importPrefix = prefix;
+			if(genClass==null)
+				throw new NullPointerException();
+			this.genClass = genClass;
+		}
+	}
+	
+	
 	@Override
 	protected void doResolve(String identifier, EObject container,
 			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
@@ -23,7 +37,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 	}
 
 	private void doResolveStrict(
-			final String identifier, EObject container, ResolveResult result) {
+			final String identifier, final EObject container, ResolveResult result) {
 		final String pack;
 		final String clazz;
 		if (identifier.contains(".")) {
@@ -34,17 +48,17 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 			clazz = identifier;
 		}
 
-		doResolveStartSymbol(identifier, container, new ReferenceFilter<GenClass>() {
+		doResolveStartSymbol(identifier, container, new ReferenceFilter<PrefixGenClassParam>() {
 
-			public String accept(GenClass genClass) {
-				String genClassName = genClass.getName();
+			public String accept(PrefixGenClassParam param) {
+				String genClassName = param.genClass.getName();
 				if (!(clazz.equals(genClassName))) {
 					return null;
 				}
 				if (pack == null) {
 					return genClassName;
 				}
-				if (!(pack.equals(((Import) genClass.eContainer().eContainer()).getPrefix()))) {
+				if (!(pack.equals(param.importPrefix))) {
 					return null;
 				}
 				return genClassName;
@@ -55,10 +69,10 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 
 	public void doResolveFuzzy(final String identifier, EObject container, ResolveResult result) {
 		
-		doResolveStartSymbol(identifier, container, new ReferenceFilter<GenClass>() {
+		doResolveStartSymbol(identifier, container, new ReferenceFilter<PrefixGenClassParam>() {
 
-			public String accept(GenClass genClass) {
-				String genClassName = genClass.getName();
+			public String accept(PrefixGenClassParam param) {
+				String genClassName = param.genClass.getName();
 				if (genClassName == null) {
 					return null;
 				}
@@ -71,7 +85,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		}, result);
 	}
 
-	private void doResolveStartSymbol(String identifier, EObject container, ReferenceFilter<GenClass> filter, ResolveResult result) {
+	private void doResolveStartSymbol(String identifier, EObject container, ReferenceFilter<PrefixGenClassParam> filter, ResolveResult result) {
 		ConcreteSyntax cs = (ConcreteSyntax) container;
 		
 		if (cs.getPackage().eIsProxy()) {
@@ -81,14 +95,14 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		
 		for (Import aImport : cs.getImports()) {
 			for(GenClass genClass : aImport.getPackage().getGenClasses()) {
-				String foundIdentifier = filter.accept(genClass);
+				String foundIdentifier = filter.accept(new PrefixGenClassParam(genClass,aImport.getPrefix()));
 				if (foundIdentifier != null) {
 					result.addMapping(foundIdentifier, genClass);
 				}
 			}				
 		}
 		for(GenClass genClass : cs.getPackage().getGenClasses()) {
-			String foundIdentifier = filter.accept(genClass);
+			String foundIdentifier = filter.accept(new PrefixGenClassParam(genClass,null));
 			if (foundIdentifier != null) {
 				result.addMapping(foundIdentifier, genClass);
 			}
