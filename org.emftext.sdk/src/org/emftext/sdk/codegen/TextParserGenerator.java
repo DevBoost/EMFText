@@ -894,7 +894,7 @@ public class TextParserGenerator extends BaseGenerator {
 	}
 
 	private void addTokenDefinition(String tokenName, String expression, String prefix, String suffix) {
-		System.out.println("TextParserGenerator.addTokenDefinition(" + tokenName + ", " + expression + ")");
+		//System.out.println("TextParserGenerator.addTokenDefinition(" + tokenName + ", " + expression + ")");
 		InternalTokenDefinition newDefintion =  new InternalTokenDefinitionImpl(tokenName,expression,prefix,suffix,null,true);
 		derivedTokens.put(tokenName, newDefintion);
 	}
