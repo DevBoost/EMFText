@@ -2,7 +2,10 @@ package org.emftext.runtime.ui.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.CoreException;
@@ -14,10 +17,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
@@ -287,12 +292,30 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 							return;
 						}
 						EObject first = elements.get(0);
-						List<EObject> references = first.eCrossReferences();
-						for (EObject reference : references) {
-							addStyle(textPresentation, locationMap.getCharStart(reference), locationMap.getCharEnd(reference));
+						System.out.println("first is " + first.eClass().getName() + "@" + first.hashCode());
+						Map<EObject, Collection<EStructuralFeature.Setting>> references =
+						    CrossReferencer.find(resource.getContents());
+						for (EObject next : references.keySet()) {
+						    for (EStructuralFeature.Setting setting : references.get(next)) {
+						    	System.out.println(setting.getEObject().eClass().getName() + "." + setting.getEStructuralFeature().getName() + " ==> " + next.eClass().getName() + "@" + next.hashCode());
+						    }
 						}
+						if (references.containsKey(first)) {
+							System.out.println("found reference to " + first);
+						    for (EStructuralFeature.Setting setting : references.get(first)) {
+						        //setting = instance of EStructuralFeature
+
+						        //the element with the cross reference
+						    	EObject container = setting.getEObject();
+						    	System.out.println(".markOccurences()" + container);
+
+						        //the feature of the cross reference
+						    	EStructuralFeature feature = setting.getEStructuralFeature();
+						    	System.out.println(".markOccurences()" + feature);
+						    }
+							//addStyle(textPresentation, locationMap.getCharStart(reference), locationMap.getCharEnd(reference));
+						} 
 					}
-					return;
 				}
 
 				private void addStyle(TextPresentation textPresentation,
