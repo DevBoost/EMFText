@@ -2,6 +2,7 @@ package org.emftext.runtime.ui.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.CoreException;
@@ -27,13 +28,18 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.ITextPresentationListener;
 import org.eclipse.jface.text.TextPresentation;
+import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.custom.StyleRange;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
@@ -127,9 +133,9 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 
 	private EMFTextOutlinePage emfTextEditorOutlinePage;
 	
-	private Resource resource;
+	private TextResource resource;
 
-	private Resource resourceCopy;
+	private TextResource resourceCopy;
 
 	private MarkerAdapter markerAdapter = new MarkerAdapter();
 
@@ -184,11 +190,11 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		FileEditorInput input = (FileEditorInput) editorInput;
 		String path = input.getFile().getFullPath().toString();
 		URI uri = URI.createPlatformResourceURI(path, true);
-		resource = resourceSet.getResource(uri, false);
+		resource = (TextResource) resourceSet.getResource(uri, false);
 		if (resource == null) {
 			try {
-				resource = resourceSet.getResource(uri, true);
-				resourceCopy = new ResourceSetImpl().createResource(uri);
+				resource = (TextResource) resourceSet.getResource(uri, true);
+				resourceCopy = (TextResource) new ResourceSetImpl().createResource(uri);
 				MarkerHelper.unmark(resource);
 				MarkerHelper.mark(resource);
 				resource.eAdapters().add(markerAdapter);
@@ -257,7 +263,8 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		if (viewer instanceof TextViewer) {
 			((TextViewer) viewer).addTextPresentationListener(new ITextPresentationListener() {
 				public void applyTextPresentation(TextPresentation textPresentation) {
-					return;
+					// TODO mseifert
+					//markOccurences(textPresentation);
 					
 					// TODO fheidenreich: implement highlighting
 					/*
@@ -267,6 +274,34 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 					range.length = 3;
 					textPresentation.replaceStyleRange(range);
 					*/
+				}
+
+				private void markOccurences(TextPresentation textPresentation) {
+					ISelection selection = getSelectionProvider().getSelection();
+					if (selection instanceof TextSelection) {
+						TextSelection textSelection = (TextSelection) selection;
+						int offset = textSelection.getOffset();
+						LocationMap locationMap = resource.getLocationMap();
+						List<EObject> elements = locationMap.getElementsAt(offset);
+						if (elements.isEmpty()) {
+							return;
+						}
+						EObject first = elements.get(0);
+						List<EObject> references = first.eCrossReferences();
+						for (EObject reference : references) {
+							addStyle(textPresentation, locationMap.getCharStart(reference), locationMap.getCharEnd(reference));
+						}
+					}
+					return;
+				}
+
+				private void addStyle(TextPresentation textPresentation,
+						int charStart, int charEnd) {
+					StyleRange range = new StyleRange();
+					range.background = new Color(Display.getCurrent(), new RGB(255,255,0));
+					range.start = charStart;
+					range.length = charEnd;
+					textPresentation.replaceStyleRange(range);
 				}
 			});
 		}
@@ -328,7 +363,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		return resource;
 	}
 
-	public void setResource(Resource resource) {
+	public void setResource(TextResource resource) {
 		this.resource = resource;
 	}
 	
