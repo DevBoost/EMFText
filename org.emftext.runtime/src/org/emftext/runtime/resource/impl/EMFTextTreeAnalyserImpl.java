@@ -17,7 +17,6 @@ import org.emftext.runtime.resource.IdentifierMapping;
 import org.emftext.runtime.resource.ReferenceMapping;
 import org.emftext.runtime.resource.ResolveResult;
 import org.emftext.runtime.resource.TextResource;
-import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
 
 /**
  * Base implementation for all generated tree analysers. 
@@ -116,7 +115,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			if (errorMessage == null) {
 				assert(false);
 			} else {
-				resource.addError(errorMessage, proxy, TextDiagnosticType.RESOLVE_PROBLEM);
+				resource.addError(errorMessage, proxy);
 			}
 		}
 	}
@@ -127,6 +126,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			ResolveResult result = resolvedProxy.getResolveResult();
 			assert result != null;
 			assert result.wasResolved();
+			final EObject proxy = resolvedProxy.getProxy();
 			
 			for (ReferenceMapping mapping : result.getMappings()) {
 				String warningMessage = mapping.getWarning();
@@ -137,7 +137,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 					final EObject target = ((ElementMapping) mapping).getTargetElement();
 					resource.addWarning(warningMessage, target);
 				} else if (mapping instanceof IdentifierMapping) {
-					resource.addWarning(warningMessage, null);
+					resource.addWarning(warningMessage, proxy);
 				} else {
 					assert false;
 				}
@@ -209,42 +209,45 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		result.setErrorMessage(getErrorMessage(proxy, reference));
 		
 		resolve(getFragment(proxy), container, 
-				reference, list.indexOf(proxy), false, result);
+				reference, list.basicIndexOf(proxy), false, result);
 		unresolvedProxy.setResolveResult(result);
 		
 		assert result != null;
-		if (!result.wasResolved()) {
-			return;
-		}
-		
-		int proxyPosition = list.indexOf(proxy);
-		boolean success = list.remove(proxy);
-		assert success;
-		for (ReferenceMapping mapping : result.getMappings()) {
-			EObject target = null;
-			if (mapping instanceof ElementMapping) {
-				target = ((ElementMapping) mapping).getTargetElement();
-			} else if (mapping instanceof IdentifierMapping) {
-				target = EcoreUtil.copy(proxy);
-				String uri = ((IdentifierMapping) mapping).getTargetIdentifier();
-				((InternalEObject) target).eSetProxyURI(URI.createURI(uri));
-			} else {
-				assert false;
-			}
-			try {
-				if (proxyPosition == list.size()) {
-					list.add(target);
+		if (result.wasResolved()) {
+			int proxyPosition = list.basicIndexOf(proxy);
+			//use the position rather than the object to call remove, resolve() might be called for the element
+			list.remove(proxyPosition);
+			for (ReferenceMapping mapping : result.getMappings()) {
+				EObject target = null;
+				if (mapping instanceof ElementMapping) {
+					target = ((ElementMapping) mapping).getTargetElement();
+				} else if (mapping instanceof IdentifierMapping) {
+					target = EcoreUtil.copy(proxy);
+					String uri = ((IdentifierMapping) mapping).getTargetIdentifier();
+					((InternalEObject) target).eSetProxyURI(URI.createURI(uri));
 				} else {
-					list.add(proxyPosition, target);
+					assert false;
 				}
-			} catch (IllegalArgumentException iae) {
-				if (DUPLICATE_EXCEPTION_MESSAGE.equals(iae.getMessage())) {
-					((TextResource) container.eResource()).addError("Reference " + container.eClass().getName() + "." + reference.getName() + " is unique, but same element of type " + target.eClass().getName() + " was found twice.", proxy);
-				} else {
-					iae.printStackTrace();
+				try {
+					if (proxyPosition == list.size()) {
+						list.add(target);
+					} else {
+						//TODO jjohannes: if target is an external proxy and list is "unique" 
+						//     add() will try to resolve the external proxy to check for uniqueness.
+						//     That should be avoided somehow...
+						list.add(proxyPosition, target);
+					}
+					return;
+				} catch (IllegalArgumentException iae) {
+					if (DUPLICATE_EXCEPTION_MESSAGE.equals(iae.getMessage())) {
+						((TextResource) container.eResource()).addError("Reference " + container.eClass().getName() + "." + reference.getName() + " is unique, but same element of type " + target.eClass().getName() + " was found twice.", proxy);
+					} else {
+						iae.printStackTrace();
+					}
 				}
 			}
 		}
+		return;
 	}
 
 	private void tryToResolveObject(UnresolvedProxy unresolvedProxy) {
@@ -287,7 +290,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	}
 
 	private boolean isInternalProxy(EObject proxy, EObject container) {
-		return ((InternalEObject) proxy).eProxyURI().trimFragment().equals(container.eResource().getURI());
+		return ((InternalEObject) proxy).eProxyURI().trimFragment().toString().equals(container.eResource().getURI().toString());
 	}
 
 	/**
