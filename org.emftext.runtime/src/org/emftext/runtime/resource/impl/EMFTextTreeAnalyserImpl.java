@@ -204,7 +204,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		if (!isInternalProxy(proxy, container)) {
 			return;
 		}
-		ResolveResult result = new ResolveResultImpl();
+		ResolveResult result = new ResolveResultImpl(false);
 		//set an initial default error message
 		result.setErrorMessage(getErrorMessage(proxy, reference));
 		
@@ -213,38 +213,44 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		unresolvedProxy.setResolveResult(result);
 		
 		assert result != null;
-		if (result.wasResolved()) {
-			int proxyPosition = list.indexOf(proxy);
-			boolean success = list.remove(proxy);
-			assert success;
-			for (ReferenceMapping mapping : result.getMappings()) {
-				EObject target = null;
-				if (mapping instanceof ElementMapping) {
-					target = ((ElementMapping) mapping).getTargetElement();
-				} else if (mapping instanceof IdentifierMapping) {
-					target = EcoreUtil.copy(proxy);
-					String uri = ((IdentifierMapping) mapping).getTargetIdentifier();
-					((InternalEObject) target).eSetProxyURI(URI.createURI(uri));
+		if (!result.wasResolved()) {
+			return;
+		}
+		
+		int proxyPosition = list.indexOf(proxy);
+		boolean success = list.remove(proxy);
+		assert success;
+		for (ReferenceMapping mapping : result.getMappings()) {
+			EObject target = null;
+			if (mapping instanceof ElementMapping) {
+				target = ((ElementMapping) mapping).getTargetElement();
+			} else if (mapping instanceof IdentifierMapping) {
+				target = EcoreUtil.copy(proxy);
+				String uri = ((IdentifierMapping) mapping).getTargetIdentifier();
+				((InternalEObject) target).eSetProxyURI(URI.createURI(uri));
+			} else {
+				assert false;
+			}
+			try {
+				if (proxyPosition == list.size()) {
+					list.add(target);
 				} else {
-					assert false;
+					list.add(proxyPosition, target);
 				}
-				try {
-					if (proxyPosition == list.size()) {
-						list.add(target);
-					} else {
-						list.add(proxyPosition, target);
-					}
-					return;
-				} catch (IllegalArgumentException iae) {
-					if (DUPLICATE_EXCEPTION_MESSAGE.equals(iae.getMessage())) {
-						((TextResource) container.eResource()).addError("Reference " + container.eClass().getName() + "." + reference.getName() + " is unique, but same element of type " + target.eClass().getName() + " was found twice.", proxy);
-					} else {
-						iae.printStackTrace();
-					}
+				addReference(container, target);
+				return;
+			} catch (IllegalArgumentException iae) {
+				if (DUPLICATE_EXCEPTION_MESSAGE.equals(iae.getMessage())) {
+					((TextResource) container.eResource()).addError("Reference " + container.eClass().getName() + "." + reference.getName() + " is unique, but same element of type " + target.eClass().getName() + " was found twice.", proxy);
+				} else {
+					iae.printStackTrace();
 				}
 			}
 		}
-		return;
+	}
+
+	private void addReference(EObject container, EObject target) {
+		System.out.println("RESOLVE: Found reference from " + container + " to " + target);
 	}
 
 	private void tryToResolveObject(UnresolvedProxy unresolvedProxy) {
@@ -255,7 +261,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		if (!isInternalProxy(proxy, container)) {
 			return;
 		}
-		ResolveResult result = new ResolveResultImpl();
+		ResolveResult result = new ResolveResultImpl(false);
 		//set an initial default error message
 		result.setErrorMessage(getErrorMessage(proxy, reference));
 		resolve(getFragment(proxy), container, reference, 0, false, result);

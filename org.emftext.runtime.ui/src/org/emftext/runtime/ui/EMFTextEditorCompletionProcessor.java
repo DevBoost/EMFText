@@ -64,7 +64,7 @@ public class EMFTextEditorCompletionProcessor implements
 	    // otherwise we have different kind of identifiers in the reference resolvers
 		
 		EMFTextTreeAnalyser analyser = textResource.getTreeAnalyser();
-		ResolveResult resolved = new ResolveResultImpl(); 
+		ResolveResult resolved = new ResolveResultImpl(true); 
 		analyser.resolve(prefix, containerAtChar, null, 0, true, resolved);
 		if (!resolved.wasResolvedMultiple()) {
 			return EMPTY_PROPOSAL_ARRAY;

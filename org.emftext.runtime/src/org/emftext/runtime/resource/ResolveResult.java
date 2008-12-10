@@ -30,6 +30,11 @@ public interface ResolveResult {
 	 * Previous errors as well as future ones will be discarded. Once
 	 * a mapping is found, resolve errors have no meaning any more.
 	 * 
+	 * The target object can be null if the resolution is fuzzy.
+	 * Otherwise target must not be null and implementations of 
+	 * this method can throw an IllegalArgumentException if this
+	 * rule is violated.
+	 * 
 	 * Optionally a warning can be passed to this method if resolving
 	 * the reference was successful, but not accurate.
 	 */

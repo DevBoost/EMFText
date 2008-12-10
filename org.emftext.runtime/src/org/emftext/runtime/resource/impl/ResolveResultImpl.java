@@ -11,9 +11,11 @@ public class ResolveResultImpl implements ResolveResult {
 	
 	private Collection<ReferenceMapping> mappings;
 	private String errorMessage;
+	private boolean resolveFuzzy;
 
-	public ResolveResultImpl() {
+	public ResolveResultImpl(boolean resolveFuzzy) {
 		super();
+		this.resolveFuzzy = resolveFuzzy;
 	}
 
 	public String getErrorMessage() {
@@ -52,6 +54,9 @@ public class ResolveResultImpl implements ResolveResult {
 	}
 
 	public void addMapping(String identifier, EObject target) {
+		if (resolveFuzzy && target == null) {
+			throw new IllegalArgumentException("Mapping references to null is only allowed for fuzzy resolution.");
+		}
 		addMapping(identifier, target, null);
 	}
 
