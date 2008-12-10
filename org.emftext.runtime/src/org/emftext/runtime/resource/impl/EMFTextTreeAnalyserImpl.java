@@ -237,8 +237,6 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 				} else {
 					list.add(proxyPosition, target);
 				}
-				addReference(container, target);
-				return;
 			} catch (IllegalArgumentException iae) {
 				if (DUPLICATE_EXCEPTION_MESSAGE.equals(iae.getMessage())) {
 					((TextResource) container.eResource()).addError("Reference " + container.eClass().getName() + "." + reference.getName() + " is unique, but same element of type " + target.eClass().getName() + " was found twice.", proxy);
@@ -247,10 +245,6 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 				}
 			}
 		}
-	}
-
-	private void addReference(EObject container, EObject target) {
-		System.out.println("RESOLVE: Found reference from " + container + " to " + target);
 	}
 
 	private void tryToResolveObject(UnresolvedProxy unresolvedProxy) {
