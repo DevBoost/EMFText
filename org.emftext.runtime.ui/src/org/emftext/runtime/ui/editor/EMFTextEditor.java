@@ -2,8 +2,8 @@ package org.emftext.runtime.ui.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -13,6 +13,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
@@ -23,6 +24,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
@@ -76,7 +80,7 @@ import org.emftext.runtime.ui.outline.EMFTextOutlinePage;
  * @author Jendrik Johannes (jj2)
  *
  */
-public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvider*/ {
+public class EMFTextEditor extends TextEditor implements IEditingDomainProvider {
 
 	public IBackgroundParsingStrategy bgParsingStrategy = new NoBackgroundParsingStrategy();
 	public IBackgroundParsingListener bgParsingListener;
@@ -134,8 +138,6 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 
 	private ColorManager colorManager;
 
-	private ResourceSet resourceSet;
-
 	private EMFTextOutlinePage emfTextEditorOutlinePage;
 	
 	private TextResource resource;
@@ -145,6 +147,10 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	private MarkerAdapter markerAdapter = new MarkerAdapter();
 
 	private PropertySheetPage propertySheetPage;
+	
+	private EditingDomain editingDomain;
+	
+	private ComposedAdapterFactory adapterFactory;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -174,10 +180,10 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	public EMFTextEditor() {
 		super();
 		colorManager = new ColorManager();
-		resourceSet = new ResourceSetImpl();
 		
         setDocumentProvider(new FileDocumentProvider());
 		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,colorManager));
+		initializeEditingDomain();
 	}
 	
 	@Override
@@ -195,10 +201,10 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		FileEditorInput input = (FileEditorInput) editorInput;
 		String path = input.getFile().getFullPath().toString();
 		URI uri = URI.createPlatformResourceURI(path, true);
-		resource = (TextResource) resourceSet.getResource(uri, false);
+		resource = (TextResource) editingDomain.getResourceSet().getResource(uri, false);
 		if (resource == null) {
 			try {
-				resource = (TextResource) resourceSet.getResource(uri, true);
+				resource = (TextResource) editingDomain.getResourceSet().getResource(uri, true);
 				resourceCopy = (TextResource) new ResourceSetImpl().createResource(uri);
 				MarkerHelper.unmark(resource);
 				MarkerHelper.mark(resource);
@@ -239,11 +245,11 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		super.performSave(overwrite, progressMonitor); 
 		FileEditorInput input = (FileEditorInput) getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		TextResource thisFile = (TextResource) resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
+		TextResource thisFile = (TextResource) editingDomain.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
 		thisFile.unload();
 		try {
 			markerAdapter.setEnabled(false);
-			thisFile.load(resourceSet.getLoadOptions());
+			thisFile.load(editingDomain.getResourceSet().getLoadOptions());
 			markerAdapter.setEnabled(true);
 			
 			fireSaveEvent(thisFile);
@@ -349,14 +355,14 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	protected void performSaveAs(IProgressMonitor progressMonitor) {
 		FileEditorInput input = (FileEditorInput) getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		Resource oldFile = resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
+		Resource oldFile = editingDomain.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
 		
 		super.performSaveAs(progressMonitor);
 		
 		//load and resave
 		input = (FileEditorInput) getEditorInput();
 		path = input.getFile().getFullPath().toString();
-		Resource newFile = resourceSet.createResource(URI.createPlatformResourceURI(path, true));
+		Resource newFile = editingDomain.getResourceSet().createResource(URI.createPlatformResourceURI(path, true));
 		newFile.getContents().clear();
 		newFile.getContents().addAll(oldFile.getContents());
 		try {
@@ -370,7 +376,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 	}
 	
 	public ResourceSet getResourceSet() {
-		return resourceSet;
+		return editingDomain.getResourceSet();
 	}
 	
 	public void markResource() {
@@ -401,16 +407,7 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 				}
 				
 			};
-			ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
-					ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-
-			adapterFactory
-					.addAdapterFactory(new ResourceItemProviderAdapterFactory());
-			adapterFactory
-					.addAdapterFactory(new EcoreItemProviderAdapterFactory());
-			adapterFactory
-					.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
-
+			
 			propertySheetPage
 					.setPropertySourceProvider(new AdapterFactoryContentProvider(
 							adapterFactory));
@@ -435,5 +432,27 @@ public class EMFTextEditor extends TextEditor /*implements IEditingDomainProvide
 		setAction(actionId, action); //$NON-NLS-1$
 		markAsStateDependentAction(actionId, true); //$NON-NLS-1$
 		//PlatformUI.getWorkbench().getHelpSystem().setHelp(action, helpContextId);
+	}
+	
+	public EditingDomain getEditingDomain() {
+		return editingDomain;
+	}
+
+	private void initializeEditingDomain() {
+		adapterFactory = new ComposedAdapterFactory(
+				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory
+				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory
+				.addAdapterFactory(new EcoreItemProviderAdapterFactory());
+		adapterFactory
+				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+
+		BasicCommandStack commandStack = new BasicCommandStack();
+		// CommandStackListeners can listen for changes. Not sure whether this
+		// is needed.
+
+		editingDomain = new AdapterFactoryEditingDomain(adapterFactory,
+				commandStack, new HashMap<Resource, Boolean>());
 	}
 }
