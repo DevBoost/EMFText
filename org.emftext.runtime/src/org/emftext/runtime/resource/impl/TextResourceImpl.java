@@ -28,6 +28,7 @@ import org.emftext.runtime.resource.LocationMap;
 import org.emftext.runtime.resource.ReferenceMapping;
 import org.emftext.runtime.resource.ResolveResult;
 import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.URIMapping;
 import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
 
 /**
@@ -110,12 +111,24 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 			if (!result.wasResolved()) {
 				attachErrors(result, uriFragment.getProxy());
 				return null;
-			} else if (result.wasResolvedUniquely()) {
-				//TODO do nicer; remove identifier mappings
+			} 
+			else if (result.wasResolvedUniquely()) {
+				//TODO remove URI mappings?
 				attachWarnings(result);
-				return 
-				((ElementMapping) result.getMappings().iterator().next()).getTargetElement();
-			} else {
+				ReferenceMapping mapping = result.getMappings().iterator().next();
+				if (mapping instanceof URIMapping) {
+					return this.getResourceSet().getEObject(((URIMapping)mapping).getTargetIdentifier(), true);
+				}
+				else if (mapping instanceof ElementMapping) {
+					return ((ElementMapping)mapping).getTargetElement();
+				
+				}
+				else {
+					assert(false);
+					return null;
+				}
+			}
+			else {
 				assert(false);
 				return null;
 			}
