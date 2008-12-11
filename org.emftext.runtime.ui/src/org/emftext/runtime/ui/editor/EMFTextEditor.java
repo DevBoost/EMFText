@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -250,6 +251,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		try {
 			markerAdapter.setEnabled(false);
 			thisFile.load(editingDomain.getResourceSet().getLoadOptions());
+			EcoreUtil.resolveAll(thisFile);
 			markerAdapter.setEnabled(true);
 			
 			fireSaveEvent(thisFile);
