@@ -72,7 +72,10 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	}
 	
 	public void analyse(TextResource resource) {
-		// collect an initial set of unresolved proxies
+	/* TODO delete this method and all calls in to it in generator
+	 
+	   // collect an initial set of unresolved proxies
+	 
 		List<UnresolvedProxy> unresolvedProxies = getUnresolvedProxies(resource);
 		// prepare a set of resolved proxies that can be thrown away after one iteration
 		List<UnresolvedProxy> resolvedProxiesInIteration = new ArrayList<UnresolvedProxy>();
@@ -103,6 +106,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 		attachErrors(resource, unresolvedProxies);
 		// mark warnings for all resolved proxies
 		attachWarnings(resource, allResolvedProxies);
+		*/
 	}
 
 	private void attachErrors(TextResource resource,
