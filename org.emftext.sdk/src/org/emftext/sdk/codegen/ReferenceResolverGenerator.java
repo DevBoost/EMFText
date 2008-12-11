@@ -2,7 +2,7 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
-import javax.naming.spi.ResolveResult;
+import org.emftext.runtime.resource.ResolveResult;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
