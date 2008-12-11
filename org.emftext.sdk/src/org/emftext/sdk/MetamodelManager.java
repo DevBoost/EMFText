@@ -130,14 +130,26 @@ public class MetamodelManager {
 	public static Map<String, GenPackage> getGenPackages(GenModel genModel) {
 		Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
 		for(GenPackage genPackage : genModel.getGenPackages()) {
-			genPackages.put(genPackage.getNSURI(), genPackage);
+			genPackages.putAll(getNestedPackages(genPackage));
 		}
+		
 		// added to resolve imported GenPackages too. 
-		for(GenPackage gp : genModel.getUsedGenPackages()) {
-			if(gp.getEcorePackage() != null) {
-				genPackages.put(gp.getNSURI(), gp);
+		for(GenPackage genPackage : genModel.getUsedGenPackages()) {
+			if(genPackage.getEcorePackage() != null) {
+				genPackages.putAll(getNestedPackages(genPackage));
 			}
 		}
 		return genPackages;
+	}
+
+
+	private static Map<String, GenPackage> getNestedPackages(GenPackage genPackage) {
+		
+		Map<String, GenPackage> result = new HashMap<String, GenPackage>();
+		result.put(genPackage.getNSURI(), genPackage);
+		for (GenPackage nextNested : genPackage.getNestedGenPackages()) {
+			result.putAll(getNestedPackages(nextNested));
+		}
+		return result;
 	}
 }
