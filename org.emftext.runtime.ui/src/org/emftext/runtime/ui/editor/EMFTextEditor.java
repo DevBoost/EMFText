@@ -299,11 +299,18 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 						}
 						EObject first = elements.get(0);
 						System.out.println("first is " + first.eClass().getName() + "@" + first.hashCode());
+						System.out.println("first is " + first);
 						Map<EObject, Collection<EStructuralFeature.Setting>> references =
 						    CrossReferencer.find(resource.getContents());
 						for (EObject next : references.keySet()) {
 						    for (EStructuralFeature.Setting setting : references.get(next)) {
-						    	System.out.println(setting.getEObject().eClass().getName() + "." + setting.getEStructuralFeature().getName() + " ==> " + next.eClass().getName() + "@" + next.hashCode());
+						    	String temp = setting.getEObject().eClass().getName() + "." + setting.getEStructuralFeature().getName();
+						    	
+								String nextClassName = next.eClass().getName();
+								if ("NormalToken".equals(nextClassName)) {
+									System.out.println(temp + " ==> " + nextClassName + "@" + next.hashCode());
+									System.out.println(temp + " ==> " + next);
+								}
 						    }
 						}
 						if (references.containsKey(first)) {
