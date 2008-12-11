@@ -4,9 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IFile;
@@ -31,20 +29,20 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.emftext.runtime.ui.MarkerHelper;
+import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.ManifestGenerator;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginXMLGenerator;
 import org.emftext.sdk.codegen.ResourcePackage;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**
  * An action that calls the generator and in addition generates a
@@ -125,8 +123,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 						// generate the resource class, parser, and printer
 						ResourcePackage pck = new ResourcePackage(
 								concreteSyntax, csPackageName,
-								getSrcFolder(project),
-								copyMapFromPreferenceStore());
+								getSrcFolder(project));
 						ResourcePackageGenerator.generate(pck, progress
 								.newChild(TICKS_GENERATE_RESOURCE));
 
@@ -135,17 +132,9 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 							MarkerHelper.mark(csResource);
 						}
 
-						boolean overridePluginConfig = EMFTextSDKUIPlugin
-								.getDefault()
-								.getPreferenceStore()
-								.getBoolean(
-										EMFTextSDKUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME);
-
 						createMetaFolder(progress, project);
-						createManifest(progress, concreteSyntax, projectName,
-								overridePluginConfig, project, pck);
-						createPluginXML(progress, concreteSyntax, projectName,
-								overridePluginConfig, project, file);
+						createManifest(progress, concreteSyntax, projectName, project, pck);
+						createPluginXML(progress, concreteSyntax, projectName, project, file);
 
 						markErrors(concreteSyntax);
 
@@ -182,6 +171,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 	 * 
 	 * @return a preference mapping
 	 */
+	/*
 	private Map<String, Boolean> copyMapFromPreferenceStore() {
 		Map<String, Boolean> preferences = new HashMap<String, Boolean>();
 		IPreferenceStore store = EMFTextSDKUIPlugin.getDefault()
@@ -220,6 +210,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 								.getBoolean(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME));
 		return preferences;
 	}
+	*/
 
 	private void generateMetaModelCode(GenPackage genPackage,
 			IProgressMonitor monitor) {
@@ -253,8 +244,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		}
 		
 		// call EMF code generator if specified
-		if (EMFTextSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
-				EMFTextSDKUIPlugin.GENERATE_GEN_MODEL)) {
+		if (OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.GENERATE_GEN_MODEL)) {
 			generateMetaModelCode(cSyntax.getPackage(), progress
 					.newChild(TICKS_GENERATE_METAMODEL_CODE));
 		} else {
@@ -322,12 +312,15 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 
 	private void createManifest(SubMonitor progress,
 			final ConcreteSyntax cSyntax, String projectName,
-			boolean overridePluginConfig, IProject project,
+			IProject project,
 			ResourcePackage resourcePackage) throws CoreException {
+
+		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST_NAME);
+
 		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
 		if (manifestMFFile.exists()) {
-			if (overridePluginConfig) {
-				ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled());
+			if (overrideManifest) {
+				ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled(cSyntax));
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 				mGenerator.generate(new PrintWriter(outputStream));
 				manifestMFFile.setContents(new ByteArrayInputStream(
@@ -337,7 +330,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 				progress.internalWorked(TICKS_CREATE_MANIFEST);
 			}
 		} else {
-			ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled());
+			ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled(cSyntax));
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			mGenerator.generate(new PrintWriter(outputStream));
 			manifestMFFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true,
@@ -347,14 +340,17 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 
 	private void createPluginXML(SubMonitor progress,
 			final ConcreteSyntax cSyntax, String projectName,
-			boolean overridePluginConfig, IProject project, IFile file)
+			IProject project, IFile file)
 			throws CoreException {
+		
+		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML_NAME);
+		
 		IFile pluginXMLFile = project.getFile("/plugin.xml");
 		if (pluginXMLFile.exists()) {
-			if (overridePluginConfig) {
+			if (overridePluginXML) {
 				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(
 						cSyntax, projectName, file,
-						isGenerateTestActionEnabled()
+						isGenerateTestActionEnabled(cSyntax)
 				);
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 				pluginXMLGenerator.generate(new PrintWriter(outputStream));
@@ -367,7 +363,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		} else {
 			PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(
 					cSyntax, projectName, file,
-					isGenerateTestActionEnabled()
+					isGenerateTestActionEnabled(cSyntax)
 			);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			pluginXMLGenerator.generate(new PrintWriter(outputStream));
@@ -376,9 +372,8 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		}
 	}
 
-	private boolean isGenerateTestActionEnabled() {
-		return EMFTextSDKUIPlugin.getDefault().getPreferenceStore().getBoolean(
-				EMFTextSDKUIPlugin.GENERATE_TEST_ACTION_NAME);
+	private boolean isGenerateTestActionEnabled(ConcreteSyntax syntax) {
+		return OptionManager.INSTANCE.getBooleanOption(syntax, ICodeGenOptions.GENERATE_TEST_ACTION_NAME);
 	}
 
 	private void markErrors(final ConcreteSyntax cSyntax) throws CoreException {

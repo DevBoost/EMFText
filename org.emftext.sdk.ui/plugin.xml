@@ -33,13 +33,14 @@
       </objectContribution>
    </extension>
 
+	<!--
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             class="org.emftext.sdk.ui.preferences.MainPreferencePage"
             id="org.emftext.sdk.ui.preferences.main"
             name="EMFText SDK"/>
-    </extension>
+    </extension>-->
    <extension
          point="org.emftext.runtime.default_load_options">
       <provider

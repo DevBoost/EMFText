@@ -1,31 +1,37 @@
 package org.emftext.sdk.codegen;
 
-import java.io.ByteArrayOutputStream;
+import static org.emftext.sdk.codegen.ICodeGenOptions.GENERATE_PRINTER_STUB_ONLY_NAME;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_ANTLR_SPEC_NAME;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER_NAME;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PROXY_RESOLVERS_NAME;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS_NAME;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TREE_ANALYSER_NAME;
+
 import java.io.BufferedOutputStream;
-import java.io.PrintWriter;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.antlr.Tool;
 import org.antlr.tool.ErrorManager;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.runtime.resource.ReferenceResolver;
 import org.emftext.runtime.resource.TextResource;
-
 
 public class ResourcePackageGenerator {
 	
@@ -34,14 +40,6 @@ public class ResourcePackageGenerator {
 	
 	private static final String JAVA_EXT = ".java";
 	
-	public static String GENERATE_PRINTER_STUB_ONLY_NAME = "genPrinterStubOnly";
-	public static String OVERRIDE_ANTLR_SPEC_NAME = "ovrAntlrSpec";
-	public static String OVERRIDE_TOKEN_RESOLVERS_NAME = "ovrTokenResolvers";
-	public static String OVERRIDE_PROXY_RESOLVERS_NAME = "ovrReferenceResolvers";
-	public static String OVERRIDE_TREE_ANALYSER_NAME = "ovrTreeAnalyser";
-	public static String OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME = "ovrTokenResolverFactory";
-	public static String OVERRIDE_PRINTER_NAME = "ovrPrinter";
-
 	public static void generate(ResourcePackage resourcePackage, IProgressMonitor monitor)throws CoreException{
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
 	    String capCsName = BaseGenerator.cap(resourcePackage.getConcreteSyntax().getName());
@@ -118,7 +116,8 @@ public class ResourcePackageGenerator {
 			Map<TextParserGenerator.InternalTokenDefinition, String> tokenToNameMap)
 			throws CoreException {
 		progress.setTaskName("generating token resolver factory...");
-		if(!tokenResolverFactoryFile.exists()||pck.getPreference(OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME)){
+		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME);
+		if (generateTokenResolverFactory) {
 			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(tokenToNameMap,tokenResolverFactoryName,pck.getCsPackageName(),pck.getResolverPackageName());
 			setContents(tokenResolverFactoryFile,invokeGeneration(factoryGen,csResource));
 		}
@@ -138,7 +137,8 @@ public class ResourcePackageGenerator {
 			tokenToNameMap.put(definition,className);
 			
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className + JAVA_EXT));
-			if (!resolverFile.exists() || pck.getPreference(OVERRIDE_TOKEN_RESOLVERS_NAME)){
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS_NAME);
+			if (generateResolver) {
 				BaseGenerator resolverGenerator = new TokenResolverGenerator(className,pck.getResolverPackageName(),definition);
 				setContents(resolverFile,invokeGeneration(resolverGenerator,csResource));
 			}
@@ -152,7 +152,9 @@ public class ResourcePackageGenerator {
 			IFile treeAnalyserFile, String treeAnalyserName,
 			Map<GenFeature, String> proxy2Name) throws CoreException {
 		progress.setTaskName("generating tree analyser...");
-		if(!treeAnalyserFile.exists()||pck.getPreference(OVERRIDE_TREE_ANALYSER_NAME)){
+
+		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER_NAME);
+		if (generateTreeAnalyser) {
 			BaseGenerator analyserGen = new TextTreeAnalyserGenerator(proxy2Name,treeAnalyserName,pck.getCsPackageName(),pck.getResolverPackageName());
 			setContents(treeAnalyserFile,invokeGeneration(analyserGen,csResource));
 		}
@@ -169,7 +171,8 @@ public class ResourcePackageGenerator {
 			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + ReferenceResolver.class.getSimpleName();
 			proxy2Name.put(proxyReference,className);
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className +JAVA_EXT));
-			if(!resolverFile.exists()||pck.getPreference(OVERRIDE_PROXY_RESOLVERS_NAME)){
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_PROXY_RESOLVERS_NAME);
+			if (generateResolver) {
 				BaseGenerator proxyGen = new ReferenceResolverGenerator(className,pck.getResolverPackageName());
 				setContents(resolverFile, invokeGeneration(proxyGen,csResource));		
 			}
@@ -184,18 +187,23 @@ public class ResourcePackageGenerator {
 			String printerBaseName, String treeAnalyserName,
 			String tokenResolverFactoryName, TextParserGenerator antlrGen)
 			throws CoreException {
+		
 		progress.setTaskName("generating printer...");
-	    if(!pck.getPreference(GENERATE_PRINTER_STUB_ONLY_NAME)){
-	    	if(!printerBaseFile.exists()||pck.getPreference(OVERRIDE_PRINTER_NAME)){
+		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY_NAME);
+		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_PRINTER_NAME);
+	    boolean printerExists = printerFile.exists();
+		if (!generatePrinterStubOnly) {
+			boolean generatePrinterBase = !printerBaseFile.exists() || overridePrinter;
+	    	if (generatePrinterBase) {
 		        BaseGenerator printerBaseGen = new TextPrinterBaseGenerator(pck.getConcreteSyntax(),printerBaseName,pck.getCsPackageName(),antlrName,tokenResolverFactoryName, antlrGen.getPlaceHolderTokenMapping(),treeAnalyserName);
 			    setContents(printerBaseFile,invokeGeneration(printerBaseGen,csResource));	    		
 	    	}
-		    if(!printerFile.exists()){
+		    if (!printerExists) {
 			    BaseGenerator printerGen = new TextPrinterGenerator(printerName,pck.getCsPackageName(),printerBaseName);
 			    setContents(printerFile,invokeGeneration(printerGen,csResource));
 		    }
 	    }
-	    else if(!printerFile.exists()||pck.getPreference(OVERRIDE_PRINTER_NAME)){
+	    else if (!printerExists || overridePrinter) {
 		    BaseGenerator printerGen = new TextPrinterGenerator(printerName,pck.getCsPackageName(),null);
 		    setContents(printerFile,invokeGeneration(printerGen,csResource));
 	    }
@@ -228,7 +236,8 @@ public class ResourcePackageGenerator {
 	}
 	
 	private static void saveGrammar(InputStream content, ResourcePackage pck, IFile antlrFile) throws CoreException {
-	    if (!antlrFile.exists() || pck.getPreference(OVERRIDE_ANTLR_SPEC_NAME)) {
+		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC_NAME);
+	    if (generateANTLRSpecification) {
 	    	setContents(antlrFile, content);
 	    }
 	}

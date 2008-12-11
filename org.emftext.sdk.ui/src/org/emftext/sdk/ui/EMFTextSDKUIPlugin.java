@@ -1,17 +1,12 @@
 package org.emftext.sdk.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
 public class EMFTextSDKUIPlugin extends AbstractUIPlugin {
-	
-	public final static String GENERATE_TEST_ACTION_NAME = "genTestAction";
-	public final static String GENERATE_GEN_MODEL = "genGenModel";
-	public final static String OVERRIDE_PLUGIN_CONFIG_NAME = "ovrPluginConfig";
 	
 	private static EMFTextSDKUIPlugin plugin;
 	
@@ -26,7 +21,6 @@ public class EMFTextSDKUIPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		initPreferences();
 	}
 
 	/*
@@ -45,18 +39,5 @@ public class EMFTextSDKUIPlugin extends AbstractUIPlugin {
 	 */
 	public static EMFTextSDKUIPlugin getDefault() {
 		return plugin;
-	}
-
-	private void initPreferences(){
-		getPreferenceStore().setDefault(GENERATE_TEST_ACTION_NAME,false);
-		getPreferenceStore().setDefault(OVERRIDE_PLUGIN_CONFIG_NAME,true);
-		getPreferenceStore().setDefault(GENERATE_GEN_MODEL,true);
-		getPreferenceStore().setDefault(ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME,true);
-		getPreferenceStore().setDefault(ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME,false);
-		getPreferenceStore().setDefault(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME,false);		
-		getPreferenceStore().setDefault(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME,true);
-		getPreferenceStore().setDefault(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVERS_NAME,false);
-		getPreferenceStore().setDefault(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME,true);
-		getPreferenceStore().setDefault(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME,true);
 	}
 }
