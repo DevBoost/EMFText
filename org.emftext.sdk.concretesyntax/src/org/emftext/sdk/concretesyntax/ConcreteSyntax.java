@@ -116,7 +116,7 @@ public interface ConcreteSyntax extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Start Symbols</em>' reference list.
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_StartSymbols()
-	 * @model resolveProxies="false" required="true"
+	 * @model required="true"
 	 * @generated
 	 */
 	EList<GenClass> getStartSymbols();
