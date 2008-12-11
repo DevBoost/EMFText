@@ -3,6 +3,7 @@ package org.emftext.runtime.resource.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ReferenceMapping;
 import org.emftext.runtime.resource.ResolveResult;
@@ -68,14 +69,14 @@ public class ResolveResultImpl implements ResolveResult {
 		errorMessage = null;
 	}
 
-	public void addMapping(String identifier, String newIdentifier) {
-		addMapping(identifier, newIdentifier, null);
+	public void addMapping(String identifier, URI uri) {
+		addMapping(identifier, uri, null);
 	}
 	
-	public void addMapping(String identifier, String newIdentifier, String warning) {
+	public void addMapping(String identifier, URI uri, String warning) {
 		if (mappings == null) {
 			mappings = new ArrayList<ReferenceMapping>();
 		}
-		mappings.add(new IdentifierMappingImpl(identifier, newIdentifier, warning));
+		mappings.add(new URIMappingImpl(identifier, uri, warning));
 	}
 }

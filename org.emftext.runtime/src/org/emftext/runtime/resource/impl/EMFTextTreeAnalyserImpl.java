@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.runtime.resource.EMFTextTreeAnalyser;
 import org.emftext.runtime.resource.ElementMapping;
-import org.emftext.runtime.resource.IdentifierMapping;
+import org.emftext.runtime.resource.URIMapping;
 import org.emftext.runtime.resource.ReferenceMapping;
 import org.emftext.runtime.resource.ResolveResult;
 import org.emftext.runtime.resource.TextResource;
@@ -137,7 +137,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 				if (mapping instanceof ElementMapping) {
 					final EObject target = ((ElementMapping) mapping).getTargetElement();
 					resource.addWarning(warningMessage, target);
-				} else if (mapping instanceof IdentifierMapping) {
+				} else if (mapping instanceof URIMapping) {
 					resource.addWarning(warningMessage, proxy);
 				} else {
 					assert false;
@@ -222,10 +222,10 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 				EObject target = null;
 				if (mapping instanceof ElementMapping) {
 					target = ((ElementMapping) mapping).getTargetElement();
-				} else if (mapping instanceof IdentifierMapping) {
+				} else if (mapping instanceof URIMapping) {
 					target = EcoreUtil.copy(proxy);
-					String uri = ((IdentifierMapping) mapping).getTargetIdentifier();
-					((InternalEObject) target).eSetProxyURI(URI.createURI(uri));
+					URI uri = ((URIMapping) mapping).getTargetIdentifier();
+					((InternalEObject) target).eSetProxyURI(uri);
 				} else {
 					assert false;
 				}
@@ -273,9 +273,9 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 			if (mapping instanceof ElementMapping) {
 				EObject target = ((ElementMapping) mapping).getTargetElement();
 				container.eSet(reference, target);
-			} else if (mapping instanceof IdentifierMapping) {
-				String uri = ((IdentifierMapping) mapping).getTargetIdentifier();
-				((InternalEObject) proxy).eSetProxyURI(URI.createURI(uri));
+			} else if (mapping instanceof URIMapping) {
+				URI uri = ((URIMapping) mapping).getTargetIdentifier();
+				((InternalEObject) proxy).eSetProxyURI(uri);
 			} else {
 				assert false;
 			}

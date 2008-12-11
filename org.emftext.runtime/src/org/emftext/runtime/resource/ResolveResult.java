@@ -2,6 +2,7 @@ package org.emftext.runtime.resource;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -53,8 +54,8 @@ public interface ResolveResult {
 	 * @param identifier
 	 * @param newIdentifier
 	 */
-	public void addMapping(String identifier, String newIdentifier, String warning);
-	public void addMapping(String identifier, String newIdentifier);
+	public void addMapping(String identifier, URI newIdentifier, String warning);
+	public void addMapping(String identifier, URI newIdentifier);
 
 	/**
 	 * Indicates the type of the result. Depending on the type of
