@@ -165,53 +165,6 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		}
 	}
 
-	/**
-	 * Copies general generator settings to be passed to the resource package
-	 * generator.
-	 * 
-	 * @return a preference mapping
-	 */
-	/*
-	private Map<String, Boolean> copyMapFromPreferenceStore() {
-		Map<String, Boolean> preferences = new HashMap<String, Boolean>();
-		IPreferenceStore store = EMFTextSDKUIPlugin.getDefault()
-				.getPreferenceStore();
-		preferences
-				.put(
-						ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME,
-						store
-								.getBoolean(ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME));
-		preferences
-				.put(
-						ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME,
-						store
-								.getBoolean(ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME));
-		preferences.put(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME, store
-				.getBoolean(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME));
-		preferences
-				.put(
-						ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME,
-						store
-								.getBoolean(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME));
-		preferences
-				.put(
-						ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME,
-						store
-								.getBoolean(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME));
-		preferences
-				.put(
-						ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVERS_NAME,
-						store
-								.getBoolean(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVERS_NAME));
-		preferences
-				.put(
-						ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME,
-						store
-								.getBoolean(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME));
-		return preferences;
-	}
-	*/
-
 	private void generateMetaModelCode(GenPackage genPackage,
 			IProgressMonitor monitor) {
 		monitor.setTaskName("generating metamodel code...");

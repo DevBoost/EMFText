@@ -34,37 +34,11 @@ public class MainPreferencePage extends FieldEditorPreferencePage implements
 		platformGeneratorGroup.setText("Eclipse specific settings");
 		platformGeneratorGroup.setLayoutData(new GridData((GridData.GRAB_HORIZONTAL|GridData.FILL_HORIZONTAL)));
 
-		//BooleanFieldEditor genTestAction = new BooleanFieldEditor(EMFTextSDKUIPlugin.GENERATE_TEST_ACTION_NAME, "&Contribute Test Action",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
-		//BooleanFieldEditor ovrPluginConfig = new BooleanFieldEditor(EMFTextSDKUIPlugin.OVERRIDE_PLUGIN_CONFIG_NAME, "&Allways Override 'plugin.xml' and 'MANIFEST.MF'",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
-		//BooleanFieldEditor genGenModel = new BooleanFieldEditor(EMFTextSDKUIPlugin.GENERATE_GEN_MODEL, "&Auto-generate GenModel from Ecore",BooleanFieldEditor.DEFAULT, platformGeneratorGroup);
-
-		
-		//addField(genTestAction);
-		//addField(ovrPluginConfig);
-		//addField(genGenModel);
-		
 		Group generatorGroup = new Group(parent,SWT.NONE);
 		
 		generatorGroup.setText("General generator settings");
 		generatorGroup.setLayoutData(new GridData((GridData.GRAB_HORIZONTAL|GridData.FILL_HORIZONTAL)));
 
-		
-		//BooleanFieldEditor ovrAntlrSpec = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_ANTLR_SPEC_NAME, "&Allways Override ANTLR Grammar",BooleanFieldEditor.DEFAULT, generatorGroup);
-		//BooleanFieldEditor ovrReferenceResolvers = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_PROXY_RESOLVERS_NAME, "&Allways Override Proxy Resolvers",BooleanFieldEditor.DEFAULT, generatorGroup);
-		//BooleanFieldEditor ovrTreeAnalyser = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_TREE_ANALYSER_NAME, "&Allways Override Tree Analyser",BooleanFieldEditor.DEFAULT, generatorGroup);
-		//BooleanFieldEditor ovrTokenResolvers = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVERS_NAME, "&Allways Override Token Resolvers",BooleanFieldEditor.DEFAULT, generatorGroup);
-		//BooleanFieldEditor ovrTokenResolverFactory = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME, "&Allways Override Token Resolver Factory",BooleanFieldEditor.DEFAULT, generatorGroup);
-		//BooleanFieldEditor genPrinterStubOnly = new BooleanFieldEditor(ResourcePackageGenerator.GENERATE_PRINTER_STUB_ONLY_NAME, "&Generate Printer Stub Only",BooleanFieldEditor.DEFAULT, generatorGroup);
-		//BooleanFieldEditor ovrPrinter = new BooleanFieldEditor(ResourcePackageGenerator.OVERRIDE_PRINTER_NAME, "&Allways Override Printer",BooleanFieldEditor.DEFAULT, generatorGroup);
-
-		//addField(ovrAntlrSpec);
-		//addField(ovrReferenceResolvers);
-		//addField(ovrTreeAnalyser);
-		//addField(ovrTokenResolvers);
-		//addField(ovrTokenResolverFactory);
-		//addField(genPrinterStubOnly);
-		//addField(ovrPrinter);
-		
 		gl = new GridLayout();
 		gl.numColumns = 1;
 		gl.marginHeight = 5;

@@ -19,16 +19,15 @@ public class ResourcePackage {
 	private String csPackageName;
 	private String resolverPackageName;
 	private IFolder targetFolder;
-	//private Map<String,Boolean> preferences;
 	
-	public ResourcePackage(ConcreteSyntax csSource,String csPackageName,IFolder targetFolder){
-		if(csSource==null||targetFolder==null)
-			throw new NullPointerException("A ConcreteSyntax and an IFolder have to be specified!");
+	public ResourcePackage(ConcreteSyntax csSource, String csPackageName, IFolder targetFolder) {
+		if (csSource==null || targetFolder==null) {
+			throw new IllegalArgumentException("A ConcreteSyntax and an IFolder have to be specified!");
+		}
 		this.csSource = csSource;
 		this.targetFolder = targetFolder;
 		this.csPackageName = csPackageName;
-		resolverPackageName = (csPackageName==null||csPackageName.equals("")?"":csPackageName+  ".") + "analysis";
-		//this.preferences = preferences;
+		resolverPackageName = (csPackageName==null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
 	}
 	
 	/**
@@ -59,10 +58,4 @@ public class ResourcePackage {
 	public IFolder getTargetFolder(){
 		return targetFolder;
 	}
-	
-	/*
-	public boolean getPreference(String name) {
-		return preferences==null?false:(preferences.get(name)==null?false:preferences.get(name));
-	}
-	*/
 }
