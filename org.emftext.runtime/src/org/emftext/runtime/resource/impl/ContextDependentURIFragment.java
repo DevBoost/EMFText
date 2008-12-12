@@ -11,6 +11,8 @@ public class ContextDependentURIFragment {
 	protected int        positionInReference;
 	protected EObject    proxy;
 	
+	protected boolean    resolving;
+	
 	public ContextDependentURIFragment(String identifier, EObject container,
 			EReference reference, int positionInReference, EObject proxy) {
 		this.identifier = identifier;
@@ -38,6 +40,14 @@ public class ContextDependentURIFragment {
 
 	public EObject getProxy() {
 		return proxy;
+	}
+
+	public synchronized boolean isResolving() {
+		return resolving;
+	}
+
+	public synchronized void setResolving(boolean resolving) {
+		this.resolving = resolving;
 	}
 
 }
