@@ -39,8 +39,13 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 	
 	public void resolve(String identifier, EObject container, 
 			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
+		try {
+			doResolve(identifier, container, reference, position, resolveFuzzy, result);
+		} catch (RuntimeException rte) {
+			//if not catchted here, EMF proxy resolution will catch and swallow it
+			rte.printStackTrace();
+		}
 		
-		doResolve(identifier, container, reference, position, resolveFuzzy, result);
 		EObject element = null;
 		if (result.wasResolvedUniquely()) {
 			ReferenceMapping next = result.getMappings().iterator().next();
