@@ -99,39 +99,22 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		if (internalURIFragmentMap.containsKey(id)) {
 			ContextDependentURIFragment uriFragment = 
 				internalURIFragmentMap.get(id);
-			if (!uriFragment.isResolving()) {
-				ResolveResult result = new ResolveResultImpl(false);
-				//set an initial default error message
-				result.setErrorMessage(getErrorMessage(uriFragment));
 
-				uriFragment.setResolving(true);
-				getTreeAnalyser().resolve(
-						uriFragment.getIdentifier(),
-						uriFragment.getContainer(), 
-						uriFragment.getReference(), 
-						uriFragment.getPositionInReference(), 
-						false, result);
-				uriFragment.setResolving(false);
-				
-				if (!result.wasResolved()) {
-					attachErrors(result, uriFragment.getProxy());
-					return null;
-				} 
-				else if (result.wasResolvedUniquely()) {
-					//TODO remove URI mappings?
-					attachWarnings(result);
-					ReferenceMapping mapping = result.getMappings().iterator().next();
-					if (mapping instanceof URIMapping) {
-						return this.getResourceSet().getEObject(((URIMapping)mapping).getTargetIdentifier(), true);
-					}
-					else if (mapping instanceof ElementMapping) {
-						return ((ElementMapping)mapping).getTargetElement();
-					
-					}
-					else {
-						assert(false);
-						return null;
-					}
+			boolean wasResolvedBefore = uriFragment.isResolved();
+			ResolveResult result = uriFragment.resolve(getTreeAnalyser());
+			
+			if (!wasResolvedBefore && !result.wasResolved()) {
+				attachErrors(result, uriFragment.getProxy());
+				return null;
+			} 
+			else if (result.wasResolvedUniquely()) {
+				attachWarnings(result);
+				ReferenceMapping mapping = result.getMappings().iterator().next();
+				if (mapping instanceof URIMapping) {
+					return this.getResourceSet().getEObject(((URIMapping)mapping).getTargetIdentifier(), true);
+				}
+				else if (mapping instanceof ElementMapping) {
+					return ((ElementMapping)mapping).getTargetElement();
 				}
 				else {
 					assert(false);
@@ -139,19 +122,13 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 				}
 			}
 			else {
+				assert(false);
 				return null;
-			}
+			}		
 		}
 		else {
 			return super.getEObject(id);
 		}
-	}
-	
-	private String getErrorMessage(ContextDependentURIFragment uriFragment) {
-		String identifier = uriFragment.getIdentifier();
-		String typeName   = uriFragment.getReference().getEType().getName();
-		String msg = typeName + " '" + identifier + "' not declared";  
-		return msg;
 	}
 	
 	private void attachErrors(ResolveResult result, EObject proxy) {
