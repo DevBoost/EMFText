@@ -114,7 +114,12 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 					return this.getResourceSet().getEObject(((URIMapping)mapping).getTargetIdentifier(), true);
 				}
 				else if (mapping instanceof ElementMapping) {
-					return ((ElementMapping)mapping).getTargetElement();
+					EObject element = ((ElementMapping)mapping).getTargetElement();
+					EReference oppositeReference = uriFragment.getReference().getEOpposite();
+					if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
+						uriFragment.getContainer().eSet(uriFragment.getReference(), element);
+					}
+					return element;
 				}
 				else {
 					assert(false);
@@ -122,7 +127,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 				}
 			}
 			else {
-				assert(false);
+				// TODO Why is this? assert(false);
 				return null;
 			}		
 		}
