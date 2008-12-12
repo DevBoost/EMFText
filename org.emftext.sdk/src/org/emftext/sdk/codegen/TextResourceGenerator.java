@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.emftext.runtime.IOptions;
+import org.emftext.runtime.InputStreamProcessorProvider;
 import org.emftext.runtime.resource.EMFTextParser;
 import org.emftext.runtime.resource.EMFTextPrinter;
 import org.emftext.runtime.resource.EMFTextTreeAnalyser;
@@ -52,7 +54,15 @@ public class TextResourceGenerator extends BaseGenerator {
 		
         out.println("\tprotected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {");
         out.println("\t\tjava.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);");
-        out.println("\t\t" + EMFTextParser.class.getName() + " p = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(inputStream))));");
+        out.println("\t\tjava.io.InputStream actualInputStream = inputStream;");
+		out.println("\t\tObject inputStreamPreProcessorProvider = loadOptions.get(" + IOptions.class.getName() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
+		out.println("\t\tif (inputStreamPreProcessorProvider != null) {");
+		out.println("\t\t\tif (inputStreamPreProcessorProvider instanceof " + InputStreamProcessorProvider.class.getName() + ") {");
+		out.println("\t\t\t\tactualInputStream = ((" + InputStreamProcessorProvider.class.getName() + ") inputStreamPreProcessorProvider).getInputStreamProcessor(inputStream);");
+		out.println("\t\t\t}");
+		out.println("\t\t}");
+
+        out.println("\t\t" + EMFTextParser.class.getName() + " p = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream))));");
         out.println("\t\tp.setResource(this);");
         out.println("\t\tp.setOptions(loadOptions);");
         out.println("\t\tEObject root = p.parse();");
