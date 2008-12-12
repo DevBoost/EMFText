@@ -291,15 +291,6 @@ public class TextParserGenerator extends BaseGenerator {
 		initOptions();
 		initCaches();
 		
-	    EList<GenPackage> usedGenpackages = new BasicEList<GenPackage>(source.getPackage().getGenModel().getUsedGenPackages()); 
-	    
-	    for(GenPackage includedGP : source.getPackage().getGenModel().getGenPackages()){
-	    	if(!source.getPackage().equals(includedGP)&&!source.getPackage().getNSURI().equals(includedGP)){
-	    		usedGenpackages.add(includedGP);
-	    	}
-	    }
-	    usedGenpackages.add(0,source.getPackage());
-	    
         String csName = super.getResourceClassName();
 
         out.println("grammar " + csName + ";");
@@ -328,7 +319,6 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("package " + super.getResourcePackageName() + ";");
         out.println();
         
-        printGenPackageImports(usedGenpackages,out);
         printDefaultImports(out);
         
         out.println("}");
@@ -383,8 +373,6 @@ public class TextParserGenerator extends BaseGenerator {
 		
 		String ruleName = rule.getMetaclass().getName();
 		GenClass recursiveType = rule.getMetaclass();
-		GenPackage genPackage = rule.getMetaclass().getGenPackage();
-		
 		
 		{	
 			Copier copier = new Copier(true, true);
@@ -396,7 +384,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        out.print(getLowerCase(ruleName));
 	        out.println(" returns [" + ruleName + " element = null]");
 	        out.println("@init{");
-	        out.println("\telement = " + genPackage.getPrefix() + "Factory.eINSTANCE.create" + rule.getMetaclass().getName() + "();");
+			out.println("\telement = " + getCreateObjectCall(recursiveType) + ";");
 	        out.println("\tList<EObject> dummyEObjects  = new ArrayList<EObject>();");
 	        out.println("}");
 	        out.println(":");
@@ -476,7 +464,7 @@ public class TextParserGenerator extends BaseGenerator {
 	    	out.print(getLowerCase(ruleName) +  "_tail");
 	        out.println(" returns [DummyEObject element = null]");
 	        out.println("@init{");
-	        out.println("\telement = new DummyEObject(" + genPackage.getPrefix() + "Package.eINSTANCE.get" + rule.getMetaclass().getName() + "()" +", \""+recurseName+"\");");
+	        out.println("\telement = new DummyEObject(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
 	        out.println("}");
 	        out.println(":");
 	        
@@ -487,6 +475,11 @@ public class TextParserGenerator extends BaseGenerator {
 		}
 	    eClassesWithSyntax.add(rule.getMetaclass());
 	        
+	}
+
+	private String getCreateObjectCall(GenClass genClass) {
+		GenPackage genPackage = genClass.getGenPackage();
+		return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()";
 	}
 	
 	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
@@ -539,19 +532,22 @@ public class TextParserGenerator extends BaseGenerator {
 	
    
 	private void printGrammarRule(Rule rule, PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
-		String ruleName = rule.getMetaclass().getName();
-        GenPackage genPackage = rule.getMetaclass().getGenPackage();
+		GenClass genClass = rule.getMetaclass();
+
+        String ruleName = genClass.getName();
+        
+		String qualifiedClassName = genClass.getQualifiedInterfaceName();
         
         out.print(getLowerCase(ruleName));
-        out.println(" returns [" + ruleName + " element = null]");
+		out.println(" returns [" + qualifiedClassName + " element = null]");
         out.println("@init{");
-        out.println("\telement = " + genPackage.getPrefix() + "Factory.eINSTANCE.create" + rule.getMetaclass().getName() + "();");
+		out.println("\telement = " + getCreateObjectCall(genClass) + ";");
         out.println("}");
         out.println(":");
         
         printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,proxyReferences,"\t");
         
-        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
+        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(genClass, source.getAllRules());
         if(!subClasses.isEmpty()){
         	out.println("\t|//derived choice rules for sub-classes: ");
         	printSubClassChoices(out,subClasses);
@@ -561,9 +557,8 @@ public class TextParserGenerator extends BaseGenerator {
         out.println(";");
         out.println();
         
-        eClassesWithSyntax.add(rule.getMetaclass());
+        eClassesWithSyntax.add(genClass);
 	}
-	
 
 	private int printChoice(Choice choice, Rule rule, PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent) {
     	Iterator<Sequence> it = choice.getOptions().iterator();
@@ -624,7 +619,8 @@ public class TextParserGenerator extends BaseGenerator {
     }
     
     private int printTerminal(Terminal terminal,Rule rule,PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent){
-    	final EStructuralFeature sf = terminal.getFeature().getEcoreFeature();
+    	final GenFeature genFeature = terminal.getFeature();
+		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
 		final String ident = "a" + count;
     	final String proxyIdent = "proxy";
     	
@@ -635,15 +631,15 @@ public class TextParserGenerator extends BaseGenerator {
     	out.print(ident + " = ");
     	
     	if(terminal instanceof Containment){
-    		assert ((EReference)sf).isContainment(); 
-            out.print(getLowerCase(sf.getEType().getName())); 
-            if(!(terminal.getFeature().getEcoreFeature() instanceof EAttribute)){
+    		assert ((EReference)eFeature).isContainment(); 
+            out.print(getLowerCase(eFeature.getEType().getName())); 
+            if(!(genFeature.getEcoreFeature() instanceof EAttribute)){
                 //remember which classes are referenced to add choice rules for these classes later
-                if (!eClassesReferenced.keySet().contains(terminal.getFeature().getTypeGenClass())) {
-                  	eClassesReferenced.put(terminal.getFeature().getTypeGenClass(),new HashSet<Terminal>());
+                if (!eClassesReferenced.keySet().contains(genFeature.getTypeGenClass())) {
+                  	eClassesReferenced.put(genFeature.getTypeGenClass(), new HashSet<Terminal>());
                 }
                
-                eClassesReferenced.get(terminal.getFeature().getTypeGenClass()).add(terminal);            	
+                eClassesReferenced.get(genFeature.getTypeGenClass()).add(terminal);            	
             }
             expressionToBeSet = ident;
     	}
@@ -680,16 +676,16 @@ public class TextParserGenerator extends BaseGenerator {
         	String resolverIdent = resolvedIdent+"Resolver";
            	resolvements += TokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
            	resolvements += resolverIdent +".setOptions(getOptions());";
-        	resolvements += "Object " + preResolved + " ="+resolverIdent+".resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
+        	resolvements += "Object " + preResolved + " ="+resolverIdent+".resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"),element,getResource());";
         	resolvements += "if(" + preResolved + "==null) throw new " + TokenConversionException.class.getName() + "("+ident+","+resolverIdent+".getErrorMessage());";
         	
-        	if(sf instanceof EReference){
+        	if(eFeature instanceof EReference){
         		targetTypeName = "String";
         		expressionToBeSet = proxyIdent;
    
         		//a subtype that can be instantiated as a proxy
-            	GenClass instanceType = terminal.getFeature().getTypeGenClass();
-            	String proxyTypeName = null;
+            	GenClass instanceType = genFeature.getTypeGenClass();
+            	GenClass proxyType = null;
             	String genPackagePrefix = null;
             	
             	if(instanceType.isAbstract()||instanceType.isInterface()){
@@ -697,31 +693,31 @@ public class TextParserGenerator extends BaseGenerator {
             			Collection<String> supertypes = genClasses2superNames.get(instanceCand.getEcoreClass().getName());		
             			if (!instanceCand.isAbstract()&&!instanceCand.isInterface()&&supertypes.contains(instanceType.getEcoreClass().getName())) {
         					genPackagePrefix = instanceCand.getGenPackage().getPrefix();
-        	            	proxyTypeName = instanceCand.getName();
+        	            	proxyType = instanceCand;
         	            	break;
         				}            			
             		}
             	}
             	else{
-            		proxyTypeName = instanceType.getName();
+            		proxyType = instanceType;
             		genPackagePrefix = instanceType.getGenPackage().getPrefix();
             	}
             	if (genPackagePrefix == null) {
-            		addProblem(new GenerationProblem("The type of non-containment reference '" + sf.getName() + "' is abstract and has no concrete sub classes.", sf, GenerationProblem.Severity.ERROR));
+            		addProblem(new GenerationProblem("The type of non-containment reference '" + eFeature.getName() + "' is abstract and has no concrete sub classes.", eFeature, GenerationProblem.Severity.ERROR));
             	}
             	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";";
 	           	
             	//resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
             	// TODO if the code above will be used again 'resolvements += resolverIdent +".setOptions(getOptions()));";' must be added!
-	           	resolvements += proxyTypeName + " " + expressionToBeSet + " = " + genPackagePrefix + "Factory.eINSTANCE.create" + proxyTypeName + "();" 
+	           	resolvements += proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";" 
 				+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI((resource.getURI()==null?URI.createURI(\"dummy\"):resource.getURI()).appendFragment(" + resolvedIdent + ")); ";
 	        
 	           	//remember where proxies have to be resolved
-            	proxyReferences.add(terminal.getFeature());
+            	proxyReferences.add(genFeature);
 
         	}
         	else{
-        		EAttribute attr = (EAttribute)sf;
+        		EAttribute attr = (EAttribute)eFeature;
         		if(attr.getEType() instanceof EEnum){
         			EEnum enumType = (EEnum)attr.getEType();
         			targetTypeName = enumType.getName();
@@ -736,20 +732,20 @@ public class TextParserGenerator extends BaseGenerator {
         	
     	out.print("{");
     	out.print(resolvements);
-        if(sf.getUpperBound()==1){
-           out.print("element.eSet(element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"), " + expressionToBeSet +"); ");
+        if(eFeature.getUpperBound()==1){
+           out.print("element.eSet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + expressionToBeSet +"); ");
         }
         else{
             //TODO Warning, if a value is used twice. 
         	//whatever...
-            out.print("((List) element.eGet(element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"))).add(" + expressionToBeSet +"); ");
+            out.print("((List) element.eGet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"))).add(" + expressionToBeSet +"); ");
         }
         
         if(terminal instanceof Containment){
             out.print("copyLocalizationInfos(" + ident + ", element); "); 
         }else{
             out.print("copyLocalizationInfos((CommonToken) " + ident + ", element); "); 
-            if(sf instanceof EReference){
+            if(eFeature instanceof EReference){
             	//additionally set position information for the proxy instance	
                 out.print("copyLocalizationInfos((CommonToken) " + ident + ", " + proxyIdent + "); "); 
             }
@@ -760,7 +756,7 @@ public class TextParserGenerator extends BaseGenerator {
     }
     
     
-    private void printImplicitChoiceRules(PrintWriter out, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
+	private void printImplicitChoiceRules(PrintWriter out, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
         
     	for(GenClass referencedClass : eClassesReferenced.keySet()) {
             if(!cointainsEqualByName(eClassesWithSyntax,referencedClass)) {
@@ -776,7 +772,7 @@ public class TextParserGenerator extends BaseGenerator {
                else {
                	
                    out.println(getLowerCase(referencedClass.getName()));
-                   out.println("returns [" + referencedClass.getName() + " element = null]");
+                   out.println("returns [" + referencedClass.getQualifiedInterfaceName() + " element = null]");
                    out.println(":");
                    printSubClassChoices(out,subClasses);
                    out.println();
@@ -1009,25 +1005,6 @@ public class TextParserGenerator extends BaseGenerator {
 		out.println(";");
 	}
 	
-	
-	private void printGenPackageImports(Collection<GenPackage> usedGenpackages, PrintWriter out){    
-        
-		for(GenPackage p:usedGenpackages){
-            out.println("//+++++++++++++++++++++++imports for "+p.getQualifiedPackageName()+" begin++++++++++++++++++++++");
-			for(GenClass genClass : p.getGenClasses()) {
-			   if(genClass.getEcoreClass().getName()==null){
-				   out.println("//No ecore class for genClass: "+genClass.getName());
-			   }else{
-	               out.println("import " + genClass.getQualifiedInterfaceName() + ";");        	
-	               out.println("//Implementation: "+genClass.getQualifiedClassName());
-			   }
-            }
-            String usedPackagePrefix = p.getBasePackage()==null?"":(p.getBasePackage() + ".");
-        	out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".*;");
-			//out.println("import " + usedPackagePrefix + p.getEcorePackage().getName() + ".impl.*;");
-        }		
-	}
-	
 	private void printDefaultImports(PrintWriter out){
         out.println("import org.eclipse.emf.ecore.EObject;");
         out.println("import org.eclipse.emf.ecore.InternalEObject;");
@@ -1040,7 +1017,6 @@ public class TextParserGenerator extends BaseGenerator {
 	 * @return The tokendefinitions which were printed during last 
 	 * execution for printing token resolvers.
 	 */
-	
 	public Collection<InternalTokenDefinition> getPrintedTokenDefinitions(){
 		return printedTokens;
 	}
