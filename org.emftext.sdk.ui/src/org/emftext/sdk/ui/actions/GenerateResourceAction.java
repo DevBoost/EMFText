@@ -197,7 +197,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		}
 		
 		// call EMF code generator if specified
-		if (OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.GENERATE_GEN_MODEL)) {
+		if (OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.GENERATE_CODE_FROM_GENERATOR_MODEL)) {
 			generateMetaModelCode(cSyntax.getPackage(), progress
 					.newChild(TICKS_GENERATE_METAMODEL_CODE));
 		} else {
@@ -268,7 +268,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 			IProject project,
 			ResourcePackage resourcePackage) throws CoreException {
 
-		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST_NAME);
+		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
 
 		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
 		if (manifestMFFile.exists()) {
@@ -296,7 +296,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 			IProject project, IFile file)
 			throws CoreException {
 		
-		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML_NAME);
+		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML);
 		
 		IFile pluginXMLFile = project.getFile("/plugin.xml");
 		if (pluginXMLFile.exists()) {
@@ -326,7 +326,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 	}
 
 	private boolean isGenerateTestActionEnabled(ConcreteSyntax syntax) {
-		return OptionManager.INSTANCE.getBooleanOption(syntax, ICodeGenOptions.GENERATE_TEST_ACTION_NAME);
+		return OptionManager.INSTANCE.getBooleanOption(syntax, ICodeGenOptions.GENERATE_TEST_ACTION);
 	}
 
 	private void markErrors(final ConcreteSyntax cSyntax) throws CoreException {

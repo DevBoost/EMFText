@@ -1,12 +1,12 @@
 package org.emftext.sdk.codegen;
 
-import static org.emftext.sdk.codegen.ICodeGenOptions.GENERATE_PRINTER_STUB_ONLY_NAME;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_ANTLR_SPEC_NAME;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER_NAME;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PROXY_RESOLVERS_NAME;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS_NAME;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TREE_ANALYSER_NAME;
+import static org.emftext.sdk.codegen.ICodeGenOptions.GENERATE_PRINTER_STUB_ONLY;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_ANTLR_SPEC;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVERS;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TREE_ANALYSER;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -116,7 +116,7 @@ public class ResourcePackageGenerator {
 			Map<TextParserGenerator.InternalTokenDefinition, String> tokenToNameMap)
 			throws CoreException {
 		progress.setTaskName("generating token resolver factory...");
-		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME);
+		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY);
 		if (generateTokenResolverFactory) {
 			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(tokenToNameMap,tokenResolverFactoryName,pck.getCsPackageName(),pck.getResolverPackageName());
 			setContents(tokenResolverFactoryFile,invokeGeneration(factoryGen,csResource));
@@ -137,7 +137,7 @@ public class ResourcePackageGenerator {
 			tokenToNameMap.put(definition,className);
 			
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className + JAVA_EXT));
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS_NAME);
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator resolverGenerator = new TokenResolverGenerator(className,pck.getResolverPackageName(),definition);
 				setContents(resolverFile,invokeGeneration(resolverGenerator,csResource));
@@ -153,7 +153,7 @@ public class ResourcePackageGenerator {
 			Map<GenFeature, String> proxy2Name) throws CoreException {
 		progress.setTaskName("generating tree analyser...");
 
-		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER_NAME);
+		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
 		if (generateTreeAnalyser) {
 			BaseGenerator analyserGen = new TextTreeAnalyserGenerator(proxy2Name,treeAnalyserName,pck.getCsPackageName(),pck.getResolverPackageName());
 			setContents(treeAnalyserFile,invokeGeneration(analyserGen,csResource));
@@ -171,7 +171,7 @@ public class ResourcePackageGenerator {
 			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + ReferenceResolver.class.getSimpleName();
 			proxy2Name.put(proxyReference,className);
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className +JAVA_EXT));
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_PROXY_RESOLVERS_NAME);
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator proxyGen = new ReferenceResolverGenerator(className,pck.getResolverPackageName());
 				setContents(resolverFile, invokeGeneration(proxyGen,csResource));		
@@ -189,8 +189,8 @@ public class ResourcePackageGenerator {
 			throws CoreException {
 		
 		progress.setTaskName("generating printer...");
-		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY_NAME);
-		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_PRINTER_NAME);
+		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY);
+		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_PRINTER);
 	    boolean printerExists = printerFile.exists();
 		if (!generatePrinterStubOnly) {
 			boolean generatePrinterBase = !printerBaseFile.exists() || overridePrinter;
@@ -236,7 +236,7 @@ public class ResourcePackageGenerator {
 	}
 	
 	private static void saveGrammar(InputStream content, ResourcePackage pck, IFile antlrFile) throws CoreException {
-		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC_NAME);
+		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
 	    if (generateANTLRSpecification) {
 	    	setContents(antlrFile, content);
 	    }

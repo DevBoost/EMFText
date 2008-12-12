@@ -39,37 +39,37 @@ public class OptionManager {
 	}
 
 	private boolean getBooleanOptionsDefault(String optionName) {
-		if (optionName.equals(GENERATE_TEST_ACTION_NAME)) {
+		if (optionName.equals(GENERATE_TEST_ACTION)) {
 			return false;
 		}
-		if (optionName.equals(GENERATE_PRINTER_STUB_ONLY_NAME)) {
+		if (optionName.equals(GENERATE_PRINTER_STUB_ONLY)) {
 			return false;
 		}
-		if (optionName.equals(OVERRIDE_PROXY_RESOLVERS_NAME)) {
+		if (optionName.equals(OVERRIDE_REFERENCE_RESOLVERS)) {
 			return false;
 		}
-		if (optionName.equals(OVERRIDE_TOKEN_RESOLVERS_NAME)) {
+		if (optionName.equals(OVERRIDE_TOKEN_RESOLVERS)) {
 			return false;
 		}
-		if (optionName.equals(OVERRIDE_PLUGIN_XML_NAME)) {
+		if (optionName.equals(OVERRIDE_PLUGIN_XML)) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_MANIFEST_NAME)) {
+		if (optionName.equals(OVERRIDE_MANIFEST)) {
 			return true;
 		}
-		if (optionName.equals(GENERATE_GEN_MODEL)) {
+		if (optionName.equals(GENERATE_CODE_FROM_GENERATOR_MODEL)) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_ANTLR_SPEC_NAME)) {
+		if (optionName.equals(OVERRIDE_ANTLR_SPEC)) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_TREE_ANALYSER_NAME)) {
+		if (optionName.equals(OVERRIDE_TREE_ANALYSER)) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_TOKEN_RESOLVER_FACTORY_NAME)) {
+		if (optionName.equals(OVERRIDE_TOKEN_RESOLVER_FACTORY)) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_PRINTER_NAME)) {
+		if (optionName.equals(OVERRIDE_PRINTER)) {
 			return true;
 		}
 		return false;
