@@ -1,12 +1,12 @@
 package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -56,17 +56,20 @@ public class ManifestGenerator implements IGenerator {
 		// s.append("Bundle-Localization: plugin\n");
 		s.append("Require-Bundle: org.eclipse.core.runtime,\n");
 		s.append("  org.eclipse.emf.ecore,\n");
-		s.append("  " + cSyntax.getPackage().getGenModel().getModelPluginID()
+		List<String> importedPlugins = new ArrayList<String>();
+		String modelPluginID = cSyntax.getPackage().getGenModel().getModelPluginID();
+		importedPlugins.add(modelPluginID);
+		s.append("  " + modelPluginID
 				+ ",\n");
 		if (generateTestAction) {
 			s.append("  org.emftext.sdk.ui,\n");
 		}
-		EList<GenModel> importedPlugins = new BasicEList<GenModel>();
 		for (Import aImport : cSyntax.getImports()) {
-			GenModel m = aImport.getPackage().getGenModel();
-			if (!importedPlugins.contains(m)) {
-				s.append("  " + m.getModelPluginID() + ",\n");
-				importedPlugins.add(m);
+			GenModel genModel = aImport.getPackage().getGenModel();
+			String pluginID = genModel.getModelPluginID();
+			if (!importedPlugins.contains(pluginID)) {
+				s.append("  " + pluginID + ",\n");
+				importedPlugins.add(pluginID);
 			}
 		}
 		s.append("  org.emftext.runtime\n");
