@@ -49,7 +49,7 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  */
 public class TextPrinterBaseGenerator extends BaseGenerator {
 
-	public static String CS_OPTION_TOKENSPACE = "tokenspace";
+	
 
 	private ConcreteSyntax csSource;
 	private String tokenResolverFactoryClassName;
@@ -145,7 +145,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		Option tokenSpaceOption = GeneratorUtil.getOptionByName(
-				CS_OPTION_TOKENSPACE, csSource.getOptions());
+				ICodeGenOptions.CS_OPTION_TOKENSPACE, csSource.getOptions());
 		tokenSpace = 0;
 		if (tokenSpaceOption != null) {
 			try {

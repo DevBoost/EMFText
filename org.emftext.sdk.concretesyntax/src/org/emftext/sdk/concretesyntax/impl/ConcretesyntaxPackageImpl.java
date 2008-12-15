@@ -1089,6 +1089,12 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		   source, 
 		   new String[] {
 			 "Please provide a String with at least two letters.", "if (self.name=\'standardTextTokenName\') \r\n\tthen if( self.value.size()<2)\r\n\t\tthen false\r\n\t\telse \r\n\t\t\ttrue\r\n\t\tendif\r\n\telse true\r\nendif"
+		   });		
+		addAnnotation
+		  (optionEClass, 
+		   source, 
+		   new String[] {
+			 "Only boolean values: \'true\' or \'false\' are supported", "if(self.name = \'autofixSimpleLeftrecursion\' or \r\n\tself.name = \'forceEOF\' or \r\n\tself.name = \'generateTestAction\' or\r\n\tself.name = \'generateCodeFromGeneratorModel\' or\r\n\tself.name = \'generatePrinterStubOnly\' or\r\n\tself.name = \'overridePluginXML\' or\r\n\tself.name = \'overrideManifest\' or\r\n\tself.name = \'overrideAntlrSpecification\' or\r\n\tself.name = \'overrideTokenResolvers\' or\r\n\tself.name = \'overrideReferenceResolvers\' or\r\n\tself.name = \'overrideTreeAnalyser\' or\r\n\tself.name = \'overrideTokenResolverFactory\' or\r\n\tself.name = \'overridePrinter\' or\r\n\tself.name = \'useDefaultTokens\')\r\n\tthen (self.value = \'false\' or self.value = \'true\')\r\nelse\r\n\ttrue\r\nendif"
 		   });
 	}
 

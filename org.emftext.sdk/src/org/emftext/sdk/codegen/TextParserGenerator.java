@@ -79,21 +79,18 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  */
 public class TextParserGenerator extends BaseGenerator {
 	
-	private static final String CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION = "autofixSimpleLeftrecursion";
-	private static final String CS_OPTION_FORCE_EOF = "forceEOF";
-	private static final String CS_OPTION_STD_TOKEN_NAME = "standardTextTokenName";
-	private static final String CS_OPTION_USE_DEFAULT_TOKENS = "useDefaultTokens";
+
+	
+	/**
+	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
+	 */
+	public static final String EOF_TOKEN_NAME = "EOF";
 	
 	/**
 	 * The name prefix of derived tokendefinitions. 
 	 * The full name later is constructed by DERIVED_TOKEN_NAME+_+PREFIXCODE+_+SUFFIXCODE.  
 	 */
 	public static final String DERIVED_TOKEN_NAME= "QUOTED";
-	
-	/**
-	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
-	 */
-	public static final String EOF_TOKEN_NAME = "EOF";
 	
 	/**
 	 * These class/interface definitions bring automatically derived TokenDefinitions 
@@ -238,7 +235,7 @@ public class TextParserGenerator extends BaseGenerator {
 	}
 	
 	private void initOptions(){
-		Option currentOption = GeneratorUtil.getOptionByName(CS_OPTION_STD_TOKEN_NAME,source.getOptions());
+		Option currentOption = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME,source.getOptions());
 		standardTextTokenName = currentOption == null ? STD_TOKEN_NAME : currentOption.getValue();
 		if (standardTextTokenName == null) {
 			standardTextTokenName = STD_TOKEN_NAME;
@@ -248,9 +245,9 @@ public class TextParserGenerator extends BaseGenerator {
 		if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
 			addProblem(new GenerationProblem("Token names must start with a capital letter.", currentOption,Severity.ERROR));
 		}
-		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_FORCE_EOF,source.getOptions());
+		currentOption = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_FORCE_EOF,source.getOptions());
 		forceEOFToken = currentOption == null ? true : Boolean.parseBoolean(currentOption.getValue());
-		currentOption = GeneratorUtil.getOptionByName(CS_OPTION_USE_DEFAULT_TOKENS,source.getOptions());
+		currentOption = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS,source.getOptions());
 		useDefaultTokens = currentOption==null?true:(currentOption.getValue().equals("false")?false:true);
 	}
 	
@@ -362,7 +359,7 @@ public class TextParserGenerator extends BaseGenerator {
             count++;
         }
         if(forceEOFToken) {
-        	out.println("\t"+EOF_TOKEN_NAME);
+        	out.println("\t"+ EOF_TOKEN_NAME);
         }
         out.println();
         out.println(";");
@@ -488,7 +485,7 @@ public class TextParserGenerator extends BaseGenerator {
         	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-            	Option option = GeneratorUtil.getOptionByName(CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION, source.getOptions());
+            	Option option = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION, source.getOptions());
             	boolean autofix = (option == null) ? false : Boolean.parseBoolean(option.getValue());
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {

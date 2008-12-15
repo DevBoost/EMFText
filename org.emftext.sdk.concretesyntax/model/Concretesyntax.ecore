@@ -111,6 +111,9 @@
     <eAnnotations source="OCL">
       <details key="Please provide a String with at least two letters." value="if (self.name='standardTextTokenName') &#xD;&#xA;&#x9;then if( self.value.size()&lt;2)&#xD;&#xA;&#x9;&#x9;then false&#xD;&#xA;&#x9;&#x9;else &#xD;&#xA;&#x9;&#x9;&#x9;true&#xD;&#xA;&#x9;&#x9;endif&#xD;&#xA;&#x9;else true&#xD;&#xA;endif"/>
     </eAnnotations>
+    <eAnnotations source="OCL">
+      <details key="Only boolean values: 'true' or 'false' are supported" value="if(self.name = 'autofixSimpleLeftrecursion' or &#xD;&#xA;&#x9;self.name = 'forceEOF' or &#xD;&#xA;&#x9;self.name = 'generateTestAction' or&#xD;&#xA;&#x9;self.name = 'generateCodeFromGeneratorModel' or&#xD;&#xA;&#x9;self.name = 'generatePrinterStubOnly' or&#xD;&#xA;&#x9;self.name = 'overridePluginXML' or&#xD;&#xA;&#x9;self.name = 'overrideManifest' or&#xD;&#xA;&#x9;self.name = 'overrideAntlrSpecification' or&#xD;&#xA;&#x9;self.name = 'overrideTokenResolvers' or&#xD;&#xA;&#x9;self.name = 'overrideReferenceResolvers' or&#xD;&#xA;&#x9;self.name = 'overrideTreeAnalyser' or&#xD;&#xA;&#x9;self.name = 'overrideTokenResolverFactory' or&#xD;&#xA;&#x9;self.name = 'overridePrinter' or&#xD;&#xA;&#x9;self.name = 'useDefaultTokens')&#xD;&#xA;&#x9;then (self.value = 'false' or self.value = 'true')&#xD;&#xA;else&#xD;&#xA;&#x9;true&#xD;&#xA;endif"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
