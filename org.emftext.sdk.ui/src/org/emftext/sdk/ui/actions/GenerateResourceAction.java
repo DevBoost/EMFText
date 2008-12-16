@@ -39,6 +39,7 @@ import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.ManifestGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginXMLGenerator;
+import org.emftext.sdk.codegen.PutEverywhereSyntaxExtender;
 import org.emftext.sdk.codegen.ResourcePackage;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -110,6 +111,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 
 						final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource
 								.getContents().get(0);
+						new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(concreteSyntax);
 						final String csPackageName = getPackageName(concreteSyntax);
 						final String projectName = csPackageName;
 
