@@ -206,6 +206,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		if (resource == null) {
 			try {
 				resource = (TextResource) editingDomain.getResourceSet().getResource(uri, true);
+				EcoreUtil.resolveAll(resource);
 				resourceCopy = (TextResource) new ResourceSetImpl().createResource(uri);
 				MarkerHelper.unmark(resource);
 				MarkerHelper.mark(resource);
