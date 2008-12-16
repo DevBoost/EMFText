@@ -1,5 +1,5 @@
 SYNTAXDEF gluetest
-FOR <http://www.reuseware.org/test/gluetest>
+FOR <http://www.emftext.org/test/gluetest>
 START Root
 
 OPTIONS {
