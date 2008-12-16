@@ -2,11 +2,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.TextResource;
-import org.emftext.runtime.resource.TokenResolver;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 
-public class CsTEXTTokenResolver extends JavaBasedTokenResolver implements TokenResolver{ 
+public class CsTEXTTokenResolver extends JavaBasedTokenResolver implements ITokenResolver{ 
 	@Override
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
 		String result = super.deResolve(value,feature,container);
@@ -14,7 +14,7 @@ public class CsTEXTTokenResolver extends JavaBasedTokenResolver implements Token
 	}
 
 	@Override
-	public Object resolve(String lexem, EStructuralFeature feature, EObject container, TextResource resource) {
+	public Object resolve(String lexem, EStructuralFeature feature, EObject container, ITextResource resource) {
 		return super.resolve(lexem,feature,container,resource);
 	}
 }

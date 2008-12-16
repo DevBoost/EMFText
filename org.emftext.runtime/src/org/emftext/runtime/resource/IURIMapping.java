@@ -2,6 +2,6 @@ package org.emftext.runtime.resource;
 
 import org.eclipse.emf.common.util.URI;
 
-public interface URIMapping extends ReferenceMapping {
+public interface IURIMapping extends IReferenceMapping {
 	public URI getTargetIdentifier();
 }

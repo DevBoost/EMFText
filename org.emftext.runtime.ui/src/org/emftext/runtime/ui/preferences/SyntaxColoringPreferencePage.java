@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Scrollable;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 
 /**
@@ -560,8 +560,8 @@ public class SyntaxColoringPreferencePage
         	ResourceSet rs = new ResourceSetImpl();
         	Resource tempResource = rs.createResource(URI.createURI("temp." + extension));
         	
-        	if (tempResource instanceof TextResource) {
-        		TextResource tr = (TextResource) tempResource;
+        	if (tempResource instanceof ITextResource) {
+        		ITextResource tr = (ITextResource) tempResource;
         		
 	            String languageId = extension;
 	            

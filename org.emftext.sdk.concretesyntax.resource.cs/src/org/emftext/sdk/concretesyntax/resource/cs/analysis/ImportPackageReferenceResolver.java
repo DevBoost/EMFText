@@ -3,8 +3,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.ResolveResult;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -17,8 +17,8 @@ public class ImportPackageReferenceResolver extends ReferenceResolverImpl {
 	@Override
 	protected void doResolve(String identifier, EObject container,
 			EReference reference, int position, boolean resolveFuzzy,
-			ResolveResult result) {
-		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), identifier, (TextResource) container.eResource());
+			IResolveResult result) {
+		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), identifier, (ITextResource) container.eResource());
 		if (genPackage != null) {
 			ConcreteSyntax cs = (ConcreteSyntax)((Import)container).eContainer();
 			if(!cs.getPackage().equals(genPackage)&&!cs.getPackage().getNSURI().equals(genPackage.getNSURI()))

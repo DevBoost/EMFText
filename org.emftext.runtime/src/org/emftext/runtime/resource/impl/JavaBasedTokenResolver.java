@@ -7,8 +7,8 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.TextResource;
-import org.emftext.runtime.resource.TokenResolver;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenResolver;
 
 /**
  * A base implementation for token resolvers. It tries to resolve lexems by java methods.
@@ -17,7 +17,7 @@ import org.emftext.runtime.resource.TokenResolver;
  *
  */
 
-public class JavaBasedTokenResolver implements TokenResolver {
+public class JavaBasedTokenResolver implements ITokenResolver {
 	
 	private String message = null;
 	private Map<?, ?> options;
@@ -29,7 +29,7 @@ public class JavaBasedTokenResolver implements TokenResolver {
 		return value.toString();
 	}
 	
-	public Object resolve(String lexem, EStructuralFeature feature, EObject container, TextResource resource) {
+	public Object resolve(String lexem, EStructuralFeature feature, EObject container, ITextResource resource) {
 		
 		if(feature instanceof EAttribute){
 			if(feature.getEType() instanceof EEnum){

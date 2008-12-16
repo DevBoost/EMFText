@@ -24,25 +24,25 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.IOptionProvider;
-import org.emftext.runtime.resource.EMFTextOCLValidator;
-import org.emftext.runtime.resource.ElementMapping;
-import org.emftext.runtime.resource.LocationMap;
-import org.emftext.runtime.resource.ReferenceMapping;
-import org.emftext.runtime.resource.ResolveResult;
-import org.emftext.runtime.resource.TextDiagnostic;
-import org.emftext.runtime.resource.TextResource;
-import org.emftext.runtime.resource.URIMapping;
-import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
+import org.emftext.runtime.resource.ITextOCLValidator;
+import org.emftext.runtime.resource.IElementMapping;
+import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.ITextDiagnostic;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.IURIMapping;
+import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
 
 /**
  * Base implementation for all generated text resources. 
- * It implements the specifications from {@link TextResource}.
+ * It implements the specifications from {@link ITextResource}.
  * 
  * @author Jendrik Johannes (jj2)
  */
-public abstract class TextResourceImpl extends ResourceImpl implements TextResource {
+public abstract class TextResourceImpl extends ResourceImpl implements ITextResource {
 	
-	private LocationMap locationMap = new LocationMapImpl();
+	private ILocationMap locationMap = new LocationMapImpl();
 	
 	public static final String INTERNAL_URI_FRAGMENT_PREFIX = "EMFTEXT_INTERNAL_URI_FRAGMENT_";
 	
@@ -104,7 +104,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 				internalURIFragmentMap.get(id);
 
 			boolean wasResolvedBefore = uriFragment.isResolved();
-			ResolveResult result = uriFragment.resolve(getTreeAnalyser());
+			IResolveResult result = uriFragment.resolve(getTreeAnalyser());
 			
 			if (result == null) {
 				//the resolving did call itself
@@ -123,7 +123,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 				removeError(uriFragment.getProxy());
 				attachWarnings(result);
 
-				ReferenceMapping mapping = result.getMappings().iterator().next();
+				IReferenceMapping mapping = result.getMappings().iterator().next();
 				
 				return getResultElement(uriFragment, mapping);
 			}
@@ -134,12 +134,12 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 	}
 
 	private EObject getResultElement(ContextDependentURIFragment uriFragment,
-			ReferenceMapping mapping) {
-		if (mapping instanceof URIMapping) {
-			return this.getResourceSet().getEObject(((URIMapping)mapping).getTargetIdentifier(), true);
+			IReferenceMapping mapping) {
+		if (mapping instanceof IURIMapping) {
+			return this.getResourceSet().getEObject(((IURIMapping)mapping).getTargetIdentifier(), true);
 		}
-		else if (mapping instanceof ElementMapping) {
-			EObject element = ((ElementMapping)mapping).getTargetElement();
+		else if (mapping instanceof IElementMapping) {
+			EObject element = ((IElementMapping)mapping).getTargetElement();
 			EReference oppositeReference = uriFragment.getReference().getEOpposite();
 			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
 				//TODO reference might be multiple (use eGet() and cast to list in this case)
@@ -156,15 +156,15 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 	private void removeError(EObject proxy) {
 		// attach errors to resource
 		for(Diagnostic errorCand : new BasicEList<Diagnostic>(getErrors())) {
-			if(errorCand instanceof TextDiagnostic) {
-				if(((TextDiagnostic) errorCand).wasCausedBy(proxy)) {
+			if(errorCand instanceof ITextDiagnostic) {
+				if(((ITextDiagnostic) errorCand).wasCausedBy(proxy)) {
 					getErrors().remove(errorCand);
 				}
 			}
 		}
 	}
 	
-	private void attachErrors(ResolveResult result, EObject proxy) {
+	private void attachErrors(IResolveResult result, EObject proxy) {
 		// attach errors to resource
 		assert result != null;
 		String errorMessage = result.getErrorMessage();
@@ -175,18 +175,18 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		}
 	}
 
-	private void attachWarnings(ResolveResult result) {
+	private void attachWarnings(IResolveResult result) {
 		assert result != null;
 		assert result.wasResolved();
 		
 		if (result.wasResolved()) {
-			for (ReferenceMapping mapping : result.getMappings()) {
+			for (IReferenceMapping mapping : result.getMappings()) {
 				String warningMessage = mapping.getWarning();
 				if (warningMessage == null) {
 					continue;
 				}
-				if (mapping instanceof ElementMapping) {
-					final EObject target = ((ElementMapping) mapping).getTargetElement();
+				if (mapping instanceof IElementMapping) {
+					final EObject target = ((IElementMapping) mapping).getTargetElement();
 					addWarning(warningMessage, target);
 				} else {
 					assert false;
@@ -218,7 +218,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 						.get(TextResourceImpl.OPTION_NO_VALIDATE))) {
 		} else {
 			EList<EObject> contents = getContents();
-			EMFTextOCLValidator oclValidator = new EMFTextOCLValidator();
+			ITextOCLValidator oclValidator = new ITextOCLValidator();
 			Set<EObject> distinctObjects = new HashSet<EObject>();
 			distinctObjects.addAll(contents);
 			for (EObject eobject : distinctObjects) {
@@ -246,7 +246,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		super(uri);	
 	}
 	
-	public LocationMap getLocationMap() {
+	public ILocationMap getLocationMap() {
 		return locationMap;
 	}
 	  

@@ -2,7 +2,7 @@ package org.emftext.runtime.resource;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
+import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
 
 /**
  * An extended resource that can hold information about the exact positions 
@@ -12,7 +12,7 @@ import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
  * @author Jendrik Johannes (jj2)
  *
  */
-public interface TextResource extends Resource {
+public interface ITextResource extends Resource {
 	
 	/**
 	 * Used during {@link #load(java.util.Map)} to determine whether OCL
@@ -26,7 +26,7 @@ public interface TextResource extends Resource {
 	 * 
 	 * @return the model element to text location mapping
 	 */
-	public LocationMap getLocationMap();
+	public ILocationMap getLocationMap();
 	
 	/**
 	 * Returns the tree analyser used by this resource. The analyser
@@ -35,7 +35,7 @@ public interface TextResource extends Resource {
 	 * 
 	 * @return the tree analyser
 	 */
-	public EMFTextTreeAnalyser getTreeAnalyser();
+	public IReferenceResolver getTreeAnalyser();
 	
 	/**
 	 * Add an error that should be displayed at the position of the given element.

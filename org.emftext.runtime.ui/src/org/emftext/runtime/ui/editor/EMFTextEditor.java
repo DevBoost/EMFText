@@ -60,8 +60,8 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.emftext.runtime.EMFTextPlugin;
-import org.emftext.runtime.resource.LocationMap;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
 import org.emftext.runtime.ui.ISaveListener;
@@ -141,9 +141,9 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 	private EMFTextOutlinePage emfTextEditorOutlinePage;
 	
-	private TextResource resource;
+	private ITextResource resource;
 
-	private TextResource resourceCopy;
+	private ITextResource resourceCopy;
 
 	private MarkerAdapter markerAdapter = new MarkerAdapter();
 
@@ -202,12 +202,12 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		FileEditorInput input = (FileEditorInput) editorInput;
 		String path = input.getFile().getFullPath().toString();
 		URI uri = URI.createPlatformResourceURI(path, true);
-		resource = (TextResource) editingDomain.getResourceSet().getResource(uri, false);
+		resource = (ITextResource) editingDomain.getResourceSet().getResource(uri, false);
 		if (resource == null) {
 			try {
-				resource = (TextResource) editingDomain.getResourceSet().getResource(uri, true);
+				resource = (ITextResource) editingDomain.getResourceSet().getResource(uri, true);
 				EcoreUtil.resolveAll(resource);
-				resourceCopy = (TextResource) new ResourceSetImpl().createResource(uri);
+				resourceCopy = (ITextResource) new ResourceSetImpl().createResource(uri);
 				MarkerHelper.unmark(resource);
 				MarkerHelper.mark(resource);
 				resource.eAdapters().add(markerAdapter);
@@ -230,9 +230,9 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			if (selectedElement instanceof EObject) {
 				EObject selectedEObject = (EObject) selectedElement;
 				Resource resource = selectedEObject.eResource();
-				if (resource instanceof TextResource) {
-					TextResource textResource = (TextResource) resource;
-					LocationMap locationMap = textResource.getLocationMap();
+				if (resource instanceof ITextResource) {
+					ITextResource textResource = (ITextResource) resource;
+					ILocationMap locationMap = textResource.getLocationMap();
 					int elementCharStart = locationMap.getCharStart(selectedEObject);
 					int elementCharEnd = locationMap.getCharEnd(selectedEObject);
 					selectAndReveal(elementCharStart, elementCharEnd - elementCharStart + 1);
@@ -247,7 +247,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		super.performSave(overwrite, progressMonitor); 
 		FileEditorInput input = (FileEditorInput) getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		TextResource thisFile = (TextResource) editingDomain.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
+		ITextResource thisFile = (ITextResource) editingDomain.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
 		thisFile.unload();
 		try {
 			markerAdapter.setEnabled(false);
@@ -295,7 +295,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 					if (selection instanceof TextSelection) {
 						TextSelection textSelection = (TextSelection) selection;
 						int offset = textSelection.getOffset();
-						LocationMap locationMap = resource.getLocationMap();
+						ILocationMap locationMap = resource.getLocationMap();
 						List<EObject> elements = locationMap.getElementsAt(offset);
 						if (elements.isEmpty()) {
 							return;
@@ -347,7 +347,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	}
 
 
-	private void fireSaveEvent(TextResource resource) {
+	private void fireSaveEvent(ITextResource resource) {
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.SAVE_PERFORMED_EXTENSION_POINT_ID);
 		for (IConfigurationElement element : configurationElements) {
@@ -402,7 +402,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		return resource;
 	}
 
-	public void setResource(TextResource resource) {
+	public void setResource(ITextResource resource) {
 		this.resource = resource;
 	}
 	

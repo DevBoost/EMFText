@@ -11,9 +11,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.ReferenceResolver;
-import org.emftext.runtime.resource.ResolveResult;
-import org.emftext.runtime.resource.impl.EMFTextTreeAnalyserImpl;
+import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.IResolveResult;
 
 public class TextTreeAnalyserGenerator extends BaseGenerator {
 	
@@ -70,7 +69,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 
         if (!proxyReferences.isEmpty()) s.append("import " + resolverImplementationPackage + ".*;\n\n");
 		
-		s.append("public class " + super.getResourceClassName() + " extends " + EMFTextTreeAnalyserImpl.class.getName() + " {\n\n");
+		s.append("public class " + super.getResourceClassName() + " implements " + IReferenceResolver.class.getName() + " {\n\n");
 		
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String generatedClassName = proxyReferences.get(proxyReference);
@@ -80,7 +79,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 			}
 		}
 		
-		s.append("\tpublic void resolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, " + ResolveResult.class.getName() + " result) {\n");
+		s.append("\tpublic void resolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, " + IResolveResult.class.getName() + " result) {\n");
 		s.append("\t\tif (resolveFuzzy) {\n");
 		s.append("\t\t\tresolveFuzzy(identifier, container, position, result);\n");
 		s.append("\t\t} else {\n");
@@ -88,7 +87,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		s.append("\t\t}\n");
 		s.append("\t}\n\n");
 
-		s.append("\tpublic void resolveStrict(String identifier, EObject container, EReference reference, int position, " + ResolveResult.class.getName() + " result) {\n");		
+		s.append("\tpublic void resolveStrict(String identifier, EObject container, EReference reference, int position, " + IResolveResult.class.getName() + " result) {\n");		
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String generatedClassName = proxyReferences.get(proxyReference);
 			final int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
@@ -120,7 +119,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		}
 		s.append("\t}\n\n");
 		
-		s.append("\tpublic void resolveFuzzy(java.lang.String identifier, EObject container, int position, " + ResolveResult.class.getName() + " result) {\n\n");
+		s.append("\tpublic void resolveFuzzy(java.lang.String identifier, EObject container, int position, " + IResolveResult.class.getName() + " result) {\n\n");
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
 			String genClassName = proxyReference.getGenClass().getName();
 			String generatedClassName = proxyReferences.get(proxyReference);
@@ -132,7 +131,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 		
 		s.append("\tprotected void resolveFuzzy(Class<?> clazz, String identifier, EObject container, int position, \n");
 		s.append("\t\t\tint featureID, \n");
-		s.append("\t\t\t" + ReferenceResolver.class.getName() + " resolver, " + ResolveResult.class.getName() + " result\n");
+		s.append("\t\t\t" + IReferenceResolver.class.getName() + " resolver, " + IResolveResult.class.getName() + " result\n");
 		s.append("\t\t\t) {\n");
 		s.append("\n");
 		s.append("\t\t//if (clazz.isInstance(container)) {\n"); //TODO @mseifert this should be activated and use the reflective API (EClass)

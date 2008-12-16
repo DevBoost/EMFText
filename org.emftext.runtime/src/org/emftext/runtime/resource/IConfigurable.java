@@ -2,6 +2,6 @@ package org.emftext.runtime.resource;
 
 import java.util.Map;
 
-public interface Configurable {
+public interface IConfigurable {
 	public void setOptions(Map<?,?> options);
 }

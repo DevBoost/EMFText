@@ -5,12 +5,12 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.ReferenceMapping;
-import org.emftext.runtime.resource.ResolveResult;
+import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IResolveResult;
 
-public class ResolveResultImpl implements ResolveResult {
+public class ResolveResultImpl implements IResolveResult {
 	
-	private Collection<ReferenceMapping> mappings;
+	private Collection<IReferenceMapping> mappings;
 	private String errorMessage;
 	private boolean resolveFuzzy;
 
@@ -24,7 +24,7 @@ public class ResolveResultImpl implements ResolveResult {
 		return errorMessage;
 	}
 
-	public Collection<ReferenceMapping> getMappings() {
+	public Collection<IReferenceMapping> getMappings() {
 		assert errorMessage == null;
 		return mappings;
 	}
@@ -63,7 +63,7 @@ public class ResolveResultImpl implements ResolveResult {
 
 	public void addMapping(String identifier, EObject target, String warning) {
 		if (mappings == null) {
-			mappings = new ArrayList<ReferenceMapping>();
+			mappings = new ArrayList<IReferenceMapping>();
 		}
 		mappings.add(new ElementMappingImpl(identifier, target, warning));
 		errorMessage = null;
@@ -75,7 +75,7 @@ public class ResolveResultImpl implements ResolveResult {
 	
 	public void addMapping(String identifier, URI uri, String warning) {
 		if (mappings == null) {
-			mappings = new ArrayList<ReferenceMapping>();
+			mappings = new ArrayList<IReferenceMapping>();
 		}
 		mappings.add(new URIMappingImpl(identifier, uri, warning));
 	}

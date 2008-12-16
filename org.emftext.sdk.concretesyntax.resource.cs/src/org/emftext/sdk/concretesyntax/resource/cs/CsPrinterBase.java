@@ -35,10 +35,10 @@ import org.emftext.runtime.resource.impl.*;
 
 public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 
-	protected TokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
-	protected EMFTextTreeAnalyser treeAnalyser = new CsTreeAnalyser();
+	protected ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
+	protected IReferenceResolver treeAnalyser = new CsTreeAnalyser();
 
-	public CsPrinterBase(OutputStream o, TextResource resource) {
+	public CsPrinterBase(OutputStream o, ITextResource resource) {
 
 		super(o, resource);
 	}
@@ -171,7 +171,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("name");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("name"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("name"),element));
 				
@@ -188,7 +188,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("package");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("package"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("package")),element.eClass().getEStructuralFeature("package"),element));
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("package")),element.eClass().getEStructuralFeature("package"),element));
 				printCountingMap.put("package",count-1);
 			}
 			//////////////DEFINITION PART BEGINS (LineBreak):
@@ -298,7 +298,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 						if(count>0){
 							Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
 							o = ((List<Object>)o).get(((List<Object>)o).size()-count);
-							TokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
+							ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
 							printCountingMap.put("startSymbols",count-1);
 						}
 					}
@@ -309,7 +309,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 					if(count>0){
 						Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
 						o = ((List<Object>)o).get(((List<Object>)o).size()-count);
-						TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
+						ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
 						printCountingMap.put("startSymbols",count-1);
 					}
 			}
@@ -523,7 +523,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 						if(count>0){
 							Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
 							o = ((List<Object>)o).get(((List<Object>)o).size()-count);
-							TokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
+							ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
 							printCountingMap.put("startSymbols",count-1);
 						}
 					}
@@ -534,7 +534,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 					if(count>0){
 						Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
 						o = ((List<Object>)o).get(((List<Object>)o).size()-count);
-						TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
+						ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
 						printCountingMap.put("startSymbols",count-1);
 					}
 			}
@@ -554,7 +554,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("prefix");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("prefix"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("prefix"),element));
 				
@@ -566,7 +566,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("package");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("package"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("package")),element.eClass().getEStructuralFeature("package"),element));
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("package")),element.eClass().getEStructuralFeature("package"),element));
 				printCountingMap.put("package",count-1);
 			}
 			//////////////DEFINITION PART BEGINS (CompoundDefinition):
@@ -601,7 +601,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("concreteSyntax");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("concreteSyntax"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("concreteSyntax")),element.eClass().getEStructuralFeature("concreteSyntax"),element));
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("concreteSyntax")),element.eClass().getEStructuralFeature("concreteSyntax"),element));
 				printCountingMap.put("concreteSyntax",count-1);
 			}
 		}
@@ -618,7 +618,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("name");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("name"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("name"),element));
 				
@@ -630,7 +630,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("value");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("value"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("value"),element));
 				
@@ -687,7 +687,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 						count = printCountingMap.get("metaclass");
 						if(count>0){
 							Object o =element.eGet(element.eClass().getEStructuralFeature("metaclass"));
-							TokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("metaclass")),element.eClass().getEStructuralFeature("metaclass"),element));
+							ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("metaclass")),element.eClass().getEStructuralFeature("metaclass"),element));
 							printCountingMap.put("metaclass",count-1);
 						}
 					}
@@ -697,7 +697,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 					count = printCountingMap.get("metaclass");
 					if(count>0){
 						Object o =element.eGet(element.eClass().getEStructuralFeature("metaclass"));
-						TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("metaclass")),element.eClass().getEStructuralFeature("metaclass"),element));
+						ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("metaclass")),element.eClass().getEStructuralFeature("metaclass"),element));
 						printCountingMap.put("metaclass",count-1);
 					}
 			}
@@ -785,7 +785,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("value");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("value"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("value"),element));
 				
@@ -809,7 +809,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("feature");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("feature"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
 				printCountingMap.put("feature",count-1);
 			}
 			//////////////DEFINITION PART BEGINS (CsString):
@@ -818,7 +818,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("token");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("token"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("token")),element.eClass().getEStructuralFeature("token"),element));
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("token")),element.eClass().getEStructuralFeature("token"),element));
 				printCountingMap.put("token",count-1);
 			}
 			//////////////DEFINITION PART BEGINS (CsString):
@@ -848,7 +848,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("feature");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("feature"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
 				printCountingMap.put("feature",count-1);
 			}
 			//////////////DEFINITION PART BEGINS (CsString):
@@ -886,7 +886,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("prefix");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("prefix"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("prefix"),element));
 				
@@ -916,7 +916,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("suffix");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("suffix"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("suffix"),element));
 				
@@ -956,7 +956,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 						count = printCountingMap.get("feature");
 						if(count>0){
 							Object o =element.eGet(element.eClass().getEStructuralFeature("feature"));
-							TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
+							ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
 							printCountingMap.put("feature",count-1);
 						}
 					}
@@ -966,7 +966,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 					count = printCountingMap.get("feature");
 					if(count>0){
 						Object o =element.eGet(element.eClass().getEStructuralFeature("feature"));
-						TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
+						ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((EObject)o,element,(EReference)element.eClass().getEStructuralFeature("feature")),element.eClass().getEStructuralFeature("feature"),element));
 						printCountingMap.put("feature",count-1);
 					}
 					//////////////DEFINITION PART BEGINS (Containment):
@@ -1040,7 +1040,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("amount");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("amount"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT_35_");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT_35_");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("amount"),element));
 				
@@ -1062,7 +1062,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("tab");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("tab"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT_33_");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT_33_");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("tab"),element));
 				
@@ -1090,7 +1090,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("name");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("name"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("name"),element));
 				
@@ -1100,7 +1100,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("regex");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("regex"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("regex"),element));
 				
@@ -1130,7 +1130,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("name");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("name"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("name"),element));
 				
@@ -1142,7 +1142,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("regex");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("regex"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("regex"),element));
 				
@@ -1168,7 +1168,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("prefix");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("prefix"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("prefix"),element));
 				
@@ -1192,7 +1192,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("suffix");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("suffix"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("suffix"),element));
 				
@@ -1216,7 +1216,7 @@ public abstract class CsPrinterBase extends EMFTextPrinterImpl {
 			count = printCountingMap.get("name");
 			if(count>0){
 				Object o =element.eGet(element.eClass().getEStructuralFeature("name"));
-				TokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
 				resolver.setOptions(getOptions());
 				out.print(resolver.deResolve((Object)o,element.eClass().getEStructuralFeature("name"),element));
 				

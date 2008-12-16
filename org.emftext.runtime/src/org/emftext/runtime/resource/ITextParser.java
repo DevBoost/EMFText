@@ -9,21 +9,21 @@ import org.eclipse.emf.ecore.EObject;
  * @author Jendrik Johannes (jj2)
  *
  */
-public interface EMFTextParser extends Configurable {
+public interface ITextParser extends IConfigurable {
 
 	/**
 	 * Set the associate text resource.
 	 * 
 	 * @param resource The text resource.
 	 */
-    public void setResource(TextResource resource);
+    public void setResource(ITextResource resource);
     
     /**
      * Get the associated text resource.
      * 
      * @return The text resource.
      */
-    public TextResource getResource();
+    public ITextResource getResource();
     
     /**
      * Return the root element of the <code>EObject</code>-Tree. 

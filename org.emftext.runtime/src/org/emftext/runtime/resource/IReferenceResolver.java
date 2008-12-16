@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EReference;
  *
  * TODO mseifert (future): this class should have a type parameter for the resolved types
  */
-public interface ReferenceResolver extends Configurable {
+public interface IReferenceResolver extends IConfigurable {
 
 	/**
 	 * Attempts to resolve a reference string.
@@ -24,7 +24,7 @@ public interface ReferenceResolver extends Configurable {
 	 * @return an object that contains the result of the resolve operation.
 	 */
 	public void resolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, ResolveResult result);
+			EReference reference, int position, boolean resolveFuzzy, IResolveResult result);
 
 	/**
 	 * Reverse of the resolve operation: constructs a representing String of the given

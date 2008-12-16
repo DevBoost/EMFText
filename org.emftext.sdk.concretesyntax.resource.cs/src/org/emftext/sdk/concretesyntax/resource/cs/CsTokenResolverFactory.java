@@ -1,11 +1,11 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.emftext.runtime.resource.TokenResolverFactory;
+import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.BasicTokenResolverFactory;
 
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.*;
 
-public class CsTokenResolverFactory extends BasicTokenResolverFactory implements TokenResolverFactory{
+public class CsTokenResolverFactory extends BasicTokenResolverFactory implements ITokenResolverFactory{
 
 	public CsTokenResolverFactory(){
 		super.registerTokenResolver("TEXT",new CsTEXTTokenResolver());

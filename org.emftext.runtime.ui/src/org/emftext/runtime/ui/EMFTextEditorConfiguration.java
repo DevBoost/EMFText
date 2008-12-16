@@ -13,7 +13,7 @@ import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.part.FileEditorInput;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 
@@ -62,7 +62,7 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
     protected ITokenScanner getScanner(String fileName) {
 		FileEditorInput input = (FileEditorInput) theEditor.getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		TextResource thisFile = (TextResource) theEditor.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
+		ITextResource thisFile = (ITextResource) theEditor.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
         
         return new AntlrTokenScanner(thisFile, fileName.substring(fileName.lastIndexOf(".") + 1), colorManager);
     }

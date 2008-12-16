@@ -30,8 +30,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.emftext.runtime.resource.ReferenceResolver;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.ITextResource;
 
 public class ResourcePackageGenerator {
 	
@@ -45,7 +45,7 @@ public class ResourcePackageGenerator {
 	    String capCsName = BaseGenerator.cap(resourcePackage.getConcreteSyntax().getName());
 		IFolder targetFolder = resourcePackage.getTargetFolder();
 		
-		TextResource csResource = (TextResource)resourcePackage.getConcreteSyntax().eResource(); 
+		ITextResource csResource = (ITextResource)resourcePackage.getConcreteSyntax().eResource(); 
 		if(!targetFolder.exists())
 		   	targetFolder.create(false,true,progress.newChild(5));
   		
@@ -110,7 +110,7 @@ public class ResourcePackageGenerator {
 	private static void generateTokenResolverFactory(
 			ResourcePackage pck,
 			SubMonitor progress,
-			TextResource csResource,
+			ITextResource csResource,
 			IFile tokenResolverFactoryFile,
 			String tokenResolverFactoryName,
 			Map<TextParserGenerator.InternalTokenDefinition, String> tokenToNameMap)
@@ -125,7 +125,7 @@ public class ResourcePackageGenerator {
 
 	private static Map<TextParserGenerator.InternalTokenDefinition, String> generateTokenResolvers(
 			ResourcePackage pck, SubMonitor progress, String capCsName,
-			IFolder targetFolder, TextResource csResource,
+			IFolder targetFolder, ITextResource csResource,
 			IPath resolverPackagePath, TextParserGenerator antlrGen)
 			throws CoreException {
 		progress.setTaskName("generating token resolvers...");
@@ -148,7 +148,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static void generateTreeAnalyser(ResourcePackage pck,
-			SubMonitor progress, TextResource csResource,
+			SubMonitor progress, ITextResource csResource,
 			IFile treeAnalyserFile, String treeAnalyserName,
 			Map<GenFeature, String> proxy2Name) throws CoreException {
 		progress.setTaskName("generating tree analyser...");
@@ -163,12 +163,12 @@ public class ResourcePackageGenerator {
 
 	private static Map<GenFeature, String> generateReferenceResolver(
 			ResourcePackage pck, SubMonitor progress, IFolder targetFolder,
-			TextResource csResource, IPath resolverPackagePath,
+			ITextResource csResource, IPath resolverPackagePath,
 			TextParserGenerator antlrGen) throws CoreException {
 		progress.setTaskName("generating proxy resolvers...");
 		Map<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
 		for(GenFeature proxyReference : antlrGen.getProxyReferences()){
-			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + ReferenceResolver.class.getSimpleName();
+			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + IReferenceResolver.class.getSimpleName();
 			proxy2Name.put(proxyReference,className);
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className +JAVA_EXT));
 			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
@@ -182,7 +182,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static void generatePrettyPrinter(ResourcePackage pck,
-			SubMonitor progress, TextResource csResource, IFile printerFile,
+			SubMonitor progress, ITextResource csResource, IFile printerFile,
 			IFile printerBaseFile, String antlrName, String printerName,
 			String printerBaseName, String treeAnalyserName,
 			String tokenResolverFactoryName, TextParserGenerator antlrGen)
@@ -220,7 +220,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static void generateEMFResources(SubMonitor progress,
-			TextResource csResource, IFile resourceFile,
+			ITextResource csResource, IFile resourceFile,
 			IFile resourceFactoryFile, IGenerator resourceGen,
 			IGenerator resourceFactoryGen) throws CoreException {
 		progress.setTaskName("generating EMF resources...");
@@ -229,7 +229,7 @@ public class ResourcePackageGenerator {
 		progress.worked(5);
 	}
 
-	public static InputStream deriveGrammar(TextResource csResource, IGenerator antlrGen)
+	public static InputStream deriveGrammar(ITextResource csResource, IGenerator antlrGen)
 			throws CoreException {
 		InputStream content = invokeGeneration(antlrGen, csResource);
 		return content;
@@ -242,7 +242,7 @@ public class ResourcePackageGenerator {
 	    }
 	}
        
-	private static InputStream invokeGeneration(IGenerator generator, TextResource csResource){
+	private static InputStream invokeGeneration(IGenerator generator, ITextResource csResource){
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	   PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
        try {

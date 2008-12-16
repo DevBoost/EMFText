@@ -6,19 +6,19 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 
 public class MetamodelHelper {
 	
 	public final static String GEN_PACKAGE_FINDER_KEY = "GEN_PACKAGE_FINDER";
 	
-	public GenPackage findGenPackage(Map<?,?> options, String fragment, TextResource resource) {
+	public GenPackage findGenPackage(Map<?,?> options, String fragment, ITextResource resource) {
 		MetamodelManager mmManager = createMetaModelManager(options);
 		return mmManager.findGenPackage(fragment, resource);
 	}
 
 	public EObject findConcreteSyntax(Map<?, ?> options, String fragment,
-			GenPackage genPackage, TextResource resource) {
+			GenPackage genPackage, ITextResource resource) {
 		MetamodelManager mmManager = createMetaModelManager(options);
 		return mmManager.findConcreteSyntax(fragment, genPackage, resource);
 	}

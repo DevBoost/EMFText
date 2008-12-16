@@ -3,7 +3,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.ResolveResult;
+import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -17,7 +17,7 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 	
 	@Override
 	protected void doResolve(final String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 
 		final String[] packageAndClass = splitIdentifier(identifier);
 		if (resolveFuzzy) {
@@ -28,7 +28,7 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 	}
 
 	private void doResolveStrict(EObject container,
-			final String[] packageAndClass, ResolveResult result) {
+			final String[] packageAndClass, IResolveResult result) {
 		doResolveMetaclass(container, new MetaClassFilter() {
 
 			public String accept(Import importObject, GenClass genClass) {
@@ -72,7 +72,7 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 		}
 	}
 
-	protected void doResolveMetaclass(EObject container, MetaClassFilter filter, String[] packageAndClass, ResolveResult result) {
+	protected void doResolveMetaclass(EObject container, MetaClassFilter filter, String[] packageAndClass, IResolveResult result) {
 		
 		if (!(container instanceof Rule)) {
 			return;
@@ -120,7 +120,7 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 
 	}
 
-	public void doResolveFuzzy(EObject container, final String[] packageAndClass, ResolveResult result) {
+	public void doResolveFuzzy(EObject container, final String[] packageAndClass, IResolveResult result) {
 
 		doResolveMetaclass(container, new MetaClassFilter() {
 

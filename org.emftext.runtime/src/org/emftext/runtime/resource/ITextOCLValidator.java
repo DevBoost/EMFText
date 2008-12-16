@@ -23,14 +23,14 @@ import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.ecore.OCLExpression;
 import org.eclipse.ocl.util.Tuple;
 
-public class EMFTextOCLValidator {
+public class ITextOCLValidator {
 
 	private static final AdapterFactory reflectiveAdapterFactory = new ReflectiveItemProviderAdapterFactory();
 
 	private static final AdapterFactory defaultAdapterFactory = new ComposedAdapterFactory(
 			ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
-	private TextResource textResource;
+	private ITextResource textResource;
 
 	public void analyse(EObject rootObject) {
 
@@ -38,8 +38,8 @@ public class EMFTextOCLValidator {
 
 		// Since the resource is loaded with ETE
 		// it is necessarily a TextResource
-		if (resource instanceof TextResource) {
-			textResource = (TextResource) resource;
+		if (resource instanceof ITextResource) {
+			textResource = (ITextResource) resource;
 		} 
 		TreeIterator<EObject> allContents = resource.getAllContents();
 

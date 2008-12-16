@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.emftext.runtime.StandardTokenDefinitions;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 
 /**
@@ -33,8 +33,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         	ResourceSet rs = new ResourceSetImpl();
         	Resource tempResource = rs.createResource(URI.createURI("temp." + extension));
         	
-        	if (tempResource instanceof TextResource) {
-        		TextResource tr = (TextResource) tempResource;
+        	if (tempResource instanceof ITextResource) {
+        		ITextResource tr = (ITextResource) tempResource;
         		
         		String languageId = extension;
 	            int z = 0;;

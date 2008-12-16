@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * @author Jendrik Johannes (jj2)
  */
-public interface EMFTextPrinter extends Configurable {
+public interface ITextPrinter extends IConfigurable {
 
 	/**
 	 * Prints the given <code>EObject</code> and its content to some 

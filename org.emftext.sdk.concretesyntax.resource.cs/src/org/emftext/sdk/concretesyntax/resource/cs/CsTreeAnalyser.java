@@ -2,17 +2,21 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-
-import org.emftext.runtime.resource.impl.*;
-
-import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
+import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.analysis.*;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.ConcreteSyntaxPackageReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.ConcreteSyntaxStartSymbolsReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.DefinedPlaceholderTokenReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.ImportConcreteSyntaxReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.ImportPackageReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.TerminalFeatureReferenceResolver;
 
-public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
+public class CsTreeAnalyser implements IReferenceResolver {
 
 	protected RuleMetaclassReferenceResolver ruleMetaclassReferenceResolver = new RuleMetaclassReferenceResolver();
 
@@ -28,7 +32,7 @@ public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 
 	protected TerminalFeatureReferenceResolver terminalFeatureReferenceResolver = new TerminalFeatureReferenceResolver();
 
-	public void resolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.ResolveResult result) {
+	public void resolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IResolveResult result) {
 		if (resolveFuzzy) {
 			resolveFuzzy(identifier, container, position, result);
 		} else {
@@ -36,7 +40,7 @@ public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 		}
 	}
 
-	public void resolveStrict(String identifier, EObject container, EReference reference, int position, org.emftext.runtime.resource.ResolveResult result) {
+	public void resolveStrict(String identifier, EObject container, EReference reference, int position, org.emftext.runtime.resource.IResolveResult result) {
 		if (container instanceof Rule && reference.getFeatureID() == 1) {
 			ruleMetaclassReferenceResolver.resolve(identifier, container, reference, position, false, result);
 			return;
@@ -102,7 +106,7 @@ public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 		terminalFeatureReferenceResolver.setOptions(options);
 	}
 
-	public void resolveFuzzy(java.lang.String identifier, EObject container, int position, org.emftext.runtime.resource.ResolveResult result) {
+	public void resolveFuzzy(java.lang.String identifier, EObject container, int position, org.emftext.runtime.resource.IResolveResult result) {
 
 		resolveFuzzy(Rule.class, identifier, container, position, 1, ruleMetaclassReferenceResolver, result);
 		resolveFuzzy(Import.class, identifier, container, position, 1, importConcreteSyntaxReferenceResolver, result);
@@ -115,7 +119,7 @@ public class CsTreeAnalyser extends EMFTextTreeAnalyserImpl {
 
 	protected void resolveFuzzy(Class<?> clazz, String identifier, EObject container, int position, 
 			int featureID, 
-			org.emftext.runtime.resource.ReferenceResolver resolver, org.emftext.runtime.resource.ResolveResult result
+			org.emftext.runtime.resource.IReferenceResolver resolver, org.emftext.runtime.resource.IResolveResult result
 			) {
 
 		//if (clazz.isInstance(container)) {

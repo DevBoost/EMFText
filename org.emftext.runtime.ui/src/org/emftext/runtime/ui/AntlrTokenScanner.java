@@ -14,7 +14,7 @@ import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 public class AntlrTokenScanner implements ITokenScanner {
@@ -27,7 +27,7 @@ public class AntlrTokenScanner implements ITokenScanner {
     private ColorManager colorManager;
     private int offset = 0;
     
-    public AntlrTokenScanner(TextResource resource, String fileExtension, ColorManager colorManager) {
+    public AntlrTokenScanner(ITextResource resource, String fileExtension, ColorManager colorManager) {
         this.lexer      = (Lexer) resource.getScanner();
         this.tokenNames = resource.getTokenNames();
         this.languageId = fileExtension;

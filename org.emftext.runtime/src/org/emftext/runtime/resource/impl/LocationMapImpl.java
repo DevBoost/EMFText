@@ -8,9 +8,9 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.LocationMap;
+import org.emftext.runtime.resource.ILocationMap;
 
-public class LocationMapImpl implements LocationMap {
+public class LocationMapImpl implements ILocationMap {
 	protected EMap<EObject, Integer> columnMap    = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> lineMap      = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> charStartMap = new BasicEMap<EObject, Integer>();

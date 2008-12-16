@@ -27,18 +27,18 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.emftext.runtime.resource.EMFTextParser;
-import org.emftext.runtime.resource.LocationMap;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.TokenConversionException;
 
 /**
  * Base implementation for all generated ANTLR parsers. 
- * It implements the specifications from {@link EMFTextParser}.
+ * It implements the specifications from {@link ITextParser}.
  * 
  * @author Jendrik Johannes
  */
-public abstract class EMFTextParserImpl extends Parser implements EMFTextParser {    
+public abstract class EMFTextParserImpl extends Parser implements ITextParser {    
     
 	private int mismatchedTokenRecoveryTries = 0;
 	private Map<?, ?> options;
@@ -135,18 +135,18 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
     	super(input);
     }
     
-    protected TextResource resource;
+    protected ITextResource resource;
     
-    public void setResource(TextResource resource) {
+    public void setResource(ITextResource resource) {
         this.resource = resource;    	
     }
     
-    public TextResource getResource() {
+    public ITextResource getResource() {
     	return resource;
     }
     
     protected void copyLocalizationInfos(EObject source, EObject target) {
-        final LocationMap locationsMap = getResource().getLocationMap();
+        final ILocationMap locationsMap = getResource().getLocationMap();
 		locationsMap.setCharStart(target, locationsMap.getCharStart(source)); 
         locationsMap.setCharEnd(target, locationsMap.getCharEnd(source)); 
         locationsMap.setColumn(target, locationsMap.getColumn(source)); 
@@ -154,7 +154,7 @@ public abstract class EMFTextParserImpl extends Parser implements EMFTextParser 
     }
     
     protected void copyLocalizationInfos(CommonToken source, EObject target) {
-        final LocationMap locationsMap = getResource().getLocationMap();
+        final ILocationMap locationsMap = getResource().getLocationMap();
         locationsMap.setCharStart(target, source.getStartIndex()); 
         locationsMap.setCharEnd(target, source.getStopIndex());    
         locationsMap.setColumn(target, source.getCharPositionInLine());    

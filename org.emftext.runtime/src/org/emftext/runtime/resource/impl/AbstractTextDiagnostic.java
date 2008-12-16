@@ -1,9 +1,9 @@
 package org.emftext.runtime.resource.impl;
 
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.TextDiagnostic;
+import org.emftext.runtime.resource.ITextDiagnostic;
 
-public abstract class AbstractTextDiagnostic implements TextDiagnostic {
+public abstract class AbstractTextDiagnostic implements ITextDiagnostic {
 
 	private TextDiagnosticType type;
 	

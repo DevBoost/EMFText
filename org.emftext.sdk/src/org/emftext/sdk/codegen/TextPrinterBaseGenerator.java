@@ -19,10 +19,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.EMFTextTreeAnalyser;
-import org.emftext.runtime.resource.TextResource;
-import org.emftext.runtime.resource.TokenResolver;
-import org.emftext.runtime.resource.TokenResolverFactory;
+import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenResolver;
+import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.EMFTextPrinterImpl;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -188,13 +188,13 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				+ " extends " + EMFTextPrinterImpl.class.getName() + " {");
 		out.println();
 		out
-				.println("\tprotected " + TokenResolverFactory.class.getName() + " tokenResolverFactory = new "
+				.println("\tprotected " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
-		out.println("\tprotected " + EMFTextTreeAnalyser.class.getName() + " treeAnalyser = new "
+		out.println("\tprotected " + IReferenceResolver.class.getName() + " treeAnalyser = new "
 				+ treeAnalyserClassName + "();");
 		out.println();
 		out.println("\tpublic " + super.getResourceClassName()
-				+ "(java.io.OutputStream o, " + TextResource.class.getName() + " resource) {\n");
+				+ "(java.io.OutputStream o, " + ITextResource.class.getName() + " resource) {\n");
 		out.println("\t\tsuper(o, resource);");
 		out.println("\t}");
 		out.println();
@@ -525,7 +525,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 							if (feature instanceof EReference) {
 								printStatement = 
-										TokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
+										ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
 										+ "\");resolver.setOptions(getOptions());"
 										+ printPrefix 
@@ -535,7 +535,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ featureName + "\"),element));";
 							} else {
 								printStatement = 
-										TokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
+										ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
 										+ "\");\n\t\t\t\t"
 										+ "resolver.setOptions(getOptions());\n\t\t\t\t"

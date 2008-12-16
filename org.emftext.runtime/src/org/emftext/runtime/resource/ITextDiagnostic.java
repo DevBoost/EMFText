@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  * An extended diagnostic that gives access to the exact position of the problem
  * in a character stream.
  */
-public interface TextDiagnostic extends Resource.Diagnostic {
+public interface ITextDiagnostic extends Resource.Diagnostic {
 	
 	public enum TextDiagnosticType {
 		RESOLVE_PROBLEM

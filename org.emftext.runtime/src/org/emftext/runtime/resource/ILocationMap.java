@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EObject;
  * about the line, the column, the character position where the
  * object begins and the character position where the object ends.
  */
-public interface LocationMap {
+public interface ILocationMap {
 
 	/**
 	 * Used by parsers to set location information.

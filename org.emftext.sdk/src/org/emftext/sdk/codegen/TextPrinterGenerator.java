@@ -2,8 +2,8 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
-import org.emftext.runtime.resource.EMFTextPrinter;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextPrinter;
+import org.emftext.runtime.resource.ITextResource;
 
 public class TextPrinterGenerator extends BaseGenerator {
 	
@@ -31,9 +31,9 @@ public class TextPrinterGenerator extends BaseGenerator {
 			out.println("* is not granted to work in all cases, but should work in most cases.");			
 		}
 		out.println("*/");
-	    out.println("public class " + super.getResourceClassName() + (basenull ? " implements " + EMFTextPrinter.class.getName() : " extends " + basePrinterClassName)+ " {");
+	    out.println("public class " + super.getResourceClassName() + (basenull ? " implements " + ITextPrinter.class.getName() : " extends " + basePrinterClassName)+ " {");
 	    out.println();
-	    out.println("\tpublic " + super.getResourceClassName() + "(java.io.OutputStream o, " + TextResource.class.getName() + " resource) {");
+	    out.println("\tpublic " + super.getResourceClassName() + "(java.io.OutputStream o, " + ITextResource.class.getName() + " resource) {");
 	    if (!basenull) {
 	    	out.println("\t\tsuper(o, resource);");
 	    }

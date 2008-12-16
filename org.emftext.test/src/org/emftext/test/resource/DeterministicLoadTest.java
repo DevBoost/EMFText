@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextPlugin;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.GenPackageInRegistryFinder;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl;
@@ -102,7 +102,7 @@ public class DeterministicLoadTest {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		registerFactory(resourceSet);
 		
-		resourceSet.getLoadOptions().put(TextResource.OPTION_NO_VALIDATE,
+		resourceSet.getLoadOptions().put(ITextResource.OPTION_NO_VALIDATE,
 				true);
 		resourceSet.getLoadOptions().put(MetamodelHelper.GEN_PACKAGE_FINDER_KEY, new GenPackageInRegistryFinder());
 

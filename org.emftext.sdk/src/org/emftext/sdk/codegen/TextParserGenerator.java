@@ -37,8 +37,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.runtime.resource.TokenConversionException;
-import org.emftext.runtime.resource.TokenResolver;
-import org.emftext.runtime.resource.TokenResolverFactory;
+import org.emftext.runtime.resource.ITokenResolver;
+import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.EMFTextParserImpl;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
@@ -322,7 +322,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println();
         
         out.println("@members{");  
-        out.println("\tprivate " + TokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
+        out.println("\tprivate " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
         out.println();
         out.println("\tprotected EObject doParse() throws RecognitionException {");
         out.println("\t\t((" + csName + "Lexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
@@ -671,7 +671,7 @@ public class TextParserGenerator extends BaseGenerator {
         	String resolvedIdent = "resolved";
         	String preResolved = resolvedIdent+"Object";
         	String resolverIdent = resolvedIdent+"Resolver";
-           	resolvements += TokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
+           	resolvements += ITokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
            	resolvements += resolverIdent +".setOptions(getOptions());";
         	resolvements += "Object " + preResolved + " ="+resolverIdent+".resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"),element,getResource());";
         	resolvements += "if(" + preResolved + "==null) throw new " + TokenConversionException.class.getName() + "("+ident+","+resolverIdent+".getErrorMessage());";

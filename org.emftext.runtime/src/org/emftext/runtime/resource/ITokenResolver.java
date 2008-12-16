@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @author skarol
  *
  */
-public interface TokenResolver extends Configurable {
+public interface ITokenResolver extends IConfigurable {
 	
 	/**
 	 * Converts a parsed String into an Object (might be a String again). 
@@ -26,7 +26,7 @@ public interface TokenResolver extends Configurable {
 	 * @return the converted lexem or null if a problem occurred
 	 */
 	// TODO mseifert: try to change this method to the way it is defined in ReferenceResolver
-	public Object resolve(String lexem, EStructuralFeature feature, EObject container, TextResource resource);
+	public Object resolve(String lexem, EStructuralFeature feature, EObject container, ITextResource resource);
 	
 	/**
 	 * Does the inverse mapping from Object to a lexem which can be printed.

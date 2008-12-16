@@ -17,11 +17,11 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
-import org.emftext.runtime.resource.EMFTextTreeAnalyser;
-import org.emftext.runtime.resource.LocationMap;
-import org.emftext.runtime.resource.ReferenceMapping;
-import org.emftext.runtime.resource.ResolveResult;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.ResolveResultImpl;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
@@ -40,8 +40,8 @@ public class EMFTextEditorCompletionProcessor implements
 			int documentOffset) {
 		long startTime = System.currentTimeMillis();
 		Resource resource = editor.getResource();
-		TextResource textResource = (TextResource) resource;
-		LocationMap locationMap = textResource.getLocationMap();
+		ITextResource textResource = (ITextResource) resource;
+		ILocationMap locationMap = textResource.getLocationMap();
 		List<EObject> elementsAtChar = locationMap.getElementsAt(documentOffset);
 		sortElements(elementsAtChar);
 		if (elementsAtChar.size() < 2) {
@@ -63,14 +63,14 @@ public class EMFTextEditorCompletionProcessor implements
 		//TODO @mseifert: the prefix somehow has to go through the appropriate token resolver,
 	    // otherwise we have different kind of identifiers in the reference resolvers
 		
-		EMFTextTreeAnalyser analyser = textResource.getTreeAnalyser();
-		ResolveResult resolved = new ResolveResultImpl(true); 
+		IReferenceResolver analyser = textResource.getTreeAnalyser();
+		IResolveResult resolved = new ResolveResultImpl(true); 
 		analyser.resolve(prefix, containerAtChar, null, 0, true, resolved);
 		if (!resolved.wasResolvedMultiple()) {
 			return EMPTY_PROPOSAL_ARRAY;
 		}
 		
-		List<ReferenceMapping> mappings = new ArrayList<ReferenceMapping>(resolved.getMappings());
+		List<IReferenceMapping> mappings = new ArrayList<IReferenceMapping>(resolved.getMappings());
 		// sort identifiers alphabetically
 		sortAlphabetically(mappings);
 		ICompletionProposal[] proposals = createProposals(documentOffset, prefix,
@@ -80,10 +80,10 @@ public class EMFTextEditorCompletionProcessor implements
 	}
 
 	private ICompletionProposal[] createProposals(int documentOffset,
-			String prefix, Collection<ReferenceMapping> mappings) {
+			String prefix, Collection<IReferenceMapping> mappings) {
 		ICompletionProposal[] result = new ICompletionProposal[mappings.size()];
 		int i = 0;
-		for (ReferenceMapping next : mappings) {
+		for (IReferenceMapping next : mappings) {
 			String proposal = next.getIdentifier();
 			assert proposal != null;
 			IContextInformation info = new ContextInformation(proposal,
@@ -96,9 +96,9 @@ public class EMFTextEditorCompletionProcessor implements
 		return result;
 	}
 
-	private void sortAlphabetically(List<ReferenceMapping> mappings) {
-		Collections.sort(mappings, new Comparator<ReferenceMapping>() {
-			public int compare(ReferenceMapping o1, ReferenceMapping o2) {
+	private void sortAlphabetically(List<IReferenceMapping> mappings) {
+		Collections.sort(mappings, new Comparator<IReferenceMapping>() {
+			public int compare(IReferenceMapping o1, IReferenceMapping o2) {
 				return o1.getIdentifier().compareTo(o2.getIdentifier());
 			}
 		});

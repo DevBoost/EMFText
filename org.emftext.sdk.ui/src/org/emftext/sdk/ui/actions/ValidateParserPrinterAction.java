@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 
 public class ValidateParserPrinterAction implements IObjectActionDelegate {
 
@@ -44,7 +44,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 		String path = currentSelection.getFullPath().toString();
 		String inName = currentSelection.getName();
 		String outName = "test" + inName;
-		TextResource currentTextResource = (TextResource) resourceSet
+		ITextResource currentTextResource = (ITextResource) resourceSet
 				.getResource(URI.createPlatformResourceURI(path, true), true);
 		try {
 			currentTextResource.load(currentSelection.getContents(), null);

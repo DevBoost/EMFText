@@ -6,11 +6,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.resource.EMFTextTreeAnalyser;
-import org.emftext.runtime.resource.ElementMapping;
-import org.emftext.runtime.resource.ReferenceMapping;
-import org.emftext.runtime.resource.ResolveResult;
-import org.emftext.runtime.resource.URIMapping;
+import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.IElementMapping;
+import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IURIMapping;
 
 public class ContextDependentURIFragment {
 
@@ -19,7 +19,7 @@ public class ContextDependentURIFragment {
 	protected EReference reference;
 	protected int        positionInReference;
 	protected EObject    proxy;
-	protected ResolveResult result;
+	protected IResolveResult result;
 	
 	private boolean resolving;
 	
@@ -38,7 +38,7 @@ public class ContextDependentURIFragment {
 		return result != null;
 	}
 	
-	public synchronized ResolveResult resolve(EMFTextTreeAnalyser treeAnalyser) {
+	public synchronized IResolveResult resolve(IReferenceResolver treeAnalyser) {
 		if (resolving) {
 			return null;
 		}
@@ -74,7 +74,7 @@ public class ContextDependentURIFragment {
 		}
 		
 		boolean first = true;
-		for(ReferenceMapping mapping : result.getMappings()) {
+		for(IReferenceMapping mapping : result.getMappings()) {
 			if (first) {
 				first = false;
 			}
@@ -87,15 +87,15 @@ public class ContextDependentURIFragment {
 		}
 	}
 
-	private void addResultToList(ReferenceMapping mapping, EObject proxy, EList<EObject> list) {
+	private void addResultToList(IReferenceMapping mapping, EObject proxy, EList<EObject> list) {
 		EObject target = null;
 		int proxyPosition = list.indexOf(proxy);
 		
-		if (mapping instanceof ElementMapping) {
-			target = ((ElementMapping) mapping).getTargetElement();
-		} else if (mapping instanceof URIMapping) {
+		if (mapping instanceof IElementMapping) {
+			target = ((IElementMapping) mapping).getTargetElement();
+		} else if (mapping instanceof IURIMapping) {
 			target = EcoreUtil.copy(proxy);
-			URI uri = ((URIMapping) mapping).getTargetIdentifier();
+			URI uri = ((IURIMapping) mapping).getTargetIdentifier();
 			((InternalEObject) target).eSetProxyURI(uri);
 		} else {
 			assert false;

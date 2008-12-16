@@ -6,20 +6,20 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.EMFTextPrinter;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextPrinter;
+import org.emftext.runtime.resource.ITextResource;
 
 /**
  * Base implementation for all generated printers. 
- * It implements the specifications from {@link EMFTextPrinter}.
+ * It implements the specifications from {@link ITextPrinter}.
  * 
  * @author Jendrik Johannes
  */
-public abstract class EMFTextPrinterImpl implements EMFTextPrinter {
+public abstract class EMFTextPrinterImpl implements ITextPrinter {
 	
 	protected static String newline = (System.getProperties().getProperty("line.separator"));
     protected OutputStream o;
-    protected TextResource resource;
+    protected ITextResource resource;
 	private Map<?, ?> options;
     
     /**
@@ -28,7 +28,7 @@ public abstract class EMFTextPrinterImpl implements EMFTextPrinter {
      * @param o Output stream to print to.
      * @param resource The associated resource.
      */
-    public EMFTextPrinterImpl(OutputStream o, TextResource resource) {
+    public EMFTextPrinterImpl(OutputStream o, ITextResource resource) {
         this.o = o;
         this.resource = resource;
     }

@@ -3,7 +3,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.ResolveResult;
+import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -27,7 +27,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 	
 	@Override
 	protected void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 
 		if (resolveFuzzy) {
 			doResolveFuzzy(identifier, container, result);
@@ -37,7 +37,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 	}
 
 	private void doResolveStrict(
-			final String identifier, final EObject container, ResolveResult result) {
+			final String identifier, final EObject container, IResolveResult result) {
 		final String pack;
 		final String clazz;
 		if (identifier.contains(".")) {
@@ -67,7 +67,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		}, result);
 	}
 
-	public void doResolveFuzzy(final String identifier, EObject container, ResolveResult result) {
+	public void doResolveFuzzy(final String identifier, EObject container, IResolveResult result) {
 		
 		doResolveStartSymbol(identifier, container, new ReferenceFilter<PrefixGenClassParam>() {
 
@@ -85,7 +85,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolv
 		}, result);
 	}
 
-	private void doResolveStartSymbol(String identifier, EObject container, ReferenceFilter<PrefixGenClassParam> filter, ResolveResult result) {
+	private void doResolveStartSymbol(String identifier, EObject container, ReferenceFilter<PrefixGenClassParam> filter, IResolveResult result) {
 		ConcreteSyntax cs = (ConcreteSyntax) container;
 		
 		if (cs.getPackage().eIsProxy()) {

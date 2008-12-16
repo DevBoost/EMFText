@@ -6,7 +6,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.resource.TextDiagnostic;
+import org.emftext.runtime.resource.ITextDiagnostic;
 
 /**
  * Helper class to add markers to test files based on EMF's <code>Resource.Diagnostic</code>.
@@ -36,10 +36,10 @@ public class MarkerHelper {
             marker = file.createMarker(MARKER_TYPE);
             marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
             marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
-        	if (diagnostic instanceof TextDiagnostic) {
-        		marker.setAttribute(IMarker.LINE_NUMBER, ((TextDiagnostic)diagnostic).getLine());
-                marker.setAttribute(IMarker.CHAR_START, ((TextDiagnostic)diagnostic).getCharStart());
-                marker.setAttribute(IMarker.CHAR_END, ((TextDiagnostic)diagnostic).getCharEnd() + 1);		
+        	if (diagnostic instanceof ITextDiagnostic) {
+        		marker.setAttribute(IMarker.LINE_NUMBER, ((ITextDiagnostic)diagnostic).getLine());
+                marker.setAttribute(IMarker.CHAR_START, ((ITextDiagnostic)diagnostic).getCharStart());
+                marker.setAttribute(IMarker.CHAR_END, ((ITextDiagnostic)diagnostic).getCharEnd() + 1);		
         	}
         	else {
                 marker.setAttribute(IMarker.CHAR_START, 0);
@@ -51,10 +51,10 @@ public class MarkerHelper {
             marker = file.createMarker(MARKER_TYPE);
             marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
             marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
-        	if (diagnostic instanceof TextDiagnostic) {
-        		marker.setAttribute(IMarker.LINE_NUMBER, ((TextDiagnostic)diagnostic).getLine());
-                marker.setAttribute(IMarker.CHAR_START, ((TextDiagnostic)diagnostic).getCharStart());
-                marker.setAttribute(IMarker.CHAR_END, ((TextDiagnostic)diagnostic).getCharEnd() + 1);		
+        	if (diagnostic instanceof ITextDiagnostic) {
+        		marker.setAttribute(IMarker.LINE_NUMBER, ((ITextDiagnostic)diagnostic).getLine());
+                marker.setAttribute(IMarker.CHAR_START, ((ITextDiagnostic)diagnostic).getCharStart());
+                marker.setAttribute(IMarker.CHAR_END, ((ITextDiagnostic)diagnostic).getCharEnd() + 1);		
         	}
         	else {
                 marker.setAttribute(IMarker.CHAR_START, 0);

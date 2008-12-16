@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  * or more objects) or failed (identifier was not resolved). In
  * the case of failure, the result provides an error message.
  */
-public interface ResolveResult {
+public interface IResolveResult {
 	
 	/**
 	 * Sets the error message that describes what went wrong while
@@ -88,5 +88,5 @@ public interface ResolveResult {
 	
 	public String getErrorMessage();
 	
-	public Collection<ReferenceMapping> getMappings();
+	public Collection<IReferenceMapping> getMappings();
 }

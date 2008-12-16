@@ -11,7 +11,7 @@ import org.emftext.runtime.resource.*;
 import org.emftext.runtime.resource.impl.*;
 
 public class CsResourceImpl extends TextResourceImpl {
-	private EMFTextTreeAnalyser analyser;
+	private IReferenceResolver analyser;
 
 
 	public CsResourceImpl(){
@@ -24,7 +24,7 @@ public class CsResourceImpl extends TextResourceImpl {
 
 	protected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {
 		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
-		EMFTextParser p = new CsParser(new CommonTokenStream(new CsLexer(new ANTLRInputStream(inputStream))));
+		ITextParser p = new CsParser(new CommonTokenStream(new CsLexer(new ANTLRInputStream(inputStream))));
 		p.setResource(this);
 		p.setOptions(loadOptions);
 		EObject root = p.parse();
@@ -33,14 +33,13 @@ public class CsResourceImpl extends TextResourceImpl {
 			root = null; //p.parse();
 		}
 
-		EMFTextTreeAnalyser analyser = getTreeAnalyser();
+		IReferenceResolver analyser = getTreeAnalyser();
 
 		analyser.setOptions(loadOptions);
-		analyser.analyse(this);
 	}
 
 	protected void doSave(OutputStream outputStream, Map<?,?> options) throws IOException {
-		EMFTextPrinter p = new CsPrinter(outputStream, this);
+		ITextPrinter p = new CsPrinter(outputStream, this);
 		for(EObject root : getContents()) {
 			p.print(root);
 		}
@@ -54,7 +53,7 @@ public class CsResourceImpl extends TextResourceImpl {
 		return new CsLexer();
 	}
 
-	public EMFTextTreeAnalyser getTreeAnalyser() {
+	public IReferenceResolver getTreeAnalyser() {
 		if (analyser == null) {
 			analyser = new CsTreeAnalyser();
 		}

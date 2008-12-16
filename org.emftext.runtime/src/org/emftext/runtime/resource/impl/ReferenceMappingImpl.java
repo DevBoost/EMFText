@@ -1,8 +1,8 @@
 package org.emftext.runtime.resource.impl;
 
-import org.emftext.runtime.resource.ReferenceMapping;
+import org.emftext.runtime.resource.IReferenceMapping;
 
-public abstract class ReferenceMappingImpl implements ReferenceMapping {
+public abstract class ReferenceMappingImpl implements IReferenceMapping {
 
 	private String identifier;
 	private String warning;

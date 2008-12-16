@@ -9,8 +9,8 @@ package org.emftext.runtime.resource;
  *
  */
 
-public interface TokenResolverFactory {
+public interface ITokenResolverFactory {
 	
-	public TokenResolver createTokenResolver(String tokenName);
+	public ITokenResolver createTokenResolver(String tokenName);
 	
 }

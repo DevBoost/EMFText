@@ -3,19 +3,19 @@ package org.emftext.runtime.resource.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.emftext.runtime.resource.TokenResolver;
-import org.emftext.runtime.resource.TokenResolverFactory;
+import org.emftext.runtime.resource.ITokenResolver;
+import org.emftext.runtime.resource.ITokenResolverFactory;
 
-public class BasicTokenResolverFactory implements TokenResolverFactory {
+public class BasicTokenResolverFactory implements ITokenResolverFactory {
 
-	private Map<String,TokenResolver> tokenName2TokenResolver;
-	private static TokenResolver defaultResolver = new JavaBasedTokenResolver();
+	private Map<String,ITokenResolver> tokenName2TokenResolver;
+	private static ITokenResolver defaultResolver = new JavaBasedTokenResolver();
 	
 	public BasicTokenResolverFactory(){
-		tokenName2TokenResolver = new HashMap<String,TokenResolver>();
+		tokenName2TokenResolver = new HashMap<String,ITokenResolver>();
 	}
 	
-	public TokenResolver createTokenResolver(String tokenName) {		
+	public ITokenResolver createTokenResolver(String tokenName) {		
 		if(tokenName2TokenResolver.containsKey(tokenName)){
 			return tokenName2TokenResolver.get(tokenName);
 		}
@@ -24,7 +24,7 @@ public class BasicTokenResolverFactory implements TokenResolverFactory {
 		}
 	}
 	
-	protected boolean registerTokenResolver(String tokenName, TokenResolver resolver){
+	protected boolean registerTokenResolver(String tokenName, ITokenResolver resolver){
 		if(!tokenName2TokenResolver.containsKey(tokenName)){
 			tokenName2TokenResolver.put(tokenName,resolver);
 			return true;
@@ -32,7 +32,7 @@ public class BasicTokenResolverFactory implements TokenResolverFactory {
 		return false;
 	}
 	
-	protected TokenResolver deRegisterTokenResolver(String tokenName){
+	protected ITokenResolver deRegisterTokenResolver(String tokenName){
 		return tokenName2TokenResolver.remove(tokenName);
 	}
 

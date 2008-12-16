@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextPlugin;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class MetamodelManager {
@@ -77,7 +77,7 @@ public class MetamodelManager {
 		return null;
 	}
 
-	public ConcreteSyntax findConcreteSyntax(String cs, GenPackage genPackage, TextResource resource) {
+	public ConcreteSyntax findConcreteSyntax(String cs, GenPackage genPackage, ITextResource resource) {
 		if (cs == null || genPackage == null) return null;
 		
 		String csURI = genPackage.getNSURI() + "%%" + cs;

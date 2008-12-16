@@ -12,19 +12,19 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.EMFTextPlugin;
-import org.emftext.runtime.resource.ElementMapping;
-import org.emftext.runtime.resource.ReferenceMapping;
-import org.emftext.runtime.resource.ReferenceResolver;
-import org.emftext.runtime.resource.ResolveResult;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.IElementMapping;
+import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.ITextResource;
 
 /**
  * Base implementation for all generated proxy resolvers. 
- * It implements the specifications from {@link ReferenceResolver}.
+ * It implements the specifications from {@link IReferenceResolver}.
  * 
  * @author Jendrik Johannes (jj2)
  */
-public abstract class ReferenceResolverImpl implements ReferenceResolver {
+public abstract class ReferenceResolverImpl implements IReferenceResolver {
 
 	public final static String NAME_FEATURE = "name";
 
@@ -38,7 +38,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 	}
 	
 	public void resolve(String identifier, EObject container, 
-			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		try {
 			doResolve(identifier, container, reference, position, resolveFuzzy, result);
 		} catch (RuntimeException rte) {
@@ -48,15 +48,15 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 		
 		EObject element = null;
 		if (result.wasResolvedUniquely()) {
-			ReferenceMapping next = result.getMappings().iterator().next();
-			if (next instanceof ElementMapping) {
-				element = ((ElementMapping) next).getTargetElement();
+			IReferenceMapping next = result.getMappings().iterator().next();
+			if (next instanceof IElementMapping) {
+				element = ((IElementMapping) next).getTargetElement();
 			}
 		} else if (result.wasResolvedMultiple()) {
-			ReferenceMapping next = result.getMappings().iterator().next();
+			IReferenceMapping next = result.getMappings().iterator().next();
 			// TODO mseifert: handle multiple elements
-			if (next instanceof ElementMapping) {
-				element = ((ElementMapping) next).getTargetElement();
+			if (next instanceof IElementMapping) {
+				element = ((IElementMapping) next).getTargetElement();
 			}
 		} else if (!result.wasResolved()) {
 			return;
@@ -85,7 +85,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 	 * @return The resolved object or null if resolving fails.
 	 */
 	protected void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		
 		//TODO trivial implementation - enhancements:
 		//      - take tree depths into account
@@ -119,7 +119,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 	}
 
 	protected String produceDeResolveErrorMessage(EObject refObject, EObject container,
-			EReference reference, TextResource resource) {
+			EReference reference, ITextResource resource) {
 		
 		String msg = getClass().getSimpleName() + ": " + reference.getEType().getName() + " \"" + refObject.toString() + "\" not de-resolveable";  
 		return msg;

@@ -6,16 +6,17 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.InputStreamProcessorProvider;
-import org.emftext.runtime.resource.EMFTextParser;
-import org.emftext.runtime.resource.EMFTextPrinter;
-import org.emftext.runtime.resource.EMFTextTreeAnalyser;
+import org.emftext.runtime.resource.IConfigurable;
+import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.resource.ITextPrinter;
+import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.impl.TextResourceImpl;
 
 /**
  * Generates the resource. Its <code>doLoad()</code> and <code>doSave()</code> methods will
  * call the generated parser, analyser and printer.
  * 
- * @see org.emftext.runtime.resource.TextResource
+ * @see org.emftext.runtime.resource.ITextResource
  * 
  */
 public class TextResourceGenerator extends BaseGenerator {
@@ -40,7 +41,7 @@ public class TextResourceGenerator extends BaseGenerator {
         
 		out.println("public class " + super.getResourceClassName() + " extends " + TextResourceImpl.class.getName() + " {");
 
-		out.println("\tprivate " + EMFTextTreeAnalyser.class.getName() + " analyser;\n\n");
+		out.println("\tprivate " + IReferenceResolver.class.getName() + " analyser;\n\n");
 		
 		out.println("\tpublic " + super.getResourceClassName() + "() {");
 		out.println("\t\tsuper();");
@@ -62,7 +63,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		out.println("\t\t\t}");
 		out.println("\t\t}");
 
-        out.println("\t\t" + EMFTextParser.class.getName() + " p = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream))));");
+        out.println("\t\t" + ITextParser.class.getName() + " p = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream))));");
         out.println("\t\tp.setResource(this);");
         out.println("\t\tp.setOptions(loadOptions);");
         out.println("\t\tEObject root = p.parse();");
@@ -70,14 +71,13 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t\t\tgetContents().add(root);");
         out.println("\t\t\troot = null;");
         out.println("\t\t}\n");
-        out.println("\t\t" + EMFTextTreeAnalyser.class.getName() + " analyser = getTreeAnalyser();\n");
+        out.println("\t\t" + IConfigurable.class.getName() + " analyser = getTreeAnalyser();\n");
         out.println("\t\tanalyser.setOptions(loadOptions);");
-        out.println("\t\tanalyser.analyse(this);");
         out.println("\t}");
         out.println();
         
         out.println("\tprotected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        out.println("\t\t" + EMFTextPrinter.class.getName() + " p = new " + printerClassName + "(outputStream, this);");
+        out.println("\t\t" + ITextPrinter.class.getName() + " p = new " + printerClassName + "(outputStream, this);");
         out.println("\t\tfor(EObject root : getContents()) {");
         out.println("\t\t\tp.print(root);");
         out.println("\t\t}");
@@ -94,7 +94,7 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t}");
         out.println();
         
-        out.println("\tpublic " + EMFTextTreeAnalyser.class.getName() + " getTreeAnalyser() {");
+        out.println("\tpublic " + IReferenceResolver.class.getName() + " getTreeAnalyser() {");
         out.println("\t\tif (analyser == null) {");
         out.println("\t\t\tanalyser = new " + analyserClassName + "();");
         out.println("\t\t}");

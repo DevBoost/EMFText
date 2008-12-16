@@ -1,9 +1,9 @@
 package org.emftext.runtime.resource.impl;
 
 import org.eclipse.emf.common.util.URI;
-import org.emftext.runtime.resource.URIMapping;
+import org.emftext.runtime.resource.IURIMapping;
 
-public class URIMappingImpl extends ReferenceMappingImpl implements URIMapping {
+public class URIMappingImpl extends ReferenceMappingImpl implements IURIMapping {
 	
 	private URI uri;
 

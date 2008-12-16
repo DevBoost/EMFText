@@ -2,8 +2,8 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.ResolveResult;
-import org.emftext.runtime.resource.TextResource;
+import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.Import;
@@ -14,14 +14,14 @@ public class ImportConcreteSyntaxReferenceResolver extends ReferenceResolverImpl
 
 	@Override
 	protected void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, ResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		
 		if (!(container instanceof Import)) {
 			result.setErrorMessage(createErrorMessage(identifier));
 			return;
 		}
 		EObject concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, 
-				((Import) container).getPackage(), (TextResource) container.eResource());
+				((Import) container).getPackage(), (ITextResource) container.eResource());
 
 		if (concreteSyntax == null) {
 			result.setErrorMessage(createErrorMessage(identifier));
