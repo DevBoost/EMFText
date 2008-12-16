@@ -89,7 +89,7 @@ public class PutEverywhereSyntaxExtender {
 					// recursive call
 					generatePutEverywhereExtension(rule, compound.getDefinitions(), glueFeatures, false);
 				} else {
-					// TODO handle all glue features
+					// handle all glue features
 					addGlueFeatures(glueFeatures, parts, position);
 				}
 			}
