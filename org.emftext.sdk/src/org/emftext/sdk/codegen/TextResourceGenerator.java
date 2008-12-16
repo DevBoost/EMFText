@@ -68,7 +68,7 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t\tEObject root = p.parse();");
         out.println("\t\twhile (root != null) {");
         out.println("\t\t\tgetContents().add(root);");
-        out.println("\t\t\troot = null; //p.parse();");
+        out.println("\t\t\troot = null;");
         out.println("\t\t}\n");
         out.println("\t\t" + EMFTextTreeAnalyser.class.getName() + " analyser = getTreeAnalyser();\n");
         out.println("\t\tanalyser.setOptions(loadOptions);");
