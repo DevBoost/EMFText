@@ -42,7 +42,7 @@ public abstract class ReferenceResolverImpl implements ReferenceResolver {
 		try {
 			doResolve(identifier, container, reference, position, resolveFuzzy, result);
 		} catch (RuntimeException rte) {
-			//if not catchted here, EMF proxy resolution will catch and swallow it
+			// catch exception here to prevent EMF proxy resolution from swallowing it
 			rte.printStackTrace();
 		}
 		
