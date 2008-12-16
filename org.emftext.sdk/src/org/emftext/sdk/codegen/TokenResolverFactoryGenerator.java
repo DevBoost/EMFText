@@ -35,14 +35,12 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {
 		out.println("package " + super.getResourcePackageName() + ";");
 		out.println();
-		out.println("import " + resolverPackageName + ".*;");
-		out.println();
 		out.println("public class " + super.getResourceClassName() + " extends " + BasicTokenResolverFactory.class.getName() + " implements " + TokenResolverFactory.class.getName() + " {");
 		out.println();
 		out.println("\tpublic " + super.getResourceClassName() + "(){");
 		for(InternalTokenDefinition def:printedTokens.keySet()){
 			if(printedTokens.get(def)!=null){
-				out.println("\t\tsuper.registerTokenResolver(\"" +def.getName()+ "\",new "+ printedTokens.get(def) + "());");
+				out.println("\t\tsuper.registerTokenResolver(\"" +def.getName()+ "\", new " + resolverPackageName + "." + printedTokens.get(def) + "());");
 			}
 		}
 		out.println("\t}");
