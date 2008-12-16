@@ -1,5 +1,5 @@
 SYNTAXDEF gluetest
-FOR <http://www.emftext.org/test/gluetest>
+FOR <http://www.emftext.org/test/puteverywhere>
 START Root
 
 OPTIONS {
@@ -12,6 +12,6 @@ RULES {
 	Root    ::= parts*;
 	Pair    ::= "left" "right";
 	Triple  ::= "one" "two" "three";
-	Comment ::= "blah";
+	Comment ::= "COMMENT";
 	NewLine ::= "NL";
 }
