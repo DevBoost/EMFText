@@ -1,5 +1,6 @@
 package org.emftext.runtime.resource.impl;
 
+import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.TextDiagnostic;
 
 public abstract class AbstractTextDiagnostic implements TextDiagnostic {
@@ -13,5 +14,9 @@ public abstract class AbstractTextDiagnostic implements TextDiagnostic {
 
 	public TextDiagnosticType getType() {
 		return type;
+	}
+	
+	public boolean wasCausedBy(EObject element) {
+		return false;
 	}
 }

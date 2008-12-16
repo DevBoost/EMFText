@@ -23,6 +23,8 @@ import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
  * Base implementation for all generated tree analysers. 
  * It implements the specifications from {@link EMFTextTreeAnalyser}.
  * 
+ * TODO rename to CompositeReferenceResolver
+ * 
  * @author Jendrik Johannes (jj2)
  */
 public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
@@ -72,7 +74,7 @@ public abstract class EMFTextTreeAnalyserImpl implements EMFTextTreeAnalyser {
 	}
 	
 	public void analyse(TextResource resource) {
-	/* TODO delete this method and all calls in to it in generator
+	/* TODO delete this method and all calls to it in generator
 	 
 	   // collect an initial set of unresolved proxies
 	 

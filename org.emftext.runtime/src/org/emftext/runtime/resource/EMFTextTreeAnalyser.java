@@ -4,6 +4,8 @@ package org.emftext.runtime.resource;
  * Analyses the output of a <code>EMFTextParser</code> (that is a tree of <code>EObject</code>s)
  * and resolves reference in this output.
  * 
+ * TODO: Remove this interface
+ * 
  * @author Jendrik Johannes (jj2)
  */
 public interface EMFTextTreeAnalyser extends ReferenceResolver, Configurable {

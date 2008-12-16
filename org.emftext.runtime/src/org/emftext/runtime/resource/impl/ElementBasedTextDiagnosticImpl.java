@@ -48,4 +48,8 @@ public class ElementBasedTextDiagnosticImpl extends AbstractTextDiagnostic {
 	public int getLine() {
 		return Math.max(0, locationMap.getLine(element));
 	}
+	
+	public boolean wasCausedBy(EObject element) {
+		return this.element.equals(element);
+	}
 }

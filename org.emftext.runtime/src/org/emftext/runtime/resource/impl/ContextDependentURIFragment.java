@@ -1,9 +1,16 @@
 package org.emftext.runtime.resource.impl;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.resource.EMFTextTreeAnalyser;
+import org.emftext.runtime.resource.ElementMapping;
+import org.emftext.runtime.resource.ReferenceMapping;
 import org.emftext.runtime.resource.ResolveResult;
+import org.emftext.runtime.resource.URIMapping;
 
 public class ContextDependentURIFragment {
 
@@ -13,6 +20,8 @@ public class ContextDependentURIFragment {
 	protected int        positionInReference;
 	protected EObject    proxy;
 	protected ResolveResult result;
+	
+	private boolean resolving;
 	
 	public ContextDependentURIFragment(String identifier, EObject container,
 			EReference reference, int positionInReference, EObject proxy) {
@@ -24,9 +33,17 @@ public class ContextDependentURIFragment {
 		
 
 	}
+
+	public boolean isResolved() {
+		return result != null;
+	}
 	
-	public ResolveResult resolve(EMFTextTreeAnalyser treeAnalyser) {
-		if (result == null) {
+	public synchronized ResolveResult resolve(EMFTextTreeAnalyser treeAnalyser) {
+		if (resolving) {
+			return null;
+		}
+		resolving = true;
+		if (result == null || !result.wasResolved()) {
 			result = new ResolveResultImpl(false);
 			//set an initial default error message
 			result.setErrorMessage(getStdErrorMessage());
@@ -37,12 +54,64 @@ public class ContextDependentURIFragment {
 					this.getReference(), 
 					this.getPositionInReference(), 
 					false, result);
+			
+			//EMFText allows proxies to resolve to multiple objects
+			//the first is returned, the others are added here to the reference
+			if(result.wasResolvedMultiple()) {
+				handleMultipleResults();
+			}
+			
 		}
+		resolving = false;
 		return result;
 	}
-	
-	public boolean isResolved() {
-		return result != null;
+
+	private void handleMultipleResults() {
+		EList<EObject> list = null;
+		Object temp = container.eGet(reference);
+		if (temp instanceof EList) {
+			list = (EList<EObject>) temp;
+		}
+		
+		boolean first = true;
+		for(ReferenceMapping mapping : result.getMappings()) {
+			if (first) {
+				first = false;
+			}
+			else if (list != null) {
+				addResultToList(mapping, proxy, list);
+			}
+			else {
+				//TODO give error
+			}
+		}
+	}
+
+	private void addResultToList(ReferenceMapping mapping, EObject proxy, EList<EObject> list) {
+		EObject target = null;
+		int proxyPosition = list.indexOf(proxy);
+		
+		if (mapping instanceof ElementMapping) {
+			target = ((ElementMapping) mapping).getTargetElement();
+		} else if (mapping instanceof URIMapping) {
+			target = EcoreUtil.copy(proxy);
+			URI uri = ((URIMapping) mapping).getTargetIdentifier();
+			((InternalEObject) target).eSetProxyURI(uri);
+		} else {
+			assert false;
+		}
+		try {
+			if (proxyPosition == list.size()) {
+				list.add(target);
+			} else {
+				//TODO jjohannes: if target is an external proxy and list is "unique" 
+				//     add() will try to resolve the external proxy to check for uniqueness.
+				//     That should be avoided somehow...
+				list.add(proxyPosition, target);
+			}
+		} catch (IllegalArgumentException iae) {
+			iae.printStackTrace();
+		}
 	}
 	
 	private String getStdErrorMessage() {

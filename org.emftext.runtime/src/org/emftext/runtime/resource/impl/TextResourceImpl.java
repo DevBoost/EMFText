@@ -14,12 +14,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.resource.EMFTextOCLValidator;
@@ -27,6 +29,7 @@ import org.emftext.runtime.resource.ElementMapping;
 import org.emftext.runtime.resource.LocationMap;
 import org.emftext.runtime.resource.ReferenceMapping;
 import org.emftext.runtime.resource.ResolveResult;
+import org.emftext.runtime.resource.TextDiagnostic;
 import org.emftext.runtime.resource.TextResource;
 import org.emftext.runtime.resource.URIMapping;
 import org.emftext.runtime.resource.TextDiagnostic.TextDiagnosticType;
@@ -103,36 +106,61 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 			boolean wasResolvedBefore = uriFragment.isResolved();
 			ResolveResult result = uriFragment.resolve(getTreeAnalyser());
 			
+			if (result == null) {
+				//the resolving did call itself
+				return null;
+			}
+			
 			if (!wasResolvedBefore && !result.wasResolved()) {
 				attachErrors(result, uriFragment.getProxy());
 				return null;
 			} 
-			else if (result.wasResolvedUniquely()) {
-				attachWarnings(result);
-				ReferenceMapping mapping = result.getMappings().iterator().next();
-				if (mapping instanceof URIMapping) {
-					return this.getResourceSet().getEObject(((URIMapping)mapping).getTargetIdentifier(), true);
-				}
-				else if (mapping instanceof ElementMapping) {
-					EObject element = ((ElementMapping)mapping).getTargetElement();
-					EReference oppositeReference = uriFragment.getReference().getEOpposite();
-					if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
-						uriFragment.getContainer().eSet(uriFragment.getReference(), element);
-					}
-					return element;
-				}
-				else {
-					assert(false);
-					return null;
-				}
+			else if (!result.wasResolved()) {
+				return null;
 			}
 			else {
-				// TODO Why is this? assert(false);
-				return null;
-			}		
+				//remove an error that might have been added by an earlier attempt
+				removeError(uriFragment.getProxy());
+				attachWarnings(result);
+
+				ReferenceMapping mapping = result.getMappings().iterator().next();
+				
+				return getResultElement(uriFragment, mapping);
+			}
 		}
 		else {
 			return super.getEObject(id);
+		}
+	}
+
+	private EObject getResultElement(ContextDependentURIFragment uriFragment,
+			ReferenceMapping mapping) {
+		if (mapping instanceof URIMapping) {
+			return this.getResourceSet().getEObject(((URIMapping)mapping).getTargetIdentifier(), true);
+		}
+		else if (mapping instanceof ElementMapping) {
+			EObject element = ((ElementMapping)mapping).getTargetElement();
+			EReference oppositeReference = uriFragment.getReference().getEOpposite();
+			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
+				//TODO reference might be multiple (use eGet() and cast to list in this case)
+				uriFragment.getContainer().eSet(uriFragment.getReference(), element);
+			}
+			return element;
+		}
+		else {
+			assert(false);
+			return null;
+		}
+	}
+
+	private void removeError(EObject proxy) {
+		// attach errors to resource
+		for(Diagnostic errorCand : new BasicEList<Diagnostic>(getErrors())) {
+			if(errorCand instanceof TextDiagnostic) {
+				if(((TextDiagnostic) errorCand).wasCausedBy(proxy)) {
+					getErrors().remove(errorCand);
+				}
+			}
 		}
 	}
 	
@@ -151,16 +179,18 @@ public abstract class TextResourceImpl extends ResourceImpl implements TextResou
 		assert result != null;
 		assert result.wasResolved();
 		
-		for (ReferenceMapping mapping : result.getMappings()) {
-			String warningMessage = mapping.getWarning();
-			if (warningMessage == null) {
-				continue;
-			}
-			if (mapping instanceof ElementMapping) {
-				final EObject target = ((ElementMapping) mapping).getTargetElement();
-				addWarning(warningMessage, target);
-			} else {
-				assert false;
+		if (result.wasResolved()) {
+			for (ReferenceMapping mapping : result.getMappings()) {
+				String warningMessage = mapping.getWarning();
+				if (warningMessage == null) {
+					continue;
+				}
+				if (mapping instanceof ElementMapping) {
+					final EObject target = ((ElementMapping) mapping).getTargetElement();
+					addWarning(warningMessage, target);
+				} else {
+					assert false;
+				}
 			}
 		}
 	}

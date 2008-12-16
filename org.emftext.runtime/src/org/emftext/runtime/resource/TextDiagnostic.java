@@ -1,5 +1,6 @@
 package org.emftext.runtime.resource;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
@@ -24,6 +25,8 @@ public interface TextDiagnostic extends Resource.Diagnostic {
 
 	public int getColumn();
 	public int getLine();
+	
+	public boolean wasCausedBy(EObject element);
 	
 	public TextDiagnosticType getType();
 }
