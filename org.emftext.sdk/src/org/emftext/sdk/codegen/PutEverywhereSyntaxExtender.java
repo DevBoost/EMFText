@@ -39,10 +39,11 @@ public class PutEverywhereSyntaxExtender {
 	public void generatePutEverywhereExtensions(ConcreteSyntax concreteSyntax) {
 		List<Rule> rules = concreteSyntax.getRules();
 		for (Rule rule : rules) {
-			//System.out.println("generatePutEverywhereExtensions() rule: " + rule.getMetaclass().getEcoreClass().getName());
+			boolean isStartRule = concreteSyntax.getStartSymbols().contains(rule.getMetaclass());
+			//System.out.println("generatePutEverywhereExtensions() rule: " + rule.getMetaclass().getEcoreClass().getName() + " isStart="+isStartRule);
 			List<GenFeature> glueFeatures = getPutEverywhereFeatures(rule);
 			Choice choice = rule.getDefinition();
-			generatePutEverywhereExtension(rule, choice, glueFeatures);
+			generatePutEverywhereExtension(rule, choice, glueFeatures, isStartRule);
 		}
 	}
 
@@ -71,7 +72,7 @@ public class PutEverywhereSyntaxExtender {
 	}
 
 	private void generatePutEverywhereExtension(Rule rule, Choice choice,
-			List<GenFeature> glueFeatures) {
+			List<GenFeature> glueFeatures, boolean isStartRule) {
 		//System.out.println("generatePutEverywhereExtension() " + choice);
 		if (glueFeatures.size() == 0) {
 			return;
@@ -86,18 +87,36 @@ public class PutEverywhereSyntaxExtender {
 				if (part instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) part;
 					// recursive call
-					generatePutEverywhereExtension(rule, compound.getDefinitions(), glueFeatures);
+					generatePutEverywhereExtension(rule, compound.getDefinitions(), glueFeatures, false);
 				} else {
 					// TODO handle all glue features
-					for (GenFeature glueFeature : glueFeatures) {
-						//System.out.println("adding put everywhere feature " + glueFeature.getName());
-						Containment containment = csFactory.createContainment();
-						containment.setFeature(glueFeature);
-						containment.setCardinality(csFactory.createSTAR());
-						parts.add(position, containment);
-					}
+					addGlueFeatures(glueFeatures, parts, position);
 				}
 			}
+			// the start symbol must be extended with puteverywhere features at the last position
+			if (isStartRule) {
+				addGlueFeatures(glueFeatures, parts, -1);
+			}
+		}
+	}
+
+	private void addGlueFeatures(List<GenFeature> glueFeatures,
+			List<Definition> parts, int position) {
+		for (GenFeature glueFeature : glueFeatures) {
+			addGlueFeature(parts, position, glueFeature);
+		}
+	}
+
+	private void addGlueFeature(List<Definition> parts, int position,
+			GenFeature glueFeature) {
+		//System.out.println("adding put everywhere feature " + glueFeature.getName());
+		Containment containment = csFactory.createContainment();
+		containment.setFeature(glueFeature);
+		containment.setCardinality(csFactory.createSTAR());
+		if (position < 0) {
+			parts.add(containment);
+		} else {
+			parts.add(position, containment);
 		}
 	}
 
