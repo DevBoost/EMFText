@@ -214,7 +214,7 @@ public class ResourcePackageGenerator {
 			IFile antlrFile) {
 		progress.setTaskName("running ANTLR on grammar file...");
         ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(pck.getConcreteSyntax().eResource()));
-        Tool antlrTool = new Tool(new String[]{"-o",antlrFile.getLocation().removeLastSegments(1).toOSString(), antlrFile.getLocation().toOSString()});
+        Tool antlrTool = new Tool(new String[]{"-Xconversiontimeout", "10000", "-o", antlrFile.getLocation().removeLastSegments(1).toOSString(), antlrFile.getLocation().toOSString()});
         antlrTool.process();
         progress.worked(20);
 	}
