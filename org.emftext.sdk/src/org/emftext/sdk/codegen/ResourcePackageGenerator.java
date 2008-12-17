@@ -200,7 +200,7 @@ public class ResourcePackageGenerator {
 			ITextResource csResource, IPath resolverPackagePath,
 			TextParserGenerator antlrGenerator) throws CoreException {
 		
-		monitor.setTaskName("generating proxy resolvers...");
+		monitor.setTaskName("generating reference resolvers...");
 		
 		Map<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
 		for(GenFeature proxyReference : antlrGenerator.getProxyReferences()){
