@@ -14,7 +14,7 @@
       <concretesyntax
             uri="http://www.emftext.org/test/puteverywhere"
             csName="gluetest"
-            csDefinition="org.emftext.test/src/org/emftext/test/puteverywhere/glue.cs">
+            csDefinition="org.emftext.test.puteverywhere/metamodel/glue.cs">
       </concretesyntax>
    </extension>
 
