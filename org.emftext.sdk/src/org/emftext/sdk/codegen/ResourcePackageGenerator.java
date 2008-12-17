@@ -32,11 +32,14 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenResolver;
+import org.emftext.runtime.resource.ITokenResolverFactory;
 
 public class ResourcePackageGenerator {
 	
-	public static final String CLASS_TOKEN_RESOLVER = "TokenResolver";
-	public static final String CLASS_TOKEN_RESOLVER_FACTORY = "TokenResolverFactory";
+	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
+	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
+	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
 	
 	private static final String JAVA_EXT = ".java";
 	
@@ -58,7 +61,7 @@ public class ResourcePackageGenerator {
 	    String resourceName = capCsName + "ResourceImpl";
 	    String resourceFactoryName = capCsName + "ResourceFactoryImpl";
 	    String treeAnalyserName = capCsName + "TreeAnalyser";
-	    String tokenResolverFactoryName = capCsName + CLASS_TOKEN_RESOLVER_FACTORY;
+	    String tokenResolverFactoryName = capCsName + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
         
   		IFile antlrFile = targetFolder.getFile(csPackagePath.append(antlrName + ".g"));
 	    IFile printerFile = targetFolder.getFile(csPackagePath.append(printerName + JAVA_EXT));
@@ -133,7 +136,7 @@ public class ResourcePackageGenerator {
 		for(TextParserGenerator.InternalTokenDefinition definition : antlrGen.getPrintedTokenDefinitions()){
 			if(!definition.isReferenced())
 				continue;
-			String className = capCsName + definition.getName() + CLASS_TOKEN_RESOLVER;
+			String className = capCsName + definition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
 			tokenToNameMap.put(definition,className);
 			
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className + JAVA_EXT));
@@ -168,7 +171,7 @@ public class ResourcePackageGenerator {
 		progress.setTaskName("generating proxy resolvers...");
 		Map<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
 		for(GenFeature proxyReference : antlrGen.getProxyReferences()){
-			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + IReferenceResolver.class.getSimpleName();
+			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
 			proxy2Name.put(proxyReference,className);
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className +JAVA_EXT));
 			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
