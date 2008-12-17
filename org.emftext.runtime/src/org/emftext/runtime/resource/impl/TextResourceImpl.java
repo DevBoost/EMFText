@@ -56,8 +56,11 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 			for(EReference reference : container.eClass().getEAllReferences() ) {
 				Object temp = container.eGet(reference);
 				if (temp instanceof EList) {
-					for(int pos = 0; pos < ((EList<EObject>)temp).size(); pos++) {
-						EObject proxyCand = ((EList<EObject>)temp).get(pos);
+					EList<?> list = (EList<?>) temp;
+					int pos = 0;
+					Iterator<?> iterator = list.iterator();
+					while (iterator.hasNext()) {
+						EObject proxyCand = (EObject) iterator.next();
 						if (proxyCand.eIsProxy()) {
 							InternalEObject proxy = (InternalEObject) proxyCand;
 							String identifier = proxy.eProxyURI().fragment();
@@ -72,6 +75,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 							proxy.eSetProxyURI(proxy.eProxyURI().trimFragment().appendFragment(internalURIFragment));
 							internalURIFragmentMap.put(internalURIFragment, uriFragment);
 						}
+						pos++;
 					}
 				}
 				else {
