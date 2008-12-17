@@ -36,11 +36,13 @@ public class PutEverywhereSyntaxExtender {
 	
 	private final static ConcretesyntaxFactory csFactory = ConcretesyntaxFactory.eINSTANCE;
 
+	private static final boolean DEBUG = false;
+
 	public void generatePutEverywhereExtensions(ConcreteSyntax concreteSyntax) {
 		List<Rule> rules = concreteSyntax.getRules();
 		for (Rule rule : rules) {
 			boolean isStartRule = concreteSyntax.getStartSymbols().contains(rule.getMetaclass());
-			//System.out.println("generatePutEverywhereExtensions() rule: " + rule.getMetaclass().getEcoreClass().getName() + " isStart="+isStartRule);
+			debug("generatePutEverywhereExtensions() rule: " + rule.getMetaclass().getEcoreClass().getName() + " isStart="+isStartRule);
 			List<GenFeature> glueFeatures = getPutEverywhereFeatures(rule);
 			Choice choice = rule.getDefinition();
 			generatePutEverywhereExtension(rule, choice, glueFeatures, isStartRule);
@@ -73,7 +75,7 @@ public class PutEverywhereSyntaxExtender {
 
 	private void generatePutEverywhereExtension(Rule rule, Choice choice,
 			List<GenFeature> glueFeatures, boolean isStartRule) {
-		//System.out.println("generatePutEverywhereExtension() " + choice);
+		debug("generatePutEverywhereExtension() " + choice);
 		if (glueFeatures.size() == 0) {
 			return;
 		}
@@ -109,7 +111,7 @@ public class PutEverywhereSyntaxExtender {
 
 	private void addGlueFeature(List<Definition> parts, int position,
 			GenFeature glueFeature) {
-		//System.out.println("adding put everywhere feature " + glueFeature.getName());
+		debug("adding put everywhere feature " + glueFeature.getName());
 		Containment containment = csFactory.createContainment();
 		containment.setFeature(glueFeature);
 		containment.setCardinality(csFactory.createSTAR());
@@ -127,5 +129,11 @@ public class PutEverywhereSyntaxExtender {
 			return true;
 		}
 		return false;
+	}
+
+	private void debug(String message) {
+		if (DEBUG) {
+			System.out.println(message);
+		}
 	}
 }
