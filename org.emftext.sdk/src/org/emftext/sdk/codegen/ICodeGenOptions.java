@@ -4,6 +4,9 @@ public interface ICodeGenOptions {
 	
 	public static final String GENERATE_TEST_ACTION = "generateTestAction";
 	public static final String  GENERATE_CODE_FROM_GENERATOR_MODEL = "generateCodeFromGeneratorModel";
+	/**
+	 * Option to disable printer generation - generates an empty printer class to be implemented manually.
+	 */
 	public static final String  GENERATE_PRINTER_STUB_ONLY = "generatePrinterStubOnly";
 
 	public static final String  OVERRIDE_PLUGIN_XML = "overridePluginXML";
