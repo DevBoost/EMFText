@@ -191,21 +191,23 @@ public class ResourcePackageGenerator {
 		progress.setTaskName("generating printer...");
 		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY);
 		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_PRINTER);
-	    boolean printerExists = printerFile.exists();
-		if (!generatePrinterStubOnly) {
-			boolean generatePrinterBase = !printerBaseFile.exists() || overridePrinter;
-	    	if (generatePrinterBase) {
-		        BaseGenerator printerBaseGen = new TextPrinterBaseGenerator(pck.getConcreteSyntax(),printerBaseName,pck.getCsPackageName(),antlrName,tokenResolverFactoryName, antlrGen.getPlaceHolderTokenMapping(),treeAnalyserName);
-			    setContents(printerBaseFile,invokeGeneration(printerBaseGen,csResource));	    		
-	    	}
-		    if (!printerExists) {
-			    BaseGenerator printerGen = new TextPrinterGenerator(printerName,pck.getCsPackageName(),printerBaseName);
-			    setContents(printerFile,invokeGeneration(printerGen,csResource));
-		    }
-	    }
-	    else if (!printerExists || overridePrinter) {
-		    BaseGenerator printerGen = new TextPrinterGenerator(printerName,pck.getCsPackageName(),null);
-		    setContents(printerFile,invokeGeneration(printerGen,csResource));
+
+		boolean printerExists = printerFile.exists();
+		boolean printerBaseExists = printerBaseFile.exists();
+
+    	boolean generatePrinter = !printerExists || overridePrinter;
+		boolean generatePrinterBase = !printerBaseExists || overridePrinter;
+
+		final String csPackageName = pck.getCsPackageName();
+    	
+	    // always generate printer base
+		if (generatePrinterBase) {
+	        BaseGenerator printerBaseGen = new TextPrinterBaseGenerator(pck.getConcreteSyntax(), printerBaseName,csPackageName,antlrName,tokenResolverFactoryName, antlrGen.getPlaceHolderTokenMapping(),treeAnalyserName);
+		    setContents(printerBaseFile, invokeGeneration(printerBaseGen, csResource));	    		
+    	}
+		if (generatePrinter && !generatePrinterStubOnly) {
+    		BaseGenerator printerGen = new TextPrinterGenerator(printerName, csPackageName, printerBaseName);
+	    	setContents(printerFile, invokeGeneration(printerGen, csResource));
 	    }
 	    progress.worked(20);
 	}
