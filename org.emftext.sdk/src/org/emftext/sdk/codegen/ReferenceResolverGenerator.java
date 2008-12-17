@@ -10,8 +10,6 @@ import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
 
 /**
  * Generates basic stubs for reference resolvers.
- * 
- * TODO mseifert: change suffix for classes from IReferenceResolver to ReferenceResolver 
  */
 public class ReferenceResolverGenerator extends BaseGenerator {
 	
