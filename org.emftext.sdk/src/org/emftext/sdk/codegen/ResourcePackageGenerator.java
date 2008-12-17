@@ -13,10 +13,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 import org.antlr.Tool;
 import org.antlr.tool.ErrorManager;
@@ -41,7 +44,7 @@ public class ResourcePackageGenerator {
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
 	
-	private static final String JAVA_EXT = ".java";
+	private static final String JAVA_FILE_EXTENSION = ".java";
 	
 	public static void generate(ResourcePackage resourcePackage, IProgressMonitor monitor)throws CoreException{
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
@@ -64,12 +67,12 @@ public class ResourcePackageGenerator {
 	    String tokenResolverFactoryName = capCsName + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
         
   		IFile antlrFile = targetFolder.getFile(csPackagePath.append(antlrName + ".g"));
-	    IFile printerFile = targetFolder.getFile(csPackagePath.append(printerName + JAVA_EXT));
-	    IFile printerBaseFile = targetFolder.getFile(csPackagePath.append(printerBaseName + JAVA_EXT));
-	    IFile resourceFile = targetFolder.getFile(csPackagePath.append(resourceName + JAVA_EXT));
-        IFile resourceFactoryFile = targetFolder.getFile(csPackagePath.append(resourceFactoryName + JAVA_EXT));
-	    IFile treeAnalyserFile = targetFolder.getFile(csPackagePath.append(treeAnalyserName + JAVA_EXT));
-	    IFile tokenResolverFactoryFile = targetFolder.getFile(csPackagePath.append(tokenResolverFactoryName + JAVA_EXT));
+	    IFile printerFile = targetFolder.getFile(csPackagePath.append(printerName + JAVA_FILE_EXTENSION));
+	    IFile printerBaseFile = targetFolder.getFile(csPackagePath.append(printerBaseName + JAVA_FILE_EXTENSION));
+	    IFile resourceFile = targetFolder.getFile(csPackagePath.append(resourceName + JAVA_FILE_EXTENSION));
+        IFile resourceFactoryFile = targetFolder.getFile(csPackagePath.append(resourceFactoryName + JAVA_FILE_EXTENSION));
+	    IFile treeAnalyserFile = targetFolder.getFile(csPackagePath.append(treeAnalyserName + JAVA_FILE_EXTENSION));
+	    IFile tokenResolverFactoryFile = targetFolder.getFile(csPackagePath.append(tokenResolverFactoryName + JAVA_FILE_EXTENSION));
 	    	    
 	    TextParserGenerator antlrGenenerator = new TextParserGenerator(resourcePackage.getConcreteSyntax(),antlrName,resourcePackage.getCsPackageName(),tokenResolverFactoryName);
 	    IGenerator resourceGenenerator = new TextResourceGenerator(resourceName,resourcePackage.getCsPackageName(),capCsName,printerName,treeAnalyserName);
@@ -95,12 +98,12 @@ public class ResourcePackageGenerator {
 				printerBaseFile, antlrName, printerName, printerBaseName,
 				treeAnalyserName, tokenResolverFactoryName, antlrGenenerator);
 	    
-	    Map<GenFeature, String> proxy2Name = generateReferenceResolvers(resourcePackage,
+	    Map<GenFeature, String> proxy2NameMap = generateReferenceResolvers(resourcePackage,
 				progress, targetFolder, csResource, resolverPackagePath,
 				antlrGenenerator);
 		
 		generateTreeAnalyser(resourcePackage, progress, csResource, treeAnalyserFile,
-				treeAnalyserName, proxy2Name);
+				treeAnalyserName, proxy2NameMap);
 		
 		Map<TextParserGenerator.InternalTokenDefinition, String> tokenToNameMap = generateTokenResolvers(
 				resourcePackage, progress, capCsName, targetFolder, csResource,
@@ -108,6 +111,34 @@ public class ResourcePackageGenerator {
 		
 		generateTokenResolverFactory(resourcePackage, progress, csResource,
 				tokenResolverFactoryFile, tokenResolverFactoryName, tokenToNameMap);
+		
+		Collection<String> resolverClasses = new ArrayList<String>();
+		resolverClasses.addAll(proxy2NameMap.values());
+		resolverClasses.addAll(tokenToNameMap.values());
+		searchForUnusedResolvers(resourcePackage, resolverPackagePath, resolverClasses);
+	}
+
+	private static void searchForUnusedResolvers(
+			ResourcePackage resourcePackage, IPath resolverPackagePath,
+			Collection<String> resolverClassNames) throws CoreException {
+		
+		Set<String> resolverFiles = new LinkedHashSet<String>();
+		for (String className : resolverClassNames) {
+			resolverFiles.add(className + JAVA_FILE_EXTENSION);
+		}
+		
+		IFolder resolverPackageFolder = resourcePackage.getTargetFolder().getFolder(resolverPackagePath);
+		IResource[] contents = resolverPackageFolder.members();
+		for (IResource member : contents) {
+			if (member instanceof IFile) {
+				IFile file = (IFile) member;
+				String fileName = file.getName();
+				if (!resolverFiles.contains(fileName)) {
+					// issue warning about unused resolver
+					((ITextResource) resourcePackage.getConcreteSyntax().eResource()).addWarning("Found unused class '" + fileName + "' in analysis package.", null);
+				}
+			}
+		}
 	}
 
 	private static void generateTokenResolverFactory(
@@ -139,7 +170,7 @@ public class ResourcePackageGenerator {
 			String className = capCsName + definition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
 			tokenToNameMap.put(definition,className);
 			
-			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className + JAVA_EXT));
+			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className + JAVA_FILE_EXTENSION));
 			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator resolverGenerator = new TokenResolverGenerator(className,pck.getResolverPackageName(),definition);
@@ -165,22 +196,26 @@ public class ResourcePackageGenerator {
 	}
 
 	private static Map<GenFeature, String> generateReferenceResolvers(
-			ResourcePackage pck, SubMonitor progress, IFolder targetFolder,
+			ResourcePackage resourcePackage, SubMonitor monitor, IFolder targetFolder,
 			ITextResource csResource, IPath resolverPackagePath,
-			TextParserGenerator antlrGen) throws CoreException {
-		progress.setTaskName("generating proxy resolvers...");
+			TextParserGenerator antlrGenerator) throws CoreException {
+		
+		monitor.setTaskName("generating proxy resolvers...");
+		
 		Map<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
-		for(GenFeature proxyReference : antlrGen.getProxyReferences()){
+		for(GenFeature proxyReference : antlrGenerator.getProxyReferences()){
 			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
-			proxy2Name.put(proxyReference,className);
-			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className +JAVA_EXT));
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
+			proxy2Name.put(proxyReference, className);
+			String resolverFileName = className + JAVA_FILE_EXTENSION;
+			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(resolverFileName));
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(resourcePackage.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
 			if (generateResolver) {
-				BaseGenerator proxyGen = new ReferenceResolverGenerator(className,pck.getResolverPackageName());
+				BaseGenerator proxyGen = new ReferenceResolverGenerator(className,resourcePackage.getResolverPackageName());
 				setContents(resolverFile, invokeGeneration(proxyGen,csResource));		
 			}
 		}
-		progress.worked(20);
+		
+		monitor.worked(20);
 		return proxy2Name;
 	}
 
