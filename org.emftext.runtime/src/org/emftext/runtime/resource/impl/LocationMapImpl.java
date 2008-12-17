@@ -11,6 +11,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ILocationMap;
 
 public class LocationMapImpl implements ILocationMap {
+
+	public interface ISelector {
+		boolean accept(int startOffset, int endOffset);
+	}
+
 	protected EMap<EObject, Integer> columnMap    = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> lineMap      = new BasicEMap<EObject, Integer>();
 	protected EMap<EObject, Integer> charStartMap = new BasicEMap<EObject, Integer>();
@@ -67,26 +72,35 @@ public class LocationMapImpl implements ILocationMap {
 		map.put(element, line);
 	}
 
-	/**
-	 * Searches for an element at the given offset. If
-	 * multiple elements are found at the offset, the shortest
-	 * one is returned.
-	 */
-	public List<EObject> getElementsAt(int documentOffset) {
+	public List<EObject> getElementsAt(final int documentOffset) {
+		List<EObject> result = getElements(new ISelector() {
+			public boolean accept(int start, int end) {
+				return start > documentOffset && end < documentOffset;
+			}
+		});
+		return result;
+	}
+
+	public List<EObject> getElementsBetween(final int startOffset, final int endOffset) {
+		List<EObject> result = getElements(new ISelector() {
+			public boolean accept(int start, int end) {
+				return start >= startOffset && end <= endOffset;
+			}
+		});
+		return result;
+	}
+
+	private List<EObject> getElements(ISelector s) {
 		// there might be more than one element at the given offset
 		// thus, we collect all of them and sort them afterwards
 		List<EObject> result = new ArrayList<EObject>();
 		
 		for (EObject next : charStartMap.keySet()) {
 			int start = charStartMap.get(next);
-			if (start > documentOffset) {
-				continue;
-			}
 			int end = charEndMap.get(next);
-			if (end < documentOffset) {
-				continue;
+			if (s.accept(start, end)) {
+				result.add(next);
 			}
-			result.add(next);
 		}
 		Collections.sort(result, new Comparator<EObject>() {
 			public int compare(EObject objectA, EObject objectB) {

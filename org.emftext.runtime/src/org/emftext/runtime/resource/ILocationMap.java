@@ -62,4 +62,15 @@ public interface ILocationMap {
 	 * @return
 	 */
 	public List<EObject> getElementsAt(int documentOffset);
+	
+	/**
+	 * Returns all EObjects that are located between the given 
+	 * offsets in the text document. The method can return
+	 * multiple elements.
+	 * 
+	 * @param startOffset
+	 * @param endOffset
+	 * @return
+	 */
+	public List<EObject> getElementsBetween(int startOffset, int endOffset);
 }
