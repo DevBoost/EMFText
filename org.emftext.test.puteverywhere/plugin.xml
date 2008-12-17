@@ -13,7 +13,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://www.emftext.org/test/gluetest"
-            class="org.emftext.test.puteverywhere.gluetest.GluetestPackage"/>
+            class="org.emftext.test.puteverywhere.PuteverywherePackage"/>
    </extension>
 
 </plugin>
