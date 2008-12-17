@@ -74,7 +74,7 @@ public class ConcreteSyntaxTestHelper {
 				+ ".resource."
 				+ concreteSyntax.getName();
 		String tokenResolverFactoryName = antlrName
-				+ ResourcePackageGenerator.CLASS_TOKEN_RESOLVER_FACTORY;
+				+ ResourcePackageGenerator.CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
 
 		IGenerator antlrGenerator = new TextParserGenerator(concreteSyntax,
 				antlrName, csPackageName, tokenResolverFactoryName);
