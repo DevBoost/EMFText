@@ -57,7 +57,8 @@ public class TextResourceGeneratorANTLRErrorListener implements ANTLRErrorListen
         msg = msg.substring(msg.indexOf(":") + 2);        
         msg = msg.toString();
         
-        final String text = msg.substring(msg.indexOf(":") + 1);
+        String text = msg.substring(msg.indexOf(":") + 1);
+        final String cleanText = text.replace("\n", "").replace("\r", "");
         
         Diagnostic diagnostic = new Diagnostic() {
 			public int getColumn() {
@@ -73,7 +74,7 @@ public class TextResourceGeneratorANTLRErrorListener implements ANTLRErrorListen
 			}
 
 			public String getMessage() {
-				return text;
+				return cleanText;
 			}
         };
         
