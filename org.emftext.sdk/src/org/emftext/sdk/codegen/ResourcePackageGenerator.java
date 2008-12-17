@@ -95,7 +95,7 @@ public class ResourcePackageGenerator {
 				printerBaseFile, antlrName, printerName, printerBaseName,
 				treeAnalyserName, tokenResolverFactoryName, antlrGenenerator);
 	    
-	    Map<GenFeature, String> proxy2Name = generateReferenceResolver(resourcePackage,
+	    Map<GenFeature, String> proxy2Name = generateReferenceResolvers(resourcePackage,
 				progress, targetFolder, csResource, resolverPackagePath,
 				antlrGenenerator);
 		
@@ -164,7 +164,7 @@ public class ResourcePackageGenerator {
 		progress.worked(5);
 	}
 
-	private static Map<GenFeature, String> generateReferenceResolver(
+	private static Map<GenFeature, String> generateReferenceResolvers(
 			ResourcePackage pck, SubMonitor progress, IFolder targetFolder,
 			ITextResource csResource, IPath resolverPackagePath,
 			TextParserGenerator antlrGen) throws CoreException {
@@ -204,12 +204,17 @@ public class ResourcePackageGenerator {
 		final String csPackageName = pck.getCsPackageName();
     	
 	    // always generate printer base
-		if (generatePrinterBase) {
+		if (generatePrinterBase && !generatePrinterStubOnly) {
 	        BaseGenerator printerBaseGen = new TextPrinterBaseGenerator(pck.getConcreteSyntax(), printerBaseName,csPackageName,antlrName,tokenResolverFactoryName, antlrGen.getPlaceHolderTokenMapping(),treeAnalyserName);
 		    setContents(printerBaseFile, invokeGeneration(printerBaseGen, csResource));	    		
     	}
-		if (generatePrinter && !generatePrinterStubOnly) {
-    		BaseGenerator printerGen = new TextPrinterGenerator(printerName, csPackageName, printerBaseName);
+		if (generatePrinter) {
+			BaseGenerator printerGen;
+			if (generatePrinterStubOnly) {
+	    		printerGen = new TextPrinterGenerator(printerName, csPackageName, null);
+			} else {
+	    		printerGen = new TextPrinterGenerator(printerName, csPackageName, printerBaseName);
+			}
 	    	setContents(printerFile, invokeGeneration(printerGen, csResource));
 	    }
 	    progress.worked(20);
