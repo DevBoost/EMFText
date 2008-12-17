@@ -39,6 +39,8 @@ public class OptionManager {
 	}
 
 	private boolean getBooleanOptionsDefault(String optionName) {
+		// Attention: Any changes made to this default values must be
+		// documented in ICodeGenOptions!
 		if (optionName.equals(GENERATE_TEST_ACTION)) {
 			return false;
 		}
