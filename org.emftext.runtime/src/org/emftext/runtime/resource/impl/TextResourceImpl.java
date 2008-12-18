@@ -146,7 +146,6 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 			EReference reference = uriFragment.getReference();
 			EReference oppositeReference = uriFragment.getReference().getEOpposite();
 			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
-				//TODO reference might be multiple (use eGet() and cast to list in this case)
 				if (reference.isMany()) {
 					EList<EObject> list = (EList<EObject>) element.eGet(oppositeReference, false);
 					list.add(uriFragment.getContainer());
