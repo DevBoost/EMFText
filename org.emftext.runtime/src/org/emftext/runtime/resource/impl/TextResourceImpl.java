@@ -143,10 +143,17 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 		}
 		else if (mapping instanceof IElementMapping) {
 			EObject element = ((IElementMapping)mapping).getTargetElement();
+			EReference reference = uriFragment.getReference();
 			EReference oppositeReference = uriFragment.getReference().getEOpposite();
 			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
 				//TODO reference might be multiple (use eGet() and cast to list in this case)
-				uriFragment.getContainer().eSet(uriFragment.getReference(), element);
+				if (reference.isMany()) {
+					EList<EObject> list = (EList<EObject>) element.eGet(oppositeReference, false);
+					list.add(uriFragment.getContainer());
+				}
+				else {
+					uriFragment.getContainer().eSet(uriFragment.getReference(), element);
+				}
 			}
 			return element;
 		}
