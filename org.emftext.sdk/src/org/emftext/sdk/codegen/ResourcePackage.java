@@ -63,10 +63,6 @@ public class ResourcePackage {
 		return targetFolder;
 	}
 	
-	public void addGeneratedResolverClass(String className) {
-		generatedResolverClasses.add(className);
-	}
-
 	public Collection<String> getGeneratedResolverClasses() {
 		return generatedResolverClasses;
 	}
