@@ -63,6 +63,13 @@ public class ResourcePackage {
 		return targetFolder;
 	}
 	
+	/**
+	 * Returns a collection that contains the names of all resolver
+	 * classes (both token and reference resolvers) that were generated
+	 * before. Each new resolver should be added to this list.
+	 * 
+	 * @return the collection of already generated resolver classes
+	 */
 	public Collection<String> getGeneratedResolverClasses() {
 		return generatedResolverClasses;
 	}
