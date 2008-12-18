@@ -54,7 +54,7 @@ public class ResourcePackageGenerator {
 		if(!targetFolder.exists())
 		   	targetFolder.create(false,true,progress.newChild(5));
   		
-		IPath csPackagePath = new Path(resourcePackage.getCsPackageName().replaceAll("\\.","/"));
+		IPath csPackagePath = new Path(resourcePackage.getPackageName().replaceAll("\\.","/"));
   		IPath resolverPackagePath = new Path(resourcePackage.getResolverPackageName().replaceAll("\\.","/"));
   		
 	    String antlrName = capCsName;
@@ -73,9 +73,9 @@ public class ResourcePackageGenerator {
 	    IFile treeAnalyserFile = targetFolder.getFile(csPackagePath.append(treeAnalyserName + JAVA_FILE_EXTENSION));
 	    IFile tokenResolverFactoryFile = targetFolder.getFile(csPackagePath.append(tokenResolverFactoryName + JAVA_FILE_EXTENSION));
 	    	    
-	    TextParserGenerator antlrGenenerator = new TextParserGenerator(resourcePackage.getConcreteSyntax(),antlrName,resourcePackage.getCsPackageName(),tokenResolverFactoryName);
-	    IGenerator resourceGenenerator = new TextResourceGenerator(resourceName,resourcePackage.getCsPackageName(),capCsName,printerName,treeAnalyserName);
-	    IGenerator resourceFactoryGenenerator = new ResourceFactoryGenerator(resourceFactoryName,resourcePackage.getCsPackageName(),resourceName);
+	    TextParserGenerator antlrGenenerator = new TextParserGenerator(resourcePackage.getConcreteSyntax(),antlrName,resourcePackage.getPackageName(),tokenResolverFactoryName);
+	    IGenerator resourceGenenerator = new TextResourceGenerator(resourceName,resourcePackage.getPackageName(),capCsName,printerName,treeAnalyserName);
+	    IGenerator resourceFactoryGenenerator = new ResourceFactoryGenerator(resourceFactoryName,resourcePackage.getPackageName(),resourceName);
 	    
 	    progress.setTaskName("deriving grammar...");
 	    InputStream grammarStream = deriveGrammar(csResource, antlrGenenerator);
@@ -149,7 +149,7 @@ public class ResourcePackageGenerator {
 		progress.setTaskName("generating token resolver factory...");
 		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY);
 		if (generateTokenResolverFactory) {
-			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(tokenToNameMap,tokenResolverFactoryName,pck.getCsPackageName(),pck.getResolverPackageName());
+			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(tokenToNameMap,tokenResolverFactoryName,pck.getPackageName(),pck.getResolverPackageName());
 			setContents(tokenResolverFactoryFile,invokeGeneration(factoryGen,csResource));
 		}
 	}
@@ -187,7 +187,7 @@ public class ResourcePackageGenerator {
 
 		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
 		if (generateTreeAnalyser) {
-			BaseGenerator analyserGen = new TextTreeAnalyserGenerator(proxy2Name,treeAnalyserName,pck.getCsPackageName(),pck.getResolverPackageName());
+			BaseGenerator analyserGen = new TextTreeAnalyserGenerator(proxy2Name,treeAnalyserName,pck.getPackageName(),pck.getResolverPackageName());
 			setContents(treeAnalyserFile,invokeGeneration(analyserGen,csResource));
 		}
 		progress.worked(5);
@@ -236,7 +236,7 @@ public class ResourcePackageGenerator {
     	boolean generatePrinter = !printerExists || overridePrinter;
 		boolean generatePrinterBase = !printerBaseExists || overridePrinter;
 
-		final String csPackageName = pck.getCsPackageName();
+		final String csPackageName = pck.getPackageName();
     	
 	    // always generate printer base
 		if (generatePrinterBase && !generatePrinterStubOnly) {

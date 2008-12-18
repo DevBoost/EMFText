@@ -116,7 +116,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 						new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(context.getConcreteSyntax());
 
 						// create a project
-						context.setProject(createProject(progress, context.getPackageName()));
+						createProject(context, progress);
 
 						// generate the resource class, parser, and printer
 						ResourcePackageGenerator.generate(context, progress
@@ -168,12 +168,12 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 				new BasicMonitor.EclipseSubProgress(monitor, 100));
 	}
 
-	private IProject createProject(SubMonitor progress, String projectName)
+	private void createProject(ResourceGenerationContext context, SubMonitor progress)
 			throws CoreException, JavaModelException {
+		String projectName = context.getPackageName();
 		IJavaProject javaProject = createJavaProject(progress, projectName);
-		IProject project = javaProject.getProject();
-		setClasspath(javaProject, progress);
-		return project;
+		context.setJavaProject(javaProject);
+		setClasspath(context, progress);
 	}
 
 	private void createMetaModelCode(ResourceGenerationContext context, SubMonitor progress) {
@@ -221,19 +221,11 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		return javaProject;
 	}
 
-	private IFolder getSrcFolder(IProject project) {
-		return project.getFolder("/src");
-	}
-
-	private IFolder getOutFolder(IProject project) {
-		return project.getFolder("/bin");
-	}
-
-	private void setClasspath(IJavaProject javaProject, SubMonitor progress)
+	private void setClasspath(ResourceGenerationContext context, SubMonitor progress)
 			throws JavaModelException {
-		IFolder srcFolder = getSrcFolder(javaProject.getProject());
-		IFolder outFolder = getOutFolder(javaProject.getProject());
-		javaProject.setRawClasspath(new IClasspathEntry[] {
+		IFolder srcFolder = context.getTargetFolder();
+		IFolder outFolder = context.getOutputFolder();
+		context.getJavaProject().setRawClasspath(new IClasspathEntry[] {
 				JavaCore.newSourceEntry(srcFolder.getFullPath()),
 				JavaCore.newContainerEntry(new Path(JavaRuntime.JRE_CONTAINER)),
 				JavaCore.newContainerEntry(new Path(

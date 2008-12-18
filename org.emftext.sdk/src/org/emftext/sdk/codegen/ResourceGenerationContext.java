@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -23,14 +24,12 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class ResourceGenerationContext {
 	
 	private ConcreteSyntax concreteSyntax;
-	private String csPackageName;
-	private IFolder targetFolder;
 	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
-	private IProject project;
+	private IJavaProject javaProject;
 	
 	public ResourceGenerationContext(ConcreteSyntax csSource) {
 		if (csSource == null) {
-			throw new IllegalArgumentException("A ConcreteSyntax and an IFolder have to be specified!");
+			throw new IllegalArgumentException("A concrete syntax must be specified!");
 		}
 		this.concreteSyntax = csSource;
 	}
@@ -39,6 +38,7 @@ public class ResourceGenerationContext {
 	 * @return The base package where token and proxy resolvers go to.
 	 */
 	public String getResolverPackageName() {
+		String csPackageName = getPackageName();
 		return (csPackageName==null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
 	}
 	
@@ -51,19 +51,16 @@ public class ResourceGenerationContext {
 	}
 	
 	/**
-	 * @return The base package where parser and lexer will go to.
-	 */
-	public String getCsPackageName(){
-		return csPackageName;
-	}
-	
-	/**
 	 * @return The base folder to which generated packages are printed.
 	 */
 	public IFolder getTargetFolder(){
-		return targetFolder;
+		return javaProject.getProject().getFolder("/src");
 	}
 	
+	public IFolder getOutputFolder() {
+		return javaProject.getProject().getFolder("/bin");
+	}
+
 	/**
 	 * Returns a collection that contains the names of all resolver
 	 * classes (both token and reference resolvers) that were generated
@@ -88,10 +85,14 @@ public class ResourceGenerationContext {
 	}
 
 	public IProject getProject() {
-		return project;
+		return javaProject.getProject();
 	}
 
-	public void setProject(IProject project) {
-		this.project = project;
+	public IJavaProject getJavaProject() {
+		return javaProject;
+	}
+
+	public void setJavaProject(IJavaProject project) {
+		this.javaProject = project;
 	}
 }
