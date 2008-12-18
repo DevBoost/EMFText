@@ -248,7 +248,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		IFolder outFolder = getOutFolder(javaProject.getProject());
 		javaProject.setRawClasspath(new IClasspathEntry[] {
 				JavaCore.newSourceEntry(srcFolder.getFullPath()),
-				JavaRuntime.getJREVariableEntry(),
+				JavaCore.newContainerEntry(new Path(JavaRuntime.JRE_CONTAINER)),
 				JavaCore.newContainerEntry(new Path(
 						"org.eclipse.pde.core.requiredPlugins")) }, outFolder
 				.getFullPath(), progress.newChild(TICKS_SET_CLASSPATH));
