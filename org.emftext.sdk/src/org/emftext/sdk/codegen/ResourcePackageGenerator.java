@@ -98,14 +98,14 @@ public class ResourcePackageGenerator {
 				treeAnalyserName, tokenResolverFactoryName, antlrGenenerator);
 	    
 	    Map<GenFeature, String> proxy2NameMap = generateReferenceResolvers(resourcePackage,
-				progress, targetFolder, csResource, resolverPackagePath,
+				progress, csResource, resolverPackagePath,
 				antlrGenenerator);
 		
 		generateTreeAnalyser(resourcePackage, progress, csResource, treeAnalyserFile,
 				treeAnalyserName, proxy2NameMap);
 		
 		Map<TextParserGenerator.InternalTokenDefinition, String> tokenToNameMap = generateTokenResolvers(
-				resourcePackage, progress, capCsName, targetFolder, csResource,
+				resourcePackage, progress, capCsName, csResource,
 				resolverPackagePath, antlrGenenerator);
 		
 		generateTokenResolverFactory(resourcePackage, progress, csResource,
@@ -155,11 +155,12 @@ public class ResourcePackageGenerator {
 	}
 
 	private static Map<TextParserGenerator.InternalTokenDefinition, String> generateTokenResolvers(
-			ResourcePackage pck, SubMonitor progress, String capCsName,
-			IFolder targetFolder, ITextResource csResource,
+			ResourcePackage resourcePackage, SubMonitor progress, String capCsName,
+			ITextResource csResource,
 			IPath resolverPackagePath, TextParserGenerator antlrGen)
 			throws CoreException {
 		progress.setTaskName("generating token resolvers...");
+		IFolder targetFolder = resourcePackage.getTargetFolder();
 		Map<TextParserGenerator.InternalTokenDefinition,String> tokenToNameMap = new HashMap<TextParserGenerator.InternalTokenDefinition,String>();
 		for(TextParserGenerator.InternalTokenDefinition definition : antlrGen.getPrintedTokenDefinitions()){
 			if(!definition.isReferenced())
@@ -168,9 +169,9 @@ public class ResourcePackageGenerator {
 			tokenToNameMap.put(definition,className);
 			
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className + JAVA_FILE_EXTENSION));
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(resourcePackage.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
 			if (generateResolver) {
-				BaseGenerator resolverGenerator = new TokenResolverGenerator(className,pck.getResolverPackageName(),definition);
+				BaseGenerator resolverGenerator = new TokenResolverGenerator(className,resourcePackage.getResolverPackageName(),definition);
 				setContents(resolverFile,invokeGeneration(resolverGenerator,csResource));
 			}
 		}
@@ -193,11 +194,13 @@ public class ResourcePackageGenerator {
 	}
 
 	private static Map<GenFeature, String> generateReferenceResolvers(
-			ResourcePackage resourcePackage, SubMonitor monitor, IFolder targetFolder,
+			ResourcePackage resourcePackage, SubMonitor monitor, 
 			ITextResource csResource, IPath resolverPackagePath,
 			TextParserGenerator antlrGenerator) throws CoreException {
 		
 		monitor.setTaskName("generating reference resolvers...");
+		
+		IFolder targetFolder = resourcePackage.getTargetFolder();
 		
 		Map<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
 		for(GenFeature proxyReference : antlrGenerator.getProxyReferences()){
