@@ -111,22 +111,15 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 
 						final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource
 								.getContents().get(0);
-						new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(concreteSyntax);
-						final String csPackageName = getPackageName(concreteSyntax);
-						final String projectName = csPackageName;
+						ResourceGenerationContext context = new ResourceGenerationContext(concreteSyntax);
 
-						if (projectName == null) {
-							return;
-						}
+						new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(context.getConcreteSyntax());
 
 						// create a project
-						IProject project = createProject(progress, projectName);
+						context.setProject(createProject(progress, context.getPackageName()));
 
 						// generate the resource class, parser, and printer
-						ResourceGenerationContext pck = new ResourceGenerationContext(
-								concreteSyntax, csPackageName,
-								getSrcFolder(project));
-						ResourcePackageGenerator.generate(pck, progress
+						ResourcePackageGenerator.generate(context, progress
 								.newChild(TICKS_GENERATE_RESOURCE));
 
 						// errors from parser generator?
@@ -134,28 +127,20 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 							MarkerHelper.mark(csResource);
 						}
 
-						createMetaFolder(progress, project);
-						createManifest(progress, concreteSyntax, projectName, project, pck);
-						createPluginXML(progress, concreteSyntax, projectName, project, file);
+						createMetaFolder(context, progress);
+						createManifest(context, progress);
+						createPluginXML(context, progress, file);
 
-						markErrors(concreteSyntax);
+						markErrors(context.getConcreteSyntax());
 
-						createMetaModelCode(progress, concreteSyntax);
+						createMetaModelCode(context, progress);
 
-						project.refreshLocal(IProject.DEPTH_INFINITE, progress
+						context.getProject().refreshLocal(IProject.DEPTH_INFINITE, progress
 								.newChild(TICKS_REFRESH_PROJECT));
 					} catch (CoreException e) {
 						throw new InvocationTargetException(e);
 					}
 				}
-
-				private String getPackageName(final ConcreteSyntax cSyntax) {
-					return (cSyntax.getPackage().getBasePackage() == null ? ""
-							: cSyntax.getPackage().getBasePackage() + ".")
-							+ cSyntax.getPackage().getEcorePackage().getName()
-							+ ".resource." + cSyntax.getName();
-				}
-
 			};
 
 			PlatformUI.getWorkbench().getProgressService().busyCursorWhile(
@@ -191,8 +176,10 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		return project;
 	}
 
-	private void createMetaModelCode(SubMonitor progress,
-			final ConcreteSyntax cSyntax) {
+	private void createMetaModelCode(ResourceGenerationContext context, SubMonitor progress) {
+		
+		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
+		
 		// do not generate code for genmodels imported from deployed plugins
 		if (cSyntax.getPackage().eResource().getURI().segments()[0].equals("plugin")) {
 			return;
@@ -254,8 +241,9 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 				.getFullPath(), progress.newChild(TICKS_SET_CLASSPATH));
 	}
 
-	private void createMetaFolder(SubMonitor progress, IProject project)
+	private void createMetaFolder(ResourceGenerationContext context, SubMonitor progress)
 			throws CoreException {
+		IProject project = context.getProject();
 		IFolder metaFolder = project.getFolder("/META-INF");
 		if (!metaFolder.exists()) {
 			metaFolder.create(true, true, progress
@@ -265,17 +253,19 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		}
 	}
 
-	private void createManifest(SubMonitor progress,
-			final ConcreteSyntax cSyntax, String projectName,
-			IProject project,
-			ResourceGenerationContext resourcePackage) throws CoreException {
+	private void createManifest(ResourceGenerationContext context,
+			SubMonitor progress) throws CoreException {
+		
+		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
+		IProject project = context.getProject();
+		String projectName = project.getName();
 
 		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
 
 		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
 		if (manifestMFFile.exists()) {
 			if (overrideManifest) {
-				ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled(cSyntax));
+				ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, context, isGenerateTestActionEnabled(cSyntax));
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 				mGenerator.generate(new PrintWriter(outputStream));
 				manifestMFFile.setContents(new ByteArrayInputStream(
@@ -285,7 +275,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 				progress.internalWorked(TICKS_CREATE_MANIFEST);
 			}
 		} else {
-			ManifestGenerator manifestGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled(cSyntax));
+			ManifestGenerator manifestGenerator = new ManifestGenerator(cSyntax, projectName, context, isGenerateTestActionEnabled(cSyntax));
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			manifestGenerator.generate(new PrintWriter(outputStream));
 			manifestMFFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true,
@@ -293,10 +283,13 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 		}
 	}
 
-	private void createPluginXML(SubMonitor progress,
-			final ConcreteSyntax cSyntax, String projectName,
-			IProject project, IFile file)
+	private void createPluginXML(ResourceGenerationContext context, SubMonitor progress,
+			IFile file)
 			throws CoreException {
+		
+		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
+		IProject project = context.getProject(); 
+		String projectName = project.getName();
 		
 		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML);
 		

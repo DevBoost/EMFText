@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -22,18 +24,22 @@ public class ResourceGenerationContext {
 	
 	private ConcreteSyntax concreteSyntax;
 	private String csPackageName;
-	private String resolverPackageName;
 	private IFolder targetFolder;
 	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
+	private IProject project;
 	
-	public ResourceGenerationContext(ConcreteSyntax csSource, String csPackageName, IFolder targetFolder) {
-		if (csSource==null || targetFolder==null) {
+	public ResourceGenerationContext(ConcreteSyntax csSource) {
+		if (csSource == null) {
 			throw new IllegalArgumentException("A ConcreteSyntax and an IFolder have to be specified!");
 		}
 		this.concreteSyntax = csSource;
-		this.targetFolder = targetFolder;
-		this.csPackageName = csPackageName;
-		resolverPackageName = (csPackageName==null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
+	}
+
+	/**	 
+	 * @return The base package where token and proxy resolvers go to.
+	 */
+	public String getResolverPackageName() {
+		return (csPackageName==null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
 	}
 	
 	/**
@@ -49,13 +55,6 @@ public class ResourceGenerationContext {
 	 */
 	public String getCsPackageName(){
 		return csPackageName;
-	}
-	
-	/**	 
-	 * @return The base package where token and proxy resolvers go to.
-	 */
-	public String getResolverPackageName(){
-		return resolverPackageName;
 	}
 	
 	/**
@@ -74,5 +73,25 @@ public class ResourceGenerationContext {
 	 */
 	public Collection<String> getGeneratedResolverClasses() {
 		return generatedResolverClasses;
+	}
+
+	public String getPackageName() {
+		GenPackage concreteSyntaxPackage = concreteSyntax.getPackage();
+		boolean hasBasePackage = concreteSyntaxPackage.getBasePackage() != null;
+		String baseName = "";
+		if (hasBasePackage) {
+			baseName = concreteSyntaxPackage.getBasePackage() + ".";
+		}
+		return baseName
+				+ concreteSyntaxPackage.getEcorePackage().getName()
+				+ ".resource." + concreteSyntax.getName();
+	}
+
+	public IProject getProject() {
+		return project;
+	}
+
+	public void setProject(IProject project) {
+		this.project = project;
 	}
 }
