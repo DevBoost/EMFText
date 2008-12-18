@@ -7,28 +7,30 @@ import org.eclipse.core.resources.IFolder;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
- * A resource package provides all information that is needed by the 
+ * A ResourceGenerationContext provides all information that is needed by the 
  * ResourcePackageGenerator. This includes a resolved concrete syntax, 
  * a package name for parser and printer, a package name for resolvers 
- * (proxy and token resolvers) and a resource target folder.
+ * (proxy and token resolvers) and a resource target folder. Furthermore,
+ * the context collects information about the generation process as it
+ * is executed.
  * 
  * @see org.emftext.sdk.codegen.ResourcePackageGenerator
  * 
  * @author skarol
  */
-public class ResourcePackage {
+public class ResourceGenerationContext {
 	
-	private ConcreteSyntax csSource;
+	private ConcreteSyntax concreteSyntax;
 	private String csPackageName;
 	private String resolverPackageName;
 	private IFolder targetFolder;
 	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
 	
-	public ResourcePackage(ConcreteSyntax csSource, String csPackageName, IFolder targetFolder) {
+	public ResourceGenerationContext(ConcreteSyntax csSource, String csPackageName, IFolder targetFolder) {
 		if (csSource==null || targetFolder==null) {
 			throw new IllegalArgumentException("A ConcreteSyntax and an IFolder have to be specified!");
 		}
-		this.csSource = csSource;
+		this.concreteSyntax = csSource;
 		this.targetFolder = targetFolder;
 		this.csPackageName = csPackageName;
 		resolverPackageName = (csPackageName==null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
@@ -39,7 +41,7 @@ public class ResourcePackage {
 	 * assumed to contain all resolved information.
 	 */
 	public ConcreteSyntax getConcreteSyntax(){
-		return csSource;
+		return concreteSyntax;
 	}
 	
 	/**

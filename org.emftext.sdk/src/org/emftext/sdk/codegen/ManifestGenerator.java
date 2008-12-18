@@ -14,11 +14,11 @@ public class ManifestGenerator implements IGenerator {
 
 	private final ConcreteSyntax cSyntax;
 	private final String packageName;
-	private final ResourcePackage resourcePackage;
+	private final ResourceGenerationContext resourcePackage;
 	private final boolean generateTestAction;
 
 	public ManifestGenerator(ConcreteSyntax cSyntax, String packageName,
-			ResourcePackage resourcePackage, boolean generateTestAction) {
+			ResourceGenerationContext resourcePackage, boolean generateTestAction) {
 		this.cSyntax = cSyntax;
 		this.packageName = packageName;
 		this.resourcePackage = resourcePackage;

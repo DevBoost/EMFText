@@ -40,7 +40,7 @@ import org.emftext.sdk.codegen.ManifestGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginXMLGenerator;
 import org.emftext.sdk.codegen.PutEverywhereSyntaxExtender;
-import org.emftext.sdk.codegen.ResourcePackage;
+import org.emftext.sdk.codegen.ResourceGenerationContext;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -123,7 +123,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 						IProject project = createProject(progress, projectName);
 
 						// generate the resource class, parser, and printer
-						ResourcePackage pck = new ResourcePackage(
+						ResourceGenerationContext pck = new ResourceGenerationContext(
 								concreteSyntax, csPackageName,
 								getSrcFolder(project));
 						ResourcePackageGenerator.generate(pck, progress
@@ -268,7 +268,7 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 	private void createManifest(SubMonitor progress,
 			final ConcreteSyntax cSyntax, String projectName,
 			IProject project,
-			ResourcePackage resourcePackage) throws CoreException {
+			ResourceGenerationContext resourcePackage) throws CoreException {
 
 		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
 

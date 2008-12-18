@@ -45,7 +45,7 @@ public class ResourcePackageGenerator {
 	
 	private static final String JAVA_FILE_EXTENSION = ".java";
 	
-	public static void generate(ResourcePackage resourcePackage, IProgressMonitor monitor)throws CoreException{
+	public static void generate(ResourceGenerationContext resourcePackage, IProgressMonitor monitor)throws CoreException{
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
 	    String capCsName = BaseGenerator.cap(resourcePackage.getConcreteSyntax().getName());
 		IFolder targetFolder = resourcePackage.getTargetFolder();
@@ -117,7 +117,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static void searchForUnusedResolvers(
-			ResourcePackage resourcePackage, IPath resolverPackagePath) throws CoreException {
+			ResourceGenerationContext resourcePackage, IPath resolverPackagePath) throws CoreException {
 		
 		Set<String> resolverFiles = new LinkedHashSet<String>();
 		for (String className : resourcePackage.getGeneratedResolverClasses()) {
@@ -139,7 +139,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static void generateTokenResolverFactory(
-			ResourcePackage pck,
+			ResourceGenerationContext pck,
 			SubMonitor progress,
 			ITextResource csResource,
 			IFile tokenResolverFactoryFile,
@@ -155,7 +155,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static Map<TextParserGenerator.InternalTokenDefinition, String> generateTokenResolvers(
-			ResourcePackage resourcePackage, SubMonitor progress, String capCsName,
+			ResourceGenerationContext resourcePackage, SubMonitor progress, String capCsName,
 			ITextResource csResource,
 			IPath resolverPackagePath, TextParserGenerator antlrGen)
 			throws CoreException {
@@ -179,7 +179,7 @@ public class ResourcePackageGenerator {
 		return tokenToNameMap;
 	}
 
-	private static void generateTreeAnalyser(ResourcePackage pck,
+	private static void generateTreeAnalyser(ResourceGenerationContext pck,
 			SubMonitor progress, ITextResource csResource,
 			IFile treeAnalyserFile, String treeAnalyserName,
 			Map<GenFeature, String> proxy2Name) throws CoreException {
@@ -194,7 +194,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static Map<GenFeature, String> generateReferenceResolvers(
-			ResourcePackage resourcePackage, SubMonitor monitor, 
+			ResourceGenerationContext resourcePackage, SubMonitor monitor, 
 			ITextResource csResource, IPath resolverPackagePath,
 			TextParserGenerator antlrGenerator) throws CoreException {
 		
@@ -219,7 +219,7 @@ public class ResourcePackageGenerator {
 		return proxy2Name;
 	}
 
-	private static void generatePrettyPrinter(ResourcePackage pck,
+	private static void generatePrettyPrinter(ResourceGenerationContext pck,
 			SubMonitor progress, ITextResource csResource, IFile printerFile,
 			IFile printerBaseFile, String antlrName, String printerName,
 			String printerBaseName, String treeAnalyserName,
@@ -255,7 +255,7 @@ public class ResourcePackageGenerator {
 	    progress.worked(20);
 	}
 
-	private static void runANTLR(ResourcePackage pck, SubMonitor progress,
+	private static void runANTLR(ResourceGenerationContext pck, SubMonitor progress,
 			IFile antlrFile) {
 		progress.setTaskName("running ANTLR on grammar file...");
         ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(pck.getConcreteSyntax().eResource()));
@@ -280,7 +280,7 @@ public class ResourcePackageGenerator {
 		return content;
 	}
 	
-	private static void saveGrammar(InputStream content, ResourcePackage pck, IFile antlrFile) throws CoreException {
+	private static void saveGrammar(InputStream content, ResourceGenerationContext pck, IFile antlrFile) throws CoreException {
 		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
 	    if (generateANTLRSpecification) {
 	    	setContents(antlrFile, content);
