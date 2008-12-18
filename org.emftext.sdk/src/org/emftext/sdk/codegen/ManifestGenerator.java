@@ -76,8 +76,11 @@ public class ManifestGenerator implements IGenerator {
 		s.append("Bundle-ActivationPolicy: lazy\n");
 		s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
 		// export the generated packages
-		s.append("Export-Package: " + packageName + ",\n");
-		s.append("  " + resourcePackage.getResolverPackageName() + "\n");
+		s.append("Export-Package: " + packageName);
+		if (resourcePackage.getGeneratedResolverClasses().size() > 0) {
+			s.append(",\n" + "  " + resourcePackage.getResolverPackageName());
+		}
+		s.append("\n");
 
 		return s.toString();
 	}

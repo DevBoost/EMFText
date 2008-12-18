@@ -13,7 +13,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -112,18 +111,16 @@ public class ResourcePackageGenerator {
 		generateTokenResolverFactory(resourcePackage, progress, csResource,
 				tokenResolverFactoryFile, tokenResolverFactoryName, tokenToNameMap);
 		
-		Collection<String> resolverClasses = new ArrayList<String>();
-		resolverClasses.addAll(proxy2NameMap.values());
-		resolverClasses.addAll(tokenToNameMap.values());
-		searchForUnusedResolvers(resourcePackage, resolverPackagePath, resolverClasses);
+		resourcePackage.getGeneratedResolverClasses().addAll(proxy2NameMap.values());
+		resourcePackage.getGeneratedResolverClasses().addAll(tokenToNameMap.values());
+		searchForUnusedResolvers(resourcePackage, resolverPackagePath);
 	}
 
 	private static void searchForUnusedResolvers(
-			ResourcePackage resourcePackage, IPath resolverPackagePath,
-			Collection<String> resolverClassNames) throws CoreException {
+			ResourcePackage resourcePackage, IPath resolverPackagePath) throws CoreException {
 		
 		Set<String> resolverFiles = new LinkedHashSet<String>();
-		for (String className : resolverClassNames) {
+		for (String className : resourcePackage.getGeneratedResolverClasses()) {
 			resolverFiles.add(className + JAVA_FILE_EXTENSION);
 		}
 		

@@ -285,9 +285,9 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 				progress.internalWorked(TICKS_CREATE_MANIFEST);
 			}
 		} else {
-			ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled(cSyntax));
+			ManifestGenerator manifestGenerator = new ManifestGenerator(cSyntax, projectName, resourcePackage, isGenerateTestActionEnabled(cSyntax));
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			mGenerator.generate(new PrintWriter(outputStream));
+			manifestGenerator.generate(new PrintWriter(outputStream));
 			manifestMFFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true,
 					progress.newChild(TICKS_CREATE_MANIFEST));
 		}

@@ -1,5 +1,8 @@
 package org.emftext.sdk.codegen;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
 import org.eclipse.core.resources.IFolder;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -19,6 +22,7 @@ public class ResourcePackage {
 	private String csPackageName;
 	private String resolverPackageName;
 	private IFolder targetFolder;
+	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
 	
 	public ResourcePackage(ConcreteSyntax csSource, String csPackageName, IFolder targetFolder) {
 		if (csSource==null || targetFolder==null) {
@@ -57,5 +61,13 @@ public class ResourcePackage {
 	 */
 	public IFolder getTargetFolder(){
 		return targetFolder;
+	}
+	
+	public void addGeneratedResolverClass(String className) {
+		generatedResolverClasses.add(className);
+	}
+
+	public Collection<String> getGeneratedResolverClasses() {
+		return generatedResolverClasses;
 	}
 }
