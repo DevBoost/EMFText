@@ -269,25 +269,16 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 		ISourceViewer viewer = getSourceViewer();
 		if (viewer != null) {
-			registerTextPresentationListener(viewer);
+			registerDefaultTextPresentationListener(viewer);
 		}
-	}		 
+	}
 	
-	private void registerTextPresentationListener(ISourceViewer viewer) {
+	private void registerDefaultTextPresentationListener(ISourceViewer viewer) {
 		if (viewer instanceof TextViewer) {
 			((TextViewer) viewer).addTextPresentationListener(new ITextPresentationListener() {
 				public void applyTextPresentation(TextPresentation textPresentation) {
 					// TODO mseifert
 					//markOccurences(textPresentation);
-					
-					// TODO fheidenreich: implement highlighting
-					/*
-					StyleRange range = new StyleRange();
-					range.background = new Color(Display.getCurrent(), new RGB(255,255,0));
-					range.start = 1;
-					range.length = 3;
-					textPresentation.replaceStyleRange(range);
-					*/
 				}
 
 				private void markOccurences(TextPresentation textPresentation) {
@@ -345,7 +336,20 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			});
 		}
 	}
-
+	
+	public void registerTextPresentationListener(ITextPresentationListener listener) {
+		ISourceViewer viewer = getSourceViewer();
+		if (viewer instanceof TextViewer) {
+			((TextViewer) viewer).addTextPresentationListener(listener);
+		}
+	}
+	
+	public void invalidateTextRepresentation() {
+		ISourceViewer viewer = getSourceViewer();
+		if (viewer != null) {
+			viewer.invalidateTextPresentation();
+		}
+	}
 
 	private void fireSaveEvent(ITextResource resource) {
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
