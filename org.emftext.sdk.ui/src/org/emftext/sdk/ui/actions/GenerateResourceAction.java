@@ -2,6 +2,7 @@ package org.emftext.sdk.ui.actions;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -249,30 +250,30 @@ public class GenerateResourceAction extends AbstractConcreteSyntaxAction
 			SubMonitor progress) throws CoreException {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
-		IProject project = context.getProject();
-		String projectName = project.getName();
+		final IProject project = context.getProject();
 
 		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
 
 		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
 		if (manifestMFFile.exists()) {
 			if (overrideManifest) {
-				ManifestGenerator mGenerator = new ManifestGenerator(cSyntax, projectName, context, isGenerateTestActionEnabled(cSyntax));
-				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-				mGenerator.generate(new PrintWriter(outputStream));
-				manifestMFFile.setContents(new ByteArrayInputStream(
-						outputStream.toByteArray()), true, true,
-						progress.newChild(TICKS_CREATE_MANIFEST));
+				InputStream stream = generateManifest(context);
+				manifestMFFile.setContents(stream, true, true, progress.newChild(TICKS_CREATE_MANIFEST));
 			} else {
 				progress.internalWorked(TICKS_CREATE_MANIFEST);
 			}
 		} else {
-			ManifestGenerator manifestGenerator = new ManifestGenerator(cSyntax, projectName, context, isGenerateTestActionEnabled(cSyntax));
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			manifestGenerator.generate(new PrintWriter(outputStream));
-			manifestMFFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true,
-					progress.newChild(TICKS_CREATE_MANIFEST));
+			InputStream stream = generateManifest(context);
+			manifestMFFile.create(stream, true, progress.newChild(TICKS_CREATE_MANIFEST));
 		}
+	}
+
+	private InputStream generateManifest(ResourceGenerationContext context) {
+		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
+		ManifestGenerator mGenerator = new ManifestGenerator(context, isGenerateTestActionEnabled(cSyntax));
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		mGenerator.generate(new PrintWriter(outputStream));
+		return new ByteArrayInputStream(outputStream.toByteArray());
 	}
 
 	private void createPluginXML(ResourceGenerationContext context, SubMonitor progress,

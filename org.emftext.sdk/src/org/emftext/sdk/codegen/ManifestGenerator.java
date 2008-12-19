@@ -12,16 +12,11 @@ import org.emftext.sdk.concretesyntax.Import;
 
 public class ManifestGenerator implements IGenerator {
 
-	private final ConcreteSyntax cSyntax;
-	private final String packageName;
-	private final ResourceGenerationContext resourcePackage;
+	private final ResourceGenerationContext context;
 	private final boolean generateTestAction;
 
-	public ManifestGenerator(ConcreteSyntax cSyntax, String packageName,
-			ResourceGenerationContext resourcePackage, boolean generateTestAction) {
-		this.cSyntax = cSyntax;
-		this.packageName = packageName;
-		this.resourcePackage = resourcePackage;
+	public ManifestGenerator(ResourceGenerationContext context, boolean generateTestAction) {
+		this.context = context;
 		this.generateTestAction = generateTestAction;
 	}
 
@@ -43,13 +38,16 @@ public class ManifestGenerator implements IGenerator {
 	 * @return generated content
 	 */
 	private String getManifestContent() {
+		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		String projectName = context.getProject().getName();
+		
 		StringBuffer s = new StringBuffer();
 
 		s.append("Manifest-Version: 1.0\n");
 		s.append("Bundle-ManifestVersion: 2\n");
-		s.append("Bundle-Name: EMFText Parser Plugin: " + cSyntax.getName()
+		s.append("Bundle-Name: EMFText Parser Plugin: " + concreteSyntax.getName()
 				+ "\n");
-		s.append("Bundle-SymbolicName: " + packageName + ";singleton:=true\n");
+		s.append("Bundle-SymbolicName: " + projectName + ";singleton:=true\n");
 		s.append("Bundle-Version: 1.0.0\n");
 		s
 				.append("Bundle-Vendor: Software Engineering Group - TU Dresden Germany\n");
@@ -57,14 +55,14 @@ public class ManifestGenerator implements IGenerator {
 		s.append("Require-Bundle: org.eclipse.core.runtime,\n");
 		s.append("  org.eclipse.emf.ecore,\n");
 		List<String> importedPlugins = new ArrayList<String>();
-		String modelPluginID = cSyntax.getPackage().getGenModel().getModelPluginID();
+		String modelPluginID = concreteSyntax.getPackage().getGenModel().getModelPluginID();
 		importedPlugins.add(modelPluginID);
 		s.append("  " + modelPluginID
 				+ ",\n");
 		if (generateTestAction) {
 			s.append("  org.emftext.sdk.ui,\n");
 		}
-		for (Import aImport : cSyntax.getImports()) {
+		for (Import aImport : concreteSyntax.getImports()) {
 			GenModel genModel = aImport.getPackage().getGenModel();
 			String pluginID = genModel.getModelPluginID();
 			if (!importedPlugins.contains(pluginID)) {
@@ -76,9 +74,9 @@ public class ManifestGenerator implements IGenerator {
 		s.append("Bundle-ActivationPolicy: lazy\n");
 		s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
 		// export the generated packages
-		s.append("Export-Package: " + packageName);
-		if (resourcePackage.getGeneratedResolverClasses().size() > 0) {
-			s.append(",\n" + "  " + resourcePackage.getResolverPackageName());
+		s.append("Export-Package: " + projectName);
+		if (context.getGeneratedResolverClasses().size() > 0) {
+			s.append(",\n" + "  " + context.getResolverPackageName());
 		}
 		s.append("\n");
 
