@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.resource.ITextOCLValidator;
@@ -147,8 +148,10 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 			EReference oppositeReference = uriFragment.getReference().getEOpposite();
 			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
 				if (reference.isMany()) {
-					EList<EObject> list = (EList<EObject>) element.eGet(oppositeReference, false);
-					list.add(uriFragment.getContainer());
+					EObjectWithInverseResolvingEList.ManyInverse<EObject> list = (EObjectWithInverseResolvingEList.ManyInverse<EObject>) element.eGet(oppositeReference, false);					
+					//avoids duplicate entries in the reference caused by adding to the oppositeReference 
+					list.basicAdd(uriFragment.getContainer(),null);
+					
 				}
 				else {
 					uriFragment.getContainer().eSet(uriFragment.getReference(), element);
