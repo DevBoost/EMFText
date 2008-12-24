@@ -100,9 +100,17 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t\t}");
         out.println("\t\treturn analyser;");
         out.println("\t}");
+        out.println();
+        
+    	out.println("\tpublic void doUnload(){");
+    	out.println("\t\tsuper.doUnload();");
+    	out.println("\t\tanalyser=null;");
+    	out.println("\t}");
 
         out.println("}");
     	
+        
+        
     	return true;
     }
 
