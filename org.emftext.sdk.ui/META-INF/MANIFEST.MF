@@ -17,4 +17,5 @@ Require-Bundle: org.eclipse.ui,
  org.emftext.sdk
 Export-Package: org.emftext.sdk.ui,
  org.emftext.sdk.ui.actions,
+ org.emftext.sdk.ui.jobs,
  org.emftext.sdk.ui.preferences

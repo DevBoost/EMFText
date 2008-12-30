@@ -1,4 +1,4 @@
-package org.emftext.sdk.ui.actions;
+package org.emftext.sdk.ui.jobs;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,12 +14,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-public abstract class AbstractConcreteSyntaxAction {
+public abstract class AbstractConcreteSyntaxJob extends org.eclipse.core.runtime.jobs.Job {
 
-	protected Resource getResource(final IFile file) {
-		ResourceSet rs = new ResourceSetImpl();
-		Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
-		return csResource;
+	public AbstractConcreteSyntaxJob(String name) {
+		super(name);
 	}
 
 	protected void saveGenModel(File javaFile, GenModel model) throws IOException {
@@ -39,6 +37,12 @@ public abstract class AbstractConcreteSyntaxAction {
 		OutputStream outputStream = new FileOutputStream(javaFile);
 		resource.save(outputStream, options);
 		outputStream.close();
+	}
+
+	protected Resource getResource(final IFile file) {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
+		return csResource;
 	}
 
 	protected boolean containsProblems(Resource csResource) {

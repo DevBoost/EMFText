@@ -8,6 +8,9 @@ import org.osgi.framework.BundleContext;
  */
 public class EMFTextSDKUIPlugin extends AbstractUIPlugin {
 	
+	public static final String PLUGIN_ID = "org.emftext.sdk.ui";
+	public static final String CS_FILE_EXTENSION = "cs";
+	
 	private static EMFTextSDKUIPlugin plugin;
 	
 	public EMFTextSDKUIPlugin() {
