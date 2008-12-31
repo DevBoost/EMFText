@@ -538,7 +538,6 @@ public class TextParserGenerator extends BaseGenerator {
         out.print(getLowerCase(ruleName));
 		out.println(" returns [" + qualifiedClassName + " element = null]");
         out.println("@init{");
-		out.println("\telement = " + getCreateObjectCall(genClass) + ";");
         out.println("}");
         out.println(":");
         
@@ -610,7 +609,9 @@ public class TextParserGenerator extends BaseGenerator {
     private int printCsString(CsString csString,Rule rule,PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent){
     	final String ident = "a" + count;
     	out.print(indent+ident+" = '" + csString.getValue().replaceAll("'", "\\\\'") + "'");
-    	out.print("{copyLocalizationInfos((CommonToken)" + ident + ", element); }"); 
+    	out.print("{ ");
+    	out.print("if (element == null) element = " + getCreateObjectCall(rule.getMetaclass()) + "; ");
+    	out.print("copyLocalizationInfos((CommonToken)" + ident + ", element); }"); 
     	return ++count;
 
     }
@@ -728,6 +729,7 @@ public class TextParserGenerator extends BaseGenerator {
         }
         	
     	out.print("{");
+    	out.print("if (element == null) element = " + getCreateObjectCall(rule.getMetaclass()) + "; ");
     	out.print(resolvements);
         if(eFeature.getUpperBound()==1){
            out.print("element.eSet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + expressionToBeSet +"); ");
