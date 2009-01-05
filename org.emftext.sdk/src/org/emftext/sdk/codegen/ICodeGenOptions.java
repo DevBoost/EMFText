@@ -60,6 +60,12 @@ public interface ICodeGenOptions {
 	 */
 	public static final String  OVERRIDE_PRINTER = "overridePrinter";
 
+	/**
+	 * If this options is set to true, the Antlr-backtracking is activated for
+	 * parser generation. The default value for this option is true.
+	 */
+	public static final String ANTLR_BACKTRACKING ="backtracking";
+	
 	public static final String CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION = "autofixSimpleLeftrecursion";
 	public static final String CS_OPTION_FORCE_EOF = "forceEOF";
 	public static final String CS_OPTION_STD_TOKEN_NAME = "standardTextTokenName";

@@ -291,8 +291,12 @@ public class TextParserGenerator extends BaseGenerator {
         String csName = super.getResourceClassName();
 
         out.println("grammar " + csName + ";");
-        out.println("options {superClass = " + EMFTextParserImpl.class.getSimpleName() + "; backtrack = true;}");
-        out.println();
+        out.println("options {\n" +
+        				"\tsuperClass = " + EMFTextParserImpl.class.getSimpleName() + "; ");
+        Option backtrackingOption = GeneratorUtil.getOptionByName(ICodeGenOptions.ANTLR_BACKTRACKING ,source.getOptions());
+        boolean backtracking = (backtrackingOption == null) ? true : Boolean.parseBoolean(backtrackingOption.getValue());
+        out.println("\tbacktrack = " + backtracking + ";");
+        out.println("}");
         
         //the lexer: package def. and error handling
         out.println("@lexer::header{");
