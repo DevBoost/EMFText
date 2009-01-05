@@ -34,7 +34,6 @@ import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -144,23 +143,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		rule2SubChoice = new HashMap<Rule, Set<Choice>>(rules.size());
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
-		Option tokenSpaceOption = GeneratorUtil.getOptionByName(
-				ICodeGenOptions.CS_OPTION_TOKENSPACE, csSource.getOptions());
-		tokenSpace = 0;
-		if (tokenSpaceOption != null) {
-			try {
-				int tempSpace = Integer.parseInt(tokenSpaceOption.getValue());
-				if (tempSpace < 0)
-					this
-							.addProblem(new GenerationProblem(
-									"Only positive Integers are allowed in token-space options.",
-									tokenSpaceOption));
-				else
-					tokenSpace = tempSpace;
-			} catch (NumberFormatException e) {
-				this.addProblem(new GenerationProblem(
-						"No valid Integer in Option.", tokenSpaceOption));
-			}
+		
+        int tokenSpace = OptionManager.INSTANCE.getIntegerOption(csSource, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, this);
+		if (tokenSpace < 0) {
+			tokenSpace = 0;
 		}
 		return rules;
 	}

@@ -36,9 +36,9 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.emftext.runtime.resource.TokenConversionException;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
+import org.emftext.runtime.resource.TokenConversionException;
 import org.emftext.runtime.resource.impl.EMFTextParserImpl;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
@@ -56,7 +56,6 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
-import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.PreDefinedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -234,21 +233,18 @@ public class TextParserGenerator extends BaseGenerator {
 		this.tokenResolverFactoryName = tokenResolverFactoryName;
 	}
 	
-	private void initOptions(){
-		Option currentOption = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME,source.getOptions());
-		standardTextTokenName = currentOption == null ? STD_TOKEN_NAME : currentOption.getValue();
+	private void initOptions() {
+		standardTextTokenName = OptionManager.INSTANCE.getStringOption(source, ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME);
 		if (standardTextTokenName == null) {
 			standardTextTokenName = STD_TOKEN_NAME;
 		}
 		char firstLetter = standardTextTokenName.charAt(0);
 		//can this check be done by OCL?
 		if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
-			addProblem(new GenerationProblem("Token names must start with a capital letter.", currentOption,Severity.ERROR));
+			addProblem(new GenerationProblem("Token names must start with a capital letter.", source, Severity.ERROR));
 		}
-		currentOption = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_FORCE_EOF,source.getOptions());
-		forceEOFToken = currentOption == null ? true : Boolean.parseBoolean(currentOption.getValue());
-		currentOption = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS,source.getOptions());
-		useDefaultTokens = currentOption==null?true:(currentOption.getValue().equals("false")?false:true);
+		forceEOFToken = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.CS_OPTION_FORCE_EOF);
+		useDefaultTokens = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS);
 	}
 	
 	private void initCaches(){
@@ -293,8 +289,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("grammar " + csName + ";");
         out.println("options {\n" +
         				"\tsuperClass = " + EMFTextParserImpl.class.getSimpleName() + "; ");
-        Option backtrackingOption = GeneratorUtil.getOptionByName(ICodeGenOptions.ANTLR_BACKTRACKING ,source.getOptions());
-        boolean backtracking = (backtrackingOption == null) ? true : Boolean.parseBoolean(backtrackingOption.getValue());
+        boolean backtracking = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.ANTLR_BACKTRACKING);
         out.println("\tbacktrack = " + backtracking + ";");
         out.println("}");
         
@@ -489,8 +484,7 @@ public class TextParserGenerator extends BaseGenerator {
         	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-            	Option option = GeneratorUtil.getOptionByName(ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION, source.getOptions());
-            	boolean autofix = (option == null) ? false : Boolean.parseBoolean(option.getValue());
+                boolean autofix = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {
             			System.out.println();

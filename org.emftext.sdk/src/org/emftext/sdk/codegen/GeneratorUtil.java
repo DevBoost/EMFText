@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
-import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.Rule;
 
 public class GeneratorUtil {
@@ -49,18 +48,6 @@ public class GeneratorUtil {
 		}
 		return false;
 
-	}
-
-	public static Option getOptionByName(String optionName,
-			Collection<Option> options) {
-		if (options != null && !options.isEmpty()) {
-			for (Option option : options) {
-				if (optionName.equals(option.getName())) {
-					return option;
-				}
-			}
-		}
-		return null;
 	}
 
 	private static boolean namesAndPackageURIsAreEqual(EClass classA,

@@ -15,6 +15,19 @@ public class OptionManager {
 		super();
 	}
 
+	public String getStringOption(ConcreteSyntax concreteSyntax,
+			String optionName) {
+		List<Option> options = concreteSyntax.getOptions();
+		if (options == null) {
+			return null;
+		}
+		Option option = findOptionByName(options, optionName);
+		if (option == null) {
+			return null;
+		}
+		return option.getValue();
+	}
+	
 	public boolean getBooleanOption(ConcreteSyntax concreteSyntax,
 			String optionName) {
 		List<Option> options = concreteSyntax.getOptions();
@@ -74,6 +87,18 @@ public class OptionManager {
 		if (optionName.equals(OVERRIDE_PRINTER)) {
 			return true;
 		}
+		if (optionName.equals(CS_OPTION_FORCE_EOF)) {
+			return true;
+		}
+		if (optionName.equals(CS_OPTION_USE_DEFAULT_TOKENS)) {
+			return true;
+		}
+		if (optionName.equals(ANTLR_BACKTRACKING)) {
+			return true;
+		}
+		if (optionName.equals(CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION)) {
+			return false;
+		}
 		return false;
 	}
 
@@ -85,5 +110,26 @@ public class OptionManager {
 			}
 		}
 		return null;
+	}
+
+	public int getIntegerOption(ConcreteSyntax syntax,
+			String optionName, boolean expectPositiveValue, IProblemCollector problemCollector) {
+		
+		Option option = findOptionByName(syntax.getOptions(), optionName);
+		if (option == null) {
+			return -1;
+		}
+		try {
+			int tempSpace = Integer.parseInt(option.getValue());
+			if (expectPositiveValue && tempSpace < 0) {
+				problemCollector.addProblem(new GenerationProblem(
+								"Only positive values are allowed for this option.",
+								option));
+			}
+			return tempSpace;
+		} catch (NumberFormatException e) {
+			problemCollector.addProblem(new GenerationProblem("No valid integer in option.", option));
+		}
+		return -1;
 	}
 }

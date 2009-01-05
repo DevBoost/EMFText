@@ -12,7 +12,7 @@ import java.util.Map;
  * 
  * @author skarol
  */
-public abstract class BaseGenerator implements IGenerator {
+public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	
 	private static String[] RESERVED_WORDS = new String[] {
 		"abstract", 
@@ -114,7 +114,7 @@ public abstract class BaseGenerator implements IGenerator {
 	 * 
 	 * @param problem
 	 */
-	protected void addProblem(GenerationProblem problem){
+	public void addProblem(GenerationProblem problem){
 		if (problem.getSeverity().equals(GenerationProblem.Severity.ERROR)) {
 			errors.add(problem);
 		}
