@@ -13,6 +13,6 @@ public interface IGenerator {
 	
 	public boolean generate(PrintWriter out);
 	
-	public Collection<GenerationProblem> getOccuredErrors();
-	public Collection<GenerationProblem> getOccuredWarningsAndErrors();
+	public Collection<GenerationProblem> getCollectedProblems();
+	public Collection<GenerationProblem> getCollectedErrors();
 }

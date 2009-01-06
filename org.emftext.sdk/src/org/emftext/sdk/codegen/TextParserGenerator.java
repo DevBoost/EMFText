@@ -382,7 +382,7 @@ public class TextParserGenerator extends BaseGenerator {
 	    
 	    printTokenDefinitions(out);
 	    
-	    return getOccuredErrors().size() == 0;
+	    return getCollectedErrors().size() == 0;
 	}
 
 	private String getLexerName(String csName) {

@@ -118,12 +118,11 @@ public class PluginXMLGenerator implements IGenerator {
 		return s.toString();
 	}
 
-	public Collection<GenerationProblem> getOccuredErrors() {
+	public Collection<GenerationProblem> getCollectedErrors() {
 		return Collections.emptyList();
 	}
 
-	public Collection<GenerationProblem> getOccuredWarningsAndErrors() {
+	public Collection<GenerationProblem> getCollectedProblems() {
 		return Collections.emptyList();
 	}
-
 }

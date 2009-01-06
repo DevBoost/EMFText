@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.codegen.TextParserGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -62,7 +61,7 @@ public class ConcreteSyntaxTestHelper {
 		return resource;
 	}
 
-	public static IGenerator createANTLRGenerator(ConcreteSyntax concreteSyntax) {
+	public static TextParserGenerator createANTLRGenerator(ConcreteSyntax concreteSyntax) {
 		String antlrName = BaseGenerator.cap(concreteSyntax.getName());
 		GenPackage csPackage = concreteSyntax.getPackage();
 		String csBasePackage = csPackage.getBasePackage();
@@ -75,7 +74,7 @@ public class ConcreteSyntaxTestHelper {
 		String tokenResolverFactoryName = antlrName
 				+ ResourcePackageGenerator.CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
 
-		IGenerator antlrGenerator = new TextParserGenerator(concreteSyntax,
+		TextParserGenerator antlrGenerator = new TextParserGenerator(concreteSyntax,
 				antlrName, csPackageName, tokenResolverFactoryName);
 		return antlrGenerator;
 	}
@@ -85,15 +84,15 @@ public class ConcreteSyntaxTestHelper {
 		ConcreteSyntax concreteSyntax = getConcreteSyntax(getConcreteSyntaxResource(fileURI, options));
 		assertNotNull("The concrete syntax should be successfully loaded.",
 				concreteSyntax);
-
-		IGenerator antlrGenerator = createANTLRGenerator(concreteSyntax);
+		
+		TextParserGenerator antlrGenerator = createANTLRGenerator(concreteSyntax);
 
 		File tempGrammarFile = File.createTempFile(
 				ConcreteSyntaxTestHelper.class.getSimpleName(), ".g");
 		tempGrammarFile.deleteOnExit();
 		boolean success = antlrGenerator.generate(new PrintWriter(
 				new FileOutputStream(tempGrammarFile)));
-		Collection<GenerationProblem> problems = antlrGenerator.getOccuredWarningsAndErrors();
+		Collection<GenerationProblem> problems = antlrGenerator.getCollectedProblems();
 		for (GenerationProblem problem : problems) {
 			System.out.println("generateANTLRGrammarToTempFile() " + problem.getMessage());
 		}

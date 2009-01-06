@@ -26,12 +26,14 @@ public class ResourceGenerationContext {
 	private ConcreteSyntax concreteSyntax;
 	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
 	private IJavaProject javaProject;
+	private IProblemCollector problemCollector;
 	
-	public ResourceGenerationContext(ConcreteSyntax csSource) {
+	public ResourceGenerationContext(ConcreteSyntax csSource, IProblemCollector problemCollector) {
 		if (csSource == null) {
 			throw new IllegalArgumentException("A concrete syntax must be specified!");
 		}
 		this.concreteSyntax = csSource;
+		this.problemCollector = problemCollector;
 	}
 
 	/**	 
@@ -94,5 +96,9 @@ public class ResourceGenerationContext {
 
 	public void setJavaProject(IJavaProject project) {
 		this.javaProject = project;
+	}
+
+	public IProblemCollector getProblemCollector() {
+		return problemCollector;
 	}
 }

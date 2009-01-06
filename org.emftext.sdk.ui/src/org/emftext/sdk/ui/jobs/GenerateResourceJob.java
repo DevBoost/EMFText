@@ -23,14 +23,16 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.MarkerHelper;
+import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenOptions;
+import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.ManifestGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginXMLGenerator;
@@ -65,7 +67,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 	protected IStatus run(IProgressMonitor monitor) {
 		try {
 			SubMonitor progress = SubMonitor.convert(monitor, 100);
-			Resource csResource = getResource(csFile);
+			final ITextResource csResource = getResource(csFile);
 
 			MarkerHelper.unmark(csResource);
 			if (containsProblems(csResource)) {
@@ -75,10 +77,15 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 
 			final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource
 					.getContents().get(0);
-			ResourceGenerationContext context = new ResourceGenerationContext(concreteSyntax);
+			
+			IProblemCollector collector = new IProblemCollector() {
 
-			//new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(context.getConcreteSyntax());
-
+				public void addProblem(GenerationProblem problem) {
+					addGenerationProblem(csResource, problem);
+				}
+			};
+			
+			ResourceGenerationContext context = new ResourceGenerationContext(concreteSyntax, collector);
 			// create a project
 			createProject(context, progress);
 
@@ -107,6 +114,17 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		return Status.OK_STATUS;
 	}
 
+	private static void addGenerationProblem(ITextResource csResource,
+			GenerationProblem problem) {
+		if(problem.getSeverity() == GenerationProblem.Severity.WARNING){
+			csResource.addWarning(problem.getMessage(),problem.getCause());
+		}
+		else{
+			csResource.addError(problem.getMessage(),problem.getCause());
+			
+		}
+	}
+	
 	private void generateMetaModelCode(GenPackage genPackage,
 			IProgressMonitor monitor) {
 		monitor.setTaskName("generating metamodel code...");

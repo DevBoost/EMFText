@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emftext.runtime.resource.ITextResource;
 
 public abstract class AbstractConcreteSyntaxJob extends org.eclipse.core.runtime.jobs.Job {
 
@@ -39,10 +40,10 @@ public abstract class AbstractConcreteSyntaxJob extends org.eclipse.core.runtime
 		outputStream.close();
 	}
 
-	protected Resource getResource(final IFile file) {
+	protected ITextResource getResource(final IFile file) {
 		ResourceSet rs = new ResourceSetImpl();
 		Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
-		return csResource;
+		return (ITextResource) csResource;
 	}
 
 	protected boolean containsProblems(Resource csResource) {

@@ -124,15 +124,15 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	}
 	
 	
-	public Collection<GenerationProblem> getOccuredErrors(){
+	public Collection<GenerationProblem> getCollectedErrors(){
 		return errors;
 	}
 	
-	public Collection<GenerationProblem> getOccuredWarnings(){
+	public Collection<GenerationProblem> getCollectedWarnings(){
 		return warnings;
 	}
 	
-	public Collection<GenerationProblem> getOccuredWarningsAndErrors(){
+	public Collection<GenerationProblem> getCollectedProblems(){
 		List<GenerationProblem> allProblems = new LinkedList<GenerationProblem>(errors);
 		allProblems.addAll(warnings);
 		return allProblems;
