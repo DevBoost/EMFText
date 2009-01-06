@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -41,6 +42,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
@@ -234,19 +236,31 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						+ featureList.size() + ");");
 		if (featureList.size() > 0) {
 			out.println("\t\t\tObject temp;");
-			for (EStructuralFeature feature : featureList) {
-				out.println("\t\t\ttemp = element."
-						+ generateAccessMethod(feature) + ";");
-				String featureSize = feature.getUpperBound() == -1 ? "((java.util.Collection<?>)temp).size()"
-						: "1";
-				out
-						.println("\t\t\tprintCountingMap.put(\""
-								+ feature.getName()
-								+ "\", temp == null ? 0 : "
-								+ featureSize + ");");
+		}
+		for (EStructuralFeature feature : featureList) {
+			out.println("\t\t\ttemp = element." + generateAccessMethod(feature)
+					+ ";");
+			String featureSize = feature.getUpperBound() == -1 ? "((java.util.Collection<?>)temp).size()"
+					: "1";
+			out.println("\t\t\tprintCountingMap.put(\"" + feature.getName()
+					+ "\", temp == null ? 0 : " + featureSize + ");");
+		}
+		// TODO mseifert print collected hidden tokens
+		out.println("// TODO print collected hidden tokens");
+		for (EStructuralFeature feature : featureList) {
+			if (isCollectInFeature(rule, feature)) {
+				// TODO use feature id constant instead
+				out.println("\t\t\t{");
+				out.println("\t\t\tObject value = element.eGet(element.eClass().getEStructuralFeature(" + feature.getFeatureID() + "));");
+				out.println("\t\t\tif (value instanceof java.util.List) {");
+				out.println("\t\t\t\tfor (Object next : (java.util.List) value) {");
+				out.println("\t\t\t\t\tout.print(next);");
+				out.println("\t\t\t\t}");
+				out.println("\t\t\t}");
+				out.println("\t\t\t}");
 			}
 		}
-
+		
 		printChoice(rule.getDefinition(), out, rule.getMetaclass()
 				.getEcoreClass());
 		out.println("\t\t}");
@@ -261,6 +275,30 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			printChoice(choice, out, rule.getMetaclass().getEcoreClass());
 			out.println("\t\t}");
 		}
+	}
+
+	private GenFeature findGenFeature(Rule rule, EStructuralFeature feature) {
+		for (GenFeature genFeature : rule.getMetaclass().getAllGenFeatures()) {
+			if (genFeature.getEcoreFeature() == feature) {
+				return genFeature;
+			}
+		}
+		return null;
+	}
+
+	private boolean isCollectInFeature(Rule rule, EStructuralFeature feature) {
+		for (TokenDefinition tokenDefinition : rule.getSyntax().getTokens()) {
+			final String attributeName = tokenDefinition.getAttributeName();
+			final boolean isCollectToken = attributeName != null;
+			if (!isCollectToken) {
+				continue;
+			}
+			final boolean namesMatch = attributeName.equals(feature.getName());
+			if (namesMatch) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void printChoice(Choice choice, PrintWriter out, EClass metaClass) {

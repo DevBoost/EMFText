@@ -333,7 +333,8 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t\treturn start();" );
         out.println("\t}");
         out.println();
-        out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element) {");
+        out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) {");
+        //out.println("\t\tSystem.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
         out.println("\t\tint currentPos = getTokenStream().index();");
         out.println("\t\tint endPos = currentPos - 1;");
         out.println("\t\tfor (; endPos >= lastPosition; endPos--) {");
@@ -347,6 +348,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(pos);");
         out.println("\t\t\tint channel = token.getChannel();");
         out.println("\t\t\tif (channel == 99) {");
+        //out.println("\t\t\t\tSystem.out.println(\"\t\" + token);");
 
         List<TokenDefinition> tokens = source.getTokens();
         for (TokenDefinition token : tokens) {
@@ -426,6 +428,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        out.println(" returns [" + ruleName + " element = null]");
 	        out.println("@init{");
 			out.println("\telement = " + getCreateObjectCall(recursiveType) + ";");
+			// TODO here collectHiddenTokens() should be called
 	        out.println("\tList<EObject> dummyEObjects  = new ArrayList<EObject>();");
 	        out.println("}");
 	        out.println(":");
@@ -506,6 +509,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        out.println(" returns [DummyEObject element = null]");
 	        out.println("@init{");
 	        out.println("\telement = new DummyEObject(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
+			// TODO here collectHiddenTokens() should be called
 	        out.println("}");
 	        out.println(":");
 	        
@@ -520,8 +524,7 @@ public class TextParserGenerator extends BaseGenerator {
 
 	private String getCreateObjectCall(GenClass genClass) {
 		GenPackage genPackage = genClass.getGenPackage();
-		return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()" +
-			";collectHiddenTokens(element)";
+		return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()";
 	}
 	
 	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
@@ -654,7 +657,10 @@ public class TextParserGenerator extends BaseGenerator {
     	final String ident = "a" + count;
     	out.print(indent+ident+" = '" + csString.getValue().replaceAll("'", "\\\\'") + "'");
     	out.print("{ ");
-    	out.print("if (element == null) element = " + getCreateObjectCall(rule.getMetaclass()) + "; ");
+    	out.print("if (element == null) {");
+    	out.print("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
+    	out.print("} ");
+    	out.print("collectHiddenTokens(element, (CommonToken)" + ident + ");");
     	out.print("copyLocalizationInfos((CommonToken)" + ident + ", element); }"); 
     	return ++count;
 
@@ -748,10 +754,8 @@ public class TextParserGenerator extends BaseGenerator {
             		addProblem(new GenerationProblem("The type of non-containment reference '" + eFeature.getName() + "' is abstract and has no concrete sub classes.", eFeature, GenerationProblem.Severity.ERROR));
             	}
             	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";";
-	           	
-            	//resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") tokenResolverFactory.createTokenResolver(\"" + tokenName + "\").resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + sf.getName() + "\"),element,getResource());";
-            	// TODO if the code above will be used again 'resolvements += resolverIdent +".setOptions(getOptions()));";' must be added!
-	           	resolvements += proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";" 
+            	resolvements += proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";" 
+            	+ "collectHiddenTokens(element, " + expressionToBeSet + "); "
 				+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI((resource.getURI()==null?URI.createURI(\"dummy\"):resource.getURI()).appendFragment(" + resolvedIdent + ")); ";
 	        
 	           	//remember where proxies have to be resolved
@@ -783,7 +787,7 @@ public class TextParserGenerator extends BaseGenerator {
         	//whatever...
             out.print("((List) element.eGet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"))).add(" + expressionToBeSet +"); ");
         }
-        
+        out.print("collectHiddenTokens(element, " + expressionToBeSet + ");");
         if(terminal instanceof Containment){
             out.print("copyLocalizationInfos(" + ident + ", element); "); 
         }else{
