@@ -28,19 +28,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Choice extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Options</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Sequence}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Options</b></em>' containment reference list.
+   * The list contents are of type {@link org.emftext.sdk.concretesyntax.Sequence}.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Options</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Options</em>' containment reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getChoice_Options()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Options</em>' containment reference list.
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getChoice_Options()
+   * @model containment="true" required="true"
+   * @generated
+   */
 	EList<Sequence> getOptions();
 
 } // Choice

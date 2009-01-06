@@ -1,8 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import java.io.OutputStream;
-
-import org.emftext.runtime.resource.ITextResource;
 
 /**
 * This is the printer class used by EMFText.
@@ -12,7 +9,7 @@ import org.emftext.runtime.resource.ITextResource;
 */
 public class CsPrinter extends CsPrinterBase {
 
-	public CsPrinter(OutputStream o, ITextResource resource) {
+	public CsPrinter(java.io.OutputStream o, org.emftext.runtime.resource.ITextResource resource) {
 		super(o, resource);
 	}
 }

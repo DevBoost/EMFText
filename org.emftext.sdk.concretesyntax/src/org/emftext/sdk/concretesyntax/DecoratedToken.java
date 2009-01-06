@@ -26,55 +26,55 @@ package org.emftext.sdk.concretesyntax;
  */
 public interface DecoratedToken extends NewDefinedToken {
 	/**
-	 * Returns the value of the '<em><b>Prefix</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Prefix</b></em>' attribute.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Prefix</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Prefix</em>' attribute.
-	 * @see #setPrefix(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getDecoratedToken_Prefix()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Prefix</em>' attribute.
+   * @see #setPrefix(String)
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getDecoratedToken_Prefix()
+   * @model required="true"
+   * @generated
+   */
 	String getPrefix();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.DecoratedToken#getPrefix <em>Prefix</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.emftext.sdk.concretesyntax.DecoratedToken#getPrefix <em>Prefix</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Prefix</em>' attribute.
-	 * @see #getPrefix()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Prefix</em>' attribute.
+   * @see #getPrefix()
+   * @generated
+   */
 	void setPrefix(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Suffix</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Suffix</b></em>' attribute.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Suffix</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Suffix</em>' attribute.
-	 * @see #setSuffix(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getDecoratedToken_Suffix()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Suffix</em>' attribute.
+   * @see #setSuffix(String)
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getDecoratedToken_Suffix()
+   * @model required="true"
+   * @generated
+   */
 	String getSuffix();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.DecoratedToken#getSuffix <em>Suffix</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.emftext.sdk.concretesyntax.DecoratedToken#getSuffix <em>Suffix</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Suffix</em>' attribute.
-	 * @see #getSuffix()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Suffix</em>' attribute.
+   * @see #getSuffix()
+   * @generated
+   */
 	void setSuffix(String value);
 
 } // DecoratedToken

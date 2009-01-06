@@ -22,7 +22,6 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.PutEverywhereSyntaxExtender;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.codegen.TextParserGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -86,7 +85,6 @@ public class ConcreteSyntaxTestHelper {
 		ConcreteSyntax concreteSyntax = getConcreteSyntax(getConcreteSyntaxResource(fileURI, options));
 		assertNotNull("The concrete syntax should be successfully loaded.",
 				concreteSyntax);
-		new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(concreteSyntax);
 
 		IGenerator antlrGenerator = createANTLRGenerator(concreteSyntax);
 

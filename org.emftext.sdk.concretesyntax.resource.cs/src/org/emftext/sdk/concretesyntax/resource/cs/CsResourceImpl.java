@@ -1,45 +1,44 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Map;
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.*;
-import org.emftext.runtime.resource.impl.*;
 
-public class CsResourceImpl extends TextResourceImpl {
-	private IReferenceResolver analyser;
+public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResourceImpl {
+	private org.emftext.runtime.resource.IReferenceResolver analyser;
 
 
-	public CsResourceImpl(){
+	public CsResourceImpl() {
 		super();
 	}
 
-	public CsResourceImpl(URI uri){
+	public CsResourceImpl(URI uri) {
 		super(uri);
 	}
 
-	protected void doLoad(InputStream inputStream, Map<?,?> options) throws IOException {
+	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
-		ITextParser p = new CsParser(new CommonTokenStream(new CsLexer(new ANTLRInputStream(inputStream))));
+		java.io.InputStream actualInputStream = inputStream;
+		Object inputStreamPreProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
+		if (inputStreamPreProcessorProvider != null) {
+			if (inputStreamPreProcessorProvider instanceof org.emftext.runtime.InputStreamProcessorProvider) {
+				actualInputStream = ((org.emftext.runtime.InputStreamProcessorProvider) inputStreamPreProcessorProvider).getInputStreamProcessor(inputStream);
+			}
+		}
+		org.emftext.runtime.resource.ITextParser p = new CsParser(new org.antlr.runtime.CommonTokenStream(new CsLexer(new org.antlr.runtime.ANTLRInputStream(actualInputStream))));
 		p.setResource(this);
 		p.setOptions(loadOptions);
 		EObject root = p.parse();
 		while (root != null) {
 			getContents().add(root);
-			root = null; //p.parse();
+			root = null;
 		}
 
-		IReferenceResolver analyser = getTreeAnalyser();
+		org.emftext.runtime.resource.IConfigurable analyser = getTreeAnalyser();
 
 		analyser.setOptions(loadOptions);
 	}
 
-	protected void doSave(OutputStream outputStream, Map<?,?> options) throws IOException {
-		ITextPrinter p = new CsPrinter(outputStream, this);
+	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {
+		org.emftext.runtime.resource.ITextPrinter p = new CsPrinter(outputStream, this);
 		for(EObject root : getContents()) {
 			p.print(root);
 		}
@@ -53,10 +52,15 @@ public class CsResourceImpl extends TextResourceImpl {
 		return new CsLexer();
 	}
 
-	public IReferenceResolver getTreeAnalyser() {
+	public org.emftext.runtime.resource.IReferenceResolver getTreeAnalyser() {
 		if (analyser == null) {
 			analyser = new CsTreeAnalyser();
 		}
 		return analyser;
+	}
+
+	public void doUnload(){
+		super.doUnload();
+		analyser=null;
 	}
 }

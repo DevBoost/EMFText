@@ -34,7 +34,6 @@ import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.ManifestGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginXMLGenerator;
-import org.emftext.sdk.codegen.PutEverywhereSyntaxExtender;
 import org.emftext.sdk.codegen.ResourceGenerationContext;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -78,7 +77,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 					.getContents().get(0);
 			ResourceGenerationContext context = new ResourceGenerationContext(concreteSyntax);
 
-			new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(context.getConcreteSyntax());
+			//new PutEverywhereSyntaxExtender().generatePutEverywhereExtensions(context.getConcreteSyntax());
 
 			// create a project
 			createProject(context, progress);

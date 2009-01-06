@@ -60,7 +60,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//TokenDefinition/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Concretesyntax.ecore#//TokenDefinition/attributeReferences"/>
     </genClasses>
-    <genClasses ecoreClass="Concretesyntax.ecore#//NormalToken"/>
+    <genClasses ecoreClass="Concretesyntax.ecore#//NormalToken">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//NormalToken/attributeName"/>
+    </genClasses>
     <genClasses ecoreClass="Concretesyntax.ecore#//DecoratedToken">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//DecoratedToken/prefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Concretesyntax.ecore#//DecoratedToken/suffix"/>

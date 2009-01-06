@@ -39,59 +39,61 @@ T36 : '+' ;
 T37 : '*' ;
 T38 : '?' ;
 T39 : 'DEFINE' ;
-T40 : 'PREDEFINED' ;
+T40 : 'COLLECT' ;
+T41 : 'IN' ;
+T42 : 'PREDEFINED' ;
 
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 495
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 389
 COMMENTS
 :
 	'//'(~('\n'|'\r'))*{ channel=99; }
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 499
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 393
 TEXT
 :
 	('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 503
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 397
 QNAME
 :
 	('A'..'Z'|'a'..'z'|'_')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)+
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 507
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 401
 TEXT_33_
 :
 	('!')('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 511
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 405
 LB
 :
 	('\r\n' | '\r' | '\n'){ channel=99; }
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 515
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 409
 TEXT_35_
 :
 	('#')('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 519
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 413
 WS
 :
 	(' ' | '\t' | '\f'){ channel=99; }
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 523
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 417
 QUOTED_60_62
 :
 	('<')(~('>')|('\\''>'))*('>')
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 527
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 421
 QUOTED_39_39
 :
 	('\'')(~('\'')|('\\''\''))*('\'')
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 531
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 425
 QUOTED_36_36
 :
 	('$')(~('$')|('\\''$'))*('$')
 ;
-// $ANTLR src "C:\Users\svenhart\workspaces\runtime-EclipseApplication(1)\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 535
+// $ANTLR src "C:\Projekte\Eclipse-Workspaces\EMFText Languages DEV\org.emftext.sdk.concretesyntax.resource.cs\src\org\emftext\sdk\concretesyntax\resource\cs\Cs.g" 429
 QUOTED_34_34
 :
 	('"')(~('"')|('\\''"'))*('"')

@@ -78,7 +78,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferences" upperBound="-1"
         eType="#//DefinedPlaceholder" eOpposite="#//DefinedPlaceholder/token"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NormalToken" eSuperTypes="#//NewDefinedToken"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NormalToken" eSuperTypes="#//NewDefinedToken">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DecoratedToken" eSuperTypes="#//NewDefinedToken">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"
         eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

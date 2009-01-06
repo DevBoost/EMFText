@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
@@ -227,8 +228,8 @@ public class TextParserGenerator extends BaseGenerator {
 	private boolean forceEOFToken;
 	private boolean useDefaultTokens;
 	
-	public TextParserGenerator(ConcreteSyntax cs, String csClassName,String csPackageName, String tokenResolverFactoryName){
-		super(csClassName,csPackageName);
+	public TextParserGenerator(ConcreteSyntax cs, String csClassName, String csPackageName, String tokenResolverFactoryName) {
+		super(csClassName, csPackageName);
 		source = cs;
 		this.tokenResolverFactoryName = tokenResolverFactoryName;
 	}
@@ -285,6 +286,7 @@ public class TextParserGenerator extends BaseGenerator {
 		initCaches();
 		
         String csName = super.getResourceClassName();
+        String lexerName = getLexerName(csName);
 
         out.println("grammar " + csName + ";");
         out.println("options {\n" +
@@ -322,11 +324,50 @@ public class TextParserGenerator extends BaseGenerator {
         
         out.println("@members{");  
         out.println("\tprivate " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
+        out.println("\tprivate int lastPosition;");
         out.println();
         out.println("\tprotected EObject doParse() throws RecognitionException {");
-        out.println("\t\t((" + csName + "Lexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
-        out.println("\t\t((" + csName + "Lexer)getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;"); //required because the lexer class can not be subclassed
+        out.println("\tlastPosition = 0;");
+		out.println("\t\t((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
+        out.println("\t\t((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;"); //required because the lexer class can not be subclassed
         out.println("\t\treturn start();" );
+        out.println("\t}");
+        out.println();
+        out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element) {");
+        out.println("\t\tint currentPos = getTokenStream().index();");
+        out.println("\t\tint endPos = currentPos - 1;");
+        out.println("\t\tfor (; endPos >= lastPosition; endPos--) {");
+        out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(endPos);");
+        out.println("\t\t\tint channel = token.getChannel();");
+        out.println("\t\t\tif (channel != 99) {");
+        out.println("\t\t\t\tbreak;");
+        out.println("\t\t\t}");
+        out.println("\t\t}");
+        out.println("\t\tfor (int pos = lastPosition; pos < endPos; pos++) {");
+        out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(pos);");
+        out.println("\t\t\tint channel = token.getChannel();");
+        out.println("\t\t\tif (channel == 99) {");
+
+        List<TokenDefinition> tokens = source.getTokens();
+        for (TokenDefinition token : tokens) {
+    		String attributeName = token.getAttributeName();
+			if (attributeName == null) {
+    			continue;
+    		}
+	        // figure out which feature the token belongs to
+			out.println("\t\t\t\tif (token.getType() == " + lexerName + "." + token.getName() + ") {");
+	        out.println("\t\t\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
+	        out.println("\t\t\t\t\tif (feature != null) {");
+	        out.println("\t\t\t\t\t\t((java.util.List) element.eGet(feature)).add(token.getText());");
+	        out.println("\t\t\t\t\t} else {");
+	        out.println("\t\t\t\t\t\tSystem.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" was not found in element \" + element + \".\");");
+	        out.println("\t\t\t\t\t}");
+			out.println("\t\t\t\t}");
+        }
+
+        out.println("\t\t\t}");
+        out.println("\t\t}");
+        out.println("\t\tlastPosition = endPos;");
         out.println("\t}");
         out.println("}");
         out.println();
@@ -342,6 +383,10 @@ public class TextParserGenerator extends BaseGenerator {
 	    printTokenDefinitions(out);
 	    
 	    return getOccuredErrors().size() == 0;
+	}
+
+	private String getLexerName(String csName) {
+		return csName + "Lexer";
 	}
 	
 	private void printStartRule(PrintWriter out){
@@ -475,7 +520,8 @@ public class TextParserGenerator extends BaseGenerator {
 
 	private String getCreateObjectCall(GenClass genClass) {
 		GenPackage genPackage = genClass.getGenPackage();
-		return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()";
+		return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()" +
+			";collectHiddenTokens(element)";
 	}
 	
 	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){

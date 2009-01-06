@@ -7,6 +7,7 @@ import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.ReferenceFilter;
 
 // TODO mseifert: check whether resolving start symbols with dots does still work
 public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolverImpl {

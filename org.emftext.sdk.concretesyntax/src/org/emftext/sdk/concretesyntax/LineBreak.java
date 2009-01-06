@@ -25,29 +25,29 @@ package org.emftext.sdk.concretesyntax;
  */
 public interface LineBreak extends Definition {
 	/**
-	 * Returns the value of the '<em><b>Tab</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Tab</b></em>' attribute.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Tab</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tab</em>' attribute.
-	 * @see #setTab(int)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getLineBreak_Tab()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Tab</em>' attribute.
+   * @see #setTab(int)
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getLineBreak_Tab()
+   * @model
+   * @generated
+   */
 	int getTab();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.LineBreak#getTab <em>Tab</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.emftext.sdk.concretesyntax.LineBreak#getTab <em>Tab</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Tab</em>' attribute.
-	 * @see #getTab()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Tab</em>' attribute.
+   * @see #getTab()
+   * @generated
+   */
 	void setTab(int value);
 
 } // LineBreak
