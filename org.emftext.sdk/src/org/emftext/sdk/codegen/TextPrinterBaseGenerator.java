@@ -146,7 +146,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		
-        int tokenSpace = OptionManager.INSTANCE.getIntegerOption(csSource, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, this);
+        tokenSpace = OptionManager.INSTANCE.getIntegerOption(csSource, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, this);
 		if (tokenSpace < 0) {
 			tokenSpace = 0;
 		}
