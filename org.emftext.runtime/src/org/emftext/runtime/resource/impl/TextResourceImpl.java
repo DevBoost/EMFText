@@ -221,23 +221,27 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
+		boolean wasLoaded = !isLoaded;
+		
 		super.load(options);
 
-		convertContextDependenProxiest();
+		if (wasLoaded) {
+			convertContextDependenProxiest();
+			
+			if (options != null
+					&& Boolean.TRUE.equals(options
+							.get(TextResourceImpl.OPTION_NO_VALIDATE))) {
+			} else {
+				EList<EObject> contents = getContents();
+				ITextOCLValidator oclValidator = new ITextOCLValidator();
+				Set<EObject> distinctObjects = new HashSet<EObject>();
+				distinctObjects.addAll(contents);
+				for (EObject eobject : distinctObjects) {
+					// TODO check if this leads to performance problems
+					// - due to traversing some objects more than once
 		
-		if (options != null
-				&& Boolean.TRUE.equals(options
-						.get(TextResourceImpl.OPTION_NO_VALIDATE))) {
-		} else {
-			EList<EObject> contents = getContents();
-			ITextOCLValidator oclValidator = new ITextOCLValidator();
-			Set<EObject> distinctObjects = new HashSet<EObject>();
-			distinctObjects.addAll(contents);
-			for (EObject eobject : distinctObjects) {
-				// TODO check if this leads to performance problems
-				// - due to traversing some objects more than once
-	
-				oclValidator.analyse(eobject);
+					oclValidator.analyse(eobject);
+				}
 			}
 		}
 	}
