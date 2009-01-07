@@ -21,6 +21,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextPlugin;
 
+/**
+ * A finder that searches in the current Eclipse workspace
+ * for files that contain generator packages.
+ */
 public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 	
 	private class GenPackageInWorkspaceFinderResult implements IGenPackageFinderResult {

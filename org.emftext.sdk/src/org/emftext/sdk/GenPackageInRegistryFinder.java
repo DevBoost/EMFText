@@ -9,6 +9,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
+/**
+ * A finder that looks up generator packages in the EMF package
+ * registry.
+ */
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
 	private class GenPackageInRegistryFinderResult implements IGenPackageFinderResult {
