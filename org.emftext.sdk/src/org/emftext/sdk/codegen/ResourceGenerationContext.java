@@ -6,7 +6,12 @@ import java.util.LinkedHashSet;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.ITokenResolver;
+import org.emftext.runtime.resource.ITokenResolverFactory;
+import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -22,6 +27,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * @author skarol
  */
 public class ResourceGenerationContext {
+	
+	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
+	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
+	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
 	
 	private ConcreteSyntax concreteSyntax;
 	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
@@ -100,5 +109,37 @@ public class ResourceGenerationContext {
 
 	public IProblemCollector getProblemCollector() {
 		return problemCollector;
+	}
+	
+	public String getCapCsName() {
+		return BaseGenerator.cap(getConcreteSyntax().getName());
+	}
+	
+    public String getPrinterName() {
+    	return getCapCsName() + "Printer";
+    }
+    public String getPrinterBaseName() {
+    	return getCapCsName() + "PrinterBase";
+    }
+    public String getResourceName() {
+    	return getCapCsName() + "ResourceImpl";
+    }
+    public String getResourceFactoryName() {
+    	return getCapCsName() + "ResourceFactoryImpl";
+    }
+    public String getTreeAnalyserName() {
+    	return getCapCsName() + "TreeAnalyser";
+    }
+    public String getTokenResolverFactoryName() {
+    	return getCapCsName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
+    }
+
+	public String getTokenResolverClassName(
+			InternalTokenDefinition tokenDefinition) {
+		return getCapCsName() +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
+	}
+
+	public String getReferenceResolverClassName(GenFeature proxyReference) {
+		return proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
 	}
 }

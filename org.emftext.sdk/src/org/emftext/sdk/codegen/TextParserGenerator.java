@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -32,7 +33,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -211,7 +211,7 @@ public class TextParserGenerator extends BaseGenerator {
 	
 	
 	
-	private ConcreteSyntax source;
+	private ConcreteSyntax conreteSyntax;
 	private String tokenResolverFactoryName;
 	
 	private Map<String,InternalTokenDefinition> derivedTokens;
@@ -228,24 +228,24 @@ public class TextParserGenerator extends BaseGenerator {
 	private boolean forceEOFToken;
 	private boolean useDefaultTokens;
 	
-	public TextParserGenerator(ConcreteSyntax cs, String csClassName, String csPackageName, String tokenResolverFactoryName) {
-		super(csClassName, csPackageName);
-		source = cs;
-		this.tokenResolverFactoryName = tokenResolverFactoryName;
+	public TextParserGenerator(ResourceGenerationContext context) {
+		super(context.getPackageName(), context.getCapCsName());
+		conreteSyntax = context.getConcreteSyntax();
+		tokenResolverFactoryName = context.getTokenResolverFactoryName();
 	}
 	
 	private void initOptions() {
-		standardTextTokenName = OptionManager.INSTANCE.getStringOption(source, ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME);
+		standardTextTokenName = OptionManager.INSTANCE.getStringOption(conreteSyntax, ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME);
 		if (standardTextTokenName == null) {
 			standardTextTokenName = STD_TOKEN_NAME;
 		}
 		char firstLetter = standardTextTokenName.charAt(0);
 		//can this check be done by OCL?
 		if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
-			addProblem(new GenerationProblem("Token names must start with a capital letter.", source, Severity.ERROR));
+			addProblem(new GenerationProblem("Token names must start with a capital letter.", conreteSyntax, Severity.ERROR));
 		}
-		forceEOFToken = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.CS_OPTION_FORCE_EOF);
-		useDefaultTokens = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS);
+		forceEOFToken = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
+		useDefaultTokens = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS);
 	}
 	
 	private void initCaches(){
@@ -264,11 +264,11 @@ public class TextParserGenerator extends BaseGenerator {
 	    
 	    allGenClasses = new LinkedList<GenClass>();
 	    
-	    for(GenPackage includedGP : source.getPackage().getGenModel().getGenPackages()){
+	    for(GenPackage includedGP : conreteSyntax.getPackage().getGenModel().getGenPackages()){
 	    	allGenClasses.addAll(includedGP.getGenClasses());
 	    }
 	    
-	    for(GenPackage usedGP : source.getPackage().getGenModel().getUsedGenPackages()) {
+	    for(GenPackage usedGP : conreteSyntax.getPackage().getGenModel().getUsedGenPackages()) {
 			allGenClasses.addAll(usedGP.getGenClasses());
 		}
 		
@@ -291,7 +291,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("grammar " + csName + ";");
         out.println("options {\n" +
         				"\tsuperClass = " + EMFTextParserImpl.class.getSimpleName() + "; ");
-        boolean backtracking = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.ANTLR_BACKTRACKING);
+        boolean backtracking = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
         out.println("\tbacktrack = " + backtracking + ";");
         out.println("}");
         
@@ -303,12 +303,12 @@ public class TextParserGenerator extends BaseGenerator {
         out.println();
         
         out.println("@lexer::members{");
-        out.println("\tpublic java.util.List<RecognitionException> lexerExceptions  = new java.util.ArrayList<RecognitionException>();");
-        out.println("\tpublic java.util.List<Integer> lexerExceptionsPosition       = new java.util.ArrayList<Integer>();");
+        out.println("\tpublic " + java.util.List.class.getName() + "<" + RecognitionException.class.getName() + "> lexerExceptions  = new " + java.util.ArrayList.class.getName() + "<" + RecognitionException.class.getName() + ">();");
+        out.println("\tpublic " + java.util.List.class.getName() + "<" + Integer.class.getName() + "> lexerExceptionsPosition       = new " + java.util.ArrayList.class.getName() + "<" + Integer.class.getName() + ">();");
         out.println();
-        out.println("\tpublic void reportError(RecognitionException e) {"); 
+        out.println("\tpublic void reportError(" + RecognitionException.class.getName() + " e) {"); 
         out.println("\t\tlexerExceptions.add(e);\n"); 
-        out.println("\t\tlexerExceptionsPosition.add(((ANTLRStringStream)input).index());");
+        out.println("\t\tlexerExceptionsPosition.add(((" + ANTLRStringStream.class.getName() + ")input).index());");
         out.println("\t}");
         out.println("}");
         
@@ -350,7 +350,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t\t\tif (channel == 99) {");
         //out.println("\t\t\t\tSystem.out.println(\"\t\" + token);");
 
-        List<TokenDefinition> tokens = source.getTokens();
+        List<TokenDefinition> tokens = conreteSyntax.getTokens();
         for (TokenDefinition token : tokens) {
     		String attributeName = token.getAttributeName();
 			if (attributeName == null) {
@@ -397,7 +397,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("returns [ EObject element = null]");
         out.println(":  ");
         int count = 0;
-        for(Iterator<GenClass> i = source.getStartSymbols().iterator(); i.hasNext(); ) {
+        for(Iterator<GenClass> i = conreteSyntax.getStartSymbols().iterator(); i.hasNext(); ) {
             GenClass aStart = i.next();
             out.println("c" + count + " = " + getLowerCase(aStart.getName()) + "{ element = c" + count + "; }"); 
             if (i.hasNext()) 
@@ -445,7 +445,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        choice.getOptions().add(newSequence);
 	        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
 	        
-	        LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
+	        LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.conreteSyntax);
 	        
 	        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
 	        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
@@ -529,18 +529,18 @@ public class TextParserGenerator extends BaseGenerator {
 	
 	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
         
-		for(Rule rule : source.getAllRules()) {
-        	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.source);
+		for(Rule rule : conreteSyntax.getAllRules()) {
+        	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.conreteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-                boolean autofix = OptionManager.INSTANCE.getBooleanOption(source, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
+                boolean autofix = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {
             			System.out.println();
                     	printRightRecursion(out, rule, eClassesWithSyntax, eClassesReferenced);	
                     	
     					
-    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),source.getAllRules());
+    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),conreteSyntax.getAllRules());
                         if(!subClasses.isEmpty()){
                         	out.println("\t|//derived choice rules for sub-classes: ");
                         	printSubClassChoices(out,subClasses);
@@ -590,7 +590,7 @@ public class TextParserGenerator extends BaseGenerator {
         
         printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,proxyReferences,"\t");
         
-        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(genClass, source.getAllRules());
+        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(genClass, conreteSyntax.getAllRules());
         if(!subClasses.isEmpty()){
         	out.println("\t|//derived choice rules for sub-classes: ");
         	printSubClassChoices(out,subClasses);
@@ -763,14 +763,8 @@ public class TextParserGenerator extends BaseGenerator {
 
         	}
         	else{
-        		EAttribute attr = (EAttribute)eFeature;
-        		if(attr.getEType() instanceof EEnum){
-        			EEnum enumType = (EEnum)attr.getEType();
-        			targetTypeName = enumType.getName();
-        		}
-        		else{
-            		targetTypeName = attr.getEAttributeType().getInstanceClassName();        			
-        		}
+        		// the feature is an EAttribute
+       			targetTypeName = genFeature.getQualifiedListItemType(null);
                	resolvements += targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";";
         		expressionToBeSet = "resolved";
         	}
@@ -808,7 +802,7 @@ public class TextParserGenerator extends BaseGenerator {
     	for(GenClass referencedClass : eClassesReferenced.keySet()) {
             if(!cointainsEqualByName(eClassesWithSyntax,referencedClass)) {
             	//rule not explicitly defined in CS: most likely a choice rule in the AS
-            	Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(referencedClass,source.getAllRules());
+            	Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(referencedClass,conreteSyntax.getAllRules());
             	
             	if (subClasses.isEmpty()) {
             	  String message = "Referenced class '"+referencedClass.getName()+"' has no defined concrete Syntax.";
@@ -918,7 +912,7 @@ public class TextParserGenerator extends BaseGenerator {
 
 	private String getStandardTokenExpression() {
 		if (!STD_TOKEN_NAME.equals(standardTextTokenName)) {
-			Collection<TokenDefinition> tokens = source.getTokens();
+			Collection<TokenDefinition> tokens = conreteSyntax.getTokens();
 			for (TokenDefinition token : tokens) {
 				String tokenName = token.getName();
 				if (tokenName.equals(standardTextTokenName)) {
@@ -983,7 +977,7 @@ public class TextParserGenerator extends BaseGenerator {
 	
 	private void printTokenDefinitions(PrintWriter out){
 		Set<String> processedTokenNames = new HashSet<String>();
-		Collection<TokenDefinition> userDefinedTokens = source.getTokens();
+		Collection<TokenDefinition> userDefinedTokens = conreteSyntax.getTokens();
 		for(TokenDefinition def:userDefinedTokens){
 			if(def.getName().charAt(0)<'A'||def.getName().charAt(0)>'Z'){
 				addProblem(new GenerationProblem("Token names must start with a capital letter.",def));

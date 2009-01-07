@@ -16,28 +16,24 @@ import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
  * @author skarol
  *
  */
-
 public class TokenResolverFactoryGenerator extends BaseGenerator {
 	
 	private Map<InternalTokenDefinition,String> printedTokens;
 	private String resolverPackageName;
 	
-	
-	public TokenResolverFactoryGenerator(Map<InternalTokenDefinition,String> printedTokens,String className, String packageName, String resolverPackageName){
-		super(className,packageName);
+	public TokenResolverFactoryGenerator(ResourceGenerationContext context, Map<InternalTokenDefinition,String> printedTokens){
+		super(context.getPackageName(), context.getTokenResolverFactoryName());
 		this.printedTokens = printedTokens;
-		this.resolverPackageName = resolverPackageName;
+		this.resolverPackageName = context.getResolverPackageName();
 	}
-	
-	
 	
 	@Override
 	public boolean generate(PrintWriter out) {
-		out.println("package " + super.getResourcePackageName() + ";");
+		out.println("package " + getResourcePackageName() + ";");
 		out.println();
-		out.println("public class " + super.getResourceClassName() + " extends " + BasicTokenResolverFactory.class.getName() + " implements " + ITokenResolverFactory.class.getName() + " {");
+		out.println("public class " + getResourceClassName() + " extends " + BasicTokenResolverFactory.class.getName() + " implements " + ITokenResolverFactory.class.getName() + " {");
 		out.println();
-		out.println("\tpublic " + super.getResourceClassName() + "(){");
+		out.println("\tpublic " + getResourceClassName() + "(){");
 		for(InternalTokenDefinition def:printedTokens.keySet()){
 			if(printedTokens.get(def)!=null){
 				out.println("\t\tsuper.registerTokenResolver(\"" +def.getName()+ "\", new " + resolverPackageName + "." + printedTokens.get(def) + "());");

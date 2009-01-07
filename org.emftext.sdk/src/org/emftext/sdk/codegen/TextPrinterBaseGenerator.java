@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -46,37 +45,35 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
- * TODO Add test cases to test engine
+ * A generator that creates the base class for the printer.
  */
 public class TextPrinterBaseGenerator extends BaseGenerator {
 
-	
-
-	private ConcreteSyntax csSource;
+	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
-	// private static String newline =
-	// System.getProperties().getProperty("line.separator");
-	// private String csClassName;
 
 	private int tokenSpace;
-	// maps all choices to a method name
+	/** maps all choices to a method name */
 	private Map<Choice, String> choice2Name;
-	// maps all rules to choices nested somewhere, but not to the root choice!
+	/** maps all rules to choices nested somewhere, but not to the root choice! */
 	private Map<Rule, Set<Choice>> rule2SubChoice;
-	// maps all sequences in all choices to all features which HAVE to be
-	// printed in the sequence
+	/** 
+	 * maps all sequences in all choices to all features which HAVE to be printed in the sequence
+	 */
 	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
 	private Map<DerivedPlaceholder, String> placeholder2TokenName;
 	private String treeAnalyserClassName;
 
-	public TextPrinterBaseGenerator(ConcreteSyntax cs,
-			String csPrinterClassName, String csPackageName,
-			String csClassName, String tokenResolverFactoryClassName,
-			Map<DerivedPlaceholder, String> placeholder2TokenName,
-			String treeAnalyserClassName) {
-		super(csPrinterClassName, csPackageName);
-		csSource = cs;
+	public TextPrinterBaseGenerator(ResourceGenerationContext context, Map<DerivedPlaceholder, String> placeholder2TokenName) {
+		
+		super(context.getPackageName(), context.getPrinterBaseName());
+
+		ConcreteSyntax concretSyntax = context.getConcreteSyntax();
+		String tokenResolverFactoryClassName = context.getTokenResolverFactoryName();
+		String treeAnalyserClassName = context.getTreeAnalyserName();
+		
+		this.concretSyntax = concretSyntax;
 		// this.csClassName = csClassName;
 		this.tokenResolverFactoryClassName = tokenResolverFactoryClassName;
 		this.placeholder2TokenName = placeholder2TokenName;
@@ -136,7 +133,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private List<Rule> prepare() {
-		List<Rule> rules = csSource.getAllRules();
+		List<Rule> rules = concretSyntax.getAllRules();
 		choice2Name = new HashMap<Choice, String>(rules.size());
 		sequence2NecessaryFeatures = new HashMap<Sequence, Set<String>>(rules
 				.size());
@@ -146,7 +143,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		
-        tokenSpace = OptionManager.INSTANCE.getIntegerOption(csSource, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, this);
+        tokenSpace = OptionManager.INSTANCE.getIntegerOption(concretSyntax, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, this);
 		if (tokenSpace < 0) {
 			tokenSpace = 0;
 		}
@@ -275,15 +272,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			printChoice(choice, out, rule.getMetaclass().getEcoreClass());
 			out.println("\t\t}");
 		}
-	}
-
-	private GenFeature findGenFeature(Rule rule, EStructuralFeature feature) {
-		for (GenFeature genFeature : rule.getMetaclass().getAllGenFeatures()) {
-			if (genFeature.getEcoreFeature() == feature) {
-				return genFeature;
-			}
-		}
-		return null;
 	}
 
 	private boolean isCollectInFeature(Rule rule, EStructuralFeature feature) {

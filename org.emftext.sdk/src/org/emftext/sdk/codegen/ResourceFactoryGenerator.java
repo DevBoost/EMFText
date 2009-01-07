@@ -19,33 +19,32 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 	 * @param className The name of the generated CompilationUnit
 	 * @param packageName The package name of the generated CompilationUnit
 	 * @param textResourceClassName The class name of the generated TextResource 
-	 * which is meant to be instanciated by the ResourceFactory.
+	 * which is meant to be instantiated by the ResourceFactory.
 	 */
-	public ResourceFactoryGenerator(String className, String packageName, String textResourceClassName) {
-		super(className, packageName);
-		this.textResourceClassName = textResourceClassName;
+	public ResourceFactoryGenerator(ResourceGenerationContext context) {
+		super(context.getPackageName(), context.getResourceFactoryName());
+		this.textResourceClassName = context.getResourceName();
 	}
 
 	@Override
 	public boolean generate(PrintWriter out) {
-        out.println("package " + super.getResourcePackageName() + ";");
+        out.println("package " + getResourcePackageName() + ";");
         out.println();
         
-		out.println("import org.eclipse.emf.common.util.URI;");
-		out.println("import org.eclipse.emf.ecore.resource.Resource;");
+		out.println("import " + org.eclipse.emf.common.util.URI.class.getName() + ";");
+		out.println("import " + org.eclipse.emf.ecore.resource.Resource.class.getName() + ";");
 		
-		out.println("public class " +super.getResourceClassName()+ " implements Resource.Factory {\n\n");
-		out.println("\tpublic " + super.getResourceClassName() + "(){");
+		out.println("public class " + getResourceClassName()+ " implements Resource.Factory {\n\n");
+		out.println("\tpublic " + getResourceClassName() + "() {");
 		out.println("\t\tsuper();");
 		out.println("\t}");
 		out.println();
 		
-		out.println("\tpublic Resource createResource(URI uri){");
+		out.println("\tpublic Resource createResource(URI uri) {");
 		out.println("\t\treturn new " + textResourceClassName + "(uri);");
 		out.println("\t}");
 		out.println("}");
     	
     	return true;	
     }
-	
 }

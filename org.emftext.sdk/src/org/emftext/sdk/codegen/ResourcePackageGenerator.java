@@ -32,38 +32,32 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.ITokenResolver;
-import org.emftext.runtime.resource.ITokenResolverFactory;
 
 public class ResourcePackageGenerator {
-	
-	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
-	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
-	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
 	
 	private static final String JAVA_FILE_EXTENSION = ".java";
 	
 	public static void generate(ResourceGenerationContext context, IProgressMonitor monitor)throws CoreException{
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
-	    String capCsName = BaseGenerator.cap(context.getConcreteSyntax().getName());
+	    
 		IFolder targetFolder = context.getTargetFolder();
 		
-		ITextResource csResource = (ITextResource)context.getConcreteSyntax().eResource(); 
-		if(!targetFolder.exists())
-		   	targetFolder.create(false,true,progress.newChild(5));
+		ITextResource csResource = (ITextResource) context.getConcreteSyntax().eResource(); 
+		if (!targetFolder.exists()) {
+		   	targetFolder.create(false, true, progress.newChild(5));
+		}
   		
 		IPath csPackagePath = new Path(context.getPackageName().replaceAll("\\.","/"));
   		IPath resolverPackagePath = new Path(context.getResolverPackageName().replaceAll("\\.","/"));
   		
-	    String antlrName = capCsName;
-	    String printerName = capCsName + "Printer";
-	    String printerBaseName = capCsName + "PrinterBase";
-	    String resourceName = capCsName + "ResourceImpl";
-	    String resourceFactoryName = capCsName + "ResourceFactoryImpl";
-	    String treeAnalyserName = capCsName + "TreeAnalyser";
-	    String tokenResolverFactoryName = capCsName + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
+	    String antlrName = context.getCapCsName();
+	    String printerName = context.getPrinterName();
+	    String printerBaseName = context.getPrinterBaseName();
+	    String resourceName = context.getResourceName();
+	    String resourceFactoryName = context.getResourceFactoryName();
+	    String treeAnalyserName = context.getTreeAnalyserName();
+	    String tokenResolverFactoryName = context.getTokenResolverFactoryName();
         
   		IFile antlrFile = targetFolder.getFile(csPackagePath.append(antlrName + ".g"));
 	    IFile printerFile = targetFolder.getFile(csPackagePath.append(printerName + JAVA_FILE_EXTENSION));
@@ -73,9 +67,9 @@ public class ResourcePackageGenerator {
 	    IFile treeAnalyserFile = targetFolder.getFile(csPackagePath.append(treeAnalyserName + JAVA_FILE_EXTENSION));
 	    IFile tokenResolverFactoryFile = targetFolder.getFile(csPackagePath.append(tokenResolverFactoryName + JAVA_FILE_EXTENSION));
 	    	    
-	    TextParserGenerator antlrGenenerator = new TextParserGenerator(context.getConcreteSyntax(),antlrName,context.getPackageName(),tokenResolverFactoryName);
-	    IGenerator resourceGenenerator = new TextResourceGenerator(resourceName,context.getPackageName(),capCsName,printerName,treeAnalyserName);
-	    IGenerator resourceFactoryGenenerator = new ResourceFactoryGenerator(resourceFactoryName,context.getPackageName(),resourceName);
+	    TextParserGenerator antlrGenenerator = new TextParserGenerator(context);
+	    IGenerator resourceGenenerator = new TextResourceGenerator(context);
+	    IGenerator resourceFactoryGenenerator = new ResourceFactoryGenerator(context);
 	    
 	    progress.setTaskName("deriving grammar...");
 	    InputStream grammarStream = deriveGrammar(antlrGenenerator, context);
@@ -105,7 +99,7 @@ public class ResourcePackageGenerator {
 				treeAnalyserName, proxy2NameMap);
 		
 		Map<TextParserGenerator.InternalTokenDefinition, String> tokenToNameMap = generateTokenResolvers(
-				context, progress, capCsName, csResource,
+				context, progress, csResource,
 				resolverPackagePath, antlrGenenerator);
 		
 		generateTokenResolverFactory(context, progress, csResource,
@@ -149,29 +143,30 @@ public class ResourcePackageGenerator {
 		progress.setTaskName("generating token resolver factory...");
 		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY);
 		if (generateTokenResolverFactory) {
-			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(tokenToNameMap,tokenResolverFactoryName,context.getPackageName(),context.getResolverPackageName());
+			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(context, tokenToNameMap);
 			setContents(tokenResolverFactoryFile,invokeGeneration(factoryGen, context.getProblemCollector()));
 		}
 	}
 
 	private static Map<TextParserGenerator.InternalTokenDefinition, String> generateTokenResolvers(
-			ResourceGenerationContext context, SubMonitor progress, String capCsName,
+			ResourceGenerationContext context, SubMonitor progress,
 			ITextResource csResource,
 			IPath resolverPackagePath, TextParserGenerator antlrGen)
 			throws CoreException {
 		progress.setTaskName("generating token resolvers...");
 		IFolder targetFolder = context.getTargetFolder();
 		Map<TextParserGenerator.InternalTokenDefinition,String> tokenToNameMap = new HashMap<TextParserGenerator.InternalTokenDefinition,String>();
-		for(TextParserGenerator.InternalTokenDefinition definition : antlrGen.getPrintedTokenDefinitions()){
-			if(!definition.isReferenced())
+		for(TextParserGenerator.InternalTokenDefinition tokenDefinition : antlrGen.getPrintedTokenDefinitions()){
+			if (!tokenDefinition.isReferenced()) {
 				continue;
-			String className = capCsName + definition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
-			tokenToNameMap.put(definition,className);
+			}
+			String tokenResolverClassName = context.getTokenResolverClassName(tokenDefinition);
+			tokenToNameMap.put(tokenDefinition,tokenResolverClassName);
 			
-			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(className + JAVA_FILE_EXTENSION));
+			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(tokenResolverClassName + JAVA_FILE_EXTENSION));
 			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
 			if (generateResolver) {
-				BaseGenerator resolverGenerator = new TokenResolverGenerator(className,context.getResolverPackageName(),definition);
+				BaseGenerator resolverGenerator = new TokenResolverGenerator(context, tokenResolverClassName, tokenDefinition);
 				setContents(resolverFile,invokeGeneration(resolverGenerator, context.getProblemCollector()));
 			}
 		}
@@ -187,7 +182,7 @@ public class ResourcePackageGenerator {
 
 		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
 		if (generateTreeAnalyser) {
-			BaseGenerator analyserGen = new TextTreeAnalyserGenerator(proxy2Name,treeAnalyserName,context.getPackageName(),context.getResolverPackageName());
+			BaseGenerator analyserGen = new TextTreeAnalyserGenerator(context, proxy2Name);
 			setContents(treeAnalyserFile,invokeGeneration(analyserGen, context.getProblemCollector()));
 		}
 		progress.worked(5);
@@ -204,13 +199,13 @@ public class ResourcePackageGenerator {
 		
 		Map<GenFeature,String> proxy2Name = new HashMap<GenFeature,String>();
 		for(GenFeature proxyReference : antlrGenerator.getProxyReferences()){
-			String className = proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
-			proxy2Name.put(proxyReference, className);
-			String resolverFileName = className + JAVA_FILE_EXTENSION;
+			String resolverClassName = context.getReferenceResolverClassName(proxyReference);
+			proxy2Name.put(proxyReference, resolverClassName);
+			String resolverFileName = resolverClassName + JAVA_FILE_EXTENSION;
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(resolverFileName));
 			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
 			if (generateResolver) {
-				BaseGenerator proxyGen = new ReferenceResolverGenerator(className,context.getResolverPackageName());
+				BaseGenerator proxyGen = new ReferenceResolverGenerator(context, resolverClassName);
 				setContents(resolverFile, invokeGeneration(proxyGen, context.getProblemCollector()));		
 			}
 		}
@@ -236,19 +231,19 @@ public class ResourcePackageGenerator {
     	boolean generatePrinter = !printerExists || overridePrinter;
 		boolean generatePrinterBase = !printerBaseExists || overridePrinter;
 
-		final String csPackageName = context.getPackageName();
-    	
 	    // always generate printer base
 		if (generatePrinterBase && !generatePrinterStubOnly) {
-	        BaseGenerator printerBaseGen = new TextPrinterBaseGenerator(context.getConcreteSyntax(), printerBaseName,csPackageName,antlrName,tokenResolverFactoryName, antlrGen.getPlaceHolderTokenMapping(),treeAnalyserName);
-		    setContents(printerBaseFile, invokeGeneration(printerBaseGen, context.getProblemCollector()));	    		
+	        BaseGenerator printerBaseGenerator = new TextPrinterBaseGenerator(context, 
+	        		antlrGen.getPlaceHolderTokenMapping()
+	        );
+		    setContents(printerBaseFile, invokeGeneration(printerBaseGenerator, context.getProblemCollector()));	    		
     	}
 		if (generatePrinter) {
 			BaseGenerator printerGen;
 			if (generatePrinterStubOnly) {
-	    		printerGen = new TextPrinterGenerator(printerName, csPackageName, null);
+	    		printerGen = new TextPrinterGenerator(context, false);
 			} else {
-	    		printerGen = new TextPrinterGenerator(printerName, csPackageName, printerBaseName);
+	    		printerGen = new TextPrinterGenerator(context, true);
 			}
 	    	setContents(printerFile, invokeGeneration(printerGen, context.getProblemCollector()));
 	    }

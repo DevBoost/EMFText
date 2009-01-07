@@ -90,12 +90,20 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	private String className;
 	private String packageName;
 
-	
-	public BaseGenerator(String className, String packageName){
+	/**
+	 * Creates a new BaseGenerator that can be used to generate a 
+	 * class with the given name and write it to the specified 
+	 * package.
+	 * 
+	 * @param packageName
+	 * @param className
+	 */
+	public BaseGenerator(String packageName, String className) {
 		errors = new LinkedList<GenerationProblem>();
 		warnings = new LinkedList<GenerationProblem>();
-		this.className = className;
+
 		this.packageName = packageName;
+		this.className = className;
 	}
 	
 	/**

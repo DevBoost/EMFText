@@ -2,6 +2,8 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
@@ -26,8 +28,8 @@ public class TokenResolverGenerator extends BaseGenerator {
 	
 	private TextParserGenerator.InternalTokenDefinition definition;
 	
-	public TokenResolverGenerator(String resolverClassName, String packageName, TextParserGenerator.InternalTokenDefinition definition) {
-		super(resolverClassName, packageName);
+	public TokenResolverGenerator(ResourceGenerationContext context, String resolverClassName, TextParserGenerator.InternalTokenDefinition definition) {
+		super(context.getResolverPackageName(), resolverClassName);
 		this.definition = definition;
 	}
 
@@ -36,18 +38,14 @@ public class TokenResolverGenerator extends BaseGenerator {
 		out.println("package " + super.getResourcePackageName()+ ";");
 		out.println();
 		
-		out.println("import org.eclipse.emf.ecore.EStructuralFeature;");
-		out.println("import org.eclipse.emf.ecore.EObject;");
-		out.println();
-		
 		out.println("public class " + super.getResourceClassName() + " extends " + JavaBasedTokenResolver.class.getName() + " implements " + ITokenResolver.class.getName() + " {");
 		out.println("\t@Override");
-		out.println("\tpublic String deResolve(Object value, EStructuralFeature feature, EObject container) {");
-		out.println("\t\tString result = super.deResolve(value,feature,container);");
+		out.println("\tpublic " + String.class.getName() + " deResolve(" + Object.class.getName() + " value, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container) {");
+		out.println("\t\t" + String.class.getName() + " result = super.deResolve(value, feature, container);");
 		if(definition.getSuffix()!=null){
 			String escapedSuffix = escapeChars(definition.getSuffix());
 			if(definition.isDerived()){
-				out.println("\t\tresult = result.replaceAll(java.util.regex.Pattern.quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
+				out.println("\t\tresult = result.replaceAll(" + java.util.regex.Pattern.class.getName() + ".quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
 			}
 			out.println("\t\tresult += \"" + escapedSuffix + "\";");
 		}	
@@ -59,7 +57,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		out.println("\t}");
 		out.println();
 		out.println("\t@Override");
-		out.println("\tpublic Object resolve(String lexem, EStructuralFeature feature, EObject container, " + ITextResource.class.getName() + " resource) {");
+		out.println("\tpublic " + Object.class.getName() + " resolve(" + String.class.getName() + " lexem, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container, " + ITextResource.class.getName() + " resource) {");
 		if(definition.getPrefix()!=null){
 			int count = definition.getPrefix().length();
 			out.println("\t\tlexem = lexem.substring(" + count + ");");			
@@ -70,7 +68,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 			if(definition.isDerived()){
 				String replacement = escapeChars(definition.getSuffix());
 				//String replacement = (definition.getSuffix().charAt(0)=='"'||definition.getSuffix().charAt(0)=='\\'?"\\"+definition.getSuffix():definition.getSuffix());
-				out.println("\t\tlexem = lexem.replaceAll(\"\\\\\\\\\"+java.util.regex.Pattern.quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
+				out.println("\t\tlexem = lexem.replaceAll(\"\\\\\\\\\"+" + java.util.regex.Pattern.class.getName() + ".quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
 			}
 		}
 		

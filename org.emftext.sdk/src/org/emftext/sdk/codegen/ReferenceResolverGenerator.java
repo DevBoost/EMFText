@@ -13,28 +13,28 @@ import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
  */
 public class ReferenceResolverGenerator extends BaseGenerator {
 	
-	public ReferenceResolverGenerator(String resolveClassName, String resolvePackageName){
-		super(resolveClassName,resolvePackageName);
+	public ReferenceResolverGenerator(ResourceGenerationContext context, String resolverClassName) {
+		super(context.getResolverPackageName(), resolverClassName);
 	}
 	
 	@Override
 	public boolean generate(PrintWriter out) {     
 	    out.println("package " + getResourcePackageName() + ";");	
 	    out.println();
-	    out.println("import " + EObject.class.getName() + ";");
-	    out.println("import " + EReference.class.getName() + ";");
-	    out.println();
 	    out.println("public class " + getResourceClassName() + " extends " + ReferenceResolverImpl.class.getName() + " {\n");
+		generateDoDeResolveMethod(out);
+		out.println("}");
+		return true;
+	}
+
+	private void generateDoDeResolveMethod(PrintWriter out) {
 		out.println("\t@Override");
-		out.println("\tprotected String doDeResolve(EObject element, EObject container, EReference reference) {");
+		out.println("\tprotected " + String.class.getName() + " doDeResolve(" + EObject.class.getName() + " element, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference) {");
 		out.println("\t\treturn super.doDeResolve(element, container, reference);");
 		out.println("\t}\n");
 		out.println("\t@Override");
-		out.println("\tprotected void doResolve(String identifier, EObject container, EReference reference, int position, boolean resolveFuzzy, " + IResolveResult.class.getName() + " result) {");
+		out.println("\tprotected void doResolve(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IResolveResult.class.getName() + " result) {");
 		out.println("\t\tsuper.doResolve(identifier, container, reference, position, resolveFuzzy, result);");
 		out.println("\t}");
-		out.println("}");
-		
-		return true;
 	}
 }

@@ -9,15 +9,19 @@ public class TextPrinterGenerator extends BaseGenerator {
 	
 	private String basePrinterClassName; 
 	
-	public TextPrinterGenerator(String csPrinterClassName, String csPackageName, String basePrinterClassName){
-		super(csPrinterClassName, csPackageName);
-		this.basePrinterClassName = basePrinterClassName;
+	public TextPrinterGenerator(ResourceGenerationContext context, boolean printerBaseExists){
+		super(context.getPackageName(), context.getPrinterName());
+		if (printerBaseExists) { 
+			basePrinterClassName = context.getPrinterBaseName();
+		} else {
+			basePrinterClassName = null;
+		}
 	}
 	
 	@Override
 	public boolean generate(PrintWriter out) {
 		boolean basenull = basePrinterClassName == null;
-		out.println("package " + super.getResourcePackageName() + ";");
+		out.println("package " + getResourcePackageName() + ";");
 		out.println();
 	    if (basenull) {
 	    	out.println("import org.eclipse.emf.ecore.EObject;");
@@ -31,9 +35,9 @@ public class TextPrinterGenerator extends BaseGenerator {
 			out.println("* is not granted to work in all cases, but should work in most cases.");			
 		}
 		out.println("*/");
-	    out.println("public class " + super.getResourceClassName() + (basenull ? " implements " + ITextPrinter.class.getName() : " extends " + basePrinterClassName)+ " {");
+	    out.println("public class " + getResourceClassName() + (basenull ? " implements " + ITextPrinter.class.getName() : " extends " + basePrinterClassName)+ " {");
 	    out.println();
-	    out.println("\tpublic " + super.getResourceClassName() + "(java.io.OutputStream o, " + ITextResource.class.getName() + " resource) {");
+	    out.println("\tpublic " + getResourceClassName() + "(java.io.OutputStream o, " + ITextResource.class.getName() + " resource) {");
 	    if (!basenull) {
 	    	out.println("\t\tsuper(o, resource);");
 	    }

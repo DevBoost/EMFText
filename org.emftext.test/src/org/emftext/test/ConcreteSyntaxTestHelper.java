@@ -12,16 +12,14 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Map;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.sdk.codegen.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.ResourcePackageGenerator;
+import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.ResourceGenerationContext;
 import org.emftext.sdk.codegen.TextParserGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResourceImpl;
@@ -62,20 +60,13 @@ public class ConcreteSyntaxTestHelper {
 	}
 
 	public static TextParserGenerator createANTLRGenerator(ConcreteSyntax concreteSyntax) {
-		String antlrName = BaseGenerator.cap(concreteSyntax.getName());
-		GenPackage csPackage = concreteSyntax.getPackage();
-		String csBasePackage = csPackage.getBasePackage();
-		EPackage ecorePackage = csPackage.getEcorePackage();
-		String csPackageName = (csBasePackage == null ? "" : csBasePackage
-				+ ".")
-				+ ecorePackage.getName()
-				+ ".resource."
-				+ concreteSyntax.getName();
-		String tokenResolverFactoryName = antlrName
-				+ ResourcePackageGenerator.CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
-
-		TextParserGenerator antlrGenerator = new TextParserGenerator(concreteSyntax,
-				antlrName, csPackageName, tokenResolverFactoryName);
+		IProblemCollector collector = new IProblemCollector() {
+			public void addProblem(GenerationProblem problem) {
+				fail();
+			}
+		};
+		ResourceGenerationContext context = new ResourceGenerationContext(concreteSyntax, collector);
+		TextParserGenerator antlrGenerator = new TextParserGenerator(context);
 		return antlrGenerator;
 	}
 
