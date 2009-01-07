@@ -13,7 +13,7 @@ import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
  */
 public class ReferenceResolverGenerator extends BaseGenerator {
 	
-	public ReferenceResolverGenerator(ResourceGenerationContext context, String resolverClassName) {
+	public ReferenceResolverGenerator(GenerationContext context, String resolverClassName) {
 		super(context.getResolverPackageName(), resolverClassName);
 	}
 	

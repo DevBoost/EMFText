@@ -15,8 +15,8 @@ import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
- * A ResourceGenerationContext provides all information that is needed by the 
- * ResourcePackageGenerator. This includes a resolved concrete syntax, 
+ * A GenerationContext provides all information that is needed by the 
+ * generators. This includes a resolved concrete syntax, 
  * a package name for parser and printer, a package name for resolvers 
  * (proxy and token resolvers) and a resource target folder. Furthermore,
  * the context collects information about the generation process as it
@@ -26,7 +26,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * 
  * @author skarol
  */
-public class ResourceGenerationContext {
+public class GenerationContext {
 	
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
@@ -37,7 +37,7 @@ public class ResourceGenerationContext {
 	private IJavaProject javaProject;
 	private IProblemCollector problemCollector;
 	
-	public ResourceGenerationContext(ConcreteSyntax csSource, IProblemCollector problemCollector) {
+	public GenerationContext(ConcreteSyntax csSource, IProblemCollector problemCollector) {
 		if (csSource == null) {
 			throw new IllegalArgumentException("A concrete syntax must be specified!");
 		}

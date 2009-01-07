@@ -65,7 +65,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private Map<DerivedPlaceholder, String> placeholder2TokenName;
 	private String treeAnalyserClassName;
 
-	public TextPrinterBaseGenerator(ResourceGenerationContext context, Map<DerivedPlaceholder, String> placeholder2TokenName) {
+	public TextPrinterBaseGenerator(GenerationContext context, Map<DerivedPlaceholder, String> placeholder2TokenName) {
 		
 		super(context.getPackageName(), context.getPrinterBaseName());
 

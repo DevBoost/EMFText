@@ -9,7 +9,7 @@ public class TextPrinterGenerator extends BaseGenerator {
 	
 	private String basePrinterClassName; 
 	
-	public TextPrinterGenerator(ResourceGenerationContext context, boolean printerBaseExists){
+	public TextPrinterGenerator(GenerationContext context, boolean printerBaseExists){
 		super(context.getPackageName(), context.getPrinterName());
 		if (printerBaseExists) { 
 			basePrinterClassName = context.getPrinterBaseName();

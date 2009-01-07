@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.ResourceGenerationContext;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.TextParserGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResourceImpl;
@@ -65,7 +65,7 @@ public class ConcreteSyntaxTestHelper {
 				fail();
 			}
 		};
-		ResourceGenerationContext context = new ResourceGenerationContext(concreteSyntax, collector);
+		GenerationContext context = new GenerationContext(concreteSyntax, collector);
 		TextParserGenerator antlrGenerator = new TextParserGenerator(context);
 		return antlrGenerator;
 	}

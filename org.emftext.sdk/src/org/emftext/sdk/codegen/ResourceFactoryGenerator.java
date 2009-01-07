@@ -21,7 +21,7 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 	 * @param textResourceClassName The class name of the generated TextResource 
 	 * which is meant to be instantiated by the ResourceFactory.
 	 */
-	public ResourceFactoryGenerator(ResourceGenerationContext context) {
+	public ResourceFactoryGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getResourceFactoryName());
 		this.textResourceClassName = context.getResourceName();
 	}

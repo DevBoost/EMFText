@@ -19,7 +19,7 @@ import org.emftext.runtime.resource.IResolveResult;
 public class TextTreeAnalyserGenerator extends BaseGenerator {
 	
 	private Map<GenFeature, String> proxyReferences;
-	private ResourceGenerationContext context;
+	private GenerationContext context;
 	
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 	 * @param proxyReferences - a Map which contains all GenFeatures which where referenced and 
 	 * a mapping to the corresponding resolver class which was generated.
 	 */
-	public TextTreeAnalyserGenerator(ResourceGenerationContext context, Map<GenFeature, String> proxyReferences) {
+	public TextTreeAnalyserGenerator(GenerationContext context, Map<GenFeature, String> proxyReferences) {
 		super(context.getPackageName(), context.getTreeAnalyserName());
 		this.context = context;
 		this.proxyReferences = proxyReferences;

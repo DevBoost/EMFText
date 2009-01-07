@@ -38,7 +38,7 @@ public class ResourcePackageGenerator {
 	
 	private static final String JAVA_FILE_EXTENSION = ".java";
 	
-	public static void generate(ResourceGenerationContext context, IProgressMonitor monitor)throws CoreException{
+	public static void generate(GenerationContext context, IProgressMonitor monitor)throws CoreException{
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
 	    
 		IFolder targetFolder = context.getTargetFolder();
@@ -111,7 +111,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static void searchForUnusedResolvers(
-			ResourceGenerationContext resourcePackage, IPath resolverPackagePath) throws CoreException {
+			GenerationContext resourcePackage, IPath resolverPackagePath) throws CoreException {
 		
 		Set<String> resolverFiles = new LinkedHashSet<String>();
 		for (String className : resourcePackage.getGeneratedResolverClasses()) {
@@ -133,7 +133,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static void generateTokenResolverFactory(
-			ResourceGenerationContext context,
+			GenerationContext context,
 			SubMonitor progress,
 			ITextResource csResource,
 			IFile tokenResolverFactoryFile,
@@ -149,7 +149,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static Map<TextParserGenerator.InternalTokenDefinition, String> generateTokenResolvers(
-			ResourceGenerationContext context, SubMonitor progress,
+			GenerationContext context, SubMonitor progress,
 			ITextResource csResource,
 			IPath resolverPackagePath, TextParserGenerator antlrGen)
 			throws CoreException {
@@ -174,7 +174,7 @@ public class ResourcePackageGenerator {
 		return tokenToNameMap;
 	}
 
-	private static void generateTreeAnalyser(ResourceGenerationContext context,
+	private static void generateTreeAnalyser(GenerationContext context,
 			SubMonitor progress, ITextResource csResource,
 			IFile treeAnalyserFile, String treeAnalyserName,
 			Map<GenFeature, String> proxy2Name) throws CoreException {
@@ -189,7 +189,7 @@ public class ResourcePackageGenerator {
 	}
 
 	private static Map<GenFeature, String> generateReferenceResolvers(
-			ResourceGenerationContext context, SubMonitor monitor, 
+			GenerationContext context, SubMonitor monitor, 
 			ITextResource csResource, IPath resolverPackagePath,
 			TextParserGenerator antlrGenerator) throws CoreException {
 		
@@ -214,7 +214,7 @@ public class ResourcePackageGenerator {
 		return proxy2Name;
 	}
 
-	private static void generatePrettyPrinter(ResourceGenerationContext context,
+	private static void generatePrettyPrinter(GenerationContext context,
 			SubMonitor progress, ITextResource csResource, IFile printerFile,
 			IFile printerBaseFile, String antlrName, String printerName,
 			String printerBaseName, String treeAnalyserName,
@@ -250,7 +250,7 @@ public class ResourcePackageGenerator {
 	    progress.worked(20);
 	}
 
-	private static void runANTLR(ResourceGenerationContext pck, SubMonitor progress,
+	private static void runANTLR(GenerationContext pck, SubMonitor progress,
 			IFile antlrFile) {
 		progress.setTaskName("running ANTLR on grammar file...");
         ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(pck.getConcreteSyntax().eResource()));
@@ -262,20 +262,20 @@ public class ResourcePackageGenerator {
 	private static void generateEMFResources(SubMonitor progress,
 			IFile resourceFile,
 			IFile resourceFactoryFile, IGenerator resourceGen,
-			IGenerator resourceFactoryGen, ResourceGenerationContext context) throws CoreException {
+			IGenerator resourceFactoryGen, GenerationContext context) throws CoreException {
 		progress.setTaskName("generating EMF resources...");
 		setContents(resourceFile, invokeGeneration(resourceGen, context.getProblemCollector()));
 		setContents(resourceFactoryFile, invokeGeneration(resourceFactoryGen, context.getProblemCollector()));
 		progress.worked(5);
 	}
 
-	public static InputStream deriveGrammar(IGenerator antlrGen, ResourceGenerationContext context)
+	public static InputStream deriveGrammar(IGenerator antlrGen, GenerationContext context)
 			throws CoreException {
 		InputStream content = invokeGeneration(antlrGen, context.getProblemCollector());
 		return content;
 	}
 	
-	private static void saveGrammar(InputStream content, ResourceGenerationContext pck, IFile antlrFile) throws CoreException {
+	private static void saveGrammar(InputStream content, GenerationContext pck, IFile antlrFile) throws CoreException {
 		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
 	    if (generateANTLRSpecification) {
 	    	setContents(antlrFile, content);

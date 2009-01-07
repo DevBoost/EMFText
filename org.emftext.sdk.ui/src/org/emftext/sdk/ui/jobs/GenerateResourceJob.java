@@ -36,7 +36,7 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.ManifestGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginXMLGenerator;
-import org.emftext.sdk.codegen.ResourceGenerationContext;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.ResourcePackageGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -85,7 +85,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 				}
 			};
 			
-			ResourceGenerationContext context = new ResourceGenerationContext(concreteSyntax, collector);
+			GenerationContext context = new GenerationContext(concreteSyntax, collector);
 			// create a project
 			createProject(context, progress);
 
@@ -141,7 +141,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 				new BasicMonitor.EclipseSubProgress(monitor, 100));
 	}
 
-	private void createProject(ResourceGenerationContext context, SubMonitor progress)
+	private void createProject(GenerationContext context, SubMonitor progress)
 			throws CoreException, JavaModelException {
 		String projectName = context.getPackageName();
 		IJavaProject javaProject = createJavaProject(progress, projectName);
@@ -149,7 +149,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		setClasspath(context, progress);
 	}
 
-	private void createMetaModelCode(ResourceGenerationContext context, SubMonitor progress) {
+	private void createMetaModelCode(GenerationContext context, SubMonitor progress) {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
 		
@@ -194,7 +194,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		return javaProject;
 	}
 
-	private void setClasspath(ResourceGenerationContext context, SubMonitor progress)
+	private void setClasspath(GenerationContext context, SubMonitor progress)
 			throws JavaModelException {
 		IFolder srcFolder = context.getTargetFolder();
 		IFolder outFolder = context.getOutputFolder();
@@ -206,7 +206,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 				.getFullPath(), progress.newChild(TICKS_SET_CLASSPATH));
 	}
 
-	private void createMetaFolder(ResourceGenerationContext context, SubMonitor progress)
+	private void createMetaFolder(GenerationContext context, SubMonitor progress)
 			throws CoreException {
 		IProject project = context.getProject();
 		IFolder metaFolder = project.getFolder("/META-INF");
@@ -218,7 +218,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		}
 	}
 
-	private void createManifest(ResourceGenerationContext context,
+	private void createManifest(GenerationContext context,
 			SubMonitor progress) throws CoreException {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
@@ -240,7 +240,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		}
 	}
 
-	private InputStream generateManifest(ResourceGenerationContext context) {
+	private InputStream generateManifest(GenerationContext context) {
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
 		ManifestGenerator mGenerator = new ManifestGenerator(context, isGenerateTestActionEnabled(cSyntax));
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -248,7 +248,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		return new ByteArrayInputStream(outputStream.toByteArray());
 	}
 
-	private void createPluginXML(ResourceGenerationContext context, SubMonitor progress,
+	private void createPluginXML(GenerationContext context, SubMonitor progress,
 			IFile file)
 			throws CoreException {
 		

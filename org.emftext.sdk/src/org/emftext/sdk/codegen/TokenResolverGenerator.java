@@ -28,7 +28,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 	
 	private TextParserGenerator.InternalTokenDefinition definition;
 	
-	public TokenResolverGenerator(ResourceGenerationContext context, String resolverClassName, TextParserGenerator.InternalTokenDefinition definition) {
+	public TokenResolverGenerator(GenerationContext context, String resolverClassName, TextParserGenerator.InternalTokenDefinition definition) {
 		super(context.getResolverPackageName(), resolverClassName);
 		this.definition = definition;
 	}

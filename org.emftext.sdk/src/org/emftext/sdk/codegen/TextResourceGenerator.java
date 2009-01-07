@@ -26,7 +26,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String analyserClassName;
 	private String printerClassName;
 	
-	public TextResourceGenerator(ResourceGenerationContext context) {
+	public TextResourceGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getResourceName());
 		this.csClassName = context.getCapCsName();
 		this.analyserClassName = context.getTreeAnalyserName();

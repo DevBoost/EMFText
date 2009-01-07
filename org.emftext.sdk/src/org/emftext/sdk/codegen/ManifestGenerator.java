@@ -12,10 +12,10 @@ import org.emftext.sdk.concretesyntax.Import;
 
 public class ManifestGenerator implements IGenerator {
 
-	private final ResourceGenerationContext context;
+	private final GenerationContext context;
 	private final boolean generateTestAction;
 
-	public ManifestGenerator(ResourceGenerationContext context, boolean generateTestAction) {
+	public ManifestGenerator(GenerationContext context, boolean generateTestAction) {
 		this.context = context;
 		this.generateTestAction = generateTestAction;
 	}

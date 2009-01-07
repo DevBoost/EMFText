@@ -21,7 +21,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	private Map<InternalTokenDefinition,String> printedTokens;
 	private String resolverPackageName;
 	
-	public TokenResolverFactoryGenerator(ResourceGenerationContext context, Map<InternalTokenDefinition,String> printedTokens){
+	public TokenResolverFactoryGenerator(GenerationContext context, Map<InternalTokenDefinition,String> printedTokens){
 		super(context.getPackageName(), context.getTokenResolverFactoryName());
 		this.printedTokens = printedTokens;
 		this.resolverPackageName = context.getResolverPackageName();
