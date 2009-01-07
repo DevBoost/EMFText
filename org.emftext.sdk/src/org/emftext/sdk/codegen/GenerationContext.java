@@ -18,7 +18,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * A GenerationContext provides all information that is needed by the 
  * generators. This includes a resolved concrete syntax, 
  * a package name for parser and printer, a package name for resolvers 
- * (proxy and token resolvers) and a resource target folder. Furthermore,
+ * (reference and token resolvers) and a resource target folder. Furthermore,
  * the context collects information about the generation process as it
  * is executed.
  * 
