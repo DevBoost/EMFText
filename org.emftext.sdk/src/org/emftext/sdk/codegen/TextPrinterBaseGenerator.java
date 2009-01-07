@@ -67,11 +67,11 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	public TextPrinterBaseGenerator(GenerationContext context, Map<DerivedPlaceholder, String> placeholder2TokenName) {
 		
-		super(context.getPackageName(), context.getPrinterBaseName());
+		super(context.getPackageName(), context.getPrinterBaseClassName());
 
 		ConcreteSyntax concretSyntax = context.getConcreteSyntax();
-		String tokenResolverFactoryClassName = context.getTokenResolverFactoryName();
-		String treeAnalyserClassName = context.getTreeAnalyserName();
+		String tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
+		String treeAnalyserClassName = context.getTreeAnalyserClassName();
 		
 		this.concretSyntax = concretSyntax;
 		// this.csClassName = csClassName;

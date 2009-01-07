@@ -30,7 +30,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 	 * a mapping to the corresponding resolver class which was generated.
 	 */
 	public TextTreeAnalyserGenerator(GenerationContext context, Map<GenFeature, String> proxyReferences) {
-		super(context.getPackageName(), context.getTreeAnalyserName());
+		super(context.getPackageName(), context.getTreeAnalyserClassName());
 		this.context = context;
 		this.proxyReferences = proxyReferences;
 	}

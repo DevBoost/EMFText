@@ -28,6 +28,11 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class GenerationContext {
 	
+	private static final String CLASS_SUFFIX_PRINTER = "Printer";
+	private static final String CLASS_SUFFIX_PRINTER_BASE = "PrinterBase";
+	private static final String CLASS_SUFFIX_RESOURCE = "ResourceImpl";
+	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactoryImpl";
+	private static final String CLASS_SUFFIX_TREE_ANALYSER = "TreeAnalyser";
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
@@ -111,35 +116,52 @@ public class GenerationContext {
 		return problemCollector;
 	}
 	
-	public String getCapCsName() {
-		return BaseGenerator.cap(getConcreteSyntax().getName());
+	public String getCapitalizedConcreteSyntaxName() {
+		return capitalize(getConcreteSyntax().getName());
 	}
 	
     public String getPrinterName() {
-    	return getCapCsName() + "Printer";
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_PRINTER;
     }
-    public String getPrinterBaseName() {
-    	return getCapCsName() + "PrinterBase";
+    
+    public String getPrinterBaseClassName() {
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_PRINTER_BASE;
     }
-    public String getResourceName() {
-    	return getCapCsName() + "ResourceImpl";
+    
+    public String getResourceClassName() {
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_RESOURCE;
     }
-    public String getResourceFactoryName() {
-    	return getCapCsName() + "ResourceFactoryImpl";
+    
+    public String getResourceFactoryClassName() {
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_RESOURCE_FACTORY;
     }
-    public String getTreeAnalyserName() {
-    	return getCapCsName() + "TreeAnalyser";
+    
+    public String getTreeAnalyserClassName() {
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TREE_ANALYSER;
     }
-    public String getTokenResolverFactoryName() {
-    	return getCapCsName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
+    
+    public String getTokenResolverFactoryClassName() {
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
     }
 
 	public String getTokenResolverClassName(
 			InternalTokenDefinition tokenDefinition) {
-		return getCapCsName() +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
+		return getCapitalizedConcreteSyntaxName() +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
 	}
 
 	public String getReferenceResolverClassName(GenFeature proxyReference) {
-		return proxyReference.getGenClass().getName() + BaseGenerator.cap(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
+		return proxyReference.getGenClass().getName() + capitalize(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
 	}
+	
+    /**
+     * Capitalizes the first letter of the given string.
+     * 
+     * @param text a string.
+     * @return the modified string.
+     */
+    private String capitalize(String text) {
+        String h = text.substring(0, 1).toUpperCase();
+        String t = text.substring(1);      
+        return h + t;
+    }
 }

@@ -229,9 +229,9 @@ public class TextParserGenerator extends BaseGenerator {
 	private boolean useDefaultTokens;
 	
 	public TextParserGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getCapCsName());
+		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		conreteSyntax = context.getConcreteSyntax();
-		tokenResolverFactoryName = context.getTokenResolverFactoryName();
+		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
 	}
 	
 	private void initOptions() {

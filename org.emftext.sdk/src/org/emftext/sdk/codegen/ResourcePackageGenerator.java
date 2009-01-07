@@ -51,13 +51,13 @@ public class ResourcePackageGenerator {
 		IPath csPackagePath = new Path(context.getPackageName().replaceAll("\\.","/"));
   		IPath resolverPackagePath = new Path(context.getResolverPackageName().replaceAll("\\.","/"));
   		
-	    String antlrName = context.getCapCsName();
+	    String antlrName = context.getCapitalizedConcreteSyntaxName();
 	    String printerName = context.getPrinterName();
-	    String printerBaseName = context.getPrinterBaseName();
-	    String resourceName = context.getResourceName();
-	    String resourceFactoryName = context.getResourceFactoryName();
-	    String treeAnalyserName = context.getTreeAnalyserName();
-	    String tokenResolverFactoryName = context.getTokenResolverFactoryName();
+	    String printerBaseName = context.getPrinterBaseClassName();
+	    String resourceName = context.getResourceClassName();
+	    String resourceFactoryName = context.getResourceFactoryClassName();
+	    String treeAnalyserName = context.getTreeAnalyserClassName();
+	    String tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
         
   		IFile antlrFile = targetFolder.getFile(csPackagePath.append(antlrName + ".g"));
 	    IFile printerFile = targetFolder.getFile(csPackagePath.append(printerName + JAVA_FILE_EXTENSION));

@@ -146,21 +146,6 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		return allProblems;
 	}
 	
-	
-    /**
-     * Capitalizes the first letter of the given string.
-     * 
-     * @param s a string.
-     * @return the modified string.
-     */
-    public static String cap(String s) {
-        String h = s.substring(0, 1).toUpperCase();
-        String t = s.substring(1);      
-        return h + t;
-    }
-    
-  
-    
     /**
      * Converts the first letter of the given string to lower case.
      * 

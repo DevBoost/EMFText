@@ -22,7 +22,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	private String resolverPackageName;
 	
 	public TokenResolverFactoryGenerator(GenerationContext context, Map<InternalTokenDefinition,String> printedTokens){
-		super(context.getPackageName(), context.getTokenResolverFactoryName());
+		super(context.getPackageName(), context.getTokenResolverFactoryClassName());
 		this.printedTokens = printedTokens;
 		this.resolverPackageName = context.getResolverPackageName();
 	}
