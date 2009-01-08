@@ -47,7 +47,6 @@ public abstract class AbstractConcreteSyntaxJob extends org.eclipse.core.runtime
 	}
 
 	protected boolean containsProblems(Resource csResource) {
-		return !csResource.getErrors().isEmpty()
-				|| !csResource.getWarnings().isEmpty();
+		return !csResource.getErrors().isEmpty();
 	}
 }
