@@ -17,6 +17,7 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.IReferenceResolver;
@@ -69,15 +70,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		
 		super(context.getPackageName(), context.getPrinterBaseClassName());
 
-		ConcreteSyntax concretSyntax = context.getConcreteSyntax();
-		String tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
-		String treeAnalyserClassName = context.getTreeAnalyserClassName();
-		
-		this.concretSyntax = concretSyntax;
-		// this.csClassName = csClassName;
-		this.tokenResolverFactoryClassName = tokenResolverFactoryClassName;
+		this.concretSyntax = context.getConcreteSyntax();
+		this.tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
+		this.treeAnalyserClassName = context.getTreeAnalyserClassName();
 		this.placeholder2TokenName = placeholder2TokenName;
-		this.treeAnalyserClassName = treeAnalyserClassName;
 	}
 
 	private static void extractChoices(List<Rule> rules,
@@ -155,8 +151,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		List<Rule> rules = prepare();
 		out.println("package " + super.getResourcePackageName() + ";");
 		out.println();
-		out.println("import org.eclipse.emf.ecore.EObject;");
-		out.println("import org.eclipse.emf.ecore.EReference;");
 		for (Rule rule : rules) {
 			GenPackage p = rule.getMetaclass().getGenPackage();
 			String classImport = (p.getBasePackage() == null ? "" : p
@@ -179,16 +173,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				+ treeAnalyserClassName + "();");
 		out.println();
 		out.println("\tpublic " + super.getResourceClassName()
-				+ "(java.io.OutputStream o, " + ITextResource.class.getName() + " resource) {\n");
+				+ "(" + java.io.OutputStream.class.getName() + " o, " + ITextResource.class.getName() + " resource) {\n");
 		out.println("\t\tsuper(o, resource);");
 		out.println("\t}");
 		out.println();
 		printMatchRule(out);
 		out.println();
 		out
-				.println("\tprotected void doPrint(EObject element, java.io.PrintWriter out, String globaltab) {");
+				.println("\tprotected void doPrint(" + EObject.class.getName() + " element, " + java.io.PrintWriter.class.getName() + " out, " + String.class.getName() + " globaltab) {");
 		out
-				.println("\t\tif (element == null||out == null) throw new NullPointerException(\"Nothing to write or to write on.\");");
+				.println("\t\tif (element == null || out == null) throw new " + NullPointerException.class.getName() + "(\"Nothing to write or to write on.\");");
 		out.println();
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
 		while (!ruleQueue.isEmpty()) {
@@ -242,21 +236,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			out.println("\t\t\tprintCountingMap.put(\"" + feature.getName()
 					+ "\", temp == null ? 0 : " + featureSize + ");");
 		}
-		// TODO mseifert print collected hidden tokens
-		out.println("// TODO print collected hidden tokens");
-		for (EStructuralFeature feature : featureList) {
-			if (isCollectInFeature(rule, feature)) {
-				// TODO use feature id constant instead
-				out.println("\t\t\t{");
-				out.println("\t\t\tObject value = element.eGet(element.eClass().getEStructuralFeature(" + feature.getFeatureID() + "));");
-				out.println("\t\t\tif (value instanceof java.util.List) {");
-				out.println("\t\t\t\tfor (Object next : (java.util.List) value) {");
-				out.println("\t\t\t\t\tout.print(next);");
-				out.println("\t\t\t\t}");
-				out.println("\t\t\t}");
-				out.println("\t\t\t}");
-			}
-		}
+		// TODO mseifert fix and enable printing for collected hidden tokens
+		//generatePrintCollectedTokensCode(out, rule);
 		
 		printChoice(rule.getDefinition(), out, rule.getMetaclass()
 				.getEcoreClass());
@@ -271,6 +252,26 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			out.println("\t\t\tString localtab = outertab;");
 			printChoice(choice, out, rule.getMetaclass().getEcoreClass());
 			out.println("\t\t}");
+		}
+	}
+
+	private void generatePrintCollectedTokensCode(PrintWriter out, Rule rule) {
+
+		List<EStructuralFeature> featureList = rule.getMetaclass().getEcoreClass().getEAllStructuralFeatures();
+
+		out.println("// TODO print collected hidden tokens");
+		for (EStructuralFeature feature : featureList) {
+			if (isCollectInFeature(rule, feature)) {
+				// TODO use feature id constant instead
+				out.println("\t\t\t{");
+				out.println("\t\t\tObject value = element.eGet(element.eClass().getEStructuralFeature(" + feature.getFeatureID() + "));");
+				out.println("\t\t\tif (value instanceof java.util.List) {");
+				out.println("\t\t\t\tfor (Object next : (java.util.List) value) {");
+				out.println("\t\t\t\t\tout.print(next);");
+				out.println("\t\t\t\t}");
+				out.println("\t\t\t}");
+				out.println("\t\t\t}");
+			}
 		}
 	}
 
