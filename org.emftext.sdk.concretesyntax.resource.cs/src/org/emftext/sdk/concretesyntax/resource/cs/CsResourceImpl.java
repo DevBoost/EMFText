@@ -1,6 +1,14 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
+import java.util.Iterator;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.Sequence;
 
 public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResourceImpl {
 	private org.emftext.runtime.resource.IReferenceResolver analyser;
@@ -35,6 +43,47 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResour
 		org.emftext.runtime.resource.IConfigurable analyser = getTreeAnalyser();
 
 		analyser.setOptions(loadOptions);
+
+		checkForOptionalKeywords();
+	}
+	
+	private static final String OPTIONAL_KEYWORD_WARNING = 
+		"The keyword might be used stand alone and will not be reprinted in such case: ";
+	
+	protected void checkForOptionalKeywords() {
+		for(Iterator<EObject> i = getAllContents(); i.hasNext(); ) {
+			EObject next = i.next();
+			if (next instanceof CompoundDefinition) {
+				CompoundDefinition compoundDefinition = (CompoundDefinition) next;
+				if (compoundDefinition.getCardinality() instanceof QUESTIONMARK) {
+					for (Sequence sequence : compoundDefinition.getDefinitions().getOptions()) {
+						boolean containsKeyword = false;
+						boolean restOptional = true;
+						
+						for (Definition definition : sequence.getParts()) {
+							
+							if (definition instanceof CsString) {
+								containsKeyword = true;
+							}
+							else if (!(definition.getCardinality() instanceof QUESTIONMARK ||
+									definition.getCardinality() instanceof STAR)) {
+								restOptional = false;
+							}
+						}
+						if(containsKeyword && restOptional) {
+							for (Definition definition : sequence.getParts()) {
+								if (definition instanceof CsString) {
+									CsString csString = (CsString) definition;
+									addWarning(
+											OPTIONAL_KEYWORD_WARNING + csString.getValue(),
+											definition);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {
