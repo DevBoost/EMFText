@@ -473,7 +473,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 									.println(tab
 											+ (needsCompoundDecl ? HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> "
 													: "")
-											+ "printCountingMap1 = " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">(printCountingMap);");
+											+ "printCountingMap1 = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">(printCountingMap);");
 							if (!isMany)
 								needsCompoundDecl = false;
 							out
