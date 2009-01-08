@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.resource.ITextOCLValidator;
@@ -260,6 +261,14 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 	 */
 	public TextResourceImpl(URI uri) {
 		super(uri);	
+	}
+	
+	public void setURI(URI uri) {
+		//because of the context dependent proxy resolving it is 
+		//essential to resolve all proxies before the URI is changed
+		//which can cause loss of object identities
+		EcoreUtil.resolveAll(this);
+		super.setURI(uri);
 	}
 	
 	public ILocationMap getLocationMap() {
