@@ -19,8 +19,8 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResour
 		java.io.InputStream actualInputStream = inputStream;
 		Object inputStreamPreProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
 		if (inputStreamPreProcessorProvider != null) {
-			if (inputStreamPreProcessorProvider instanceof org.emftext.runtime.InputStreamProcessorProvider) {
-				actualInputStream = ((org.emftext.runtime.InputStreamProcessorProvider) inputStreamPreProcessorProvider).getInputStreamProcessor(inputStream);
+			if (inputStreamPreProcessorProvider instanceof org.emftext.runtime.IInputStreamProcessorProvider) {
+				actualInputStream = ((org.emftext.runtime.IInputStreamProcessorProvider) inputStreamPreProcessorProvider).getInputStreamProcessor(inputStream);
 			}
 		}
 		org.emftext.runtime.resource.ITextParser p = new CsParser(new org.antlr.runtime.CommonTokenStream(new CsLexer(new org.antlr.runtime.ANTLRInputStream(actualInputStream))));

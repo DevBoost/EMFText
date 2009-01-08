@@ -2,6 +2,6 @@ package org.emftext.runtime;
 
 import java.io.InputStream;
 
-public interface InputStreamProcessorProvider {
+public interface IInputStreamProcessorProvider {
 	public InputStreamProcessor getInputStreamProcessor(InputStream inputStream);
 }
