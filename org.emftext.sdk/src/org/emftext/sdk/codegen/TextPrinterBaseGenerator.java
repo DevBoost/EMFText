@@ -623,9 +623,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							if (feature.getUpperBound() != 1) {
 								out
 										.println(basetab
-												+ "\t" + LIST_ITERATOR_CLASS_NAME + " it  = ((" + LIST_CLASS_NAME +") element."
+												+ "\t" + LIST_ITERATOR_CLASS_NAME + "<?> it  = ((" + LIST_CLASS_NAME +"<?>) element."
 												+ generateAccessMethod(feature)
-												+ ").listIterator(((" + LIST_CLASS_NAME +")element."
+												+ ").listIterator(((" + LIST_CLASS_NAME +"<?>)element."
 												+ generateAccessMethod(feature)
 												+ ").size()-count);");
 								out.println(basetab + "\twhile(it.hasNext()){");
