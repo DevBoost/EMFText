@@ -174,27 +174,28 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	@Override
 	public boolean generate(PrintWriter out) {
 		List<Rule> rules = prepare();
+		
 		out.println("package " + super.getResourcePackageName() + ";");
-		out.println();
-		//generateImports(out, rules);
-
 		out.println();
 		out.println("public abstract class " + super.getResourceClassName()
 				+ " extends " + EMFTextPrinterImpl.class.getName() + " {");
 		out.println();
-		out
-				.println("\tprotected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
-						+ tokenResolverFactoryClassName + "();");
-		out.println("\tprotected " + IREFERENCE_RESOLVER_CLASS_NAME + " treeAnalyser = new "
-				+ treeAnalyserClassName + "();");
+		generateMembers(out);
 		out.println();
-		out.println("\tpublic " + super.getResourceClassName()
-				+ "(" + OUTPUT_STREAM_CLASS_NAME + " o, " + ITEXT_RESOURCE_CLASS_NAME + " resource) {\n");
-		out.println("\t\tsuper(o, resource);");
-		out.println("\t}");
+		generateConstructor(out);
 		out.println();
 		printMatchRule(out);
 		out.println();
+		generateDoPrintMethod(out, rules);
+		out.println();
+		for (Rule rule : rules) {
+			generatePrintRuleMethod(out, rule);
+		}
+		out.println("}");
+		return true;
+	}
+
+	private void generateDoPrintMethod(PrintWriter out, List<Rule> rules) {
 		out
 				.println("\tprotected void doPrint(" + EOBJECT_CLASS_NAME + " element, " + PRINTER_WRITER_CLASS_NAME + " out, " + STRING_CLASS_NAME + " globaltab) {");
 		out
@@ -219,15 +220,24 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		out
 				.println("\t\tresource.addWarning(\"The cs printer can not handle \" + element.eClass().getName() + \" elements\", element);");
 		out.println("\t}");
-		out.println();
-		for (Rule rule : rules) {
-			generateRule(out, rule);
-		}
-		out.println("}");
-		return true;
 	}
 
-	private void generateRule(PrintWriter out, Rule rule) {
+	private void generateConstructor(PrintWriter out) {
+		out.println("\tpublic " + super.getResourceClassName()
+				+ "(" + OUTPUT_STREAM_CLASS_NAME + " o, " + ITEXT_RESOURCE_CLASS_NAME + " resource) {");
+		out.println("\t\tsuper(o, resource);");
+		out.println("\t}");
+	}
+
+	private void generateMembers(PrintWriter out) {
+		out
+				.println("\tprotected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
+						+ tokenResolverFactoryClassName + "();");
+		out.println("\tprotected " + IREFERENCE_RESOLVER_CLASS_NAME + " treeAnalyser = new "
+				+ treeAnalyserClassName + "();");
+	}
+
+	private void generatePrintRuleMethod(PrintWriter out, Rule rule) {
 		
 		out.println("\tpublic void " + getMethodName(rule) + "("
 				+ getMetaClassName(rule)
