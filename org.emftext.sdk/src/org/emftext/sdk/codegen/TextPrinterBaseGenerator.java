@@ -100,18 +100,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		this.placeholder2TokenName = placeholder2TokenName;
 	}
 
-	private static void extractChoices(List<Rule> rules,
+	private void extractChoices(List<Rule> rules,
 			Map<Rule, Set<Choice>> ruleMap, Map<Choice, String> choiceMap,
 			Map<Sequence, Set<String>> necessaryMap,
 			Map<Sequence, Set<String>> reachableMap) {
 		for (Rule rule : rules) {
-			// TODO use fully qualified name for method name
-			String elementName = rule.getMetaclass().getEcoreClass().getName();
-			choiceMap.put(rule.getDefinition(), elementName);
+			choiceMap.put(rule.getDefinition(), getMethodName(rule));
 			Set<Choice> choices = new HashSet<Choice>();
 			ruleMap.put(rule, choices);
 			extractChoices(rule.getDefinition(), choices, choiceMap,
-					necessaryMap, reachableMap, null, elementName + "_", 0);
+					necessaryMap, reachableMap, null, getMethodName(rule) + "_", 0);
 		}
 	}
 
@@ -175,22 +173,29 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {
 		List<Rule> rules = prepare();
 		
-		out.println("package " + super.getResourcePackageName() + ";");
+		out.println("package " + getResourcePackageName() + ";");
 		out.println();
-		out.println("public abstract class " + super.getResourceClassName()
+		out.println("public abstract class " + getResourceClassName()
 				+ " extends " + EMFTextPrinterImpl.class.getName() + " {");
 		out.println();
+		
 		generateMembers(out);
 		out.println();
+		
 		generateConstructor(out);
 		out.println();
+		
 		printMatchRule(out);
 		out.println();
+		
 		generateDoPrintMethod(out, rules);
 		out.println();
+		
 		for (Rule rule : rules) {
 			generatePrintRuleMethod(out, rule);
+			out.println();
 		}
+		
 		out.println("}");
 		return true;
 	}
@@ -267,7 +272,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		out.println("\t}");
 		for (Choice choice : rule2SubChoice.get(rule)) {
 			out
-					.println("\tpublic void print"
+					.println("\tpublic void "
 							+ choice2Name.get(choice)
 							+ "("
 							+ getMetaClassName(rule)
@@ -283,10 +288,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private String getMethodName(Rule rule) {
-		// TODO use fully qualified name of rule meta class to generate method name
-		// to avoid name clashes
-		String className = rule.getMetaclass().getEcoreClass().getName();
-		return "print" +  className;
+		String className = rule.getMetaclass().getQualifiedInterfaceName();
+		// first escape underscore with their unicode value
+		className = className.replace("_", "_005f");
+		// then replace package separator with underscore
+		className = className.replace(".", "_");
+		return "print_" +  className;
 	}
 
 	private void generatePrintCollectedTokensCode(PrintWriter out, Rule rule) {
@@ -438,8 +445,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 					Cardinality cardinality = definition.getCardinality();
 					if (definition instanceof CompoundDefinition) {
 						CompoundDefinition compound = (CompoundDefinition) definition;
-						String printStatement = "print"
-								+ choice2Name.get(compound.getDefinitions())
+						String printStatement = 
+								choice2Name.get(compound.getDefinitions())
 								+ "(element,localtab,out,printCountingMap);";
 						// enter once
 						if (cardinality == null || cardinality instanceof PLUS) {
@@ -489,7 +496,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								needsCompoundDecl = false;
 							out
 									.println(tab
-											+ "print"
 											+ choice2Name.get(compound
 													.getDefinitions())
 											+ "(element,localtab,out1,printCountingMap1);");
