@@ -73,7 +73,7 @@ public class ContextDependentURIFragment {
 			list = (EList<EObject>) temp;
 		}
 		
-		boolean first = true;
+		boolean first = true; 
 		for(IReferenceMapping mapping : result.getMappings()) {
 			if (first) {
 				first = false;
@@ -101,16 +101,16 @@ public class ContextDependentURIFragment {
 			assert false;
 		}
 		try {
-			if (proxyPosition == list.size()) {
+			if (proxyPosition + 1 == list.size()) {
 				list.add(target);
 			} else {
 				//TODO jjohannes: if target is an external proxy and list is "unique" 
 				//     add() will try to resolve the external proxy to check for uniqueness.
 				//     That should be avoided somehow...
-				list.add(proxyPosition, target);
+				list.add(proxyPosition + 1, target);
 			}
-		} catch (IllegalArgumentException iae) {
-			iae.printStackTrace();
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 	}
 	
