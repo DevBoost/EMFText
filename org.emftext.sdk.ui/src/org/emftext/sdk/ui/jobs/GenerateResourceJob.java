@@ -70,7 +70,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 			final ITextResource csResource = getResource(csFile);
 
 			MarkerHelper.unmark(csResource);
-			if (containsProblems(csResource)) {
+			if (containsErrors(csResource)) {
 				MarkerHelper.mark(csResource);
 				return Status.OK_STATUS;
 			}

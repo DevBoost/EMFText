@@ -46,7 +46,15 @@ public abstract class AbstractConcreteSyntaxJob extends org.eclipse.core.runtime
 		return (ITextResource) csResource;
 	}
 
-	protected boolean containsProblems(Resource csResource) {
-		return !csResource.getErrors().isEmpty();
+	protected boolean containsErrors(Resource resource) {
+		return !resource.getErrors().isEmpty();
+	}
+	
+	protected boolean containsWarnings(Resource resource) {
+		return !resource.getWarnings().isEmpty();
+	}
+	
+	protected boolean containsProblems(Resource resource) {
+		return containsErrors(resource) || containsWarnings(resource);
 	}
 }
