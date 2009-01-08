@@ -127,6 +127,16 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t\t}\n");
         out.println("\t\t" + IConfigurable.class.getName() + " analyser = getTreeAnalyser();\n");
         out.println("\t\tanalyser.setOptions(loadOptions);");
+        // TODO mseifert add the following code:
+        /*
+		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
+		if (resourcePostProcessorProvider != null) {
+			if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
+				((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
+			}
+		}
+		*/
+
         out.println("\t}");
         out.println();
 	}
