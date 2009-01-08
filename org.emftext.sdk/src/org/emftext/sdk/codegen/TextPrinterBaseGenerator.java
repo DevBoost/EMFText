@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -55,13 +54,17 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private static final String STRING_CLASS_NAME = String.class.getName();
 	private static final String INTEGER_CLASS_NAME = Integer.class.getName();
 
+	private static final String COLLECTION_CLASS_NAME = Collection.class.getName();
 	private static final String LIST_CLASS_NAME = List.class.getName();
 	private static final String MAP_CLASS_NAME = Map.class.getName();
 	private static final String HASH_MAP_CLASS_NAME = HashMap.class.getName();
+	private static final String ARRAYS_CLASS_NAME = java.util.Arrays.class.getName();
+	private static final String LIST_ITERATOR_CLASS_NAME = ListIterator.class.getName();
 	
 	private static final String NULL_POINTER_CLASS_NAME = NullPointerException.class.getName();
 	
 	private static final String EOBJECT_CLASS_NAME = EObject.class.getName();
+	private static final String EREFERENCE_CLASS_NAME = EReference.class.getName();
 	
 	private static final String ITEXT_RESOURCE_CLASS_NAME = ITextResource.class.getName();
 	private static final String ITOKEN_RESOLVER_FACTORY_CLASS_NAME = ITokenResolverFactory.class.getName();
@@ -69,9 +72,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	
 	private static final String OUTPUT_STREAM_CLASS_NAME = OutputStream.class.getName();
 	private static final String PRINTER_WRITER_CLASS_NAME = PrintWriter.class.getName();
-	private static final String STRING_WRITE_CLASS_NAME = StringWriter.class.getName();
-	private static final String EREFERENCE_CLASS_NAME = EReference.class.getName();
-	private static final String LIST_ITERATOR_CLASS_NAME = ListIterator.class.getName();
+	private static final String STRING_WRITER_CLASS_NAME = StringWriter.class.getName();
 	
 	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
@@ -104,6 +105,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			Map<Sequence, Set<String>> necessaryMap,
 			Map<Sequence, Set<String>> reachableMap) {
 		for (Rule rule : rules) {
+			// TODO use fully qualified name for method name
 			String elementName = rule.getMetaclass().getEcoreClass().getName();
 			choiceMap.put(rule.getDefinition(), elementName);
 			Set<Choice> choices = new HashSet<Choice>();
@@ -174,16 +176,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		List<Rule> rules = prepare();
 		out.println("package " + super.getResourcePackageName() + ";");
 		out.println();
-		for (Rule rule : rules) {
-			GenPackage p = rule.getMetaclass().getGenPackage();
-			String classImport = (p.getBasePackage() == null ? "" : p
-					.getBasePackage()
-					+ ".")
-					+ p.getEcorePackage().getName()
-					+ "."
-					+ rule.getMetaclass().getName();
-			out.println("import " + classImport + ";");
-		}
+		//generateImports(out, rules);
 
 		out.println();
 		out.println("public abstract class " + super.getResourceClassName()
@@ -215,11 +208,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 					ruleQueue)) {
 				ruleQueue.add(rule);
 			} else {
-				String elementName = rule.getMetaclass().getEcoreClass()
-						.getName();
-				out.println("\t\tif(element instanceof " + elementName + "){");
-				out.println("\t\t\tprint" + elementName + "((" + elementName
-						+ ") element,globaltab,out);");
+				out.println("\t\tif(element instanceof " + getMetaClassName(rule) + "){");
+				out.println("\t\t\t" + getMethodName(rule) + "((" + getMetaClassName(rule)
+						+ ") element, globaltab, out);");
 				out.println("\t\t\treturn;");
 				out.println("\t\t}");
 			}
@@ -232,31 +223,30 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		for (Rule rule : rules) {
 			generateRule(out, rule);
 		}
-		out.println("\t\t}");
+		out.println("}");
 		return true;
 	}
 
 	private void generateRule(PrintWriter out, Rule rule) {
-		String elementClassName = rule.getMetaclass().getEcoreClass().getName();
-		out.println("\t\tpublic void print" + elementClassName + "("
-				+ elementClassName
+		
+		out.println("\tpublic void " + getMethodName(rule) + "("
+				+ getMetaClassName(rule)
 				+ " element, " + STRING_CLASS_NAME + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out){");
-		out.println("\t\t\tString localtab = outertab;");
+		out.println("\t\t" + STRING_CLASS_NAME+ " localtab = outertab;");
 		List<EStructuralFeature> featureList = rule.getMetaclass()
 				.getEcoreClass().getEAllStructuralFeatures();
 
-		out
-				.println("\t\t\t" + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">("
+		out.println("\t\t" + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">("
 						+ featureList.size() + ");");
 		if (featureList.size() > 0) {
-			out.println("\t\t\t" + OBJECT_CLASS_NAME + " temp;");
+			out.println("\t\t" + OBJECT_CLASS_NAME + " temp;");
 		}
 		for (EStructuralFeature feature : featureList) {
-			out.println("\t\t\ttemp = element." + generateAccessMethod(feature)
+			out.println("\t\ttemp = element." + generateAccessMethod(feature)
 					+ ";");
 			String featureSize = feature.getUpperBound() == -1 ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
 					: "1";
-			out.println("\t\t\tprintCountingMap.put(\"" + feature.getName()
+			out.println("\t\tprintCountingMap.put(\"" + feature.getName()
 					+ "\", temp == null ? 0 : " + featureSize + ");");
 		}
 		// TODO mseifert fix and enable printing for collected hidden tokens
@@ -264,18 +254,29 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		
 		printChoice(rule.getDefinition(), out, rule.getMetaclass()
 				.getEcoreClass());
-		out.println("\t\t}");
+		out.println("\t}");
 		for (Choice choice : rule2SubChoice.get(rule)) {
 			out
-					.println("\t\tpublic void print"
+					.println("\tpublic void print"
 							+ choice2Name.get(choice)
 							+ "("
-							+ elementClassName
+							+ getMetaClassName(rule)
 							+ " element, " + STRING_CLASS_NAME + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out, " + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap){");
-			out.println("\t\t\t" + STRING_CLASS_NAME + " localtab = outertab;");
+			out.println("\t\t" + STRING_CLASS_NAME + " localtab = outertab;");
 			printChoice(choice, out, rule.getMetaclass().getEcoreClass());
-			out.println("\t\t}");
+			out.println("\t}");
 		}
+	}
+
+	private String getMetaClassName(Rule rule) {
+		return rule.getMetaclass().getQualifiedInterfaceName();
+	}
+
+	private String getMethodName(Rule rule) {
+		// TODO use fully qualified name of rule meta class to generate method name
+		// to avoid name clashes
+		String className = rule.getMetaclass().getEcoreClass().getName();
+		return "print" +  className;
 	}
 
 	private void generatePrintCollectedTokensCode(PrintWriter out, Rule rule) {
@@ -286,14 +287,14 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		for (EStructuralFeature feature : featureList) {
 			if (isCollectInFeature(rule, feature)) {
 				// TODO use feature id constant instead
-				out.println("\t\t\t{");
+				out.println("\t\t{");
 				out.println("\t\t\t" + OBJECT_CLASS_NAME + " value = element.eGet(element.eClass().getEStructuralFeature(" + feature.getFeatureID() + "));");
 				out.println("\t\t\tif (value instanceof java.util.List) {");
 				out.println("\t\t\t\tfor (" + OBJECT_CLASS_NAME + " next : (" + LIST_CLASS_NAME + ") value) {");
 				out.println("\t\t\t\t\tout.print(next);");
 				out.println("\t\t\t\t}");
 				out.println("\t\t\t}");
-				out.println("\t\t\t}");
+				out.println("\t\t}");
 			}
 		}
 	}
@@ -315,48 +316,48 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private void printChoice(Choice choice, PrintWriter out, EClass metaClass) {
 		if (choice.getOptions().size() > 1) {
-			out.println("\t\t\tint count;");
-			out.println("\t\t\tint alt=-1;");
+			out.println("\t\tint count;");
+			out.println("\t\tint alt=-1;");
 			Iterator<Sequence> seqIt = choice.getOptions().iterator();
 			if (seqIt.hasNext()) {
 				Sequence firstSeq = seqIt.next();
 				int count = 0;
 				StringWriter switchString = new StringWriter();
 				PrintWriter out1 = new PrintWriter(switchString);
-				out1.println("\t\t\tswitch(alt){");
-				out.println("\t\t\talt=" + count++ + ";");
-				out.print("\t\t\tint matches=");
+				out1.println("\t\tswitch(alt){");
+				out.println("\t\talt=" + count++ + ";");
+				out.print("\t\tint matches=");
 				printMatchCall(firstSeq, out);
-				out.println("\t\t\tint tempMatchCount;");
+				out.println("\t\tint tempMatchCount;");
 				while (seqIt.hasNext()) {
 					Sequence seq = seqIt.next();
-					out.print("\t\t\ttempMatchCount=");
+					out.print("\t\ttempMatchCount=");
 					printMatchCall(seq, out);
-					out.println("\t\t\tif (tempMatchCount > matches) {");
-					out.println("\t\t\t\talt = " + count + ";");
-					out.println("\t\t\t\tmatches = tempMatchCount;");
-					out.println("\t\t\t}");
+					out.println("\t\tif (tempMatchCount > matches) {");
+					out.println("\t\t\talt = " + count + ";");
+					out.println("\t\t\tmatches = tempMatchCount;");
+					out.println("\t\t}");
 
-					out1.println("\t\t\t\tcase " + count + ":");
+					out1.println("\t\t\tcase " + count + ":");
 					// extra scope for case begin
-					out1.println("\t\t\t\t\t{");
-					printSequence(seq, out1, metaClass, "\t\t\t\t\t\t");
+					out1.println("\t\t\t\t{");
+					printSequence(seq, out1, metaClass, "\t\t\t\t\t");
 					// extra scope for case end
-					out1.println("\t\t\t\t\t}");
-					out1.println("\t\t\t\tbreak;");
+					out1.println("\t\t\t\t}");
+					out1.println("\t\t\tbreak;");
 					count++;
 				}
 
-				out1.println("\t\t\t\tdefault:");
-				printSequence(firstSeq, out1, metaClass, "\t\t\t\t\t");
-				out1.println("\t\t\t}");
+				out1.println("\t\t\tdefault:");
+				printSequence(firstSeq, out1, metaClass, "\t\t\t\t");
+				out1.println("\t\t}");
 				out1.flush();
 				out1.close();
 				out.print(switchString.toString());
 			}
 		} else if (choice.getOptions().size() == 1) {
-			out.println("\t\t\tint count;");
-			printSequence(choice.getOptions().get(0), out, metaClass, "\t\t\t");
+			out.println("\t\tint count;");
+			printSequence(choice.getOptions().get(0), out, metaClass, "\t\t");
 		}
 
 	}
@@ -463,9 +464,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							}
 							out
 									.println(tab
-											+ (needsCompoundDecl ? STRING_WRITE_CLASS_NAME + " "
+											+ (needsCompoundDecl ? STRING_WRITER_CLASS_NAME + " "
 													: "")
-											+ "sWriter = new " + STRING_WRITE_CLASS_NAME + "();");
+											+ "sWriter = new " + STRING_WRITER_CLASS_NAME + "();");
 							out.println(tab
 									+ (needsCompoundDecl ? PRINTER_WRITER_CLASS_NAME + " " : "")
 									+ "out1 = new " + PRINTER_WRITER_CLASS_NAME + "(sWriter);");
@@ -613,7 +614,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							if (feature.getUpperBound() != 1)
 								out
 										.println(basetab
-												+ "\to = ((" + LIST_CLASS_NAME +"<"+OBJECT_CLASS_NAME+">)o).get(((" + LIST_CLASS_NAME +"<"+OBJECT_CLASS_NAME+">)o).size()-count);");
+												+ "\to = ((" + LIST_CLASS_NAME +"<?>)o).get(((" + LIST_CLASS_NAME +"<?>)o).size() - count);");
 							out.println(basetab + "\t" + printStatement);
 							out.println(basetab + "\tprintCountingMap.put(\""
 									+ featureName + "\",count-1);");
@@ -630,7 +631,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 												+ ").size()-count);");
 								out.println(basetab + "\twhile(it.hasNext()){");
 								out.println(basetab
-										+ "\t\tObject o = it.next();");
+										+ "\t\t" + OBJECT_CLASS_NAME + " o = it.next();");
 								if (cardinality instanceof STAR
 										&& neededFeatures.contains(featureName)) {
 									out.println(basetab
@@ -666,7 +667,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			out.println("0;");
 			return;
 		}
-		out.print("matchCount(printCountingMap, java.util.Arrays.asList(");
+		out.print("matchCount(printCountingMap, " + ARRAYS_CLASS_NAME + ".asList(");
 		boolean notFirst = false;
 		for (String featureName : sequence2NecessaryFeatures.get(seq)) {
 			if (notFirst) {
@@ -682,21 +683,22 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private void printMatchRule(PrintWriter out) {
 		out
-				.println("\tprotected static int matchCount(java.util.Map<java.lang.String, java.lang.Integer> featureCounter, java.util.Collection<java.lang.String> needed){");
+				.println("\tprotected static int matchCount(" + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> featureCounter, " + COLLECTION_CLASS_NAME + "<" + STRING_CLASS_NAME+ "> needed){");
 		out.println("\t\tint pos = 0;");
 		out.println("\t\tint neg = 0;");
 		out.println();
-		out.println("\t\tfor(String featureName:featureCounter.keySet()){");
+		out.println("\t\tfor(" + STRING_CLASS_NAME + " featureName:featureCounter.keySet()){");
 		out.println("\t\t\tif(needed.contains(featureName)){");
 		out.println("\t\t\t\tint value = featureCounter.get(featureName);");
 
-		out.println("\t\t\t\tif(value==0)");
-		out.println("\t\t\t\t\tneg+=1;");
-		out.println("\t\t\t\telse");
-		out.println("\t\t\t\t\tpos+=1;");
+		out.println("\t\t\t\tif (value == 0) {");
+		out.println("\t\t\t\t\tneg += 1;");
+		out.println("\t\t\t\t} else {");
+		out.println("\t\t\t\t\tpos += 1;");
+		out.println("\t\t\t\t}");
 		out.println("\t\t\t}");
 		out.println("\t\t}");
-		out.println("\t\treturn neg>0?-neg:pos;");
+		out.println("\t\treturn neg > 0 ? -neg : pos;");
 		out.println("\t}");
 	}
 
@@ -712,7 +714,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private String getWhiteSpaceString(int count) {
 		return getRepeatingString(count, ' ');
 	}
-
 	
 	private String getRepeatingString(int count, char character) {
 		StringBuffer spaces = new StringBuffer();
