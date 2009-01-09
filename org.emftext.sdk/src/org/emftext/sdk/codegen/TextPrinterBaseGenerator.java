@@ -264,8 +264,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			out.println("\t\tprintCountingMap.put(\"" + feature.getName()
 					+ "\", temp == null ? 0 : " + featureSize + ");");
 		}
-		// TODO mseifert fix and enable printing for collected hidden tokens
-		//generatePrintCollectedTokensCode(out, rule);
+		generatePrintCollectedTokensCode(out, rule);
 		
 		printChoice(rule.getDefinition(), out, rule.getMetaclass()
 				.getEcoreClass());
