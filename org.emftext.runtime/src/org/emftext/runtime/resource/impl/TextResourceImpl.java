@@ -50,7 +50,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 	private Map<String, ContextDependentURIFragment> internalURIFragmentMap =
 		new HashMap<String, ContextDependentURIFragment>();
 	
-	private void convertContextDependenProxiest() {
+	private void convertContextDependentProxies() {
 		internalURIFragmentMap.clear();
 		int count = 0;
 		for(Iterator<EObject> contentIt = this.getAllContents(); contentIt.hasNext(); ) {
@@ -227,7 +227,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 		super.load(options);
 
 		if (wasLoaded) {
-			convertContextDependenProxiest();
+			convertContextDependentProxies();
 			
 			if (options != null
 					&& Boolean.TRUE.equals(options
