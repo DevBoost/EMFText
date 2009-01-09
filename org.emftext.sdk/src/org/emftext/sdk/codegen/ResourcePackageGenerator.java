@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen;
 import static org.emftext.sdk.codegen.ICodeGenOptions.GENERATE_PRINTER_STUB_ONLY;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_ANTLR_SPEC;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER_BASE;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVERS;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY;
@@ -224,12 +225,13 @@ public class ResourcePackageGenerator {
 		progress.setTaskName("generating printer...");
 		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY);
 		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_PRINTER);
+		boolean overridePrinterBase = OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_PRINTER_BASE);
 
 		boolean printerExists = printerFile.exists();
 		boolean printerBaseExists = printerBaseFile.exists();
 
     	boolean generatePrinter = !printerExists || overridePrinter;
-		boolean generatePrinterBase = !printerBaseExists || overridePrinter;
+		boolean generatePrinterBase = !printerBaseExists || overridePrinterBase;
 
 	    // always generate printer base
 		if (generatePrinterBase && !generatePrinterStubOnly) {

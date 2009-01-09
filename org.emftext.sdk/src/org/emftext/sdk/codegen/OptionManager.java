@@ -87,6 +87,9 @@ public class OptionManager {
 		if (optionName.equals(OVERRIDE_PRINTER)) {
 			return true;
 		}
+		if (optionName.equals(OVERRIDE_PRINTER_BASE)) {
+			return true;
+		}
 		if (optionName.equals(CS_OPTION_FORCE_EOF)) {
 			return true;
 		}

@@ -59,6 +59,8 @@ public interface ICodeGenOptions {
 	 * generation. The default value for this option is true.
 	 */
 	public static final String  OVERRIDE_PRINTER = "overridePrinter";
+	
+	public static final String  OVERRIDE_PRINTER_BASE = "overridePrinterBase";
 
 	/**
 	 * If this options is set to true, the Antlr-backtracking is activated for

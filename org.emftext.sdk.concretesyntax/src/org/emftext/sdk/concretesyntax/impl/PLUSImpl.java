@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.PLUS;
  */
 public class PLUSImpl extends CardinalityImpl implements PLUS {
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected PLUSImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.PLUS;
-  }
+		return ConcretesyntaxPackage.Literals.PLUS;
+	}
 
 } //PLUSImpl

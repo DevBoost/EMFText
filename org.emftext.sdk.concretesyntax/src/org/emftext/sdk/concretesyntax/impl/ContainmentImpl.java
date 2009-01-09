@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.Containment;
  */
 public class ContainmentImpl extends TerminalImpl implements Containment {
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected ContainmentImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.CONTAINMENT;
-  }
+		return ConcretesyntaxPackage.Literals.CONTAINMENT;
+	}
 
 } //ContainmentImpl

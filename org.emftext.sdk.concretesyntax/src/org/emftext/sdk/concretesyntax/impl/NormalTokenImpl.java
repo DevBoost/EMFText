@@ -6,7 +6,9 @@
  */
 package org.emftext.sdk.concretesyntax.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NormalToken;
 
@@ -22,22 +24,22 @@ import org.emftext.sdk.concretesyntax.NormalToken;
  */
 public class NormalTokenImpl extends NewDefinedTokenImpl implements NormalToken {
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected NormalTokenImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.NORMAL_TOKEN;
-  }
+		return ConcretesyntaxPackage.Literals.NORMAL_TOKEN;
+	}
 
 } //NormalTokenImpl
