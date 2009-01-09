@@ -223,14 +223,20 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
 		boolean wasLoaded = !isLoaded;
-		
-		super.load(options);
+		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
+		super.load(loadOptions);
 
 		if (wasLoaded) {
 			convertContextDependentProxies();
+			Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
+			if (resourcePostProcessorProvider != null) {
+				if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
+					((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
+				}
+			}
 			
-			if (options != null
-					&& Boolean.TRUE.equals(options
+			if (loadOptions != null
+					&& Boolean.TRUE.equals(loadOptions
 							.get(TextResourceImpl.OPTION_NO_VALIDATE))) {
 			} else {
 				EList<EObject> contents = getContents();

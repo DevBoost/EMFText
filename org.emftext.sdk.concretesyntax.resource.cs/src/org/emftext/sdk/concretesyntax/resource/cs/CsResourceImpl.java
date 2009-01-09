@@ -15,9 +15,8 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResour
 	}
 
 	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 		java.io.InputStream actualInputStream = inputStream;
-		Object inputStreamPreProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
+		Object inputStreamPreProcessorProvider = options.get(org.emftext.runtime.IOptions.INPUT_STREAM_PREPROCESSOR_PROVIDER);
 		if (inputStreamPreProcessorProvider != null) {
 			if (inputStreamPreProcessorProvider instanceof org.emftext.runtime.IInputStreamProcessorProvider) {
 				actualInputStream = ((org.emftext.runtime.IInputStreamProcessorProvider) inputStreamPreProcessorProvider).getInputStreamProcessor(inputStream);
@@ -25,7 +24,7 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResour
 		}
 		org.emftext.runtime.resource.ITextParser p = new CsParser(new org.antlr.runtime.CommonTokenStream(new CsLexer(new org.antlr.runtime.ANTLRInputStream(actualInputStream))));
 		p.setResource(this);
-		p.setOptions(loadOptions);
+		p.setOptions(options);
 		EObject root = p.parse();
 		while (root != null) {
 			getContents().add(root);
@@ -34,14 +33,7 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResour
 
 		org.emftext.runtime.resource.IConfigurable analyser = getTreeAnalyser();
 
-		analyser.setOptions(loadOptions);
-		
-		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
-		if (resourcePostProcessorProvider != null) {
-			if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
-				((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
-			}
-		}
+		analyser.setOptions(options);
 	}
 	
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {

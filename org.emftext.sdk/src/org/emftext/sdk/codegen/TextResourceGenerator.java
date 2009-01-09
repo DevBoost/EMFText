@@ -5,13 +5,12 @@ import java.io.PrintWriter;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.IOptions;
-import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.IInputStreamProcessorProvider;
+import org.emftext.runtime.IOptions;
 import org.emftext.runtime.resource.IConfigurable;
+import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
-import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.impl.TextResourceImpl;
 
 /**
@@ -23,8 +22,6 @@ import org.emftext.runtime.resource.impl.TextResourceImpl;
  */
 public class TextResourceGenerator extends BaseGenerator {
 
-	private static final String IRESOURCE_POSTPROCESSOR_PROVIDER_NAME = IResourcePostProcessorProvider.class.getName();
-	
 	private String csClassName;
 	private String analyserClassName;
 	private String printerClassName;
@@ -130,14 +127,6 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t\t}\n");
         out.println("\t\t" + IConfigurable.class.getName() + " analyser = getTreeAnalyser();\n");
         out.println("\t\tanalyser.setOptions(loadOptions);");
-
-        out.println("\t\t" + Object.class.getName() + " resourcePostProcessorProvider = loadOptions.get(" + IOptions.class.getName() + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
-		out.println("\t\tif (resourcePostProcessorProvider != null) {");
-		out.println("\t\t\tif (resourcePostProcessorProvider instanceof " + IRESOURCE_POSTPROCESSOR_PROVIDER_NAME + ") {");
-		out.println("\t\t\t\t((" + IRESOURCE_POSTPROCESSOR_PROVIDER_NAME + ") resourcePostProcessorProvider).getResourcePostProcessor().process(this);");
-		out.println("\t\t\t}");
-		out.println("\t\t}");
-
         out.println("\t}");
         out.println();
 	}
