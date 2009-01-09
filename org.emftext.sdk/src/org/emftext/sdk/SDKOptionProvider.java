@@ -94,7 +94,7 @@ public class SDKOptionProvider implements IOptionProvider {
 			final EObject next = iterator.next();
 			if (next instanceof Rule) {
 				final Rule rule = (Rule) next;
-				final List<Terminal> terminals = collectTerminals(rule);
+				final List<Terminal> terminals = collectAllTerminals(rule);
 				for (Terminal terminal : terminals) {
 					final GenFeature feature = terminal.getFeature();
 					if (canCauseReprintProblem(rule.getDefinition(), feature)) {
@@ -109,7 +109,9 @@ public class SDKOptionProvider implements IOptionProvider {
 
 	/**
 	 * A feature causes a reprint problem if it appears multiple times in the
-	 * definition of a rule and if the first appearances
+	 * definition of a rule and if a star or question mark appearance is followed
+	 * by another appearance.
+	 * 
 	 * Valid sequences of cardinalities are: 1-*, 1-1-*, 1-1-1-*.
 	 * Invalid sequences are cardinalities are: ?-*, *-*, *-?, *-1.
 	 * 
@@ -118,10 +120,21 @@ public class SDKOptionProvider implements IOptionProvider {
 	 * @return
 	 */
 	private boolean canCauseReprintProblem(Choice choice, GenFeature feature) {
-		return canCauseReprintProblem(choice, feature, false) > 1;
+		return countProblematicOccurrences(choice, feature, false) > 1;
 	}
 	
-	private int canCauseReprintProblem(Choice choice, GenFeature feature, boolean foundStarOrOptionalBefore) {
+	/**
+	 * Counts the problematic occurrences of the given feature in a depth first
+	 * manner. Occurrences are problematic if they either have a cardinality of 
+	 * star or question mark or if a star or question mark occurrence was found 
+	 * before (i.e., earlier in the traversal process).
+	 * 
+	 * @param choice
+	 * @param feature
+	 * @param foundStarOrOptionalBefore
+	 * @return
+	 */
+	private int countProblematicOccurrences(Choice choice, GenFeature feature, boolean foundStarOrOptionalBefore) {
 		int occurences = 0;
 		
 		List<Sequence> choices = choice.getOptions();
@@ -141,18 +154,19 @@ public class SDKOptionProvider implements IOptionProvider {
 				} else if (definition instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) definition;
 					Choice subChoice = compound.getDefinitions();
-					occurences += canCauseReprintProblem(subChoice, feature, occurences > 0);
+					// recursive method call
+					occurences += countProblematicOccurrences(subChoice, feature, occurences > 0);
 				}
 			}
 		}
 		return occurences;
 	}
 
-	private List<Terminal> collectTerminals(Rule rule) {
-		return collectTerminals(rule.getDefinition());
+	private List<Terminal> collectAllTerminals(Rule rule) {
+		return collectAllTerminals(rule.getDefinition());
 	}
 	
-	private List<Terminal> collectTerminals(Choice choice) {
+	private List<Terminal> collectAllTerminals(Choice choice) {
 		List<Terminal> result = new ArrayList<Terminal>();
 		List<Sequence> choices = choice.getOptions();
 		for (Sequence sequence : choices) {
@@ -164,7 +178,7 @@ public class SDKOptionProvider implements IOptionProvider {
 				} else if (definition instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) definition;
 					Choice subChoice = compound.getDefinitions();
-					result.addAll(collectTerminals(subChoice));
+					result.addAll(collectAllTerminals(subChoice));
 				}
 			}
 		}
