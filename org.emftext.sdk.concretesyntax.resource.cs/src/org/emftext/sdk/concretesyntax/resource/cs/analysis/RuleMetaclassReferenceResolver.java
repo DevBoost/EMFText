@@ -11,6 +11,8 @@ import org.emftext.sdk.concretesyntax.Rule;
 
 public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 	
+	private static final String DOT = ".";
+
 	private interface MetaClassFilter {
 		public String accept(Import importObject, GenClass genClass);
 	}
@@ -19,10 +21,10 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 	protected void doResolve(final String identifier, EObject container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 
-		final String[] packageAndClass = splitIdentifier(identifier);
 		if (resolveFuzzy) {
-			doResolveFuzzy(container, packageAndClass, result);
+			doResolveFuzzy(container, identifier, result);
 		} else {
+			final String[] packageAndClass = splitIdentifier(identifier);
 			doResolveStrict(container, packageAndClass, result);
 		}
 	}
@@ -46,15 +48,20 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 				}
 				return null;
 			}
-		}, packageAndClass, result);
+		}, mergeIdentifier(packageAndClass), result);
 	}
 	
 	private String[] splitIdentifier(String identifier) {
 		final String packageName;
 		final String className;
-		if (identifier.contains(".")) {
-			packageName = identifier.split("\\.")[0];
-			className = identifier.split("\\.")[1];
+		if (identifier.contains(DOT)) {
+			final String[] split = identifier.split("\\" + DOT);
+			packageName = split[0];
+			if (split.length > 1) {
+				className = split[1];
+			} else {
+				className = "";
+			}
 		} else {
 			packageName = null;
 			className = identifier;
@@ -68,11 +75,11 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 		if (packageName == null) {
 			return className;
 		} else {
-			return packageName + "." + className;
+			return packageName + DOT + className;
 		}
 	}
 
-	protected void doResolveMetaclass(EObject container, MetaClassFilter filter, String[] packageAndClass, IResolveResult result) {
+	protected void doResolveMetaclass(EObject container, MetaClassFilter filter, String ident, IResolveResult result) {
 		
 		if (!(container instanceof Rule)) {
 			return;
@@ -96,7 +103,7 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 				result.addMapping(identifier, genClass);
 			}
 		}
-		result.setErrorMessage("EClass \"" + mergeIdentifier(packageAndClass) + "\" does not exist");
+		result.setErrorMessage("EClass \"" + ident + "\" does not exist");
 	}
 
 	@Override
@@ -111,7 +118,7 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 			String prefix = "";
 			for (Import aImport : cs.getImports()) {
 				if(aImport.getPackage().getNSName().equals(genClass.getGenPackage().getNSName())){
-					prefix = aImport.getPrefix()+".";					
+					prefix = aImport.getPrefix() + DOT;					
 				}
 
 			}
@@ -120,25 +127,23 @@ public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
 
 	}
 
-	public void doResolveFuzzy(EObject container, final String[] packageAndClass, IResolveResult result) {
-
+	public void doResolveFuzzy(EObject container, final String identifier, IResolveResult result) {
 		doResolveMetaclass(container, new MetaClassFilter() {
 
 			public String accept(Import importObject, GenClass genClass) {
 				String genClassName = genClass.getName();
+				String name;
 				if (importObject != null) {
-					if (importObject.getPrefix().equals(packageAndClass[0])) {
-						if (genClassName.equals(packageAndClass[1])) {
-							return genClassName;
-						}
-					}
+					name = importObject.getPrefix() + DOT;
+					name += genClassName;
 				} else {
-					if (genClassName.startsWith(packageAndClass[1])) {
-						return genClassName;
-					}
+					name = genClassName;
+				}
+				if (name.startsWith(identifier)) {
+					return name;
 				}
 				return null;
 			}
-		}, packageAndClass, result);
+		}, identifier, result);
 	}
 }
