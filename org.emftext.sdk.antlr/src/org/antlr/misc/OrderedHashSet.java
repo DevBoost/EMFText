@@ -27,28 +27,28 @@
 */
 package org.antlr.misc;
 
-import org.antlr.tool.ErrorManager;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /** A HashMap that remembers the order that the elements were added.
  *  You can alter the ith element with set(i,value) too :)  Unique list.
  *  I need the replace/set-element-i functionality so I'm subclassing
  *  OrderedHashSet.
  */
-public class OrderedHashSet extends HashSet {
+public class OrderedHashSet<T> extends HashSet {
     /** Track the elements as they are added to the set */
-    protected List elements = new ArrayList();
+    protected List<T> elements = new ArrayList<T>();
 
-    public Object get(int i) {
+    public T get(int i) {
         return elements.get(i);
     }
 
     /** Replace an existing value with a new value; updates the element
      *  list and the hash table, but not the key as that has not changed.
      */
-    public Object set(int i, Object value) {
-        Object oldElement = elements.get(i);
+    public T set(int i, T value) {
+        T oldElement = elements.get(i);
         elements.set(i,value); // update list
         super.remove(oldElement); // now update the set: remove/add
         super.add(value);
@@ -62,7 +62,7 @@ public class OrderedHashSet extends HashSet {
     public boolean add(Object value) {
         boolean result = super.add(value);
 		if ( result ) {  // only track if new element not in set
-			elements.add(value);
+			elements.add((T)value);
 		}
 		return result;
     }
@@ -83,15 +83,17 @@ public class OrderedHashSet extends HashSet {
     /** Return the List holding list of table elements.  Note that you are
      *  NOT getting a copy so don't write to the list.
      */
-    public List elements() {
+    public List<T> elements() {
         return elements;
     }
 
     public int size() {
-        if ( elements.size()!=super.size() ) {
+		/*
+		if ( elements.size()!=super.size() ) {
 			ErrorManager.internalError("OrderedHashSet: elements and set size differs; "+
 									   elements.size()+"!="+super.size());
         }
+        */
         return elements.size();
     }
 

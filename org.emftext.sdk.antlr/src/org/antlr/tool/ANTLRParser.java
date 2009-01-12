@@ -2,7 +2,7 @@
 
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -77,23 +77,6 @@ public class ANTLRParser extends antlr.LLkParser       implements ANTLRTokenType
 	protected String currentRuleName = null;
 	protected GrammarAST currentBlockAST = null;
 
-	/* this next stuff supports construction of the Tokens artificial rule.
-	   I hate having some partial functionality here, I like doing everything
-	   in future tree passes, but the Tokens rule is sensitive to filter mode.
-	   And if it adds syn preds, future tree passes will need to process the
-	   fragments defined in Tokens; a cyclic dependency.
-	   As of 1-17-06 then, Tokens is created for lexer grammars in the
-	   antlr grammar parser itself.
-
-	   This grammar is also sensitive to the backtrack grammar option that
-	   tells ANTLR to automatically backtrack when it can't compute a DFA.
-
-	   7-2-06 I moved all option processing to antlr.g from define.g as I
-	   need backtrack option etc... for blocks.  Got messy.
-	*/
-	protected List lexerRuleNames = new ArrayList();
-	public List getLexerRuleNames() { return lexerRuleNames; }
-
 	protected GrammarAST setToBlockWithSet(GrammarAST b) {
 		GrammarAST alt = (GrammarAST)astFactory.make( (new ASTArray(3)).add((GrammarAST)astFactory.create(ALT,"ALT")).add(b).add((GrammarAST)astFactory.create(EOA,"<end-of-alt>")));
 		prefixWithSynPred(alt);
@@ -104,7 +87,6 @@ public class ANTLRParser extends antlr.LLkParser       implements ANTLRTokenType
 	 *  labels, tree operators, rewrites are removed.
 	 */
 	protected GrammarAST createBlockFromDupAlt(GrammarAST alt) {
-		//GrammarAST nalt = (GrammarAST)astFactory.dupTree(alt);
 		GrammarAST nalt = GrammarAST.dupTreeNoActions(alt, null);
 		GrammarAST blk = (GrammarAST)astFactory.make( (new ASTArray(3)).add((GrammarAST)astFactory.create(BLOCK,"BLOCK")).add(nalt).add((GrammarAST)astFactory.create(EOB,"<end-of-block>")));
 		return blk;
@@ -116,7 +98,7 @@ public class ANTLRParser extends antlr.LLkParser       implements ANTLRTokenType
 	 */
 	protected void prefixWithSynPred(GrammarAST alt) {
 		// if they want backtracking and it's not a lexer rule in combined grammar
-		String autoBacktrack = (String)currentBlockAST.getOption("backtrack");
+		String autoBacktrack = (String)grammar.getBlockOption(currentBlockAST, "backtrack");
 		if ( autoBacktrack==null ) {
 			autoBacktrack = (String)grammar.getOption("backtrack");
 		}
@@ -149,7 +131,6 @@ public class ANTLRParser extends antlr.LLkParser       implements ANTLRTokenType
 		// during code gen we convert to function call with templates
 		String synpredinvoke = predName;
 		GrammarAST p = (GrammarAST)astFactory.create(synpredTokenType,synpredinvoke);
-		p.setEnclosingRule(currentRuleName);
 		// track how many decisions have synpreds
 		grammar.blocksWithSynPreds.add(currentBlockAST);
 		return p;
@@ -196,7 +177,8 @@ public class ANTLRParser extends antlr.LLkParser       implements ANTLRTokenType
 			GrammarAST tokensRuleAST =
 			    grammar.addArtificialMatchTokensRule(
 			    	root,
-			    	lexerRuleNames,
+			    	grammar.lexerRuleNamesInCombined,
+                    grammar.getDelegateNames(),
 			    	filter!=null&&filter.equals("true"));
 		}
     }
@@ -209,7 +191,7 @@ protected ANTLRParser(TokenBuffer tokenBuf, int k) {
 }
 
 public ANTLRParser(TokenBuffer tokenBuf) {
-  this(tokenBuf,2);
+  this(tokenBuf,3);
 }
 
 protected ANTLRParser(TokenStream lexer, int k) {
@@ -220,11 +202,11 @@ protected ANTLRParser(TokenStream lexer, int k) {
 }
 
 public ANTLRParser(TokenStream lexer) {
-  this(lexer,2);
+  this(lexer,3);
 }
 
 public ANTLRParser(ParserSharedInputState state) {
-  super(state,2);
+  super(state,3);
   tokenNames = _tokenNames;
   buildTokenTypeASTClassMap();
   astFactory = new ASTFactory(getTokenTypeToASTClassMap());
@@ -241,6 +223,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST cmt_AST = null;
 		GrammarAST gr_AST = null;
 		GrammarAST gid_AST = null;
+		GrammarAST ig_AST = null;
 		GrammarAST ts_AST = null;
 		GrammarAST scopes_AST = null;
 		GrammarAST a_AST = null;
@@ -250,6 +233,23 @@ public ANTLRParser(ParserSharedInputState state) {
 			GrammarAST opt=null;
 			Token optionsStartToken = null;
 			Map opts;
+			// set to factory that sets enclosing rule
+			astFactory = new ASTFactory() {
+				{
+					setASTNodeClass(GrammarAST.class);
+					setASTNodeClass("org.antlr.tool.GrammarAST");
+				}
+				public AST create(Token token) {
+					AST t = super.create(token);
+					((GrammarAST)t).enclosingRuleName = currentRuleName;
+					return t;
+				}
+				public AST create(int i) {
+					AST t = super.create(i);
+					((GrammarAST)t).enclosingRuleName = currentRuleName;
+					return t;
+				}
+			};
 		
 		
 		try {      // for error handling
@@ -302,6 +302,7 @@ public ANTLRParser(ParserSharedInputState state) {
 			gr_AST = (GrammarAST)returnAST;
 			id();
 			gid_AST = (GrammarAST)returnAST;
+			grammar.setName(gid_AST.getText());
 			GrammarAST tmp2_AST = null;
 			tmp2_AST = (GrammarAST)astFactory.create(LT(1));
 			match(SEMI);
@@ -313,6 +314,34 @@ public ANTLRParser(ParserSharedInputState state) {
 				opts=optionsSpec();
 				grammar.setOptions(opts, optionsStartToken);
 				opt=(GrammarAST)returnAST;
+				break;
+			}
+			case TOKENS:
+			case SCOPE:
+			case IMPORT:
+			case FRAGMENT:
+			case DOC_COMMENT:
+			case AMPERSAND:
+			case TOKEN_REF:
+			case LITERAL_protected:
+			case LITERAL_public:
+			case LITERAL_private:
+			case RULE_REF:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			{
+			switch ( LA(1)) {
+			case IMPORT:
+			{
+				delegateGrammars();
+				ig_AST = (GrammarAST)returnAST;
 				break;
 			}
 			case TOKENS:
@@ -393,7 +422,7 @@ public ANTLRParser(ParserSharedInputState state) {
 			match(Token.EOF_TYPE);
 			grammar_AST = (GrammarAST)currentAST.root;
 			
-			grammar_AST = (GrammarAST)astFactory.make( (new ASTArray(2)).add(null).add((GrammarAST)astFactory.make( (new ASTArray(8)).add(gr_AST).add(gid_AST).add(cmt_AST).add(opt).add(ts_AST).add(scopes_AST).add(a_AST).add(r_AST))));
+			grammar_AST = (GrammarAST)astFactory.make( (new ASTArray(2)).add(null).add((GrammarAST)astFactory.make( (new ASTArray(9)).add(gr_AST).add(gid_AST).add(cmt_AST).add(opt).add(ig_AST).add(ts_AST).add(scopes_AST).add(a_AST).add(r_AST))));
 			cleanup(grammar_AST);
 			
 			currentAST.root = grammar_AST;
@@ -422,24 +451,24 @@ public ANTLRParser(ParserSharedInputState state) {
 			case LITERAL_lexer:
 			{
 				match(LITERAL_lexer);
-				gtype=LEXER_GRAMMAR;
+				gtype=LEXER_GRAMMAR; grammar.type = Grammar.LEXER;
 				break;
 			}
 			case PARSER:
 			{
 				match(PARSER);
-				gtype=PARSER_GRAMMAR;
+				gtype=PARSER_GRAMMAR; grammar.type = Grammar.PARSER;
 				break;
 			}
 			case LITERAL_tree:
 			{
 				match(LITERAL_tree);
-				gtype=TREE_GRAMMAR;
+				gtype=TREE_GRAMMAR; grammar.type = Grammar.TREE_PARSER;
 				break;
 			}
 			case LITERAL_grammar:
 			{
-				gtype=COMBINED_GRAMMAR;
+				gtype=COMBINED_GRAMMAR; grammar.type = Grammar.COMBINED;
 				break;
 			}
 			default:
@@ -518,8 +547,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			astFactory.makeASTRoot(currentAST, tmp9_AST);
 			match(OPTIONS);
 			{
-			int _cnt17=0;
-			_loop17:
+			int _cnt18=0;
+			_loop18:
 			do {
 				if ((LA(1)==TOKEN_REF||LA(1)==RULE_REF)) {
 					option(opts);
@@ -527,10 +556,10 @@ public ANTLRParser(ParserSharedInputState state) {
 					match(SEMI);
 				}
 				else {
-					if ( _cnt17>=1 ) { break _loop17; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt18>=1 ) { break _loop18; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt17++;
+				_cnt18++;
 			} while (true);
 			}
 			match(RCURLY);
@@ -544,6 +573,43 @@ public ANTLRParser(ParserSharedInputState state) {
 		return opts;
 	}
 	
+	public final void delegateGrammars() throws RecognitionException, TokenStreamException {
+		
+		returnAST = null;
+		ASTPair currentAST = new ASTPair();
+		GrammarAST delegateGrammars_AST = null;
+		
+		try {      // for error handling
+			GrammarAST tmp12_AST = null;
+			tmp12_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp12_AST);
+			match(IMPORT);
+			delegateGrammar();
+			astFactory.addASTChild(currentAST, returnAST);
+			{
+			_loop23:
+			do {
+				if ((LA(1)==COMMA)) {
+					match(COMMA);
+					delegateGrammar();
+					astFactory.addASTChild(currentAST, returnAST);
+				}
+				else {
+					break _loop23;
+				}
+				
+			} while (true);
+			}
+			match(SEMI);
+			delegateGrammars_AST = (GrammarAST)currentAST.root;
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_4);
+		}
+		returnAST = delegateGrammars_AST;
+	}
+	
 	public final void tokensSpec() throws RecognitionException, TokenStreamException {
 		
 		returnAST = null;
@@ -551,23 +617,23 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST tokensSpec_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp12_AST = null;
-			tmp12_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp12_AST);
+			GrammarAST tmp15_AST = null;
+			tmp15_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp15_AST);
 			match(TOKENS);
 			{
-			int _cnt22=0;
-			_loop22:
+			int _cnt27=0;
+			_loop27:
 			do {
 				if ((LA(1)==TOKEN_REF)) {
 					tokenSpec();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					if ( _cnt22>=1 ) { break _loop22; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt27>=1 ) { break _loop27; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt22++;
+				_cnt27++;
 			} while (true);
 			}
 			match(RCURLY);
@@ -575,7 +641,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_4);
+			recover(ex,_tokenSet_5);
 		}
 		returnAST = tokensSpec_AST;
 	}
@@ -588,14 +654,14 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			_loop28:
+			_loop33:
 			do {
 				if ((LA(1)==SCOPE)) {
 					attrScope();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					break _loop28;
+					break _loop33;
 				}
 				
 			} while (true);
@@ -604,7 +670,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_5);
+			recover(ex,_tokenSet_6);
 		}
 		returnAST = attrScopes_AST;
 	}
@@ -617,25 +683,25 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			int _cnt11=0;
-			_loop11:
+			int _cnt12=0;
+			_loop12:
 			do {
 				if ((LA(1)==AMPERSAND)) {
 					action();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					if ( _cnt11>=1 ) { break _loop11; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt12>=1 ) { break _loop12; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt11++;
+				_cnt12++;
 			} while (true);
 			}
 			actions_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_6);
+			recover(ex,_tokenSet_7);
 		}
 		returnAST = actions_AST;
 	}
@@ -648,18 +714,18 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			int _cnt32=0;
-			_loop32:
+			int _cnt37=0;
+			_loop37:
 			do {
-				if ((_tokenSet_6.member(LA(1)))) {
+				if ((_tokenSet_7.member(LA(1)))) {
 					rule();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					if ( _cnt32>=1 ) { break _loop32; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt37>=1 ) { break _loop37; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt32++;
+				_cnt37++;
 			} while (true);
 			}
 			rules_AST = (GrammarAST)currentAST.root;
@@ -679,12 +745,12 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST action_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp14_AST = null;
-			tmp14_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp14_AST);
+			GrammarAST tmp17_AST = null;
+			tmp17_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp17_AST);
 			match(AMPERSAND);
 			{
-			if ((_tokenSet_7.member(LA(1))) && (LA(2)==COLON)) {
+			if ((_tokenSet_8.member(LA(1))) && (LA(2)==COLON)) {
 				actionScopeName();
 				astFactory.addASTChild(currentAST, returnAST);
 				match(COLON);
@@ -699,15 +765,15 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			id();
 			astFactory.addASTChild(currentAST, returnAST);
-			GrammarAST tmp17_AST = null;
-			tmp17_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp17_AST);
+			GrammarAST tmp20_AST = null;
+			tmp20_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp20_AST);
 			match(ACTION);
 			action_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_5);
+			recover(ex,_tokenSet_6);
 		}
 		returnAST = action_AST;
 	}
@@ -763,7 +829,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_8);
+			recover(ex,_tokenSet_9);
 		}
 		returnAST = actionScopeName_AST;
 	}
@@ -784,9 +850,9 @@ public ANTLRParser(ParserSharedInputState state) {
 			id();
 			o_AST = (GrammarAST)returnAST;
 			astFactory.addASTChild(currentAST, returnAST);
-			GrammarAST tmp18_AST = null;
-			tmp18_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp18_AST);
+			GrammarAST tmp21_AST = null;
+			tmp21_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp21_AST);
 			match(ASSIGN);
 			value=optionValue();
 			astFactory.addASTChild(currentAST, returnAST);
@@ -797,7 +863,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_9);
+			recover(ex,_tokenSet_10);
 		}
 		returnAST = option_AST;
 	}
@@ -880,10 +946,53 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_9);
+			recover(ex,_tokenSet_10);
 		}
 		returnAST = optionValue_AST;
 		return value;
+	}
+	
+	public final void delegateGrammar() throws RecognitionException, TokenStreamException {
+		
+		returnAST = null;
+		ASTPair currentAST = new ASTPair();
+		GrammarAST delegateGrammar_AST = null;
+		GrammarAST lab_AST = null;
+		GrammarAST g_AST = null;
+		GrammarAST g2_AST = null;
+		
+		try {      // for error handling
+			if ((LA(1)==TOKEN_REF||LA(1)==RULE_REF) && (LA(2)==ASSIGN)) {
+				id();
+				lab_AST = (GrammarAST)returnAST;
+				astFactory.addASTChild(currentAST, returnAST);
+				GrammarAST tmp22_AST = null;
+				tmp22_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.makeASTRoot(currentAST, tmp22_AST);
+				match(ASSIGN);
+				id();
+				g_AST = (GrammarAST)returnAST;
+				astFactory.addASTChild(currentAST, returnAST);
+				grammar.importGrammar(g_AST, lab_AST.getText());
+				delegateGrammar_AST = (GrammarAST)currentAST.root;
+			}
+			else if ((LA(1)==TOKEN_REF||LA(1)==RULE_REF) && (LA(2)==SEMI||LA(2)==COMMA)) {
+				id();
+				g2_AST = (GrammarAST)returnAST;
+				astFactory.addASTChild(currentAST, returnAST);
+				grammar.importGrammar(g2_AST,null);
+				delegateGrammar_AST = (GrammarAST)currentAST.root;
+			}
+			else {
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_11);
+		}
+		returnAST = delegateGrammar_AST;
 	}
 	
 	public final void tokenSpec() throws RecognitionException, TokenStreamException {
@@ -893,33 +1002,33 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST tokenSpec_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp19_AST = null;
-			tmp19_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp19_AST);
+			GrammarAST tmp23_AST = null;
+			tmp23_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp23_AST);
 			match(TOKEN_REF);
 			{
 			switch ( LA(1)) {
 			case ASSIGN:
 			{
-				GrammarAST tmp20_AST = null;
-				tmp20_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.makeASTRoot(currentAST, tmp20_AST);
+				GrammarAST tmp24_AST = null;
+				tmp24_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.makeASTRoot(currentAST, tmp24_AST);
 				match(ASSIGN);
 				{
 				switch ( LA(1)) {
 				case STRING_LITERAL:
 				{
-					GrammarAST tmp21_AST = null;
-					tmp21_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.addASTChild(currentAST, tmp21_AST);
+					GrammarAST tmp25_AST = null;
+					tmp25_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.addASTChild(currentAST, tmp25_AST);
 					match(STRING_LITERAL);
 					break;
 				}
 				case CHAR_LITERAL:
 				{
-					GrammarAST tmp22_AST = null;
-					tmp22_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.addASTChild(currentAST, tmp22_AST);
+					GrammarAST tmp26_AST = null;
+					tmp26_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.addASTChild(currentAST, tmp26_AST);
 					match(CHAR_LITERAL);
 					break;
 				}
@@ -946,7 +1055,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_10);
+			recover(ex,_tokenSet_12);
 		}
 		returnAST = tokenSpec_AST;
 	}
@@ -958,21 +1067,21 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST attrScope_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp24_AST = null;
-			tmp24_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp24_AST);
+			GrammarAST tmp28_AST = null;
+			tmp28_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp28_AST);
 			match(SCOPE);
 			id();
 			astFactory.addASTChild(currentAST, returnAST);
-			GrammarAST tmp25_AST = null;
-			tmp25_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp25_AST);
+			GrammarAST tmp29_AST = null;
+			tmp29_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp29_AST);
 			match(ACTION);
 			attrScope_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_4);
+			recover(ex,_tokenSet_5);
 		}
 		returnAST = attrScope_AST;
 	}
@@ -1087,15 +1196,15 @@ public ANTLRParser(ParserSharedInputState state) {
 			ruleName_AST = (GrammarAST)returnAST;
 			currentRuleName=ruleName_AST.getText();
 			if ( gtype==LEXER_GRAMMAR && p4_AST==null ) {
-			lexerRuleNames.add(currentRuleName);
+			grammar.lexerRuleNamesInCombined.add(currentRuleName);
 				 }
 				
 			{
 			switch ( LA(1)) {
 			case BANG:
 			{
-				GrammarAST tmp26_AST = null;
-				tmp26_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp30_AST = null;
+				tmp30_AST = (GrammarAST)astFactory.create(LT(1));
 				match(BANG);
 				break;
 			}
@@ -1228,7 +1337,7 @@ public ANTLRParser(ParserSharedInputState state) {
 			match(COLON);
 			
 				blkRoot = (GrammarAST)astFactory.create(BLOCK,"BLOCK");
-				blkRoot.options = opts;
+				blkRoot.blockOptions = opts;
 				blkRoot.setLine(colon.getLine());
 				blkRoot.setColumn(colon.getColumn());
 				eob = (GrammarAST)astFactory.create(EOB,"<end-of-block>");
@@ -1271,14 +1380,13 @@ public ANTLRParser(ParserSharedInputState state) {
 				eob.setLine(semi.getLine());
 				eob.setColumn(semi.getColumn());
 			GrammarAST eor = (GrammarAST)astFactory.create(EOR,"<end-of-rule>");
-				eor.setEnclosingRule(ruleName_AST.getText());
 				eor.setLine(semi.getLine());
 				eor.setColumn(semi.getColumn());
 				GrammarAST root = (GrammarAST)astFactory.create(RULE,"rule");
 				root.ruleStartTokenIndex = start;
 				root.ruleStopTokenIndex = stop;
 				root.setLine(startLine);
-				root.options = opts;
+				root.blockOptions = opts;
 			rule_AST = (GrammarAST)astFactory.make( (new ASTArray(11)).add(root).add(ruleName_AST).add(modifier).add((GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(ARG,"ARG")).add(aa_AST))).add((GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(RET,"RET")).add(rt_AST))).add(opt).add(scopes_AST).add(a_AST).add(blk).add(ex_AST).add(eor));
 				currentRuleName=null;
 			
@@ -1289,7 +1397,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_11);
+			recover(ex,_tokenSet_13);
 		}
 		returnAST = rule_AST;
 	}
@@ -1301,25 +1409,25 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST throwsSpec_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp28_AST = null;
-			tmp28_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp28_AST);
+			GrammarAST tmp32_AST = null;
+			tmp32_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp32_AST);
 			match(LITERAL_throws);
 			id();
 			astFactory.addASTChild(currentAST, returnAST);
 			{
-			_loop49:
+			_loop54:
 			do {
 				if ((LA(1)==COMMA)) {
-					GrammarAST tmp29_AST = null;
-					tmp29_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.addASTChild(currentAST, tmp29_AST);
+					GrammarAST tmp33_AST = null;
+					tmp33_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.addASTChild(currentAST, tmp33_AST);
 					match(COMMA);
 					id();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					break _loop49;
+					break _loop54;
 				}
 				
 			} while (true);
@@ -1328,7 +1436,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_12);
+			recover(ex,_tokenSet_14);
 		}
 		returnAST = throwsSpec_AST;
 	}
@@ -1348,13 +1456,13 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			if ((LA(1)==SCOPE) && (LA(2)==ACTION)) {
+			if ((LA(1)==SCOPE) && (LA(2)==ACTION) && (LA(3)==SCOPE||LA(3)==AMPERSAND||LA(3)==COLON)) {
 				match(SCOPE);
 				a = LT(1);
 				a_AST = (GrammarAST)astFactory.create(a);
 				match(ACTION);
 			}
-			else if ((LA(1)==SCOPE||LA(1)==AMPERSAND||LA(1)==COLON) && (_tokenSet_13.member(LA(2)))) {
+			else if ((LA(1)==SCOPE||LA(1)==AMPERSAND||LA(1)==COLON) && (_tokenSet_15.member(LA(2))) && (_tokenSet_16.member(LA(3)))) {
 			}
 			else {
 				throw new NoViableAltException(LT(1), getFilename());
@@ -1362,7 +1470,7 @@ public ANTLRParser(ParserSharedInputState state) {
 			
 			}
 			{
-			_loop53:
+			_loop58:
 			do {
 				if ((LA(1)==SCOPE)) {
 					match(SCOPE);
@@ -1371,7 +1479,7 @@ public ANTLRParser(ParserSharedInputState state) {
 					match(SEMI);
 				}
 				else {
-					break _loop53;
+					break _loop58;
 				}
 				
 			} while (true);
@@ -1390,7 +1498,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_14);
+			recover(ex,_tokenSet_17);
 		}
 		returnAST = ruleScopeSpec_AST;
 	}
@@ -1403,25 +1511,25 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			{
-			int _cnt45=0;
-			_loop45:
+			int _cnt50=0;
+			_loop50:
 			do {
 				if ((LA(1)==AMPERSAND)) {
 					ruleAction();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					if ( _cnt45>=1 ) { break _loop45; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt50>=1 ) { break _loop50; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt45++;
+				_cnt50++;
 			} while (true);
 			}
 			ruleActions_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_8);
+			recover(ex,_tokenSet_9);
 		}
 		returnAST = ruleActions_AST;
 	}
@@ -1437,7 +1545,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST a2_AST = null;
 		
 			GrammarAST blkRoot = (GrammarAST)astFactory.create(BLOCK,"BLOCK");
-			blkRoot.options = opts;
+			blkRoot.blockOptions = opts;
 			blkRoot.setLine(LT(0).getLine()); // set to : or (
 			blkRoot.setColumn(LT(0).getColumn());
 			GrammarAST save = currentBlockAST;
@@ -1452,7 +1560,7 @@ public ANTLRParser(ParserSharedInputState state) {
 			astFactory.addASTChild(currentAST, returnAST);
 			if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred(a1_AST);
 			{
-			_loop62:
+			_loop67:
 			do {
 				if ((LA(1)==OR)) {
 					match(OR);
@@ -1464,7 +1572,7 @@ public ANTLRParser(ParserSharedInputState state) {
 					if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred(a2_AST);
 				}
 				else {
-					break _loop62;
+					break _loop67;
 				}
 				
 			} while (true);
@@ -1482,7 +1590,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_9);
+			recover(ex,_tokenSet_10);
 		}
 		returnAST = altList_AST;
 	}
@@ -1498,18 +1606,18 @@ public ANTLRParser(ParserSharedInputState state) {
 			case LITERAL_catch:
 			{
 				{
-				int _cnt68=0;
-				_loop68:
+				int _cnt73=0;
+				_loop73:
 				do {
 					if ((LA(1)==LITERAL_catch)) {
 						exceptionHandler();
 						astFactory.addASTChild(currentAST, returnAST);
 					}
 					else {
-						if ( _cnt68>=1 ) { break _loop68; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt73>=1 ) { break _loop73; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt68++;
+					_cnt73++;
 				} while (true);
 				}
 				{
@@ -1555,7 +1663,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_11);
+			recover(ex,_tokenSet_13);
 		}
 		returnAST = exceptionGroup_AST;
 	}
@@ -1568,21 +1676,21 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST ruleAction_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp34_AST = null;
-			tmp34_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp34_AST);
+			GrammarAST tmp38_AST = null;
+			tmp38_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp38_AST);
 			match(AMPERSAND);
 			id();
 			astFactory.addASTChild(currentAST, returnAST);
-			GrammarAST tmp35_AST = null;
-			tmp35_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp35_AST);
+			GrammarAST tmp39_AST = null;
+			tmp39_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp39_AST);
 			match(ACTION);
 			ruleAction_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_14);
+			recover(ex,_tokenSet_17);
 		}
 		returnAST = ruleAction_AST;
 	}
@@ -1594,26 +1702,27 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST idList_AST = null;
 		
 		try {      // for error handling
+			id();
+			astFactory.addASTChild(currentAST, returnAST);
 			{
-			int _cnt103=0;
-			_loop103:
+			_loop123:
 			do {
-				if ((LA(1)==TOKEN_REF||LA(1)==RULE_REF)) {
+				if ((LA(1)==COMMA)) {
+					match(COMMA);
 					id();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					if ( _cnt103>=1 ) { break _loop103; } else {throw new NoViableAltException(LT(1), getFilename());}
+					break _loop123;
 				}
 				
-				_cnt103++;
 			} while (true);
 			}
 			idList_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_9);
+			recover(ex,_tokenSet_10);
 		}
 		returnAST = idList_AST;
 	}
@@ -1684,14 +1793,14 @@ public ANTLRParser(ParserSharedInputState state) {
 				}
 				match(COLON);
 			}
-			else if ((LA(1)==ACTION) && (LA(2)==COLON)) {
-				GrammarAST tmp37_AST = null;
-				tmp37_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.addASTChild(currentAST, tmp37_AST);
+			else if ((LA(1)==ACTION) && (LA(2)==COLON) && (_tokenSet_18.member(LA(3)))) {
+				GrammarAST tmp42_AST = null;
+				tmp42_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp42_AST);
 				match(ACTION);
 				match(COLON);
 			}
-			else if ((_tokenSet_15.member(LA(1))) && (_tokenSet_16.member(LA(2)))) {
+			else if ((_tokenSet_18.member(LA(1))) && (_tokenSet_19.member(LA(2))) && (_tokenSet_20.member(LA(3)))) {
 			}
 			else {
 				throw new NoViableAltException(LT(1), getFilename());
@@ -1706,7 +1815,7 @@ public ANTLRParser(ParserSharedInputState state) {
 			astFactory.addASTChild(currentAST, returnAST);
 			if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred(a1_AST);
 			{
-			_loop59:
+			_loop64:
 			do {
 				if ((LA(1)==OR)) {
 					match(OR);
@@ -1718,7 +1827,7 @@ public ANTLRParser(ParserSharedInputState state) {
 					if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred(a2_AST);
 				}
 				else {
-					break _loop59;
+					break _loop64;
 				}
 				
 			} while (true);
@@ -1738,7 +1847,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_17);
+			recover(ex,_tokenSet_21);
 		}
 		returnAST = block_AST;
 	}
@@ -1758,31 +1867,32 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			switch ( LA(1)) {
+			case FORCED_ACTION:
 			case ACTION:
 			case STRING_LITERAL:
 			case CHAR_LITERAL:
 			case TOKEN_REF:
 			case LPAREN:
 			case SEMPRED:
+			case WILDCARD:
 			case RULE_REF:
 			case NOT:
 			case TREE_BEGIN:
-			case WILDCARD:
 			{
 				{
-				int _cnt65=0;
-				_loop65:
+				int _cnt70=0;
+				_loop70:
 				do {
-					if ((_tokenSet_18.member(LA(1)))) {
+					if ((_tokenSet_22.member(LA(1)))) {
 						element();
 						el_AST = (GrammarAST)returnAST;
 						astFactory.addASTChild(currentAST, returnAST);
 					}
 					else {
-						if ( _cnt65>=1 ) { break _loop65; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt70>=1 ) { break _loop70; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt65++;
+					_cnt70++;
 				} while (true);
 				}
 				alternative_AST = (GrammarAST)currentAST.root;
@@ -1829,7 +1939,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_19);
+			recover(ex,_tokenSet_23);
 		}
 		returnAST = alternative_AST;
 	}
@@ -1856,7 +1966,7 @@ public ANTLRParser(ParserSharedInputState state) {
 			case REWRITE:
 			{
 				{
-				_loop108:
+				_loop127:
 				do {
 					if ((LA(1)==REWRITE) && (LA(2)==SEMPRED)) {
 						rew = LT(1);
@@ -1868,13 +1978,9 @@ public ANTLRParser(ParserSharedInputState state) {
 						rewrite_alternative();
 						alt_AST = (GrammarAST)returnAST;
 						root.addChild( (GrammarAST)astFactory.make( (new ASTArray(3)).add(rew_AST).add(pred_AST).add(alt_AST)) );
-						
-						pred_AST.setEnclosingRule(currentRuleName);
-						rew_AST.setEnclosingRule(currentRuleName);
-						
 					}
 					else {
-						break _loop108;
+						break _loop127;
 					}
 					
 				} while (true);
@@ -1910,7 +2016,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_20);
+			recover(ex,_tokenSet_24);
 		}
 		returnAST = rewrite_AST;
 	}
@@ -1928,7 +2034,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_21);
+			recover(ex,_tokenSet_25);
 		}
 		returnAST = element_AST;
 	}
@@ -1940,23 +2046,23 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST exceptionHandler_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp40_AST = null;
-			tmp40_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp40_AST);
+			GrammarAST tmp45_AST = null;
+			tmp45_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp45_AST);
 			match(LITERAL_catch);
-			GrammarAST tmp41_AST = null;
-			tmp41_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp41_AST);
+			GrammarAST tmp46_AST = null;
+			tmp46_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp46_AST);
 			match(ARG_ACTION);
-			GrammarAST tmp42_AST = null;
-			tmp42_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp42_AST);
+			GrammarAST tmp47_AST = null;
+			tmp47_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp47_AST);
 			match(ACTION);
 			exceptionHandler_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_22);
+			recover(ex,_tokenSet_26);
 		}
 		returnAST = exceptionHandler_AST;
 	}
@@ -1968,19 +2074,19 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST finallyClause_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp43_AST = null;
-			tmp43_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp43_AST);
+			GrammarAST tmp48_AST = null;
+			tmp48_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp48_AST);
 			match(LITERAL_finally);
-			GrammarAST tmp44_AST = null;
-			tmp44_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp44_AST);
+			GrammarAST tmp49_AST = null;
+			tmp49_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp49_AST);
 			match(ACTION);
 			finallyClause_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_11);
+			recover(ex,_tokenSet_13);
 		}
 		returnAST = finallyClause_AST;
 	}
@@ -1999,21 +2105,28 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
+			{
 			switch ( LA(1)) {
 			case LPAREN:
 			{
 				ebnf();
 				astFactory.addASTChild(currentAST, returnAST);
-				elementNoOptionSpec_AST = (GrammarAST)currentAST.root;
+				break;
+			}
+			case FORCED_ACTION:
+			{
+				GrammarAST tmp50_AST = null;
+				tmp50_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp50_AST);
+				match(FORCED_ACTION);
 				break;
 			}
 			case ACTION:
 			{
-				GrammarAST tmp45_AST = null;
-				tmp45_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.addASTChild(currentAST, tmp45_AST);
+				GrammarAST tmp51_AST = null;
+				tmp51_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp51_AST);
 				match(ACTION);
-				elementNoOptionSpec_AST = (GrammarAST)currentAST.root;
 				break;
 			}
 			case SEMPRED:
@@ -2030,6 +2143,7 @@ public ANTLRParser(ParserSharedInputState state) {
 					p_AST.setType(GATED_SEMPRED);
 					break;
 				}
+				case FORCED_ACTION:
 				case ACTION:
 				case SEMI:
 				case STRING_LITERAL:
@@ -2039,10 +2153,10 @@ public ANTLRParser(ParserSharedInputState state) {
 				case OR:
 				case RPAREN:
 				case SEMPRED:
+				case WILDCARD:
 				case RULE_REF:
 				case NOT:
 				case TREE_BEGIN:
-				case WILDCARD:
 				case REWRITE:
 				{
 					break;
@@ -2054,10 +2168,8 @@ public ANTLRParser(ParserSharedInputState state) {
 				}
 				}
 				
-						p_AST.setEnclosingRule(currentRuleName);
-						grammar.blocksWithSemPreds.add(currentBlockAST);
-						
-				elementNoOptionSpec_AST = (GrammarAST)currentAST.root;
+							grammar.blocksWithSemPreds.add(currentBlockAST);
+							
 				break;
 			}
 			case TREE_BEGIN:
@@ -2065,7 +2177,6 @@ public ANTLRParser(ParserSharedInputState state) {
 				tree();
 				t3_AST = (GrammarAST)returnAST;
 				astFactory.addASTChild(currentAST, returnAST);
-				elementNoOptionSpec_AST = (GrammarAST)currentAST.root;
 				break;
 			}
 			default:
@@ -2076,17 +2187,17 @@ public ANTLRParser(ParserSharedInputState state) {
 					switch ( LA(1)) {
 					case ASSIGN:
 					{
-						GrammarAST tmp47_AST = null;
-						tmp47_AST = (GrammarAST)astFactory.create(LT(1));
-						astFactory.makeASTRoot(currentAST, tmp47_AST);
+						GrammarAST tmp53_AST = null;
+						tmp53_AST = (GrammarAST)astFactory.create(LT(1));
+						astFactory.makeASTRoot(currentAST, tmp53_AST);
 						match(ASSIGN);
 						break;
 					}
 					case PLUS_ASSIGN:
 					{
-						GrammarAST tmp48_AST = null;
-						tmp48_AST = (GrammarAST)astFactory.create(LT(1));
-						astFactory.makeASTRoot(currentAST, tmp48_AST);
+						GrammarAST tmp54_AST = null;
+						tmp54_AST = (GrammarAST)astFactory.create(LT(1));
+						astFactory.makeASTRoot(currentAST, tmp54_AST);
 						match(PLUS_ASSIGN);
 						break;
 					}
@@ -2101,9 +2212,9 @@ public ANTLRParser(ParserSharedInputState state) {
 					case STRING_LITERAL:
 					case CHAR_LITERAL:
 					case TOKEN_REF:
+					case WILDCARD:
 					case RULE_REF:
 					case NOT:
-					case WILDCARD:
 					{
 						atom();
 						astFactory.addASTChild(currentAST, returnAST);
@@ -2136,6 +2247,7 @@ public ANTLRParser(ParserSharedInputState state) {
 						currentAST.advanceChildToEnd();
 						break;
 					}
+					case FORCED_ACTION:
 					case ACTION:
 					case SEMI:
 					case STRING_LITERAL:
@@ -2145,10 +2257,10 @@ public ANTLRParser(ParserSharedInputState state) {
 					case OR:
 					case RPAREN:
 					case SEMPRED:
+					case WILDCARD:
 					case RULE_REF:
 					case NOT:
 					case TREE_BEGIN:
-					case WILDCARD:
 					case REWRITE:
 					{
 						break;
@@ -2159,9 +2271,8 @@ public ANTLRParser(ParserSharedInputState state) {
 					}
 					}
 					}
-					elementNoOptionSpec_AST = (GrammarAST)currentAST.root;
 				}
-				else if ((_tokenSet_23.member(LA(1))) && (_tokenSet_24.member(LA(2)))) {
+				else if ((_tokenSet_27.member(LA(1))) && (_tokenSet_28.member(LA(2)))) {
 					atom();
 					astFactory.addASTChild(currentAST, returnAST);
 					{
@@ -2179,6 +2290,7 @@ public ANTLRParser(ParserSharedInputState state) {
 						currentAST.advanceChildToEnd();
 						break;
 					}
+					case FORCED_ACTION:
 					case ACTION:
 					case SEMI:
 					case STRING_LITERAL:
@@ -2188,10 +2300,10 @@ public ANTLRParser(ParserSharedInputState state) {
 					case OR:
 					case RPAREN:
 					case SEMPRED:
+					case WILDCARD:
 					case RULE_REF:
 					case NOT:
 					case TREE_BEGIN:
-					case WILDCARD:
 					case REWRITE:
 					{
 						break;
@@ -2202,16 +2314,17 @@ public ANTLRParser(ParserSharedInputState state) {
 					}
 					}
 					}
-					elementNoOptionSpec_AST = (GrammarAST)currentAST.root;
 				}
 			else {
 				throw new NoViableAltException(LT(1), getFilename());
 			}
 			}
+			}
+			elementNoOptionSpec_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_21);
+			recover(ex,_tokenSet_25);
 		}
 		returnAST = elementNoOptionSpec_AST;
 	}
@@ -2221,33 +2334,32 @@ public ANTLRParser(ParserSharedInputState state) {
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
 		GrammarAST atom_AST = null;
-		Token  rr = null;
-		GrammarAST rr_AST = null;
+		Token  w = null;
+		GrammarAST w_AST = null;
 		
 		try {      // for error handling
-			switch ( LA(1)) {
-			case NOT:
-			{
-				notSet();
+			if ((LA(1)==CHAR_LITERAL) && (LA(2)==RANGE)) {
+				range();
 				astFactory.addASTChild(currentAST, returnAST);
 				{
 				switch ( LA(1)) {
 				case ROOT:
 				{
-					GrammarAST tmp49_AST = null;
-					tmp49_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp49_AST);
+					GrammarAST tmp55_AST = null;
+					tmp55_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp55_AST);
 					match(ROOT);
 					break;
 				}
 				case BANG:
 				{
-					GrammarAST tmp50_AST = null;
-					tmp50_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp50_AST);
+					GrammarAST tmp56_AST = null;
+					tmp56_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp56_AST);
 					match(BANG);
 					break;
 				}
+				case FORCED_ACTION:
 				case ACTION:
 				case SEMI:
 				case STRING_LITERAL:
@@ -2258,12 +2370,12 @@ public ANTLRParser(ParserSharedInputState state) {
 				case OR:
 				case RPAREN:
 				case SEMPRED:
+				case WILDCARD:
 				case RULE_REF:
 				case NOT:
 				case TREE_BEGIN:
 				case QUESTION:
 				case PLUS:
-				case WILDCARD:
 				case REWRITE:
 				{
 					break;
@@ -2275,139 +2387,32 @@ public ANTLRParser(ParserSharedInputState state) {
 				}
 				}
 				atom_AST = (GrammarAST)currentAST.root;
-				break;
 			}
-			case RULE_REF:
-			{
-				rr = LT(1);
-				rr_AST = (GrammarAST)astFactory.create(rr);
-				astFactory.makeASTRoot(currentAST, rr_AST);
-				match(RULE_REF);
+			else if ((_tokenSet_29.member(LA(1))) && (_tokenSet_30.member(LA(2)))) {
 				{
-				switch ( LA(1)) {
-				case ARG_ACTION:
-				{
-					GrammarAST tmp51_AST = null;
-					tmp51_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.addASTChild(currentAST, tmp51_AST);
-					match(ARG_ACTION);
-					break;
-				}
-				case ACTION:
-				case SEMI:
-				case STRING_LITERAL:
-				case CHAR_LITERAL:
-				case STAR:
-				case TOKEN_REF:
-				case BANG:
-				case LPAREN:
-				case OR:
-				case RPAREN:
-				case SEMPRED:
-				case ROOT:
-				case RULE_REF:
-				case NOT:
-				case TREE_BEGIN:
-				case QUESTION:
-				case PLUS:
-				case WILDCARD:
-				case REWRITE:
-				{
-					break;
-				}
-				default:
-				{
-					throw new NoViableAltException(LT(1), getFilename());
-				}
-				}
-				}
-				{
-				switch ( LA(1)) {
-				case ROOT:
-				{
-					GrammarAST tmp52_AST = null;
-					tmp52_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp52_AST);
-					match(ROOT);
-					break;
-				}
-				case BANG:
-				{
-					GrammarAST tmp53_AST = null;
-					tmp53_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp53_AST);
-					match(BANG);
-					break;
-				}
-				case ACTION:
-				case SEMI:
-				case STRING_LITERAL:
-				case CHAR_LITERAL:
-				case STAR:
-				case TOKEN_REF:
-				case LPAREN:
-				case OR:
-				case RPAREN:
-				case SEMPRED:
-				case RULE_REF:
-				case NOT:
-				case TREE_BEGIN:
-				case QUESTION:
-				case PLUS:
-				case WILDCARD:
-				case REWRITE:
-				{
-					break;
-				}
-				default:
-				{
-					throw new NoViableAltException(LT(1), getFilename());
-				}
-				}
-				}
-				atom_AST = (GrammarAST)currentAST.root;
-				break;
-			}
-			default:
-				if ((LA(1)==CHAR_LITERAL) && (LA(2)==RANGE)) {
-					range();
+				if (((LA(1)==TOKEN_REF||LA(1)==RULE_REF) && (LA(2)==WILDCARD) && (_tokenSet_29.member(LA(3))))&&(LT(1).getColumn()+LT(1).getText().length()==LT(2).getColumn()&&
+			 LT(2).getColumn()+1==LT(3).getColumn())) {
+					id();
 					astFactory.addASTChild(currentAST, returnAST);
+					w = LT(1);
+					w_AST = (GrammarAST)astFactory.create(w);
+					astFactory.makeASTRoot(currentAST, w_AST);
+					match(WILDCARD);
 					{
 					switch ( LA(1)) {
-					case ROOT:
-					{
-						GrammarAST tmp54_AST = null;
-						tmp54_AST = (GrammarAST)astFactory.create(LT(1));
-						astFactory.makeASTRoot(currentAST, tmp54_AST);
-						match(ROOT);
-						break;
-					}
-					case BANG:
-					{
-						GrammarAST tmp55_AST = null;
-						tmp55_AST = (GrammarAST)astFactory.create(LT(1));
-						astFactory.makeASTRoot(currentAST, tmp55_AST);
-						match(BANG);
-						break;
-					}
-					case ACTION:
-					case SEMI:
 					case STRING_LITERAL:
 					case CHAR_LITERAL:
-					case STAR:
 					case TOKEN_REF:
-					case LPAREN:
-					case OR:
-					case RPAREN:
-					case SEMPRED:
-					case RULE_REF:
-					case NOT:
-					case TREE_BEGIN:
-					case QUESTION:
-					case PLUS:
 					case WILDCARD:
-					case REWRITE:
 					{
+						terminal();
+						astFactory.addASTChild(currentAST, returnAST);
+						break;
+					}
+					case RULE_REF:
+					{
+						ruleref();
+						astFactory.addASTChild(currentAST, returnAST);
 						break;
 					}
 					default:
@@ -2416,21 +2421,81 @@ public ANTLRParser(ParserSharedInputState state) {
 					}
 					}
 					}
-					atom_AST = (GrammarAST)currentAST.root;
+					w_AST.setType(DOT);
 				}
-				else if ((_tokenSet_25.member(LA(1))) && (_tokenSet_26.member(LA(2)))) {
+				else if ((_tokenSet_31.member(LA(1))) && (_tokenSet_30.member(LA(2))) && (_tokenSet_20.member(LA(3)))) {
 					terminal();
 					astFactory.addASTChild(currentAST, returnAST);
-					atom_AST = (GrammarAST)currentAST.root;
 				}
+				else if ((LA(1)==RULE_REF) && (_tokenSet_32.member(LA(2))) && (_tokenSet_20.member(LA(3)))) {
+					ruleref();
+					astFactory.addASTChild(currentAST, returnAST);
+				}
+				else {
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				
+				}
+				atom_AST = (GrammarAST)currentAST.root;
+			}
+			else if ((LA(1)==NOT)) {
+				notSet();
+				astFactory.addASTChild(currentAST, returnAST);
+				{
+				switch ( LA(1)) {
+				case ROOT:
+				{
+					GrammarAST tmp57_AST = null;
+					tmp57_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp57_AST);
+					match(ROOT);
+					break;
+				}
+				case BANG:
+				{
+					GrammarAST tmp58_AST = null;
+					tmp58_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp58_AST);
+					match(BANG);
+					break;
+				}
+				case FORCED_ACTION:
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case SEMPRED:
+				case WILDCARD:
+				case RULE_REF:
+				case NOT:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
+				case REWRITE:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				atom_AST = (GrammarAST)currentAST.root;
+			}
 			else {
 				throw new NoViableAltException(LT(1), getFilename());
 			}
-			}
+			
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_27);
+			recover(ex,_tokenSet_33);
 		}
 		returnAST = atom_AST;
 	}
@@ -2452,24 +2517,24 @@ public ANTLRParser(ParserSharedInputState state) {
 			switch ( LA(1)) {
 			case QUESTION:
 			{
-				GrammarAST tmp56_AST = null;
-				tmp56_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp59_AST = null;
+				tmp59_AST = (GrammarAST)astFactory.create(LT(1));
 				match(QUESTION);
 				ebnfRoot = (GrammarAST)astFactory.create(OPTIONAL,"?");
 				break;
 			}
 			case STAR:
 			{
-				GrammarAST tmp57_AST = null;
-				tmp57_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp60_AST = null;
+				tmp60_AST = (GrammarAST)astFactory.create(LT(1));
 				match(STAR);
 				ebnfRoot = (GrammarAST)astFactory.create(CLOSURE,"*");
 				break;
 			}
 			case PLUS:
 			{
-				GrammarAST tmp58_AST = null;
-				tmp58_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp61_AST = null;
+				tmp61_AST = (GrammarAST)astFactory.create(LT(1));
 				match(PLUS);
 				ebnfRoot = (GrammarAST)astFactory.create(POSITIVE_CLOSURE,"+");
 				break;
@@ -2500,7 +2565,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_28);
+			recover(ex,_tokenSet_34);
 		}
 		returnAST = ebnfSuffix_AST;
 		return subrule;
@@ -2525,8 +2590,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			switch ( LA(1)) {
 			case QUESTION:
 			{
-				GrammarAST tmp59_AST = null;
-				tmp59_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp62_AST = null;
+				tmp62_AST = (GrammarAST)astFactory.create(LT(1));
 				match(QUESTION);
 				ebnf_AST = (GrammarAST)currentAST.root;
 				ebnf_AST=(GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(OPTIONAL,"?")).add(b_AST));
@@ -2538,8 +2603,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case STAR:
 			{
-				GrammarAST tmp60_AST = null;
-				tmp60_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp63_AST = null;
+				tmp63_AST = (GrammarAST)astFactory.create(LT(1));
 				match(STAR);
 				ebnf_AST = (GrammarAST)currentAST.root;
 				ebnf_AST=(GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(CLOSURE,"*")).add(b_AST));
@@ -2551,8 +2616,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case PLUS:
 			{
-				GrammarAST tmp61_AST = null;
-				tmp61_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp64_AST = null;
+				tmp64_AST = (GrammarAST)astFactory.create(LT(1));
 				match(PLUS);
 				ebnf_AST = (GrammarAST)currentAST.root;
 				ebnf_AST=(GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(POSITIVE_CLOSURE,"+")).add(b_AST));
@@ -2587,11 +2652,11 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case ROOT:
 			{
-				GrammarAST tmp63_AST = null;
-				tmp63_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp66_AST = null;
+				tmp66_AST = (GrammarAST)astFactory.create(LT(1));
 				match(ROOT);
 				ebnf_AST = (GrammarAST)currentAST.root;
-				ebnf_AST = (GrammarAST)astFactory.make( (new ASTArray(2)).add(tmp63_AST).add(b_AST));
+				ebnf_AST = (GrammarAST)astFactory.make( (new ASTArray(2)).add(tmp66_AST).add(b_AST));
 				currentAST.root = ebnf_AST;
 				currentAST.child = ebnf_AST!=null &&ebnf_AST.getFirstChild()!=null ?
 					ebnf_AST.getFirstChild() : ebnf_AST;
@@ -2600,17 +2665,18 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case BANG:
 			{
-				GrammarAST tmp64_AST = null;
-				tmp64_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp67_AST = null;
+				tmp67_AST = (GrammarAST)astFactory.create(LT(1));
 				match(BANG);
 				ebnf_AST = (GrammarAST)currentAST.root;
-				ebnf_AST = (GrammarAST)astFactory.make( (new ASTArray(2)).add(tmp64_AST).add(b_AST));
+				ebnf_AST = (GrammarAST)astFactory.make( (new ASTArray(2)).add(tmp67_AST).add(b_AST));
 				currentAST.root = ebnf_AST;
 				currentAST.child = ebnf_AST!=null &&ebnf_AST.getFirstChild()!=null ?
 					ebnf_AST.getFirstChild() : ebnf_AST;
 				currentAST.advanceChildToEnd();
 				break;
 			}
+			case FORCED_ACTION:
 			case ACTION:
 			case SEMI:
 			case STRING_LITERAL:
@@ -2620,10 +2686,10 @@ public ANTLRParser(ParserSharedInputState state) {
 			case OR:
 			case RPAREN:
 			case SEMPRED:
+			case WILDCARD:
 			case RULE_REF:
 			case NOT:
 			case TREE_BEGIN:
-			case WILDCARD:
 			case REWRITE:
 			{
 				ebnf_AST = (GrammarAST)currentAST.root;
@@ -2645,7 +2711,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_21);
+			recover(ex,_tokenSet_25);
 		}
 		returnAST = ebnf_AST;
 	}
@@ -2657,25 +2723,25 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST tree_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp65_AST = null;
-			tmp65_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp65_AST);
+			GrammarAST tmp68_AST = null;
+			tmp68_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp68_AST);
 			match(TREE_BEGIN);
 			element();
 			astFactory.addASTChild(currentAST, returnAST);
 			{
-			int _cnt88=0;
-			_loop88:
+			int _cnt97=0;
+			_loop97:
 			do {
-				if ((_tokenSet_18.member(LA(1)))) {
+				if ((_tokenSet_22.member(LA(1)))) {
 					element();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					if ( _cnt88>=1 ) { break _loop88; } else {throw new NoViableAltException(LT(1), getFilename());}
+					if ( _cnt97>=1 ) { break _loop97; } else {throw new NoViableAltException(LT(1), getFilename());}
 				}
 				
-				_cnt88++;
+				_cnt97++;
 			} while (true);
 			}
 			match(RPAREN);
@@ -2683,7 +2749,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_21);
+			recover(ex,_tokenSet_25);
 		}
 		returnAST = tree_AST;
 	}
@@ -2705,8 +2771,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			c1 = LT(1);
 			c1_AST = (GrammarAST)astFactory.create(c1);
 			match(CHAR_LITERAL);
-			GrammarAST tmp67_AST = null;
-			tmp67_AST = (GrammarAST)astFactory.create(LT(1));
+			GrammarAST tmp70_AST = null;
+			tmp70_AST = (GrammarAST)astFactory.create(LT(1));
 			match(RANGE);
 			c2 = LT(1);
 			c2_AST = (GrammarAST)astFactory.create(c2);
@@ -2726,7 +2792,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_29);
+			recover(ex,_tokenSet_35);
 		}
 		returnAST = range_AST;
 	}
@@ -2758,67 +2824,12 @@ public ANTLRParser(ParserSharedInputState state) {
 				match(CHAR_LITERAL);
 				{
 				switch ( LA(1)) {
-				case ROOT:
+				case OPEN_ELEMENT_OPTION:
 				{
-					GrammarAST tmp68_AST = null;
-					tmp68_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp68_AST);
-					match(ROOT);
+					elementOptions(cl_AST);
 					break;
 				}
-				case BANG:
-				{
-					GrammarAST tmp69_AST = null;
-					tmp69_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp69_AST);
-					match(BANG);
-					break;
-				}
-				case ACTION:
-				case SEMI:
-				case STRING_LITERAL:
-				case CHAR_LITERAL:
-				case STAR:
-				case TOKEN_REF:
-				case LPAREN:
-				case OR:
-				case RPAREN:
-				case SEMPRED:
-				case RULE_REF:
-				case NOT:
-				case TREE_BEGIN:
-				case QUESTION:
-				case PLUS:
-				case WILDCARD:
-				case REWRITE:
-				{
-					break;
-				}
-				default:
-				{
-					throw new NoViableAltException(LT(1), getFilename());
-				}
-				}
-				}
-				terminal_AST = (GrammarAST)currentAST.root;
-				break;
-			}
-			case TOKEN_REF:
-			{
-				tr = LT(1);
-				tr_AST = (GrammarAST)astFactory.create(tr);
-				astFactory.makeASTRoot(currentAST, tr_AST);
-				match(TOKEN_REF);
-				{
-				switch ( LA(1)) {
-				case ARG_ACTION:
-				{
-					GrammarAST tmp70_AST = null;
-					tmp70_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.addASTChild(currentAST, tmp70_AST);
-					match(ARG_ACTION);
-					break;
-				}
+				case FORCED_ACTION:
 				case ACTION:
 				case SEMI:
 				case STRING_LITERAL:
@@ -2831,12 +2842,12 @@ public ANTLRParser(ParserSharedInputState state) {
 				case RPAREN:
 				case SEMPRED:
 				case ROOT:
+				case WILDCARD:
 				case RULE_REF:
 				case NOT:
 				case TREE_BEGIN:
 				case QUESTION:
 				case PLUS:
-				case WILDCARD:
 				case REWRITE:
 				{
 					break;
@@ -2865,6 +2876,7 @@ public ANTLRParser(ParserSharedInputState state) {
 					match(BANG);
 					break;
 				}
+				case FORCED_ACTION:
 				case ACTION:
 				case SEMI:
 				case STRING_LITERAL:
@@ -2875,12 +2887,142 @@ public ANTLRParser(ParserSharedInputState state) {
 				case OR:
 				case RPAREN:
 				case SEMPRED:
+				case WILDCARD:
 				case RULE_REF:
 				case NOT:
 				case TREE_BEGIN:
 				case QUESTION:
 				case PLUS:
+				case REWRITE:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				terminal_AST = (GrammarAST)currentAST.root;
+				break;
+			}
+			case TOKEN_REF:
+			{
+				tr = LT(1);
+				tr_AST = (GrammarAST)astFactory.create(tr);
+				astFactory.makeASTRoot(currentAST, tr_AST);
+				match(TOKEN_REF);
+				{
+				switch ( LA(1)) {
+				case OPEN_ELEMENT_OPTION:
+				{
+					elementOptions(tr_AST);
+					break;
+				}
+				case FORCED_ACTION:
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case BANG:
+				case ARG_ACTION:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case SEMPRED:
+				case ROOT:
 				case WILDCARD:
+				case RULE_REF:
+				case NOT:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
+				case REWRITE:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				{
+				switch ( LA(1)) {
+				case ARG_ACTION:
+				{
+					GrammarAST tmp73_AST = null;
+					tmp73_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.addASTChild(currentAST, tmp73_AST);
+					match(ARG_ACTION);
+					break;
+				}
+				case FORCED_ACTION:
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case BANG:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case SEMPRED:
+				case ROOT:
+				case WILDCARD:
+				case RULE_REF:
+				case NOT:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
+				case REWRITE:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				{
+				switch ( LA(1)) {
+				case ROOT:
+				{
+					GrammarAST tmp74_AST = null;
+					tmp74_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp74_AST);
+					match(ROOT);
+					break;
+				}
+				case BANG:
+				{
+					GrammarAST tmp75_AST = null;
+					tmp75_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp75_AST);
+					match(BANG);
+					break;
+				}
+				case FORCED_ACTION:
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case SEMPRED:
+				case WILDCARD:
+				case RULE_REF:
+				case NOT:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
 				case REWRITE:
 				{
 					break;
@@ -2898,26 +3040,63 @@ public ANTLRParser(ParserSharedInputState state) {
 			{
 				sl = LT(1);
 				sl_AST = (GrammarAST)astFactory.create(sl);
-				astFactory.addASTChild(currentAST, sl_AST);
+				astFactory.makeASTRoot(currentAST, sl_AST);
 				match(STRING_LITERAL);
+				{
+				switch ( LA(1)) {
+				case OPEN_ELEMENT_OPTION:
+				{
+					elementOptions(sl_AST);
+					break;
+				}
+				case FORCED_ACTION:
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case BANG:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case SEMPRED:
+				case ROOT:
+				case WILDCARD:
+				case RULE_REF:
+				case NOT:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
+				case REWRITE:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
 				{
 				switch ( LA(1)) {
 				case ROOT:
 				{
-					GrammarAST tmp73_AST = null;
-					tmp73_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp73_AST);
+					GrammarAST tmp76_AST = null;
+					tmp76_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp76_AST);
 					match(ROOT);
 					break;
 				}
 				case BANG:
 				{
-					GrammarAST tmp74_AST = null;
-					tmp74_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp74_AST);
+					GrammarAST tmp77_AST = null;
+					tmp77_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp77_AST);
 					match(BANG);
 					break;
 				}
+				case FORCED_ACTION:
 				case ACTION:
 				case SEMI:
 				case STRING_LITERAL:
@@ -2928,12 +3107,12 @@ public ANTLRParser(ParserSharedInputState state) {
 				case OR:
 				case RPAREN:
 				case SEMPRED:
+				case WILDCARD:
 				case RULE_REF:
 				case NOT:
 				case TREE_BEGIN:
 				case QUESTION:
 				case PLUS:
-				case WILDCARD:
 				case REWRITE:
 				{
 					break;
@@ -2957,20 +3136,21 @@ public ANTLRParser(ParserSharedInputState state) {
 				switch ( LA(1)) {
 				case ROOT:
 				{
-					GrammarAST tmp75_AST = null;
-					tmp75_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp75_AST);
+					GrammarAST tmp78_AST = null;
+					tmp78_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp78_AST);
 					match(ROOT);
 					break;
 				}
 				case BANG:
 				{
-					GrammarAST tmp76_AST = null;
-					tmp76_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.makeASTRoot(currentAST, tmp76_AST);
+					GrammarAST tmp79_AST = null;
+					tmp79_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.makeASTRoot(currentAST, tmp79_AST);
 					match(BANG);
 					break;
 				}
+				case FORCED_ACTION:
 				case ACTION:
 				case SEMI:
 				case STRING_LITERAL:
@@ -2981,12 +3161,12 @@ public ANTLRParser(ParserSharedInputState state) {
 				case OR:
 				case RPAREN:
 				case SEMPRED:
+				case WILDCARD:
 				case RULE_REF:
 				case NOT:
 				case TREE_BEGIN:
 				case QUESTION:
 				case PLUS:
-				case WILDCARD:
 				case REWRITE:
 				{
 					break;
@@ -3008,9 +3188,115 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_27);
+			recover(ex,_tokenSet_33);
 		}
 		returnAST = terminal_AST;
+	}
+	
+	public final void ruleref() throws RecognitionException, TokenStreamException {
+		
+		returnAST = null;
+		ASTPair currentAST = new ASTPair();
+		GrammarAST ruleref_AST = null;
+		Token  rr = null;
+		GrammarAST rr_AST = null;
+		
+		try {      // for error handling
+			rr = LT(1);
+			rr_AST = (GrammarAST)astFactory.create(rr);
+			astFactory.makeASTRoot(currentAST, rr_AST);
+			match(RULE_REF);
+			{
+			switch ( LA(1)) {
+			case ARG_ACTION:
+			{
+				GrammarAST tmp80_AST = null;
+				tmp80_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp80_AST);
+				match(ARG_ACTION);
+				break;
+			}
+			case FORCED_ACTION:
+			case ACTION:
+			case SEMI:
+			case STRING_LITERAL:
+			case CHAR_LITERAL:
+			case STAR:
+			case TOKEN_REF:
+			case BANG:
+			case LPAREN:
+			case OR:
+			case RPAREN:
+			case SEMPRED:
+			case ROOT:
+			case WILDCARD:
+			case RULE_REF:
+			case NOT:
+			case TREE_BEGIN:
+			case QUESTION:
+			case PLUS:
+			case REWRITE:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			{
+			switch ( LA(1)) {
+			case ROOT:
+			{
+				GrammarAST tmp81_AST = null;
+				tmp81_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.makeASTRoot(currentAST, tmp81_AST);
+				match(ROOT);
+				break;
+			}
+			case BANG:
+			{
+				GrammarAST tmp82_AST = null;
+				tmp82_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.makeASTRoot(currentAST, tmp82_AST);
+				match(BANG);
+				break;
+			}
+			case FORCED_ACTION:
+			case ACTION:
+			case SEMI:
+			case STRING_LITERAL:
+			case CHAR_LITERAL:
+			case STAR:
+			case TOKEN_REF:
+			case LPAREN:
+			case OR:
+			case RPAREN:
+			case SEMPRED:
+			case WILDCARD:
+			case RULE_REF:
+			case NOT:
+			case TREE_BEGIN:
+			case QUESTION:
+			case PLUS:
+			case REWRITE:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			ruleref_AST = (GrammarAST)currentAST.root;
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_33);
+		}
+		returnAST = ruleref_AST;
 	}
 	
 	public final void notSet() throws RecognitionException, TokenStreamException {
@@ -3059,7 +3345,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_29);
+			recover(ex,_tokenSet_35);
 		}
 		returnAST = notSet_AST;
 	}
@@ -3096,9 +3382,9 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case STRING_LITERAL:
 			{
-				GrammarAST tmp77_AST = null;
-				tmp77_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.addASTChild(currentAST, tmp77_AST);
+				GrammarAST tmp83_AST = null;
+				tmp83_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp83_AST);
 				match(STRING_LITERAL);
 				notTerminal_AST = (GrammarAST)currentAST.root;
 				break;
@@ -3111,40 +3397,149 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_29);
+			recover(ex,_tokenSet_35);
 		}
 		returnAST = notTerminal_AST;
 	}
 	
-/** Match anything that looks like an ID and return tree as token type ID */
-	public final void idToken() throws RecognitionException, TokenStreamException {
+	public final void elementOptions(
+		GrammarAST terminalAST
+	) throws RecognitionException, TokenStreamException {
 		
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
-		GrammarAST idToken_AST = null;
+		GrammarAST elementOptions_AST = null;
 		
 		try {      // for error handling
+			if ((LA(1)==OPEN_ELEMENT_OPTION) && (LA(2)==TOKEN_REF||LA(2)==RULE_REF) && (LA(3)==WILDCARD||LA(3)==CLOSE_ELEMENT_OPTION)) {
+				GrammarAST tmp84_AST = null;
+				tmp84_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.makeASTRoot(currentAST, tmp84_AST);
+				match(OPEN_ELEMENT_OPTION);
+				defaultNodeOption(terminalAST);
+				astFactory.addASTChild(currentAST, returnAST);
+				match(CLOSE_ELEMENT_OPTION);
+				elementOptions_AST = (GrammarAST)currentAST.root;
+			}
+			else if ((LA(1)==OPEN_ELEMENT_OPTION) && (LA(2)==TOKEN_REF||LA(2)==RULE_REF) && (LA(3)==ASSIGN)) {
+				GrammarAST tmp86_AST = null;
+				tmp86_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.makeASTRoot(currentAST, tmp86_AST);
+				match(OPEN_ELEMENT_OPTION);
+				elementOption(terminalAST);
+				astFactory.addASTChild(currentAST, returnAST);
+				{
+				_loop112:
+				do {
+					if ((LA(1)==SEMI)) {
+						match(SEMI);
+						elementOption(terminalAST);
+						astFactory.addASTChild(currentAST, returnAST);
+					}
+					else {
+						break _loop112;
+					}
+					
+				} while (true);
+				}
+				match(CLOSE_ELEMENT_OPTION);
+				elementOptions_AST = (GrammarAST)currentAST.root;
+			}
+			else {
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_36);
+		}
+		returnAST = elementOptions_AST;
+	}
+	
+	public final void defaultNodeOption(
+		GrammarAST terminalAST
+	) throws RecognitionException, TokenStreamException {
+		
+		returnAST = null;
+		ASTPair currentAST = new ASTPair();
+		GrammarAST defaultNodeOption_AST = null;
+		GrammarAST i_AST = null;
+		GrammarAST i2_AST = null;
+		
+		StringBuffer buf = new StringBuffer();
+		
+		
+		try {      // for error handling
+			id();
+			i_AST = (GrammarAST)returnAST;
+			astFactory.addASTChild(currentAST, returnAST);
+			buf.append(i_AST.getText());
+			{
+			_loop115:
+			do {
+				if ((LA(1)==WILDCARD)) {
+					GrammarAST tmp89_AST = null;
+					tmp89_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.addASTChild(currentAST, tmp89_AST);
+					match(WILDCARD);
+					id();
+					i2_AST = (GrammarAST)returnAST;
+					astFactory.addASTChild(currentAST, returnAST);
+					buf.append("."+i2_AST.getText());
+				}
+				else {
+					break _loop115;
+				}
+				
+			} while (true);
+			}
+			terminalAST.setTerminalOption(grammar,Grammar.defaultTokenOption,buf.toString());
+			defaultNodeOption_AST = (GrammarAST)currentAST.root;
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			recover(ex,_tokenSet_37);
+		}
+		returnAST = defaultNodeOption_AST;
+	}
+	
+	public final void elementOption(
+		GrammarAST terminalAST
+	) throws RecognitionException, TokenStreamException {
+		
+		returnAST = null;
+		ASTPair currentAST = new ASTPair();
+		GrammarAST elementOption_AST = null;
+		GrammarAST a_AST = null;
+		GrammarAST b_AST = null;
+		Token  s = null;
+		GrammarAST s_AST = null;
+		
+		try {      // for error handling
+			id();
+			a_AST = (GrammarAST)returnAST;
+			astFactory.addASTChild(currentAST, returnAST);
+			GrammarAST tmp90_AST = null;
+			tmp90_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp90_AST);
+			match(ASSIGN);
+			{
 			switch ( LA(1)) {
 			case TOKEN_REF:
-			{
-				GrammarAST tmp78_AST = null;
-				tmp78_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.addASTChild(currentAST, tmp78_AST);
-				match(TOKEN_REF);
-				idToken_AST = (GrammarAST)currentAST.root;
-				idToken_AST.setType(ID);
-				idToken_AST = (GrammarAST)currentAST.root;
-				break;
-			}
 			case RULE_REF:
 			{
-				GrammarAST tmp79_AST = null;
-				tmp79_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.addASTChild(currentAST, tmp79_AST);
-				match(RULE_REF);
-				idToken_AST = (GrammarAST)currentAST.root;
-				idToken_AST.setType(ID);
-				idToken_AST = (GrammarAST)currentAST.root;
+				id();
+				b_AST = (GrammarAST)returnAST;
+				astFactory.addASTChild(currentAST, returnAST);
+				break;
+			}
+			case STRING_LITERAL:
+			{
+				s = LT(1);
+				s_AST = (GrammarAST)astFactory.create(s);
+				astFactory.addASTChild(currentAST, s_AST);
+				match(STRING_LITERAL);
 				break;
 			}
 			default:
@@ -3152,12 +3547,18 @@ public ANTLRParser(ParserSharedInputState state) {
 				throw new NoViableAltException(LT(1), getFilename());
 			}
 			}
+			}
+			
+					Object v = (b_AST!=null)?b_AST.getText():s_AST.getText();
+					terminalAST.setTerminalOption(grammar,a_AST.getText(),v);
+					
+			elementOption_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_0);
+			recover(ex,_tokenSet_38);
 		}
-		returnAST = idToken_AST;
+		returnAST = elementOption_AST;
 	}
 	
 	public final void rewrite_alternative() throws RecognitionException, TokenStreamException {
@@ -3173,25 +3574,25 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		
 		try {      // for error handling
-			if (((_tokenSet_30.member(LA(1))) && (_tokenSet_31.member(LA(2))))&&(grammar.buildTemplate())) {
+			if (((_tokenSet_39.member(LA(1))) && (_tokenSet_40.member(LA(2))) && (_tokenSet_41.member(LA(3))))&&(grammar.buildTemplate())) {
 				rewrite_template();
 				astFactory.addASTChild(currentAST, returnAST);
 				rewrite_alternative_AST = (GrammarAST)currentAST.root;
 			}
-			else if (((_tokenSet_32.member(LA(1))) && (_tokenSet_33.member(LA(2))))&&(grammar.buildAST())) {
+			else if (((_tokenSet_42.member(LA(1))) && (_tokenSet_43.member(LA(2))) && (_tokenSet_44.member(LA(3))))&&(grammar.buildAST())) {
 				{
-				int _cnt112=0;
-				_loop112:
+				int _cnt131=0;
+				_loop131:
 				do {
-					if ((_tokenSet_32.member(LA(1)))) {
+					if ((_tokenSet_42.member(LA(1)))) {
 						rewrite_element();
 						astFactory.addASTChild(currentAST, returnAST);
 					}
 					else {
-						if ( _cnt112>=1 ) { break _loop112; } else {throw new NoViableAltException(LT(1), getFilename());}
+						if ( _cnt131>=1 ) { break _loop131; } else {throw new NoViableAltException(LT(1), getFilename());}
 					}
 					
-					_cnt112++;
+					_cnt131++;
 				} while (true);
 				}
 				rewrite_alternative_AST = (GrammarAST)currentAST.root;
@@ -3209,13 +3610,20 @@ public ANTLRParser(ParserSharedInputState state) {
 				currentAST.advanceChildToEnd();
 				rewrite_alternative_AST = (GrammarAST)currentAST.root;
 			}
-			else if ((_tokenSet_19.member(LA(1)))) {
+			else if ((_tokenSet_23.member(LA(1)))) {
 				rewrite_alternative_AST = (GrammarAST)currentAST.root;
 				rewrite_alternative_AST = (GrammarAST)astFactory.make( (new ASTArray(3)).add(altRoot).add((GrammarAST)astFactory.create(EPSILON,"epsilon")).add(eoa));
 				currentAST.root = rewrite_alternative_AST;
 				currentAST.child = rewrite_alternative_AST!=null &&rewrite_alternative_AST.getFirstChild()!=null ?
 					rewrite_alternative_AST.getFirstChild() : rewrite_alternative_AST;
 				currentAST.advanceChildToEnd();
+				rewrite_alternative_AST = (GrammarAST)currentAST.root;
+			}
+			else if (((LA(1)==ETC))&&(grammar.buildAST())) {
+				GrammarAST tmp91_AST = null;
+				tmp91_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp91_AST);
+				match(ETC);
 				rewrite_alternative_AST = (GrammarAST)currentAST.root;
 			}
 			else {
@@ -3225,7 +3633,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_19);
+			recover(ex,_tokenSet_23);
 		}
 		returnAST = rewrite_alternative_AST;
 	}
@@ -3258,7 +3666,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_34);
+			recover(ex,_tokenSet_45);
 		}
 		returnAST = rewrite_block_AST;
 	}
@@ -3292,15 +3700,15 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case ACTION:
 			{
-				GrammarAST tmp81_AST = null;
-				tmp81_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.addASTChild(currentAST, tmp81_AST);
+				GrammarAST tmp93_AST = null;
+				tmp93_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp93_AST);
 				match(ACTION);
 				rewrite_template_AST = (GrammarAST)currentAST.root;
 				break;
 			}
 			default:
-				if (((LA(1)==TOKEN_REF||LA(1)==RULE_REF) && (LA(2)==LPAREN))&&(LT(1).getText().equals("template"))) {
+				if (((LA(1)==TOKEN_REF||LA(1)==RULE_REF) && (LA(2)==LPAREN) && (LA(3)==TOKEN_REF||LA(3)==RPAREN||LA(3)==RULE_REF))&&(LT(1).getText().equals("template"))) {
 					rewrite_template_head();
 					astFactory.addASTChild(currentAST, returnAST);
 					st=LT(1);
@@ -3326,7 +3734,7 @@ public ANTLRParser(ParserSharedInputState state) {
 					rewrite_template_AST.addChild((GrammarAST)astFactory.create(st));
 					rewrite_template_AST = (GrammarAST)currentAST.root;
 				}
-				else if ((LA(1)==TOKEN_REF||LA(1)==RULE_REF) && (LA(2)==LPAREN)) {
+				else if ((LA(1)==TOKEN_REF||LA(1)==RULE_REF) && (LA(2)==LPAREN) && (LA(3)==TOKEN_REF||LA(3)==RPAREN||LA(3)==RULE_REF)) {
 					rewrite_template_head();
 					astFactory.addASTChild(currentAST, returnAST);
 					rewrite_template_AST = (GrammarAST)currentAST.root;
@@ -3338,7 +3746,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_19);
+			recover(ex,_tokenSet_23);
 		}
 		returnAST = rewrite_template_AST;
 	}
@@ -3466,7 +3874,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_35);
+			recover(ex,_tokenSet_46);
 		}
 		returnAST = rewrite_element_AST;
 	}
@@ -3476,12 +3884,12 @@ public ANTLRParser(ParserSharedInputState state) {
 		returnAST = null;
 		ASTPair currentAST = new ASTPair();
 		GrammarAST rewrite_atom_AST = null;
-		Token  cl = null;
-		GrammarAST cl_AST = null;
 		Token  tr = null;
 		GrammarAST tr_AST = null;
 		Token  rr = null;
 		GrammarAST rr_AST = null;
+		Token  cl = null;
+		GrammarAST cl_AST = null;
 		Token  sl = null;
 		GrammarAST sl_AST = null;
 		Token  d = null;
@@ -3493,15 +3901,6 @@ public ANTLRParser(ParserSharedInputState state) {
 		
 		try {      // for error handling
 			switch ( LA(1)) {
-			case CHAR_LITERAL:
-			{
-				cl = LT(1);
-				cl_AST = (GrammarAST)astFactory.create(cl);
-				astFactory.addASTChild(currentAST, cl_AST);
-				match(CHAR_LITERAL);
-				rewrite_atom_AST = (GrammarAST)currentAST.root;
-				break;
-			}
 			case TOKEN_REF:
 			{
 				tr = LT(1);
@@ -3510,11 +3909,43 @@ public ANTLRParser(ParserSharedInputState state) {
 				match(TOKEN_REF);
 				{
 				switch ( LA(1)) {
+				case OPEN_ELEMENT_OPTION:
+				{
+					elementOptions(tr_AST);
+					break;
+				}
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case ARG_ACTION:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case RULE_REF:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
+				case REWRITE:
+				case DOLLAR:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				{
+				switch ( LA(1)) {
 				case ARG_ACTION:
 				{
-					GrammarAST tmp84_AST = null;
-					tmp84_AST = (GrammarAST)astFactory.create(LT(1));
-					astFactory.addASTChild(currentAST, tmp84_AST);
+					GrammarAST tmp96_AST = null;
+					tmp96_AST = (GrammarAST)astFactory.create(LT(1));
+					astFactory.addASTChild(currentAST, tmp96_AST);
 					match(ARG_ACTION);
 					break;
 				}
@@ -3554,12 +3985,83 @@ public ANTLRParser(ParserSharedInputState state) {
 				rewrite_atom_AST = (GrammarAST)currentAST.root;
 				break;
 			}
+			case CHAR_LITERAL:
+			{
+				cl = LT(1);
+				cl_AST = (GrammarAST)astFactory.create(cl);
+				astFactory.makeASTRoot(currentAST, cl_AST);
+				match(CHAR_LITERAL);
+				{
+				switch ( LA(1)) {
+				case OPEN_ELEMENT_OPTION:
+				{
+					elementOptions(cl_AST);
+					break;
+				}
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case RULE_REF:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
+				case REWRITE:
+				case DOLLAR:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				rewrite_atom_AST = (GrammarAST)currentAST.root;
+				break;
+			}
 			case STRING_LITERAL:
 			{
 				sl = LT(1);
 				sl_AST = (GrammarAST)astFactory.create(sl);
-				astFactory.addASTChild(currentAST, sl_AST);
+				astFactory.makeASTRoot(currentAST, sl_AST);
 				match(STRING_LITERAL);
+				{
+				switch ( LA(1)) {
+				case OPEN_ELEMENT_OPTION:
+				{
+					elementOptions(sl_AST);
+					break;
+				}
+				case ACTION:
+				case SEMI:
+				case STRING_LITERAL:
+				case CHAR_LITERAL:
+				case STAR:
+				case TOKEN_REF:
+				case LPAREN:
+				case OR:
+				case RPAREN:
+				case RULE_REF:
+				case TREE_BEGIN:
+				case QUESTION:
+				case PLUS:
+				case REWRITE:
+				case DOLLAR:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
 				rewrite_atom_AST = (GrammarAST)currentAST.root;
 				break;
 			}
@@ -3575,7 +4077,6 @@ public ANTLRParser(ParserSharedInputState state) {
 						rewrite_atom_AST = (GrammarAST)astFactory.create(LABEL,i_AST.getText());
 						rewrite_atom_AST.setLine(d_AST.getLine());
 						rewrite_atom_AST.setColumn(d_AST.getColumn());
-				rewrite_atom_AST.setEnclosingRule(currentRuleName);
 						
 				currentAST.root = rewrite_atom_AST;
 				currentAST.child = rewrite_atom_AST!=null &&rewrite_atom_AST.getFirstChild()!=null ?
@@ -3585,9 +4086,9 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case ACTION:
 			{
-				GrammarAST tmp85_AST = null;
-				tmp85_AST = (GrammarAST)astFactory.create(LT(1));
-				astFactory.addASTChild(currentAST, tmp85_AST);
+				GrammarAST tmp97_AST = null;
+				tmp97_AST = (GrammarAST)astFactory.create(LT(1));
+				astFactory.addASTChild(currentAST, tmp97_AST);
 				match(ACTION);
 				rewrite_atom_AST = (GrammarAST)currentAST.root;
 				break;
@@ -3600,7 +4101,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_36);
+			recover(ex,_tokenSet_47);
 		}
 		returnAST = rewrite_atom_AST;
 	}
@@ -3623,8 +4124,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			switch ( LA(1)) {
 			case QUESTION:
 			{
-				GrammarAST tmp86_AST = null;
-				tmp86_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp98_AST = null;
+				tmp98_AST = (GrammarAST)astFactory.create(LT(1));
 				match(QUESTION);
 				rewrite_ebnf_AST = (GrammarAST)currentAST.root;
 				rewrite_ebnf_AST=(GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(OPTIONAL,"?")).add(b_AST));
@@ -3636,8 +4137,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case STAR:
 			{
-				GrammarAST tmp87_AST = null;
-				tmp87_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp99_AST = null;
+				tmp99_AST = (GrammarAST)astFactory.create(LT(1));
 				match(STAR);
 				rewrite_ebnf_AST = (GrammarAST)currentAST.root;
 				rewrite_ebnf_AST=(GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(CLOSURE,"*")).add(b_AST));
@@ -3649,8 +4150,8 @@ public ANTLRParser(ParserSharedInputState state) {
 			}
 			case PLUS:
 			{
-				GrammarAST tmp88_AST = null;
-				tmp88_AST = (GrammarAST)astFactory.create(LT(1));
+				GrammarAST tmp100_AST = null;
+				tmp100_AST = (GrammarAST)astFactory.create(LT(1));
 				match(PLUS);
 				rewrite_ebnf_AST = (GrammarAST)currentAST.root;
 				rewrite_ebnf_AST=(GrammarAST)astFactory.make( (new ASTArray(2)).add((GrammarAST)astFactory.create(POSITIVE_CLOSURE,"+")).add(b_AST));
@@ -3671,7 +4172,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_35);
+			recover(ex,_tokenSet_46);
 		}
 		returnAST = rewrite_ebnf_AST;
 	}
@@ -3683,21 +4184,21 @@ public ANTLRParser(ParserSharedInputState state) {
 		GrammarAST rewrite_tree_AST = null;
 		
 		try {      // for error handling
-			GrammarAST tmp89_AST = null;
-			tmp89_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.makeASTRoot(currentAST, tmp89_AST);
+			GrammarAST tmp101_AST = null;
+			tmp101_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.makeASTRoot(currentAST, tmp101_AST);
 			match(TREE_BEGIN);
 			rewrite_atom();
 			astFactory.addASTChild(currentAST, returnAST);
 			{
-			_loop122:
+			_loop144:
 			do {
-				if ((_tokenSet_32.member(LA(1)))) {
+				if ((_tokenSet_42.member(LA(1)))) {
 					rewrite_element();
 					astFactory.addASTChild(currentAST, returnAST);
 				}
 				else {
-					break _loop122;
+					break _loop144;
 				}
 				
 			} while (true);
@@ -3707,7 +4208,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_36);
+			recover(ex,_tokenSet_47);
 		}
 		returnAST = rewrite_tree_AST;
 	}
@@ -3736,7 +4237,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_37);
+			recover(ex,_tokenSet_48);
 		}
 		returnAST = rewrite_template_head_AST;
 	}
@@ -3756,9 +4257,9 @@ public ANTLRParser(ParserSharedInputState state) {
 			astFactory.makeASTRoot(currentAST, lp_AST);
 			match(LPAREN);
 			lp_AST.setType(TEMPLATE); lp_AST.setText("TEMPLATE");
-			GrammarAST tmp92_AST = null;
-			tmp92_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp92_AST);
+			GrammarAST tmp104_AST = null;
+			tmp104_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp104_AST);
 			match(ACTION);
 			match(RPAREN);
 			match(LPAREN);
@@ -3769,7 +4270,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_19);
+			recover(ex,_tokenSet_23);
 		}
 		returnAST = rewrite_indirect_template_head_AST;
 	}
@@ -3788,7 +4289,7 @@ public ANTLRParser(ParserSharedInputState state) {
 				rewrite_template_arg();
 				astFactory.addASTChild(currentAST, returnAST);
 				{
-				_loop129:
+				_loop151:
 				do {
 					if ((LA(1)==COMMA)) {
 						match(COMMA);
@@ -3796,7 +4297,7 @@ public ANTLRParser(ParserSharedInputState state) {
 						astFactory.addASTChild(currentAST, returnAST);
 					}
 					else {
-						break _loop129;
+						break _loop151;
 					}
 					
 				} while (true);
@@ -3829,7 +4330,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_38);
+			recover(ex,_tokenSet_49);
 		}
 		returnAST = rewrite_template_args_AST;
 	}
@@ -3850,15 +4351,15 @@ public ANTLRParser(ParserSharedInputState state) {
 			astFactory.makeASTRoot(currentAST, a_AST);
 			match(ASSIGN);
 			a_AST.setType(ARG); a_AST.setText("ARG");
-			GrammarAST tmp97_AST = null;
-			tmp97_AST = (GrammarAST)astFactory.create(LT(1));
-			astFactory.addASTChild(currentAST, tmp97_AST);
+			GrammarAST tmp109_AST = null;
+			tmp109_AST = (GrammarAST)astFactory.create(LT(1));
+			astFactory.addASTChild(currentAST, tmp109_AST);
 			match(ACTION);
 			rewrite_template_arg_AST = (GrammarAST)currentAST.root;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
-			recover(ex,_tokenSet_39);
+			recover(ex,_tokenSet_50);
 		}
 		returnAST = rewrite_template_arg_AST;
 	}
@@ -3895,13 +4396,16 @@ public ANTLRParser(ParserSharedInputState state) {
 		"TREE_GRAMMAR",
 		"COMBINED_GRAMMAR",
 		"INITACTION",
+		"FORCED_ACTION",
 		"LABEL",
 		"TEMPLATE",
 		"\"scope\"",
+		"\"import\"",
 		"GATED_SEMPRED",
 		"SYN_SEMPRED",
 		"BACKTRACK_SEMPRED",
 		"\"fragment\"",
+		"DOT",
 		"ACTION",
 		"DOC_COMMENT",
 		"SEMI",
@@ -3916,6 +4420,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		"CHAR_LITERAL",
 		"INT",
 		"STAR",
+		"COMMA",
 		"TOKEN_REF",
 		"\"protected\"",
 		"\"public\"",
@@ -3924,7 +4429,6 @@ public ANTLRParser(ParserSharedInputState state) {
 		"ARG_ACTION",
 		"\"returns\"",
 		"\"throws\"",
-		"COMMA",
 		"LPAREN",
 		"OR",
 		"RPAREN",
@@ -3934,13 +4438,16 @@ public ANTLRParser(ParserSharedInputState state) {
 		"SEMPRED",
 		"IMPLIES",
 		"ROOT",
+		"WILDCARD",
 		"RULE_REF",
 		"NOT",
 		"TREE_BEGIN",
 		"QUESTION",
 		"PLUS",
-		"WILDCARD",
+		"OPEN_ELEMENT_OPTION",
+		"CLOSE_ELEMENT_OPTION",
 		"REWRITE",
+		"ETC",
 		"DOLLAR",
 		"DOUBLE_QUOTE_STRING_LITERAL",
 		"DOUBLE_ANGLE_STRING_LITERAL",
@@ -3948,8 +4455,7 @@ public ANTLRParser(ParserSharedInputState state) {
 		"COMMENT",
 		"SL_COMMENT",
 		"ML_COMMENT",
-		"OPEN_ELEMENT_OPTION",
-		"CLOSE_ELEMENT_OPTION",
+		"STRAY_BRACKET",
 		"ESC",
 		"DIGIT",
 		"XDIGIT",
@@ -3974,199 +4480,254 @@ public ANTLRParser(ParserSharedInputState state) {
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());
 	private static final long[] mk_tokenSet_1() {
-		long[] data = { 2251799813685248L, 32L, 0L, 0L};
+		long[] data = { 36028797018963968L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());
 	private static final long[] mk_tokenSet_2() {
-		long[] data = { 9191240600534384656L, 7074L, 0L, 0L};
+		long[] data = { -509253095465680880L, 375571L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());
 	private static final long[] mk_tokenSet_3() {
-		long[] data = { 33803733376696352L, 32L, 0L, 0L};
+		long[] data = { 540645561187958816L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());
 	private static final long[] mk_tokenSet_4() {
-		long[] data = { 33786141190651904L, 32L, 0L, 0L};
+		long[] data = { 540504806519734304L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());
 	private static final long[] mk_tokenSet_5() {
-		long[] data = { 33786136895684608L, 32L, 0L, 0L};
+		long[] data = { 540504806519734272L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());
 	private static final long[] mk_tokenSet_6() {
-		long[] data = { 33777340802662400L, 32L, 0L, 0L};
+		long[] data = { 540504797929799680L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());
 	private static final long[] mk_tokenSet_7() {
-		long[] data = { 2252899325313088L, 32L, 0L, 0L};
+		long[] data = { 540434429185622016L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());
 	private static final long[] mk_tokenSet_8() {
-		long[] data = { 17592186044416L, 0L};
+		long[] data = { 36037593111986240L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_8 = new BitSet(mk_tokenSet_8());
 	private static final long[] mk_tokenSet_9() {
-		long[] data = { 549755813888L, 0L};
+		long[] data = { 140737488355328L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_9 = new BitSet(mk_tokenSet_9());
 	private static final long[] mk_tokenSet_10() {
-		long[] data = { 2286984185774080L, 0L};
+		long[] data = { 4398046511104L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_10 = new BitSet(mk_tokenSet_10());
 	private static final long[] mk_tokenSet_11() {
-		long[] data = { 33777340802662402L, 32L, 0L, 0L};
+		long[] data = { 18018796555993088L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_11 = new BitSet(mk_tokenSet_11());
 	private static final long[] mk_tokenSet_12() {
-		long[] data = { 26392574033936L, 0L};
+		long[] data = { 36310271995674624L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_12 = new BitSet(mk_tokenSet_12());
 	private static final long[] mk_tokenSet_13() {
-		long[] data = { 3461439213294059520L, 3300L, 0L, 0L};
+		long[] data = { 540434429185622018L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_13 = new BitSet(mk_tokenSet_13());
 	private static final long[] mk_tokenSet_14() {
-		long[] data = { 26388279066624L, 0L};
+		long[] data = { 211114822467600L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_14 = new BitSet(mk_tokenSet_14());
 	private static final long[] mk_tokenSet_15() {
-		long[] data = { 8073124681965633536L, 3300L, 0L, 0L};
+		long[] data = { -9183960041483403264L, 69409L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_15 = new BitSet(mk_tokenSet_15());
 	private static final long[] mk_tokenSet_16() {
-		long[] data = { 8182434279708442640L, 8190L, 0L, 0L};
+		long[] data = { -6922376498456281070L, 491519L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_16 = new BitSet(mk_tokenSet_16());
 	private static final long[] mk_tokenSet_17() {
-		long[] data = { 8110279928647254016L, 4092L, 0L, 0L};
+		long[] data = { 211106232532992L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_17 = new BitSet(mk_tokenSet_17());
 	private static final long[] mk_tokenSet_18() {
-		long[] data = { 1155595654324551680L, 1252L, 0L, 0L};
+		long[] data = { -9183964439529914368L, 69411L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_18 = new BitSet(mk_tokenSet_18());
 	private static final long[] mk_tokenSet_19() {
-		long[] data = { 6917529577396895744L, 2048L, 0L, 0L};
+		long[] data = { -7444796529132421104L, 491507L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_19 = new BitSet(mk_tokenSet_19());
 	private static final long[] mk_tokenSet_20() {
-		long[] data = { 6917529577396895744L, 0L};
+		long[] data = { -6940390896965763054L, 491519L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_20 = new BitSet(mk_tokenSet_20());
 	private static final long[] mk_tokenSet_21() {
-		long[] data = { 8073125231721447424L, 3300L, 0L, 0L};
+		long[] data = { -8598492089925238784L, 81891L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_21 = new BitSet(mk_tokenSet_21());
 	private static final long[] mk_tokenSet_22() {
-		long[] data = { -9189594696052113406L, 33L, 0L, 0L};
+		long[] data = { -9183964439529914368L, 3872L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_22 = new BitSet(mk_tokenSet_22());
 	private static final long[] mk_tokenSet_23() {
-		long[] data = { 2674012278751232L, 1120L, 0L, 0L};
+		long[] data = { 4398046511104L, 65539L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_23 = new BitSet(mk_tokenSet_23());
 	private static final long[] mk_tokenSet_24() {
-		long[] data = { 8182337522685198336L, 4084L, 0L, 0L};
+		long[] data = { 4398046511104L, 3L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_24 = new BitSet(mk_tokenSet_24());
 	private static final long[] mk_tokenSet_25() {
-		long[] data = { 2674012278751232L, 1024L, 0L, 0L};
+		long[] data = { -9183960041483403264L, 69411L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_25 = new BitSet(mk_tokenSet_25());
 	private static final long[] mk_tokenSet_26() {
-		long[] data = { 8182337522685181952L, 4084L, 0L, 0L};
+		long[] data = { 540434429185622018L, 524L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_26 = new BitSet(mk_tokenSet_26());
 	private static final long[] mk_tokenSet_27() {
-		long[] data = { 8074251131628290048L, 4068L, 0L, 0L};
+		long[] data = { 39406496739491840L, 1792L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_27 = new BitSet(mk_tokenSet_27());
 	private static final long[] mk_tokenSet_28() {
-		long[] data = { 8073125231721447424L, 7396L, 0L, 0L};
+		long[] data = { -7445570585318375424L, 98211L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_28 = new BitSet(mk_tokenSet_28());
 	private static final long[] mk_tokenSet_29() {
-		long[] data = { 8110279928647254016L, 4084L, 0L, 0L};
+		long[] data = { 39406496739491840L, 768L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_29 = new BitSet(mk_tokenSet_29());
 	private static final long[] mk_tokenSet_30() {
-		long[] data = { 1155173441859485696L, 32L, 0L, 0L};
+		long[] data = { -7445570585318391808L, 98211L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_30 = new BitSet(mk_tokenSet_30());
 	private static final long[] mk_tokenSet_31() {
-		long[] data = { 8070451219442696192L, 2048L, 0L, 0L};
+		long[] data = { 39406496739491840L, 256L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_31 = new BitSet(mk_tokenSet_31());
 	private static final long[] mk_tokenSet_32() {
-		long[] data = { 1155595654324551680L, 4256L, 0L, 0L};
+		long[] data = { -7445570585318391808L, 81827L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_32 = new BitSet(mk_tokenSet_32());
 	private static final long[] mk_tokenSet_33() {
-		long[] data = { 8146308725666217984L, 7072L, 0L, 0L};
+		long[] data = { -9174952842228662272L, 81699L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_33 = new BitSet(mk_tokenSet_33());
 	private static final long[] mk_tokenSet_34() {
-		long[] data = { 1125899906842624L, 768L, 0L, 0L};
+		long[] data = { -9183960041483403264L, 331555L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_34 = new BitSet(mk_tokenSet_34());
 	private static final long[] mk_tokenSet_35() {
-		long[] data = { 8073125231721447424L, 6304L, 0L, 0L};
+		long[] data = { -8598492089925238784L, 81827L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_35 = new BitSet(mk_tokenSet_35());
 	private static final long[] mk_tokenSet_36() {
-		long[] data = { 8074251131628290048L, 7072L, 0L, 0L};
+		long[] data = { -7445570585318391808L, 343971L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_36 = new BitSet(mk_tokenSet_36());
 	private static final long[] mk_tokenSet_37() {
-		long[] data = { 6917529577396895744L, 26624L, 0L, 0L};
+		long[] data = { 0L, 32768L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_37 = new BitSet(mk_tokenSet_37());
 	private static final long[] mk_tokenSet_38() {
-		long[] data = { 4611686018427387904L, 0L};
+		long[] data = { 4398046511104L, 32768L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_38 = new BitSet(mk_tokenSet_38());
 	private static final long[] mk_tokenSet_39() {
-		long[] data = { 5188146770730811392L, 0L};
+		long[] data = { -9187342140324184064L, 512L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_39 = new BitSet(mk_tokenSet_39());
+	private static final long[] mk_tokenSet_40() {
+		long[] data = { -9223366539296636928L, 65539L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_40 = new BitSet(mk_tokenSet_40());
+	private static final long[] mk_tokenSet_41() {
+		long[] data = { -8094086457758580734L, 475119L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_41 = new BitSet(mk_tokenSet_41());
+	private static final long[] mk_tokenSet_42() {
+		long[] data = { -9183964440603656192L, 264704L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_42 = new BitSet(mk_tokenSet_42());
+	private static final long[] mk_tokenSet_43() {
+		long[] data = { -8022031338695557120L, 489987L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_43 = new BitSet(mk_tokenSet_43());
+	private static final long[] mk_tokenSet_44() {
+		long[] data = { -6941164953151733758L, 491503L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_44 = new BitSet(mk_tokenSet_44());
+	private static final long[] mk_tokenSet_45() {
+		long[] data = { 9007199254740992L, 12288L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_45 = new BitSet(mk_tokenSet_45());
+	private static final long[] mk_tokenSet_46() {
+		long[] data = { -9183960042557145088L, 330243L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_46 = new BitSet(mk_tokenSet_46());
+	private static final long[] mk_tokenSet_47() {
+		long[] data = { -9174952843302404096L, 342531L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_47 = new BitSet(mk_tokenSet_47());
+	private static final long[] mk_tokenSet_48() {
+		long[] data = { 4398046511104L, 1638403L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_48 = new BitSet(mk_tokenSet_48());
+	private static final long[] mk_tokenSet_49() {
+		long[] data = { 0L, 2L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_49 = new BitSet(mk_tokenSet_49());
+	private static final long[] mk_tokenSet_50() {
+		long[] data = { 18014398509481984L, 2L, 0L, 0L};
+		return data;
+	}
+	public static final BitSet _tokenSet_50 = new BitSet(mk_tokenSet_50());
 	
 	}

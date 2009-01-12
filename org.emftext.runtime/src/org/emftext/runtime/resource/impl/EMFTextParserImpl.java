@@ -21,6 +21,7 @@ import org.antlr.runtime.MismatchedTreeNodeException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
 import org.eclipse.emf.ecore.EClass;
@@ -135,7 +136,12 @@ public abstract class EMFTextParserImpl extends Parser implements ITextParser {
     	super(input);
     }
     
-    protected ITextResource resource;
+    
+    public EMFTextParserImpl(TokenStream input, RecognizerSharedState state) {
+		super(input, state);
+	}
+
+	protected ITextResource resource;
     
     public void setResource(ITextResource resource) {
         this.resource = resource;    	
@@ -353,15 +359,14 @@ public abstract class EMFTextParserImpl extends Parser implements ITextParser {
     }
 
 	@Override
-	public void recoverFromMismatchedToken(IntStream arg0,
-			RecognitionException arg1, int arg2, BitSet arg3)
-			throws RecognitionException {
+	public Object getMissingSymbol(IntStream arg0,
+			RecognitionException arg1, int arg2, BitSet arg3) {
 		mismatchedTokenRecoveryTries++;
 		// redirect error stream to suppress 'BR.recoverFromMismatchedToken' message
 		PrintStream originalErr = System.err;
 		try{
 			System.setErr(new PrintStream(new ByteArrayOutputStream()));
-			super.recoverFromMismatchedToken(arg0, arg1, arg2, arg3);			
+			return super.getMissingSymbol(arg0, arg1, arg2, arg3);			
 		}
 		finally{
 			System.setErr(originalErr);			

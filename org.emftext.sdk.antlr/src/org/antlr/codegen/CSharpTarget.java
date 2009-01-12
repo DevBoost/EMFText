@@ -42,5 +42,16 @@ public class CSharpTarget extends Target
 	{
 		return recognizerST;
 	}
+
+	public String encodeIntAsCharEscape(int v)
+	{
+		if (v <= 127)
+		{
+			String hex1 = Integer.toHexString(v | 0x10000).substring(3, 5);
+			return "\\x" + hex1;
+		}
+		String hex = Integer.toHexString(v | 0x10000).substring(1, 5);
+		return "\\u" + hex;
+	}
 }
 

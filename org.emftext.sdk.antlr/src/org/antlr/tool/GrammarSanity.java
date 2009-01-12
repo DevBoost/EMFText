@@ -1,3 +1,30 @@
+/*
+ [The "BSD licence"]
+ Copyright (c) 2005-2008 Terence Parr
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 package org.antlr.tool;
 
 import org.antlr.analysis.NFAState;
@@ -11,6 +38,11 @@ import java.util.Set;
 
 /** Factor out routines that check sanity of rules, alts, grammars, etc.. */
 public class GrammarSanity {
+	/** The checkForLeftRecursion method needs to track what rules it has
+	 *  visited to track infinite recursion.
+	 */
+	protected Set<Rule> visitedDuringRecursionCheck = null;
+
 	protected Grammar grammar;
 	public GrammarSanity(Grammar grammar) {
 		this.grammar = grammar;
@@ -20,21 +52,20 @@ public class GrammarSanity {
 	 *  of troublesome rule cycles.  This method has two side-effects: it notifies
 	 *  the error manager that we have problems and it sets the list of
 	 *  recursive rules that we should ignore during analysis.
-	 *
-	 *  Return type: List<Set<String(rule-name)>>.
 	 */
-	public List checkAllRulesForLeftRecursion() {
-		grammar.createNFAs(); // make sure we have NFAs
+	public List<Set<Rule>> checkAllRulesForLeftRecursion() {
+		grammar.buildNFA(); // make sure we have NFAs
 		grammar.leftRecursiveRules = new HashSet();
-		List listOfRecursiveCycles = new ArrayList(); // List<Set<String(rule-name)>>
-		for (int i = 0; i < grammar.ruleIndexToRuleList.size(); i++) {
-			String ruleName = (String)grammar.ruleIndexToRuleList.elementAt(i);
-			if ( ruleName!=null ) {
-				NFAState s = grammar.getRuleStartState(ruleName);
-				grammar.visitedDuringRecursionCheck = new HashSet();
-				grammar.visitedDuringRecursionCheck.add(ruleName);
+		List<Set<Rule>> listOfRecursiveCycles = new ArrayList();
+		for (int i = 0; i < grammar.composite.ruleIndexToRuleList.size(); i++) {
+			Rule r = grammar.composite.ruleIndexToRuleList.elementAt(i);
+			if ( r!=null ) {
+				visitedDuringRecursionCheck = new HashSet();
+				visitedDuringRecursionCheck.add(r);
 				Set visitedStates = new HashSet();
-				traceStatesLookingForLeftRecursion(s, visitedStates, listOfRecursiveCycles);
+				traceStatesLookingForLeftRecursion(r.startState,
+												   visitedStates,
+												   listOfRecursiveCycles);
 			}
 		}
 		if ( listOfRecursiveCycles.size()>0 ) {
@@ -55,7 +86,7 @@ public class GrammarSanity {
 	 */
 	protected boolean traceStatesLookingForLeftRecursion(NFAState s,
 														 Set visitedStates,
-														 List listOfRecursiveCycles)
+														 List<Set<Rule>> listOfRecursiveCycles)
 	{
 		if ( s.isAcceptState() ) {
 			// this rule must be nullable!
@@ -68,33 +99,35 @@ public class GrammarSanity {
 		}
 		visitedStates.add(s);
 		boolean stateReachesAcceptState = false;
-		Transition t0 = s.transition(0);
+		Transition t0 = s.transition[0];
 		if ( t0 instanceof RuleClosureTransition ) {
-			String targetRuleName = ((NFAState)t0.target).getEnclosingRule();
-			if ( grammar.visitedDuringRecursionCheck.contains(targetRuleName) ) {
+			RuleClosureTransition refTrans = (RuleClosureTransition)t0;
+			Rule refRuleDef = refTrans.rule;
+			//String targetRuleName = ((NFAState)t0.target).getEnclosingRule();
+			if ( visitedDuringRecursionCheck.contains(refRuleDef) ) {
 				// record left-recursive rule, but don't go back in
-				grammar.leftRecursiveRules.add(targetRuleName);
+				grammar.leftRecursiveRules.add(refRuleDef);
 				/*
-				System.out.println("already visited "+targetRuleName+", calling from "+
-								   s.getEnclosingRule());
-				*/
-				addRulesToCycle(targetRuleName,
-								s.getEnclosingRule(),
+				System.out.println("already visited "+refRuleDef+", calling from "+
+								   s.enclosingRule);
+								   */
+				addRulesToCycle(refRuleDef,
+								s.enclosingRule,
 								listOfRecursiveCycles);
 			}
 			else {
 				// must visit if not already visited; send new visitedStates set
-				grammar.visitedDuringRecursionCheck.add(targetRuleName);
+				visitedDuringRecursionCheck.add(refRuleDef);
 				boolean callReachedAcceptState =
 					traceStatesLookingForLeftRecursion((NFAState)t0.target,
 													   new HashSet(),
 													   listOfRecursiveCycles);
 				// we're back from visiting that rule
-				grammar.visitedDuringRecursionCheck.remove(targetRuleName);
+				visitedDuringRecursionCheck.remove(refRuleDef);
 				// must keep going in this rule then
 				if ( callReachedAcceptState ) {
 					NFAState followingState =
-						((RuleClosureTransition)t0).getFollowState();
+						((RuleClosureTransition) t0).followState;
 					stateReachesAcceptState |=
 						traceStatesLookingForLeftRecursion(followingState,
 														   visitedStates,
@@ -102,14 +135,14 @@ public class GrammarSanity {
 				}
 			}
 		}
-		else if ( t0.label.isEpsilon() ) {
+		else if ( t0.label.isEpsilon() || t0.label.isSemanticPredicate() ) {
 			stateReachesAcceptState |=
 				traceStatesLookingForLeftRecursion((NFAState)t0.target, visitedStates, listOfRecursiveCycles);
 		}
 		// else it has a labeled edge
 
 		// now do the other transition if it exists
-		Transition t1 = s.transition(1);
+		Transition t1 = s.transition[1];
 		if ( t1!=null ) {
 			stateReachesAcceptState |=
 				traceStatesLookingForLeftRecursion((NFAState)t1.target,
@@ -125,32 +158,33 @@ public class GrammarSanity {
 	 *  cycle.  listOfRecursiveCycles is List<Set<String>> that holds a list
 	 *  of cycles (sets of rule names).
 	 */
-	protected void addRulesToCycle(String targetRuleName,
-								   String enclosingRuleName,
-								   List listOfRecursiveCycles)
+	protected void addRulesToCycle(Rule targetRule,
+								   Rule enclosingRule,
+								   List<Set<Rule>> listOfRecursiveCycles)
 	{
 		boolean foundCycle = false;
 		for (int i = 0; i < listOfRecursiveCycles.size(); i++) {
-			Set rulesInCycle = (Set)listOfRecursiveCycles.get(i);
+			Set<Rule> rulesInCycle = listOfRecursiveCycles.get(i);
 			// ensure both rules are in same cycle
-			if ( rulesInCycle.contains(targetRuleName) ) {
-				rulesInCycle.add(enclosingRuleName);
+			if ( rulesInCycle.contains(targetRule) ) {
+				rulesInCycle.add(enclosingRule);
 				foundCycle = true;
 			}
-			if ( rulesInCycle.contains(enclosingRuleName) ) {
-				rulesInCycle.add(targetRuleName);
+			if ( rulesInCycle.contains(enclosingRule) ) {
+				rulesInCycle.add(targetRule);
 				foundCycle = true;
 			}
 		}
 		if ( !foundCycle ) {
 			Set cycle = new HashSet();
-			cycle.add(targetRuleName);
-			cycle.add(enclosingRuleName);
+			cycle.add(targetRule);
+			cycle.add(enclosingRule);
 			listOfRecursiveCycles.add(cycle);
 		}
 	}
 
-	public void checkRuleReference(GrammarAST refAST,
+	public void checkRuleReference(GrammarAST scopeAST,
+								   GrammarAST refAST,
 								   GrammarAST argsAST,
 								   String currentRuleName)
 	{

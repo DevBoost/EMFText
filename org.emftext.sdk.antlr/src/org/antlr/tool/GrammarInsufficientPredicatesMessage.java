@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -28,26 +28,24 @@
 package org.antlr.tool;
 
 import org.antlr.stringtemplate.StringTemplate;
-import org.antlr.analysis.DecisionProbe;
-import org.antlr.analysis.DFAState;
-import org.antlr.analysis.NFAState;
-import org.antlr.analysis.SemanticContext;
+import org.antlr.analysis.*;
 import antlr.Token;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GrammarInsufficientPredicatesMessage extends Message {
 	public DecisionProbe probe;
-    public List alts;
+    public Map<Integer, Set<Token>> altToLocations;
+	public DFAState problemState;
 
 	public GrammarInsufficientPredicatesMessage(DecisionProbe probe,
-												List alts)
+												DFAState problemState,
+												Map<Integer, Set<Token>> altToLocations)
 	{
 		super(ErrorManager.MSG_INSUFFICIENT_PREDICATES);
 		this.probe = probe;
-		this.alts = alts;
+		this.problemState = problemState;
+		this.altToLocations = altToLocations;
 	}
 
 	public String toString() {
@@ -59,7 +57,29 @@ public class GrammarInsufficientPredicatesMessage extends Message {
 			file = fileName;
 		}
 		StringTemplate st = getMessageTemplate();
-		st.setAttribute("alts", alts);
+		// convert to string key to avoid 3.1 ST bug
+		Map<String, Set<Token>> altToLocationsWithStringKey = new LinkedHashMap<String, Set<Token>>();
+		List<Integer> alts = new ArrayList<Integer>();
+		alts.addAll(altToLocations.keySet());
+		Collections.sort(alts);
+		for (Integer altI : alts) {
+			altToLocationsWithStringKey.put(altI.toString(), altToLocations.get(altI));
+			/*
+			List<String> tokens = new ArrayList<String>();
+			for (Token t : altToLocations.get(altI)) {
+				tokens.add(t.toString());
+			}
+			Collections.sort(tokens);
+			System.out.println("tokens=\n"+tokens);
+			*/
+		}
+		st.setAttribute("altToLocations", altToLocationsWithStringKey);
+
+		List<Label> sampleInputLabels = problemState.dfa.probe.getSampleNonDeterministicInputSequence(problemState);
+		String input = problemState.dfa.probe.getInputSequenceDisplay(sampleInputLabels);
+		st.setAttribute("upon", input);
+
+		st.setAttribute("hasPredicateBlockedByAction", problemState.dfa.hasPredicateBlockedByAction);
 
 		return super.toString(st);
 	}

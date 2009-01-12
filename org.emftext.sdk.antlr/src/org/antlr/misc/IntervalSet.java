@@ -47,17 +47,23 @@ import java.util.*;
  *  The ranges are ordered and disjoint so that 2..6 appears before 101..103.
  */
 public class IntervalSet implements IntSet {
-	/** The list of sorted, disjoint intervals. */
-    protected List intervals;
+	public static final IntervalSet COMPLETE_SET = IntervalSet.of(0,Label.MAX_CHAR_VALUE);
 
-    /** Create a set with no elements */
+	/** The list of sorted, disjoint intervals. */
+    protected List<Interval> intervals;
+
+	/** Create a set with no elements */
     public IntervalSet() {
-        intervals = new ArrayList(2); // most sets are 1 or 2 elements
+        intervals = new ArrayList<Interval>(2); // most sets are 1 or 2 elements
     }
 
-    /** Create a set with a single element, el. */
+	public IntervalSet(List<Interval> intervals) {
+		this.intervals = intervals;
+	}
+
+	/** Create a set with a single element, el. */
     public static IntervalSet of(int a) {
-        IntervalSet s = new IntervalSet();
+		IntervalSet s = new IntervalSet();
         s.add(a);
         return s;
     }
@@ -87,6 +93,7 @@ public class IntervalSet implements IntSet {
         add(Interval.create(a,b));
     }
 
+	// copy on write so we can cache a..a intervals and sets of that
 	protected void add(Interval addition) {
 		//System.out.println("add "+addition+" to "+intervals.toString());
 		if ( addition.b<addition.a ) {
@@ -185,10 +192,11 @@ public class IntervalSet implements IntSet {
         }
         IntervalSet other = (IntervalSet)set;
         // walk set and add each interval
-        for (Iterator iter = other.intervals.iterator(); iter.hasNext();) {
-            Interval I = (Interval) iter.next();
-            this.add(I.a,I.b);
-        }
+		int n = other.intervals.size();
+		for (int i = 0; i < n; i++) {
+			Interval I = (Interval) other.intervals.get(i);
+			this.add(I.a,I.b);
+		}
     }
 
     public IntSet complement(int minElement, int maxElement) {
@@ -213,7 +221,8 @@ public class IntervalSet implements IntSet {
 		int maxElement = vocabularyIS.getMaxElement();
 
 		IntervalSet compl = new IntervalSet();
-		if ( intervals.size()==0 ) {
+		int n = intervals.size();
+		if ( n ==0 ) {
 			return compl;
 		}
 		Interval first = (Interval)intervals.get(0);
@@ -223,14 +232,14 @@ public class IntervalSet implements IntSet {
 			IntervalSet a = (IntervalSet)s.and(vocabularyIS);
 			compl.addAll(a);
 		}
-		for (int i=1; i<intervals.size(); i++) { // from 2nd interval .. nth
+		for (int i=1; i<n; i++) { // from 2nd interval .. nth
 			Interval previous = (Interval)intervals.get(i-1);
 			Interval current = (Interval)intervals.get(i);
 			IntervalSet s = IntervalSet.of(previous.b+1, current.a-1);
 			IntervalSet a = (IntervalSet)s.and(vocabularyIS);
 			compl.addAll(a);
 		}
-		Interval last = (Interval)intervals.get(intervals.size()-1);
+		Interval last = (Interval)intervals.get(n -1);
 		// add a range from last.b to maxElement constrained to vocab
 		if ( last.b < maxElement ) {
 			IntervalSet s = IntervalSet.of(last.b+1, maxElement);
@@ -252,10 +261,10 @@ public class IntervalSet implements IntSet {
 		// will be empty.  The only problem would be when this' set max value
 		// goes beyond MAX_CHAR_VALUE, but hopefully the constant MAX_CHAR_VALUE
 		// will prevent this.
-		return this.and(((IntervalSet)other).complement(0,Label.MAX_CHAR_VALUE));
+		return this.and(((IntervalSet)other).complement(COMPLETE_SET));
 	}
 
-    /** return a new set containing all elements in this but not in other.
+	/** return a new set containing all elements in this but not in other.
      *  Intervals may have to be broken up when ranges in this overlap
      *  with ranges in other.  other is assumed to be a subset of this;
      *  anything that is in other but not in this will be ignored.
@@ -376,8 +385,12 @@ public class IntervalSet implements IntSet {
 
     /** TODO: implement this! */
 	public IntSet or(IntSet a) {
-		throw new NoSuchMethodError();
-    }
+		IntervalSet o = new IntervalSet();
+		o.addAll(this);
+		o.addAll(a);
+		//throw new NoSuchMethodError();
+		return o;
+	}
 
     /** Return a new set with the intersection of this set with other.  Because
      *  the intervals are sorted, we can use an iterator for each list and
@@ -454,7 +467,21 @@ public class IntervalSet implements IntSet {
 
     /** Is el in any range of this set? */
     public boolean member(int el) {
-        for (ListIterator iter = intervals.listIterator(); iter.hasNext();) {
+		int n = intervals.size();
+		for (int i = 0; i < n; i++) {
+			Interval I = (Interval) intervals.get(i);
+			int a = I.a;
+			int b = I.b;
+			if ( el<a ) {
+				break; // list is sorted and el is before this interval; not here
+			}
+			if ( el>=a && el<=b ) {
+				return true; // found in this interval
+			}
+		}
+		return false;
+/*
+		for (ListIterator iter = intervals.listIterator(); iter.hasNext();) {
             Interval I = (Interval) iter.next();
             if ( el<I.a ) {
                 break; // list is sorted and el is before this interval; not here
@@ -464,6 +491,7 @@ public class IntervalSet implements IntSet {
             }
         }
         return false;
+        */
     }
 
     /** return true if this set has no members */
@@ -495,9 +523,9 @@ public class IntervalSet implements IntSet {
 		if ( isNil() ) {
 			return Label.INVALID;
 		}
-		Iterator iter = this.intervals.iterator();
-		while (iter.hasNext()) {
-			Interval I = (Interval) iter.next();
+		int n = intervals.size();
+		for (int i = 0; i < n; i++) {
+			Interval I = (Interval) intervals.get(i);
 			int a = I.a;
 			int b = I.b;
 			for (int v=a; v<=b; v++) {
@@ -508,7 +536,7 @@ public class IntervalSet implements IntSet {
 	}
 
     /** Return a list of Interval objects. */
-    public List getIntervals() {
+    public List<Interval> getIntervals() {
         return intervals;
     }
 
@@ -570,21 +598,23 @@ public class IntervalSet implements IntSet {
 
     public int size() {
 		int n = 0;
-		Iterator iter = this.intervals.iterator();
-		while (iter.hasNext()) {
-			Interval I = (Interval) iter.next();
-			int a = I.a;
-			int b = I.b;
-			n += (b-a+1);
+		int numIntervals = intervals.size();
+		if ( numIntervals==1 ) {
+			Interval firstInterval = this.intervals.get(0);
+			return firstInterval.b-firstInterval.a+1;
+		}
+		for (int i = 0; i < numIntervals; i++) {
+			Interval I = (Interval) intervals.get(i);
+			n += (I.b-I.a+1);
 		}
 		return n;
     }
 
     public List toList() {
 		List values = new ArrayList();
-		Iterator iter = this.intervals.iterator();
-		while (iter.hasNext()) {
-			Interval I = (Interval) iter.next();
+		int n = intervals.size();
+		for (int i = 0; i < n; i++) {
+			Interval I = (Interval) intervals.get(i);
 			int a = I.a;
 			int b = I.b;
 			for (int v=a; v<=b; v++) {
@@ -594,17 +624,38 @@ public class IntervalSet implements IntSet {
 		return values;
     }
 
-	public int[] toArray() {
-		int[] values = new int[size()];
-		Iterator iter = this.intervals.iterator();
-		int i = 0;
-		while (iter.hasNext()) {
-			Interval I = (Interval) iter.next();
+	/** Get the ith element of ordered set.  Used only by RandomPhrase so
+	 *  don't bother to implement if you're not doing that for a new
+	 *  ANTLR code gen target.
+	 */
+	public int get(int i) {
+		int n = intervals.size();
+		int index = 0;
+		for (int j = 0; j < n; j++) {
+			Interval I = (Interval) intervals.get(j);
 			int a = I.a;
 			int b = I.b;
 			for (int v=a; v<=b; v++) {
-				values[i] = v;
-				i++;
+				if ( index==i ) {
+					return v;
+				}
+				index++;
+			}
+		}
+		return -1;
+	}
+
+	public int[] toArray() {
+		int[] values = new int[size()];
+		int n = intervals.size();
+		int j = 0;
+		for (int i = 0; i < n; i++) {
+			Interval I = (Interval) intervals.get(i);
+			int a = I.a;
+			int b = I.b;
+			for (int v=a; v<=b; v++) {
+				values[j] = v;
+				j++;
 			}
 		}
 		return values;
@@ -613,15 +664,13 @@ public class IntervalSet implements IntSet {
 	public org.antlr.runtime.BitSet toRuntimeBitSet() {
 		org.antlr.runtime.BitSet s =
 			new org.antlr.runtime.BitSet(getMaxElement()+1);
-		Iterator iter = this.intervals.iterator();
-		int i = 0;
-		while (iter.hasNext()) {
-			Interval I = (Interval) iter.next();
+		int n = intervals.size();
+		for (int i = 0; i < n; i++) {
+			Interval I = (Interval) intervals.get(i);
 			int a = I.a;
 			int b = I.b;
 			for (int v=a; v<=b; v++) {
 				s.add(v);
-				i++;
 			}
 		}
 		return s;

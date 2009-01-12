@@ -1,7 +1,7 @@
 header {
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,8 @@ options {
     codeGenBitsetTestThreshold=999;
 }
 
-{
+{ 
+
 protected Grammar grammar;
 protected GrammarAST root;
 protected String currentRuleName;
@@ -129,7 +130,7 @@ attrScope
 		{
 		AttributeScope scope = grammar.defineGlobalScope(name.getText(),#attrs.token);
 		scope.isDynamicGlobalScope = true;
-		scope.addAttributes(attrs.getText(), ";");
+		scope.addAttributes(attrs.getText(), ';');
 		}
 	;
 
@@ -144,6 +145,7 @@ Token optionsStartToken=null;
         ( {optionsStartToken=((GrammarAST)_t).getToken();}
           optionsSpec
         )?
+        (delegateGrammars)?
         (tokensSpec)?
         (attrScope)*
         (actions)?
@@ -175,6 +177,10 @@ optionsSpec
 	:	OPTIONS
 	;
 
+delegateGrammars
+	:	#( "import" ( #(ASSIGN ID ID) | ID )+ )
+	;
+
 tokensSpec
 	:	#( TOKENS ( tokenSpec )+ )
 	;
@@ -200,7 +206,7 @@ String name=null;
 Map opts=null;
 Rule r = null;
 }
-    :   #( RULE id:ID {opts = #RULE.options;}
+    :   #( RULE id:ID {opts = #RULE.blockOptions;}
            (mod=modifier)?
            #( ARG (args:ARG_ACTION)? )
            #( RET (ret:ARG_ACTION)? )
@@ -220,11 +226,11 @@ Rule r = null;
 				r = grammar.getRule(name);
 				if ( #args!=null ) {
 					r.parameterScope = grammar.createParameterScope(name,#args.token);
-					r.parameterScope.addAttributes(#args.getText(), ",");
+					r.parameterScope.addAttributes(#args.getText(), ',');
 				}
 				if ( #ret!=null ) {
 					r.returnScope = grammar.createReturnScope(name,#ret.token);
-					r.returnScope.addAttributes(#ret.getText(), ",");
+					r.returnScope.addAttributes(#ret.getText(), ',');
 				}
 			}
 			}
@@ -237,7 +243,7 @@ Rule r = null;
            {
            // copy rule options into the block AST, which is where
            // the analysis will look for k option etc...
-           #b.options = opts;
+           #b.blockOptions = opts;
            }
          )
     ;
@@ -270,7 +276,7 @@ ruleScopeSpec[Rule r]
  	         {
  	         r.ruleScope = grammar.createRuleScope(r.name,#attrs.token);
 			 r.ruleScope.isDynamicRuleScope = true;
-			 r.ruleScope.addAttributes(#attrs.getText(), ";");
+			 r.ruleScope.addAttributes(#attrs.getText(), ';');
 			 }
 		   )?
  	       ( uses:ID
@@ -314,10 +320,15 @@ blockAction
 alternative
 {
 if ( grammar.type!=Grammar.LEXER && grammar.getOption("output")!=null && blockLevel==1 ) {
-	GrammarAST aRewriteNode = #alternative.findFirstType(REWRITE);
+	GrammarAST aRewriteNode = #alternative.findFirstType(REWRITE); // alt itself has rewrite?
+	GrammarAST rewriteAST = (GrammarAST)#alternative.getNextSibling();
+	// we have a rewrite if alt uses it inside subrule or this alt has one
+	// but don't count -> ... rewrites, which mean "do default auto construction"
 	if ( aRewriteNode!=null||
-		 (#alternative.getNextSibling()!=null &&
-		  #alternative.getNextSibling().getType()==REWRITE) )
+		 (rewriteAST!=null &&
+		  rewriteAST.getType()==REWRITE &&
+		  rewriteAST.getFirstChild()!=null &&
+		  rewriteAST.getFirstChild().getType()!=ETC) )
 	{
 		Rule r = grammar.getRule(currentRuleName);
 		r.trackAltsWithRewrites(#alternative,this.outerAltNum);
@@ -343,10 +354,10 @@ finallyClause
 element
     :   #(ROOT element)
     |   #(BANG element)
-    |   atom
+    |   atom[null]
     |   #(NOT element)
-    |   #(RANGE atom atom)
-    |   #(CHAR_RANGE atom atom)
+    |   #(RANGE atom[null] atom[null])
+    |   #(CHAR_RANGE atom[null] atom[null])
     |	#(ASSIGN id:ID el:element)
     	{
 		if ( #el.getType()==ANTLRParser.ROOT ||
@@ -383,6 +394,11 @@ element
         {
         #act.outerAltNum = this.outerAltNum;
 		trackInlineAction(#act);
+        }
+    |   act2:FORCED_ACTION
+        {
+        #act2.outerAltNum = this.outerAltNum;
+		trackInlineAction(#act2);
         }
     |   SEMPRED
         {
@@ -434,23 +450,23 @@ dotBlock
 tree:   #(TREE_BEGIN element (element)*)
     ;
 
-atom
+atom[GrammarAST scope]
     :   #( rr:RULE_REF (rarg:ARG_ACTION)? )
     	{
-        grammar.altReferencesRule(currentRuleName, #rr, this.outerAltNum);
+        grammar.altReferencesRule(currentRuleName, scope, #rr, this.outerAltNum);
 		if ( #rarg!=null ) {
             #rarg.outerAltNum = this.outerAltNum;
             trackInlineAction(#rarg);
         }
         }
-    |   #( t:TOKEN_REF (targ:ARG_ACTION )? )
+    |   #( t:TOKEN_REF  (targ:ARG_ACTION )? )
     	{
 		if ( #targ!=null ) {
             #targ.outerAltNum = this.outerAltNum;
             trackInlineAction(#targ);
         }
     	if ( grammar.type==Grammar.LEXER ) {
-    		grammar.altReferencesRule(currentRuleName, #t, this.outerAltNum);
+    		grammar.altReferencesRule(currentRuleName, scope, #t, this.outerAltNum);
     	}
     	else {
     		grammar.altReferencesTokenID(currentRuleName, #t, this.outerAltNum);
@@ -465,7 +481,7 @@ atom
     		}
     	}
     	}
-    |   s:STRING_LITERAL
+    |   s:STRING_LITERAL 
     	{
     	if ( grammar.type!=Grammar.LEXER ) {
     		Rule rule = grammar.getRule(currentRuleName);
@@ -475,6 +491,7 @@ atom
     	}
     	}
     |   WILDCARD
+    |   #(DOT ID atom[#ID]) // scope override on rule
     ;
 
 ast_suffix
@@ -526,6 +543,8 @@ rewrite_alternative
     :   {grammar.buildAST()}?
     	#( a:ALT ( ( rewrite_element )+ | EPSILON ) EOA )
     |	{grammar.buildTemplate()}? rewrite_template
+	|	ETC {this.blockLevel==1}? // only valid as outermost rewrite
+
     ;
 
 rewrite_element
@@ -567,7 +586,12 @@ if ( !imaginary && grammar.buildAST() &&
 }
 }
     :   RULE_REF 
-    |   ( #(TOKEN_REF (arg:ARG_ACTION)?) | CHAR_LITERAL | STRING_LITERAL )
+    |   ( #(TOKEN_REF
+            (arg:ARG_ACTION)?
+           )
+        | CHAR_LITERAL
+        | STRING_LITERAL
+        )
         {
         if ( #arg!=null ) {
             #arg.outerAltNum = this.outerAltNum;

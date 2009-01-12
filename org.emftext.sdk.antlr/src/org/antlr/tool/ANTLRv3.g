@@ -1,8 +1,37 @@
-/** ANTLR v3 grammar written in ANTLR v3 */
+/*
+ [The "BSD licence"]
+ Copyright (c) 2005-2007 Terence Parr
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/** ANTLR v3 grammar written in ANTLR v3 with AST construction */
 grammar ANTLRv3;
 
 options {
 	output=AST;
+	ASTLabelType=CommonTree;
 }
 
 tokens {
@@ -39,37 +68,30 @@ tokens {
     SYN_SEMPRED; // (...) =>   it's a manually-specified synpred converted to sempred
     BACKTRACK_SEMPRED; // auto backtracking mode syn pred converted to sempred
     FRAGMENT='fragment';
-}
-
-@header {
-package org.antlr.tool;
-import java.util.Map;
-import java.util.HashMap;
+    TREE_BEGIN='^(';
+    ROOT='^';
+    BANG='!';
+    RANGE='..';
+    REWRITE='->';
 }
 
 @members {
-	Grammar grammar = null;
-	protected int gtype = 0;
-	protected String currentRuleName = null;
-	protected GrammarAST currentBlockAST = null;
+	int gtype;
 }
 
 grammarDef
-@init {
-		for (int i=0; i<input.size(); i++) {
-			System.out.println(input.get(i));
-		}
-}
     :   DOC_COMMENT?
     	(	'lexer'  {gtype=LEXER_GRAMMAR;}    // pure lexer
     	|   'parser' {gtype=PARSER_GRAMMAR;}   // pure parser
     	|   'tree'   {gtype=TREE_GRAMMAR;}     // a tree parser
     	|		     {gtype=COMBINED_GRAMMAR;} // merged parser/lexer
     	)
-    	'grammar' id ';' optionsSpec? tokensSpec? attrScope* action*
+    	g='grammar' id ';' optionsSpec? tokensSpec? attrScope* action*
     	rule+
     	EOF
-    	-> ^('grammar' id DOC_COMMENT? optionsSpec? tokensSpec? attrScope* action*)
+    	-> ^( {adaptor.create(gtype,$g)}
+    		  id DOC_COMMENT? optionsSpec? tokensSpec? attrScope* action* rule+
+    		)
     ;
 
 tokensSpec
@@ -90,8 +112,7 @@ attrScope
 
 /** Match stuff like @parser::members {int i;} */
 action
-	:	'@' (actionScopeName '::')? id ACTION
-		-> ^('@' actionScopeName? id ACTION)
+	:	'@' (actionScopeName '::')? id ACTION -> ^('@' actionScopeName? id ACTION)
 	;
 
 /** Sometimes the scope names will collide with keywords; allow them as
@@ -103,89 +124,41 @@ actionScopeName
     |   p='parser'	-> ID[$p]
 	;
 
-optionsSpec returns [Map opts]
-@init {
-	$opts=new HashMap();
-}
-	:	OPTIONS (option[$opts] ';')+ '}'
-		-> ^(OPTIONS option+)
+optionsSpec
+	:	OPTIONS (option ';')+ '}' -> ^(OPTIONS option+)
 	;
 
-option[Map opts]
-    :   id '=' v=optionValue {$opts.put($id.text, $v.value);}
-    	-> ^('=' id optionValue)
+option
+    :   id '=' optionValue -> ^('=' id optionValue)
  	;
  	
-optionValue returns [Object value]
-@init {$value=null;}
-    :   id			 	{$value = $id.text;}
-    |   STRING_LITERAL	{String vs = $STRING_LITERAL.text;
-                         $value=vs.substring(1,vs.length()-1);}
-    |   CHAR_LITERAL	{String vs = $CHAR_LITERAL.text;
-                         $value=vs.substring(1,vs.length()-1);}
-    |   INT				{$value = new Integer($INT.text);}
-    |	s='*'			{$value = '*';} -> STRING_LITERAL[$s]  // used for k=*
+optionValue
+    :   id
+    |   STRING_LITERAL
+    |   CHAR_LITERAL
+    |   INT
+    |	s='*' -> STRING_LITERAL[$s]  // used for k=*
     ;
 
 rule
-@init {
-GrammarAST modifier=null, blk=null, blkRoot=null, eob=null;
-int start = ((TokenWithIndex)LT(1)).getIndex();
-int startLine = LT(1).getLine();
-GrammarAST opt = null;
-Map opts = null;
+scope {
+	String name;
 }
 	:	DOC_COMMENT?
-		{modifier=input.LT(1);}
-		(	'protected'
-		|	'public'
-		|	'private'
-		|	frag='fragment'
-		)?
-		ruleName=id
-		{
-		currentRuleName=$ruleName.text;
-	    if ( gtype==LEXER_GRAMMAR && $frag==null ) {
-	        lexerRuleNames.add(currentRuleName);
-		}
-		}
+		( modifier=('protected'|'public'|'private'|'fragment') )?
+		id {$rule::name = $id.text;}
 		'!'?
 		( arg=ARG_ACTION )?
 		( 'returns' rt=ARG_ACTION  )?
-		throwsSpec?
-	    optionsSpec?
-		ruleScopeSpec
-		ruleAction+
-		':'
-		b=altList[opts]
-		semi=';'
+		throwsSpec? optionsSpec? ruleScopeSpec? ruleAction*
+		':'	altList	';'
 		exceptionGroup?
-	    {
-	    /*
-	    int stop = ((TokenWithIndex)LT(1)).getIndex()-1; // point at the semi or exception thingie
-		eob.setLine(semi.getLine());
-		eob.setColumn(semi.getColumn());
-	    GrammarAST eor = #[EOR,'<end-of-rule>'];
-	   	eor.setEnclosingRule($ruleName.text);
-		eor.setLine(semi.getLine());
-		eor.setColumn(semi.getColumn());
-		GrammarAST root = #[RULE,'rule'];
-		root.ruleStartTokenIndex = start;
-		root.ruleStopTokenIndex = stop;
-		root.setLine(startLine);
-		root.options = opts;
-	    #rule = #(root,
-	              #ruleName,modifier,#(#[ARG,'ARG'],#aa),#(#[RET,'RET'],#rt),
-	              opt,#scopes,#a,blk,ex,eor);
-	              */
-		currentRuleName=null;
-	    }
-	    -> ^( RULE $ruleName {modifier} ^(ARG $arg)? ^(RET $rt)?
-	    	  optionsSpec? ruleScopeSpec? ruleAction+
+	    -> ^( RULE id {modifier!=null?adaptor.create(modifier):null} ^(ARG $arg)? ^(RET $rt)?
+	    	  optionsSpec? ruleScopeSpec? ruleAction*
 	    	  altList
 	    	  exceptionGroup?
-	    	  EOR["<end-of-rule>"]
-	    	)	    	  
+	    	  EOR["EOR"]
+	    	)
 	;
 
 /** Match stuff like @init {int i;} */
@@ -198,62 +171,39 @@ throwsSpec
 	;
 
 ruleScopeSpec
-@init {
-}
-	:	( 'scope' ACTION )?
-		( 'scope' id+ ';' )*
-		-> ^('scope' ACTION? id+)
+	:	'scope' ACTION -> ^('scope' ACTION)
+	|	'scope' id (',' id)* ';' -> ^('scope' id+)
+	|	'scope' ACTION
+		'scope' id (',' id)* ';'
+		-> ^('scope' ACTION id+ )
 	;
 
-/** Build #(BLOCK ( #(ALT ...) EOB )+ ) */
 block
-@init {
-GrammarAST save = currentBlockAST;
-Map opts=null;
-}
-@after {
-$block.tree.setOptions(grammar,opts);
-}
     :   lp='('
 		( (opts=optionsSpec)? ':' )?
-		{currentBlockAST = lp;}
-		a1=alternative rewrite
-		{if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred(#a1);}
-		( '|' a2=alternative rewrite
-		  {if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred(#a2);}
-		)*
+		a1=alternative rewrite ( '|' a2=alternative rewrite )*
         rp=')'
-        {
-		currentBlockAST = save;
-		}
-        -> ^( BLOCK[$lp] optionsSpec? alternative+ EOB[$rp] )
+        -> ^( BLOCK[$lp,"BLOCK"] optionsSpec? alternative+ EOB[$rp,"EOB"] )
     ;
 
-altList[Map opts]
+altList
 @init {
-	GrammarAST blkRoot = #[BLOCK,'BLOCK'];
-	blkRoot.setLine(LT(1).getLine());
-	blkRoot.setColumn(LT(1).getColumn());
-	GrammarAST save = currentBlockAST;
-	currentBlockAST = #blkRoot;
+	// must create root manually as it's used by invoked rules in real antlr tool.
+	// leave here to demonstrate use of {...} in rewrite rule
+	// it's really BLOCK[firstToken,"BLOCK"]; set line/col to previous ( or : token.
+    CommonTree blkRoot = (CommonTree)adaptor.create(BLOCK,input.LT(-1),"BLOCK");
 }
-    :   a1=alternative rewrite
-		{if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred($a1.tree);}
-    	( '|' a2=alternative rewrite
-    	  {if (LA(1)==OR||(LA(2)==QUESTION||LA(2)==PLUS||LA(2)==STAR)) prefixWithSynPred($a2.tree);}
-    	)*
-        {
-        currentBlockAST = save;
-        }
-		-> ^( {blkRoot} (alternative rewrite)+ EOB["<end-of-block>"] )
+    :   a1=alternative rewrite ( '|' a2=alternative rewrite )*
+		-> ^( {blkRoot} (alternative rewrite?)+ EOB["EOB"] )
     ;
 
 alternative
 @init {
 	Token firstToken = input.LT(1);
+	Token prevToken = input.LT(-1); // either : or | I think
 }
-    :   ( el=element )+ -> ^(ALT[firstToken] element+ EOA["<end-of-alt>"])
-    |   -> ^(ALT[input.LT(1)] EPSILON[input.LT(-1)] EOA["<end-of-alt>"])
+    :   element+ -> ^(ALT[firstToken,"ALT"] element+ EOA["EOA"])
+    |   -> ^(ALT[prevToken,"ALT"] EPSILON[prevToken,"EPSILON"] EOA["EOA"])
     ;
 
 exceptionGroup
@@ -262,11 +212,11 @@ exceptionGroup
     ;
 
 exceptionHandler
-    :    'catch'^ ARG_ACTION ACTION
+    :    'catch' ARG_ACTION ACTION -> ^('catch' ARG_ACTION ACTION)
     ;
 
 finallyClause
-    :    'finally'^ ACTION
+    :    'finally' ACTION -> ^('finally' ACTION)
     ;
 
 element
@@ -274,251 +224,174 @@ element
 	;
 
 elementNoOptionSpec
-@init {
-    IntSet elements=null;
-    GrammarAST sub, sub2;
-}
-	:	id ('='^|'+='^) (atom|block)
-        ( sub=ebnfSuffix[(GrammarAST)currentAST.root,false]! {#elementNoOptionSpec=sub;} )?
-    |   atom
-        ( sub2=ebnfSuffix[(GrammarAST)currentAST.root,false]! {#elementNoOptionSpec=sub2;} )?
-    |	ebnf
+	:	id (labelOp='='|labelOp='+=') atom
+		(	ebnfSuffix	-> ^( ebnfSuffix ^(BLOCK["BLOCK"] ^(ALT["ALT"] ^($labelOp id atom) EOA["EOA"]) EOB["EOB"]))
+		|				-> ^($labelOp id atom)
+		)
+	|	id (labelOp='='|labelOp='+=') block
+		(	ebnfSuffix	-> ^( ebnfSuffix ^(BLOCK["BLOCK"] ^(ALT["ALT"] ^($labelOp id block) EOA["EOA"]) EOB["EOB"]))
+		|				-> ^($labelOp id block)
+		)
+	|	atom
+		(	ebnfSuffix	-> ^(BLOCK["BLOCK"] ^(ALT["ALT"] atom EOA["EOA"]) EOB["EOB"])
+		|				-> atom
+		)
+	|	ebnf
 	|   ACTION
-	|   p=SEMPRED ( '=>' ! {#p.setType(GATED_SEMPRED);} )?
-		{
-		#p.setEnclosingRule(currentRuleName);
-		grammar.blocksWithSemPreds.add(currentBlockAST);
-		}
-	|   t3=treeSpec
+	|   SEMPRED ( '=>' -> GATED_SEMPRED | -> SEMPRED )
+	|   treeSpec
 	;
 
-atom:   range ('^'^|'!'^)?
+atom:   range ( (op='^'|op='!') -> ^($op range) | -> range )
     |   terminal
-    |	notSet ('^'^|'!'^)?
-    |   rr=RULE_REF^
-		( ARG_ACTION )?
-		('^'^|'!'^)?
+    |	notSet ( (op='^'|op='!') -> ^($op notSet) | -> notSet )
+    |   RULE_REF ( arg=ARG_ACTION )? ( (op='^'|op='!') )?
+    	-> {$arg!=null&&op!=null}?	^($op RULE_REF $arg)
+    	-> {$arg!=null}?			^(RULE_REF $arg)
+    	-> {$op!=null}?				^($op RULE_REF)
+    	-> RULE_REF
     ;
 
 notSet
-@init {
-    int line = LT(1).getLine();
-    int col = LT(1).getColumn();
-    GrammarAST subrule=null;
-}
-	:	n='~'^
-		(	notTerminal
-        |   block
+	:	'~'
+		(	notTerminal	-> ^('~' notTerminal)
+		|	block		-> ^('~' block)
 		)
-        {#notSet.setLine(line); #notSet.setColumn(col);}
 	;
 
-treeSpec :
-	'^('^
-        element ( element )+
-    ')'!
+treeSpec
+	:	'^(' element ( element )+ ')' -> ^(TREE_BEGIN element+)
 	;
 
-/** matches ENBF blocks (and sets via block rule) */
+/** Matches ENBF blocks (and token sets via block rule) */
 ebnf
 @init {
-    int line = LT(1).getLine();
-    int col = LT(1).getColumn();
+    Token firstToken = input.LT(1);
 }
-	:	b=block
-		(	'?'    {#ebnf=#([OPTIONAL,'?'],#b);}
-		|	'*'	    {#ebnf=#([CLOSURE,'*'],#b);}
-		|	'+'	    {#ebnf=#([POSITIVE_CLOSURE,'+'],#b);}
-		|   '=>'! // syntactic predicate
-			{
-			if ( gtype==COMBINED_GRAMMAR &&
-			     Character.isUpperCase(currentRuleName.charAt(0)) )
-		    {
-                // ignore for lexer rules in combined
-		    	#ebnf = #(#[SYNPRED,'=>'],#b); 
-		    }
-		    else {
-		    	// create manually specified (...)=> predicate;
-                // convert to sempred
-		    	#ebnf = createSynSemPredFromBlock(#b, SYN_SEMPRED);
-			}
-			}
-		|   '^' {#ebnf = #(#ROOT, #b);}
-		|   '!' {#ebnf = #(#BANG, #b);}
-        |   {#ebnf = #b;}
+@after {
+	$ebnf.tree.getToken().setLine(firstToken.getLine());
+	$ebnf.tree.getToken().setCharPositionInLine(firstToken.getCharPositionInLine());
+}
+	:	block
+		(	op='?'	-> ^(OPTIONAL[op] block)
+		|	op='*'	-> ^(CLOSURE[op] block)
+		|	op='+'	-> ^(POSITIVE_CLOSURE[op] block)
+		|   '^'		-> ^('^' block)
+		|   '!'		-> ^('!' block)
+		|   '=>'	// syntactic predicate
+					-> {gtype==COMBINED_GRAMMAR &&
+					    Character.isUpperCase($rule::name.charAt(0))}?
+					   // if lexer rule in combined, leave as pred for lexer
+					   ^(SYNPRED["=>"] block)
+					// in real antlr tool, text for SYN_SEMPRED is predname
+					-> SYN_SEMPRED
+        |			-> block
 		)
-		{#ebnf.setLine(line); #ebnf.setColumn(col);}
 	;
 
 range!
-@init {
-GrammarAST subrule=null, root=null;
-}
-	:	c1=CHAR_LITERAL RANGE c2=CHAR_LITERAL
-		{
-		GrammarAST r = #[CHAR_RANGE,".."];
-		r.setLine(c1.getLine());
-		r.setColumn(c1.getColumn());
-		#range = #(r, #c1, #c2);
-		root = #range;
-		}
-//    	(subrule=ebnfSuffix[root,false] {#range=subrule;})?
+	:	c1=CHAR_LITERAL RANGE c2=CHAR_LITERAL -> ^(CHAR_RANGE[$c1,".."] $c1 $c2)
 	;
 
 terminal
-@init {
-GrammarAST ebnfRoot=null, subrule=null;
-}
-    :   CHAR_LITERAL^ ('^'^|'!'^)?
-
-	|   TOKEN_REF^
-			( ARG_ACTION )? // Args are only valid for lexer rules
-            ('^'^|'!'^)?
-
-	|   STRING_LITERAL ('^'^|'!'^)?
-
-	|   '.' ('^'^|'!'^)?
+    :   (	CHAR_LITERAL				-> CHAR_LITERAL
+    		// Args are only valid for lexer rules
+		|   TOKEN_REF
+			( ARG_ACTION				-> ^(TOKEN_REF ARG_ACTION)
+			|							-> TOKEN_REF
+			)
+		|   STRING_LITERAL				-> STRING_LITERAL
+		|   '.'							-> '.'
+		)	
+		(	'^'							-> ^('^' $terminal)
+		|	'!' 						-> ^('!' $terminal)
+		)?
 	;
-
-ebnfSuffix[GrammarAST elemAST, boolean inRewrite] returns [GrammarAST subrule=null]
-@init {
-GrammarAST ebnfRoot=null;
-// bang on alt
-}
-	:	(	'?'	{ebnfRoot = #[OPTIONAL,'?'];}
-   		|	'*' {ebnfRoot = #[CLOSURE,'*'];}
-   		|	'+' {ebnfRoot = #[POSITIVE_CLOSURE,'+'];}
-   		)
-    	{
-		GrammarAST save = currentBlockAST;
-       	ebnfRoot.setLine(elemAST.getLine());
-       	ebnfRoot.setColumn(elemAST.getColumn());
-    	GrammarAST blkRoot = #[BLOCK,"BLOCK"];
-    	currentBlockAST = blkRoot;
-       	GrammarAST eob = #[EOB,'<end-of-block>'];
-		eob.setLine(elemAST.getLine());
-		eob.setColumn(elemAST.getColumn());
-		GrammarAST alt = #(#[ALT,'ALT'],elemAST,#[EOA,"<end-of-alt>"]);
-    	if ( !inRewrite ) {
-    		prefixWithSynPred(alt);
-    	}
-  		subrule =
-  		     #(ebnfRoot,
-  		       #(blkRoot,alt,eob)
-  		      );
-  		currentBlockAST = save;
-   		}
-    ;
 
 notTerminal
 	:   CHAR_LITERAL
 	|	TOKEN_REF
 	|	STRING_LITERAL
 	;
+	
+ebnfSuffix
+@init {
+	Token op = input.LT(1);
+}
+	:	'?'	-> OPTIONAL[op]
+  	|	'*' -> CLOSURE[op]
+   	|	'+' -> POSITIVE_CLOSURE[op]
+	;
+	
 
 
 // R E W R I T E  S Y N T A X
 
 rewrite
 @init {
-    GrammarAST root = new GrammarAST();
-    // bang on alt
+	Token firstToken = input.LT(1);
 }
-	:
-		( rew='->' pred=SEMPRED alt=rewrite_alternative
-	      {root.addChild( #(#rew, #pred, #alt) );}
-		  {
-          #pred.setEnclosingRule(currentRuleName);
-          #rew.setEnclosingRule(currentRuleName);
-          }
-	    )*
-		rew2='->' alt2=rewrite_alternative
-        {
-        root.addChild( #(#rew2, #alt2) );
-        #rewrite = (GrammarAST)root.getFirstChild();
-        }
+	:	(rew+='->' preds+=SEMPRED predicated+=rewrite_alternative)*
+		rew2='->' last=rewrite_alternative
+        -> ^($rew $preds $predicated)* ^($rew2 $last)
 	|
 	;
 
-rewrite_block
-    :   lp='('^ {#lp.setType(BLOCK); #lp.setText('BLOCK');}
-		rewrite_alternative
-        ')'!
-        {
-        GrammarAST eob = #[EOB,"<end-of-block>"];
-        eob.setLine(lp.getLine());
-        eob.setColumn(lp.getColumn());
-        #rewrite_block.addChild(eob);
-        }
-    ;
-
 rewrite_alternative
-@init {
-    GrammarAST eoa = #[EOA, "<end-of-alt>"];
-    GrammarAST altRoot = #[ALT,"ALT"];
-    altRoot.setLine(LT(1).getLine());
-    altRoot.setColumn(LT(1).getColumn());
-}
-    :	{grammar.buildTemplate()}? rewrite_template
-
-    |	{grammar.buildAST()}? ( rewrite_element )+
-        {
-            if ( #rewrite_alternative==null ) {
-                #rewrite_alternative = #(altRoot,#[EPSILON,"epsilon"],eoa);
-            }
-            else {
-                #rewrite_alternative = #(altRoot, #rewrite_alternative,eoa);
-            }
-        }
-
-   	|   {#rewrite_alternative = #(altRoot,#[EPSILON,"epsilon"],eoa);}
+options {backtrack=true;}
+	:	rewrite_template
+	|	rewrite_tree_alternative
+   	|   /* empty rewrite */ -> ^(ALT["ALT"] EPSILON["EPSILON"] EOA["EOA"])
+	;
+	
+rewrite_template_block
+    :   lp='(' rewrite_template ')' -> ^(BLOCK[$lp,"BLOCK"] rewrite_template EOB[$lp,"EOB"])
     ;
 
-rewrite_element
-@init {
-GrammarAST subrule=null;
-}
-	:	t=rewrite_atom
-    	( subrule=ebnfSuffix[#t,true] {#rewrite_element=subrule;} )?
-	|   rewrite_ebnf
-	|   tr=rewrite_tree
-    	( subrule=ebnfSuffix[#tr,true] {#rewrite_element=subrule;} )?
+rewrite_tree_block
+    :   lp='(' rewrite_tree_alternative ')'
+    	-> ^(BLOCK[$lp,"BLOCK"] rewrite_tree_alternative EOB[$lp,"EOB"])
+    ;
+
+rewrite_tree_alternative
+    :	rewrite_tree_element+ -> ^(ALT["ALT"] rewrite_tree_element+ EOA["EOA"])
+    ;
+
+rewrite_tree_element
+	:	rewrite_tree_atom
+	|	rewrite_tree_atom ebnfSuffix
+		-> ^( ebnfSuffix ^(BLOCK["BLOCK"] ^(ALT["ALT"] rewrite_tree_atom EOA["EOA"]) EOB["EOB"]))
+	|   rewrite_tree
+		(	ebnfSuffix
+			-> ^(BLOCK["BLOCK"] ^(ALT["ALT"] rewrite_tree EOA["EOA"]) EOB["EOB"])
+		|	-> rewrite_tree
+		)
+	|   rewrite_tree_ebnf
 	;
 
-rewrite_atom
-@init {
-GrammarAST subrule=null;
-}
+rewrite_tree_atom
     :   CHAR_LITERAL
-	|   TOKEN_REF^ (ARG_ACTION)? // for imaginary nodes
+	|   TOKEN_REF ARG_ACTION? -> ^(TOKEN_REF ARG_ACTION?) // for imaginary nodes
     |   RULE_REF
 	|   STRING_LITERAL
-	|   // bang on this alt
-		d='$' i=id // reference to a label in a rewrite rule
-		{
-		#rewrite_atom = #[LABEL,i_AST.getText()];
-		#rewrite_atom.setLine(#d.getLine());
-		#rewrite_atom.setColumn(#d.getColumn());
-        #rewrite_atom.setEnclosingRule(currentRuleName);
-		}
+	|   d='$' id -> LABEL[$d,$id.text] // reference to a label in a rewrite rule
 	|	ACTION
 	;
 
-rewrite_ebnf!
+rewrite_tree_ebnf
 @init {
-    int line = LT(1).getLine();
-    int col = LT(1).getColumn();
+    Token firstToken = input.LT(1);
 }
-	:	b=rewrite_block
-		(	'?'   {#rewrite_ebnf=#([OPTIONAL,'?'],#b);}
-		|	'*'	  {#rewrite_ebnf=#([CLOSURE,'*'],#b);}
-		|	'+'	  {#rewrite_ebnf=#([POSITIVE_CLOSURE,'+'],#b);}
-		)
-		{#rewrite_ebnf.setLine(line); #rewrite_ebnf.setColumn(col);}
+@after {
+	$rewrite_tree_ebnf.tree.getToken().setLine(firstToken.getLine());
+	$rewrite_tree_ebnf.tree.getToken().setCharPositionInLine(firstToken.getCharPositionInLine());
+}
+	:	rewrite_tree_block ebnfSuffix -> ^(ebnfSuffix rewrite_tree_block)
 	;
-
-rewrite_tree :
-	'^(' rewrite_atom rewrite_element* ')' -> ^('^(' rewrite_atom rewrite_element* )
+	
+rewrite_tree
+	:	'^(' rewrite_tree_atom rewrite_tree_element* ')'
+		-> ^(TREE_BEGIN rewrite_tree_atom rewrite_tree_element* )
 	;
 
 /** Build a tree for a template rewrite:
@@ -533,15 +406,14 @@ rewrite_tree :
 	-> {st-expr} // st-expr evaluates to ST
  */
 rewrite_template
-@init {Token st=null;}
-	:   // -> template(a={...},...) "..."
-		{LT(1).getText().equals('template')}? // inline
-		rewrite_template_head {st=LT(1);}
-		( DOUBLE_QUOTE_STRING_LITERAL! | DOUBLE_ANGLE_STRING_LITERAL! )
-		{#rewrite_template.addChild(#[st]);}
+	:   // -> template(a={...},...) "..."    inline template
+		{input.LT(1).getText().equals("template")}?
+		id lp='(' rewrite_template_args	')'
+		st=( DOUBLE_QUOTE_STRING_LITERAL | DOUBLE_ANGLE_STRING_LITERAL )
+		-> ^(TEMPLATE[$lp,"TEMPLATE"] id rewrite_template_args $st)
 
 	|	// -> foo(a={...}, ...)
-		rewrite_template_head
+		rewrite_template_ref
 
 	|	// -> ({expr})(a={...}, ...)
 		rewrite_indirect_template_head
@@ -551,32 +423,25 @@ rewrite_template
 	;
 
 /** -> foo(a={...}, ...) */
-rewrite_template_head
-	:	id lp='('^ {#lp.setType(TEMPLATE); #lp.setText('TEMPLATE');}
-		rewrite_template_args
-		')'!
+rewrite_template_ref
+	:	id lp='(' rewrite_template_args	')'
+		-> ^(TEMPLATE[$lp,"TEMPLATE"] id rewrite_template_args)
 	;
 
 /** -> ({expr})(a={...}, ...) */
 rewrite_indirect_template_head
-	:	lp='('^ {#lp.setType(TEMPLATE); #lp.setText('TEMPLATE');}
-		ACTION
-		')'!
-		'('! rewrite_template_args ')'!
+	:	lp='(' ACTION ')' '(' rewrite_template_args ')'
+		-> ^(TEMPLATE[$lp,"TEMPLATE"] ACTION rewrite_template_args)
 	;
 
 rewrite_template_args
-	:	rewrite_template_arg (','! rewrite_template_arg)*
-		{#rewrite_template_args = #(#[ARGLIST,"ARGLIST"], rewrite_template_args);}
-	|	{#rewrite_template_args = #[ARGLIST,"ARGLIST"];}
+	:	rewrite_template_arg (',' rewrite_template_arg)*
+		-> ^(ARGLIST rewrite_template_arg+)
+	|	-> ARGLIST
 	;
 
 rewrite_template_arg
-	:   id a='=' ACTION -> ^(ARG[$a] id ACTION)
-	;
-
-idList
-	:	id+
+	:   id '=' ACTION -> ^(ARG[$id.start] id ACTION)
 	;
 
 id	:	TOKEN_REF -> ID[$TOKEN_REF]
@@ -588,7 +453,7 @@ id	:	TOKEN_REF -> ID[$TOKEN_REF]
 SL_COMMENT
  	:	'//'
  	 	(	' $ANTLR ' SRC // src directive
- 		|	.*
+ 		|	~('\r'|'\n')*
 		)
 		'\r'? '\n'
 		{$channel=HIDDEN;}
@@ -652,14 +517,15 @@ ARG_ACTION
 
 fragment
 NESTED_ARG_ACTION :
-	'['!
+	'['
 	(	options {greedy=false; k=1;}
 	:	NESTED_ARG_ACTION
 	|	ACTION_STRING_LITERAL
 	|	ACTION_CHAR_LITERAL
 	|	.
 	)*
-	']'!
+	']'
+	{setText(getText().substring(1, getText().length()-1));}
 	;
 
 ACTION
@@ -671,7 +537,6 @@ NESTED_ACTION :
 	'{'
 	(	options {greedy=false; k=3;}
 	:	NESTED_ACTION
-//	|	DOC_COMMENT
 	|	SL_COMMENT
 	|	ML_COMMENT
 	|	ACTION_STRING_LITERAL
@@ -683,18 +548,18 @@ NESTED_ACTION :
 
 fragment
 ACTION_CHAR_LITERAL
-	:	'\'' (ACTION_ESC|.) '\''
+	:	'\'' (ACTION_ESC|~('\\'|'\'')) '\''
 	;
 
 fragment
 ACTION_STRING_LITERAL
-	:	'"' (ACTION_ESC|.) (ACTION_ESC|.)* '"'
+	:	'"' (ACTION_ESC|~('\\'|'"'))+ '"'
 	;
 
 fragment
 ACTION_ESC
 	:	'\\\''
-	|	'\\"'
+	|	'\\' '"' // ANTLR doesn't like: '\\"'
 	|	'\\' ~('\''|'"')
 	;
 
@@ -705,26 +570,24 @@ TOKEN_REF
 RULE_REF
 	:	'a'..'z' ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
 	;
-	
+
+/** Match the start of an options section.  Don't allow normal
+ *  action processing on the {...} as it's not a action.
+ */
 OPTIONS
-	:	'options' WS_LOOP '{' {$channel=0;} // reset after WS call
+	:	'options' WS_LOOP '{'
 	;
 	
 TOKENS
-	:	'tokens' WS_LOOP '{' {$channel=0;} // reset after WS call
+	:	'tokens' WS_LOOP '{'
 	;
 
 /** Reset the file and line information; useful when the grammar
  *  has been generated so that errors are shown relative to the
  *  original file like the old C preprocessor used to do.
  */
-protected
+fragment
 SRC	:	'src' ' ' file=ACTION_STRING_LITERAL ' ' line=INT
-		{
-		//setFilename($file.text.substring(1,$file.text.length()-1));
-		//setLine(Integer.parseInt($line.text)-1);  // -1 because SL_COMMENT will increment the line no. KR
-		$channel=HIDDEN;
-		}
 	;
 
 WS	:	(	' '
@@ -740,6 +603,5 @@ WS_LOOP
 		|	SL_COMMENT
 		|	ML_COMMENT
 		)*
-		{$channel=HIDDEN;}
 	;
 

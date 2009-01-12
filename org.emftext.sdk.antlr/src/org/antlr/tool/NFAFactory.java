@@ -34,6 +34,8 @@ import org.antlr.misc.IntervalSet;
 import java.util.Iterator;
 import java.util.List;
 
+import antlr.Token;
+
 /** Routines to construct StateClusters from EBNF grammar constructs.
  *  No optimization is done to remove unnecessary epsilon edges.
  *
@@ -47,10 +49,7 @@ public class NFAFactory {
      */
 	NFA nfa = null;
 
-	String currentRuleName = null;
-
-    /** Used to assign state numbers */
-    protected int stateCounter = 0;
+	Rule currentRule = null;
 
 	public NFAFactory(NFA nfa) {
         nfa.setFactory(this);
@@ -59,16 +58,11 @@ public class NFAFactory {
 
     public NFAState newState() {
         NFAState n = new NFAState(nfa);
-        int state = stateCounter;
+        int state = nfa.getNewNFAStateNumber();
         n.stateNumber = state;
-        stateCounter++;
         nfa.addState(n);
-		n.setEnclosingRuleName(currentRuleName);
-        return n;
-    }
-
-    public int getNumberOfStates() {
-        return stateCounter;
+		n.enclosingRule = currentRule;
+		return n;
     }
 
 	/** Optimize an alternative (list of grammar elements).
@@ -87,21 +81,21 @@ public class NFAFactory {
 				s = nfa.getState(s.endOfBlockStateNumber);
 				continue;
 			}
-			Transition t = s.transition(0);
+			Transition t = s.transition[0];
 			if ( t instanceof RuleClosureTransition ) {
-				s = ((RuleClosureTransition)t).getFollowState();
+				s = ((RuleClosureTransition) t).followState;
 				continue;
 			}
-			if ( t.label.isEpsilon() && s.getNumberOfTransitions()==1 ) {
+			if ( t.label.isEpsilon() && !t.label.isAction() && s.getNumberOfTransitions()==1 ) {
 				// bypass epsilon transition and point to what the epsilon's
 				// target points to unless that epsilon transition points to
 				// a block or loop etc..  Also don't collapse epsilons that
-				// point at the last node of the alt
+				// point at the last node of the alt. Don't collapse action edges
 				NFAState epsilonTarget = (NFAState)t.target;
 				if ( epsilonTarget.endOfBlockStateNumber==State.INVALID_STATE_NUMBER &&
-					 epsilonTarget.transition(0)!=null )
+					 epsilonTarget.transition[0] !=null )
 				{
-					s.setTransition0(epsilonTarget.transition(0));
+					s.setTransition0(epsilonTarget.transition[0]);
 					/*
 					System.out.println("### opt "+s.stateNumber+"->"+
 									   epsilonTarget.transition(0).target.stateNumber);
@@ -113,23 +107,31 @@ public class NFAFactory {
 	}
 
 	/** From label A build Graph o-A->o */
-	public StateCluster build_Atom(int label) {
+	public StateCluster build_Atom(int label, GrammarAST associatedAST) {
 		NFAState left = newState();
 		NFAState right = newState();
+		left.associatedASTNode = associatedAST;
+		right.associatedASTNode = associatedAST;
 		transitionBetweenStates(left, right, label);
 		StateCluster g = new StateCluster(left, right);
 		return g;
 	}
 
-    /** From set build single edge graph o->o-set->o.  To conform to
+	public StateCluster build_Atom(GrammarAST atomAST) {
+		int tokenType = nfa.grammar.getTokenType(atomAST.getText());
+		return build_Atom(tokenType, atomAST);
+	}
+
+	/** From set build single edge graph o->o-set->o.  To conform to
      *  what an alt block looks like, must have extra state on left.
      */
-	public StateCluster build_Set(IntSet set) {
-        //NFAState start = newState();
+	public StateCluster build_Set(IntSet set, GrammarAST associatedAST) {
         NFAState left = newState();
-        //transitionBetweenStates(start, left, Label.EPSILON);
         NFAState right = newState();
-        Transition e = new Transition(new Label(set),right);
+		left.associatedASTNode = associatedAST;
+		right.associatedASTNode = associatedAST;
+		Label label = new Label(set);
+		Transition e = new Transition(label,right);
         left.addTransition(e);
 		StateCluster g = new StateCluster(left, right);
         return g;
@@ -153,7 +155,8 @@ public class NFAFactory {
     public StateCluster build_Range(int a, int b) {
         NFAState left = newState();
         NFAState right = newState();
-        Transition e = new Transition(new Label(IntervalSet.of(a,b)),right);
+		Label label = new Label(IntervalSet.of(a, b));
+		Transition e = new Transition(label,right);
         left.addTransition(e);
         StateCluster g = new StateCluster(left, right);
         return g;
@@ -161,9 +164,9 @@ public class NFAFactory {
 
 	/** From char 'c' build StateCluster o-intValue(c)->o
 	 */
-	public StateCluster build_CharLiteralAtom(String charLiteral) {
-        int c = Grammar.getCharValueFromGrammarCharLiteral(charLiteral);
-		return build_Atom(c);
+	public StateCluster build_CharLiteralAtom(GrammarAST charLiteralAST) {
+        int c = Grammar.getCharValueFromGrammarCharLiteral(charLiteralAST.getText());
+		return build_Atom(c, charLiteralAST);
 	}
 
 	/** From char 'c' build StateCluster o-intValue(c)->o
@@ -183,10 +186,10 @@ public class NFAFactory {
      *  the DFA.  Machine== o-'f'->o-'o'->o-'g'->o and has n+1 states
      *  for n characters.
      */
-    public StateCluster build_StringLiteralAtom(String stringLiteral) {
+    public StateCluster build_StringLiteralAtom(GrammarAST stringLiteralAST) {
         if ( nfa.grammar.type==Grammar.LEXER ) {
 			StringBuffer chars =
-				Grammar.getUnescapedStringFromGrammarStringLiteral(stringLiteral);
+				Grammar.getUnescapedStringFromGrammarStringLiteral(stringLiteralAST.getText());
             NFAState first = newState();
             NFAState last = null;
             NFAState prev = first;
@@ -200,8 +203,8 @@ public class NFAFactory {
         }
 
         // a simple token reference in non-Lexers
-        int tokenType = nfa.grammar.getTokenType(stringLiteral);
-        return build_Atom(tokenType);
+        int tokenType = nfa.grammar.getTokenType(stringLiteralAST.getText());
+		return build_Atom(tokenType, stringLiteralAST);
     }
 
     /** For reference to rule r, build
@@ -219,16 +222,13 @@ public class NFAFactory {
      *
      *  TODO add to codegen: collapse alt blks that are sets into single matchSet
      */
-    public StateCluster build_RuleRef(int ruleIndex, NFAState ruleStart) {
-        /*
-        System.out.println("building ref to rule "+ruleIndex+": "+
-                nfa.getGrammar().getRuleName(ruleIndex));
-        */
+    public StateCluster build_RuleRef(Rule refDef, NFAState ruleStart) {
+        //System.out.println("building ref to rule "+nfa.grammar.name+"."+refDef.name);
         NFAState left = newState();
         // left.setDescription("ref to "+ruleStart.getDescription());
         NFAState right = newState();
         // right.setDescription("NFAState following ref to "+ruleStart.getDescription());
-        Transition e = new RuleClosureTransition(ruleIndex,ruleStart,right);
+        Transition e = new RuleClosureTransition(refDef,ruleStart,right);
         left.addTransition(e);
         StateCluster g = new StateCluster(left, right);
         return g;
@@ -243,24 +243,37 @@ public class NFAFactory {
         return g;
     }
 
-    /** Build what amounts to an epsilon transition with a semantic
-     *  predicate action.  The pred is a pointer into the AST of
-     *  the SEMPRED token.
-     */
-    public StateCluster build_SemanticPredicate(GrammarAST pred) {
+	/** Build what amounts to an epsilon transition with a semantic
+	 *  predicate action.  The pred is a pointer into the AST of
+	 *  the SEMPRED token.
+	 */
+	public StateCluster build_SemanticPredicate(GrammarAST pred) {
 		// don't count syn preds
 		if ( !pred.getText().toUpperCase()
-			    .startsWith(Grammar.SYNPRED_RULE_PREFIX.toUpperCase()) )
+				.startsWith(Grammar.SYNPRED_RULE_PREFIX.toUpperCase()) )
 		{
 			nfa.grammar.numberOfSemanticPredicates++;
 		}
 		NFAState left = newState();
-        NFAState right = newState();
-        Transition e = new Transition(new Label(pred), right);
-        left.addTransition(e);
-        StateCluster g = new StateCluster(left, right);
-        return g;
-    }
+		NFAState right = newState();
+		Transition e = new Transition(new PredicateLabel(pred), right);
+		left.addTransition(e);
+		StateCluster g = new StateCluster(left, right);
+		return g;
+	}
+
+	/** Build what amounts to an epsilon transition with an action.
+	 *  The action goes into NFA though it is ignored during analysis.
+	 *  It slows things down a bit, but I must ignore predicates after
+	 *  having seen an action (5-5-2008).
+	 */
+	public StateCluster build_Action(GrammarAST action) {
+		NFAState left = newState();
+		NFAState right = newState();
+		Transition e = new Transition(new ActionLabel(action), right);
+		left.addTransition(e);
+		return new StateCluster(left, right);
+	}
 
 	/** add an EOF transition to any rule end NFAState that points to nothing
      *  (i.e., for all those rules not invoked by another rule).  These
@@ -274,26 +287,15 @@ public class NFAFactory {
 		int numberUnInvokedRules = 0;
         for (Iterator iterator = rules.iterator(); iterator.hasNext();) {
 			Rule r = (Rule) iterator.next();
-			String ruleName = r.name;
-			NFAState endNFAState = nfa.grammar.getRuleStopState(ruleName);
+			NFAState endNFAState = r.stopState;
             // Is this rule a start symbol?  (no follow links)
-            if ( endNFAState.transition(0)==null ) {
-                // if so, then don't let algorithm fall off the end of
-                // the rule, make it hit EOF/EOT.
-				/*
-				if ( nfa.grammar.type==Grammar.LEXER ) {
-					return; // 11/28/2005: try having only Tokens with EOT transition
-				}
-                if ( nfa.grammar.type!=Grammar.LEXER ||
-					 ruleName.equals(Grammar.ARTIFICIAL_TOKENS_RULENAME) )
-				{
-					build_EOFState(endNFAState);
-				}
-				*/
+			if ( endNFAState.transition[0] ==null ) {
+				// if so, then don't let algorithm fall off the end of
+				// the rule, make it hit EOF/EOT.
 				build_EOFState(endNFAState);
 				// track how many rules have been invoked by another rule
 				numberUnInvokedRules++;
-            }
+			}
         }
 		return numberUnInvokedRules;
     }
@@ -309,14 +311,14 @@ public class NFAFactory {
             label = Label.EOT;
 			end.setEOTTargetState(true);
         }
-        /*
+		/*
 		System.out.println("build "+nfa.grammar.getTokenDisplayName(label)+
 						   " loop on end of state "+endNFAState.getDescription()+
 						   " to state "+end.stateNumber);
-        */
+		*/
 		Transition toEnd = new Transition(label, end);
-        endNFAState.addTransition(toEnd);
-    }
+		endNFAState.addTransition(toEnd);
+	}
 
     /** From A B build A-e->B (that is, build an epsilon arc from right
      *  of A to left of B).
@@ -565,6 +567,9 @@ public class NFAFactory {
 		blockEndNFAState.decisionStateType = NFAState.RIGHT_EDGE_OF_BLOCK;
 
 		// don't reuse A.right as loopback if it's right edge of another block
+		if ( A==null ) {
+			System.out.println("what?");
+		}
 		if ( A.right.decisionStateType == NFAState.RIGHT_EDGE_OF_BLOCK ) {
 			// nested A* so make another tail node to be the loop back
 			// instead of the usual A.right which is the EOB for inner loop

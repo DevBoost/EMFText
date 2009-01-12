@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -27,18 +27,13 @@
 */
 package org.antlr.tool;
 
-import antlr.RecognitionException;
-import antlr.Token;
-import antlr.TokenStreamRewriteEngine;
-import antlr.TokenWithIndex;
+import org.antlr.misc.*;
+import org.antlr.misc.Utils;
+import antlr.*;
 import antlr.collections.AST;
 import org.antlr.Tool;
 import org.antlr.analysis.*;
 import org.antlr.codegen.CodeGenerator;
-import org.antlr.misc.Barrier;
-import org.antlr.misc.IntSet;
-import org.antlr.misc.IntervalSet;
-import org.antlr.misc.Utils;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.language.AngleBracketTemplateLexer;
 
@@ -67,7 +62,7 @@ public class Grammar {
 	public static String[] LabelTypeToString =
 		{"<invalid>", "rule", "token", "rule-list", "token-list"};
 
-    public static final String ARTIFICIAL_TOKENS_RULENAME = "Tokens";
+	public static final String ARTIFICIAL_TOKENS_RULENAME = "Tokens";
 	public static final String FRAGMENT_RULE_MODIFIER = "fragment";
 
 	public static final String SYNPREDGATE_ACTION_NAME = "synpredgate";
@@ -99,8 +94,8 @@ public class Grammar {
 		ANTLRLiteralCharValueEscape['\''] = "\\'";
 	}
 
-    public static final int LEXER = 1;
-    public static final int PARSER = 2;
+	public static final int LEXER = 1;
+	public static final int PARSER = 2;
 	public static final int TREE_PARSER = 3;
 	public static final int COMBINED = 4;
 	public static final String[] grammarTypeToString = new String[] {
@@ -119,12 +114,35 @@ public class Grammar {
 		"Parser" // if combined grammar, gen Parser and Lexer will be done later
 	};
 
+	/** Set of valid imports.  E.g., can only import a tree parser into
+	 *  another tree parser.  Maps delegate to set of delegator grammar types.
+	 *  validDelegations.get(LEXER) gives list of the kinds of delegators
+	 *  that can import lexers.
+	 */
+	public static MultiMap<Integer,Integer> validDelegations =
+		new MultiMap<Integer,Integer>() {
+			{
+				map(LEXER, LEXER);
+				map(LEXER, PARSER);
+				map(LEXER, COMBINED);
+
+				map(PARSER, PARSER);
+				map(PARSER, COMBINED);
+
+				map(TREE_PARSER, TREE_PARSER);
+
+				// TODO: allow COMBINED
+				// map(COMBINED, COMBINED);
+			}
+		};
+
 	/** This is the buffer of *all* tokens found in the grammar file
 	 *  including whitespace tokens etc...  I use this to extract
 	 *  lexer rules from combined grammars.
 	 */
 	protected TokenStreamRewriteEngine tokenBuffer;
 	public static final String IGNORE_STRING_IN_GRAMMAR_FILE_NAME = "__";
+	public static final String AUTO_GENERATED_TOKEN_NAME_PREFIX = "T__";
 
 	public static class Decision {
 		public int decision;
@@ -158,18 +176,44 @@ public class Grammar {
 	/** What name did the user provide for this grammar? */
 	public String name;
 
-    /** What type of grammar is this: lexer, parser, tree walker */
-    public int type;
+	/** What type of grammar is this: lexer, parser, tree walker */
+	public int type;
 
-    /** A list of options specified at the grammar level such as language=Java.
-     *  The value can be an AST for complicated values such as character sets.
-     *  There may be code generator specific options in here.  I do no
-     *  interpretation of the key/value pairs...they are simply available for
-     *  who wants them.
-     */
-    protected Map options;
+	/** A list of options specified at the grammar level such as language=Java.
+	 *  The value can be an AST for complicated values such as character sets.
+	 *  There may be code generator specific options in here.  I do no
+	 *  interpretation of the key/value pairs...they are simply available for
+	 *  who wants them.
+	 */
+	protected Map options;
 
-	public static final Set legalOptions =
+	public static final Set legalLexerOptions =
+			new HashSet() {
+				{
+				add("language"); add("tokenVocab");
+				add("TokenLabelType");
+				add("superClass");
+				add("filter");
+				add("k");
+				add("backtrack");
+				add("memoize");
+				}
+			};
+
+	public static final Set legalParserOptions =
+			new HashSet() {
+				{
+				add("language"); add("tokenVocab");
+				add("output"); add("rewrite"); add("ASTLabelType");
+				add("TokenLabelType");
+				add("superClass");
+				add("k");
+				add("backtrack");
+				add("memoize");
+				}
+			};
+
+	public static final Set legalTreeParserOptions =
 			new HashSet() {
 				{
 				add("language"); add("tokenVocab");
@@ -187,7 +231,7 @@ public class Grammar {
 		new HashSet() {
 			{
 				add("output"); add("ASTLabelType"); add("superClass");
-			 	add("k"); add("backtrack"); add("memoize"); add("rewrite");
+				add("k"); add("backtrack"); add("memoize"); add("rewrite");
 			}
 		};
 
@@ -197,6 +241,28 @@ public class Grammar {
 					put("language","Java");
 				}
 			};
+
+	public static final Set legalBlockOptions =
+			new HashSet() {{add("k"); add("greedy"); add("backtrack"); add("memoize");}};
+
+	/** What are the default options for a subrule? */
+	public static final Map defaultBlockOptions =
+			new HashMap() {{put("greedy","true");}};
+
+	public static final Map defaultLexerBlockOptions =
+			new HashMap() {{put("greedy","true");}};
+
+	// Token options are here to avoid contaminating Token object in runtime
+	
+	/** Legal options for terminal refs like ID<node=MyVarNode> */
+	public static final Set legalTokenOptions =
+			new HashSet() {
+				{
+				add(defaultTokenOption);
+				}
+			};
+	
+	public static final String defaultTokenOption = "node";
 
 	/** Is there a global fixed lookahead set for this grammar?
 	 *  If 0, nothing specified.  -1 implies we have not looked at
@@ -213,42 +279,29 @@ public class Grammar {
 	protected Map actions = new HashMap();
 
 	/** The NFA that represents the grammar with edges labelled with tokens
-     *  or epsilon.  It is more suitable to analysis than an AST representation.
-     */
-    protected NFA nfa;
+	 *  or epsilon.  It is more suitable to analysis than an AST representation.
+	 */
+	public NFA nfa;
 
-    /** Token names and literal tokens like "void" are uniquely indexed.
-     *  with -1 implying EOF.  Characters are different; they go from
-     *  -1 (EOF) to \uFFFE.  For example, 0 could be a binary byte you
-     *  want to lexer.  Labels of DFA/NFA transitions can be both tokens
-     *  and characters.  I use negative numbers for bookkeeping labels
-     *  like EPSILON. Char/String literals and token types overlap in the same
-	 *  space, however.
-     */
-    protected int maxTokenType = Label.MIN_TOKEN_TYPE-1;
+	protected NFAFactory factory;
+
+	/** If this grammar is part of a larger composite grammar via delegate
+	 *  statement, then this points at the composite.  The composite holds
+	 *  a global list of rules, token types, decision numbers, etc...
+	 */
+	public CompositeGrammar composite;
+
+	/** A pointer back into grammar tree.  Needed so we can add delegates. */
+	public CompositeGrammarTree compositeTreeNode;
+
+	/** If this is a delegate of another grammar, this is the label used
+	 *  as an instance var by that grammar to point at this grammar. null
+	 *  if no label was specified in the delegate statement.
+	 */
+	public String label;
 
 	/** TODO: hook this to the charVocabulary option */
 	protected IntSet charVocabulary = null;
-
-    /** Map token like ID (but not literals like "while") to its token type */
-    protected Map tokenIDToTypeMap = new HashMap();
-
-    /** Map token literals like "while" to its token type.  It may be that
-     *  WHILE="while"=35, in which case both tokenNameToTypeMap and this
-     *  field will have entries both mapped to 35.
-     */
-    protected Map stringLiteralToTypeMap = new HashMap();
-
-    /** Map a token type to its token name.
-	 *  Must subtract MIN_TOKEN_TYPE from index.
-	 */
-    protected Vector typeToTokenList = new Vector();
-
-	/** For interpreting and testing, you sometimes want to import token
-	 *  definitions from another grammar (instead of reading token defs from
-	 *  a file).
-	 */
-	protected Grammar importTokenVocabularyFromGrammar;
 
 	/** For ANTLRWorks, we want to be able to map a line:col to a specific
 	 *  decision DFA so it can display DFA.
@@ -257,32 +310,26 @@ public class Grammar {
 
 	public Tool tool;
 
-	/** The unique set of all rule references in any rule; set of Token
+	/** The unique set of all rule references in any rule; set of tree node
 	 *  objects so two refs to same rule can exist but at different line/position.
 	 */
-	protected Set<antlr.Token> ruleRefs = new HashSet<antlr.Token>();
+	protected Set<GrammarAST> ruleRefs = new HashSet<GrammarAST>();
+
+	protected Set<GrammarAST> scopedRuleRefs = new HashSet();
 
 	/** The unique set of all token ID references in any rule */
 	protected Set<antlr.Token> tokenIDRefs = new HashSet<antlr.Token>();
 
-	/** If combined or lexer grammar, track the rules; Set<String>.
-	 * 	Track lexer rules so we can warn about undefined tokens.
- 	 */
-	protected Set<String> lexerRules = new HashSet<String>();
-
-    /** Be able to assign a number to every decision in grammar;
-     *  decisions in 1..n
-     */
-    protected int decisionNumber = 0;
-
-    /** Rules are uniquely labeled from 1..n */
-    protected int ruleIndex = 1;
+	/** Be able to assign a number to every decision in grammar;
+	 *  decisions in 1..n
+	 */
+	protected int decisionCount = 0;
 
 	/** A list of all rules that are in any left-recursive cycle.  There
 	 *  could be multiple cycles, but this is a flat list of all problematic
 	 *  rules.
 	 */
-	protected Set leftRecursiveRules;
+	protected Set<Rule> leftRecursiveRules;
 
 	/** An external tool requests that DFA analysis abort prematurely.  Stops
 	 *  at DFA granularity, which are limited to a DFA size and time computation
@@ -297,51 +344,60 @@ public class Grammar {
 	 */
 	protected LinkedHashMap nameToSynpredASTMap;
 
-	/** Map a rule to it's Rule object
+	/** At least one rule has memoize=true */
+	public boolean atLeastOneRuleMemoizes;
+
+	/** Was this created from a COMBINED grammar? */
+	public boolean implicitLexer;
+
+	/** Map a rule to it's Rule object */
+	protected LinkedHashMap<String,Rule> nameToRuleMap = new LinkedHashMap<String,Rule>();
+
+	/** If this rule is a delegate, some rules might be overridden; don't
+	 *  want to gen code for them.
 	 */
-	protected LinkedHashMap nameToRuleMap = new LinkedHashMap();
+	public Set<String> overriddenRules = new HashSet<String>();
+
+	/** The list of all rules referenced in this grammar, not defined here,
+	 *  and defined in a delegate grammar.  Not all of these will be generated
+	 *  in the recognizer for this file; only those that are affected by rule
+	 *  definitions in this grammar.  I am not sure the Java target will need
+	 *  this but I'm leaving in case other targets need it.
+	 *  @see NameSpaceChecker.lookForReferencesToUndefinedSymbols()
+	 */
+	protected Set<Rule> delegatedRuleReferences = new HashSet();
+
+	/** The ANTLRParser tracks lexer rules when reading combined grammars
+	 *  so we can build the Tokens rule.
+	 */
+	public List<String> lexerRuleNamesInCombined = new ArrayList<String>();
 
 	/** Track the scopes defined outside of rules and the scopes associated
 	 *  with all rules (even if empty).
 	 */
 	protected Map scopes = new HashMap();
 
-	/** Map a rule index to its name; use a Vector on purpose as new
-	 *  collections stuff won't let me setSize and make it grow.  :(
-	 *  I need a specific guaranteed index, which the Collections stuff
-	 *  won't let me have.
+	/** An AST that records entire input grammar with all rules.  A simple
+	 *  grammar with one rule, "grammar t; a : A | B ;", looks like:
+	 * ( grammar t ( rule a ( BLOCK ( ALT A ) ( ALT B ) ) <end-of-rule> ) )
 	 */
-	protected Vector ruleIndexToRuleList = new Vector();
+	protected GrammarAST grammarTree = null;
 
-    /** An AST that records entire input grammar with all rules.  A simple
-     *  grammar with one rule, "grammar t; a : A | B ;", looks like:
-     * ( grammar t ( rule a ( BLOCK ( ALT A ) ( ALT B ) ) <end-of-rule> ) )
-     */
-    protected GrammarAST grammarTree = null;
-
-    /** Each subrule/rule is a decision point and we must track them so we
-     *  can go back later and build DFA predictors for them.  This includes
-     *  all the rules, subrules, optional blocks, ()+, ()* etc...  The
-     *  elements in this list are NFAState objects.
-     */
-	protected Vector indexToDecision = new Vector(INITIAL_DECISION_LIST_SIZE);
-
-    /** If non-null, this is the code generator we will use to generate
-     *  recognizers in the target language.
-     */
-    protected CodeGenerator generator;
-
-	NameSpaceChecker nameSpaceChecker = new NameSpaceChecker(this);
-
-	/** Used during LOOK to detect computation cycles */
-	protected Set lookBusy = new HashSet();
-
-	/** The checkForLeftRecursion method needs to track what rules it has
-	 *  visited to track infinite recursion.
+	/** Each subrule/rule is a decision point and we must track them so we
+	 *  can go back later and build DFA predictors for them.  This includes
+	 *  all the rules, subrules, optional blocks, ()+, ()* etc...
 	 */
-	protected Set visitedDuringRecursionCheck = null;
+	protected Vector<Decision> indexToDecision =
+		new Vector<Decision>(INITIAL_DECISION_LIST_SIZE);
 
-	protected boolean watchNFAConversion = false;
+	/** If non-null, this is the code generator we will use to generate
+	 *  recognizers in the target language.
+	 */
+	protected CodeGenerator generator;
+
+	public NameSpaceChecker nameSpaceChecker = new NameSpaceChecker(this);
+
+	public LL1Analyzer ll1Analyzer = new LL1Analyzer(this);
 
 	/** For merged lexer/parsers, we must construct a separate lexer spec.
 	 *  This is the template for lexer; put the literals first then the
@@ -362,6 +418,7 @@ public class Grammar {
 			"  <options:{<it.name>=<it.value>;<\\n>}>\n" +
 			"}<\\n>\n" +
 			"<endif>\n" +
+			"<if(imports)>import <imports; separator=\", \">;<endif>\n" +
 			"<actionNames,actions:{n,a|@<n> {<a>}\n}>\n" +
 			"<literals:{<it.ruleName> : <it.literal> ;\n}>\n" +
 			"<rules>",
@@ -380,9 +437,10 @@ public class Grammar {
 
 	public int numberOfSemanticPredicates = 0;
 	public int numberOfManualLookaheadOptions = 0;
-	public Set setOfNondeterministicDecisionNumbers = new HashSet();
-	public Set setOfNondeterministicDecisionNumbersResolvedWithPredicates = new HashSet();
-	public Set setOfDFAWhoseConversionTerminatedEarly = new HashSet();
+	public Set<Integer> setOfNondeterministicDecisionNumbers = new HashSet<Integer>();
+	public Set<Integer> setOfNondeterministicDecisionNumbersResolvedWithPredicates =
+		new HashSet<Integer>();
+	public Set setOfDFAWhoseAnalysisTimedOut = new HashSet();
 
 	/** Track decisions with syn preds specified for reporting.
 	 *  This is the a set of BLOCK type AST nodes.
@@ -392,7 +450,7 @@ public class Grammar {
 	/** Track decisions that actually use the syn preds in the DFA.
 	 *  Computed during NFA to DFA conversion.
 	 */
-	public Set<DFA> decisionsWhoseDFAsUsesSynPreds = new HashSet();
+	public Set<DFA> decisionsWhoseDFAsUsesSynPreds = new HashSet<DFA>();
 
 	/** Track names of preds so we can avoid generating preds that aren't used
 	 *  Computed during NFA to DFA conversion.  Just walk accept states
@@ -407,8 +465,8 @@ public class Grammar {
 	 */
 	public Set<GrammarAST> blocksWithSemPreds = new HashSet();
 
-	/** Track decisions that actually use the syn preds in the DFA. Set<DFA> */
-	public Set decisionsWhoseDFAsUsesSemPreds = new HashSet();
+	/** Track decisions that actually use the syn preds in the DFA. */
+	public Set<DFA> decisionsWhoseDFAsUsesSemPreds = new HashSet();
 
 	protected boolean allDecisionDFACreated = false;
 
@@ -422,38 +480,46 @@ public class Grammar {
 	/** Factored out the sanity checking code; delegate to it. */
 	GrammarSanity sanity = new GrammarSanity(this);
 
-	public Grammar() {
-		initTokenSymbolTables();
-		builtFromString = true;
+	/** Create a grammar from file name.  */
+	public Grammar(Tool tool, String fileName, CompositeGrammar composite) {
+		this.composite = composite;
+		setTool(tool);
+		setFileName(fileName);
+		// ensure we have the composite set to something
+		if ( composite.delegateGrammarTreeRoot==null ) {
+			composite.setDelegationRoot(this);
+		}		
 	}
 
+	/** Useful for when you are sure that you are not part of a composite
+	 *  already.  Used in Interp/RandomPhrase and testing.
+	 */
+	public Grammar() {
+		builtFromString = true;
+		composite = new CompositeGrammar(this);
+	}
+
+	/** Used for testing; only useful on noncomposite grammars.*/
 	public Grammar(String grammarString)
 			throws antlr.RecognitionException, antlr.TokenStreamException
 	{
-		builtFromString = true;
-		initTokenSymbolTables();
-		setFileName("<string>");
-		setGrammarContent(new StringReader(grammarString));
+		this(null, grammarString);
 	}
 
-	public Grammar(String fileName, String grammarString)
-			throws antlr.RecognitionException, antlr.TokenStreamException
+	/** Used for testing and Interp/RandomPhrase.  Only useful on
+	 *  noncomposite grammars.
+	 */
+	public Grammar(Tool tool, String grammarString)
+		throws antlr.RecognitionException
 	{
-		this(null, fileName, new StringReader(grammarString));
-	}
-
-    /** Create a grammar from a Reader.  Parse the grammar, building a tree
-     *  and loading a symbol table of sorts here in Grammar.  Then create
-     *  an NFA and associated factory.  Walk the AST representing the grammar,
-     *  building the state clusters of the NFA.
-     */
-    public Grammar(Tool tool, String fileName, Reader r)
-            throws antlr.RecognitionException, antlr.TokenStreamException
-    {
-		initTokenSymbolTables();
+		this();
 		setTool(tool);
-		setFileName(fileName);
-		setGrammarContent(r);
+		setFileName("<string>");
+		StringReader r = new StringReader(grammarString);
+		parseAndBuildAST(r);
+		composite.assignTokenTypes();
+		defineGrammarSymbols();
+		checkNameSpaceAndActions();
 	}
 
 	public void setFileName(String fileName) {
@@ -491,17 +557,33 @@ public class Grammar {
 		this.name = name;
 	}
 
-	public void setGrammarContent(String grammarString)
-		throws antlr.RecognitionException, antlr.TokenStreamException
-	{
-		setGrammarContent(new StringReader(grammarString));
+	public void setGrammarContent(String grammarString) throws RecognitionException {
+		StringReader r = new StringReader(grammarString);
+		parseAndBuildAST(r);
+		composite.assignTokenTypes();
+		composite.defineGrammarSymbols();
 	}
 
-	public void setGrammarContent(Reader r)
-		throws antlr.RecognitionException, antlr.TokenStreamException
+	public void parseAndBuildAST()
+		throws IOException
 	{
-		ErrorManager.resetErrorState(); // reset in case > 1 grammar in same thread
+		FileReader fr = null;
+		BufferedReader br = null;
+		try {
+			fr = new FileReader(fileName);
+			br = new BufferedReader(fr);
+			parseAndBuildAST(br);
+			br.close();
+			br = null;
+		}
+		finally {
+			if ( br!=null ) {
+				br.close();
+			}
+		}
+	}
 
+	public void parseAndBuildAST(Reader r) {
 		// BUILD AST FROM GRAMMAR
 		ANTLRLexer lexer = new ANTLRLexer(r);
 		lexer.setFilename(this.getFileName());
@@ -515,13 +597,33 @@ public class Grammar {
 		tokenBuffer.discard(ANTLRParser.COMMENT);
 		tokenBuffer.discard(ANTLRParser.SL_COMMENT);
 		ANTLRParser parser = new ANTLRParser(tokenBuffer);
-		parser.getASTFactory().setASTNodeClass(GrammarAST.class);
 		parser.setFilename(this.getFileName());
-		parser.setASTNodeClass("org.antlr.tool.GrammarAST");
-		parser.grammar(this);
+		try {
+			parser.grammar(this);
+		}
+		catch (TokenStreamException tse) {
+			ErrorManager.internalError("unexpected stream error from parsing "+fileName, tse);
+		}
+		catch (RecognitionException re) {
+			ErrorManager.internalError("unexpected parser recognition error from "+fileName, re);
+		}
+
+		if ( lexer.hasASTOperator && !buildAST() ) {
+			Object value = getOption("output");
+			if ( value == null ) {
+				ErrorManager.grammarWarning(ErrorManager.MSG_REWRITE_OR_OP_WITH_NO_OUTPUT_OPTION,
+										    this, null);
+				setOption("output", "AST", null);
+			}
+			else {
+				ErrorManager.grammarError(ErrorManager.MSG_AST_OP_WITH_NON_AST_OUTPUT_OPTION,
+										  this, null, value);
+			}
+		}
+
 		grammarTree = (GrammarAST)parser.getAST();
 		setFileName(lexer.getFilename()); // the lexer #src might change name
-		if ( grammarTree.findFirstType(ANTLRParser.RULE)==null ) {
+		if ( grammarTree==null || grammarTree.findFirstType(ANTLRParser.RULE)==null ) {
 			ErrorManager.error(ErrorManager.MSG_NO_RULES, getFileName());
 			return;
 		}
@@ -529,30 +631,20 @@ public class Grammar {
 		// Get syn pred rules and add to existing tree
 		List synpredRules =
 			getArtificialRulesForSyntacticPredicates(parser,
-												 	 nameToSynpredASTMap);
+													 nameToSynpredASTMap);
 		for (int i = 0; i < synpredRules.size(); i++) {
 			GrammarAST rAST = (GrammarAST) synpredRules.get(i);
 			grammarTree.addChild(rAST);
 		}
+	}
 
+	public void defineGrammarSymbols() {
 		if ( Tool.internalOption_PrintGrammarTree ) {
 			System.out.println(grammarTree.toStringList());
 		}
 
-		// ASSIGN TOKEN TYPES
-		//System.out.println("### assign types");
-		AssignTokenTypesWalker ttypesWalker = new AssignTokenTypesWalker();
-		ttypesWalker.setASTNodeClass("org.antlr.tool.GrammarAST");
-		try {
-			ttypesWalker.grammar(grammarTree, this);
-		}
-		catch (RecognitionException re) {
-			ErrorManager.error(ErrorManager.MSG_BAD_AST_STRUCTURE,
-							   re);
-		}
-
 		// DEFINE RULES
-		//System.out.println("### define rules");
+		//System.out.println("### define "+name+" rules");
 		DefineGrammarItemsWalker defineItemsWalker = new DefineGrammarItemsWalker();
 		defineItemsWalker.setASTNodeClass("org.antlr.tool.GrammarAST");
 		try {
@@ -562,15 +654,23 @@ public class Grammar {
 			ErrorManager.error(ErrorManager.MSG_BAD_AST_STRUCTURE,
 							   re);
 		}
+	}
 
-		// ANALYZE ACTIONS, LOOKING FOR LABEL AND ATTR REFS
+	/** ANALYZE ACTIONS, LOOKING FOR LABEL AND ATTR REFS, sanity check */
+	public void checkNameSpaceAndActions() {
 		examineAllExecutableActions();
 		checkAllRulesForUselessLabels();
 
 		nameSpaceChecker.checkConflicts();
 	}
 
-	/** If the grammar is a merged grammar, return the text of the implicit
+	/** Many imports are illegal such as lexer into a tree grammar */
+	public boolean validImport(Grammar delegate) {
+		List<Integer> validDelegators = validDelegations.get(delegate.type);
+		return validDelegators!=null && validDelegators.contains(this.type);
+	}
+
+	/** If the grammar is a combined grammar, return the text of the implicit
 	 *  lexer grammar.
 	 */
 	public String getLexerGrammar() {
@@ -604,21 +704,41 @@ public class Grammar {
 
 	public String getImplicitlyGeneratedLexerFileName() {
 		return name+
-			IGNORE_STRING_IN_GRAMMAR_FILE_NAME +
-			LEXER_GRAMMAR_FILE_EXTENSION;
+			   IGNORE_STRING_IN_GRAMMAR_FILE_NAME +
+			   LEXER_GRAMMAR_FILE_EXTENSION;
 	}
 
-	public File getImportedVocabFileName(String vocabName) {
-		return new File(tool.getLibraryDirectory(),
-						File.separator+
-							vocabName+
-							CodeGenerator.VOCAB_FILE_EXTENSION);
+	/** Get the name of the generated recognizer; may or may not be same
+	 *  as grammar name.
+	 *  Recognizer is TParser and TLexer from T if combined, else
+	 *  just use T regardless of grammar type.
+	 */
+	public String getRecognizerName() {
+		String suffix = "";
+		List<Grammar> grammarsFromRootToMe = composite.getDelegators(this);
+		//System.out.println("grammarsFromRootToMe="+grammarsFromRootToMe);
+		String qualifiedName = name;
+		if ( grammarsFromRootToMe!=null ) {
+			StringBuffer buf = new StringBuffer();
+			for (Grammar g : grammarsFromRootToMe) {
+				buf.append(g.name);
+				buf.append('_');
+			}
+			buf.append(name);
+			qualifiedName = buf.toString();
+		}
+		if ( type==Grammar.COMBINED ||
+			 (type==Grammar.LEXER && implicitLexer) )
+		{
+			suffix = Grammar.grammarTypeToFileNameSuffix[type];
+		}
+		return qualifiedName+suffix;
 	}
 
 	/** Parse a rule we add artificially that is a list of the other lexer
-     *  rules like this: "Tokens : ID | INT | SEMI ;"  nextToken() will invoke
-     *  this to set the current token.  Add char literals before
-     *  the rule references.
+	 *  rules like this: "Tokens : ID | INT | SEMI ;"  nextToken() will invoke
+	 *  this to set the current token.  Add char literals before
+	 *  the rule references.
 	 *
 	 *  If in filter mode, we want every alt to backtrack and we need to
 	 *  do k=1 to force the "first token def wins" rule.  Otherwise, the
@@ -626,18 +746,19 @@ public class Grammar {
 	 *
 	 *  The ANTLRParser antlr.g file now invokes this when parsing a lexer
 	 *  grammar, which I think is proper even though it peeks at the info
-	 *  that later phases will compute.  It gets a list of lexer rules
+	 *  that later phases will (re)compute.  It gets a list of lexer rules
 	 *  and builds a string representing the rule; then it creates a parser
 	 *  and adds the resulting tree to the grammar's tree.
-     */
-    public GrammarAST addArtificialMatchTokensRule(GrammarAST grammarAST,
-												   List ruleNames,
+	 */
+	public GrammarAST addArtificialMatchTokensRule(GrammarAST grammarAST,
+												   List<String> ruleNames,
+												   List<String> delegateNames,
 												   boolean filterMode) {
 		StringTemplate matchTokenRuleST = null;
 		if ( filterMode ) {
 			matchTokenRuleST = new StringTemplate(
 					ARTIFICIAL_TOKENS_RULENAME+
-						" options {k=1; backtrack=true;} : <rules; separator=\"|\">;",
+					" options {k=1; backtrack=true;} : <rules; separator=\"|\">;",
 					AngleBracketTemplateLexer.class);
 		}
 		else {
@@ -651,9 +772,13 @@ public class Grammar {
 			String rname = (String) ruleNames.get(i);
 			matchTokenRuleST.setAttribute("rules", rname);
 		}
+		for (int i = 0; i < delegateNames.size(); i++) {
+			String dname = (String) delegateNames.get(i);
+			matchTokenRuleST.setAttribute("rules", dname+".Tokens");
+		}
 		//System.out.println("tokens rule: "+matchTokenRuleST.toString());
 
-        ANTLRLexer lexer = new ANTLRLexer(new StringReader(matchTokenRuleST.toString()));
+		ANTLRLexer lexer = new ANTLRLexer(new StringReader(matchTokenRuleST.toString()));
 		lexer.setTokenObjectClass("antlr.TokenWithIndex");
 		TokenStreamRewriteEngine tokbuf =
 			new TokenStreamRewriteEngine(lexer);
@@ -661,12 +786,12 @@ public class Grammar {
 		tokbuf.discard(ANTLRParser.ML_COMMENT);
 		tokbuf.discard(ANTLRParser.COMMENT);
 		tokbuf.discard(ANTLRParser.SL_COMMENT);
-        ANTLRParser parser = new ANTLRParser(tokbuf);
+		ANTLRParser parser = new ANTLRParser(tokbuf);
 		parser.grammar = this;
 		parser.gtype = ANTLRParser.LEXER_GRAMMAR;
-        parser.setASTNodeClass("org.antlr.tool.GrammarAST");
-        try {
-            parser.rule();
+		parser.setASTNodeClass("org.antlr.tool.GrammarAST");
+		try {
+			parser.rule();
 			if ( Tool.internalOption_PrintGrammarTree ) {
 				System.out.println("Tokens rule: "+parser.getAST().toStringTree());
 			}
@@ -675,11 +800,11 @@ public class Grammar {
 				p = (GrammarAST)p.getNextSibling();
 			}
 			p.addChild(parser.getAST());
-        }
-        catch (Exception e) {
+		}
+		catch (Exception e) {
 			ErrorManager.error(ErrorManager.MSG_ERROR_CREATING_ARTIFICIAL_RULE,
 							   e);
-        }
+		}
 		return (GrammarAST)parser.getAST();
 	}
 
@@ -708,56 +833,66 @@ public class Grammar {
 		return rules;
 	}
 
-	protected void initTokenSymbolTables() {
-        // the faux token types take first NUM_FAUX_LABELS positions
-		// then we must have room for the predefined runtime token types
-		// like DOWN/UP used for tree parsing.
-        typeToTokenList.setSize(Label.NUM_FAUX_LABELS+Label.MIN_TOKEN_TYPE-1);
-        typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.INVALID, "<INVALID>");
-        typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.EOT, "<EOT>");
-        typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.SEMPRED, "<SEMPRED>");
-        typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.SET, "<SET>");
-        typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.EPSILON, Label.EPSILON_STR);
-		typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.EOF, "EOF");
-		typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.EOR_TOKEN_TYPE-1, "<EOR>");
-		typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.DOWN-1, "DOWN");
-		typeToTokenList.set(Label.NUM_FAUX_LABELS+Label.UP-1, "UP");
-        tokenIDToTypeMap.put("<INVALID>", Utils.integer(Label.INVALID));
-        tokenIDToTypeMap.put("<EOT>", Utils.integer(Label.EOT));
-        tokenIDToTypeMap.put("<SEMPRED>", Utils.integer(Label.SEMPRED));
-        tokenIDToTypeMap.put("<SET>", Utils.integer(Label.SET));
-        tokenIDToTypeMap.put("<EPSILON>", Utils.integer(Label.EPSILON));
-		tokenIDToTypeMap.put("EOF", Utils.integer(Label.EOF));
-		tokenIDToTypeMap.put("<EOR>", Utils.integer(Label.EOR_TOKEN_TYPE));
-		tokenIDToTypeMap.put("DOWN", Utils.integer(Label.DOWN));
-		tokenIDToTypeMap.put("UP", Utils.integer(Label.UP));
-    }
+	/** Walk the list of options, altering this Grammar object according
+	 *  to any I recognize.
+	protected void processOptions() {
+		Iterator optionNames = options.keySet().iterator();
+		while (optionNames.hasNext()) {
+			String optionName = (String) optionNames.next();
+			Object value = options.get(optionName);
+			if ( optionName.equals("tokenVocab") ) {
 
-    /** Walk the list of options, altering this Grammar object according
-     *  to any I recognize.
-    protected void processOptions() {
-        Iterator optionNames = options.keySet().iterator();
-        while (optionNames.hasNext()) {
-            String optionName = (String) optionNames.next();
-            Object value = options.get(optionName);
-            if ( optionName.equals("tokenVocab") ) {
+			}
+		}
+	}
+	 */
 
-            }
-        }
-    }
-     */
-
-    public void createNFAs() {
-		//System.out.println("### create NFAs");
+	/** Define all the rule begin/end NFAStates to solve forward reference
+	 *  issues.  Critical for composite grammars too.
+	 *  This is normally called on all root/delegates manually and then
+	 *  buildNFA() is called afterwards because the NFA construction needs
+	 *  to see rule start/stop states from potentially every grammar. Has
+	 *  to be have these created a priori.  Testing routines will often
+	 *  just call buildNFA(), which forces a call to this method if not
+	 *  done already. Works ONLY for single noncomposite grammars.
+	 */
+	public void createRuleStartAndStopNFAStates() {
+		//System.out.println("### createRuleStartAndStopNFAStates "+getGrammarTypeString()+" grammar "+name+" NFAs");
 		if ( nfa!=null ) {
+			return;
+		}
+		nfa = new NFA(this);
+		factory = new NFAFactory(nfa);
+
+		Collection rules = getRules();
+		for (Iterator itr = rules.iterator(); itr.hasNext();) {
+			Rule r = (Rule) itr.next();
+			String ruleName = r.name;
+			NFAState ruleBeginState = factory.newState();
+			ruleBeginState.setDescription("rule "+ruleName+" start");
+			ruleBeginState.enclosingRule = r;
+			r.startState = ruleBeginState;
+			NFAState ruleEndState = factory.newState();
+			ruleEndState.setDescription("rule "+ruleName+" end");
+			ruleEndState.setAcceptState(true);
+			ruleEndState.enclosingRule = r;
+			r.stopState = ruleEndState;
+		}
+	}
+
+	public void buildNFA() {
+		if ( nfa==null ) {
+			createRuleStartAndStopNFAStates();
+		}
+		if ( nfa.complete ) {
 			// don't let it create more than once; has side-effects
 			return;
 		}
+		//System.out.println("### build "+getGrammarTypeString()+" grammar "+name+" NFAs");
 		if ( getRules().size()==0 ) {
 			return;
 		}
-		nfa = new NFA(this); // create NFA that TreeToNFAConverter'll fill in
-		NFAFactory factory = new NFAFactory(nfa);
+
 		TreeToNFAConverter nfaBuilder = new TreeToNFAConverter(this, nfa, factory);
 		try {
 			nfaBuilder.grammar(grammarTree);
@@ -767,24 +902,38 @@ public class Grammar {
 							   name,
 							   re);
 		}
-		//System.out.println("NFA has "+factory.getNumberOfStates()+" states");
+		nfa.complete = true;
 	}
 
 	/** For each decision in this grammar, compute a single DFA using the
-     *  NFA states associated with the decision.  The DFA construction
-     *  determines whether or not the alternatives in the decision are
-     *  separable using a regular lookahead language.
-     *
-     *  Store the lookahead DFAs in the AST created from the user's grammar
-     *  so the code generator or whoever can easily access it.
-     *
-     *  This is a separate method because you might want to create a
-     *  Grammar without doing the expensive analysis.
-     */
-    public void createLookaheadDFAs() {
+	 *  NFA states associated with the decision.  The DFA construction
+	 *  determines whether or not the alternatives in the decision are
+	 *  separable using a regular lookahead language.
+	 *
+	 *  Store the lookahead DFAs in the AST created from the user's grammar
+	 *  so the code generator or whoever can easily access it.
+	 *
+	 *  This is a separate method because you might want to create a
+	 *  Grammar without doing the expensive analysis.
+	 */
+	public void createLookaheadDFAs() {
+		createLookaheadDFAs(true);
+	}
+
+	public void createLookaheadDFAs(boolean wackTempStructures) {
 		if ( nfa==null ) {
-			createNFAs();
+			buildNFA();
 		}
+
+		// CHECK FOR LEFT RECURSION; Make sure we can actually do analysis
+		checkAllRulesForLeftRecursion();
+
+		/*
+		// was there a severe problem while sniffing the grammar?
+		if ( ErrorManager.doNotAttemptAnalysis() ) {
+			return;
+		}
+		*/
 
 		long start = System.currentTimeMillis();
 
@@ -793,8 +942,43 @@ public class Grammar {
 		if ( NFAToDFAConverter.SINGLE_THREADED_NFA_CONVERSION ) {
 			for (int decision=1; decision<=numDecisions; decision++) {
 				NFAState decisionStartState = getDecisionNFAStartState(decision);
+				if ( leftRecursiveRules.contains(decisionStartState.enclosingRule) ) {
+					// don't bother to process decisions within left recursive rules.
+					if ( composite.watchNFAConversion ) {
+						System.out.println("ignoring decision "+decision+
+										   " within left-recursive rule "+decisionStartState.enclosingRule.name);
+					}
+					continue;
+				}
 				if ( !externalAnalysisAbort && decisionStartState.getNumberOfTransitions()>1 ) {
-					createLookaheadDFA(decision);
+					Rule r = decisionStartState.enclosingRule;
+					if ( r.isSynPred && !synPredNamesUsedInDFA.contains(r.name) ) {
+						continue;
+					}
+					DFA dfa = null;
+					// if k=* or k=1, try LL(1)
+					if ( getUserMaxLookahead(decision)==0 ||
+						 getUserMaxLookahead(decision)==1 )
+					{
+						dfa = createLL_1_LookaheadDFA(decision);
+					}
+					if ( dfa==null ) {
+						if ( composite.watchNFAConversion ) {
+							System.out.println("decision "+decision+
+											   " not suitable for LL(1)-optimized DFA analysis");
+						}
+						dfa = createLookaheadDFA(decision, wackTempStructures);
+					}
+					if ( dfa.startState==null ) {
+						// something went wrong; wipe out DFA
+						setLookaheadDFA(decision, null);
+					}
+					if ( Tool.internalOption_PrintDFA ) {
+						System.out.println("DFA d="+decision);
+						FASerializer serializer = new FASerializer(nfa.grammar);
+						String result = serializer.serialize(dfa.startState);
+						System.out.println(result);
+					}
 				}
 			}
 		}
@@ -829,57 +1013,242 @@ public class Grammar {
 		allDecisionDFACreated = true;
 	}
 
-	public void createLookaheadDFA(int decision) {
+	public DFA createLL_1_LookaheadDFA(int decision) {
 		Decision d = getDecision(decision);
-		String enclosingRule = d.startState.getEnclosingRule();
-		Rule r = getRule(enclosingRule);
-
-		//System.out.println("createLookaheadDFA(): "+enclosingRule+" dec "+decision+"; synprednames prev used "+synPredNamesUsedInDFA);
-		if ( r.isSynPred && !synPredNamesUsedInDFA.contains(enclosingRule) ) {
-			return;
-		}
+		String enclosingRule = d.startState.enclosingRule.name;
+		Rule r = d.startState.enclosingRule;
 		NFAState decisionStartState = getDecisionNFAStartState(decision);
-		long startDFA=0,stopDFA=0;
-		if ( watchNFAConversion ) {
-			System.out.println("--------------------\nbuilding lookahead DFA (d="
+
+		if ( composite.watchNFAConversion ) {
+			System.out.println("--------------------\nattempting LL(1) DFA (d="
 							   +decisionStartState.getDecisionNumber()+") for "+
 							   decisionStartState.getDescription());
-			startDFA = System.currentTimeMillis();
 		}
-		DFA lookaheadDFA = new DFA(decision, decisionStartState);
-		if ( (lookaheadDFA.analysisAborted() && // did analysis bug out?
-			 lookaheadDFA.getUserMaxLookahead()!=1) || // either k=* or k>1
-			 (lookaheadDFA.probe.isNonLLStarDecision() && // >1 alt recurses, k=*
-		      lookaheadDFA.getAutoBacktrackMode()) )
-		{
-			// set k=1 option if not already k=1 and try again
-			// clean up tracking stuff
-			decisionsWhoseDFAsUsesSynPreds.remove(lookaheadDFA);
-			// TODO: clean up synPredNamesUsedInDFA also (harder)
-			lookaheadDFA = null; // make sure other memory is "free" before redoing
-			d.blockAST.setOption(this, "k", Utils.integer(1));
-			//System.out.println("trying decision "+decision+" again with k=1");
-			lookaheadDFA = new DFA(decision, decisionStartState);
-			if ( lookaheadDFA.analysisAborted() ) { // did analysis bug out?
-				ErrorManager.internalError("could not even do k=1 for decision "+decision);
+
+		if ( r.isSynPred && !synPredNamesUsedInDFA.contains(enclosingRule) ) {
+			return null;
+		}
+
+		// compute lookahead for each alt
+		int numAlts = getNumberOfAltsForDecisionNFA(decisionStartState);
+		LookaheadSet[] altLook = new LookaheadSet[numAlts+1];
+		for (int alt = 1; alt <= numAlts; alt++) {
+			int walkAlt =
+				decisionStartState.translateDisplayAltToWalkAlt(alt);
+			NFAState altLeftEdge = getNFAStateForAltOfDecision(decisionStartState, walkAlt);
+			NFAState altStartState = (NFAState)altLeftEdge.transition[0].target;
+			//System.out.println("alt "+alt+" start state = "+altStartState.stateNumber);
+			altLook[alt] = ll1Analyzer.LOOK(altStartState);
+			//System.out.println("alt "+alt+": "+altLook[alt].toString(this));
+		}
+
+		// compare alt i with alt j for disjointness
+		boolean decisionIsLL_1 = true;
+outer:
+		for (int i = 1; i <= numAlts; i++) {
+			for (int j = i+1; j <= numAlts; j++) {
+				/*
+				System.out.println("compare "+i+", "+j+": "+
+								   altLook[i].toString(this)+" with "+
+								   altLook[j].toString(this));
+				*/
+				LookaheadSet collision = altLook[i].intersection(altLook[j]);
+				if ( !collision.isNil() ) {
+					//System.out.println("collision (non-LL(1)): "+collision.toString(this));
+					decisionIsLL_1 = false;
+					break outer;
+				}
 			}
 		}
 
+		boolean foundConfoundingPredicate =
+			ll1Analyzer.detectConfoundingPredicates(decisionStartState);
+		if ( decisionIsLL_1 && !foundConfoundingPredicate ) {
+			// build an LL(1) optimized DFA with edge for each altLook[i]
+			if ( NFAToDFAConverter.debug ) {
+				System.out.println("decision "+decision+" is simple LL(1)");
+			}
+			DFA lookaheadDFA = new LL1DFA(decision, decisionStartState, altLook);
+			setLookaheadDFA(decision, lookaheadDFA);
+			updateLineColumnToLookaheadDFAMap(lookaheadDFA);
+			return lookaheadDFA;
+		}
+
+		// not LL(1) but perhaps we can solve with simplified predicate search
+		// even if k=1 set manually, only resolve here if we have preds; i.e.,
+		// don't resolve etc...
+
+		/*
+		SemanticContext visiblePredicates =
+			ll1Analyzer.getPredicates(decisionStartState);
+		boolean foundConfoundingPredicate =
+			ll1Analyzer.detectConfoundingPredicates(decisionStartState);
+			*/
+
+		// exit if not forced k=1 or we found a predicate situation we
+		// can't handle: predicates in rules invoked from this decision.
+		if ( getUserMaxLookahead(decision)!=1 || // not manually set to k=1
+			 !getAutoBacktrackMode(decision) ||
+			 foundConfoundingPredicate )
+		{
+			//System.out.println("trying LL(*)");
+			return null;
+		}
+
+		List<IntervalSet> edges = new ArrayList<IntervalSet>();
+		for (int i = 1; i < altLook.length; i++) {
+			LookaheadSet s = altLook[i];
+			edges.add((IntervalSet)s.tokenTypeSet);
+		}
+		List<IntervalSet> disjoint = makeEdgeSetsDisjoint(edges);
+		//System.out.println("disjoint="+disjoint);
+
+		MultiMap<IntervalSet, Integer> edgeMap = new MultiMap<IntervalSet, Integer>();
+		for (int i = 0; i < disjoint.size(); i++) {
+			IntervalSet ds = (IntervalSet) disjoint.get(i);
+			for (int alt = 1; alt < altLook.length; alt++) {
+				LookaheadSet look = altLook[alt];
+				if ( !ds.and(look.tokenTypeSet).isNil() ) {
+					edgeMap.map(ds, alt);
+				}
+			}
+		}
+		//System.out.println("edge map: "+edgeMap);
+
+		// TODO: how do we know we covered stuff?
+
+		// build an LL(1) optimized DFA with edge for each altLook[i]
+		DFA lookaheadDFA = new LL1DFA(decision, decisionStartState, edgeMap);
 		setLookaheadDFA(decision, lookaheadDFA);
 
 		// create map from line:col to decision DFA (for ANTLRWorks)
+		updateLineColumnToLookaheadDFAMap(lookaheadDFA);
+
+		return lookaheadDFA;
+	}
+
+	private void updateLineColumnToLookaheadDFAMap(DFA lookaheadDFA) {
 		GrammarAST decisionAST = nfa.grammar.getDecisionBlockAST(lookaheadDFA.decisionNumber);
 		int line = decisionAST.getLine();
 		int col = decisionAST.getColumn();
 		lineColumnToLookaheadDFAMap.put(new StringBuffer().append(line + ":")
 										.append(col).toString(), lookaheadDFA);
+	}
 
-		if ( watchNFAConversion ) {
+	protected List<IntervalSet> makeEdgeSetsDisjoint(List<IntervalSet> edges) {
+		OrderedHashSet<IntervalSet> disjointSets = new OrderedHashSet<IntervalSet>();
+		// walk each incoming edge label/set and add to disjoint set
+		int numEdges = edges.size();
+		for (int e = 0; e < numEdges; e++) {
+			IntervalSet t = (IntervalSet) edges.get(e);
+			if ( disjointSets.contains(t) ) { // exact set present
+				continue;
+			}
+
+			// compare t with set i for disjointness
+			IntervalSet remainder = t; // remainder starts out as whole set to add
+			int numDisjointElements = disjointSets.size();
+			for (int i = 0; i < numDisjointElements; i++) {
+				IntervalSet s_i = (IntervalSet)disjointSets.get(i);
+
+				if ( t.and(s_i).isNil() ) { // nothing in common
+					continue;
+				}
+				//System.out.println(label+" collides with "+rl);
+
+				// For any (s_i, t) with s_i&t!=nil replace with (s_i-t, s_i&t)
+				// (ignoring s_i-t if nil; don't put in list)
+
+				// Replace existing s_i with intersection since we
+				// know that will always be a non nil character class
+				IntervalSet intersection = (IntervalSet)s_i.and(t);
+				disjointSets.set(i, intersection);
+
+				// Compute s_i-t to see what is in current set and not in incoming
+				IntSet existingMinusNewElements = s_i.subtract(t);
+				//System.out.println(s_i+"-"+t+"="+existingMinusNewElements);
+				if ( !existingMinusNewElements.isNil() ) {
+					// found a new character class, add to the end (doesn't affect
+					// outer loop duration due to n computation a priori.
+					disjointSets.add(existingMinusNewElements);
+				}
+
+				// anything left to add to the reachableLabels?
+				remainder = (IntervalSet)t.subtract(s_i);
+				if ( remainder.isNil() ) {
+					break; // nothing left to add to set.  done!
+				}
+
+				t = remainder;
+			}
+			if ( !remainder.isNil() ) {
+				disjointSets.add(remainder);
+			}
+		}
+		return disjointSets.elements();
+	}
+
+	public DFA createLookaheadDFA(int decision, boolean wackTempStructures) {
+		Decision d = getDecision(decision);
+		String enclosingRule = d.startState.enclosingRule.name;
+		Rule r = d.startState.enclosingRule;
+
+		//System.out.println("createLookaheadDFA(): "+enclosingRule+" dec "+decision+"; synprednames prev used "+synPredNamesUsedInDFA);
+		NFAState decisionStartState = getDecisionNFAStartState(decision);
+		long startDFA=0,stopDFA=0;
+		if ( composite.watchNFAConversion ) {
+			System.out.println("--------------------\nbuilding lookahead DFA (d="
+							   +decisionStartState.getDecisionNumber()+") for "+
+							   decisionStartState.getDescription());
+			startDFA = System.currentTimeMillis();
+		}
+
+		DFA lookaheadDFA = new DFA(decision, decisionStartState);
+		// Retry to create a simpler DFA if analysis failed (non-LL(*),
+		// recursion overflow, or time out).
+		boolean failed =
+			lookaheadDFA.analysisTimedOut() ||
+			lookaheadDFA.probe.isNonLLStarDecision() ||
+			lookaheadDFA.probe.analysisOverflowed();
+		if ( failed && lookaheadDFA.okToRetryDFAWithK1() ) {
+			// set k=1 option and try again.
+			// First, clean up tracking stuff
+			decisionsWhoseDFAsUsesSynPreds.remove(lookaheadDFA);
+			// TODO: clean up synPredNamesUsedInDFA also (harder)
+			d.blockAST.setBlockOption(this, "k", Utils.integer(1));
+			if ( composite.watchNFAConversion ) {
+				System.out.print("trying decision "+decision+
+								 " again with k=1; reason: "+
+								 lookaheadDFA.getReasonForFailure());
+			}
+			lookaheadDFA = null; // make sure other memory is "free" before redoing
+			lookaheadDFA = new DFA(decision, decisionStartState);
+		}
+		if ( lookaheadDFA.analysisTimedOut() ) { // did analysis bug out?
+			ErrorManager.internalError("could not even do k=1 for decision "+
+									   decision+"; reason: "+
+									   lookaheadDFA.getReasonForFailure());
+		}
+
+
+		setLookaheadDFA(decision, lookaheadDFA);
+
+		if ( wackTempStructures ) {
+			for (DFAState s : lookaheadDFA.getUniqueStates().values()) {
+				s.reset();
+			}
+		}
+
+		// create map from line:col to decision DFA (for ANTLRWorks)
+		updateLineColumnToLookaheadDFAMap(lookaheadDFA);
+
+		if ( composite.watchNFAConversion ) {
 			stopDFA = System.currentTimeMillis();
 			System.out.println("cost: "+lookaheadDFA.getNumberOfStates()+
 							   " states, "+(int)(stopDFA-startDFA)+" ms");
 		}
 		//System.out.println("after create DFA; synPredNamesUsedInDFA="+synPredNamesUsedInDFA);
+		return lookaheadDFA;
 	}
 
 	/** Terminate DFA creation (grammar analysis).
@@ -894,44 +1263,50 @@ public class Grammar {
 
 	/** Return a new unique integer in the token type space */
 	public int getNewTokenType() {
-		maxTokenType++;
-		return maxTokenType;
+		composite.maxTokenType++;
+		return composite.maxTokenType;
 	}
 
 	/** Define a token at a particular token type value.  Blast an
-	 *  old value with a new one.  This is called directly during import vocab
-     *  operation to set up tokens with specific values.
-     */
-    public void defineToken(String text, int tokenType) {
-		if ( tokenIDToTypeMap.get(text)!=null ) {
+	 *  old value with a new one.  This is called normal grammar processsing
+	 *  and during import vocab operations to set tokens with specific values.
+	 */
+	public void defineToken(String text, int tokenType) {
+		//System.out.println("defineToken("+text+", "+tokenType+")");
+		if ( composite.tokenIDToTypeMap.get(text)!=null ) {
 			// already defined?  Must be predefined one like EOF;
 			// do nothing
 			return;
 		}
 		// the index in the typeToTokenList table is actually shifted to
 		// hold faux labels as you cannot have negative indices.
-        if ( text.charAt(0)=='\'' ) {
-            stringLiteralToTypeMap.put(text, Utils.integer(tokenType));
-        }
-        else { // must be a label like ID
-            tokenIDToTypeMap.put(text, Utils.integer(tokenType));
-        }
+		if ( text.charAt(0)=='\'' ) {
+			composite.stringLiteralToTypeMap.put(text, Utils.integer(tokenType));
+			// track in reverse index too
+			if ( tokenType>=composite.typeToStringLiteralList.size() ) {
+				composite.typeToStringLiteralList.setSize(tokenType+1);
+			}
+			composite.typeToStringLiteralList.set(tokenType, text);
+		}
+		else { // must be a label like ID
+			composite.tokenIDToTypeMap.put(text, Utils.integer(tokenType));
+		}
 		int index = Label.NUM_FAUX_LABELS+tokenType-1;
 		//System.out.println("defining "+name+" token "+text+" at type="+tokenType+", index="+index);
-		this.maxTokenType = Math.max(this.maxTokenType, tokenType);
-        if ( index>=typeToTokenList.size() ) {
-			typeToTokenList.setSize(index+1);
+		composite.maxTokenType = Math.max(composite.maxTokenType, tokenType);
+		if ( index>=composite.typeToTokenList.size() ) {
+			composite.typeToTokenList.setSize(index+1);
 		}
-		String prevToken = (String)typeToTokenList.get(index);
+		String prevToken = (String)composite.typeToTokenList.get(index);
 		if ( prevToken==null || prevToken.charAt(0)=='\'' ) {
 			// only record if nothing there before or if thing before was a literal
-			typeToTokenList.set(index, text);
+			composite.typeToTokenList.set(index, text);
 		}
-    }
+	}
 
 	/** Define a new rule.  A new rule index is created by incrementing
-     *  ruleIndex.
-     */
+	 *  ruleIndex.
+	 */
 	public void defineRule(antlr.Token ruleToken,
 						   String modifier,
 						   Map options,
@@ -940,24 +1315,33 @@ public class Grammar {
 						   int numAlts)
 	{
 		String ruleName = ruleToken.getText();
-		/*
-		System.out.println("defineRule("+ruleName+",modifier="+modifier+
-						   "): index="+ruleIndex);
-		*/
-		if ( getRule(ruleName)!=null ) {
+		if ( getLocallyDefinedRule(ruleName)!=null ) {
 			ErrorManager.grammarError(ErrorManager.MSG_RULE_REDEFINITION,
 									  this, ruleToken, ruleName);
-        }
+			return;
+		}
 
-		Rule r = new Rule(this, ruleName, ruleIndex, numAlts);
+		if ( (type==Grammar.PARSER||type==Grammar.TREE_PARSER) &&
+			 Character.isUpperCase(ruleName.charAt(0)) )
+		{
+			ErrorManager.grammarError(ErrorManager.MSG_LEXER_RULES_NOT_ALLOWED,
+									  this, ruleToken, ruleName);
+			return;
+		}
+
+		Rule r = new Rule(this, ruleName, composite.ruleIndex, numAlts);
+		/*
+		System.out.println("defineRule("+ruleName+",modifier="+modifier+
+						   "): index="+r.index+", nalts="+numAlts);
+		*/
 		r.modifier = modifier;
-        nameToRuleMap.put(ruleName, r);
+		nameToRuleMap.put(ruleName, r);
 		setRuleAST(ruleName, tree);
 		r.setOptions(options, ruleToken);
 		r.argActionAST = argActionAST;
-        ruleIndexToRuleList.setSize(ruleIndex+1);
-        ruleIndexToRuleList.set(ruleIndex, ruleName);
-        ruleIndex++;
+		composite.ruleIndexToRuleList.setSize(composite.ruleIndex+1);
+		composite.ruleIndexToRuleList.set(composite.ruleIndex, r);
+		composite.ruleIndex++;
 		if ( ruleName.startsWith(SYNPRED_RULE_PREFIX) ) {
 			r.isSynPred = true;
 		}
@@ -972,8 +1356,9 @@ public class Grammar {
 		if ( nameToSynpredASTMap==null ) {
 			nameToSynpredASTMap = new LinkedHashMap();
 		}
-		String predName = null;
-		predName = SYNPRED_RULE_PREFIX+(nameToSynpredASTMap.size() + 1);
+		String predName =
+			SYNPRED_RULE_PREFIX+(nameToSynpredASTMap.size() + 1)+"_"+name;
+		blockAST.setTreeEnclosingRuleNameDeeply(predName);
 		nameToSynpredASTMap.put(predName, blockAST);
 		return predName;
 	}
@@ -992,11 +1377,17 @@ public class Grammar {
 	public void synPredUsedInDFA(DFA dfa, SemanticContext semCtx) {
 		decisionsWhoseDFAsUsesSynPreds.add(dfa);
 		semCtx.trackUseOfSyntacticPredicates(this); // walk ctx looking for preds
-		//System.out.println("after tracking use for dec "+dfa.decisionNumber+": "+synPredNamesUsedInDFA);
 	}
 
+	/*
+	public Set<Rule> getRuleNamesVisitedDuringLOOK() {
+		return rulesSensitiveToOtherRules;
+	}
+	*/
+
 	/** Given @scope::name {action} define it for this grammar.  Later,
-	 *  the code generator will ask for the actions table.
+	 *  the code generator will ask for the actions table.  For composite
+     *  grammars, make sure header action propogates down to all delegates.
 	 */
 	public void defineNamedAction(GrammarAST ampersandAST,
 								  String scope,
@@ -1022,7 +1413,14 @@ public class Grammar {
 		else {
 			scopeActions.put(actionName,actionAST);
 		}
-	}
+        // propogate header (regardless of scope (lexer, parser, ...) ?
+        if ( this==composite.getRootGrammar() && actionName.equals("header") ) {
+            List<Grammar> allgrammars = composite.getRootGrammar().getDelegates();
+            for (Grammar g : allgrammars) {
+                g.defineNamedAction(ampersandAST, scope, nameAST, actionAST);
+            }
+        }
+    }
 
 	public Map getActions() {
 		return actions;
@@ -1075,9 +1473,9 @@ public class Grammar {
 				buf.append("}");
 			}
 			else if ( t.getType()==ANTLRParser.SEMPRED ||
-				t.getType()==ANTLRParser.SYN_SEMPRED ||
-				t.getType()==ANTLRParser.GATED_SEMPRED ||
-				t.getType()==ANTLRParser.BACKTRACK_SEMPRED )
+					  t.getType()==ANTLRParser.SYN_SEMPRED ||
+					  t.getType()==ANTLRParser.GATED_SEMPRED ||
+					  t.getType()==ANTLRParser.BACKTRACK_SEMPRED )
 			{
 				buf.append("{");
 				buf.append(t.getText());
@@ -1095,9 +1493,11 @@ public class Grammar {
 		String ruleText = buf.toString();
 		//System.out.println("[["+ruleText+"]]");
 		// now put the rule into the lexer grammar template
-		lexerGrammarST.setAttribute("rules", ruleText);
+		if ( getGrammarIsRoot() ) { // don't build lexers for delegates
+			lexerGrammarST.setAttribute("rules", ruleText);
+		}
 		// track this lexer rule's name
-		lexerRules.add(ruleToken.getText());
+		composite.lexerRules.add(ruleToken.getText());
 	}
 
 	/** If someone does PLUS='+' in the parser, must make sure we get
@@ -1107,39 +1507,97 @@ public class Grammar {
 													   String literal,
 													   int tokenType)
 	{
-		//System.out.println("defineLexerRuleForAliasedStringLiteral: "+literal+" "+tokenType);
-		lexerGrammarST.setAttribute("literals.{ruleName,type,literal}",
-									tokenID,
-									Utils.integer(tokenType),
-									literal);
+		if ( getGrammarIsRoot() ) { // don't build lexers for delegates
+			//System.out.println("defineLexerRuleForAliasedStringLiteral: "+literal+" "+tokenType);
+			lexerGrammarST.setAttribute("literals.{ruleName,type,literal}",
+										tokenID,
+										Utils.integer(tokenType),
+										literal);
+		}
 		// track this lexer rule's name
-		lexerRules.add(tokenID);
+		composite.lexerRules.add(tokenID);
 	}
 
 	public void defineLexerRuleForStringLiteral(String literal, int tokenType) {
 		//System.out.println("defineLexerRuleForStringLiteral: "+literal+" "+tokenType);
-		lexerGrammarST.setAttribute("literals.{ruleName,type,literal}",
-									computeTokenNameFromLiteral(tokenType,literal),
-									Utils.integer(tokenType),
-									literal);
+		// compute new token name like T237 and define it as having tokenType
+		String tokenID = computeTokenNameFromLiteral(tokenType,literal);
+		defineToken(tokenID, tokenType);
+		// tell implicit lexer to define a rule to match the literal
+		if ( getGrammarIsRoot() ) { // don't build lexers for delegates
+			lexerGrammarST.setAttribute("literals.{ruleName,type,literal}",
+										tokenID,
+										Utils.integer(tokenType),
+										literal);
+		}
 	}
 
-	public Rule getRule(String ruleName) {
-		Rule r = (Rule)nameToRuleMap.get(ruleName);
+	public Rule getLocallyDefinedRule(String ruleName) {
+		Rule r = nameToRuleMap.get(ruleName);
 		return r;
 	}
 
-    public int getRuleIndex(String ruleName) {
-		Rule r = getRule(ruleName);
+	public Rule getRule(String ruleName) {
+		Rule r = composite.getRule(ruleName);
+		/*
+		if ( r!=null && r.grammar != this ) {
+			System.out.println(name+".getRule("+ruleName+")="+r);
+		}
+		*/
+		return r;
+	}
+
+	public Rule getRule(String scopeName, String ruleName) {
+		if ( scopeName!=null ) { // scope override
+			Grammar scope = composite.getGrammar(scopeName);
+			if ( scope==null ) {
+				return null;
+			}
+			return scope.getLocallyDefinedRule(ruleName);
+		}
+		return getRule(ruleName);
+	}
+
+	public int getRuleIndex(String scopeName, String ruleName) {
+		Rule r = getRule(scopeName, ruleName);
 		if ( r!=null ) {
 			return r.index;
 		}
-        return INVALID_RULE_INDEX;
-    }
+		return INVALID_RULE_INDEX;
+	}
 
-    public String getRuleName(int ruleIndex) {
-        return (String)ruleIndexToRuleList.get(ruleIndex);
-    }
+	public int getRuleIndex(String ruleName) {
+		return getRuleIndex(null, ruleName);
+	}
+
+	public String getRuleName(int ruleIndex) {
+		Rule r = composite.ruleIndexToRuleList.get(ruleIndex);
+		if ( r!=null ) {
+			return r.name;
+		}
+		return null;
+	}
+
+	/** Should codegen.g gen rule for ruleName?
+	 * 	If synpred, only gen if used in a DFA.
+	 *  If regular rule, only gen if not overridden in delegator
+	 *  Always gen Tokens rule though.
+	 */
+	public boolean generateMethodForRule(String ruleName) {
+		if ( ruleName.equals(ARTIFICIAL_TOKENS_RULENAME) ) {
+			// always generate Tokens rule to satisfy lexer interface
+			// but it may have no alternatives.
+			return true;
+		}
+		if ( overriddenRules.contains(ruleName) ) {
+			// don't generate any overridden rules
+			return false;
+		}
+		// generate if non-synpred or synpred used in a DFA
+		Rule r = getLocallyDefinedRule(ruleName);
+		return !r.isSynPred ||
+			   (r.isSynPred&&synPredNamesUsedInDFA.contains(ruleName));
+	}
 
 	public AttributeScope defineGlobalScope(String name, Token scopeAction) {
 		AttributeScope scope = new AttributeScope(this, name, scopeAction);
@@ -1178,7 +1636,7 @@ public class Grammar {
 	 *  Rule object to actually define it.
 	 */
 	protected void defineLabel(Rule r, antlr.Token label, GrammarAST element, int type) {
-        boolean err = nameSpaceChecker.checkForLabelTypeMismatch(r, label, type);
+		boolean err = nameSpaceChecker.checkForLabelTypeMismatch(r, label, type);
 		if ( err ) {
 			return;
 		}
@@ -1189,16 +1647,16 @@ public class Grammar {
 									antlr.Token label,
 									GrammarAST tokenRef)
 	{
-        Rule r = getRule(ruleName);
+		Rule r = getLocallyDefinedRule(ruleName);
 		if ( r!=null ) {
 			if ( type==LEXER &&
 				 (tokenRef.getType()==ANTLRParser.CHAR_LITERAL||
-				 tokenRef.getType()==ANTLRParser.BLOCK||
-				 tokenRef.getType()==ANTLRParser.NOT||
-				 tokenRef.getType()==ANTLRParser.CHAR_RANGE||
-				 tokenRef.getType()==ANTLRParser.WILDCARD))
+				  tokenRef.getType()==ANTLRParser.BLOCK||
+				  tokenRef.getType()==ANTLRParser.NOT||
+				  tokenRef.getType()==ANTLRParser.CHAR_RANGE||
+				  tokenRef.getType()==ANTLRParser.WILDCARD))
 			{
-				defineLabel(r, label, tokenRef, CHAR_LABEL);				
+				defineLabel(r, label, tokenRef, CHAR_LABEL);
 			}
 			else {
 				defineLabel(r, label, tokenRef, TOKEN_LABEL);
@@ -1210,7 +1668,7 @@ public class Grammar {
 								   antlr.Token label,
 								   GrammarAST ruleRef)
 	{
-		Rule r = getRule(ruleName);
+		Rule r = getLocallyDefinedRule(ruleName);
 		if ( r!=null ) {
 			defineLabel(r, label, ruleRef, RULE_LABEL);
 		}
@@ -1220,7 +1678,7 @@ public class Grammar {
 									 antlr.Token label,
 									 GrammarAST element)
 	{
-		Rule r = getRule(ruleName);
+		Rule r = getLocallyDefinedRule(ruleName);
 		if ( r!=null ) {
 			defineLabel(r, label, element, TOKEN_LIST_LABEL);
 		}
@@ -1230,7 +1688,7 @@ public class Grammar {
 									antlr.Token label,
 									GrammarAST element)
 	{
-		Rule r = getRule(ruleName);
+		Rule r = getLocallyDefinedRule(ruleName);
 		if ( r!=null ) {
 			if ( !r.getHasMultipleReturnValues() ) {
 				ErrorManager.grammarError(
@@ -1250,13 +1708,13 @@ public class Grammar {
 		for (Iterator it = rewriteElements.iterator(); it.hasNext();) {
 			GrammarAST el = (GrammarAST) it.next();
 			if ( el.getType()==ANTLRParser.LABEL ) {
-				Rule r = getRule(el.enclosingRule);
 				String labelName = el.getText();
-				LabelElementPair pair = r.getLabel(labelName);
+				Rule enclosingRule = getLocallyDefinedRule(el.enclosingRuleName);
+				LabelElementPair pair = enclosingRule.getLabel(labelName);
 				// if valid label and type is what we're looking for
 				// and not ref to old value val $rule, add to list
 				if ( pair!=null && pair.type==labelType &&
-					 !labelName.equals(el.enclosingRule) )
+					 !labelName.equals(el.enclosingRuleName) )
 				{
 					labels.add(labelName);
 				}
@@ -1309,10 +1767,10 @@ public class Grammar {
 		}
 	}
 
-    /** A label on a rule is useless if the rule has no return value, no
-     *  tree or template output, and it is not referenced in an action.
-     */
-    protected void removeUselessLabels(Map ruleToElementLabelPairMap) {
+	/** A label on a rule is useless if the rule has no return value, no
+	 *  tree or template output, and it is not referenced in an action.
+	 */
+	protected void removeUselessLabels(Map ruleToElementLabelPairMap) {
 		if ( ruleToElementLabelPairMap==null ) {
 			return;
 		}
@@ -1339,15 +1797,29 @@ public class Grammar {
 	 *
 	 *  This data is also used to verify that all rules have been defined.
 	 */
-	public void altReferencesRule(String ruleName, GrammarAST refAST, int outerAltNum) {
-		Rule r = getRule(ruleName);
+	public void altReferencesRule(String enclosingRuleName,
+								  GrammarAST refScopeAST,
+								  GrammarAST refAST,
+								  int outerAltNum)
+	{
+		/* Do nothing for now; not sure need; track S.x as x
+		String scope = null;
+		Grammar scopeG = null;
+		if ( refScopeAST!=null ) {
+			if ( !scopedRuleRefs.contains(refScopeAST) ) {
+				scopedRuleRefs.add(refScopeAST);
+			}
+			scope = refScopeAST.getText();
+		}
+		*/
+		Rule r = getRule(enclosingRuleName);
 		if ( r==null ) {
-			return;
+			return; // no error here; see NameSpaceChecker
 		}
 		r.trackRuleReferenceInAlt(refAST, outerAltNum);
 		antlr.Token refToken = refAST.getToken();
-		if ( !ruleRefs.contains(refToken) ) {
-			ruleRefs.add(refToken);
+		if ( !ruleRefs.contains(refAST) ) {
+			ruleRefs.add(refAST);
 		}
 	}
 
@@ -1358,7 +1830,7 @@ public class Grammar {
 	 *  Rewrite rules force tracking of all tokens.
 	 */
 	public void altReferencesTokenID(String ruleName, GrammarAST refAST, int outerAltNum) {
-		Rule r = getRule(ruleName);
+		Rule r = getLocallyDefinedRule(ruleName);
 		if ( r==null ) {
 			return;
 		}
@@ -1392,9 +1864,9 @@ public class Grammar {
 	 *  successfully on these.  Useful to skip these rules then and also
 	 *  for ANTLRWorks to highlight them.
 	 */
-	public Set getLeftRecursiveRules() {
+	public Set<Rule> getLeftRecursiveRules() {
 		if ( nfa==null ) {
-			createNFAs();
+			buildNFA();
 		}
 		if ( leftRecursiveRules!=null ) {
 			return leftRecursiveRules;
@@ -1403,11 +1875,12 @@ public class Grammar {
 		return leftRecursiveRules;
 	}
 
-	public void checkRuleReference(GrammarAST refAST,
+	public void checkRuleReference(GrammarAST scopeAST,
+								   GrammarAST refAST,
 								   GrammarAST argsAST,
 								   String currentRuleName)
 	{
-		sanity.checkRuleReference(refAST, argsAST, currentRuleName);
+		sanity.checkRuleReference(scopeAST, refAST, argsAST, currentRuleName);
 	}
 
 	/** Rules like "a : ;" and "a : {...} ;" should not generate
@@ -1428,32 +1901,41 @@ public class Grammar {
 		GrammarAST aRuleRefNode =
 			block.findFirstType(ANTLRParser.RULE_REF);
 		if ( aTokenRefNode==null&&
-			aStringLiteralRefNode==null&&
-			aCharLiteralRefNode==null&&
-			aWildcardRefNode==null&&
-			aRuleRefNode==null )
+			 aStringLiteralRefNode==null&&
+			 aCharLiteralRefNode==null&&
+			 aWildcardRefNode==null&&
+			 aRuleRefNode==null )
 		{
 			return true;
 		}
 		return false;
 	}
 
-    public int getTokenType(String tokenName) {
-        Integer I = null;
-        if ( tokenName.charAt(0)=='\'') {
-            I = (Integer)stringLiteralToTypeMap.get(tokenName);
-        }
-        else { // must be a label like ID
-            I = (Integer)tokenIDToTypeMap.get(tokenName);
-        }
-        int i = (I!=null)?I.intValue():Label.INVALID;
+	public boolean isAtomTokenType(int ttype) {
+		return ttype == ANTLRParser.WILDCARD||
+			   ttype == ANTLRParser.CHAR_LITERAL||
+			   ttype == ANTLRParser.CHAR_RANGE||
+			   ttype == ANTLRParser.STRING_LITERAL||
+			   ttype == ANTLRParser.NOT||
+			   (type != LEXER && ttype == ANTLRParser.TOKEN_REF);
+	}
+
+	public int getTokenType(String tokenName) {
+		Integer I = null;
+		if ( tokenName.charAt(0)=='\'') {
+			I = (Integer)composite.stringLiteralToTypeMap.get(tokenName);
+		}
+		else { // must be a label like ID
+			I = (Integer)composite.tokenIDToTypeMap.get(tokenName);
+		}
+		int i = (I!=null)?I.intValue():Label.INVALID;
 		//System.out.println("grammar type "+type+" "+tokenName+"->"+i);
-        return i;
-    }
+		return i;
+	}
 
 	/** Get the list of tokens that are IDs like BLOCK and LPAREN */
 	public Set getTokenIDs() {
-		return tokenIDToTypeMap.keySet();
+		return composite.tokenIDToTypeMap.keySet();
 	}
 
 	/** Return an ordered integer list of token types that have no
@@ -1474,8 +1956,8 @@ public class Grammar {
 	/** Get a list of all token IDs and literals that have an associated
 	 *  token type.
 	 */
-	public Set getTokenDisplayNames() {
-		Set names = new HashSet();
+	public Set<String> getTokenDisplayNames() {
+		Set<String> names = new HashSet<String>();
 		for (int t =Label.MIN_TOKEN_TYPE; t <=getMaxTokenType(); t++) {
 			names.add(getTokenDisplayName(t));
 		}
@@ -1488,32 +1970,36 @@ public class Grammar {
 	 *
 	 *  11/26/2005: I changed literals to always be '...' even for strings.
 	 *  This routine still works though.
-     */
-    public static int getCharValueFromGrammarCharLiteral(String literal) {
-        if ( literal.length()==3 ) {
-			// 'x'
-            return literal.charAt(1); // no escape char
-        }
-        else if ( literal.length() == 4 )
-        {
-			// '\x'  (antlr lexer will catch invalid char)
-			int escChar = literal.charAt(2);
-			int charVal = ANTLRLiteralEscapedCharValue[escChar];
-			if ( charVal==0 ) {
-				// Unnecessary escapes like '\{' should just yield {
-				return escChar;
-			}
-			return charVal;
-        }
-        else if( literal.length() == 8 )
-        {
-        	// '\u1234'
-        	String unicodeChars = literal.substring(3,literal.length()-1);
-    		return Integer.parseInt(unicodeChars, 16);
-         }
-		ErrorManager.assertTrue(false, "invalid char literal: "+literal);
-		return -1;
-    }
+	 */
+	public static int getCharValueFromGrammarCharLiteral(String literal) {
+		switch ( literal.length() ) {
+			case 3 :
+				// 'x'
+				return literal.charAt(1); // no escape char
+			case 4 :
+				// '\x'  (antlr lexer will catch invalid char)
+				if ( Character.isDigit(literal.charAt(2)) ) {
+					ErrorManager.error(ErrorManager.MSG_SYNTAX_ERROR,
+									   "invalid char literal: "+literal);
+					return -1;
+				}
+				int escChar = literal.charAt(2);
+				int charVal = ANTLRLiteralEscapedCharValue[escChar];
+				if ( charVal==0 ) {
+					// Unnecessary escapes like '\{' should just yield {
+					return escChar;
+				}
+				return charVal;
+			case 8 :
+				// '\u1234'
+				String unicodeChars = literal.substring(3,literal.length()-1);
+				return Integer.parseInt(unicodeChars, 16);
+			default :
+				ErrorManager.error(ErrorManager.MSG_SYNTAX_ERROR,
+								   "invalid char literal: "+literal);
+				return -1;
+		}
+	}
 
 	/** ANTLR does not convert escape sequences during the parse phase because
 	 *  it could not know how to print String/char literals back out when
@@ -1546,6 +2032,11 @@ public class Grammar {
 					i+=4-1; // loop will inc by 1; only jump 3 then
 					buf.append((char)val);
 				}
+				else if ( Character.isDigit(c) ) {
+					ErrorManager.error(ErrorManager.MSG_SYNTAX_ERROR,
+									   "invalid char literal: "+literal);
+					buf.append("\\"+(char)c);
+				}
 				else {
 					buf.append((char)ANTLRLiteralEscapedCharValue[c]); // normal \x escape
 				}
@@ -1560,26 +2051,121 @@ public class Grammar {
 
 	/** Pull your token definitions from an existing grammar in memory.
 	 *  You must use Grammar() ctor then this method then setGrammarContent()
-	 *  to make this work.  This is useful primarily for testing and
-	 *  interpreting grammars.  Return the max token type found.
+	 *  to make this work.  This was useful primarily for testing and
+	 *  interpreting grammars until I added import grammar functionality.
+	 *  When you import a grammar you implicitly import its vocabulary as well
+	 *  and keep the same token type values.
+	 *
+	 *  Returns the max token type found.
 	 */
 	public int importTokenVocabulary(Grammar importFromGr) {
 		Set importedTokenIDs = importFromGr.getTokenIDs();
 		for (Iterator it = importedTokenIDs.iterator(); it.hasNext();) {
 			String tokenID = (String) it.next();
 			int tokenType = importFromGr.getTokenType(tokenID);
-			maxTokenType = Math.max(maxTokenType,tokenType);
+			composite.maxTokenType = Math.max(composite.maxTokenType,tokenType);
 			if ( tokenType>=Label.MIN_TOKEN_TYPE ) {
 				//System.out.println("import token from grammar "+tokenID+"="+tokenType);
 				defineToken(tokenID, tokenType);
 			}
 		}
-		return maxTokenType; // return max found
+		return composite.maxTokenType; // return max found
+	}
+
+	/** Import the rules/tokens of a delegate grammar. All delegate grammars are
+	 *  read during the ctor of first Grammar created.
+	 *
+	 *  Do not create NFA here because NFA construction needs to hook up with
+	 *  overridden rules in delegation root grammar.
+	 */
+	public void importGrammar(GrammarAST grammarNameAST, String label) {
+		String grammarName = grammarNameAST.getText();
+		//System.out.println("import "+gfile.getName());
+		String gname = grammarName + GRAMMAR_FILE_EXTENSION;
+		BufferedReader br = null;
+		try {
+			String fullName = tool.getLibraryFile(gname);
+			FileReader fr = new FileReader(fullName);
+			br = new BufferedReader(fr);
+			Grammar delegateGrammar = null;
+			delegateGrammar = new Grammar(tool, gname, composite);
+			delegateGrammar.label = label;
+
+			addDelegateGrammar(delegateGrammar);
+
+			delegateGrammar.parseAndBuildAST(br);
+			if ( !validImport(delegateGrammar) ) {
+				ErrorManager.grammarError(ErrorManager.MSG_INVALID_IMPORT,
+										  this,
+										  grammarNameAST.token,
+										  this,
+										  delegateGrammar);
+				return;
+			}
+			if ( this.type==COMBINED &&
+				 (delegateGrammar.name.equals(this.name+grammarTypeToFileNameSuffix[LEXER])||
+				  delegateGrammar.name.equals(this.name+grammarTypeToFileNameSuffix[PARSER])) )
+			{
+				ErrorManager.grammarError(ErrorManager.MSG_IMPORT_NAME_CLASH,
+										  this,
+										  grammarNameAST.token,
+										  this,
+										  delegateGrammar);
+				return;
+			}
+			if ( delegateGrammar.grammarTree!=null ) {
+				// we have a valid grammar
+				// deal with combined grammars
+				if ( delegateGrammar.type == LEXER && this.type == COMBINED ) {
+					// ooops, we wasted some effort; tell lexer to read it in
+					// later
+					lexerGrammarST.setAttribute("imports", grammarName);
+					// but, this parser grammar will need the vocab
+					// so add to composite anyway so we suck in the tokens later
+				}
+			}
+			//System.out.println("Got grammar:\n"+delegateGrammar);
+		}
+		catch (IOException ioe) {
+			ErrorManager.error(ErrorManager.MSG_CANNOT_OPEN_FILE,
+							   gname,
+							   ioe);
+		}
+		finally {
+			if ( br!=null ) {
+				try {
+					br.close();
+				}
+				catch (IOException ioe) {
+					ErrorManager.error(ErrorManager.MSG_CANNOT_CLOSE_FILE,
+									   gname,
+									   ioe);
+				}
+			}
+		}
+	}
+
+	/** add new delegate to composite tree */
+	protected void addDelegateGrammar(Grammar delegateGrammar) {
+		CompositeGrammarTree t = composite.delegateGrammarTreeRoot.findNode(this);
+		t.addChild(new CompositeGrammarTree(delegateGrammar));
+		// make sure new grammar shares this composite
+		delegateGrammar.composite = this.composite;
 	}
 
 	/** Load a vocab file <vocabName>.tokens and return max token type found. */
-	public int importTokenVocabulary(String vocabName) {
-		File fullFile = getImportedVocabFileName(vocabName);
+	public int importTokenVocabulary(GrammarAST tokenVocabOptionAST,
+									 String vocabName)
+	{
+		if ( !getGrammarIsRoot() ) {
+			ErrorManager.grammarWarning(ErrorManager.MSG_TOKEN_VOCAB_IN_DELEGATE,
+										this,
+										tokenVocabOptionAST.token,
+										name);
+			return composite.maxTokenType;
+		}
+
+		File fullFile = tool.getImportedVocabFile(vocabName);
 		try {
 			FileReader fr = new FileReader(fullFile);
 			BufferedReader br = new BufferedReader(fr);
@@ -1632,7 +2218,7 @@ public class Grammar {
 				int tokenType = (int)tokenizer.nval;
 				token = tokenizer.nextToken();
 				//System.out.println("import "+tokenID+"="+tokenType);
-				maxTokenType = Math.max(maxTokenType,tokenType);
+				composite.maxTokenType = Math.max(composite.maxTokenType,tokenType);
 				defineToken(tokenID, tokenType);
 				lineNum++;
 				if ( token != StreamTokenizer.TT_EOL ) {
@@ -1661,7 +2247,7 @@ public class Grammar {
 							   fullFile,
 							   e);
 		}
-		return maxTokenType;
+		return composite.maxTokenType;
 	}
 
 	/** Given a token type, get a meaningful name for it such as the ID
@@ -1679,42 +2265,42 @@ public class Grammar {
 		}
 		// faux label?
 		else if ( ttype<0 ) {
-			tokenName = (String)typeToTokenList.get(Label.NUM_FAUX_LABELS+ttype);
+			tokenName = (String)composite.typeToTokenList.get(Label.NUM_FAUX_LABELS+ttype);
 		}
 		else {
 			// compute index in typeToTokenList for ttype
 			index = ttype-1; // normalize to 0..n-1
 			index += Label.NUM_FAUX_LABELS;     // jump over faux tokens
 
-			if ( index<typeToTokenList.size() ) {
-				tokenName = (String)typeToTokenList.get(index);
+			if ( index<composite.typeToTokenList.size() ) {
+				tokenName = (String)composite.typeToTokenList.get(index);
+				if ( tokenName!=null &&
+					 tokenName.startsWith(AUTO_GENERATED_TOKEN_NAME_PREFIX) )
+				{
+					tokenName = composite.typeToStringLiteralList.get(ttype);
+				}
 			}
 			else {
 				tokenName = String.valueOf(ttype);
 			}
 		}
-		//System.out.println("getTokenDisplaYanme ttype="+ttype+", index="+index+", name="+tokenName);
+		//System.out.println("getTokenDisplayName ttype="+ttype+", index="+index+", name="+tokenName);
 		return tokenName;
 	}
 
 	/** Get the list of ANTLR String literals */
-	public Set getStringLiterals() {
-		return stringLiteralToTypeMap.keySet();
+	public Set<String> getStringLiterals() {
+		return composite.stringLiteralToTypeMap.keySet();
+	}
+
+	public String getGrammarTypeString() {
+		return grammarTypeToString[type];
 	}
 
 	public int getGrammarMaxLookahead() {
 		if ( global_k>=0 ) {
 			return global_k;
 		}
-		/*
-		Integer kI = (Integer)getOption("k");
-		if ( kI!=null ) {
-			global_k = kI.intValue();
-		}
-		else {
-			global_k = 0;
-		}
-		*/
 		Object k = getOption("k");
 		if ( k==null ) {
 			global_k = 0;
@@ -1735,8 +2321,8 @@ public class Grammar {
 	/** Save the option key/value pair and process it; return the key
 	 *  or null if invalid option.
 	 */
-    public String setOption(String key, Object value, antlr.Token optionsStartToken) {
-		if ( !legalOptions.contains(key) ) {
+	public String setOption(String key, Object value, antlr.Token optionsStartToken) {
+		if ( legalOption(key) ) {
 			ErrorManager.grammarError(ErrorManager.MSG_ILLEGAL_OPTION,
 									  this,
 									  optionsStartToken,
@@ -1751,25 +2337,42 @@ public class Grammar {
 		}
 		options.put(key, value);
 		return key;
-    }
+	}
 
-    public void setOptions(Map options, antlr.Token optionsStartToken) {
+	public boolean legalOption(String key) {
+		switch ( type ) {
+			case LEXER :
+				return !legalLexerOptions.contains(key);
+			case PARSER :
+				return !legalParserOptions.contains(key);
+			case TREE_PARSER :
+				return !legalTreeParserOptions.contains(key);
+			default :
+				return !legalParserOptions.contains(key);
+		}
+	}
+
+	public void setOptions(Map options, antlr.Token optionsStartToken) {
 		if ( options==null ) {
 			this.options = null;
 			return;
 		}
-        Set keys = options.keySet();
-        for (Iterator it = keys.iterator(); it.hasNext();) {
-            String optionName = (String) it.next();
-            Object optionValue = options.get(optionName);
-            String stored=setOption(optionName, optionValue, optionsStartToken);
+		Set keys = options.keySet();
+		for (Iterator it = keys.iterator(); it.hasNext();) {
+			String optionName = (String) it.next();
+			Object optionValue = options.get(optionName);
+			String stored=setOption(optionName, optionValue, optionsStartToken);
 			if ( stored==null ) {
 				it.remove();
 			}
-        }
-    }
+		}
+	}
 
-    public Object getOption(String key) {
+	public Object getOption(String key) {
+		return composite.getOption(key);
+	}
+
+	public Object getLocallyDefinedOption(String key) {
 		Object value = null;
 		if ( options!=null ) {
 			value = options.get(key);
@@ -1778,7 +2381,50 @@ public class Grammar {
 			value = defaultOptions.get(key);
 		}
 		return value;
-    }
+	}
+
+	public Object getBlockOption(GrammarAST blockAST, String key) {
+		String v = (String)blockAST.getBlockOption(key);
+		if ( v!=null ) {
+			return v;
+		}
+		if ( type==Grammar.LEXER ) {
+			return defaultLexerBlockOptions.get(key);
+		}
+		return defaultBlockOptions.get(key);
+	}
+
+	public int getUserMaxLookahead(int decision) {
+		int user_k = 0;
+		GrammarAST blockAST = nfa.grammar.getDecisionBlockAST(decision);
+		Object k = blockAST.getBlockOption("k");
+		if ( k==null ) {
+			user_k = nfa.grammar.getGrammarMaxLookahead();
+			return user_k;
+		}
+		if (k instanceof Integer) {
+			Integer kI = (Integer)k;
+			user_k = kI.intValue();
+		}
+		else {
+			// must be String "*"
+			if ( k.equals("*") ) {
+				user_k = 0;
+			}
+		}
+		return user_k;
+	}
+
+	public boolean getAutoBacktrackMode(int decision) {
+		NFAState decisionNFAStartState = getDecisionNFAStartState(decision);
+		String autoBacktrack =
+			(String)getBlockOption(decisionNFAStartState.associatedASTNode, "backtrack");
+		
+		if ( autoBacktrack==null ) {
+			autoBacktrack = (String)nfa.grammar.getOption("backtrack");
+		}
+		return autoBacktrack!=null&&autoBacktrack.equals("true");
+	}
 
 	public boolean optionIsValid(String key, Object value) {
 		return true;
@@ -1788,6 +2434,14 @@ public class Grammar {
 		String outputType = (String)getOption("output");
 		if ( outputType!=null ) {
 			return outputType.equals("AST");
+		}
+		return false;
+	}
+
+	public boolean rewriteMode() {
+		String outputType = (String)getOption("rewrite");
+		if ( outputType!=null ) {
+			return outputType.equals("true");
 		}
 		return false;
 	}
@@ -1804,61 +2458,127 @@ public class Grammar {
 		return false;
 	}
 
-    public Collection getRules() {
-        return nameToRuleMap.values();
-    }
+	public Collection<Rule> getRules() {
+		return nameToRuleMap.values();
+	}
+
+	/** Get the set of Rules that need to have manual delegations
+	 *  like "void rule() { importedGrammar.rule(); }"
+	 *
+	 *  If this grammar is master, get list of all rule definitions from all
+	 *  delegate grammars.  Only master has complete interface from combined
+	 *  grammars...we will generated delegates as helper objects.
+	 *
+	 *  Composite grammars that are not the root/master do not have complete
+	 *  interfaces.  It is not my intention that people use subcomposites.
+	 *  Only the outermost grammar should be used from outside code.  The
+	 *  other grammar components are specifically generated to work only
+	 *  with the master/root. 
+	 *
+	 *  delegatedRules = imported - overridden
+	 */
+	public Set<Rule> getDelegatedRules() {
+		return composite.getDelegatedRules(this);
+	}
+
+	/** Get set of all rules imported from all delegate grammars even if
+	 *  indirectly delegated.
+	 */
+	public Set<Rule> getAllImportedRules() {
+		return composite.getAllImportedRules(this);
+	}
+
+	/** Get list of all delegates from all grammars directly or indirectly
+	 *  imported into this grammar.
+	 */
+	public List<Grammar> getDelegates() {
+		return composite.getDelegates(this);
+	}
+
+	public List<String> getDelegateNames() {
+		// compute delegates:{Grammar g | return g.name;}
+		List<String> names = new ArrayList<String>();
+		List<Grammar> delegates = composite.getDelegates(this);
+		if ( delegates!=null ) {
+			for (Grammar g : delegates) {
+				names.add(g.name);
+			}
+		}
+		return names;
+	}
+
+	public List<Grammar> getDirectDelegates() {
+		return composite.getDirectDelegates(this);
+	}
+	
+	/** Get delegates below direct delegates */
+	public List<Grammar> getIndirectDelegates() {
+		return composite.getIndirectDelegates(this);
+	}
+
+	/** Get list of all delegators.  This amounts to the grammars on the path
+	 *  to the root of the delegation tree.
+	 */
+	public List<Grammar> getDelegators() {
+		return composite.getDelegators(this);
+	}
+
+	/** Who's my direct parent grammar? */
+	public Grammar getDelegator() {
+		return composite.getDelegator(this);
+	}
+
+	public Set<Rule> getDelegatedRuleReferences() {
+		return delegatedRuleReferences;
+	}
+
+	public boolean getGrammarIsRoot() {
+		return composite.delegateGrammarTreeRoot.grammar == this;
+	}
 
 	public void setRuleAST(String ruleName, GrammarAST t) {
-		Rule r = (Rule)nameToRuleMap.get(ruleName);
+		Rule r = getLocallyDefinedRule(ruleName);
 		if ( r!=null ) {
 			r.tree = t;
 			r.EORNode = t.getLastChild();
 		}
 	}
 
-    public void setRuleStartState(String ruleName, NFAState startState) {
-		Rule r = (Rule)nameToRuleMap.get(ruleName);
-		if ( r!=null ) {
-	        r.startState = startState;
-		}
-    }
-
-    public void setRuleStopState(String ruleName, NFAState stopState) {
-		Rule r = (Rule)nameToRuleMap.get(ruleName);
-		if ( r!=null ) {
-	        r.stopState = stopState;
-		}
-    }
-
 	public NFAState getRuleStartState(String ruleName) {
-		Rule r = (Rule)nameToRuleMap.get(ruleName);
+		return getRuleStartState(null, ruleName);
+	}
+
+	public NFAState getRuleStartState(String scopeName, String ruleName) {
+		Rule r = getRule(scopeName, ruleName);
 		if ( r!=null ) {
+			//System.out.println("getRuleStartState("+scopeName+", "+ruleName+")="+r.startState);
 			return r.startState;
 		}
+		//System.out.println("getRuleStartState("+scopeName+", "+ruleName+")=null");
 		return null;
 	}
 
 	public String getRuleModifier(String ruleName) {
-		Rule r = (Rule)nameToRuleMap.get(ruleName);
+		Rule r = getRule(ruleName);
 		if ( r!=null ) {
 			return r.modifier;
 		}
 		return null;
 	}
 
-    public NFAState getRuleStopState(String ruleName) {
-		Rule r = (Rule)nameToRuleMap.get(ruleName);
+	public NFAState getRuleStopState(String ruleName) {
+		Rule r = getRule(ruleName);
 		if ( r!=null ) {
 			return r.stopState;
 		}
 		return null;
-    }
+	}
 
-    public int assignDecisionNumber(NFAState state) {
-        decisionNumber++;
-        state.setDecisionNumber(decisionNumber);
-        return decisionNumber;
-    }
+	public int assignDecisionNumber(NFAState state) {
+		decisionCount++;
+		state.setDecisionNumber(decisionCount);
+		return decisionCount;
+	}
 
 	protected Decision getDecision(int decision) {
 		int index = decision-1;
@@ -1876,27 +2596,27 @@ public class Grammar {
 		}
 		Decision d = new Decision();
 		d.decision = decision;
-        indexToDecision.setSize(getNumberOfDecisions());
-        indexToDecision.set(index, d);
+		indexToDecision.setSize(getNumberOfDecisions());
+		indexToDecision.set(index, d);
 		return d;
 	}
 
-    public List getDecisionNFAStartStateList() {
+	public List getDecisionNFAStartStateList() {
 		List states = new ArrayList(100);
 		for (int d = 0; d < indexToDecision.size(); d++) {
-			Decision dec = (Decision) indexToDecision.elementAt(d);
+			Decision dec = (Decision) indexToDecision.get(d);
 			states.add(dec.startState);
 		}
-        return states;
-    }
+		return states;
+	}
 
-    public NFAState getDecisionNFAStartState(int decision) {
-        Decision d = getDecision(decision);
+	public NFAState getDecisionNFAStartState(int decision) {
+		Decision d = getDecision(decision);
 		if ( d==null ) {
 			return null;
 		}
 		return d.startState;
-    }
+	}
 
 	public DFA getLookaheadDFA(int decision) {
 		Decision d = getDecision(decision);
@@ -1972,7 +2692,7 @@ public class Grammar {
     */
 
 	public int getNumberOfDecisions() {
-		return decisionNumber;
+		return decisionCount;
 	}
 
 	public int getNumberOfCyclicDecisions() {
@@ -1999,7 +2719,7 @@ public class Grammar {
 	public void setLookaheadDFA(int decision, DFA lookaheadDFA) {
 		Decision d = createDecision(decision);
 		d.dfa = lookaheadDFA;
-		GrammarAST ast = d.startState.getAssociatedASTNode();
+		GrammarAST ast = d.startState.associatedASTNode;
 		ast.setLookaheadDFA(lookaheadDFA);
 	}
 
@@ -2019,9 +2739,9 @@ public class Grammar {
 	}
 
 	/** How many token types have been allocated so far? */
-    public int getMaxTokenType() {
-        return maxTokenType;
-    }
+	public int getMaxTokenType() {
+		return composite.maxTokenType;
+	}
 
 	/** What is the max char value possible for this grammar's target?  Use
 	 *  unicode max if no target defined.
@@ -2072,7 +2792,7 @@ public class Grammar {
 			return '\''+ANTLRLiteralCharValueEscape[c]+'\'';
 		}
 		if ( Character.UnicodeBlock.of((char)c)==Character.UnicodeBlock.BASIC_LATIN &&
-			!Character.isISOControl((char)c) ) {
+			 !Character.isISOControl((char)c) ) {
 			if ( c=='\\' ) {
 				return "'\\\\'";
 			}
@@ -2088,23 +2808,23 @@ public class Grammar {
 		return unicodeStr;
 	}
 
-    /** For lexer grammars, return everything in unicode not in set.
-     *  For parser and tree grammars, return everything in token space
-     *  from MIN_TOKEN_TYPE to last valid token type or char value.
-     */
-    public IntSet complement(IntSet set) {
-        //System.out.println("complement "+set.toString(this));
-        //System.out.println("vocabulary "+getTokenTypes().toString(this));
-        IntSet c = set.complement(getTokenTypes());
-        //System.out.println("result="+c.toString(this));
-        return c;
-    }
+	/** For lexer grammars, return everything in unicode not in set.
+	 *  For parser and tree grammars, return everything in token space
+	 *  from MIN_TOKEN_TYPE to last valid token type or char value.
+	 */
+	public IntSet complement(IntSet set) {
+		//System.out.println("complement "+set.toString(this));
+		//System.out.println("vocabulary "+getTokenTypes().toString(this));
+		IntSet c = set.complement(getTokenTypes());
+		//System.out.println("result="+c.toString(this));
+		return c;
+	}
 
-    public IntSet complement(int atom) {
-        return complement(IntervalSet.of(atom));
-    }
+	public IntSet complement(int atom) {
+		return complement(IntervalSet.of(atom));
+	}
 
-	/** Given set tree like ( SET A B ) in lexer, check that A and B
+	/** Given set tree like ( SET A B ), check that A and B
 	 *  are both valid sets themselves, else we must tree like a BLOCK
 	 */
 	public boolean isValidSet(TreeToNFAConverter nfabuilder, GrammarAST t) {
@@ -2139,31 +2859,31 @@ public class Grammar {
 		}
 		IntSet elements = null;
 		//System.out.println("parsed tree: "+r.tree.toStringTree());
-	    elements = nfabuilder.setRule(r.tree);
+		elements = nfabuilder.setRule(r.tree);
 		//System.out.println("elements="+elements);
 		return elements;
 	}
 
 	/** Decisions are linked together with transition(1).  Count how
-     *  many there are.  This is here rather than in NFAState because
-     *  a grammar decides how NFAs are put together to form a decision.
-     */
-    public int getNumberOfAltsForDecisionNFA(NFAState decisionState) {
-        if ( decisionState==null ) {
-            return 0;
-        }
-        int n = 1;
-        NFAState p = decisionState;
-        while ( p.transition(1)!=null ) {
-            n++;
-            p = (NFAState)p.transition(1).target;
-        }
-        return n;
-    }
+	 *  many there are.  This is here rather than in NFAState because
+	 *  a grammar decides how NFAs are put together to form a decision.
+	 */
+	public int getNumberOfAltsForDecisionNFA(NFAState decisionState) {
+		if ( decisionState==null ) {
+			return 0;
+		}
+		int n = 1;
+		NFAState p = decisionState;
+		while ( p.transition[1] !=null ) {
+			n++;
+			p = (NFAState)p.transition[1].target;
+		}
+		return n;
+	}
 
-    /** Get the ith alternative (1..n) from a decision; return null when
-     *  an invalid alt is requested.  I must count in to find the right
-     *  alternative number.  For (A|B), you get NFA structure (roughly):
+	/** Get the ith alternative (1..n) from a decision; return null when
+	 *  an invalid alt is requested.  I must count in to find the right
+	 *  alternative number.  For (A|B), you get NFA structure (roughly):
 	 *
 	 *  o->o-A->o
 	 *  |
@@ -2171,114 +2891,62 @@ public class Grammar {
 	 *
 	 *  This routine returns the leftmost state for each alt.  So alt=1, returns
 	 *  the upperleft most state in this structure.
-     */
-    public NFAState getNFAStateForAltOfDecision(NFAState decisionState, int alt) {
-        if ( decisionState==null || alt<=0 ) {
-            return null;
-        }
-        int n = 1;
-        NFAState p = decisionState;
-        while ( p!=null ) {
-            if ( n==alt ) {
-                return p;
-            }
-            n++;
-            Transition next = p.transition(1);
-            p = null;
-            if ( next!=null ) {
-                p = (NFAState)next.target;
-            }
-        }
-        return null;
-    }
-
-	/** From an NFA state, s, find the set of all labels reachable from s.
-	 *  This computes FIRST, FOLLOW and any other lookahead computation
-	 *  depending on where s is.
-	 *
-	 *  Record, with EOR_TOKEN_TYPE, if you hit the end of a rule so we can
-	 *  know at runtime (when these sets are used) to start walking up the
-	 *  follow chain to compute the real, correct follow set.
-	 *
-	 *  This routine will only be used on parser and tree parser grammars.
-	 *
-	 *  TODO: it does properly handle a : b A ; where b is nullable
-	 *  Actually it stops at end of rules, returning EOR.  Hmm...
-	 *  should check for that and keep going.
 	 */
-	public LookaheadSet LOOK(NFAState s) {
-		lookBusy.clear();
-		return _LOOK(s);
-	}
-
-	protected LookaheadSet _LOOK(NFAState s) {
-		if ( s.isAcceptState() ) {
-			return new LookaheadSet(Label.EOR_TOKEN_TYPE);
-		}
-
-		if ( lookBusy.contains(s) ) {
-			// return a copy of an empty set; we may modify set inline
-			return new LookaheadSet();
-		}
-		lookBusy.add(s);
-		Transition transition0 = s.transition(0);
-		if ( transition0==null ) {
+	public NFAState getNFAStateForAltOfDecision(NFAState decisionState, int alt) {
+		if ( decisionState==null || alt<=0 ) {
 			return null;
 		}
-
-		if ( transition0.label.isAtom() ) {
-			int atom = transition0.label.getAtom();
-			if ( atom==Label.EOF ) {
-				return LookaheadSet.EOF();
+		int n = 1;
+		NFAState p = decisionState;
+		while ( p!=null ) {
+			if ( n==alt ) {
+				return p;
 			}
-			return new LookaheadSet(atom);
-		}
-		if ( transition0.label.isSet() ) {
-			IntSet sl = transition0.label.getSet();
-			LookaheadSet laSet = new LookaheadSet(sl);
-			if ( laSet.member(Label.EOF) ) {
-				laSet.remove(Label.EOF);
-				laSet.hasEOF = true;
-			}
-			return laSet;
-		}
-        LookaheadSet tset = _LOOK((NFAState)transition0.target);
-		if ( tset.member(Label.EOR_TOKEN_TYPE) ) {
-			if ( transition0 instanceof RuleClosureTransition ) {
-				// we called a rule that found the end of the rule.
-				// That means the rule is nullable and we need to
-				// keep looking at what follows the rule ref.  E.g.,
-				// a : b A ; where b is nullable means that LOOK(a)
-				// should include A.
-				RuleClosureTransition ruleInvocationTrans =
-					(RuleClosureTransition)transition0;
-				// remove the EOR and get what follows
-				tset.remove(Label.EOR_TOKEN_TYPE);
-				LookaheadSet fset =
-					_LOOK((NFAState)ruleInvocationTrans.getFollowState());
-				tset.orInPlace(fset);
+			n++;
+			Transition next = p.transition[1];
+			p = null;
+			if ( next!=null ) {
+				p = (NFAState)next.target;
 			}
 		}
-
-		Transition transition1 = s.transition(1);
-		if ( transition1!=null ) {
-			LookaheadSet tset1 = _LOOK((NFAState)transition1.target);
-			tset.orInPlace(tset1);
-		}
-		return tset;
+		return null;
 	}
 
-    public void setCodeGenerator(CodeGenerator generator) {
-        this.generator = generator;
-    }
+	/*
+	public void computeRuleFOLLOWSets() {
+		if ( getNumberOfDecisions()==0 ) {
+			createNFAs();
+		}
+		for (Iterator it = getRules().iterator(); it.hasNext();) {
+			Rule r = (Rule)it.next();
+			if ( r.isSynPred ) {
+				continue;
+			}
+			LookaheadSet s = ll1Analyzer.FOLLOW(r);
+			System.out.println("FOLLOW("+r.name+")="+s);
+		}
+	}
+	*/
 
-    public CodeGenerator getCodeGenerator() {
-        return generator;
-    }
+	public LookaheadSet FIRST(NFAState s) {
+		return ll1Analyzer.FIRST(s);
+	}
 
-    public GrammarAST getGrammarTree() {
-        return grammarTree;
-    }
+	public LookaheadSet LOOK(NFAState s) {
+		return ll1Analyzer.LOOK(s);
+	}
+
+	public void setCodeGenerator(CodeGenerator generator) {
+		this.generator = generator;
+	}
+
+	public CodeGenerator getCodeGenerator() {
+		return generator;
+	}
+
+	public GrammarAST getGrammarTree() {
+		return grammarTree;
+	}
 
 	public Tool getTool() {
 		return tool;
@@ -2293,37 +2961,27 @@ public class Grammar {
 	 *  if there is an aliased name from tokens like PLUS='+', use it.
 	 */
 	public String computeTokenNameFromLiteral(int tokenType, String literal) {
-		return "T"+tokenType;
+		return AUTO_GENERATED_TOKEN_NAME_PREFIX +tokenType;
 	}
 
-    public String toString() {
-        return grammarTreeToString(grammarTree);
-    }
+	public String toString() {
+		return grammarTreeToString(grammarTree);
+	}
 
 	public String grammarTreeToString(GrammarAST t) {
 		return grammarTreeToString(t, true);
 	}
 
 	public String grammarTreeToString(GrammarAST t, boolean showActions) {
-        String s = null;
-        try {
-            s = t.getLine()+":"+t.getColumn()+": ";
-            s += new ANTLRTreePrinter().toString((AST)t, this, showActions);
-        }
-        catch (Exception e) {
-            ErrorManager.error(ErrorManager.MSG_BAD_AST_STRUCTURE,
-							   t,
-							   e);
-        }
-        return s;
-    }
-
-	public void setWatchNFAConversion(boolean watchNFAConversion) {
-		this.watchNFAConversion = watchNFAConversion;
-	}
-
-	public boolean getWatchNFAConversion() {
-		return watchNFAConversion;
+		String s = null;
+		try {
+			s = t.getLine()+":"+t.getColumn()+": ";
+			s += new ANTLRTreePrinter().toString((AST)t, this, showActions);
+		}
+		catch (Exception e) {
+			s = "<invalid or missing tree structure>";
+		}
+		return s;
 	}
 
 	public void printGrammar(PrintStream output) {

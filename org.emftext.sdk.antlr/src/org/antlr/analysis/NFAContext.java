@@ -61,15 +61,24 @@ public class NFAContext {
 	 *
 	 *  you could chase your tail forever if somebody said "s : e '.' | e ';' ;"
 	 *  This constant prevents new states from being created after a stack gets
-	 *  "too big".
+	 *  "too big".  Actually (12/14/2007) I realize that this example is
+	 *  trapped by the non-LL(*) detector for recursion in > 1 alt.  Here is
+	 *  an example that trips stack overflow:
 	 *
-	 *  Imagine doing a depth-first search on the DFA...as you chase an input
+	 *	  s : a Y | A A A A A X ; // force recursion past m=4
+	 *	  a : A a | Q;
+	 *
+	 *  If that were:
+	 *
+	 *	  s : a Y | A+ X ;
+	 *
+	 *  it could loop forever.
+	 *
+	 *  Imagine doing a depth-first search on the e DFA...as you chase an input
 	 *  sequence you can recurse to same rule such as e above.  You'd have a
 	 *  chain of ((((.  When you get do some point, you have to give up.  The
 	 *  states in the chain will have longer and longer NFA config stacks.
 	 *  Must limit size.
-	 *
-	 *  TODO: i wonder if we can recognize recursive loops and use a simple cycle?
 	 *
 	 *  max=0 implies you cannot ever jump to another rule during closure.
 	 *  max=1 implies you can make as many calls as you want--you just

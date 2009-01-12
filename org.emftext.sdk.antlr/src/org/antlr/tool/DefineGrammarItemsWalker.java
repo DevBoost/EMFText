@@ -2,7 +2,7 @@
 
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -46,6 +46,7 @@ import antlr.collections.impl.ASTArray;
 
 public class DefineGrammarItemsWalker extends antlr.TreeParser       implements DefineGrammarItemsWalkerTokenTypes
  {
+ 
 
 protected Grammar grammar;
 protected GrammarAST root;
@@ -243,6 +244,7 @@ public DefineGrammarItemsWalker() {
 			case TOKENS:
 			case RULE:
 			case SCOPE:
+			case IMPORT:
 			case AMPERSAND:
 			{
 				break;
@@ -262,6 +264,29 @@ public DefineGrammarItemsWalker() {
 					optionsStartToken=((GrammarAST)_t).getToken();
 				}
 				optionsSpec(_t);
+				_t = _retTree;
+				break;
+			}
+			case TOKENS:
+			case RULE:
+			case SCOPE:
+			case IMPORT:
+			case AMPERSAND:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(_t);
+			}
+			}
+			}
+			{
+			if (_t==null) _t=ASTNULL;
+			switch ( _t.getType()) {
+			case IMPORT:
+			{
+				delegateGrammars(_t);
 				_t = _retTree;
 				break;
 			}
@@ -300,7 +325,7 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			{
-			_loop14:
+			_loop15:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==SCOPE)) {
@@ -308,7 +333,7 @@ public DefineGrammarItemsWalker() {
 					_t = _retTree;
 				}
 				else {
-					break _loop14;
+					break _loop15;
 				}
 				
 			} while (true);
@@ -369,7 +394,7 @@ public DefineGrammarItemsWalker() {
 				
 						AttributeScope scope = grammar.defineGlobalScope(name.getText(),attrs.token);
 						scope.isDynamicGlobalScope = true;
-						scope.addAttributes(attrs.getText(), ";");
+						scope.addAttributes(attrs.getText(), ';');
 						
 			}
 		}
@@ -404,18 +429,78 @@ public DefineGrammarItemsWalker() {
 		_retTree = _t;
 	}
 	
+	public final void delegateGrammars(AST _t) throws RecognitionException {
+		
+		GrammarAST delegateGrammars_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
+		
+		try {      // for error handling
+			AST __t25 = _t;
+			GrammarAST tmp7_AST_in = (GrammarAST)_t;
+			match(_t,IMPORT);
+			_t = _t.getFirstChild();
+			{
+			int _cnt28=0;
+			_loop28:
+			do {
+				if (_t==null) _t=ASTNULL;
+				switch ( _t.getType()) {
+				case ASSIGN:
+				{
+					AST __t27 = _t;
+					GrammarAST tmp8_AST_in = (GrammarAST)_t;
+					match(_t,ASSIGN);
+					_t = _t.getFirstChild();
+					GrammarAST tmp9_AST_in = (GrammarAST)_t;
+					match(_t,ID);
+					_t = _t.getNextSibling();
+					GrammarAST tmp10_AST_in = (GrammarAST)_t;
+					match(_t,ID);
+					_t = _t.getNextSibling();
+					_t = __t27;
+					_t = _t.getNextSibling();
+					break;
+				}
+				case ID:
+				{
+					GrammarAST tmp11_AST_in = (GrammarAST)_t;
+					match(_t,ID);
+					_t = _t.getNextSibling();
+					break;
+				}
+				default:
+				{
+					if ( _cnt28>=1 ) { break _loop28; } else {throw new NoViableAltException(_t);}
+				}
+				}
+				_cnt28++;
+			} while (true);
+			}
+			_t = __t25;
+			_t = _t.getNextSibling();
+		}
+		catch (RecognitionException ex) {
+			if (inputState.guessing==0) {
+				reportError(ex);
+				if (_t!=null) {_t = _t.getNextSibling();}
+			} else {
+			  throw ex;
+			}
+		}
+		_retTree = _t;
+	}
+	
 	public final void tokensSpec(AST _t) throws RecognitionException {
 		
 		GrammarAST tokensSpec_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t24 = _t;
-			GrammarAST tmp7_AST_in = (GrammarAST)_t;
+			AST __t30 = _t;
+			GrammarAST tmp12_AST_in = (GrammarAST)_t;
 			match(_t,TOKENS);
 			_t = _t.getFirstChild();
 			{
-			int _cnt26=0;
-			_loop26:
+			int _cnt32=0;
+			_loop32:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ASSIGN||_t.getType()==TOKEN_REF)) {
@@ -423,13 +508,13 @@ public DefineGrammarItemsWalker() {
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt26>=1 ) { break _loop26; } else {throw new NoViableAltException(_t);}
+					if ( _cnt32>=1 ) { break _loop32; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt26++;
+				_cnt32++;
 			} while (true);
 			}
-			_t = __t24;
+			_t = __t30;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -449,8 +534,8 @@ public DefineGrammarItemsWalker() {
 		
 		try {      // for error handling
 			{
-			int _cnt18=0;
-			_loop18:
+			int _cnt19=0;
+			_loop19:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
@@ -458,10 +543,10 @@ public DefineGrammarItemsWalker() {
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt18>=1 ) { break _loop18; } else {throw new NoViableAltException(_t);}
+					if ( _cnt19>=1 ) { break _loop19; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt18++;
+				_cnt19++;
 			} while (true);
 			}
 		}
@@ -482,8 +567,8 @@ public DefineGrammarItemsWalker() {
 		
 		try {      // for error handling
 			{
-			int _cnt32=0;
-			_loop32:
+			int _cnt38=0;
+			_loop38:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==RULE)) {
@@ -491,10 +576,10 @@ public DefineGrammarItemsWalker() {
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt32>=1 ) { break _loop32; } else {throw new NoViableAltException(_t);}
+					if ( _cnt38>=1 ) { break _loop38; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt32++;
+				_cnt38++;
 			} while (true);
 			}
 		}
@@ -523,7 +608,7 @@ public DefineGrammarItemsWalker() {
 		
 		
 		try {      // for error handling
-			AST __t20 = _t;
+			AST __t21 = _t;
 			amp = _t==ASTNULL ? null :(GrammarAST)_t;
 			match(_t,AMPERSAND);
 			_t = _t.getFirstChild();
@@ -562,7 +647,7 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			}
-			_t = __t20;
+			_t = __t21;
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
 				
@@ -601,8 +686,8 @@ public DefineGrammarItemsWalker() {
 			}
 			case ASSIGN:
 			{
-				AST __t28 = _t;
-				GrammarAST tmp8_AST_in = (GrammarAST)_t;
+				AST __t34 = _t;
+				GrammarAST tmp13_AST_in = (GrammarAST)_t;
 				match(_t,ASSIGN);
 				_t = _t.getFirstChild();
 				t2 = (GrammarAST)_t;
@@ -631,7 +716,7 @@ public DefineGrammarItemsWalker() {
 				}
 				}
 				}
-				_t = __t28;
+				_t = __t34;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -667,15 +752,15 @@ public DefineGrammarItemsWalker() {
 		
 		
 		try {      // for error handling
-			AST __t34 = _t;
-			GrammarAST tmp9_AST_in = (GrammarAST)_t;
+			AST __t40 = _t;
+			GrammarAST tmp14_AST_in = (GrammarAST)_t;
 			match(_t,RULE);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
 			match(_t,ID);
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
-				opts = tmp9_AST_in.options;
+				opts = tmp14_AST_in.blockOptions;
 			}
 			{
 			if (_t==null) _t=ASTNULL;
@@ -699,8 +784,8 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			}
-			AST __t36 = _t;
-			GrammarAST tmp10_AST_in = (GrammarAST)_t;
+			AST __t42 = _t;
+			GrammarAST tmp15_AST_in = (GrammarAST)_t;
 			match(_t,ARG);
 			_t = _t.getFirstChild();
 			{
@@ -723,10 +808,10 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			}
-			_t = __t36;
+			_t = __t42;
 			_t = _t.getNextSibling();
-			AST __t38 = _t;
-			GrammarAST tmp11_AST_in = (GrammarAST)_t;
+			AST __t44 = _t;
+			GrammarAST tmp16_AST_in = (GrammarAST)_t;
 			match(_t,RET);
 			_t = _t.getFirstChild();
 			{
@@ -749,7 +834,7 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			}
-			_t = __t38;
+			_t = __t44;
 			_t = _t.getNextSibling();
 			{
 			if (_t==null) _t=ASTNULL;
@@ -788,11 +873,11 @@ public DefineGrammarItemsWalker() {
 								r = grammar.getRule(name);
 								if ( args!=null ) {
 									r.parameterScope = grammar.createParameterScope(name,args.token);
-									r.parameterScope.addAttributes(args.getText(), ",");
+									r.parameterScope.addAttributes(args.getText(), ',');
 								}
 								if ( ret!=null ) {
 									r.returnScope = grammar.createReturnScope(name,ret.token);
-									r.returnScope.addAttributes(ret.getText(), ",");
+									r.returnScope.addAttributes(ret.getText(), ',');
 								}
 							}
 							
@@ -818,7 +903,7 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			{
-			_loop43:
+			_loop49:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
@@ -826,7 +911,7 @@ public DefineGrammarItemsWalker() {
 					_t = _retTree;
 				}
 				else {
-					break _loop43;
+					break _loop49;
 				}
 				
 			} while (true);
@@ -857,17 +942,17 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			}
-			GrammarAST tmp12_AST_in = (GrammarAST)_t;
+			GrammarAST tmp17_AST_in = (GrammarAST)_t;
 			match(_t,EOR);
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
 				
 				// copy rule options into the block AST, which is where
 				// the analysis will look for k option etc...
-				b.options = opts;
+				b.blockOptions = opts;
 				
 			}
-			_t = __t34;
+			_t = __t40;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -894,28 +979,28 @@ public DefineGrammarItemsWalker() {
 			switch ( _t.getType()) {
 			case LITERAL_protected:
 			{
-				GrammarAST tmp13_AST_in = (GrammarAST)_t;
+				GrammarAST tmp18_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_protected);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_public:
 			{
-				GrammarAST tmp14_AST_in = (GrammarAST)_t;
+				GrammarAST tmp19_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_public);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_private:
 			{
-				GrammarAST tmp15_AST_in = (GrammarAST)_t;
+				GrammarAST tmp20_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_private);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case FRAGMENT:
 			{
-				GrammarAST tmp16_AST_in = (GrammarAST)_t;
+				GrammarAST tmp21_AST_in = (GrammarAST)_t;
 				match(_t,FRAGMENT);
 				_t = _t.getNextSibling();
 				break;
@@ -947,8 +1032,8 @@ public DefineGrammarItemsWalker() {
 		GrammarAST uses = null;
 		
 		try {      // for error handling
-			AST __t63 = _t;
-			GrammarAST tmp17_AST_in = (GrammarAST)_t;
+			AST __t69 = _t;
+			GrammarAST tmp22_AST_in = (GrammarAST)_t;
 			match(_t,SCOPE);
 			_t = _t.getFirstChild();
 			{
@@ -963,7 +1048,7 @@ public DefineGrammarItemsWalker() {
 					
 						         r.ruleScope = grammar.createRuleScope(r.name,attrs.token);
 								 r.ruleScope.isDynamicRuleScope = true;
-								 r.ruleScope.addAttributes(attrs.getText(), ";");
+								 r.ruleScope.addAttributes(attrs.getText(), ';');
 								
 				}
 				break;
@@ -980,7 +1065,7 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			{
-			_loop66:
+			_loop72:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ID)) {
@@ -1003,12 +1088,12 @@ public DefineGrammarItemsWalker() {
 					}
 				}
 				else {
-					break _loop66;
+					break _loop72;
 				}
 				
 			} while (true);
 			}
-			_t = __t63;
+			_t = __t69;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1032,7 +1117,7 @@ public DefineGrammarItemsWalker() {
 		GrammarAST a = null;
 		
 		try {      // for error handling
-			AST __t60 = _t;
+			AST __t66 = _t;
 			amp = _t==ASTNULL ? null :(GrammarAST)_t;
 			match(_t,AMPERSAND);
 			_t = _t.getFirstChild();
@@ -1042,7 +1127,7 @@ public DefineGrammarItemsWalker() {
 			a = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t60;
+			_t = __t66;
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
 				if (r!=null) r.defineNamedAction(amp,id,a);
@@ -1068,8 +1153,8 @@ public DefineGrammarItemsWalker() {
 		
 		
 		try {      // for error handling
-			AST __t68 = _t;
-			GrammarAST tmp18_AST_in = (GrammarAST)_t;
+			AST __t74 = _t;
+			GrammarAST tmp23_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -1093,7 +1178,7 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			{
-			_loop71:
+			_loop77:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
@@ -1101,14 +1186,14 @@ public DefineGrammarItemsWalker() {
 					_t = _retTree;
 				}
 				else {
-					break _loop71;
+					break _loop77;
 				}
 				
 			} while (true);
 			}
 			{
-			int _cnt73=0;
-			_loop73:
+			int _cnt79=0;
+			_loop79:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ALT)) {
@@ -1121,16 +1206,16 @@ public DefineGrammarItemsWalker() {
 					}
 				}
 				else {
-					if ( _cnt73>=1 ) { break _loop73; } else {throw new NoViableAltException(_t);}
+					if ( _cnt79>=1 ) { break _loop79; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt73++;
+				_cnt79++;
 			} while (true);
 			}
-			GrammarAST tmp19_AST_in = (GrammarAST)_t;
+			GrammarAST tmp24_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t68;
+			_t = __t74;
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
 				this.blockLevel--;
@@ -1157,8 +1242,8 @@ public DefineGrammarItemsWalker() {
 			case LITERAL_catch:
 			{
 				{
-				int _cnt82=0;
-				_loop82:
+				int _cnt88=0;
+				_loop88:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==LITERAL_catch)) {
@@ -1166,10 +1251,10 @@ public DefineGrammarItemsWalker() {
 						_t = _retTree;
 					}
 					else {
-						if ( _cnt82>=1 ) { break _loop82; } else {throw new NoViableAltException(_t);}
+						if ( _cnt88>=1 ) { break _loop88; } else {throw new NoViableAltException(_t);}
 					}
 					
-					_cnt82++;
+					_cnt88++;
 				} while (true);
 				}
 				{
@@ -1223,8 +1308,8 @@ public DefineGrammarItemsWalker() {
 		GrammarAST id = null;
 		
 		try {      // for error handling
-			AST __t46 = _t;
-			GrammarAST tmp20_AST_in = (GrammarAST)_t;
+			AST __t52 = _t;
+			GrammarAST tmp25_AST_in = (GrammarAST)_t;
 			match(_t,RULE);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
@@ -1252,10 +1337,10 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			}
-			GrammarAST tmp21_AST_in = (GrammarAST)_t;
+			GrammarAST tmp26_AST_in = (GrammarAST)_t;
 			match(_t,ARG);
 			_t = _t.getNextSibling();
-			GrammarAST tmp22_AST_in = (GrammarAST)_t;
+			GrammarAST tmp27_AST_in = (GrammarAST)_t;
 			match(_t,RET);
 			_t = _t.getNextSibling();
 			{
@@ -1263,7 +1348,7 @@ public DefineGrammarItemsWalker() {
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				GrammarAST tmp23_AST_in = (GrammarAST)_t;
+				GrammarAST tmp28_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getNextSibling();
 				break;
@@ -1285,7 +1370,7 @@ public DefineGrammarItemsWalker() {
 			switch ( _t.getType()) {
 			case SCOPE:
 			{
-				GrammarAST tmp24_AST_in = (GrammarAST)_t;
+				GrammarAST tmp29_AST_in = (GrammarAST)_t;
 				match(_t,SCOPE);
 				_t = _t.getNextSibling();
 				break;
@@ -1302,22 +1387,22 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			{
-			_loop51:
+			_loop57:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
-					GrammarAST tmp25_AST_in = (GrammarAST)_t;
+					GrammarAST tmp30_AST_in = (GrammarAST)_t;
 					match(_t,AMPERSAND);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop51;
+					break _loop57;
 				}
 				
 			} while (true);
 			}
-			AST __t52 = _t;
-			GrammarAST tmp26_AST_in = (GrammarAST)_t;
+			AST __t58 = _t;
+			GrammarAST tmp31_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -1325,7 +1410,7 @@ public DefineGrammarItemsWalker() {
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				GrammarAST tmp27_AST_in = (GrammarAST)_t;
+				GrammarAST tmp32_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getNextSibling();
 				break;
@@ -1341,25 +1426,25 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			{
-			int _cnt57=0;
-			_loop57:
+			int _cnt63=0;
+			_loop63:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ALT)) {
-					GrammarAST tmp28_AST_in = (GrammarAST)_t;
+					GrammarAST tmp33_AST_in = (GrammarAST)_t;
 					match(_t,ALT);
 					_t = _t.getNextSibling();
 					{
-					_loop56:
+					_loop62:
 					do {
 						if (_t==null) _t=ASTNULL;
 						if ((_t.getType()==REWRITE)) {
-							GrammarAST tmp29_AST_in = (GrammarAST)_t;
+							GrammarAST tmp34_AST_in = (GrammarAST)_t;
 							match(_t,REWRITE);
 							_t = _t.getNextSibling();
 						}
 						else {
-							break _loop56;
+							break _loop62;
 						}
 						
 					} while (true);
@@ -1369,16 +1454,16 @@ public DefineGrammarItemsWalker() {
 					}
 				}
 				else {
-					if ( _cnt57>=1 ) { break _loop57; } else {throw new NoViableAltException(_t);}
+					if ( _cnt63>=1 ) { break _loop63; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt57++;
+				_cnt63++;
 			} while (true);
 			}
-			GrammarAST tmp30_AST_in = (GrammarAST)_t;
+			GrammarAST tmp35_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t52;
+			_t = __t58;
 			_t = _t.getNextSibling();
 			{
 			if (_t==null) _t=ASTNULL;
@@ -1400,10 +1485,10 @@ public DefineGrammarItemsWalker() {
 			}
 			}
 			}
-			GrammarAST tmp31_AST_in = (GrammarAST)_t;
+			GrammarAST tmp36_AST_in = (GrammarAST)_t;
 			match(_t,EOR);
 			_t = _t.getNextSibling();
-			_t = __t46;
+			_t = __t52;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1426,7 +1511,7 @@ public DefineGrammarItemsWalker() {
 		GrammarAST a = null;
 		
 		try {      // for error handling
-			AST __t75 = _t;
+			AST __t81 = _t;
 			amp = _t==ASTNULL ? null :(GrammarAST)_t;
 			match(_t,AMPERSAND);
 			_t = _t.getFirstChild();
@@ -1436,7 +1521,7 @@ public DefineGrammarItemsWalker() {
 			a = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t75;
+			_t = __t81;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1455,10 +1540,15 @@ public DefineGrammarItemsWalker() {
 		GrammarAST alternative_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		if ( grammar.type!=Grammar.LEXER && grammar.getOption("output")!=null && blockLevel==1 ) {
-			GrammarAST aRewriteNode = alternative_AST_in.findFirstType(REWRITE);
+			GrammarAST aRewriteNode = alternative_AST_in.findFirstType(REWRITE); // alt itself has rewrite?
+			GrammarAST rewriteAST = (GrammarAST)alternative_AST_in.getNextSibling();
+			// we have a rewrite if alt uses it inside subrule or this alt has one
+			// but don't count -> ... rewrites, which mean "do default auto construction"
 			if ( aRewriteNode!=null||
-				 (alternative_AST_in.getNextSibling()!=null &&
-				  alternative_AST_in.getNextSibling().getType()==REWRITE) )
+				 (rewriteAST!=null &&
+				  rewriteAST.getType()==REWRITE &&
+				  rewriteAST.getFirstChild()!=null &&
+				  rewriteAST.getFirstChild().getType()!=ETC) )
 			{
 				Rule r = grammar.getRule(currentRuleName);
 				r.trackAltsWithRewrites(alternative_AST_in,this.outerAltNum);
@@ -1467,30 +1557,30 @@ public DefineGrammarItemsWalker() {
 		
 		
 		try {      // for error handling
-			AST __t77 = _t;
-			GrammarAST tmp32_AST_in = (GrammarAST)_t;
+			AST __t83 = _t;
+			GrammarAST tmp37_AST_in = (GrammarAST)_t;
 			match(_t,ALT);
 			_t = _t.getFirstChild();
 			{
-			int _cnt79=0;
-			_loop79:
+			int _cnt85=0;
+			_loop85:
 			do {
 				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN||_t.getType()==WILDCARD)) {
+				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==FORCED_ACTION||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==DOT||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==WILDCARD||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN)) {
 					element(_t);
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt79>=1 ) { break _loop79; } else {throw new NoViableAltException(_t);}
+					if ( _cnt85>=1 ) { break _loop85; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt79++;
+				_cnt85++;
 			} while (true);
 			}
-			GrammarAST tmp33_AST_in = (GrammarAST)_t;
+			GrammarAST tmp38_AST_in = (GrammarAST)_t;
 			match(_t,EOA);
 			_t = _t.getNextSibling();
-			_t = __t77;
+			_t = __t83;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1517,12 +1607,12 @@ public DefineGrammarItemsWalker() {
 		
 		try {      // for error handling
 			{
-			_loop124:
+			_loop131:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==REWRITE)) {
-					AST __t122 = _t;
-					GrammarAST tmp34_AST_in = (GrammarAST)_t;
+					AST __t129 = _t;
+					GrammarAST tmp39_AST_in = (GrammarAST)_t;
 					match(_t,REWRITE);
 					_t = _t.getFirstChild();
 					{
@@ -1538,6 +1628,7 @@ public DefineGrammarItemsWalker() {
 					case ALT:
 					case TEMPLATE:
 					case ACTION:
+					case ETC:
 					{
 						break;
 					}
@@ -1549,7 +1640,7 @@ public DefineGrammarItemsWalker() {
 					}
 					rewrite_alternative(_t);
 					_t = _retTree;
-					_t = __t122;
+					_t = __t129;
 					_t = _t.getNextSibling();
 					if ( inputState.guessing==0 ) {
 						
@@ -1561,7 +1652,7 @@ public DefineGrammarItemsWalker() {
 					}
 				}
 				else {
-					break _loop124;
+					break _loop131;
 				}
 				
 			} while (true);
@@ -1586,88 +1677,90 @@ public DefineGrammarItemsWalker() {
 		GrammarAST id2 = null;
 		GrammarAST a2 = null;
 		GrammarAST act = null;
+		GrammarAST act2 = null;
 		
 		try {      // for error handling
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				AST __t89 = _t;
-				GrammarAST tmp35_AST_in = (GrammarAST)_t;
+				AST __t95 = _t;
+				GrammarAST tmp40_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getFirstChild();
 				element(_t);
 				_t = _retTree;
-				_t = __t89;
+				_t = __t95;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case BANG:
 			{
-				AST __t90 = _t;
-				GrammarAST tmp36_AST_in = (GrammarAST)_t;
+				AST __t96 = _t;
+				GrammarAST tmp41_AST_in = (GrammarAST)_t;
 				match(_t,BANG);
 				_t = _t.getFirstChild();
 				element(_t);
 				_t = _retTree;
-				_t = __t90;
+				_t = __t96;
 				_t = _t.getNextSibling();
 				break;
 			}
+			case DOT:
 			case STRING_LITERAL:
 			case CHAR_LITERAL:
 			case TOKEN_REF:
-			case RULE_REF:
 			case WILDCARD:
+			case RULE_REF:
 			{
-				atom(_t);
+				atom(_t,null);
 				_t = _retTree;
 				break;
 			}
 			case NOT:
 			{
-				AST __t91 = _t;
-				GrammarAST tmp37_AST_in = (GrammarAST)_t;
+				AST __t97 = _t;
+				GrammarAST tmp42_AST_in = (GrammarAST)_t;
 				match(_t,NOT);
 				_t = _t.getFirstChild();
 				element(_t);
 				_t = _retTree;
-				_t = __t91;
+				_t = __t97;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case RANGE:
 			{
-				AST __t92 = _t;
-				GrammarAST tmp38_AST_in = (GrammarAST)_t;
+				AST __t98 = _t;
+				GrammarAST tmp43_AST_in = (GrammarAST)_t;
 				match(_t,RANGE);
 				_t = _t.getFirstChild();
-				atom(_t);
+				atom(_t,null);
 				_t = _retTree;
-				atom(_t);
+				atom(_t,null);
 				_t = _retTree;
-				_t = __t92;
+				_t = __t98;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case CHAR_RANGE:
 			{
-				AST __t93 = _t;
-				GrammarAST tmp39_AST_in = (GrammarAST)_t;
+				AST __t99 = _t;
+				GrammarAST tmp44_AST_in = (GrammarAST)_t;
 				match(_t,CHAR_RANGE);
 				_t = _t.getFirstChild();
-				atom(_t);
+				atom(_t,null);
 				_t = _retTree;
-				atom(_t);
+				atom(_t,null);
 				_t = _retTree;
-				_t = __t93;
+				_t = __t99;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case ASSIGN:
 			{
-				AST __t94 = _t;
-				GrammarAST tmp40_AST_in = (GrammarAST)_t;
+				AST __t100 = _t;
+				GrammarAST tmp45_AST_in = (GrammarAST)_t;
 				match(_t,ASSIGN);
 				_t = _t.getFirstChild();
 				id = (GrammarAST)_t;
@@ -1676,7 +1769,7 @@ public DefineGrammarItemsWalker() {
 				el = _t==ASTNULL ? null : (GrammarAST)_t;
 				element(_t);
 				_t = _retTree;
-				_t = __t94;
+				_t = __t100;
 				_t = _t.getNextSibling();
 				if ( inputState.guessing==0 ) {
 					
@@ -1697,8 +1790,8 @@ public DefineGrammarItemsWalker() {
 			}
 			case PLUS_ASSIGN:
 			{
-				AST __t95 = _t;
-				GrammarAST tmp41_AST_in = (GrammarAST)_t;
+				AST __t101 = _t;
+				GrammarAST tmp46_AST_in = (GrammarAST)_t;
 				match(_t,PLUS_ASSIGN);
 				_t = _t.getFirstChild();
 				id2 = (GrammarAST)_t;
@@ -1722,7 +1815,7 @@ public DefineGrammarItemsWalker() {
 						    }
 						
 				}
-				_t = __t95;
+				_t = __t101;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -1743,13 +1836,13 @@ public DefineGrammarItemsWalker() {
 			}
 			case SYNPRED:
 			{
-				AST __t96 = _t;
-				GrammarAST tmp42_AST_in = (GrammarAST)_t;
+				AST __t102 = _t;
+				GrammarAST tmp47_AST_in = (GrammarAST)_t;
 				match(_t,SYNPRED);
 				_t = _t.getFirstChild();
 				block(_t);
 				_t = _retTree;
-				_t = __t96;
+				_t = __t102;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -1766,49 +1859,62 @@ public DefineGrammarItemsWalker() {
 				}
 				break;
 			}
+			case FORCED_ACTION:
+			{
+				act2 = (GrammarAST)_t;
+				match(_t,FORCED_ACTION);
+				_t = _t.getNextSibling();
+				if ( inputState.guessing==0 ) {
+					
+					act2.outerAltNum = this.outerAltNum;
+							trackInlineAction(act2);
+					
+				}
+				break;
+			}
 			case SEMPRED:
 			{
-				GrammarAST tmp43_AST_in = (GrammarAST)_t;
+				GrammarAST tmp48_AST_in = (GrammarAST)_t;
 				match(_t,SEMPRED);
 				_t = _t.getNextSibling();
 				if ( inputState.guessing==0 ) {
 					
-					tmp43_AST_in.outerAltNum = this.outerAltNum;
-					trackInlineAction(tmp43_AST_in);
+					tmp48_AST_in.outerAltNum = this.outerAltNum;
+					trackInlineAction(tmp48_AST_in);
 					
 				}
 				break;
 			}
 			case SYN_SEMPRED:
 			{
-				GrammarAST tmp44_AST_in = (GrammarAST)_t;
+				GrammarAST tmp49_AST_in = (GrammarAST)_t;
 				match(_t,SYN_SEMPRED);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case BACKTRACK_SEMPRED:
 			{
-				GrammarAST tmp45_AST_in = (GrammarAST)_t;
+				GrammarAST tmp50_AST_in = (GrammarAST)_t;
 				match(_t,BACKTRACK_SEMPRED);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case GATED_SEMPRED:
 			{
-				GrammarAST tmp46_AST_in = (GrammarAST)_t;
+				GrammarAST tmp51_AST_in = (GrammarAST)_t;
 				match(_t,GATED_SEMPRED);
 				_t = _t.getNextSibling();
 				if ( inputState.guessing==0 ) {
 					
-					tmp46_AST_in.outerAltNum = this.outerAltNum;
-					trackInlineAction(tmp46_AST_in);
+					tmp51_AST_in.outerAltNum = this.outerAltNum;
+					trackInlineAction(tmp51_AST_in);
 					
 				}
 				break;
 			}
 			case EPSILON:
 			{
-				GrammarAST tmp47_AST_in = (GrammarAST)_t;
+				GrammarAST tmp52_AST_in = (GrammarAST)_t;
 				match(_t,EPSILON);
 				_t = _t.getNextSibling();
 				break;
@@ -1835,20 +1941,20 @@ public DefineGrammarItemsWalker() {
 		GrammarAST exceptionHandler_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t85 = _t;
-			GrammarAST tmp48_AST_in = (GrammarAST)_t;
+			AST __t91 = _t;
+			GrammarAST tmp53_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_catch);
 			_t = _t.getFirstChild();
-			GrammarAST tmp49_AST_in = (GrammarAST)_t;
+			GrammarAST tmp54_AST_in = (GrammarAST)_t;
 			match(_t,ARG_ACTION);
 			_t = _t.getNextSibling();
-			GrammarAST tmp50_AST_in = (GrammarAST)_t;
+			GrammarAST tmp55_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t85;
+			_t = __t91;
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
-				trackInlineAction(tmp50_AST_in);
+				trackInlineAction(tmp55_AST_in);
 			}
 		}
 		catch (RecognitionException ex) {
@@ -1867,17 +1973,17 @@ public DefineGrammarItemsWalker() {
 		GrammarAST finallyClause_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t87 = _t;
-			GrammarAST tmp51_AST_in = (GrammarAST)_t;
+			AST __t93 = _t;
+			GrammarAST tmp56_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_finally);
 			_t = _t.getFirstChild();
-			GrammarAST tmp52_AST_in = (GrammarAST)_t;
+			GrammarAST tmp57_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t87;
+			_t = __t93;
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
-				trackInlineAction(tmp52_AST_in);
+				trackInlineAction(tmp57_AST_in);
 			}
 		}
 		catch (RecognitionException ex) {
@@ -1891,7 +1997,9 @@ public DefineGrammarItemsWalker() {
 		_retTree = _t;
 	}
 	
-	public final void atom(AST _t) throws RecognitionException {
+	public final void atom(AST _t,
+		GrammarAST scope
+	) throws RecognitionException {
 		
 		GrammarAST atom_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		GrammarAST rr = null;
@@ -1906,7 +2014,7 @@ public DefineGrammarItemsWalker() {
 			switch ( _t.getType()) {
 			case RULE_REF:
 			{
-				AST __t115 = _t;
+				AST __t121 = _t;
 				rr = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,RULE_REF);
 				_t = _t.getFirstChild();
@@ -1930,11 +2038,11 @@ public DefineGrammarItemsWalker() {
 				}
 				}
 				}
-				_t = __t115;
+				_t = __t121;
 				_t = _t.getNextSibling();
 				if ( inputState.guessing==0 ) {
 					
-					grammar.altReferencesRule(currentRuleName, rr, this.outerAltNum);
+					grammar.altReferencesRule(currentRuleName, scope, rr, this.outerAltNum);
 							if ( rarg!=null ) {
 					rarg.outerAltNum = this.outerAltNum;
 					trackInlineAction(rarg);
@@ -1945,7 +2053,7 @@ public DefineGrammarItemsWalker() {
 			}
 			case TOKEN_REF:
 			{
-				AST __t117 = _t;
+				AST __t123 = _t;
 				t = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,TOKEN_REF);
 				_t = _t.getFirstChild();
@@ -1969,7 +2077,7 @@ public DefineGrammarItemsWalker() {
 				}
 				}
 				}
-				_t = __t117;
+				_t = __t123;
 				_t = _t.getNextSibling();
 				if ( inputState.guessing==0 ) {
 					
@@ -1978,7 +2086,7 @@ public DefineGrammarItemsWalker() {
 					trackInlineAction(targ);
 					}
 						if ( grammar.type==Grammar.LEXER ) {
-							grammar.altReferencesRule(currentRuleName, t, this.outerAltNum);
+							grammar.altReferencesRule(currentRuleName, scope, t, this.outerAltNum);
 						}
 						else {
 							grammar.altReferencesTokenID(currentRuleName, t, this.outerAltNum);
@@ -2023,8 +2131,23 @@ public DefineGrammarItemsWalker() {
 			}
 			case WILDCARD:
 			{
-				GrammarAST tmp53_AST_in = (GrammarAST)_t;
+				GrammarAST tmp58_AST_in = (GrammarAST)_t;
 				match(_t,WILDCARD);
+				_t = _t.getNextSibling();
+				break;
+			}
+			case DOT:
+			{
+				AST __t125 = _t;
+				GrammarAST tmp59_AST_in = (GrammarAST)_t;
+				match(_t,DOT);
+				_t = _t.getFirstChild();
+				GrammarAST tmp60_AST_in = (GrammarAST)_t;
+				match(_t,ID);
+				_t = _t.getNextSibling();
+				atom(_t,tmp60_AST_in);
+				_t = _retTree;
+				_t = __t125;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2060,22 +2183,22 @@ public DefineGrammarItemsWalker() {
 			}
 			case OPTIONAL:
 			{
-				AST __t100 = _t;
-				GrammarAST tmp54_AST_in = (GrammarAST)_t;
+				AST __t106 = _t;
+				GrammarAST tmp61_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONAL);
 				_t = _t.getFirstChild();
 				block(_t);
 				_t = _retTree;
-				_t = __t100;
+				_t = __t106;
 				_t = _t.getNextSibling();
 				break;
 			}
 			default:
-				boolean synPredMatched99 = false;
+				boolean synPredMatched105 = false;
 				if (_t==null) _t=ASTNULL;
 				if (((_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE))) {
-					AST __t99 = _t;
-					synPredMatched99 = true;
+					AST __t105 = _t;
+					synPredMatched105 = true;
 					inputState.guessing++;
 					try {
 						{
@@ -2084,33 +2207,33 @@ public DefineGrammarItemsWalker() {
 						}
 					}
 					catch (RecognitionException pe) {
-						synPredMatched99 = false;
+						synPredMatched105 = false;
 					}
-					_t = __t99;
+					_t = __t105;
 inputState.guessing--;
 				}
-				if ( synPredMatched99 ) {
+				if ( synPredMatched105 ) {
 					dotLoop(_t);
 					_t = _retTree;
 				}
 				else if ((_t.getType()==CLOSURE)) {
-					AST __t101 = _t;
-					GrammarAST tmp55_AST_in = (GrammarAST)_t;
+					AST __t107 = _t;
+					GrammarAST tmp62_AST_in = (GrammarAST)_t;
 					match(_t,CLOSURE);
 					_t = _t.getFirstChild();
 					block(_t);
 					_t = _retTree;
-					_t = __t101;
+					_t = __t107;
 					_t = _t.getNextSibling();
 				}
 				else if ((_t.getType()==POSITIVE_CLOSURE)) {
-					AST __t102 = _t;
-					GrammarAST tmp56_AST_in = (GrammarAST)_t;
+					AST __t108 = _t;
+					GrammarAST tmp63_AST_in = (GrammarAST)_t;
 					match(_t,POSITIVE_CLOSURE);
 					_t = _t.getFirstChild();
 					block(_t);
 					_t = _retTree;
-					_t = __t102;
+					_t = __t108;
 					_t = _t.getNextSibling();
 				}
 			else {
@@ -2134,27 +2257,27 @@ inputState.guessing--;
 		GrammarAST tree_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t111 = _t;
-			GrammarAST tmp57_AST_in = (GrammarAST)_t;
+			AST __t117 = _t;
+			GrammarAST tmp64_AST_in = (GrammarAST)_t;
 			match(_t,TREE_BEGIN);
 			_t = _t.getFirstChild();
 			element(_t);
 			_t = _retTree;
 			{
-			_loop113:
+			_loop119:
 			do {
 				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN||_t.getType()==WILDCARD)) {
+				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==FORCED_ACTION||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==DOT||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==WILDCARD||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN)) {
 					element(_t);
 					_t = _retTree;
 				}
 				else {
-					break _loop113;
+					break _loop119;
 				}
 				
 			} while (true);
 			}
-			_t = __t111;
+			_t = __t117;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -2183,25 +2306,25 @@ inputState.guessing--;
 			switch ( _t.getType()) {
 			case CLOSURE:
 			{
-				AST __t105 = _t;
-				GrammarAST tmp58_AST_in = (GrammarAST)_t;
+				AST __t111 = _t;
+				GrammarAST tmp65_AST_in = (GrammarAST)_t;
 				match(_t,CLOSURE);
 				_t = _t.getFirstChild();
 				dotBlock(_t);
 				_t = _retTree;
-				_t = __t105;
+				_t = __t111;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case POSITIVE_CLOSURE:
 			{
-				AST __t106 = _t;
-				GrammarAST tmp59_AST_in = (GrammarAST)_t;
+				AST __t112 = _t;
+				GrammarAST tmp66_AST_in = (GrammarAST)_t;
 				match(_t,POSITIVE_CLOSURE);
 				_t = _t.getFirstChild();
 				dotBlock(_t);
 				_t = _retTree;
-				_t = __t106;
+				_t = __t112;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2240,26 +2363,26 @@ inputState.guessing--;
 		GrammarAST dotBlock_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t108 = _t;
-			GrammarAST tmp60_AST_in = (GrammarAST)_t;
+			AST __t114 = _t;
+			GrammarAST tmp67_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
-			AST __t109 = _t;
-			GrammarAST tmp61_AST_in = (GrammarAST)_t;
+			AST __t115 = _t;
+			GrammarAST tmp68_AST_in = (GrammarAST)_t;
 			match(_t,ALT);
 			_t = _t.getFirstChild();
-			GrammarAST tmp62_AST_in = (GrammarAST)_t;
+			GrammarAST tmp69_AST_in = (GrammarAST)_t;
 			match(_t,WILDCARD);
 			_t = _t.getNextSibling();
-			GrammarAST tmp63_AST_in = (GrammarAST)_t;
+			GrammarAST tmp70_AST_in = (GrammarAST)_t;
 			match(_t,EOA);
 			_t = _t.getNextSibling();
-			_t = __t109;
+			_t = __t115;
 			_t = _t.getNextSibling();
-			GrammarAST tmp64_AST_in = (GrammarAST)_t;
+			GrammarAST tmp71_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t108;
+			_t = __t114;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -2282,14 +2405,14 @@ inputState.guessing--;
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				GrammarAST tmp65_AST_in = (GrammarAST)_t;
+				GrammarAST tmp72_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case BANG:
 			{
-				GrammarAST tmp66_AST_in = (GrammarAST)_t;
+				GrammarAST tmp73_AST_in = (GrammarAST)_t;
 				match(_t,BANG);
 				_t = _t.getNextSibling();
 				break;
@@ -2319,7 +2442,7 @@ inputState.guessing--;
 		try {      // for error handling
 			if (_t==null) _t=ASTNULL;
 			if (((_t.getType()==ALT))&&(grammar.buildAST())) {
-				AST __t128 = _t;
+				AST __t135 = _t;
 				a = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,ALT);
 				_t = _t.getFirstChild();
@@ -2338,8 +2461,8 @@ inputState.guessing--;
 				case TREE_BEGIN:
 				{
 					{
-					int _cnt131=0;
-					_loop131:
+					int _cnt138=0;
+					_loop138:
 					do {
 						if (_t==null) _t=ASTNULL;
 						if ((_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==LABEL||_t.getType()==ACTION||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==RULE_REF||_t.getType()==TREE_BEGIN)) {
@@ -2347,17 +2470,17 @@ inputState.guessing--;
 							_t = _retTree;
 						}
 						else {
-							if ( _cnt131>=1 ) { break _loop131; } else {throw new NoViableAltException(_t);}
+							if ( _cnt138>=1 ) { break _loop138; } else {throw new NoViableAltException(_t);}
 						}
 						
-						_cnt131++;
+						_cnt138++;
 					} while (true);
 					}
 					break;
 				}
 				case EPSILON:
 				{
-					GrammarAST tmp67_AST_in = (GrammarAST)_t;
+					GrammarAST tmp74_AST_in = (GrammarAST)_t;
 					match(_t,EPSILON);
 					_t = _t.getNextSibling();
 					break;
@@ -2368,15 +2491,22 @@ inputState.guessing--;
 				}
 				}
 				}
-				GrammarAST tmp68_AST_in = (GrammarAST)_t;
+				GrammarAST tmp75_AST_in = (GrammarAST)_t;
 				match(_t,EOA);
 				_t = _t.getNextSibling();
-				_t = __t128;
+				_t = __t135;
 				_t = _t.getNextSibling();
 			}
 			else if (((_t.getType()==ALT||_t.getType()==TEMPLATE||_t.getType()==ACTION))&&(grammar.buildTemplate())) {
 				rewrite_template(_t);
 				_t = _retTree;
+			}
+			else if ((_t.getType()==ETC)) {
+				GrammarAST tmp76_AST_in = (GrammarAST)_t;
+				match(_t,ETC);
+				_t = _t.getNextSibling();
+				if (!(this.blockLevel==1))
+				  throw new SemanticException("this.blockLevel==1");
 			}
 			else {
 				throw new NoViableAltException(_t);
@@ -2407,16 +2537,16 @@ inputState.guessing--;
 		
 		
 		try {      // for error handling
-			AST __t126 = _t;
-			GrammarAST tmp69_AST_in = (GrammarAST)_t;
+			AST __t133 = _t;
+			GrammarAST tmp77_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			rewrite_alternative(_t);
 			_t = _retTree;
-			GrammarAST tmp70_AST_in = (GrammarAST)_t;
+			GrammarAST tmp78_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t126;
+			_t = __t133;
 			_t = _t.getNextSibling();
 			if ( inputState.guessing==0 ) {
 				
@@ -2503,24 +2633,24 @@ inputState.guessing--;
 			switch ( _t.getType()) {
 			case ALT:
 			{
-				AST __t146 = _t;
-				GrammarAST tmp71_AST_in = (GrammarAST)_t;
+				AST __t153 = _t;
+				GrammarAST tmp79_AST_in = (GrammarAST)_t;
 				match(_t,ALT);
 				_t = _t.getFirstChild();
-				GrammarAST tmp72_AST_in = (GrammarAST)_t;
+				GrammarAST tmp80_AST_in = (GrammarAST)_t;
 				match(_t,EPSILON);
 				_t = _t.getNextSibling();
-				GrammarAST tmp73_AST_in = (GrammarAST)_t;
+				GrammarAST tmp81_AST_in = (GrammarAST)_t;
 				match(_t,EOA);
 				_t = _t.getNextSibling();
-				_t = __t146;
+				_t = __t153;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case TEMPLATE:
 			{
-				AST __t147 = _t;
-				GrammarAST tmp74_AST_in = (GrammarAST)_t;
+				AST __t154 = _t;
+				GrammarAST tmp82_AST_in = (GrammarAST)_t;
 				match(_t,TEMPLATE);
 				_t = _t.getFirstChild();
 				{
@@ -2546,17 +2676,17 @@ inputState.guessing--;
 				}
 				}
 				}
-				AST __t149 = _t;
-				GrammarAST tmp75_AST_in = (GrammarAST)_t;
+				AST __t156 = _t;
+				GrammarAST tmp83_AST_in = (GrammarAST)_t;
 				match(_t,ARGLIST);
 				_t = _t.getFirstChild();
 				{
-				_loop152:
+				_loop159:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==ARG)) {
-						AST __t151 = _t;
-						GrammarAST tmp76_AST_in = (GrammarAST)_t;
+						AST __t158 = _t;
+						GrammarAST tmp84_AST_in = (GrammarAST)_t;
 						match(_t,ARG);
 						_t = _t.getFirstChild();
 						arg = (GrammarAST)_t;
@@ -2565,7 +2695,7 @@ inputState.guessing--;
 						a = (GrammarAST)_t;
 						match(_t,ACTION);
 						_t = _t.getNextSibling();
-						_t = __t151;
+						_t = __t158;
 						_t = _t.getNextSibling();
 						if ( inputState.guessing==0 ) {
 							
@@ -2575,12 +2705,12 @@ inputState.guessing--;
 						}
 					}
 					else {
-						break _loop152;
+						break _loop159;
 					}
 					
 				} while (true);
 				}
-				_t = __t149;
+				_t = __t156;
 				_t = _t.getNextSibling();
 				if ( inputState.guessing==0 ) {
 					
@@ -2595,14 +2725,14 @@ inputState.guessing--;
 				switch ( _t.getType()) {
 				case DOUBLE_QUOTE_STRING_LITERAL:
 				{
-					GrammarAST tmp77_AST_in = (GrammarAST)_t;
+					GrammarAST tmp85_AST_in = (GrammarAST)_t;
 					match(_t,DOUBLE_QUOTE_STRING_LITERAL);
 					_t = _t.getNextSibling();
 					break;
 				}
 				case DOUBLE_ANGLE_STRING_LITERAL:
 				{
-					GrammarAST tmp78_AST_in = (GrammarAST)_t;
+					GrammarAST tmp86_AST_in = (GrammarAST)_t;
 					match(_t,DOUBLE_ANGLE_STRING_LITERAL);
 					_t = _t.getNextSibling();
 					break;
@@ -2617,7 +2747,7 @@ inputState.guessing--;
 				}
 				}
 				}
-				_t = __t147;
+				_t = __t154;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2682,7 +2812,7 @@ inputState.guessing--;
 			switch ( _t.getType()) {
 			case RULE_REF:
 			{
-				GrammarAST tmp79_AST_in = (GrammarAST)_t;
+				GrammarAST tmp87_AST_in = (GrammarAST)_t;
 				match(_t,RULE_REF);
 				_t = _t.getNextSibling();
 				break;
@@ -2696,8 +2826,8 @@ inputState.guessing--;
 				switch ( _t.getType()) {
 				case TOKEN_REF:
 				{
-					AST __t143 = _t;
-					GrammarAST tmp80_AST_in = (GrammarAST)_t;
+					AST __t150 = _t;
+					GrammarAST tmp88_AST_in = (GrammarAST)_t;
 					match(_t,TOKEN_REF);
 					_t = _t.getFirstChild();
 					{
@@ -2720,20 +2850,20 @@ inputState.guessing--;
 					}
 					}
 					}
-					_t = __t143;
+					_t = __t150;
 					_t = _t.getNextSibling();
 					break;
 				}
 				case CHAR_LITERAL:
 				{
-					GrammarAST tmp81_AST_in = (GrammarAST)_t;
+					GrammarAST tmp89_AST_in = (GrammarAST)_t;
 					match(_t,CHAR_LITERAL);
 					_t = _t.getNextSibling();
 					break;
 				}
 				case STRING_LITERAL:
 				{
-					GrammarAST tmp82_AST_in = (GrammarAST)_t;
+					GrammarAST tmp90_AST_in = (GrammarAST)_t;
 					match(_t,STRING_LITERAL);
 					_t = _t.getNextSibling();
 					break;
@@ -2756,20 +2886,20 @@ inputState.guessing--;
 			}
 			case LABEL:
 			{
-				GrammarAST tmp83_AST_in = (GrammarAST)_t;
+				GrammarAST tmp91_AST_in = (GrammarAST)_t;
 				match(_t,LABEL);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case ACTION:
 			{
-				GrammarAST tmp84_AST_in = (GrammarAST)_t;
+				GrammarAST tmp92_AST_in = (GrammarAST)_t;
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
 				if ( inputState.guessing==0 ) {
 					
-					tmp84_AST_in.outerAltNum = this.outerAltNum;
-					trackInlineAction(tmp84_AST_in);
+					tmp92_AST_in.outerAltNum = this.outerAltNum;
+					trackInlineAction(tmp92_AST_in);
 					
 				}
 				break;
@@ -2800,37 +2930,37 @@ inputState.guessing--;
 			switch ( _t.getType()) {
 			case OPTIONAL:
 			{
-				AST __t134 = _t;
-				GrammarAST tmp85_AST_in = (GrammarAST)_t;
+				AST __t141 = _t;
+				GrammarAST tmp93_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONAL);
 				_t = _t.getFirstChild();
 				rewrite_block(_t);
 				_t = _retTree;
-				_t = __t134;
+				_t = __t141;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case CLOSURE:
 			{
-				AST __t135 = _t;
-				GrammarAST tmp86_AST_in = (GrammarAST)_t;
+				AST __t142 = _t;
+				GrammarAST tmp94_AST_in = (GrammarAST)_t;
 				match(_t,CLOSURE);
 				_t = _t.getFirstChild();
 				rewrite_block(_t);
 				_t = _retTree;
-				_t = __t135;
+				_t = __t142;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case POSITIVE_CLOSURE:
 			{
-				AST __t136 = _t;
-				GrammarAST tmp87_AST_in = (GrammarAST)_t;
+				AST __t143 = _t;
+				GrammarAST tmp95_AST_in = (GrammarAST)_t;
 				match(_t,POSITIVE_CLOSURE);
 				_t = _t.getFirstChild();
 				rewrite_block(_t);
 				_t = _retTree;
-				_t = __t136;
+				_t = __t143;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2856,14 +2986,14 @@ inputState.guessing--;
 		GrammarAST rewrite_tree_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t138 = _t;
-			GrammarAST tmp88_AST_in = (GrammarAST)_t;
+			AST __t145 = _t;
+			GrammarAST tmp96_AST_in = (GrammarAST)_t;
 			match(_t,TREE_BEGIN);
 			_t = _t.getFirstChild();
 			rewrite_atom(_t);
 			_t = _retTree;
 			{
-			_loop140:
+			_loop147:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==LABEL||_t.getType()==ACTION||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==RULE_REF||_t.getType()==TREE_BEGIN)) {
@@ -2871,12 +3001,12 @@ inputState.guessing--;
 					_t = _retTree;
 				}
 				else {
-					break _loop140;
+					break _loop147;
 				}
 				
 			} while (true);
 			}
-			_t = __t138;
+			_t = __t145;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -2922,13 +3052,16 @@ inputState.guessing--;
 		"TREE_GRAMMAR",
 		"COMBINED_GRAMMAR",
 		"INITACTION",
+		"FORCED_ACTION",
 		"LABEL",
 		"TEMPLATE",
 		"\"scope\"",
+		"\"import\"",
 		"GATED_SEMPRED",
 		"SYN_SEMPRED",
 		"BACKTRACK_SEMPRED",
 		"\"fragment\"",
+		"DOT",
 		"ACTION",
 		"DOC_COMMENT",
 		"SEMI",
@@ -2943,6 +3076,7 @@ inputState.guessing--;
 		"CHAR_LITERAL",
 		"INT",
 		"STAR",
+		"COMMA",
 		"TOKEN_REF",
 		"\"protected\"",
 		"\"public\"",
@@ -2951,7 +3085,6 @@ inputState.guessing--;
 		"ARG_ACTION",
 		"\"returns\"",
 		"\"throws\"",
-		"COMMA",
 		"LPAREN",
 		"OR",
 		"RPAREN",
@@ -2961,13 +3094,16 @@ inputState.guessing--;
 		"SEMPRED",
 		"IMPLIES",
 		"ROOT",
+		"WILDCARD",
 		"RULE_REF",
 		"NOT",
 		"TREE_BEGIN",
 		"QUESTION",
 		"PLUS",
-		"WILDCARD",
+		"OPEN_ELEMENT_OPTION",
+		"CLOSE_ELEMENT_OPTION",
 		"REWRITE",
+		"ETC",
 		"DOLLAR",
 		"DOUBLE_QUOTE_STRING_LITERAL",
 		"DOUBLE_ANGLE_STRING_LITERAL",
@@ -2975,8 +3111,7 @@ inputState.guessing--;
 		"COMMENT",
 		"SL_COMMENT",
 		"ML_COMMENT",
-		"OPEN_ELEMENT_OPTION",
-		"CLOSE_ELEMENT_OPTION",
+		"STRAY_BRACKET",
 		"ESC",
 		"DIGIT",
 		"XDIGIT",

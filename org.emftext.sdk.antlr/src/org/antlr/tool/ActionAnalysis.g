@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@ options {
 }
 
 @header {
-package org.antlr.codegen;
+package org.antlr.tool;
 import org.antlr.runtime.*;
 import org.antlr.tool.*;
 }
@@ -54,7 +54,7 @@ int outerAltNum = 0;
 	{
 		this(new ANTLRStringStream(actionAST.token.getText()));
 		this.grammar = grammar;
-	    this.enclosingRule = grammar.getRule(ruleName);
+	    this.enclosingRule = grammar.getLocallyDefinedRule(ruleName);
 	    this.actionToken = actionAST.token;
 	    this.outerAltNum = actionAST.outerAltNum;
 	}
@@ -86,13 +86,17 @@ X_Y :	'$' x=ID '.' y=ID {enclosingRule!=null}?
 			pair.actionReferencesLabel = true;
 			refdRuleName = pair.referencedRuleName;
 			Rule refdRule = grammar.getRule(refdRuleName);
-			scope = refdRule.getLocalAttributeScope($y.text);
+			if ( refdRule!=null ) {
+				scope = refdRule.getLocalAttributeScope($y.text);
+			}
 		}
 		else if ( enclosingRule.getRuleRefsInAlt(x.getText(), outerAltNum)!=null ) {
 			// ref to rule referenced in this alt
 			refdRuleName = $x.text;
 			Rule refdRule = grammar.getRule(refdRuleName);
-			scope = refdRule.getLocalAttributeScope($y.text);
+			if ( refdRule!=null ) {
+				scope = refdRule.getLocalAttributeScope($y.text);
+			}
 		}
 		if ( scope!=null &&
 			 (scope.isPredefinedRuleScope||scope.isPredefinedLexerRuleScope) )

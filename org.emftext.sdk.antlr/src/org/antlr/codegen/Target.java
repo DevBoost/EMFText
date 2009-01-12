@@ -108,7 +108,7 @@ public class Target {
 										  Grammar grammar)
 	{
 		// Build NFAs from the grammar AST
-		grammar.createNFAs();
+		grammar.buildNFA();
 
 		// Create the DFA predictors for each decision
 		grammar.createLookaheadDFAs();
@@ -203,7 +203,8 @@ public class Target {
 		CodeGenerator generator,
 		String literal)
 	{
-		literal = Utils.replace(literal,"\"","\\\"");
+		literal = Utils.replace(literal,"\\\"","\""); // \" to " to normalize
+		literal = Utils.replace(literal,"\"","\\\""); // " to \" to escape all
 		StringBuffer buf = new StringBuffer(literal);
 		buf.setCharAt(0,'"');
 		buf.setCharAt(literal.length()-1,'"');
@@ -275,6 +276,14 @@ public class Target {
 		}
 		buf.append(digits);
 		return buf.toString();
+	}
+
+	public String encodeIntAsCharEscape(int v) {
+		if ( v<=127 ) {
+			return "\\"+Integer.toOctalString(v);
+		}
+		String hex = Integer.toHexString(v|0x10000).substring(1,5);
+		return "\\u"+hex;
 	}
 
 	/** Some targets only support ASCII or 8-bit chars/strings.  For example,

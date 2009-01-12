@@ -71,7 +71,7 @@ public static class STAttrMap extends HashMap {
 >>
 
 /** x+=rule when output=template */
-ruleRefAndListLabel(rule,label,elementIndex,args) ::= <<
+ruleRefAndListLabel(rule,label,elementIndex,args,scope) ::= <<
 <ruleRef(...)>
 <listLabel(elem=label+".getTemplate()",...)>
 >>
@@ -80,13 +80,13 @@ rewriteTemplate(alts) ::= <<
 
 // TEMPLATE REWRITE
 <if(backtracking)>
-if ( backtracking==0 ) {
+if ( state.backtracking==0 ) {
   <alts:rewriteTemplateAlt(); separator="else ">
-  <if(rewrite)><replaceTextInLine()><endif>
+  <if(rewriteMode)><replaceTextInLine()><endif>
 }
 <else>
 <alts:rewriteTemplateAlt(); separator="else ">
-<if(rewrite)><replaceTextInLine()><endif>
+<if(rewriteMode)><replaceTextInLine()><endif>
 <endif>
 >>
 

@@ -27,6 +27,8 @@
 */
 package org.antlr.analysis;
 
+import org.antlr.misc.Utils;
+
 /** An NFA state, predicted alt, and syntactic/semantic context.
  *  The syntactic context is a pointer into the rule invocation
  *  chain used to arrive at the state.  The semantic context is
@@ -82,7 +84,9 @@ public class NFAConfiguration {
      */
     protected boolean singleAtomTransitionEmanating;
 
-    public NFAConfiguration(int state,
+	//protected boolean addedDuringClosure = true;
+
+	public NFAConfiguration(int state,
                             int alt,
                             NFAContext context,
                             SemanticContext semanticContext)
@@ -134,14 +138,15 @@ public class NFAConfiguration {
         if ( semanticContext!=null &&
              semanticContext!=SemanticContext.EMPTY_SEMANTIC_CONTEXT ) {
             buf.append("|");
-            buf.append(semanticContext);
+			String escQuote = Utils.replace(semanticContext.toString(), "\"", "\\\"");
+			buf.append(escQuote);
         }
         if ( resolved ) {
             buf.append("|resolved");
         }
-        if ( resolveWithPredicate ) {
-            buf.append("|resolveWithPredicate");
-        }
-        return buf.toString();
+		if ( resolveWithPredicate ) {
+			buf.append("|resolveWithPredicate");
+		}
+		return buf.toString();
     }
 }

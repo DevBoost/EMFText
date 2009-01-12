@@ -339,15 +339,15 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t\tint endPos = currentPos - 1;");
         out.println("\t\tfor (; endPos >= lastPosition; endPos--) {");
         out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(endPos);");
-        out.println("\t\t\tint channel = token.getChannel();");
-        out.println("\t\t\tif (channel != 99) {");
+        out.println("\t\t\tint _channel = token.getChannel();");
+        out.println("\t\t\tif (_channel != 99) {");
         out.println("\t\t\t\tbreak;");
         out.println("\t\t\t}");
         out.println("\t\t}");
         out.println("\t\tfor (int pos = lastPosition; pos < endPos; pos++) {");
         out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(pos);");
-        out.println("\t\t\tint channel = token.getChannel();");
-        out.println("\t\t\tif (channel == 99) {");
+        out.println("\t\t\tint _channel = token.getChannel();");
+        out.println("\t\t\tif (_channel == 99) {");
         //out.println("\t\t\t\tSystem.out.println(\"\t\" + token);");
 
         List<TokenDefinition> tokens = conreteSyntax.getTokens();
@@ -1042,7 +1042,7 @@ public class TextParserGenerator extends BaseGenerator {
 			out.print(regex);
 		}
 		
-		out.println(def.isReferenced() ? "" : "{ channel=99; }");
+		out.println(def.isReferenced() ? "" : "{ _channel = 99; }");
 		out.println(";");
 	}
 	

@@ -37,38 +37,38 @@ import java.io.IOException;
 >>
 
 @genericParser.members() ::= <<
+<if(grammar.grammarIsRoot)>
 public static final String[] ruleNames = new String[] {
-    "invalidRule", <rules:{rST | "<rST.ruleName>"}; wrap="\n    ", separator=", ">
+    "invalidRule", <grammar.allImportedRules:{rST | "<rST.name>"}; wrap="\n    ", separator=", ">
 };<\n>
-public int ruleLevel = 0;
-<! bug: can't use <@super.members()> cut-n-paste instead !>
-public <name>(<inputStreamType> input, int port) {
-<if(profile)>
-        this(input, new Profiler(null));
-        Profiler p = (Profiler)dbg;
-        p.setParser(this);
-<else>
-        super(input, port);
-        <createListenerAndHandshake()>
-<endif><\n>
-<if(memoize)>
-        ruleMemo = new Map[<numRules>+1];<\n><! index from 1..n !>
 <endif>
-}
-public <name>(<inputStreamType> input) {
-    this(input, DebugEventSocketProxy.DEFAULT_DEBUGGER_PORT);
-}
+<if(grammar.grammarIsRoot)> <! grammar imports other grammar(s) !>
+    public int ruleLevel = 0;
+    public int getRuleLevel() { return ruleLevel; }
+    public void incRuleLevel() { ruleLevel++; }
+    public void decRuleLevel() { ruleLevel--; }
+<if(profile)>
+    <ctorForProfilingRootGrammar()>
+<else>
+    <ctorForRootGrammar()>
+<endif>
 <ctorForPredefinedListener()>
+<else> <! imported grammar !>
+    public int getRuleLevel() { return <grammar.delegators:{g| <g:delegateName()>}>.getRuleLevel(); }
+    public void incRuleLevel() { <grammar.delegators:{g| <g:delegateName()>}>.incRuleLevel(); }
+    public void decRuleLevel() { <grammar.delegators:{g| <g:delegateName()>}>.decRuleLevel(); }
+    <ctorForDelegateGrammar()>
+<endif>
 <if(profile)>
 public boolean alreadyParsedRule(IntStream input, int ruleIndex) {
-    ((Profiler)dbg).examineRuleMemoization(input, ruleIndex, ruleNames[ruleIndex]);
+    ((Profiler)dbg).examineRuleMemoization(input, ruleIndex, <grammar.composite.rootGrammar.recognizerName>.ruleNames[ruleIndex]);
     return super.alreadyParsedRule(input, ruleIndex);
 }<\n>
 public void memoize(IntStream input,
                     int ruleIndex,
                     int ruleStartIndex)
 {
-    ((Profiler)dbg).memoize(input, ruleIndex, ruleStartIndex, ruleNames[ruleIndex]);
+    ((Profiler)dbg).memoize(input, ruleIndex, ruleStartIndex, <grammar.composite.rootGrammar.recognizerName>.ruleNames[ruleIndex]);
     super.memoize(input, ruleIndex, ruleStartIndex);
 }<\n>
 <endif>
@@ -78,13 +78,68 @@ protected boolean evalPredicate(boolean result, String predicate) {
 }<\n>
 >>
 
+ctorForRootGrammar() ::= <<
+<! bug: can't use <@super.members()> cut-n-paste instead !>
+<! Same except we add port number and profile stuff if root grammar !>
+public <name>(<inputStreamType> input) {
+    this(input, DebugEventSocketProxy.DEFAULT_DEBUGGER_PORT, new RecognizerSharedState());
+}
+public <name>(<inputStreamType> input, int port, RecognizerSharedState state) {
+    super(input, state);
+    <parserCtorBody()>
+    <createListenerAndHandshake()>
+    <grammar.directDelegates:{g|<g:delegateName()> = new <g.recognizerName>(input, dbg, this.state, this<grammar.delegators:{g|, <g:delegateName()>}>);}; separator="\n">
+    <@finally()>
+}<\n>
+>>
+
+ctorForProfilingRootGrammar() ::= <<
+<! bug: can't use <@super.members()> cut-n-paste instead !>
+public <name>(<inputStreamType> input) {
+    this(input, new Profiler(null), new RecognizerSharedState());
+}
+public <name>(<inputStreamType> input, DebugEventListener dbg, RecognizerSharedState state) {
+    super(input, dbg, state);
+    Profiler p = (Profiler)dbg;
+    p.setParser(this);
+    <parserCtorBody()>
+    <grammar.directDelegates:
+     {g|<g:delegateName()> = new <g.recognizerName>(input, dbg, this.state, this<grammar.delegators:{g|, <g:delegateName()>}>);}; separator="\n">
+    <@finally()>
+}
+<\n>
+>>
+
+/** Basically we don't want to set any dbg listeners are root will have it. */
+ctorForDelegateGrammar() ::= <<
+public <name>(<inputStreamType> input, DebugEventListener dbg, RecognizerSharedState state<grammar.delegators:{g|, <g.recognizerName> <g:delegateName()>}>) {
+    super(input, dbg, state);
+    <parserCtorBody()>
+    <grammar.directDelegates:
+     {g|<g:delegateName()> = new <g.recognizerName>(input, this, this.state<grammar.delegators:{g|, <g:delegateName()>}>);}; separator="\n">
+}<\n>
+>>
+
+ctorForPredefinedListener() ::= <<
+public <name>(<inputStreamType> input, DebugEventListener dbg) {
+    <@superClassRef>super(input, dbg, new RecognizerSharedState());<@end>
+<if(profile)>
+    Profiler p = (Profiler)dbg;
+    p.setParser(this);
+<endif>
+    <parserCtorBody()>
+    <grammar.directDelegates:{g|<g:delegateName()> = new <g.recognizerName>(input, dbg, this.state, this<grammar.delegators:{g|, <g:delegateName()>}>);}; separator="\n">
+    <@finally()>
+}<\n>
+>>
+
 createListenerAndHandshake() ::= <<
 <if(TREE_PARSER)>
 DebugEventSocketProxy proxy =
-    new DebugEventSocketProxy(this, port, input.getTreeAdaptor());
+    new DebugEventSocketProxy(this, port, input.getTreeAdaptor());<\n>
 <else>
 DebugEventSocketProxy proxy =
-    new DebugEventSocketProxy(this, port, null);
+    new DebugEventSocketProxy(this, port, null);<\n>
 <endif>
 setDebugListener(proxy);
 try {
@@ -95,18 +150,12 @@ catch (IOException ioe) {
 }
 >>
 
-ctorForPredefinedListener() ::= <<
-public <name>(<inputStreamType> input, DebugEventListener dbg) {
-    super(input, dbg);
-}<\n>
->>
-
 @genericParser.superClassName() ::= "Debug<@super.superClassName()>"
 
 @rule.preamble() ::= <<
-try { dbg.enterRule("<ruleName>");
-if ( ruleLevel==0 ) {dbg.commence();}
-ruleLevel++;
+try { dbg.enterRule(getGrammarFileName(), "<ruleName>");
+if ( getRuleLevel()==0 ) {dbg.commence();}
+incRuleLevel();
 dbg.location(<ruleDescriptor.tree.line>, <ruleDescriptor.tree.column>);<\n>
 >>
 
@@ -114,15 +163,15 @@ dbg.location(<ruleDescriptor.tree.line>, <ruleDescriptor.tree.column>);<\n>
 dbg.location(<ruleDescriptor.EORNode.line>, <ruleDescriptor.EORNode.column>);<\n>
 }
 finally {
-    dbg.exitRule("<ruleName>");
-    ruleLevel--;
-    if ( ruleLevel==0 ) {dbg.terminate();}
+    dbg.exitRule(getGrammarFileName(), "<ruleName>");
+    decRuleLevel();
+    if ( getRuleLevel()==0 ) {dbg.terminate();}
 }<\n>
 >>
 
-@synpred.start() ::= "dbg.beginBacktrack(backtracking);"
+@synpred.start() ::= "dbg.beginBacktrack(state.backtracking);"
 
-@synpred.stop() ::= "dbg.endBacktrack(backtracking, success);"
+@synpred.stop() ::= "dbg.endBacktrack(state.backtracking, success);"
 
 // Common debug event triggers used by region overrides below
 

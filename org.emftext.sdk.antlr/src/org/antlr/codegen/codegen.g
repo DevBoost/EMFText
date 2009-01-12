@@ -1,7 +1,7 @@
 header {
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -110,7 +110,7 @@ options {
 	}
 
 	protected StringTemplate getRuleElementST(String name,
-										      String elementName,
+										      String ruleTargetName,
 											  GrammarAST elementAST,
     										  GrammarAST ast_suffix,
     										  String label)
@@ -124,7 +124,7 @@ options {
 		     (r==null || !r.isSynPred) )
 		{
 			// we will need a label to do the AST or tracking, make one
-			label = generator.createUniqueLabel(elementName);
+			label = generator.createUniqueLabel(ruleTargetName);
 			CommonToken labelTok = new CommonToken(ANTLRParser.ID, label);
 			grammar.defineRuleRefLabel(currentRuleName, labelTok, elementAST);
 		}
@@ -187,14 +187,11 @@ options {
 		}
 		// handle list label stuff; make element use "Track"
 
-		String astPart = "";
 		String operatorPart = "";
 		String rewritePart = "";
 		String listLabelPart = "";
-		if ( grammar.buildAST() ) {
-			astPart = "AST";
-		}
-		if ( ast_suffix!=null ) {
+		Rule ruleDescr = grammar.getRule(currentRuleName);
+		if ( ast_suffix!=null && !ruleDescr.isSynPred ) {
 			if ( ast_suffix.getType()==ANTLRParser.ROOT ) {
     			operatorPart = "RuleRoot";
     		}
@@ -238,7 +235,7 @@ options {
         return labels;
     }
 
-    protected void init(Grammar g) {
+    public void init(Grammar g) {
         this.grammar = g;
         this.generator = grammar.getCodeGenerator();
         this.templates = generator.getTemplates();
@@ -294,15 +291,14 @@ grammarSpec
 		 }
 		)?
 		{
-		String suffix = Grammar.grammarTypeToFileNameSuffix[grammar.type];
-        String n = #name.getText()+suffix;
-		recognizerST.setAttribute("name", n);
-		outputFileST.setAttribute("name", n);
-		headerFileST.setAttribute("name", n);
+		recognizerST.setAttribute("name", grammar.getRecognizerName());
+		outputFileST.setAttribute("name", grammar.getRecognizerName());
+		headerFileST.setAttribute("name", grammar.getRecognizerName());
 		recognizerST.setAttribute("scopes", grammar.getGlobalScopes());
 		headerFileST.setAttribute("scopes", grammar.getGlobalScopes());
 		}
 		( #(OPTIONS .) )?
+		( #(IMPORT .) )?
 		( #(TOKENS .) )?
         (attrScope)*
         (AMPERSAND)*
@@ -318,8 +314,7 @@ StringTemplate rST;
     			Rule r = grammar.getRule(ruleName);
     			}
      		:
-     			// if synpred, only gen if used in a DFA
-    			{!r.isSynPred || grammar.synPredNamesUsedInDFA.contains(ruleName)}?
+                {grammar.generateMethodForRule(ruleName)}?
     			rST=rule
 				{
 				if ( rST!=null ) {
@@ -394,7 +389,7 @@ rule returns [StringTemplate code=null]
 					Boolean.valueOf(grammar.isEmptyRule(block)));
 			}
 			code.setAttribute("ruleDescriptor", ruleDescr);
-			String memo = (String)#rule.getOption("memoize");
+			String memo = (String)grammar.getBlockOption(#rule,"memoize");
 			if ( memo==null ) {
 				memo = (String)grammar.getOption("memoize");
 			}
@@ -491,10 +486,13 @@ block[String blockTemplateName, DFA dfa]
               	this.outerAltNum++;
               }
               // add the rewrite code as just another element in the alt :)
-    		  if ( rew!=null ) {
-    		  	alt.setAttribute("elements.{el,line,pos}",
-    		  		rew, Utils.integer(r.getLine()), Utils.integer(r.getColumn()));
-    		  }
+              // (unless it's a " -> ..." rewrite
+              // ( -> ... )
+              boolean etc =
+              	r.getType()==REWRITE &&
+              	r.getFirstChild()!=null &&
+		  		r.getFirstChild().getType()==ETC;
+    		  if ( rew!=null && !etc ) { alt.setAttribute("rew", rew); }
     		  // add this alt to the list of alts for this block
               code.setAttribute("alts",alt);
               alt.setAttribute("altNum", Utils.integer(altNum));
@@ -510,6 +508,7 @@ block[String blockTemplateName, DFA dfa]
 
 setBlock returns [StringTemplate code=null]
 {
+StringTemplate setcode = null;
 if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL && grammar.buildAST() ) {
     Rule r = grammar.getRule(currentRuleName);
     currentAltHasASTRewrite = r.hasRewrite(outerAltNum);
@@ -520,9 +519,13 @@ if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL && grammar.buildAST() ) {
 }
     :   s:BLOCK
         {
-        StringTemplate setcode =
-            getTokenElementST("matchSet", "set", #s, null, null);
         int i = ((TokenWithIndex)#s.getToken()).getIndex();
+		if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL ) {
+			setcode = getTokenElementST("matchRuleBlockSet", "set", #s, null, null);
+		}
+		else {
+			setcode = getTokenElementST("matchSet", "set", #s, null, null);
+		}
 		setcode.setAttribute("elementIndex", i);
 		if ( grammar.type!=Grammar.LEXER ) {
 			generator.generateLocalFOLLOW(#s,"set",currentRuleName,i);
@@ -541,6 +544,7 @@ if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL && grammar.buildAST() ) {
         if ( !currentAltHasASTRewrite && grammar.buildAST() ) {
             altcode.setAttribute("autoAST", Boolean.valueOf(true));
         }
+        altcode.setAttribute("treeLevel", rewriteTreeNestingLevel);
         code = altcode;
         }
     ;
@@ -591,6 +595,7 @@ if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL && grammar.buildAST() ) {
 String description = grammar.grammarTreeToString(#alternative, false);
 description = generator.target.getTargetStringLiteralFromString(description);
 code.setAttribute("description", description);
+code.setAttribute("treeLevel", rewriteTreeNestingLevel);
 if ( !currentAltHasASTRewrite && grammar.buildAST() ) {
 	code.setAttribute("autoAST", Boolean.valueOf(true));
 }
@@ -643,7 +648,7 @@ element[GrammarAST label, GrammarAST astSuffix] returns [StringTemplate code=nul
 
     |   {#element.getSetValue()==null}? code=ebnf
 
-    |   code=atom[label, astSuffix]
+    |   code=atom[null, label, astSuffix]
 
     |   code=tree
 
@@ -670,6 +675,11 @@ element_action returns [StringTemplate code=null]
         {
         code = templates.getInstanceOf("execAction");
         code.setAttribute("action", generator.translateAction(currentRuleName,#act));
+        }
+    |   act2:FORCED_ACTION
+        {
+        code = templates.getInstanceOf("execForcedAction");
+        code.setAttribute("action", generator.translateAction(currentRuleName,#act2));
         }
     ;
 
@@ -764,9 +774,17 @@ if ( s.member(Label.UP) ) {
 	// the child list.
 	code.setAttribute("nullableChildList", "true");
 }
+rewriteTreeNestingLevel++;
+code.setAttribute("enclosingTreeLevel", rewriteTreeNestingLevel-1);
+code.setAttribute("treeLevel", rewriteTreeNestingLevel);
+Rule r = grammar.getRule(currentRuleName);
+GrammarAST rootSuffix = null;
+if ( grammar.buildAST() && !r.hasRewrite(outerAltNum) ) {
+	rootSuffix = new GrammarAST(ROOT,"ROOT");
+}
 }
     :   #( TREE_BEGIN {elAST=(GrammarAST)_t;}
-    	   el=element[null,null]
+    	   el=element[null,rootSuffix]
            {
            code.setAttribute("root.{el,line,pos}",
 							  el,
@@ -799,26 +817,65 @@ if ( s.member(Label.UP) ) {
 			 }
            )*
          )
+         {rewriteTreeNestingLevel--;}
     ;
 
-atom[GrammarAST label, GrammarAST astSuffix] 
+atom[GrammarAST scope, GrammarAST label, GrammarAST astSuffix] 
     returns [StringTemplate code=null]
 {
 String labelText=null;
 if ( label!=null ) {
     labelText = label.getText();
 }
+if ( grammar.type!=Grammar.LEXER &&
+     (#atom.getType()==RULE_REF||#atom.getType()==TOKEN_REF||
+      #atom.getType()==CHAR_LITERAL||#atom.getType()==STRING_LITERAL) )
+{
+	Rule encRule = grammar.getRule(((GrammarAST)#atom).enclosingRuleName);
+	if ( encRule!=null && encRule.hasRewrite(outerAltNum) && astSuffix!=null ) {
+		ErrorManager.grammarError(ErrorManager.MSG_AST_OP_IN_ALT_WITH_REWRITE,
+								  grammar,
+								  ((GrammarAST)#atom).getToken(),
+								  ((GrammarAST)#atom).enclosingRuleName,
+								  new Integer(outerAltNum));
+		astSuffix = null;
+	}
+}
 }
     :   #( r:RULE_REF (rarg:ARG_ACTION)? )
         {
-        grammar.checkRuleReference(#r, #rarg, currentRuleName);
-        Rule rdef = grammar.getRule(#r.getText());
+        grammar.checkRuleReference(scope, #r, #rarg, currentRuleName);
+        String scopeName = null;
+        if ( scope!=null ) {
+            scopeName = scope.getText();
+        }
+        Rule rdef = grammar.getRule(scopeName, #r.getText());
         // don't insert label=r() if $label.attr not used, no ret value, ...
         if ( !rdef.getHasReturnValue() ) {
             labelText = null;
         }
         code = getRuleElementST("ruleRef", #r.getText(), #r, astSuffix, labelText);
-		code.setAttribute("rule", r.getText());
+		code.setAttribute("rule", rdef);
+        if ( scope!=null ) { // scoped rule ref
+            Grammar scopeG = grammar.composite.getGrammar(scope.getText());
+            code.setAttribute("scope", scopeG);
+        }
+        else if ( rdef.grammar != this.grammar ) { // nonlocal
+            // if rule definition is not in this grammar, it's nonlocal
+			List<Grammar> rdefDelegates = rdef.grammar.getDelegates();
+			if ( rdefDelegates.contains(this.grammar) ) {
+				code.setAttribute("scope", rdef.grammar);
+			}
+			else {
+				// defining grammar is not a delegate, scope all the
+				// back to root, which has delegate methods for all
+				// rules.  Don't use scope if we are root.
+				if ( this.grammar != rdef.grammar.composite.delegateGrammarTreeRoot.grammar ) {
+					code.setAttribute("scope",
+									  rdef.grammar.composite.delegateGrammarTreeRoot.grammar);
+				}
+			}
+        }
 
 		if ( #rarg!=null ) {
 			List args = generator.translateAction(currentRuleName,#rarg);
@@ -832,7 +889,14 @@ if ( label!=null ) {
 
     |   #( t:TOKEN_REF (targ:ARG_ACTION)? )
         {
-           grammar.checkRuleReference(#t, #targ, currentRuleName);
+           if ( currentAltHasASTRewrite && #t.terminalOptions!=null &&
+                #t.terminalOptions.get(Grammar.defaultTokenOption)!=null ) {
+			ErrorManager.grammarError(ErrorManager.MSG_HETERO_ILLEGAL_IN_REWRITE_ALT,
+									  grammar,
+									  ((GrammarAST)(#t)).getToken(),
+									  #t.getText());
+           }
+           grammar.checkRuleReference(scope, #t, #targ, currentRuleName);
 		   if ( grammar.type==Grammar.LEXER ) {
 				if ( grammar.getTokenType(t.getText())==Label.EOF ) {
 					code = templates.getInstanceOf("lexerMatchEOF");
@@ -842,7 +906,20 @@ if ( label!=null ) {
                     if ( isListLabel(labelText) ) {
                         code = templates.getInstanceOf("lexerRuleRefAndListLabel");
                     }
-					code.setAttribute("rule", t.getText());
+                    String scopeName = null;
+                    if ( scope!=null ) {
+                        scopeName = scope.getText();
+                    }
+                    Rule rdef2 = grammar.getRule(scopeName, #t.getText());
+					code.setAttribute("rule", rdef2);
+                    if ( scope!=null ) { // scoped rule ref
+                        Grammar scopeG = grammar.composite.getGrammar(scope.getText());
+                        code.setAttribute("scope", scopeG);
+                    }
+                    else if ( rdef2.grammar != this.grammar ) { // nonlocal
+                        // if rule definition is not in this grammar, it's nonlocal
+                        code.setAttribute("scope", rdef2.grammar);
+                    }
 					if ( #targ!=null ) {
 						List args = generator.translateAction(currentRuleName,#targ);
 						code.setAttribute("args", args);
@@ -857,6 +934,9 @@ if ( label!=null ) {
 				String tokenLabel =
 				   generator.getTokenTypeAsTargetLabel(grammar.getTokenType(t.getText()));
 				code.setAttribute("token",tokenLabel);
+				if ( !currentAltHasASTRewrite && #t.terminalOptions!=null ) { 
+                    code.setAttribute("hetero",#t.terminalOptions.get(Grammar.defaultTokenOption));
+                }
                 int i = ((TokenWithIndex)#t.getToken()).getIndex();
 			    code.setAttribute("elementIndex", i);
 			    generator.generateLocalFOLLOW(#t,tokenLabel,currentRuleName,i);
@@ -864,7 +944,7 @@ if ( label!=null ) {
 		   #t.code = code;
 		}
 
-    |   c:CHAR_LITERAL
+    |   c:CHAR_LITERAL 
         {
 		if ( grammar.type==Grammar.LEXER ) {
 			code = templates.getInstanceOf("charRef");
@@ -878,6 +958,9 @@ if ( label!=null ) {
 			code = getTokenElementST("tokenRef", "char_literal", #c, astSuffix, labelText);
 			String tokenLabel = generator.getTokenTypeAsTargetLabel(grammar.getTokenType(c.getText()));
 			code.setAttribute("token",tokenLabel);
+            if ( #c.terminalOptions!=null ) {
+                code.setAttribute("hetero",#c.terminalOptions.get(Grammar.defaultTokenOption));
+            }
             int i = ((TokenWithIndex)#c.getToken()).getIndex();
 			code.setAttribute("elementIndex", i);
 			generator.generateLocalFOLLOW(#c,tokenLabel,currentRuleName,i);
@@ -899,6 +982,9 @@ if ( label!=null ) {
 			String tokenLabel =
 			   generator.getTokenTypeAsTargetLabel(grammar.getTokenType(#s.getText()));
 			code.setAttribute("token",tokenLabel);
+            if ( #s.terminalOptions!=null ) {
+                code.setAttribute("hetero",#s.terminalOptions.get(Grammar.defaultTokenOption));
+            }
             int i = ((TokenWithIndex)#s.getToken()).getIndex();
 			code.setAttribute("elementIndex", i);
 			generator.generateLocalFOLLOW(#s,tokenLabel,currentRuleName,i);
@@ -910,6 +996,8 @@ if ( label!=null ) {
 		code = getWildcardST(#w,astSuffix,labelText);
 		code.setAttribute("elementIndex", ((TokenWithIndex)#w.getToken()).getIndex());
 		}
+
+    |   #(DOT ID code=atom[#ID, label, astSuffix]) // scope override on rule or token
 
     |	code=set[label,astSuffix]
     ;
@@ -978,6 +1066,11 @@ if ( #rewrite.getType()==REWRITE ) {
         code.setAttribute("referencedRuleLabels", ruleLabels);
         code.setAttribute("referencedRuleListLabels", ruleListLabels);
 	}
+}
+else {
+		code = templates.getInstanceOf("noRewrite");
+		code.setAttribute("treeLevel", Utils.integer(OUTER_REWRITE_NESTING_LEVEL));
+		code.setAttribute("rewriteBlockLevel", Utils.integer(OUTER_REWRITE_NESTING_LEVEL));
 }
 }
 	:	(
@@ -1054,7 +1147,11 @@ StringTemplate el,st;
     		)
     		EOA
     	 )
+
     |	{generator.grammar.buildTemplate()}? code=rewrite_template
+
+    |	// reproduce same input (only AST at moment)
+    	ETC
     ;
 
 rewrite_element returns [StringTemplate code=null]
@@ -1159,20 +1256,29 @@ rewrite_atom[boolean isRoot] returns [StringTemplate code=null]
 		}
     	}
 
-    |   ( #(TOKEN_REF (arg:ARG_ACTION)?) | CHAR_LITERAL | STRING_LITERAL )
+    |   {GrammarAST term=(GrammarAST)_t;}
+		( #(tk:TOKEN_REF (arg:ARG_ACTION)?)
+        | cl:CHAR_LITERAL
+        | sl:STRING_LITERAL
+        )
     	{
     	String tokenName = #rewrite_atom.getText();
     	String stName = "rewriteTokenRef";
     	Rule rule = grammar.getRule(currentRuleName);
     	Set tokenRefsInAlt = rule.getTokenRefsInAlt(outerAltNum);
-    	boolean imaginary = !tokenRefsInAlt.contains(tokenName);
-    	if ( imaginary ) {
+    	boolean createNewNode = !tokenRefsInAlt.contains(tokenName) || #arg!=null;
+        Object hetero = null;
+		if ( term.terminalOptions!=null ) {
+			hetero = term.terminalOptions.get(Grammar.defaultTokenOption);
+		}
+    	if ( createNewNode ) {
     		stName = "rewriteImaginaryTokenRef";
     	}
     	if ( isRoot ) {
     		stName += "Root";
     	}
     	code = templates.getInstanceOf(stName);
+		code.setAttribute("hetero", hetero);
     	if ( #arg!=null ) {
 			List args = generator.translateAction(currentRuleName,#arg);
 			code.setAttribute("args", args);
@@ -1197,6 +1303,14 @@ rewrite_atom[boolean isRoot] returns [StringTemplate code=null]
     	Grammar.LabelElementPair pair = rule.getLabel(labelName);
     	if ( labelName.equals(currentRuleName) ) {
     		// special case; ref to old value via $rule
+			if ( rule.hasRewrite(outerAltNum) &&
+				 rule.getRuleRefsInAlt(outerAltNum).contains(labelName) )
+			{
+				ErrorManager.grammarError(ErrorManager.MSG_RULE_REF_AMBIG_WITH_RULE_IN_ALT,
+										  grammar,
+										  ((GrammarAST)(#LABEL)).getToken(),
+										  labelName);
+    		}
     		StringTemplate labelST = templates.getInstanceOf("prevRuleRootRef");
     		code = templates.getInstanceOf("rewriteRuleLabelRef"+(isRoot?"Root":""));
     		code.setAttribute("label", labelST);

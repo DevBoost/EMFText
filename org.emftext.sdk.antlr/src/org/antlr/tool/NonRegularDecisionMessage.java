@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -35,9 +35,9 @@ import java.util.*;
 /** More a single alternative recurses so this decision is not regular. */
 public class NonRegularDecisionMessage extends Message {
 	public DecisionProbe probe;
-	public Set altsWithRecursion;
+	public Set<Integer> altsWithRecursion;
 
-	public NonRegularDecisionMessage(DecisionProbe probe, Set altsWithRecursion) {
+	public NonRegularDecisionMessage(DecisionProbe probe, Set<Integer> altsWithRecursion) {
 		super(ErrorManager.MSG_NONREGULAR_DECISION);
 		this.probe = probe;
 		this.altsWithRecursion = altsWithRecursion;
@@ -53,7 +53,7 @@ public class NonRegularDecisionMessage extends Message {
 		}
 
 		StringTemplate st = getMessageTemplate();
-		String ruleName = probe.dfa.getNFADecisionStartState().getEnclosingRule();
+		String ruleName = probe.dfa.getNFADecisionStartState().enclosingRule.name;
 		st.setAttribute("ruleName", ruleName);
 		List sortedAlts = new ArrayList();
 		sortedAlts.addAll(altsWithRecursion);

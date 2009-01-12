@@ -1,6 +1,6 @@
 /*
 [The "BSD licence"]
-Copyright (c) 2005-2006 Terence Parr
+Copyright (c) 2005-2007 Terence Parr
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -76,8 +76,9 @@ public class CodeGenerator {
 	public int MAX_SWITCH_CASE_LABELS = 300;
 	public int MIN_SWITCH_ALTS = 3;
 	public boolean GENERATE_SWITCHES_WHEN_POSSIBLE = true;
-	public static boolean GEN_ACYCLIC_DFA_INLINE = true;
+	//public static boolean GEN_ACYCLIC_DFA_INLINE = true;
 	public static boolean EMIT_TEMPLATE_DELIMITERS = false;
+	public static int MAX_ACYCLIC_DFA_STATES_INLINE = 10;
 
 	public String classpathTemplateRootDirectoryName =
 		"org/antlr/codegen/templates";
@@ -196,7 +197,7 @@ public class CodeGenerator {
 		}
 
 		// dynamically add subgroups that act like filters to apply to
-		// their supergroup.  E.g., Java:Dbg:AST:ASTDbg.
+		// their supergroup.  E.g., Java:Dbg:AST:ASTParser::ASTDbg.
 		String outputOption = (String)grammar.getOption("output");
 		if ( outputOption!=null && outputOption.equals("AST") ) {
 			if ( debug && grammar.type!=Grammar.LEXER ) {
@@ -205,12 +206,36 @@ public class CodeGenerator {
 				baseTemplates = dbgTemplates;
 				StringTemplateGroup astTemplates =
 					StringTemplateGroup.loadGroup("AST",dbgTemplates);
+				StringTemplateGroup astParserTemplates = astTemplates;
+				//if ( !grammar.rewriteMode() ) {
+					if ( grammar.type==Grammar.TREE_PARSER ) {
+						astParserTemplates =
+							StringTemplateGroup.loadGroup("ASTTreeParser", astTemplates);
+					}
+					else {
+						astParserTemplates =
+							StringTemplateGroup.loadGroup("ASTParser", astTemplates);
+					}
+				//}
 				StringTemplateGroup astDbgTemplates =
-					StringTemplateGroup.loadGroup("ASTDbg", astTemplates);
+					StringTemplateGroup.loadGroup("ASTDbg", astParserTemplates);
 				templates = astDbgTemplates;
 			}
 			else {
-				templates = StringTemplateGroup.loadGroup("AST", coreTemplates);
+				StringTemplateGroup astTemplates =
+					StringTemplateGroup.loadGroup("AST", coreTemplates);
+				StringTemplateGroup astParserTemplates = astTemplates;
+				//if ( !grammar.rewriteMode() ) {
+					if ( grammar.type==Grammar.TREE_PARSER ) {
+						astParserTemplates =
+							StringTemplateGroup.loadGroup("ASTTreeParser", astTemplates);
+					}
+					else {
+						astParserTemplates =
+							StringTemplateGroup.loadGroup("ASTParser", astTemplates);
+					}
+				//}
+				templates = astParserTemplates;
 			}
 		}
 		else if ( outputOption!=null && outputOption.equals("template") ) {
@@ -220,10 +245,6 @@ public class CodeGenerator {
 				baseTemplates = dbgTemplates;
 				StringTemplateGroup stTemplates =
 					StringTemplateGroup.loadGroup("ST",dbgTemplates);
-				/*
-				StringTemplateGroup astDbgTemplates =
-					StringTemplateGroup.loadGroup("STDbg", astTemplates);
-				*/
 				templates = stTemplates;
 			}
 			else {
@@ -258,22 +279,19 @@ public class CodeGenerator {
 	 *  The target, such as JavaTarget, dictates which files get written.
 	 */
 	public StringTemplate genRecognizer() {
+		//System.out.println("### generate "+grammar.name+" recognizer");
 		// LOAD OUTPUT TEMPLATES
 		loadTemplates(language);
 		if ( templates==null ) {
 			return null;
 		}
 
-		// CHECK FOR LEFT RECURSION; Make sure we can actually do analysis
-		grammar.checkAllRulesForLeftRecursion();
-
-		// was there a severe problem while reading in grammar?
+		// CREATE NFA FROM GRAMMAR, CREATE DFA FROM NFA
 		if ( ErrorManager.doNotAttemptAnalysis() ) {
 			return null;
 		}
-
-		// CREATE NFA FROM GRAMMAR, CREATE DFA FROM NFA
 		target.performGrammarAnalysis(this, grammar);
+
 
 		// some grammar analysis errors will not yield reliable DFA
 		if ( ErrorManager.doNotAttemptCodeGen() ) {
@@ -338,20 +356,22 @@ public class CodeGenerator {
 		headerFileST.setAttribute("buildAST", new Boolean(grammar.buildAST()));
 		outputFileST.setAttribute("buildAST", new Boolean(grammar.buildAST()));
 
-		String rewrite = (String)grammar.getOption("rewrite");
-		outputFileST.setAttribute("rewrite",
-								  Boolean.valueOf(rewrite!=null&&rewrite.equals("true")));
-		headerFileST.setAttribute("rewrite",
-								  Boolean.valueOf(rewrite!=null&&rewrite.equals("true")));
+		outputFileST.setAttribute("rewriteMode", Boolean.valueOf(grammar.rewriteMode()));
+		headerFileST.setAttribute("rewriteMode", Boolean.valueOf(grammar.rewriteMode()));
 
 		outputFileST.setAttribute("backtracking", Boolean.valueOf(canBacktrack));
 		headerFileST.setAttribute("backtracking", Boolean.valueOf(canBacktrack));
+		// turn on memoize attribute at grammar level so we can create ruleMemo.
+		// each rule has memoize attr that hides this one, indicating whether
+		// it needs to save results
 		String memoize = (String)grammar.getOption("memoize");
 		outputFileST.setAttribute("memoize",
-								  Boolean.valueOf(memoize!=null&&memoize.equals("true")&&
+								  (grammar.atLeastOneRuleMemoizes||
+								  Boolean.valueOf(memoize!=null&&memoize.equals("true"))&&
 									          canBacktrack));
 		headerFileST.setAttribute("memoize",
-								  Boolean.valueOf(memoize!=null&&memoize.equals("true")&&
+								  (grammar.atLeastOneRuleMemoizes||
+								  Boolean.valueOf(memoize!=null&&memoize.equals("true"))&&
 									          canBacktrack));
 
 
@@ -413,6 +433,7 @@ public class CodeGenerator {
 			ErrorManager.error(ErrorManager.MSG_BAD_AST_STRUCTURE,
 							   re);
 		}
+
 		genTokenTypeConstants(recognizerST);
 		genTokenTypeConstants(outputFileST);
 		genTokenTypeConstants(headerFileST);
@@ -479,7 +500,7 @@ public class CodeGenerator {
 				ErrorManager.grammarError(
 					ErrorManager.MSG_INVALID_ACTION_SCOPE,grammar,
 					actionAST.getToken(),scope,
-					Grammar.grammarTypeToString[grammar.type]);
+					grammar.getGrammarTypeString());
 			}
 		}
 	}
@@ -537,21 +558,29 @@ public class CodeGenerator {
 									String enclosingRuleName,
 									int elementIndex)
 	{
-		NFAState followingNFAState = referencedElementNode.followingNFAState;
-/*
-		System.out.print("compute FOLLOW "+referencedElementNode.toString()+
+		/*
+		System.out.println("compute FOLLOW "+grammar.name+"."+referencedElementNode.toString()+
 						 " for "+referencedElementName+"#"+elementIndex +" in "+
 						 enclosingRuleName+
 						 " line="+referencedElementNode.getLine());
-*/
+						 */
+		NFAState followingNFAState = referencedElementNode.followingNFAState;
 		LookaheadSet follow = null;
 		if ( followingNFAState!=null ) {
-			follow = grammar.LOOK(followingNFAState);
+			// compute follow for this element and, as side-effect, track
+			// the rule LOOK sensitivity.
+			follow = grammar.FIRST(followingNFAState);
 		}
 
 		if ( follow==null ) {
 			ErrorManager.internalError("no follow state or cannot compute follow");
 			follow = new LookaheadSet();
+		}
+		if ( follow.member(Label.EOF) ) {
+			// TODO: can we just remove?  Seems needed here:
+			// compilation_unit : global_statement* EOF
+			// Actually i guess we resync to EOF regardless
+			follow.remove(Label.EOF);
 		}
 		//System.out.println(" "+follow);
 
@@ -866,39 +895,141 @@ public class CodeGenerator {
 		if ( actionTree.getType()==ANTLRParser.ARG_ACTION ) {
 			return translateArgAction(ruleName, actionTree);
 		}
-		ActionTranslatorLexer translator = new ActionTranslatorLexer(this,ruleName,actionTree);
+		ActionTranslator translator = new ActionTranslator(this,ruleName,actionTree);
 		List chunks = translator.translateToChunks();
 		chunks = target.postProcessAction(chunks, actionTree.token);
 		return chunks;
 	}
 
 	/** Translate an action like [3,"foo",a[3]] and return a List of the
-	 *  translated actions.  Because actions are translated to a list of
-	 *  chunks, this returns List<List<String|StringTemplate>>.
-	 *
-	 *  Simple ',' separator is assumed.
+	 *  translated actions.  Because actions are themselves translated to a list
+	 *  of chunks, must cat together into a StringTemplate>.  Don't translate
+	 *  to strings early as we need to eval templates in context.
 	 */
-	public List translateArgAction(String ruleName,
-								   GrammarAST actionTree)
+	public List<StringTemplate> translateArgAction(String ruleName,
+										   GrammarAST actionTree)
 	{
 		String actionText = actionTree.token.getText();
-		StringTokenizer argTokens = new StringTokenizer(actionText, ",");
-		List args = new ArrayList();
-		while ( argTokens.hasMoreTokens() ) {
-			String arg = (String)argTokens.nextToken();
-			antlr.Token actionToken = new antlr.CommonToken(ANTLRParser.ACTION,arg);
-			ActionTranslatorLexer translator =
-				new ActionTranslatorLexer(this,ruleName,
-										  actionToken,
-										  actionTree.outerAltNum);
-			List chunks = translator.translateToChunks();
-			chunks = target.postProcessAction(chunks, actionToken);
-			args.add(chunks);
+		List<String> args = getListOfArgumentsFromAction(actionText,',');
+		List<StringTemplate> translatedArgs = new ArrayList<StringTemplate>();
+		for (String arg : args) {
+			if ( arg!=null ) {
+				antlr.Token actionToken =
+					new antlr.CommonToken(ANTLRParser.ACTION,arg);
+				ActionTranslator translator =
+					new ActionTranslator(this,ruleName,
+											  actionToken,
+											  actionTree.outerAltNum);
+				List chunks = translator.translateToChunks();
+				chunks = target.postProcessAction(chunks, actionToken);
+				StringTemplate catST = new StringTemplate(templates, "<chunks>");
+				catST.setAttribute("chunks", chunks);
+				templates.createStringTemplate();
+				translatedArgs.add(catST);
+			}
 		}
-		if ( args.size()==0 ) {
+		if ( translatedArgs.size()==0 ) {
 			return null;
 		}
+		return translatedArgs;
+	}
+
+	public static List<String> getListOfArgumentsFromAction(String actionText,
+															int separatorChar)
+	{
+		List<String> args = new ArrayList<String>();
+		getListOfArgumentsFromAction(actionText, 0, -1, separatorChar, args);
 		return args;
+	}
+
+	/** Given an arg action like
+	 *
+	 *  [x, (*a).foo(21,33), 3.2+1, '\n',
+	 *  "a,oo\nick", {bl, "fdkj"eck}, ["cat\n,", x, 43]]
+	 *
+	 *  convert to a list of arguments.  Allow nested square brackets etc...
+	 *  Set separatorChar to ';' or ',' or whatever you want.
+	 */
+	public static int getListOfArgumentsFromAction(String actionText,
+												   int start,
+												   int targetChar,
+												   int separatorChar,
+												   List<String> args)
+	{
+		if ( actionText==null ) {
+			return -1;
+		}
+		actionText = actionText.replaceAll("//.*\n", "");
+		int n = actionText.length();
+		//System.out.println("actionText@"+start+"->"+(char)targetChar+"="+actionText.substring(start,n));
+		int p = start;
+		int last = p;
+		while ( p<n && actionText.charAt(p)!=targetChar ) {
+			int c = actionText.charAt(p);
+			switch ( c ) {
+				case '\'' :
+					p++;
+					while ( p<n && actionText.charAt(p)!='\'' ) {
+						if ( actionText.charAt(p)=='\\' && (p+1)<n &&
+							 actionText.charAt(p+1)=='\'' )
+						{
+							p++; // skip escaped quote
+						}
+						p++;
+					}
+					p++;
+					break;
+				case '"' :
+					p++;
+					while ( p<n && actionText.charAt(p)!='\"' ) {
+						if ( actionText.charAt(p)=='\\' && (p+1)<n &&
+							 actionText.charAt(p+1)=='\"' )
+						{
+							p++; // skip escaped quote
+						}
+						p++;
+					}
+					p++;
+					break;
+				case '(' :
+					p = getListOfArgumentsFromAction(actionText,p+1,')',separatorChar,args);
+					break;
+				case '{' :
+					p = getListOfArgumentsFromAction(actionText,p+1,'}',separatorChar,args);
+					break;
+				case '<' :
+					if ( actionText.indexOf('>',p+1)>=p ) {
+						// do we see a matching '>' ahead?  if so, hope it's a generic
+						// and not less followed by expr with greater than
+						p = getListOfArgumentsFromAction(actionText,p+1,'>',separatorChar,args);
+					}
+					else {
+						p++; // treat as normal char
+					}
+					break;
+				case '[' :
+					p = getListOfArgumentsFromAction(actionText,p+1,']',separatorChar,args);
+					break;
+				default :
+					if ( c==separatorChar && targetChar==-1 ) {
+						String arg = actionText.substring(last, p);
+						//System.out.println("arg="+arg);
+						args.add(arg.trim());
+						last = p+1;
+					}
+					p++;
+					break;
+			}
+		}
+		if ( targetChar==-1 && p<=n ) {
+			String arg = actionText.substring(last, p).trim();
+			//System.out.println("arg="+arg);
+			if ( arg.length()>0 ) {
+				args.add(arg.trim());
+			}
+		}
+		p++;
+		return p;
 	}
 
 	/** Given a template constructor action like %foo(a={...}) in
@@ -1107,10 +1238,22 @@ public class CodeGenerator {
 		return outputFileST;
 	}
 
+	/** Generate TParser.java and TLexer.java from T.g if combined, else
+	 *  just use T.java as output regardless of type.
+	 */
 	public String getRecognizerFileName(String name, int type) {
 		StringTemplate extST = templates.getInstanceOf("codeFileExtension");
-		String suffix = Grammar.grammarTypeToFileNameSuffix[type];
+		String recognizerName = grammar.getRecognizerName();
+		return recognizerName+extST.toString();
+		/*
+		String suffix = "";
+		if ( type==Grammar.COMBINED ||
+			 (type==Grammar.LEXER && !grammar.implicitLexer) )
+		{
+			suffix = Grammar.grammarTypeToFileNameSuffix[type];
+		}
 		return name+suffix+extST.toString();
+		*/
 	}
 
 	/** What is the name of the vocab file generated for this grammar?

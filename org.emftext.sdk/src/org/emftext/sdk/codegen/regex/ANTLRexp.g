@@ -55,11 +55,6 @@ package org.emftext.sdk.codegen.regex;
 @members{
  public java.util.List<RecognitionException> recExceptions = ((ANTLRexpLexer)getTokenStream().getTokenSource()).lexerExceptions;
 
-public void recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow)
-  throws RecognitionException
-{
-}
-
 }
 
 /** Matches ENBF blocks (and token sets via block rule) */

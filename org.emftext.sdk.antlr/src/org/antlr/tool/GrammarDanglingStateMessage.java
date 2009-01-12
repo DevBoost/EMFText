@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -27,23 +27,20 @@
 */
 package org.antlr.tool;
 
-import org.antlr.stringtemplate.StringTemplate;
-import org.antlr.analysis.DecisionProbe;
 import org.antlr.analysis.DFAState;
-import org.antlr.analysis.NFAState;
-import org.antlr.analysis.SemanticContext;
-import antlr.Token;
+import org.antlr.analysis.DecisionProbe;
+import org.antlr.stringtemplate.StringTemplate;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /** Reports a potential parsing issue with a decision; the decision is
  *  nondeterministic in some way.
  */
 public class GrammarDanglingStateMessage extends Message {
 	public DecisionProbe probe;
-    public DFAState problemState;
+	public DFAState problemState;
 
 	public GrammarDanglingStateMessage(DecisionProbe probe,
 									   DFAState problemState)
@@ -61,8 +58,14 @@ public class GrammarDanglingStateMessage extends Message {
 		if ( fileName!=null ) {
 			file = fileName;
 		}
+		List labels = probe.getSampleNonDeterministicInputSequence(problemState);
+		String input = probe.getInputSequenceDisplay(labels);
 		StringTemplate st = getMessageTemplate();
-		st.setAttribute("danglingAlts", problemState.getAltSet());
+		List alts = new ArrayList();
+		alts.addAll(problemState.getAltSet());
+		Collections.sort(alts);
+		st.setAttribute("danglingAlts", alts);
+		st.setAttribute("input", input);
 
 		return super.toString(st);
 	}

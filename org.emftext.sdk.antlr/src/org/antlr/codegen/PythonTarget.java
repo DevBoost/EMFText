@@ -34,6 +34,7 @@ full of WTFs - though IMHO Java is the Real WTF(TM) here...
  */
 
 package org.antlr.codegen;
+import org.antlr.tool.Grammar;
 import java.util.*;
 
 public class PythonTarget extends Target {
@@ -59,7 +60,8 @@ public class PythonTarget extends Target {
     public String getTargetCharLiteralFromANTLRCharLiteral(
             CodeGenerator generator,
             String literal) {
-	return "u" + literal;
+	int c = Grammar.getCharValueFromGrammarCharLiteral(literal);
+	return String.valueOf(c);
     }
 
     private List splitLines(String text) {

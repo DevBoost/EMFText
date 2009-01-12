@@ -388,7 +388,7 @@ returns [org.emftext.sdk.concretesyntax.Cardinality element = null]
 
 COMMENTS
 :
-	'//'(~('\n'|'\r'))*{ channel=99; }
+	'//'(~('\n'|'\r'))*{ _channel=99; }
 ;
 TEXT
 :
@@ -404,7 +404,7 @@ TEXT_33_
 ;
 LB
 :
-	('\r\n' | '\r' | '\n'){ channel=99; }
+	('\r\n' | '\r' | '\n'){ _channel=99; }
 ;
 TEXT_35_
 :
@@ -412,7 +412,7 @@ TEXT_35_
 ;
 WS
 :
-	(' ' | '\t' | '\f'){ channel=99; }
+	(' ' | '\t' | '\f'){ _channel=99; }
 ;
 QUOTED_60_62
 :

@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,8 @@ public class Interpreter implements TokenSource {
 		public LexerActionGetTokenType(Grammar g) {
 			this.g = g;
 		}
-		public void exitRule(String ruleName) {
+
+		public void exitRule(String grammarFileName, String ruleName) {
 			if ( !ruleName.equals(Grammar.ARTIFICIAL_TOKENS_RULENAME) ){
 				int type = g.getTokenType(ruleName);
 				int channel = Token.DEFAULT_CHANNEL;
@@ -132,7 +133,7 @@ public class Interpreter implements TokenSource {
 		//System.out.println("scan("+startRule+",'"+in.substring(in.index(),in.size()-1)+"')");
 		// Build NFAs/DFAs from the grammar AST if NFAs haven't been built yet
 		if ( grammar.getRuleStartState(startRule)==null ) {
-			grammar.createNFAs();
+			grammar.buildNFA();
 		}
 
 		if ( !grammar.allDecisionDFAHaveBeenCreated() ) {
@@ -171,7 +172,7 @@ public class Interpreter implements TokenSource {
 		//System.out.println("parse("+startRule+")");
 		// Build NFAs/DFAs from the grammar AST if NFAs haven't been built yet
 		if ( grammar.getRuleStartState(startRule)==null ) {
-			grammar.createNFAs();
+			grammar.buildNFA();
 		}
 		if ( !grammar.allDecisionDFAHaveBeenCreated() ) {
 			// Create the DFA predictors for each decision
@@ -216,10 +217,10 @@ public class Interpreter implements TokenSource {
 							   List visitedStates)
 		throws RecognitionException
 	{
-		if ( actions!=null ) {
-			actions.enterRule(start.getEnclosingRule());
-		}
 		NFAState s = start;
+		if ( actions!=null ) {
+			actions.enterRule(s.nfa.grammar.getFileName(), start.enclosingRule.name);
+		}
 		int t = input.LA(1);
 		while ( s!=stop ) {
 			if ( visitedStates!=null ) {
@@ -227,17 +228,17 @@ public class Interpreter implements TokenSource {
 			}
 			/*
 			System.out.println("parse state "+s.stateNumber+" input="+
-				grammar.getTokenDisplayName(t));
+				s.nfa.grammar.getTokenDisplayName(t));
 				*/
 			// CASE 1: decision state
-			if ( s.getDecisionNumber()>0 && grammar.getNumberOfAltsForDecisionNFA(s)>1 ) {
+			if ( s.getDecisionNumber()>0 && s.nfa.grammar.getNumberOfAltsForDecisionNFA(s)>1 ) {
 				// decision point, must predict and jump to alt
-				DFA dfa = grammar.getLookaheadDFA(s.getDecisionNumber());
+				DFA dfa = s.nfa.grammar.getLookaheadDFA(s.getDecisionNumber());
 				/*
-				if ( grammar.type!=Grammar.LEXER ) {
+				if ( s.nfa.grammar.type!=Grammar.LEXER ) {
 					System.out.println("decision: "+
 								   dfa.getNFADecisionStartState().getDescription()+
-								   " input="+grammar.getTokenDisplayName(t));
+								   " input="+s.nfa.grammar.getTokenDisplayName(t));
 				}
 				*/
 				int m = input.mark();
@@ -246,9 +247,9 @@ public class Interpreter implements TokenSource {
 					String description = dfa.getNFADecisionStartState().getDescription();
 					NoViableAltException nvae =
 						new NoViableAltException(description,
-												 dfa.getDecisionNumber(),
-												 s.stateNumber,
-												 input);
+													  dfa.getDecisionNumber(),
+													  s.stateNumber,
+													  input);
 					if ( actions!=null ) {
 						actions.recognitionException(nvae);
 					}
@@ -257,22 +258,29 @@ public class Interpreter implements TokenSource {
 				}
 				input.rewind(m);
 				int parseAlt =
-					s.translateDisplayAltToWalkAlt(dfa,predictedAlt);
+					s.translateDisplayAltToWalkAlt(predictedAlt);
 				/*
-				if ( grammar.type!=Grammar.LEXER ) {
+				if ( s.nfa.grammar.type!=Grammar.LEXER ) {
 					System.out.println("predicted alt "+predictedAlt+", parseAlt "+
 									   parseAlt);
 				}
 				*/
-				NFAState alt = grammar.getNFAStateForAltOfDecision(s, parseAlt);
-				s = (NFAState)alt.transition(0).target;
+				NFAState alt;
+				if ( parseAlt > s.nfa.grammar.getNumberOfAltsForDecisionNFA(s) ) {
+					// implied branch of loop etc...
+					alt = s.nfa.grammar.nfa.getState( s.endOfBlockStateNumber );
+				}
+				else {
+					alt = s.nfa.grammar.getNFAStateForAltOfDecision(s, parseAlt);
+				}
+				s = (NFAState)alt.transition[0].target;
 				continue;
 			}
 
 			// CASE 2: finished matching a rule
 			if ( s.isAcceptState() ) { // end of rule node
 				if ( actions!=null ) {
-					actions.exitRule(s.getEnclosingRule());
+					actions.exitRule(s.nfa.grammar.getFileName(), s.enclosingRule.name);
 				}
 				if ( ruleInvocationStack.empty() ) {
 					// done parsing.  Hit the start state.
@@ -282,22 +290,37 @@ public class Interpreter implements TokenSource {
 				// pop invoking state off the stack to know where to return to
 				NFAState invokingState = (NFAState)ruleInvocationStack.pop();
 				RuleClosureTransition invokingTransition =
-						(RuleClosureTransition)invokingState.transition(0);
+						(RuleClosureTransition)invokingState.transition[0];
 				// move to node after state that invoked this rule
-				s = invokingTransition.getFollowState();
+				s = invokingTransition.followState;
 				continue;
 			}
 
-			Transition trans = s.transition(0);
+			Transition trans = s.transition[0];
 			Label label = trans.label;
+			if ( label.isSemanticPredicate() ) {
+				FailedPredicateException fpe =
+					new FailedPredicateException(input,
+												 s.enclosingRule.name,
+												 "can't deal with predicates yet");
+				if ( actions!=null ) {
+					actions.recognitionException(fpe);
+				}
+			}
+
 			// CASE 3: epsilon transition
 			if ( label.isEpsilon() ) {
 				// CASE 3a: rule invocation state
 				if ( trans instanceof RuleClosureTransition ) {
 					ruleInvocationStack.push(s);
 					s = (NFAState)trans.target;
+					//System.out.println("call "+s.enclosingRule.name+" from "+s.nfa.grammar.getFileName());
 					if ( actions!=null ) {
-						actions.enterRule(s.getEnclosingRule());
+						actions.enterRule(s.nfa.grammar.getFileName(), s.enclosingRule.name);
+					}
+					// could be jumping to new grammar, make sure DFA created
+					if ( !s.nfa.grammar.allDecisionDFAHaveBeenCreated() ) {
+						s.nfa.grammar.createLookaheadDFAs();
 					}
 				}
 				// CASE 3b: plain old epsilon transition, just move
@@ -309,13 +332,13 @@ public class Interpreter implements TokenSource {
 			// CASE 4: match label on transition
 			else if ( label.matches(t) ) {
 				if ( actions!=null ) {
-					if ( grammar.type == Grammar.PARSER ||
-						 grammar.type == Grammar.COMBINED )
+					if ( s.nfa.grammar.type == Grammar.PARSER ||
+						 s.nfa.grammar.type == Grammar.COMBINED )
 					{
 						actions.consumeToken(((TokenStream)input).LT(1));
 					}
 				}
-				s = (NFAState)s.transition(0).target;
+				s = (NFAState)s.transition[0].target;
 				input.consume();
 				t = input.LA(1);
 			}
@@ -344,7 +367,7 @@ public class Interpreter implements TokenSource {
 				else if ( label.isSemanticPredicate() ) {
 					FailedPredicateException fpe =
 						new FailedPredicateException(input,
-													 s.getEnclosingRule(),
+													 s.enclosingRule.name,
 													 label.getSemanticContext().toString());
 					if ( actions!=null ) {
 						actions.recognitionException(fpe);
@@ -359,7 +382,7 @@ public class Interpreter implements TokenSource {
 		}
 		//System.out.println("hit stop state for "+stop.getEnclosingRule());
 		if ( actions!=null ) {
-			actions.exitRule(stop.getEnclosingRule());
+			actions.exitRule(s.nfa.grammar.getFileName(), stop.enclosingRule.name);
 		}
 	}
 
@@ -416,10 +439,15 @@ public class Interpreter implements TokenSource {
 
 	public void reportScanError(RecognitionException re) {
 		CharStream cs = (CharStream)input;
-		// print as good of a message is we can't, given that we do not have
+		// print as good of a message as we can, given that we do not have
 		// a Lexer object and, hence, cannot call the routine to get a
 		// decent error message.
 		System.err.println("problem matching token at "+
-			cs.getLine()+":"+cs.getCharPositionInLine()+" "+re.getClass().getName());
+			cs.getLine()+":"+cs.getCharPositionInLine()+" "+re);
 	}
+
+	public String getSourceName() {
+		return input.getSourceName();
+	}
+
 }

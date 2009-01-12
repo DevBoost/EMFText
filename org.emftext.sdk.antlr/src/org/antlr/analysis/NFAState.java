@@ -28,6 +28,8 @@
 package org.antlr.analysis;
 
 import org.antlr.tool.GrammarAST;
+import org.antlr.tool.Rule;
+import org.antlr.tool.ErrorManager;
 
 /** A state within an NFA. At most 2 transitions emanate from any NFA state. */
 public class NFAState extends State {
@@ -43,7 +45,13 @@ public class NFAState extends State {
 
 	/** How many transitions; 0, 1, or 2 transitions */
 	int numTransitions = 0;
-	Transition[] transition = new Transition[MAX_TRANSITIONS];
+	public Transition[] transition = new Transition[MAX_TRANSITIONS];
+
+	/** For o-A->o type NFA tranitions, record the label that leads to this
+	 *  state.  Useful for creating rich error messages when we find
+	 *  insufficiently (with preds) covered states.
+	 */
+	public Label incidentEdgeLabel;
 
 	/** Which NFA are we in? */
 	public NFA nfa = null;
@@ -71,7 +79,7 @@ public class NFAState extends State {
 	public int decisionStateType;
 
 	/** What rule do we live in? */
-	protected String enclosingRule;
+	public Rule enclosingRule;
 
 	/** During debugging and for nondeterminism warnings, it's useful
 	 *  to know what relationship this node has to the original grammar.
@@ -87,7 +95,7 @@ public class NFAState extends State {
 	 *  report line:col info.  Could also be used to track line:col
 	 *  for elements such as token refs.
 	 */
-	protected GrammarAST associatedASTNode;
+	public GrammarAST associatedASTNode;
 
 	/** Is this state the sole target of an EOT transition? */
 	protected boolean EOTTargetState = false;
@@ -106,12 +114,24 @@ public class NFAState extends State {
 	}
 
 	public void addTransition(Transition e) {
+		if ( e==null ) {
+			throw new IllegalArgumentException("You can't add a null transition");			
+		}
 		if ( numTransitions>transition.length ) {
 			throw new IllegalArgumentException("You can only have "+transition.length+" transitions");
 		}
 		if ( e!=null ) {
 			transition[numTransitions] = e;
 			numTransitions++;
+			// Set the "back pointer" of the target state so that it
+			// knows about the label of the incoming edge.
+			Label label = e.label;
+			if ( label.isAtom() || label.isSet() ) {
+				if ( ((NFAState)e.target).incidentEdgeLabel!=null ) {
+					ErrorManager.internalError("Clobbered incident edge");
+				}
+				((NFAState)e.target).incidentEdgeLabel = e.label;
+			}
 		}
 	}
 
@@ -119,6 +139,9 @@ public class NFAState extends State {
 	 *  transition another state has.
 	 */
 	public void setTransition0(Transition e) {
+		if ( e==null ) {
+			throw new IllegalArgumentException("You can't use a solitary null transition");
+		}
 		transition[0] = e;
 		transition[1] = null;
 		numTransitions = 1;
@@ -154,7 +177,8 @@ public class NFAState extends State {
 	 *
 	 *  Return same alt if we can't translate.
 	 */
-	public int translateDisplayAltToWalkAlt(DFA dfa, int displayAlt) {
+	public int translateDisplayAltToWalkAlt(int displayAlt) {
+		NFAState nfaStart = this;
 		if ( decisionNumber==0 || decisionStateType==0 ) {
 			return displayAlt;
 		}
@@ -168,9 +192,8 @@ public class NFAState extends State {
 			ErrorManager.internalError("can't get DFA for decision "+decisionNumber);
 		}
 		*/
-		NFAState nfaStart = dfa.getNFADecisionStartState();
 		int nAlts = nfa.grammar.getNumberOfAltsForDecisionNFA(nfaStart);
-		switch ( decisionStateType ) {
+		switch ( nfaStart.decisionStateType ) {
 			case LOOPBACK :
 				walkAlt = displayAlt % nAlts + 1; // rotate right mod 1..3
 				break;
@@ -200,14 +223,6 @@ public class NFAState extends State {
 		this.associatedASTNode = decisionASTNode;
 	}
 
-	public GrammarAST getAssociatedASTNode() {
-		return associatedASTNode;
-	}
-
-	 public void setAssociatedASTNode(GrammarAST ASTNode) {
-		this.associatedASTNode = ASTNode;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -222,14 +237,6 @@ public class NFAState extends State {
 
 	public void setDecisionNumber(int decisionNumber) {
 		this.decisionNumber = decisionNumber;
-	}
-
-	public void setEnclosingRuleName(String rule) {
-		this.enclosingRule = rule;
-	}
-
-	public String getEnclosingRule() {
-		return enclosingRule;
 	}
 
 	public boolean isEOTTargetState() {

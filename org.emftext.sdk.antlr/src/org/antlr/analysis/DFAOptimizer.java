@@ -122,6 +122,8 @@ public class DFAOptimizer {
 
 	/** Used by DFA state machine generator to avoid infinite recursion
 	 *  resulting from cycles int the DFA.  This is a set of int state #s.
+	 *  This is a side-effect of calling optimize; can't clear after use
+	 *  because code gen needs it.
 	 */
 	protected Set visited = new HashSet();
 

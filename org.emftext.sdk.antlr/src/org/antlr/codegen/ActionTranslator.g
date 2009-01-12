@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -47,19 +47,19 @@ Grammar grammar;
 CodeGenerator generator;
 antlr.Token actionToken;
 
-	public ActionTranslatorLexer(CodeGenerator generator,
+	public ActionTranslator(CodeGenerator generator,
 								 String ruleName,
 								 GrammarAST actionAST)
 	{
 		this(new ANTLRStringStream(actionAST.token.getText()));
 		this.generator = generator;
 		this.grammar = generator.grammar;
-	    this.enclosingRule = grammar.getRule(ruleName);
+	    this.enclosingRule = grammar.getLocallyDefinedRule(ruleName);
 	    this.actionToken = actionAST.token;
 	    this.outerAltNum = actionAST.outerAltNum;
 	}
 
-	public ActionTranslatorLexer(CodeGenerator generator,
+	public ActionTranslator(CodeGenerator generator,
 								 String ruleName,
 								 antlr.Token actionToken,
 								 int outerAltNum)
@@ -71,33 +71,6 @@ antlr.Token actionToken;
 	    this.actionToken = actionToken;
 		this.outerAltNum = outerAltNum;
 	}
-	// BACKWARD COMPATIBILITY UNTIL REGENERATING WITH 3.0b7
-	public Token emit(int tokenType,
-					  int line, int charPosition,
-					  int channel,
-					  int start, int stop)
-	{
-		Token t = new CommonToken(input, tokenType, channel, start, stop);
-		t.setLine(line);
-		t.setText(text);
-		t.setCharPositionInLine(charPosition);
-		emit(t);
-		return t;
-	}
-
-/*
-public ActionTranslatorLexer(CharStream input, CodeGenerator generator,
-                             Grammar grammar, Rule enclosingRule,
-                             antlr.Token actionToken, int outerAltNum)
-{
-    this(input);
-    this.grammar = grammar;
-    this.generator = generator;
-    this.enclosingRule = enclosingRule;
-    this.actionToken = actionToken;
-    this.outerAltNum = outerAltNum;
-}
-*/
 
 /** Return a list of strings and StringTemplate objects that
  *  represent the translated action.
@@ -124,10 +97,14 @@ public String translate() {
 }
 
 public List translateAction(String action) {
-    ActionTranslatorLexer translator =
-        new ActionTranslatorLexer(generator,
-                                  enclosingRule.name,
-                                  new antlr.CommonToken(ANTLRParser.ACTION,action),outerAltNum);
+	String rname = null;
+	if ( enclosingRule!=null ) {
+		rname = enclosingRule.name;
+	}
+	ActionTranslator translator =
+		new ActionTranslator(generator,
+								  rname,
+								  new antlr.CommonToken(ANTLRParser.ACTION,action),outerAltNum);
     return translator.translateToChunks();
 }
 
@@ -247,6 +224,12 @@ ENCLOSING_RULE_SCOPE_ATTR
 	                         enclosingRule.getLocalAttributeScope($y.text)!=null}?
 		//{System.out.println("found \$rule.attr");}
 		{
+		if ( isRuleRefInAlt($x.text)  ) {
+			ErrorManager.grammarError(ErrorManager.MSG_RULE_REF_AMBIG_WITH_RULE_IN_ALT,
+									  grammar,
+									  actionToken,
+									  $x.text);
+		}
 		StringTemplate st = null;
 		AttributeScope scope = enclosingRule.getLocalAttributeScope($y.text);
 		if ( scope.isPredefinedRuleScope ) {
@@ -814,5 +797,5 @@ INT :	'0'..'9'+
 	;
 
 fragment
-WS	:	(' '|'\t'|'\n')+
+WS	:	(' '|'\t'|'\n'|'\r')+
 	;

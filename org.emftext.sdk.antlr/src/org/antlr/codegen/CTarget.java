@@ -44,12 +44,13 @@ public class CTarget extends Target {
 									StringTemplate outputFileST)
 		throws IOException
 	{
+            
                 // Before we write this, and cause it to generate its string,
                 // we need to add all the string literals that we are going to match
                 //
                 outputFileST.setAttribute("literals", strings);
-                //System.out.println(outputFileST.toStructureString());
 		String fileName = generator.getRecognizerFileName(grammar.name, grammar.type);
+                System.out.println("Generating " + fileName);
 		generator.write(outputFileST, fileName);
 	}
                 
@@ -60,7 +61,15 @@ public class CTarget extends Target {
 										   String extName)
 		throws IOException
 	{
-            generator.write(headerFileST, grammar.name+ Grammar.grammarTypeToFileNameSuffix[grammar.type] +extName);
+            // Pick up the file name we are generating. This method will return a 
+            // a file suffixed with .c, so we must substring and add the extName
+            // to it as we cannot assign into strings in Java.
+            ///
+            String fileName = generator.getRecognizerFileName(grammar.name, grammar.type);
+            fileName = fileName.substring(0, fileName.length()-2) + extName;
+            
+            System.out.println("Generating " + fileName);
+            generator.write(headerFileST, fileName);
 	}
         
         protected StringTemplate chooseWhereCyclicDFAsGo(Tool tool,

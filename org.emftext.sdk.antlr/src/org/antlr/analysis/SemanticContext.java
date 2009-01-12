@@ -86,7 +86,7 @@ public abstract class SemanticContext {
 
 	public static class Predicate extends SemanticContext {
 		/** The AST node in tree created from the grammar holding the predicate */
-		protected GrammarAST predicate;
+		public GrammarAST predicateAST;
 
 		/** Is this a {...}?=> gating predicate or a normal disambiguating {..}?
 		 *  If any predicate in expression is gated, then expression is considered
@@ -113,12 +113,12 @@ public abstract class SemanticContext {
 		protected int constantValue = INVALID_PRED_VALUE;
 
 		public Predicate() {
-			predicate = new GrammarAST();
+			predicateAST = new GrammarAST();
 			this.gated=false;
 		}
 
 		public Predicate(GrammarAST predicate) {
-			this.predicate = predicate;
+			this.predicateAST = predicate;
 			this.gated =
 				predicate.getType()==ANTLRParser.GATED_SEMPRED ||
 				predicate.getType()==ANTLRParser.SYN_SEMPRED ;
@@ -128,7 +128,7 @@ public abstract class SemanticContext {
 		}
 
 		public Predicate(Predicate p) {
-			this.predicate = p.predicate;
+			this.predicateAST = p.predicateAST;
 			this.gated = p.gated;
 			this.synpred = p.synpred;
 			this.constantValue = p.constantValue;
@@ -143,14 +143,14 @@ public abstract class SemanticContext {
 			if ( !(o instanceof Predicate) ) {
 				return false;
 			}
-			return predicate.getText().equals(((Predicate)o).predicate.getText());
+			return predicateAST.getText().equals(((Predicate)o).predicateAST.getText());
 		}
 
 		public int hashCode() {
-			if ( predicate==null ) {
+			if ( predicateAST ==null ) {
 				return 0;
 			}
-			return predicate.getText().hashCode();
+			return predicateAST.getText().hashCode();
 		}
 
 		public StringTemplate genExpr(CodeGenerator generator,
@@ -166,7 +166,7 @@ public abstract class SemanticContext {
 					eST = templates.getInstanceOf("evalPredicate");
 					generator.grammar.decisionsWhoseDFAsUsesSemPreds.add(dfa);
 				}
-				String predEnclosingRuleName = predicate.getEnclosingRule();
+				String predEnclosingRuleName = predicateAST.enclosingRuleName;
 				/*
 				String decisionEnclosingRuleName =
 					dfa.getNFADecisionStartState().getEnclosingRule();
@@ -177,7 +177,7 @@ public abstract class SemanticContext {
 				//eST.setAttribute("pred", this.toString());
 				if ( generator!=null ) {
 					eST.setAttribute("pred",
-									 generator.translateAction(predEnclosingRuleName,predicate));
+									 generator.translateAction(predEnclosingRuleName,predicateAST));
 				}
 			}
 			else {
@@ -201,22 +201,22 @@ public abstract class SemanticContext {
 		}
 
 		public boolean isSyntacticPredicate() {
-			return predicate!=null &&
-				( predicate.getType()==ANTLRParser.SYN_SEMPRED ||
-				  predicate.getType()==ANTLRParser.BACKTRACK_SEMPRED );
+			return predicateAST !=null &&
+				( predicateAST.getType()==ANTLRParser.SYN_SEMPRED ||
+				  predicateAST.getType()==ANTLRParser.BACKTRACK_SEMPRED );
 		}
 
 		public void trackUseOfSyntacticPredicates(Grammar g) {
 			if ( synpred ) {
-				g.synPredNamesUsedInDFA.add(predicate.getText());
+				g.synPredNamesUsedInDFA.add(predicateAST.getText());
 			}
 		}
 
 		public String toString() {
-			if ( predicate==null ) {
+			if ( predicateAST ==null ) {
 				return "<nopred>";
 			}
-			return predicate.getText();
+			return predicateAST.getText();
 		}
 	}
 
@@ -430,6 +430,7 @@ public abstract class SemanticContext {
 	}
 
 	public static SemanticContext and(SemanticContext a, SemanticContext b) {
+		//System.out.println("AND: "+a+"&&"+b);
 		if ( a==EMPTY_SEMANTIC_CONTEXT || a==null ) {
 			return b;
 		}
@@ -439,10 +440,12 @@ public abstract class SemanticContext {
 		if ( a.equals(b) ) {
 			return a; // if same, just return left one
 		}
+		//System.out.println("## have to AND");
 		return new AND(a,b);
 	}
 
 	public static SemanticContext or(SemanticContext a, SemanticContext b) {
+		//System.out.println("OR: "+a+"||"+b);
 		if ( a==EMPTY_SEMANTIC_CONTEXT || a==null ) {
 			return b;
 		}
@@ -472,6 +475,7 @@ public abstract class SemanticContext {
 		else if ( a.equals(b) ) {
 			return a;
 		}
+		//System.out.println("## have to OR");
 		return new OR(a,b);
 	}
 

@@ -45,9 +45,9 @@ ERROR_READING_TOKENS_FILE(arg,exception,stackTrace) ::= <<
 problem reading token vocabulary file <arg>: <exception>
 <stackTrace; separator="\n">
 >>
-DIR_NOT_FOUND(arg) ::= "directory not found: <arg>"
-OUTPUT_DIR_IS_FILE(arg) ::= "output directory is a file: <arg>"
-CANNOT_OPEN_FILE(arg) ::= "cannot find or open file: <arg>"
+DIR_NOT_FOUND(arg,exception,stackTrace) ::= "directory not found: <arg>"
+OUTPUT_DIR_IS_FILE(arg,exception,stackTrace) ::= "output directory is a file: <arg>"
+CANNOT_OPEN_FILE(arg,exception,stackTrace) ::= "cannot find or open file: <arg><if(exception)>; reason: <exception><endif>"
 
 INTERNAL_ERROR(arg,arg2,exception,stackTrace) ::= <<
 internal error: <arg> <arg2><if(exception)>: <exception><endif>
@@ -180,8 +180,8 @@ UNKNOWN_DYNAMIC_SCOPE(arg) ::=
   "unknown dynamic scope: <arg>"
 UNKNOWN_DYNAMIC_SCOPE_ATTRIBUTE(arg,arg2) ::=
   "unknown dynamically-scoped attribute for scope <arg>: <arg2>"
-AMBIGUOUS_RULE_SCOPE(arg) ::=
-  "reference $<arg> is ambiguous since rule <arg> is referenced in the production and rule <arg> also has a dynamic scope"
+RULE_REF_AMBIG_WITH_RULE_IN_ALT(arg) ::=
+  "reference $<arg> is ambiguous; rule <arg> is enclosing rule and referenced in the production (assuming enclosing rule)"
 ISOLATED_RULE_ATTRIBUTE(arg) ::=
   "reference to locally-defined rule scope attribute without rule name: <arg>"
 INVALID_ACTION_SCOPE(arg,arg2) ::=
@@ -197,7 +197,9 @@ MISSING_ATTRIBUTE_NAME() ::=
 ARG_INIT_VALUES_ILLEGAL(arg) ::=
   "rule parameters may not have init values: <arg>"
 REWRITE_OR_OP_WITH_NO_OUTPUT_OPTION(arg) ::=
-  "rule <arg> uses rewrite syntax or operator with no output option or lexer rule uses !"
+  "<if(arg)>rule <arg> uses <endif>rewrite syntax or operator with no output option; setting output=AST"
+AST_OP_WITH_NON_AST_OUTPUT_OPTION(arg) ::=
+  "AST operator with non-AST output option: <arg>"
 NO_RULES(arg) ::= "grammar file <arg> has no rules"
 MISSING_AST_TYPE_IN_TREE_GRAMMAR(arg) ::=
   "tree grammar <arg> has no ASTLabelType option"
@@ -205,32 +207,50 @@ REWRITE_FOR_MULTI_ELEMENT_ALT(arg) ::=
   "with rewrite=true, alt <arg> not simple node or obvious tree element; text attribute for rule not guaranteed to be correct"
 RULE_INVALID_SET(arg) ::= 
   "Cannot complement rule <arg>; not a simple set or element"
+HETERO_ILLEGAL_IN_REWRITE_ALT(arg) ::=
+  "alts with rewrites can't use heterogeneous types left of ->"
+NO_SUCH_GRAMMAR_SCOPE(arg,arg2) ::=
+  "reference to undefined grammar in rule reference: <arg>.<arg2>"
+NO_SUCH_RULE_IN_SCOPE(arg,arg2) ::=
+  "rule <arg2> is not defined in grammar <arg>"
+TOKEN_ALIAS_CONFLICT(arg,arg2) ::=
+  "cannot alias <arg>; string already assigned to <arg2>"
+TOKEN_ALIAS_REASSIGNMENT(arg,arg2) ::=
+  "cannot alias <arg>; token name already assigned to <arg2>"
+TOKEN_VOCAB_IN_DELEGATE(arg,arg2) ::=
+  "tokenVocab option ignored in imported grammar <arg>"
+INVALID_IMPORT(arg,arg2) ::=
+  "<arg.grammarTypeString> grammar <arg.name> cannot import <arg2.grammarTypeString> grammar <arg2.name>"
+IMPORTED_TOKENS_RULE_EMPTY(arg,arg2) ::=
+  "no lexer rules contributed to <arg> from imported grammar <arg2>"
+IMPORT_NAME_CLASH(arg,arg2) ::=
+  "combined grammar <arg.name> and imported <arg2.grammarTypeString> grammar <arg2.name> both generate <arg2.recognizerName>; import ignored"
+AST_OP_IN_ALT_WITH_REWRITE(arg,arg2) ::=
+  "rule <arg> alt <arg2> uses rewrite syntax and also an AST operator"
 
 // GRAMMAR WARNINGS
 
-GRAMMAR_NONDETERMINISM(input,conflictingAlts,paths,disabled) ::=
+GRAMMAR_NONDETERMINISM(input,conflictingAlts,paths,disabled,hasPredicateBlockedByAction) ::=
 <<
 <if(paths)>
 Decision can match input such as "<input>" using multiple alternatives:
 <paths:{  alt <it.alt> via NFA path <it.states; separator=","><\n>}>
 <else>
-Decision can match input such as "<input>" using multiple alternatives: <conflictingAlts; separator=", "><\n>
+Decision can match input such as "<input>" using multiple alternatives: <conflictingAlts; separator=", ">
 <endif>
-<if(disabled)>
-As a result, alternative(s) <disabled; separator=","> were disabled for that input
-<endif>
+<if(disabled)><\n>As a result, alternative(s) <disabled; separator=","> were disabled for that input<endif><if(hasPredicateBlockedByAction)><\n>Semantic predicates were present but were hidden by actions.<endif>
 >>
 
-DANGLING_STATE(danglingAlts) ::= <<
-the decision cannot distinguish between alternative(s) <danglingAlts; separator=","> for at least one input sequence
+DANGLING_STATE(danglingAlts,input) ::= <<
+the decision cannot distinguish between alternative(s) <danglingAlts; separator=","> for input such as "<input>"
 >>
 
 UNREACHABLE_ALTS(alts) ::= <<
-The following alternatives are unreachable: <alts; separator=","><\n>
+The following alternatives can never be matched: <alts; separator=","><\n>
 >>
 
-INSUFFICIENT_PREDICATES(alts) ::= <<
-The following alternatives are insufficiently covered with predicates: <alts; separator=","><\n>
+INSUFFICIENT_PREDICATES(upon,altToLocations,hasPredicateBlockedByAction) ::= <<
+Input such as "<upon>" is insufficiently covered with predicates at locations: <altToLocations.keys:{alt|alt <alt>: <altToLocations.(alt):{loc| line <loc.line>:<loc.column> at <loc.text>}; separator=", ">}; separator=", "><if(hasPredicateBlockedByAction)><\n>Semantic predicates were present but were hidden by actions.<endif>
 >>
 
 DUPLICATE_SET_ENTRY(arg) ::=
@@ -241,7 +261,7 @@ ANTLR could not analyze this decision in rule <enclosingRule>; often this is bec
 >>
 
 RECURSION_OVERLOW(alt,input,targetRules,callSiteStates) ::= <<
-Alternative <alt>: after matching input such as <input> decision cannot predict what comes next due to recursion overflow <targetRules,callSiteStates:{t,c|to <t> from <c:{s|<s.enclosingRule>};separator=", ">}; separator=" and ">
+Alternative <alt>: after matching input such as <input> decision cannot predict what comes next due to recursion overflow <targetRules,callSiteStates:{t,c|to <t> from <c:{s|<s.enclosingRule.name>};separator=", ">}; separator=" and ">
 >>
 
 LEFT_RECURSION(targetRules,alt,callSiteStates) ::= <<
@@ -249,10 +269,10 @@ Alternative <alt> discovers infinite left-recursion <targetRules,callSiteStates:
 >>
 
 UNREACHABLE_TOKENS(tokens) ::= <<
-The following token definitions are unreachable: <tokens; separator=",">
+The following token definitions can never be matched because prior tokens match the same input: <tokens; separator=",">
 >>
 
-TOKEN_NONDETERMINISM(input,conflictingTokens,paths,disabled) ::=
+TOKEN_NONDETERMINISM(input,conflictingTokens,paths,disabled,hasPredicateBlockedByAction) ::=
 <<
 <if(paths)>
 Decision can match input such as "<input>" using multiple alternatives:
@@ -260,13 +280,11 @@ Decision can match input such as "<input>" using multiple alternatives:
 <else>
 Multiple token rules can match input such as "<input>": <conflictingTokens; separator=", "><\n>
 <endif>
-<if(disabled)>
-As a result, tokens(s) <disabled; separator=","> were disabled for that input
-<endif>
+<if(disabled)><\n>As a result, token(s) <disabled; separator=","> were disabled for that input<endif><if(hasPredicateBlockedByAction)><\n>Semantic predicates were present but were hidden by actions.<endif>
 >>
 
 LEFT_RECURSION_CYCLES(listOfCycles) ::= <<
-The following sets of rules are mutually left-recursive <listOfCycles:{c| [<c:{r|<r>}; separator=", ">]}; separator=" and ">
+The following sets of rules are mutually left-recursive <listOfCycles:{c| [<c:{r|<r.name>}; separator=", ">]}; separator=" and ">
 >>
 
 NONREGULAR_DECISION(ruleName,alts) ::= <<

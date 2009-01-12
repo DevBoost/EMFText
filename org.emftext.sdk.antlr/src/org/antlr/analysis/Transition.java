@@ -51,9 +51,13 @@ public class Transition implements Comparable {
         this.target = target;
     }
 
-    public boolean isEpsilon() {
-        return label.isEpsilon();
-    }
+	public boolean isEpsilon() {
+		return label.isEpsilon();
+	}
+
+	public boolean isAction() {
+		return label.isAction();
+	}
 
     public boolean isSemanticPredicate() {
         return label.isSemanticPredicate();

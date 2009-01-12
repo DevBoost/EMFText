@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,10 @@ public class DOTGenerator {
      *  from startState will be included.
      */
     public String getDOT(State startState) {
-        // The output DOT graph for visualization
+		if ( startState==null ) {
+			return null;
+		}
+		// The output DOT graph for visualization
 		StringTemplate dot = null;
 		markedStates = new HashSet();
         if ( startState instanceof DFAState ) {
@@ -73,7 +76,7 @@ public class DOTGenerator {
 			dot.setAttribute("startState",
 					Utils.integer(startState.stateNumber));
 			dot.setAttribute("useBox",
-							 Boolean.valueOf(Tool.internalOption_ShowNFConfigsInDFA));
+							 Boolean.valueOf(Tool.internalOption_ShowNFAConfigsInDFA));
 			walkCreatingDFADOT(dot, (DFAState)startState);
         }
         else {
@@ -182,14 +185,14 @@ public class DOTGenerator {
         // special case: if decision point, then line up the alt start states
         // unless it's an end of block
 		if ( ((NFAState)s).isDecisionState() ) {
-			GrammarAST n = ((NFAState)s).getAssociatedASTNode();
+			GrammarAST n = ((NFAState)s).associatedASTNode;
 			if ( n!=null && n.getType()!=ANTLRParser.EOB ) {
 				StringTemplate rankST = stlib.getInstanceOf("org/antlr/tool/templates/dot/decision-rank");
 				NFAState alt = (NFAState)s;
 				while ( alt!=null ) {
 					rankST.setAttribute("states", getStateLabel(alt));
-					if ( alt.transition(1)!=null ) {
-						alt = (NFAState)alt.transition(1).target;
+					if ( alt.transition[1] !=null ) {
+						alt = (NFAState)alt.transition[1].target;
 					}
 					else {
 						alt=null;
@@ -207,16 +210,24 @@ public class DOTGenerator {
                 RuleClosureTransition rr = ((RuleClosureTransition)edge);
                 // don't jump to other rules, but display edge to follow node
                 edgeST = stlib.getInstanceOf("org/antlr/tool/templates/dot/edge");
-                edgeST.setAttribute("label", "<"+grammar.getRuleName(rr.getRuleIndex())+">");
-                edgeST.setAttribute("src", getStateLabel(s));
-                edgeST.setAttribute("target", getStateLabel(rr.getFollowState()));
+				if ( rr.rule.grammar != grammar ) {
+					edgeST.setAttribute("label", "<"+rr.rule.grammar.name+"."+rr.rule.name+">");
+				}
+				else {
+					edgeST.setAttribute("label", "<"+rr.rule.name+">");
+				}
+				edgeST.setAttribute("src", getStateLabel(s));
+				edgeST.setAttribute("target", getStateLabel(rr.followState));
 				edgeST.setAttribute("arrowhead", arrowhead);
                 dot.setAttribute("edges", edgeST);
-                walkRuleNFACreatingDOT(dot, rr.getFollowState());
+				walkRuleNFACreatingDOT(dot, rr.followState);
                 continue;
             }
-			if ( edge.isEpsilon() ) {
-				edgeST = stlib.getInstanceOf("org/antlr/tool/templates/dot/epsilon-edge");				
+			if ( edge.isAction() ) {
+				edgeST = stlib.getInstanceOf("org/antlr/tool/templates/dot/action-edge");
+			}
+			else if ( edge.isEpsilon() ) {
+				edgeST = stlib.getInstanceOf("org/antlr/tool/templates/dot/epsilon-edge");
 			}
 			else {
 				edgeST = stlib.getInstanceOf("org/antlr/tool/templates/dot/edge");
@@ -274,7 +285,9 @@ public class DOTGenerator {
 		String label = edge.label.toString(grammar);
 		label = Utils.replace(label,"\\", "\\\\");
 		label = Utils.replace(label,"\"", "\\\"");
-        if ( label.equals(Label.EPSILON_STR) ) {
+		label = Utils.replace(label,"\n", "\\\\n");
+		label = Utils.replace(label,"\r", "");
+		if ( label.equals(Label.EPSILON_STR) ) {
             label = "e";
         }
 		State target = edge.target;
@@ -303,42 +316,50 @@ public class DOTGenerator {
             StringBuffer buf = new StringBuffer(250);
 			buf.append('s');
 			buf.append(s.stateNumber);
-			if ( Tool.internalOption_ShowNFConfigsInDFA ) {
-				buf.append("\\n");
-				// separate alts
-				Set alts = ((DFAState)s).getAltSet();
-				List altList = new ArrayList();
-				altList.addAll(alts);
-				Collections.sort(altList);
-				Set configurations = ((DFAState)s).getNFAConfigurations();
-				for (int altIndex = 0; altIndex < altList.size(); altIndex++) {
-					Integer altI = (Integer) altList.get(altIndex);
-					int alt = altI.intValue();
-					if ( altIndex>0 ) {
+			if ( Tool.internalOption_ShowNFAConfigsInDFA ) {
+				if ( s instanceof DFAState ) {
+					if ( ((DFAState)s).abortedDueToRecursionOverflow ) {
 						buf.append("\\n");
+						buf.append("abortedDueToRecursionOverflow");
 					}
-					buf.append("alt");
-					buf.append(alt);
-					buf.append(':');
-					// get a list of configs for just this alt
-					// it will help us print better later
-					List configsInAlt = new ArrayList();
-					for (Iterator it = configurations.iterator(); it.hasNext();) {
-						NFAConfiguration c = (NFAConfiguration) it.next();
-						if ( c.alt!=alt ) continue;
-						configsInAlt.add(c);
-					}
-					int n = 0;
-					for (int cIndex = 0; cIndex < configsInAlt.size(); cIndex++) {
-						NFAConfiguration c =
-							(NFAConfiguration)configsInAlt.get(cIndex);
-						n++;
-						buf.append(c.toString(false));
-						if ( (cIndex+1)<configsInAlt.size() ) {
-							buf.append(", ");
-						}
-						if ( n%5==0 && (configsInAlt.size()-cIndex)>3 ) {
+				}
+				Set alts = ((DFAState)s).getAltSet();
+				if ( alts!=null ) {
+					buf.append("\\n");
+					// separate alts
+					List altList = new ArrayList();
+					altList.addAll(alts);
+					Collections.sort(altList);
+					Set configurations = ((DFAState) s).nfaConfigurations;
+					for (int altIndex = 0; altIndex < altList.size(); altIndex++) {
+						Integer altI = (Integer) altList.get(altIndex);
+						int alt = altI.intValue();
+						if ( altIndex>0 ) {
 							buf.append("\\n");
+						}
+						buf.append("alt");
+						buf.append(alt);
+						buf.append(':');
+						// get a list of configs for just this alt
+						// it will help us print better later
+						List configsInAlt = new ArrayList();
+						for (Iterator it = configurations.iterator(); it.hasNext();) {
+							NFAConfiguration c = (NFAConfiguration) it.next();
+							if ( c.alt!=alt ) continue;
+							configsInAlt.add(c);
+						}
+						int n = 0;
+						for (int cIndex = 0; cIndex < configsInAlt.size(); cIndex++) {
+							NFAConfiguration c =
+								(NFAConfiguration)configsInAlt.get(cIndex);
+							n++;
+							buf.append(c.toString(false));
+							if ( (cIndex+1)<configsInAlt.size() ) {
+								buf.append(", ");
+							}
+							if ( n%5==0 && (configsInAlt.size()-cIndex)>3 ) {
+								buf.append("\\n");
+							}
 						}
 					}
 				}

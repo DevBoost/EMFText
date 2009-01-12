@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -29,14 +29,6 @@ package org.antlr.tool;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.analysis.DecisionProbe;
-import org.antlr.analysis.DFAState;
-import org.antlr.analysis.NFAState;
-import org.antlr.analysis.SemanticContext;
-import antlr.Token;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /** Reports the condition that ANTLR's LL(*) analysis engine terminated
  *  early.
@@ -59,7 +51,7 @@ public class GrammarAnalysisAbortedMessage extends Message {
 		}
 		StringTemplate st = getMessageTemplate();
 		st.setAttribute("enclosingRule",
-						probe.dfa.getNFADecisionStartState().getEnclosingRule());
+						probe.dfa.getNFADecisionStartState().enclosingRule.name);
 
 		return super.toString(st);
 	}

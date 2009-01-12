@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -29,11 +29,12 @@ package org.antlr.tool;
 
 import antlr.CommonToken;
 import org.antlr.analysis.NFAState;
+import org.antlr.analysis.LookaheadSet;
 import org.antlr.codegen.CodeGenerator;
 
 import java.util.*;
 
-/** Combine the info associated with a rule */
+/** Combine the info associated with a rule. */
 public class Rule {
 	public String name;
 	public int index;
@@ -57,6 +58,12 @@ public class Rule {
 	public GrammarAST argActionAST;
 
 	public GrammarAST EORNode;
+
+	/** The set of all tokens reachable from the start state w/o leaving
+	 *  via the accept state.  If it reaches the accept state, FIRST
+	 *  includes EOR_TOKEN_TYPE.
+	 */
+	public LookaheadSet FIRST;
 
 	/** The return values of a rule and predefined rule attributes */
 	public AttributeScope returnScope;
@@ -141,6 +148,8 @@ public class Rule {
 	public boolean referencedPredefinedRuleAttributes = false;
 
 	public boolean isSynPred = false;
+
+	public boolean imported = false;
 
 	public Rule(Grammar grammar,
 				String ruleName,
@@ -338,6 +347,11 @@ public class Rule {
 	}
 
 	public boolean hasRewrite(int i) {
+		if ( i >= altsWithRewrites.length ) {
+			ErrorManager.internalError("alt "+i+" exceeds number of "+name+
+									   "'s alts ("+altsWithRewrites.length+")");
+			return false;
+		}
 		return altsWithRewrites[i];
 	}
 
@@ -530,6 +544,9 @@ public class Rule {
 		if ( options==null ) {
 			options = new HashMap();
 		}
+		if ( key.equals("memoize") && value.toString().equals("true") ) {
+			grammar.atLeastOneRuleMemoizes = true;
+		}
 		if ( key.equals("k") ) {
 			grammar.numberOfManualLookaheadOptions++;
 		}
@@ -553,10 +570,20 @@ public class Rule {
 		}
 	}
 
+	/** Used during grammar imports to see if sets of rules intersect... This
+	 *  method and hashCode use the String name as the key for Rule objects.
+	public boolean equals(Object other) {
+		return this.name.equals(((Rule)other).name);
+	}
+	 */
+
+	/** Used during grammar imports to see if sets of rules intersect...
+	public int hashCode() {
+		return name.hashCode();
+	}
+	 * */
+
 	public String toString() { // used for testing
-		if ( modifier!=null ) {
-			return modifier+" "+name;
-		}
-		return name;
+		return "["+grammar.name+"."+name+",index="+index+",line="+tree.getToken().getLine()+"]";
 	}
 }

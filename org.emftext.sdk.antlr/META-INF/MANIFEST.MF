@@ -6,6 +6,7 @@ Bundle-Name: Reuseware Dependencies: ANTLR3, ANTLR3, STRINGTEMPLATE
 Bundle-SymbolicName: org.emftext.sdk.antlr;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Export-Package: antlr,
  antlr.ASdebug,
  antlr.actions.cpp,
@@ -21,11 +22,11 @@ Export-Package: antlr,
  org.antlr,
  org.antlr.analysis,
  org.antlr.codegen,
+ org.antlr.gunit,
  org.antlr.misc,
  org.antlr.stringtemplate,
  org.antlr.stringtemplate.language,
  org.antlr.stringtemplate.misc,
  org.antlr.tool
-Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.antlr.runtime;bundle-version="3.0.0"
+Require-Bundle: org.emftext.runtime.antlr;bundle-version="3.1.1"
 

@@ -2,7 +2,7 @@
 
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -51,6 +51,7 @@ import antlr.collections.impl.ASTArray;
  */
 public class ANTLRTreePrinter extends antlr.TreeParser       implements ANTLRTreePrinterTokenTypes
  {
+
 
 	protected Grammar grammar;
 	protected boolean showActions;
@@ -144,10 +145,12 @@ public ANTLRTreePrinter() {
 			case RANGE:
 			case CHAR_RANGE:
 			case EPSILON:
+			case FORCED_ACTION:
 			case LABEL:
 			case GATED_SEMPRED:
 			case SYN_SEMPRED:
 			case BACKTRACK_SEMPRED:
+			case DOT:
 			case ACTION:
 			case ASSIGN:
 			case STRING_LITERAL:
@@ -157,10 +160,10 @@ public ANTLRTreePrinter() {
 			case PLUS_ASSIGN:
 			case SEMPRED:
 			case ROOT:
+			case WILDCARD:
 			case RULE_REF:
 			case NOT:
 			case TREE_BEGIN:
-			case WILDCARD:
 			{
 				element(_t);
 				_t = _retTree;
@@ -275,7 +278,7 @@ public ANTLRTreePrinter() {
 		GrammarAST b = null;
 		
 		try {      // for error handling
-			AST __t42 = _t;
+			AST __t48 = _t;
 			GrammarAST tmp6_AST_in = (GrammarAST)_t;
 			match(_t,RULE);
 			_t = _t.getFirstChild();
@@ -305,7 +308,7 @@ public ANTLRTreePrinter() {
 			}
 			}
 			out(id.getText());
-			AST __t44 = _t;
+			AST __t50 = _t;
 			GrammarAST tmp7_AST_in = (GrammarAST)_t;
 			match(_t,ARG);
 			_t = _t.getFirstChild();
@@ -330,9 +333,9 @@ public ANTLRTreePrinter() {
 			}
 			}
 			}
-			_t = __t44;
+			_t = __t50;
 			_t = _t.getNextSibling();
-			AST __t46 = _t;
+			AST __t52 = _t;
 			GrammarAST tmp8_AST_in = (GrammarAST)_t;
 			match(_t,RET);
 			_t = _t.getFirstChild();
@@ -357,7 +360,7 @@ public ANTLRTreePrinter() {
 			}
 			}
 			}
-			_t = __t46;
+			_t = __t52;
 			_t = _t.getNextSibling();
 			{
 			if (_t==null) _t=ASTNULL;
@@ -401,7 +404,7 @@ public ANTLRTreePrinter() {
 			}
 			}
 			{
-			_loop51:
+			_loop57:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
@@ -409,7 +412,7 @@ public ANTLRTreePrinter() {
 					_t = _retTree;
 				}
 				else {
-					break _loop51;
+					break _loop57;
 				}
 				
 			} while (true);
@@ -442,7 +445,7 @@ public ANTLRTreePrinter() {
 			match(_t,EOR);
 			_t = _t.getNextSibling();
 			out(";\n");
-			_t = __t42;
+			_t = __t48;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -457,30 +460,30 @@ public ANTLRTreePrinter() {
 		GrammarAST alternative_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t74 = _t;
+			AST __t80 = _t;
 			GrammarAST tmp10_AST_in = (GrammarAST)_t;
 			match(_t,ALT);
 			_t = _t.getFirstChild();
 			{
-			int _cnt76=0;
-			_loop76:
+			int _cnt82=0;
+			_loop82:
 			do {
 				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==LABEL||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN||_t.getType()==WILDCARD)) {
+				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==FORCED_ACTION||_t.getType()==LABEL||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==DOT||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==WILDCARD||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN)) {
 					element(_t);
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt76>=1 ) { break _loop76; } else {throw new NoViableAltException(_t);}
+					if ( _cnt82>=1 ) { break _loop82; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt76++;
+				_cnt82++;
 			} while (true);
 			}
 			GrammarAST tmp11_AST_in = (GrammarAST)_t;
 			match(_t,EOA);
 			_t = _t.getNextSibling();
-			_t = __t74;
+			_t = __t80;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -496,6 +499,7 @@ public ANTLRTreePrinter() {
 		GrammarAST id = null;
 		GrammarAST id2 = null;
 		GrammarAST a = null;
+		GrammarAST a2 = null;
 		GrammarAST pred = null;
 		GrammarAST spred = null;
 		GrammarAST gpred = null;
@@ -505,34 +509,35 @@ public ANTLRTreePrinter() {
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				AST __t101 = _t;
+				AST __t107 = _t;
 				GrammarAST tmp12_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getFirstChild();
 				element(_t);
 				_t = _retTree;
-				_t = __t101;
+				_t = __t107;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case BANG:
 			{
-				AST __t102 = _t;
+				AST __t108 = _t;
 				GrammarAST tmp13_AST_in = (GrammarAST)_t;
 				match(_t,BANG);
 				_t = _t.getFirstChild();
 				element(_t);
 				_t = _retTree;
-				_t = __t102;
+				_t = __t108;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LABEL:
+			case DOT:
 			case STRING_LITERAL:
 			case CHAR_LITERAL:
 			case TOKEN_REF:
-			case RULE_REF:
 			case WILDCARD:
+			case RULE_REF:
 			{
 				atom(_t);
 				_t = _retTree;
@@ -540,20 +545,20 @@ public ANTLRTreePrinter() {
 			}
 			case NOT:
 			{
-				AST __t103 = _t;
+				AST __t109 = _t;
 				GrammarAST tmp14_AST_in = (GrammarAST)_t;
 				match(_t,NOT);
 				_t = _t.getFirstChild();
 				out("~");
 				element(_t);
 				_t = _retTree;
-				_t = __t103;
+				_t = __t109;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case RANGE:
 			{
-				AST __t104 = _t;
+				AST __t110 = _t;
 				GrammarAST tmp15_AST_in = (GrammarAST)_t;
 				match(_t,RANGE);
 				_t = _t.getFirstChild();
@@ -562,13 +567,13 @@ public ANTLRTreePrinter() {
 				out("..");
 				atom(_t);
 				_t = _retTree;
-				_t = __t104;
+				_t = __t110;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case CHAR_RANGE:
 			{
-				AST __t105 = _t;
+				AST __t111 = _t;
 				GrammarAST tmp16_AST_in = (GrammarAST)_t;
 				match(_t,CHAR_RANGE);
 				_t = _t.getFirstChild();
@@ -577,13 +582,13 @@ public ANTLRTreePrinter() {
 				out("..");
 				atom(_t);
 				_t = _retTree;
-				_t = __t105;
+				_t = __t111;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case ASSIGN:
 			{
-				AST __t106 = _t;
+				AST __t112 = _t;
 				GrammarAST tmp17_AST_in = (GrammarAST)_t;
 				match(_t,ASSIGN);
 				_t = _t.getFirstChild();
@@ -593,13 +598,13 @@ public ANTLRTreePrinter() {
 				out(id.getText()+"=");
 				element(_t);
 				_t = _retTree;
-				_t = __t106;
+				_t = __t112;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case PLUS_ASSIGN:
 			{
-				AST __t107 = _t;
+				AST __t113 = _t;
 				GrammarAST tmp18_AST_in = (GrammarAST)_t;
 				match(_t,PLUS_ASSIGN);
 				_t = _t.getFirstChild();
@@ -609,7 +614,7 @@ public ANTLRTreePrinter() {
 				out(id2.getText()+"+=");
 				element(_t);
 				_t = _retTree;
-				_t = __t107;
+				_t = __t113;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -630,13 +635,13 @@ public ANTLRTreePrinter() {
 			}
 			case SYNPRED:
 			{
-				AST __t108 = _t;
+				AST __t114 = _t;
 				GrammarAST tmp19_AST_in = (GrammarAST)_t;
 				match(_t,SYNPRED);
 				_t = _t.getFirstChild();
 				block(_t,true);
 				_t = _retTree;
-				_t = __t108;
+				_t = __t114;
 				_t = _t.getNextSibling();
 				out("=>");
 				break;
@@ -647,6 +652,14 @@ public ANTLRTreePrinter() {
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
 				if ( showActions ) {out("{"); out(a.getText()); out("}");}
+				break;
+			}
+			case FORCED_ACTION:
+			{
+				a2 = (GrammarAST)_t;
+				match(_t,FORCED_ACTION);
+				_t = _t.getNextSibling();
+				if ( showActions ) {out("{{"); out(a2.getText()); out("}}");}
 				break;
 			}
 			case SEMPRED:
@@ -716,7 +729,7 @@ public ANTLRTreePrinter() {
 		GrammarAST single_rewrite_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t86 = _t;
+			AST __t92 = _t;
 			GrammarAST tmp22_AST_in = (GrammarAST)_t;
 			match(_t,REWRITE);
 			_t = _t.getFirstChild();
@@ -735,6 +748,7 @@ public ANTLRTreePrinter() {
 			case ALT:
 			case TEMPLATE:
 			case ACTION:
+			case ETC:
 			{
 				break;
 			}
@@ -759,12 +773,20 @@ public ANTLRTreePrinter() {
 				_t = _retTree;
 				break;
 			}
-			case ACTION:
+			case ETC:
 			{
 				GrammarAST tmp24_AST_in = (GrammarAST)_t;
+				match(_t,ETC);
+				_t = _t.getNextSibling();
+				out("...");
+				break;
+			}
+			case ACTION:
+			{
+				GrammarAST tmp25_AST_in = (GrammarAST)_t;
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
-				out(" {"+tmp24_AST_in.getText()+"}");
+				out(" {"+tmp25_AST_in.getText()+"}");
 				break;
 			}
 			default:
@@ -773,7 +795,7 @@ public ANTLRTreePrinter() {
 			}
 			}
 			}
-			_t = __t86;
+			_t = __t92;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -811,6 +833,7 @@ public ANTLRTreePrinter() {
 			case TOKENS:
 			case RULE:
 			case SCOPE:
+			case IMPORT:
 			case AMPERSAND:
 			{
 				break;
@@ -833,6 +856,7 @@ public ANTLRTreePrinter() {
 			case TOKENS:
 			case RULE:
 			case SCOPE:
+			case IMPORT:
 			case AMPERSAND:
 			{
 				break;
@@ -844,6 +868,28 @@ public ANTLRTreePrinter() {
 			}
 			}
 			out(";\n");
+			{
+			if (_t==null) _t=ASTNULL;
+			switch ( _t.getType()) {
+			case IMPORT:
+			{
+				delegateGrammars(_t);
+				_t = _retTree;
+				break;
+			}
+			case TOKENS:
+			case RULE:
+			case SCOPE:
+			case AMPERSAND:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(_t);
+			}
+			}
+			}
 			{
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
@@ -866,7 +912,7 @@ public ANTLRTreePrinter() {
 			}
 			}
 			{
-			_loop16:
+			_loop17:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==SCOPE)) {
@@ -874,7 +920,7 @@ public ANTLRTreePrinter() {
 					_t = _retTree;
 				}
 				else {
-					break _loop16;
+					break _loop17;
 				}
 				
 			} while (true);
@@ -914,13 +960,13 @@ public ANTLRTreePrinter() {
 		
 		try {      // for error handling
 			AST __t10 = _t;
-			GrammarAST tmp25_AST_in = (GrammarAST)_t;
+			GrammarAST tmp26_AST_in = (GrammarAST)_t;
 			match(_t,SCOPE);
 			_t = _t.getFirstChild();
-			GrammarAST tmp26_AST_in = (GrammarAST)_t;
+			GrammarAST tmp27_AST_in = (GrammarAST)_t;
 			match(_t,ID);
 			_t = _t.getNextSibling();
-			GrammarAST tmp27_AST_in = (GrammarAST)_t;
+			GrammarAST tmp28_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
 			_t = __t10;
@@ -938,14 +984,14 @@ public ANTLRTreePrinter() {
 		GrammarAST optionsSpec_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t25 = _t;
-			GrammarAST tmp28_AST_in = (GrammarAST)_t;
+			AST __t26 = _t;
+			GrammarAST tmp29_AST_in = (GrammarAST)_t;
 			match(_t,OPTIONS);
 			_t = _t.getFirstChild();
 			out(" options {");
 			{
-			int _cnt27=0;
-			_loop27:
+			int _cnt28=0;
+			_loop28:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ASSIGN)) {
@@ -954,14 +1000,70 @@ public ANTLRTreePrinter() {
 					out("; ");
 				}
 				else {
-					if ( _cnt27>=1 ) { break _loop27; } else {throw new NoViableAltException(_t);}
+					if ( _cnt28>=1 ) { break _loop28; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt27++;
+				_cnt28++;
 			} while (true);
 			}
 			out("} ");
-			_t = __t25;
+			_t = __t26;
+			_t = _t.getNextSibling();
+		}
+		catch (RecognitionException ex) {
+			reportError(ex);
+			if (_t!=null) {_t = _t.getNextSibling();}
+		}
+		_retTree = _t;
+	}
+	
+	public final void delegateGrammars(AST _t) throws RecognitionException {
+		
+		GrammarAST delegateGrammars_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
+		
+		try {      // for error handling
+			AST __t33 = _t;
+			GrammarAST tmp30_AST_in = (GrammarAST)_t;
+			match(_t,IMPORT);
+			_t = _t.getFirstChild();
+			{
+			int _cnt36=0;
+			_loop36:
+			do {
+				if (_t==null) _t=ASTNULL;
+				switch ( _t.getType()) {
+				case ASSIGN:
+				{
+					AST __t35 = _t;
+					GrammarAST tmp31_AST_in = (GrammarAST)_t;
+					match(_t,ASSIGN);
+					_t = _t.getFirstChild();
+					GrammarAST tmp32_AST_in = (GrammarAST)_t;
+					match(_t,ID);
+					_t = _t.getNextSibling();
+					GrammarAST tmp33_AST_in = (GrammarAST)_t;
+					match(_t,ID);
+					_t = _t.getNextSibling();
+					_t = __t35;
+					_t = _t.getNextSibling();
+					break;
+				}
+				case ID:
+				{
+					GrammarAST tmp34_AST_in = (GrammarAST)_t;
+					match(_t,ID);
+					_t = _t.getNextSibling();
+					break;
+				}
+				default:
+				{
+					if ( _cnt36>=1 ) { break _loop36; } else {throw new NoViableAltException(_t);}
+				}
+				}
+				_cnt36++;
+			} while (true);
+			}
+			_t = __t33;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -976,13 +1078,13 @@ public ANTLRTreePrinter() {
 		GrammarAST tokensSpec_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t32 = _t;
-			GrammarAST tmp29_AST_in = (GrammarAST)_t;
+			AST __t38 = _t;
+			GrammarAST tmp35_AST_in = (GrammarAST)_t;
 			match(_t,TOKENS);
 			_t = _t.getFirstChild();
 			{
-			int _cnt34=0;
-			_loop34:
+			int _cnt40=0;
+			_loop40:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ASSIGN||_t.getType()==TOKEN_REF)) {
@@ -990,13 +1092,13 @@ public ANTLRTreePrinter() {
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt34>=1 ) { break _loop34; } else {throw new NoViableAltException(_t);}
+					if ( _cnt40>=1 ) { break _loop40; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt34++;
+				_cnt40++;
 			} while (true);
 			}
-			_t = __t32;
+			_t = __t38;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1012,8 +1114,8 @@ public ANTLRTreePrinter() {
 		
 		try {      // for error handling
 			{
-			int _cnt20=0;
-			_loop20:
+			int _cnt21=0;
+			_loop21:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
@@ -1021,10 +1123,10 @@ public ANTLRTreePrinter() {
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt20>=1 ) { break _loop20; } else {throw new NoViableAltException(_t);}
+					if ( _cnt21>=1 ) { break _loop21; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt20++;
+				_cnt21++;
 			} while (true);
 			}
 		}
@@ -1041,8 +1143,8 @@ public ANTLRTreePrinter() {
 		
 		try {      // for error handling
 			{
-			int _cnt40=0;
-			_loop40:
+			int _cnt46=0;
+			_loop46:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==RULE)) {
@@ -1050,10 +1152,10 @@ public ANTLRTreePrinter() {
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt40>=1 ) { break _loop40; } else {throw new NoViableAltException(_t);}
+					if ( _cnt46>=1 ) { break _loop46; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt40++;
+				_cnt46++;
 			} while (true);
 			}
 		}
@@ -1077,8 +1179,8 @@ public ANTLRTreePrinter() {
 		
 		
 		try {      // for error handling
-			AST __t22 = _t;
-			GrammarAST tmp30_AST_in = (GrammarAST)_t;
+			AST __t23 = _t;
+			GrammarAST tmp36_AST_in = (GrammarAST)_t;
 			match(_t,AMPERSAND);
 			_t = _t.getFirstChild();
 			id1 = (GrammarAST)_t;
@@ -1112,7 +1214,7 @@ public ANTLRTreePrinter() {
 			}
 			}
 			}
-			_t = __t22;
+			_t = __t23;
 			_t = _t.getNextSibling();
 			
 					 if ( showActions ) {
@@ -1133,8 +1235,8 @@ public ANTLRTreePrinter() {
 		GrammarAST id = null;
 		
 		try {      // for error handling
-			AST __t29 = _t;
-			GrammarAST tmp31_AST_in = (GrammarAST)_t;
+			AST __t30 = _t;
+			GrammarAST tmp37_AST_in = (GrammarAST)_t;
 			match(_t,ASSIGN);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
@@ -1143,7 +1245,7 @@ public ANTLRTreePrinter() {
 			out(id.getText()+"=");
 			optionValue(_t);
 			_t = _retTree;
-			_t = __t29;
+			_t = __t30;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1218,18 +1320,18 @@ public ANTLRTreePrinter() {
 			switch ( _t.getType()) {
 			case TOKEN_REF:
 			{
-				GrammarAST tmp32_AST_in = (GrammarAST)_t;
+				GrammarAST tmp38_AST_in = (GrammarAST)_t;
 				match(_t,TOKEN_REF);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case ASSIGN:
 			{
-				AST __t36 = _t;
-				GrammarAST tmp33_AST_in = (GrammarAST)_t;
+				AST __t42 = _t;
+				GrammarAST tmp39_AST_in = (GrammarAST)_t;
 				match(_t,ASSIGN);
 				_t = _t.getFirstChild();
-				GrammarAST tmp34_AST_in = (GrammarAST)_t;
+				GrammarAST tmp40_AST_in = (GrammarAST)_t;
 				match(_t,TOKEN_REF);
 				_t = _t.getNextSibling();
 				{
@@ -1237,14 +1339,14 @@ public ANTLRTreePrinter() {
 				switch ( _t.getType()) {
 				case STRING_LITERAL:
 				{
-					GrammarAST tmp35_AST_in = (GrammarAST)_t;
+					GrammarAST tmp41_AST_in = (GrammarAST)_t;
 					match(_t,STRING_LITERAL);
 					_t = _t.getNextSibling();
 					break;
 				}
 				case CHAR_LITERAL:
 				{
-					GrammarAST tmp36_AST_in = (GrammarAST)_t;
+					GrammarAST tmp42_AST_in = (GrammarAST)_t;
 					match(_t,CHAR_LITERAL);
 					_t = _t.getNextSibling();
 					break;
@@ -1255,7 +1357,7 @@ public ANTLRTreePrinter() {
 				}
 				}
 				}
-				_t = __t36;
+				_t = __t42;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -1282,28 +1384,28 @@ public ANTLRTreePrinter() {
 			switch ( _t.getType()) {
 			case LITERAL_protected:
 			{
-				GrammarAST tmp37_AST_in = (GrammarAST)_t;
+				GrammarAST tmp43_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_protected);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_public:
 			{
-				GrammarAST tmp38_AST_in = (GrammarAST)_t;
+				GrammarAST tmp44_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_public);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_private:
 			{
-				GrammarAST tmp39_AST_in = (GrammarAST)_t;
+				GrammarAST tmp45_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_private);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case FRAGMENT:
 			{
-				GrammarAST tmp40_AST_in = (GrammarAST)_t;
+				GrammarAST tmp46_AST_in = (GrammarAST)_t;
 				match(_t,FRAGMENT);
 				_t = _t.getNextSibling();
 				break;
@@ -1326,8 +1428,8 @@ public ANTLRTreePrinter() {
 		GrammarAST ruleScopeSpec_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t57 = _t;
-			GrammarAST tmp41_AST_in = (GrammarAST)_t;
+			AST __t63 = _t;
+			GrammarAST tmp47_AST_in = (GrammarAST)_t;
 			match(_t,SCOPE);
 			_t = _t.getFirstChild();
 			{
@@ -1335,7 +1437,7 @@ public ANTLRTreePrinter() {
 			switch ( _t.getType()) {
 			case ACTION:
 			{
-				GrammarAST tmp42_AST_in = (GrammarAST)_t;
+				GrammarAST tmp48_AST_in = (GrammarAST)_t;
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
 				break;
@@ -1352,21 +1454,21 @@ public ANTLRTreePrinter() {
 			}
 			}
 			{
-			_loop60:
+			_loop66:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ID)) {
-					GrammarAST tmp43_AST_in = (GrammarAST)_t;
+					GrammarAST tmp49_AST_in = (GrammarAST)_t;
 					match(_t,ID);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop60;
+					break _loop66;
 				}
 				
 			} while (true);
 			}
-			_t = __t57;
+			_t = __t63;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1383,8 +1485,8 @@ public ANTLRTreePrinter() {
 		GrammarAST a = null;
 		
 		try {      // for error handling
-			AST __t54 = _t;
-			GrammarAST tmp44_AST_in = (GrammarAST)_t;
+			AST __t60 = _t;
+			GrammarAST tmp50_AST_in = (GrammarAST)_t;
 			match(_t,AMPERSAND);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
@@ -1393,7 +1495,7 @@ public ANTLRTreePrinter() {
 			a = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t54;
+			_t = __t60;
 			_t = _t.getNextSibling();
 			if ( showActions ) out("@"+id.getText()+"{"+a.getText()+"}");
 		}
@@ -1414,8 +1516,8 @@ public ANTLRTreePrinter() {
 		
 		
 		try {      // for error handling
-			AST __t62 = _t;
-			GrammarAST tmp45_AST_in = (GrammarAST)_t;
+			AST __t68 = _t;
+			GrammarAST tmp51_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			if ( forceParens||numAlts>1 ) out(" (");
@@ -1444,7 +1546,7 @@ public ANTLRTreePrinter() {
 			rewrite(_t);
 			_t = _retTree;
 			{
-			_loop65:
+			_loop71:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ALT)) {
@@ -1455,16 +1557,16 @@ public ANTLRTreePrinter() {
 					_t = _retTree;
 				}
 				else {
-					break _loop65;
+					break _loop71;
 				}
 				
 			} while (true);
 			}
-			GrammarAST tmp46_AST_in = (GrammarAST)_t;
+			GrammarAST tmp52_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
 			if ( forceParens||numAlts>1 ) out(")");
-			_t = __t62;
+			_t = __t68;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1484,8 +1586,8 @@ public ANTLRTreePrinter() {
 			case LITERAL_catch:
 			{
 				{
-				int _cnt79=0;
-				_loop79:
+				int _cnt85=0;
+				_loop85:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==LITERAL_catch)) {
@@ -1493,10 +1595,10 @@ public ANTLRTreePrinter() {
 						_t = _retTree;
 					}
 					else {
-						if ( _cnt79>=1 ) { break _loop79; } else {throw new NoViableAltException(_t);}
+						if ( _cnt85>=1 ) { break _loop85; } else {throw new NoViableAltException(_t);}
 					}
 					
-					_cnt79++;
+					_cnt85++;
 				} while (true);
 				}
 				{
@@ -1545,7 +1647,7 @@ public ANTLRTreePrinter() {
 		
 		try {      // for error handling
 			{
-			_loop99:
+			_loop105:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==REWRITE)) {
@@ -1553,7 +1655,7 @@ public ANTLRTreePrinter() {
 					_t = _retTree;
 				}
 				else {
-					break _loop99;
+					break _loop105;
 				}
 				
 			} while (true);
@@ -1572,8 +1674,8 @@ public ANTLRTreePrinter() {
 		GrammarAST countAltsForBlock_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t67 = _t;
-			GrammarAST tmp47_AST_in = (GrammarAST)_t;
+			AST __t73 = _t;
+			GrammarAST tmp53_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -1581,7 +1683,7 @@ public ANTLRTreePrinter() {
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				GrammarAST tmp48_AST_in = (GrammarAST)_t;
+				GrammarAST tmp54_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getNextSibling();
 				break;
@@ -1597,25 +1699,25 @@ public ANTLRTreePrinter() {
 			}
 			}
 			{
-			int _cnt72=0;
-			_loop72:
+			int _cnt78=0;
+			_loop78:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ALT)) {
-					GrammarAST tmp49_AST_in = (GrammarAST)_t;
+					GrammarAST tmp55_AST_in = (GrammarAST)_t;
 					match(_t,ALT);
 					_t = _t.getNextSibling();
 					{
-					_loop71:
+					_loop77:
 					do {
 						if (_t==null) _t=ASTNULL;
 						if ((_t.getType()==REWRITE)) {
-							GrammarAST tmp50_AST_in = (GrammarAST)_t;
+							GrammarAST tmp56_AST_in = (GrammarAST)_t;
 							match(_t,REWRITE);
 							_t = _t.getNextSibling();
 						}
 						else {
-							break _loop71;
+							break _loop77;
 						}
 						
 					} while (true);
@@ -1623,16 +1725,16 @@ public ANTLRTreePrinter() {
 					n++;
 				}
 				else {
-					if ( _cnt72>=1 ) { break _loop72; } else {throw new NoViableAltException(_t);}
+					if ( _cnt78>=1 ) { break _loop78; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt72++;
+				_cnt78++;
 			} while (true);
 			}
-			GrammarAST tmp51_AST_in = (GrammarAST)_t;
+			GrammarAST tmp57_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t67;
+			_t = __t73;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1648,17 +1750,17 @@ public ANTLRTreePrinter() {
 		GrammarAST exceptionHandler_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t82 = _t;
-			GrammarAST tmp52_AST_in = (GrammarAST)_t;
+			AST __t88 = _t;
+			GrammarAST tmp58_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_catch);
 			_t = _t.getFirstChild();
-			GrammarAST tmp53_AST_in = (GrammarAST)_t;
+			GrammarAST tmp59_AST_in = (GrammarAST)_t;
 			match(_t,ARG_ACTION);
 			_t = _t.getNextSibling();
-			GrammarAST tmp54_AST_in = (GrammarAST)_t;
+			GrammarAST tmp60_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t82;
+			_t = __t88;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1673,14 +1775,14 @@ public ANTLRTreePrinter() {
 		GrammarAST finallyClause_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t84 = _t;
-			GrammarAST tmp55_AST_in = (GrammarAST)_t;
+			AST __t90 = _t;
+			GrammarAST tmp61_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_finally);
 			_t = _t.getFirstChild();
-			GrammarAST tmp56_AST_in = (GrammarAST)_t;
+			GrammarAST tmp62_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t84;
+			_t = __t90;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1699,8 +1801,8 @@ public ANTLRTreePrinter() {
 		GrammarAST a = null;
 		
 		try {      // for error handling
-			AST __t90 = _t;
-			GrammarAST tmp57_AST_in = (GrammarAST)_t;
+			AST __t96 = _t;
+			GrammarAST tmp63_AST_in = (GrammarAST)_t;
 			match(_t,TEMPLATE);
 			_t = _t.getFirstChild();
 			{
@@ -1728,18 +1830,18 @@ public ANTLRTreePrinter() {
 			}
 			}
 			}
-			AST __t92 = _t;
-			GrammarAST tmp58_AST_in = (GrammarAST)_t;
+			AST __t98 = _t;
+			GrammarAST tmp64_AST_in = (GrammarAST)_t;
 			match(_t,ARGLIST);
 			_t = _t.getFirstChild();
 			out("(");
 			{
-			_loop95:
+			_loop101:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ARG)) {
-					AST __t94 = _t;
-					GrammarAST tmp59_AST_in = (GrammarAST)_t;
+					AST __t100 = _t;
+					GrammarAST tmp65_AST_in = (GrammarAST)_t;
 					match(_t,ARG);
 					_t = _t.getFirstChild();
 					arg = (GrammarAST)_t;
@@ -1750,35 +1852,35 @@ public ANTLRTreePrinter() {
 					match(_t,ACTION);
 					_t = _t.getNextSibling();
 					out(a.getText());
-					_t = __t94;
+					_t = __t100;
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop95;
+					break _loop101;
 				}
 				
 			} while (true);
 			}
 			out(")");
-			_t = __t92;
+			_t = __t98;
 			_t = _t.getNextSibling();
 			{
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
 			case DOUBLE_QUOTE_STRING_LITERAL:
 			{
-				GrammarAST tmp60_AST_in = (GrammarAST)_t;
+				GrammarAST tmp66_AST_in = (GrammarAST)_t;
 				match(_t,DOUBLE_QUOTE_STRING_LITERAL);
 				_t = _t.getNextSibling();
-				out(" "+tmp60_AST_in.getText());
+				out(" "+tmp66_AST_in.getText());
 				break;
 			}
 			case DOUBLE_ANGLE_STRING_LITERAL:
 			{
-				GrammarAST tmp61_AST_in = (GrammarAST)_t;
+				GrammarAST tmp67_AST_in = (GrammarAST)_t;
 				match(_t,DOUBLE_ANGLE_STRING_LITERAL);
 				_t = _t.getNextSibling();
-				out(" "+tmp61_AST_in.getText());
+				out(" "+tmp67_AST_in.getText());
 				break;
 			}
 			case 3:
@@ -1791,7 +1893,7 @@ public ANTLRTreePrinter() {
 			}
 			}
 			}
-			_t = __t90;
+			_t = __t96;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1814,16 +1916,16 @@ public ANTLRTreePrinter() {
 			case STRING_LITERAL:
 			case CHAR_LITERAL:
 			case TOKEN_REF:
-			case RULE_REF:
 			case WILDCARD:
+			case RULE_REF:
 			{
 				{
 				if (_t==null) _t=ASTNULL;
 				switch ( _t.getType()) {
 				case RULE_REF:
 				{
-					AST __t119 = _t;
-					GrammarAST tmp62_AST_in = (GrammarAST)_t;
+					AST __t125 = _t;
+					GrammarAST tmp68_AST_in = (GrammarAST)_t;
 					match(_t,RULE_REF);
 					_t = _t.getFirstChild();
 					out(atom_AST_in.toString());
@@ -1870,14 +1972,14 @@ public ANTLRTreePrinter() {
 					}
 					}
 					}
-					_t = __t119;
+					_t = __t125;
 					_t = _t.getNextSibling();
 					break;
 				}
 				case TOKEN_REF:
 				{
-					AST __t122 = _t;
-					GrammarAST tmp63_AST_in = (GrammarAST)_t;
+					AST __t128 = _t;
+					GrammarAST tmp69_AST_in = (GrammarAST)_t;
 					match(_t,TOKEN_REF);
 					_t = _t.getFirstChild();
 					out(atom_AST_in.toString());
@@ -1924,14 +2026,14 @@ public ANTLRTreePrinter() {
 					}
 					}
 					}
-					_t = __t122;
+					_t = __t128;
 					_t = _t.getNextSibling();
 					break;
 				}
 				case CHAR_LITERAL:
 				{
-					AST __t125 = _t;
-					GrammarAST tmp64_AST_in = (GrammarAST)_t;
+					AST __t131 = _t;
+					GrammarAST tmp70_AST_in = (GrammarAST)_t;
 					match(_t,CHAR_LITERAL);
 					_t = _t.getFirstChild();
 					out(atom_AST_in.toString());
@@ -1955,14 +2057,14 @@ public ANTLRTreePrinter() {
 					}
 					}
 					}
-					_t = __t125;
+					_t = __t131;
 					_t = _t.getNextSibling();
 					break;
 				}
 				case STRING_LITERAL:
 				{
-					AST __t127 = _t;
-					GrammarAST tmp65_AST_in = (GrammarAST)_t;
+					AST __t133 = _t;
+					GrammarAST tmp71_AST_in = (GrammarAST)_t;
 					match(_t,STRING_LITERAL);
 					_t = _t.getFirstChild();
 					out(atom_AST_in.toString());
@@ -1986,14 +2088,14 @@ public ANTLRTreePrinter() {
 					}
 					}
 					}
-					_t = __t127;
+					_t = __t133;
 					_t = _t.getNextSibling();
 					break;
 				}
 				case WILDCARD:
 				{
-					AST __t129 = _t;
-					GrammarAST tmp66_AST_in = (GrammarAST)_t;
+					AST __t135 = _t;
+					GrammarAST tmp72_AST_in = (GrammarAST)_t;
 					match(_t,WILDCARD);
 					_t = _t.getFirstChild();
 					out(atom_AST_in.toString());
@@ -2017,7 +2119,7 @@ public ANTLRTreePrinter() {
 					}
 					}
 					}
-					_t = __t129;
+					_t = __t135;
 					_t = _t.getNextSibling();
 					break;
 				}
@@ -2032,10 +2134,26 @@ public ANTLRTreePrinter() {
 			}
 			case LABEL:
 			{
-				GrammarAST tmp67_AST_in = (GrammarAST)_t;
+				GrammarAST tmp73_AST_in = (GrammarAST)_t;
 				match(_t,LABEL);
 				_t = _t.getNextSibling();
-				out(" $"+tmp67_AST_in.getText());
+				out(" $"+tmp73_AST_in.getText());
+				break;
+			}
+			case DOT:
+			{
+				AST __t137 = _t;
+				GrammarAST tmp74_AST_in = (GrammarAST)_t;
+				match(_t,DOT);
+				_t = _t.getFirstChild();
+				GrammarAST tmp75_AST_in = (GrammarAST)_t;
+				match(_t,ID);
+				_t = _t.getNextSibling();
+				out(tmp75_AST_in.getText()+".");
+				atom(_t);
+				_t = _retTree;
+				_t = __t137;
+				_t = _t.getNextSibling();
 				break;
 			}
 			default:
@@ -2067,39 +2185,39 @@ public ANTLRTreePrinter() {
 			}
 			case OPTIONAL:
 			{
-				AST __t110 = _t;
-				GrammarAST tmp68_AST_in = (GrammarAST)_t;
+				AST __t116 = _t;
+				GrammarAST tmp76_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONAL);
 				_t = _t.getFirstChild();
 				block(_t,true);
 				_t = _retTree;
-				_t = __t110;
+				_t = __t116;
 				_t = _t.getNextSibling();
 				out("? ");
 				break;
 			}
 			case CLOSURE:
 			{
-				AST __t111 = _t;
-				GrammarAST tmp69_AST_in = (GrammarAST)_t;
+				AST __t117 = _t;
+				GrammarAST tmp77_AST_in = (GrammarAST)_t;
 				match(_t,CLOSURE);
 				_t = _t.getFirstChild();
 				block(_t,true);
 				_t = _retTree;
-				_t = __t111;
+				_t = __t117;
 				_t = _t.getNextSibling();
 				out("* ");
 				break;
 			}
 			case POSITIVE_CLOSURE:
 			{
-				AST __t112 = _t;
-				GrammarAST tmp70_AST_in = (GrammarAST)_t;
+				AST __t118 = _t;
+				GrammarAST tmp78_AST_in = (GrammarAST)_t;
 				match(_t,POSITIVE_CLOSURE);
 				_t = _t.getFirstChild();
 				block(_t,true);
 				_t = _retTree;
-				_t = __t112;
+				_t = __t118;
 				_t = _t.getNextSibling();
 				out("+ ");
 				break;
@@ -2122,29 +2240,29 @@ public ANTLRTreePrinter() {
 		GrammarAST tree_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t114 = _t;
-			GrammarAST tmp71_AST_in = (GrammarAST)_t;
+			AST __t120 = _t;
+			GrammarAST tmp79_AST_in = (GrammarAST)_t;
 			match(_t,TREE_BEGIN);
 			_t = _t.getFirstChild();
 			out(" ^(");
 			element(_t);
 			_t = _retTree;
 			{
-			_loop116:
+			_loop122:
 			do {
 				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==LABEL||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN||_t.getType()==WILDCARD)) {
+				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==SYNPRED||_t.getType()==RANGE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==FORCED_ACTION||_t.getType()==LABEL||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==DOT||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==WILDCARD||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN)) {
 					element(_t);
 					_t = _retTree;
 				}
 				else {
-					break _loop116;
+					break _loop122;
 				}
 				
 			} while (true);
 			}
 			out(") ");
-			_t = __t114;
+			_t = __t120;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -2163,7 +2281,7 @@ public ANTLRTreePrinter() {
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				GrammarAST tmp72_AST_in = (GrammarAST)_t;
+				GrammarAST tmp80_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getNextSibling();
 				out("^");
@@ -2171,7 +2289,7 @@ public ANTLRTreePrinter() {
 			}
 			case BANG:
 			{
-				GrammarAST tmp73_AST_in = (GrammarAST)_t;
+				GrammarAST tmp81_AST_in = (GrammarAST)_t;
 				match(_t,BANG);
 				_t = _t.getNextSibling();
 				out("!");
@@ -2222,13 +2340,16 @@ public ANTLRTreePrinter() {
 		"TREE_GRAMMAR",
 		"COMBINED_GRAMMAR",
 		"INITACTION",
+		"FORCED_ACTION",
 		"LABEL",
 		"TEMPLATE",
 		"\"scope\"",
+		"\"import\"",
 		"GATED_SEMPRED",
 		"SYN_SEMPRED",
 		"BACKTRACK_SEMPRED",
 		"\"fragment\"",
+		"DOT",
 		"ACTION",
 		"DOC_COMMENT",
 		"SEMI",
@@ -2243,6 +2364,7 @@ public ANTLRTreePrinter() {
 		"CHAR_LITERAL",
 		"INT",
 		"STAR",
+		"COMMA",
 		"TOKEN_REF",
 		"\"protected\"",
 		"\"public\"",
@@ -2251,7 +2373,6 @@ public ANTLRTreePrinter() {
 		"ARG_ACTION",
 		"\"returns\"",
 		"\"throws\"",
-		"COMMA",
 		"LPAREN",
 		"OR",
 		"RPAREN",
@@ -2261,13 +2382,16 @@ public ANTLRTreePrinter() {
 		"SEMPRED",
 		"IMPLIES",
 		"ROOT",
+		"WILDCARD",
 		"RULE_REF",
 		"NOT",
 		"TREE_BEGIN",
 		"QUESTION",
 		"PLUS",
-		"WILDCARD",
+		"OPEN_ELEMENT_OPTION",
+		"CLOSE_ELEMENT_OPTION",
 		"REWRITE",
+		"ETC",
 		"DOLLAR",
 		"DOUBLE_QUOTE_STRING_LITERAL",
 		"DOUBLE_ANGLE_STRING_LITERAL",
@@ -2275,8 +2399,7 @@ public ANTLRTreePrinter() {
 		"COMMENT",
 		"SL_COMMENT",
 		"ML_COMMENT",
-		"OPEN_ELEMENT_OPTION",
-		"CLOSE_ELEMENT_OPTION",
+		"STRAY_BRACKET",
 		"ESC",
 		"DIGIT",
 		"XDIGIT",

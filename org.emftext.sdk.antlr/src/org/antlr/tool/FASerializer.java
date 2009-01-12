@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -62,6 +62,9 @@ public class FASerializer {
     }
 
 	public String serialize(State s) {
+		if ( s==null ) {
+			return "<no automaton>";
+		}
 		return serialize(s, true);
 	}
 
@@ -124,7 +127,7 @@ public class FASerializer {
             // will not be found and appear to be not in graph.  Must explicitly jump
             // to it, but don't "draw" an edge.
             if ( edge instanceof RuleClosureTransition ) {
-                walkFANormalizingStateNumbers(((RuleClosureTransition)edge).getFollowState());
+				walkFANormalizingStateNumbers(((RuleClosureTransition) edge).followState);
             }
         }
     }
@@ -149,9 +152,12 @@ public class FASerializer {
             Transition edge = (Transition) s.transition(i);
             StringBuffer buf = new StringBuffer();
             buf.append(stateStr);
-            if ( edge.isEpsilon() ) {
-                buf.append("->");
-            }
+			if ( edge.isAction() ) {
+				buf.append("-{}->");
+			}
+			else if ( edge.isEpsilon() ) {
+				buf.append("->");
+			}
 			else if ( edge.isSemanticPredicate() ) {
 				buf.append("-{"+edge.label.getSemanticContext()+"}?->");
 			}
@@ -188,7 +194,7 @@ public class FASerializer {
             // will not be found and appear to be not in graph.  Must explicitly jump
             // to it, but don't "draw" an edge.
             if ( edge instanceof RuleClosureTransition ) {
-                walkSerializingFA(lines, ((RuleClosureTransition)edge).getFollowState());
+				walkSerializingFA(lines, ((RuleClosureTransition) edge).followState);
             }
         }
 

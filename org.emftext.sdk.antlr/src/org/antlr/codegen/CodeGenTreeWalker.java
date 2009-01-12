@@ -2,7 +2,7 @@
 
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -114,7 +114,7 @@ public class CodeGenTreeWalker extends antlr.TreeParser       implements CodeGen
 	}
 
 	protected StringTemplate getRuleElementST(String name,
-										      String elementName,
+										      String ruleTargetName,
 											  GrammarAST elementAST,
     										  GrammarAST ast_suffix,
     										  String label)
@@ -128,7 +128,7 @@ public class CodeGenTreeWalker extends antlr.TreeParser       implements CodeGen
 		     (r==null || !r.isSynPred) )
 		{
 			// we will need a label to do the AST or tracking, make one
-			label = generator.createUniqueLabel(elementName);
+			label = generator.createUniqueLabel(ruleTargetName);
 			CommonToken labelTok = new CommonToken(ANTLRParser.ID, label);
 			grammar.defineRuleRefLabel(currentRuleName, labelTok, elementAST);
 		}
@@ -191,14 +191,11 @@ public class CodeGenTreeWalker extends antlr.TreeParser       implements CodeGen
 		}
 		// handle list label stuff; make element use "Track"
 
-		String astPart = "";
 		String operatorPart = "";
 		String rewritePart = "";
 		String listLabelPart = "";
-		if ( grammar.buildAST() ) {
-			astPart = "AST";
-		}
-		if ( ast_suffix!=null ) {
+		Rule ruleDescr = grammar.getRule(currentRuleName);
+		if ( ast_suffix!=null && !ruleDescr.isSynPred ) {
 			if ( ast_suffix.getType()==ANTLRParser.ROOT ) {
     			operatorPart = "RuleRoot";
     		}
@@ -242,7 +239,7 @@ public class CodeGenTreeWalker extends antlr.TreeParser       implements CodeGen
         return labels;
     }
 
-    protected void init(Grammar g) {
+    public void init(Grammar g) {
         this.grammar = g;
         this.generator = grammar.getCodeGenerator();
         this.templates = generator.getTemplates();
@@ -378,6 +375,7 @@ public CodeGenTreeWalker() {
 			case TOKENS:
 			case RULE:
 			case SCOPE:
+			case IMPORT:
 			case AMPERSAND:
 			{
 				break;
@@ -389,11 +387,9 @@ public CodeGenTreeWalker() {
 			}
 			}
 			
-					String suffix = Grammar.grammarTypeToFileNameSuffix[grammar.type];
-			String n = name.getText()+suffix;
-					recognizerST.setAttribute("name", n);
-					outputFileST.setAttribute("name", n);
-					headerFileST.setAttribute("name", n);
+					recognizerST.setAttribute("name", grammar.getRecognizerName());
+					outputFileST.setAttribute("name", grammar.getRecognizerName());
+					headerFileST.setAttribute("name", grammar.getRecognizerName());
 					recognizerST.setAttribute("scopes", grammar.getGlobalScopes());
 					headerFileST.setAttribute("scopes", grammar.getGlobalScopes());
 					
@@ -416,6 +412,36 @@ public CodeGenTreeWalker() {
 			case TOKENS:
 			case RULE:
 			case SCOPE:
+			case IMPORT:
+			case AMPERSAND:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(_t);
+			}
+			}
+			}
+			{
+			if (_t==null) _t=ASTNULL;
+			switch ( _t.getType()) {
+			case IMPORT:
+			{
+				AST __t14 = _t;
+				GrammarAST tmp7_AST_in = (GrammarAST)_t;
+				match(_t,IMPORT);
+				_t = _t.getFirstChild();
+				GrammarAST tmp8_AST_in = (GrammarAST)_t;
+				if ( _t==null ) throw new MismatchedTokenException();
+				_t = _t.getNextSibling();
+				_t = __t14;
+				_t = _t.getNextSibling();
+				break;
+			}
+			case TOKENS:
+			case RULE:
+			case SCOPE:
 			case AMPERSAND:
 			{
 				break;
@@ -431,14 +457,14 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case TOKENS:
 			{
-				AST __t14 = _t;
-				GrammarAST tmp7_AST_in = (GrammarAST)_t;
+				AST __t16 = _t;
+				GrammarAST tmp9_AST_in = (GrammarAST)_t;
 				match(_t,TOKENS);
 				_t = _t.getFirstChild();
-				GrammarAST tmp8_AST_in = (GrammarAST)_t;
+				GrammarAST tmp10_AST_in = (GrammarAST)_t;
 				if ( _t==null ) throw new MismatchedTokenException();
 				_t = _t.getNextSibling();
-				_t = __t14;
+				_t = __t16;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -455,7 +481,7 @@ public CodeGenTreeWalker() {
 			}
 			}
 			{
-			_loop16:
+			_loop18:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==SCOPE)) {
@@ -463,22 +489,22 @@ public CodeGenTreeWalker() {
 					_t = _retTree;
 				}
 				else {
-					break _loop16;
+					break _loop18;
 				}
 				
 			} while (true);
 			}
 			{
-			_loop18:
+			_loop20:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
-					GrammarAST tmp9_AST_in = (GrammarAST)_t;
+					GrammarAST tmp11_AST_in = (GrammarAST)_t;
 					match(_t,AMPERSAND);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop18;
+					break _loop20;
 				}
 				
 			} while (true);
@@ -499,13 +525,13 @@ public CodeGenTreeWalker() {
 		
 		try {      // for error handling
 			AST __t8 = _t;
-			GrammarAST tmp10_AST_in = (GrammarAST)_t;
+			GrammarAST tmp12_AST_in = (GrammarAST)_t;
 			match(_t,SCOPE);
 			_t = _t.getFirstChild();
-			GrammarAST tmp11_AST_in = (GrammarAST)_t;
+			GrammarAST tmp13_AST_in = (GrammarAST)_t;
 			match(_t,ID);
 			_t = _t.getNextSibling();
-			GrammarAST tmp12_AST_in = (GrammarAST)_t;
+			GrammarAST tmp14_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
 			_t = __t8;
@@ -529,8 +555,8 @@ public CodeGenTreeWalker() {
 		
 		try {      // for error handling
 			{
-			int _cnt22=0;
-			_loop22:
+			int _cnt24=0;
+			_loop24:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==RULE)) {
@@ -540,7 +566,7 @@ public CodeGenTreeWalker() {
 								Rule r = grammar.getRule(ruleName);
 								
 					if (_t==null) _t=ASTNULL;
-					if (((_t.getType()==RULE))&&(!r.isSynPred || grammar.synPredNamesUsedInDFA.contains(ruleName))) {
+					if (((_t.getType()==RULE))&&(grammar.generateMethodForRule(ruleName))) {
 						rST=rule(_t);
 						_t = _retTree;
 						
@@ -552,7 +578,7 @@ public CodeGenTreeWalker() {
 										
 					}
 					else if ((_t.getType()==RULE)) {
-						GrammarAST tmp13_AST_in = (GrammarAST)_t;
+						GrammarAST tmp15_AST_in = (GrammarAST)_t;
 						match(_t,RULE);
 						_t = _t.getNextSibling();
 					}
@@ -563,10 +589,10 @@ public CodeGenTreeWalker() {
 					}
 				}
 				else {
-					if ( _cnt22>=1 ) { break _loop22; } else {throw new NoViableAltException(_t);}
+					if ( _cnt24>=1 ) { break _loop24; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt22++;
+				_cnt24++;
 			} while (true);
 			}
 		}
@@ -604,8 +630,8 @@ public CodeGenTreeWalker() {
 		
 		
 		try {      // for error handling
-			AST __t24 = _t;
-			GrammarAST tmp14_AST_in = (GrammarAST)_t;
+			AST __t26 = _t;
+			GrammarAST tmp16_AST_in = (GrammarAST)_t;
 			match(_t,RULE);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
@@ -635,35 +661,9 @@ public CodeGenTreeWalker() {
 			}
 			}
 			}
-			AST __t26 = _t;
-			GrammarAST tmp15_AST_in = (GrammarAST)_t;
-			match(_t,ARG);
-			_t = _t.getFirstChild();
-			{
-			if (_t==null) _t=ASTNULL;
-			switch ( _t.getType()) {
-			case ARG_ACTION:
-			{
-				GrammarAST tmp16_AST_in = (GrammarAST)_t;
-				match(_t,ARG_ACTION);
-				_t = _t.getNextSibling();
-				break;
-			}
-			case 3:
-			{
-				break;
-			}
-			default:
-			{
-				throw new NoViableAltException(_t);
-			}
-			}
-			}
-			_t = __t26;
-			_t = _t.getNextSibling();
 			AST __t28 = _t;
 			GrammarAST tmp17_AST_in = (GrammarAST)_t;
-			match(_t,RET);
+			match(_t,ARG);
 			_t = _t.getFirstChild();
 			{
 			if (_t==null) _t=ASTNULL;
@@ -687,19 +687,45 @@ public CodeGenTreeWalker() {
 			}
 			_t = __t28;
 			_t = _t.getNextSibling();
+			AST __t30 = _t;
+			GrammarAST tmp19_AST_in = (GrammarAST)_t;
+			match(_t,RET);
+			_t = _t.getFirstChild();
+			{
+			if (_t==null) _t=ASTNULL;
+			switch ( _t.getType()) {
+			case ARG_ACTION:
+			{
+				GrammarAST tmp20_AST_in = (GrammarAST)_t;
+				match(_t,ARG_ACTION);
+				_t = _t.getNextSibling();
+				break;
+			}
+			case 3:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(_t);
+			}
+			}
+			}
+			_t = __t30;
+			_t = _t.getNextSibling();
 			{
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				AST __t31 = _t;
-				GrammarAST tmp19_AST_in = (GrammarAST)_t;
+				AST __t33 = _t;
+				GrammarAST tmp21_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getFirstChild();
-				GrammarAST tmp20_AST_in = (GrammarAST)_t;
+				GrammarAST tmp22_AST_in = (GrammarAST)_t;
 				if ( _t==null ) throw new MismatchedTokenException();
 				_t = _t.getNextSibling();
-				_t = __t31;
+				_t = __t33;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -736,16 +762,16 @@ public CodeGenTreeWalker() {
 			}
 			}
 			{
-			_loop34:
+			_loop36:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
-					GrammarAST tmp21_AST_in = (GrammarAST)_t;
+					GrammarAST tmp23_AST_in = (GrammarAST)_t;
 					match(_t,AMPERSAND);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop34;
+					break _loop36;
 				}
 				
 			} while (true);
@@ -785,7 +811,7 @@ public CodeGenTreeWalker() {
 								Boolean.valueOf(grammar.isEmptyRule(block)));
 						}
 						code.setAttribute("ruleDescriptor", ruleDescr);
-						String memo = (String)rule_AST_in.getOption("memoize");
+						String memo = (String)grammar.getBlockOption(rule_AST_in,"memoize");
 						if ( memo==null ) {
 							memo = (String)grammar.getOption("memoize");
 						}
@@ -816,10 +842,10 @@ public CodeGenTreeWalker() {
 			}
 			}
 			}
-			GrammarAST tmp22_AST_in = (GrammarAST)_t;
+			GrammarAST tmp24_AST_in = (GrammarAST)_t;
 			match(_t,EOR);
 			_t = _t.getNextSibling();
-			_t = __t24;
+			_t = __t26;
 			_t = _t.getNextSibling();
 			
 			if ( code!=null ) {
@@ -867,28 +893,28 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case LITERAL_protected:
 			{
-				GrammarAST tmp23_AST_in = (GrammarAST)_t;
+				GrammarAST tmp25_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_protected);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_public:
 			{
-				GrammarAST tmp24_AST_in = (GrammarAST)_t;
+				GrammarAST tmp26_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_public);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_private:
 			{
-				GrammarAST tmp25_AST_in = (GrammarAST)_t;
+				GrammarAST tmp27_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_private);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case FRAGMENT:
 			{
-				GrammarAST tmp26_AST_in = (GrammarAST)_t;
+				GrammarAST tmp28_AST_in = (GrammarAST)_t;
 				match(_t,FRAGMENT);
 				_t = _t.getNextSibling();
 				break;
@@ -911,8 +937,8 @@ public CodeGenTreeWalker() {
 		GrammarAST ruleScopeSpec_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t38 = _t;
-			GrammarAST tmp27_AST_in = (GrammarAST)_t;
+			AST __t40 = _t;
+			GrammarAST tmp29_AST_in = (GrammarAST)_t;
 			match(_t,SCOPE);
 			_t = _t.getFirstChild();
 			{
@@ -920,7 +946,7 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case ACTION:
 			{
-				GrammarAST tmp28_AST_in = (GrammarAST)_t;
+				GrammarAST tmp30_AST_in = (GrammarAST)_t;
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
 				break;
@@ -937,21 +963,21 @@ public CodeGenTreeWalker() {
 			}
 			}
 			{
-			_loop41:
+			_loop43:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ID)) {
-					GrammarAST tmp29_AST_in = (GrammarAST)_t;
+					GrammarAST tmp31_AST_in = (GrammarAST)_t;
 					match(_t,ID);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop41;
+					break _loop43;
 				}
 				
 			} while (true);
 			}
-			_t = __t38;
+			_t = __t40;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1004,8 +1030,8 @@ public CodeGenTreeWalker() {
 				
 			}
 			else if ((_t.getType()==BLOCK)) {
-				AST __t43 = _t;
-				GrammarAST tmp30_AST_in = (GrammarAST)_t;
+				AST __t45 = _t;
+				GrammarAST tmp32_AST_in = (GrammarAST)_t;
 				match(_t,BLOCK);
 				_t = _t.getFirstChild();
 				{
@@ -1013,7 +1039,7 @@ public CodeGenTreeWalker() {
 				switch ( _t.getType()) {
 				case OPTIONS:
 				{
-					GrammarAST tmp31_AST_in = (GrammarAST)_t;
+					GrammarAST tmp33_AST_in = (GrammarAST)_t;
 					match(_t,OPTIONS);
 					_t = _t.getNextSibling();
 					break;
@@ -1029,8 +1055,8 @@ public CodeGenTreeWalker() {
 				}
 				}
 				{
-				int _cnt46=0;
-				_loop46:
+				int _cnt48=0;
+				_loop48:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==ALT)) {
@@ -1044,10 +1070,13 @@ public CodeGenTreeWalker() {
 							this.outerAltNum++;
 						}
 						// add the rewrite code as just another element in the alt :)
-								  if ( rew!=null ) {
-								  	alt.setAttribute("elements.{el,line,pos}",
-								  		rew, Utils.integer(r.getLine()), Utils.integer(r.getColumn()));
-								  }
+						// (unless it's a " -> ..." rewrite
+						// ( -> ... )
+						boolean etc =
+							r.getType()==REWRITE &&
+							r.getFirstChild()!=null &&
+								  		r.getFirstChild().getType()==ETC;
+								  if ( rew!=null && !etc ) { alt.setAttribute("rew", rew); }
 								  // add this alt to the list of alts for this block
 						code.setAttribute("alts",alt);
 						alt.setAttribute("altNum", Utils.integer(altNum));
@@ -1057,16 +1086,16 @@ public CodeGenTreeWalker() {
 						
 					}
 					else {
-						if ( _cnt46>=1 ) { break _loop46; } else {throw new NoViableAltException(_t);}
+						if ( _cnt48>=1 ) { break _loop48; } else {throw new NoViableAltException(_t);}
 					}
 					
-					_cnt46++;
+					_cnt48++;
 				} while (true);
 				}
-				GrammarAST tmp32_AST_in = (GrammarAST)_t;
+				GrammarAST tmp34_AST_in = (GrammarAST)_t;
 				match(_t,EOB);
 				_t = _t.getNextSibling();
-				_t = __t43;
+				_t = __t45;
 				_t = _t.getNextSibling();
 				blockNestingLevel--;
 			}
@@ -1095,8 +1124,8 @@ public CodeGenTreeWalker() {
 			case LITERAL_catch:
 			{
 				{
-				int _cnt50=0;
-				_loop50:
+				int _cnt52=0;
+				_loop52:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==LITERAL_catch)) {
@@ -1104,10 +1133,10 @@ public CodeGenTreeWalker() {
 						_t = _retTree;
 					}
 					else {
-						if ( _cnt50>=1 ) { break _loop50; } else {throw new NoViableAltException(_t);}
+						if ( _cnt52>=1 ) { break _loop52; } else {throw new NoViableAltException(_t);}
 					}
 					
-					_cnt50++;
+					_cnt52++;
 				} while (true);
 				}
 				{
@@ -1156,6 +1185,7 @@ public CodeGenTreeWalker() {
 		GrammarAST setBlock_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		GrammarAST s = null;
 		
+		StringTemplate setcode = null;
 		if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL && grammar.buildAST() ) {
 		Rule r = grammar.getRule(currentRuleName);
 		currentAltHasASTRewrite = r.hasRewrite(outerAltNum);
@@ -1170,9 +1200,13 @@ public CodeGenTreeWalker() {
 			match(_t,BLOCK);
 			_t = _t.getNextSibling();
 			
-			StringTemplate setcode =
-			getTokenElementST("matchSet", "set", s, null, null);
 			int i = ((TokenWithIndex)s.getToken()).getIndex();
+					if ( blockNestingLevel==RULE_BLOCK_NESTING_LEVEL ) {
+						setcode = getTokenElementST("matchRuleBlockSet", "set", s, null, null);
+					}
+					else {
+						setcode = getTokenElementST("matchSet", "set", s, null, null);
+					}
 					setcode.setAttribute("elementIndex", i);
 					if ( grammar.type!=Grammar.LEXER ) {
 						generator.generateLocalFOLLOW(s,"set",currentRuleName,i);
@@ -1191,6 +1225,7 @@ public CodeGenTreeWalker() {
 			if ( !currentAltHasASTRewrite && grammar.buildAST() ) {
 			altcode.setAttribute("autoAST", Boolean.valueOf(true));
 			}
+			altcode.setAttribute("treeLevel", rewriteTreeNestingLevel);
 			code = altcode;
 			
 		}
@@ -1231,6 +1266,7 @@ public CodeGenTreeWalker() {
 		String description = grammar.grammarTreeToString(alternative_AST_in, false);
 		description = generator.target.getTargetStringLiteralFromString(description);
 		code.setAttribute("description", description);
+		code.setAttribute("treeLevel", rewriteTreeNestingLevel);
 		if ( !currentAltHasASTRewrite && grammar.buildAST() ) {
 			code.setAttribute("autoAST", Boolean.valueOf(true));
 		}
@@ -1238,16 +1274,16 @@ public CodeGenTreeWalker() {
 		
 		
 		try {      // for error handling
-			AST __t57 = _t;
+			AST __t59 = _t;
 			a = _t==ASTNULL ? null :(GrammarAST)_t;
 			match(_t,ALT);
 			_t = _t.getFirstChild();
 			{
-			int _cnt59=0;
-			_loop59:
+			int _cnt61=0;
+			_loop61:
 			do {
 				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN||_t.getType()==WILDCARD)) {
+				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==FORCED_ACTION||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==DOT||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==WILDCARD||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN)) {
 					GrammarAST elAST=(GrammarAST)_t;
 					e=element(_t,null,null);
 					_t = _retTree;
@@ -1262,16 +1298,16 @@ public CodeGenTreeWalker() {
 								
 				}
 				else {
-					if ( _cnt59>=1 ) { break _loop59; } else {throw new NoViableAltException(_t);}
+					if ( _cnt61>=1 ) { break _loop61; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt59++;
+				_cnt61++;
 			} while (true);
 			}
-			GrammarAST tmp33_AST_in = (GrammarAST)_t;
+			GrammarAST tmp35_AST_in = (GrammarAST)_t;
 			match(_t,EOA);
 			_t = _t.getNextSibling();
-			_t = __t57;
+			_t = __t59;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1318,16 +1354,21 @@ public CodeGenTreeWalker() {
 		code.setAttribute("referencedRuleListLabels", ruleListLabels);
 			}
 		}
+		else {
+				code = templates.getInstanceOf("noRewrite");
+				code.setAttribute("treeLevel", Utils.integer(OUTER_REWRITE_NESTING_LEVEL));
+				code.setAttribute("rewriteBlockLevel", Utils.integer(OUTER_REWRITE_NESTING_LEVEL));
+		}
 		
 		
 		try {      // for error handling
 			{
-			_loop95:
+			_loop98:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==REWRITE)) {
 					rewriteRuleRefs = new HashSet();
-					AST __t93 = _t;
+					AST __t96 = _t;
 					r = _t==ASTNULL ? null :(GrammarAST)_t;
 					match(_t,REWRITE);
 					_t = _t.getFirstChild();
@@ -1344,6 +1385,7 @@ public CodeGenTreeWalker() {
 					case ALT:
 					case TEMPLATE:
 					case ACTION:
+					case ETC:
 					{
 						break;
 					}
@@ -1355,7 +1397,7 @@ public CodeGenTreeWalker() {
 					}
 					alt=rewrite_alternative(_t);
 					_t = _retTree;
-					_t = __t93;
+					_t = __t96;
 					_t = _t.getNextSibling();
 					
 					rewriteBlockNestingLevel = OUTER_REWRITE_NESTING_LEVEL;
@@ -1375,7 +1417,7 @@ public CodeGenTreeWalker() {
 								
 				}
 				else {
-					break _loop95;
+					break _loop98;
 				}
 				
 			} while (true);
@@ -1396,21 +1438,21 @@ public CodeGenTreeWalker() {
 		GrammarAST exceptionHandler_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t53 = _t;
-			GrammarAST tmp34_AST_in = (GrammarAST)_t;
+			AST __t55 = _t;
+			GrammarAST tmp36_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_catch);
 			_t = _t.getFirstChild();
-			GrammarAST tmp35_AST_in = (GrammarAST)_t;
+			GrammarAST tmp37_AST_in = (GrammarAST)_t;
 			match(_t,ARG_ACTION);
 			_t = _t.getNextSibling();
-			GrammarAST tmp36_AST_in = (GrammarAST)_t;
+			GrammarAST tmp38_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t53;
+			_t = __t55;
 			_t = _t.getNextSibling();
 			
-				List chunks = generator.translateAction(currentRuleName,tmp36_AST_in);
-				ruleST.setAttribute("exceptions.{decl,action}",tmp35_AST_in.getText(),chunks);
+				List chunks = generator.translateAction(currentRuleName,tmp38_AST_in);
+				ruleST.setAttribute("exceptions.{decl,action}",tmp37_AST_in.getText(),chunks);
 				
 		}
 		catch (RecognitionException ex) {
@@ -1427,17 +1469,17 @@ public CodeGenTreeWalker() {
 		GrammarAST finallyClause_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t55 = _t;
-			GrammarAST tmp37_AST_in = (GrammarAST)_t;
+			AST __t57 = _t;
+			GrammarAST tmp39_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_finally);
 			_t = _t.getFirstChild();
-			GrammarAST tmp38_AST_in = (GrammarAST)_t;
+			GrammarAST tmp40_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t55;
+			_t = __t57;
 			_t = _t.getNextSibling();
 			
-				List chunks = generator.translateAction(currentRuleName,tmp38_AST_in);
+				List chunks = generator.translateAction(currentRuleName,tmp40_AST_in);
 				ruleST.setAttribute("finally",chunks);
 				
 		}
@@ -1471,44 +1513,44 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				AST __t61 = _t;
-				GrammarAST tmp39_AST_in = (GrammarAST)_t;
+				AST __t63 = _t;
+				GrammarAST tmp41_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getFirstChild();
-				code=element(_t,label,tmp39_AST_in);
-				_t = _retTree;
-				_t = __t61;
-				_t = _t.getNextSibling();
-				break;
-			}
-			case BANG:
-			{
-				AST __t62 = _t;
-				GrammarAST tmp40_AST_in = (GrammarAST)_t;
-				match(_t,BANG);
-				_t = _t.getFirstChild();
-				code=element(_t,label,tmp40_AST_in);
-				_t = _retTree;
-				_t = __t62;
-				_t = _t.getNextSibling();
-				break;
-			}
-			case NOT:
-			{
-				AST __t63 = _t;
-				n = _t==ASTNULL ? null :(GrammarAST)_t;
-				match(_t,NOT);
-				_t = _t.getFirstChild();
-				code=notElement(_t,n, label, astSuffix);
+				code=element(_t,label,tmp41_AST_in);
 				_t = _retTree;
 				_t = __t63;
 				_t = _t.getNextSibling();
 				break;
 			}
-			case ASSIGN:
+			case BANG:
 			{
 				AST __t64 = _t;
-				GrammarAST tmp41_AST_in = (GrammarAST)_t;
+				GrammarAST tmp42_AST_in = (GrammarAST)_t;
+				match(_t,BANG);
+				_t = _t.getFirstChild();
+				code=element(_t,label,tmp42_AST_in);
+				_t = _retTree;
+				_t = __t64;
+				_t = _t.getNextSibling();
+				break;
+			}
+			case NOT:
+			{
+				AST __t65 = _t;
+				n = _t==ASTNULL ? null :(GrammarAST)_t;
+				match(_t,NOT);
+				_t = _t.getFirstChild();
+				code=notElement(_t,n, label, astSuffix);
+				_t = _retTree;
+				_t = __t65;
+				_t = _t.getNextSibling();
+				break;
+			}
+			case ASSIGN:
+			{
+				AST __t66 = _t;
+				GrammarAST tmp43_AST_in = (GrammarAST)_t;
 				match(_t,ASSIGN);
 				_t = _t.getFirstChild();
 				alabel = (GrammarAST)_t;
@@ -1516,14 +1558,14 @@ public CodeGenTreeWalker() {
 				_t = _t.getNextSibling();
 				code=element(_t,alabel,astSuffix);
 				_t = _retTree;
-				_t = __t64;
+				_t = __t66;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case PLUS_ASSIGN:
 			{
-				AST __t65 = _t;
-				GrammarAST tmp42_AST_in = (GrammarAST)_t;
+				AST __t67 = _t;
+				GrammarAST tmp44_AST_in = (GrammarAST)_t;
 				match(_t,PLUS_ASSIGN);
 				_t = _t.getFirstChild();
 				label2 = (GrammarAST)_t;
@@ -1531,14 +1573,14 @@ public CodeGenTreeWalker() {
 				_t = _t.getNextSibling();
 				code=element(_t,label2,astSuffix);
 				_t = _retTree;
-				_t = __t65;
+				_t = __t67;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case CHAR_RANGE:
 			{
-				AST __t66 = _t;
-				GrammarAST tmp43_AST_in = (GrammarAST)_t;
+				AST __t68 = _t;
+				GrammarAST tmp45_AST_in = (GrammarAST)_t;
 				match(_t,CHAR_RANGE);
 				_t = _t.getFirstChild();
 				a = (GrammarAST)_t;
@@ -1547,7 +1589,7 @@ public CodeGenTreeWalker() {
 				b = (GrammarAST)_t;
 				match(_t,CHAR_LITERAL);
 				_t = _t.getNextSibling();
-				_t = __t66;
+				_t = __t68;
 				_t = _t.getNextSibling();
 				code = templates.getInstanceOf("charRangeRef");
 						 String low =
@@ -1568,6 +1610,7 @@ public CodeGenTreeWalker() {
 				_t = _retTree;
 				break;
 			}
+			case FORCED_ACTION:
 			case ACTION:
 			{
 				code=element_action(_t);
@@ -1612,21 +1655,21 @@ public CodeGenTreeWalker() {
 			}
 			case SYN_SEMPRED:
 			{
-				GrammarAST tmp44_AST_in = (GrammarAST)_t;
+				GrammarAST tmp46_AST_in = (GrammarAST)_t;
 				match(_t,SYN_SEMPRED);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case BACKTRACK_SEMPRED:
 			{
-				GrammarAST tmp45_AST_in = (GrammarAST)_t;
+				GrammarAST tmp47_AST_in = (GrammarAST)_t;
 				match(_t,BACKTRACK_SEMPRED);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case EPSILON:
 			{
-				GrammarAST tmp46_AST_in = (GrammarAST)_t;
+				GrammarAST tmp48_AST_in = (GrammarAST)_t;
 				match(_t,EPSILON);
 				_t = _t.getNextSibling();
 				break;
@@ -1637,8 +1680,8 @@ public CodeGenTreeWalker() {
 					code=ebnf(_t);
 					_t = _retTree;
 				}
-				else if ((_t.getType()==BLOCK||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==RULE_REF||_t.getType()==WILDCARD)) {
-					code=atom(_t,label, astSuffix);
+				else if ((_t.getType()==BLOCK||_t.getType()==DOT||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==WILDCARD||_t.getType()==RULE_REF)) {
+					code=atom(_t,null, label, astSuffix);
 					_t = _retTree;
 				}
 			else {
@@ -1784,39 +1827,39 @@ public CodeGenTreeWalker() {
 			case OPTIONAL:
 			{
 				dfa = ebnf_AST_in.getLookaheadDFA();
-				AST __t73 = _t;
-				GrammarAST tmp47_AST_in = (GrammarAST)_t;
+				AST __t75 = _t;
+				GrammarAST tmp49_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONAL);
 				_t = _t.getFirstChild();
 				code=block(_t,"optionalBlock", dfa);
 				_t = _retTree;
-				_t = __t73;
+				_t = __t75;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case CLOSURE:
 			{
 				dfa = eob.getLookaheadDFA();
-				AST __t74 = _t;
-				GrammarAST tmp48_AST_in = (GrammarAST)_t;
+				AST __t76 = _t;
+				GrammarAST tmp50_AST_in = (GrammarAST)_t;
 				match(_t,CLOSURE);
 				_t = _t.getFirstChild();
 				code=block(_t,"closureBlock", dfa);
 				_t = _retTree;
-				_t = __t74;
+				_t = __t76;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case POSITIVE_CLOSURE:
 			{
 				dfa = eob.getLookaheadDFA();
-				AST __t75 = _t;
-				GrammarAST tmp49_AST_in = (GrammarAST)_t;
+				AST __t77 = _t;
+				GrammarAST tmp51_AST_in = (GrammarAST)_t;
 				match(_t,POSITIVE_CLOSURE);
 				_t = _t.getFirstChild();
 				code=block(_t,"positiveClosureBlock", dfa);
 				_t = _retTree;
-				_t = __t75;
+				_t = __t77;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -1841,7 +1884,7 @@ public CodeGenTreeWalker() {
 	}
 	
 	public final StringTemplate  atom(AST _t,
-		GrammarAST label, GrammarAST astSuffix
+		GrammarAST scope, GrammarAST label, GrammarAST astSuffix
 	) throws RecognitionException {
 		StringTemplate code=null;
 		
@@ -1858,6 +1901,20 @@ public CodeGenTreeWalker() {
 		if ( label!=null ) {
 		labelText = label.getText();
 		}
+		if ( grammar.type!=Grammar.LEXER &&
+		(atom_AST_in.getType()==RULE_REF||atom_AST_in.getType()==TOKEN_REF||
+		atom_AST_in.getType()==CHAR_LITERAL||atom_AST_in.getType()==STRING_LITERAL) )
+		{
+			Rule encRule = grammar.getRule(((GrammarAST)atom_AST_in).enclosingRuleName);
+			if ( encRule!=null && encRule.hasRewrite(outerAltNum) && astSuffix!=null ) {
+				ErrorManager.grammarError(ErrorManager.MSG_AST_OP_IN_ALT_WITH_REWRITE,
+										  grammar,
+										  ((GrammarAST)atom_AST_in).getToken(),
+										  ((GrammarAST)atom_AST_in).enclosingRuleName,
+										  new Integer(outerAltNum));
+				astSuffix = null;
+			}
+		}
 		
 		
 		try {      // for error handling
@@ -1865,7 +1922,7 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case RULE_REF:
 			{
-				AST __t83 = _t;
+				AST __t85 = _t;
 				r = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,RULE_REF);
 				_t = _t.getFirstChild();
@@ -1889,17 +1946,41 @@ public CodeGenTreeWalker() {
 				}
 				}
 				}
-				_t = __t83;
+				_t = __t85;
 				_t = _t.getNextSibling();
 				
-				grammar.checkRuleReference(r, rarg, currentRuleName);
-				Rule rdef = grammar.getRule(r.getText());
+				grammar.checkRuleReference(scope, r, rarg, currentRuleName);
+				String scopeName = null;
+				if ( scope!=null ) {
+				scopeName = scope.getText();
+				}
+				Rule rdef = grammar.getRule(scopeName, r.getText());
 				// don't insert label=r() if $label.attr not used, no ret value, ...
 				if ( !rdef.getHasReturnValue() ) {
 				labelText = null;
 				}
 				code = getRuleElementST("ruleRef", r.getText(), r, astSuffix, labelText);
-						code.setAttribute("rule", r.getText());
+						code.setAttribute("rule", rdef);
+				if ( scope!=null ) { // scoped rule ref
+				Grammar scopeG = grammar.composite.getGrammar(scope.getText());
+				code.setAttribute("scope", scopeG);
+				}
+				else if ( rdef.grammar != this.grammar ) { // nonlocal
+				// if rule definition is not in this grammar, it's nonlocal
+							List<Grammar> rdefDelegates = rdef.grammar.getDelegates();
+							if ( rdefDelegates.contains(this.grammar) ) {
+								code.setAttribute("scope", rdef.grammar);
+							}
+							else {
+								// defining grammar is not a delegate, scope all the
+								// back to root, which has delegate methods for all
+								// rules.  Don't use scope if we are root.
+								if ( this.grammar != rdef.grammar.composite.delegateGrammarTreeRoot.grammar ) {
+									code.setAttribute("scope",
+													  rdef.grammar.composite.delegateGrammarTreeRoot.grammar);
+								}
+							}
+				}
 				
 						if ( rarg!=null ) {
 							List args = generator.translateAction(currentRuleName,rarg);
@@ -1914,7 +1995,7 @@ public CodeGenTreeWalker() {
 			}
 			case TOKEN_REF:
 			{
-				AST __t85 = _t;
+				AST __t87 = _t;
 				t = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,TOKEN_REF);
 				_t = _t.getFirstChild();
@@ -1938,10 +2019,17 @@ public CodeGenTreeWalker() {
 				}
 				}
 				}
-				_t = __t85;
+				_t = __t87;
 				_t = _t.getNextSibling();
 				
-				grammar.checkRuleReference(t, targ, currentRuleName);
+				if ( currentAltHasASTRewrite && t.terminalOptions!=null &&
+				t.terminalOptions.get(Grammar.defaultTokenOption)!=null ) {
+							ErrorManager.grammarError(ErrorManager.MSG_HETERO_ILLEGAL_IN_REWRITE_ALT,
+													  grammar,
+													  ((GrammarAST)(t)).getToken(),
+													  t.getText());
+				}
+				grammar.checkRuleReference(scope, t, targ, currentRuleName);
 						   if ( grammar.type==Grammar.LEXER ) {
 								if ( grammar.getTokenType(t.getText())==Label.EOF ) {
 									code = templates.getInstanceOf("lexerMatchEOF");
@@ -1951,7 +2039,20 @@ public CodeGenTreeWalker() {
 				if ( isListLabel(labelText) ) {
 				code = templates.getInstanceOf("lexerRuleRefAndListLabel");
 				}
-									code.setAttribute("rule", t.getText());
+				String scopeName = null;
+				if ( scope!=null ) {
+				scopeName = scope.getText();
+				}
+				Rule rdef2 = grammar.getRule(scopeName, t.getText());
+									code.setAttribute("rule", rdef2);
+				if ( scope!=null ) { // scoped rule ref
+				Grammar scopeG = grammar.composite.getGrammar(scope.getText());
+				code.setAttribute("scope", scopeG);
+				}
+				else if ( rdef2.grammar != this.grammar ) { // nonlocal
+				// if rule definition is not in this grammar, it's nonlocal
+				code.setAttribute("scope", rdef2.grammar);
+				}
 									if ( targ!=null ) {
 										List args = generator.translateAction(currentRuleName,targ);
 										code.setAttribute("args", args);
@@ -1966,6 +2067,9 @@ public CodeGenTreeWalker() {
 								String tokenLabel =
 								   generator.getTokenTypeAsTargetLabel(grammar.getTokenType(t.getText()));
 								code.setAttribute("token",tokenLabel);
+								if ( !currentAltHasASTRewrite && t.terminalOptions!=null ) { 
+				code.setAttribute("hetero",t.terminalOptions.get(Grammar.defaultTokenOption));
+				}
 				int i = ((TokenWithIndex)t.getToken()).getIndex();
 							    code.setAttribute("elementIndex", i);
 							    generator.generateLocalFOLLOW(t,tokenLabel,currentRuleName,i);
@@ -1992,6 +2096,9 @@ public CodeGenTreeWalker() {
 							code = getTokenElementST("tokenRef", "char_literal", c, astSuffix, labelText);
 							String tokenLabel = generator.getTokenTypeAsTargetLabel(grammar.getTokenType(c.getText()));
 							code.setAttribute("token",tokenLabel);
+				if ( c.terminalOptions!=null ) {
+				code.setAttribute("hetero",c.terminalOptions.get(Grammar.defaultTokenOption));
+				}
 				int i = ((TokenWithIndex)c.getToken()).getIndex();
 							code.setAttribute("elementIndex", i);
 							generator.generateLocalFOLLOW(c,tokenLabel,currentRuleName,i);
@@ -2018,6 +2125,9 @@ public CodeGenTreeWalker() {
 							String tokenLabel =
 							   generator.getTokenTypeAsTargetLabel(grammar.getTokenType(s.getText()));
 							code.setAttribute("token",tokenLabel);
+				if ( s.terminalOptions!=null ) {
+				code.setAttribute("hetero",s.terminalOptions.get(Grammar.defaultTokenOption));
+				}
 				int i = ((TokenWithIndex)s.getToken()).getIndex();
 							code.setAttribute("elementIndex", i);
 							generator.generateLocalFOLLOW(s,tokenLabel,currentRuleName,i);
@@ -2034,6 +2144,21 @@ public CodeGenTreeWalker() {
 						code = getWildcardST(w,astSuffix,labelText);
 						code.setAttribute("elementIndex", ((TokenWithIndex)w.getToken()).getIndex());
 						
+				break;
+			}
+			case DOT:
+			{
+				AST __t89 = _t;
+				GrammarAST tmp52_AST_in = (GrammarAST)_t;
+				match(_t,DOT);
+				_t = _t.getFirstChild();
+				GrammarAST tmp53_AST_in = (GrammarAST)_t;
+				match(_t,ID);
+				_t = _t.getNextSibling();
+				code=atom(_t,tmp53_AST_in, label, astSuffix);
+				_t = _retTree;
+				_t = __t89;
+				_t = _t.getNextSibling();
 				break;
 			}
 			case BLOCK:
@@ -2071,15 +2196,23 @@ public CodeGenTreeWalker() {
 			// the child list.
 			code.setAttribute("nullableChildList", "true");
 		}
+		rewriteTreeNestingLevel++;
+		code.setAttribute("enclosingTreeLevel", rewriteTreeNestingLevel-1);
+		code.setAttribute("treeLevel", rewriteTreeNestingLevel);
+		Rule r = grammar.getRule(currentRuleName);
+		GrammarAST rootSuffix = null;
+		if ( grammar.buildAST() && !r.hasRewrite(outerAltNum) ) {
+			rootSuffix = new GrammarAST(ROOT,"ROOT");
+		}
 		
 		
 		try {      // for error handling
-			AST __t77 = _t;
-			GrammarAST tmp50_AST_in = (GrammarAST)_t;
+			AST __t79 = _t;
+			GrammarAST tmp54_AST_in = (GrammarAST)_t;
 			match(_t,TREE_BEGIN);
 			_t = _t.getFirstChild();
 			elAST=(GrammarAST)_t;
-			el=element(_t,null,null);
+			el=element(_t,null,rootSuffix);
 			_t = _retTree;
 			
 			code.setAttribute("root.{el,line,pos}",
@@ -2089,10 +2222,10 @@ public CodeGenTreeWalker() {
 										  );
 			
 			{
-			_loop79:
+			_loop81:
 			do {
 				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==ACTION)) {
+				if ((_t.getType()==FORCED_ACTION||_t.getType()==ACTION)) {
 					actAST=(GrammarAST)_t;
 					act=element_action(_t);
 					_t = _retTree;
@@ -2105,16 +2238,16 @@ public CodeGenTreeWalker() {
 					
 				}
 				else {
-					break _loop79;
+					break _loop81;
 				}
 				
 			} while (true);
 			}
 			{
-			_loop81:
+			_loop83:
 			do {
 				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN||_t.getType()==WILDCARD)) {
+				if ((_t.getType()==BLOCK||_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==CHAR_RANGE||_t.getType()==EPSILON||_t.getType()==FORCED_ACTION||_t.getType()==GATED_SEMPRED||_t.getType()==SYN_SEMPRED||_t.getType()==BACKTRACK_SEMPRED||_t.getType()==DOT||_t.getType()==ACTION||_t.getType()==ASSIGN||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==BANG||_t.getType()==PLUS_ASSIGN||_t.getType()==SEMPRED||_t.getType()==ROOT||_t.getType()==WILDCARD||_t.getType()==RULE_REF||_t.getType()==NOT||_t.getType()==TREE_BEGIN)) {
 					elAST=(GrammarAST)_t;
 					el=element(_t,null,null);
 					_t = _retTree;
@@ -2127,13 +2260,14 @@ public CodeGenTreeWalker() {
 								
 				}
 				else {
-					break _loop81;
+					break _loop83;
 				}
 				
 			} while (true);
 			}
-			_t = __t77;
+			_t = __t79;
 			_t = _t.getNextSibling();
+			rewriteTreeNestingLevel--;
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -2148,15 +2282,38 @@ public CodeGenTreeWalker() {
 		
 		GrammarAST element_action_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		GrammarAST act = null;
+		GrammarAST act2 = null;
 		
 		try {      // for error handling
-			act = (GrammarAST)_t;
-			match(_t,ACTION);
-			_t = _t.getNextSibling();
-			
-			code = templates.getInstanceOf("execAction");
-			code.setAttribute("action", generator.translateAction(currentRuleName,act));
-			
+			if (_t==null) _t=ASTNULL;
+			switch ( _t.getType()) {
+			case ACTION:
+			{
+				act = (GrammarAST)_t;
+				match(_t,ACTION);
+				_t = _t.getNextSibling();
+				
+				code = templates.getInstanceOf("execAction");
+				code.setAttribute("action", generator.translateAction(currentRuleName,act));
+				
+				break;
+			}
+			case FORCED_ACTION:
+			{
+				act2 = (GrammarAST)_t;
+				match(_t,FORCED_ACTION);
+				_t = _t.getNextSibling();
+				
+				code = templates.getInstanceOf("execForcedAction");
+				code.setAttribute("action", generator.translateAction(currentRuleName,act2));
+				
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(_t);
+			}
+			}
 		}
 		catch (RecognitionException ex) {
 			reportError(ex);
@@ -2211,14 +2368,14 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				GrammarAST tmp51_AST_in = (GrammarAST)_t;
+				GrammarAST tmp55_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case BANG:
 			{
-				GrammarAST tmp52_AST_in = (GrammarAST)_t;
+				GrammarAST tmp56_AST_in = (GrammarAST)_t;
 				match(_t,BANG);
 				_t = _t.getNextSibling();
 				break;
@@ -2271,8 +2428,8 @@ public CodeGenTreeWalker() {
 			}
 			case CHAR_RANGE:
 			{
-				AST __t90 = _t;
-				GrammarAST tmp53_AST_in = (GrammarAST)_t;
+				AST __t93 = _t;
+				GrammarAST tmp57_AST_in = (GrammarAST)_t;
 				match(_t,CHAR_RANGE);
 				_t = _t.getFirstChild();
 				c1 = (GrammarAST)_t;
@@ -2281,7 +2438,7 @@ public CodeGenTreeWalker() {
 				c2 = (GrammarAST)_t;
 				match(_t,CHAR_LITERAL);
 				_t = _t.getNextSibling();
-				_t = __t90;
+				_t = __t93;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2310,7 +2467,7 @@ public CodeGenTreeWalker() {
 		try {      // for error handling
 			if (_t==null) _t=ASTNULL;
 			if (((_t.getType()==ALT))&&(generator.grammar.buildAST())) {
-				AST __t99 = _t;
+				AST __t102 = _t;
 				a = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,ALT);
 				_t = _t.getFirstChild();
@@ -2330,8 +2487,8 @@ public CodeGenTreeWalker() {
 				case TREE_BEGIN:
 				{
 					{
-					int _cnt102=0;
-					_loop102:
+					int _cnt105=0;
+					_loop105:
 					do {
 						if (_t==null) _t=ASTNULL;
 						if ((_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==LABEL||_t.getType()==ACTION||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==RULE_REF||_t.getType()==TREE_BEGIN)) {
@@ -2346,17 +2503,17 @@ public CodeGenTreeWalker() {
 												
 						}
 						else {
-							if ( _cnt102>=1 ) { break _loop102; } else {throw new NoViableAltException(_t);}
+							if ( _cnt105>=1 ) { break _loop105; } else {throw new NoViableAltException(_t);}
 						}
 						
-						_cnt102++;
+						_cnt105++;
 					} while (true);
 					}
 					break;
 				}
 				case EPSILON:
 				{
-					GrammarAST tmp54_AST_in = (GrammarAST)_t;
+					GrammarAST tmp58_AST_in = (GrammarAST)_t;
 					match(_t,EPSILON);
 					_t = _t.getNextSibling();
 					code.setAttribute("elements.{el,line,pos}",
@@ -2373,15 +2530,20 @@ public CodeGenTreeWalker() {
 				}
 				}
 				}
-				GrammarAST tmp55_AST_in = (GrammarAST)_t;
+				GrammarAST tmp59_AST_in = (GrammarAST)_t;
 				match(_t,EOA);
 				_t = _t.getNextSibling();
-				_t = __t99;
+				_t = __t102;
 				_t = _t.getNextSibling();
 			}
 			else if (((_t.getType()==ALT||_t.getType()==TEMPLATE||_t.getType()==ACTION))&&(generator.grammar.buildTemplate())) {
 				code=rewrite_template(_t);
 				_t = _retTree;
+			}
+			else if ((_t.getType()==ETC)) {
+				GrammarAST tmp60_AST_in = (GrammarAST)_t;
+				match(_t,ETC);
+				_t = _t.getNextSibling();
 			}
 			else {
 				throw new NoViableAltException(_t);
@@ -2412,22 +2574,22 @@ public CodeGenTreeWalker() {
 		
 		
 		try {      // for error handling
-			AST __t97 = _t;
-			GrammarAST tmp56_AST_in = (GrammarAST)_t;
+			AST __t100 = _t;
+			GrammarAST tmp61_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			
 			currentBlockST.setAttribute("referencedElementsDeep",
-			getTokenTypesAsTargetLabels(tmp56_AST_in.rewriteRefsDeep));
+			getTokenTypesAsTargetLabels(tmp61_AST_in.rewriteRefsDeep));
 			currentBlockST.setAttribute("referencedElements",
-			getTokenTypesAsTargetLabels(tmp56_AST_in.rewriteRefsShallow));
+			getTokenTypesAsTargetLabels(tmp61_AST_in.rewriteRefsShallow));
 			
 			alt=rewrite_alternative(_t);
 			_t = _retTree;
-			GrammarAST tmp57_AST_in = (GrammarAST)_t;
+			GrammarAST tmp62_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t97;
+			_t = __t100;
 			_t = _t.getNextSibling();
 			
 				code.setAttribute("alt", alt);
@@ -2509,25 +2671,25 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case ALT:
 			{
-				AST __t117 = _t;
-				GrammarAST tmp58_AST_in = (GrammarAST)_t;
+				AST __t120 = _t;
+				GrammarAST tmp63_AST_in = (GrammarAST)_t;
 				match(_t,ALT);
 				_t = _t.getFirstChild();
-				GrammarAST tmp59_AST_in = (GrammarAST)_t;
+				GrammarAST tmp64_AST_in = (GrammarAST)_t;
 				match(_t,EPSILON);
 				_t = _t.getNextSibling();
-				GrammarAST tmp60_AST_in = (GrammarAST)_t;
+				GrammarAST tmp65_AST_in = (GrammarAST)_t;
 				match(_t,EOA);
 				_t = _t.getNextSibling();
-				_t = __t117;
+				_t = __t120;
 				_t = _t.getNextSibling();
 				code=templates.getInstanceOf("rewriteEmptyTemplate");
 				break;
 			}
 			case TEMPLATE:
 			{
-				AST __t118 = _t;
-				GrammarAST tmp61_AST_in = (GrammarAST)_t;
+				AST __t121 = _t;
+				GrammarAST tmp66_AST_in = (GrammarAST)_t;
 				match(_t,TEMPLATE);
 				_t = _t.getFirstChild();
 				{
@@ -2567,17 +2729,17 @@ public CodeGenTreeWalker() {
 						   		code.setAttribute("expr", chunks);
 						   }
 						
-				AST __t120 = _t;
-				GrammarAST tmp62_AST_in = (GrammarAST)_t;
+				AST __t123 = _t;
+				GrammarAST tmp67_AST_in = (GrammarAST)_t;
 				match(_t,ARGLIST);
 				_t = _t.getFirstChild();
 				{
-				_loop123:
+				_loop126:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==ARG)) {
-						AST __t122 = _t;
-						GrammarAST tmp63_AST_in = (GrammarAST)_t;
+						AST __t125 = _t;
+						GrammarAST tmp68_AST_in = (GrammarAST)_t;
 						match(_t,ARG);
 						_t = _t.getFirstChild();
 						arg = (GrammarAST)_t;
@@ -2594,27 +2756,27 @@ public CodeGenTreeWalker() {
 								   		   List chunks = generator.translateAction(currentRuleName,a);
 								   		   code.setAttribute("args.{name,value}", arg.getText(), chunks);
 								   		
-						_t = __t122;
+						_t = __t125;
 						_t = _t.getNextSibling();
 					}
 					else {
-						break _loop123;
+						break _loop126;
 					}
 					
 				} while (true);
 				}
-				_t = __t120;
+				_t = __t123;
 				_t = _t.getNextSibling();
 				{
 				if (_t==null) _t=ASTNULL;
 				switch ( _t.getType()) {
 				case DOUBLE_QUOTE_STRING_LITERAL:
 				{
-					GrammarAST tmp64_AST_in = (GrammarAST)_t;
+					GrammarAST tmp69_AST_in = (GrammarAST)_t;
 					match(_t,DOUBLE_QUOTE_STRING_LITERAL);
 					_t = _t.getNextSibling();
 					
-					String sl = tmp64_AST_in.getText();
+					String sl = tmp69_AST_in.getText();
 								 String t = sl.substring(1,sl.length()-1); // strip quotes
 								 t = generator.target.getTargetStringLiteralFromString(t);
 					code.setAttribute("template",t);
@@ -2623,11 +2785,11 @@ public CodeGenTreeWalker() {
 				}
 				case DOUBLE_ANGLE_STRING_LITERAL:
 				{
-					GrammarAST tmp65_AST_in = (GrammarAST)_t;
+					GrammarAST tmp70_AST_in = (GrammarAST)_t;
 					match(_t,DOUBLE_ANGLE_STRING_LITERAL);
 					_t = _t.getNextSibling();
 					
-					String sl = tmp65_AST_in.getText();
+					String sl = tmp70_AST_in.getText();
 								 String t = sl.substring(2,sl.length()-2); // strip double angle quotes
 								 t = generator.target.getTargetStringLiteralFromString(t);
 					code.setAttribute("template",t);
@@ -2644,7 +2806,7 @@ public CodeGenTreeWalker() {
 				}
 				}
 				}
-				_t = __t118;
+				_t = __t121;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2683,7 +2845,10 @@ public CodeGenTreeWalker() {
 		
 		GrammarAST rewrite_atom_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		GrammarAST r = null;
+		GrammarAST tk = null;
 		GrammarAST arg = null;
+		GrammarAST cl = null;
+		GrammarAST sl = null;
 		
 		try {      // for error handling
 			if (_t==null) _t=ASTNULL;
@@ -2730,13 +2895,14 @@ public CodeGenTreeWalker() {
 			case CHAR_LITERAL:
 			case TOKEN_REF:
 			{
+				GrammarAST term=(GrammarAST)_t;
 				{
 				if (_t==null) _t=ASTNULL;
 				switch ( _t.getType()) {
 				case TOKEN_REF:
 				{
-					AST __t114 = _t;
-					GrammarAST tmp66_AST_in = (GrammarAST)_t;
+					AST __t117 = _t;
+					tk = _t==ASTNULL ? null :(GrammarAST)_t;
 					match(_t,TOKEN_REF);
 					_t = _t.getFirstChild();
 					{
@@ -2759,20 +2925,20 @@ public CodeGenTreeWalker() {
 					}
 					}
 					}
-					_t = __t114;
+					_t = __t117;
 					_t = _t.getNextSibling();
 					break;
 				}
 				case CHAR_LITERAL:
 				{
-					GrammarAST tmp67_AST_in = (GrammarAST)_t;
+					cl = (GrammarAST)_t;
 					match(_t,CHAR_LITERAL);
 					_t = _t.getNextSibling();
 					break;
 				}
 				case STRING_LITERAL:
 				{
-					GrammarAST tmp68_AST_in = (GrammarAST)_t;
+					sl = (GrammarAST)_t;
 					match(_t,STRING_LITERAL);
 					_t = _t.getNextSibling();
 					break;
@@ -2788,14 +2954,19 @@ public CodeGenTreeWalker() {
 					String stName = "rewriteTokenRef";
 					Rule rule = grammar.getRule(currentRuleName);
 					Set tokenRefsInAlt = rule.getTokenRefsInAlt(outerAltNum);
-					boolean imaginary = !tokenRefsInAlt.contains(tokenName);
-					if ( imaginary ) {
+					boolean createNewNode = !tokenRefsInAlt.contains(tokenName) || arg!=null;
+				Object hetero = null;
+						if ( term.terminalOptions!=null ) {
+							hetero = term.terminalOptions.get(Grammar.defaultTokenOption);
+						}
+					if ( createNewNode ) {
 						stName = "rewriteImaginaryTokenRef";
 					}
 					if ( isRoot ) {
 						stName += "Root";
 					}
 					code = templates.getInstanceOf(stName);
+						code.setAttribute("hetero", hetero);
 					if ( arg!=null ) {
 							List args = generator.translateAction(currentRuleName,arg);
 							code.setAttribute("args", args);
@@ -2816,15 +2987,23 @@ public CodeGenTreeWalker() {
 			}
 			case LABEL:
 			{
-				GrammarAST tmp69_AST_in = (GrammarAST)_t;
+				GrammarAST tmp71_AST_in = (GrammarAST)_t;
 				match(_t,LABEL);
 				_t = _t.getNextSibling();
 				
-					String labelName = tmp69_AST_in.getText();
+					String labelName = tmp71_AST_in.getText();
 					Rule rule = grammar.getRule(currentRuleName);
 					Grammar.LabelElementPair pair = rule.getLabel(labelName);
 					if ( labelName.equals(currentRuleName) ) {
 						// special case; ref to old value via $rule
+							if ( rule.hasRewrite(outerAltNum) &&
+								 rule.getRuleRefsInAlt(outerAltNum).contains(labelName) )
+							{
+								ErrorManager.grammarError(ErrorManager.MSG_RULE_REF_AMBIG_WITH_RULE_IN_ALT,
+														  grammar,
+														  ((GrammarAST)(tmp71_AST_in)).getToken(),
+														  labelName);
+						}
 						StringTemplate labelST = templates.getInstanceOf("prevRuleRootRef");
 						code = templates.getInstanceOf("rewriteRuleLabelRef"+(isRoot?"Root":""));
 						code.setAttribute("label", labelST);
@@ -2832,7 +3011,7 @@ public CodeGenTreeWalker() {
 					else if ( pair==null ) {
 							ErrorManager.grammarError(ErrorManager.MSG_UNDEFINED_LABEL_REF_IN_REWRITE,
 													  grammar,
-													  ((GrammarAST)(tmp69_AST_in)).getToken(),
+													  ((GrammarAST)(tmp71_AST_in)).getToken(),
 													  labelName);
 							code = new StringTemplate();
 					}
@@ -2863,13 +3042,13 @@ public CodeGenTreeWalker() {
 			}
 			case ACTION:
 			{
-				GrammarAST tmp70_AST_in = (GrammarAST)_t;
+				GrammarAST tmp72_AST_in = (GrammarAST)_t;
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
 				
 				// actions in rewrite rules yield a tree object
-				String actText = tmp70_AST_in.getText();
-				List chunks = generator.translateAction(currentRuleName,tmp70_AST_in);
+				String actText = tmp72_AST_in.getText();
+				List chunks = generator.translateAction(currentRuleName,tmp72_AST_in);
 						code = templates.getInstanceOf("rewriteNodeAction"+(isRoot?"Root":""));
 						code.setAttribute("action", chunks);
 				
@@ -2899,13 +3078,13 @@ public CodeGenTreeWalker() {
 			switch ( _t.getType()) {
 			case OPTIONAL:
 			{
-				AST __t105 = _t;
-				GrammarAST tmp71_AST_in = (GrammarAST)_t;
+				AST __t108 = _t;
+				GrammarAST tmp73_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONAL);
 				_t = _t.getFirstChild();
 				code=rewrite_block(_t,"rewriteOptionalBlock");
 				_t = _retTree;
-				_t = __t105;
+				_t = __t108;
 				_t = _t.getNextSibling();
 				
 						String description = grammar.grammarTreeToString(rewrite_ebnf_AST_in, false);
@@ -2916,13 +3095,13 @@ public CodeGenTreeWalker() {
 			}
 			case CLOSURE:
 			{
-				AST __t106 = _t;
-				GrammarAST tmp72_AST_in = (GrammarAST)_t;
+				AST __t109 = _t;
+				GrammarAST tmp74_AST_in = (GrammarAST)_t;
 				match(_t,CLOSURE);
 				_t = _t.getFirstChild();
 				code=rewrite_block(_t,"rewriteClosureBlock");
 				_t = _retTree;
-				_t = __t106;
+				_t = __t109;
 				_t = _t.getNextSibling();
 				
 						String description = grammar.grammarTreeToString(rewrite_ebnf_AST_in, false);
@@ -2933,13 +3112,13 @@ public CodeGenTreeWalker() {
 			}
 			case POSITIVE_CLOSURE:
 			{
-				AST __t107 = _t;
-				GrammarAST tmp73_AST_in = (GrammarAST)_t;
+				AST __t110 = _t;
+				GrammarAST tmp75_AST_in = (GrammarAST)_t;
 				match(_t,POSITIVE_CLOSURE);
 				_t = _t.getFirstChild();
 				code=rewrite_block(_t,"rewritePositiveClosureBlock");
 				_t = _retTree;
-				_t = __t107;
+				_t = __t110;
 				_t = _t.getNextSibling();
 				
 						String description = grammar.grammarTreeToString(rewrite_ebnf_AST_in, false);
@@ -2975,8 +3154,8 @@ public CodeGenTreeWalker() {
 		
 		
 		try {      // for error handling
-			AST __t109 = _t;
-			GrammarAST tmp74_AST_in = (GrammarAST)_t;
+			AST __t112 = _t;
+			GrammarAST tmp76_AST_in = (GrammarAST)_t;
 			match(_t,TREE_BEGIN);
 			_t = _t.getFirstChild();
 			elAST=(GrammarAST)_t;
@@ -2989,7 +3168,7 @@ public CodeGenTreeWalker() {
 										  );
 						
 			{
-			_loop111:
+			_loop114:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==OPTIONAL||_t.getType()==CLOSURE||_t.getType()==POSITIVE_CLOSURE||_t.getType()==LABEL||_t.getType()==ACTION||_t.getType()==STRING_LITERAL||_t.getType()==CHAR_LITERAL||_t.getType()==TOKEN_REF||_t.getType()==RULE_REF||_t.getType()==TREE_BEGIN)) {
@@ -3005,12 +3184,12 @@ public CodeGenTreeWalker() {
 								
 				}
 				else {
-					break _loop111;
+					break _loop114;
 				}
 				
 			} while (true);
 			}
-			_t = __t109;
+			_t = __t112;
 			_t = _t.getNextSibling();
 			
 					String description = grammar.grammarTreeToString(rewrite_tree_AST_in, false);
@@ -3059,13 +3238,16 @@ public CodeGenTreeWalker() {
 		"TREE_GRAMMAR",
 		"COMBINED_GRAMMAR",
 		"INITACTION",
+		"FORCED_ACTION",
 		"LABEL",
 		"TEMPLATE",
 		"\"scope\"",
+		"\"import\"",
 		"GATED_SEMPRED",
 		"SYN_SEMPRED",
 		"BACKTRACK_SEMPRED",
 		"\"fragment\"",
+		"DOT",
 		"ACTION",
 		"DOC_COMMENT",
 		"SEMI",
@@ -3080,6 +3262,7 @@ public CodeGenTreeWalker() {
 		"CHAR_LITERAL",
 		"INT",
 		"STAR",
+		"COMMA",
 		"TOKEN_REF",
 		"\"protected\"",
 		"\"public\"",
@@ -3088,7 +3271,6 @@ public CodeGenTreeWalker() {
 		"ARG_ACTION",
 		"\"returns\"",
 		"\"throws\"",
-		"COMMA",
 		"LPAREN",
 		"OR",
 		"RPAREN",
@@ -3098,13 +3280,16 @@ public CodeGenTreeWalker() {
 		"SEMPRED",
 		"IMPLIES",
 		"ROOT",
+		"WILDCARD",
 		"RULE_REF",
 		"NOT",
 		"TREE_BEGIN",
 		"QUESTION",
 		"PLUS",
-		"WILDCARD",
+		"OPEN_ELEMENT_OPTION",
+		"CLOSE_ELEMENT_OPTION",
 		"REWRITE",
+		"ETC",
 		"DOLLAR",
 		"DOUBLE_QUOTE_STRING_LITERAL",
 		"DOUBLE_ANGLE_STRING_LITERAL",
@@ -3112,8 +3297,7 @@ public CodeGenTreeWalker() {
 		"COMMENT",
 		"SL_COMMENT",
 		"ML_COMMENT",
-		"OPEN_ELEMENT_OPTION",
-		"CLOSE_ELEMENT_OPTION",
+		"STRAY_BRACKET",
 		"ESC",
 		"DIGIT",
 		"XDIGIT",

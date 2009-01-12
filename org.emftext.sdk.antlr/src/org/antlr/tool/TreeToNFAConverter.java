@@ -2,7 +2,7 @@
 
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -49,6 +49,7 @@ import antlr.collections.impl.ASTArray;
 public class TreeToNFAConverter extends antlr.TreeParser       implements TreeToNFAConverterTokenTypes
  {
 
+
 /** Factory used to create nodes and submachines */
 protected NFAFactory factory = null;
 
@@ -70,6 +71,7 @@ public TreeToNFAConverter(Grammar g, NFA nfa, NFAFactory factory) {
 	this.factory = factory;
 }
 
+/*
 protected void init() {
     // define all the rule begin/end NFAStates to solve forward reference issues
     Collection rules = grammar.getRules();
@@ -78,20 +80,22 @@ protected void init() {
         String ruleName = r.name;
         NFAState ruleBeginState = factory.newState();
         ruleBeginState.setDescription("rule "+ruleName+" start");
-		ruleBeginState.setEnclosingRuleName(ruleName);
-        grammar.setRuleStartState(ruleName, ruleBeginState);
+		ruleBeginState.enclosingRule = r;
+        r.startState = ruleBeginState;
         NFAState ruleEndState = factory.newState();
         ruleEndState.setDescription("rule "+ruleName+" end");
         ruleEndState.setAcceptState(true);
-		ruleEndState.setEnclosingRuleName(ruleName);
-        grammar.setRuleStopState(ruleName, ruleEndState);
+		ruleEndState.enclosingRule = r;
+        r.stopState = ruleEndState;
     }
 }
+*/
 
 protected void addFollowTransition(String ruleName, NFAState following) {
      //System.out.println("adding follow link to rule "+ruleName);
      // find last link in FOLLOW chain emanating from rule
-     NFAState end = grammar.getRuleStopState(ruleName);
+     Rule r = grammar.getRule(ruleName);
+     NFAState end = r.stopState;
      while ( end.transition(1)!=null ) {
          end = (NFAState)end.transition(1).target;
      }
@@ -143,7 +147,6 @@ public TreeToNFAConverter() {
 		GrammarAST grammar_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			init();
 			{
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
@@ -233,6 +236,7 @@ public TreeToNFAConverter() {
 			case TOKENS:
 			case RULE:
 			case SCOPE:
+			case IMPORT:
 			case AMPERSAND:
 			{
 				break;
@@ -262,6 +266,36 @@ public TreeToNFAConverter() {
 			case TOKENS:
 			case RULE:
 			case SCOPE:
+			case IMPORT:
+			case AMPERSAND:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(_t);
+			}
+			}
+			}
+			{
+			if (_t==null) _t=ASTNULL;
+			switch ( _t.getType()) {
+			case IMPORT:
+			{
+				AST __t14 = _t;
+				GrammarAST tmp8_AST_in = (GrammarAST)_t;
+				match(_t,IMPORT);
+				_t = _t.getFirstChild();
+				GrammarAST tmp9_AST_in = (GrammarAST)_t;
+				if ( _t==null ) throw new MismatchedTokenException();
+				_t = _t.getNextSibling();
+				_t = __t14;
+				_t = _t.getNextSibling();
+				break;
+			}
+			case TOKENS:
+			case RULE:
+			case SCOPE:
 			case AMPERSAND:
 			{
 				break;
@@ -277,14 +311,14 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case TOKENS:
 			{
-				AST __t14 = _t;
-				GrammarAST tmp8_AST_in = (GrammarAST)_t;
+				AST __t16 = _t;
+				GrammarAST tmp10_AST_in = (GrammarAST)_t;
 				match(_t,TOKENS);
 				_t = _t.getFirstChild();
-				GrammarAST tmp9_AST_in = (GrammarAST)_t;
+				GrammarAST tmp11_AST_in = (GrammarAST)_t;
 				if ( _t==null ) throw new MismatchedTokenException();
 				_t = _t.getNextSibling();
-				_t = __t14;
+				_t = __t16;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -301,7 +335,7 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			_loop16:
+			_loop18:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==SCOPE)) {
@@ -309,22 +343,22 @@ public TreeToNFAConverter() {
 					_t = _retTree;
 				}
 				else {
-					break _loop16;
+					break _loop18;
 				}
 				
 			} while (true);
 			}
 			{
-			_loop18:
+			_loop20:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
-					GrammarAST tmp10_AST_in = (GrammarAST)_t;
+					GrammarAST tmp12_AST_in = (GrammarAST)_t;
 					match(_t,AMPERSAND);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop18;
+					break _loop20;
 				}
 				
 			} while (true);
@@ -345,13 +379,13 @@ public TreeToNFAConverter() {
 		
 		try {      // for error handling
 			AST __t8 = _t;
-			GrammarAST tmp11_AST_in = (GrammarAST)_t;
+			GrammarAST tmp13_AST_in = (GrammarAST)_t;
 			match(_t,SCOPE);
 			_t = _t.getFirstChild();
-			GrammarAST tmp12_AST_in = (GrammarAST)_t;
+			GrammarAST tmp14_AST_in = (GrammarAST)_t;
 			match(_t,ID);
 			_t = _t.getNextSibling();
-			GrammarAST tmp13_AST_in = (GrammarAST)_t;
+			GrammarAST tmp15_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
 			_t = __t8;
@@ -370,8 +404,8 @@ public TreeToNFAConverter() {
 		
 		try {      // for error handling
 			{
-			int _cnt21=0;
-			_loop21:
+			int _cnt23=0;
+			_loop23:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==RULE)) {
@@ -379,10 +413,10 @@ public TreeToNFAConverter() {
 					_t = _retTree;
 				}
 				else {
-					if ( _cnt21>=1 ) { break _loop21; } else {throw new NoViableAltException(_t);}
+					if ( _cnt23>=1 ) { break _loop23; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt21++;
+				_cnt23++;
 			} while (true);
 			}
 		}
@@ -404,15 +438,18 @@ public TreeToNFAConverter() {
 		
 		
 		try {      // for error handling
-			AST __t23 = _t;
-			GrammarAST tmp14_AST_in = (GrammarAST)_t;
+			AST __t25 = _t;
+			GrammarAST tmp16_AST_in = (GrammarAST)_t;
 			match(_t,RULE);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
 			match(_t,ID);
 			_t = _t.getNextSibling();
 			r=id.getText();
-			currentRuleName = r; factory.currentRuleName = r;
+			
+			currentRuleName = r;
+			factory.currentRule = grammar.getLocallyDefinedRule(r);
+			
 			{
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
@@ -436,7 +473,7 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			GrammarAST tmp15_AST_in = (GrammarAST)_t;
+			GrammarAST tmp17_AST_in = (GrammarAST)_t;
 			match(_t,ARG);
 			_t = _t.getNextSibling();
 			{
@@ -444,7 +481,7 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case ARG_ACTION:
 			{
-				GrammarAST tmp16_AST_in = (GrammarAST)_t;
+				GrammarAST tmp18_AST_in = (GrammarAST)_t;
 				match(_t,ARG_ACTION);
 				_t = _t.getNextSibling();
 				break;
@@ -461,7 +498,7 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			GrammarAST tmp17_AST_in = (GrammarAST)_t;
+			GrammarAST tmp19_AST_in = (GrammarAST)_t;
 			match(_t,RET);
 			_t = _t.getNextSibling();
 			{
@@ -469,7 +506,7 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case ARG_ACTION:
 			{
-				GrammarAST tmp18_AST_in = (GrammarAST)_t;
+				GrammarAST tmp20_AST_in = (GrammarAST)_t;
 				match(_t,ARG_ACTION);
 				_t = _t.getNextSibling();
 				break;
@@ -493,7 +530,7 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				GrammarAST tmp19_AST_in = (GrammarAST)_t;
+				GrammarAST tmp21_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getNextSibling();
 				break;
@@ -531,16 +568,16 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			_loop32:
+			_loop34:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
-					GrammarAST tmp20_AST_in = (GrammarAST)_t;
+					GrammarAST tmp22_AST_in = (GrammarAST)_t;
 					match(_t,AMPERSAND);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop32;
+					break _loop34;
 				}
 				
 			} while (true);
@@ -568,7 +605,7 @@ public TreeToNFAConverter() {
 			}
 			}
 			}
-			GrammarAST tmp21_AST_in = (GrammarAST)_t;
+			GrammarAST tmp23_AST_in = (GrammarAST)_t;
 			match(_t,EOR);
 			_t = _t.getNextSibling();
 			
@@ -581,8 +618,9 @@ public TreeToNFAConverter() {
 								 grammar.type==Grammar.LEXER )
 							{
 								// attach start node to block for this rule
-								NFAState start = grammar.getRuleStartState(r);
-								start.setAssociatedASTNode(id);
+			Rule thisR = grammar.getLocallyDefinedRule(r);
+								NFAState start = thisR.startState;
+								start.associatedASTNode = id;
 								start.addTransition(new Transition(Label.EPSILON, b.left));
 			
 								// track decision if > 1 alts
@@ -595,11 +633,11 @@ public TreeToNFAConverter() {
 								}
 			
 								// hook to end of rule node
-								NFAState end = grammar.getRuleStopState(r);
+								NFAState end = thisR.stopState;
 								b.right.addTransition(new Transition(Label.EPSILON,end));
 							}
 			
-			_t = __t23;
+			_t = __t25;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -618,28 +656,28 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case LITERAL_protected:
 			{
-				GrammarAST tmp22_AST_in = (GrammarAST)_t;
+				GrammarAST tmp24_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_protected);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_public:
 			{
-				GrammarAST tmp23_AST_in = (GrammarAST)_t;
+				GrammarAST tmp25_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_public);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case LITERAL_private:
 			{
-				GrammarAST tmp24_AST_in = (GrammarAST)_t;
+				GrammarAST tmp26_AST_in = (GrammarAST)_t;
 				match(_t,LITERAL_private);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case FRAGMENT:
 			{
-				GrammarAST tmp25_AST_in = (GrammarAST)_t;
+				GrammarAST tmp27_AST_in = (GrammarAST)_t;
 				match(_t,FRAGMENT);
 				_t = _t.getNextSibling();
 				break;
@@ -662,8 +700,8 @@ public TreeToNFAConverter() {
 		GrammarAST ruleScopeSpec_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t36 = _t;
-			GrammarAST tmp26_AST_in = (GrammarAST)_t;
+			AST __t38 = _t;
+			GrammarAST tmp28_AST_in = (GrammarAST)_t;
 			match(_t,SCOPE);
 			_t = _t.getFirstChild();
 			{
@@ -671,7 +709,7 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case ACTION:
 			{
-				GrammarAST tmp27_AST_in = (GrammarAST)_t;
+				GrammarAST tmp29_AST_in = (GrammarAST)_t;
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
 				break;
@@ -688,21 +726,21 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			_loop39:
+			_loop41:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ID)) {
-					GrammarAST tmp28_AST_in = (GrammarAST)_t;
+					GrammarAST tmp30_AST_in = (GrammarAST)_t;
 					match(_t,ID);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop39;
+					break _loop41;
 				}
 				
 			} while (true);
 			}
-			_t = __t36;
+			_t = __t38;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -732,8 +770,8 @@ public TreeToNFAConverter() {
 				this.blockLevel--;
 			}
 			else if ((_t.getType()==BLOCK)) {
-				AST __t41 = _t;
-				GrammarAST tmp29_AST_in = (GrammarAST)_t;
+				AST __t43 = _t;
+				GrammarAST tmp31_AST_in = (GrammarAST)_t;
 				match(_t,BLOCK);
 				_t = _t.getFirstChild();
 				{
@@ -741,7 +779,7 @@ public TreeToNFAConverter() {
 				switch ( _t.getType()) {
 				case OPTIONS:
 				{
-					GrammarAST tmp30_AST_in = (GrammarAST)_t;
+					GrammarAST tmp32_AST_in = (GrammarAST)_t;
 					match(_t,OPTIONS);
 					_t = _t.getNextSibling();
 					break;
@@ -757,8 +795,8 @@ public TreeToNFAConverter() {
 				}
 				}
 				{
-				int _cnt44=0;
-				_loop44:
+				int _cnt46=0;
+				_loop46:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==ALT)) {
@@ -772,16 +810,16 @@ public TreeToNFAConverter() {
 						
 					}
 					else {
-						if ( _cnt44>=1 ) { break _loop44; } else {throw new NoViableAltException(_t);}
+						if ( _cnt46>=1 ) { break _loop46; } else {throw new NoViableAltException(_t);}
 					}
 					
-					_cnt44++;
+					_cnt46++;
 				} while (true);
 				}
-				GrammarAST tmp31_AST_in = (GrammarAST)_t;
+				GrammarAST tmp33_AST_in = (GrammarAST)_t;
 				match(_t,EOB);
 				_t = _t.getNextSibling();
-				_t = __t41;
+				_t = __t43;
 				_t = _t.getNextSibling();
 				g = factory.build_AlternativeBlock(alts);
 				this.blockLevel--;
@@ -809,8 +847,8 @@ public TreeToNFAConverter() {
 			case LITERAL_catch:
 			{
 				{
-				int _cnt51=0;
-				_loop51:
+				int _cnt53=0;
+				_loop53:
 				do {
 					if (_t==null) _t=ASTNULL;
 					if ((_t.getType()==LITERAL_catch)) {
@@ -818,10 +856,10 @@ public TreeToNFAConverter() {
 						_t = _retTree;
 					}
 					else {
-						if ( _cnt51>=1 ) { break _loop51; } else {throw new NoViableAltException(_t);}
+						if ( _cnt53>=1 ) { break _loop53; } else {throw new NoViableAltException(_t);}
 					}
 					
-					_cnt51++;
+					_cnt53++;
 				} while (true);
 				}
 				{
@@ -875,18 +913,18 @@ public TreeToNFAConverter() {
 		
 		
 		try {      // for error handling
-			AST __t99 = _t;
+			AST __t102 = _t;
 			b = _t==ASTNULL ? null :(GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			{
-			int _cnt103=0;
-			_loop103:
+			int _cnt106=0;
+			_loop106:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ALT)) {
-					AST __t101 = _t;
-					GrammarAST tmp32_AST_in = (GrammarAST)_t;
+					AST __t104 = _t;
+					GrammarAST tmp34_AST_in = (GrammarAST)_t;
 					match(_t,ALT);
 					_t = _t.getFirstChild();
 					{
@@ -894,7 +932,7 @@ public TreeToNFAConverter() {
 					switch ( _t.getType()) {
 					case BACKTRACK_SEMPRED:
 					{
-						GrammarAST tmp33_AST_in = (GrammarAST)_t;
+						GrammarAST tmp35_AST_in = (GrammarAST)_t;
 						match(_t,BACKTRACK_SEMPRED);
 						_t = _t.getNextSibling();
 						break;
@@ -916,26 +954,26 @@ public TreeToNFAConverter() {
 					}
 					setElement(_t,elements);
 					_t = _retTree;
-					GrammarAST tmp34_AST_in = (GrammarAST)_t;
+					GrammarAST tmp36_AST_in = (GrammarAST)_t;
 					match(_t,EOA);
 					_t = _t.getNextSibling();
-					_t = __t101;
+					_t = __t104;
 					_t = _t.getNextSibling();
 				}
 				else {
-					if ( _cnt103>=1 ) { break _loop103; } else {throw new NoViableAltException(_t);}
+					if ( _cnt106>=1 ) { break _loop106; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt103++;
+				_cnt106++;
 			} while (true);
 			}
-			GrammarAST tmp35_AST_in = (GrammarAST)_t;
+			GrammarAST tmp37_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t99;
+			_t = __t102;
 			_t = _t.getNextSibling();
 			
-			g = factory.build_Set(elements);
+			g = factory.build_Set(elements,b);
 			b.followingNFAState = g.right;
 			b.setValue = elements; // track set value of this block
 			
@@ -957,13 +995,13 @@ public TreeToNFAConverter() {
 		
 		
 		try {      // for error handling
-			AST __t46 = _t;
-			GrammarAST tmp36_AST_in = (GrammarAST)_t;
+			AST __t48 = _t;
+			GrammarAST tmp38_AST_in = (GrammarAST)_t;
 			match(_t,ALT);
 			_t = _t.getFirstChild();
 			{
-			int _cnt48=0;
-			_loop48:
+			int _cnt50=0;
+			_loop50:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_tokenSet_0.member(_t.getType()))) {
@@ -972,13 +1010,13 @@ public TreeToNFAConverter() {
 					g = factory.build_AB(g,e);
 				}
 				else {
-					if ( _cnt48>=1 ) { break _loop48; } else {throw new NoViableAltException(_t);}
+					if ( _cnt50>=1 ) { break _loop50; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt48++;
+				_cnt50++;
 			} while (true);
 			}
-			_t = __t46;
+			_t = __t48;
 			_t = _t.getNextSibling();
 			
 			if (g==null) { // if alt was a list of actions or whatever
@@ -1003,7 +1041,7 @@ public TreeToNFAConverter() {
 		
 		try {      // for error handling
 			{
-			_loop62:
+			_loop64:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==REWRITE)) {
@@ -1013,8 +1051,8 @@ public TreeToNFAConverter() {
 															  grammar, rewrite_AST_in.token, currentRuleName);
 								}
 								
-					AST __t59 = _t;
-					GrammarAST tmp37_AST_in = (GrammarAST)_t;
+					AST __t61 = _t;
+					GrammarAST tmp39_AST_in = (GrammarAST)_t;
 					match(_t,REWRITE);
 					_t = _t.getFirstChild();
 					{
@@ -1022,7 +1060,7 @@ public TreeToNFAConverter() {
 					switch ( _t.getType()) {
 					case SEMPRED:
 					{
-						GrammarAST tmp38_AST_in = (GrammarAST)_t;
+						GrammarAST tmp40_AST_in = (GrammarAST)_t;
 						match(_t,SEMPRED);
 						_t = _t.getNextSibling();
 						break;
@@ -1030,6 +1068,7 @@ public TreeToNFAConverter() {
 					case ALT:
 					case TEMPLATE:
 					case ACTION:
+					case ETC:
 					{
 						break;
 					}
@@ -1044,22 +1083,29 @@ public TreeToNFAConverter() {
 					switch ( _t.getType()) {
 					case ALT:
 					{
-						GrammarAST tmp39_AST_in = (GrammarAST)_t;
+						GrammarAST tmp41_AST_in = (GrammarAST)_t;
 						match(_t,ALT);
 						_t = _t.getNextSibling();
 						break;
 					}
 					case TEMPLATE:
 					{
-						GrammarAST tmp40_AST_in = (GrammarAST)_t;
+						GrammarAST tmp42_AST_in = (GrammarAST)_t;
 						match(_t,TEMPLATE);
 						_t = _t.getNextSibling();
 						break;
 					}
 					case ACTION:
 					{
-						GrammarAST tmp41_AST_in = (GrammarAST)_t;
+						GrammarAST tmp43_AST_in = (GrammarAST)_t;
 						match(_t,ACTION);
+						_t = _t.getNextSibling();
+						break;
+					}
+					case ETC:
+					{
+						GrammarAST tmp44_AST_in = (GrammarAST)_t;
+						match(_t,ETC);
 						_t = _t.getNextSibling();
 						break;
 					}
@@ -1069,11 +1115,11 @@ public TreeToNFAConverter() {
 					}
 					}
 					}
-					_t = __t59;
+					_t = __t61;
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop62;
+					break _loop64;
 				}
 				
 			} while (true);
@@ -1104,71 +1150,71 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				AST __t64 = _t;
-				GrammarAST tmp42_AST_in = (GrammarAST)_t;
+				AST __t66 = _t;
+				GrammarAST tmp45_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getFirstChild();
-				g=element(_t);
-				_t = _retTree;
-				_t = __t64;
-				_t = _t.getNextSibling();
-				break;
-			}
-			case BANG:
-			{
-				AST __t65 = _t;
-				GrammarAST tmp43_AST_in = (GrammarAST)_t;
-				match(_t,BANG);
-				_t = _t.getFirstChild();
-				g=element(_t);
-				_t = _retTree;
-				_t = __t65;
-				_t = _t.getNextSibling();
-				break;
-			}
-			case ASSIGN:
-			{
-				AST __t66 = _t;
-				GrammarAST tmp44_AST_in = (GrammarAST)_t;
-				match(_t,ASSIGN);
-				_t = _t.getFirstChild();
-				GrammarAST tmp45_AST_in = (GrammarAST)_t;
-				match(_t,ID);
-				_t = _t.getNextSibling();
 				g=element(_t);
 				_t = _retTree;
 				_t = __t66;
 				_t = _t.getNextSibling();
 				break;
 			}
-			case PLUS_ASSIGN:
+			case BANG:
 			{
 				AST __t67 = _t;
 				GrammarAST tmp46_AST_in = (GrammarAST)_t;
-				match(_t,PLUS_ASSIGN);
+				match(_t,BANG);
 				_t = _t.getFirstChild();
-				GrammarAST tmp47_AST_in = (GrammarAST)_t;
-				match(_t,ID);
-				_t = _t.getNextSibling();
 				g=element(_t);
 				_t = _retTree;
 				_t = __t67;
 				_t = _t.getNextSibling();
 				break;
 			}
-			case RANGE:
+			case ASSIGN:
 			{
 				AST __t68 = _t;
+				GrammarAST tmp47_AST_in = (GrammarAST)_t;
+				match(_t,ASSIGN);
+				_t = _t.getFirstChild();
 				GrammarAST tmp48_AST_in = (GrammarAST)_t;
+				match(_t,ID);
+				_t = _t.getNextSibling();
+				g=element(_t);
+				_t = _retTree;
+				_t = __t68;
+				_t = _t.getNextSibling();
+				break;
+			}
+			case PLUS_ASSIGN:
+			{
+				AST __t69 = _t;
+				GrammarAST tmp49_AST_in = (GrammarAST)_t;
+				match(_t,PLUS_ASSIGN);
+				_t = _t.getFirstChild();
+				GrammarAST tmp50_AST_in = (GrammarAST)_t;
+				match(_t,ID);
+				_t = _t.getNextSibling();
+				g=element(_t);
+				_t = _retTree;
+				_t = __t69;
+				_t = _t.getNextSibling();
+				break;
+			}
+			case RANGE:
+			{
+				AST __t70 = _t;
+				GrammarAST tmp51_AST_in = (GrammarAST)_t;
 				match(_t,RANGE);
 				_t = _t.getFirstChild();
 				a = _t==ASTNULL ? null : (GrammarAST)_t;
-				atom(_t);
+				atom(_t,null);
 				_t = _retTree;
 				b = _t==ASTNULL ? null : (GrammarAST)_t;
-				atom(_t);
+				atom(_t,null);
 				_t = _retTree;
-				_t = __t68;
+				_t = __t70;
 				_t = _t.getNextSibling();
 				g = factory.build_Range(grammar.getTokenType(a.getText()),
 				grammar.getTokenType(b.getText()));
@@ -1176,8 +1222,8 @@ public TreeToNFAConverter() {
 			}
 			case CHAR_RANGE:
 			{
-				AST __t69 = _t;
-				GrammarAST tmp49_AST_in = (GrammarAST)_t;
+				AST __t71 = _t;
+				GrammarAST tmp52_AST_in = (GrammarAST)_t;
 				match(_t,CHAR_RANGE);
 				_t = _t.getFirstChild();
 				c1 = (GrammarAST)_t;
@@ -1186,7 +1232,7 @@ public TreeToNFAConverter() {
 				c2 = (GrammarAST)_t;
 				match(_t,CHAR_LITERAL);
 				_t = _t.getNextSibling();
-				_t = __t69;
+				_t = __t71;
 				_t = _t.getNextSibling();
 				
 				if ( grammar.type==Grammar.LEXER ) {
@@ -1195,12 +1241,13 @@ public TreeToNFAConverter() {
 				
 				break;
 			}
+			case DOT:
 			case STRING_LITERAL:
 			case CHAR_LITERAL:
 			case TOKEN_REF:
+			case WILDCARD:
 			case RULE_REF:
 			case NOT:
-			case WILDCARD:
 			{
 				g=atom_or_notatom(_t);
 				_t = _retTree;
@@ -1223,21 +1270,30 @@ public TreeToNFAConverter() {
 			}
 			case SYNPRED:
 			{
-				AST __t70 = _t;
-				GrammarAST tmp50_AST_in = (GrammarAST)_t;
+				AST __t72 = _t;
+				GrammarAST tmp53_AST_in = (GrammarAST)_t;
 				match(_t,SYNPRED);
 				_t = _t.getFirstChild();
 				block(_t);
 				_t = _retTree;
-				_t = __t70;
+				_t = __t72;
 				_t = _t.getNextSibling();
 				break;
 			}
 			case ACTION:
 			{
-				GrammarAST tmp51_AST_in = (GrammarAST)_t;
+				GrammarAST tmp54_AST_in = (GrammarAST)_t;
 				match(_t,ACTION);
 				_t = _t.getNextSibling();
+				g = factory.build_Action(tmp54_AST_in);
+				break;
+			}
+			case FORCED_ACTION:
+			{
+				GrammarAST tmp55_AST_in = (GrammarAST)_t;
+				match(_t,FORCED_ACTION);
+				_t = _t.getNextSibling();
+				g = factory.build_Action(tmp55_AST_in);
 				break;
 			}
 			case SEMPRED:
@@ -1274,7 +1330,7 @@ public TreeToNFAConverter() {
 			}
 			case EPSILON:
 			{
-				GrammarAST tmp52_AST_in = (GrammarAST)_t;
+				GrammarAST tmp56_AST_in = (GrammarAST)_t;
 				match(_t,EPSILON);
 				_t = _t.getNextSibling();
 				g = factory.build_Epsilon();
@@ -1299,17 +1355,17 @@ public TreeToNFAConverter() {
 		GrammarAST exceptionHandler_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t54 = _t;
-			GrammarAST tmp53_AST_in = (GrammarAST)_t;
+			AST __t56 = _t;
+			GrammarAST tmp57_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_catch);
 			_t = _t.getFirstChild();
-			GrammarAST tmp54_AST_in = (GrammarAST)_t;
+			GrammarAST tmp58_AST_in = (GrammarAST)_t;
 			match(_t,ARG_ACTION);
 			_t = _t.getNextSibling();
-			GrammarAST tmp55_AST_in = (GrammarAST)_t;
+			GrammarAST tmp59_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t54;
+			_t = __t56;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1324,14 +1380,14 @@ public TreeToNFAConverter() {
 		GrammarAST finallyClause_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
 		try {      // for error handling
-			AST __t56 = _t;
-			GrammarAST tmp56_AST_in = (GrammarAST)_t;
+			AST __t58 = _t;
+			GrammarAST tmp60_AST_in = (GrammarAST)_t;
 			match(_t,LITERAL_finally);
 			_t = _t.getFirstChild();
-			GrammarAST tmp57_AST_in = (GrammarAST)_t;
+			GrammarAST tmp61_AST_in = (GrammarAST)_t;
 			match(_t,ACTION);
 			_t = _t.getNextSibling();
-			_t = __t56;
+			_t = __t58;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -1341,7 +1397,9 @@ public TreeToNFAConverter() {
 		_retTree = _t;
 	}
 	
-	public final StateCluster  atom(AST _t) throws RecognitionException {
+	public final StateCluster  atom(AST _t,
+		String scopeName
+	) throws RecognitionException {
 		StateCluster g=null;
 		
 		GrammarAST atom_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
@@ -1357,13 +1415,14 @@ public TreeToNFAConverter() {
 		GrammarAST as4 = null;
 		GrammarAST w = null;
 		GrammarAST as5 = null;
+		GrammarAST scope = null;
 		
 		try {      // for error handling
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
 			case RULE_REF:
 			{
-				AST __t85 = _t;
+				AST __t87 = _t;
 				r = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,RULE_REF);
 				_t = _t.getFirstChild();
@@ -1410,14 +1469,15 @@ public TreeToNFAConverter() {
 				}
 				}
 				}
-				_t = __t85;
+				_t = __t87;
 				_t = _t.getNextSibling();
 				
-				NFAState start = grammar.getRuleStartState(r.getText());
+				NFAState start = grammar.getRuleStartState(scopeName,r.getText());
 				if ( start!=null ) {
-				int ruleIndex = grammar.getRuleIndex(r.getText());
-				g = factory.build_RuleRef(ruleIndex, start);
+				Rule rr = grammar.getRule(scopeName,r.getText());
+				g = factory.build_RuleRef(rr, start);
 				r.followingNFAState = g.right;
+				r.NFAStartState = g.left;
 				if ( g.left.transition(0) instanceof RuleClosureTransition
 					 && grammar.type!=Grammar.LEXER )
 				{
@@ -1430,7 +1490,7 @@ public TreeToNFAConverter() {
 			}
 			case TOKEN_REF:
 			{
-				AST __t88 = _t;
+				AST __t90 = _t;
 				t = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,TOKEN_REF);
 				_t = _t.getFirstChild();
@@ -1477,21 +1537,21 @@ public TreeToNFAConverter() {
 				}
 				}
 				}
-				_t = __t88;
+				_t = __t90;
 				_t = _t.getNextSibling();
 				
 				if ( grammar.type==Grammar.LEXER ) {
-				NFAState start = grammar.getRuleStartState(t.getText());
+				NFAState start = grammar.getRuleStartState(scopeName,t.getText());
 				if ( start!=null ) {
-				int ruleIndex = grammar.getRuleIndex(t.getText());
-				g = factory.build_RuleRef(ruleIndex, start);
+				Rule rr = grammar.getRule(scopeName,t.getText());
+				g = factory.build_RuleRef(rr, start);
+					t.NFAStartState = g.left;
 				// don't add FOLLOW transitions in the lexer;
 				// only exact context should be used.
 				}
 				}
 				else {
-				int tokenType = grammar.getTokenType(t.getText());
-				g = factory.build_Atom(tokenType);
+				g = factory.build_Atom(t);
 				t.followingNFAState = g.right;
 				}
 				
@@ -1499,7 +1559,7 @@ public TreeToNFAConverter() {
 			}
 			case CHAR_LITERAL:
 			{
-				AST __t91 = _t;
+				AST __t93 = _t;
 				c = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,CHAR_LITERAL);
 				_t = _t.getFirstChild();
@@ -1524,15 +1584,14 @@ public TreeToNFAConverter() {
 				}
 				}
 				}
-				_t = __t91;
+				_t = __t93;
 				_t = _t.getNextSibling();
 				
 					if ( grammar.type==Grammar.LEXER ) {
-						g = factory.build_CharLiteralAtom(c.getText());
+						g = factory.build_CharLiteralAtom(c);
 					}
 					else {
-				int tokenType = grammar.getTokenType(c.getText());
-				g = factory.build_Atom(tokenType);
+				g = factory.build_Atom(c);
 				c.followingNFAState = g.right;
 					}
 					
@@ -1540,7 +1599,7 @@ public TreeToNFAConverter() {
 			}
 			case STRING_LITERAL:
 			{
-				AST __t93 = _t;
+				AST __t95 = _t;
 				s = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,STRING_LITERAL);
 				_t = _t.getFirstChild();
@@ -1565,15 +1624,14 @@ public TreeToNFAConverter() {
 				}
 				}
 				}
-				_t = __t93;
+				_t = __t95;
 				_t = _t.getNextSibling();
 				
 					if ( grammar.type==Grammar.LEXER ) {
-						g = factory.build_StringLiteralAtom(s.getText());
+						g = factory.build_StringLiteralAtom(s);
 					}
 					else {
-				int tokenType = grammar.getTokenType(s.getText());
-				g = factory.build_Atom(tokenType);
+				g = factory.build_Atom(s);
 				s.followingNFAState = g.right;
 					}
 					
@@ -1581,7 +1639,7 @@ public TreeToNFAConverter() {
 			}
 			case WILDCARD:
 			{
-				AST __t95 = _t;
+				AST __t97 = _t;
 				w = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,WILDCARD);
 				_t = _t.getFirstChild();
@@ -1606,9 +1664,24 @@ public TreeToNFAConverter() {
 				}
 				}
 				}
-				_t = __t95;
+				_t = __t97;
 				_t = _t.getNextSibling();
 				g = factory.build_Wildcard();
+				break;
+			}
+			case DOT:
+			{
+				AST __t99 = _t;
+				GrammarAST tmp62_AST_in = (GrammarAST)_t;
+				match(_t,DOT);
+				_t = _t.getFirstChild();
+				scope = (GrammarAST)_t;
+				match(_t,ID);
+				_t = _t.getNextSibling();
+				g=atom(_t,scope.getText());
+				_t = _retTree;
+				_t = __t99;
+				_t = _t.getNextSibling();
 				break;
 			}
 			default:
@@ -1638,19 +1711,20 @@ public TreeToNFAConverter() {
 		try {      // for error handling
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
+			case DOT:
 			case STRING_LITERAL:
 			case CHAR_LITERAL:
 			case TOKEN_REF:
-			case RULE_REF:
 			case WILDCARD:
+			case RULE_REF:
 			{
-				g=atom(_t);
+				g=atom(_t,null);
 				_t = _retTree;
 				break;
 			}
 			case NOT:
 			{
-				AST __t80 = _t;
+				AST __t82 = _t;
 				n = _t==ASTNULL ? null :(GrammarAST)_t;
 				match(_t,NOT);
 				_t = _t.getFirstChild();
@@ -1698,7 +1772,7 @@ public TreeToNFAConverter() {
 													              c.token,
 														          c.getText());
 					}
-						            g=factory.build_Set(notAtom);
+						            g=factory.build_Set(notAtom,n);
 						
 					break;
 				}
@@ -1753,7 +1827,7 @@ public TreeToNFAConverter() {
 												              t.token,
 													          t.getText());
 					}
-						           g=factory.build_Set(notAtom);
+						           g=factory.build_Set(notAtom,n);
 						
 					break;
 				}
@@ -1775,7 +1849,7 @@ public TreeToNFAConverter() {
 									  			              grammar,
 												              n.token);
 					}
-						           g=factory.build_Set(s);
+						           g=factory.build_Set(s,n);
 						
 					break;
 				}
@@ -1786,7 +1860,7 @@ public TreeToNFAConverter() {
 				}
 				}
 				n.followingNFAState = g.right;
-				_t = __t80;
+				_t = __t82;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -1822,13 +1896,13 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case OPTIONAL:
 			{
-				AST __t72 = _t;
-				GrammarAST tmp58_AST_in = (GrammarAST)_t;
+				AST __t74 = _t;
+				GrammarAST tmp63_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONAL);
 				_t = _t.getFirstChild();
 				b=block(_t);
 				_t = _retTree;
-				_t = __t72;
+				_t = __t74;
 				_t = _t.getNextSibling();
 				
 				if ( blk.setValue!=null ) {
@@ -1848,13 +1922,13 @@ public TreeToNFAConverter() {
 			}
 			case CLOSURE:
 			{
-				AST __t73 = _t;
-				GrammarAST tmp59_AST_in = (GrammarAST)_t;
+				AST __t75 = _t;
+				GrammarAST tmp64_AST_in = (GrammarAST)_t;
 				match(_t,CLOSURE);
 				_t = _t.getFirstChild();
 				b=block(_t);
 				_t = _retTree;
-				_t = __t73;
+				_t = __t75;
 				_t = _t.getNextSibling();
 				
 				if ( blk.setValue!=null ) {
@@ -1878,13 +1952,13 @@ public TreeToNFAConverter() {
 			}
 			case POSITIVE_CLOSURE:
 			{
-				AST __t74 = _t;
-				GrammarAST tmp60_AST_in = (GrammarAST)_t;
+				AST __t76 = _t;
+				GrammarAST tmp65_AST_in = (GrammarAST)_t;
 				match(_t,POSITIVE_CLOSURE);
 				_t = _t.getFirstChild();
 				b=block(_t);
 				_t = _retTree;
-				_t = __t74;
+				_t = __t76;
 				_t = _t.getNextSibling();
 				
 				if ( blk.setValue!=null ) {
@@ -1950,21 +2024,21 @@ public TreeToNFAConverter() {
 		
 		
 		try {      // for error handling
-			AST __t76 = _t;
-			GrammarAST tmp61_AST_in = (GrammarAST)_t;
+			AST __t78 = _t;
+			GrammarAST tmp66_AST_in = (GrammarAST)_t;
 			match(_t,TREE_BEGIN);
 			_t = _t.getFirstChild();
 			el=(GrammarAST)_t;
 			g=element(_t);
 			_t = _retTree;
 			
-			down = factory.build_Atom(Label.DOWN);
+			down = factory.build_Atom(Label.DOWN, el);
 			// TODO set following states for imaginary nodes?
 			//el.followingNFAState = down.right;
 					   g = factory.build_AB(g,down);
 					
 			{
-			_loop78:
+			_loop80:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_tokenSet_0.member(_t.getType()))) {
@@ -1974,19 +2048,19 @@ public TreeToNFAConverter() {
 					g = factory.build_AB(g,e);
 				}
 				else {
-					break _loop78;
+					break _loop80;
 				}
 				
 			} while (true);
 			}
 			
-			up = factory.build_Atom(Label.UP);
+			up = factory.build_Atom(Label.UP, el);
 			//el.followingNFAState = up.right;
 					   g = factory.build_AB(g,up);
 					   // tree roots point at right edge of DOWN for LOOK computation later
 					   tree_AST_in.NFATreeDownState = down.left;
 					
-			_t = __t76;
+			_t = __t78;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException ex) {
@@ -2001,25 +2075,19 @@ public TreeToNFAConverter() {
 		
 		GrammarAST ast_suffix_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
 		
-		if ( grammar.getOption("output")==null ) {
-			ErrorManager.grammarError(ErrorManager.MSG_REWRITE_OR_OP_WITH_NO_OUTPUT_OPTION,
-									  grammar, ast_suffix_AST_in.token, currentRuleName);
-		}
-		
-		
 		try {      // for error handling
 			if (_t==null) _t=ASTNULL;
 			switch ( _t.getType()) {
 			case ROOT:
 			{
-				GrammarAST tmp62_AST_in = (GrammarAST)_t;
+				GrammarAST tmp67_AST_in = (GrammarAST)_t;
 				match(_t,ROOT);
 				_t = _t.getNextSibling();
 				break;
 			}
 			case BANG:
 			{
-				GrammarAST tmp63_AST_in = (GrammarAST)_t;
+				GrammarAST tmp68_AST_in = (GrammarAST)_t;
 				match(_t,BANG);
 				_t = _t.getNextSibling();
 				break;
@@ -2129,8 +2197,8 @@ public TreeToNFAConverter() {
 			}
 			case CHAR_RANGE:
 			{
-				AST __t118 = _t;
-				GrammarAST tmp64_AST_in = (GrammarAST)_t;
+				AST __t122 = _t;
+				GrammarAST tmp69_AST_in = (GrammarAST)_t;
 				match(_t,CHAR_RANGE);
 				_t = _t.getFirstChild();
 				c1 = (GrammarAST)_t;
@@ -2139,7 +2207,7 @@ public TreeToNFAConverter() {
 				c2 = (GrammarAST)_t;
 				match(_t,CHAR_LITERAL);
 				_t = _t.getNextSibling();
-				_t = __t118;
+				_t = __t122;
 				_t = _t.getNextSibling();
 				
 					if ( grammar.type==Grammar.LEXER ) {
@@ -2162,8 +2230,8 @@ public TreeToNFAConverter() {
 			}
 			case NOT:
 			{
-				AST __t119 = _t;
-				GrammarAST tmp65_AST_in = (GrammarAST)_t;
+				AST __t123 = _t;
+				GrammarAST tmp70_AST_in = (GrammarAST)_t;
 				match(_t,NOT);
 				_t = _t.getFirstChild();
 				ns=new IntervalSet();
@@ -2173,7 +2241,7 @@ public TreeToNFAConverter() {
 				IntSet not = grammar.complement(ns);
 				elements.addAll(not);
 				
-				_t = __t119;
+				_t = __t123;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2198,8 +2266,8 @@ public TreeToNFAConverter() {
 		IntSet s=null;
 		
 		try {      // for error handling
-			AST __t105 = _t;
-			GrammarAST tmp66_AST_in = (GrammarAST)_t;
+			AST __t108 = _t;
+			GrammarAST tmp71_AST_in = (GrammarAST)_t;
 			match(_t,RULE);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
@@ -2227,10 +2295,10 @@ public TreeToNFAConverter() {
 			}
 			}
 			}
-			GrammarAST tmp67_AST_in = (GrammarAST)_t;
+			GrammarAST tmp72_AST_in = (GrammarAST)_t;
 			match(_t,ARG);
 			_t = _t.getNextSibling();
-			GrammarAST tmp68_AST_in = (GrammarAST)_t;
+			GrammarAST tmp73_AST_in = (GrammarAST)_t;
 			match(_t,RET);
 			_t = _t.getNextSibling();
 			{
@@ -2238,7 +2306,7 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				GrammarAST tmp69_AST_in = (GrammarAST)_t;
+				GrammarAST tmp74_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getNextSibling();
 				break;
@@ -2276,22 +2344,22 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			_loop110:
+			_loop113:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
-					GrammarAST tmp70_AST_in = (GrammarAST)_t;
+					GrammarAST tmp75_AST_in = (GrammarAST)_t;
 					match(_t,AMPERSAND);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop110;
+					break _loop113;
 				}
 				
 			} while (true);
 			}
-			AST __t111 = _t;
-			GrammarAST tmp71_AST_in = (GrammarAST)_t;
+			AST __t114 = _t;
+			GrammarAST tmp76_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			{
@@ -2299,7 +2367,7 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				GrammarAST tmp72_AST_in = (GrammarAST)_t;
+				GrammarAST tmp77_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getNextSibling();
 				break;
@@ -2315,92 +2383,12 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			int _cnt115=0;
-			_loop115:
+			int _cnt119=0;
+			_loop119:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ALT)) {
-					AST __t114 = _t;
-					GrammarAST tmp73_AST_in = (GrammarAST)_t;
-					match(_t,ALT);
-					_t = _t.getFirstChild();
-					setElement(_t,elements);
-					_t = _retTree;
-					GrammarAST tmp74_AST_in = (GrammarAST)_t;
-					match(_t,EOA);
-					_t = _t.getNextSibling();
-					_t = __t114;
-					_t = _t.getNextSibling();
-				}
-				else {
-					if ( _cnt115>=1 ) { break _loop115; } else {throw new NoViableAltException(_t);}
-				}
-				
-				_cnt115++;
-			} while (true);
-			}
-			GrammarAST tmp75_AST_in = (GrammarAST)_t;
-			match(_t,EOB);
-			_t = _t.getNextSibling();
-			_t = __t111;
-			_t = _t.getNextSibling();
-			{
-			if (_t==null) _t=ASTNULL;
-			switch ( _t.getType()) {
-			case LITERAL_catch:
-			case LITERAL_finally:
-			{
-				exceptionGroup(_t);
-				_t = _retTree;
-				break;
-			}
-			case EOR:
-			{
-				break;
-			}
-			default:
-			{
-				throw new NoViableAltException(_t);
-			}
-			}
-			}
-			GrammarAST tmp76_AST_in = (GrammarAST)_t;
-			match(_t,EOR);
-			_t = _t.getNextSibling();
-			_t = __t105;
-			_t = _t.getNextSibling();
-		}
-		catch (RecognitionException re) {
-			throw re;
-		}
-		_retTree = _t;
-		return elements;
-	}
-	
-/** Check to see if this block can be a set.  Can't have actions
- *  etc...  Also can't be in a rule with a rewrite as we need
- *  to track what's inside set for use in rewrite.
- */
-	public final void testBlockAsSet(AST _t) throws RecognitionException {
-		
-		GrammarAST testBlockAsSet_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
-		
-		int nAlts=0;
-		Rule r = grammar.getRule(currentRuleName);
-		
-		
-		try {      // for error handling
-			AST __t121 = _t;
-			GrammarAST tmp77_AST_in = (GrammarAST)_t;
-			match(_t,BLOCK);
-			_t = _t.getFirstChild();
-			{
-			int _cnt125=0;
-			_loop125:
-			do {
-				if (_t==null) _t=ASTNULL;
-				if ((_t.getType()==ALT)) {
-					AST __t123 = _t;
+					AST __t117 = _t;
 					GrammarAST tmp78_AST_in = (GrammarAST)_t;
 					match(_t,ALT);
 					_t = _t.getFirstChild();
@@ -2429,28 +2417,133 @@ public TreeToNFAConverter() {
 					}
 					}
 					}
-					testSetElement(_t);
+					setElement(_t,elements);
 					_t = _retTree;
-					nAlts++;
 					GrammarAST tmp80_AST_in = (GrammarAST)_t;
 					match(_t,EOA);
 					_t = _t.getNextSibling();
-					_t = __t123;
+					_t = __t117;
 					_t = _t.getNextSibling();
-					if (!(!r.hasRewrite(outerAltNum)))
-					  throw new SemanticException("!r.hasRewrite(outerAltNum)");
 				}
 				else {
-					if ( _cnt125>=1 ) { break _loop125; } else {throw new NoViableAltException(_t);}
+					if ( _cnt119>=1 ) { break _loop119; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt125++;
+				_cnt119++;
 			} while (true);
 			}
 			GrammarAST tmp81_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t121;
+			_t = __t114;
+			_t = _t.getNextSibling();
+			{
+			if (_t==null) _t=ASTNULL;
+			switch ( _t.getType()) {
+			case LITERAL_catch:
+			case LITERAL_finally:
+			{
+				exceptionGroup(_t);
+				_t = _retTree;
+				break;
+			}
+			case EOR:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(_t);
+			}
+			}
+			}
+			GrammarAST tmp82_AST_in = (GrammarAST)_t;
+			match(_t,EOR);
+			_t = _t.getNextSibling();
+			_t = __t108;
+			_t = _t.getNextSibling();
+		}
+		catch (RecognitionException re) {
+			throw re;
+		}
+		_retTree = _t;
+		return elements;
+	}
+	
+/** Check to see if this block can be a set.  Can't have actions
+ *  etc...  Also can't be in a rule with a rewrite as we need
+ *  to track what's inside set for use in rewrite.
+ */
+	public final void testBlockAsSet(AST _t) throws RecognitionException {
+		
+		GrammarAST testBlockAsSet_AST_in = (_t == ASTNULL) ? null : (GrammarAST)_t;
+		
+		int nAlts=0;
+		Rule r = grammar.getLocallyDefinedRule(currentRuleName);
+		
+		
+		try {      // for error handling
+			AST __t125 = _t;
+			GrammarAST tmp83_AST_in = (GrammarAST)_t;
+			match(_t,BLOCK);
+			_t = _t.getFirstChild();
+			{
+			int _cnt129=0;
+			_loop129:
+			do {
+				if (_t==null) _t=ASTNULL;
+				if ((_t.getType()==ALT)) {
+					AST __t127 = _t;
+					GrammarAST tmp84_AST_in = (GrammarAST)_t;
+					match(_t,ALT);
+					_t = _t.getFirstChild();
+					{
+					if (_t==null) _t=ASTNULL;
+					switch ( _t.getType()) {
+					case BACKTRACK_SEMPRED:
+					{
+						GrammarAST tmp85_AST_in = (GrammarAST)_t;
+						match(_t,BACKTRACK_SEMPRED);
+						_t = _t.getNextSibling();
+						break;
+					}
+					case BLOCK:
+					case CHAR_RANGE:
+					case STRING_LITERAL:
+					case CHAR_LITERAL:
+					case TOKEN_REF:
+					case NOT:
+					{
+						break;
+					}
+					default:
+					{
+						throw new NoViableAltException(_t);
+					}
+					}
+					}
+					testSetElement(_t);
+					_t = _retTree;
+					nAlts++;
+					GrammarAST tmp86_AST_in = (GrammarAST)_t;
+					match(_t,EOA);
+					_t = _t.getNextSibling();
+					_t = __t127;
+					_t = _t.getNextSibling();
+					if (!(!r.hasRewrite(outerAltNum)))
+					  throw new SemanticException("!r.hasRewrite(outerAltNum)");
+				}
+				else {
+					if ( _cnt129>=1 ) { break _loop129; } else {throw new NoViableAltException(_t);}
+				}
+				
+				_cnt129++;
+			} while (true);
+			}
+			GrammarAST tmp87_AST_in = (GrammarAST)_t;
+			match(_t,EOB);
+			_t = _t.getNextSibling();
+			_t = __t125;
 			_t = _t.getNextSibling();
 			if (!(nAlts>1))
 			  throw new SemanticException("nAlts>1");
@@ -2503,8 +2596,8 @@ public TreeToNFAConverter() {
 			}
 			case CHAR_RANGE:
 			{
-				AST __t140 = _t;
-				GrammarAST tmp82_AST_in = (GrammarAST)_t;
+				AST __t144 = _t;
+				GrammarAST tmp88_AST_in = (GrammarAST)_t;
 				match(_t,CHAR_RANGE);
 				_t = _t.getFirstChild();
 				c1 = (GrammarAST)_t;
@@ -2513,7 +2606,7 @@ public TreeToNFAConverter() {
 				c2 = (GrammarAST)_t;
 				match(_t,CHAR_LITERAL);
 				_t = _t.getNextSibling();
-				_t = __t140;
+				_t = __t144;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2525,13 +2618,13 @@ public TreeToNFAConverter() {
 			}
 			case NOT:
 			{
-				AST __t141 = _t;
-				GrammarAST tmp83_AST_in = (GrammarAST)_t;
+				AST __t145 = _t;
+				GrammarAST tmp89_AST_in = (GrammarAST)_t;
 				match(_t,NOT);
 				_t = _t.getFirstChild();
 				testSetElement(_t);
 				_t = _retTree;
-				_t = __t141;
+				_t = __t145;
 				_t = _t.getNextSibling();
 				break;
 			}
@@ -2559,8 +2652,8 @@ public TreeToNFAConverter() {
 		GrammarAST id = null;
 		
 		try {      // for error handling
-			AST __t127 = _t;
-			GrammarAST tmp84_AST_in = (GrammarAST)_t;
+			AST __t131 = _t;
+			GrammarAST tmp90_AST_in = (GrammarAST)_t;
 			match(_t,RULE);
 			_t = _t.getFirstChild();
 			id = (GrammarAST)_t;
@@ -2588,10 +2681,10 @@ public TreeToNFAConverter() {
 			}
 			}
 			}
-			GrammarAST tmp85_AST_in = (GrammarAST)_t;
+			GrammarAST tmp91_AST_in = (GrammarAST)_t;
 			match(_t,ARG);
 			_t = _t.getNextSibling();
-			GrammarAST tmp86_AST_in = (GrammarAST)_t;
+			GrammarAST tmp92_AST_in = (GrammarAST)_t;
 			match(_t,RET);
 			_t = _t.getNextSibling();
 			{
@@ -2599,7 +2692,7 @@ public TreeToNFAConverter() {
 			switch ( _t.getType()) {
 			case OPTIONS:
 			{
-				GrammarAST tmp87_AST_in = (GrammarAST)_t;
+				GrammarAST tmp93_AST_in = (GrammarAST)_t;
 				match(_t,OPTIONS);
 				_t = _t.getNextSibling();
 				break;
@@ -2637,32 +2730,32 @@ public TreeToNFAConverter() {
 			}
 			}
 			{
-			_loop132:
+			_loop136:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==AMPERSAND)) {
-					GrammarAST tmp88_AST_in = (GrammarAST)_t;
+					GrammarAST tmp94_AST_in = (GrammarAST)_t;
 					match(_t,AMPERSAND);
 					_t = _t.getNextSibling();
 				}
 				else {
-					break _loop132;
+					break _loop136;
 				}
 				
 			} while (true);
 			}
-			AST __t133 = _t;
-			GrammarAST tmp89_AST_in = (GrammarAST)_t;
+			AST __t137 = _t;
+			GrammarAST tmp95_AST_in = (GrammarAST)_t;
 			match(_t,BLOCK);
 			_t = _t.getFirstChild();
 			{
-			int _cnt137=0;
-			_loop137:
+			int _cnt141=0;
+			_loop141:
 			do {
 				if (_t==null) _t=ASTNULL;
 				if ((_t.getType()==ALT)) {
-					AST __t135 = _t;
-					GrammarAST tmp90_AST_in = (GrammarAST)_t;
+					AST __t139 = _t;
+					GrammarAST tmp96_AST_in = (GrammarAST)_t;
 					match(_t,ALT);
 					_t = _t.getFirstChild();
 					{
@@ -2670,7 +2763,7 @@ public TreeToNFAConverter() {
 					switch ( _t.getType()) {
 					case BACKTRACK_SEMPRED:
 					{
-						GrammarAST tmp91_AST_in = (GrammarAST)_t;
+						GrammarAST tmp97_AST_in = (GrammarAST)_t;
 						match(_t,BACKTRACK_SEMPRED);
 						_t = _t.getNextSibling();
 						break;
@@ -2692,23 +2785,23 @@ public TreeToNFAConverter() {
 					}
 					testSetElement(_t);
 					_t = _retTree;
-					GrammarAST tmp92_AST_in = (GrammarAST)_t;
+					GrammarAST tmp98_AST_in = (GrammarAST)_t;
 					match(_t,EOA);
 					_t = _t.getNextSibling();
-					_t = __t135;
+					_t = __t139;
 					_t = _t.getNextSibling();
 				}
 				else {
-					if ( _cnt137>=1 ) { break _loop137; } else {throw new NoViableAltException(_t);}
+					if ( _cnt141>=1 ) { break _loop141; } else {throw new NoViableAltException(_t);}
 				}
 				
-				_cnt137++;
+				_cnt141++;
 			} while (true);
 			}
-			GrammarAST tmp93_AST_in = (GrammarAST)_t;
+			GrammarAST tmp99_AST_in = (GrammarAST)_t;
 			match(_t,EOB);
 			_t = _t.getNextSibling();
-			_t = __t133;
+			_t = __t137;
 			_t = _t.getNextSibling();
 			{
 			if (_t==null) _t=ASTNULL;
@@ -2730,10 +2823,10 @@ public TreeToNFAConverter() {
 			}
 			}
 			}
-			GrammarAST tmp94_AST_in = (GrammarAST)_t;
+			GrammarAST tmp100_AST_in = (GrammarAST)_t;
 			match(_t,EOR);
 			_t = _t.getNextSibling();
-			_t = __t127;
+			_t = __t131;
 			_t = _t.getNextSibling();
 		}
 		catch (RecognitionException re) {
@@ -2774,13 +2867,16 @@ public TreeToNFAConverter() {
 		"TREE_GRAMMAR",
 		"COMBINED_GRAMMAR",
 		"INITACTION",
+		"FORCED_ACTION",
 		"LABEL",
 		"TEMPLATE",
 		"\"scope\"",
+		"\"import\"",
 		"GATED_SEMPRED",
 		"SYN_SEMPRED",
 		"BACKTRACK_SEMPRED",
 		"\"fragment\"",
+		"DOT",
 		"ACTION",
 		"DOC_COMMENT",
 		"SEMI",
@@ -2795,6 +2891,7 @@ public TreeToNFAConverter() {
 		"CHAR_LITERAL",
 		"INT",
 		"STAR",
+		"COMMA",
 		"TOKEN_REF",
 		"\"protected\"",
 		"\"public\"",
@@ -2803,7 +2900,6 @@ public TreeToNFAConverter() {
 		"ARG_ACTION",
 		"\"returns\"",
 		"\"throws\"",
-		"COMMA",
 		"LPAREN",
 		"OR",
 		"RPAREN",
@@ -2813,13 +2909,16 @@ public TreeToNFAConverter() {
 		"SEMPRED",
 		"IMPLIES",
 		"ROOT",
+		"WILDCARD",
 		"RULE_REF",
 		"NOT",
 		"TREE_BEGIN",
 		"QUESTION",
 		"PLUS",
-		"WILDCARD",
+		"OPEN_ELEMENT_OPTION",
+		"CLOSE_ELEMENT_OPTION",
 		"REWRITE",
+		"ETC",
 		"DOLLAR",
 		"DOUBLE_QUOTE_STRING_LITERAL",
 		"DOUBLE_ANGLE_STRING_LITERAL",
@@ -2827,8 +2926,7 @@ public TreeToNFAConverter() {
 		"COMMENT",
 		"SL_COMMENT",
 		"ML_COMMENT",
-		"OPEN_ELEMENT_OPTION",
-		"CLOSE_ELEMENT_OPTION",
+		"STRAY_BRACKET",
 		"ESC",
 		"DIGIT",
 		"XDIGIT",
@@ -2844,7 +2942,7 @@ public TreeToNFAConverter() {
 	};
 	
 	private static final long[] mk_tokenSet_0() {
-		long[] data = { 38773375610519040L, 1270L, 0L, 0L};
+		long[] data = { 616432089855819264L, 4016L, 0L, 0L};
 		return data;
 	}
 	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());

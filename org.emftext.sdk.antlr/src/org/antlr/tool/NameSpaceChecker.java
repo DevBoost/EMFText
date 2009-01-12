@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -42,12 +42,11 @@ public class NameSpaceChecker {
 	}
 
 	public void checkConflicts() {
-		for (int i = 0; i < grammar.ruleIndexToRuleList.size(); i++) {
-			String ruleName = (String) grammar.ruleIndexToRuleList.elementAt(i);
-			if ( ruleName==null ) {
+		for (int i = CompositeGrammar.MIN_RULE_INDEX; i < grammar.composite.ruleIndexToRuleList.size(); i++) {
+			Rule r = grammar.composite.ruleIndexToRuleList.elementAt(i);
+			if ( r==null ) {
 				continue;
 			}
-			Rule r = grammar.getRule(ruleName);
 			// walk all labels for Rule r
 			if ( r.labelNameSpace!=null ) {
 				Iterator it = r.labelNameSpace.values().iterator();
@@ -98,7 +97,9 @@ public class NameSpaceChecker {
 		String ruleName = r.name;
 		antlr.Token ruleToken = r.tree.getToken();
 		int msgID = 0;
-		if ( grammar.type==Grammar.PARSER && Character.isUpperCase(ruleName.charAt(0)) ) {
+		if ( (grammar.type==Grammar.PARSER||grammar.type==Grammar.TREE_PARSER) &&
+			 Character.isUpperCase(ruleName.charAt(0)) )
+		{
 			msgID = ErrorManager.MSG_LEXER_RULES_NOT_ALLOWED;
         }
         else if ( grammar.type==Grammar.LEXER &&
@@ -116,6 +117,8 @@ public class NameSpaceChecker {
 	}
 
 	/** If ref to undefined rule, give error at first occurrence.
+	 * 
+	 *  Give error if you cannot find the scope override on a rule reference.
 	 *
 	 *  If you ref ID in a combined grammar and don't define ID as a lexer rule
 	 *  it is an error.
@@ -123,11 +126,16 @@ public class NameSpaceChecker {
 	protected void lookForReferencesToUndefinedSymbols() {
 		// for each rule ref, ask if there is a rule definition
 		for (Iterator iter = grammar.ruleRefs.iterator(); iter.hasNext();) {
-			Token tok = (Token) iter.next();
+			GrammarAST refAST = (GrammarAST)iter.next();
+			Token tok = refAST.token;
 			String ruleName = tok.getText();
-			if ( grammar.getRule(ruleName)==null &&
-			     grammar.getTokenType(ruleName)!=Label.EOF )
-			{
+			Rule localRule = grammar.getLocallyDefinedRule(ruleName);
+			Rule rule = grammar.getRule(ruleName);
+			if ( localRule==null && rule!=null ) { // imported rule?
+				grammar.delegatedRuleReferences.add(rule);
+				rule.imported = true;
+			}
+			if ( rule==null && grammar.getTokenType(ruleName)!=Label.EOF ) {
 				ErrorManager.grammarError(ErrorManager.MSG_UNDEFINED_RULE_REF,
 										  grammar,
 										  tok,
@@ -135,16 +143,42 @@ public class NameSpaceChecker {
 			}
         }
 		if ( grammar.type==Grammar.COMBINED ) {
+			// if we're a combined grammar, we know which token IDs have no
+			// associated lexer rule.
 			for (Iterator iter = grammar.tokenIDRefs.iterator(); iter.hasNext();) {
 				Token tok = (Token) iter.next();
 				String tokenID = tok.getText();
-				if ( !grammar.lexerRules.contains(tokenID) &&
+				if ( !grammar.composite.lexerRules.contains(tokenID) &&
 					 grammar.getTokenType(tokenID)!=Label.EOF )
 				{
 					ErrorManager.grammarWarning(ErrorManager.MSG_NO_TOKEN_DEFINITION,
 												grammar,
 												tok,
 												tokenID);
+				}
+			}
+		}
+		// check scopes and scoped rule refs
+		for (Iterator it = grammar.scopedRuleRefs.iterator(); it.hasNext();) {
+			GrammarAST scopeAST = (GrammarAST)it.next(); // ^(DOT ID atom)
+			Grammar scopeG = grammar.composite.getGrammar(scopeAST.getText());
+			GrammarAST refAST = scopeAST.getChild(1);
+			String ruleName = refAST.getText();
+			if ( scopeG==null ) {
+				ErrorManager.grammarError(ErrorManager.MSG_NO_SUCH_GRAMMAR_SCOPE,
+										  grammar,
+										  scopeAST.getToken(),
+										  scopeAST.getText(),
+										  ruleName);
+			}
+			else {
+				Rule rule = grammar.getRule(scopeG.name, ruleName);
+				if ( rule==null ) {
+					ErrorManager.grammarError(ErrorManager.MSG_NO_SUCH_RULE_IN_SCOPE,
+											  grammar,
+											  scopeAST.getToken(),
+											  scopeAST.getText(),
+											  ruleName);
 				}
 			}
 		}

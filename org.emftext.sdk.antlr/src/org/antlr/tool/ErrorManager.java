@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -32,6 +32,7 @@ import org.antlr.Tool;
 import org.antlr.misc.BitSet;
 import org.antlr.analysis.DFAState;
 import org.antlr.analysis.DecisionProbe;
+import org.antlr.analysis.Label;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateErrorListener;
 import org.antlr.stringtemplate.StringTemplateGroup;
@@ -145,7 +146,7 @@ public class ErrorManager {
 	public static final int MSG_MISSING_RULE_ARGS = 129;
 	public static final int MSG_RULE_HAS_NO_ARGS = 130;
 	public static final int MSG_ARGS_ON_TOKEN_REF = 131;
-	public static final int MSG_AMBIGUOUS_RULE_SCOPE = 132;
+	public static final int MSG_RULE_REF_AMBIG_WITH_RULE_IN_ALT = 132;
 	public static final int MSG_ILLEGAL_OPTION = 133;
 	public static final int MSG_LIST_LABEL_INVALID_UNLESS_RETVAL_STRUCT = 134;
 	public static final int MSG_UNDEFINED_TOKEN_REF_IN_REWRITE = 135;
@@ -168,6 +169,17 @@ public class ErrorManager {
 	public static final int MSG_MISSING_AST_TYPE_IN_TREE_GRAMMAR = 152;
 	public static final int MSG_REWRITE_FOR_MULTI_ELEMENT_ALT = 153;
 	public static final int MSG_RULE_INVALID_SET = 154;
+	public static final int MSG_HETERO_ILLEGAL_IN_REWRITE_ALT = 155;
+	public static final int MSG_NO_SUCH_GRAMMAR_SCOPE = 156;
+	public static final int MSG_NO_SUCH_RULE_IN_SCOPE = 157;
+	public static final int MSG_TOKEN_ALIAS_CONFLICT = 158;
+	public static final int MSG_TOKEN_ALIAS_REASSIGNMENT = 159;
+	public static final int MSG_TOKEN_VOCAB_IN_DELEGATE = 160;
+	public static final int MSG_INVALID_IMPORT = 161;
+	public static final int MSG_IMPORTED_TOKENS_RULE_EMPTY = 162;
+	public static final int MSG_IMPORT_NAME_CLASH = 163;
+	public static final int MSG_AST_OP_WITH_NON_AST_OUTPUT_OPTION = 164;
+	public static final int MSG_AST_OP_IN_ALT_WITH_REWRITE = 165;
 
 
 	// GRAMMAR WARNINGS
@@ -187,7 +199,7 @@ public class ErrorManager {
 
 	public static final int MAX_MESSAGE_NUMBER = 211;
 
-	/** Do not do perform analysis and code gen if one of these happens */
+	/** Do not do perform analysis if one of these happens */
 	public static final BitSet ERRORS_FORCING_NO_ANALYSIS = new BitSet() {
 		{
 			add(MSG_RULE_REDEFINITION);
@@ -195,15 +207,22 @@ public class ErrorManager {
 			add(MSG_LEFT_RECURSION_CYCLES);
 			add(MSG_REWRITE_OR_OP_WITH_NO_OUTPUT_OPTION);
 			add(MSG_NO_RULES);
+			add(MSG_NO_SUCH_GRAMMAR_SCOPE);
+			add(MSG_NO_SUCH_RULE_IN_SCOPE);
+			add(MSG_LEXER_RULES_NOT_ALLOWED);
 			// TODO: ...
 		}
 	};
 
-	/** Do not do perform analysis and code gen if one of these happens */
+	/** Do not do code gen if one of these happens */
 	public static final BitSet ERRORS_FORCING_NO_CODEGEN = new BitSet() {
 		{
 			add(MSG_NONREGULAR_DECISION);
+			add(MSG_RECURSION_OVERLOW);
+			add(MSG_UNREACHABLE_ALTS);
 			add(MSG_FILE_AND_GRAMMAR_NAME_DIFFER);
+			add(MSG_INVALID_IMPORT);
+			add(MSG_AST_OP_WITH_NON_AST_OUTPUT_OPTION);
 			// TODO: ...
 		}
 	};
@@ -244,7 +263,7 @@ public class ErrorManager {
 	/** Track the number of errors regardless of the listener but track
 	 *  per thread.
 	 */
-	private static Map threadToErrorCountMap = new HashMap();
+	private static Map threadToErrorStateMap = new HashMap();
 
 	/** Each thread has its own ptr to a Tool object, which knows how
 	 *  to panic, for example.  In a GUI, the thread might just throw an Error
@@ -508,6 +527,10 @@ public class ErrorManager {
 		threadToListenerMap.put(Thread.currentThread(), listener);
 	}
 
+    public static void removeErrorListener() {
+        threadToListenerMap.remove(Thread.currentThread());
+    }
+
 	public static void setTool(Tool tool) {
 		threadToToolMap.put(Thread.currentThread(), tool);
 	}
@@ -558,17 +581,21 @@ public class ErrorManager {
 
 	public static ErrorState getErrorState() {
 		ErrorState ec =
-			(ErrorState)threadToErrorCountMap.get(Thread.currentThread());
+			(ErrorState)threadToErrorStateMap.get(Thread.currentThread());
 		if ( ec==null ) {
 			ec = new ErrorState();
-			threadToErrorCountMap.put(Thread.currentThread(), ec);
+			threadToErrorStateMap.put(Thread.currentThread(), ec);
 		}
 		return ec;
 	}
 
+	public static int getNumErrors() {
+		return getErrorState().errors;
+	}
+
 	public static void resetErrorState() {
 		ErrorState ec = new ErrorState();
-		threadToErrorCountMap.put(Thread.currentThread(), ec);
+		threadToErrorStateMap.put(Thread.currentThread(), ec);
 	}
 
 	public static void info(String msg) {
@@ -624,12 +651,12 @@ public class ErrorManager {
 	public static void danglingState(DecisionProbe probe,
 									 DFAState d)
 	{
-		getErrorState().warnings++;
+		getErrorState().errors++;
 		Message msg = new GrammarDanglingStateMessage(probe,d);
-		getErrorState().warningMsgIDs.add(msg.msgID);
+		getErrorState().errorMsgIDs.add(msg.msgID);
 		Set seen = (Set)emitSingleError.get("danglingState");
 		if ( !seen.contains(d.dfa.decisionNumber+"|"+d.getAltSet()) ) {
-			getErrorListener().warning(msg);
+			getErrorListener().error(msg);
 			// we've seen this decision and this alt set; never again
 			seen.add(d.dfa.decisionNumber+"|"+d.getAltSet());
 		}
@@ -646,17 +673,18 @@ public class ErrorManager {
 	public static void unreachableAlts(DecisionProbe probe,
 									   List alts)
 	{
-		getErrorState().warnings++;
+		getErrorState().errors++;
 		Message msg = new GrammarUnreachableAltsMessage(probe,alts);
-		getErrorState().warningMsgIDs.add(msg.msgID);
-		getErrorListener().warning(msg);
+		getErrorState().errorMsgIDs.add(msg.msgID);
+		getErrorListener().error(msg);
 	}
 
 	public static void insufficientPredicates(DecisionProbe probe,
-											  List alts)
+											  DFAState d,
+											  Map<Integer, Set<Token>> altToUncoveredLocations)
 	{
 		getErrorState().warnings++;
-		Message msg = new GrammarInsufficientPredicatesMessage(probe,alts);
+		Message msg = new GrammarInsufficientPredicatesMessage(probe,d,altToUncoveredLocations);
 		getErrorState().warningMsgIDs.add(msg.msgID);
 		getErrorListener().warning(msg);
 	}
@@ -674,11 +702,11 @@ public class ErrorManager {
 										 Collection targetRules,
 										 Collection callSiteStates)
 	{
-		getErrorState().warnings++;
+		getErrorState().errors++;
 		Message msg = new RecursionOverflowMessage(probe,sampleBadState, alt,
 										 targetRules, callSiteStates);
-		getErrorState().warningMsgIDs.add(msg.msgID);
-		getErrorListener().warning(msg);
+		getErrorState().errorMsgIDs.add(msg.msgID);
+		getErrorListener().error(msg);
 	}
 
 	/*
@@ -735,7 +763,7 @@ public class ErrorManager {
 									  Object arg,
 									  Object arg2)
 	{
-		getErrorState().errors++;
+		getErrorState().warnings++;
 		Message msg = new GrammarSemanticsMessage(msgID,g,token,arg,arg2);
 		getErrorState().warningMsgIDs.add(msgID);
 		getErrorListener().warning(msg);
@@ -787,7 +815,8 @@ public class ErrorManager {
 	}
 
 	public static boolean doNotAttemptCodeGen() {
-		return !getErrorState().errorMsgIDs.and(ERRORS_FORCING_NO_CODEGEN).isNil();
+		return doNotAttemptAnalysis() ||
+			   !getErrorState().errorMsgIDs.and(ERRORS_FORCING_NO_CODEGEN).isNil();
 	}
 
 	/** Return first non ErrorManager code location for generating messages */

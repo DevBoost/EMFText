@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -31,10 +31,12 @@ import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.ParseTree;
+import org.antlr.Tool;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.StringTokenizer;
+import java.util.List;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 /** Interpret any ANTLR grammar:
  *
@@ -57,15 +59,43 @@ public class Interp {
 		String startRule = args[2];
 		String inputFileName = args[3];
 
-		Grammar parser =
-			new Grammar(null,
-						grammarFileName,
-						new BufferedReader(new FileReader(grammarFileName)));
+		// TODO: using wrong constructor now
+		Tool tool = new Tool();
+		CompositeGrammar composite = new CompositeGrammar();
+		Grammar parser = new Grammar(tool, grammarFileName, composite);
+		composite.setDelegationRoot(parser);
+		FileReader fr = new FileReader(grammarFileName);
+		BufferedReader br = new BufferedReader(fr);
+		parser.parseAndBuildAST(br);
+		br.close();
+
+		parser.composite.assignTokenTypes();
+		parser.composite.defineGrammarSymbols();
+		parser.composite.createNFAs();
+
+		List leftRecursiveRules = parser.checkAllRulesForLeftRecursion();
+		if ( leftRecursiveRules.size()>0 ) {
+			return;
+		}
+
+		if ( parser.getRule(startRule)==null ) {
+			System.out.println("undefined start rule "+startRule);
+			return;
+		}
 
 		String lexerGrammarText = parser.getLexerGrammar();
 		Grammar lexer = new Grammar();
 		lexer.importTokenVocabulary(parser);
-		lexer.setGrammarContent(lexerGrammarText);
+		lexer.fileName = grammarFileName;
+		lexer.setTool(tool);
+		if ( lexerGrammarText!=null ) {
+			lexer.setGrammarContent(lexerGrammarText);
+		}
+		else {
+			System.err.println("no lexer grammar found in "+grammarFileName);
+		}
+		lexer.composite.createNFAs();
+		
 		CharStream input =
 			new ANTLRFileStream(inputFileName);
 		Interpreter lexEngine = new Interpreter(lexer, input);

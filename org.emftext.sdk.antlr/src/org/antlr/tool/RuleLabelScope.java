@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -62,6 +62,7 @@ public class RuleLabelScope extends AttributeScope {
 			addAttribute("channel", null);
 			addAttribute("start", null);
 			addAttribute("stop", null);
+			addAttribute("int", null);
 			isPredefinedLexerRuleScope = true;
 		}};
 
@@ -70,7 +71,7 @@ public class RuleLabelScope extends AttributeScope {
 			null,
 			predefinedLexerRulePropertiesScope,	// LEXER
 			predefinedRulePropertiesScope,		// PARSER
-			predefinedTreeRulePropertiesScope,		// TREE_PARSER
+			predefinedTreeRulePropertiesScope,	// TREE_PARSER
 			predefinedRulePropertiesScope,		// COMBINED
 		};
 

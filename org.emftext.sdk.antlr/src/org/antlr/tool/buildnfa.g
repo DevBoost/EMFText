@@ -1,7 +1,7 @@
 header {
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -41,6 +41,7 @@ options {
 }
 
 {
+
 /** Factory used to create nodes and submachines */
 protected NFAFactory factory = null;
 
@@ -62,6 +63,7 @@ public TreeToNFAConverter(Grammar g, NFA nfa, NFAFactory factory) {
 	this.factory = factory;
 }
 
+/*
 protected void init() {
     // define all the rule begin/end NFAStates to solve forward reference issues
     Collection rules = grammar.getRules();
@@ -70,20 +72,22 @@ protected void init() {
         String ruleName = r.name;
         NFAState ruleBeginState = factory.newState();
         ruleBeginState.setDescription("rule "+ruleName+" start");
-		ruleBeginState.setEnclosingRuleName(ruleName);
-        grammar.setRuleStartState(ruleName, ruleBeginState);
+		ruleBeginState.enclosingRule = r;
+        r.startState = ruleBeginState;
         NFAState ruleEndState = factory.newState();
         ruleEndState.setDescription("rule "+ruleName+" end");
         ruleEndState.setAcceptState(true);
-		ruleEndState.setEnclosingRuleName(ruleName);
-        grammar.setRuleStopState(ruleName, ruleEndState);
+		ruleEndState.enclosingRule = r;
+        r.stopState = ruleEndState;
     }
 }
+*/
 
 protected void addFollowTransition(String ruleName, NFAState following) {
      //System.out.println("adding follow link to rule "+ruleName);
      // find last link in FOLLOW chain emanating from rule
-     NFAState end = grammar.getRuleStopState(ruleName);
+     Rule r = grammar.getRule(ruleName);
+     NFAState end = r.stopState;
      while ( end.transition(1)!=null ) {
          end = (NFAState)end.transition(1).target;
      }
@@ -129,8 +133,7 @@ protected void finish() {
 }
 
 grammar
-    :   {init();}
-        ( #( LEXER_GRAMMAR grammarSpec )
+    :   ( #( LEXER_GRAMMAR grammarSpec )
 	    | #( PARSER_GRAMMAR grammarSpec )
 	    | #( TREE_GRAMMAR grammarSpec )
 	    | #( COMBINED_GRAMMAR grammarSpec )
@@ -146,6 +149,7 @@ grammarSpec
 	:	ID
 		(cmt:DOC_COMMENT)?
         ( #(OPTIONS .) )?
+        ( #("import" .) )?
         ( #(TOKENS .) )?
         (attrScope)*
         (AMPERSAND)* // skip actions
@@ -163,7 +167,10 @@ rule
     String r=null;
 }
     :   #( RULE id:ID {r=#id.getText();}
-		{currentRuleName = r; factory.currentRuleName = r;}
+		{
+        currentRuleName = r;
+        factory.currentRule = grammar.getLocallyDefinedRule(r);
+        }
 		(modifier)?
         (ARG (ARG_ACTION)?)
         (RET (ARG_ACTION)?)
@@ -184,8 +191,9 @@ rule
 					 grammar.type==Grammar.LEXER )
 				{
 					// attach start node to block for this rule
-					NFAState start = grammar.getRuleStartState(r);
-					start.setAssociatedASTNode(#id);
+                    Rule thisR = grammar.getLocallyDefinedRule(r);
+					NFAState start = thisR.startState;
+					start.associatedASTNode = #id;
 					start.addTransition(new Transition(Label.EPSILON, b.left));
 
 					// track decision if > 1 alts
@@ -198,7 +206,7 @@ rule
 					}
 
 					// hook to end of rule node
-					NFAState end = grammar.getRuleStopState(r);
+					NFAState end = thisR.stopState;
 					b.right.addTransition(new Transition(Label.EPSILON,end));
 				}
            }
@@ -277,7 +285,7 @@ rewrite
 										  grammar, #rewrite.token, currentRuleName);
 			}
 			}
-			#( REWRITE (SEMPRED)? (ALT|TEMPLATE|ACTION) )
+			#( REWRITE (SEMPRED)? (ALT|TEMPLATE|ACTION|ETC) )
 		)*
 	;
 
@@ -286,7 +294,7 @@ element returns [StateCluster g=null]
     |   #(BANG g=element)
     |	#(ASSIGN ID g=element)
     |	#(PLUS_ASSIGN ID g=element)
-    |   #(RANGE a:atom b:atom)
+    |   #(RANGE a:atom[null] b:atom[null])
         {g = factory.build_Range(grammar.getTokenType(#a.getText()),
                                  grammar.getTokenType(#b.getText()));}
     |   #(CHAR_RANGE c1:CHAR_LITERAL c2:CHAR_LITERAL)
@@ -299,7 +307,8 @@ element returns [StateCluster g=null]
     |   g=ebnf
     |   g=tree
     |   #( SYNPRED block )
-    |   ACTION
+    |   ACTION {g = factory.build_Action(#ACTION);}
+    |   FORCED_ACTION {g = factory.build_Action(#FORCED_ACTION);}
     |   pred:SEMPRED {g = factory.build_SemanticPredicate(#pred);}
     |   spred:SYN_SEMPRED {g = factory.build_SemanticPredicate(#spred);}
     |   bpred:BACKTRACK_SEMPRED {g = factory.build_SemanticPredicate(#bpred);}
@@ -394,14 +403,14 @@ StateCluster down=null, up=null;
 		   {el=(GrammarAST)_t;}
 		   g=element
 		   {
-           down = factory.build_Atom(Label.DOWN);
+           down = factory.build_Atom(Label.DOWN, el);
            // TODO set following states for imaginary nodes?
            //el.followingNFAState = down.right;
 		   g = factory.build_AB(g,down);
 		   }
 		   ( {el=(GrammarAST)_t;} e=element {g = factory.build_AB(g,e);} )*
 		   {
-           up = factory.build_Atom(Label.UP);
+           up = factory.build_Atom(Label.UP, el);
            //el.followingNFAState = up.right;
 		   g = factory.build_AB(g,up);
 		   // tree roots point at right edge of DOWN for LOOK computation later
@@ -411,7 +420,7 @@ StateCluster down=null, up=null;
     ;
 
 atom_or_notatom returns [StateCluster g=null]
-	:	g=atom
+	:	g=atom[null]
 	|	#(  n:NOT
             (  c:CHAR_LITERAL (ast1:ast_suffix)?
 	           {
@@ -429,7 +438,7 @@ atom_or_notatom returns [StateCluster g=null]
 								              #c.token,
 									          #c.getText());
                 }
-	            g=factory.build_Set(notAtom);
+	            g=factory.build_Set(notAtom,#n);
 	           }
             |  t:TOKEN_REF (ast3:ast_suffix)?
 	           {
@@ -457,7 +466,7 @@ atom_or_notatom returns [StateCluster g=null]
 							              #t.token,
 								          #t.getText());
                }
-	           g=factory.build_Set(notAtom);
+	           g=factory.build_Set(notAtom,#n);
 	           }
             |  g=set
 	           {
@@ -474,21 +483,22 @@ atom_or_notatom returns [StateCluster g=null]
 				  			              grammar,
 							              #n.token);
                }
-	           g=factory.build_Set(s);
+	           g=factory.build_Set(s,#n);
 	           }
             )
         	{#n.followingNFAState = g.right;}
          )
 	;
 
-atom returns [StateCluster g=null]
+atom[String scopeName] returns [StateCluster g=null]
     :   #( r:RULE_REF (rarg:ARG_ACTION)? (as1:ast_suffix)? )
         {
-        NFAState start = grammar.getRuleStartState(r.getText());
+        NFAState start = grammar.getRuleStartState(scopeName,r.getText());
         if ( start!=null ) {
-            int ruleIndex = grammar.getRuleIndex(r.getText());
-            g = factory.build_RuleRef(ruleIndex, start);
+            Rule rr = grammar.getRule(scopeName,r.getText());
+            g = factory.build_RuleRef(rr, start);
             r.followingNFAState = g.right;
+            r.NFAStartState = g.left;
             if ( g.left.transition(0) instanceof RuleClosureTransition
             	 && grammar.type!=Grammar.LEXER )
             {
@@ -498,60 +508,52 @@ atom returns [StateCluster g=null]
         }
         }
 
-    |   #( t:TOKEN_REF (targ:ARG_ACTION)? (as2:ast_suffix)? )
+    |   #( t:TOKEN_REF  (targ:ARG_ACTION)? (as2:ast_suffix)? )
         {
         if ( grammar.type==Grammar.LEXER ) {
-            NFAState start = grammar.getRuleStartState(t.getText());
+            NFAState start = grammar.getRuleStartState(scopeName,t.getText());
             if ( start!=null ) {
-                int ruleIndex = grammar.getRuleIndex(t.getText());
-                g = factory.build_RuleRef(ruleIndex, start);
+                Rule rr = grammar.getRule(scopeName,t.getText());
+                g = factory.build_RuleRef(rr, start);
+            	t.NFAStartState = g.left;
                 // don't add FOLLOW transitions in the lexer;
                 // only exact context should be used.
             }
         }
         else {
-            int tokenType = grammar.getTokenType(t.getText());
-            g = factory.build_Atom(tokenType);
+            g = factory.build_Atom(t);
             t.followingNFAState = g.right;
         }
         }
 
-    |   #( c:CHAR_LITERAL (as3:ast_suffix)? )
+    |   #( c:CHAR_LITERAL  (as3:ast_suffix)? )
     	{
     	if ( grammar.type==Grammar.LEXER ) {
-    		g = factory.build_CharLiteralAtom(c.getText());
+    		g = factory.build_CharLiteralAtom(c);
     	}
     	else {
-            int tokenType = grammar.getTokenType(c.getText());
-            g = factory.build_Atom(tokenType);
+            g = factory.build_Atom(c);
             c.followingNFAState = g.right;
     	}
     	}
 
-    |   #( s:STRING_LITERAL (as4:ast_suffix)? )
+    |   #( s:STRING_LITERAL  (as4:ast_suffix)? )
     	{
      	if ( grammar.type==Grammar.LEXER ) {
-     		g = factory.build_StringLiteralAtom(s.getText());
+     		g = factory.build_StringLiteralAtom(s);
      	}
      	else {
-             int tokenType = grammar.getTokenType(s.getText());
-             g = factory.build_Atom(tokenType);
+             g = factory.build_Atom(s);
              s.followingNFAState = g.right;
      	}
      	}
 
     |   #( w:WILDCARD (as5:ast_suffix)? )    {g = factory.build_Wildcard();}
 
-	//|	g=set
+    |   #( DOT scope:ID g=atom[#scope.getText()] ) // scope override
 	;
 
 ast_suffix
-{
-if ( grammar.getOption("output")==null ) {
-	ErrorManager.grammarError(ErrorManager.MSG_REWRITE_OR_OP_WITH_NO_OUTPUT_OPTION,
-							  grammar, #ast_suffix.token, currentRuleName);
-}
-}
 	:	ROOT
 	|	BANG
 	;
@@ -566,7 +568,7 @@ IntSet elements=new IntervalSet();
            EOB
          )
         {
-        g = factory.build_Set(elements);
+        g = factory.build_Set(elements,#b);
         #b.followingNFAState = g.right;
         #b.setValue = elements; // track set value of this block
         }
@@ -578,7 +580,7 @@ setRule returns [IntSet elements=new IntervalSet()]
 	:	#( RULE id:ID (modifier)? ARG RET ( OPTIONS )? ( ruleScopeSpec )?
 		   	(AMPERSAND)*
            	#( BLOCK ( OPTIONS )?
-           	   ( #(ALT setElement[elements] EOA) )+
+           	   ( #(ALT (BACKTRACK_SEMPRED)? setElement[elements] EOA) )+
            	   EOB
            	 )
            	(exceptionGroup)?
@@ -679,7 +681,7 @@ setElement[IntSet elements]
 testBlockAsSet
 {
     int nAlts=0;
-    Rule r = grammar.getRule(currentRuleName);
+    Rule r = grammar.getLocallyDefinedRule(currentRuleName);
 }
 	:   #( BLOCK
            (   #(ALT (BACKTRACK_SEMPRED)? testSetElement {nAlts++;} EOA)

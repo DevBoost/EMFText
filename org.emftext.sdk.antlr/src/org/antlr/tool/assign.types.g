@@ -1,7 +1,7 @@
 header {
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -107,208 +107,57 @@ options {
             ex);
     }
 
-protected GrammarAST stringAlias;
-protected GrammarAST charAlias;
-protected GrammarAST stringAlias2;
-protected GrammarAST charAlias2;
 
 protected Grammar grammar;
-protected Map stringLiterals = new LinkedHashMap(); // Map<literal,Integer>
-protected Map tokens = new LinkedHashMap();         // Map<name,Integer>
-/** Track actual lexer rule defs so we don't get repeated token defs in 
- *  generated lexer.
- */
-protected Set tokenRuleDefs = new HashSet();        // Set<name>
-protected Map aliases = new LinkedHashMap();        // Map<name,literal>
 protected String currentRuleName;
-protected static final Integer UNASSIGNED = Utils.integer(-1);
-protected static final Integer UNASSIGNED_IN_PARSER_RULE = Utils.integer(-2);
 
-/** Track string literals in any non-lexer rule (could be in tokens{} section) */
-protected void trackString(GrammarAST t) {
-	// if lexer, don't allow aliasing in tokens section
-	if ( currentRuleName==null && grammar.type==Grammar.LEXER ) {
-		ErrorManager.grammarError(ErrorManager.MSG_CANNOT_ALIAS_TOKENS_IN_LEXER,
-								  grammar,
-								  t.token,
-								  t.getText());
-		return;
-	}
-	// in a plain parser grammar rule, cannot reference literals
-	// (unless defined previously via tokenVocab option)
-	if ( grammar.type==Grammar.PARSER &&
-	     grammar.getTokenType(t.getText())==Label.INVALID )
-    {
-		ErrorManager.grammarError(ErrorManager.MSG_LITERAL_NOT_ASSOCIATED_WITH_LEXER_RULE,
-								  grammar,
-								  t.token,
-								  t.getText());
-	}
-	// otherwise add literal to token types if referenced from parser rule
-	// or in the tokens{} section
-	if ( (currentRuleName==null ||
-         Character.isLowerCase(currentRuleName.charAt(0))) &&
-         grammar.getTokenType(t.getText())==Label.INVALID )
-	{
-		stringLiterals.put(t.getText(), UNASSIGNED_IN_PARSER_RULE);
-	}
+protected static GrammarAST stringAlias;
+protected static GrammarAST charAlias;
+protected static GrammarAST stringAlias2;
+protected static GrammarAST charAlias2;
+
+protected void initASTPatterns() {
+	stringAlias =
+		#(#[BLOCK], #(#[ALT], #[STRING_LITERAL], #[EOA]), #[EOB]);
+	charAlias =
+		#(#[BLOCK], #(#[ALT], #[CHAR_LITERAL], #[EOA]), #[EOB]);
+	stringAlias2 =
+		#(#[BLOCK], #(#[ALT], #[STRING_LITERAL], #[ACTION], #[EOA]),#[EOB]);
+	charAlias2 =
+		#(#[BLOCK], #(#[ALT], #[CHAR_LITERAL], #[ACTION], #[EOA]), #[EOB]);
 }
 
-protected void trackToken(GrammarAST t) {
-	// imported token names might exist, only add if new
-	if ( grammar.getTokenType(t.getText())==Label.INVALID ) {
-		tokens.put(t.getText(), UNASSIGNED);
-	}
-}
-
-protected void trackTokenRule(GrammarAST t,
-							  GrammarAST modifier,
-							  GrammarAST block)
-{
-	// imported token names might exist, only add if new
-	if ( grammar.type==Grammar.LEXER || grammar.type==Grammar.COMBINED ) {
-		if ( !Character.isUpperCase(t.getText().charAt(0)) ) {
-			return;
-		}
-		int existing = grammar.getTokenType(t.getText());
-		if ( existing==Label.INVALID ) {
-			tokens.put(t.getText(), UNASSIGNED);
-		}
-		// look for "<TOKEN> : <literal> ;" pattern
-        // (can have optional action last)
-		if ( block.hasSameTreeStructure(charAlias) ||
-             block.hasSameTreeStructure(stringAlias) ||
-             block.hasSameTreeStructure(charAlias2) ||
-             block.hasSameTreeStructure(stringAlias2) )
-        {
-			alias(t, (GrammarAST)block.getFirstChild().getFirstChild());
-			tokenRuleDefs.add(t.getText());
-		}
-	}
-	// else error
-}
-
-protected void alias(GrammarAST t, GrammarAST s) {
-	aliases.put(t.getText(), s.getText());
-}
-
-protected void assignTypes() {
-	/*
-	System.out.println("stringLiterals="+stringLiterals);
-	System.out.println("tokens="+tokens);
-	System.out.println("aliases="+aliases);
-	*/
-
-	assignTokenIDTypes();
-
-	aliasTokenIDsAndLiterals();
-
-	assignStringTypes();
-
-	/*
-	System.out.println("AFTER:");
-	System.out.println("stringLiterals="+stringLiterals);
-	System.out.println("tokens="+tokens);
-	System.out.println("aliases="+aliases);
-	*/
-
-	notifyGrammarObject();
-}
-
-	protected void assignStringTypes() {
-		// walk string literals assigning types to unassigned ones
-		Set s = stringLiterals.keySet();
-		for (Iterator it = s.iterator(); it.hasNext();) {
-			String lit = (String) it.next();
-			Integer oldTypeI = (Integer)stringLiterals.get(lit);
-			int oldType = oldTypeI.intValue();
-			if ( oldType<Label.MIN_TOKEN_TYPE ) {
-				Integer typeI = Utils.integer(grammar.getNewTokenType());
-				stringLiterals.put(lit, typeI);
-				// if string referenced in combined grammar parser rule,
-				// automatically define in the generated lexer
-				grammar.defineLexerRuleForStringLiteral(lit, typeI.intValue());
-			}
-		}
-	}
-
-	protected void aliasTokenIDsAndLiterals() {
-		if ( grammar.type==Grammar.LEXER ) {
-			return; // strings/chars are never token types in LEXER
-		}
-		// walk aliases if any and assign types to aliased literals if literal
-		// was referenced
-		Set s = aliases.keySet();
-		for (Iterator it = s.iterator(); it.hasNext();) {
-			String tokenID = (String) it.next();
-			String literal = (String)aliases.get(tokenID);
-			if ( literal.charAt(0)=='\'' && stringLiterals.get(literal)!=null ) {
-				stringLiterals.put(literal, tokens.get(tokenID));
-				// an alias still means you need a lexer rule for it
-				Integer typeI = (Integer)tokens.get(tokenID);
-				if ( !tokenRuleDefs.contains(tokenID) ) {
-					grammar.defineLexerRuleForAliasedStringLiteral(tokenID, literal, typeI.intValue());
-				}
-			}
-		}
-	}
-
-	protected void assignTokenIDTypes() {
-		// walk token names, assigning values if unassigned
-		Set s = tokens.keySet();
-		for (Iterator it = s.iterator(); it.hasNext();) {
-			String tokenID = (String) it.next();
-			if ( tokens.get(tokenID)==UNASSIGNED ) {
-				tokens.put(tokenID, Utils.integer(grammar.getNewTokenType()));
-			}
-		}
-	}
-
-	protected void notifyGrammarObject() {
-		Set s = tokens.keySet();
-		for (Iterator it = s.iterator(); it.hasNext();) {
-			String tokenID = (String) it.next();
-			int ttype = ((Integer)tokens.get(tokenID)).intValue();
-			grammar.defineToken(tokenID, ttype);
-		}
-		s = stringLiterals.keySet();
-		for (Iterator it = s.iterator(); it.hasNext();) {
-			String lit = (String) it.next();
-			int ttype = ((Integer)stringLiterals.get(lit)).intValue();
-			grammar.defineToken(lit, ttype);
-		}
-	}
-
-	protected void init(Grammar g) {
-		this.grammar = g;
-        stringAlias = 
-            #(#[BLOCK], #(#[ALT], #[STRING_LITERAL], #[EOA]), #[EOB]);
-        charAlias =
-            #(#[BLOCK], #(#[ALT], #[CHAR_LITERAL], #[EOA]), #[EOB]);
-        stringAlias2 =
-            #(#[BLOCK], #(#[ALT], #[STRING_LITERAL], #[ACTION], #[EOA]),#[EOB]);
-        charAlias2 = 
-            #(#[BLOCK], #(#[ALT], #[CHAR_LITERAL], #[ACTION], #[EOA]), #[EOB]);
-	}
+// Behavior moved to AssignTokenTypesBehavior
+protected void trackString(GrammarAST t) {;}
+protected void trackToken(GrammarAST t) {;}
+protected void trackTokenRule(GrammarAST t, GrammarAST modifier, GrammarAST block) {;}
+protected void alias(GrammarAST t, GrammarAST s) {;}
+protected void defineTokens(Grammar root) {;}
+protected void defineStringLiteralsFromDelegates() {;}
+protected void assignStringTypes(Grammar root) {;}
+protected void aliasTokenIDsAndLiterals(Grammar root) {;}
+protected void assignTokenIDTypes(Grammar root) {;}
+protected void defineTokenNamesAndLiteralsInGrammar(Grammar root) {;}
+protected void init(Grammar root) {;}
 }
 
 grammar[Grammar g]
 {
 	init(g);
 }
-    :   ( #( LEXER_GRAMMAR 	  {grammar.type = Grammar.LEXER;} 	  	grammarSpec )
-	    | #( PARSER_GRAMMAR   {grammar.type = Grammar.PARSER;}      grammarSpec )
-	    | #( TREE_GRAMMAR     {grammar.type = Grammar.TREE_PARSER;} grammarSpec )
-	    | #( COMBINED_GRAMMAR {grammar.type = Grammar.COMBINED;}    grammarSpec )
+    :   ( #( LEXER_GRAMMAR 	  grammarSpec )
+	    | #( PARSER_GRAMMAR   grammarSpec )
+	    | #( TREE_GRAMMAR     grammarSpec )
+	    | #( COMBINED_GRAMMAR grammarSpec )
 	    )
-        {assignTypes();}
     ;
 
 grammarSpec
 {Map opts=null;}
-	:	id:ID {grammar.setName(#id.getText());}
+	:	id:ID
 		(cmt:DOC_COMMENT)?
 		(optionsSpec)?
+        (delegateGrammars)?
         (tokensSpec)?
         (attrScope)*
         (AMPERSAND)* // skip actions
@@ -333,7 +182,7 @@ option[Map opts]
         opts.put(key,value);
         // check for grammar-level option to import vocabulary
         if ( currentRuleName==null && key.equals("tokenVocab") ) {
-            grammar.importTokenVocabulary((String)value);
+            grammar.importTokenVocabulary(#id,(String)value);
         }
         }
     ;
@@ -354,6 +203,14 @@ charSetElement
 	:   c:CHAR_LITERAL
 	|   #( OR c1:CHAR_LITERAL c2:CHAR_LITERAL )
 	|   #( RANGE c3:CHAR_LITERAL c4:CHAR_LITERAL )
+	;
+
+delegateGrammars
+	:	#( "import"
+            (   #(ASSIGN ID ID)
+            |   ID
+            )+
+        )
 	;
 
 tokensSpec
@@ -426,7 +283,7 @@ finallyClause
     ;
 
 rewrite
-	:	( #( REWRITE (SEMPRED)? (ALT|TEMPLATE|ACTION) ) )*
+	:	( #( REWRITE (SEMPRED)? (ALT|TEMPLATE|ACTION|ETC) ) )*
 	;
 
 element
@@ -441,6 +298,7 @@ element
     |   ebnf
     |   tree
     |   #( SYNPRED block ) 
+    |   FORCED_ACTION
     |   ACTION
     |   SEMPRED
     |   SYN_SEMPRED
@@ -459,11 +317,12 @@ tree:   #(TREE_BEGIN  element (element)*  )
     ;
 
 atom
-    :   RULE_REF
-    |   t:TOKEN_REF      {trackToken(t);}
+    :   #( rr:RULE_REF (rarg:ARG_ACTION)? )
+    |   #( t:TOKEN_REF (targ:ARG_ACTION )? ) {trackToken(t);}
     |   c:CHAR_LITERAL   {trackString(c);}
     |   s:STRING_LITERAL {trackString(s);}
     |   WILDCARD
+    |   #(DOT ID atom) // scope override on rule
     ;
 
 ast_suffix

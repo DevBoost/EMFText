@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,7 @@ public class GrammarAST extends BaseAST {
 	/** This AST node was created from what token? */
     public Token token = null;
 
-    protected String enclosingRule = null;
+    public String enclosingRuleName;
 
 	/** If this is a RULE node then track rule's start, stop tokens' index. */
 	public int ruleStartTokenIndex;
@@ -88,7 +88,7 @@ public class GrammarAST extends BaseAST {
     protected IntSet setValue = null;
 
     /** If this is a BLOCK node, track options here */
-    protected Map options;
+    protected Map<String,Object> blockOptions;
 
 	/** If this is a BLOCK node for a rewrite rule, track referenced
 	 *  elements here.  Don't track elements in nested subrules.
@@ -106,14 +106,9 @@ public class GrammarAST extends BaseAST {
 	 *
 	 *  If BLOCK then tracks every element at that level and below.
 	 */
-	public Set<GrammarAST> rewriteRefsDeep;	
+	public Set<GrammarAST> rewriteRefsDeep;
 
-	public static final Set legalBlockOptions =
-			new HashSet() {{add("k"); add("greedy"); add("backtrack"); add("memoize");}};
-
-	/** What are the default options for a subrule? */
-    public static final Map defaultBlockOptions =
-            new HashMap() {{put("greedy","true");}};
+	public Map<String,Object> terminalOptions;
 
 	/** if this is an ACTION node, this is the outermost enclosing
 	 *  alt num in rule.  For actions, define.g sets these (used to
@@ -142,8 +137,15 @@ public class GrammarAST extends BaseAST {
     }
 
     public void initialize(AST ast) {
-		this.token = ((GrammarAST)ast).token;
-    }
+		GrammarAST t = ((GrammarAST)ast);
+		this.token = t.token;
+		this.enclosingRuleName = t.enclosingRuleName;
+		this.ruleStartTokenIndex = t.ruleStartTokenIndex;
+		this.ruleStopTokenIndex = t.ruleStopTokenIndex;
+		this.setValue = t.setValue;
+		this.blockOptions = t.blockOptions;
+		this.outerAltNum = t.outerAltNum;
+	}
 
     public void initialize(Token token) {
         this.token = token;
@@ -172,8 +174,22 @@ public class GrammarAST extends BaseAST {
 	/** Save the option key/value pair and process it; return the key
 	 *  or null if invalid option.
 	 */
-	public String setOption(Grammar grammar, String key, Object value) {
-		if ( !legalBlockOptions.contains(key) ) {
+	public String setBlockOption(Grammar grammar, String key, Object value) {
+		if ( blockOptions == null ) {
+			blockOptions = new HashMap();
+		}
+		return setOption(blockOptions, Grammar.legalBlockOptions, grammar, key, value);
+	}
+
+	public String setTerminalOption(Grammar grammar, String key, Object value) {
+		if ( terminalOptions == null ) {
+			terminalOptions = new HashMap<String,Object>();
+		}
+		return setOption(terminalOptions, Grammar.legalTokenOptions, grammar, key, value);
+	}
+
+	public String setOption(Map options, Set legalOptions, Grammar grammar, String key, Object value) {
+		if ( !legalOptions.contains(key) ) {
 			ErrorManager.grammarError(ErrorManager.MSG_ILLEGAL_OPTION,
 									  grammar,
 									  token,
@@ -186,9 +202,6 @@ public class GrammarAST extends BaseAST {
 				value = vs.substring(1,vs.length()-1); // strip quotes
             }
         }
-		if ( options==null ) {
-			options = new HashMap();
-		}
 		if ( key.equals("k") ) {
 			grammar.numberOfManualLookaheadOptions++;
 		}
@@ -196,34 +209,27 @@ public class GrammarAST extends BaseAST {
 		return key;
     }
 
-    public Object getOption(String key) {
+    public Object getBlockOption(String key) {
 		Object value = null;
-		if ( options!=null ) {
-			value = options.get(key);
-		}
-		if ( value==null ) {
-			value = defaultBlockOptions.get(key);
+		if ( blockOptions != null ) {
+			value = blockOptions.get(key);
 		}
 		return value;
 	}
 
     public void setOptions(Grammar grammar, Map options) {
 		if ( options==null ) {
-			this.options = null;
+			this.blockOptions = null;
 			return;
 		}
 		Set keys = options.keySet();
 		for (Iterator it = keys.iterator(); it.hasNext();) {
 			String optionName = (String) it.next();
-			String stored=setOption(grammar, optionName, options.get(optionName));
+			String stored= setBlockOption(grammar, optionName, options.get(optionName));
 			if ( stored==null ) {
 				it.remove();
 			}
 		}
-    }
-
-    public Map getOptions() {
-        return options;
     }
 
     public String getText() {
@@ -284,15 +290,7 @@ public class GrammarAST extends BaseAST {
         token.setColumn(col);
     }
 
-    public void setEnclosingRule(String rule) {
-        this.enclosingRule = rule;
-    }
-
-    public String getEnclosingRule() {
-        return enclosingRule;
-    }
-
-    public IntSet getSetValue() {
+ 	public IntSet getSetValue() {
         return setValue;
     }
 
@@ -375,9 +373,12 @@ public class GrammarAST extends BaseAST {
 	/** Make nodes unique based upon Token so we can add them to a Set; if
 	 *  not a GrammarAST, check type.
 	 */
-	public boolean equals(AST ast) {
+	public boolean equals(Object ast) {
+		if ( this == ast ) {
+			return true;
+		}
 		if ( !(ast instanceof GrammarAST) ) {
-			return this.getType() == ast.getType();
+			return this.getType() == ((AST)ast).getType();
 		}
 		GrammarAST t = (GrammarAST)ast;
 		return token.getLine() == t.getLine() &&
@@ -443,10 +444,6 @@ public class GrammarAST extends BaseAST {
 		return dup_t;
 	}
 
-	public static void main(String[] args) {
-		GrammarAST t = new GrammarAST();
-	}
-
 	/** Duplicate tree including siblings of root. */
 	public static GrammarAST dupListNoActions(GrammarAST t, GrammarAST parent) {
 		GrammarAST result = dupTreeNoActions(t, parent);            // if t == null, then result==null
@@ -479,18 +476,31 @@ public class GrammarAST extends BaseAST {
 			return null;
 		}
 		if ( ttype==ANTLRParser.BANG || ttype==ANTLRParser.ROOT ) {
-			return (GrammarAST)t.getFirstChild(); // return x from ^(ROOT x)
+			// return x from ^(ROOT x)
+			return (GrammarAST)dupListNoActions((GrammarAST)t.getFirstChild(), t);
 		}
-		if ( (ttype==ANTLRParser.ASSIGN||ttype==ANTLRParser.PLUS_ASSIGN) &&
+        /* DOH!  Must allow labels for sem preds
+        if ( (ttype==ANTLRParser.ASSIGN||ttype==ANTLRParser.PLUS_ASSIGN) &&
 			 (parent==null||parent.getType()!=ANTLRParser.OPTIONS) )
 		{
 			return dupTreeNoActions(t.getChild(1), t); // return x from ^(ASSIGN label x)
 		}
+		*/
 		GrammarAST result = dup(t);		// make copy of root
 		// copy all children of root.
 		GrammarAST kids = dupListNoActions((GrammarAST)t.getFirstChild(), t);
 		result.setFirstChild(kids);
 		return result;
+	}
+
+	public void setTreeEnclosingRuleNameDeeply(String rname) {
+		GrammarAST t = this;
+		t.enclosingRuleName = rname;
+		t = t.getChild(0);
+		while (t != null) {						// for each sibling of the root
+			t.setTreeEnclosingRuleNameDeeply(rname);
+			t = (GrammarAST)t.getNextSibling();
+		}
 	}
 
 }

@@ -27,6 +27,9 @@
 */
 package org.antlr.analysis;
 
+import org.antlr.tool.Grammar;
+import org.antlr.tool.Rule;
+
 /** A transition used to reference another rule.  It tracks two targets
  *  really: the actual transition target and the state following the
  *  state that refers to the other rule.  Conversion of an NFA that
@@ -34,27 +37,19 @@ package org.antlr.analysis;
  *  that rule because of these special transitions.
  */
 public class RuleClosureTransition extends Transition {
-    /** Index of rule targeted by this transition */
-    protected int ruleIndex;
+	/** Ptr to the rule definition object for this rule ref */
+	public Rule rule;
 
-    /** What node to begin computations following ref to rule */
-    protected NFAState followState;
+	/** What node to begin computations following ref to rule */
+    public NFAState followState;
 
-    public RuleClosureTransition(int ruleIndex,
-                             NFAState ruleStart,
-                             NFAState followState)
+    public RuleClosureTransition(Rule rule,
+								 NFAState ruleStart,
+								 NFAState followState)
     {
         super(Label.EPSILON, ruleStart);
-        this.ruleIndex = ruleIndex;
+        this.rule = rule;
         this.followState = followState;
-    }
-
-    public NFAState getFollowState() {
-        return followState;
-    }
-
-    public int getRuleIndex() {
-        return ruleIndex;
-    }
+	}
 }
 

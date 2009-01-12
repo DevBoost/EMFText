@@ -1,7 +1,7 @@
 header {
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -45,6 +45,7 @@ options {
 }
 
 {
+
 	protected Grammar grammar;
 	protected boolean showActions;
     protected StringBuffer buf = new StringBuffer(300);
@@ -124,6 +125,7 @@ grammarSpec[String gtype]
 	:	 id:ID {out(gtype+"grammar "+#id.getText());}
         (cmt:DOC_COMMENT {out(#cmt.getText()+"\n");} )?
         (optionsSpec)? {out(";\n");}
+        (delegateGrammars)?
         (tokensSpec)?
         (attrScope)*
         (actions)?
@@ -183,6 +185,10 @@ charSetElement
 	|   #( RANGE c3:CHAR_LITERAL c4:CHAR_LITERAL )
 	;
 */
+
+delegateGrammars
+	:	#( "import" ( #(ASSIGN ID ID) | ID )+ )
+	;
 
 tokensSpec
 	:	#( TOKENS ( tokenSpec )+ )
@@ -264,7 +270,7 @@ finallyClause
 
 single_rewrite
 	:	#( REWRITE {out(" ->");} (SEMPRED {out(" {"+#SEMPRED.getText()+"}?");})?
-	       ( alternative | rewrite_template | ACTION {out(" {"+#ACTION.getText()+"}");})
+	       ( alternative | rewrite_template | ETC {out("...");} | ACTION {out(" {"+#ACTION.getText()+"}");})
 	     )
 	;
 
@@ -302,6 +308,7 @@ element
     |   tree
     |   #( SYNPRED block[true] ) {out("=>");}
     |   a:ACTION  {if ( showActions ) {out("{"); out(a.getText()); out("}");}}
+    |   a2:FORCED_ACTION  {if ( showActions ) {out("{{"); out(a2.getText()); out("}}");}}
     |   pred:SEMPRED
     	{
     	if ( showActions ) {out("{"); out(pred.getText()); out("}?");}
@@ -339,6 +346,7 @@ atom
 			   (ast_suffix)?
              )
 		|   #( TOKEN_REF		{out(#atom.toString());} 
+               
 			   (targ:ARG_ACTION	{out("["+#targ.toString()+"]");} )?
 			   (ast_suffix)?
              )
@@ -349,11 +357,12 @@ atom
 			   (ast_suffix)?
              )
 		|   #( WILDCARD		{out(#atom.toString());}
-			   (ast_suffix)?
+                (ast_suffix)?
              )
 		)
 		{out(" ");}
     |	LABEL {out(" $"+#LABEL.getText());} // used in -> rewrites
+    |   #(DOT ID {out(#ID.getText()+".");} atom) // scope override on rule
     ;
 
 ast_suffix

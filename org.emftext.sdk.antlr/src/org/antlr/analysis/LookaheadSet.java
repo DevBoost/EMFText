@@ -37,8 +37,7 @@ import org.antlr.tool.Grammar;
  *  reasons in the future to abstract a LookaheadSet over a raw BitSet.
  */
 public class LookaheadSet {
-	public IntSet tokenTypeSet;
-	public boolean hasEOF;
+	public IntervalSet tokenTypeSet;
 
 	public LookaheadSet() {
 		tokenTypeSet = new IntervalSet();
@@ -53,37 +52,55 @@ public class LookaheadSet {
 		tokenTypeSet = IntervalSet.of(atom);
 	}
 
-	public void orInPlace(LookaheadSet other) {
+    public LookaheadSet(LookaheadSet other) {
+        this();
+        this.tokenTypeSet.addAll(other.tokenTypeSet);
+    }
+
+    public void orInPlace(LookaheadSet other) {
 		this.tokenTypeSet.addAll(other.tokenTypeSet);
-		this.hasEOF = this.hasEOF || other.hasEOF;
+	}
+
+	public LookaheadSet or(LookaheadSet other) {
+		return new LookaheadSet(tokenTypeSet.or(other.tokenTypeSet));
+	}
+
+	public LookaheadSet subtract(LookaheadSet other) {
+		return new LookaheadSet(this.tokenTypeSet.subtract(other.tokenTypeSet));
 	}
 
 	public boolean member(int a) {
 		return tokenTypeSet.member(a);
 	}
 
+	public LookaheadSet intersection(LookaheadSet s) {
+		IntSet i = this.tokenTypeSet.and(s.tokenTypeSet);
+		LookaheadSet intersection = new LookaheadSet(i);
+		return intersection;
+	}
+
+	public boolean isNil() {
+		return tokenTypeSet.isNil();
+	}
+
 	public void remove(int a) {
-		tokenTypeSet = tokenTypeSet.subtract(IntervalSet.of(a));
+		tokenTypeSet = (IntervalSet)tokenTypeSet.subtract(IntervalSet.of(a));
+	}
+
+	public int hashCode() {
+		return tokenTypeSet.hashCode();
+	}
+
+	public boolean equals(Object other) {
+		return tokenTypeSet.equals(((LookaheadSet)other).tokenTypeSet);
 	}
 
 	public String toString(Grammar g) {
 		if ( tokenTypeSet==null ) {
-			if ( hasEOF ) {
-				return "EOF";
-			}
 			return "";
 		}
 		String r = tokenTypeSet.toString(g);
-		if ( hasEOF ) {
-			return r+"+EOF";
-		}
 		return r;
-	}
-
-	public static LookaheadSet EOF() {
-		LookaheadSet eof = new LookaheadSet();
-		eof.hasEOF = true;
-		return eof;
 	}
 
 	public String toString() {

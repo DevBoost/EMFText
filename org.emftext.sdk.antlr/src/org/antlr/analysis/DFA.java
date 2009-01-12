@@ -27,10 +27,9 @@
 */
 package org.antlr.analysis;
 
-import org.antlr.Tool;
 import org.antlr.codegen.CodeGenerator;
-import org.antlr.misc.IntervalSet;
 import org.antlr.misc.IntSet;
+import org.antlr.misc.IntervalSet;
 import org.antlr.misc.Utils;
 import org.antlr.runtime.IntStream;
 import org.antlr.stringtemplate.StringTemplate;
@@ -50,10 +49,10 @@ public class DFA {
 
 	/** Prevent explosion of DFA states during conversion. The max number
 	 *  of states per alt in a single decision's DFA.
-	 */
 	public static final int MAX_STATES_PER_ALT_IN_DFA = 450;
+	 */
 
-	/** Set to 0 to not terminate early */
+	/** Set to 0 to not terminate early (time in ms) */
 	public static int MAX_TIME_PER_DFA_CREATION = 1*1000;
 
 	/** How many edges can each DFA state have before a "special" state
@@ -80,7 +79,7 @@ public class DFA {
 	 *  Not used during fixed k lookahead as it's a waste to fill it with
 	 *  a dup of states array.
      */
-    protected Map uniqueStates = new HashMap();
+    protected Map<DFAState, DFAState> uniqueStates = new HashMap<DFAState, DFAState>();
 
 	/** Maps the state number to the actual DFAState.  Use a Vector as it
 	 *  grows automatically when I set the ith element.  This contains all
@@ -93,9 +92,9 @@ public class DFA {
 	 *  a way to go from state number to DFAState rather than via a
 	 *  hash lookup.
 	 */
-	protected Vector states = new Vector();
+	protected Vector<DFAState> states = new Vector<DFAState>();
 
-	/** Unique state numbers */
+	/** Unique state numbers per DFA */
 	protected int stateCounter = 0;
 
 	/** count only new states not states that were rejected as already present */
@@ -117,7 +116,16 @@ public class DFA {
 	 */
     protected boolean cyclic = false;
 
-    /** Each alt in an NFA derived from a grammar must have a DFA state that
+	/** Track whether this DFA has at least one sem/syn pred encountered
+	 *  during a closure operation.  This is useful for deciding whether
+	 *  to retry a non-LL(*) with k=1.  If no pred, it will not work w/o
+	 *  a pred so don't bother.  It would just give another error message.
+	 */
+	public boolean predicateVisible = false;
+
+	public boolean hasPredicateBlockedByAction = false;
+
+	/** Each alt in an NFA derived from a grammar must have a DFA state that
      *  predicts it lest the parser not know what to do.  Nondeterminisms can
      *  lead to this situation (assuming no semantic predicates can resolve
      *  the problem) and when for some reason, I cannot compute the lookahead
@@ -126,7 +134,7 @@ public class DFA {
      *  and then in method doesStateReachAcceptState() I remove the alts I
      *  know to be uniquely predicted.
      */
-    protected List unreachableAlts;
+    protected List<Integer> unreachableAlts;
 
 	protected int nAlts = 0;
 
@@ -136,7 +144,7 @@ public class DFA {
 	/** Track whether an alt discovers recursion for each alt during
 	 *  NFA to DFA conversion; >1 alt with recursion implies nonregular.
 	 */
-	protected IntSet recursiveAltSet = new IntervalSet();
+	public IntSet recursiveAltSet = new IntervalSet();
 
 	/** Which NFA are we converting (well, which piece of the NFA)? */
     public NFA nfa;
@@ -206,6 +214,11 @@ public class DFA {
 	public Vector transitionEdgeTables; // not used by java yet
 	protected int uniqueCompressedSpecialStateNum = 0;
 
+	/** Which generator to use if we're building state tables */
+	protected CodeGenerator generator = null;
+
+	protected DFA() {;}
+
 	public DFA(int decisionNumber, NFAState decisionStartState) {
 		this.decisionNumber = decisionNumber;
         this.decisionNFAStartState = decisionStartState;
@@ -216,31 +229,36 @@ public class DFA {
 
 		//long start = System.currentTimeMillis();
         nfaConverter = new NFAToDFAConverter(this);
-		nfaConverter.convert();
+		try {
+			nfaConverter.convert();
 
-		// figure out if there are problems with decision
-		verify();
+			// figure out if there are problems with decision
+			verify();
 
-		if ( !probe.isDeterministic() ||
-			 probe.analysisAborted() ||
-			 probe.analysisOverflowed() )
-		{
-			probe.issueWarnings();
+			if ( !probe.isDeterministic() || probe.analysisOverflowed() ) {
+				probe.issueWarnings();
+			}
+
+			// must be after verify as it computes cyclic, needed by this routine
+			// should be after warnings because early termination or something
+			// will not allow the reset to operate properly in some cases.
+			resetStateNumbersToBeContiguous();
+
+			//long stop = System.currentTimeMillis();
+			//System.out.println("verify cost: "+(int)(stop-start)+" ms");
 		}
-
-		// must be after verify as it computes cyclic, needed by this routine
-		// should be after warnings because early termination or something
-		// will not allow the reset to operate properly in some cases.
-		resetStateNumbersToBeContiguous();
-
-		//long stop = System.currentTimeMillis();
-		//System.out.println("verify cost: "+(int)(stop-start)+" ms");
-
-		if ( Tool.internalOption_PrintDFA ) {
-			System.out.println("DFA d="+decisionNumber);
-			FASerializer serializer = new FASerializer(nfa.grammar);
-			String result = serializer.serialize(startState);
-			System.out.println(result);
+		catch (AnalysisTimeoutException at) {
+			probe.reportAnalysisTimeout();
+			if ( !okToRetryDFAWithK1() ) {
+				probe.issueWarnings();
+			}
+		}
+		catch (NonLLStarDecisionException nonLL) {
+			probe.reportNonLLStarDecision(this);
+			// >1 alt recurses, k=* and no auto backtrack nor manual sem/syn
+			if ( !okToRetryDFAWithK1() ) {
+				probe.issueWarnings();
+			}
 		}
     }
 
@@ -263,68 +281,6 @@ public class DFA {
 			// all numbers are unique already; no states are thrown out.
 			return;
 		}
-        /*
-        if ( decisionNumber==14 ) {
-			System.out.println("DFA :"+decisionNumber+" "+this);
-            //System.out.println("DFA start state :"+startState);
-			System.out.println("unique state numbers: ");
-			Set s = getUniqueStates().keySet();
-			for (Iterator it = s.iterator(); it.hasNext();) {
-				DFAState d = (DFAState) it.next();
-				System.out.print(d.stateNumber+" ");
-			}
-			System.out.println();
-
-			System.out.println("size="+s.size());
-			System.out.println("continguous states: ");
-			for (Iterator it = states.iterator(); it.hasNext();) {
-				DFAState d = (DFAState) it.next();
-				if ( d!=null ) {
-                    System.out.print(d.stateNumber+" ");
-                }
-			}
-			System.out.println();
-
-			//Set a = new HashSet();
-			List a = new ArrayList();
-			System.out.println("unique set from states table: ");
-			for (int i = 0; i <= getMaxStateNumber(); i++) {
-				DFAState d = getState(i);
-                if ( d==null ) {
-                    continue;
-                }
-                boolean found=false;
-				for (int j=0; j<a.size(); j++) {
-					DFAState old = (DFAState)a.get(j);
-					if ( old.equals(d) ) {
-						if ( old.stateNumber!=d.stateNumber ) {
-							System.out.println("WHAT! state["+i+"]="+d+" prev in list as "+old);
-						}
-						found=true;
-					}
-				}
-				if ( !found ) {
-					a.add(d);
-				}
-			}
-			for (Iterator it = a.iterator(); it.hasNext();) {
-				DFAState d = (DFAState) it.next();
-                if ( d!=null ) {
-                    System.out.print(d.stateNumber+" ");
-                }
-            }
-			System.out.println();
-			System.out.println("size="+a.size());
-
-			if ( a.equals(s) ) {
-				System.out.println("both sets same");
-			}
-			else {
-				System.out.println("sets NOT same");
-			}
-			System.out.println("stateCounter="+stateCounter);
-		}
-        */
 
         // walk list of DFAState objects by state number,
 		// setting state numbers to 0..n-1
@@ -349,28 +305,6 @@ public class DFA {
 				snum++;
 			}
 		}
-        /*
-        if ( decisionNumber==14 ) {
-			//System.out.println("max state num: "+maxStateNumber);
-			System.out.println("after renum, DFA :"+decisionNumber+" "+this);
-			System.out.println("uniq states.size="+uniqueStates.size());
-
-			Set a = new HashSet();
-			System.out.println("after renumber; unique set from states table: ");
-			for (int i = 0; i <= getMaxStateNumber(); i++) {
-				DFAState d = getState(i);
-				a.add(d);
-			}
-			for (Iterator it = a.iterator(); it.hasNext();) {
-				DFAState d = (DFAState) it.next();
-				if ( d!=null ) {
-                    System.out.print(d.stateNumber+" ");
-                }
-			}
-			System.out.println();
-			System.out.println("size="+a.size());
-		}
-        */
         if ( snum!=getNumberOfStates() ) {
 			ErrorManager.internalError("DFA "+decisionNumber+": "+
 				decisionNFAStartState.getDescription()+" num unique states "+getNumberOfStates()+
@@ -443,8 +377,8 @@ public class DFA {
 					break;
 				}
 			}
-			encoded.add(encodeIntAsCharEscape((char)n));
-			encoded.add(encodeIntAsCharEscape((char)I.intValue()));
+			encoded.add(generator.target.encodeIntAsCharEscape((char)n));
+			encoded.add(generator.target.encodeIntAsCharEscape((char)I.intValue()));
 			i+=n;
 		}
 		return encoded;
@@ -452,7 +386,7 @@ public class DFA {
 
 	public void createStateTables(CodeGenerator generator) {
 		//System.out.println("createTables:\n"+this);
-
+		this.generator = generator;
 		description = getNFADecisionStartState().getDescription();
 		description =
 			generator.target.getTargetStringLiteralFromString(description);
@@ -641,14 +575,6 @@ public class DFA {
 			transitionEdgeTables.set(s.stateNumber, edgeClass);
 		}
 		else {
-			/*
-			if ( stateTransitions.size()>255 ) {
-				System.out.println("edge edgeTable "+stateTransitions.size()+" s"+s.stateNumber+": "+Utils.integer(edgeTransitionClass));
-			}
-			else {
-				System.out.println("stateTransitions="+stateTransitions);
-			}
-			*/
 			edgeClass = Utils.integer(edgeTransitionClass);
 			transitionEdgeTables.set(s.stateNumber, edgeClass);
 			edgeTransitionClassMap.put(stateTransitions, edgeClass);
@@ -720,14 +646,6 @@ public class DFA {
 		}
 	}
 
-	public static String encodeIntAsCharEscape(int v) {
-		if ( v<=127 ) {
-			return "\\"+Integer.toOctalString(v);
-		}
-		String hex = Integer.toHexString(v|0x10000).substring(1,5);
-		return "\\u"+hex;
-	}
-
 	public int predict(IntStream input) {
 		Interpreter interp = new Interpreter(nfa.grammar, input);
 		return interp.predict(this);
@@ -741,11 +659,6 @@ public class DFA {
 	 *  indicates it's a new state.
      */
     protected DFAState addState(DFAState d) {
-		/*
-		if ( decisionNumber==14 ) {
-            System.out.println("addState: "+d.stateNumber);
-        }
-        */
 		if ( getUserMaxLookahead()>0 ) {
 			return d;
 		}
@@ -774,7 +687,7 @@ public class DFA {
 		}
 	}
 
-	public Map getUniqueStates() {
+	public Map<DFAState, DFAState> getUniqueStates() {
 		return uniqueStates;
 	}
 
@@ -813,10 +726,9 @@ public class DFA {
     }
 
 	public boolean canInlineDecision() {
-		// TODO: and ! too big
-		return CodeGenerator.GEN_ACYCLIC_DFA_INLINE &&
-			!isCyclic() &&
-		    !probe.isNonLLStarDecision();
+		return !isCyclic() &&
+		    !probe.isNonLLStarDecision() &&
+			getNumberOfStates() < CodeGenerator.MAX_ACYCLIC_DFA_STATES_INLINE;
 	}
 
 	/** Is this DFA derived from the NFA for the Tokens rule? */
@@ -825,10 +737,10 @@ public class DFA {
 			return false;
 		}
 		NFAState nfaStart = getNFADecisionStartState();
-		NFAState TokensRuleStart =
-			nfa.grammar.getRuleStartState(Grammar.ARTIFICIAL_TOKENS_RULENAME);
+		Rule r = nfa.grammar.getLocallyDefinedRule(Grammar.ARTIFICIAL_TOKENS_RULENAME);
+		NFAState TokensRuleStart = r.startState;
 		NFAState TokensDecisionStart =
-			(NFAState)TokensRuleStart.transition(0).target;
+			(NFAState)TokensRuleStart.transition[0].target;
 		return nfaStart == TokensDecisionStart;
 	}
 
@@ -840,32 +752,12 @@ public class DFA {
 		if ( user_k>=0 ) { // cache for speed
 			return user_k;
 		}
-		GrammarAST blockAST = nfa.grammar.getDecisionBlockAST(decisionNumber);
-		Object k = blockAST.getOption("k");
-		if ( k==null ) {
-			user_k = nfa.grammar.getGrammarMaxLookahead();
-			return user_k;
-		}
-		if (k instanceof Integer) {
-			Integer kI = (Integer)k;
-			user_k = kI.intValue();
-		}
-		else {
-			// must be String "*"
-			if ( k.equals("*") ) {
-				user_k = 0;
-			}
-		}
+		user_k = nfa.grammar.getUserMaxLookahead(decisionNumber);
 		return user_k;
 	}
 
 	public boolean getAutoBacktrackMode() {
-		String autoBacktrack =
-			(String)decisionNFAStartState.getAssociatedASTNode().getOption("backtrack");
-		if ( autoBacktrack==null ) {
-			autoBacktrack = (String)nfa.grammar.getOption("backtrack");
-		}
-		return autoBacktrack!=null&&autoBacktrack.equals("true");
+		return nfa.grammar.getAutoBacktrackMode(decisionNumber);
 	}
 
 	public void setUserMaxLookahead(int k) {
@@ -884,7 +776,7 @@ public class DFA {
      *  be computed or for which no single DFA accept state predicts those
      *  alts.  Must call verify() first before this makes sense.
      */
-    public List getUnreachableAlts() {
+    public List<Integer> getUnreachableAlts() {
         return unreachableAlts;
     }
 
@@ -897,11 +789,11 @@ public class DFA {
 	 *
 	 *  3. alts i and j have disjoint lookahead if no sem preds
 	 *  4. if sem preds, nondeterministic alts must be sufficiently covered
+	 *
+	 *  This is avoided if analysis bails out for any reason.
 	 */
 	public void verify() {
-		if ( !probe.nonLLStarDecision ) { // avoid if non-LL(*)
-			doesStateReachAcceptState(startState);
-		}
+		doesStateReachAcceptState(startState);
 	}
 
     /** figure out if this state eventually reaches an accept state and
@@ -960,18 +852,39 @@ public class DFA {
             d.setAcceptStateReachable(REACHABLE_YES);
         }
         else {
-			/*
-			if ( d.getNumberOfTransitions()==0 ) {
-				probe.reportDanglingState(d);
-			}
-			*/
             d.setAcceptStateReachable(REACHABLE_NO);
 			reduced = false;
         }
         return anEdgeReachesAcceptState;
     }
 
-    public NFAState getNFADecisionStartState() {
+	/** Walk all accept states and find the manually-specified synpreds.
+	 *  Gated preds are not always hoisted
+	 *  I used to do this in the code generator, but that is too late.
+	 *  This converter tries to avoid computing DFA for decisions in
+	 *  syntactic predicates that are not ever used such as those
+	 *  created by autobacktrack mode.
+	 */
+	public void findAllGatedSynPredsUsedInDFAAcceptStates() {
+		int nAlts = getNumberOfAlts();
+		for (int i=1; i<=nAlts; i++) {
+			DFAState a = getAcceptState(i);
+			//System.out.println("alt "+i+": "+a);
+			if ( a!=null ) {
+				Set synpreds = a.getGatedSyntacticPredicatesInNFAConfigurations();
+				if ( synpreds!=null ) {
+					// add all the predicates we find (should be just one, right?)
+					for (Iterator it = synpreds.iterator(); it.hasNext();) {
+						SemanticContext semctx = (SemanticContext) it.next();
+						// System.out.println("synpreds: "+semctx);
+						nfa.grammar.synPredUsedInDFA(this, semctx);
+					}
+				}
+			}
+		}
+	}
+
+	public NFAState getNFADecisionStartState() {
         return decisionNFAStartState;
     }
 
@@ -991,22 +904,64 @@ public class DFA {
         return decisionNFAStartState.getDecisionNumber();
     }
 
-    /** What GrammarAST node (derived from the grammar) is this DFA
+	/** If this DFA failed to finish during construction, we might be
+	 *  able to retry with k=1 but we need to know whether it will
+	 *  potentially succeed.  Can only succeed if there is a predicate
+	 *  to resolve the issue.  Don't try if k=1 already as it would
+	 *  cycle forever.  Timeout can retry with k=1 even if no predicate
+	 *  if k!=1.
+	 */
+	public boolean okToRetryDFAWithK1() {
+		boolean nonLLStarOrOverflowAndPredicateVisible =
+			(probe.isNonLLStarDecision()||probe.analysisOverflowed()) &&
+		    predicateVisible; // auto backtrack or manual sem/syn
+		return getUserMaxLookahead()!=1 &&
+			 (analysisTimedOut() || nonLLStarOrOverflowAndPredicateVisible);
+	}
+
+	public String getReasonForFailure() {
+		StringBuffer buf = new StringBuffer();
+		if ( probe.isNonLLStarDecision() ) {
+			buf.append("non-LL(*)");
+			if ( predicateVisible ) {
+				buf.append(" && predicate visible");
+			}
+		}
+		if ( probe.analysisOverflowed() ) {
+			buf.append("recursion overflow");
+			if ( predicateVisible ) {
+				buf.append(" && predicate visible");
+			}
+		}
+		if ( analysisTimedOut() ) {
+			if ( buf.length()>0 ) {
+				buf.append(" && ");
+			}
+			buf.append("timed out (>");
+			buf.append(DFA.MAX_TIME_PER_DFA_CREATION);
+			buf.append("ms)");
+		}
+		buf.append("\n");
+		return buf.toString();
+	}
+
+	/** What GrammarAST node (derived from the grammar) is this DFA
      *  associated with?  It will point to the start of a block or
      *  the loop back of a (...)+ block etc...
      */
     public GrammarAST getDecisionASTNode() {
-        return decisionNFAStartState.getAssociatedASTNode();
+        return decisionNFAStartState.associatedASTNode;
     }
 
     public boolean isGreedy() {
 		GrammarAST blockAST = nfa.grammar.getDecisionBlockAST(decisionNumber);
-		String v = (String)blockAST.getOption("greedy");
+		Object v = nfa.grammar.getBlockOption(blockAST,"greedy");
 		if ( v!=null && v.equals("false") ) {
 			return false;
 		}
         return true;
-    }
+
+	}
 
     public DFAState newState() {
         DFAState n = new DFAState(this);
@@ -1029,8 +984,8 @@ public class DFA {
 		return nAlts;
 	}
 
-	public boolean analysisAborted() {
-		return probe.analysisAborted();
+	public boolean analysisTimedOut() {
+		return probe.analysisTimedOut();
 	}
 
     protected void initAltRelatedInfo() {

@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -58,7 +58,7 @@ public class GrammarReport {
 		buf.append('\t');
 		buf.append(grammar.name);
 		buf.append('\t');
-		buf.append(Grammar.grammarTypeToString[grammar.type]);
+		buf.append(grammar.getGrammarTypeString());
 		buf.append('\t');
 		buf.append(grammar.getOption("language"));
 		int totalNonSynPredProductions = 0;
@@ -153,7 +153,7 @@ public class GrammarReport {
 		buf.append('\t');
 		buf.append(grammar.setOfNondeterministicDecisionNumbersResolvedWithPredicates.size());
 		buf.append('\t');
-		buf.append(grammar.setOfDFAWhoseConversionTerminatedEarly.size());
+		buf.append(grammar.setOfDFAWhoseAnalysisTimedOut.size());
 		buf.append('\t');
 		buf.append(ErrorManager.getErrorState().errors);
 		buf.append('\t');
@@ -204,14 +204,14 @@ public class GrammarReport {
 		return buf.toString();
 	}
 
-	public String getEarlyTerminationReport() {
+	public String getAnalysisTimeoutReport() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("NFA conversion early termination report:");
 		buf.append(newline);
 		buf.append("Number of NFA conversions that terminated early: ");
-		buf.append(grammar.setOfDFAWhoseConversionTerminatedEarly.size());
+		buf.append(grammar.setOfDFAWhoseAnalysisTimedOut.size());
 		buf.append(newline);
-		buf.append(getDFALocations(grammar.setOfDFAWhoseConversionTerminatedEarly));
+		buf.append(getDFALocations(grammar.setOfDFAWhoseAnalysisTimedOut));
 		return buf.toString();
 	}
 
@@ -227,12 +227,12 @@ public class GrammarReport {
 			}
 			decisions.add(Utils.integer(dfa.decisionNumber));
 			buf.append("Rule ");
-			buf.append(dfa.decisionNFAStartState.getEnclosingRule());
+			buf.append(dfa.decisionNFAStartState.enclosingRule.name);
 			buf.append(" decision ");
 			buf.append(dfa.decisionNumber);
 			buf.append(" location ");
 			GrammarAST decisionAST =
-				dfa.decisionNFAStartState.getAssociatedASTNode();
+				dfa.decisionNFAStartState.associatedASTNode;
 			buf.append(decisionAST.getLine());
 			buf.append(":");
 			buf.append(decisionAST.getColumn());

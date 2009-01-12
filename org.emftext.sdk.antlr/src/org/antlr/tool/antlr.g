@@ -1,7 +1,7 @@
 header {
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -55,7 +55,7 @@ options {
     buildAST = true;
 	exportVocab=ANTLR;
     ASTLabelType="GrammarAST";
-	k=2;
+	k=3;
 }
 
 tokens {
@@ -86,13 +86,16 @@ tokens {
     TREE_GRAMMAR;
     COMBINED_GRAMMAR;
     INITACTION;
+    FORCED_ACTION; // {{...}} always exec even during syn preds
     LABEL; // $x used in rewrite rules
     TEMPLATE;
     SCOPE="scope";
+    IMPORT="import";
     GATED_SEMPRED; // {p}? =>
     SYN_SEMPRED; // (...) =>   it's a manually-specified synpred converted to sempred
     BACKTRACK_SEMPRED; // auto backtracking mode syn pred converted to sempred
     FRAGMENT="fragment";
+    DOT;
 }
 
 {
@@ -100,23 +103,6 @@ tokens {
 	protected int gtype = 0;
 	protected String currentRuleName = null;
 	protected GrammarAST currentBlockAST = null;
-
-	/* this next stuff supports construction of the Tokens artificial rule.
-	   I hate having some partial functionality here, I like doing everything
-	   in future tree passes, but the Tokens rule is sensitive to filter mode.
-	   And if it adds syn preds, future tree passes will need to process the
-	   fragments defined in Tokens; a cyclic dependency.
-	   As of 1-17-06 then, Tokens is created for lexer grammars in the
-	   antlr grammar parser itself.
-
-	   This grammar is also sensitive to the backtrack grammar option that
-	   tells ANTLR to automatically backtrack when it can't compute a DFA.
-
-	   7-2-06 I moved all option processing to antlr.g from define.g as I
-	   need backtrack option etc... for blocks.  Got messy.
-	*/
-	protected List lexerRuleNames = new ArrayList();
-	public List getLexerRuleNames() { return lexerRuleNames; }
 
 	protected GrammarAST setToBlockWithSet(GrammarAST b) {
 		GrammarAST alt = #(#[ALT,"ALT"],#b,#[EOA,"<end-of-alt>"]);
@@ -131,7 +117,6 @@ tokens {
 	 *  labels, tree operators, rewrites are removed.
 	 */
 	protected GrammarAST createBlockFromDupAlt(GrammarAST alt) {
-		//GrammarAST nalt = (GrammarAST)astFactory.dupTree(alt);
 		GrammarAST nalt = GrammarAST.dupTreeNoActions(alt, null);
 		GrammarAST blk = #(#[BLOCK,"BLOCK"],
 						   nalt,
@@ -146,7 +131,7 @@ tokens {
 	 */
 	protected void prefixWithSynPred(GrammarAST alt) {
 		// if they want backtracking and it's not a lexer rule in combined grammar
-		String autoBacktrack = (String)currentBlockAST.getOption("backtrack");
+		String autoBacktrack = (String)grammar.getBlockOption(currentBlockAST, "backtrack");
 		if ( autoBacktrack==null ) {
 			autoBacktrack = (String)grammar.getOption("backtrack");
 		}
@@ -179,7 +164,6 @@ tokens {
 		// during code gen we convert to function call with templates
 		String synpredinvoke = predName;
 		GrammarAST p = #[synpredTokenType,synpredinvoke];
-		p.setEnclosingRule(currentRuleName);
 		// track how many decisions have synpreds
 		grammar.blocksWithSynPreds.add(currentBlockAST);
 		return p;
@@ -228,7 +212,8 @@ tokens {
 			GrammarAST tokensRuleAST =
 			    grammar.addArtificialMatchTokensRule(
 			    	root,
-			    	lexerRuleNames,
+			    	grammar.lexerRuleNamesInCombined,
+                    grammar.getDelegateNames(),
 			    	filter!=null&&filter.equals("true"));
 		}
     }
@@ -240,31 +225,49 @@ grammar![Grammar g]
 	GrammarAST opt=null;
 	Token optionsStartToken = null;
 	Map opts;
+	// set to factory that sets enclosing rule
+	astFactory = new ASTFactory() {
+		{
+			setASTNodeClass(GrammarAST.class);
+			setASTNodeClass("org.antlr.tool.GrammarAST");
+		}
+		public AST create(Token token) {
+			AST t = super.create(token);
+			((GrammarAST)t).enclosingRuleName = currentRuleName;
+			return t;
+		}
+		public AST create(int i) {
+			AST t = super.create(i);
+			((GrammarAST)t).enclosingRuleName = currentRuleName;
+			return t;
+		}
+	};
 }
    :    //hdr:headerSpec
         ( ACTION )?
 	    ( cmt:DOC_COMMENT  )?
-        gr:grammarType gid:id SEMI
+        gr:grammarType gid:id {grammar.setName(#gid.getText());} SEMI
 			( {optionsStartToken=LT(1);}
 			  opts=optionsSpec {grammar.setOptions(opts, optionsStartToken);}
 			  {opt=(GrammarAST)returnAST;}
 			)?
+            (ig:delegateGrammars)?
 		    (ts:tokensSpec!)?
         	scopes:attrScopes
 		    (a:actions)?
 	        r:rules
         EOF
         {
-        #grammar = #(null, #(#gr, #gid, #cmt, opt, #ts, #scopes, #a, #r));
+        #grammar = #(null, #(#gr, #gid, #cmt, opt, #ig, #ts, #scopes, #a, #r));
         cleanup(#grammar);
         }
 	;
 
 grammarType
-    :   (	"lexer"!  {gtype=LEXER_GRAMMAR;}    // pure lexer
-    	|   "parser"! {gtype=PARSER_GRAMMAR;}   // pure parser
-    	|   "tree"!   {gtype=TREE_GRAMMAR;}     // a tree parser
-    	|			  {gtype=COMBINED_GRAMMAR;} // merged parser/lexer
+    :   (	"lexer"!  {gtype=LEXER_GRAMMAR; grammar.type = Grammar.LEXER;}       // pure lexer
+    	|   "parser"! {gtype=PARSER_GRAMMAR; grammar.type = Grammar.PARSER;}     // pure parser
+    	|   "tree"!   {gtype=TREE_GRAMMAR; grammar.type = Grammar.TREE_PARSER;}  // a tree parser
+    	|			  {gtype=COMBINED_GRAMMAR; grammar.type = Grammar.COMBINED;} // merged parser/lexer
     	)
     	gr:"grammar" {#gr.setType(gtype);}
     ;
@@ -287,21 +290,6 @@ actionScopeName
     |   p:"parser"	{#p.setType(ID);}
 	;
 
-/*
-optionsSpec returns [Map opts=new HashMap()]
-    :   #( OPTIONS (option[opts])+ )
-    ;
-
-option[Map opts]
-{
-    String key=null;
-    Object value=null;
-}
-    :   #( ASSIGN id:ID {key=#id.getText();} value=optionValue )
-        {opts.put(key,value);}
-    ;
-*/
-
 optionsSpec returns [Map opts=new HashMap()]
 	:	OPTIONS^ (option[opts] SEMI!)+ RCURLY!
 	;
@@ -314,21 +302,6 @@ option[Map opts]
     	{
     	opts.put(#o.getText(), value);
     	}
-    	/*
-    	{
-    	if ( #o.getText().equals("filter") && #v.getText().equals("true") ) {
-    		isFilterMode = true;
-    	}
-    	else if ( #o.getText().equals("backtrack") && #v.getText().equals("true") ) {
-    		if ( currentRuleName==null ) { // must grammar level
-    			isAutoBacktrackMode = true;
-    		}
-    		else {
-    			blockAutoBacktrackMode = true;
-    		}
-    	}
-    	}
-    	*/
     ;
 
 optionValue returns [Object value=null]
@@ -342,15 +315,14 @@ optionValue returns [Object value=null]
 //  |   cs:charSet       {value = #cs;} // return set AST in this case
     ;
 
-/*
-optionValue
-	:	id
-	|   STRING_LITERAL
-	|	CHAR_LITERAL
-	|	INT
-//	|   cs:charSet       {value = #cs;} // return set AST in this case
-	;
-*/
+delegateGrammars
+    :   "import"^ delegateGrammar (COMMA! delegateGrammar)* SEMI!
+    ;
+
+delegateGrammar
+    :   lab:id ASSIGN^ g:id {grammar.importGrammar(#g, #lab.getText());}
+    |   g2:id               {grammar.importGrammar(#g2,null);}
+    ;
 
 tokensSpec
 	:	TOKENS^
@@ -401,7 +373,7 @@ Map opts = null;
 	ruleName:id
 	{currentRuleName=#ruleName.getText();
      if ( gtype==LEXER_GRAMMAR && #p4==null ) {
-         lexerRuleNames.add(currentRuleName);
+         grammar.lexerRuleNamesInCombined.add(currentRuleName);
 	 }
 	}
 	( BANG )?
@@ -414,20 +386,11 @@ Map opts = null;
 	colon:COLON
 	{
 	blkRoot = #[BLOCK,"BLOCK"];
-	blkRoot.options = opts;
+	blkRoot.blockOptions = opts;
 	blkRoot.setLine(colon.getLine());
 	blkRoot.setColumn(colon.getColumn());
 	eob = #[EOB,"<end-of-block>"];
     }
-    /*
-	(	{!currentRuleName.equals(Grammar.ARTIFICIAL_TOKENS_RULENAME)}?
-		(setNoParens SEMI) => s:setNoParens // try to collapse sets
-		{
-		blk = #(blkRoot,#(#[ALT,"ALT"],#s,#[EOA,"<end-of-alt>"]),eob);
-		}
-	|	b:altList[opts] {blk = #b;}
-	)
-	*/
 	b:altList[opts] {blk = #b;}
 	semi:SEMI
 	( ex:exceptionGroup )?
@@ -436,14 +399,13 @@ Map opts = null;
 	eob.setLine(semi.getLine());
 	eob.setColumn(semi.getColumn());
     GrammarAST eor = #[EOR,"<end-of-rule>"];
-   	eor.setEnclosingRule(#ruleName.getText());
 	eor.setLine(semi.getLine());
 	eor.setColumn(semi.getColumn());
 	GrammarAST root = #[RULE,"rule"];
 	root.ruleStartTokenIndex = start;
 	root.ruleStopTokenIndex = stop;
 	root.setLine(startLine);
-	root.options = opts;
+	root.blockOptions = opts;
     #rule = #(root,
               #ruleName,modifier,#(#[ARG,"ARG"],#aa),#(#[RET,"RET"],#rt),
               opt,#scopes,#a,blk,ex,eor);
@@ -486,12 +448,7 @@ block
 GrammarAST save = currentBlockAST;
 Map opts=null;
 }
-    :   /*
-        (set) => s:set  // special block like ('a'|'b'|'0'..'9')
-
-    |	*/
-
-    	lp:LPAREN^ {#lp.setType(BLOCK); #lp.setText("BLOCK");}
+    :   lp:LPAREN^ {#lp.setType(BLOCK); #lp.setText("BLOCK");}
 		(
 			// 2nd alt and optional branch ambig due to
 			// linear approx LL(2) issue.  COLON ACTION
@@ -527,7 +484,7 @@ Map opts=null;
 altList[Map opts]
 {
 	GrammarAST blkRoot = #[BLOCK,"BLOCK"];
-	blkRoot.options = opts;
+	blkRoot.blockOptions = opts;
 	blkRoot.setLine(LT(0).getLine()); // set to : or (
 	blkRoot.setColumn(LT(0).getColumn());
 	GrammarAST save = currentBlockAST;
@@ -590,26 +547,40 @@ elementNoOptionSpec
     IntSet elements=null;
     GrammarAST sub, sub2;
 }
-	:	id (ASSIGN^|PLUS_ASSIGN^) (atom|block)
-        ( sub=ebnfSuffix[(GrammarAST)currentAST.root,false]! {#elementNoOptionSpec=sub;} )?
-    |   atom
-        ( sub2=ebnfSuffix[(GrammarAST)currentAST.root,false]! {#elementNoOptionSpec=sub2;} )?
-    |	ebnf
-	|   ACTION
-	|   p:SEMPRED ( IMPLIES! {#p.setType(GATED_SEMPRED);} )?
-		{
-		#p.setEnclosingRule(currentRuleName);
-		grammar.blocksWithSemPreds.add(currentBlockAST);
-		}
-	|   t3:tree
+	:	(	id (ASSIGN^|PLUS_ASSIGN^) (atom|block)
+			( sub=ebnfSuffix[(GrammarAST)currentAST.root,false]! {#elementNoOptionSpec=sub;} )?
+		|   atom
+			( sub2=ebnfSuffix[(GrammarAST)currentAST.root,false]! {#elementNoOptionSpec=sub2;} )?
+		|	ebnf
+		|   FORCED_ACTION
+		|   ACTION
+		|   p:SEMPRED ( IMPLIES! {#p.setType(GATED_SEMPRED);} )?
+			{
+			grammar.blocksWithSemPreds.add(currentBlockAST);
+			}
+		|   t3:tree
+		)
 	;
 
-atom:   range (ROOT^|BANG^)?
-    |   terminal
+atom
+    :   range (ROOT^|BANG^)?
+    |   (   options {
+            // TOKEN_REF WILDCARD could match terminal here then WILDCARD next
+            generateAmbigWarnings=false;
+        }
+        :   // grammar.rule but ensure no spaces. "A . B" is not a qualified ref
+        	// We do here rather than lexer so we can build a tree
+            {LT(1).getColumn()+LT(1).getText().length()==LT(2).getColumn()&&
+			 LT(2).getColumn()+1==LT(3).getColumn()}?
+			id w:WILDCARD^ (terminal|ruleref) {#w.setType(DOT);}
+        |   terminal
+        |   ruleref
+        )
     |	notSet (ROOT^|BANG^)?
-    |   rr:RULE_REF^
-		( ARG_ACTION )?
-		(ROOT^|BANG^)?
+    ;
+
+ruleref
+    :   rr:RULE_REF^ ( ARG_ACTION )? (ROOT^|BANG^)?
     ;
 
 notSet
@@ -681,15 +652,37 @@ terminal
 {
 GrammarAST ebnfRoot=null, subrule=null;
 }
-    :   cl:CHAR_LITERAL^ (ROOT^|BANG^)?
+    :   cl:CHAR_LITERAL^ ( elementOptions[#cl]! )? (ROOT^|BANG^)?
 
 	|   tr:TOKEN_REF^
+            ( elementOptions[#tr]! )?
 			( ARG_ACTION )? // Args are only valid for lexer rules
             (ROOT^|BANG^)?
 
-	|   sl:STRING_LITERAL (ROOT^|BANG^)?
+	|   sl:STRING_LITERAL^ ( elementOptions[#sl]! )? (ROOT^|BANG^)?
 
 	|   wi:WILDCARD (ROOT^|BANG^)?
+	;
+
+elementOptions[GrammarAST terminalAST]
+	:	OPEN_ELEMENT_OPTION^ defaultNodeOption[terminalAST] CLOSE_ELEMENT_OPTION!
+	|	OPEN_ELEMENT_OPTION^ elementOption[terminalAST] (SEMI! elementOption[terminalAST])* CLOSE_ELEMENT_OPTION!
+	;
+
+defaultNodeOption[GrammarAST terminalAST]
+{
+StringBuffer buf = new StringBuffer();
+}
+	:	i:id {buf.append(#i.getText());} (WILDCARD i2:id {buf.append("."+#i2.getText());})*
+	    {terminalAST.setTerminalOption(grammar,Grammar.defaultTokenOption,buf.toString());}
+	;
+
+elementOption[GrammarAST terminalAST]
+	:	a:id ASSIGN^ (b:id|s:STRING_LITERAL)
+		{
+		Object v = (#b!=null)?#b.getText():#s.getText();
+		terminalAST.setTerminalOption(grammar,#a.getText(),v);
+		}
 	;
 
 ebnfSuffix[GrammarAST elemAST, boolean inRewrite] returns [GrammarAST subrule=null]
@@ -728,17 +721,11 @@ notTerminal
 	;
 
 idList
-	:	(id)+
+	:	id (COMMA! id)*
 	;
 
 id	:	TOKEN_REF {#id.setType(ID);}
 	|	RULE_REF  {#id.setType(ID);}
-	;
-
-/** Match anything that looks like an ID and return tree as token type ID */
-idToken
-    :	TOKEN_REF {#idToken.setType(ID);}
-	|	RULE_REF  {#idToken.setType(ID);}
 	;
 
 // R E W R I T E  S Y N T A X
@@ -751,10 +738,6 @@ rewrite
 		( options { warnWhenFollowAmbig=false;}
 		: rew:REWRITE pred:SEMPRED alt:rewrite_alternative
 	      {root.addChild( #(#rew, #pred, #alt) );}
-		  {
-          #pred.setEnclosingRule(currentRuleName);
-          #rew.setEnclosingRule(currentRuleName);
-          }
 	    )*
 		rew2:REWRITE alt2:rewrite_alternative
         {
@@ -796,6 +779,8 @@ rewrite_alternative
         }
 
    	|   {#rewrite_alternative = #(altRoot,#[EPSILON,"epsilon"],eoa);}
+
+   	|	{grammar.buildAST()}? ETC
     ;
 
 rewrite_element
@@ -813,16 +798,15 @@ rewrite_atom
 {
 GrammarAST subrule=null;
 }
-    :   cl:CHAR_LITERAL
-	|   tr:TOKEN_REF^ (ARG_ACTION)? // for imaginary nodes
+    :   tr:TOKEN_REF^ (elementOptions[#tr]!)? (ARG_ACTION)? // for imaginary nodes
     |   rr:RULE_REF
-	|   sl:STRING_LITERAL
+	|   cl:CHAR_LITERAL^ (elementOptions[#cl]!)?
+	|   sl:STRING_LITERAL^ (elementOptions[#sl]!)?
 	|!  d:DOLLAR i:id // reference to a label in a rewrite rule
 		{
 		#rewrite_atom = #[LABEL,i_AST.getText()];
 		#rewrite_atom.setLine(#d.getLine());
 		#rewrite_atom.setColumn(#d.getColumn());
-        #rewrite_atom.setEnclosingRule(currentRuleName);
 		}
 	|	ACTION
 	;
@@ -902,7 +886,7 @@ rewrite_template_arg
 
 class ANTLRLexer extends Lexer;
 options {
-	k=2;
+	k=3;
 	exportVocab=ANTLR;
 	testLiterals=false;
 	interactive=true;
@@ -916,6 +900,7 @@ options {
     public void tab() {
 		setColumn( getColumn()+1 );
     }
+    public boolean hasASTOperator = false;
 }
 
 WS	:	(	' '
@@ -990,13 +975,15 @@ REWRITE : "->" ;
 
 SEMI:	';' ;
 
-ROOT : '^' ;
+ROOT : '^' {hasASTOperator=true;} ;
 
-BANG : '!' ;
+BANG : '!' {hasASTOperator=true;} ;
 
 OR	:	'|' ;
 
 WILDCARD : '.' ;
+
+ETC : "..." ;
 
 RANGE : ".." ;
 
@@ -1005,6 +992,18 @@ NOT :	'~' ;
 RCURLY:	'}'	;
 
 DOLLAR : '$' ;
+
+STRAY_BRACKET
+	:	']'
+		{
+		ErrorManager.syntaxError(
+			ErrorManager.MSG_SYNTAX_ERROR,
+			null,
+			_token,
+			"antlr: dangling ']'? make sure to escape with \\]",
+			null);
+		}
+	;
 
 CHAR_LITERAL
 	:	'\'' (ESC|'\n'{newline();}|~'\'')* '\''
@@ -1017,7 +1016,7 @@ CHAR_LITERAL
 	;
 
 DOUBLE_QUOTE_STRING_LITERAL
-	:	'"' ('\\'! '"'|'\n'{newline();}|~'"')* '"'
+	:	'"' ('\\'! '"'|'\\' ~'"'|'\n'{newline();}|~'"')* '"'
 	;
 
 DOUBLE_ANGLE_STRING_LITERAL
@@ -1035,29 +1034,6 @@ ESC	:	'\\'
 		|	'\''
 		|	'\\'
 		|	'>'
-		|	('0'..'3')
-			(
-				options {
-					warnWhenFollowAmbig = false;
-				}
-			:
-			('0'..'9')
-				(
-					options {
-						warnWhenFollowAmbig = false;
-					}
-				:
-				'0'..'9'
-				)?
-			)?
-		|	('4'..'7')
-			(
-				options {
-					warnWhenFollowAmbig = false;
-				}
-			:
-			('0'..'9')
-			)?
 		|	'u' XDIGIT XDIGIT XDIGIT XDIGIT
 		|	. // unknown, leave as it is
 		)
@@ -1078,22 +1054,22 @@ XDIGIT :
 INT	:	('0'..'9')+
 	;
 
+//HETERO_TYPE : '<'! ~'<' (~'>')* '>'! ;
+
 ARG_ACTION
-   :
-	NESTED_ARG_ACTION
+	:	'['! NESTED_ARG_ACTION ']'!
 	;
 
 protected
 NESTED_ARG_ACTION :
-	'['!
-	(
-		NESTED_ARG_ACTION
-	|	'\r' '\n'	{newline();}
+	(	'\r' '\n'	{newline();}
 	|	'\n'		{newline();}
+	|	'\\'! ']'
+	|	'\\' ~']'
 	|	ACTION_STRING_LITERAL
+	|	ACTION_CHAR_LITERAL
 	|	~']'
 	)*
-	']'!
 	;
 
 ACTION
@@ -1103,7 +1079,12 @@ ACTION
 		{
 			Token t = makeToken(_ttype);
 			String action = $getText;
-			action = action.substring(1,action.length()-1);
+            int n = 1; // num delimiter chars
+            if ( action.startsWith("{{") && action.endsWith("}}") ) {
+                t.setType(FORCED_ACTION);
+                n = 2;
+            }
+			action = action.substring(n,action.length()-n);
 			t.setText(action);
 			t.setLine(actionLine);			// set action line to start
 			t.setColumn(actionColumn);
@@ -1127,6 +1108,7 @@ NESTED_ACTION :
 	|	ACTION_CHAR_LITERAL
 	|	COMMENT
 	|	ACTION_STRING_LITERAL
+	|	ACTION_ESC
 	|	.
 	)*
 	'}'

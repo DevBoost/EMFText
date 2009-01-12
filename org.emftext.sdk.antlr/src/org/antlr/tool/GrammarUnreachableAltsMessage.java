@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2005-2006 Terence Parr
+ Copyright (c) 2005-2008 Terence Parr
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -77,8 +77,8 @@ public class GrammarUnreachableAltsMessage extends Message {
 				// reset the line/col to the token definition
 				NFAState ruleStart =
 					probe.dfa.nfa.grammar.getRuleStartState(tokenName);
-				line = ruleStart.getAssociatedASTNode().getLine();
-				column = ruleStart.getAssociatedASTNode().getColumn();
+				line = ruleStart.associatedASTNode.getLine();
+				column = ruleStart.associatedASTNode.getColumn();
 				st.setAttribute("tokens", tokenName);
 			}
 		}

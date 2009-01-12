@@ -1,14 +1,14 @@
-// $ANTLR 3.0.1 src/org/emftext/codegen/regex/ANTLRexp.g 2008-04-30 20:00:16
+// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g 2009-01-12 11:36:47
 
 package org.emftext.sdk.codegen.regex; 
 
 
 import org.antlr.runtime.BitSet;
-import org.antlr.runtime.IntStream;
 import org.antlr.runtime.MismatchedSetException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.Parser;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.TokenStream;
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
@@ -17,45 +17,60 @@ public class ANTLRexpParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "CHAR_LITERAL", "STRING_LITERAL", "LITERAL_CHAR", "ESC", "XDIGIT", "WS", "'|'", "'?'", "'*'", "'+'", "'^'", "'!'", "'..'", "'.'", "'('", "')'", "'~'"
     };
+    public static final int T__12=12;
+    public static final int T__20=20;
     public static final int WS=9;
-    public static final int STRING_LITERAL=5;
-    public static final int CHAR_LITERAL=4;
+    public static final int T__13=13;
+    public static final int T__19=19;
+    public static final int T__14=14;
+    public static final int T__11=11;
     public static final int ESC=7;
     public static final int XDIGIT=8;
-    public static final int LITERAL_CHAR=6;
+    public static final int T__17=17;
+    public static final int CHAR_LITERAL=4;
     public static final int EOF=-1;
+    public static final int STRING_LITERAL=5;
+    public static final int T__16=16;
+    public static final int T__10=10;
+    public static final int LITERAL_CHAR=6;
+    public static final int T__18=18;
+    public static final int T__15=15;
+
+    // delegates
+    // delegators
+
 
         public ANTLRexpParser(TokenStream input) {
-            super(input);
+            this(input, new RecognizerSharedState());
+        }
+        public ANTLRexpParser(TokenStream input, RecognizerSharedState state) {
+            super(input, state);
+             
         }
         
 
-    public String[] getTokenNames() { return tokenNames; }
-    public String getGrammarFileName() { return "src/org/emftext/codegen/regex/ANTLRexp.g"; }
+    public String[] getTokenNames() { return ANTLRexpParser.tokenNames; }
+    public String getGrammarFileName() { return "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g"; }
 
-    
+
      public java.util.List<RecognitionException> recExceptions = ((ANTLRexpLexer)getTokenStream().getTokenSource()).lexerExceptions;
-    
-    public void recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow)
-      throws RecognitionException
-    {
-    }
-    
 
 
 
-    // $ANTLR start root
-    // src/org/emftext/codegen/regex/ANTLRexp.g:65:1: root : alternative ( '|' alternative )* ;
+
+    // $ANTLR start "root"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:60:1: root : alternative ( '|' alternative )* ;
     public final void root() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:66:6: ( alternative ( '|' alternative )* )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:66:8: alternative ( '|' alternative )*
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:61:6: ( alternative ( '|' alternative )* )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:61:8: alternative ( '|' alternative )*
             {
             pushFollow(FOLLOW_alternative_in_root52);
             alternative();
-            _fsp--;
 
-            // src/org/emftext/codegen/regex/ANTLRexp.g:66:20: ( '|' alternative )*
+            state._fsp--;
+
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:61:20: ( '|' alternative )*
             loop1:
             do {
                 int alt1=2;
@@ -68,12 +83,13 @@ public class ANTLRexpParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // src/org/emftext/codegen/regex/ANTLRexp.g:66:22: '|' alternative
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:61:22: '|' alternative
             	    {
             	    match(input,10,FOLLOW_10_in_root56); 
             	    pushFollow(FOLLOW_alternative_in_root58);
             	    alternative();
-            	    _fsp--;
+
+            	    state._fsp--;
 
 
             	    }
@@ -92,21 +108,22 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end root
+    // $ANTLR end "root"
 
 
-    // $ANTLR start ebnf
-    // src/org/emftext/codegen/regex/ANTLRexp.g:68:1: ebnf : block ( '?' | '*' | '+' | '^' | '!' )? ;
+    // $ANTLR start "ebnf"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:63:1: ebnf : block ( '?' | '*' | '+' | '^' | '!' )? ;
     public final void ebnf() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:68:6: ( block ( '?' | '*' | '+' | '^' | '!' )? )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:68:8: block ( '?' | '*' | '+' | '^' | '!' )?
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:63:6: ( block ( '?' | '*' | '+' | '^' | '!' )? )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:63:8: block ( '?' | '*' | '+' | '^' | '!' )?
             {
             pushFollow(FOLLOW_block_in_ebnf69);
             block();
-            _fsp--;
 
-            // src/org/emftext/codegen/regex/ANTLRexp.g:68:15: ( '?' | '*' | '+' | '^' | '!' )?
+            state._fsp--;
+
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:63:15: ( '?' | '*' | '+' | '^' | '!' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -115,16 +132,15 @@ public class ANTLRexpParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:
                     {
                     if ( (input.LA(1)>=11 && input.LA(1)<=15) ) {
                         input.consume();
-                        errorRecovery=false;
+                        state.errorRecovery=false;
                     }
                     else {
-                        MismatchedSetException mse =
-                            new MismatchedSetException(null,input);
-                        recoverFromMismatchedSet(input,mse,FOLLOW_set_in_ebnf72);    throw mse;
+                        MismatchedSetException mse = new MismatchedSetException(null,input);
+                        throw mse;
                     }
 
 
@@ -141,15 +157,15 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end ebnf
+    // $ANTLR end "ebnf"
 
 
-    // $ANTLR start range
-    // src/org/emftext/codegen/regex/ANTLRexp.g:70:1: range : CHAR_LITERAL '..' CHAR_LITERAL ;
+    // $ANTLR start "range"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:65:1: range : CHAR_LITERAL '..' CHAR_LITERAL ;
     public final void range() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:70:7: ( CHAR_LITERAL '..' CHAR_LITERAL )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:70:9: CHAR_LITERAL '..' CHAR_LITERAL
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:65:7: ( CHAR_LITERAL '..' CHAR_LITERAL )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:65:9: CHAR_LITERAL '..' CHAR_LITERAL
             {
             match(input,CHAR_LITERAL,FOLLOW_CHAR_LITERAL_in_range108); 
             match(input,16,FOLLOW_16_in_range110); 
@@ -162,24 +178,23 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end range
+    // $ANTLR end "range"
 
 
-    // $ANTLR start terminal
-    // src/org/emftext/codegen/regex/ANTLRexp.g:72:1: terminal : ( CHAR_LITERAL | STRING_LITERAL | '.' ) ;
+    // $ANTLR start "terminal"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:67:1: terminal : ( CHAR_LITERAL | STRING_LITERAL | '.' ) ;
     public final void terminal() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:72:13: ( ( CHAR_LITERAL | STRING_LITERAL | '.' ) )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:72:17: ( CHAR_LITERAL | STRING_LITERAL | '.' )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:67:13: ( ( CHAR_LITERAL | STRING_LITERAL | '.' ) )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:67:17: ( CHAR_LITERAL | STRING_LITERAL | '.' )
             {
             if ( (input.LA(1)>=CHAR_LITERAL && input.LA(1)<=STRING_LITERAL)||input.LA(1)==17 ) {
                 input.consume();
-                errorRecovery=false;
+                state.errorRecovery=false;
             }
             else {
-                MismatchedSetException mse =
-                    new MismatchedSetException(null,input);
-                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_terminal125);    throw mse;
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                throw mse;
             }
 
 
@@ -190,24 +205,23 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end terminal
+    // $ANTLR end "terminal"
 
 
-    // $ANTLR start ebnfSuffix
-    // src/org/emftext/codegen/regex/ANTLRexp.g:74:1: ebnfSuffix : ( '?' | '*' | '+' );
+    // $ANTLR start "ebnfSuffix"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:69:1: ebnfSuffix : ( '?' | '*' | '+' );
     public final void ebnfSuffix() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:74:12: ( '?' | '*' | '+' )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:69:12: ( '?' | '*' | '+' )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:
             {
             if ( (input.LA(1)>=11 && input.LA(1)<=13) ) {
                 input.consume();
-                errorRecovery=false;
+                state.errorRecovery=false;
             }
             else {
-                MismatchedSetException mse =
-                    new MismatchedSetException(null,input);
-                recoverFromMismatchedSet(input,mse,FOLLOW_set_in_ebnfSuffix0);    throw mse;
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                throw mse;
             }
 
 
@@ -218,22 +232,23 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end ebnfSuffix
+    // $ANTLR end "ebnfSuffix"
 
 
-    // $ANTLR start block
-    // src/org/emftext/codegen/regex/ANTLRexp.g:76:1: block : '(' alternative ( '|' alternative )* ')' ;
+    // $ANTLR start "block"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:71:1: block : '(' alternative ( '|' alternative )* ')' ;
     public final void block() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:76:8: ( '(' alternative ( '|' alternative )* ')' )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:76:12: '(' alternative ( '|' alternative )* ')'
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:71:8: ( '(' alternative ( '|' alternative )* ')' )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:71:12: '(' alternative ( '|' alternative )* ')'
             {
             match(input,18,FOLLOW_18_in_block169); 
             pushFollow(FOLLOW_alternative_in_block171);
             alternative();
-            _fsp--;
 
-            // src/org/emftext/codegen/regex/ANTLRexp.g:76:27: ( '|' alternative )*
+            state._fsp--;
+
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:71:27: ( '|' alternative )*
             loop3:
             do {
                 int alt3=2;
@@ -246,12 +261,13 @@ public class ANTLRexpParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/org/emftext/codegen/regex/ANTLRexp.g:76:29: '|' alternative
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:71:29: '|' alternative
             	    {
             	    match(input,10,FOLLOW_10_in_block174); 
             	    pushFollow(FOLLOW_alternative_in_block176);
             	    alternative();
-            	    _fsp--;
+
+            	    state._fsp--;
 
 
             	    }
@@ -271,17 +287,17 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end block
+    // $ANTLR end "block"
 
 
-    // $ANTLR start alternative
-    // src/org/emftext/codegen/regex/ANTLRexp.g:78:1: alternative : ( element )* ;
+    // $ANTLR start "alternative"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:73:1: alternative : ( element )* ;
     public final void alternative() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:78:13: ( ( element )* )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:78:15: ( element )*
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:73:13: ( ( element )* )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:73:15: ( element )*
             {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:78:15: ( element )*
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:73:15: ( element )*
             loop4:
             do {
                 int alt4=2;
@@ -294,11 +310,12 @@ public class ANTLRexpParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // src/org/emftext/codegen/regex/ANTLRexp.g:78:15: element
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:73:15: element
             	    {
             	    pushFollow(FOLLOW_element_in_alternative190);
             	    element();
-            	    _fsp--;
+
+            	    state._fsp--;
 
 
             	    }
@@ -317,19 +334,20 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end alternative
+    // $ANTLR end "alternative"
 
 
-    // $ANTLR start element
-    // src/org/emftext/codegen/regex/ANTLRexp.g:80:1: element : elementNoOptionSpec ;
+    // $ANTLR start "element"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:75:1: element : elementNoOptionSpec ;
     public final void element() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:80:9: ( elementNoOptionSpec )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:80:11: elementNoOptionSpec
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:75:9: ( elementNoOptionSpec )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:75:11: elementNoOptionSpec
             {
             pushFollow(FOLLOW_elementNoOptionSpec_in_element201);
             elementNoOptionSpec();
-            _fsp--;
+
+            state._fsp--;
 
 
             }
@@ -339,14 +357,14 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end element
+    // $ANTLR end "element"
 
 
-    // $ANTLR start elementNoOptionSpec
-    // src/org/emftext/codegen/regex/ANTLRexp.g:82:1: elementNoOptionSpec : ( atom ( ebnfSuffix )? | ebnf );
+    // $ANTLR start "elementNoOptionSpec"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:77:1: elementNoOptionSpec : ( atom ( ebnfSuffix )? | ebnf );
     public final void elementNoOptionSpec() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:82:21: ( atom ( ebnfSuffix )? | ebnf )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:77:21: ( atom ( ebnfSuffix )? | ebnf )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -358,19 +376,20 @@ public class ANTLRexpParser extends Parser {
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("82:1: elementNoOptionSpec : ( atom ( ebnfSuffix )? | ebnf );", 6, 0, input);
+                    new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
             }
             switch (alt6) {
                 case 1 :
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:82:23: atom ( ebnfSuffix )?
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:77:23: atom ( ebnfSuffix )?
                     {
                     pushFollow(FOLLOW_atom_in_elementNoOptionSpec209);
                     atom();
-                    _fsp--;
 
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:82:29: ( ebnfSuffix )?
+                    state._fsp--;
+
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:77:29: ( ebnfSuffix )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -379,11 +398,12 @@ public class ANTLRexpParser extends Parser {
                     }
                     switch (alt5) {
                         case 1 :
-                            // src/org/emftext/codegen/regex/ANTLRexp.g:82:31: ebnfSuffix
+                            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:77:31: ebnfSuffix
                             {
                             pushFollow(FOLLOW_ebnfSuffix_in_elementNoOptionSpec214);
                             ebnfSuffix();
-                            _fsp--;
+
+                            state._fsp--;
 
 
                             }
@@ -395,11 +415,12 @@ public class ANTLRexpParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:82:48: ebnf
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:77:48: ebnf
                     {
                     pushFollow(FOLLOW_ebnf_in_elementNoOptionSpec222);
                     ebnf();
-                    _fsp--;
+
+                    state._fsp--;
 
 
                     }
@@ -411,17 +432,17 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end elementNoOptionSpec
+    // $ANTLR end "elementNoOptionSpec"
 
 
-    // $ANTLR start atom
-    // src/org/emftext/codegen/regex/ANTLRexp.g:84:1: atom : ( range | terminal | notSet ) ( '^' | '!' )? ;
+    // $ANTLR start "atom"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:1: atom : ( range | terminal | notSet ) ( '^' | '!' )? ;
     public final void atom() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:84:5: ( ( range | terminal | notSet ) ( '^' | '!' )? )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:84:8: ( range | terminal | notSet ) ( '^' | '!' )?
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:5: ( ( range | terminal | notSet ) ( '^' | '!' )? )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:8: ( range | terminal | notSet ) ( '^' | '!' )?
             {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:84:8: ( range | terminal | notSet )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:8: ( range | terminal | notSet )
             int alt7=3;
             switch ( input.LA(1) ) {
             case CHAR_LITERAL:
@@ -436,7 +457,7 @@ public class ANTLRexpParser extends Parser {
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("84:8: ( range | terminal | notSet )", 7, 1, input);
+                        new NoViableAltException("", 7, 1, input);
 
                     throw nvae;
                 }
@@ -455,38 +476,41 @@ public class ANTLRexpParser extends Parser {
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("84:8: ( range | terminal | notSet )", 7, 0, input);
+                    new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
             }
 
             switch (alt7) {
                 case 1 :
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:84:11: range
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:11: range
                     {
                     pushFollow(FOLLOW_range_in_atom233);
                     range();
-                    _fsp--;
+
+                    state._fsp--;
 
 
                     }
                     break;
                 case 2 :
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:84:23: terminal
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:23: terminal
                     {
                     pushFollow(FOLLOW_terminal_in_atom241);
                     terminal();
-                    _fsp--;
+
+                    state._fsp--;
 
 
                     }
                     break;
                 case 3 :
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:84:36: notSet
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:36: notSet
                     {
                     pushFollow(FOLLOW_notSet_in_atom247);
                     notSet();
-                    _fsp--;
+
+                    state._fsp--;
 
 
                     }
@@ -494,7 +518,7 @@ public class ANTLRexpParser extends Parser {
 
             }
 
-            // src/org/emftext/codegen/regex/ANTLRexp.g:84:47: ( '^' | '!' )?
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:79:47: ( '^' | '!' )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -503,16 +527,15 @@ public class ANTLRexpParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // src/org/emftext/codegen/regex/ANTLRexp.g:
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:
                     {
                     if ( (input.LA(1)>=14 && input.LA(1)<=15) ) {
                         input.consume();
-                        errorRecovery=false;
+                        state.errorRecovery=false;
                     }
                     else {
-                        MismatchedSetException mse =
-                            new MismatchedSetException(null,input);
-                        recoverFromMismatchedSet(input,mse,FOLLOW_set_in_atom253);    throw mse;
+                        MismatchedSetException mse = new MismatchedSetException(null,input);
+                        throw mse;
                     }
 
 
@@ -529,23 +552,24 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end atom
+    // $ANTLR end "atom"
 
 
-    // $ANTLR start notSet
-    // src/org/emftext/codegen/regex/ANTLRexp.g:86:1: notSet : '~' ( block ) ;
+    // $ANTLR start "notSet"
+    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:81:1: notSet : '~' ( block ) ;
     public final void notSet() throws RecognitionException {
         try {
-            // src/org/emftext/codegen/regex/ANTLRexp.g:86:7: ( '~' ( block ) )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:86:9: '~' ( block )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:81:7: ( '~' ( block ) )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:81:9: '~' ( block )
             {
             match(input,20,FOLLOW_20_in_notSet273); 
-            // src/org/emftext/codegen/regex/ANTLRexp.g:86:14: ( block )
-            // src/org/emftext/codegen/regex/ANTLRexp.g:86:16: block
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:81:14: ( block )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:81:16: block
             {
             pushFollow(FOLLOW_block_in_notSet278);
             block();
-            _fsp--;
+
+            state._fsp--;
 
 
             }
@@ -558,13 +582,15 @@ public class ANTLRexpParser extends Parser {
         }
         return ;
     }
-    // $ANTLR end notSet
+    // $ANTLR end "notSet"
+
+    // Delegated rules
 
 
  
 
     public static final BitSet FOLLOW_alternative_in_root52 = new BitSet(new long[]{0x0000000000000402L});
-    public static final BitSet FOLLOW_10_in_root56 = new BitSet(new long[]{0x0000000000160432L});
+    public static final BitSet FOLLOW_10_in_root56 = new BitSet(new long[]{0x0000000000160430L});
     public static final BitSet FOLLOW_alternative_in_root58 = new BitSet(new long[]{0x0000000000000402L});
     public static final BitSet FOLLOW_block_in_ebnf69 = new BitSet(new long[]{0x000000000000F802L});
     public static final BitSet FOLLOW_set_in_ebnf72 = new BitSet(new long[]{0x0000000000000002L});
@@ -587,7 +613,7 @@ public class ANTLRexpParser extends Parser {
     public static final BitSet FOLLOW_terminal_in_atom241 = new BitSet(new long[]{0x000000000000C002L});
     public static final BitSet FOLLOW_notSet_in_atom247 = new BitSet(new long[]{0x000000000000C002L});
     public static final BitSet FOLLOW_set_in_atom253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_notSet273 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_20_in_notSet273 = new BitSet(new long[]{0x0000000000160030L});
     public static final BitSet FOLLOW_block_in_notSet278 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -38,9 +38,11 @@ import org.antlr.misc.IntSet;
  *  (which assumes an epsilon transition) or a tree of predicates (in a DFA).
  */
 public class Label implements Comparable, Cloneable {
-    public static final int INVALID = -6;
+    public static final int INVALID = -7;
 
-    public static final int EPSILON = -5;
+	public static final int ACTION = -6;
+	
+	public static final int EPSILON = -5;
 
     public static final String EPSILON_STR = "<EPSILON>";
 
@@ -86,7 +88,7 @@ public class Label implements Comparable, Cloneable {
 
     // TODO: is 0 a valid unicode char? max is FFFF -1, right?
     public static final int MIN_CHAR_VALUE = '\u0000';
-    public static final int MAX_CHAR_VALUE = '\uFFFE';
+    public static final int MAX_CHAR_VALUE = '\uFFFF';
 
 	/** End of rule token type; imaginary token type used only for
 	 *  local, partial FOLLOW sets to indicate that the local FOLLOW
@@ -115,31 +117,12 @@ public class Label implements Comparable, Cloneable {
     /** The token type or character value; or, signifies special label. */
     protected int label;
 
-    /** A tree of semantic predicates from the grammar AST if label==SEMPRED.
-     *  In the NFA, labels will always be exactly one predicate, but the DFA
-     *  may have to combine a bunch of them as it collects predicates from
-     *  multiple NFA configurations into a single DFA state.
-     */
-    protected SemanticContext semanticContext;
-
     /** A set of token types or character codes if label==SET */
 	// TODO: try IntervalSet for everything
     protected IntSet labelSet;
 
     public Label(int label) {
         this.label = label;
-    }
-
-    /** Make a semantic predicate label */
-    public Label(GrammarAST predicateASTNode) {
-        this(SEMPRED);
-        this.semanticContext = new SemanticContext.Predicate(predicateASTNode);
-    }
-
-    /** Make a semantic predicates label */
-    public Label(SemanticContext semCtx) {
-        this(SEMPRED);
-        this.semanticContext = semCtx;
     }
 
     /** Make a set label */
@@ -206,13 +189,18 @@ public class Label implements Comparable, Cloneable {
     public boolean isAtom() {
         return label>=MIN_ATOM_VALUE;
     }
+
     public boolean isEpsilon() {
         return label==EPSILON;
     }
 
-    public boolean isSemanticPredicate() {
-        return label==SEMPRED;
-    }
+	public boolean isSemanticPredicate() {
+		return false;
+	}
+
+	public boolean isAction() {
+		return false;
+	}
 
     public boolean isSet() {
         return label==SET;
@@ -240,7 +228,7 @@ public class Label implements Comparable, Cloneable {
     }
 
     public SemanticContext getSemanticContext() {
-        return semanticContext;
+        return null;
     }
 
 	public boolean matches(int atom) {
@@ -276,19 +264,21 @@ public class Label implements Comparable, Cloneable {
 	}
 
     public int hashCode() {
-        switch (label) {
-            case SET :
-                return labelSet.hashCode();
-            case SEMPRED :
-                return semanticContext.hashCode();
-            default :
-                return label;
-        }
-    }
+        if (label==SET) {
+            return labelSet.hashCode();
+		}
+		else {
+			return label;
+		}
+	}
 
-    public boolean equals(Object o) {
+	// TODO: do we care about comparing set {A} with atom A? Doesn't now.
+	public boolean equals(Object o) {
 		if ( o==null ) {
 			return false;
+		}
+		if ( this == o ) {
+			return true; // equals if same object
 		}
 		// labels must be the same even if epsilon or set or sempred etc...
         if ( label!=((Label)o).label ) {
@@ -336,8 +326,6 @@ public class Label implements Comparable, Cloneable {
         switch (label) {
             case SET :
                 return labelSet.toString();
-            case SEMPRED :
-                return "{"+semanticContext+"}?";
             default :
                 return String.valueOf(label);
         }
@@ -347,8 +335,6 @@ public class Label implements Comparable, Cloneable {
         switch (label) {
             case SET :
                 return labelSet.toString(g);
-            case SEMPRED :
-                return "{"+semanticContext+"}?";
             default :
                 return g.getTokenDisplayName(label);
         }
@@ -371,4 +357,26 @@ public class Label implements Comparable, Cloneable {
         return buf.toString();
     }
     */
+
+	public static boolean intersect(Label label, Label edgeLabel) {
+		boolean hasIntersection = false;
+		boolean labelIsSet = label.isSet();
+		boolean edgeIsSet = edgeLabel.isSet();
+		if ( !labelIsSet && !edgeIsSet && edgeLabel.label==label.label ) {
+			hasIntersection = true;
+		}
+		else if ( labelIsSet && edgeIsSet &&
+				  !edgeLabel.getSet().and(label.getSet()).isNil() ) {
+			hasIntersection = true;
+		}
+		else if ( labelIsSet && !edgeIsSet &&
+				  label.getSet().member(edgeLabel.label) ) {
+			hasIntersection = true;
+		}
+		else if ( !labelIsSet && edgeIsSet &&
+				  edgeLabel.getSet().member(label.label) ) {
+			hasIntersection = true;
+		}
+		return hasIntersection;
+	}
 }
