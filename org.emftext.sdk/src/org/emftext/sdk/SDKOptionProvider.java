@@ -57,7 +57,8 @@ public class SDKOptionProvider implements IOptionProvider {
 			EObject next = i.next();
 			if (next instanceof CompoundDefinition) {
 				CompoundDefinition compoundDefinition = (CompoundDefinition) next;
-				if (compoundDefinition.getCardinality() instanceof QUESTIONMARK) {
+				if (compoundDefinition.getCardinality() instanceof QUESTIONMARK ||
+						compoundDefinition.getCardinality() instanceof STAR) {
 					for (Sequence sequence : compoundDefinition.getDefinitions().getOptions()) {
 						boolean containsKeyword = false;
 						boolean restOptional = true;
