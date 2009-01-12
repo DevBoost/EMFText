@@ -28,5 +28,5 @@ Export-Package: antlr,
  org.antlr.stringtemplate.language,
  org.antlr.stringtemplate.misc,
  org.antlr.tool
-Require-Bundle: org.emftext.runtime.antlr;bundle-version="3.1.1"
+Require-Bundle: org.emftext.runtime.antlr
 
