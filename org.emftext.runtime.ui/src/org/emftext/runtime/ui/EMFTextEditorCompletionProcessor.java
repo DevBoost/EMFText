@@ -73,10 +73,26 @@ public class EMFTextEditorCompletionProcessor implements
 		List<IReferenceMapping> mappings = new ArrayList<IReferenceMapping>(resolved.getMappings());
 		// sort identifiers alphabetically
 		sortAlphabetically(mappings);
+		removeDuplicates(mappings);
 		ICompletionProposal[] proposals = createProposals(documentOffset, prefix,
 				mappings);
 		System.out.println("computeCompletionProposals() took " + (System.currentTimeMillis() - startTime) + "ms");
 		return proposals;
+	}
+
+	private void removeDuplicates(List<IReferenceMapping> mappings) {
+		for (int i = 0; i < mappings.size(); i++) {
+			IReferenceMapping mapping_i = mappings.get(i);
+			String identifier_i = mapping_i.getIdentifier();
+			for (int j = i + 1; j < mappings.size(); j++) {
+				IReferenceMapping mapping_j = mappings.get(j);
+				String identifier_j = mapping_j.getIdentifier();
+				if (identifier_i != null && identifier_i.equals(identifier_j)) {
+					mappings.remove(j);
+					j--;
+				}
+			}
+		}
 	}
 
 	private ICompletionProposal[] createProposals(int documentOffset,
