@@ -75,7 +75,7 @@ public class LocationMapImpl implements ILocationMap {
 	public List<EObject> getElementsAt(final int documentOffset) {
 		List<EObject> result = getElements(new ISelector() {
 			public boolean accept(int start, int end) {
-				return start > documentOffset && end < documentOffset;
+				return start < documentOffset && end > documentOffset;
 			}
 		});
 		return result;
