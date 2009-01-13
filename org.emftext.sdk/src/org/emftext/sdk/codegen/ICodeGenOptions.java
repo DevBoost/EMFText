@@ -70,7 +70,7 @@ public interface ICodeGenOptions {
 	
 	public static final String CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION = "autofixSimpleLeftrecursion";
 	public static final String CS_OPTION_FORCE_EOF = "forceEOF";
-	public static final String CS_OPTION_STD_TOKEN_NAME = "standardTextTokenName";
+	public static final String CS_OPTION_STD_TOKEN_NAME = "defaultTokenName";
 	public static final String CS_OPTION_USE_DEFAULT_TOKENS = "useDefaultTokens";
 	
 	public static final String CS_OPTION_TOKENSPACE = "tokenspace";
