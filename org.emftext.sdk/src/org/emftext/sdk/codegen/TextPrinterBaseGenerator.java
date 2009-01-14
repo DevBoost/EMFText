@@ -24,7 +24,7 @@ import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
-import org.emftext.runtime.resource.impl.EMFTextPrinterImpl;
+import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -176,7 +176,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		out.println("package " + getResourcePackageName() + ";");
 		out.println();
 		out.println("public abstract class " + getResourceClassName()
-				+ " extends " + EMFTextPrinterImpl.class.getName() + " {");
+				+ " extends " + AbstractEMFTextPrinter.class.getName() + " {");
 		out.println();
 		
 		generateMembers(out);

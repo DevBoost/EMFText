@@ -2,7 +2,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
-public class CsResourceImpl extends org.emftext.runtime.resource.impl.TextResourceImpl {
+public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	private org.emftext.runtime.resource.IReferenceResolver analyser;
 
 

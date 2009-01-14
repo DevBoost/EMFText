@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ILocationMap;
 
-public class LocationMapImpl implements ILocationMap {
+public class LocationMap implements ILocationMap {
 
 	public interface ISelector {
 		boolean accept(int startOffset, int endOffset);

@@ -5,12 +5,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
+import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
-public class ImportPackageReferenceResolver extends ReferenceResolverImpl {
+public class ImportPackageReferenceResolver extends AbstractReferenceResolver {
 
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 

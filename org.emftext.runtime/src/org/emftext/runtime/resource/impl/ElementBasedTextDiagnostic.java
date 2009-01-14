@@ -7,14 +7,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ILocationMap;
 
-public class ElementBasedTextDiagnosticImpl extends AbstractTextDiagnostic {
+public class ElementBasedTextDiagnostic extends AbstractTextDiagnostic {
 
 	private final ILocationMap locationMap;
 	private final URI uri;
 	private final EObject element;
 	private final String message;
 
-	protected ElementBasedTextDiagnosticImpl(ILocationMap locationMap,
+	protected ElementBasedTextDiagnostic(ILocationMap locationMap,
 			URI uri,
 			String message, EObject element, TextDiagnosticType type) {
 		super(type);

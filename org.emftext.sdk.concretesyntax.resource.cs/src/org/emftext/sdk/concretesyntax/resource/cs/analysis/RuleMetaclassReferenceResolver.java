@@ -3,10 +3,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
-import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
+import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver;
 
-public class RuleMetaclassReferenceResolver extends ReferenceResolverImpl {
+public class RuleMetaclassReferenceResolver extends AbstractReferenceResolver {
 	
 	private MetaclassReferenceResolver resolver = new MetaclassReferenceResolver();
 	

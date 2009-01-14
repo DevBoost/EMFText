@@ -2,7 +2,7 @@ package org.emftext.runtime.resource.impl;
 
 import org.eclipse.emf.common.util.URI;
 
-public class PositionBasedTextDiagnosticImpl extends AbstractTextDiagnostic {
+public class PositionBasedTextDiagnostic extends AbstractTextDiagnostic {
 
 	private final URI uri;
 
@@ -12,7 +12,7 @@ public class PositionBasedTextDiagnosticImpl extends AbstractTextDiagnostic {
 	protected int charEnd;
 	protected String message;
 
-	protected PositionBasedTextDiagnosticImpl(URI uri, String message,
+	protected PositionBasedTextDiagnostic(URI uri, String message,
 			int column, int line, int charStart, int charEnd, TextDiagnosticType type) {
 		
 		super(type);

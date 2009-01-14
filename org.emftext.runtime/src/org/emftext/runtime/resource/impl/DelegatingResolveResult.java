@@ -12,11 +12,11 @@ import org.emftext.runtime.resource.IResolveResult;
  * all method calls to another ResolveResult. Client may subclass 
  * this class to easily create custom ResolveResults.
  */
-public class DelegatingResolveResultImpl implements IResolveResult {
+public class DelegatingResolveResult implements IResolveResult {
 	
 	private IResolveResult delegate;
 
-	public DelegatingResolveResultImpl(IResolveResult delegate) {
+	public DelegatingResolveResult(IResolveResult delegate) {
 		this.delegate = delegate;
 	}
 

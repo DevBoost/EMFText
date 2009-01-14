@@ -24,13 +24,13 @@ import org.emftext.runtime.resource.ITextResource;
  * 
  * @author Jendrik Johannes (jj2)
  */
-public abstract class ReferenceResolverImpl implements IReferenceResolver {
+public abstract class AbstractReferenceResolver implements IReferenceResolver {
 
 	public final static String NAME_FEATURE = "name";
 
 	private Map<?, ?> options;
 
-	public ReferenceResolverImpl() {
+	public AbstractReferenceResolver() {
 		init();
 	}
 	

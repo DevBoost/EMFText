@@ -3,11 +3,11 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
-import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
+import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver;
 
 // TODO mseifert: check whether resolving start symbols with dots does still work
-public class ConcreteSyntaxStartSymbolsReferenceResolver extends ReferenceResolverImpl {
+public class ConcreteSyntaxStartSymbolsReferenceResolver extends AbstractReferenceResolver {
 	
 	private MetaclassReferenceResolver resolver = new MetaclassReferenceResolver();
 	

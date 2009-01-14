@@ -5,10 +5,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
+import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.MetamodelHelper;
 
-public class ConcreteSyntaxPackageReferenceResolver extends ReferenceResolverImpl {
+public class ConcreteSyntaxPackageReferenceResolver extends AbstractReferenceResolver {
 
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 

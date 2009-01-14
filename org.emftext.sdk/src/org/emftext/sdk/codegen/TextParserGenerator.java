@@ -1,11 +1,11 @@
 package org.emftext.sdk.codegen;
 
-import static org.emftext.runtime.StandardTokenDefinitions.LB_TOKEN_DEF;
-import static org.emftext.runtime.StandardTokenDefinitions.LB_TOKEN_NAME;
-import static org.emftext.runtime.StandardTokenDefinitions.STD_TOKEN_DEF;
-import static org.emftext.runtime.StandardTokenDefinitions.STD_TOKEN_NAME;
-import static org.emftext.runtime.StandardTokenDefinitions.WS_TOKEN_DEF;
-import static org.emftext.runtime.StandardTokenDefinitions.WS_TOKEN_NAME;
+import static org.emftext.runtime.IStandardTokenDefinitions.LB_TOKEN_DEF;
+import static org.emftext.runtime.IStandardTokenDefinitions.LB_TOKEN_NAME;
+import static org.emftext.runtime.IStandardTokenDefinitions.STD_TOKEN_DEF;
+import static org.emftext.runtime.IStandardTokenDefinitions.STD_TOKEN_NAME;
+import static org.emftext.runtime.IStandardTokenDefinitions.WS_TOKEN_DEF;
+import static org.emftext.runtime.IStandardTokenDefinitions.WS_TOKEN_NAME;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.TokenConversionException;
-import org.emftext.runtime.resource.impl.EMFTextParserImpl;
+import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
 import org.emftext.sdk.codegen.regex.ANTLRexpParser;
@@ -290,7 +290,7 @@ public class TextParserGenerator extends BaseGenerator {
 
         out.println("grammar " + csName + ";");
         out.println("options {\n" +
-        				"\tsuperClass = " + EMFTextParserImpl.class.getSimpleName() + "; ");
+        				"\tsuperClass = " + AbstractEMFTextParser.class.getSimpleName() + "; ");
         boolean backtracking = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
         out.println("\tbacktrack = " + backtracking + ";");
         out.println("}");
@@ -1050,7 +1050,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("import org.eclipse.emf.ecore.EObject;");
         out.println("import org.eclipse.emf.ecore.InternalEObject;");
         out.println("import org.eclipse.emf.common.util.URI;");
-        out.println("import " + EMFTextParserImpl.class.getName() + ";");
+        out.println("import " + AbstractEMFTextParser.class.getName() + ";");
 	}
 	
 

@@ -15,7 +15,7 @@ import org.emftext.runtime.resource.ITextResource;
  * 
  * @author Jendrik Johannes
  */
-public abstract class EMFTextPrinterImpl implements ITextPrinter {
+public abstract class AbstractEMFTextPrinter implements ITextPrinter {
 	
 	protected static String newline = (System.getProperties().getProperty("line.separator"));
     protected OutputStream o;
@@ -28,7 +28,7 @@ public abstract class EMFTextPrinterImpl implements ITextPrinter {
      * @param o Output stream to print to.
      * @param resource The associated resource.
      */
-    public EMFTextPrinterImpl(OutputStream o, ITextResource resource) {
+    public AbstractEMFTextPrinter(OutputStream o, ITextResource resource) {
         this.o = o;
         this.resource = resource;
     }

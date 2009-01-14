@@ -22,7 +22,7 @@ import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.DecoratedToken;
 import org.emftext.sdk.concretesyntax.PreDefinedToken;
 
-public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.EMFTextPrinterImpl {
+public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.AbstractEMFTextPrinter {
 
 	protected org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
 	protected org.emftext.runtime.resource.IReferenceResolver treeAnalyser = new CsTreeAnalyser();

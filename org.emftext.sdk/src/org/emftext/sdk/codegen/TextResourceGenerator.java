@@ -11,7 +11,7 @@ import org.emftext.runtime.resource.IConfigurable;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
-import org.emftext.runtime.resource.impl.TextResourceImpl;
+import org.emftext.runtime.resource.impl.AbstractTextResource;
 
 /**
  * Generates the resource. Its <code>doLoad()</code> and <code>doSave()</code> methods will
@@ -38,7 +38,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		out.println("package " + getResourcePackageName() + ";");
 		out.println();
         
-		out.println("public class " + getResourceClassName() + " extends " + TextResourceImpl.class.getName() + " {");
+		out.println("public class " + getResourceClassName() + " extends " + AbstractTextResource.class.getName() + " {");
 
 		out.println("\tprivate " + IReferenceResolver.class.getName() + " analyser;\n\n");
 		

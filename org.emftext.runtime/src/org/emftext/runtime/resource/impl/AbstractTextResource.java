@@ -41,9 +41,9 @@ import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
  * 
  * @author Jendrik Johannes (jj2)
  */
-public abstract class TextResourceImpl extends ResourceImpl implements ITextResource {
+public abstract class AbstractTextResource extends ResourceImpl implements ITextResource {
 	
-	private ILocationMap locationMap = new LocationMapImpl();
+	private ILocationMap locationMap = new LocationMap();
 	
 	public static final String INTERNAL_URI_FRAGMENT_PREFIX = "EMFTEXT_INTERNAL_URI_FRAGMENT_";
 	
@@ -216,7 +216,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 		super.doUnload();
 		
 		//clear concrete syntax information
-		locationMap = new LocationMapImpl();
+		locationMap = new LocationMap();
 	}
 	
 
@@ -237,7 +237,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 			
 			if (loadOptions != null
 					&& Boolean.TRUE.equals(loadOptions
-							.get(TextResourceImpl.OPTION_NO_VALIDATE))) {
+							.get(AbstractTextResource.OPTION_NO_VALIDATE))) {
 			} else {
 				EList<EObject> contents = getContents();
 				ITextOCLValidator oclValidator = new ITextOCLValidator();
@@ -256,7 +256,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 	/**
 	 * Creates a empty instance.
 	 */
-	public TextResourceImpl() {
+	public AbstractTextResource() {
 		super();
 	}
 
@@ -265,7 +265,7 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 	 * 
 	 * @param uri The URI.
 	 */
-	public TextResourceImpl(URI uri) {
+	public AbstractTextResource(URI uri) {
 		super(uri);	
 	}
 	
@@ -282,39 +282,39 @@ public abstract class TextResourceImpl extends ResourceImpl implements ITextReso
 	}
 	  
 	public void addError(String message, EObject element) {
-		getErrors().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, null));
+		getErrors().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element, null));
 	}
 	
 	public void addError(String message, EObject element, TextDiagnosticType type) {
-		getErrors().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, type));
+		getErrors().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element, type));
 	}
 	
 	public void addWarning(String message, EObject element) {
-		getWarnings().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, null));
+		getWarnings().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element, null));
 	}
 	
 	public void addWarning(String message, EObject element, TextDiagnosticType type) {
-		getWarnings().add(new ElementBasedTextDiagnosticImpl(locationMap, getURI(), message, element, type));
+		getWarnings().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element, type));
 	}
 	
 	public void addError(String message, int column, int line, int charStart,
 			int charEnd) {
-		getErrors().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, null));
+		getErrors().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd, null));
 	}
 
 	public void addError(String message, int column, int line, int charStart,
 			int charEnd, TextDiagnosticType type) {
-		getErrors().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, type));
+		getErrors().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd, type));
 	}
 
 	public void addWarning(String message, int column, int line, int charStart,
 			int charEnd) {
-		getWarnings().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, null));
+		getWarnings().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd, null));
 	}
 	
 	public void addWarning(String message, int column, int line, int charStart,
 			int charEnd, TextDiagnosticType type) {
-		getWarnings().add(new PositionBasedTextDiagnosticImpl(getURI(), message, column, line, charStart, charEnd, type));
+		getWarnings().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd, type));
 	}
 	
 	public String[] getTokenNames() {

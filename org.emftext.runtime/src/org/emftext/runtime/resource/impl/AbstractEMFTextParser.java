@@ -39,7 +39,7 @@ import org.emftext.runtime.resource.TokenConversionException;
  * 
  * @author Jendrik Johannes
  */
-public abstract class EMFTextParserImpl extends Parser implements ITextParser {    
+public abstract class AbstractEMFTextParser extends Parser implements ITextParser {    
     
 	private int mismatchedTokenRecoveryTries = 0;
 	private Map<?, ?> options;
@@ -132,12 +132,12 @@ public abstract class EMFTextParserImpl extends Parser implements ITextParser {
 
 	
 	
-    public EMFTextParserImpl(TokenStream input) {
+    public AbstractEMFTextParser(TokenStream input) {
     	super(input);
     }
     
     
-    public EMFTextParserImpl(TokenStream input, RecognizerSharedState state) {
+    public AbstractEMFTextParser(TokenStream input, RecognizerSharedState state) {
 		super(input, state);
 	}
 

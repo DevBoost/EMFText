@@ -22,7 +22,7 @@ import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.ResolveResultImpl;
+import org.emftext.runtime.resource.impl.ResolveResult;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 public class EMFTextEditorCompletionProcessor implements
@@ -64,7 +64,7 @@ public class EMFTextEditorCompletionProcessor implements
 	    // otherwise we have different kind of identifiers in the reference resolvers
 		
 		IReferenceResolver analyser = textResource.getTreeAnalyser();
-		IResolveResult resolved = new ResolveResultImpl(true); 
+		IResolveResult resolved = new ResolveResult(true); 
 		analyser.resolve(prefix, containerAtChar, null, 0, true, resolved);
 		if (!resolved.wasResolvedMultiple()) {
 			return EMPTY_PROPOSAL_ARRAY;

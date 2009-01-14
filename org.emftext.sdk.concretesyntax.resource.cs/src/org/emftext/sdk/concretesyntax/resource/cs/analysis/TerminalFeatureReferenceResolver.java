@@ -5,20 +5,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.IResolveResult;
-import org.emftext.runtime.resource.impl.DelegatingResolveResultImpl;
-import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
+import org.emftext.runtime.resource.impl.DelegatingResolveResult;
+import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 
-public class TerminalFeatureReferenceResolver extends ReferenceResolverImpl {
+public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver {
 	
 	private interface FeatureResolveResult extends IResolveResult {
 		public boolean foundFeatureWithCorrectName();
 		public void setFoundFeatureWithCorrectName();
 	}
 	
-	private class FeatureResolveResultImpl extends DelegatingResolveResultImpl implements FeatureResolveResult {
+	private class FeatureResolveResultImpl extends DelegatingResolveResult implements FeatureResolveResult {
 		
 		private boolean foundFeatureWithCorrectName = false;
 

@@ -8,13 +8,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IResolveResult;
 
-public class ResolveResultImpl implements IResolveResult {
+public class ResolveResult implements IResolveResult {
 	
 	private Collection<IReferenceMapping> mappings;
 	private String errorMessage;
 	private boolean resolveFuzzy;
 
-	public ResolveResultImpl(boolean resolveFuzzy) {
+	public ResolveResult(boolean resolveFuzzy) {
 		super();
 		this.resolveFuzzy = resolveFuzzy;
 	}
@@ -65,7 +65,7 @@ public class ResolveResultImpl implements IResolveResult {
 		if (mappings == null) {
 			mappings = new ArrayList<IReferenceMapping>();
 		}
-		mappings.add(new ElementMappingImpl(identifier, target, warning));
+		mappings.add(new ElementMapping(identifier, target, warning));
 		errorMessage = null;
 	}
 
@@ -77,6 +77,6 @@ public class ResolveResultImpl implements IResolveResult {
 		if (mappings == null) {
 			mappings = new ArrayList<IReferenceMapping>();
 		}
-		mappings.add(new URIMappingImpl(identifier, uri, warning));
+		mappings.add(new URIMapping(identifier, uri, warning));
 	}
 }

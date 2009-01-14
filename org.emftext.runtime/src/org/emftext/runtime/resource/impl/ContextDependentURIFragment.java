@@ -30,8 +30,6 @@ public class ContextDependentURIFragment {
 		this.reference = reference;
 		this.positionInReference = positionInReference;
 		this.proxy = proxy;
-		
-
 	}
 
 	public boolean isResolved() {
@@ -44,7 +42,7 @@ public class ContextDependentURIFragment {
 		}
 		resolving = true;
 		if (result == null || !result.wasResolved()) {
-			result = new ResolveResultImpl(false);
+			result = new ResolveResult(false);
 			//set an initial default error message
 			result.setErrorMessage(getStdErrorMessage());
 			//do the actual resolving

@@ -1,6 +1,6 @@
 package org.emftext.runtime;
 
-public interface StandardTokenDefinitions {
+public interface IStandardTokenDefinitions {
 
 	/**
 	 * The standard token type name (used when no user-defined token type is referenced 

@@ -6,7 +6,7 @@ import org.emftext.runtime.resource.IResolveResult;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.impl.ReferenceResolverImpl;
+import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 
 /**
  * Generates basic stubs for reference resolvers.
@@ -21,7 +21,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {     
 	    out.println("package " + getResourcePackageName() + ";");	
 	    out.println();
-	    out.println("public class " + getResourceClassName() + " extends " + ReferenceResolverImpl.class.getName() + " {\n");
+	    out.println("public class " + getResourceClassName() + " extends " + AbstractReferenceResolver.class.getName() + " {\n");
 		generateDoDeResolveMethod(out);
 		out.println("}");
 		return true;
