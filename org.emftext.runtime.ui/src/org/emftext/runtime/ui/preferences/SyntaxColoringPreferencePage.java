@@ -35,10 +35,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Scrollable;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
+import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
  * This class represents a preference page that
@@ -509,7 +514,6 @@ public class SyntaxColoringPreferencePage
                     //TODOinstallSemanticHighlighting();
                 }
             });
-            
             colorComposite.layout(false);
                     
             return colorComposite;
@@ -597,12 +601,34 @@ public class SyntaxColoringPreferencePage
 	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
 	 */
 	public void init(IWorkbench workbench) {
+		
 	}
 
 
     @Override
     protected Control createContents(Composite parent) {
-        return createSyntaxPage(parent);
+    	Control content = createSyntaxPage(parent);
+    	return content;
+    }
+    
+    public boolean performOk(){
+    	if(!super.performOk())
+    		return false;
+    	updateActiveEditor();
+		return true;
+    }
+    
+    protected void performApply(){
+    	updateActiveEditor();
+    }
+    
+    private void updateActiveEditor(){
+		IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();		
+		IEditorPart editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if(editor!=null&&editor instanceof EMFTextEditor){
+			EMFTextEditor emfTextEditor = (EMFTextEditor) editor;
+			emfTextEditor.invalidateTextRepresentation();
+		}			
     }
 	
 }

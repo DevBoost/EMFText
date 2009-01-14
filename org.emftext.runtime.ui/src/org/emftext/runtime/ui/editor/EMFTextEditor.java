@@ -361,7 +361,12 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			viewer.invalidateTextPresentation();
 		}
 	}
-
+	
+	public void setFocus(){
+		super.setFocus();
+		this.invalidateTextRepresentation();
+	}
+	
 	private void fireSaveEvent(ITextResource resource) {
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
 		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.SAVE_PERFORMED_EXTENSION_POINT_ID);
