@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
@@ -48,7 +49,8 @@ public class ResourcePluginGenerator {
 	    
 		IFolder targetFolder = context.getTargetFolder();
 		
-		ITextResource csResource = (ITextResource) context.getConcreteSyntax().eResource(); 
+		ITextResource csResource = (ITextResource) context.getConcreteSyntax().eResource();
+		EcoreUtil.resolveAll(csResource);
 		if (!targetFolder.exists()) {
 		   	targetFolder.create(false, true, progress.newChild(5));
 		}
@@ -296,8 +298,9 @@ public class ResourcePluginGenerator {
     		   out.flush();
     		   return new ByteArrayInputStream(stream.toByteArray());
        	   }
-		}
-		finally {
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			out.close();
 			Collection<GenerationProblem> collectedProblems = generator.getCollectedProblems();
 			if (collectedProblems != null) {

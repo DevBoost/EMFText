@@ -20,7 +20,7 @@ public class ResolveResult implements IResolveResult {
 	}
 
 	public String getErrorMessage() {
-		assert mappings == null || mappings.size() == 0;
+		//assert mappings == null || mappings.size() == 0;
 		return errorMessage;
 	}
 
