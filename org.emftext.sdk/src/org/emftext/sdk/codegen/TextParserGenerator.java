@@ -331,6 +331,13 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t\treturn start();" );
         out.println("\t}");
         out.println();
+        
+        out.println("\t@SuppressWarnings(\"unchecked\")");
+        out.println("\tprivate boolean addObjectToList(" + EObject.class.getName() + " element, " + String.class.getName() + " featureName, " + Object.class.getName() + " proxy) {");
+        out.println("\t\treturn ((" + List.class.getName() + "<" + Object.class.getName() + ">) element.eGet(element.eClass().getEStructuralFeature(featureName))).add(proxy);");
+        out.println("\t}");
+        out.println();
+        
         out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) {");
         //out.println("\t\tSystem.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
         out.println("\t\tint currentPos = getTokenStream().index();");
@@ -777,7 +784,7 @@ public class TextParserGenerator extends BaseGenerator {
         else{
             //TODO Warning, if a value is used twice. 
         	//whatever...
-            out.print("((List) element.eGet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"))).add(" + expressionToBeSet +"); ");
+            out.print("addObjectToList(element, \"" + eFeature.getName() + "\", " + expressionToBeSet +"); ");
         }
         out.print("collectHiddenTokens(element, " + expressionToBeSet + ");");
         if(terminal instanceof Containment){

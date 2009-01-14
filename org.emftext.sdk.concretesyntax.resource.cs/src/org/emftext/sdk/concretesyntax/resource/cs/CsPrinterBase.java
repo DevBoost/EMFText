@@ -246,6 +246,95 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print("}");
 	}
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		java.lang.String localtab = outertab;
+		int count;
+		//////////////DEFINITION PART BEGINS (LineBreak):
+		localtab += "		";
+		out.println();
+		out.print(localtab);
+		//////////////DEFINITION PART BEGINS (Containment):
+		count = printCountingMap.get("options");
+		if(count>0){
+			Object o =element.eGet(element.eClass().getEStructuralFeature("options"));
+			o = ((java.util.List<?>)o).get(((java.util.List<?>)o).size() - count);
+			doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
+			printCountingMap.put("options",count-1);
+		}
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print(";");
+	}
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		java.lang.String localtab = outertab;
+		//////////////DEFINITION PART BEGINS (LineBreak):
+		out.println();
+		out.print(localtab);
+		//////////////DEFINITION PART BEGINS (LineBreak):
+		out.println();
+		out.print(localtab);
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("TOKENS");
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("{");
+		//////////////DEFINITION PART BEGINS (CompoundDefinition):
+		boolean iterate = true;
+		while(iterate){
+			java.io.StringWriter sWriter = new java.io.StringWriter();
+			java.io.PrintWriter out1 = new java.io.PrintWriter(sWriter);
+			java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4_0(element,localtab,out1,printCountingMap1);
+			if(printCountingMap.equals(printCountingMap1)){
+				iterate = false;
+				out1.close();
+			}
+			else{
+				out1.flush();
+				out1.close();
+				out.print(sWriter.toString());
+				printCountingMap.putAll(printCountingMap1);
+			}
+		}
+		//////////////DEFINITION PART BEGINS (LineBreak):
+		out.println();
+		out.print(localtab);
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("}");
+	}
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		int count;
+		int alt=-1;
+		alt=0;
+		int matches=matchCount(printCountingMap, java.util.Arrays.asList("startSymbols"));
+		int tempMatchCount;
+		tempMatchCount=matchCount(printCountingMap, java.util.Arrays.asList("startSymbols"));
+		if (tempMatchCount > matches) {
+			alt = 1;
+			matches = tempMatchCount;
+		}
+		switch(alt){
+			case 1:
+				{
+					//////////////DEFINITION PART BEGINS (DefinedPlaceholder):
+					count = printCountingMap.get("startSymbols");
+					if(count>0){
+						Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
+						o = ((java.util.List<?>)o).get(((java.util.List<?>)o).size() - count);
+						org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((org.eclipse.emf.ecore.EObject)o, element, (org.eclipse.emf.ecore.EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
+						printCountingMap.put("startSymbols",count-1);
+					}
+				}
+			break;
+			default:
+				//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
+				count = printCountingMap.get("startSymbols");
+				if(count>0){
+					Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
+					o = ((java.util.List<?>)o).get(((java.util.List<?>)o).size() - count);
+					org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((org.eclipse.emf.ecore.EObject)o, element, (org.eclipse.emf.ecore.EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
+					printCountingMap.put("startSymbols",count-1);
+				}
+		}
+	}
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_5(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
 		int count;
@@ -263,6 +352,42 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 			}
 			printCountingMap.put("rules",0);
 		}
+	}
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		java.lang.String localtab = outertab;
+		//////////////DEFINITION PART BEGINS (LineBreak):
+		out.println();
+		out.print(localtab);
+		//////////////DEFINITION PART BEGINS (LineBreak):
+		out.println();
+		out.print(localtab);
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("OPTIONS");
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("{");
+		//////////////DEFINITION PART BEGINS (CompoundDefinition):
+		boolean iterate = true;
+		while(iterate){
+			java.io.StringWriter sWriter = new java.io.StringWriter();
+			java.io.PrintWriter out1 = new java.io.PrintWriter(sWriter);
+			java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(element,localtab,out1,printCountingMap1);
+			if(printCountingMap.equals(printCountingMap1)){
+				iterate = false;
+				out1.close();
+			}
+			else{
+				out1.flush();
+				out1.close();
+				out.print(sWriter.toString());
+				printCountingMap.putAll(printCountingMap1);
+			}
+		}
+		//////////////DEFINITION PART BEGINS (LineBreak):
+		out.println();
+		out.print(localtab);
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("}");
 	}
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
@@ -335,93 +460,6 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 				}
 		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-		java.lang.String localtab = outertab;
-		int count;
-		//////////////DEFINITION PART BEGINS (LineBreak):
-		localtab += "		";
-		out.println();
-		out.print(localtab);
-		//////////////DEFINITION PART BEGINS (Containment):
-		count = printCountingMap.get("imports");
-		if(count>0){
-			Object o =element.eGet(element.eClass().getEStructuralFeature("imports"));
-			o = ((java.util.List<?>)o).get(((java.util.List<?>)o).size() - count);
-			doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
-			printCountingMap.put("imports",count-1);
-		}
-	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-		int count;
-		int alt=-1;
-		alt=0;
-		int matches=matchCount(printCountingMap, java.util.Arrays.asList("startSymbols"));
-		int tempMatchCount;
-		tempMatchCount=matchCount(printCountingMap, java.util.Arrays.asList("startSymbols"));
-		if (tempMatchCount > matches) {
-			alt = 1;
-			matches = tempMatchCount;
-		}
-		switch(alt){
-			case 1:
-				{
-					//////////////DEFINITION PART BEGINS (DefinedPlaceholder):
-					count = printCountingMap.get("startSymbols");
-					if(count>0){
-						Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
-						o = ((java.util.List<?>)o).get(((java.util.List<?>)o).size() - count);
-						org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QNAME");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((org.eclipse.emf.ecore.EObject)o, element, (org.eclipse.emf.ecore.EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
-						printCountingMap.put("startSymbols",count-1);
-					}
-				}
-			break;
-			default:
-				//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
-				count = printCountingMap.get("startSymbols");
-				if(count>0){
-					Object o =element.eGet(element.eClass().getEStructuralFeature("startSymbols"));
-					o = ((java.util.List<?>)o).get(((java.util.List<?>)o).size() - count);
-					org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");resolver.setOptions(getOptions());out.print(resolver.deResolve(treeAnalyser.deResolve((org.eclipse.emf.ecore.EObject)o, element, (org.eclipse.emf.ecore.EReference)element.eClass().getEStructuralFeature("startSymbols")),element.eClass().getEStructuralFeature("startSymbols"),element));
-					printCountingMap.put("startSymbols",count-1);
-				}
-		}
-	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-		java.lang.String localtab = outertab;
-		//////////////DEFINITION PART BEGINS (LineBreak):
-		out.println();
-		out.print(localtab);
-		//////////////DEFINITION PART BEGINS (LineBreak):
-		out.println();
-		out.print(localtab);
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("OPTIONS");
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("{");
-		//////////////DEFINITION PART BEGINS (CompoundDefinition):
-		boolean iterate = true;
-		while(iterate){
-			java.io.StringWriter sWriter = new java.io.StringWriter();
-			java.io.PrintWriter out1 = new java.io.PrintWriter(sWriter);
-			java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
-			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(element,localtab,out1,printCountingMap1);
-			if(printCountingMap.equals(printCountingMap1)){
-				iterate = false;
-				out1.close();
-			}
-			else{
-				out1.flush();
-				out1.close();
-				out.print(sWriter.toString());
-				printCountingMap.putAll(printCountingMap1);
-			}
-		}
-		//////////////DEFINITION PART BEGINS (LineBreak):
-		out.println();
-		out.print(localtab);
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("}");
-	}
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
 		int count;
@@ -440,43 +478,7 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print(";");
 	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-		java.lang.String localtab = outertab;
-		//////////////DEFINITION PART BEGINS (LineBreak):
-		out.println();
-		out.print(localtab);
-		//////////////DEFINITION PART BEGINS (LineBreak):
-		out.println();
-		out.print(localtab);
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("TOKENS");
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("{");
-		//////////////DEFINITION PART BEGINS (CompoundDefinition):
-		boolean iterate = true;
-		while(iterate){
-			java.io.StringWriter sWriter = new java.io.StringWriter();
-			java.io.PrintWriter out1 = new java.io.PrintWriter(sWriter);
-			java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
-			print_org_emftext_sdk_concretesyntax_ConcreteSyntax_4_0(element,localtab,out1,printCountingMap1);
-			if(printCountingMap.equals(printCountingMap1)){
-				iterate = false;
-				out1.close();
-			}
-			else{
-				out1.flush();
-				out1.close();
-				out.print(sWriter.toString());
-				printCountingMap.putAll(printCountingMap1);
-			}
-		}
-		//////////////DEFINITION PART BEGINS (LineBreak):
-		out.println();
-		out.print(localtab);
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("}");
-	}
-	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_3_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_2_0(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
 		int count;
 		//////////////DEFINITION PART BEGINS (LineBreak):
@@ -484,15 +486,13 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 		out.println();
 		out.print(localtab);
 		//////////////DEFINITION PART BEGINS (Containment):
-		count = printCountingMap.get("options");
+		count = printCountingMap.get("imports");
 		if(count>0){
-			Object o =element.eGet(element.eClass().getEStructuralFeature("options"));
+			Object o =element.eGet(element.eClass().getEStructuralFeature("imports"));
 			o = ((java.util.List<?>)o).get(((java.util.List<?>)o).size() - count);
 			doPrint((org.eclipse.emf.ecore.EObject) o, out, localtab);
-			printCountingMap.put("options",count-1);
+			printCountingMap.put("imports",count-1);
 		}
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print(";");
 	}
 	public void print_org_emftext_sdk_concretesyntax_ConcreteSyntax_1(org.emftext.sdk.concretesyntax.ConcreteSyntax element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
@@ -853,21 +853,6 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 			printCountingMap.put("cardinality",count-1);
 		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_DerivedPlaceholder_0_0(org.emftext.sdk.concretesyntax.DerivedPlaceholder element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
-		int count;
-		//////////////DEFINITION PART BEGINS (CsString):
-		out.print(",");
-		//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
-		count = printCountingMap.get("suffix");
-		if(count>0){
-			Object o =element.eGet(element.eClass().getEStructuralFeature("suffix"));
-			org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
-				resolver.setOptions(getOptions());
-				out.print(resolver.deResolve((java.lang.Object)o,element.eClass().getEStructuralFeature("suffix"),element));
-				
-			printCountingMap.put("suffix",count-1);
-		}
-	}
 	public void print_org_emftext_sdk_concretesyntax_DerivedPlaceholder_0(org.emftext.sdk.concretesyntax.DerivedPlaceholder element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
 		int count;
@@ -894,6 +879,21 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 			out1.close();
 			out.print(sWriter.toString());
 			printCountingMap.putAll(printCountingMap1);
+		}
+	}
+	public void print_org_emftext_sdk_concretesyntax_DerivedPlaceholder_0_0(org.emftext.sdk.concretesyntax.DerivedPlaceholder element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		int count;
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print(",");
+		//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
+		count = printCountingMap.get("suffix");
+		if(count>0){
+			Object o =element.eGet(element.eClass().getEStructuralFeature("suffix"));
+			org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve((java.lang.Object)o,element.eClass().getEStructuralFeature("suffix"),element));
+				
+			printCountingMap.put("suffix",count-1);
 		}
 	}
 
@@ -1103,9 +1103,9 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 	public void print_org_emftext_sdk_concretesyntax_NormalToken_0(org.emftext.sdk.concretesyntax.NormalToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		int count;
 		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("collect");
+		out.print("COLLECT");
 		//////////////DEFINITION PART BEGINS (CsString):
-		out.print("in");
+		out.print("IN");
 		//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
 		count = printCountingMap.get("attributeName");
 		if(count>0){
@@ -1164,13 +1164,27 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 		}
 		//////////////DEFINITION PART BEGINS (CompoundDefinition):
 		print_org_emftext_sdk_concretesyntax_DecoratedToken_1(element,localtab,out,printCountingMap);
+		//////////////DEFINITION PART BEGINS (CompoundDefinition):
+		java.io.StringWriter sWriter = new java.io.StringWriter();
+		java.io.PrintWriter out1 = new java.io.PrintWriter(sWriter);
+		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		print_org_emftext_sdk_concretesyntax_DecoratedToken_2(element,localtab,out1,printCountingMap1);
+		if(printCountingMap.equals(printCountingMap1)){
+			out1.close();
+		}
+		else{
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_DecoratedToken_0(org.emftext.sdk.concretesyntax.DecoratedToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_DecoratedToken_1(org.emftext.sdk.concretesyntax.DecoratedToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print("[");
 		//////////////DEFINITION PART BEGINS (CompoundDefinition):
-		print_org_emftext_sdk_concretesyntax_DecoratedToken_0_0(element,localtab,out,printCountingMap);
+		print_org_emftext_sdk_concretesyntax_DecoratedToken_1_0(element,localtab,out,printCountingMap);
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print("]");
 	}
@@ -1187,12 +1201,12 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 			printCountingMap.put("prefix",count-1);
 		}
 	}
-	public void print_org_emftext_sdk_concretesyntax_DecoratedToken_1(org.emftext.sdk.concretesyntax.DecoratedToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+	public void print_org_emftext_sdk_concretesyntax_DecoratedToken_0(org.emftext.sdk.concretesyntax.DecoratedToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		java.lang.String localtab = outertab;
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print("[");
 		//////////////DEFINITION PART BEGINS (CompoundDefinition):
-		print_org_emftext_sdk_concretesyntax_DecoratedToken_1_0(element,localtab,out,printCountingMap);
+		print_org_emftext_sdk_concretesyntax_DecoratedToken_0_0(element,localtab,out,printCountingMap);
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print("]");
 	}
@@ -1209,8 +1223,26 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 			printCountingMap.put("suffix",count-1);
 		}
 	}
+	public void print_org_emftext_sdk_concretesyntax_DecoratedToken_2(org.emftext.sdk.concretesyntax.DecoratedToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		int count;
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("COLLECT");
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("IN");
+		//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
+		count = printCountingMap.get("attributeName");
+		if(count>0){
+			Object o =element.eGet(element.eClass().getEStructuralFeature("attributeName"));
+			org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve((java.lang.Object)o,element.eClass().getEStructuralFeature("attributeName"),element));
+				
+			printCountingMap.put("attributeName",count-1);
+		}
+	}
 
 	public void print_org_emftext_sdk_concretesyntax_PreDefinedToken(org.emftext.sdk.concretesyntax.PreDefinedToken element, java.lang.String outertab, java.io.PrintWriter out){
+		java.lang.String localtab = outertab;
 		java.util.Map<java.lang.String, java.lang.Integer> printCountingMap = new java.util.HashMap<java.lang.String, java.lang.Integer>(3);
 		java.lang.Object temp;
 		temp = element.eGet(element.eClass().getEStructuralFeature("name"));
@@ -1234,6 +1266,37 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 				out.print(resolver.deResolve((java.lang.Object)o,element.eClass().getEStructuralFeature("name"),element));
 				
 			printCountingMap.put("name",count-1);
+		}
+		//////////////DEFINITION PART BEGINS (CompoundDefinition):
+		java.io.StringWriter sWriter = new java.io.StringWriter();
+		java.io.PrintWriter out1 = new java.io.PrintWriter(sWriter);
+		java.util.HashMap<java.lang.String, java.lang.Integer> printCountingMap1 = new java.util.HashMap<java.lang.String, java.lang.Integer>(printCountingMap);
+		print_org_emftext_sdk_concretesyntax_PreDefinedToken_0(element,localtab,out1,printCountingMap1);
+		if(printCountingMap.equals(printCountingMap1)){
+			out1.close();
+		}
+		else{
+			out1.flush();
+			out1.close();
+			out.print(sWriter.toString());
+			printCountingMap.putAll(printCountingMap1);
+		}
+	}
+	public void print_org_emftext_sdk_concretesyntax_PreDefinedToken_0(org.emftext.sdk.concretesyntax.PreDefinedToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
+		int count;
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("COLLECT");
+		//////////////DEFINITION PART BEGINS (CsString):
+		out.print("IN");
+		//////////////DEFINITION PART BEGINS (DerivedPlaceholder):
+		count = printCountingMap.get("attributeName");
+		if(count>0){
+			Object o =element.eGet(element.eClass().getEStructuralFeature("attributeName"));
+			org.emftext.runtime.resource.ITokenResolver resolver = tokenResolverFactory.createTokenResolver("TEXT");
+				resolver.setOptions(getOptions());
+				out.print(resolver.deResolve((java.lang.Object)o,element.eClass().getEStructuralFeature("attributeName"),element));
+				
+			printCountingMap.put("attributeName",count-1);
 		}
 	}
 
