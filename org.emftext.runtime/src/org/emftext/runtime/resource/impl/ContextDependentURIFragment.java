@@ -68,7 +68,7 @@ public class ContextDependentURIFragment {
 		EList<EObject> list = null;
 		Object temp = container.eGet(reference);
 		if (temp instanceof EList) {
-			list = (EList<EObject>) temp;
+			list = Util.cast(temp);
 		}
 		
 		boolean first = true; 
