@@ -127,7 +127,7 @@ public class CsParser extends AbstractEMFTextParser {
             int LA1_0 = input.LA(1);
 
             if ( (LA1_0==15) ) {
-                int LA1_1 = input.LA(2);
+                input.LA(2);
 
                 if ( (synpred1_Cs()) ) {
                     alt1=1;
@@ -281,7 +281,7 @@ public class CsParser extends AbstractEMFTextParser {
                     {
                     a5=(Token)match(input,TEXT,FOLLOW_TEXT_in_concretesyntax148); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a5,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a5, element); copyLocalizationInfos((CommonToken) a5, proxy); 
+                      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a5.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a5,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, "startSymbols", proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a5, element); copyLocalizationInfos((CommonToken) a5, proxy); 
                     }
 
                     }
@@ -291,7 +291,7 @@ public class CsParser extends AbstractEMFTextParser {
                     {
                     a6=(Token)match(input,QNAME,FOLLOW_QNAME_in_concretesyntax162); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a6.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a6,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a6, element); copyLocalizationInfos((CommonToken) a6, proxy); 
+                      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a6.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a6,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, "startSymbols", proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a6, element); copyLocalizationInfos((CommonToken) a6, proxy); 
                     }
 
                     }
@@ -344,7 +344,7 @@ public class CsParser extends AbstractEMFTextParser {
             	            {
             	            a8=(Token)match(input,TEXT,FOLLOW_TEXT_in_concretesyntax198); if (state.failed) return element;
             	            if ( state.backtracking==0 ) {
-            	              if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a8.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a8,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a8, element); copyLocalizationInfos((CommonToken) a8, proxy); 
+            	              if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("TEXT");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a8.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a8,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, "startSymbols", proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a8, element); copyLocalizationInfos((CommonToken) a8, proxy); 
             	            }
 
             	            }
@@ -354,7 +354,7 @@ public class CsParser extends AbstractEMFTextParser {
             	            {
             	            a9=(Token)match(input,QNAME,FOLLOW_QNAME_in_concretesyntax216); if (state.failed) return element;
             	            if ( state.backtracking==0 ) {
-            	              if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a9.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a9,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); ((List) element.eGet(element.eClass().getEStructuralFeature("startSymbols"))).add(proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a9, element); copyLocalizationInfos((CommonToken) a9, proxy); 
+            	              if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); org.emftext.runtime.resource.ITokenResolver resolvedResolver = tokenResolverFactory.createTokenResolver("QNAME");resolvedResolver.setOptions(getOptions());Object resolvedObject =resolvedResolver.resolve(a9.getText(),element.eClass().getEStructuralFeature("startSymbols"),element,getResource());if(resolvedObject==null) throw new org.emftext.runtime.resource.TokenConversionException(a9,resolvedResolver.getErrorMessage());String resolved = (String) resolvedObject;org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();collectHiddenTokens(element, proxy); ((InternalEObject)proxy).eSetProxyURI((resource.getURI()==null?URI.createURI("dummy"):resource.getURI()).appendFragment(resolved)); addProxy(element, "startSymbols", proxy); collectHiddenTokens(element, proxy);copyLocalizationInfos((CommonToken) a9, element); copyLocalizationInfos((CommonToken) a9, proxy); 
             	            }
 
             	            }
@@ -420,7 +420,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    state._fsp--;
                     	    if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
-                    	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); ((List) element.eGet(element.eClass().getEStructuralFeature("imports"))).add(a12); collectHiddenTokens(element, a12);copyLocalizationInfos(a12, element); 
+                    	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); addProxy(element, "imports", a12); collectHiddenTokens(element, a12);copyLocalizationInfos(a12, element); 
                     	    }
 
                     	    }
@@ -493,7 +493,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    state._fsp--;
                     	    if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
-                    	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a16); collectHiddenTokens(element, a16);copyLocalizationInfos(a16, element); 
+                    	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); addProxy(element, "options", a16); collectHiddenTokens(element, a16);copyLocalizationInfos(a16, element); 
                     	    }
                     	    a17=(Token)match(input,23,FOLLOW_23_in_concretesyntax371); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -570,7 +570,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    state._fsp--;
                     	    if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
-                    	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); ((List) element.eGet(element.eClass().getEStructuralFeature("tokens"))).add(a21); collectHiddenTokens(element, a21);copyLocalizationInfos(a21, element); 
+                    	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); addProxy(element, "tokens", a21); collectHiddenTokens(element, a21);copyLocalizationInfos(a21, element); 
                     	    }
                     	    a22=(Token)match(input,23,FOLLOW_23_in_concretesyntax463); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -634,7 +634,7 @@ public class CsParser extends AbstractEMFTextParser {
             	    state._fsp--;
             	    if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
-            	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); ((List) element.eGet(element.eClass().getEStructuralFeature("rules"))).add(a26); collectHiddenTokens(element, a26);copyLocalizationInfos(a26, element); 
+            	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); addProxy(element, "rules", a26); collectHiddenTokens(element, a26);copyLocalizationInfos(a26, element); 
             	    }
 
             	    }
@@ -670,6 +670,14 @@ public class CsParser extends AbstractEMFTextParser {
         return element;
     }
     // $ANTLR end "concretesyntax"
+    
+	@SuppressWarnings("unchecked")
+	private boolean addProxy(
+			EObject element,
+			String featureName,
+			EObject proxy) {
+		return ((List<Object>) element.eGet(element.eClass().getEStructuralFeature(featureName))).add(proxy);
+	}
 
 
     // $ANTLR start "keywordimport"
@@ -920,7 +928,7 @@ public class CsParser extends AbstractEMFTextParser {
             	    state._fsp--;
             	    if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
-            	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createSequence(); ((List) element.eGet(element.eClass().getEStructuralFeature("parts"))).add(a0); collectHiddenTokens(element, a0);copyLocalizationInfos(a0, element); 
+            	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createSequence(); addProxy(element, "parts", a0); collectHiddenTokens(element, a0);copyLocalizationInfos(a0, element); 
             	    }
 
             	    }
@@ -974,7 +982,7 @@ public class CsParser extends AbstractEMFTextParser {
             state._fsp--;
             if (state.failed) return element;
             if ( state.backtracking==0 ) {
-              if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a0); collectHiddenTokens(element, a0);copyLocalizationInfos(a0, element); 
+              if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); addProxy(element, "options", a0); collectHiddenTokens(element, a0);copyLocalizationInfos(a0, element); 
             }
             // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:199:2: ( (a1= '|' a2= sequence ) )*
             loop15:
@@ -1004,7 +1012,7 @@ public class CsParser extends AbstractEMFTextParser {
             	    state._fsp--;
             	    if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
-            	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); ((List) element.eGet(element.eClass().getEStructuralFeature("options"))).add(a2); collectHiddenTokens(element, a2);copyLocalizationInfos(a2, element); 
+            	      if (element == null) element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); addProxy(element, "options", a2); collectHiddenTokens(element, a2);copyLocalizationInfos(a2, element); 
             	    }
 
             	    }
@@ -2153,14 +2161,11 @@ public class CsParser extends AbstractEMFTextParser {
 
     // $ANTLR start synpred1_Cs
     public final void synpred1_Cs_fragment() throws RecognitionException {   
-        org.emftext.sdk.concretesyntax.ConcreteSyntax c0 = null;
-
-
         // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:64:1: (c0= concretesyntax )
         // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:64:1: c0= concretesyntax
         {
         pushFollow(FOLLOW_concretesyntax_in_synpred1_Cs65);
-        c0=concretesyntax();
+        concretesyntax();
 
         state._fsp--;
         if (state.failed) return ;
