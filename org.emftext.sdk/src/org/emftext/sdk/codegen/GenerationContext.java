@@ -22,7 +22,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * the context collects information about the generation process as it
  * is executed.
  * 
- * @see org.emftext.sdk.codegen.ResourcePackageGenerator
+ * @see org.emftext.sdk.codegen.ResourcePluginGenerator
  * 
  * @author skarol
  */

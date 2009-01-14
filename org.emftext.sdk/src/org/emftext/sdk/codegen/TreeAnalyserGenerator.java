@@ -16,7 +16,13 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IResolveResult;
 
-public class TextTreeAnalyserGenerator extends BaseGenerator {
+/**
+ * A generator that creates a multiplexing reference resolver.
+ * Depending on the type of the reference that must be resolved,
+ * the generated class delegates the resolve call to the appropriate
+ * reference resolver.
+ */
+public class TreeAnalyserGenerator extends BaseGenerator {
 	
 	private Map<GenFeature, String> proxyReferences;
 	private GenerationContext context;
@@ -29,7 +35,7 @@ public class TextTreeAnalyserGenerator extends BaseGenerator {
 	 * @param proxyReferences - a Map which contains all GenFeatures which where referenced and 
 	 * a mapping to the corresponding resolver class which was generated.
 	 */
-	public TextTreeAnalyserGenerator(GenerationContext context, Map<GenFeature, String> proxyReferences) {
+	public TreeAnalyserGenerator(GenerationContext context, Map<GenFeature, String> proxyReferences) {
 		super(context.getPackageName(), context.getTreeAnalyserClassName());
 		this.context = context;
 		this.proxyReferences = proxyReferences;

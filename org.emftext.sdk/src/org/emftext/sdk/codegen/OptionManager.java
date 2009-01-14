@@ -7,6 +7,11 @@ import java.util.List;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 
+/**
+ * A manager for code generation options. The manager can be queried
+ * for values of options of different types (integer, string and 
+ * boolean options).
+ */
 public class OptionManager {
 
 	public final static OptionManager INSTANCE = new OptionManager();
@@ -15,7 +20,7 @@ public class OptionManager {
 		super();
 	}
 
-	public String getStringOption(ConcreteSyntax concreteSyntax,
+	public String getStringOptionValue(ConcreteSyntax concreteSyntax,
 			String optionName) {
 		List<Option> options = concreteSyntax.getOptions();
 		if (options == null) {
@@ -28,30 +33,30 @@ public class OptionManager {
 		return option.getValue();
 	}
 	
-	public boolean getBooleanOption(ConcreteSyntax concreteSyntax,
+	public boolean getBooleanOptionValue(ConcreteSyntax concreteSyntax,
 			String optionName) {
 		List<Option> options = concreteSyntax.getOptions();
 		if (options == null) {
-			return getBooleanOptionsDefault(optionName);
+			return getBooleanOptionsDefaultValue(optionName);
 		}
 		Option option = findOptionByName(options, optionName);
 		if (option == null) {
-			return getBooleanOptionsDefault(optionName);
+			return getBooleanOptionsDefaultValue(optionName);
 		}
 		String value = option.getValue();
 		if (value == null) {
-			return getBooleanOptionsDefault(optionName);
+			return getBooleanOptionsDefaultValue(optionName);
 		}
 		if ("true".equals(value)) {
 			return true;
 		} else if ("false".equals(value)) {
 			return false;
 		} else {
-			return getBooleanOptionsDefault(optionName);
+			return getBooleanOptionsDefaultValue(optionName);
 		}
 	}
 
-	private boolean getBooleanOptionsDefault(String optionName) {
+	private boolean getBooleanOptionsDefaultValue(String optionName) {
 		// Attention: Any changes made to this default values must be
 		// documented in ICodeGenOptions!
 		if (optionName.equals(GENERATE_TEST_ACTION)) {
@@ -105,17 +110,7 @@ public class OptionManager {
 		return false;
 	}
 
-	private Option findOptionByName(List<Option> options,
-			String optionName) {
-		for (Option option : options) {
-			if (optionName.equals(option.getName())) {
-				return option;
-			}
-		}
-		return null;
-	}
-
-	public int getIntegerOption(ConcreteSyntax syntax,
+	public int getIntegerOptionValue(ConcreteSyntax syntax,
 			String optionName, boolean expectPositiveValue, IProblemCollector problemCollector) {
 		
 		Option option = findOptionByName(syntax.getOptions(), optionName);
@@ -134,5 +129,15 @@ public class OptionManager {
 			problemCollector.addProblem(new GenerationProblem("No valid integer in option.", option));
 		}
 		return -1;
+	}
+
+	private Option findOptionByName(List<Option> options,
+			String optionName) {
+		for (Option option : options) {
+			if (optionName.equals(option.getName())) {
+				return option;
+			}
+		}
+		return null;
 	}
 }

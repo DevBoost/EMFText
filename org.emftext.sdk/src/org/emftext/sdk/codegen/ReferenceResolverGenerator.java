@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 
 /**
- * Generates basic stubs for reference resolvers.
+ * A generator that can create basic stub for a single reference resolver.
  */
 public class ReferenceResolverGenerator extends BaseGenerator {
 	

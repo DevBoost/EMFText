@@ -8,6 +8,9 @@ import org.eclipse.core.resources.IFile;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * A generator for the plugin.xml file.
+ */
 public class PluginXMLGenerator implements IGenerator {
 
 	private final ConcreteSyntax cSyntax;

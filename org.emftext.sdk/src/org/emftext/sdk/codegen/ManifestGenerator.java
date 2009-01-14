@@ -10,6 +10,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
+/**
+ * A generator that creates the manifest file for the resource
+ * plug-in.
+ */
 public class ManifestGenerator implements IGenerator {
 
 	private final GenerationContext context;

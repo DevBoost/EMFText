@@ -14,7 +14,6 @@ import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
  * @see org.emftext.runtime.resource.impl.BasicTokenResolverFactory
  * 
  * @author skarol
- *
  */
 public class TokenResolverFactoryGenerator extends BaseGenerator {
 	

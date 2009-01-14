@@ -14,11 +14,11 @@ import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 
 /**
- * Generates the resource. Its <code>doLoad()</code> and <code>doSave()</code> methods will
- * call the generated parser, analyser and printer.
+ * Generates the resource class. The created <code>doLoad()</code> and 
+ * <code>doSave()</code> methods will call the generated parser, analyser 
+ * and printer.
  * 
  * @see org.emftext.runtime.resource.ITextResource
- * 
  */
 public class TextResourceGenerator extends BaseGenerator {
 

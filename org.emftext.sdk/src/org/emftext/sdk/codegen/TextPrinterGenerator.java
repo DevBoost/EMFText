@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.ITextResource;
 
+/**
+ * A generator that create a printer class. This class can be
+ * subject to modifications.
+ */
 public class TextPrinterGenerator extends BaseGenerator {
 	
 	private String basePrinterClassName; 

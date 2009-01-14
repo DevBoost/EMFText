@@ -35,7 +35,11 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.runtime.resource.ITextResource;
 
-public class ResourcePackageGenerator {
+/**
+ * A generator that uses multiple other generators to create
+ * a resource plug-in from as CS specification and a meta model.
+ */
+public class ResourcePluginGenerator {
 	
 	private static final String JAVA_FILE_EXTENSION = ".java";
 	
@@ -88,7 +92,7 @@ public class ResourcePackageGenerator {
 		
 		runANTLR(context, progress, antlrFile);
     	
-        generatePrettyPrinter(context, progress, csResource, printerFile,
+        generatePrinterAndPrinterBase(context, progress, csResource, printerFile,
 				printerBaseFile, antlrName, printerName, printerBaseName,
 				treeAnalyserName, tokenResolverFactoryName, antlrGenenerator);
 	    
@@ -142,7 +146,7 @@ public class ResourcePackageGenerator {
 			Map<TextParserGenerator.InternalTokenDefinition, String> tokenToNameMap)
 			throws CoreException {
 		progress.setTaskName("generating token resolver factory...");
-		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY);
+		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY);
 		if (generateTokenResolverFactory) {
 			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(context, tokenToNameMap);
 			setContents(tokenResolverFactoryFile,invokeGeneration(factoryGen, context.getProblemCollector()));
@@ -165,7 +169,7 @@ public class ResourcePackageGenerator {
 			tokenToNameMap.put(tokenDefinition,tokenResolverClassName);
 			
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(tokenResolverClassName + JAVA_FILE_EXTENSION));
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator resolverGenerator = new TokenResolverGenerator(context, tokenResolverClassName, tokenDefinition);
 				setContents(resolverFile,invokeGeneration(resolverGenerator, context.getProblemCollector()));
@@ -181,9 +185,9 @@ public class ResourcePackageGenerator {
 			Map<GenFeature, String> proxy2Name) throws CoreException {
 		progress.setTaskName("generating tree analyser...");
 
-		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
+		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
 		if (generateTreeAnalyser) {
-			BaseGenerator analyserGen = new TextTreeAnalyserGenerator(context, proxy2Name);
+			BaseGenerator analyserGen = new TreeAnalyserGenerator(context, proxy2Name);
 			setContents(treeAnalyserFile,invokeGeneration(analyserGen, context.getProblemCollector()));
 		}
 		progress.worked(5);
@@ -204,7 +208,7 @@ public class ResourcePackageGenerator {
 			proxy2Name.put(proxyReference, resolverClassName);
 			String resolverFileName = resolverClassName + JAVA_FILE_EXTENSION;
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(resolverFileName));
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator proxyGen = new ReferenceResolverGenerator(context, resolverClassName);
 				setContents(resolverFile, invokeGeneration(proxyGen, context.getProblemCollector()));		
@@ -215,7 +219,7 @@ public class ResourcePackageGenerator {
 		return proxy2Name;
 	}
 
-	private static void generatePrettyPrinter(GenerationContext context,
+	private static void generatePrinterAndPrinterBase(GenerationContext context,
 			SubMonitor progress, ITextResource csResource, IFile printerFile,
 			IFile printerBaseFile, String antlrName, String printerName,
 			String printerBaseName, String treeAnalyserName,
@@ -223,9 +227,9 @@ public class ResourcePackageGenerator {
 			throws CoreException {
 		
 		progress.setTaskName("generating printer...");
-		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY);
-		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_PRINTER);
-		boolean overridePrinterBase = OptionManager.INSTANCE.getBooleanOption(context.getConcreteSyntax(), OVERRIDE_PRINTER_BASE);
+		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY);
+		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_PRINTER);
+		boolean overridePrinterBase = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_PRINTER_BASE);
 
 		boolean printerExists = printerFile.exists();
 		boolean printerBaseExists = printerBaseFile.exists();
@@ -278,7 +282,7 @@ public class ResourcePackageGenerator {
 	}
 	
 	private static void saveGrammar(InputStream content, GenerationContext pck, IFile antlrFile) throws CoreException {
-		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOption(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
+		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
 	    if (generateANTLRSpecification) {
 	    	setContents(antlrFile, content);
 	    }
@@ -305,23 +309,22 @@ public class ResourcePackageGenerator {
 		return null;
 	}
 
-       private static void setContents(IFile target, InputStream in)throws CoreException{
-    	   if (target.exists()) {
-    		   target.setContents(in,false,false,new NullProgressMonitor());
-    	   }
-    	   else{
-    		   LinkedList<IResource> stack = new LinkedList<IResource>();
-    		   if(!target.getParent().exists()){
-    			   stack.addFirst(target.getParent());
-    			   while(!stack.isEmpty()){
-    				   if(!stack.peek().getParent().exists())
-    					   stack.addFirst(stack.peek().getParent());
-    				   else
-    					   ((IFolder)stack.removeFirst()).create(false,false,new NullProgressMonitor());
-    			   }
-    		   }
-       		   target.create(in,false,new NullProgressMonitor());
-    	   }
-       }
-    
+	private static void setContents(IFile target, InputStream in) throws CoreException {
+		if (target.exists()) {
+			target.setContents(in, false, false, new NullProgressMonitor());
+		} else {
+			LinkedList<IResource> stack = new LinkedList<IResource>();
+			if (!target.getParent().exists()) {
+				stack.addFirst(target.getParent());
+				while (!stack.isEmpty()) {
+					if (!stack.peek().getParent().exists())
+						stack.addFirst(stack.peek().getParent());
+					else
+						((IFolder) stack.removeFirst()).create(false, false,
+								new NullProgressMonitor());
+				}
+			}
+			target.create(in, false, new NullProgressMonitor());
+		}
+	}
 }

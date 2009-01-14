@@ -9,21 +9,18 @@ import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 
 /**
- * A TokenResolverGenerator generates TokenResolvers for the given TokenDefinitions.
+ * A TokenResolverGenerator generates a single TokenResolver for a given TokenDefinition.
  * 
- * For definitions with prefixes and suffixes it generates code which removes those 
+ * For a definition with prefix and suffix it generates code which removes these 
  * strings from the beginning and the end of a lexem and then passes the manipulated 
- * lexem to the javaBasedTokenResolver as its base class. In the deresolvement it 
+ * lexem to the JavaBasedTokenResolver as its base class. In the deresolvement it 
  * delegates the conversion form object to string to the base implementation. 
  * Finally the deresolved String will be decorated by pre- and suffixes again. 
  * 
  * @see org.emftext.runtime.resource.impl.JavaBasedTokenResolver
  * 
- * 
  * @author skarol
- *
  */
-
 public class TokenResolverGenerator extends BaseGenerator {
 	
 	private TextParserGenerator.InternalTokenDefinition definition;

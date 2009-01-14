@@ -2,15 +2,13 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
-
 /**
  * Generates a factory for the TextResource which loads and stores generated resources. 
- * It can be registered at the EMF resource framework.
+ * It can be registered to the EMF resource framework.
  * 
  * @see org.emftext.sdk.codegen.TextResourceGenerator
  * @see org.emftext.runtime.resource.ITextResource
  */
-
 public class ResourceFactoryGenerator extends BaseGenerator {
 	
 	private String textResourceClassName;

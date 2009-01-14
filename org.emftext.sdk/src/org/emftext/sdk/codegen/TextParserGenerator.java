@@ -79,8 +79,6 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  */
 public class TextParserGenerator extends BaseGenerator {
 	
-
-	
 	/**
 	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
 	 */
@@ -235,7 +233,7 @@ public class TextParserGenerator extends BaseGenerator {
 	}
 	
 	private void initOptions() {
-		standardTextTokenName = OptionManager.INSTANCE.getStringOption(conreteSyntax, ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME);
+		standardTextTokenName = OptionManager.INSTANCE.getStringOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME);
 		if (standardTextTokenName == null) {
 			standardTextTokenName = STD_TOKEN_NAME;
 		}
@@ -244,8 +242,8 @@ public class TextParserGenerator extends BaseGenerator {
 		if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
 			addProblem(new GenerationProblem("Token names must start with a capital letter.", conreteSyntax, Severity.ERROR));
 		}
-		forceEOFToken = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
-		useDefaultTokens = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS);
+		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
+		useDefaultTokens = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS);
 	}
 	
 	private void initCaches(){
@@ -291,7 +289,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("grammar " + csName + ";");
         out.println("options {\n" +
         				"\tsuperClass = " + AbstractEMFTextParser.class.getSimpleName() + "; ");
-        boolean backtracking = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
+        boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
         out.println("\tbacktrack = " + backtracking + ";");
         out.println("}");
         
@@ -533,7 +531,7 @@ public class TextParserGenerator extends BaseGenerator {
         	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.conreteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-                boolean autofix = OptionManager.INSTANCE.getBooleanOption(conreteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
+                boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {
             			System.out.println();

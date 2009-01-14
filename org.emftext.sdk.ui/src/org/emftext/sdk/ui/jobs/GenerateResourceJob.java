@@ -37,7 +37,7 @@ import org.emftext.sdk.codegen.ManifestGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.PluginXMLGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.ResourcePackageGenerator;
+import org.emftext.sdk.codegen.ResourcePluginGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
@@ -90,7 +90,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 			createProject(context, progress);
 
 			// generate the resource class, parser, and printer
-			ResourcePackageGenerator.generate(context, progress
+			ResourcePluginGenerator.generate(context, progress
 					.newChild(TICKS_GENERATE_RESOURCE));
 
 			// errors from parser generator?
@@ -159,7 +159,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		}
 		
 		// call EMF code generator if specified
-		if (OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.GENERATE_CODE_FROM_GENERATOR_MODEL)) {
+		if (OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.GENERATE_CODE_FROM_GENERATOR_MODEL)) {
 			generateMetaModelCode(cSyntax.getPackage(), progress
 					.newChild(TICKS_GENERATE_METAMODEL_CODE));
 		} else {
@@ -224,7 +224,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
 		final IProject project = context.getProject();
 
-		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
+		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
 
 		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
 		if (manifestMFFile.exists()) {
@@ -256,7 +256,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 		IProject project = context.getProject(); 
 		String projectName = project.getName();
 		
-		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOption(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML);
+		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML);
 		
 		IFile pluginXMLFile = project.getFile("/plugin.xml");
 		if (pluginXMLFile.exists()) {
@@ -286,7 +286,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 	}
 
 	private boolean isGenerateTestActionEnabled(ConcreteSyntax syntax) {
-		return OptionManager.INSTANCE.getBooleanOption(syntax, ICodeGenOptions.GENERATE_TEST_ACTION);
+		return OptionManager.INSTANCE.getBooleanOptionValue(syntax, ICodeGenOptions.GENERATE_TEST_ACTION);
 	}
 
 	private void markErrors(final ConcreteSyntax cSyntax) throws CoreException {
