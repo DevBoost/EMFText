@@ -11,9 +11,9 @@ import org.emftext.sdk.GenPackageInWorkspaceFinder;
 import org.emftext.sdk.IGenPackageFinder;
 import org.emftext.sdk.MetamodelHelper;
 
-public class DefaultOptionProvider implements IOptionProvider {
+public class SDKOptionProvider implements IOptionProvider {
 
-	public DefaultOptionProvider() {
+	public SDKOptionProvider() {
 		super();
 	}
 

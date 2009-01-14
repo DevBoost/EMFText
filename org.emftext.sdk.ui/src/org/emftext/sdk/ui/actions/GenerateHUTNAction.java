@@ -42,15 +42,14 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 
 /**
- * An action that generates a HUTN based concrete syntax for the given genmodel
+ * An action that generates a HUTN based concrete syntax for the given generator
+ * model.
  * 
  * @author jj2
- *
  */
 public class GenerateHUTNAction implements IObjectActionDelegate {
     
 	private ISelection selection;
-    //private IWorkbenchPart part;
 
     /**
      * Calls {@link #process(IFile)} for all selected <i>cs</i> files .
@@ -279,6 +278,4 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
         //this.part = targetPart;
 	}
-    
-
 }

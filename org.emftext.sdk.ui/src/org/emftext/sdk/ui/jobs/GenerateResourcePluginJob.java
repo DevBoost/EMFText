@@ -42,7 +42,11 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
-public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
+/**
+ * An eclipse job that generates a resource plug-in from a
+ * CS specification and a meta model.
+ */
+public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 
 	// these must add up to 100
 	protected static final int TICKS_CREATE_PROJECT = 2;
@@ -58,7 +62,7 @@ public class GenerateResourceJob extends AbstractConcreteSyntaxJob {
 	
 	private final IFile csFile;
 
-	public GenerateResourceJob(String name, IFile csFile) {
+	public GenerateResourcePluginJob(String name, IFile csFile) {
 		super(name);
 		this.csFile = csFile;
 	}

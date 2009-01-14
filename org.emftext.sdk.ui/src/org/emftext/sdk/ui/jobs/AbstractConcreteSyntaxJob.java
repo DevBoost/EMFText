@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.resource.ITextResource;
 
+/**
+ * An abstract base class for all actions that generate something from
+ * a CS specification.
+ */
 public abstract class AbstractConcreteSyntaxJob extends org.eclipse.core.runtime.jobs.Job {
 
 	public AbstractConcreteSyntaxJob(String name) {

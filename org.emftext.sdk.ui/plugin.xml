@@ -9,7 +9,7 @@
             nameFilter="*.cs*"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               class="org.emftext.sdk.ui.actions.GenerateResourceAction"
+               class="org.emftext.sdk.ui.actions.GenerateResourcePluginAction"
                enablesFor="1"
                id="org.emftext.sdk.ui.actions.generateresourceaction"
                label="Generate Text Resource"
@@ -33,18 +33,10 @@
       </objectContribution>
    </extension>
 
-	<!--
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="org.emftext.sdk.ui.preferences.MainPreferencePage"
-            id="org.emftext.sdk.ui.preferences.main"
-            name="EMFText SDK"/>
-    </extension>-->
    <extension
          point="org.emftext.runtime.default_load_options">
       <provider
-            class="org.emftext.sdk.ui.DefaultOptionProvider"
+            class="org.emftext.sdk.ui.SDKOptionProvider"
             id="org.emftext.sdk.ui.default_option_provider">
       </provider>
    </extension>

@@ -8,16 +8,15 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.emftext.sdk.ui.jobs.GenerateResourceJob;
+import org.emftext.sdk.ui.jobs.GenerateResourcePluginJob;
 
 /**
- * An action that calls the generator and in addition generates a
- * <code><plugin.xml</code> and <code>MANIFEST.MF</code> file.
+ * An action that generates a complete resource plug-in from
+ * a CS specification and a meta model.
  * 
  * @author jj2
- * 
  */
-public class GenerateResourceAction implements IObjectActionDelegate {
+public class GenerateResourcePluginAction implements IObjectActionDelegate {
 
 	private ISelection selection;
 
@@ -46,7 +45,7 @@ public class GenerateResourceAction implements IObjectActionDelegate {
 	 *            The file that contains the concrete syntax definition.
 	 */
 	public void process(final IFile file) {
-		GenerateResourceJob job = new GenerateResourceJob("Generating resource project for " + file.getName(), file);
+		GenerateResourcePluginJob job = new GenerateResourcePluginJob("Generating resource project for " + file.getName(), file);
 		job.setUser(true);
 		job.schedule();
 	}
