@@ -52,8 +52,8 @@ RULES {
   WhiteSpaces    ::= amount['#'] #1;
   LineBreak      ::= tab['!'] #1;
   
-  NormalToken ::= "DEFINE" #1 name[] regex['$','$'] ("collect" "in" attributeName[])?;
-  DecoratedToken ::= "DEFINE" #1 name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" );
-  PreDefinedToken ::= "PREDEFINED" #1 name[];
+  NormalToken ::= "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
+  DecoratedToken ::= "DEFINE" #1 name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" ) ("COLLECT" "IN" attributeName[])?;
+  PreDefinedToken ::= "PREDEFINED" #1 name[] ("COLLECT" "IN" attributeName[])?;
 
 }
