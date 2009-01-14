@@ -96,7 +96,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 		this.concretSyntax = context.getConcreteSyntax();
 		this.tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
-		this.treeAnalyserClassName = context.getTreeAnalyserClassName();
+		this.treeAnalyserClassName = context.getReferenceResolverSwitchClassName();
 		this.placeholder2TokenName = placeholder2TokenName;
 	}
 

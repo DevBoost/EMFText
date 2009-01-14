@@ -32,7 +32,7 @@ public class GenerationContext {
 	private static final String CLASS_SUFFIX_PRINTER_BASE = "PrinterBase";
 	private static final String CLASS_SUFFIX_RESOURCE = "ResourceImpl";
 	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactoryImpl";
-	private static final String CLASS_SUFFIX_TREE_ANALYSER = "TreeAnalyser";
+	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
@@ -136,8 +136,8 @@ public class GenerationContext {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_RESOURCE_FACTORY;
     }
     
-    public String getTreeAnalyserClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TREE_ANALYSER;
+    public String getReferenceResolverSwitchClassName() {
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH;
     }
     
     public String getTokenResolverFactoryClassName() {

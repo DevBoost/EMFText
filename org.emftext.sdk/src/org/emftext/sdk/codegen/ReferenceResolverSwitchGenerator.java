@@ -22,7 +22,7 @@ import org.emftext.runtime.resource.IResolveResult;
  * the generated class delegates the resolve call to the appropriate
  * reference resolver.
  */
-public class TreeAnalyserGenerator extends BaseGenerator {
+public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	
 	private Map<GenFeature, String> proxyReferences;
 	private GenerationContext context;
@@ -35,8 +35,8 @@ public class TreeAnalyserGenerator extends BaseGenerator {
 	 * @param proxyReferences - a Map which contains all GenFeatures which where referenced and 
 	 * a mapping to the corresponding resolver class which was generated.
 	 */
-	public TreeAnalyserGenerator(GenerationContext context, Map<GenFeature, String> proxyReferences) {
-		super(context.getPackageName(), context.getTreeAnalyserClassName());
+	public ReferenceResolverSwitchGenerator(GenerationContext context, Map<GenFeature, String> proxyReferences) {
+		super(context.getPackageName(), context.getReferenceResolverSwitchClassName());
 		this.context = context;
 		this.proxyReferences = proxyReferences;
 	}
