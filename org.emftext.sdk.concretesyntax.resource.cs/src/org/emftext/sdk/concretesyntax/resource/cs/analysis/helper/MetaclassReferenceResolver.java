@@ -1,6 +1,9 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis.helper;
 
+import java.util.Iterator;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
@@ -11,7 +14,8 @@ import org.emftext.sdk.concretesyntax.Rule;
 public class MetaclassReferenceResolver {
 
 	private interface MetaClassFilter {
-		public String accept(Import importObject, GenClass genClass);
+		public String accept(String importPrefix, GenClass genClass);
+		public boolean isFuzzy();
 	}
 
 	private static final String DOT = ".";
@@ -45,7 +49,7 @@ public class MetaclassReferenceResolver {
 
 	public void doResolve(String identifier, EObject container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
-
+		
 		if (resolveFuzzy) {
 			doResolveFuzzy(getConcreteSyntax(container), identifier, result);
 		} else {
@@ -56,11 +60,11 @@ public class MetaclassReferenceResolver {
 	public void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IResolveResult result) {
 		doResolveMetaclass(syntax, new MetaClassFilter() {
 
-			public String accept(Import importObject, GenClass genClass) {
+			public String accept(String importPrefix, GenClass genClass) {
 				String genClassName = genClass.getName();
 				String name;
-				if (importObject != null) {
-					name = importObject.getPrefix() + DOT;
+				if (importPrefix != null) {
+					name = importPrefix + DOT;
 					name += genClassName;
 				} else {
 					name = genClassName;
@@ -70,30 +74,51 @@ public class MetaclassReferenceResolver {
 				}
 				return null;
 			}
+			
+			public boolean isFuzzy(){
+				return true;
+			}
 		}, identifier, result);
 	}
 
 	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IResolveResult result) {
 		
-		for (Import aImport : syntax.getImports()) {
-			for(GenClass genClass : aImport.getPackage().getGenClasses()) {
-				if(genClass.getEcoreClass().isAbstract()||genClass.getEcoreClass().isInterface())
-					continue;
-				String identifier = filter.accept(aImport, genClass);
+		GenPackage pck = syntax.getPackage();
+		String prefix = null;
+		Iterator<Import> imports= syntax.getImports().iterator();
+		do{
+			for(GenClass genClass : pck.getGenClasses()) {
+				String identifier = filter.accept(prefix, genClass);
 				if (identifier != null) {
-					result.addMapping(identifier, genClass);
+					if(genClass.getEcoreClass().isAbstract()||genClass.getEcoreClass().isInterface()){
+						if(filter.isFuzzy())
+							continue;
+						else{
+							result.setErrorMessage("EClass \"" + ident + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+".");
+						}
+					}	
+					else{
+						result.addMapping(identifier, genClass);
+					}
+					if(!filter.isFuzzy())
+						break;
 				}
-			}				
-		}
-		for(GenClass genClass : syntax.getPackage().getGenClasses()) {
-			if(genClass.getEcoreClass().isAbstract()||genClass.getEcoreClass().isInterface())
-				continue;
-			String identifier = filter.accept(null, genClass);
-			if (identifier != null) {
-				result.addMapping(identifier, genClass);
+			}	
+			if(imports.hasNext()){
+				Import imp = imports.next();
+				pck = imp.getPackage();
+				prefix = imp.getPrefix();
 			}
+			else{
+				pck=null;
+				prefix=null;
+			}
+
 		}
-		result.setErrorMessage("EClass \"" + ident + "\" does not exist");
+		while(pck!=null);
+		
+		if(result.getErrorMessage()==null&&(result.getMappings()==null||result.getMappings().isEmpty()))
+			result.setErrorMessage("EClass \"" + ident + "\" does not exist");
 	}
 
 
@@ -103,10 +128,10 @@ public class MetaclassReferenceResolver {
 		final String[] packageAndClass = splitIdentifier(identifier);
 		doResolveMetaclass(container, new MetaClassFilter() {
 
-			public String accept(Import importObject, GenClass genClass) {
+			public String accept(String prefix, GenClass genClass) {
 				String genClassName = genClass.getName();
-				if (importObject != null) {
-					if (importObject.getPrefix().equals(packageAndClass[0])) {
+				if (prefix != null) {
+					if (prefix.equals(packageAndClass[0])) {
 						if (genClassName.equals(packageAndClass[1])) {
 							return genClassName;
 						}
@@ -117,6 +142,10 @@ public class MetaclassReferenceResolver {
 					}
 				}
 				return null;
+			}
+			
+			public boolean isFuzzy(){
+				return false;
 			}
 		}, identifier, result);
 	}
