@@ -11,6 +11,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Rule;
 
+/**
+ * A resolver for EMF generator classes. The classes must be identified
+ * by string of the form 'packagePrefix.className'. 
+ */
 public class MetaclassReferenceResolver {
 
 	private interface MetaClassFilter {
