@@ -109,7 +109,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				internalURIFragmentMap.get(id);
 
 			boolean wasResolvedBefore = uriFragment.isResolved();
-			IResolveResult result = uriFragment.resolve(getTreeAnalyser());
+			IResolveResult result = uriFragment.resolve(getReferenceResolverSwitch());
 			
 			if (result == null) {
 				//the resolving did call itself

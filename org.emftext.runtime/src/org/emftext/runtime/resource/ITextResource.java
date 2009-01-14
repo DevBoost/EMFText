@@ -29,13 +29,13 @@ public interface ITextResource extends Resource {
 	public ILocationMap getLocationMap();
 	
 	/**
-	 * Returns the tree analyser used by this resource. The analyser
-	 * can be used to resolve references after the resource has been
-	 * loaded.
+	 * Returns the reference resolver switch used by this resource. 
+	 * The switch can be used to resolve references after the resource 
+	 * has been loaded.
 	 * 
-	 * @return the tree analyser
+	 * @return the resolver switch
 	 */
-	public IReferenceResolver getTreeAnalyser();
+	public IReferenceResolver getReferenceResolverSwitch();
 	
 	/**
 	 * Add an error that should be displayed at the position of the given element.

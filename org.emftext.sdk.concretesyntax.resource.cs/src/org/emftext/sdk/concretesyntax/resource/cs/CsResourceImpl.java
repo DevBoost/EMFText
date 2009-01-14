@@ -31,7 +31,7 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTe
 			root = null;
 		}
 
-		org.emftext.runtime.resource.IConfigurable analyser = getTreeAnalyser();
+		org.emftext.runtime.resource.IConfigurable analyser = getReferenceResolverSwitch();
 
 		analyser.setOptions(options);
 	}
@@ -51,7 +51,7 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTe
 		return new CsLexer();
 	}
 
-	public org.emftext.runtime.resource.IReferenceResolver getTreeAnalyser() {
+	public org.emftext.runtime.resource.IReferenceResolver getReferenceResolverSwitch() {
 		if (analyser == null) {
 			analyser = new CsTreeAnalyser();
 		}

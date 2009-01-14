@@ -63,7 +63,7 @@ public class EMFTextEditorCompletionProcessor implements
 		//TODO @mseifert: the prefix somehow has to go through the appropriate token resolver,
 	    // otherwise we have different kind of identifiers in the reference resolvers
 		
-		IReferenceResolver analyser = textResource.getTreeAnalyser();
+		IReferenceResolver analyser = textResource.getReferenceResolverSwitch();
 		IResolveResult resolved = new ResolveResult(true); 
 		analyser.resolve(prefix, containerAtChar, null, 0, true, resolved);
 		if (!resolved.wasResolvedMultiple()) {

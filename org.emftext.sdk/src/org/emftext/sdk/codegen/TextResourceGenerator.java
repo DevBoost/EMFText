@@ -22,14 +22,16 @@ import org.emftext.runtime.resource.impl.AbstractTextResource;
  */
 public class TextResourceGenerator extends BaseGenerator {
 
+	private static final String RESOLVER_SWITCH_FIELD_NAME = "resolverSwitch";
+	
 	private String csClassName;
-	private String analyserClassName;
+	private String resolverSwitchClassName;
 	private String printerClassName;
 	
 	public TextResourceGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getResourceClassName());
 		this.csClassName = context.getCapitalizedConcreteSyntaxName();
-		this.analyserClassName = context.getReferenceResolverSwitchClassName();
+		this.resolverSwitchClassName = context.getReferenceResolverSwitchClassName();
 		this.printerClassName = context.getPrinterName();
 	}
 
@@ -40,7 +42,7 @@ public class TextResourceGenerator extends BaseGenerator {
         
 		out.println("public class " + getResourceClassName() + " extends " + AbstractTextResource.class.getName() + " {");
 
-		out.println("\tprivate " + IReferenceResolver.class.getName() + " analyser;\n\n");
+		out.println("\tprivate " + IReferenceResolver.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";\n\n");
 		
 		generateConstructors(out);
         genereteDoLoadMethod(out);
@@ -57,16 +59,16 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void generateDoUnLoadMethod(PrintWriter out) {
 		out.println("\tpublic void doUnload(){");
     	out.println("\t\tsuper.doUnload();");
-    	out.println("\t\tanalyser=null;");
+    	out.println("\t\t" + RESOLVER_SWITCH_FIELD_NAME + " = null;");
     	out.println("\t}");
 	}
 
 	private void generateGetTreeAnalyserMethod(PrintWriter out) {
-		out.println("\tpublic " + IReferenceResolver.class.getName() + " getTreeAnalyser() {");
-        out.println("\t\tif (analyser == null) {");
-        out.println("\t\t\tanalyser = new " + analyserClassName + "();");
+		out.println("\tpublic " + IReferenceResolver.class.getName() + " getReferenceResolverSwitch() {");
+        out.println("\t\tif (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
+        out.println("\t\t\t" + RESOLVER_SWITCH_FIELD_NAME + " = new " + resolverSwitchClassName + "();");
         out.println("\t\t}");
-        out.println("\t\treturn analyser;");
+        out.println("\t\treturn " + RESOLVER_SWITCH_FIELD_NAME + ";");
         out.println("\t}");
         out.println();
 	}
@@ -125,8 +127,8 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t\t\tgetContents().add(root);");
         out.println("\t\t\troot = null;");
         out.println("\t\t}\n");
-        out.println("\t\t" + IConfigurable.class.getName() + " analyser = getTreeAnalyser();\n");
-        out.println("\t\tanalyser.setOptions(loadOptions);");
+        out.println("\t\t" + IConfigurable.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + " = getReferenceResolverSwitch();\n");
+        out.println("\t\t" + RESOLVER_SWITCH_FIELD_NAME + ".setOptions(loadOptions);");
         out.println("\t}");
         out.println();
 	}
