@@ -24,7 +24,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * 
  * @see org.emftext.sdk.codegen.ResourcePluginGenerator
  * 
- * @author skarol
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class GenerationContext {
 	

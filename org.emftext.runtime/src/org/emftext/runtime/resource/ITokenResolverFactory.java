@@ -5,7 +5,7 @@ package org.emftext.runtime.resource;
  * They may be implemented like a registry.
  * 
  * 
- * @author skarol
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  *
  */
 

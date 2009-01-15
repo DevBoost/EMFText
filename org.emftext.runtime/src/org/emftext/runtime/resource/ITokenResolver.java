@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @see org.emftext.sdk.codegen.TokenResolverGenerator
  * 
  * 
- * @author skarol
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  *
  */
 public interface ITokenResolver extends IConfigurable {

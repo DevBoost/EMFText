@@ -13,7 +13,7 @@ import org.emftext.runtime.resource.ITokenResolver;
 /**
  * A base implementation for token resolvers. It tries to resolve lexems by java methods.
  * 
- * @author skarol
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)Sven Karol (Sven.Karol@tu-dresden.de)
  *
  */
 

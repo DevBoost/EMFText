@@ -19,7 +19,7 @@ import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
  * 
  * @see org.emftext.runtime.resource.impl.JavaBasedTokenResolver
  * 
- * @author skarol
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class TokenResolverGenerator extends BaseGenerator {
 	

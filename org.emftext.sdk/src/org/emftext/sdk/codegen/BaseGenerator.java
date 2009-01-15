@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * A basic implementation for generators which generate Java or ANTLR code. 
  * 
- * @author skarol
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	

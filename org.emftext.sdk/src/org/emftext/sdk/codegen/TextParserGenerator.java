@@ -75,7 +75,7 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  * not checked by this generator) it can be used to generate a text parser 
  * which allows to create metamodel instances from plain text files.
  * 
- * @author skarol
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class TextParserGenerator extends BaseGenerator {
 	
@@ -94,7 +94,7 @@ public class TextParserGenerator extends BaseGenerator {
 	 * These class/interface definitions bring automatically derived TokenDefinitions 
 	 * and user-defined TokenDefinitions together. 
 	 * 
-	 * @author skarol
+	 * @author Sven Karol (Sven.Karol@tu-dresden.de)
 	 */
 	public static interface InternalTokenDefinition{
 		public String getName();
