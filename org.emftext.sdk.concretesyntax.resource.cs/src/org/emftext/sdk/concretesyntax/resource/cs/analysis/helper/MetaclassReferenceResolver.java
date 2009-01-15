@@ -1,9 +1,11 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis.helper;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
@@ -68,8 +70,7 @@ public class MetaclassReferenceResolver {
 				String genClassName = genClass.getName();
 				String name;
 				if (importPrefix != null) {
-					name = importPrefix + DOT;
-					name += genClassName;
+					name = importPrefix + genClassName;
 				} else {
 					name = genClassName;
 				}
@@ -87,63 +88,75 @@ public class MetaclassReferenceResolver {
 
 	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IResolveResult result) {
 		
-		GenPackage pck = syntax.getPackage();
-		String prefix = null;
-		Iterator<Import> imports= syntax.getImports().iterator();
-		do{
-			for(GenClass genClass : pck.getGenClasses()) {
-				String identifier = filter.accept(prefix, genClass);
-				if (identifier != null) {
-					if(genClass.getEcoreClass().isAbstract()||genClass.getEcoreClass().isInterface()){
-						if(filter.isFuzzy())
-							continue;
-						else{
-							result.setErrorMessage("EClass \"" + ident + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+".");
-						}
-					}	
-					else{
-						result.addMapping(identifier, genClass);
-					}
-					if(!filter.isFuzzy())
-						break;
-				}
-			}	
-			if(imports.hasNext()){
-				Import imp = imports.next();
-				pck = imp.getPackage();
-				prefix = imp.getPrefix();
-			}
-			else{
-				pck=null;
-				prefix=null;
-			}
-
-		}
-		while(pck!=null);
+		List<Pair<String, GenClass>> prefixedGenClasses = findAllGenClasses(null, syntax);
 		
-		if(result.getErrorMessage()==null&&(result.getMappings()==null||result.getMappings().isEmpty()))
+		for (Pair<String, GenClass> prefixedGenClass : prefixedGenClasses) {
+			String prefix = prefixedGenClass.getLeft();
+			GenClass genClass = prefixedGenClass.getRight();
+			String identifier = filter.accept(prefix, genClass);
+			if (identifier != null) {
+				if (isInterfaceOrAbstract(genClass)){
+					if (filter.isFuzzy()) {
+						continue;
+					} else {
+						result.setErrorMessage("EClass \"" + ident + "\" does exist, but is "+(genClass.getEcoreClass().isInterface()?"interface":"abstract")+".");
+					}
+				}	
+				else{
+					result.addMapping(identifier, genClass);
+				}
+				if (!filter.isFuzzy()) {
+					break;
+				}
+			}
+		}
+		
+		if (result.getErrorMessage() == null && (result.getMappings() == null || result.getMappings().isEmpty())) {
 			result.setErrorMessage("EClass \"" + ident + "\" does not exist");
+		}
 	}
 
+	private boolean isInterfaceOrAbstract(GenClass genClass) {
+		return genClass.getEcoreClass().isAbstract() || genClass.getEcoreClass().isInterface();
+	}
+
+
+	private List<Pair<String, GenClass>> findAllGenClasses(String prefix, ConcreteSyntax syntax) {
+		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
+		if (syntax == null) {
+			return foundClasses;
+		}
+		
+		GenPackage genPackage = syntax.getPackage();
+		foundClasses.addAll(findGenClasses(prefix, genPackage));
+		
+		for (Import nextImport : syntax.getImports()) {
+			foundClasses.addAll(findGenClasses((prefix == null ? "" : prefix + DOT) + nextImport.getPrefix(), nextImport.getPackage()));
+		}
+		return foundClasses;
+	}
+
+	private List<Pair<String, GenClass>> findGenClasses(String prefix, GenPackage genPackage) {
+		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
+		final EList<GenClass> genClasses = genPackage.getGenClasses();
+		for (GenClass genClass : genClasses) {
+			foundClasses.add(new Pair<String, GenClass>(prefix == null ? "" : prefix + DOT, genClass));
+		}
+		for (GenPackage subPackage : genPackage.getSubGenPackages()) {
+			foundClasses.addAll(findGenClasses((prefix == null ? "" : prefix + DOT) + subPackage.getPrefix(), subPackage));
+		}
+		return foundClasses;
+	}
 
 	private void doResolveStrict(ConcreteSyntax container,
 			final String identifier, IResolveResult result) {
 		
-		final String[] packageAndClass = splitIdentifier(identifier);
 		doResolveMetaclass(container, new MetaClassFilter() {
 
 			public String accept(String prefix, GenClass genClass) {
 				String genClassName = genClass.getName();
-				if (prefix != null) {
-					if (prefix.equals(packageAndClass[0])) {
-						if (genClassName.equals(packageAndClass[1])) {
-							return genClassName;
-						}
-					}
-				} else {
-					if (genClassName.equals(packageAndClass[1])) {
-						return genClassName;
-					}
+				if (identifier.equals((prefix == null ? "" : prefix) + genClassName)) {
+					return identifier;
 				}
 				return null;
 			}
@@ -152,23 +165,5 @@ public class MetaclassReferenceResolver {
 				return false;
 			}
 		}, identifier, result);
-	}
-
-	private String[] splitIdentifier(String identifier) {
-		final String packageName;
-		final String className;
-		if (identifier.contains(DOT)) {
-			final String[] split = identifier.split("\\" + DOT);
-			packageName = split[0];
-			if (split.length > 1) {
-				className = split[1];
-			} else {
-				className = "";
-			}
-		} else {
-			packageName = null;
-			className = identifier;
-		}
-		return new String[] {packageName, className};
 	}
 }
