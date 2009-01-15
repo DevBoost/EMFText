@@ -25,7 +25,7 @@ public interface ITokenResolver extends IConfigurable {
 	 * @param resource the text resource, which can be used to add processing errors
 	 * @return the converted lexem or null if a problem occurred
 	 */
-	// TODO mseifert: try to change this method to the way it is defined in ReferenceResolver
+	// TODO mseifert: try to change this method to the way it is defined in IReferenceResolver
 	public Object resolve(String lexem, EStructuralFeature feature, EObject container, ITextResource resource);
 	
 	/**
