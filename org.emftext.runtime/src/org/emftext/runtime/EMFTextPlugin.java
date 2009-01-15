@@ -13,9 +13,9 @@ import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the plug-in life cycle
+ * The activator class controls the EMFText runtime plug-in life cycle
  * 
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public class EMFTextPlugin extends Plugin {
 	
@@ -31,19 +31,11 @@ public class EMFTextPlugin extends Plugin {
 	public EMFTextPlugin() {
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
-	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
-	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);

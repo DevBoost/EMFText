@@ -4,10 +4,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * A proxy resolver tries to resolve a proxy by replacing it with another non-proxy object
- * in the same tree.
+ * A reference resolver tries to resolve a reference to one or many model elements (EObjects).
+ * It is called by the proxy resolution mechanism.
  *
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  *
  * TODO mseifert (future): this class should have a type parameter for the resolved types
  */

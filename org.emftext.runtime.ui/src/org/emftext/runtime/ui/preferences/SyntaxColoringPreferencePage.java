@@ -43,20 +43,12 @@ import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
- * This class represents a preference page that
- * is contributed to the Preferences dialog. By 
- * subclassing <samp>FieldEditorPreferencePage</samp>, we
- * can use the field support built into JFace that allows
- * us to create a page that is small and knows how to 
- * save, restore and apply itself.
+ * Preference page for configuring syntax coloring.
  * <p>
- * This page is used to modify preferences only. They
- * are stored in the preference store that belongs to
- * the main plug-in class. That way, preferences can
- * be accessed directly via the preference store.
+ * <i>Parts of the code were taken from the JDT Java Editor</i>
  * 
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
-
 public class SyntaxColoringPreferencePage
 	extends PreferencePage
 	implements IWorkbenchPreferencePage {

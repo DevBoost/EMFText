@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * Converts a tree of <code>EObject</code>s into a plain text.
  * 
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public interface ITextPrinter extends IConfigurable {
 

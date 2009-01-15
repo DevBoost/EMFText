@@ -9,7 +9,7 @@ import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
  * of each element of its content in a text file. This can be used to give
  * more detailed error feedback.
  * 
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  *
  */
 public interface ITextResource extends Resource {

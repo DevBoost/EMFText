@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
  * occur when the generated grammar file is processed by the ANTLR Tool, are reported. However,
  * since the file is generated, such errors should not occur.
  * 
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public class TextResourceGeneratorANTLRErrorListener implements ANTLRErrorListener {
 

@@ -14,7 +14,7 @@ import org.emftext.sdk.ui.jobs.GenerateResourcePluginJob;
  * An action that generates a complete resource plug-in from
  * a CS specification and a meta model.
  * 
- * @author jj2
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public class GenerateResourcePluginAction implements IObjectActionDelegate {
 

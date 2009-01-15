@@ -44,8 +44,6 @@ import org.emftext.sdk.concretesyntax.Terminal;
 /**
  * An action that generates a HUTN based concrete syntax for the given generator
  * model.
- * 
- * @author jj2
  */
 public class GenerateHUTNAction implements IObjectActionDelegate {
     

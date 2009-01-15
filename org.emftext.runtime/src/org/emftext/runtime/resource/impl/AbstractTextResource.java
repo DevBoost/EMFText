@@ -39,7 +39,7 @@ import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
  * Base implementation for all generated text resources. 
  * It implements the specifications from {@link ITextResource}.
  * 
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public abstract class AbstractTextResource extends ResourceImpl implements ITextResource {
 	

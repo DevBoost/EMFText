@@ -19,10 +19,10 @@ import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
- * Base implementation for all generated proxy resolvers. 
+ * Base implementation for all generated reference resolvers. 
  * It implements the specifications from {@link IReferenceResolver}.
  * 
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public abstract class AbstractReferenceResolver implements IReferenceResolver {
 

@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EObject;
  * A text parser parses a text into a tree of <code>EObject</code>s.
  * It is associated with a <code>TextResource</code>.
  * 
- * @author Jendrik Johannes (jj2)
+ * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  *
  */
 public interface ITextParser extends IConfigurable {
