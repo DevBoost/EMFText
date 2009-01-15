@@ -1,10 +1,12 @@
-/**
- * 
- */
 package org.emftext.sdk.codegen;
 
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * Eclipse independent Error/Problem representation for EMFText generators.
+ * 
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)  
+ */
 public class GenerationProblem {
 	
 	public static enum Severity {WARNING, ERROR}

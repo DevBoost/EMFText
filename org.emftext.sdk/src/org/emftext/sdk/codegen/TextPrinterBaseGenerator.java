@@ -47,6 +47,8 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
  * A generator that creates the base class for the printer.
+ * 
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class TextPrinterBaseGenerator extends BaseGenerator {
 

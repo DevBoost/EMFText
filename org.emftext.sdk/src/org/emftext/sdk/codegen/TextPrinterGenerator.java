@@ -8,6 +8,8 @@ import org.emftext.runtime.resource.ITextResource;
 /**
  * A generator that create a printer class. This class can be
  * subject to modifications.
+ * 
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class TextPrinterGenerator extends BaseGenerator {
 	
