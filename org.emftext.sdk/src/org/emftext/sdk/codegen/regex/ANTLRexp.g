@@ -27,7 +27,7 @@
 */
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
-Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/
+Needs to be further tested since antlr uses the same sublanguage for ebnf and regex!*/
 
 
 grammar ANTLRexp;
