@@ -15,7 +15,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 
 /**
  * A resolver for EMF generator classes. The classes must be identified
- * by string of the form 'packagePrefix.className'. 
+ * by string of the form 'package.SubPackage.ClassName'. 
  */
 public class MetaclassReferenceResolver {
 
@@ -87,15 +87,15 @@ public class MetaclassReferenceResolver {
 	}
 
 	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IResolveResult result) {
-		
+		// first collect all generator classes
 		List<Pair<String, GenClass>> prefixedGenClasses = findAllGenClasses(null, syntax);
-		
+		// then check which are accepted by the filter
 		for (Pair<String, GenClass> prefixedGenClass : prefixedGenClasses) {
 			String prefix = prefixedGenClass.getLeft();
 			GenClass genClass = prefixedGenClass.getRight();
 			String identifier = filter.accept(prefix, genClass);
 			if (identifier != null) {
-				if (isInterfaceOrAbstract(genClass)){
+				if (isInterfaceOrAbstract(genClass)) {
 					if (filter.isFuzzy()) {
 						continue;
 					} else {
@@ -128,22 +128,22 @@ public class MetaclassReferenceResolver {
 		}
 		
 		GenPackage genPackage = syntax.getPackage();
-		foundClasses.addAll(findGenClasses(prefix, genPackage));
+		foundClasses.addAll(findAllGenClasses(prefix, genPackage));
 		
 		for (Import nextImport : syntax.getImports()) {
-			foundClasses.addAll(findGenClasses((prefix == null ? "" : prefix + DOT) + nextImport.getPrefix(), nextImport.getPackage()));
+			foundClasses.addAll(findAllGenClasses((prefix == null ? "" : prefix + DOT) + nextImport.getPrefix(), nextImport.getPackage()));
 		}
 		return foundClasses;
 	}
 
-	private List<Pair<String, GenClass>> findGenClasses(String prefix, GenPackage genPackage) {
+	private List<Pair<String, GenClass>> findAllGenClasses(String prefix, GenPackage genPackage) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
 		final EList<GenClass> genClasses = genPackage.getGenClasses();
 		for (GenClass genClass : genClasses) {
 			foundClasses.add(new Pair<String, GenClass>(prefix == null ? "" : prefix + DOT, genClass));
 		}
 		for (GenPackage subPackage : genPackage.getSubGenPackages()) {
-			foundClasses.addAll(findGenClasses((prefix == null ? "" : prefix + DOT) + subPackage.getPrefix(), subPackage));
+			foundClasses.addAll(findAllGenClasses((prefix == null ? "" : prefix + DOT) + subPackage.getPrefix(), subPackage));
 		}
 		return foundClasses;
 	}
