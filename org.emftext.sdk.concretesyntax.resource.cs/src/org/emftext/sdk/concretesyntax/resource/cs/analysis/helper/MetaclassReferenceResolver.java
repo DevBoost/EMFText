@@ -126,24 +126,29 @@ public class MetaclassReferenceResolver {
 		if (syntax == null) {
 			return foundClasses;
 		}
-		
+		// first add all generator classes contained in the generator package
+		// that is referenced by the concrete syntax
 		GenPackage genPackage = syntax.getPackage();
 		foundClasses.addAll(findAllGenClasses(prefix, genPackage));
-		
+		// the add the imported generator classes
 		for (Import nextImport : syntax.getImports()) {
-			foundClasses.addAll(findAllGenClasses((prefix == null ? "" : prefix + DOT) + nextImport.getPrefix(), nextImport.getPackage()));
+			final List<Pair<String, GenClass>> classesInImportedPackage = findAllGenClasses((prefix == null ? "" : prefix + DOT) + nextImport.getPrefix(), nextImport.getPackage());
+			foundClasses.addAll(classesInImportedPackage);
 		}
 		return foundClasses;
 	}
 
 	private List<Pair<String, GenClass>> findAllGenClasses(String prefix, GenPackage genPackage) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
+		// first add all generator classes in the package itself
 		final EList<GenClass> genClasses = genPackage.getGenClasses();
 		for (GenClass genClass : genClasses) {
 			foundClasses.add(new Pair<String, GenClass>(prefix == null ? "" : prefix + DOT, genClass));
 		}
+		// then add all generator classes contained in sub packages
 		for (GenPackage subPackage : genPackage.getSubGenPackages()) {
-			foundClasses.addAll(findAllGenClasses((prefix == null ? "" : prefix + DOT) + subPackage.getPrefix(), subPackage));
+			final List<Pair<String, GenClass>> classesInSubPackage = findAllGenClasses((prefix == null ? "" : prefix + DOT) + subPackage.getPrefix(), subPackage);
+			foundClasses.addAll(classesInSubPackage);
 		}
 		return foundClasses;
 	}
