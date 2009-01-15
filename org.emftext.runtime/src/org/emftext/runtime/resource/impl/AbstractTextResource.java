@@ -212,7 +212,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	 * Extends the super implementation by clearing all information about element
 	 * positions.
 	 */
-	public void doUnload() {
+	protected void doUnload() {
 		super.doUnload();
 		
 		//clear concrete syntax information

@@ -57,7 +57,7 @@ public class TextResourceGenerator extends BaseGenerator {
     }
 
 	private void generateDoUnLoadMethod(PrintWriter out) {
-		out.println("\tpublic void doUnload(){");
+		out.println("\tprotected void doUnload(){");
     	out.println("\t\tsuper.doUnload();");
     	out.println("\t\t" + RESOLVER_SWITCH_FIELD_NAME + " = null;");
     	out.println("\t}");
