@@ -77,8 +77,9 @@ public class MetamodelManager {
 		return null;
 	}
 
-	public ConcreteSyntax findConcreteSyntax(String cs, GenPackage genPackage, ITextResource resource) {
+	public ConcreteSyntax findConcreteSyntax(String cs, GenPackage genPackage, final ITextResource textResource) {
 		if (cs == null || genPackage == null) return null;
+		System.out.println("MetamodelManager.findConcreteSyntax(" + cs + ")");
 		
 		String csURI = genPackage.getNSURI() + "%%" + cs;
 		
@@ -86,12 +87,18 @@ public class MetamodelManager {
 		final Map<String,ConcreteSyntax> concreteSyntaxes = new HashMap<String, ConcreteSyntax>();
 		
         //search the current project for cs definitions
-		IProject thisProject = ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true)).getProject();        
+		final IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(textResource.getURI().toPlatformString(true));
+		IProject thisProject = workspaceResource.getProject();        
 		try {
 			thisProject.accept(new IResourceVisitor() {
 				//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
 				public boolean visit(IResource resource) throws CoreException {
-					if(resource instanceof IFile) {
+					// check whether we are visiting the textResource that triggered this request for
+					// a concrete syntax. if so, stop visiting to avoid cycles
+					if (resource.equals(workspaceResource)) {
+						return true;
+					}
+					if (resource instanceof IFile) {
 						IFile file = (IFile) resource;
 						if ("cs".equals(file.getFileExtension())) {
 			            	URI csLocation = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
