@@ -60,7 +60,7 @@ public class EMFTextOutlinePage extends Page implements ISelectionProvider,
 		AdapterFactoryContentProvider contentProvider = new AdapterFactoryContentProvider(
 				adapterFactory);
 
-		treeViewer.setAutoExpandLevel(TreeViewer.ALL_LEVELS);
+		treeViewer.setAutoExpandLevel(3);
 		treeViewer.setContentProvider(contentProvider);
 		treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(
 				adapterFactory));
