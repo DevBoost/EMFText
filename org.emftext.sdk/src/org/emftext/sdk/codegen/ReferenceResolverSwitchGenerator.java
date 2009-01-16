@@ -10,6 +10,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -88,17 +89,18 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	}
 
 	private void generateResolveFuzzyMethod2(StringBuffer s) {
-		s.append("\tprotected void resolveFuzzy(" + Class.class.getName() + "<?> clazz, " + String.class.getName() + " identifier, " + EObject.class.getName() + " container, int position, \n");
+		s.append("\tprotected void resolveFuzzy(" + EClass.class.getName() + " eClass, " + String.class.getName() + " identifier, " + EObject.class.getName() + " container, int position, \n");
 		s.append("\t\t\tint featureID, \n");
 		s.append("\t\t\t" + IReferenceResolver.class.getName() + " resolver, " + IResolveResult.class.getName() + " result\n");
 		s.append("\t\t\t) {\n");
 		s.append("\n");
-		s.append("\t\t//if (clazz.isInstance(container)) {\n"); //TODO @mseifert this should be activated and use the reflective API (EClass)
+		s.append("\t\tif (eClass.isInstance(container)) {\n");
 		s.append("\t\t\t" + EStructuralFeature.class.getName() + " feature = container.eClass().getEStructuralFeature(featureID);\n");
 		s.append("\t\t\tif (!(feature instanceof " + EReference.class.getName() + ")) {\n");
 		s.append("\t\t\t\treturn;\n");
 		s.append("\t\t\t}\n");
 		s.append("\t\t\tresolver.resolve(identifier, container, (" + EReference.class.getName() + ") feature, position, true, result);\n");
+		s.append("\t\t}\n");
 		s.append("\t}\n");
 		s.append("\n");
 	}
@@ -106,11 +108,12 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private void generateResolveFuzzyMethod1(StringBuffer s) {
 		s.append("\tpublic void resolveFuzzy(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, int position, " + IResolveResult.class.getName() + " result) {\n\n");
 		for(GenFeature proxyReference : proxyReferences.keySet()) {
-			String genClassName = proxyReference.getGenClass().getName();
+			GenClass genClass = proxyReference.getGenClass();
+			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
 			String generatedClassName = proxyReferences.get(proxyReference);
 			// TODO we should use the featureID constant instead of the integer value
-			int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
-			s.append("\t\tresolveFuzzy(" + genClassName + ".class, identifier, container, position, " + featureID + ", " + low(generatedClassName) + ", result);\n");
+			int featureID = genClass.getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
+			s.append("\t\tresolveFuzzy(" + accessorName + ", identifier, container, position, " + featureID + ", " + low(generatedClassName) + ", result);\n");
 		}
 		s.append("\t}\n\n");
 	}
@@ -133,7 +136,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
 			s.append("\t\tif (container instanceof " + genClassName + " && reference.getFeatureID() == " + featureID + ") {\n");		
 			s.append("\t\t\treturn " + low(generatedClassName)+".deResolve(refObject,container,reference);\n");			
-			s.append("\t\t}\n");			
+			s.append("\t\t}\n");
 		}
 		s.append("\t\treturn null;\n");
 		s.append("\t}\n\n");
