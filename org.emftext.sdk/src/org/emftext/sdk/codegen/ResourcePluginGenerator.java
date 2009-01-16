@@ -185,7 +185,7 @@ public class ResourcePluginGenerator {
 			SubMonitor progress, ITextResource csResource,
 			IFile treeAnalyserFile, String treeAnalyserName,
 			Map<GenFeature, String> proxy2Name) throws CoreException {
-		progress.setTaskName("generating tree analyser...");
+		progress.setTaskName("generating reference resolver switch...");
 
 		boolean generateTreeAnalyser = !treeAnalyserFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
 		if (generateTreeAnalyser) {
