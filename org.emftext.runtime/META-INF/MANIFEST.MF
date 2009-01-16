@@ -9,7 +9,6 @@ Export-Package: org.emftext.runtime,
  org.emftext.runtime.resource,
  org.emftext.runtime.resource.impl
 Require-Bundle: org.junit4,
- org.eclipse.ocl.ecore,
  org.eclipse.emf.workspace,
  org.eclipse.emf.codegen.ecore,
  org.emftext.runtime.antlr;visibility:=reexport

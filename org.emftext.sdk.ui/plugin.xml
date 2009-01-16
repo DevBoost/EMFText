@@ -37,7 +37,8 @@
          point="org.emftext.runtime.default_load_options">
       <provider
             class="org.emftext.sdk.ui.SDKOptionProvider"
-            id="org.emftext.sdk.ui.default_option_provider">
+            id="org.emftext.sdk.ui.default_option_provider"
+            csName="cs">
       </provider>
    </extension>
 </plugin>

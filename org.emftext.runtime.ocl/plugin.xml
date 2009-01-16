@@ -4,9 +4,10 @@
    <extension
          point="org.emftext.runtime.default_load_options">
       <provider
-            class="org.emftext.sdk.SDKOptionProvider"
-            id="org.emftext.sdk.default_option_provider"
-            csName="cs">
+            class="org.emftext.runtime.ocl.OptionProvider"
+            csName="*"
+            id="org.emftext.runtime.ocl.OptionProvider">
       </provider>
    </extension>
+
 </plugin>

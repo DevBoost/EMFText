@@ -27,9 +27,11 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String csClassName;
 	private String resolverSwitchClassName;
 	private String printerClassName;
+	private String csSyntaxName;
 	
 	public TextResourceGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getResourceClassName());
+		this.csSyntaxName = context.getConcreteSyntax().getName();
 		this.csClassName = context.getCapitalizedConcreteSyntaxName();
 		this.resolverSwitchClassName = context.getReferenceResolverSwitchClassName();
 		this.printerClassName = context.getPrinterName();
@@ -48,6 +50,7 @@ public class TextResourceGenerator extends BaseGenerator {
         genereteDoLoadMethod(out);
         generateDoSaveMethod(out);
         generateGetTokenNamesMethod(out);
+        generateGetSyntaxNameMethod(out);
         generateGetScannerMethod(out);
         generateGetTreeAnalyserMethod(out);
     	generateDoUnLoadMethod(out);
@@ -55,6 +58,14 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("}");
     	return true;
     }
+
+	private void generateGetSyntaxNameMethod(PrintWriter out) {
+		out.println("\t@Override");
+		out.println("\tprotected String getSyntaxName() {");
+		out.println("\t\treturn \"" + csSyntaxName + "\";");
+		out.println("\t}");
+		out.println();
+	}
 
 	private void generateDoUnLoadMethod(PrintWriter out) {
 		out.println("\tprotected void doUnload(){");

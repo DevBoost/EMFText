@@ -74,4 +74,6 @@ public interface ITextResource extends Resource {
 	 * @return A scanner.
 	 */
 	public Object getScanner();
+	
+	public boolean validateOCLConstraints();
 }

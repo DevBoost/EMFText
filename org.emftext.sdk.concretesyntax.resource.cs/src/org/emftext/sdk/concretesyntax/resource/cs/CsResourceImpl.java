@@ -61,4 +61,9 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTe
 		super.doUnload();
 		resolverSwitch = null;
 	}
+
+	@Override
+	protected String getSyntaxName() {
+		return "cs";
+	}
 }

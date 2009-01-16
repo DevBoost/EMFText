@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -25,7 +23,8 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.IOptionProvider;
-import org.emftext.runtime.resource.ITextOCLValidator;
+import org.emftext.runtime.IResourcePostProcessor;
+import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.IReferenceMapping;
@@ -42,6 +41,10 @@ import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public abstract class AbstractTextResource extends ResourceImpl implements ITextResource {
+	
+	private static final String ARBITRARY_SYNTAX_NAME = "*";
+
+	private boolean validateOCLConstraints = false;
 	
 	private ILocationMap locationMap = new LocationMap();
 	
@@ -220,36 +223,34 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	}
 	
 
+	
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
 		boolean wasLoaded = !isLoaded;
 		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 		super.load(loadOptions);
 
+		if (loadOptions != null && ! Boolean.TRUE.equals(loadOptions.get(AbstractTextResource.OPTION_NO_VALIDATE))) {
+			this.validateOCLConstraints = true;
+		}
+				
 		if (wasLoaded) {
 			convertContextDependentProxies();
 			Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 			if (resourcePostProcessorProvider != null) {
 				if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
 					((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
+				} else if (resourcePostProcessorProvider instanceof Collection) {
+					@SuppressWarnings("unchecked")
+					Collection<IResourcePostProcessorProvider> resourcePostProcessorProviderCollection = (Collection<IResourcePostProcessorProvider>) resourcePostProcessorProvider;
+					for (IResourcePostProcessorProvider processorProvider : resourcePostProcessorProviderCollection) {
+						IResourcePostProcessor postProcessor = processorProvider.getResourcePostProcessor();
+						postProcessor.process(this);
+					}
 				}
 			}
 			
-			if (loadOptions != null
-					&& Boolean.TRUE.equals(loadOptions
-							.get(AbstractTextResource.OPTION_NO_VALIDATE))) {
-			} else {
-				EList<EObject> contents = getContents();
-				ITextOCLValidator oclValidator = new ITextOCLValidator();
-				Set<EObject> distinctObjects = new HashSet<EObject>();
-				distinctObjects.addAll(contents);
-				for (EObject eobject : distinctObjects) {
-					// TODO check if this leads to performance problems
-					// - due to traversing some objects more than once
 		
-					oclValidator.analyse(eobject);
-				}
-			}
 		}
 	}
 
@@ -329,12 +330,19 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
 			for (IConfigurationElement element : configurationElements) {
 				try {
-					IOptionProvider provider = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
-					final Map<?, ?> options = provider.getOptions();
-					final Collection<?> keys = options.keySet();
-					for (Object key : keys) {
-						addLoadOption(loadOptionsCopy, key, options.get(key));
+					String csName = element.getAttribute(IOptionProvider.CS_NAME);
+					if (this.getSyntaxName().equals(csName) || ARBITRARY_SYNTAX_NAME.equals(csName)) {
+						IOptionProvider provider = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
+						final Map<?, ?> options = provider.getOptions();
+						final Collection<?> keys = options.keySet();
+						for (Object key : keys) {
+							addLoadOption(loadOptionsCopy, key, options.get(key));
+						}
+						
+					} else {
+						continue;
 					}
+					
 				} catch (CoreException ce) {
 					EMFTextPlugin.logError("Exception while getting default options.", ce);
 				}
@@ -342,6 +350,8 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 		return loadOptionsCopy;
 	}
+
+	protected abstract String getSyntaxName();
 
 	/**
 	 * Adds a new key,value pair to the list of options. If there
@@ -399,5 +409,9 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			castedCopy.add(it.next());
 		}
 		return castedCopy;
+	}
+
+	public boolean validateOCLConstraints() {
+		return validateOCLConstraints;
 	}
 }

@@ -1,4 +1,4 @@
-package org.emftext.runtime.resource;
+package org.emftext.runtime.ocl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,8 +22,12 @@ import org.eclipse.ocl.Query;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.ecore.OCLExpression;
 import org.eclipse.ocl.util.Tuple;
+import org.emftext.runtime.IResourcePostProcessor;
+import org.emftext.runtime.IResourcePostProcessorProvider;
+import org.emftext.runtime.resource.ITextResource;
 
-public class ITextOCLValidator {
+
+public class OCLModelValidator implements IResourcePostProcessor, IResourcePostProcessorProvider {
 
 	private static final AdapterFactory reflectiveAdapterFactory = new ReflectiveItemProviderAdapterFactory();
 
@@ -208,5 +212,21 @@ public class ITextOCLValidator {
 		}
 
 		return error.trim();
+	}
+
+	public void process(ITextResource resource) {
+		if (resource.validateOCLConstraints()) {
+			EList<EObject> contents = resource.getContents();
+		
+			Set<EObject> distinctObjects = new HashSet<EObject>();
+			distinctObjects.addAll(contents);
+			for (EObject eobject : distinctObjects) {
+				this.analyse(eobject);
+			}
+		}
+	}
+
+	public IResourcePostProcessor getResourcePostProcessor() {
+		return this;
 	}
 }
