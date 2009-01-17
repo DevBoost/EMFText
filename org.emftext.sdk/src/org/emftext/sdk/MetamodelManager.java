@@ -9,6 +9,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -83,15 +85,14 @@ public class MetamodelManager {
 		
 		String csURI = genPackage.getNSURI() + "%%" + cs;
 		
-		final ResourceSet rs = new ResourceSetImpl();
+		final ResourceSet resourceSet = new ResourceSetImpl();
 		final Map<String,ConcreteSyntax> concreteSyntaxes = new HashMap<String, ConcreteSyntax>();
 		
-        //search the current project for cs definitions
+        // search the workspace for CS definitions
 		final IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(textResource.getURI().toPlatformString(true));
-		IProject thisProject = workspaceResource.getProject();        
+		IWorkspaceRoot workspaceRoot = workspaceResource.getWorkspace().getRoot();
 		try {
-			thisProject.accept(new IResourceVisitor() {
-				//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
+			workspaceRoot.accept(new IResourceVisitor() {
 				public boolean visit(IResource resource) throws CoreException {
 					// check whether we are visiting the textResource that triggered this request for
 					// a concrete syntax. if so, stop visiting to avoid cycles
@@ -102,7 +103,7 @@ public class MetamodelManager {
 						IFile file = (IFile) resource;
 						if ("cs".equals(file.getFileExtension())) {
 			            	URI csLocation = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			            	Resource aCsResource = rs.getResource(csLocation, true);
+			            	Resource aCsResource = resourceSet.getResource(csLocation, true);
 			            	ConcreteSyntax csDef = (ConcreteSyntax) aCsResource.getContents().get(0);
 			            	concreteSyntaxes.put(csDef.getPackage().getNSURI() + "%%" + csDef.getName(), csDef);							
 						}
@@ -114,23 +115,26 @@ public class MetamodelManager {
 		} catch (CoreException e) {
 			EMFTextPlugin.logError("Exception while looking up concrete syntax.", e);
 		} 
+		//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
 
         if (concreteSyntaxes.containsKey(csURI)) {
         	return concreteSyntaxes.get(csURI);
         }
 		
-        //find all registered concrete syntax definitions
-		if (concreteSyntaxes.isEmpty()) {
-	        for(String candCsURI : EMFTextPlugin.getURIToConcreteSyntaxLocationMap().keySet()) {
-	        	URI csLocation = EMFTextPlugin.getURIToConcreteSyntaxLocationMap().get(csURI);
-	        	Resource aCsResource = rs.getResource(csLocation, true);
-	        	ConcreteSyntax csDef = (ConcreteSyntax) aCsResource.getContents().get(0);
-	        	if (csURI.equals(candCsURI)) {
-	        		return csDef;
-	        	}
-	        }
-		}
-	
+        return findConcreteSyntaxesInRegistry(csURI, resourceSet);
+	}
+
+	private ConcreteSyntax findConcreteSyntaxesInRegistry(String csURI,
+			final ResourceSet resourceSet) {
+		//find all registered concrete syntax definitions
+        for(String candCsURI : EMFTextPlugin.getURIToConcreteSyntaxLocationMap().keySet()) {
+        	URI csLocation = EMFTextPlugin.getURIToConcreteSyntaxLocationMap().get(csURI);
+        	Resource aCsResource = resourceSet.getResource(csLocation, true);
+        	ConcreteSyntax csDef = (ConcreteSyntax) aCsResource.getContents().get(0);
+        	if (csURI.equals(candCsURI)) {
+        		return csDef;
+        	}
+        }
 		return null;
 	}
 	
