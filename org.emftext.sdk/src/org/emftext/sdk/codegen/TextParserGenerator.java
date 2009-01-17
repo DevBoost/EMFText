@@ -262,6 +262,8 @@ public class TextParserGenerator extends BaseGenerator {
 	    
 	    allGenClasses = new LinkedList<GenClass>();
 	    
+	    // FIXME this code is not complete! we do also need the generator classes from
+	    // imported models and all sub packages
 	    for(GenPackage includedGP : conreteSyntax.getPackage().getGenModel().getGenPackages()){
 	    	allGenClasses.addAll(includedGP.getGenClasses());
 	    }

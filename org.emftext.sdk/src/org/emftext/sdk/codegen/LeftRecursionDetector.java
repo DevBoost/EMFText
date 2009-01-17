@@ -49,14 +49,14 @@ public class LeftRecursionDetector {
 		return null;
 	}
 
-	Rule findLeftProducingRule(GenClass metaclass, Sequence sequence, Rule currentRule) {
+	public Rule findLeftProducingRule(GenClass metaclass, Sequence sequence, Rule currentRule) {
 		for (Definition definition : sequence.getParts()) {
 			if (definition instanceof Containment) {
 				Containment c = (Containment) definition;
 				GenClass featureType = c.getFeature().getTypeGenClass();
 				if (metaclass.equals(featureType) || 
 						//this.genClasses2superNames.get(featureType.getName()).contains(metaclass.getName()) ||
-						this.genClasses2superNames.get(metaclass.getName()).contains(featureType.getName())) {
+						genClasses2superNames.get(metaclass.getName()).contains(featureType.getName())) {
 					return currentRule;
 				} else {
 					Rule featureRule = null;
