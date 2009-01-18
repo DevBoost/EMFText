@@ -106,7 +106,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 
 			createMetaFolder(context, progress);
 			createManifest(context, progress);
-			createPluginXML(context, progress, csFile);
+			createPluginXML(context, progress);
 
 			markErrors(context.getConcreteSyntax());
 
@@ -255,22 +255,19 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 		return new ByteArrayInputStream(outputStream.toByteArray());
 	}
 
-	private void createPluginXML(GenerationContext context, SubMonitor progress,
-			IFile file)
+	private void createPluginXML(GenerationContext context, SubMonitor progress)
 			throws CoreException {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
-		IProject project = context.getProject(); 
-		String projectName = project.getName();
+		IProject project = context.getProject();
 		
 		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML);
 		
 		IFile pluginXMLFile = project.getFile("/plugin.xml");
 		if (pluginXMLFile.exists()) {
 			if (overridePluginXML) {
-				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(
-						cSyntax, projectName, file,
-						isGenerateTestActionEnabled(cSyntax)
+				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context,
+					isGenerateTestActionEnabled(cSyntax)
 				);
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 				pluginXMLGenerator.generate(new PrintWriter(outputStream));
@@ -281,8 +278,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
 			}
 		} else {
-			PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(
-					cSyntax, projectName, file,
+			PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context,
 					isGenerateTestActionEnabled(cSyntax)
 			);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

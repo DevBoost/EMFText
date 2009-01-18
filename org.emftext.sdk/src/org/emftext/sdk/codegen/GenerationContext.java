@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -100,6 +102,11 @@ public class GenerationContext {
 	 */
 	public ConcreteSyntax getConcreteSyntax(){
 		return concreteSyntax;
+	}
+	
+	public IFile getConcreteSyntaxFile() {
+		IFile file = (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(concreteSyntax.eResource().getURI().toPlatformString(true));
+		return file;
 	}
 	
 	/**
