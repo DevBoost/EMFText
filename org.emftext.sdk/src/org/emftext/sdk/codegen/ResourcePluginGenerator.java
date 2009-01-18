@@ -122,6 +122,9 @@ public class ResourcePluginGenerator {
 		}
 		
 		IFolder resolverPackageFolder = context.getTargetFolder().getFolder(resolverPackagePath);
+		if (!resolverPackageFolder.exists()) {
+			return;
+		}
 		IResource[] contents = resolverPackageFolder.members();
 		for (IResource member : contents) {
 			if (member instanceof IFile) {
