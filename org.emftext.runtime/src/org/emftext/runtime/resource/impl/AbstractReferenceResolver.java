@@ -98,8 +98,9 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 			if (!element.eIsProxy()) {
 				EClass eClass = element.eClass();
 				if (eClass.equals(type) || eClass.getEAllSuperTypes().contains(type)) {
-					if (matches(element, identifier)) {
-						result.addMapping(identifier, element);
+					final String match = matches(element, identifier, resolveFuzzy);
+					if (match != null) {
+						result.addMapping(match, element);
 						if (!resolveFuzzy) {
 							return;
 						}
@@ -109,7 +110,7 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 		}
 	}
 	
-	private EObject findRoot(EObject object) {
+	protected EObject findRoot(EObject object) {
 		EObject container = object.eContainer();
 		if (container != null) {
 			return findRoot(container);
@@ -131,19 +132,20 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 		return getName(element);
 	}
 	
-	private boolean matches(EObject element, String proxyUri) {
+	private String matches(EObject element, String identifier, boolean matchFuzzy) {
 		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
 		if (nameAttr instanceof EAttribute) {
-			if (proxyUri.equals(element.eGet(nameAttr))) {
-				return true;
-			}
+			Object attributeValue = element.eGet(nameAttr);
+			return matches(identifier, attributeValue, matchFuzzy);
 		}
 		else {
 			//try any other string attribute found
-			for(EAttribute strAttribute : element.eClass().getEAllAttributes()) {
-				if (strAttribute.getEType().getInstanceClassName().equals(String.class.getName())) {
-					if (proxyUri.equals(element.eGet(strAttribute))) {
-						return true;
+			for (EAttribute stringAttribute : element.eClass().getEAllAttributes()) {
+				if (stringAttribute.getEType().getInstanceClassName().equals(String.class.getName())) {
+					Object attributeValue = element.eGet(stringAttribute);
+					String match = matches(identifier, attributeValue, matchFuzzy);
+					if (match != null) {
+						return match;
 					}
 				}
 			}
@@ -151,13 +153,27 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 			for (EOperation o : element.eClass().getEAllOperations()) {
 				if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {
 					String result = invokeOperation(element, o);
-					if (proxyUri.equals(result)) {
-						return true;
+					String match = matches(identifier, result, matchFuzzy);
+					if (match != null) {
+						return match;
 					}
 				}
 			}
 		}
-		return false;
+		return null;
+	}
+
+	private String matches(String identifier, Object attributeValue, boolean matchFuzzy) {
+		if (attributeValue != null && attributeValue instanceof String) {
+			String name = (String) attributeValue;
+			if (name.startsWith(identifier) && matchFuzzy) {
+				return name;
+			}
+			if (name.equals(identifier)) {
+				return identifier;
+			}
+		}
+		return null;
 	}
 
 	private String getName(EObject element) {
