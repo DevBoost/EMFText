@@ -61,7 +61,7 @@ public class MetaclassReferenceResolver {
 		}
 	}
 
-	public void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IResolveResult result) {
+	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IResolveResult result) {
 		doResolveMetaclass(syntax, new MetaClassFilter() {
 
 			public String accept(String importPrefix, GenClass genClass) {

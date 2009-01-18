@@ -9,10 +9,10 @@ import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
-public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceResolver {
+public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceResolver<DefinedPlaceholder> {
 
 	@Override
-	protected void doResolve(String identifier, EObject container,
+	protected void doResolve(String identifier, DefinedPlaceholder container,
 			EReference reference, int position, boolean resolveFuzzy,
 			IResolveResult result) {
 		// first look in imported syntaxes for the token
@@ -27,10 +27,7 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
-			EObject container, boolean resolveFuzzy, IResolveResult result) {
-		if (!(container instanceof DefinedPlaceholder)) {
-			return false;
-		}
+			DefinedPlaceholder container, boolean resolveFuzzy, IResolveResult result) {
 		EObject root = findRoot(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;

@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
@@ -70,7 +70,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	
 	private static final String ITEXT_RESOURCE_CLASS_NAME = ITextResource.class.getName();
 	private static final String ITOKEN_RESOLVER_FACTORY_CLASS_NAME = ITokenResolverFactory.class.getName();
-	private static final String IREFERENCE_RESOLVER_CLASS_NAME = IReferenceResolver.class.getName();
+	private static final String IREFERENCE_RESOLVER_SWITCH_CLASS_NAME = IReferenceResolverSwitch.class.getName();
 	
 	private static final String OUTPUT_STREAM_CLASS_NAME = OutputStream.class.getName();
 	private static final String PRINTER_WRITER_CLASS_NAME = PrintWriter.class.getName();
@@ -240,7 +240,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		out
 				.println("\tprotected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
-		out.println("\tprotected " + IREFERENCE_RESOLVER_CLASS_NAME + " treeAnalyser = new "
+		out.println("\tprotected " + IREFERENCE_RESOLVER_SWITCH_CLASS_NAME + " referenceResolverSwitch = new "
 				+ treeAnalyserClassName + "();");
 	}
 
@@ -583,7 +583,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ tokenName
 										+ "\");resolver.setOptions(getOptions());"
 										+ printPrefix 
-										+ "resolver.deResolve(treeAnalyser.deResolve((" + EOBJECT_CLASS_NAME + ")o, element, (" + EREFERENCE_CLASS_NAME + ")element.eClass().getEStructuralFeature(\""
+										+ "resolver.deResolve(referenceResolverSwitch.deResolve((" + EOBJECT_CLASS_NAME + ")o, element, (" + EREFERENCE_CLASS_NAME + ")element.eClass().getEStructuralFeature(\""
 										+ featureName
 										+ "\")),element.eClass().getEStructuralFeature(\""
 										+ featureName + "\"),element));";

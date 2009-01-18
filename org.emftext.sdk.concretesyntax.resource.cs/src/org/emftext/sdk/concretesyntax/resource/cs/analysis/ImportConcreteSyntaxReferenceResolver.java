@@ -8,12 +8,12 @@ import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.Import;
 
-public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceResolver {
+public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceResolver<Import> {
 
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 
 	@Override
-	protected void doResolve(String identifier, EObject container,
+	protected void doResolve(String identifier, Import container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		
 		if (!(container instanceof Import)) {

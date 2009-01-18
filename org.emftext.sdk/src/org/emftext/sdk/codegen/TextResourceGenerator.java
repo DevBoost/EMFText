@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.IInputStreamProcessorProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.resource.IConfigurable;
-import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
@@ -44,7 +44,7 @@ public class TextResourceGenerator extends BaseGenerator {
         
 		out.println("public class " + getResourceClassName() + " extends " + AbstractTextResource.class.getName() + " {");
 
-		out.println("\tprivate " + IReferenceResolver.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";\n\n");
+		out.println("\tprivate " + IReferenceResolverSwitch.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";\n\n");
 		
 		generateConstructors(out);
         genereteDoLoadMethod(out);
@@ -52,7 +52,7 @@ public class TextResourceGenerator extends BaseGenerator {
         generateGetTokenNamesMethod(out);
         generateGetSyntaxNameMethod(out);
         generateGetScannerMethod(out);
-        generateGetTreeAnalyserMethod(out);
+        generateGetReferenceResolverSwitchMethod(out);
     	generateDoUnLoadMethod(out);
 
         out.println("}");
@@ -74,8 +74,8 @@ public class TextResourceGenerator extends BaseGenerator {
     	out.println("\t}");
 	}
 
-	private void generateGetTreeAnalyserMethod(PrintWriter out) {
-		out.println("\tpublic " + IReferenceResolver.class.getName() + " getReferenceResolverSwitch() {");
+	private void generateGetReferenceResolverSwitchMethod(PrintWriter out) {
+		out.println("\tpublic " + IReferenceResolverSwitch.class.getName() + " getReferenceResolverSwitch() {");
         out.println("\t\tif (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
         out.println("\t\t\t" + RESOLVER_SWITCH_FIELD_NAME + " = new " + resolverSwitchClassName + "();");
         out.println("\t\t}");

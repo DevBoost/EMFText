@@ -6,9 +6,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.IURIMapping;
 
@@ -36,7 +36,7 @@ public class ContextDependentURIFragment {
 		return result != null;
 	}
 	
-	public synchronized IResolveResult resolve(IReferenceResolver treeAnalyser) {
+	public synchronized IResolveResult resolve(IReferenceResolverSwitch resolverSwitch) {
 		if (resolving) {
 			return null;
 		}
@@ -46,7 +46,7 @@ public class ContextDependentURIFragment {
 			//set an initial default error message
 			result.setErrorMessage(getStdErrorMessage());
 			//do the actual resolving
-			treeAnalyser.resolve(
+			resolverSwitch.resolve(
 					this.getIdentifier(),
 					this.getContainer(), 
 					this.getReference(), 

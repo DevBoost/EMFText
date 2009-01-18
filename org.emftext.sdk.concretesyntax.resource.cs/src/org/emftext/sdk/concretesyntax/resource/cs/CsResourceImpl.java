@@ -1,7 +1,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTextResource {
-	private org.emftext.runtime.resource.IReferenceResolver resolverSwitch;
+	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
 
 
 	public CsResourceImpl() {
@@ -50,7 +50,7 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTe
 		return new CsLexer();
 	}
 
-	public org.emftext.runtime.resource.IReferenceResolver getReferenceResolverSwitch() {
+	public org.emftext.runtime.resource.IReferenceResolverSwitch getReferenceResolverSwitch() {
 		if (resolverSwitch == null) {
 			resolverSwitch = new CsReferenceResolverSwitch();
 		}

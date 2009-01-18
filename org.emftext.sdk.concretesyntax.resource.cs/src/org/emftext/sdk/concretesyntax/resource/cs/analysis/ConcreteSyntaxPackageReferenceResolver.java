@@ -7,13 +7,14 @@ import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.MetamodelHelper;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public class ConcreteSyntaxPackageReferenceResolver extends AbstractReferenceResolver {
+public class ConcreteSyntaxPackageReferenceResolver extends AbstractReferenceResolver<ConcreteSyntax> {
 
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 
 	@Override
-	protected void doResolve(String identifier, EObject container,
+	protected void doResolve(String identifier, ConcreteSyntax container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), identifier, (ITextResource) container.eResource());
 		if (genPackage == null) {
@@ -24,7 +25,7 @@ public class ConcreteSyntaxPackageReferenceResolver extends AbstractReferenceRes
 	}
 
 	@Override
-	public String deResolve(EObject element, EObject container,EReference reference){
+	public String deResolve(EObject element, ConcreteSyntax container,EReference reference){
 		GenPackage pck = (GenPackage)element;
 		return pck.getNSURI();
 	}

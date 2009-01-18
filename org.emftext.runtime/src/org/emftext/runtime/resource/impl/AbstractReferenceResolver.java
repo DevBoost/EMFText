@@ -24,7 +24,7 @@ import org.emftext.runtime.resource.ITextResource;
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
-public abstract class AbstractReferenceResolver implements IReferenceResolver {
+public abstract class AbstractReferenceResolver<ContainerType extends EObject> implements IReferenceResolver<ContainerType> {
 
 	public final static String NAME_FEATURE = "name";
 
@@ -37,7 +37,7 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 	protected void init() {
 	}
 	
-	public void resolve(String identifier, EObject container, 
+	public void resolve(String identifier, ContainerType container, 
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		try {
 			doResolve(identifier, container, reference, position, resolveFuzzy, result);
@@ -84,7 +84,7 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 	 * @param resolveFuzzy 
 	 * @return The resolved object or null if resolving fails.
 	 */
-	protected void doResolve(String identifier, EObject container,
+	protected void doResolve(String identifier, ContainerType container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		
 		//TODO trivial implementation - enhancements:
@@ -127,7 +127,7 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 		
 	}
 	
-	protected String doDeResolve(EObject element, EObject container,
+	protected String doDeResolve(EObject element, ContainerType container,
 			EReference reference) {
 		return getName(element);
 	}
@@ -225,9 +225,9 @@ public abstract class AbstractReferenceResolver implements IReferenceResolver {
 	}
 
 	
-	public String deResolve(EObject element, EObject container,
+	public String deResolve(EObject element, ContainerType container,
 			EReference reference) {
-		return doDeResolve(element,container,reference);
+		return doDeResolve(element, container, reference);
 	}
 
 	public void setOptions(Map<?, ?> options) {

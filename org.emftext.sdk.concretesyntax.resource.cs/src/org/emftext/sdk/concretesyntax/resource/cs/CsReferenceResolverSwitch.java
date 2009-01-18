@@ -1,11 +1,11 @@
 package org.emftext.sdk.concretesyntax.resource.cs; 
 
-import org.emftext.sdk.concretesyntax.Rule;
-import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
-public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.IReferenceResolver {
+import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.Terminal;
+public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.IReferenceResolverSwitch {
 
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver ruleMetaclassReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver();
 
@@ -31,56 +31,56 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 
 	public void resolveStrict(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, org.emftext.runtime.resource.IResolveResult result) {
 		if (container instanceof Rule && reference.getFeatureID() == 1) {
-			ruleMetaclassReferenceResolver.resolve(identifier, container, reference, position, false, result);
+			ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof Import && reference.getFeatureID() == 2) {
-			importPackageReferenceResolver.resolve(identifier, container, reference, position, false, result);
+			importPackageReferenceResolver.resolve(identifier, (Import) container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof Terminal && reference.getFeatureID() == 1) {
-			terminalFeatureReferenceResolver.resolve(identifier, container, reference, position, false, result);
+			terminalFeatureReferenceResolver.resolve(identifier, (Terminal) container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof ConcreteSyntax && reference.getFeatureID() == 3) {
-			concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, container, reference, position, false, result);
+			concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, (ConcreteSyntax) container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof ConcreteSyntax && reference.getFeatureID() == 1) {
-			concreteSyntaxPackageReferenceResolver.resolve(identifier, container, reference, position, false, result);
+			concreteSyntaxPackageReferenceResolver.resolve(identifier, (ConcreteSyntax) container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof DefinedPlaceholder && reference.getFeatureID() == 2) {
-			definedPlaceholderTokenReferenceResolver.resolve(identifier, container, reference, position, false, result);
+			definedPlaceholderTokenReferenceResolver.resolve(identifier, (DefinedPlaceholder)container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof Import && reference.getFeatureID() == 1) {
-			importConcreteSyntaxReferenceResolver.resolve(identifier, container, reference, position, false, result);
+			importConcreteSyntaxReferenceResolver.resolve(identifier, (Import) container, reference, position, false, result);
 			return;
 		}
 	}
 
 	public java.lang.String deResolve(org.eclipse.emf.ecore.EObject refObject, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference) {
 		if (container instanceof Rule && reference.getFeatureID() == 1) {
-			return ruleMetaclassReferenceResolver.deResolve(refObject,container,reference);
+			return ruleMetaclassReferenceResolver.deResolve(refObject,(Rule)container,reference);
 		}
 		if (container instanceof Import && reference.getFeatureID() == 2) {
-			return importPackageReferenceResolver.deResolve(refObject,container,reference);
+			return importPackageReferenceResolver.deResolve(refObject,(Import)container,reference);
 		}
 		if (container instanceof Terminal && reference.getFeatureID() == 1) {
-			return terminalFeatureReferenceResolver.deResolve(refObject,container,reference);
+			return terminalFeatureReferenceResolver.deResolve(refObject,(Terminal)container,reference);
 		}
 		if (container instanceof ConcreteSyntax && reference.getFeatureID() == 3) {
-			return concreteSyntaxStartSymbolsReferenceResolver.deResolve(refObject,container,reference);
+			return concreteSyntaxStartSymbolsReferenceResolver.deResolve(refObject,(ConcreteSyntax)container,reference);
 		}
 		if (container instanceof ConcreteSyntax && reference.getFeatureID() == 1) {
-			return concreteSyntaxPackageReferenceResolver.deResolve(refObject,container,reference);
+			return concreteSyntaxPackageReferenceResolver.deResolve(refObject,(ConcreteSyntax)container,reference);
 		}
 		if (container instanceof DefinedPlaceholder && reference.getFeatureID() == 2) {
-			return definedPlaceholderTokenReferenceResolver.deResolve(refObject,container,reference);
+			return definedPlaceholderTokenReferenceResolver.deResolve(refObject,(DefinedPlaceholder)container,reference);
 		}
 		if (container instanceof Import && reference.getFeatureID() == 1) {
-			return importConcreteSyntaxReferenceResolver.deResolve(refObject,container,reference);
+			return importConcreteSyntaxReferenceResolver.deResolve(refObject,(Import)container,reference);
 		}
 		return null;
 	}
@@ -96,28 +96,82 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 	}
 
 	public void resolveFuzzy(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, int position, org.emftext.runtime.resource.IResolveResult result) {
-
-		resolveFuzzy(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(), identifier, container, position, 1, ruleMetaclassReferenceResolver, result);
-		resolveFuzzy(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), identifier, container, position, 2, importPackageReferenceResolver, result);
-		resolveFuzzy(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTerminal(), identifier, container, position, 1, terminalFeatureReferenceResolver, result);
-		resolveFuzzy(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), identifier, container, position, 3, concreteSyntaxStartSymbolsReferenceResolver, result);
-		resolveFuzzy(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(), identifier, container, position, 1, concreteSyntaxPackageReferenceResolver, result);
-		resolveFuzzy(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getDefinedPlaceholder(), identifier, container, position, 2, definedPlaceholderTokenReferenceResolver, result);
-		resolveFuzzy(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(), identifier, container, position, 1, importConcreteSyntaxReferenceResolver, result);
-	}
-
-	protected void resolveFuzzy(org.eclipse.emf.ecore.EClass eClass, java.lang.String identifier, org.eclipse.emf.ecore.EObject container, int position, 
-			int featureID, 
-			org.emftext.runtime.resource.IReferenceResolver resolver, org.emftext.runtime.resource.IResolveResult result
-			) {
-
-		if (eClass.isInstance(container)) {
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
-			if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
-				return;
+		{
+			org.eclipse.emf.ecore.EClass eClass = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule();
+			int featureID = 1; 
+			if (eClass.isInstance(container)) {
+				org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
+				if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
+					return;
+				}
+				ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
 			}
-			resolver.resolve(identifier, container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+		}
+		{
+			org.eclipse.emf.ecore.EClass eClass = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport();
+			int featureID = 2;
+			if (eClass.isInstance(container)) {
+				org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
+				if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
+					return;
+				}
+				ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+			}
+		}
+		{
+			org.eclipse.emf.ecore.EClass eClass = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTerminal();
+			int featureID = 1;
+			if (eClass.isInstance(container)) {
+				org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
+				if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
+					return;
+				}
+				ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+			}
+		}
+		{
+			org.eclipse.emf.ecore.EClass eClass = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax();
+			int featureID = 3; 
+			if (eClass.isInstance(container)) {
+				org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
+				if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
+					return;
+				}
+				ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+			}
+		}
+		{
+			org.eclipse.emf.ecore.EClass eClass = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax();
+			int featureID = 1; 
+			if (eClass.isInstance(container)) {
+				org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
+				if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
+					return;
+				}
+				ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+			}
+		}
+		{
+			org.eclipse.emf.ecore.EClass eClass = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getDefinedPlaceholder();
+			int featureID = 2; 
+			if (eClass.isInstance(container)) {
+				org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
+				if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
+					return;
+				}
+				ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+			}
+		}
+		{
+			org.eclipse.emf.ecore.EClass eClass = org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport();
+			int featureID = 1; 
+			if (eClass.isInstance(container)) {
+				org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(featureID);
+				if (!(feature instanceof org.eclipse.emf.ecore.EReference)) {
+					return;
+				}
+				ruleMetaclassReferenceResolver.resolve(identifier, (Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+			}
 		}
 	}
-
 }

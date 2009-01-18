@@ -3,7 +3,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.AbstractEMFTextPrinter {
 
 	protected org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
-	protected org.emftext.runtime.resource.IReferenceResolver treeAnalyser = new CsReferenceResolverSwitch();
+	protected org.emftext.runtime.resource.IReferenceResolverSwitch treeAnalyser = new CsReferenceResolverSwitch();
 
 	public CsPrinterBase(java.io.OutputStream o, org.emftext.runtime.resource.ITextResource resource) {
 		super(o, resource);

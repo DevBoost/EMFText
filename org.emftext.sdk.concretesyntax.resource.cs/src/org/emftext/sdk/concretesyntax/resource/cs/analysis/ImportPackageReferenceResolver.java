@@ -10,17 +10,17 @@ import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
-public class ImportPackageReferenceResolver extends AbstractReferenceResolver {
+public class ImportPackageReferenceResolver extends AbstractReferenceResolver<Import> {
 
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 
 	@Override
-	protected void doResolve(String identifier, EObject container,
+	protected void doResolve(String identifier, Import container,
 			EReference reference, int position, boolean resolveFuzzy,
 			IResolveResult result) {
 		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), identifier, (ITextResource) container.eResource());
 		if (genPackage != null) {
-			ConcreteSyntax cs = (ConcreteSyntax)((Import)container).eContainer();
+			ConcreteSyntax cs = (ConcreteSyntax) container.eContainer();
 			if(!cs.getPackage().equals(genPackage)&&!cs.getPackage().getNSURI().equals(genPackage.getNSURI()))
 				cs.getPackage().getGenModel().getUsedGenPackages().add(genPackage);
 			
@@ -33,7 +33,7 @@ public class ImportPackageReferenceResolver extends AbstractReferenceResolver {
 	}
 	
 	@Override
-	public String deResolve(EObject element, EObject container,EReference reference){
+	public String deResolve(EObject element, Import container,EReference reference){
 		GenPackage pck = (GenPackage)element;
 		return pck.getNSURI();
 	}

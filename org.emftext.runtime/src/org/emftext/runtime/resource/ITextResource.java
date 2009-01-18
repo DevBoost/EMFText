@@ -35,7 +35,7 @@ public interface ITextResource extends Resource {
 	 * 
 	 * @return the resolver switch
 	 */
-	public IReferenceResolver getReferenceResolverSwitch();
+	public IReferenceResolverSwitch getReferenceResolverSwitch();
 	
 	/**
 	 * Add an error that should be displayed at the position of the given element.

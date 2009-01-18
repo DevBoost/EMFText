@@ -10,8 +10,9 @@ import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.Terminal;
 
-public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver {
+public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<Terminal> {
 	
 	private interface FeatureResolveResult extends IResolveResult {
 		public boolean foundFeatureWithCorrectName();
@@ -118,7 +119,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver 
 	}
 
 	@Override
-	protected void doResolve(final String identifier, final EObject container,
+	protected void doResolve(final String identifier, final Terminal container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		if (resolveFuzzy) {
 			doResolveFuzzy(identifier, container, result);
@@ -127,11 +128,11 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver 
 		}
 	}
 
-	private void doResolveFuzzy(String identifier, EObject container, IResolveResult result) {
+	private void doResolveFuzzy(String identifier, Terminal container, IResolveResult result) {
 		doResolveFeature(container, new NameStartsWithFilter(identifier), identifier, result);
 	}
 
-	private void doResolveStrict(String identifier, EObject container, IResolveResult result) {
+	private void doResolveStrict(String identifier, Terminal container, IResolveResult result) {
 		doResolveFeature(container, new NameAndContainmentFilter(identifier, container), identifier, result);
 	}
 
@@ -157,7 +158,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver 
 	}
 
 	@Override
-	public String deResolve(EObject element, EObject container, EReference reference){
+	public String deResolve(EObject element, Terminal container, EReference reference){
 		GenFeature feature = (GenFeature) element;
 		return feature.getName();
 	}

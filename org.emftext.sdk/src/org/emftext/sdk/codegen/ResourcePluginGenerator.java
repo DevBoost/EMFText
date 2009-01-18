@@ -214,7 +214,7 @@ public class ResourcePluginGenerator {
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(resolverFileName));
 			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
 			if (generateResolver) {
-				BaseGenerator proxyGen = new ReferenceResolverGenerator(context, resolverClassName);
+				BaseGenerator proxyGen = new ReferenceResolverGenerator(context, proxyReference);
 				setContents(resolverFile, invokeGeneration(proxyGen, context.getProblemCollector()));		
 			}
 			context.addReferenceResolverClass(resolverClassName);

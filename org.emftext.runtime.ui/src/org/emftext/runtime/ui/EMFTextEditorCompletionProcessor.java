@@ -17,9 +17,9 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
-import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.ResolveResult;
@@ -63,9 +63,9 @@ public class EMFTextEditorCompletionProcessor implements
 		//TODO @mseifert: the prefix somehow has to go through the appropriate token resolver,
 	    // otherwise we have different kind of identifiers in the reference resolvers
 		
-		IReferenceResolver analyser = textResource.getReferenceResolverSwitch();
+		IReferenceResolverSwitch resolverSwitch = textResource.getReferenceResolverSwitch();
 		IResolveResult resolved = new ResolveResult(true); 
-		analyser.resolve(prefix, containerAtChar, null, 0, true, resolved);
+		resolverSwitch.resolve(prefix, containerAtChar, null, 0, true, resolved);
 		if (!resolved.wasResolvedMultiple()) {
 			return EMPTY_PROPOSAL_ARRAY;
 		}
