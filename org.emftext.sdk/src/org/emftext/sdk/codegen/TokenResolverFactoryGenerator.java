@@ -1,11 +1,11 @@
 package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
-import java.util.Map;
 
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.BasicTokenResolverFactory;
 import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * Generates a TokenResolverFactory which will contain a mapping from ANTLR token names to 
@@ -17,13 +17,11 @@ import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
  */
 public class TokenResolverFactoryGenerator extends BaseGenerator {
 	
-	private Map<InternalTokenDefinition,String> printedTokens;
-	private String resolverPackageName;
+	private GenerationContext context;
 	
-	public TokenResolverFactoryGenerator(GenerationContext context, Map<InternalTokenDefinition,String> printedTokens){
+	public TokenResolverFactoryGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getTokenResolverFactoryClassName());
-		this.printedTokens = printedTokens;
-		this.resolverPackageName = context.getResolverPackageName();
+		this.context = context;
 	}
 	
 	@Override
@@ -33,14 +31,16 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		out.println("public class " + getResourceClassName() + " extends " + BasicTokenResolverFactory.class.getName() + " implements " + ITokenResolverFactory.class.getName() + " {");
 		out.println();
 		out.println("\tpublic " + getResourceClassName() + "(){");
-		for(InternalTokenDefinition def:printedTokens.keySet()){
-			if(printedTokens.get(def)!=null){
-				out.println("\t\tsuper.registerTokenResolver(\"" +def.getName()+ "\", new " + resolverPackageName + "." + printedTokens.get(def) + "());");
+		for (InternalTokenDefinition def : context.getUsedTokens()) {
+			// user defined tokens may stem from an imported syntax
+			ConcreteSyntax containingSyntax = context.getContainingSyntax(def);
+			String tokenResolverClassName = context.getTokenResolverClassName(def);
+			if (tokenResolverClassName != null) {
+				out.println("\t\tsuper.registerTokenResolver(\"" +def.getName()+ "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
 			}
 		}
 		out.println("\t}");
 		out.println("}");
 		return true;
 	}
-
 }

@@ -1,4 +1,4 @@
-package org.emftext.sdk.concretesyntax.resource.cs.analysis.helper;
+package org.emftext.sdk;
 
 public class Pair<T1, T2> {
 	private T1 left; 

@@ -5,26 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceVisitor;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+// FIXME the cache is not used right now, because new instances of this class are
+// create for each request
 public class MetamodelManager {
 	
-	private List<IGenPackageFinder> finders = new ArrayList<IGenPackageFinder>();
+	private List<IGenPackageFinder> genPackageFinders = new ArrayList<IGenPackageFinder>();
 	private MetamodelCache modelCache = new MetamodelCache();
+	
+	private List<IConcreteSyntaxFinder> concreteSyntaxFinders = new ArrayList<IConcreteSyntaxFinder>();
 	
 	private class MetamodelCache {
 		
@@ -51,11 +45,18 @@ public class MetamodelManager {
 		super();
 	}
 	
+	public void addConcreteSyntaxFinder(IConcreteSyntaxFinder finder) {
+		if (finder == null) {
+			return;
+		}
+		concreteSyntaxFinders.add(finder);
+	}
+	
 	public void addGenPackageFinder(IGenPackageFinder finder) {
 		if (finder == null) {
 			return;
 		}
-		finders.add(finder);
+		genPackageFinders.add(finder);
 	}
 
 	public GenPackage findGenPackage(String nsURI, Resource resource) {
@@ -67,7 +68,7 @@ public class MetamodelManager {
 			return modelCache.load(nsURI);
 		}
 		
-		for (IGenPackageFinder finder : finders) {
+		for (IGenPackageFinder finder : genPackageFinders) {
 			IGenPackageFinderResult foundPackage = finder.findGenPackage(nsURI, resource);
 			if (foundPackage != null) {
 				modelCache.store(nsURI, foundPackage);
@@ -77,65 +78,26 @@ public class MetamodelManager {
 		return null;
 	}
 
-	public ConcreteSyntax findConcreteSyntax(String cs, GenPackage genPackage, final ITextResource textResource) {
-		if (cs == null || genPackage == null) return null;
-		System.out.println("MetamodelManager.findConcreteSyntax(" + cs + ")");
+	public ConcreteSyntax findConcreteSyntax(String csName, GenPackage genPackage, ITextResource textResource) {
+		if (csName == null || genPackage == null) {
+			return null;
+		}
 		
-		String csURI = genPackage.getNSURI() + "%%" + cs;
-		
-		final ResourceSet resourceSet = new ResourceSetImpl();
-		final Map<String,ConcreteSyntax> concreteSyntaxes = new HashMap<String, ConcreteSyntax>();
-		
-        // search the workspace for CS definitions
-		final IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(textResource.getURI().toPlatformString(true));
-		IWorkspaceRoot workspaceRoot = workspaceResource.getWorkspace().getRoot();
-		try {
-			workspaceRoot.accept(new IResourceVisitor() {
-				public boolean visit(IResource resource) throws CoreException {
-					// check whether we are visiting the textResource that triggered this request for
-					// a concrete syntax. if so, stop visiting to avoid cycles
-					if (resource.equals(workspaceResource)) {
-						return true;
-					}
-					if (resource instanceof IFile) {
-						IFile file = (IFile) resource;
-						if ("cs".equals(file.getFileExtension())) {
-			            	URI csLocation = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			            	Resource aCsResource = resourceSet.getResource(csLocation, true);
-			            	ConcreteSyntax csDef = (ConcreteSyntax) aCsResource.getContents().get(0);
-			            	concreteSyntaxes.put(csDef.getPackage().getNSURI() + "%%" + csDef.getName(), csDef);							
-						}
-						return false;
-					}
-					return true;
-				}
-			});
-		} catch (CoreException e) {
-			EMFTextPlugin.logError("Exception while looking up concrete syntax.", e);
-		} 
-		//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
-
-        if (concreteSyntaxes.containsKey(csURI)) {
-        	return concreteSyntaxes.get(csURI);
-        }
-		
-        return findConcreteSyntaxesInRegistry(csURI, resourceSet);
+		String csURI = getConcreteSyntaxURI(csName, genPackage);
+		for (IConcreteSyntaxFinder finder : concreteSyntaxFinders) {
+			ConcreteSyntax foundSyntax = finder.findConcreteSyntax(csURI, textResource);
+			//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
+			if (foundSyntax != null) {
+				return foundSyntax;
+			}
+		}
+        return null;
 	}
 
-	private ConcreteSyntax findConcreteSyntaxesInRegistry(String csURI,
-			final ResourceSet resourceSet) {
-		//find all registered concrete syntax definitions
-        for(String candCsURI : EMFTextPlugin.getURIToConcreteSyntaxLocationMap().keySet()) {
-        	URI csLocation = EMFTextPlugin.getURIToConcreteSyntaxLocationMap().get(csURI);
-        	Resource aCsResource = resourceSet.getResource(csLocation, true);
-        	ConcreteSyntax csDef = (ConcreteSyntax) aCsResource.getContents().get(0);
-        	if (csURI.equals(candCsURI)) {
-        		return csDef;
-        	}
-        }
-		return null;
+	public static String getConcreteSyntaxURI(String csName, GenPackage genPackage) {
+		return genPackage.getNSURI() + "%%" + csName;
 	}
-	
+
 	public static Map<String, GenPackage> getGenPackages(GenModel genModel) {
 		Map<String, GenPackage> genPackages = new HashMap<String, GenPackage>();
 		for(GenPackage genPackage : genModel.getGenPackages()) {

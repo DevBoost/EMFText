@@ -1,14 +1,13 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis.helper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.sdk.GenClassFinder;
+import org.emftext.sdk.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -24,8 +23,8 @@ public class MetaclassReferenceResolver {
 		public boolean isFuzzy();
 	}
 
-	private static final String DOT = ".";
-	
+	private GenClassFinder genClassFinder = new GenClassFinder();
+
 	public String deResolve(EObject element, EObject container, EReference reference){
 		GenClass genClass = (GenClass)element;
 		genClass.getGenPackage().getNSName();
@@ -35,10 +34,9 @@ public class MetaclassReferenceResolver {
 		else{
 			String prefix = "";
 			for (Import aImport : syntax.getImports()) {
-				if(aImport.getPackage().getNSName().equals(genClass.getGenPackage().getNSName())){
-					prefix = aImport.getPrefix() + DOT;					
+				if (aImport.getPackage().getNSName().equals(genClass.getGenPackage().getNSName())){
+					prefix = aImport.getPrefix() + GenClassFinder.DOT;					
 				}
-
 			}
 			return prefix + genClass.getName();
 		}
@@ -88,7 +86,7 @@ public class MetaclassReferenceResolver {
 
 	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IResolveResult result) {
 		// first collect all generator classes
-		List<Pair<String, GenClass>> prefixedGenClasses = findAllGenClasses(null, syntax);
+		List<Pair<String, GenClass>> prefixedGenClasses = genClassFinder.findAllGenClassesAndPrefixes(syntax, true);
 		// then check which are accepted by the filter
 		for (Pair<String, GenClass> prefixedGenClass : prefixedGenClasses) {
 			String prefix = prefixedGenClass.getLeft();
@@ -120,38 +118,6 @@ public class MetaclassReferenceResolver {
 		return genClass.getEcoreClass().isAbstract() || genClass.getEcoreClass().isInterface();
 	}
 
-
-	private List<Pair<String, GenClass>> findAllGenClasses(String prefix, ConcreteSyntax syntax) {
-		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
-		if (syntax == null) {
-			return foundClasses;
-		}
-		// first add all generator classes contained in the generator package
-		// that is referenced by the concrete syntax
-		GenPackage genPackage = syntax.getPackage();
-		foundClasses.addAll(findAllGenClasses(prefix, genPackage));
-		// the add the imported generator classes
-		for (Import nextImport : syntax.getImports()) {
-			final List<Pair<String, GenClass>> classesInImportedPackage = findAllGenClasses((prefix == null ? "" : prefix + DOT) + nextImport.getPrefix(), nextImport.getPackage());
-			foundClasses.addAll(classesInImportedPackage);
-		}
-		return foundClasses;
-	}
-
-	private List<Pair<String, GenClass>> findAllGenClasses(String prefix, GenPackage genPackage) {
-		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
-		// first add all generator classes in the package itself
-		final EList<GenClass> genClasses = genPackage.getGenClasses();
-		for (GenClass genClass : genClasses) {
-			foundClasses.add(new Pair<String, GenClass>(prefix == null ? "" : prefix + DOT, genClass));
-		}
-		// then add all generator classes contained in sub packages
-		for (GenPackage subPackage : genPackage.getSubGenPackages()) {
-			final List<Pair<String, GenClass>> classesInSubPackage = findAllGenClasses((prefix == null ? "" : prefix + DOT) + subPackage.getPrefix(), subPackage);
-			foundClasses.addAll(classesInSubPackage);
-		}
-		return foundClasses;
-	}
 
 	private void doResolveStrict(ConcreteSyntax container,
 			final String identifier, IResolveResult result) {

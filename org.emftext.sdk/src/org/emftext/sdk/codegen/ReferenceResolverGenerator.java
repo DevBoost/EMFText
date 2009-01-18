@@ -2,10 +2,9 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
-import org.emftext.runtime.resource.IResolveResult;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 
 /**

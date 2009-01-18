@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.TokenConversionException;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
+import org.emftext.sdk.GenClassFinder;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
 import org.emftext.sdk.codegen.regex.ANTLRexpParser;
@@ -55,6 +57,7 @@ import org.emftext.sdk.concretesyntax.DecoratedToken;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
+import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.PLUS;
@@ -225,6 +228,7 @@ public class TextParserGenerator extends BaseGenerator {
 	private String standardTextTokenName;
 	private boolean forceEOFToken;
 	private boolean useDefaultTokens;
+	private GenClassFinder genClassFinder = new GenClassFinder();
 	
 	public TextParserGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
@@ -260,18 +264,7 @@ public class TextParserGenerator extends BaseGenerator {
 		
 	    genClasses2superNames = new HashMap<String, Collection<String>>();
 	    
-	    allGenClasses = new LinkedList<GenClass>();
-	    
-	    // FIXME this code is not complete! we do also need the generator classes from
-	    // imported models and all sub packages
-	    for(GenPackage includedGP : conreteSyntax.getPackage().getGenModel().getGenPackages()){
-	    	allGenClasses.addAll(includedGP.getGenClasses());
-	    }
-	    
-	    for(GenPackage usedGP : conreteSyntax.getPackage().getGenModel().getUsedGenPackages()) {
-			allGenClasses.addAll(usedGP.getGenClasses());
-		}
-		
+	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true);
 	    for (GenClass genClass : allGenClasses) {
 			Collection<String> supertypes = new LinkedList<String>();
 			for (EClass c : genClass.getEcoreClass().getEAllSuperTypes()) {
@@ -984,8 +977,14 @@ public class TextParserGenerator extends BaseGenerator {
 	
 	private void printTokenDefinitions(PrintWriter out){
 		Set<String> processedTokenNames = new HashSet<String>();
-		Collection<TokenDefinition> userDefinedTokens = conreteSyntax.getTokens();
-		for(TokenDefinition def:userDefinedTokens){
+		printUserDefinedTokenDefinitions(out, processedTokenNames);
+		printDerivedTokenDefinitions(out, processedTokenNames);
+	}
+
+	private void printUserDefinedTokenDefinitions(PrintWriter out,
+			Set<String> processedTokenNames) {
+		Collection<TokenDefinition> userDefinedTokens = getTokens(conreteSyntax);
+		for (TokenDefinition def : userDefinedTokens) {
 			if(def.getName().charAt(0)<'A'||def.getName().charAt(0)>'Z'){
 				addProblem(new GenerationProblem("Token names must start with a capital letter.",def));
 				continue;
@@ -1023,15 +1022,31 @@ public class TextParserGenerator extends BaseGenerator {
 				}
 			}
 		}
+	}
+	
+	private Collection<TokenDefinition> getTokens(ConcreteSyntax syntax) {
+		Collection<TokenDefinition> tokens = new LinkedHashSet<TokenDefinition>();
+		tokens.addAll(syntax.getTokens());
+		for (Import nextImport : syntax.getImports()) {
+			ConcreteSyntax nextSyntax = nextImport.getConcreteSyntax();
+			if (nextSyntax != null) {
+				tokens.addAll(nextSyntax.getTokens());
+			}
+		}
+		return tokens;
+	}
+
+	private void printDerivedTokenDefinitions(PrintWriter out,
+			Set<String> processedTokenNames) {
 		//finally process untouched derived definitions
-		for(String tokenName:derivedTokens.keySet()){
+		for (String tokenName : derivedTokens.keySet()) {
 			InternalTokenDefinition def = derivedTokens.get(tokenName);
 			printToken(def,out);
 			processedTokenNames.add(tokenName.toLowerCase());
 			printedTokens.add(def);
 		}
 	}
-	
+
 	private void printToken(InternalTokenDefinition def, PrintWriter out){
 		out.println(def.getName());
 		out.println(":");

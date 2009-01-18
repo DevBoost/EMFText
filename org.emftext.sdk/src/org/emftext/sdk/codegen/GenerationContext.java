@@ -1,18 +1,25 @@
 package org.emftext.sdk.codegen;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.IJavaProject;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
+import org.emftext.sdk.GenClassFinder;
 import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
  * A GenerationContext provides all information that is needed by the 
@@ -37,10 +44,14 @@ public class GenerationContext {
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
 	
+	private final GenClassFinder genClassFinder = new GenClassFinder();
+
 	private ConcreteSyntax concreteSyntax;
 	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
 	private IJavaProject javaProject;
 	private IProblemCollector problemCollector;
+	private Collection<GenFeature> nonContainmentReferences = new ArrayList<GenFeature>();
+	private Collection<InternalTokenDefinition> usedTokenDefinitions = new ArrayList<InternalTokenDefinition>();
 	
 	public GenerationContext(ConcreteSyntax csSource, IProblemCollector problemCollector) {
 		if (csSource == null) {
@@ -48,16 +59,41 @@ public class GenerationContext {
 		}
 		this.concreteSyntax = csSource;
 		this.problemCollector = problemCollector;
+		this.nonContainmentReferences = new ArrayList<GenFeature>();
 	}
 
 	/**	 
 	 * @return The base package where token and proxy resolvers go to.
 	 */
+	public String getResolverPackageName(GenFeature genFeature) {
+		ConcreteSyntax syntax = getConcreteSyntax(genFeature);
+		return getResolverPackageName(syntax);
+	}
+
 	public String getResolverPackageName() {
-		String csPackageName = getPackageName();
-		return (csPackageName==null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
+		return getResolverPackageName(concreteSyntax);
 	}
 	
+	public String getResolverPackageName(ConcreteSyntax syntax) {
+		String csPackageName = getPackageName(syntax);
+		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
+	}
+
+	// feature may be contained in imported rules and thus belong to a different
+	// CS specification
+	private ConcreteSyntax getConcreteSyntax(GenFeature genFeature) {
+		for (Import nextImport : concreteSyntax.getImports()) {
+			ConcreteSyntax nextSyntax = nextImport.getConcreteSyntax();
+			if (nextSyntax == null) {
+				continue;
+			}
+			if (genClassFinder.findAllGenClasses(nextSyntax, true).contains(genFeature.getGenClass())) {
+				return nextSyntax;
+			}
+		}
+		return concreteSyntax;
+	}
+
 	/**
 	 * @return The concrete syntax to be processed and which is 
 	 * assumed to contain all resolved information.
@@ -89,7 +125,11 @@ public class GenerationContext {
 	}
 
 	public String getPackageName() {
-		GenPackage concreteSyntaxPackage = concreteSyntax.getPackage();
+		return getPackageName(concreteSyntax);
+	}
+
+	public String getPackageName(ConcreteSyntax syntax) {
+		GenPackage concreteSyntaxPackage = syntax.getPackage();
 		boolean hasBasePackage = concreteSyntaxPackage.getBasePackage() != null;
 		String baseName = "";
 		if (hasBasePackage) {
@@ -97,7 +137,7 @@ public class GenerationContext {
 		}
 		return baseName
 				+ concreteSyntaxPackage.getEcorePackage().getName()
-				+ ".resource." + concreteSyntax.getName();
+				+ ".resource." + syntax.getName();
 	}
 
 	public IProject getProject() {
@@ -117,7 +157,11 @@ public class GenerationContext {
 	}
 	
 	public String getCapitalizedConcreteSyntaxName() {
-		return capitalize(getConcreteSyntax().getName());
+		return getCapitalizedConcreteSyntaxName(getConcreteSyntax());
+	}
+	
+	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
+		return capitalize(syntax.getName());
 	}
 	
     public String getPrinterName() {
@@ -146,11 +190,22 @@ public class GenerationContext {
 
 	public String getTokenResolverClassName(
 			InternalTokenDefinition tokenDefinition) {
-		return getCapitalizedConcreteSyntaxName() +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
+		return getCapitalizedConcreteSyntaxName(getContainingSyntax(tokenDefinition)) +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
 	}
 
 	public String getReferenceResolverClassName(GenFeature proxyReference) {
 		return proxyReference.getGenClass().getName() + capitalize(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
+	}
+	
+	public ConcreteSyntax getContainingSyntax(InternalTokenDefinition def) {
+		TokenDefinition baseDefinition = def.getBaseDefinition();
+		if (baseDefinition != null) {
+			EObject container = baseDefinition.eContainer();
+			if (container instanceof ConcreteSyntax) {
+				return (ConcreteSyntax) container;
+			}
+		}
+		return concreteSyntax;
 	}
 	
     /**
@@ -164,4 +219,42 @@ public class GenerationContext {
         String t = text.substring(1);      
         return h + t;
     }
+
+	public void addNonContainmentReference(GenFeature proxyReference) {
+		nonContainmentReferences.add(proxyReference);
+	}
+
+	public void addGeneratedReferenceResolverClass(String name) {
+		generatedResolverClasses.add(name);
+	}
+
+	public void addGeneratedTokenResolverClass(String name) {
+		generatedResolverClasses.add(name);
+	}
+
+	public Collection<GenFeature> getNonContainmentReferences() {
+		return nonContainmentReferences;
+	}
+
+	public void addUsedToken(InternalTokenDefinition tokenDefinition) {
+		usedTokenDefinitions.add(tokenDefinition);
+	}
+
+	public Collection<InternalTokenDefinition> getUsedTokens() {
+		return usedTokenDefinitions;
+	}
+
+	public boolean isImportedReference(GenFeature genFeature) {
+		List<GenClass> classes = genClassFinder.findAllGenClasses(concreteSyntax, false);
+		for (GenClass genClass : classes) {
+			if (genClass != null && genClass.equals(genFeature.getGenClass())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean isImportedToken(InternalTokenDefinition tokenDefinition) {
+		return !concreteSyntax.equals(getContainingSyntax(tokenDefinition));
+	}
 }

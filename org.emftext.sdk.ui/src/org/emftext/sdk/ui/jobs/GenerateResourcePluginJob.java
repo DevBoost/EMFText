@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.MarkerHelper;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -94,7 +95,8 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			createProject(context, progress);
 
 			// generate the resource class, parser, and printer
-			ResourcePluginGenerator.generate(context, progress
+			ResourcePluginGenerator pluginGenerator = new ResourcePluginGenerator();
+			pluginGenerator.generate(context, progress
 					.newChild(TICKS_GENERATE_RESOURCE));
 
 			// errors from parser generator?
@@ -113,6 +115,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			context.getProject().refreshLocal(IProject.DEPTH_INFINITE, progress
 					.newChild(TICKS_REFRESH_PROJECT));
 		} catch (CoreException e) {
+			EMFTextPlugin.logError("Exception while generating resource plug-in.", e);
 			return new Status(Status.ERROR, EMFTextSDKUIPlugin.PLUGIN_ID, CoreException.class.getSimpleName(), new InvocationTargetException(e));
 		}
 		return Status.OK_STATUS;

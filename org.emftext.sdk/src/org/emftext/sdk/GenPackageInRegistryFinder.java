@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emftext.runtime.EMFTextPlugin;
 
 /**
  * A finder that looks up generator packages in the EMF package
@@ -47,7 +48,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
             		}
             	}
         	} catch (Exception e ) {
-        		//FIXME print exception into error log
+        		EMFTextPlugin.logError("Exception while looking up concrete syntaxes in the registry.", e);
         	}
         }
         return null;

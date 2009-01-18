@@ -11,6 +11,7 @@ import org.emftext.runtime.resource.ITextResource;
 public class MetamodelHelper {
 	
 	public final static String GEN_PACKAGE_FINDER_KEY = "GEN_PACKAGE_FINDER";
+	public final static String CONCRETE_SYNTAX_FINDER_KEY = "CONCRETE_SYNTAX_FINDER";
 	
 	public GenPackage findGenPackage(Map<?,?> options, String fragment, ITextResource resource) {
 		MetamodelManager mmManager = createMetaModelManager(options);
@@ -25,34 +26,39 @@ public class MetamodelHelper {
 
 	private MetamodelManager createMetaModelManager(Map<?, ?> options) {
 		MetamodelManager mmManager = new MetamodelManager();
-		List<IGenPackageFinder> finders = findGenPackageFinder(options);
-		for (IGenPackageFinder finder : finders) {
+		List<IGenPackageFinder> genPackageFinders = findFinders(options, GEN_PACKAGE_FINDER_KEY, IGenPackageFinder.class);
+		for (IGenPackageFinder finder : genPackageFinders) {
 			mmManager.addGenPackageFinder(finder);
+		}
+		List<IConcreteSyntaxFinder> concreteSyntaxFinders = findFinders(options, CONCRETE_SYNTAX_FINDER_KEY, IConcreteSyntaxFinder.class);
+		for (IConcreteSyntaxFinder finder : concreteSyntaxFinders) {
+			mmManager.addConcreteSyntaxFinder(finder);
 		}
 		return mmManager;
 	}
 
-	private List<IGenPackageFinder> findGenPackageFinder(Map<?, ?> options) {
-		List<IGenPackageFinder> finders = new ArrayList<IGenPackageFinder>();
+	@SuppressWarnings("unchecked")
+	private <T> List<T> findFinders(Map<?, ?> options, String key, Class<T> type) {
+		List<T> finders = new ArrayList<T>();
 		if (options == null) {
 			return finders;
 		}
-		if (!options.containsKey(GEN_PACKAGE_FINDER_KEY)) {
+		if (!options.containsKey(key)) {
 			return finders;
 		}
-		Object value = options.get(GEN_PACKAGE_FINDER_KEY);
+		Object value = options.get(key);
 		if (value == null) {
 			return finders;
 		}
-		if (value instanceof IGenPackageFinder) {
-			finders.add((IGenPackageFinder) value);
+		if (type.isInstance(value)) {
+			finders.add((T) value);
 			return finders;
 		}
 		if (value instanceof List) {
 			List<?> values = (List<?>) value;
 			for (Object next : values) {
-				if (next instanceof IGenPackageFinder) {
-					finders.add((IGenPackageFinder) next);
+				if (type.isInstance(next)) {
+					finders.add((T) next);
 				}
 			}
 		}

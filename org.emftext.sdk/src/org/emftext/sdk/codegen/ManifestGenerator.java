@@ -71,6 +71,9 @@ public class ManifestGenerator implements IGenerator {
 			String pluginID = genModel.getModelPluginID();
 			if (!importedPlugins.contains(pluginID)) {
 				s.append("  " + pluginID + ",\n");
+				// TODO this is not quite right, because the resolver package of the imported
+				// plug-in may not exist
+				s.append("  " + context.getPackageName(aImport.getConcreteSyntax()) + ",\n");
 				importedPlugins.add(pluginID);
 			}
 		}
