@@ -18,7 +18,7 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);
-		if (continueSearch) {
+		if (!continueSearch) {
 			return;
 		}
 		// then look in the resource itself
