@@ -7,8 +7,6 @@ import org.eclipse.emf.ecore.EObject;
  * It is called by the proxy resolution mechanism.
  *
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
- *
- * TODO mseifert (future): this class should have a type parameter for the resolved types
  */
 public interface IReferenceResolver<ContainerType extends EObject> extends ITypedReferenceResolver<ContainerType>, IConfigurable {
 }
