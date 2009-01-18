@@ -117,7 +117,7 @@ public class ResourcePluginGenerator {
 			GenerationContext context, IPath resolverPackagePath) throws CoreException {
 		
 		Set<String> resolverFiles = new LinkedHashSet<String>();
-		for (String className : context.getGeneratedResolverClasses()) {
+		for (String className : context.getResolverClasses()) {
 			resolverFiles.add(className + JAVA_FILE_EXTENSION);
 		}
 		
@@ -161,7 +161,7 @@ public class ResourcePluginGenerator {
 		progress.setTaskName("generating token resolvers...");
 		IFolder targetFolder = context.getTargetFolder();
 		for(TextParserGenerator.InternalTokenDefinition tokenDefinition : parserGenerator.getPrintedTokenDefinitions()){
-			if (!tokenDefinition.isReferenced()) {
+			if (!tokenDefinition.isReferenced() && !tokenDefinition.isCollect()) {
 				continue;
 			}
 			String tokenResolverClassName = context.getTokenResolverClassName(tokenDefinition);
@@ -176,7 +176,7 @@ public class ResourcePluginGenerator {
 				BaseGenerator resolverGenerator = new TokenResolverGenerator(context, tokenResolverClassName, tokenDefinition);
 				setContents(resolverFile, invokeGeneration(resolverGenerator, context.getProblemCollector()));
 			}
-			context.addGeneratedTokenResolverClass(tokenResolverClassName);
+			context.addTokenResolverClass(tokenResolverClassName);
 		}
 		progress.worked(20);
 	}
@@ -217,7 +217,7 @@ public class ResourcePluginGenerator {
 				BaseGenerator proxyGen = new ReferenceResolverGenerator(context, resolverClassName);
 				setContents(resolverFile, invokeGeneration(proxyGen, context.getProblemCollector()));		
 			}
-			context.addGeneratedReferenceResolverClass(resolverClassName);
+			context.addReferenceResolverClass(resolverClassName);
 		}
 		
 		monitor.worked(20);

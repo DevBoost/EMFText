@@ -37,45 +37,63 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  */
 public class GenerationContext {
 	
+	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
+	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
+	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
+
 	private static final String CLASS_SUFFIX_PRINTER = "Printer";
 	private static final String CLASS_SUFFIX_PRINTER_BASE = "PrinterBase";
 	private static final String CLASS_SUFFIX_RESOURCE = "ResourceImpl";
 	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactoryImpl";
 	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
-	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
-	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
-	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
 	
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
-	private ConcreteSyntax concreteSyntax;
-	private Collection<String> generatedResolverClasses = new LinkedHashSet<String>();
+	private final ConcreteSyntax concreteSyntax;
+	private final IProblemCollector problemCollector;
 	private IJavaProject javaProject;
-	private IProblemCollector problemCollector;
-	private Collection<GenFeature> nonContainmentReferences = new ArrayList<GenFeature>();
-	private Collection<InternalTokenDefinition> usedTokenDefinitions = new ArrayList<InternalTokenDefinition>();
 	
-	public GenerationContext(ConcreteSyntax csSource, IProblemCollector problemCollector) {
-		if (csSource == null) {
+	/**
+	 * A list that contains the names of all resolver classes that are needed.
+	 * Some of them might be generated during the generation process, others
+	 * may already exist. This list must not contain resolver classes that are
+	 * contained in imported syntaxes and that are reused.
+	 */
+	private Collection<String> resolverClasses = new LinkedHashSet<String>();
+	private Collection<GenFeature> nonContainmentReferences = new ArrayList<GenFeature>();
+	private Collection<InternalTokenDefinition> usedTokens = new ArrayList<InternalTokenDefinition>();
+	
+	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
+		if (concreteSyntax == null) {
 			throw new IllegalArgumentException("A concrete syntax must be specified!");
 		}
-		this.concreteSyntax = csSource;
+		this.concreteSyntax = concreteSyntax;
 		this.problemCollector = problemCollector;
-		this.nonContainmentReferences = new ArrayList<GenFeature>();
 	}
 
 	/**	 
-	 * @return The base package where token and proxy resolvers go to.
+	 * Returns the name of the package where token and reference resolvers 
+	 * must go to. Depending on the given generator feature this package
+	 * might be part of a resource plug-in that belongs to an imported
+	 * syntax.
 	 */
 	public String getResolverPackageName(GenFeature genFeature) {
 		ConcreteSyntax syntax = getConcreteSyntax(genFeature);
 		return getResolverPackageName(syntax);
 	}
 
+	/**	 
+	 * Returns the name of the package where token and reference resolvers 
+	 * must go to.
+	 */
 	public String getResolverPackageName() {
 		return getResolverPackageName(concreteSyntax);
 	}
 	
+	/**	 
+	 * Returns the name of the package where token and reference resolvers 
+	 * must go to depending on the given syntax.
+	 */
 	public String getResolverPackageName(ConcreteSyntax syntax) {
 		String csPackageName = getPackageName(syntax);
 		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
@@ -104,6 +122,9 @@ public class GenerationContext {
 		return concreteSyntax;
 	}
 	
+	/**
+	 * Returns the actual file which contains the CS specification.
+	 */
 	public IFile getConcreteSyntaxFile() {
 		IFile file = (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(concreteSyntax.eResource().getURI().toPlatformString(true));
 		return file;
@@ -122,13 +143,14 @@ public class GenerationContext {
 
 	/**
 	 * Returns a collection that contains the names of all resolver
-	 * classes (both token and reference resolvers) that were generated
-	 * before. Each new resolver should be added to this list.
+	 * classes (both token and reference resolvers) that are needed.
+	 * Each resolver that is not part of an imported plug-in should 
+	 * be added to this list. 
 	 * 
 	 * @return the collection of already generated resolver classes
 	 */
-	public Collection<String> getGeneratedResolverClasses() {
-		return generatedResolverClasses;
+	public Collection<String> getResolverClasses() {
+		return resolverClasses;
 	}
 
 	public String getPackageName() {
@@ -231,12 +253,12 @@ public class GenerationContext {
 		nonContainmentReferences.add(proxyReference);
 	}
 
-	public void addGeneratedReferenceResolverClass(String name) {
-		generatedResolverClasses.add(name);
+	public void addReferenceResolverClass(String name) {
+		resolverClasses.add(name);
 	}
 
-	public void addGeneratedTokenResolverClass(String name) {
-		generatedResolverClasses.add(name);
+	public void addTokenResolverClass(String name) {
+		resolverClasses.add(name);
 	}
 
 	public Collection<GenFeature> getNonContainmentReferences() {
@@ -244,11 +266,11 @@ public class GenerationContext {
 	}
 
 	public void addUsedToken(InternalTokenDefinition tokenDefinition) {
-		usedTokenDefinitions.add(tokenDefinition);
+		usedTokens.add(tokenDefinition);
 	}
 
 	public Collection<InternalTokenDefinition> getUsedTokens() {
-		return usedTokenDefinitions;
+		return usedTokens;
 	}
 
 	public boolean isImportedReference(GenFeature genFeature) {

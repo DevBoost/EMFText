@@ -82,7 +82,7 @@ public class ManifestGenerator implements IGenerator {
 		s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
 		// export the generated packages
 		s.append("Export-Package: " + projectName);
-		if (context.getGeneratedResolverClasses().size() > 0) {
+		if (context.getResolverClasses().size() > 0) {
 			s.append(",\n" + "  " + context.getResolverPackageName());
 		}
 		s.append("\n");

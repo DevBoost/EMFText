@@ -112,6 +112,7 @@ public class TextParserGenerator extends BaseGenerator {
 		public boolean isReferenced();
 		
 		public boolean isDerived();
+		public boolean isCollect();
 	}
 	
 	private static class InternalTokenDefinitionImpl implements InternalTokenDefinition{
@@ -121,14 +122,16 @@ public class TextParserGenerator extends BaseGenerator {
 		private String suffix;
 		private PreDefinedToken base;
 		private boolean implicitlyReferenced;
+		private boolean isCollect;
 		
-		public InternalTokenDefinitionImpl(String name, String expression, String prefix, String suffix, PreDefinedToken base, boolean implicitlyReferenced){
+		public InternalTokenDefinitionImpl(String name, String expression, String prefix, String suffix, PreDefinedToken base, boolean implicitlyReferenced, boolean isCollect){
 			this.name = name;
 			this.expression = expression;
 			this.prefix = prefix;
 			this.suffix = suffix;
 			this.base = base;
 			this.implicitlyReferenced = implicitlyReferenced;
+			this.isCollect = isCollect;
 		}
 		
 		public String getName() {
@@ -159,9 +162,13 @@ public class TextParserGenerator extends BaseGenerator {
 		public boolean isDerived(){
 			return true;
 		}
+
+		public boolean isCollect() {
+			return isCollect;
+		}
 	}
 	
-	private static class TokenDefinitionAdapter implements InternalTokenDefinition{
+	private static class TokenDefinitionAdapter implements InternalTokenDefinition {
 		private NewDefinedToken adaptee;
 		private boolean implicitlyReferenced;
 		
@@ -207,6 +214,10 @@ public class TextParserGenerator extends BaseGenerator {
 		
 		public boolean isDerived(){
 			return false;
+		}
+
+		public boolean isCollect() {
+			return adaptee.getAttributeName() != null;
 		}
 	}
 	
@@ -255,9 +266,9 @@ public class TextParserGenerator extends BaseGenerator {
 		derivedTokens = new HashMap<String,InternalTokenDefinition>();
 		placeholder2TokenName = new HashMap<DerivedPlaceholder,String>();
 		
-		if(useDefaultTokens){
-			derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false));
-			derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false));			
+		if (useDefaultTokens) {
+			derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false,false));
+			derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false,false));			
 		}
 		
 		printedTokens = new LinkedList<InternalTokenDefinition>();
@@ -278,7 +289,7 @@ public class TextParserGenerator extends BaseGenerator {
 		initOptions();
 		initCaches();
 		
-        String csName = super.getResourceClassName();
+        String csName = getResourceClassName();
         String lexerName = getLexerName(csName);
 
         out.println("grammar " + csName + ";");
@@ -333,7 +344,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t}");
         out.println();
         
-        out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) {");
+        out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) throws " + TokenConversionException.class.getName() + " {");
         //out.println("\t\tSystem.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
         out.println("\t\tint currentPos = getTokenStream().index();");
         out.println("\t\tint endPos = currentPos - 1;");
@@ -360,7 +371,21 @@ public class TextParserGenerator extends BaseGenerator {
 			out.println("\t\t\t\tif (token.getType() == " + lexerName + "." + token.getName() + ") {");
 	        out.println("\t\t\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
 	        out.println("\t\t\t\t\tif (feature != null) {");
-	        out.println("\t\t\t\t\t\t((java.util.List) element.eGet(feature)).add(token.getText());");
+	        out.println("\t\t\t\t\t\t// call token resolver");
+	        
+			String identifierPrefix = "resolved";
+			String resolverIdentifier = identifierPrefix + "Resolver";
+			String resolvedObjectIdentifier = identifierPrefix + "Object";
+			
+			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createTokenResolver(\"" + token.getName() + "\");");
+			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
+			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolverIdentifier + ".resolve(token.getText(), feature, element, getResource());");
+			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) throw new " + TokenConversionException.class.getName() + "(token, " + resolverIdentifier + ".getErrorMessage());");
+			out.println("\t\t\t\t\t\tif (java.lang.String.class.isInstance(" + resolvedObjectIdentifier + ")) {");
+	        out.println("\t\t\t\t\t\t\t((java.util.List) element.eGet(feature)).add((String) " + resolvedObjectIdentifier + ");");
+	        out.println("\t\t\t\t\t\t} else {");
+	        out.println("\t\t\t\t\t\t\tSystem.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" has wrong type in element \" + element + \" (expected java.lang.String).\");");
+	        out.println("\t\t\t\t\t\t}");
 	        out.println("\t\t\t\t\t} else {");
 	        out.println("\t\t\t\t\t\tSystem.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" was not found in element \" + element + \".\");");
 	        out.println("\t\t\t\t\t}");
@@ -931,8 +956,7 @@ public class TextParserGenerator extends BaseGenerator {
 	}
 
 	private void addTokenDefinition(String tokenName, String expression, String prefix, String suffix) {
-		//System.out.println("TextParserGenerator.addTokenDefinition(" + tokenName + ", " + expression + ")");
-		InternalTokenDefinition newDefintion =  new InternalTokenDefinitionImpl(tokenName,expression,prefix,suffix,null,true);
+		InternalTokenDefinition newDefintion =  new InternalTokenDefinitionImpl(tokenName, expression, prefix, suffix, null, true, false);
 		derivedTokens.put(tokenName, newDefintion);
 	}
     
@@ -984,23 +1008,23 @@ public class TextParserGenerator extends BaseGenerator {
 	private void printUserDefinedTokenDefinitions(PrintWriter out,
 			Set<String> processedTokenNames) {
 		Collection<TokenDefinition> userDefinedTokens = getTokens(conreteSyntax);
-		for (TokenDefinition def : userDefinedTokens) {
-			if(def.getName().charAt(0)<'A'||def.getName().charAt(0)>'Z'){
-				addProblem(new GenerationProblem("Token names must start with a capital letter.",def));
+		for (TokenDefinition tokenDefinition : userDefinedTokens) {
+			if (tokenDefinition.getName().charAt(0) < 'A' || tokenDefinition.getName().charAt(0) > 'Z') {
+				addProblem(new GenerationProblem("Token names must start with a capital letter.",tokenDefinition));
 				continue;
 			}
-			if(processedTokenNames.contains(def.getName().toLowerCase())){
-				addProblem(new GenerationProblem("Tokenname already in use (ignoring case).",def));
+			if (processedTokenNames.contains(tokenDefinition.getName().toLowerCase())) {
+				addProblem(new GenerationProblem("Tokenname already in use (ignoring case).",tokenDefinition));
 				continue;
 			}
-			if(def instanceof NewDefinedToken){
-				InternalTokenDefinition derivedDef = derivedTokens.remove(def.getName());
+			if (tokenDefinition instanceof NewDefinedToken) {
+				InternalTokenDefinition derivedDef = derivedTokens.remove(tokenDefinition.getName());
 				InternalTokenDefinition defAdapter = null;
 				if(derivedDef==null){
-					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)def);
+					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)tokenDefinition);
 				}		
 				else{
-					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)def,derivedDef.isReferenced());
+					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)tokenDefinition,derivedDef.isReferenced());
 				}
 				
 				if(!checkANTLRRegex(defAdapter)){ 
@@ -1008,17 +1032,17 @@ public class TextParserGenerator extends BaseGenerator {
 				}
 				printToken(defAdapter,out);
 				processedTokenNames.add(defAdapter.getName().toLowerCase());
-				printedTokens.add(defAdapter);					
+				printedTokens.add(defAdapter);
 			}
-			else if(def instanceof PreDefinedToken){
-				if(derivedTokens.get(def.getName())!=null){
-					InternalTokenDefinition defAdapter = derivedTokens.remove(def.getName());
+			else if(tokenDefinition instanceof PreDefinedToken){
+				if(derivedTokens.get(tokenDefinition.getName())!=null){
+					InternalTokenDefinition defAdapter = derivedTokens.remove(tokenDefinition.getName());
 					printToken(defAdapter,out);
 					processedTokenNames.add(defAdapter.getName().toLowerCase());
 					printedTokens.add(defAdapter);
 				}
 				else{
-					addProblem(new GenerationProblem("Token is neither predefined nor derived.",def));
+					addProblem(new GenerationProblem("Token is neither predefined nor derived.",tokenDefinition));
 				}
 			}
 		}
@@ -1064,7 +1088,7 @@ public class TextParserGenerator extends BaseGenerator {
 			out.print(regex);
 		}
 		
-		out.println(def.isReferenced() ? "" : "{ _channel = 99; }");
+		out.println(def.isReferenced() && !def.isCollect() ? "" : "{ _channel = 99; }");
 		out.println(";");
 	}
 	
@@ -1077,7 +1101,7 @@ public class TextParserGenerator extends BaseGenerator {
 	
 
 	/**
-	 * @return The tokendefinitions which were printed during last 
+	 * @return The token definitions which were printed during last 
 	 * execution for printing token resolvers.
 	 */
 	public Collection<InternalTokenDefinition> getPrintedTokenDefinitions(){
@@ -1086,7 +1110,7 @@ public class TextParserGenerator extends BaseGenerator {
 	
 	/**
 	 * @return All features which will be replaced with a proxy during a parse 
-	 * and therefore need proxy resolvers.
+	 * and therefore need reference resolvers.
 	 */
 	
 	public Collection<GenFeature> getProxyReferences(){
