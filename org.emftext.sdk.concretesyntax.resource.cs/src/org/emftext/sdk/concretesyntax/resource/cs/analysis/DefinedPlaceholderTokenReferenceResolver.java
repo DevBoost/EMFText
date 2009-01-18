@@ -15,13 +15,25 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 	protected void doResolve(String identifier, EObject container,
 			EReference reference, int position, boolean resolveFuzzy,
 			IResolveResult result) {
-		if (!(container instanceof DefinedPlaceholder)) {
+		// first look in imported syntaxes for the token
+		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
+				result);
+		if (continueSearch) {
 			return;
 		}
-		// first look in imports
+		// then look in the resource itself
+		super.doResolve(identifier, container, reference, position, resolveFuzzy,
+				result);
+	}
+
+	private boolean searchForTokenInImportedSyntaxes(String identifier,
+			EObject container, boolean resolveFuzzy, IResolveResult result) {
+		if (!(container instanceof DefinedPlaceholder)) {
+			return false;
+		}
 		EObject root = findRoot(container);
 		if (!(root instanceof ConcreteSyntax)) {
-			return;
+			return false;
 		}
 		ConcreteSyntax syntax = (ConcreteSyntax) root;
 		for (Import nextImport : syntax.getImports()) {
@@ -33,16 +45,14 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 				final String tokenName = tokenDefinition.getName();
 				if (tokenName.equals(identifier) && !resolveFuzzy) {
 					result.addMapping(identifier, tokenDefinition);
-					return;
+					return false;
 				}
 				if (tokenName.startsWith(identifier) && resolveFuzzy) {
 					result.addMapping(tokenName, tokenDefinition);
 				}
 			}
 		}
-		// the look in the resource itself
-		super.doResolve(identifier, container, reference, position, resolveFuzzy,
-				result);
+		return true;
 	}
 
 }
