@@ -219,7 +219,14 @@ public class GenerationContext {
 
 	public String getTokenResolverClassName(
 			InternalTokenDefinition tokenDefinition) {
-		return getCapitalizedConcreteSyntaxName(getContainingSyntax(tokenDefinition)) +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
+
+		String syntaxName = getCapitalizedConcreteSyntaxName(getContainingSyntax(tokenDefinition));
+		if (tokenDefinition.isCollect()) {
+			String attributeName = tokenDefinition.getBaseDefinition().getAttributeName();
+			return syntaxName +  "COLLECT_" + attributeName + CLASS_SUFFIX_TOKEN_RESOLVER;
+		} else {
+			return syntaxName +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
+		}
 	}
 
 	public String getReferenceResolverClassName(GenFeature proxyReference) {

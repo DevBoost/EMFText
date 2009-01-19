@@ -301,15 +301,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 		List<EStructuralFeature> featureList = rule.getMetaclass().getEcoreClass().getEAllStructuralFeatures();
 
-		out.println("// TODO print collected hidden tokens");
+		out.println("\t\t// print collected hidden tokens");
 		for (EStructuralFeature feature : featureList) {
 			if (isCollectInFeature(rule, feature)) {
 				// TODO use feature id constant instead
 				out.println("\t\t{");
-				out.println("\t\t\t" + OBJECT_CLASS_NAME + " value = element.eGet(element.eClass().getEStructuralFeature(" + feature.getFeatureID() + "));");
+				out.println("\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(" + feature.getFeatureID() + ");");
+				out.println("\t\t\t" + OBJECT_CLASS_NAME + " value = element.eGet(feature);");
 				out.println("\t\t\tif (value instanceof java.util.List) {");
 				out.println("\t\t\t\tfor (" + OBJECT_CLASS_NAME + " next : (" + LIST_CLASS_NAME + ") value) {");
-				out.println("\t\t\t\t\tout.print(next);");
+				out.println("\t\t\t\t\tout.print(tokenResolverFactory.createCollectInTokenResolver(\"" + feature.getName() + "\").deResolve(next, feature, element));");
 				out.println("\t\t\t\t}");
 				out.println("\t\t\t}");
 				out.println("\t\t}");

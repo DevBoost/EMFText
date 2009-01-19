@@ -36,7 +36,12 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 			ConcreteSyntax containingSyntax = context.getContainingSyntax(def);
 			String tokenResolverClassName = context.getTokenResolverClassName(def);
 			if (tokenResolverClassName != null) {
-				out.println("\t\tsuper.registerTokenResolver(\"" +def.getName()+ "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
+				if (def.isCollect()) {
+					String featureName = def.getBaseDefinition().getAttributeName();
+					out.println("\t\tsuper.registerCollectInTokenResolver(\"" + featureName + "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
+				} else {
+					out.println("\t\tsuper.registerTokenResolver(\"" +def.getName()+ "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
+				}
 			}
 		}
 		out.println("\t}");

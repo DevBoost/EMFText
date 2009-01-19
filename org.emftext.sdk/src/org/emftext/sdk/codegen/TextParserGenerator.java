@@ -377,7 +377,7 @@ public class TextParserGenerator extends BaseGenerator {
 			String resolverIdentifier = identifierPrefix + "Resolver";
 			String resolvedObjectIdentifier = identifierPrefix + "Object";
 			
-			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createTokenResolver(\"" + token.getName() + "\");");
+			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createCollectInTokenResolver(\"" + attributeName + "\");");
 			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
 			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolverIdentifier + ".resolve(token.getText(), feature, element, getResource());");
 			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) throw new " + TokenConversionException.class.getName() + "(token, " + resolverIdentifier + ".getErrorMessage());");

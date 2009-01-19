@@ -12,5 +12,6 @@ package org.emftext.runtime.resource;
 public interface ITokenResolverFactory {
 	
 	public ITokenResolver createTokenResolver(String tokenName);
+	public ITokenResolver createCollectInTokenResolver(String featureName);
 	
 }
