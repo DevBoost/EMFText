@@ -46,6 +46,11 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTe
 		return new CsParser(null).getTokenNames();
 	}
 
+	@Override
+	protected String getSyntaxName() {
+		return "cs";
+	}
+
 	public Object getScanner() {
 		return new CsLexer();
 	}
@@ -57,13 +62,8 @@ public class CsResourceImpl extends org.emftext.runtime.resource.impl.AbstractTe
 		return resolverSwitch;
 	}
 
-	public void doUnload(){
+	protected void doUnload(){
 		super.doUnload();
 		resolverSwitch = null;
-	}
-
-	@Override
-	protected String getSyntaxName() {
-		return "cs";
 	}
 }

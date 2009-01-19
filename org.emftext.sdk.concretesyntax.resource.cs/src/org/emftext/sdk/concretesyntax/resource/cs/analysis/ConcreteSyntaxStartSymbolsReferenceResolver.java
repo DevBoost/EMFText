@@ -14,7 +14,7 @@ public class ConcreteSyntaxStartSymbolsReferenceResolver extends AbstractReferen
 	@Override
 	protected void doResolve(String identifier, ConcreteSyntax container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
-		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result);
+		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, null, false);
 	}
 
 	@Override

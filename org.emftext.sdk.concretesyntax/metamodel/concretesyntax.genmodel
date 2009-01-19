@@ -70,7 +70,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//NewDefinedToken/regex"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//PreDefinedToken"/>
-    <genClasses ecoreClass="concretesyntax.ecore#//Containment"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//Containment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Containment/type"/>
+    </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//DefinedPlaceholder">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//DefinedPlaceholder/token"/>
     </genClasses>

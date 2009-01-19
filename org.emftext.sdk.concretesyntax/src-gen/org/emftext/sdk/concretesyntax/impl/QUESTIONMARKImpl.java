@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.QUESTIONMARK;
  */
 public class QUESTIONMARKImpl extends CardinalityImpl implements QUESTIONMARK {
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected QUESTIONMARKImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.QUESTIONMARK;
-	}
+    return ConcretesyntaxPackage.Literals.QUESTIONMARK;
+  }
 
 } //QUESTIONMARKImpl

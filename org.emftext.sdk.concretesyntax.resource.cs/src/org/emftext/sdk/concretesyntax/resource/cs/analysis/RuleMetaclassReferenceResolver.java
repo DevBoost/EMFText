@@ -15,7 +15,7 @@ public class RuleMetaclassReferenceResolver extends AbstractReferenceResolver<Ru
 	protected void doResolve(final String identifier, Rule container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
 		
-		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result);
+		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, null, false);
 	}
 
 	@Override

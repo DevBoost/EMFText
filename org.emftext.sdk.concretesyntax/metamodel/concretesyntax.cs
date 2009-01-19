@@ -41,7 +41,7 @@ RULES {
   
   DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] ("," suffix['\'','\''] )? )? "]" #1 cardinality?;
   
-  Containment ::=  ( feature[] cardinality | feature[] ) #1 ;
+  Containment ::=  feature[] (":" (type[] | type[QNAME]))? cardinality? #1 ;
   
   CompoundDefinition ::= "(" definitions ")" cardinality?;
 

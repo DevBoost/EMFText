@@ -2,7 +2,9 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis.helper;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IResolveResult;
@@ -10,7 +12,6 @@ import org.emftext.sdk.GenClassFinder;
 import org.emftext.sdk.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.Rule;
 
 /**
  * A resolver for EMF generator classes. The classes must be identified
@@ -43,25 +44,24 @@ public class MetaclassReferenceResolver {
 	}
 
 	private ConcreteSyntax getConcreteSyntax(EObject container) {
-		if (container instanceof Rule) {
-			Rule rule = (Rule) container;
-			return rule.getSyntax();
-		} else {
-			return (ConcreteSyntax) container;
+		while(!(container instanceof ConcreteSyntax)) {
+			container = container.eContainer();
+			Assert.isNotNull(container);
 		}
+		return (ConcreteSyntax) container;
 	}
 
 	public void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
 		
 		if (resolveFuzzy) {
-			doResolveFuzzy(getConcreteSyntax(container), identifier, result);
+			doResolveFuzzy(getConcreteSyntax(container), identifier, result, requiredSuperType, canBeAbstract);
 		} else {
-			doResolveStrict(getConcreteSyntax(container), identifier, result);
+			doResolveStrict(getConcreteSyntax(container), identifier, result, requiredSuperType, canBeAbstract);
 		}
 	}
 
-	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IResolveResult result) {
+	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
 		doResolveMetaclass(syntax, new MetaClassFilter() {
 
 			public String accept(String importPrefix, GenClass genClass) {
@@ -81,10 +81,10 @@ public class MetaclassReferenceResolver {
 			public boolean isFuzzy(){
 				return true;
 			}
-		}, identifier, result);
+		}, identifier, result, requiredSuperType, canBeAbstract);
 	}
 
-	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IResolveResult result) {
+	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
 		// first collect all generator classes
 		List<Pair<String, GenClass>> prefixedGenClasses = genClassFinder.findAllGenClassesAndPrefixes(syntax, true);
 		// then check which are accepted by the filter
@@ -93,7 +93,7 @@ public class MetaclassReferenceResolver {
 			GenClass genClass = prefixedGenClass.getRight();
 			String identifier = filter.accept(prefix, genClass);
 			if (identifier != null) {
-				if (isInterfaceOrAbstract(genClass)) {
+				if (!canBeAbstract && isInterfaceOrAbstract(genClass)) {
 					if (filter.isFuzzy()) {
 						continue;
 					} else {
@@ -101,7 +101,12 @@ public class MetaclassReferenceResolver {
 					}
 				}	
 				else{
-					result.addMapping(identifier, genClass);
+					if (hasRequiredSupertype(genClass, requiredSuperType)) {
+						result.addMapping(identifier, genClass);
+					}
+					else {
+						result.setErrorMessage("EClass \"" + ident + "\" does exist, but is not a subtype of \"" + requiredSuperType.getName() + "\".");
+					}
 				}
 				if (!filter.isFuzzy()) {
 					break;
@@ -114,13 +119,45 @@ public class MetaclassReferenceResolver {
 		}
 	}
 
+	private boolean hasRequiredSupertype(GenClass genClass,
+			GenClass requiredSuperType) {
+		if (requiredSuperType == null) {
+			return true;
+		}
+		if (genClass.equals(requiredSuperType)) {
+			return true;
+		}
+		for (EClass superTypeCand : genClass.getEcoreClass().getEAllSuperTypes()) {
+			if (namesAndPackageURIsAreEqual(requiredSuperType.getEcoreClass(), superTypeCand)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean namesAndPackageURIsAreEqual(EClass classA,
+			EClass classB) {
+		return namesAreEqual(classA, classB) && 
+			packageURIsAreEqual(classA, classB);
+	}
+
+	private boolean packageURIsAreEqual(EClass classA,
+			EClass classB) {
+		return classA.getEPackage().getNsURI().equals(
+				classB.getEPackage().getNsURI());
+	}
+
+	private boolean namesAreEqual(EClass classA, EClass classB) {
+		return classA.getName().equals(classB.getName());
+	}
+
 	private boolean isInterfaceOrAbstract(GenClass genClass) {
 		return genClass.getEcoreClass().isAbstract() || genClass.getEcoreClass().isInterface();
 	}
 
 
 	private void doResolveStrict(ConcreteSyntax container,
-			final String identifier, IResolveResult result) {
+			final String identifier, IResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
 		
 		doResolveMetaclass(container, new MetaClassFilter() {
 
@@ -135,6 +172,6 @@ public class MetaclassReferenceResolver {
 			public boolean isFuzzy(){
 				return false;
 			}
-		}, identifier, result);
+		}, identifier, result, requiredSuperType, canBeAbstract);
 	}
 }

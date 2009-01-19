@@ -25,532 +25,562 @@ import org.emftext.sdk.concretesyntax.*;
  */
 public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	/**
-	 * The cached model package.
-	 * <!-- begin-user-doc -->
+   * The cached model package.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected static ConcretesyntaxPackage modelPackage;
 
 	/**
-	 * Creates an instance of the adapter factory.
-	 * <!-- begin-user-doc -->
+   * Creates an instance of the adapter factory.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public ConcretesyntaxAdapterFactory() {
-		if (modelPackage == null) {
-			modelPackage = ConcretesyntaxPackage.eINSTANCE;
-		}
-	}
+    if (modelPackage == null)
+    {
+      modelPackage = ConcretesyntaxPackage.eINSTANCE;
+    }
+  }
 
 	/**
-	 * Returns whether this factory is applicable for the type of the object.
-	 * <!-- begin-user-doc -->
+   * Returns whether this factory is applicable for the type of the object.
+   * <!-- begin-user-doc -->
 	 * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
 	 * <!-- end-user-doc -->
-	 * @return whether this factory is applicable for the type of the object.
-	 * @generated
-	 */
+   * @return whether this factory is applicable for the type of the object.
+   * @generated
+   */
 	@Override
 	public boolean isFactoryForType(Object object) {
-		if (object == modelPackage) {
-			return true;
-		}
-		if (object instanceof EObject) {
-			return ((EObject)object).eClass().getEPackage() == modelPackage;
-		}
-		return false;
-	}
+    if (object == modelPackage)
+    {
+      return true;
+    }
+    if (object instanceof EObject)
+    {
+      return ((EObject)object).eClass().getEPackage() == modelPackage;
+    }
+    return false;
+  }
 
 	/**
-	 * The switch that delegates to the <code>createXXX</code> methods.
-	 * <!-- begin-user-doc -->
+   * The switch that delegates to the <code>createXXX</code> methods.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected ConcretesyntaxSwitch<Adapter> modelSwitch =
-		new ConcretesyntaxSwitch<Adapter>() {
-			@Override
-			public Adapter caseConcreteSyntax(ConcreteSyntax object) {
-				return createConcreteSyntaxAdapter();
-			}
-			@Override
-			public Adapter caseImport(Import object) {
-				return createImportAdapter();
-			}
-			@Override
-			public Adapter caseRule(Rule object) {
-				return createRuleAdapter();
-			}
-			@Override
-			public Adapter caseChoice(Choice object) {
-				return createChoiceAdapter();
-			}
-			@Override
-			public Adapter caseSequence(Sequence object) {
-				return createSequenceAdapter();
-			}
-			@Override
-			public Adapter caseDefinition(Definition object) {
-				return createDefinitionAdapter();
-			}
-			@Override
-			public Adapter caseTerminal(Terminal object) {
-				return createTerminalAdapter();
-			}
-			@Override
-			public Adapter caseCsString(CsString object) {
-				return createCsStringAdapter();
-			}
-			@Override
-			public Adapter caseWhiteSpaces(WhiteSpaces object) {
-				return createWhiteSpacesAdapter();
-			}
-			@Override
-			public Adapter caseLineBreak(LineBreak object) {
-				return createLineBreakAdapter();
-			}
-			@Override
-			public Adapter caseCardinality(Cardinality object) {
-				return createCardinalityAdapter();
-			}
-			@Override
-			public Adapter casePLUS(PLUS object) {
-				return createPLUSAdapter();
-			}
-			@Override
-			public Adapter caseSTAR(STAR object) {
-				return createSTARAdapter();
-			}
-			@Override
-			public Adapter caseQUESTIONMARK(QUESTIONMARK object) {
-				return createQUESTIONMARKAdapter();
-			}
-			@Override
-			public Adapter caseCompoundDefinition(CompoundDefinition object) {
-				return createCompoundDefinitionAdapter();
-			}
-			@Override
-			public Adapter caseTokenDefinition(TokenDefinition object) {
-				return createTokenDefinitionAdapter();
-			}
-			@Override
-			public Adapter caseNormalToken(NormalToken object) {
-				return createNormalTokenAdapter();
-			}
-			@Override
-			public Adapter caseDecoratedToken(DecoratedToken object) {
-				return createDecoratedTokenAdapter();
-			}
-			@Override
-			public Adapter caseNewDefinedToken(NewDefinedToken object) {
-				return createNewDefinedTokenAdapter();
-			}
-			@Override
-			public Adapter casePreDefinedToken(PreDefinedToken object) {
-				return createPreDefinedTokenAdapter();
-			}
-			@Override
-			public Adapter caseContainment(Containment object) {
-				return createContainmentAdapter();
-			}
-			@Override
-			public Adapter caseDefinedPlaceholder(DefinedPlaceholder object) {
-				return createDefinedPlaceholderAdapter();
-			}
-			@Override
-			public Adapter caseDerivedPlaceholder(DerivedPlaceholder object) {
-				return createDerivedPlaceholderAdapter();
-			}
-			@Override
-			public Adapter casePlaceholder(Placeholder object) {
-				return createPlaceholderAdapter();
-			}
-			@Override
-			public Adapter caseOption(Option object) {
-				return createOptionAdapter();
-			}
-			@Override
-			public Adapter defaultCase(EObject object) {
-				return createEObjectAdapter();
-			}
-		};
+		new ConcretesyntaxSwitch<Adapter>()
+    {
+      @Override
+      public Adapter caseConcreteSyntax(ConcreteSyntax object)
+      {
+        return createConcreteSyntaxAdapter();
+      }
+      @Override
+      public Adapter caseImport(Import object)
+      {
+        return createImportAdapter();
+      }
+      @Override
+      public Adapter caseRule(Rule object)
+      {
+        return createRuleAdapter();
+      }
+      @Override
+      public Adapter caseChoice(Choice object)
+      {
+        return createChoiceAdapter();
+      }
+      @Override
+      public Adapter caseSequence(Sequence object)
+      {
+        return createSequenceAdapter();
+      }
+      @Override
+      public Adapter caseDefinition(Definition object)
+      {
+        return createDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseTerminal(Terminal object)
+      {
+        return createTerminalAdapter();
+      }
+      @Override
+      public Adapter caseCsString(CsString object)
+      {
+        return createCsStringAdapter();
+      }
+      @Override
+      public Adapter caseWhiteSpaces(WhiteSpaces object)
+      {
+        return createWhiteSpacesAdapter();
+      }
+      @Override
+      public Adapter caseLineBreak(LineBreak object)
+      {
+        return createLineBreakAdapter();
+      }
+      @Override
+      public Adapter caseCardinality(Cardinality object)
+      {
+        return createCardinalityAdapter();
+      }
+      @Override
+      public Adapter casePLUS(PLUS object)
+      {
+        return createPLUSAdapter();
+      }
+      @Override
+      public Adapter caseSTAR(STAR object)
+      {
+        return createSTARAdapter();
+      }
+      @Override
+      public Adapter caseQUESTIONMARK(QUESTIONMARK object)
+      {
+        return createQUESTIONMARKAdapter();
+      }
+      @Override
+      public Adapter caseCompoundDefinition(CompoundDefinition object)
+      {
+        return createCompoundDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseTokenDefinition(TokenDefinition object)
+      {
+        return createTokenDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseNormalToken(NormalToken object)
+      {
+        return createNormalTokenAdapter();
+      }
+      @Override
+      public Adapter caseDecoratedToken(DecoratedToken object)
+      {
+        return createDecoratedTokenAdapter();
+      }
+      @Override
+      public Adapter caseNewDefinedToken(NewDefinedToken object)
+      {
+        return createNewDefinedTokenAdapter();
+      }
+      @Override
+      public Adapter casePreDefinedToken(PreDefinedToken object)
+      {
+        return createPreDefinedTokenAdapter();
+      }
+      @Override
+      public Adapter caseContainment(Containment object)
+      {
+        return createContainmentAdapter();
+      }
+      @Override
+      public Adapter caseDefinedPlaceholder(DefinedPlaceholder object)
+      {
+        return createDefinedPlaceholderAdapter();
+      }
+      @Override
+      public Adapter caseDerivedPlaceholder(DerivedPlaceholder object)
+      {
+        return createDerivedPlaceholderAdapter();
+      }
+      @Override
+      public Adapter casePlaceholder(Placeholder object)
+      {
+        return createPlaceholderAdapter();
+      }
+      @Override
+      public Adapter caseOption(Option object)
+      {
+        return createOptionAdapter();
+      }
+      @Override
+      public Adapter defaultCase(EObject object)
+      {
+        return createEObjectAdapter();
+      }
+    };
 
 	/**
-	 * Creates an adapter for the <code>target</code>.
-	 * <!-- begin-user-doc -->
+   * Creates an adapter for the <code>target</code>.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param target the object to adapt.
-	 * @return the adapter for the <code>target</code>.
-	 * @generated
-	 */
+   * @param target the object to adapt.
+   * @return the adapter for the <code>target</code>.
+   * @generated
+   */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject)target);
-	}
+    return modelSwitch.doSwitch((EObject)target);
+  }
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax <em>Concrete Syntax</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax <em>Concrete Syntax</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.ConcreteSyntax
+   * @generated
+   */
 	public Adapter createConcreteSyntaxAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Import <em>Import</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Import <em>Import</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Import
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Import
+   * @generated
+   */
 	public Adapter createImportAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Rule <em>Rule</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Rule <em>Rule</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Rule
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Rule
+   * @generated
+   */
 	public Adapter createRuleAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Choice <em>Choice</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Choice <em>Choice</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Choice
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Choice
+   * @generated
+   */
 	public Adapter createChoiceAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Sequence <em>Sequence</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Sequence <em>Sequence</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Sequence
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Sequence
+   * @generated
+   */
 	public Adapter createSequenceAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Definition <em>Definition</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Definition <em>Definition</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Definition
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Definition
+   * @generated
+   */
 	public Adapter createDefinitionAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Terminal <em>Terminal</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Terminal <em>Terminal</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Terminal
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Terminal
+   * @generated
+   */
 	public Adapter createTerminalAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.CsString <em>Cs String</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.CsString <em>Cs String</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.CsString
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.CsString
+   * @generated
+   */
 	public Adapter createCsStringAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.WhiteSpaces <em>White Spaces</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.WhiteSpaces <em>White Spaces</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.WhiteSpaces
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.WhiteSpaces
+   * @generated
+   */
 	public Adapter createWhiteSpacesAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.LineBreak <em>Line Break</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.LineBreak <em>Line Break</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.LineBreak
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.LineBreak
+   * @generated
+   */
 	public Adapter createLineBreakAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Cardinality <em>Cardinality</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Cardinality
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Cardinality
+   * @generated
+   */
 	public Adapter createCardinalityAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PLUS <em>PLUS</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PLUS <em>PLUS</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.PLUS
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.PLUS
+   * @generated
+   */
 	public Adapter createPLUSAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.STAR <em>STAR</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.STAR <em>STAR</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.STAR
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.STAR
+   * @generated
+   */
 	public Adapter createSTARAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.QUESTIONMARK <em>QUESTIONMARK</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.QUESTIONMARK <em>QUESTIONMARK</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.QUESTIONMARK
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.QUESTIONMARK
+   * @generated
+   */
 	public Adapter createQUESTIONMARKAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.CompoundDefinition <em>Compound Definition</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.CompoundDefinition <em>Compound Definition</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.CompoundDefinition
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.CompoundDefinition
+   * @generated
+   */
 	public Adapter createCompoundDefinitionAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenDefinition <em>Token Definition</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenDefinition <em>Token Definition</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.TokenDefinition
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.TokenDefinition
+   * @generated
+   */
 	public Adapter createTokenDefinitionAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NormalToken <em>Normal Token</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NormalToken <em>Normal Token</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.NormalToken
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.NormalToken
+   * @generated
+   */
 	public Adapter createNormalTokenAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DecoratedToken <em>Decorated Token</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DecoratedToken <em>Decorated Token</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.DecoratedToken
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.DecoratedToken
+   * @generated
+   */
 	public Adapter createDecoratedTokenAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NewDefinedToken <em>New Defined Token</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NewDefinedToken <em>New Defined Token</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.NewDefinedToken
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.NewDefinedToken
+   * @generated
+   */
 	public Adapter createNewDefinedTokenAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PreDefinedToken <em>Pre Defined Token</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PreDefinedToken <em>Pre Defined Token</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.PreDefinedToken
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.PreDefinedToken
+   * @generated
+   */
 	public Adapter createPreDefinedTokenAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Containment <em>Containment</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Containment <em>Containment</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Containment
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Containment
+   * @generated
+   */
 	public Adapter createContainmentAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DefinedPlaceholder <em>Defined Placeholder</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DefinedPlaceholder <em>Defined Placeholder</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.DefinedPlaceholder
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.DefinedPlaceholder
+   * @generated
+   */
 	public Adapter createDefinedPlaceholderAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DerivedPlaceholder <em>Derived Placeholder</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DerivedPlaceholder <em>Derived Placeholder</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.DerivedPlaceholder
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.DerivedPlaceholder
+   * @generated
+   */
 	public Adapter createDerivedPlaceholderAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Placeholder <em>Placeholder</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Placeholder <em>Placeholder</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Placeholder
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Placeholder
+   * @generated
+   */
 	public Adapter createPlaceholderAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Option <em>Option</em>}'.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Option <em>Option</em>}'.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.Option
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @see org.emftext.sdk.concretesyntax.Option
+   * @generated
+   */
 	public Adapter createOptionAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 	/**
-	 * Creates a new adapter for the default case.
-	 * <!-- begin-user-doc -->
+   * Creates a new adapter for the default case.
+   * <!-- begin-user-doc -->
 	 * This default implementation returns null.
 	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @generated
-	 */
+   * @return the new adapter.
+   * @generated
+   */
 	public Adapter createEObjectAdapter() {
-		return null;
-	}
+    return null;
+  }
 
 } //ConcretesyntaxAdapterFactory
