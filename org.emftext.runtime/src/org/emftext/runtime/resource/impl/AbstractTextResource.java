@@ -13,7 +13,6 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -48,63 +47,29 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	
 	private ILocationMap locationMap = new LocationMap();
 	
-	public static final String INTERNAL_URI_FRAGMENT_PREFIX = "EMFTEXT_INTERNAL_URI_FRAGMENT_";
-	
 	private Map<String, ContextDependentURIFragment> internalURIFragmentMap =
 		new HashMap<String, ContextDependentURIFragment>();
 	
-	private void convertContextDependentProxies() {
-		internalURIFragmentMap.clear();
-		int count = 0;
-		for(Iterator<EObject> contentIt = this.getAllContents(); contentIt.hasNext(); ) {
-			EObject container = contentIt.next();
-			for(EReference reference : container.eClass().getEAllReferences() ) {
-				Object temp = container.eGet(reference);
-				if (temp instanceof EList) {
-					EList<?> list = (EList<?>) temp;
-					int pos = 0;
-					Iterator<?> iterator = list.iterator();
-					while (iterator.hasNext()) {
-						EObject proxyCand = (EObject) iterator.next();
-						if (proxyCand.eIsProxy()) {
-							InternalEObject proxy = (InternalEObject) proxyCand;
-							String identifier = proxy.eProxyURI().fragment();
-							String internalURIFragment = INTERNAL_URI_FRAGMENT_PREFIX + count++ + "_" + identifier;
-							ContextDependentURIFragment uriFragment = new ContextDependentURIFragment(
-									identifier,
-									container,
-									reference,
-									pos,
-									proxy
-								);
-							proxy.eSetProxyURI(proxy.eProxyURI().trimFragment().appendFragment(internalURIFragment));
-							internalURIFragmentMap.put(internalURIFragment, uriFragment);
-						}
-						pos++;
-					}
-				}
-				else {
-					EObject proxyCand = (EObject) temp;
-					if (proxyCand != null && proxyCand.eIsProxy()) {
-						InternalEObject proxy = (InternalEObject) proxyCand;
-						String identifier = proxy.eProxyURI().fragment();
-						String internalURIFragment = INTERNAL_URI_FRAGMENT_PREFIX + count++ + "_" + identifier;
-						ContextDependentURIFragment uriFragment = new ContextDependentURIFragment(
-								identifier,
-								container,
-								reference,
-								0,
-								proxy
-							);
-						proxy.eSetProxyURI(proxy.eProxyURI().trimFragment().appendFragment(internalURIFragment));
-						internalURIFragmentMap.put(internalURIFragment, uriFragment);
-					}
-				}
-
-			}
+    int proxyCounter = 0;
+    
+	public void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement) {
+		int pos = -1;
+		if (reference.isMany()) {
+			pos = ((List<?>)container.eGet(reference)).size();
 		}
+		InternalEObject proxy = (InternalEObject) proxyElement; 
+		String internalURIFragment = INTERNAL_URI_FRAGMENT_PREFIX + proxyCounter++ + "_" + id;
+		ContextDependentURIFragment uriFragment = new ContextDependentURIFragment(
+				id,
+				container,
+				reference,
+				pos,
+				proxy
+			);
+		proxy.eSetProxyURI(this.getURI().appendFragment(internalURIFragment));
+		internalURIFragmentMap.put(internalURIFragment, uriFragment);
 	}
-	
+
 	@Override
 	public EObject getEObject(String id) {
 		if (internalURIFragmentMap.containsKey(id)) {
@@ -220,9 +185,9 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		
 		//clear concrete syntax information
 		locationMap = new LocationMap();
+		internalURIFragmentMap.clear();
+		proxyCounter = 0;
 	}
-	
-
 	
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
@@ -235,7 +200,6 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 				
 		if (wasLoaded) {
-			convertContextDependentProxies();
 			Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 			if (resourcePostProcessorProvider != null) {
 				if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {

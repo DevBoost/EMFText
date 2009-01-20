@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g 2009-01-19 12:41:07
+// $ANTLR 3.1.1 /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g 2009-01-20 00:44:49
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
@@ -77,15 +77,15 @@ public class CsLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "/Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g"; }
+    public String getGrammarFileName() { return "/Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g"; }
 
     // $ANTLR start "T__15"
     public final void mT__15() throws RecognitionException {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:18:7: ( 'SYNTAXDEF' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:18:9: 'SYNTAXDEF'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:18:7: ( 'SYNTAXDEF' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:18:9: 'SYNTAXDEF'
             {
             match("SYNTAXDEF"); 
 
@@ -105,8 +105,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:19:7: ( 'FOR' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:19:9: 'FOR'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:19:7: ( 'FOR' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:19:9: 'FOR'
             {
             match("FOR"); 
 
@@ -126,8 +126,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:20:7: ( 'START' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:20:9: 'START'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:20:7: ( 'START' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:20:9: 'START'
             {
             match("START"); 
 
@@ -147,8 +147,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:21:7: ( ',' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:21:9: ','
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:21:7: ( ',' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:21:9: ','
             {
             match(','); 
 
@@ -167,8 +167,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:22:7: ( 'IMPORTS' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:22:9: 'IMPORTS'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:22:7: ( 'IMPORTS' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:22:9: 'IMPORTS'
             {
             match("IMPORTS"); 
 
@@ -188,8 +188,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:23:7: ( '{' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:23:9: '{'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:23:7: ( '{' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:23:9: '{'
             {
             match('{'); 
 
@@ -208,8 +208,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:24:7: ( '}' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:24:9: '}'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:24:7: ( '}' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:24:9: '}'
             {
             match('}'); 
 
@@ -228,8 +228,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:25:7: ( 'OPTIONS' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:25:9: 'OPTIONS'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:25:7: ( 'OPTIONS' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:25:9: 'OPTIONS'
             {
             match("OPTIONS"); 
 
@@ -249,8 +249,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:26:7: ( ';' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:26:9: ';'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:26:7: ( ';' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:26:9: ';'
             {
             match(';'); 
 
@@ -269,8 +269,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:27:7: ( 'TOKENS' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:27:9: 'TOKENS'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:27:7: ( 'TOKENS' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:27:9: 'TOKENS'
             {
             match("TOKENS"); 
 
@@ -290,8 +290,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:28:7: ( 'RULES' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:28:9: 'RULES'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:28:7: ( 'RULES' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:28:9: 'RULES'
             {
             match("RULES"); 
 
@@ -311,8 +311,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:29:7: ( ':' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:29:9: ':'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:29:7: ( ':' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:29:9: ':'
             {
             match(':'); 
 
@@ -331,8 +331,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:30:7: ( 'WITH' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:30:9: 'WITH'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:30:7: ( 'WITH' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:30:9: 'WITH'
             {
             match("WITH"); 
 
@@ -352,8 +352,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:31:7: ( 'SYNTAX' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:31:9: 'SYNTAX'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:31:7: ( 'SYNTAX' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:31:9: 'SYNTAX'
             {
             match("SYNTAX"); 
 
@@ -373,8 +373,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:32:7: ( '=' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:32:9: '='
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:32:7: ( '=' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:32:9: '='
             {
             match('='); 
 
@@ -393,8 +393,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:33:7: ( '::=' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:33:9: '::='
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:33:7: ( '::=' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:33:9: '::='
             {
             match("::="); 
 
@@ -414,8 +414,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:34:7: ( '|' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:34:9: '|'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:34:7: ( '|' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:34:9: '|'
             {
             match('|'); 
 
@@ -434,8 +434,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:35:7: ( '[' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:35:9: '['
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:35:7: ( '[' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:35:9: '['
             {
             match('['); 
 
@@ -454,8 +454,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:36:7: ( ']' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:36:9: ']'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:36:7: ( ']' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:36:9: ']'
             {
             match(']'); 
 
@@ -474,8 +474,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:37:7: ( '(' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:37:9: '('
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:37:7: ( '(' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:37:9: '('
             {
             match('('); 
 
@@ -494,8 +494,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:38:7: ( ')' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:38:9: ')'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:38:7: ( ')' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:38:9: ')'
             {
             match(')'); 
 
@@ -514,8 +514,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:39:7: ( '+' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:39:9: '+'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:39:7: ( '+' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:39:9: '+'
             {
             match('+'); 
 
@@ -534,8 +534,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:40:7: ( '*' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:40:9: '*'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:40:7: ( '*' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:40:9: '*'
             {
             match('*'); 
 
@@ -554,8 +554,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:41:7: ( '?' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:41:9: '?'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:41:7: ( '?' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:41:9: '?'
             {
             match('?'); 
 
@@ -574,8 +574,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:42:7: ( 'DEFINE' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:42:9: 'DEFINE'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:42:7: ( 'DEFINE' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:42:9: 'DEFINE'
             {
             match("DEFINE"); 
 
@@ -595,8 +595,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:43:7: ( 'COLLECT' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:43:9: 'COLLECT'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:43:7: ( 'COLLECT' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:43:9: 'COLLECT'
             {
             match("COLLECT"); 
 
@@ -616,8 +616,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:44:7: ( 'IN' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:44:9: 'IN'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:44:7: ( 'IN' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:44:9: 'IN'
             {
             match("IN"); 
 
@@ -637,8 +637,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:45:7: ( 'PREDEFINED' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:45:9: 'PREDEFINED'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:45:7: ( 'PREDEFINED' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:45:9: 'PREDEFINED'
             {
             match("PREDEFINED"); 
 
@@ -658,12 +658,12 @@ public class CsLexer extends Lexer {
         try {
             int _type = COMMENTS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:411:1: ( '//' (~ ( '\\n' | '\\r' ) )* )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:412:2: '//' (~ ( '\\n' | '\\r' ) )*
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:411:1: ( '//' (~ ( '\\n' | '\\r' ) )* )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:412:2: '//' (~ ( '\\n' | '\\r' ) )*
             {
             match("//"); 
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:412:6: (~ ( '\\n' | '\\r' ) )*
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:412:6: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -676,7 +676,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:412:7: ~ ( '\\n' | '\\r' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:412:7: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -713,10 +713,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = TEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:415:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:416:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:415:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:416:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:416:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:416:2: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt2=0;
             loop2:
             do {
@@ -730,7 +730,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -770,10 +770,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = QNAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:419:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:419:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+ )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' )+
             int cnt3=0;
             loop3:
             do {
@@ -787,7 +787,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
             	    {
             	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -811,7 +811,7 @@ public class CsLexer extends Lexer {
                 cnt3++;
             } while (true);
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:26: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:26: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )+
             int cnt5=0;
             loop5:
             do {
@@ -825,10 +825,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:27: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:27: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    {
             	    match('.'); 
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:420:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    int cnt4=0;
             	    loop4:
             	    do {
@@ -842,7 +842,7 @@ public class CsLexer extends Lexer {
 
             	        switch (alt4) {
             	    	case 1 :
-            	    	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
+            	    	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
             	    	    {
             	    	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	    	        input.consume();
@@ -895,17 +895,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = TEXT_33_;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:423:1: ( ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:2: ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:423:1: ( ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:2: ( '!' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:2: ( '!' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:3: '!'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:2: ( '!' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:3: '!'
             {
             match('!'); 
 
             }
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:424:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt6=0;
             loop6:
             do {
@@ -919,7 +919,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -959,17 +959,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_36_36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:427:1: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:427:1: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:2: ( '$' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:3: '$'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:2: ( '$' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:3: '$'
             {
             match('$'); 
 
             }
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
             loop7:
             do {
                 int alt7=3;
@@ -1003,7 +1003,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:8: ~ ( '$' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:8: ~ ( '$' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1018,10 +1018,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:15: ( '\\\\' '$' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:15: ( '\\\\' '$' )
             	    {
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:15: ( '\\\\' '$' )
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:16: '\\\\' '$'
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:15: ( '\\\\' '$' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:16: '\\\\' '$'
             	    {
             	    match('\\'); 
             	    match('$'); 
@@ -1037,8 +1037,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:26: ( '$' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:27: '$'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:26: ( '$' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:428:27: '$'
             {
             match('$'); 
 
@@ -1060,17 +1060,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_39_39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:431:1: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:431:1: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:2: ( '\\'' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:3: '\\''
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:2: ( '\\'' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:3: '\\''
             {
             match('\''); 
 
             }
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
             loop8:
             do {
                 int alt8=3;
@@ -1104,7 +1104,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:9: ~ ( '\\'' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:9: ~ ( '\\'' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1119,10 +1119,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:17: ( '\\\\' '\\'' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:17: ( '\\\\' '\\'' )
             	    {
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:17: ( '\\\\' '\\'' )
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:18: '\\\\' '\\''
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:17: ( '\\\\' '\\'' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:18: '\\\\' '\\''
             	    {
             	    match('\\'); 
             	    match('\''); 
@@ -1138,8 +1138,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:29: ( '\\'' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:30: '\\''
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:29: ( '\\'' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:432:30: '\\''
             {
             match('\''); 
 
@@ -1161,17 +1161,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_60_62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:435:1: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:435:1: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:2: ( '<' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:3: '<'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:2: ( '<' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:3: '<'
             {
             match('<'); 
 
             }
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
             loop9:
             do {
                 int alt9=3;
@@ -1205,7 +1205,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:8: ~ ( '>' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:8: ~ ( '>' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1220,10 +1220,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:15: ( '\\\\' '>' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:15: ( '\\\\' '>' )
             	    {
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:15: ( '\\\\' '>' )
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:16: '\\\\' '>'
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:15: ( '\\\\' '>' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:16: '\\\\' '>'
             	    {
             	    match('\\'); 
             	    match('>'); 
@@ -1239,8 +1239,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:26: ( '>' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:27: '>'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:26: ( '>' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:436:27: '>'
             {
             match('>'); 
 
@@ -1262,17 +1262,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = TEXT_35_;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:439:1: ( ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:2: ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:439:1: ( ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+ )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:2: ( '#' ) ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:2: ( '#' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:3: '#'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:2: ( '#' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:3: '#'
             {
             match('#'); 
 
             }
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:440:7: ( 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_' | '-' )+
             int cnt10=0;
             loop10:
             do {
@@ -1286,7 +1286,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -1326,8 +1326,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:443:1: ( ( ' ' | '\\t' | '\\f' ) )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:444:2: ( ' ' | '\\t' | '\\f' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:443:1: ( ( ' ' | '\\t' | '\\f' ) )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:444:2: ( ' ' | '\\t' | '\\f' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1355,10 +1355,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = LB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:447:1: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:447:1: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:2: ( '\\r\\n' | '\\r' | '\\n' )
             int alt11=3;
             int LA11_0 = input.LA(1);
 
@@ -1382,7 +1382,7 @@ public class CsLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:3: '\\r\\n'
+                    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1390,14 +1390,14 @@ public class CsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:12: '\\r'
+                    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:12: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:19: '\\n'
+                    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:448:19: '\\n'
                     {
                     match('\n'); 
 
@@ -1423,17 +1423,17 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_34_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:451:1: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:451:1: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
             {
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:2: ( '\"' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:3: '\"'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:2: ( '\"' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:3: '\"'
             {
             match('\"'); 
 
             }
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
             loop12:
             do {
                 int alt12=3;
@@ -1467,7 +1467,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:8: ~ ( '\"' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:8: ~ ( '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1482,10 +1482,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:15: ( '\\\\' '\"' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:15: ( '\\\\' '\"' )
             	    {
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:15: ( '\\\\' '\"' )
-            	    // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:16: '\\\\' '\"'
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:15: ( '\\\\' '\"' )
+            	    // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:16: '\\\\' '\"'
             	    {
             	    match('\\'); 
             	    match('\"'); 
@@ -1501,8 +1501,8 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:26: ( '\"' )
-            // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:27: '\"'
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:26: ( '\"' )
+            // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:452:27: '\"'
             {
             match('\"'); 
 
@@ -1520,278 +1520,278 @@ public class CsLexer extends Lexer {
     // $ANTLR end "QUOTED_34_34"
 
     public void mTokens() throws RecognitionException {
-        // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | COMMENTS | TEXT | QNAME | TEXT_33_ | QUOTED_36_36 | QUOTED_39_39 | QUOTED_60_62 | TEXT_35_ | WS | LB | QUOTED_34_34 )
+        // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | COMMENTS | TEXT | QNAME | TEXT_33_ | QUOTED_36_36 | QUOTED_39_39 | QUOTED_60_62 | TEXT_35_ | WS | LB | QUOTED_34_34 )
         int alt13=39;
         alt13 = dfa13.predict(input);
         switch (alt13) {
             case 1 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:10: T__15
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:10: T__15
                 {
                 mT__15(); 
 
                 }
                 break;
             case 2 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:16: T__16
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:16: T__16
                 {
                 mT__16(); 
 
                 }
                 break;
             case 3 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:22: T__17
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:22: T__17
                 {
                 mT__17(); 
 
                 }
                 break;
             case 4 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:28: T__18
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:28: T__18
                 {
                 mT__18(); 
 
                 }
                 break;
             case 5 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:34: T__19
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:34: T__19
                 {
                 mT__19(); 
 
                 }
                 break;
             case 6 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:40: T__20
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:40: T__20
                 {
                 mT__20(); 
 
                 }
                 break;
             case 7 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:46: T__21
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:46: T__21
                 {
                 mT__21(); 
 
                 }
                 break;
             case 8 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:52: T__22
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:52: T__22
                 {
                 mT__22(); 
 
                 }
                 break;
             case 9 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:58: T__23
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:58: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
             case 10 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:64: T__24
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:64: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
             case 11 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:70: T__25
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:70: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
             case 12 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:76: T__26
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:76: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
             case 13 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:82: T__27
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:82: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
             case 14 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:88: T__28
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:88: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
             case 15 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:94: T__29
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:94: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
             case 16 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:100: T__30
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:100: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
             case 17 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:106: T__31
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:106: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
             case 18 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:112: T__32
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:112: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
             case 19 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:118: T__33
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:118: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
             case 20 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:124: T__34
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:124: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
             case 21 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:130: T__35
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:130: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
             case 22 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:136: T__36
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:136: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
             case 23 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:142: T__37
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:142: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
             case 24 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:148: T__38
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:148: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
             case 25 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:154: T__39
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:154: T__39
                 {
                 mT__39(); 
 
                 }
                 break;
             case 26 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:160: T__40
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:160: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
             case 27 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:166: T__41
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:166: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
             case 28 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:172: T__42
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:172: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
             case 29 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:178: COMMENTS
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:178: COMMENTS
                 {
                 mCOMMENTS(); 
 
                 }
                 break;
             case 30 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:187: TEXT
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:187: TEXT
                 {
                 mTEXT(); 
 
                 }
                 break;
             case 31 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:192: QNAME
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:192: QNAME
                 {
                 mQNAME(); 
 
                 }
                 break;
             case 32 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:198: TEXT_33_
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:198: TEXT_33_
                 {
                 mTEXT_33_(); 
 
                 }
                 break;
             case 33 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:207: QUOTED_36_36
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:207: QUOTED_36_36
                 {
                 mQUOTED_36_36(); 
 
                 }
                 break;
             case 34 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:220: QUOTED_39_39
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:220: QUOTED_39_39
                 {
                 mQUOTED_39_39(); 
 
                 }
                 break;
             case 35 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:233: QUOTED_60_62
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:233: QUOTED_60_62
                 {
                 mQUOTED_60_62(); 
 
                 }
                 break;
             case 36 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:246: TEXT_35_
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:246: TEXT_35_
                 {
                 mTEXT_35_(); 
 
                 }
                 break;
             case 37 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:255: WS
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:255: WS
                 {
                 mWS(); 
 
                 }
                 break;
             case 38 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:258: LB
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:258: LB
                 {
                 mLB(); 
 
                 }
                 break;
             case 39 :
-                // /Users/jj2/workspaces/Reuseware09/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:261: QUOTED_34_34
+                // /Users/jj2/workspaces/ReusewareDevelopment/org.emftext.sdk.concretesyntax.resource.cs/src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g:1:261: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 

@@ -1,6 +1,7 @@
 package org.emftext.runtime.resource;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
 
@@ -13,6 +14,9 @@ import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
  *
  */
 public interface ITextResource extends Resource {
+	
+	
+	public static final String INTERNAL_URI_FRAGMENT_PREFIX = "EMFTEXT_INTERNAL_URI_FRAGMENT_";
 	
 	/**
 	 * Used during {@link #load(java.util.Map)} to determine whether OCL
@@ -74,6 +78,17 @@ public interface ITextResource extends Resource {
 	 * @return A scanner.
 	 */
 	public Object getScanner();
+	
+	/**
+	 * Internal method used by the parser to register a context dependent proxy object for later resolution.
+	 * 
+	 * @param container
+	 * @param reference
+	 * @param pos
+	 * @param id
+	 * @param proxyElement
+	 */
+	public void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement);
 	
 	public boolean validateOCLConstraints();
 }

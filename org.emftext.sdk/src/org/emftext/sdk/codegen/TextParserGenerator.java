@@ -789,8 +789,8 @@ public class TextParserGenerator extends BaseGenerator {
             	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";";
             	resolvements += proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";" 
             	+ "collectHiddenTokens(element, " + expressionToBeSet + "); "
-				+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI((resource.getURI()==null?URI.createURI(\"dummy\"):resource.getURI()).appendFragment(" + resolvedIdent + ")); ";
-	        
+				//+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI((resource.getURI()==null?URI.createURI(\"dummy\"):resource.getURI()).appendFragment(" + resolvedIdent + ")); ";
+            	+ "getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + resolvedIdent + ", "+ proxyIdent + ");";
 	           	//remember where proxies have to be resolved
             	proxyReferences.add(genFeature);
 
