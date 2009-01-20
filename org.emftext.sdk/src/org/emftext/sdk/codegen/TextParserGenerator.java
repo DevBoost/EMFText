@@ -421,15 +421,18 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("start");
         out.println("returns [ EObject element = null]");
         out.println(":  ");
+    	out.println("\t(");
         int count = 0;
-        for(Iterator<GenClass> i = conreteSyntax.getStartSymbols().iterator(); i.hasNext(); ) {
+        for (Iterator<GenClass> i = conreteSyntax.getStartSymbols().iterator(); i.hasNext(); ) {
             GenClass aStart = i.next();
             out.println("c" + count + " = " + getLowerCase(aStart.getName()) + "{ element = c" + count + "; }"); 
-            if (i.hasNext()) 
+            if (i.hasNext()) { 
             	out.println("\t|  ");
+            }
             count++;
         }
-        if(forceEOFToken) {
+    	out.println("\t)");
+        if (forceEOFToken) {
         	out.println("\t"+ EOF_TOKEN_NAME);
         }
         out.println();
