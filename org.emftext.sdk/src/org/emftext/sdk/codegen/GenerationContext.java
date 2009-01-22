@@ -43,8 +43,8 @@ public class GenerationContext {
 
 	private static final String CLASS_SUFFIX_PRINTER = "Printer";
 	private static final String CLASS_SUFFIX_PRINTER_BASE = "PrinterBase";
-	private static final String CLASS_SUFFIX_RESOURCE = "ResourceImpl";
-	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactoryImpl";
+	private static final String CLASS_SUFFIX_RESOURCE = "Resource";
+	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactory";
 	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
 	
 	private final GenClassFinder genClassFinder = new GenClassFinder();
