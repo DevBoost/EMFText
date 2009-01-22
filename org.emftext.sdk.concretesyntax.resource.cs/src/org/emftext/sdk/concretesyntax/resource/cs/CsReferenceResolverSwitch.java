@@ -39,24 +39,12 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 			concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference, position, false, result);
 			return;
 		}
-		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == 3) {
-			concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference, position, false, result);
-			return;
-		}
-		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == 3) {
-			concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference, position, false, result);
-			return;
-		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Import && reference.getFeatureID() == 2) {
 			importPackageReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Import) container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Import && reference.getFeatureID() == 1) {
 			importConcreteSyntaxReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Import) container, reference, position, false, result);
-			return;
-		}
-		if (container instanceof org.emftext.sdk.concretesyntax.Rule && reference.getFeatureID() == 1) {
-			ruleMetaclassReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Rule) container, reference, position, false, result);
 			return;
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Rule && reference.getFeatureID() == 1) {
@@ -83,10 +71,6 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 			containmentTypeReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, reference, position, false, result);
 			return;
 		}
-		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == 2) {
-			containmentTypeReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, reference, position, false, result);
-			return;
-		}
 	}
 
 	public java.lang.String deResolve(org.eclipse.emf.ecore.EObject refObject, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference) {
@@ -99,20 +83,11 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == 3) {
 			return concreteSyntaxStartSymbolsReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference);
 		}
-		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == 3) {
-			return concreteSyntaxStartSymbolsReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference);
-		}
-		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == 3) {
-			return concreteSyntaxStartSymbolsReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference);
-		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Import && reference.getFeatureID() == 2) {
 			return importPackageReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Import) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Import && reference.getFeatureID() == 1) {
 			return importConcreteSyntaxReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Import) container, reference);
-		}
-		if (container instanceof org.emftext.sdk.concretesyntax.Rule && reference.getFeatureID() == 1) {
-			return ruleMetaclassReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Rule) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Rule && reference.getFeatureID() == 1) {
 			return ruleMetaclassReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Rule) container, reference);
@@ -132,9 +107,6 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == 2) {
 			return containmentTypeReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
 		}
-		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == 2) {
-			return containmentTypeReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
-		}
 		return null;
 	}
 
@@ -142,17 +114,13 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		concreteSyntaxPackageReferenceResolver.setOptions(options);
 		concreteSyntaxStartSymbolsReferenceResolver.setOptions(options);
 		concreteSyntaxStartSymbolsReferenceResolver.setOptions(options);
-		concreteSyntaxStartSymbolsReferenceResolver.setOptions(options);
-		concreteSyntaxStartSymbolsReferenceResolver.setOptions(options);
 		importPackageReferenceResolver.setOptions(options);
 		importConcreteSyntaxReferenceResolver.setOptions(options);
-		ruleMetaclassReferenceResolver.setOptions(options);
 		ruleMetaclassReferenceResolver.setOptions(options);
 		terminalFeatureReferenceResolver.setOptions(options);
 		definedPlaceholderTokenReferenceResolver.setOptions(options);
 		terminalFeatureReferenceResolver.setOptions(options);
 		terminalFeatureReferenceResolver.setOptions(options);
-		containmentTypeReferenceResolver.setOptions(options);
 		containmentTypeReferenceResolver.setOptions(options);
 	}
 
@@ -162,20 +130,6 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(1);
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				concreteSyntaxPackageReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
-			}
-		}
-
-		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().isInstance(container)) {
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(3);
-			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
-			}
-		}
-
-		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().isInstance(container)) {
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(3);
-			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
 			}
 		}
 
@@ -214,13 +168,6 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 			}
 		}
 
-		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().isInstance(container)) {
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(1);
-			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				ruleMetaclassReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
-			}
-		}
-
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTerminal().isInstance(container)) {
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(1);
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
@@ -246,13 +193,6 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(1);
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				terminalFeatureReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Terminal) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
-			}
-		}
-
-		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().isInstance(container)) {
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(2);
-			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				containmentTypeReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
 			}
 		}
 

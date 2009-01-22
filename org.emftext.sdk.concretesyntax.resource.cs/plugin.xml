@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.emf.ecore.extension_parser">
       <parser
-            class="org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl"
+            class="org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory"
             type="cs">
       </parser>
    </extension>
@@ -14,7 +14,7 @@
       <concretesyntax
             uri="http://www.emftext.org/sdk/concretesyntax"
             csName="cs"
-            csDefinition="org.emftext.sdk.concretesyntax/model/cs.cs">
+            csDefinition="org.emftext.sdk.concretesyntax/metamodel/concretesyntax.cs">
       </concretesyntax>
    </extension>
 
