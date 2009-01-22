@@ -16,6 +16,12 @@ import org.eclipse.emf.ecore.EObject;
 public interface IResolveResult {
 	
 	/**
+	 * Returns the error message that describes what went wrong while
+	 * resolving a reference.
+	 */
+	public String getErrorMessage();
+
+	/**
 	 * Sets the error message that describes what went wrong while
 	 * resolving a reference. If a mapping for the reference was 
 	 * already found (i.e., addMapping() was called before), the 
@@ -88,7 +94,9 @@ public interface IResolveResult {
 	 */
 	public boolean wasResolvedMultiple();
 	
-	public String getErrorMessage();
-	
+	/**
+	 * Returns all mappings that were found while resolving an
+	 * identifier.
+	 */
 	public Collection<IReferenceMapping> getMappings();
 }

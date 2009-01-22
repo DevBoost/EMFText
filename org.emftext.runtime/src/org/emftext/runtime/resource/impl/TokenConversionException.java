@@ -1,4 +1,4 @@
-package org.emftext.runtime.resource;
+package org.emftext.runtime.resource.impl;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
@@ -19,5 +19,4 @@ public class TokenConversionException extends RecognitionException {
 	public String getMessage(){
 		return message;
 	}
-	
 }

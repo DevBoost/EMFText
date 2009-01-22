@@ -61,7 +61,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 		} else if (!result.wasResolved()) {
 			return;
 		}
-		// TODO @jjohannes: can we move this type check to the tree analyser?
+		// TODO @jjohannes: can we move this type check to the reference resolver switch?
 		EClass type = reference.getEReferenceType();
 		if (element == null || (!element.eClass().equals(type) && 
 				!element.eClass().getEAllSuperTypes().contains(type))) {
@@ -177,20 +177,20 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 	}
 
 	private String getName(EObject element) {
-		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature("name");
+		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
 		if (nameAttr instanceof EAttribute) {
 			return (String) element.eGet(nameAttr);
 		}
 		else {
 			//try any other string attribute found
 			for(EAttribute strAttribute : element.eClass().getEAllAttributes()) {
-				if (strAttribute.getEType().getInstanceClassName().equals("java.lang.String")) {
+				if (strAttribute.getEType().getInstanceClassName().equals(java.lang.String.class.getName())) {
 					return (String) element.eGet(strAttribute);
 				}
 			}
 			
 			for (EOperation o : element.eClass().getEAllOperations()) {
-				if (o.getName().toLowerCase().endsWith("name") && o.getEParameters().size() == 0 ) {
+				if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {
 					String result = invokeOperation(element, o);
 					if (result != null) {
 						return result;

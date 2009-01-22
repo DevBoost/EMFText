@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.TokenConversionException;
 
 /**
  * Base implementation for all generated ANTLR parsers. 

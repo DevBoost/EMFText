@@ -3,7 +3,11 @@ package org.emftext.runtime.resource.impl;
 import org.eclipse.emf.common.util.URI;
 import org.emftext.runtime.resource.IURIMapping;
 
-public class URIMapping extends ReferenceMapping implements IURIMapping {
+/**
+ * A basic implementation of the IURIMapping interface that can
+ * map identifiers to URIs.
+ */
+public class URIMapping extends AbstractReferenceMapping implements IURIMapping {
 	
 	private URI uri;
 
@@ -15,5 +19,4 @@ public class URIMapping extends ReferenceMapping implements IURIMapping {
 	public URI getTargetIdentifier() {
 		return uri;
 	}
-
 }

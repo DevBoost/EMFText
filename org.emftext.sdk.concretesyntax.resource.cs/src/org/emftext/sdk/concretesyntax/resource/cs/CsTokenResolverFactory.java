@@ -1,6 +1,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-public class CsTokenResolverFactory extends org.emftext.runtime.resource.impl.BasicTokenResolverFactory implements org.emftext.runtime.resource.ITokenResolverFactory {
+public class CsTokenResolverFactory extends org.emftext.runtime.resource.impl.AbstractTokenResolverFactory implements org.emftext.runtime.resource.ITokenResolverFactory {
 
 	public CsTokenResolverFactory(){
 		super.registerTokenResolver("TEXT", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsTEXTTokenResolver());

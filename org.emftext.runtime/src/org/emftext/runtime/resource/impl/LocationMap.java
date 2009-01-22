@@ -10,6 +10,10 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ILocationMap;
 
+/**
+ * A basic implementation of the ILocationMap interface. Instances
+ * store information about element locations using four maps.
+ */
 public class LocationMap implements ILocationMap {
 
 	public interface ISelector {

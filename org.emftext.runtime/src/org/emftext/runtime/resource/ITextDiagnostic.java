@@ -9,10 +9,6 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public interface ITextDiagnostic extends Resource.Diagnostic {
 	
-	public enum TextDiagnosticType {
-		RESOLVE_PROBLEM
-	}
-	
 	/**
 	 * @return Position of the first character of the problem area.
 	 */
@@ -23,10 +19,18 @@ public interface ITextDiagnostic extends Resource.Diagnostic {
 	 */
 	public int getCharEnd();
 
+	/**
+	 * @return The column of the problem area.
+	 */
 	public int getColumn();
+
+	/**
+	 * @return The line that contains the problem area.
+	 */
 	public int getLine();
 	
+	/**
+	 * Checks whether the problem was caused by the given element.
+	 */
 	public boolean wasCausedBy(EObject element);
-	
-	public TextDiagnosticType getType();
 }

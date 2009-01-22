@@ -215,14 +215,12 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 	}
 
 	public void process(ITextResource resource) {
-		if (resource.validateOCLConstraints()) {
-			EList<EObject> contents = resource.getContents();
-		
-			Set<EObject> distinctObjects = new HashSet<EObject>();
-			distinctObjects.addAll(contents);
-			for (EObject eobject : distinctObjects) {
-				this.analyse(eobject);
-			}
+		EList<EObject> contents = resource.getContents();
+	
+		Set<EObject> distinctObjects = new HashSet<EObject>();
+		distinctObjects.addAll(contents);
+		for (EObject eobject : distinctObjects) {
+			analyse(eobject);
 		}
 	}
 

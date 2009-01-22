@@ -3,7 +3,10 @@ package org.emftext.runtime.resource.impl;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IElementMapping;
 
-public class ElementMapping extends ReferenceMapping implements IElementMapping {
+/**
+ * A basic implementation of the IElementMapping interface.
+ */
+public class ElementMapping extends AbstractReferenceMapping implements IElementMapping {
 	
 	private final EObject target;
 	

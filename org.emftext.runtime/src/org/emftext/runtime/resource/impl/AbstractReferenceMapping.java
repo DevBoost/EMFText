@@ -2,12 +2,16 @@ package org.emftext.runtime.resource.impl;
 
 import org.emftext.runtime.resource.IReferenceMapping;
 
-public abstract class ReferenceMapping implements IReferenceMapping {
+/**
+ * A base class for all reference mappings. Instances store the identifier
+ * that was resolves and a warning message.
+ */
+public abstract class AbstractReferenceMapping implements IReferenceMapping {
 
 	private String identifier;
 	private String warning;
 	
-	public ReferenceMapping(String identifier, String warning) {
+	public AbstractReferenceMapping(String identifier, String warning) {
 		super();
 		this.identifier = identifier;
 		this.warning = warning;

@@ -3,7 +3,6 @@ package org.emftext.runtime.resource;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
 
 /**
  * An extended resource that can hold information about the exact positions 
@@ -14,7 +13,6 @@ import org.emftext.runtime.resource.ITextDiagnostic.TextDiagnosticType;
  *
  */
 public interface ITextResource extends Resource {
-	
 	
 	public static final String INTERNAL_URI_FRAGMENT_PREFIX = "EMFTEXT_INTERNAL_URI_FRAGMENT_";
 	
@@ -45,25 +43,21 @@ public interface ITextResource extends Resource {
 	 * Add an error that should be displayed at the position of the given element.
 	 */
 	public void addError(String message, EObject element);
-	public void addError(String message, EObject element, TextDiagnosticType type);
 	
 	/**
 	 * Add a warning that should be displayed at the position of the given element.
 	 */
 	public void addWarning(String message, EObject element);
-	public void addWarning(String message, EObject element, TextDiagnosticType type);
 	
 	/**
 	 * Add an error to be displayed at the indicated position.
 	 */
 	public void addError(String message, int column, int line, int charStart, int charEnd);
-	public void addError(String message, int column, int line, int charStart, int charEnd, TextDiagnosticType type);
 	
 	/**
 	 * Add a warning to be displayed at the indicated position.
 	 */
 	public void addWarning(String message, int column, int line, int charStart, int charEnd);
-	public void addWarning(String message, int column, int line, int charStart, int charEnd, TextDiagnosticType type);
 	
 	/**
 	 * Helper method to access the names of different tokens that may exist in the underlying text file.
@@ -89,6 +83,4 @@ public interface ITextResource extends Resource {
 	 * @param proxyElement
 	 */
 	public void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement);
-	
-	public boolean validateOCLConstraints();
 }

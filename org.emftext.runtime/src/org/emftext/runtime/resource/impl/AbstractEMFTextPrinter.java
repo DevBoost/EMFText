@@ -13,12 +13,13 @@ import org.emftext.runtime.resource.ITextResource;
  * Base implementation for all generated printers. 
  * It implements the specifications from {@link ITextPrinter}.
  * 
- * @author Jendrik Johannes
+ * @author Jendrik Johannes TODO jjohannes: add e-mail address
  */
 public abstract class AbstractEMFTextPrinter implements ITextPrinter {
 	
-	protected static String newline = (System.getProperties().getProperty("line.separator"));
-    protected OutputStream o;
+	protected final static String NEW_LINE = System.getProperties().getProperty("line.separator");
+	
+    protected OutputStream outputStream;
     protected ITextResource resource;
 	private Map<?, ?> options;
     
@@ -28,8 +29,8 @@ public abstract class AbstractEMFTextPrinter implements ITextPrinter {
      * @param o Output stream to print to.
      * @param resource The associated resource.
      */
-    public AbstractEMFTextPrinter(OutputStream o, ITextResource resource) {
-        this.o = o;
+    public AbstractEMFTextPrinter(OutputStream outputStream, ITextResource resource) {
+        this.outputStream = outputStream;
         this.resource = resource;
     }
     
@@ -42,20 +43,18 @@ public abstract class AbstractEMFTextPrinter implements ITextPrinter {
     }
     
     /**
-     * This method should will be overridden by generated subclasses.
-     * This implementation does nothing.
+     * This method must be overridden by generated subclasses.
      */
-    protected abstract void doPrint(EObject element,PrintWriter out,String globaltab);
+    protected abstract void doPrint(EObject element, PrintWriter out, String globaltab);
     
     /**
      * Calls {@link #doPrint(EObject, String)} and writes the result to the underlying
      * output stream.
      */
     public void print(EObject element)  {
-        PrintWriter out = new PrintWriter(new BufferedOutputStream(o));
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(outputStream));
         doPrint(element,out,"");
     	out.flush();
     	out.close();
     }
-
 }

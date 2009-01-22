@@ -1,8 +1,10 @@
 package org.emftext.runtime.resource.impl;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.emftext.runtime.resource.ITextDiagnostic;
 
-public class PositionBasedTextDiagnostic extends AbstractTextDiagnostic {
+public class PositionBasedTextDiagnostic implements ITextDiagnostic {
 
 	private final URI uri;
 
@@ -13,10 +15,9 @@ public class PositionBasedTextDiagnostic extends AbstractTextDiagnostic {
 	protected String message;
 
 	protected PositionBasedTextDiagnostic(URI uri, String message,
-			int column, int line, int charStart, int charEnd, TextDiagnosticType type) {
+			int column, int line, int charStart, int charEnd) {
 		
-		super(type);
-
+		super();
 		this.uri = uri;
 		this.column = column;
 		this.line = line;
@@ -47,5 +48,9 @@ public class PositionBasedTextDiagnostic extends AbstractTextDiagnostic {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public boolean wasCausedBy(EObject element) {
+		return false;
 	}
 }

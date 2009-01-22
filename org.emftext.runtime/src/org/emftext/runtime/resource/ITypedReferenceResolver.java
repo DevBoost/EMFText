@@ -3,6 +3,12 @@ package org.emftext.runtime.resource;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+/**
+ * A reference resolver that can resolve references that are 
+ * contained in objects of a given class.
+ *
+ * @param <ContainerType> the type of the container that has the references
+ */
 public interface ITypedReferenceResolver<ContainerType> {
 	
 	/**
@@ -25,7 +31,7 @@ public interface ITypedReferenceResolver<ContainerType> {
 	 * @param proxy The model element.
 	 * @param container The object referencing the element.
 	 * @param reference The reference that holds the element.
-	 * @return The identification string for the proxy
+	 * @return The identification string for the reference
 	 */
 	public String deResolve(EObject element, ContainerType container, EReference reference);
 }

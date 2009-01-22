@@ -4,7 +4,7 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * A reference resolver tries to resolve a reference to one or many model elements (EObjects).
- * It is called by the proxy resolution mechanism.
+ * It is called by the EMF proxy resolution mechanism.
  *
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */

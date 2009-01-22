@@ -10,9 +10,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @see org.emftext.runtime.resource.impl.JavaBasedTokenResolver
  * @see org.emftext.sdk.codegen.TokenResolverGenerator
  * 
- * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
- *
  */
 public interface ITokenResolver extends IConfigurable {
 	
@@ -34,7 +32,7 @@ public interface ITokenResolver extends IConfigurable {
 	 * @param value the Object to be printed as String
 	 * @param feature the corresponding feature
 	 * @param container the container of the object
-	 * @return the String representation or null if a problem occured
+	 * @return the String representation or null if a problem occurred
 	 */
 	public String deResolve(Object value, EStructuralFeature feature, EObject container);
 	

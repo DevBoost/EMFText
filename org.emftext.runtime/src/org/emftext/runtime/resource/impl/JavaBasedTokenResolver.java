@@ -11,12 +11,10 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 
 /**
- * A base implementation for token resolvers. It tries to resolve lexems by java methods.
+ * A base implementation for token resolvers. It tries to resolve lexems using java methods.
  * 
- * @author Sven Karol (Sven.Karol@tu-dresden.de)Sven Karol (Sven.Karol@tu-dresden.de)
- *
+ * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-
 public class JavaBasedTokenResolver implements ITokenResolver {
 	
 	private String message = null;

@@ -6,13 +6,18 @@ import java.util.Map;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 
-public class BasicTokenResolverFactory implements ITokenResolverFactory {
+/**
+ * A base class for all generated token resolver factories.
+ * For subclasses it is sufficient to register the token 
+ * resolvers. 
+ */
+public abstract class AbstractTokenResolverFactory implements ITokenResolverFactory {
 
 	private Map<String,ITokenResolver> tokenName2TokenResolver;
 	private Map<String,ITokenResolver> featureName2CollectInTokenResolver;
 	private static ITokenResolver defaultResolver = new JavaBasedTokenResolver();
 	
-	public BasicTokenResolverFactory(){
+	public AbstractTokenResolverFactory(){
 		tokenName2TokenResolver = new HashMap<String,ITokenResolver>();
 		featureName2CollectInTokenResolver = new HashMap<String,ITokenResolver>();
 	}
