@@ -735,16 +735,10 @@ public class TextParserGenerator extends BaseGenerator {
         		DerivedPlaceholder placeholder = (DerivedPlaceholder) terminal;
         		String prefix = placeholder.getPrefix();
 				String suffix = placeholder.getSuffix();
-				boolean prefixIsEmpty = prefix==null || prefix.length()==0;
-				boolean suffixIsEmpty = suffix==null || suffix.length()==0;
-				
-				if(!useDefaultTokens && prefixIsEmpty && suffixIsEmpty) {
-        			addProblem(new GenerationProblem("Default tokens switched off. Define prefix/suffix or token reference here.",placeholder));
-         		} else {
-        			InternalTokenDefinition definition = deriveTokenDefinition(prefix, suffix);
-            		tokenName = definition.getName();
-                	placeholder2TokenName.put(placeholder,tokenName);
-        		}
+
+				InternalTokenDefinition definition = deriveTokenDefinition(prefix, suffix);
+            	tokenName = definition.getName();
+                placeholder2TokenName.put(placeholder,tokenName);
         	}
         	else{
         		assert terminal instanceof DefinedPlaceholder;
