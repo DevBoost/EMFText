@@ -1,5 +1,10 @@
 package org.emftext.runtime;
 
+/**
+ * A list of the tokens that are provided by default in all concrete syntax
+ * specifications. The list contains both the names of the tokens and their
+ * definition (i.e., a regular expression).
+ */
 public interface IStandardTokenDefinitions {
 
 	/**
