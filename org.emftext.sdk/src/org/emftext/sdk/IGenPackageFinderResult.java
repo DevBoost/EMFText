@@ -13,7 +13,7 @@ public interface IGenPackageFinderResult {
 	/**
 	 * @return The encapsulated {@link GenPackage}.
 	 */
-	GenPackage getResult();
+	public GenPackage getResult();
 
 	/**
 	 * This method is used to determine if the encapsulated {@link GenPackage}
@@ -22,5 +22,5 @@ public interface IGenPackageFinderResult {
 	 * @return <code>true</code> iff the encapsulated {@link GenPackage} has
 	 *         changed, <code>false</code> otherwise.
 	 */
-	boolean hasChanged();
+	public boolean hasChanged();
 }

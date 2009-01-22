@@ -3,7 +3,7 @@ package org.emftext.sdk;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
- * An IGenPackageFinder can be used to look up the EMF generator package ofr
+ * An IGenPackageFinder can be used to look up the EMF generator package for
  * a given URI.
  */
 public interface IGenPackageFinder {

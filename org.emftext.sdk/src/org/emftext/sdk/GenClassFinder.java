@@ -9,29 +9,42 @@ import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
+/**
+ * A GenClassFinder can be used to look up all generator classes that are 
+ * available in a concrete syntax specification. This may include classes
+ * from imported generator packages, from imported syntaxes and nested or 
+ * used packages of both.
+ */
 public class GenClassFinder {
 	
 	public static final String DOT = ".";
 	
+	/**
+	 * Returns all generator classes in the given syntax.
+	 * 
+	 * @param syntax the syntax to search in
+	 * @param includingImports indicates whether included package shall be included in the search
+	 * 
+	 * @return a found classes
+	 */
 	public List<GenClass> findAllGenClasses(ConcreteSyntax syntax, boolean includingImports) {
 		List<Pair<String, GenClass>> foundClassesAndPrefixes = findAllGenClassesAndPrefixes(syntax, includingImports);
 		return convertToGenClassList(foundClassesAndPrefixes);
 	}
 
-	private List<GenClass> convertToGenClassList(
-			final List<Pair<String, GenClass>> foundClassesAndPrefixes) {
-		List<GenClass> foundClasses = new ArrayList<GenClass>();
-		for (Pair<String, GenClass> prefixAndGenClass : foundClassesAndPrefixes) {
-			foundClasses.add(prefixAndGenClass.getRight());
-		}
-		return foundClasses;
-	}
-	
+	/**
+	 * Returns all generator classes in the given syntax including their prefixes.
+	 * 
+	 * @param syntax the syntax to search in
+	 * @param includingImports indicates whether included package shall be included in the search
+	 * 
+	 * @return a found classes
+	 */
 	public List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(ConcreteSyntax syntax, boolean includingImports) {
 		return findAllGenClassesAndPrefixes(null, syntax, includingImports);
 	}
 	
-	public List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(String prefix, ConcreteSyntax syntax, boolean includingImports) {
+	private List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(String prefix, ConcreteSyntax syntax, boolean includingImports) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
 		if (syntax == null) {
 			return foundClasses;
@@ -53,6 +66,15 @@ public class GenClassFinder {
 		return foundClasses;
 	}
 
+	private List<GenClass> convertToGenClassList(
+			final List<Pair<String, GenClass>> foundClassesAndPrefixes) {
+		List<GenClass> foundClasses = new ArrayList<GenClass>();
+		for (Pair<String, GenClass> prefixAndGenClass : foundClassesAndPrefixes) {
+			foundClasses.add(prefixAndGenClass.getRight());
+		}
+		return foundClasses;
+	}
+	
 	private List<Pair<String, GenClass>> findGenClassesAndPrefixesInImports(String prefix, ConcreteSyntax syntax) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
 		for (Import nextImport : syntax.getImports()) {

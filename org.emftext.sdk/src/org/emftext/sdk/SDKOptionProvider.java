@@ -24,6 +24,13 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 
+/**
+ * The SDKOptionProvider adds a post-processor to the default 
+ * load options for CS files. This post-processor checks
+ * whether CS files contain potential problems. The current
+ * implementation checks for a number of cases which might 
+ * cause problems when parsed resources are printed.
+ */
 public class SDKOptionProvider implements IOptionProvider {
 
 	private static final String OPTIONAL_KEYWORD_WARNING = 

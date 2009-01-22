@@ -10,10 +10,11 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 /**
- * An GenPackageFinder that searches for the generator model by removing the
+ * A GenPackageFinder that searches for generator models by removing the
  * file extension ('.cs') from the syntax definition and adding '.genmodel'.
  */
 public class GenPackageByNameFinder implements IGenPackageFinder {
+	
 	public IGenPackageFinderResult findGenPackage(String nsURI,
 			Resource resource) {
 		ResourceSet rs = new ResourceSetImpl();

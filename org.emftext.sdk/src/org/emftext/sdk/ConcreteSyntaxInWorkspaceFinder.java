@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * A finder that searches in the current Eclipse workspace for concrete
+ * syntax definitions.
+ */
 public class ConcreteSyntaxInWorkspaceFinder implements IConcreteSyntaxFinder {
 
 	private final class WorkspaceVisitor implements IResourceVisitor {

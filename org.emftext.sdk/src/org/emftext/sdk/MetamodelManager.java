@@ -13,6 +13,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 // FIXME the cache is not used right now, because new instances of this class are
 // create for each request
+/**
+ * The MetamodelManager used finders to search for generator packages and
+ * concrete syntaxes. Found packages are stored in a cache.
+ */
 public class MetamodelManager {
 	
 	private List<IGenPackageFinder> genPackageFinders = new ArrayList<IGenPackageFinder>();

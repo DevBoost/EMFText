@@ -8,6 +8,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
 
+/**
+ * A helper class that can be used search for generator packages, 
+ * syntaxes and finders.
+ */
 public class MetamodelHelper {
 	
 	public final static String GEN_PACKAGE_FINDER_KEY = "GEN_PACKAGE_FINDER";
