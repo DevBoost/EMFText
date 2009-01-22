@@ -37,6 +37,8 @@ public class SDKOptionProvider implements IOptionProvider {
 		"The keyword might be used stand alone and will not be reprinted in such case: ";
 	private static final String MULTIPLE_FEATURE_WARNING = 
 		"The feature is used multiple times. Reprinting may fail for feature: ";
+	private static final String EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS = 
+		"Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
 	
 	public Map<?, ?> getOptions() {
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -57,8 +59,24 @@ public class SDKOptionProvider implements IOptionProvider {
 	private void checkReprintProblems(ITextResource resource) {
 		checkForOptionalKeywords(resource);
 		checkForDuplicateReferences(resource);
+		checkForChoices(resource);
 	}
 	
+	private void checkForChoices(ITextResource resource) {
+		Iterator<EObject> iterator = resource.getAllContents();
+		while (iterator.hasNext()) {
+			EObject next = iterator.next();
+			if (next instanceof Choice) {
+				Choice choice = (Choice) next;
+				if (choice.getOptions().size() > 1) {
+					resource.addWarning(
+							EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS,
+							choice);
+				}
+			}
+		}
+	}
+
 	private void checkForOptionalKeywords(ITextResource resource) {
 		for(Iterator<EObject> i = resource.getAllContents(); i.hasNext(); ) {
 			EObject next = i.next();
