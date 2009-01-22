@@ -2,11 +2,11 @@ SYNTAXDEF cs
 FOR       <http://www.emftext.org/sdk/concretesyntax>
 START     cs.ConcreteSyntax
 
-IMPORTS{
+IMPORTS {
 	cs:<http://www.emftext.org/sdk/concretesyntax>
 } 
 
-OPTIONS{
+OPTIONS {
 	tokenspace = "0";
 	defaultTokenName = "QUALIFIED_NAME";
 	useDefaultTokens = "false";
@@ -14,7 +14,7 @@ OPTIONS{
 
 TOKENS {
 	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$;
-	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
+	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
 	DEFINE NUMBER $('0'..'9')+$;
 	DEFINE WHITESPACE $(' '|'\t'|'\f')$;
 	DEFINE LINEBREAK $('\r\n'|'\r'|'\n')$;
