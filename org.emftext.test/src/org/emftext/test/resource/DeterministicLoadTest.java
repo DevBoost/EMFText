@@ -27,7 +27,7 @@ import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.GenPackageInRegistryFinder;
 import org.emftext.sdk.MetamodelHelper;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl;
+import org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -118,7 +118,7 @@ public class DeterministicLoadTest {
 					.put(CS_FILE_EXTENSION, resourceFactory);
 		} else {
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-					.put(CS_FILE_EXTENSION, new CsResourceFactoryImpl());
+					.put(CS_FILE_EXTENSION, new CsResourceFactory());
 		}
 	}
 

@@ -22,12 +22,12 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.TextParserGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResourceImpl;
+import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
 
 public class ConcreteSyntaxTestHelper {
 
 	public static void registerResourceFactories() {
-		org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl csResourceFactoryImpl = new org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactoryImpl();
+		org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory csResourceFactoryImpl = new org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory();
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				"ecore",
 				new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
@@ -45,7 +45,7 @@ public class ConcreteSyntaxTestHelper {
 	}
 
 	public static Resource getConcreteSyntaxResource(URI fileURI, Map<?, ?> options) {
-		ITextResource resource = new CsResourceImpl(fileURI);
+		ITextResource resource = new CsResource(fileURI);
 		try {
 			resource.load(options);
 		} catch (IOException e) {
