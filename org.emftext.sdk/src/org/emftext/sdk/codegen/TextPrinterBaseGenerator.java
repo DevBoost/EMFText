@@ -25,6 +25,8 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
+import org.emftext.sdk.codegen.util.StringComponent;
+import org.emftext.sdk.codegen.util.StringComposite;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -172,13 +174,14 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
+	public boolean generate(PrintWriter writer) {
 		List<Rule> rules = prepare();
 		
+		StringComposite out = new StringComposite();
 		out.println("package " + getResourcePackageName() + ";");
 		out.println();
 		out.println("public abstract class " + getResourceClassName()
-				+ " extends " + AbstractEMFTextPrinter.class.getName() + " {");
+				+ " extends " + AbstractEMFTextPrinter.class.getName() + " {").tab();
 		out.println();
 		
 		generateMembers(out);
@@ -197,16 +200,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			generatePrintRuleMethod(out, rule);
 			out.println();
 		}
+
+		out.backTab().println("}");
 		
-		out.println("}");
+		writer.write(out.toString());
 		return true;
 	}
 
-	private void generateDoPrintMethod(PrintWriter out, List<Rule> rules) {
-		out
-				.println("\tprotected void doPrint(" + EOBJECT_CLASS_NAME + " element, " + PRINTER_WRITER_CLASS_NAME + " out, " + STRING_CLASS_NAME + " globaltab) {");
-		out
-				.println("\t\tif (element == null || out == null) throw new " + NULL_POINTER_CLASS_NAME + "(\"Nothing to write or to write on.\");");
+	private void generateDoPrintMethod(StringComposite out, List<Rule> rules) {
+		out.println("protected void doPrint(" + EOBJECT_CLASS_NAME + " element, " + PRINTER_WRITER_CLASS_NAME + " out, " + STRING_CLASS_NAME + " globaltab) {").tab();
+		out.println("if (element == null || out == null) throw new " + NULL_POINTER_CLASS_NAME + "(\"Nothing to write or to write on.\");");
 		out.println();
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
 		while (!ruleQueue.isEmpty()) {
@@ -216,71 +219,84 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 					ruleQueue)) {
 				ruleQueue.add(rule);
 			} else {
-				out.println("\t\tif(element instanceof " + getMetaClassName(rule) + "){");
-				out.println("\t\t\t" + getMethodName(rule) + "((" + getMetaClassName(rule)
+				out.println("if (element instanceof " + getMetaClassName(rule) + ") {").tab();
+				out.println(getMethodName(rule) + "((" + getMetaClassName(rule)
 						+ ") element, globaltab, out);");
-				out.println("\t\t\treturn;");
-				out.println("\t\t}");
+				out.println("return;");
+				out.backTab().println("}");
 			}
 		}
 		out.println();
-		out
-				.println("\t\tresource.addWarning(\"The cs printer can not handle \" + element.eClass().getName() + \" elements\", element);");
-		out.println("\t}");
+		out.println("resource.addWarning(\"The cs printer can not handle \" + element.eClass().getName() + \" elements\", element);");
+		out.backTab().println("}");
 	}
 
-	private void generateConstructor(PrintWriter out) {
-		out.println("\tpublic " + super.getResourceClassName()
+	private void generateConstructor(StringComposite out) {
+		out.println("public " + super.getResourceClassName()
 				+ "(" + OUTPUT_STREAM_CLASS_NAME + " o, " + ITEXT_RESOURCE_CLASS_NAME + " resource) {");
-		out.println("\t\tsuper(o, resource);");
-		out.println("\t}");
+		out.tab();
+		out.println("super(o, resource);");
+		out.backTab();
+		out.println("}");
 	}
 
-	private void generateMembers(PrintWriter out) {
-		out
-				.println("\tprotected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
+	private void generateMembers(StringComposite out) {
+		out.println("protected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
-		out.println("\tprotected " + IREFERENCE_RESOLVER_SWITCH_CLASS_NAME + " referenceResolverSwitch = new "
+		out.println("protected " + IREFERENCE_RESOLVER_SWITCH_CLASS_NAME + " referenceResolverSwitch = new "
 				+ treeAnalyserClassName + "();");
 	}
 
-	private void generatePrintRuleMethod(PrintWriter out, Rule rule) {
+	private void generatePrintRuleMethod(StringComposite out, Rule rule) {
 		
-		out.println("\tpublic void " + getMethodName(rule) + "("
-				+ getMetaClassName(rule)
-				+ " element, " + STRING_CLASS_NAME + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out){");
-		out.println("\t\t" + STRING_CLASS_NAME+ " localtab = outertab;");
-		List<EStructuralFeature> featureList = rule.getMetaclass()
-				.getEcoreClass().getEAllStructuralFeatures();
+		List<EStructuralFeature> featureList = rule.getMetaclass().getEcoreClass().getEAllStructuralFeatures();
+		StringComponent localTabDefinition = new StringComponent(STRING_CLASS_NAME + " localtab = outertab;");
+		StringComponent mapDefinition = new StringComponent(MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">("
+				+ featureList.size() + ");");
 
-		out.println("\t\t" + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">("
-						+ featureList.size() + ");");
+		out.println("public void " + getMethodName(rule) + "("
+				+ getMetaClassName(rule)
+				+ " element, " + STRING_CLASS_NAME + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out) {");
+		out.tab();
+
+		out.println(localTabDefinition);
+		out.println(mapDefinition);
+		
 		if (featureList.size() > 0) {
-			out.println("\t\t" + OBJECT_CLASS_NAME + " temp;");
+			out.println(OBJECT_CLASS_NAME + " temp;");
 		}
 		for (EStructuralFeature feature : featureList) {
-			out.println("\t\ttemp = element." + generateAccessMethod(feature)
+			out.println("temp = element." + generateAccessMethod(feature)
 					+ ";");
 			String featureSize = feature.getUpperBound() == -1 ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
 					: "1";
-			out.println("\t\tprintCountingMap.put(\"" + feature.getName()
+			out.println("printCountingMap.put(\"" + feature.getName()
 					+ "\", temp == null ? 0 : " + featureSize + ");");
+			mapDefinition.enable();
 		}
 		generatePrintCollectedTokensCode(out, rule);
 		
 		printChoice(rule.getDefinition(), out, rule.getMetaclass()
-				.getEcoreClass());
-		out.println("\t}");
+				.getEcoreClass(), localTabDefinition);
+		out.backTab();
+		out.println("}");
+		printChoices(out, rule);
+	}
+
+	private void printChoices(StringComposite out, Rule rule) {
 		for (Choice choice : rule2SubChoice.get(rule)) {
 			out
-					.println("\tpublic void "
+					.println("public void "
 							+ choice2Name.get(choice)
 							+ "("
 							+ getMetaClassName(rule)
 							+ " element, " + STRING_CLASS_NAME + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out, " + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap){");
-			out.println("\t\t" + STRING_CLASS_NAME + " localtab = outertab;");
-			printChoice(choice, out, rule.getMetaclass().getEcoreClass());
-			out.println("\t}");
+			out.tab();
+			StringComponent localTabDefinition = new StringComponent(STRING_CLASS_NAME + " localtab = outertab;");
+			out.println(localTabDefinition);
+			printChoice(choice, out, rule.getMetaclass().getEcoreClass(), localTabDefinition);
+			out.backTab();
+			out.println("}");
 		}
 	}
 
@@ -297,23 +313,29 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		return "print_" +  className;
 	}
 
-	private void generatePrintCollectedTokensCode(PrintWriter out, Rule rule) {
+	private void generatePrintCollectedTokensCode(StringComposite out, Rule rule) {
 
 		List<EStructuralFeature> featureList = rule.getMetaclass().getEcoreClass().getEAllStructuralFeatures();
 
-		out.println("\t\t// print collected hidden tokens");
+		out.println("// print collected hidden tokens");
 		for (EStructuralFeature feature : featureList) {
 			if (isCollectInFeature(rule, feature)) {
 				// TODO use feature id constant instead
-				out.println("\t\t{");
-				out.println("\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(" + feature.getFeatureID() + ");");
-				out.println("\t\t\t" + OBJECT_CLASS_NAME + " value = element.eGet(feature);");
-				out.println("\t\t\tif (value instanceof java.util.List) {");
-				out.println("\t\t\t\tfor (" + OBJECT_CLASS_NAME + " next : (" + LIST_CLASS_NAME + ") value) {");
-				out.println("\t\t\t\t\tout.print(tokenResolverFactory.createCollectInTokenResolver(\"" + feature.getName() + "\").deResolve(next, feature, element));");
-				out.println("\t\t\t\t}");
-				out.println("\t\t\t}");
-				out.println("\t\t}");
+				out.println("{");
+				out.tab();
+				out.println(EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(" + feature.getFeatureID() + ");");
+				out.println(OBJECT_CLASS_NAME + " value = element.eGet(feature);");
+				out.println("if (value instanceof " + LIST_CLASS_NAME + ") {");
+				out.tab();
+				out.println("for (" + OBJECT_CLASS_NAME + " next : (" + LIST_CLASS_NAME + "<?>) value) {");
+				out.tab();
+				out.println("out.print(tokenResolverFactory.createCollectInTokenResolver(\"" + feature.getName() + "\").deResolve(next, feature, element));");
+				out.backTab();
+				out.println("}");
+				out.backTab();
+				out.println("}");
+				out.backTab();
+				out.println("}");
 			}
 		}
 	}
@@ -333,50 +355,50 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		return false;
 	}
 
-	private void printChoice(Choice choice, PrintWriter out, EClass metaClass) {
+	private void printChoice(Choice choice, StringComposite out, EClass metaClass, StringComponent localTabDefinition) {
+		StringComponent countDefintion = new StringComponent("int count;");
 		if (choice.getOptions().size() > 1) {
-			out.println("\t\tint count;");
-			out.println("\t\tint alt=-1;");
+			out.println(countDefintion);
+			out.println("int alt=-1;");
 			Iterator<Sequence> seqIt = choice.getOptions().iterator();
 			if (seqIt.hasNext()) {
 				Sequence firstSeq = seqIt.next();
 				int count = 0;
-				StringWriter switchString = new StringWriter();
-				PrintWriter out1 = new PrintWriter(switchString);
-				out1.println("\t\tswitch(alt){");
-				out.println("\t\talt=" + count++ + ";");
-				out.print("\t\tint matches=");
+				StringComposite out1 = new StringComposite();
+				out1.println("switch(alt){");
+				out.println("alt=" + count++ + ";");
+				out.print("int matches=");
 				printMatchCall(firstSeq, out);
-				out.println("\t\tint tempMatchCount;");
+				out.println("int tempMatchCount;");
 				while (seqIt.hasNext()) {
 					Sequence seq = seqIt.next();
-					out.print("\t\ttempMatchCount=");
+					out.print("tempMatchCount=");
 					printMatchCall(seq, out);
-					out.println("\t\tif (tempMatchCount > matches) {");
-					out.println("\t\t\talt = " + count + ";");
-					out.println("\t\t\tmatches = tempMatchCount;");
-					out.println("\t\t}");
+					out.println("if (tempMatchCount > matches) {");
+					out.tab();
+					out.println("alt = " + count + ";");
+					out.println("matches = tempMatchCount;");
+					out.backTab();
+					out.println("}");
 
-					out1.println("\t\t\tcase " + count + ":");
+					out1.println("\tcase " + count + ":");
 					// extra scope for case begin
-					out1.println("\t\t\t\t{");
-					printSequence(seq, out1, metaClass, "\t\t\t\t\t");
+					out1.println("\t\t{");
+					printSequence(seq, out1, metaClass, localTabDefinition, countDefintion);
 					// extra scope for case end
-					out1.println("\t\t\t\t}");
-					out1.println("\t\t\tbreak;");
+					out1.println("\t\t}");
+					out1.println("\tbreak;");
 					count++;
 				}
 
 				out1.println("\t\t\tdefault:");
-				printSequence(firstSeq, out1, metaClass, "\t\t\t\t");
+				printSequence(firstSeq, out1, metaClass, localTabDefinition, countDefintion);
 				out1.println("\t\t}");
-				out1.flush();
-				out1.close();
-				out.print(switchString.toString());
+				out.print(out1.toString());
 			}
 		} else if (choice.getOptions().size() == 1) {
-			out.println("\t\tint count;");
-			printSequence(choice.getOptions().get(0), out, metaClass, "\t\t");
+			out.println(countDefintion);
+			printSequence(choice.getOptions().get(0), out, metaClass, localTabDefinition, countDefintion);
 		}
 
 	}
@@ -389,39 +411,49 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		return result;
 	}
 
-	private void printSequence(Sequence sequence, PrintWriter out,
-			EClass metaClass, String basetab) {
+	private void printSequence(Sequence sequence, StringComposite out,
+			EClass metaClass, StringComponent localTabDefinition, StringComponent countDefintion) {
 		Set<String> neededFeatures = new LinkedHashSet<String>(
 				sequence2NecessaryFeatures.get(sequence));
-		boolean needsCompoundDecl = true;
-		boolean needsIterateDecl = true;
+
+		StringComponent iterateDeclaration = new StringComponent("boolean iterate = true;");
+
+		StringComposite compoundDeclaration = new StringComposite(false);
+		compoundDeclaration.println(STRING_WRITER_CLASS_NAME + " sWriter = null;");
+		compoundDeclaration.println(PRINTER_WRITER_CLASS_NAME + " out1 = null;");
+		compoundDeclaration.println(HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap1 = null;");
+
 		ListIterator<Definition> definitionIterator = sequence.getParts()
 				.listIterator();
+		
+		out.println(iterateDeclaration);
+		out.println(compoundDeclaration);
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
 			
-			out.println(basetab + "//////////////DEFINITION PART BEGINS ("
+			out.println("//////////////DEFINITION PART BEGINS ("
 					+ definition.eClass().getName() + "):");
 			String printPrefix = "out.print(";
 			if (definition instanceof LineBreak) {
 				int count = ((LineBreak) definition).getTab();
 				if (count > 0) {
 					String tab = getTabString(count);
-					out.println(basetab + "localtab += \"" + tab + "\";");
+					out.println("localtab += \"" + tab + "\";");
 				}
-				out.println(basetab + "out.println();");
-				out.println(basetab + "out.print(localtab);");
+				out.println("out.println();");
+				out.println("out.print(localtab);");
+				localTabDefinition.enable();
 			} else {
 				if (definition instanceof WhiteSpaces) {
 					int count = ((WhiteSpaces) definition).getAmount();
 					if (count > 0) {
 						String spaces = getWhiteSpaceString(count);
-						out.println(basetab + printPrefix + "\"" + spaces
+						out.println(printPrefix + "\"" + spaces
 								+ "\");");
 					}
 				} else if (definition instanceof CsString) {
 					CsString terminal = (CsString) definition;
-					out.println(basetab + printPrefix + "\""
+					out.println(printPrefix + "\""
 							+ terminal.getValue().replaceAll("\"", "\\\\\"")
 							+ "\");");
 
@@ -438,7 +470,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								|| !(lookahead instanceof WhiteSpaces)) {
 							String printSuffix = getWhiteSpaceString(tokenSpace);
 							
-							out.println(basetab + printPrefix + "\"" + printSuffix + "\");");
+							out.println(printPrefix + "\"" + printSuffix + "\");");
 						}
 							
 					}
@@ -449,10 +481,11 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						CompoundDefinition compound = (CompoundDefinition) definition;
 						String printStatement = 
 								choice2Name.get(compound.getDefinitions())
-								+ "(element,localtab,out,printCountingMap);";
+								+ "(element, localtab, out, printCountingMap);";
+						localTabDefinition.enable();
 						// enter once
 						if (cardinality == null || cardinality instanceof PLUS) {
-							out.println(basetab + printStatement);
+							out.println(printStatement);
 							// needed features in non optional choice are also
 							// needed features in this sequence
 							// note: this implementation might remove to much in
@@ -466,7 +499,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						}
 						// optional cases
 						if (cardinality != null) {
-							String tab = basetab;
 
 							boolean isMany = !(cardinality instanceof QUESTIONMARK);
 							// runtime: iterate as long as no fixpoint is
@@ -474,41 +506,27 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							// make sure that NOT all elements of needed
 							// features are printed in optional compounds!
 							if (isMany) {
-								out.println(basetab
-										+ (needsIterateDecl ? "boolean" : "")
-										+ " iterate = true;");
-								needsIterateDecl = false;
-								out.println(basetab + "while(iterate){");
-								tab += "\t";
+								out.println("iterate = true;");
+								out.println("while (iterate) {").tab();
+								iterateDeclaration.enable();
 							}
-							out
-									.println(tab
-											+ (needsCompoundDecl ? STRING_WRITER_CLASS_NAME + " "
-													: "")
-											+ "sWriter = new " + STRING_WRITER_CLASS_NAME + "();");
-							out.println(tab
-									+ (needsCompoundDecl ? PRINTER_WRITER_CLASS_NAME + " " : "")
-									+ "out1 = new " + PRINTER_WRITER_CLASS_NAME + "(sWriter);");
-							out
-									.println(tab
-											+ (needsCompoundDecl ? HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> "
-													: "")
-											+ "printCountingMap1 = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">(printCountingMap);");
-							if (!isMany)
-								needsCompoundDecl = false;
-							out
-									.println(tab
-											+ choice2Name.get(compound
+							out.println("sWriter = new " + STRING_WRITER_CLASS_NAME + "();");
+							out.println("out1 = new " + PRINTER_WRITER_CLASS_NAME + "(sWriter);");
+							out.println("printCountingMap1 = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">(printCountingMap);");
+							compoundDeclaration.enable();
+							
+							out.println(choice2Name.get(compound
 													.getDefinitions())
-											+ "(element,localtab,out1,printCountingMap1);");
-							out
-									.println(tab
-											+ "if(printCountingMap.equals(printCountingMap1)){");
-							if (isMany)
-								out.println(tab + "\titerate = false;");
-							out.println(tab + "\tout1.close();");
-							out.println(tab + "}");
-							out.println(tab + "else{");
+											+ "(element, localtab, out1, printCountingMap1);");
+							out.println("if (printCountingMap.equals(printCountingMap1)) {");
+							out.tab();
+							if (isMany) {
+								out.println("iterate = false;");
+							}
+							out.println("out1.close();");
+							out.backTab();
+							out.println("} else {");
+							out.tab();
 							// check if printed features are needed by
 							// subsequent features
 							// at least one element has to be preserved in that
@@ -520,7 +538,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							if (!neededFeatures.isEmpty()
 									&& !Collections.disjoint(neededFeatures,
 											reachableFeatures)) {
-								out.print(basetab + "\t\tif(");
+								out.print("if(");
 								Iterator<String> it = neededFeatures.iterator();
 								out.print("printCountingMap1.get(\""
 										+ it.next() + "\")<1");
@@ -529,39 +547,39 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 									out.print("printCountingMap1.get(\""
 											+ feature + "\")<1");
 								}
-								out.println("){");
-								if (isMany)
-									out.println(tab + "\t\t\titerate = false;");
-								out.println(tab + "\t\tout1.close();");
-								out.println(tab + "\t}");
-								out.println(tab + "\telse{");
-								out.println(tab + "\t\tout1.flush();");
-								out.println(tab + "\t\tout1.close();");
-								out.println(tab
-										+ "\t\tout.print(sWriter.toString());");
-								out
-										.println(tab
-												+ "\t\tprintCountingMap.putAll(printCountingMap1);");
-								out.println(tab + "\t}");
+								out.println(") {");
+								out.tab();
+								if (isMany) {
+									out.println("iterate = false;");
+								}
+								out.println("out1.close();");
+								out.backTab();
+								out.println("} else {");
+								out.tab();
+								out.println("out1.flush();");
+								out.println("out1.close();");
+								out.println("out.print(sWriter.toString());");
+								out.println("printCountingMap.putAll(printCountingMap1);");
+								out.backTab();
+								out.println("}");
 							} else {
-								out.println(tab + "\tout1.flush();");
-								out.println(tab + "\tout1.close();");
-								out.println(tab
-										+ "\tout.print(sWriter.toString());");
-								out
-										.println(tab
-												+ "\tprintCountingMap.putAll(printCountingMap1);");
+								out.println("out1.flush();");
+								out.println("out1.close();");
+								out.println("out.print(sWriter.toString());");
+								out.println("printCountingMap.putAll(printCountingMap1);");
 							}
-							out.println(tab + "}");
-							if (isMany)
-								out.println(basetab + "}");
+							out.backTab();
+							out.println("}");
+							if (isMany) {
+								out.backTab().println("}");
+							}
 						}
 					}
 					// next steps: references --> proxy uri --> tokenresolver!
 					else if (definition instanceof Terminal) {
 						Terminal terminal = (Terminal) definition;
 						String featureName = terminal.getFeature().getName();
-						out.println(basetab + "count = printCountingMap.get(\""
+						out.println("count = printCountingMap.get(\""
 								+ featureName + "\");");
 						EStructuralFeature feature = terminal.getFeature()
 								.getEcoreFeature();
@@ -621,66 +639,61 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						} else {
 							assert terminal instanceof Containment;
 							printStatement = "doPrint((" + EOBJECT_CLASS_NAME + ") o, out, localtab);";
+							localTabDefinition.enable();
 						}
 
-						out.println(basetab + "if(count>0){");
+						out.println("if (count > 0) {");
+						countDefintion.enable();
 						if (cardinality == null
 								|| (cardinality instanceof QUESTIONMARK && !neededFeatures
 										.contains(featureName))) {
-							out.println(basetab + "\tObject o =element."
+							out.println("\tObject o =element."
 									+ generateAccessMethod(feature) + ";");
-							if (feature.getUpperBound() != 1)
-								out
-										.println(basetab
-												+ "\to = ((" + LIST_CLASS_NAME +"<?>)o).get(((" + LIST_CLASS_NAME +"<?>)o).size() - count);");
-							out.println(basetab + "\t" + printStatement);
-							out.println(basetab + "\tprintCountingMap.put(\""
+							if (feature.getUpperBound() != 1) {
+								out.println("\to = ((" + LIST_CLASS_NAME +"<?>)o).get(((" + LIST_CLASS_NAME +"<?>)o).size() - count);");
+							}
+							out.println("\t" + printStatement);
+							out.println("\tprintCountingMap.put(\""
 									+ featureName + "\",count-1);");
 							neededFeatures.remove(featureName);
 						} else if (cardinality instanceof PLUS
 								|| cardinality instanceof STAR) {
 							if (feature.getUpperBound() != 1) {
-								out
-										.println(basetab
-												+ "\t" + LIST_ITERATOR_CLASS_NAME + "<?> it  = ((" + LIST_CLASS_NAME +"<?>) element."
+								out.println("\t" + LIST_ITERATOR_CLASS_NAME + "<?> it  = ((" + LIST_CLASS_NAME +"<?>) element."
 												+ generateAccessMethod(feature)
 												+ ").listIterator(((" + LIST_CLASS_NAME +"<?>)element."
 												+ generateAccessMethod(feature)
 												+ ").size()-count);");
-								out.println(basetab + "\twhile(it.hasNext()){");
-								out.println(basetab
-										+ "\t\t" + OBJECT_CLASS_NAME + " o = it.next();");
+								out.println("\twhile(it.hasNext()){");
+								out.println("\t\t" + OBJECT_CLASS_NAME + " o = it.next();");
 								if (cardinality instanceof STAR
 										&& neededFeatures.contains(featureName)) {
-									out.println(basetab
-											+ "\t\tif(!it.hasNext())");
-									out.println(basetab + "\t\t\tbreak;");
+									out.println("\t\tif(!it.hasNext())");
+									out.println("\t\t\tbreak;");
 								}
-								out.println(basetab + "\t\t" + printStatement);
-								out.println(basetab + "\t}");
-								out.println(basetab
-										+ "\tprintCountingMap.put(\""
+								out.println("\t\t" + printStatement);
+								out.println("\t}");
+								out.println("\tprintCountingMap.put(\""
 										+ featureName + "\",0);");
 							} else if (cardinality instanceof PLUS) {
-								out.println(basetab + "\t" + OBJECT_CLASS_NAME + " o =element."
+								out.println("\t" + OBJECT_CLASS_NAME + " o =element."
 										+ generateAccessMethod(feature) + ";");
-								out.println(basetab + "\t" + printStatement);
-								out.println(basetab
-										+ "\tprintCountingMap.put(\""
+								out.println("\t" + printStatement);
+								out.println("\tprintCountingMap.put(\""
 										+ featureName + "\",count-1);");
 							}
 							if (cardinality instanceof PLUS)
 								neededFeatures.remove(featureName);
 						}
 
-						out.println(basetab + "}"); // tab for if(count>0)
+						out.println("}"); // tab for if(count>0)
 					}
 				}
 			}
 		}
 	}
 
-	private void printMatchCall(Sequence seq, PrintWriter out) {
+	private void printMatchCall(Sequence seq, StringComposite out) {
 		if (sequence2NecessaryFeatures.get(seq).isEmpty()) {
 			out.println("0;");
 			return;
@@ -699,25 +712,33 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 
-	private void printMatchRule(PrintWriter out) {
-		out
-				.println("\tprotected static int matchCount(" + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> featureCounter, " + COLLECTION_CLASS_NAME + "<" + STRING_CLASS_NAME+ "> needed){");
-		out.println("\t\tint pos = 0;");
-		out.println("\t\tint neg = 0;");
+	private void printMatchRule(StringComposite out) {
+		out.println("protected static int matchCount(" + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> featureCounter, " + COLLECTION_CLASS_NAME + "<" + STRING_CLASS_NAME+ "> needed){");
+		out.tab();
+		out.println("int pos = 0;");
+		out.println("int neg = 0;");
 		out.println();
-		out.println("\t\tfor(" + STRING_CLASS_NAME + " featureName:featureCounter.keySet()){");
-		out.println("\t\t\tif(needed.contains(featureName)){");
-		out.println("\t\t\t\tint value = featureCounter.get(featureName);");
-
-		out.println("\t\t\t\tif (value == 0) {");
-		out.println("\t\t\t\t\tneg += 1;");
-		out.println("\t\t\t\t} else {");
-		out.println("\t\t\t\t\tpos += 1;");
-		out.println("\t\t\t\t}");
-		out.println("\t\t\t}");
-		out.println("\t\t}");
-		out.println("\t\treturn neg > 0 ? -neg : pos;");
-		out.println("\t}");
+		out.println("for(" + STRING_CLASS_NAME + " featureName:featureCounter.keySet()){");
+		out.tab();
+		out.println("if(needed.contains(featureName)){");
+		out.tab();
+		out.println("int value = featureCounter.get(featureName);");
+		out.println("if (value == 0) {");
+		out.tab();
+		out.println("neg += 1;");
+		out.backTab();
+		out.println("} else {");
+		out.tab();
+		out.println("pos += 1;");
+		out.backTab();
+		out.println("}");
+		out.backTab();
+		out.println("}");
+		out.backTab();
+		out.println("}");
+		out.println("return neg > 0 ? -neg : pos;");
+		out.backTab();
+		out.println("}");
 	}
 
 	protected static String generateAccessMethod(EStructuralFeature feature) {
