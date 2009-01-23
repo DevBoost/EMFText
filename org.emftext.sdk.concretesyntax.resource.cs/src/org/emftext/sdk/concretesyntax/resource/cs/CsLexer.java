@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-01-23 00:18:04
+// $ANTLR 3.1.1 D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-01-23 00:52:15
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
@@ -753,8 +753,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUALIFIED_NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:405:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:406:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:405:1: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:406:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -765,8 +765,7 @@ public class CsLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:406:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
-            int cnt2=0;
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:406:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -795,12 +794,8 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt2 >= 1 ) break loop2;
-                        EarlyExitException eee =
-                            new EarlyExitException(2, input);
-                        throw eee;
+            	    break loop2;
                 }
-                cnt2++;
             } while (true);
 
             // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:406:62: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
@@ -1713,31 +1708,34 @@ public class CsLexer extends Lexer {
 
     protected DFA11 dfa11 = new DFA11(this);
     static final String DFA11_eotS =
-        "\13\uffff\1\55\30\uffff\4\34\1\66\3\34\2\uffff\6\34\1\100\1\34"+
-        "\1\uffff\11\34\1\uffff\4\34\1\117\4\34\1\124\3\34\1\130\1\uffff"+
-        "\3\34\1\135\1\uffff\2\34\1\140\1\uffff\1\141\3\34\1\uffff\1\145"+
-        "\1\146\2\uffff\1\147\2\34\3\uffff\1\34\1\153\1\34\1\uffff\1\155"+
-        "\1\uffff";
+        "\1\uffff\2\34\1\uffff\1\34\2\uffff\1\34\1\uffff\2\34\1\55\1\34"+
+        "\13\uffff\3\34\11\uffff\4\34\1\66\3\34\2\uffff\6\34\1\100\1\34\1"+
+        "\uffff\11\34\1\uffff\4\34\1\117\4\34\1\124\3\34\1\130\1\uffff\3"+
+        "\34\1\135\1\uffff\2\34\1\140\1\uffff\1\141\3\34\1\uffff\1\145\1"+
+        "\146\2\uffff\1\147\2\34\3\uffff\1\34\1\153\1\34\1\uffff\1\155\1"+
+        "\uffff";
     static final String DFA11_eofS =
         "\156\uffff";
     static final String DFA11_minS =
-        "\1\11\2\55\1\uffff\1\55\2\uffff\1\55\1\uffff\2\55\1\72\1\55\13"+
-        "\uffff\3\55\11\uffff\1\116\1\101\1\122\1\120\1\55\1\124\1\113\1"+
-        "\114\2\uffff\1\124\1\106\1\114\1\105\1\124\1\122\1\55\1\117\1\uffff"+
-        "\1\111\2\105\1\110\1\111\1\114\1\104\1\101\1\124\1\uffff\1\122\1"+
-        "\117\1\116\1\123\1\55\1\116\2\105\1\130\1\55\1\124\1\116\1\123\1"+
-        "\55\1\uffff\1\105\1\103\1\106\1\55\1\uffff\2\123\1\55\1\uffff\1"+
-        "\55\1\124\1\111\1\105\1\uffff\2\55\2\uffff\1\55\1\116\1\106\3\uffff"+
-        "\1\105\1\55\1\104\1\uffff\1\55\1\uffff";
+        "\1\11\1\124\1\117\1\uffff\1\115\2\uffff\1\120\1\uffff\1\117\1\125"+
+        "\1\72\1\111\13\uffff\1\105\1\117\1\122\11\uffff\1\116\1\101\1\122"+
+        "\1\120\1\55\1\124\1\113\1\114\2\uffff\1\124\1\106\1\114\1\105\1"+
+        "\124\1\122\1\55\1\117\1\uffff\1\111\2\105\1\110\1\111\1\114\1\104"+
+        "\1\101\1\124\1\uffff\1\122\1\117\1\116\1\123\1\55\1\116\2\105\1"+
+        "\130\1\55\1\124\1\116\1\123\1\55\1\uffff\1\105\1\103\1\106\1\55"+
+        "\1\uffff\2\123\1\55\1\uffff\1\55\1\124\1\111\1\105\1\uffff\2\55"+
+        "\2\uffff\1\55\1\116\1\106\3\uffff\1\105\1\55\1\104\1\uffff\1\55"+
+        "\1\uffff";
     static final String DFA11_maxS =
-        "\1\175\2\172\1\uffff\1\172\2\uffff\1\172\1\uffff\2\172\1\72\1\172"+
-        "\13\uffff\3\172\11\uffff\1\116\1\101\1\122\1\120\1\172\1\124\1\113"+
-        "\1\114\2\uffff\1\124\1\106\1\114\1\105\1\124\1\122\1\172\1\117\1"+
-        "\uffff\1\111\2\105\1\110\1\111\1\114\1\104\1\101\1\124\1\uffff\1"+
-        "\122\1\117\1\116\1\123\1\172\1\116\2\105\1\130\1\172\1\124\1\116"+
-        "\1\123\1\172\1\uffff\1\105\1\103\1\106\1\172\1\uffff\2\123\1\172"+
-        "\1\uffff\1\172\1\124\1\111\1\105\1\uffff\2\172\2\uffff\1\172\1\116"+
-        "\1\106\3\uffff\1\105\1\172\1\104\1\uffff\1\172\1\uffff";
+        "\1\175\1\131\1\117\1\uffff\1\116\2\uffff\1\120\1\uffff\1\117\1"+
+        "\125\1\72\1\111\13\uffff\1\105\1\117\1\122\11\uffff\1\116\1\101"+
+        "\1\122\1\120\1\172\1\124\1\113\1\114\2\uffff\1\124\1\106\1\114\1"+
+        "\105\1\124\1\122\1\172\1\117\1\uffff\1\111\2\105\1\110\1\111\1\114"+
+        "\1\104\1\101\1\124\1\uffff\1\122\1\117\1\116\1\123\1\172\1\116\2"+
+        "\105\1\130\1\172\1\124\1\116\1\123\1\172\1\uffff\1\105\1\103\1\106"+
+        "\1\172\1\uffff\2\123\1\172\1\uffff\1\172\1\124\1\111\1\105\1\uffff"+
+        "\2\172\2\uffff\1\172\1\116\1\106\3\uffff\1\105\1\172\1\104\1\uffff"+
+        "\1\172\1\uffff";
     static final String DFA11_acceptS =
         "\3\uffff\1\4\1\uffff\1\6\1\7\1\uffff\1\11\4\uffff\1\17\1\21\1\22"+
         "\1\23\1\24\1\25\1\26\1\27\1\30\1\31\1\32\3\uffff\1\37\1\40\1\41"+
@@ -1752,25 +1750,18 @@ public class CsLexer extends Lexer {
             "\1\13\1\10\1\40\1\15\1\uffff\1\25\1\uffff\2\34\1\31\1\30\1\34"+
             "\1\2\2\34\1\4\5\34\1\7\1\32\1\34\1\12\1\1\1\11\2\34\1\14\3\34"+
             "\1\17\1\uffff\1\20\1\uffff\1\34\1\uffff\32\34\1\5\1\16\1\6",
-            "\1\34\2\uffff\12\34\7\uffff\23\34\1\45\4\34\1\44\1\34\4\uffff"+
-            "\1\34\1\uffff\32\34",
-            "\1\34\2\uffff\12\34\7\uffff\16\34\1\46\13\34\4\uffff\1\34"+
-            "\1\uffff\32\34",
+            "\1\45\4\uffff\1\44",
+            "\1\46",
             "",
-            "\1\34\2\uffff\12\34\7\uffff\14\34\1\47\1\50\14\34\4\uffff"+
-            "\1\34\1\uffff\32\34",
+            "\1\47\1\50",
             "",
             "",
-            "\1\34\2\uffff\12\34\7\uffff\17\34\1\51\12\34\4\uffff\1\34"+
-            "\1\uffff\32\34",
+            "\1\51",
             "",
-            "\1\34\2\uffff\12\34\7\uffff\16\34\1\52\13\34\4\uffff\1\34"+
-            "\1\uffff\32\34",
-            "\1\34\2\uffff\12\34\7\uffff\24\34\1\53\5\34\4\uffff\1\34\1"+
-            "\uffff\32\34",
+            "\1\52",
+            "\1\53",
             "\1\54",
-            "\1\34\2\uffff\12\34\7\uffff\10\34\1\56\21\34\4\uffff\1\34"+
-            "\1\uffff\32\34",
+            "\1\56",
             "",
             "",
             "",
@@ -1782,12 +1773,9 @@ public class CsLexer extends Lexer {
             "",
             "",
             "",
-            "\1\34\2\uffff\12\34\7\uffff\4\34\1\57\25\34\4\uffff\1\34\1"+
-            "\uffff\32\34",
-            "\1\34\2\uffff\12\34\7\uffff\16\34\1\60\13\34\4\uffff\1\34"+
-            "\1\uffff\32\34",
-            "\1\34\2\uffff\12\34\7\uffff\21\34\1\61\10\34\4\uffff\1\34"+
-            "\1\uffff\32\34",
+            "\1\57",
+            "\1\60",
+            "\1\61",
             "",
             "",
             "",
