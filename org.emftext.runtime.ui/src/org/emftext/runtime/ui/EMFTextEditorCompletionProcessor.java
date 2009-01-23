@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -42,7 +43,11 @@ public class EMFTextEditorCompletionProcessor implements
 		Resource resource = editor.getResource();
 		ITextResource textResource = (ITextResource) resource;
 		ILocationMap locationMap = textResource.getLocationMap();
-		List<EObject> elementsAtChar = locationMap.getElementsAt(documentOffset);
+		EList<EObject> contents = resource.getContents();
+		if (contents == null) {
+			return EMPTY_PROPOSAL_ARRAY;
+		}
+		List<EObject> elementsAtChar = locationMap.getElementsAt(contents.get(0), documentOffset);
 		sortElements(elementsAtChar);
 		if (elementsAtChar.size() < 2) {
 			return EMPTY_PROPOSAL_ARRAY;

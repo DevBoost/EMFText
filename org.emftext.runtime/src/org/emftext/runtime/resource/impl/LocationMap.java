@@ -13,6 +13,9 @@ import org.emftext.runtime.resource.ILocationMap;
 /**
  * A basic implementation of the ILocationMap interface. Instances
  * store information about element locations using four maps.
+ * 
+ * TODO this class does consider the root elements that are passed
+ * to getElementsAt() and getElementsBetween()
  */
 public class LocationMap implements ILocationMap {
 
@@ -76,7 +79,7 @@ public class LocationMap implements ILocationMap {
 		map.put(element, line);
 	}
 
-	public List<EObject> getElementsAt(final int documentOffset) {
+	public List<EObject> getElementsAt(EObject root, final int documentOffset) {
 		List<EObject> result = getElements(new ISelector() {
 			public boolean accept(int start, int end) {
 				return start < documentOffset && end > documentOffset;
@@ -85,7 +88,7 @@ public class LocationMap implements ILocationMap {
 		return result;
 	}
 
-	public List<EObject> getElementsBetween(final int startOffset, final int endOffset) {
+	public List<EObject> getElementsBetween(EObject root, final int startOffset, final int endOffset) {
 		List<EObject> result = getElements(new ISelector() {
 			public boolean accept(int start, int end) {
 				return start >= startOffset && end <= endOffset;
