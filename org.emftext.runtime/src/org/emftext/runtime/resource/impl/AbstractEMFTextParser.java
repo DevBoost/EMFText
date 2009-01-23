@@ -65,27 +65,6 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 		return currentTarget;
 	}
 	
-//	public class DummyEStructuralFeature extends EStructuralFeatureImpl {
-//		private String dummyName;
-//		
-//		public DummyEStructuralFeature(String name) {
-//			this.dummyName = name;
-//		}
-//		
-//		public String getName() {
-//			return dummyName;
-//		}
-//	
-//	}
-
-//	public class DummyEClass extends EClassImpl {
-//				
-//		// dummy method
-//		public EStructuralFeature getEStructuralFeature(String name) {
-//			return new DummyEStructuralFeature(name);
-//		}
-//	}
-
 	public class DummyEObject extends EObjectImpl  {
 		private Map<EStructuralFeature, Object> keyValueMap;
 		private String recurseFeatureName;
