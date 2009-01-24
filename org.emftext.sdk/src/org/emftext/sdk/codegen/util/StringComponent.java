@@ -10,9 +10,14 @@ public class StringComponent implements Component {
 
 	private final String text;
 	private boolean enabled = false;
+	private String enabler;
 	
-	public StringComponent(String text) {
+	public StringComponent(String text, String enabler) {
 		this.text = text;
+		this.enabler = enabler;
+		if (enabler == null) {
+			enabled = true;
+		}
 	}
 
 	public String getText() {
@@ -23,8 +28,10 @@ public class StringComponent implements Component {
 		return enabled;
 	}
 	
-	public void enable() {
-		enabled = true;
+	public void enable(String text) {
+		if (enabler != null && text != null && text.contains(enabler)) {
+			enabled = true;
+		}
 	}
 	
 	@Override
@@ -34,10 +41,10 @@ public class StringComponent implements Component {
 	
 	public String toString(int tabs) {
 		String textValue = getText();
-		if (textValue.endsWith(StringComposite.LINE_BREAK)) {
-			return StringComposite.getTabText(tabs) + textValue;
-		} else {
-			return textValue;
-		}
+		return StringComposite.getTabText(tabs) + textValue;
+	}
+
+	public String getEnabler() {
+		return enabler;
 	}
 }
