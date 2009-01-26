@@ -41,11 +41,14 @@ public class ConcreteSyntaxInWorkspaceFinder implements IConcreteSyntaxFinder {
 		        	URI csLocation = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 		    		ResourceSet resourceSet = new ResourceSetImpl();
 		        	Resource aCsResource = resourceSet.getResource(csLocation, true);
-		        	ConcreteSyntax nextSyntax = (ConcreteSyntax) aCsResource.getContents().get(0);
-		        	String nextSyntaxURI = MetamodelManager.getConcreteSyntaxURI(nextSyntax.getName(), nextSyntax.getPackage());
-		        	if (csURI.equals(nextSyntaxURI)) {
-		        		foundSyntax = nextSyntax;
-						return false;
+		        	if (!aCsResource.getContents().isEmpty()){
+			        	ConcreteSyntax nextSyntax = (ConcreteSyntax) aCsResource.getContents().get(0);
+			        	if (nextSyntax.getName() != null && nextSyntax.getPackage() != null) {
+				        	String nextSyntaxURI = MetamodelManager.getConcreteSyntaxURI(nextSyntax.getName(), nextSyntax.getPackage());
+				        	if (csURI.equals(nextSyntaxURI)) {
+				        		foundSyntax = nextSyntax;
+				        	}
+			        	}
 		        	}
 				}
 				return false;

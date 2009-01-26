@@ -93,6 +93,9 @@ public class CsParser extends AbstractEMFTextParser {
 
     	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element, Object o) throws org.emftext.runtime.resource.impl.TokenConversionException {
     		int currentPos = getTokenStream().index();
+    		if (currentPos == 0) {
+    			return;
+    		}
     		int endPos = currentPos - 1;
     		for (; endPos >= lastPosition; endPos--) {
     			org.antlr.runtime.Token token = getTokenStream().get(endPos);

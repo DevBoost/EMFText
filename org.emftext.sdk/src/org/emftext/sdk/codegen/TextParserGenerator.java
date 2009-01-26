@@ -347,6 +347,9 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) throws " + TokenConversionException.class.getName() + " {");
         //out.println("\t\tSystem.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
         out.println("\t\tint currentPos = getTokenStream().index();");
+        out.println("\t\tif (currentPos == 0) {");
+        out.println("\t\t\treturn;");
+        out.println("\t\t}");
         out.println("\t\tint endPos = currentPos - 1;");
         out.println("\t\tfor (; endPos >= lastPosition; endPos--) {");
         out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(endPos);");
