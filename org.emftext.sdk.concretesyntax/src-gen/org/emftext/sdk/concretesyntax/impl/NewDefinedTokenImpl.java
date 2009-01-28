@@ -30,141 +30,137 @@ import org.emftext.sdk.concretesyntax.NewDefinedToken;
  */
 public abstract class NewDefinedTokenImpl extends TokenDefinitionImpl implements NewDefinedToken {
 	/**
-   * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getRegex()
-   * @generated
-   * @ordered
-   */
+	 * @see #getRegex()
+	 * @generated
+	 * @ordered
+	 */
 	protected static final String REGEX_EDEFAULT = null;
 
 	/**
-   * The cached value of the '{@link #getRegex() <em>Regex</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getRegex() <em>Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getRegex()
-   * @generated
-   * @ordered
-   */
+	 * @see #getRegex()
+	 * @generated
+	 * @ordered
+	 */
 	protected String regex = REGEX_EDEFAULT;
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected NewDefinedTokenImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.NEW_DEFINED_TOKEN;
-  }
+		return ConcretesyntaxPackage.Literals.NEW_DEFINED_TOKEN;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public String getRegex() {
-    return regex;
-  }
+		return regex;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public void setRegex(String newRegex) {
-    String oldRegex = regex;
-    regex = newRegex;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX, oldRegex, regex));
-  }
+		String oldRegex = regex;
+		regex = newRegex;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX, oldRegex, regex));
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
-        return getRegex();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
+				return getRegex();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
-        setRegex((String)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
+				setRegex((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
-        setRegex(REGEX_EDEFAULT);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
+				setRegex(REGEX_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
-        return REGEX_EDEFAULT == null ? regex != null : !REGEX_EDEFAULT.equals(regex);
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.NEW_DEFINED_TOKEN__REGEX:
+				return REGEX_EDEFAULT == null ? regex != null : !REGEX_EDEFAULT.equals(regex);
+		}
+		return super.eIsSet(featureID);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public String toString() {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (regex: ");
-    result.append(regex);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (regex: ");
+		result.append(regex);
+		result.append(')');
+		return result.toString();
+	}
 
 } //NewDefinedTokenImpl

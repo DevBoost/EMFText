@@ -43,260 +43,253 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  */
 public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDefinition {
 	/**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
 	protected String name = NAME_EDEFAULT;
 
 	/**
-   * The cached value of the '{@link #getAttributeReferences() <em>Attribute References</em>}' reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getAttributeReferences() <em>Attribute References</em>}' reference list.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getAttributeReferences()
-   * @generated
-   * @ordered
-   */
+	 * @see #getAttributeReferences()
+	 * @generated
+	 * @ordered
+	 */
 	protected EList<DefinedPlaceholder> attributeReferences;
 
 	/**
-   * The default value of the '{@link #getAttributeName() <em>Attribute Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getAttributeName() <em>Attribute Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getAttributeName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getAttributeName()
+	 * @generated
+	 * @ordered
+	 */
 	protected static final String ATTRIBUTE_NAME_EDEFAULT = null;
 
 	/**
-   * The cached value of the '{@link #getAttributeName() <em>Attribute Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getAttributeName() <em>Attribute Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getAttributeName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getAttributeName()
+	 * @generated
+	 * @ordered
+	 */
 	protected String attributeName = ATTRIBUTE_NAME_EDEFAULT;
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected TokenDefinitionImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.TOKEN_DEFINITION;
-  }
+		return ConcretesyntaxPackage.Literals.TOKEN_DEFINITION;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public String getName() {
-    return name;
-  }
+		return name;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public void setName(String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__NAME, oldName, name));
-  }
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__NAME, oldName, name));
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public EList<DefinedPlaceholder> getAttributeReferences() {
-    if (attributeReferences == null)
-    {
-      attributeReferences = new EObjectWithInverseResolvingEList<DefinedPlaceholder>(DefinedPlaceholder.class, this, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN);
-    }
-    return attributeReferences;
-  }
+		if (attributeReferences == null) {
+			attributeReferences = new EObjectWithInverseResolvingEList<DefinedPlaceholder>(DefinedPlaceholder.class, this, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN);
+		}
+		return attributeReferences;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public String getAttributeName() {
-    return attributeName;
-  }
+		return attributeName;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public void setAttributeName(String newAttributeName) {
-    String oldAttributeName = attributeName;
-    attributeName = newAttributeName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME, oldAttributeName, attributeName));
-  }
+		String oldAttributeName = attributeName;
+		attributeName = newAttributeName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME, oldAttributeName, attributeName));
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeReferences()).basicAdd(otherEnd, msgs);
-    }
-    return super.eInverseAdd(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttributeReferences()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
-        return ((InternalEList<?>)getAttributeReferences()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+				return ((InternalEList<?>)getAttributeReferences()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
-        return getName();
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
-        return getAttributeReferences();
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
-        return getAttributeName();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
+				return getName();
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+				return getAttributeReferences();
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+				return getAttributeName();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
-        setName((String)newValue);
-        return;
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
-        getAttributeReferences().clear();
-        getAttributeReferences().addAll((Collection<? extends DefinedPlaceholder>)newValue);
-        return;
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
-        setAttributeName((String)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
+				setName((String)newValue);
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+				getAttributeReferences().clear();
+				getAttributeReferences().addAll((Collection<? extends DefinedPlaceholder>)newValue);
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+				setAttributeName((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
-        getAttributeReferences().clear();
-        return;
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
-        setAttributeName(ATTRIBUTE_NAME_EDEFAULT);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+				getAttributeReferences().clear();
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+				setAttributeName(ATTRIBUTE_NAME_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
-        return attributeReferences != null && !attributeReferences.isEmpty();
-      case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
-        return ATTRIBUTE_NAME_EDEFAULT == null ? attributeName != null : !ATTRIBUTE_NAME_EDEFAULT.equals(attributeName);
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
+				return attributeReferences != null && !attributeReferences.isEmpty();
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
+				return ATTRIBUTE_NAME_EDEFAULT == null ? attributeName != null : !ATTRIBUTE_NAME_EDEFAULT.equals(attributeName);
+		}
+		return super.eIsSet(featureID);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public String toString() {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", attributeName: ");
-    result.append(attributeName);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(", attributeName: ");
+		result.append(attributeName);
+		result.append(')');
+		return result.toString();
+	}
 
 } //TokenDefinitionImpl

@@ -67,6 +67,7 @@ public interface ICodeGenOptions {
 	 * parser generation. The default value for this option is true.
 	 */
 	public static final String ANTLR_BACKTRACKING ="backtracking";
+	public static final String ANTLR_MEMOIZE = "memoize";
 	
 	public static final String CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION = "autofixSimpleLeftrecursion";
 	public static final String CS_OPTION_FORCE_EOF = "forceEOF";
@@ -74,5 +75,6 @@ public interface ICodeGenOptions {
 	public static final String CS_OPTION_USE_DEFAULT_TOKENS = "useDefaultTokens";
 	
 	public static final String CS_OPTION_TOKENSPACE = "tokenspace";
+	
 	
 }

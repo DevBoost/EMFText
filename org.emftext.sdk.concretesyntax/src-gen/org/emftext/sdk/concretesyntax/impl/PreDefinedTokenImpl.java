@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.PreDefinedToken;
  */
 public class PreDefinedTokenImpl extends TokenDefinitionImpl implements PreDefinedToken {
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected PreDefinedTokenImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.PRE_DEFINED_TOKEN;
-  }
+		return ConcretesyntaxPackage.Literals.PRE_DEFINED_TOKEN;
+	}
 
 } //PreDefinedTokenImpl

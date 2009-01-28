@@ -104,6 +104,9 @@ public class OptionManager {
 		if (optionName.equals(ANTLR_BACKTRACKING)) {
 			return true;
 		}
+		if (optionName.equals(ANTLR_MEMOIZE)) {
+			return true;
+		}
 		if (optionName.equals(CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION)) {
 			return false;
 		}

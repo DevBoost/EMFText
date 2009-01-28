@@ -296,7 +296,10 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("options {\n" +
         				"\tsuperClass = " + AbstractEMFTextParser.class.getSimpleName() + "; ");
         boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
+        boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.ANTLR_MEMOIZE);
+        
         out.println("\tbacktrack = " + backtracking + ";");
+        out.println("\tmemoize = " + memoize + ";");
         out.println("}");
         
         //the lexer: package def. and error handling

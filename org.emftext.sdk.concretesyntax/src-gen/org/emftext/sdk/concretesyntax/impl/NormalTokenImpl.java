@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.NormalToken;
  */
 public class NormalTokenImpl extends NewDefinedTokenImpl implements NormalToken {
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected NormalTokenImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.NORMAL_TOKEN;
-  }
+		return ConcretesyntaxPackage.Literals.NORMAL_TOKEN;
+	}
 
 } //NormalTokenImpl
