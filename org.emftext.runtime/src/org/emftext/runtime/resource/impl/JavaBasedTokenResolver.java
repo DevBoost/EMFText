@@ -67,6 +67,9 @@ public class JavaBasedTokenResolver implements ITokenResolver {
 					else if(typeName.equals("short")){
 						return Short.parseShort(lexem);
 					}
+					else if(typeName.equals("float")){
+						return Float.parseFloat(lexem);
+					}
 				}
 				catch(NumberFormatException e){
 					message = "Could not convert '"+lexem+"' to "+typeName+".";
