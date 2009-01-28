@@ -1,11 +1,16 @@
 package org.emftext.sdk;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -97,5 +102,18 @@ public class GenClassFinder {
 			foundClasses.addAll(classesInSubPackage);
 		}
 		return foundClasses;
+	}
+
+	public Map<String, Collection<String>> findAllSuperclasses(	Collection<GenClass> allGenClasses) {
+		HashMap<String, Collection<String>> genClasses2superNames = new HashMap<String, Collection<String>>();
+	    
+	    for (GenClass genClass : allGenClasses) {
+			Collection<String> supertypes = new LinkedList<String>();
+			for (EClass c : genClass.getEcoreClass().getEAllSuperTypes()) {
+				supertypes.add(c.getName());
+			}
+			genClasses2superNames.put(genClass.getEcoreClass().getName(), supertypes);
+		}
+	    return genClasses2superNames;
 	}
 }

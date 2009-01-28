@@ -273,16 +273,11 @@ public class TextParserGenerator extends BaseGenerator {
 		
 		printedTokens = new LinkedList<InternalTokenDefinition>();
 		
-	    genClasses2superNames = new HashMap<String, Collection<String>>();
 	    
 	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true);
-	    for (GenClass genClass : allGenClasses) {
-			Collection<String> supertypes = new LinkedList<String>();
-			for (EClass c : genClass.getEcoreClass().getEAllSuperTypes()) {
-				supertypes.add(c.getName());
-			}
-			genClasses2superNames.put(genClass.getEcoreClass().getName(), supertypes);
-		}
+	    
+	    genClasses2superNames = genClassFinder.findAllSuperclasses(allGenClasses);
+	    
 	}
 	
 	public boolean generate(PrintWriter out){

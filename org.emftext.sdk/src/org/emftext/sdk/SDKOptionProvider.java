@@ -1,21 +1,27 @@
 package org.emftext.sdk;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.codegen.LeftRecursionDetector;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -39,10 +45,13 @@ public class SDKOptionProvider implements IOptionProvider {
 		"The feature is used multiple times. Reprinting may fail for feature: ";
 	private static final String EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS = 
 		"Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
+	private static final String RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO = "The rule is left recursive in relation to rule: ";
 	
 	public Map<?, ?> getOptions() {
 		Map<String, Object> options = new HashMap<String, Object>();
-		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, new IResourcePostProcessorProvider() {
+		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
+		
+		postProcessors.add( new IResourcePostProcessorProvider() {
 
 			public IResourcePostProcessor getResourcePostProcessor() {
 				return new IResourcePostProcessor() {
@@ -53,9 +62,48 @@ public class SDKOptionProvider implements IOptionProvider {
 			}
 			
 		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkLeftRecursion(resource);
+					}
+					
+				};
+			}
+			
+		});
+		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
+		
 		return options;
 	}
 
+	private void checkLeftRecursion(ITextResource resource) {
+		// TODO Auto-generated method stub
+		EList<EObject> grammars = resource.getContents();
+		for (EObject next : grammars) {
+			if (next instanceof ConcreteSyntax) {
+				
+				ConcreteSyntax cs = (ConcreteSyntax) next;
+				GenClassFinder genClassFinder = new GenClassFinder();
+				List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(cs, true);
+				Map<String, Collection<String>> genClasses2superNames = genClassFinder.findAllSuperclasses(allGenClasses);
+				LeftRecursionDetector lrd = new LeftRecursionDetector(genClasses2superNames, cs);
+				
+				EList<Rule> allRules = cs.getAllRules();
+				
+				for (Rule rule : allRules) {
+					Rule recursionRule = lrd.findLeftRecursion(rule);
+					if (recursionRule != null) {
+						resource.addWarning(RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
+					}
+				}
+
+			}
+		}
+	}
+	
 	private void checkReprintProblems(ITextResource resource) {
 		checkForOptionalKeywords(resource);
 		checkForDuplicateReferences(resource);

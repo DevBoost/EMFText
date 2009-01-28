@@ -317,14 +317,26 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				// this list
 				List<?> currentValueAsList = (List<?>) currentValue;
 				List<Object> currentValueAsObjectList = copySafelyToObjectList(currentValueAsList);
-				currentValueAsObjectList.add(value);
+				if (value instanceof Collection) {
+					currentValueAsObjectList.addAll((Collection<? extends Object>) value);
+				}
+				else {
+					currentValueAsObjectList.add(value);
+				}
+				
 				options.put(key, currentValueAsObjectList);
 			} else {
 				// if the current value is not a list, we create a fresh list
 				// and add both the old (current) and the new value to this list
 				List<Object> newValueList = new ArrayList<Object>();
 				newValueList.add(currentValue);
-				newValueList.add(value);
+				if (value instanceof Collection) {
+					newValueList.addAll((Collection<? extends Object>) value);
+				}
+				else {
+					newValueList.add(value);
+				}
+				
 				options.put(key, newValueList);
 			}
 		} else {
