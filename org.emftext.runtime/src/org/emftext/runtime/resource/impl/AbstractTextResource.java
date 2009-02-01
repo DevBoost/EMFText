@@ -208,7 +208,11 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 					Collection<IResourcePostProcessorProvider> resourcePostProcessorProviderCollection = (Collection<IResourcePostProcessorProvider>) resourcePostProcessorProvider;
 					for (IResourcePostProcessorProvider processorProvider : resourcePostProcessorProviderCollection) {
 						IResourcePostProcessor postProcessor = processorProvider.getResourcePostProcessor();
-						postProcessor.process(this);
+						try {
+							postProcessor.process(this);
+						} catch (Exception e) {
+							EMFTextPlugin.logError("Exception while running a post-processor.", e);
+						}
 					}
 				}
 			}

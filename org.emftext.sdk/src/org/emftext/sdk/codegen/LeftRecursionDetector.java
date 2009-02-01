@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.impl.GenFeatureImpl;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -52,7 +53,14 @@ public class LeftRecursionDetector {
 		for (Definition definition : sequence.getParts()) {
 			if (definition instanceof Containment) {
 				Containment c = (Containment) definition;
-				GenClass featureType = c.getFeature().getTypeGenClass();
+				final GenFeature feature = c.getFeature();
+				if (feature == null) {
+					continue;
+				}
+				if (feature.getEcoreFeature() == null) {
+					continue;
+				}
+				GenClass featureType = feature.getTypeGenClass();
 				if (metaclass.equals(featureType) || 
 						//this.genClasses2superNames.get(featureType.getName()).contains(metaclass.getName()) ||
 						genClasses2superNames.get(metaclass.getName()).contains(featureType.getName())) {
