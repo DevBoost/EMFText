@@ -189,11 +189,10 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
 		boolean wasLoaded = !isLoaded;
-		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
-		super.load(loadOptions);
+		super.load(options);
 
 		if (wasLoaded) {
-			Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
+			Object resourcePostProcessorProvider = options.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 			if (resourcePostProcessorProvider != null) {
 				if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
 					((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
