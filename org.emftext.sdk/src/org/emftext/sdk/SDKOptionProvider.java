@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
@@ -46,6 +49,7 @@ public class SDKOptionProvider implements IOptionProvider {
 	private static final String EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS = 
 		"Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
 	private static final String RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO = "The rule is left recursive in relation to rule: ";
+	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class: ";
 	
 	public Map<?, ?> getOptions() {
 		Map<String, Object> options = new HashMap<String, Object>();
@@ -72,15 +76,66 @@ public class SDKOptionProvider implements IOptionProvider {
 					
 				};
 			}
-			
+		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkMissingRules(resource);
+					}
+				};
+			}
 		});
 		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
 		return options;
 	}
 
+	private void checkMissingRules(ITextResource resource) {
+		EList<EObject> objects = resource.getContents();
+		for (EObject next : objects) {
+			if (next instanceof ConcreteSyntax) {
+				checkMissingRules(resource, (ConcreteSyntax) next);
+			}
+		}
+	}
+	
+	private void checkMissingRules(ITextResource resource, ConcreteSyntax syntax) {
+		GenClassFinder genClassFinder = new GenClassFinder();
+		List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, false);
+		EList<Rule> allRules = syntax.getAllRules();
+		// this set ensure that we do not add warnings for a missing rule twice
+		Set<String> namesOfCompletedGenClasses = new LinkedHashSet<String>();
+		
+		for (GenClass genClass : allGenClasses) {
+			EClass ecoreClass = genClass.getEcoreClass();
+			if (ecoreClass == null) {
+				continue;
+			}
+			if (ecoreClass.isAbstract()) {
+				continue;
+			}
+			String qualifiedName = genClass.getQualifiedInterfaceName();
+			if (namesOfCompletedGenClasses.contains(qualifiedName)) {
+				continue;
+			}
+			namesOfCompletedGenClasses.add(qualifiedName);
+			boolean foundRuleForClass = false;
+			for (Rule rule : allRules) {
+				GenClass ruleClass = rule.getMetaclass();
+				if (ruleClass != null && ruleClass.getQualifiedInterfaceName().equals(qualifiedName)) {
+					foundRuleForClass = true;
+					break;
+				}
+			}
+			if (!foundRuleForClass) {
+				resource.addWarning(NO_RULE_FOR_META_CLASS + genClass.getName(), syntax);
+			}
+		}
+	}
+
 	private void checkLeftRecursion(ITextResource resource) {
-		// TODO Auto-generated method stub
 		EList<EObject> grammars = resource.getContents();
 		for (EObject next : grammars) {
 			if (next instanceof ConcreteSyntax) {
