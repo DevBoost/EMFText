@@ -14,6 +14,54 @@ import java.util.List;
  */
 public class StringComposite {
 	
+	public interface Node {
+		public Tree getParent();
+	}
+	
+	public class ComponentNode implements Node {
+
+		private StringComponent component;
+		private Tree parent;
+
+		public ComponentNode(Tree parent, StringComponent component) {
+			this.parent = parent;
+			this.component = component;
+		}
+
+		public StringComponent getComponent() {
+			return component;
+		}
+		
+		public Tree getParent() {
+			return parent;
+		}
+	}
+	
+	public class Tree implements Node {
+		
+		private List<Node> children = new ArrayList<Node>();
+		private Tree parent;
+
+		public Tree(Tree parent) {
+			this.parent = parent;
+			if (parent != null) {
+				parent.addChildNode(this);
+			}
+		}
+
+		public List<Node> getChildNodes() {
+			return children;
+		}
+
+		public void addChildNode(Node node) {
+			children.add(node);
+		}
+
+		public Tree getParent() {
+			return parent;
+		}
+	}
+
 	public static final String LINE_BREAK = "\n";
 	
 	private List<StringComponent> components = new ArrayList<StringComponent>();
@@ -94,58 +142,12 @@ public class StringComposite {
 		return builder.toString();
 	}
 
-	public interface Node {
-		public Tree getParent();
-	}
-	
-	public class ComponentNode implements Node {
-
-		private StringComponent component;
-		private Tree parent;
-
-		public ComponentNode(Tree parent, StringComponent component) {
-			this.parent = parent;
-			this.component = component;
-		}
-
-		public StringComponent getComponent() {
-			return component;
-		}
-		
-		public Tree getParent() {
-			return parent;
-		}
-	}
-	
-	public class Tree implements Node {
-		
-		private List<Node> children = new ArrayList<Node>();
-		private Tree parent;
-
-		public Tree(Tree parent) {
-			this.parent = parent;
-			if (parent != null) {
-				parent.addChildNode(this);
-			}
-		}
-
-		public List<Node> getChildNodes() {
-			return children;
-		}
-
-		public void addChildNode(Node node) {
-			children.add(node);
-		}
-
-		public Tree getParent() {
-			return parent;
-		}
-	}
-	
 	private void enableComponents() {
 		List<ComponentNode> disabledComponents = new ArrayList<ComponentNode>();
 
 		// find the scoping depth for the disabled components
+		// TODO mseifert: this should be created when the components are added and replace
+		// the field 'components'.
 		Tree subTree = new Tree(null);
 		for (int i = 0; i < components.size(); i++) {
 			StringComponent component = components.get(i);
