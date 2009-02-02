@@ -91,6 +91,9 @@ public class GenClassFinder {
 
 	private List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(String prefix, GenPackage genPackage) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
+		if(genPackage == null) {
+			return foundClasses;
+		}
 		// first add all generator classes in the package itself
 		EList<GenClass> genClasses = genPackage.getGenClasses();
 		for (GenClass genClass : genClasses) {
