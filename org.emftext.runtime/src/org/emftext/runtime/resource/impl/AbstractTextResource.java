@@ -322,7 +322,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				List<?> currentValueAsList = (List<?>) currentValue;
 				List<Object> currentValueAsObjectList = copySafelyToObjectList(currentValueAsList);
 				if (value instanceof Collection) {
-					currentValueAsObjectList.addAll((Collection<? extends Object>) value);
+					currentValueAsObjectList.addAll((Collection<?>) value);
 				}
 				else {
 					currentValueAsObjectList.add(value);
@@ -335,7 +335,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				List<Object> newValueList = new ArrayList<Object>();
 				newValueList.add(currentValue);
 				if (value instanceof Collection) {
-					newValueList.addAll((Collection<? extends Object>) value);
+					newValueList.addAll((Collection<?>) value);
 				}
 				else {
 					newValueList.add(value);
