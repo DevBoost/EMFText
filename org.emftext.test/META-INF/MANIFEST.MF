@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi,
  org.emftext.runtime,
  org.emftext.sdk,
- org.emftext.sdk.ui;bundle-version="1.0.0"
+ org.emftext.sdk.ui
 Export-Package: org.emftext.test
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 
