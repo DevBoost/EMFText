@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.GenPackageByNameFinder;
 import org.emftext.sdk.MetamodelHelper;
 import org.junit.Before;
@@ -31,7 +30,6 @@ public class OptionsTest {
 		
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put(MetamodelHelper.GEN_PACKAGE_FINDER_KEY, new GenPackageByNameFinder());
-		options.put(ITextResource.OPTION_NO_VALIDATE, Boolean.TRUE);
 
 		File result = generateANTLRGrammarToTempFile(fileURI, options);
 		assertNotNull(result);

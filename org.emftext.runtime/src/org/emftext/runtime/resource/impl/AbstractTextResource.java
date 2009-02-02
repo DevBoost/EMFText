@@ -42,8 +42,6 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	
 	private static final String ARBITRARY_SYNTAX_NAME = "*";
 
-	private boolean validateOCLConstraints = false;
-	
 	private ILocationMap locationMap = new LocationMap();
 	
 	private Map<String, ContextDependentURIFragment> internalURIFragmentMap =
@@ -194,10 +192,6 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
 		super.load(loadOptions);
 
-		if (loadOptions != null && ! Boolean.TRUE.equals(loadOptions.get(AbstractTextResource.OPTION_NO_VALIDATE))) {
-			this.validateOCLConstraints = true;
-		}
-				
 		if (wasLoaded) {
 			Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 			if (resourcePostProcessorProvider != null) {
@@ -267,10 +261,6 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		getWarnings().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
 	}
 	
-	public String[] getTokenNames() {
-		return new String[]{};
-	}
-	
 	protected Map<Object, Object> addDefaultLoadOptions(Map<?, ?> loadOptions) {
 		Map<Object, Object> loadOptionsCopy = copySafelyToObjectToObjectMap(loadOptions); 
 		if (Platform.isRunning()) {
@@ -280,7 +270,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			for (IConfigurationElement element : configurationElements) {
 				try {
 					String csName = element.getAttribute(IOptionProvider.CS_NAME);
-					if (this.getSyntaxName().equals(csName) || ARBITRARY_SYNTAX_NAME.equals(csName)) {
+					if (getSyntaxName().equals(csName) || ARBITRARY_SYNTAX_NAME.equals(csName)) {
 						IOptionProvider provider = (IOptionProvider) element.createExecutableExtension("class");//$NON-NLS-1$
 						final Map<?, ?> options = provider.getOptions();
 						final Collection<?> keys = options.keySet();
@@ -370,9 +360,5 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			castedCopy.add(it.next());
 		}
 		return castedCopy;
-	}
-
-	public boolean validateOCLConstraints() {
-		return validateOCLConstraints;
 	}
 }

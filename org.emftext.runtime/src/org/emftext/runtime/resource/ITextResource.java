@@ -17,12 +17,6 @@ public interface ITextResource extends Resource {
 	public static final String INTERNAL_URI_FRAGMENT_PREFIX = "EMFTEXT_INTERNAL_URI_FRAGMENT_";
 	
 	/**
-	 * Used during {@link #load(java.util.Map)} to determine whether OCL
-	 * constraints should be validated.
-	 */
-	public static final String OPTION_NO_VALIDATE = "TR_NO_VALIDATE_OCL"; 
-
-	/**
 	 * Returns a map containing information about the location of model
 	 * elements in the text.
 	 * 
