@@ -238,7 +238,7 @@ public class TextParserGenerator extends BaseGenerator {
 	
 	private String standardTextTokenName;
 	private boolean forceEOFToken;
-	private boolean useDefaultTokens;
+	private boolean usePredefinedTokens;
 	private GenClassFinder genClassFinder = new GenClassFinder();
 	
 	public TextParserGenerator(GenerationContext context) {
@@ -258,7 +258,7 @@ public class TextParserGenerator extends BaseGenerator {
 			addProblem(new GenerationProblem("Token names must start with a capital letter.", conreteSyntax, Severity.ERROR));
 		}
 		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
-		useDefaultTokens = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_USE_DEFAULT_TOKENS);
+		usePredefinedTokens = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_USE_PREDEFINED_TOKENS);
 	}
 	
 	private void initCaches(){
@@ -266,7 +266,7 @@ public class TextParserGenerator extends BaseGenerator {
 		derivedTokens = new HashMap<String,InternalTokenDefinition>();
 		placeholder2TokenName = new HashMap<DerivedPlaceholder,String>();
 		
-		if (useDefaultTokens) {
+		if (usePredefinedTokens) {
 			derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false,false));
 			derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false,false));			
 		}

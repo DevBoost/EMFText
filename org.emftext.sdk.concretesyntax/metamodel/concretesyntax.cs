@@ -9,7 +9,7 @@ IMPORTS {
 OPTIONS {
 	tokenspace = "0";
 	defaultTokenName = "QUALIFIED_NAME";
-	useDefaultTokens = "false";
+	usePredefinedTokens = "false";
 }
 
 TOKENS {

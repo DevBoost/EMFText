@@ -98,7 +98,7 @@ public class OptionManager {
 		if (optionName.equals(CS_OPTION_FORCE_EOF)) {
 			return true;
 		}
-		if (optionName.equals(CS_OPTION_USE_DEFAULT_TOKENS)) {
+		if (optionName.equals(CS_OPTION_USE_PREDEFINED_TOKENS)) {
 			return true;
 		}
 		if (optionName.equals(ANTLR_BACKTRACKING)) {

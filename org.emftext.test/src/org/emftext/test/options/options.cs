@@ -7,7 +7,7 @@ OPTIONS {
 	autofixSimpleLeftrecursion = false;
 	forceEOF = true; 
 	standardTextTokenName = TEXT;
-	useDefaultTokens = false;
+	usePredefinedTokens = false;
 }
 
 TOKENS {
