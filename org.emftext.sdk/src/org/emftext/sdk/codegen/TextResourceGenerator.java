@@ -47,7 +47,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		out.println("\tprivate " + IReferenceResolverSwitch.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";\n\n");
 		
 		generateConstructors(out);
-        genereteDoLoadMethod(out);
+        generateDoLoadMethod(out);
         generateDoSaveMethod(out);
         generateGetTokenNamesMethod(out);
         generateGetSyntaxNameMethod(out);
@@ -120,12 +120,12 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println();
 	}
 
-	private void genereteDoLoadMethod(PrintWriter out) {
+	private void generateDoLoadMethod(PrintWriter out) {
 		out.println("\tprotected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        out.println("\t\tjava.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);");
+        //out.println("\t\tjava.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);");
         out.println("\t\tjava.lang.String encoding = null;");
         out.println("\t\tjava.io.InputStream actualInputStream = inputStream;");
-		out.println("\t\tjava.lang.Object inputStreamPreProcessorProvider = loadOptions.get(" + IOptions.class.getName() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
+		out.println("\t\tjava.lang.Object inputStreamPreProcessorProvider = options.get(" + IOptions.class.getName() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
 		out.println("\t\tif (inputStreamPreProcessorProvider != null) {");
 		out.println("\t\t\tif (inputStreamPreProcessorProvider instanceof " + IInputStreamProcessorProvider.class.getName() + ") {");
 		out.println("\t\t\t\t" + IInputStreamProcessorProvider.class.getName() + " provider = (" + IInputStreamProcessorProvider.class.getName() + ") inputStreamPreProcessorProvider;");
@@ -142,13 +142,13 @@ public class TextResourceGenerator extends BaseGenerator {
         out.println("\t\t\tparser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream, encoding))));");
 		out.println("\t\t}");
         out.println("\t\tparser.setResource(this);");
-        out.println("\t\tparser.setOptions(loadOptions);");
+        out.println("\t\tparser.setOptions(options);");
         out.println("\t\t" + EObject.class.getName() + " root = parser.parse();");
         out.println("\t\twhile (root != null) {");
         out.println("\t\t\tgetContents().add(root);");
         out.println("\t\t\troot = null;");
         out.println("\t\t}\n");
-        out.println("\t\tgetReferenceResolverSwitch().setOptions(loadOptions);");
+        out.println("\t\tgetReferenceResolverSwitch().setOptions(options);");
         out.println("\t}");
         out.println();
 	}
