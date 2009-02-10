@@ -39,7 +39,7 @@ public class EMFTextEditorCompletionProcessor implements
 
 	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
 			int documentOffset) {
-		long startTime = System.currentTimeMillis();
+
 		Resource resource = editor.getResource();
 		ITextResource textResource = (ITextResource) resource;
 		ILocationMap locationMap = textResource.getLocationMap();
