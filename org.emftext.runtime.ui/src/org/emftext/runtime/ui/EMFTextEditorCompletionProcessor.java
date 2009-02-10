@@ -84,7 +84,6 @@ public class EMFTextEditorCompletionProcessor implements
 		removeDuplicates(mappings);
 		ICompletionProposal[] proposals = createProposals(documentOffset, prefix,
 				mappings);
-		System.out.println("computeCompletionProposals() took " + (System.currentTimeMillis() - startTime) + "ms");
 		return proposals;
 	}
 
