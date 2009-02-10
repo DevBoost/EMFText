@@ -40,6 +40,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
+import org.emftext.runtime.ui.TokenHelper;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
@@ -52,6 +53,8 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
 public class SyntaxColoringPreferencePage
 	extends PreferencePage
 	implements IWorkbenchPreferencePage {
+	
+	private final static TokenHelper tokenHelper = new TokenHelper();
     
     private static final Map<String,List<HighlightingColorListItem>> content = new HashMap<String,List<HighlightingColorListItem>>();
     
@@ -559,16 +562,18 @@ public class SyntaxColoringPreferencePage
 	            String languageId = extension;
 	            
 	            List<HighlightingColorListItem> terminals = new ArrayList<HighlightingColorListItem>();
-	            for(int i=6; i < tr.getTokenNames().length; i++ ) {
-	                String tt = tr.getTokenNames()[i];
-	                
-	                if (tt.startsWith("'"))
-	                    tt = tt.substring(1,tt.length()-1).trim();
-	                
-	                String prefix = languageId + "_" + tt;
+	            String[] tokenNames = tr.getTokenNames();
+	            
+				for (int i = 0; i < tokenNames.length; i++) {
+					if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
+						continue;
+					}
+					
+					String tokenName = tokenHelper.getTokenName(tokenNames, i);
+	                String prefix = languageId + "_" + tokenName;
 	                HighlightingColorListItem item = new HighlightingColorListItem(
 	                        languageId,
-	                        tt,
+	                        tokenName,
 	                        prefix + COLOR,
 	                        prefix + BOLD,
 	                        prefix + ITALIC,
@@ -617,7 +622,7 @@ public class SyntaxColoringPreferencePage
 		if(editor!=null&&editor instanceof EMFTextEditor){
 			EMFTextEditor emfTextEditor = (EMFTextEditor) editor;
 			emfTextEditor.invalidateTextRepresentation();
-		}			
+		}
     }
 	
 }

@@ -19,6 +19,8 @@ import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 public class AntlrTokenScanner implements ITokenScanner {
     
+	private final static TokenHelper tokenHelper = new TokenHelper();
+	
     private Lexer lexer;
     private Token current;
     private String[] tokenNames;
@@ -47,27 +49,20 @@ public class AntlrTokenScanner implements ITokenScanner {
         current = lexer.nextToken();
         
         //TODO when do up and down occur??
-        if (current.getType() == Token.EOF || current.getType() == Token.UP || current.getType() == Token.DOWN) {
+        if (!tokenHelper.canBeUsedForSyntaxColoring(current)) {
             return org.eclipse.jface.text.rules.Token.EOF;
         }
-        if (current.getType() == 4) {
-            return org.eclipse.jface.text.rules.Token.WHITESPACE;
-        } 
-        if (current.getType() < 6) {
-            return org.eclipse.jface.text.rules.Token.UNDEFINED;
-        }
- 
+
         //TODO build a map of tokens and reuse them instead of creating new ones
-        String tt     = tokenNames[current.getType()];
-        if (tt.startsWith("'"))
-            tt = tt.substring(1,tt.length()-1).trim();
-        String prefix = languageId + "_" + tt;
+        String tokenName = tokenHelper.getTokenName(tokenNames, current.getType());
+        String prefix = languageId + "_" + tokenName;
         
         TextAttribute ta = null;
         if (store.getBoolean(prefix + PreferenceConstants.EDITOR_ENABLE_SUFFIX)) {
-            Color color = colorManager.getColor(PreferenceConverter.getColor(store,prefix + PreferenceConstants.EDITOR_COLOR_SUFFIX));
+            String colorKey = prefix + PreferenceConstants.EDITOR_COLOR_SUFFIX;
+			Color color = colorManager.getColor(PreferenceConverter.getColor(store, colorKey));
             int style = SWT.NORMAL;
-            
+
             if (store.getBoolean(prefix + PreferenceConstants.EDITOR_BOLD_SUFFIX)) {
                 style = style | SWT.BOLD;
             }
@@ -81,7 +76,7 @@ public class AntlrTokenScanner implements ITokenScanner {
                 style = style | TextAttribute.UNDERLINE;
             }
             
-            ta = new TextAttribute(color,null,style);
+            ta = new TextAttribute(color, null, style);
 
         }
         return new org.eclipse.jface.text.rules.Token(ta);
