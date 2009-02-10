@@ -1,9 +1,6 @@
 package org.emftext.sdk.codegen.regex;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.PrintWriter;
 
 import org.antlr.Tool;
 
@@ -16,28 +13,7 @@ public class RunAntlr {
 		System.out.println(System.getProperty("user.dir"));
 		Tool antlrTool = new Tool(new String[] { "-o",
 				new File(".").getAbsolutePath(),
-				//"./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" });
 				"./src/org/emftext/sdk/concretesyntax/resource/cs/Cs.g" });
 		antlrTool.process();
-
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
-		w.print("'(");
-		w.flush();
-		w.close();
-		/*
-		ANTLRexpLexer lexer = (new ANTLRexpLexer(new ANTLRInputStream(
-				new ByteArrayInputStream(out.toByteArray()))));
-
-		ANTLRexpParser p = new ANTLRexpParser(new CommonTokenStream(lexer));
-
-		try {
-			p.root();
-			System.out.println(p.recExceptions.size());
-		} catch (RecognitionException e) {
-			System.out.println(p.recExceptions.size());
-			System.out.println("s" + p.getErrorMessage(e, p.getTokenNames()));
-		}
-		*/
 	}
 }
