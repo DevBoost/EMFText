@@ -57,6 +57,9 @@ public class GenClassFinder {
 		// first add all generator classes contained in the generator package
 		// that is referenced by the concrete syntax
 		GenPackage genPackage = syntax.getPackage();
+		if (genPackage == null) {
+			return foundClasses;
+		}
 		foundClasses.addAll(findAllGenClassesAndPrefixes(prefix, genPackage));
 
 		// second add classes from used generator packages
