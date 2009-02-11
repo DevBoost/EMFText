@@ -125,7 +125,9 @@ public class TextResourceGenerator extends BaseGenerator {
         //out.println("\t\tjava.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);");
         out.println("\t\tjava.lang.String encoding = null;");
         out.println("\t\tjava.io.InputStream actualInputStream = inputStream;");
-		out.println("\t\tjava.lang.Object inputStreamPreProcessorProvider = options.get(" + IOptions.class.getName() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
+        out.println("\t\tjava.lang.Object inputStreamPreProcessorProvider = null;");
+        out.println("\t\tif(options!=null)");
+		out.println("\t\t\tinputStreamPreProcessorProvider = options.get(" + IOptions.class.getName() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
 		out.println("\t\tif (inputStreamPreProcessorProvider != null) {");
 		out.println("\t\t\tif (inputStreamPreProcessorProvider instanceof " + IInputStreamProcessorProvider.class.getName() + ") {");
 		out.println("\t\t\t\t" + IInputStreamProcessorProvider.class.getName() + " provider = (" + IInputStreamProcessorProvider.class.getName() + ") inputStreamPreProcessorProvider;");
