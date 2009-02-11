@@ -12,6 +12,8 @@ import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
+import org.emftext.sdk.codegen.util.JavaStringComposite;
+import org.emftext.sdk.codegen.util.StringComposite;
 
 /**
  * Generates the resource class. The created <code>doLoad()</code> and 
@@ -39,119 +41,123 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		out.println("package " + getResourcePackageName() + ";");
-		out.println();
+		StringComposite sc = new JavaStringComposite();
+		sc.add("package " + getResourcePackageName() + ";");
+        sc.addLineBreak();
         
-		out.println("public class " + getResourceClassName() + " extends " + AbstractTextResource.class.getName() + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + AbstractTextResource.class.getName() + " {");
 
-		out.println("\tprivate " + IReferenceResolverSwitch.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";\n\n");
+		sc.add("private " + IReferenceResolverSwitch.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";\n");
 		
-		generateConstructors(out);
-        generateDoLoadMethod(out);
-        generateDoSaveMethod(out);
-        generateGetTokenNamesMethod(out);
-        generateGetSyntaxNameMethod(out);
-        generateGetScannerMethod(out);
-        generateGetReferenceResolverSwitchMethod(out);
-    	generateDoUnLoadMethod(out);
+		generateConstructors(sc);
+        generateDoLoadMethod(sc);
+        generateDoSaveMethod(sc);
+        generateGetTokenNamesMethod(sc);
+        generateGetSyntaxNameMethod(sc);
+        generateGetScannerMethod(sc);
+        generateGetReferenceResolverSwitchMethod(sc);
+    	generateDoUnLoadMethod(sc);
 
-        out.println("}");
+    	sc.add("}");
+    	
+    	out.print(sc.toString());
     	return true;
     }
 
-	private void generateGetSyntaxNameMethod(PrintWriter out) {
-		out.println("\t@Override");
-		out.println("\tprotected String getSyntaxName() {");
-		out.println("\t\treturn \"" + csSyntaxName + "\";");
-		out.println("\t}");
-		out.println();
+	private void generateGetSyntaxNameMethod(StringComposite sc) {
+		sc.add("@Override ");
+		sc.add("protected String getSyntaxName() {");
+		sc.add("return \"" + csSyntaxName + "\";");
+		sc.add("}");
+        sc.addLineBreak();
 	}
 
-	private void generateDoUnLoadMethod(PrintWriter out) {
-		out.println("\tprotected void doUnload(){");
-    	out.println("\t\tsuper.doUnload();");
-    	out.println("\t\t" + RESOLVER_SWITCH_FIELD_NAME + " = null;");
-    	out.println("\t}");
+	private void generateDoUnLoadMethod(StringComposite sc) {
+		sc.add("protected void doUnload(){");
+    	sc.add("super.doUnload();");
+    	sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
+    	sc.add("}");
 	}
 
-	private void generateGetReferenceResolverSwitchMethod(PrintWriter out) {
-		out.println("\tpublic " + IReferenceResolverSwitch.class.getName() + " getReferenceResolverSwitch() {");
-        out.println("\t\tif (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
-        out.println("\t\t\t" + RESOLVER_SWITCH_FIELD_NAME + " = new " + resolverSwitchClassName + "();");
-        out.println("\t\t}");
-        out.println("\t\treturn " + RESOLVER_SWITCH_FIELD_NAME + ";");
-        out.println("\t}");
-        out.println();
+	private void generateGetReferenceResolverSwitchMethod(StringComposite sc) {
+		sc.add("public " + IReferenceResolverSwitch.class.getName() + " getReferenceResolverSwitch() {");
+        sc.add("if (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
+        sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + resolverSwitchClassName + "();");
+        sc.add("}");
+        sc.add("return " + RESOLVER_SWITCH_FIELD_NAME + ";");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 
-	private void generateGetScannerMethod(PrintWriter out) {
-		out.println("\tpublic Object getScanner() {");
-        out.println("\t\treturn new " + csClassName + "Lexer();");
-        out.println("\t}");
-        out.println();
+	private void generateGetScannerMethod(StringComposite sc) {
+		sc.add("public Object getScanner() {");
+        sc.add("return new " + csClassName + "Lexer();");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 
-	private void generateGetTokenNamesMethod(PrintWriter out) {
-		out.println("\tpublic String[] getTokenNames() {");
-        out.println("\t\treturn new " + csClassName + "Parser(null).getTokenNames();");
-        out.println("\t}");
-    	out.println();
+	private void generateGetTokenNamesMethod(StringComposite sc) {
+		sc.add("public String[] getTokenNames() {");
+        sc.add("return new " + csClassName + "Parser(null).getTokenNames();");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 
-	private void generateDoSaveMethod(PrintWriter out) {
-		out.println("\tprotected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        out.println("\t\t" + ITextPrinter.class.getName() + " p = new " + printerClassName + "(outputStream, this);");
-        out.println("\t\tfor(" + EObject.class.getName() + " root : getContents()) {");
-        out.println("\t\t\tp.print(root);");
-        out.println("\t\t}");
-        out.println("\t}");
-        out.println();
+	private void generateDoSaveMethod(StringComposite sc) {
+		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
+        sc.add(ITextPrinter.class.getName() + " p = new " + printerClassName + "(outputStream, this);");
+        sc.add("for(" + EObject.class.getName() + " root : getContents()) {");
+        sc.add("p.print(root);");
+        sc.add("}");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 
-	private void generateConstructors(PrintWriter out) {
-		out.println("\tpublic " + getResourceClassName() + "() {");
-		out.println("\t\tsuper();");
-		out.println("\t}");
-		out.println();
+	private void generateConstructors(StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "() {");
+		sc.add("super();");
+		sc.add("}");
+        sc.addLineBreak();
         
-		out.println("\tpublic " + getResourceClassName() + "(" + org.eclipse.emf.common.util.URI.class.getName() + " uri) {");
-		out.println("\t\tsuper(uri);");
-		out.println("\t}");
-        out.println();
+		sc.add("public " + getResourceClassName() + "(" + org.eclipse.emf.common.util.URI.class.getName() + " uri) {");
+		sc.add("super(uri);");
+		sc.add("}");
+        sc.addLineBreak();
 	}
 
-	private void generateDoLoadMethod(PrintWriter out) {
-		out.println("\tprotected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        //out.println("\t\tjava.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);");
-        out.println("\t\tjava.lang.String encoding = null;");
-        out.println("\t\tjava.io.InputStream actualInputStream = inputStream;");
-        out.println("\t\tjava.lang.Object inputStreamPreProcessorProvider = null;");
-        out.println("\t\tif(options!=null)");
-		out.println("\t\t\tinputStreamPreProcessorProvider = options.get(" + IOptions.class.getName() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
-		out.println("\t\tif (inputStreamPreProcessorProvider != null) {");
-		out.println("\t\t\tif (inputStreamPreProcessorProvider instanceof " + IInputStreamProcessorProvider.class.getName() + ") {");
-		out.println("\t\t\t\t" + IInputStreamProcessorProvider.class.getName() + " provider = (" + IInputStreamProcessorProvider.class.getName() + ") inputStreamPreProcessorProvider;");
-		out.println("\t\t\t\t" + InputStreamProcessor.class.getName() + " processor = provider.getInputStreamProcessor(inputStream);");
-		out.println("\t\t\t\tactualInputStream = processor;");
-		out.println("\t\t\t\tencoding = processor.getOutputEncoding();");
-		out.println("\t\t\t}");
-		out.println("\t\t}");
-		out.println();
-        out.println("\t\t" + ITextParser.class.getName() + " parser;");
-		out.println("\t\tif (encoding == null) {");
-        out.println("\t\t\tparser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream))));");
-		out.println("\t\t} else {");
-        out.println("\t\t\tparser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream, encoding))));");
-		out.println("\t\t}");
-        out.println("\t\tparser.setResource(this);");
-        out.println("\t\tparser.setOptions(options);");
-        out.println("\t\t" + EObject.class.getName() + " root = parser.parse();");
-        out.println("\t\twhile (root != null) {");
-        out.println("\t\t\tgetContents().add(root);");
-        out.println("\t\t\troot = null;");
-        out.println("\t\t}\n");
-        out.println("\t\tgetReferenceResolverSwitch().setOptions(options);");
-        out.println("\t}");
-        out.println();
+	private void generateDoLoadMethod(StringComposite sc) {
+		sc.add("protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {");
+        sc.add("java.lang.String encoding = null;");
+        sc.add("java.io.InputStream actualInputStream = inputStream;");
+        sc.add("java.lang.Object inputStreamPreProcessorProvider = null;");
+        sc.add("if (options!=null) {");
+		sc.add("inputStreamPreProcessorProvider = options.get(" + IOptions.class.getName() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
+		sc.add("}");
+		sc.add("if (inputStreamPreProcessorProvider != null) {");
+		sc.add("if (inputStreamPreProcessorProvider instanceof " + IInputStreamProcessorProvider.class.getName() + ") {");
+		sc.add(IInputStreamProcessorProvider.class.getName() + " provider = (" + IInputStreamProcessorProvider.class.getName() + ") inputStreamPreProcessorProvider;");
+		sc.add(InputStreamProcessor.class.getName() + " processor = provider.getInputStreamProcessor(inputStream);");
+		sc.add("actualInputStream = processor;");
+		sc.add("encoding = processor.getOutputEncoding();");
+		sc.add("}");
+		sc.add("}");
+        sc.addLineBreak();
+        
+        sc.add(ITextParser.class.getName() + " parser;");
+		sc.add("if (encoding == null) {");
+        sc.add("parser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream))));");
+		sc.add("} else {");
+        sc.add("parser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream, encoding))));");
+		sc.add("}");
+        sc.add("parser.setResource(this);");
+        sc.add("parser.setOptions(options);");
+        sc.add(EObject.class.getName() + " root = parser.parse();");
+        sc.add("while (root != null) {");
+        sc.add("getContents().add(root);");
+        sc.add("root = null;");
+        sc.add("}\n");
+        sc.add("getReferenceResolverSwitch().setOptions(options);");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 }
