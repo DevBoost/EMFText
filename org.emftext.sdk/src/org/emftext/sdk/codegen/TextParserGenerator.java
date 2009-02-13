@@ -342,60 +342,59 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t}");
         out.println();
         
+        List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(conreteSyntax.getTokens());       
         out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) throws " + TokenConversionException.class.getName() + " {");
-        //out.println("\t\tSystem.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
-        out.println("\t\tint currentPos = getTokenStream().index();");
-        out.println("\t\tif (currentPos == 0) {");
-        out.println("\t\t\treturn;");
-        out.println("\t\t}");
-        out.println("\t\tint endPos = currentPos - 1;");
-        out.println("\t\tfor (; endPos >= lastPosition; endPos--) {");
-        out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(endPos);");
-        out.println("\t\t\tint _channel = token.getChannel();");
-        out.println("\t\t\tif (_channel != 99) {");
-        out.println("\t\t\t\tbreak;");
-        out.println("\t\t\t}");
-        out.println("\t\t}");
-        out.println("\t\tfor (int pos = lastPosition; pos < endPos; pos++) {");
-        out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(pos);");
-        out.println("\t\t\tint _channel = token.getChannel();");
-        out.println("\t\t\tif (_channel == 99) {");
-        //out.println("\t\t\t\tSystem.out.println(\"\t\" + token);");
+        if(!collectTokenDefinitions.isEmpty()){          
+            //out.println("\t\tSystem.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
+            out.println("\t\tint currentPos = getTokenStream().index();");
+            out.println("\t\tif (currentPos == 0) {");
+            out.println("\t\t\treturn;");
+            out.println("\t\t}");
+            out.println("\t\tint endPos = currentPos - 1;");
+            out.println("\t\tfor (; endPos >= lastPosition; endPos--) {");
+            out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(endPos);");
+            out.println("\t\t\tint _channel = token.getChannel();");
+            out.println("\t\t\tif (_channel != 99) {");
+            out.println("\t\t\t\tbreak;");
+            out.println("\t\t\t}");
+            out.println("\t\t}");
+            out.println("\t\tfor (int pos = lastPosition; pos < endPos; pos++) {");
+            out.println("\t\t\t" + org.antlr.runtime.Token.class.getName() + " token = getTokenStream().get(pos);");
+            out.println("\t\t\tint _channel = token.getChannel();");
+            out.println("\t\t\tif (_channel == 99) {");
+            //out.println("\t\t\t\tSystem.out.println(\"\t\" + token);");
 
-        List<TokenDefinition> tokens = conreteSyntax.getTokens();
-        for (TokenDefinition token : tokens) {
-    		String attributeName = token.getAttributeName();
-			if (attributeName == null) {
-    			continue;
-    		}
-	        // figure out which feature the token belongs to
-			out.println("\t\t\t\tif (token.getType() == " + lexerName + "." + token.getName() + ") {");
-	        out.println("\t\t\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
-	        out.println("\t\t\t\t\tif (feature != null) {");
-	        out.println("\t\t\t\t\t\t// call token resolver");
-	        
-			String identifierPrefix = "resolved";
-			String resolverIdentifier = identifierPrefix + "Resolver";
-			String resolvedObjectIdentifier = identifierPrefix + "Object";
-			
-			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createCollectInTokenResolver(\"" + attributeName + "\");");
-			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
-			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolverIdentifier + ".resolve(token.getText(), feature, element, getResource());");
-			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) throw new " + TokenConversionException.class.getName() + "(token, " + resolverIdentifier + ".getErrorMessage());");
-			out.println("\t\t\t\t\t\tif (java.lang.String.class.isInstance(" + resolvedObjectIdentifier + ")) {");
-	        out.println("\t\t\t\t\t\t\t((java.util.List) element.eGet(feature)).add((String) " + resolvedObjectIdentifier + ");");
-	        out.println("\t\t\t\t\t\t} else {");
-	        out.println("\t\t\t\t\t\t\tSystem.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" has wrong type in element \" + element + \" (expected java.lang.String).\");");
-	        out.println("\t\t\t\t\t\t}");
-	        out.println("\t\t\t\t\t} else {");
-	        out.println("\t\t\t\t\t\tSystem.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" was not found in element \" + element + \".\");");
-	        out.println("\t\t\t\t\t}");
-			out.println("\t\t\t\t}");
-        }
+            for (TokenDefinition tokenDefinition : collectTokenDefinitions) {
+        		String attributeName = tokenDefinition.getAttributeName();
+    	        // figure out which feature the token belongs to
+    			out.println("\t\t\t\tif (token.getType() == " + lexerName + "." + tokenDefinition.getName() + ") {");
+    	        out.println("\t\t\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
+    	        out.println("\t\t\t\t\tif (feature != null) {");
+    	        out.println("\t\t\t\t\t\t// call token resolver");
+    	        
+    			String identifierPrefix = "resolved";
+    			String resolverIdentifier = identifierPrefix + "Resolver";
+    			String resolvedObjectIdentifier = identifierPrefix + "Object";
+    			
+    			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createCollectInTokenResolver(\"" + attributeName + "\");");
+    			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
+    			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolverIdentifier + ".resolve(token.getText(), feature, element, getResource());");
+    			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) throw new " + TokenConversionException.class.getName() + "(token, " + resolverIdentifier + ".getErrorMessage());");
+    			out.println("\t\t\t\t\t\tif (java.lang.String.class.isInstance(" + resolvedObjectIdentifier + ")) {");
+    	        out.println("\t\t\t\t\t\t\t((java.util.List) element.eGet(feature)).add((String) " + resolvedObjectIdentifier + ");");
+    	        out.println("\t\t\t\t\t\t} else {");
+    	        out.println("\t\t\t\t\t\t\tSystem.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" has wrong type in element \" + element + \" (expected java.lang.String).\");");
+    	        out.println("\t\t\t\t\t\t}");
+    	        out.println("\t\t\t\t\t} else {");
+    	        out.println("\t\t\t\t\t\tSystem.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" was not found in element \" + element + \".\");");
+    	        out.println("\t\t\t\t\t}");
+    			out.println("\t\t\t\t}");
+            }
 
-        out.println("\t\t\t}");
-        out.println("\t\t}");
-        out.println("\t\tlastPosition = endPos;");
+            out.println("\t\t\t}");
+            out.println("\t\t}");
+            out.println("\t\tlastPosition = (endPos<0?0:endPos);");
+        }   
         out.println("\t}");
         out.println("}");
         out.println();
@@ -412,7 +411,18 @@ public class TextParserGenerator extends BaseGenerator {
 	    
 	    return getCollectedErrors().size() == 0;
 	}
-
+	
+	private List<TokenDefinition> collectCollectTokenDefinitions(List<TokenDefinition> tokenDefinitions){
+		List<TokenDefinition> collectList = new LinkedList<TokenDefinition>();		
+		for(TokenDefinition tokenDefinition:tokenDefinitions){
+			String attributeName = tokenDefinition.getAttributeName();
+			if (attributeName != null) {
+				collectList.add(tokenDefinition);
+			}			
+		}
+		return collectList;
+	}
+	
 	private String getLexerName(String csName) {
 		return csName + "Lexer";
 	}
