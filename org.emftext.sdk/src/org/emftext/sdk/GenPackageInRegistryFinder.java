@@ -16,6 +16,10 @@ import org.emftext.runtime.EMFTextPlugin;
  */
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
+	/**
+	 * An implementation of the IGenPackageFinderResult that is used to
+	 * return generator package found in the EMF registry.
+	 */
 	private class GenPackageInRegistryFinderResult implements IGenPackageFinderResult {
 
 		private GenPackage genPackage;

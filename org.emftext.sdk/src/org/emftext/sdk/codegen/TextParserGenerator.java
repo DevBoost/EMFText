@@ -115,6 +115,9 @@ public class TextParserGenerator extends BaseGenerator {
 		public boolean isCollect();
 	}
 	
+	/**
+	 * TODO skarol: add comment
+	 */
 	private static class InternalTokenDefinitionImpl implements InternalTokenDefinition{
 		private String name;
 		private String expression;
@@ -168,6 +171,9 @@ public class TextParserGenerator extends BaseGenerator {
 		}
 	}
 	
+	/**
+	 * TODO skarol: add comment
+	 */
 	private static class TokenDefinitionAdapter implements InternalTokenDefinition {
 		private NewDefinedToken adaptee;
 		private boolean implicitlyReferenced;

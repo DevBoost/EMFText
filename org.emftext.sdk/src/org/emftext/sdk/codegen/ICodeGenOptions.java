@@ -1,5 +1,9 @@
 package org.emftext.sdk.codegen;
 
+/**
+ * A collection of all options that are available to parameterize
+ * the code generation process.
+ */
 public interface ICodeGenOptions {
 	
 	public static final String GENERATE_TEST_ACTION = "generateTestAction";

@@ -15,6 +15,9 @@ import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 
+/**
+ * A generated lexer for regular expressions.
+ */
 public class ANTLRexpLexer extends Lexer {
     public static final int T__12=12;
     public static final int T__20=20;
@@ -776,6 +779,9 @@ public class ANTLRexpLexer extends Lexer {
         }
     }
 
+    /**
+     * A generated automaton.
+     */
     class DFA3 extends DFA {
 
         public DFA3(BaseRecognizer recognizer) {
@@ -904,6 +910,9 @@ public class ANTLRexpLexer extends Lexer {
         }
     }
 
+    /**
+     * A generated automaton.
+     */
     class DFA6 extends DFA {
 
         public DFA6(BaseRecognizer recognizer) {

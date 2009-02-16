@@ -19,6 +19,9 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class ConcreteSyntaxInWorkspaceFinder implements IConcreteSyntaxFinder {
 
+	/**
+	 * A visitor used to find concrete syntaxes.
+	 */
 	private final class WorkspaceVisitor implements IResourceVisitor {
 		private final IResource workspaceResource;
 		private final String csURI;

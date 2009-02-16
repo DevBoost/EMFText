@@ -4,6 +4,10 @@ import java.io.File;
 
 import org.antlr.Tool;
 
+/**
+ * A simple utility class to generate the lexer and parser for the
+ * regular expressions using ANTLR.
+ */
 public class RunAntlr {
 
 	/**

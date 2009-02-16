@@ -14,10 +14,17 @@ import java.util.List;
  */
 public class StringComposite {
 	
+	/**
+	 * A Node is the atomic part of a tree.
+	 */
 	public interface Node {
 		public Tree getParent();
 	}
 	
+	/**
+	 * A CompositeNode is part of a tree and contains exactly
+	 * one StringComponent.
+	 */
 	public class ComponentNode implements Node {
 
 		private StringComponent component;
@@ -37,6 +44,10 @@ public class StringComposite {
 		}
 	}
 	
+	/**
+	 * A Tree is a container for Nodes. Since trees are
+	 * nodes as well, they can contain further trees. 
+	 */
 	public class Tree implements Node {
 		
 		private List<Node> children = new ArrayList<Node>();

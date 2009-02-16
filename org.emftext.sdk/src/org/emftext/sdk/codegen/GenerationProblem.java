@@ -9,6 +9,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class GenerationProblem {
 	
+	/**
+	 * An enumeration of all available severity levels.
+	 */
 	public static enum Severity {WARNING, ERROR}
 	
 	private GenerationProblem.Severity severity ; 

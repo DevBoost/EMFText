@@ -7,6 +7,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.Rule;
 
+/**
+ * A utility class used by all generators.
+ */
 public class GeneratorUtil {
 
 	/**

@@ -27,6 +27,10 @@ import org.emftext.runtime.EMFTextPlugin;
  */
 public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 	
+	/**
+	 * An implementation of the IGenPackageFinderResult that is used to
+	 * return generator package found in the current workspace.
+	 */
 	private class GenPackageInWorkspaceFinderResult implements IGenPackageFinderResult {
 
 		private IFile file;

@@ -18,7 +18,9 @@ import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 
-
+/**
+ * TODO cwende add comment
+ */
 public class LeftRecursionDetector {
 
 	private Map<String, Collection<String>> genClasses2superNames;

@@ -24,6 +24,9 @@ public class MetamodelManager {
 	
 	private List<IConcreteSyntaxFinder> concreteSyntaxFinders = new ArrayList<IConcreteSyntaxFinder>();
 	
+	/**
+	 * The MetamodelCache maps namespace URIs to generator packages.
+	 */
 	private class MetamodelCache {
 		
 		private Map<String,IGenPackageFinderResult> internalCache = new HashMap<String,IGenPackageFinderResult>();
