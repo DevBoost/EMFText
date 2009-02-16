@@ -72,6 +72,10 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	public IBackgroundParsingStrategy bgParsingStrategy = new NoBackgroundParsingStrategy();
 	public IBackgroundParsingListener bgParsingListener;
 
+	/**
+	 * A custom document listener that triggers background parsing if 
+	 * needed. 
+	 */
 	private final class DocumentListener implements IDocumentListener {
 		
 		public void documentAboutToBeChanged(DocumentEvent event) {}
@@ -96,7 +100,14 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		}
 	}
 
-
+	/**
+	 * The MarkerAdapter is attached to all resources opened in
+	 * EMFText editors. When changes are applied to the resource
+	 * all existing (potentially invalid) markers are removed 
+	 * and replaced by new ones. Further the adapter can be 
+	 * disabled to avoid unnecessary marking when a set of
+	 * changes is applied.
+	 */
 	private final class MarkerAdapter extends AdapterImpl {
 		private boolean enabled = true;
 		
