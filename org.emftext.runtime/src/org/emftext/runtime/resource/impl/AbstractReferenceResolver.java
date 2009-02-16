@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.EMFTextPlugin;
-import org.emftext.runtime.resource.IElementMapping;
-import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.ITextResource;
@@ -48,31 +46,6 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 			// catch exception here to prevent EMF proxy resolution from swallowing it
 			rte.printStackTrace();
 		}
-		
-		EObject element = null;
-		if (result.wasResolvedUniquely()) {
-			IReferenceMapping next = result.getMappings().iterator().next();
-			if (next instanceof IElementMapping) {
-				element = ((IElementMapping) next).getTargetElement();
-			}
-		} else if (result.wasResolvedMultiple()) {
-			IReferenceMapping next = result.getMappings().iterator().next();
-			// TODO mseifert: handle multiple elements
-			if (next instanceof IElementMapping) {
-				element = ((IElementMapping) next).getTargetElement();
-			}
-		} else if (!result.wasResolved()) {
-			return;
-		}
-		// TODO @jjohannes: can we move this type check to the reference resolver switch?
-		EClass type = reference.getEReferenceType();
-		if (element == null || (!element.eClass().equals(type) && 
-				!element.eClass().getEAllSuperTypes().contains(type))) {
-
-			//return ResolveResultFactory.INSTANCE.createResolveResult(getErrorMessage(identifier, container, reference));
-		}
-		
-		return;
 	}
 	
 	/**
@@ -89,11 +62,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 	 */
 	protected void doResolve(String identifier, ContainerType container,
 			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
-		
-		//TODO trivial implementation - enhancements:
-		//      - take tree depths into account
-		//      - use not only name attribute (e.g. "id", or only existing String attribute)
-	
+
 		EClass type     = reference.getEReferenceType();
 		EObject root = findRoot(container);
 		for (Iterator<EObject> i = root.eAllContents(); i.hasNext(); ) {
