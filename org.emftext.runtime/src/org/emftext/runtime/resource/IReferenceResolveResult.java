@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  * the case of failure, the result provides an error message.
  * 
  */
-public interface IResolveResult {
+public interface IReferenceResolveResult {
 	
 	/**
 	 * Returns the error message that describes what went wrong while

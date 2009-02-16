@@ -4,7 +4,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.DelegatingResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.Containment;
@@ -14,7 +14,7 @@ import org.emftext.sdk.concretesyntax.Terminal;
 
 public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<Terminal> {
 	
-	private interface FeatureResolveResult extends IResolveResult {
+	private interface FeatureResolveResult extends IReferenceResolveResult {
 		public boolean foundFeatureWithCorrectName();
 		public void setFoundFeatureWithCorrectName();
 	}
@@ -23,7 +23,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		
 		private boolean foundFeatureWithCorrectName = false;
 
-		public FeatureResolveResultImpl(IResolveResult result) {
+		public FeatureResolveResultImpl(IReferenceResolveResult result) {
 			super(result);
 		}
 
@@ -120,7 +120,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 
 	@Override
 	protected void doResolve(final String identifier, final Terminal container,
-			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
 		if (resolveFuzzy) {
 			doResolveFuzzy(identifier, container, result);
 		} else {
@@ -128,15 +128,15 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		}
 	}
 
-	private void doResolveFuzzy(String identifier, Terminal container, IResolveResult result) {
+	private void doResolveFuzzy(String identifier, Terminal container, IReferenceResolveResult result) {
 		doResolveFeature(container, new NameStartsWithFilter(identifier), identifier, result);
 	}
 
-	private void doResolveStrict(String identifier, Terminal container, IResolveResult result) {
+	private void doResolveStrict(String identifier, Terminal container, IReferenceResolveResult result) {
 		doResolveFeature(container, new NameAndContainmentFilter(identifier, container), identifier, result);
 	}
 
-	private void doResolveFeature(Terminal container, GenFeatureFilter filter, String identifier, IResolveResult result) {
+	private void doResolveFeature(Terminal container, GenFeatureFilter filter, String identifier, IReferenceResolveResult result) {
 		Rule rule = getContainingRule(container);
 		
 		if (rule == null) {

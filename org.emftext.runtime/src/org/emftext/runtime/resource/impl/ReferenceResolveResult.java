@@ -6,19 +6,19 @@ import java.util.Collection;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IReferenceMapping;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 
 /**
  * A basic implementation of IResolveResult interface
  * that collects mappings in a list.
  */
-public class ResolveResult implements IResolveResult {
+public class ReferenceResolveResult implements IReferenceResolveResult {
 	
 	private Collection<IReferenceMapping> mappings;
 	private String errorMessage;
 	private boolean resolveFuzzy;
 
-	public ResolveResult(boolean resolveFuzzy) {
+	public ReferenceResolveResult(boolean resolveFuzzy) {
 		super();
 		this.resolveFuzzy = resolveFuzzy;
 	}

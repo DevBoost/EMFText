@@ -21,9 +21,9 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.ResolveResult;
+import org.emftext.runtime.resource.impl.ReferenceResolveResult;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
@@ -74,7 +74,7 @@ public class EMFTextEditorCompletionProcessor implements
 		}
 
 		IReferenceResolverSwitch resolverSwitch = textResource.getReferenceResolverSwitch();
-		IResolveResult resolved = new ResolveResult(true); 
+		IReferenceResolveResult resolved = new ReferenceResolveResult(true); 
 		resolverSwitch.resolve(prefix, containerAtChar, null, 0, true, resolved);
 		if (!resolved.wasResolvedMultiple()) {
 			return EMPTY_PROPOSAL_ARRAY;

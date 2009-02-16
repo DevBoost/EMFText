@@ -2,7 +2,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.MetamodelHelper;
@@ -14,7 +14,7 @@ public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceReso
 
 	@Override
 	protected void doResolve(String identifier, Import container,
-			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
 		
 		if (!(container instanceof Import)) {
 			result.setErrorMessage(createErrorMessage(identifier));

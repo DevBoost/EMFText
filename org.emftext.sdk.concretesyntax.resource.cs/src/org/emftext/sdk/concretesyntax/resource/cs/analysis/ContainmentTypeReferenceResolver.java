@@ -13,7 +13,7 @@ public class ContainmentTypeReferenceResolver extends org.emftext.runtime.resour
 	}
 
 	@Override
-	protected void doResolve(java.lang.String identifier, org.emftext.sdk.concretesyntax.Containment container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IResolveResult result) {
+	protected void doResolve(java.lang.String identifier, org.emftext.sdk.concretesyntax.Containment container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult result) {
 		GenClass superType = null;
 		if (container.getFeature() != null) {
 			superType = container.getFeature().getTypeGenClass();

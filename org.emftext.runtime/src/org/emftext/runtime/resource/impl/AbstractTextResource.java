@@ -28,7 +28,7 @@ import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.IReferenceMapping;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.IURIMapping;
@@ -75,7 +75,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				internalURIFragmentMap.get(id);
 
 			boolean wasResolvedBefore = uriFragment.isResolved();
-			IResolveResult result = uriFragment.resolve(getReferenceResolverSwitch());
+			IReferenceResolveResult result = uriFragment.resolve(getReferenceResolverSwitch());
 			
 			if (result == null) {
 				//the resolving did call itself
@@ -143,7 +143,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 	}
 	
-	private void attachErrors(IResolveResult result, EObject proxy) {
+	private void attachErrors(IReferenceResolveResult result, EObject proxy) {
 		// attach errors to resource
 		assert result != null;
 		String errorMessage = result.getErrorMessage();
@@ -154,7 +154,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 	}
 
-	private void attachWarnings(IResolveResult result) {
+	private void attachWarnings(IReferenceResolveResult result) {
 		assert result != null;
 		assert result.wasResolved();
 		

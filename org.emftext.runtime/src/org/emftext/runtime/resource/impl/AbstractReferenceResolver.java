@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.IReferenceResolver;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
@@ -39,7 +39,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 	}
 	
 	public void resolve(String identifier, ContainerType container, 
-			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
 		try {
 			doResolve(identifier, container, reference, position, resolveFuzzy, result);
 		} catch (RuntimeException rte) {
@@ -61,7 +61,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 	 * @return The resolved object or null if resolving fails.
 	 */
 	protected void doResolve(String identifier, ContainerType container,
-			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
 
 		EClass type     = reference.getEReferenceType();
 		EObject root = findRoot(container);

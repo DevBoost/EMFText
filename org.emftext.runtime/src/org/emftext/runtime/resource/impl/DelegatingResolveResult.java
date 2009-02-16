@@ -5,18 +5,18 @@ import java.util.Collection;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IReferenceMapping;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 
 /**
  * An implementation of the ResolveResult interface that delegates 
  * all method calls to another ResolveResult. Client may subclass 
  * this class to easily create custom ResolveResults.
  */
-public class DelegatingResolveResult implements IResolveResult {
+public class DelegatingResolveResult implements IReferenceResolveResult {
 	
-	private IResolveResult delegate;
+	private IReferenceResolveResult delegate;
 
-	public DelegatingResolveResult(IResolveResult delegate) {
+	public DelegatingResolveResult(IReferenceResolveResult delegate) {
 		this.delegate = delegate;
 	}
 

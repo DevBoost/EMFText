@@ -2,7 +2,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
@@ -14,7 +14,7 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 	@Override
 	protected void doResolve(String identifier, DefinedPlaceholder container,
 			EReference reference, int position, boolean resolveFuzzy,
-			IResolveResult result) {
+			IReferenceResolveResult result) {
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);
@@ -27,7 +27,7 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
-			DefinedPlaceholder container, boolean resolveFuzzy, IResolveResult result) {
+			DefinedPlaceholder container, boolean resolveFuzzy, IReferenceResolveResult result) {
 		EObject root = findRoot(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;

@@ -9,7 +9,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 
 /**
  * A generator that creates a multiplexing reference resolver.
@@ -60,7 +60,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     }
 
 	private void generateResolveFuzzyMethod(StringBuffer s) {
-		s.append("\tpublic void resolveFuzzy(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, int position, " + IResolveResult.class.getName() + " result) {\n");
+		s.append("\tpublic void resolveFuzzy(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, int position, " + IReferenceResolveResult.class.getName() + " result) {\n");
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
@@ -102,7 +102,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	}
 
 	private void generateResolveStrictMethod(StringBuffer s) {
-		s.append("\tpublic void resolveStrict(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference, int position, " + IResolveResult.class.getName() + " result) {\n");		
+		s.append("\tpublic void resolveStrict(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference, int position, " + IReferenceResolveResult.class.getName() + " result) {\n");		
 		for(GenFeature proxyReference : context.getNonContainmentReferences()) {
 			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
 			GenClass genClass = proxyReference.getGenClass();
@@ -118,7 +118,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	}
 
 	private void generateResolveMethod(StringBuffer s) {
-		s.append("\tpublic void resolve(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IResolveResult.class.getName() + " result) {\n");
+		s.append("\tpublic void resolve(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + " result) {\n");
 		s.append("\t\tif (resolveFuzzy) {\n");
 		s.append("\t\t\tresolveFuzzy(identifier, container, position, result);\n");
 		s.append("\t\t} else {\n");

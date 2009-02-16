@@ -11,7 +11,7 @@ import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IURIMapping;
 
 /**
@@ -24,7 +24,7 @@ public class ContextDependentURIFragment implements IContextDependentURIFragment
 	protected EReference reference;
 	protected int        positionInReference;
 	protected EObject    proxy;
-	protected IResolveResult result;
+	protected IReferenceResolveResult result;
 	
 	private boolean resolving;
 	
@@ -41,13 +41,13 @@ public class ContextDependentURIFragment implements IContextDependentURIFragment
 		return result != null;
 	}
 	
-	public synchronized IResolveResult resolve(IReferenceResolverSwitch resolverSwitch) {
+	public synchronized IReferenceResolveResult resolve(IReferenceResolverSwitch resolverSwitch) {
 		if (resolving) {
 			return null;
 		}
 		resolving = true;
 		if (result == null || !result.wasResolved()) {
-			result = new ResolveResult(false);
+			result = new ReferenceResolveResult(false);
 			//set an initial default error message
 			result.setErrorMessage(getStdErrorMessage());
 			//do the actual resolving

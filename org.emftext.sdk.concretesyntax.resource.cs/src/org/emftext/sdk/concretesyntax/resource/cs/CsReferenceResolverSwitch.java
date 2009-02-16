@@ -18,7 +18,7 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypeReferenceResolver containmentTypeReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypeReferenceResolver();
 
-	public void resolve(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IResolveResult result) {
+	public void resolve(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult result) {
 		if (resolveFuzzy) {
 			resolveFuzzy(identifier, container, position, result);
 		} else {
@@ -26,7 +26,7 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		}
 	}
 
-	public void resolveStrict(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, org.emftext.runtime.resource.IResolveResult result) {
+	public void resolveStrict(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, org.emftext.runtime.resource.IReferenceResolveResult result) {
 		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == 1) {
 			concreteSyntaxPackageReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference, position, false, result);
 			return;
@@ -124,7 +124,7 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		containmentTypeReferenceResolver.setOptions(options);
 	}
 
-	public void resolveFuzzy(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, int position, org.emftext.runtime.resource.IResolveResult result) {
+	public void resolveFuzzy(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, int position, org.emftext.runtime.resource.IReferenceResolveResult result) {
 
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().isInstance(container)) {
 			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(1);

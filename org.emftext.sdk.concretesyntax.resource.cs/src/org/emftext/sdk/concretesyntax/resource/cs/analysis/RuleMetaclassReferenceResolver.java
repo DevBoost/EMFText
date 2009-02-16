@@ -2,7 +2,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver;
@@ -13,7 +13,7 @@ public class RuleMetaclassReferenceResolver extends AbstractReferenceResolver<Ru
 	
 	@Override
 	protected void doResolve(final String identifier, Rule container,
-			EReference reference, int position, boolean resolveFuzzy, IResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
 		
 		resolver.doResolve(identifier, container, reference, position, resolveFuzzy, result, null, false);
 	}

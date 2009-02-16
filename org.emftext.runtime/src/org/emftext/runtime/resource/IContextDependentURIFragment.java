@@ -62,7 +62,7 @@ public interface IContextDependentURIFragment {
 	 * @param resolverSwitch a resolver switch that can handle the context
 	 * @return result of resolving process
 	 */
-	public IResolveResult resolve(IReferenceResolverSwitch resolverSwitch);
+	public IReferenceResolveResult resolve(IReferenceResolverSwitch resolverSwitch);
 	
 	/**
 	 * @return <code>true</code> if <code>resolve()</code> was called successfully before.

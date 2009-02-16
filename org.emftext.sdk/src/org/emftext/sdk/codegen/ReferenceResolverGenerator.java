@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IResolveResult;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 
 /**
@@ -36,7 +36,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 		out.println("\t\treturn super.doDeResolve(element, container, reference);");
 		out.println("\t}\n");
 		out.println("\t@Override");
-		out.println("\tprotected void doResolve(" + String.class.getName() + " identifier, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IResolveResult.class.getName() + " result) {");
+		out.println("\tprotected void doResolve(" + String.class.getName() + " identifier, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + " result) {");
 		out.println("\t\tsuper.doResolve(identifier, container, reference, position, resolveFuzzy, result);");
 		out.println("\t}");
 	}
