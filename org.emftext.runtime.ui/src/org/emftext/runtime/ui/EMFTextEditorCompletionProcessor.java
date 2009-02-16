@@ -73,9 +73,6 @@ public class EMFTextEditorCompletionProcessor implements
 			return EMPTY_PROPOSAL_ARRAY;
 		}
 
-		//TODO @mseifert: the prefix somehow has to go through the appropriate token resolver,
-	    // otherwise we have different kind of identifiers in the reference resolvers
-		
 		IReferenceResolverSwitch resolverSwitch = textResource.getReferenceResolverSwitch();
 		IResolveResult resolved = new ResolveResult(true); 
 		resolverSwitch.resolve(prefix, containerAtChar, null, 0, true, resolved);
