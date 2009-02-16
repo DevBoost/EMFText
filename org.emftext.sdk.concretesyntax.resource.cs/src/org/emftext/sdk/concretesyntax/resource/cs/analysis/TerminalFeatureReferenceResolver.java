@@ -97,9 +97,9 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 
 	private class NameAndContainmentFilter extends NameEqualsFilter {
 
-		private final EObject container;
+		private final Terminal container;
 
-		private NameAndContainmentFilter(String identifier, EObject container) {
+		private NameAndContainmentFilter(String identifier, Terminal container) {
 			super(identifier);
 			this.container = container;
 		}
@@ -136,7 +136,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		doResolveFeature(container, new NameAndContainmentFilter(identifier, container), identifier, result);
 	}
 
-	private void doResolveFeature(EObject container, GenFeatureFilter filter, String identifier, IResolveResult result) {
+	private void doResolveFeature(Terminal container, GenFeatureFilter filter, String identifier, IResolveResult result) {
 		Rule rule = getContainingRule(container);
 		
 		if (rule == null) {
@@ -177,7 +177,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		return rule;
 	}
 
-	private boolean hasCorrectContainmentType(EObject container,
+	private boolean hasCorrectContainmentType(Terminal container,
 			GenFeature genFeature, String featureName) {
 		EStructuralFeature feature = genFeature.getEcoreFeature();
 		
@@ -186,13 +186,17 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		return isContainment == expectedValue;
 	}
 
-	private boolean getExpectedContainmentValue(EObject container) {
-		if (container instanceof Placeholder) {
-			return false;
-		} else if (container instanceof Containment) {
+	private boolean getExpectedContainmentValue(Terminal container) {
+		if (container instanceof Containment) {
+			//definitely containment
 			return true;
-		} else {
-			// TODO is this the right return value?
+		} else if (container instanceof Placeholder) {
+			//definitely no containment
+			return false;
+		}
+		else {
+			//Terminal has no other subclasses
+			assert(false);
 			return false;
 		}
 	}
