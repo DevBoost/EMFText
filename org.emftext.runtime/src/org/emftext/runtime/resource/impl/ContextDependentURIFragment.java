@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
@@ -14,9 +15,9 @@ import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.IURIMapping;
 
 /**
- * TODO jjohannes: add documentation
+ * Standard implementation of <code>IContextDependentURIFragment</code>.
  */
-public class ContextDependentURIFragment {
+public class ContextDependentURIFragment implements IContextDependentURIFragment {
 
 	protected String     identifier;
 	protected EObject    container;
@@ -84,7 +85,11 @@ public class ContextDependentURIFragment {
 				addResultToList(mapping, proxy, list);
 			}
 			else {
-				EMFTextPlugin.logError("", null);
+				EMFTextPlugin.logError(
+						container.eClass().getName() +
+						"." + reference.getName() + 
+						"has multiplicity 1 but was resolved to multiple elements", 
+						null);
 			}
 		}
 	}
@@ -103,12 +108,13 @@ public class ContextDependentURIFragment {
 			assert false;
 		}
 		try {
+			// if target is an another proxy and list is "unique" 
+			// add() will try to resolve the new proxy to check for uniqueness.
+			// There seems to be no way to avoid that. Until now this does not 
+			// cause any problems.
 			if (proxyPosition + 1 == list.size()) {
 				list.add(target);
 			} else {
-				//TODO jjohannes: if target is an external proxy and list is "unique" 
-				//     add() will try to resolve the external proxy to check for uniqueness.
-				//     That should be avoided somehow...
 				list.add(proxyPosition + 1, target);
 			}
 		} catch (Exception e1) {

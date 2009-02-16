@@ -14,8 +14,6 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public interface ITextResource extends Resource {
 	
-	public static final String INTERNAL_URI_FRAGMENT_PREFIX = "EMFTEXT_INTERNAL_URI_FRAGMENT_";
-	
 	/**
 	 * Returns a map containing information about the location of model
 	 * elements in the text.

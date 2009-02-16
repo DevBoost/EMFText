@@ -24,6 +24,7 @@ import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
+import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.IReferenceMapping;
@@ -44,10 +45,10 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 
 	private ILocationMap locationMap = new LocationMap();
 	
-	private Map<String, ContextDependentURIFragment> internalURIFragmentMap =
-		new HashMap<String, ContextDependentURIFragment>();
+	private Map<String, IContextDependentURIFragment> internalURIFragmentMap =
+		new HashMap<String, IContextDependentURIFragment>();
 	
-    int proxyCounter = 0;
+    private int proxyCounter = 0;
     
 	public void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement) {
 		int pos = -1;
@@ -55,8 +56,8 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			pos = ((List<?>)container.eGet(reference)).size();
 		}
 		InternalEObject proxy = (InternalEObject) proxyElement; 
-		String internalURIFragment = INTERNAL_URI_FRAGMENT_PREFIX + proxyCounter++ + "_" + id;
-		ContextDependentURIFragment uriFragment = new ContextDependentURIFragment(
+		String internalURIFragment = IContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX + proxyCounter++ + "_" + id;
+		IContextDependentURIFragment uriFragment = new ContextDependentURIFragment(
 				id,
 				container,
 				reference,
@@ -70,7 +71,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	@Override
 	public EObject getEObject(String id) {
 		if (internalURIFragmentMap.containsKey(id)) {
-			ContextDependentURIFragment uriFragment = 
+			IContextDependentURIFragment uriFragment = 
 				internalURIFragmentMap.get(id);
 
 			boolean wasResolvedBefore = uriFragment.isResolved();
@@ -103,7 +104,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 	}
 
-	private EObject getResultElement(ContextDependentURIFragment uriFragment,
+	private EObject getResultElement(IContextDependentURIFragment uriFragment,
 			IReferenceMapping mapping) {
 		if (mapping instanceof IURIMapping) {
 			return this.getResourceSet().getEObject(((IURIMapping)mapping).getTargetIdentifier(), true);

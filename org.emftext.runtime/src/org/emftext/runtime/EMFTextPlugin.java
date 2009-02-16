@@ -100,10 +100,13 @@ public class EMFTextPlugin extends Plugin {
 			status = new Status(IStatus.ERROR, EMFTextPlugin.PLUGIN_ID,
 					message);
 		}
-
+		
 		final EMFTextPlugin pluginInstance = EMFTextPlugin.getDefault();
 		if (pluginInstance == null) {
-			exception.printStackTrace();
+			System.err.println(message);
+			if (exception != null) {
+				exception.printStackTrace();
+			}
 		} else {
 			pluginInstance.getLog().log(status);
 		}
