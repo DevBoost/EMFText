@@ -91,8 +91,16 @@ public class EMFTextPlugin extends Plugin {
 	 * @return the status object describing the error
 	 */
 	public static IStatus logError(String message, Throwable exception) {
-		IStatus status = new Status(IStatus.ERROR, EMFTextPlugin.PLUGIN_ID,
-				0, message, exception);
+		IStatus status;
+		if (exception != null) {
+			status = new Status(IStatus.ERROR, EMFTextPlugin.PLUGIN_ID,
+					0, message, exception);
+		}
+		else {
+			status = new Status(IStatus.ERROR, EMFTextPlugin.PLUGIN_ID,
+					message);
+		}
+
 		final EMFTextPlugin pluginInstance = EMFTextPlugin.getDefault();
 		if (pluginInstance == null) {
 			exception.printStackTrace();
