@@ -12,8 +12,6 @@ import org.emftext.runtime.resource.ITextResource;
 /**
  * Base implementation for all generated printers. 
  * It implements the specifications from {@link ITextPrinter}.
- * 
- * @author Jendrik Johannes TODO jjohannes: add e-mail address
  */
 public abstract class AbstractEMFTextPrinter implements ITextPrinter {
 	

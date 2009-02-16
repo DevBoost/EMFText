@@ -34,12 +34,6 @@ public class ResolveResult implements IResolveResult {
 	}
 
 	public boolean wasResolved() {
-		// TODO an additional check is needed here (the identifier
-		// is not resolved if there is only a String-to-String
-		// mapping that replaced an internal identifier with
-		// another one. this check might also be performed in
-		// the reference resolver switch when the proxy object 
-		// is removed from the list of unresolved references.
 		return mappings != null;
 	}
 
