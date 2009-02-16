@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * A test for the JavaStringComposite class.
+ */
 public class JavaStringCompositeTest {
 
 	@Test

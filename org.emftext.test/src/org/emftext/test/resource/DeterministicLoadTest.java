@@ -30,6 +30,10 @@ import org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A test that checks whether the EMFText code generation works
+ * deterministically.
+ */
 public class DeterministicLoadTest {
 
 	private static final String CS_FILE_EXTENSION = "cs";

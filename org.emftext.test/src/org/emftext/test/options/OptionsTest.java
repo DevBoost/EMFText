@@ -16,6 +16,10 @@ import org.emftext.sdk.MetamodelHelper;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A test for using the various code generation options provided
+ * by EMFText.
+ */
 public class OptionsTest {
 	@Before
 	public void setUp() {

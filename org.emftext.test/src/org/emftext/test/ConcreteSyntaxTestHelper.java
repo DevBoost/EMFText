@@ -24,6 +24,9 @@ import org.emftext.sdk.codegen.TextParserGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
 
+/**
+ * A helper class for all EMFText tests.
+ */
 public class ConcreteSyntaxTestHelper {
 
 	public static void registerResourceFactories() {
