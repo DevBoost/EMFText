@@ -13,6 +13,16 @@ import org.emftext.runtime.resource.ILocationMap;
 /**
  * A basic implementation of the ILocationMap interface. Instances
  * store information about element locations using four maps.
+ * <p>
+ * The set-methods can be called multiple times by the parser that may visit
+ * multiple children from which it copies the localization information for the parent
+ * (i.e., the element for which set-method is called)
+ * It implements the following behavior:
+ * <p>
+ * Line:   The lowest of all sources is used for target<br>
+ * Column: The lowest of all sources is used for target<br>
+ * Start:  The lowest of all sources is used for target<br>
+ * End:    The highest of all sources is used for target<br>
  */
 public class LocationMap implements ILocationMap {
 
@@ -30,7 +40,7 @@ public class LocationMap implements ILocationMap {
 	protected EMap<EObject, Integer> charEndMap   = new BasicEMap<EObject, Integer>();
 	
 	public void setLine(EObject element, int line) {
-		setMapValue(lineMap, element, line);
+		setMapValueToMin(lineMap, element, line);
 	}
 
 	public int getLine(EObject element) {
@@ -38,7 +48,7 @@ public class LocationMap implements ILocationMap {
 	}
 
 	public void setColumn(EObject element, int column) {
-		setMapValue(columnMap, element, column);
+		setMapValueToMin(columnMap, element, column);
 	}	
 	
 	public int getColumn(EObject element) {
@@ -46,7 +56,7 @@ public class LocationMap implements ILocationMap {
 	}
 	
 	public void setCharStart(EObject element, int charStart) {
-		setMapValue(charStartMap, element, charStart);
+		setMapValueToMin(charStartMap, element, charStart);
 	}	
 	
 	public int getCharStart(EObject element) {
@@ -54,15 +64,7 @@ public class LocationMap implements ILocationMap {
 	}	
 	
 	public void setCharEnd(EObject element, int charEnd) {
-		if (element == null) return;
-		if (charEndMap.containsKey(element)) {
-			// TODO jjohannes: this is strange behavior since
-			// it deviates from the other set methods. maybe 
-			// this code should be better placed in callers of
-			// this method?
-			if (charEndMap.get(element) > charEnd) return;
-		}
-		charEndMap.put(element, charEnd);
+		setMapValueToMax(charStartMap, element, charEnd);
 	}	
 	
 	public int getCharEnd(EObject element) {
@@ -74,10 +76,16 @@ public class LocationMap implements ILocationMap {
 		return map.get(element);
 	}
 	
-	private void setMapValue(EMap<EObject, Integer> map, EObject element, int line) {
-		if (element == null) return;
-		if (map.containsKey(element)) return;
-		map.put(element, line);
+	private void setMapValueToMin(EMap<EObject, Integer> map, EObject element, int value) {
+		if (element == null || value < 0) return;
+		if (map.containsKey(element) && map.get(element) < value) return;
+		map.put(element, value);
+	}
+	
+	private void setMapValueToMax(EMap<EObject, Integer> map, EObject element, int value) {
+		if (element == null || value < 0) return;
+		if (map.containsKey(element) && (value < 0 || map.get(element) > value)) return;
+		map.put(element, value);
 	}
 
 	public List<EObject> getElementsAt(EObject root, final int documentOffset) {
