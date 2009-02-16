@@ -26,6 +26,11 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.ResolveResult;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
+/**
+ * This class implements a generic content assistant. It
+ * uses fuzzy reference resolving to figure out possible
+ * other targets for the reference at the cursor position.
+ */
 public class EMFTextEditorCompletionProcessor implements
 		IContentAssistProcessor {
 

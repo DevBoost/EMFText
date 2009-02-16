@@ -16,7 +16,10 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
-
+/**
+ * This class provides the configuration for all EMFText editors. It registers
+ * content assistance and syntax highlighting.
+ */
 public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 
 	private ColorManager colorManager;
@@ -45,9 +48,6 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		return assistant;
 	}
 	
-	/**
-	 * 
-	 */
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] {
 			IDocument.DEFAULT_CONTENT_TYPE,
@@ -67,9 +67,6 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
         return new AntlrTokenScanner(thisFile, fileName.substring(fileName.lastIndexOf(".") + 1), colorManager);
     }
 
-    /**
-     * 
-     */
 	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
         
 		PresentationReconciler reconciler = new PresentationReconciler();
@@ -86,7 +83,5 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 	@Override
 	public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
 		return new DefaultAnnotationHover();
-
 	}
-
 }

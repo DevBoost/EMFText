@@ -2,6 +2,10 @@ package org.emftext.runtime.ui;
 
 import org.antlr.runtime.Token;
 
+/**
+ * A helper class that decides which tokens can be used for custom
+ * syntax highlighting.
+ */
 public class TokenHelper {
 
 	public boolean canBeUsedForSyntaxColoring(Token token) {

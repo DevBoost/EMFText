@@ -6,6 +6,10 @@ package org.emftext.runtime.ui.outline;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * This custom implementation of a TreeViewer expands the tree
+ * automatically up to a specified depth. 
+ */
 final class EMFTextOutlinePageTreeViewer extends TreeViewer {
 	
 	EMFTextOutlinePageTreeViewer(Composite parent, int style) {

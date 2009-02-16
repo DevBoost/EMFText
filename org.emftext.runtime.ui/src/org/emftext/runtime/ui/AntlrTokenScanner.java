@@ -1,6 +1,5 @@
 package org.emftext.runtime.ui;
 
-
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Lexer;
@@ -17,6 +16,9 @@ import org.eclipse.swt.graphics.Color;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
+/**
+ * TODO skarol: add comment
+ */
 public class AntlrTokenScanner implements ITokenScanner {
     
 	private final static TokenHelper tokenHelper = new TokenHelper();

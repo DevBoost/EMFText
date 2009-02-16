@@ -1,12 +1,14 @@
 package org.emftext.runtime.ui.preferences;
 
-
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Control;
 
 import org.eclipse.jface.dialogs.Dialog;
 
+/**
+ * TODO skarol: add comment
+ */
 public class PixelConverter {
     
     private FontMetrics fFontMetrics;

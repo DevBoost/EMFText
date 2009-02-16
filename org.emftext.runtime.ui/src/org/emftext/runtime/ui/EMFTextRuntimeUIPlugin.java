@@ -3,6 +3,9 @@ package org.emftext.runtime.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+/**
+ * A singleton class for the EMFText Runtime UI plug-in.
+ */
 public class EMFTextRuntimeUIPlugin extends AbstractUIPlugin {
 	
 	private static EMFTextRuntimeUIPlugin plugin;

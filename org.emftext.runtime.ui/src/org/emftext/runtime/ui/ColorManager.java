@@ -8,6 +8,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 
+/**
+ * TODO skarol: add comment
+ */
 public class ColorManager {
 
 	protected Map<RGB, Color> fColorTable = new HashMap<RGB, Color>(10);
