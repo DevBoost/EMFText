@@ -57,12 +57,11 @@ public class AntlrTokenScanner implements ITokenScanner {
     public IToken nextToken() {
         current = lexer.nextToken();
         
-        //TODO when do up and down occur??
         if (!tokenHelper.canBeUsedForSyntaxColoring(current)) {
             return org.eclipse.jface.text.rules.Token.EOF;
         }
 
-        //TODO build a map of tokens and reuse them instead of creating new ones
+
         String tokenName = tokenHelper.getTokenName(tokenNames, current.getType());
         String prefix = languageId + "_" + tokenName;
         
@@ -88,9 +87,10 @@ public class AntlrTokenScanner implements ITokenScanner {
             ta = new TextAttribute(color, null, style);
 
         }
-        return new org.eclipse.jface.text.rules.Token(ta);
         
-        //TODO parser errors 
+        //potential performance improvement for large files in the future:
+        //build a map of tokens and reuse them instead of creating new ones
+        return new org.eclipse.jface.text.rules.Token(ta);
     }
 
     public void setRange(IDocument document, int offset, int length) {
