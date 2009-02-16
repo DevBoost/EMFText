@@ -14,6 +14,11 @@ import org.emftext.sdk.IConcreteSyntaxFinder;
 import org.emftext.sdk.IGenPackageFinder;
 import org.emftext.sdk.MetamodelHelper;
 
+/**
+ * A provider for different load options used by the SDK of
+ * EMFText. Among these are various finders for generator 
+ * packages.
+ */
 public class SDKOptionProvider implements IOptionProvider {
 
 	public SDKOptionProvider() {

@@ -18,6 +18,9 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.emftext.runtime.resource.ITextResource;
 
+/**
+ * TODO skarol add comment
+ */
 public class ValidateParserPrinterAction implements IObjectActionDelegate {
 
 	private ResourceSet resourceSet;
