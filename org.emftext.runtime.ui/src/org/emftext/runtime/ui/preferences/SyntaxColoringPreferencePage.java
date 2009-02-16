@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Scrollable;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -58,10 +57,9 @@ public class SyntaxColoringPreferencePage
     
     private static final Map<String,List<HighlightingColorListItem>> content = new HashMap<String,List<HighlightingColorListItem>>();
     
-          /**
+        /**
          * Item in the highlighting color list.
          */
-
         private static class HighlightingColorListItem {
             /** Display name */
             private String fDisplayName;
@@ -277,7 +275,7 @@ public class SyntaxColoringPreferencePage
             
             handleSyntaxColorListSelection();
 
-            //TODO fPreviewViewer.invalidateTextPresentation();
+            //fPreviewViewer.invalidateTextPresentation();
         }
 
         /*
@@ -348,7 +346,7 @@ public class SyntaxColoringPreferencePage
             fListViewer.setContentProvider(new ColorListContentProvider());
 
             gd= new GridData(SWT.BEGINNING, SWT.BEGINNING, false, true);
-            gd.heightHint= convertHeightInCharsToPixels(9);
+            gd.heightHint = convertHeightInCharsToPixels(26);
             int maxWidth= 0;
             for (Iterator<List<HighlightingColorListItem>> it= content.values().iterator(); it.hasNext();) {
                 for (Iterator<HighlightingColorListItem> j= it.next().iterator(); j.hasNext();) {
@@ -421,16 +419,6 @@ public class SyntaxColoringPreferencePage
             gd.horizontalSpan= 2;
             fUnderlineCheckBox.setLayoutData(gd);
             
-            label= new Label(colorComposite, SWT.LEFT);
-            label.setText("Preview:"); 
-            label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            
-            Control previewer= createPreviewer(colorComposite);
-            gd= new GridData(GridData.FILL_BOTH);
-            gd.widthHint= convertWidthInCharsToPixels(20);
-            gd.heightHint= convertHeightInCharsToPixels(5);
-            previewer.setLayoutData(gd);
-            
             fListViewer.addSelectionChangedListener(new ISelectionChangedListener() {
                 public void selectionChanged(SelectionChangedEvent event) {
                     handleSyntaxColorListSelection();
@@ -502,8 +490,8 @@ public class SyntaxColoringPreferencePage
                     fItalicCheckBox.setEnabled(enable);
                     fStrikethroughCheckBox.setEnabled(enable);
                     fUnderlineCheckBox.setEnabled(enable);
-                    //TODOuninstallSemanticHighlighting();
-                    //TODOinstallSemanticHighlighting();
+                    //uninstallSemanticHighlighting();
+                    //installSemanticHighlighting();
                 }
             });
             colorComposite.layout(false);
@@ -519,17 +507,6 @@ public class SyntaxColoringPreferencePage
             gd.heightHint= pixelConverter.convertHeightInCharsToPixels(1) / 2;
             filler.setLayoutData(gd);
         }
-
-        private Control createPreviewer(Composite parent) {
-            
-            //TODO return Text as preview formated (SourceViewer?)
-            
-            
-            
-            return new Text(parent, SWT.FILL);
-        }
-
-
 
         /**
          * Returns the current highlighting color list item.
