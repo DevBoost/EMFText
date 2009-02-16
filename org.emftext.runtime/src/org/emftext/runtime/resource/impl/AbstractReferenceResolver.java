@@ -22,6 +22,9 @@ import org.emftext.runtime.resource.ITextResource;
  * Base implementation for all generated reference resolvers. 
  * It implements the specifications from {@link IReferenceResolver}.
  * 
+ * @param <ContainerType> the type of the container that contains
+ * the reference that is resolved by this resolver
+ * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public abstract class AbstractReferenceResolver<ContainerType extends EObject> implements IReferenceResolver<ContainerType> {

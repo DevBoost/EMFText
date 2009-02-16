@@ -8,6 +8,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextDiagnostic;
 
+/**
+ * An implementation of the ITextDiagnostic interface that attaches
+ * a message to an EObject.
+ */
 public class ElementBasedTextDiagnostic implements ITextDiagnostic {
 
 	private final ILocationMap locationMap;

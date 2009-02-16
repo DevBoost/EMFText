@@ -19,6 +19,10 @@ import org.emftext.runtime.resource.ILocationMap;
  */
 public class LocationMap implements ILocationMap {
 
+	/**
+	 * A basic interface that can be implemented to select
+	 * EObject based of their location in a text resource.
+	 */
 	public interface ISelector {
 		boolean accept(int startOffset, int endOffset);
 	}

@@ -3,6 +3,9 @@ package org.emftext.runtime.resource.impl;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 
+/**
+ * TODO skarol: add documentation
+ */
 public class TokenConversionException extends RecognitionException {
 	
 	private static final long serialVersionUID = 1L;

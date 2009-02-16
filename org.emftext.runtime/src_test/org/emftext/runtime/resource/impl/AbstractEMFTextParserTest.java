@@ -5,7 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.junit.Test;
 
-public class EMFTextParserImplTest {
+/**
+ * A test case for class 'AbstractEMFTextParser'.
+ */
+public class AbstractEMFTextParserTest {
 
 	@Test
 	public void formatTokenName() {

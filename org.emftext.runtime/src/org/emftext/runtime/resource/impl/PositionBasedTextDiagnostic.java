@@ -4,6 +4,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextDiagnostic;
 
+/**
+ * An implementation of the ITextDiagnostic interface that attaches
+ * a message to a designated part of the text specified using line 
+ * and column information.
+ */
 public class PositionBasedTextDiagnostic implements ITextDiagnostic {
 
 	private final URI uri;

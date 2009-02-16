@@ -12,6 +12,9 @@ import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.IResolveResult;
 import org.emftext.runtime.resource.IURIMapping;
 
+/**
+ * TODO jjohannes: add documentation
+ */
 public class ContextDependentURIFragment {
 
 	protected String     identifier;

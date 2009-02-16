@@ -65,6 +65,9 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 		return currentTarget;
 	}
 	
+	/**
+	 * TODO cwende: add documentation
+	 */
 	public class DummyEObject extends EObjectImpl  {
 		private Map<EStructuralFeature, Object> keyValueMap;
 		private String recurseFeatureName;

@@ -7,8 +7,16 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ILocationMap;
 
+/**
+ * An implementation of the ILocationMap interface that stores location
+ * data in EMF adapters using absolute line and column information.
+ */
 public class AbsoluteAdapterLocationMap implements ILocationMap {
 
+	/**
+	 * An EMF adapter implementation that is attached to EObjects
+	 * to store location information. 
+	 */
 	private final static class LocationAdapter extends AdapterImpl {
 		private int charStart = -1;
 		private int charEnd = -1;
