@@ -64,7 +64,7 @@ public class LocationMap implements ILocationMap {
 	}	
 	
 	public void setCharEnd(EObject element, int charEnd) {
-		setMapValueToMax(charStartMap, element, charEnd);
+		setMapValueToMax(charEndMap, element, charEnd);
 	}	
 	
 	public int getCharEnd(EObject element) {
@@ -84,7 +84,7 @@ public class LocationMap implements ILocationMap {
 	
 	private void setMapValueToMax(EMap<EObject, Integer> map, EObject element, int value) {
 		if (element == null || value < 0) return;
-		if (map.containsKey(element) && (value < 0 || map.get(element) > value)) return;
+		if (map.containsKey(element) && map.get(element) > value) return;
 		map.put(element, value);
 	}
 
