@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 
@@ -25,19 +24,6 @@ public class JavaBasedTokenResolver implements ITokenResolver {
 			return "null";
 		}
 		return value.toString();
-	}
-	
-	// TODO mseifert remove these two methods
-	public Object resolve(String lexem, EStructuralFeature feature,
-			EObject container, ITextResource resource) {
-
-		ITokenResolveResult result = new TokenResolveResult();
-		resolve(lexem, feature, result);
-		return result.getResolvedToken();
-	}
-
-	public String getErrorMessage() {
-		return null;
 	}
 	
 	public void resolve(String lexem, EStructuralFeature feature, ITokenResolveResult result) {

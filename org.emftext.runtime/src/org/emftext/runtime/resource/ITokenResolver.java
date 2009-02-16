@@ -22,9 +22,6 @@ public interface ITokenResolver extends IConfigurable {
 	 * @param result the result of resolving the lexem, can be used to add processing errors
 	 */
 	public void resolve(String lexem, EStructuralFeature feature, ITokenResolveResult result);
-	// TODO mseifert: remove these two methods
-	public Object resolve(String lexem, EStructuralFeature feature, EObject container, ITextResource resource);
-	public String getErrorMessage();
 	
 	/**
 	 * Does the inverse mapping from Object to a lexem which can be printed.
