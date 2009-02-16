@@ -14,7 +14,7 @@
     <package 
        uri = "http://www.emftext.org/sdk/concretesyntax" 
        class = "org.emftext.sdk.concretesyntax.ConcretesyntaxPackage"
-       genModel = "model/Concretesyntax.genmodel" /> 
+       genModel = "metamodel/concretesyntax.genmodel" /> 
   </extension>
 
 </plugin>
