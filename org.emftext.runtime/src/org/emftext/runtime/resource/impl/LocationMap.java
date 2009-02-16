@@ -14,7 +14,7 @@ import org.emftext.runtime.resource.ILocationMap;
  * A basic implementation of the ILocationMap interface. Instances
  * store information about element locations using four maps.
  * 
- * TODO this class does consider the root elements that are passed
+ * TODO mseifert: this class does consider the root elements that are passed
  * to getElementsAt() and getElementsBetween()
  */
 public class LocationMap implements ILocationMap {

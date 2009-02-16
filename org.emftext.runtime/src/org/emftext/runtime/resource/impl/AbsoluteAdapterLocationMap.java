@@ -95,12 +95,12 @@ public class AbsoluteAdapterLocationMap implements ILocationMap {
 	}
 
 	public List<EObject> getElementsAt(EObject root, int documentOffset) {
-		// TODO Auto-generated method stub
+		// TODO mseifert: implement
 		return null;
 	}
 
 	public List<EObject> getElementsBetween(EObject root, int startOffset, int endOffset) {
-		// TODO Auto-generated method stub
+		// TODO mseifert: implement
 		return null;
 	}
 
