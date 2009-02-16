@@ -13,11 +13,13 @@ import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
- * TODO skarol: add comment
+ * An adapter from the Eclipse <code>ITokenScanner</code> interface
+ * to the ANTLR <code>Lexer</code> interface.
  */
 public class AntlrTokenScanner implements ITokenScanner {
     
@@ -31,6 +33,11 @@ public class AntlrTokenScanner implements ITokenScanner {
     private ColorManager colorManager;
     private int offset = 0;
     
+    /**
+     * @param resource The <code>ITextResource</code> from which the <code>Lexer</code> can be determined.
+     * @param fileExtension The file extension for which this instance should be used for coloring
+     * @param colorManager A manager to obtain color objects
+     */
     public AntlrTokenScanner(ITextResource resource, String fileExtension, ColorManager colorManager) {
         this.lexer      = (Lexer) resource.getScanner();
         this.tokenNames = resource.getTokenNames();
@@ -91,8 +98,7 @@ public class AntlrTokenScanner implements ITokenScanner {
         try {
             lexer.setCharStream(new ANTLRStringStream(document.get(offset, length)));
         } catch (BadLocationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            EMFTextPlugin.logError("Unexpected error:", e);
         }
     }
 
