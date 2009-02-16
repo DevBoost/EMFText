@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.Rule;
 
@@ -67,5 +69,23 @@ public class GeneratorUtil {
 
 	private static boolean namesAreEqual(EClass classA, EClass classB) {
 		return classA.getName().equals(classB.getName());
+	}
+
+	public static String createGetFeatureCall(GenClass genClass, GenFeature genFeature) {
+		return "getEStructuralFeature(" + getFeatureConstant(genClass, genFeature) + ")";
+	}
+
+	public static String getFeatureConstant(GenClass genClass, GenFeature genFeature) {
+		GenPackage genPackage = genClass.getGenPackage();
+		return genPackage.getQualifiedPackageInterfaceName() + "." + genClass.getFeatureID(genFeature);
+	}
+
+	public static GenFeature findGenFeature(GenClass genClass, String name) {
+		for (GenFeature genFeature : genClass.getAllGenFeatures()) {
+			if (genFeature.getName().equals(name)) {
+				return genFeature;
+			}
+		}
+		return null;
 	}
 }

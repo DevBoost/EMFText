@@ -345,8 +345,8 @@ public class TextParserGenerator extends BaseGenerator {
         out.println();
         
         out.println("\t@SuppressWarnings(\"unchecked\")");
-        out.println("\tprivate boolean addObjectToList(" + EObject.class.getName() + " element, " + String.class.getName() + " featureName, " + Object.class.getName() + " proxy) {");
-        out.println("\t\treturn ((" + List.class.getName() + "<" + Object.class.getName() + ">) element.eGet(element.eClass().getEStructuralFeature(featureName))).add(proxy);");
+        out.println("\tprivate boolean addObjectToList(" + EObject.class.getName() + " element, int featureID, " + Object.class.getName() + " proxy) {");
+        out.println("\t\treturn ((" + List.class.getName() + "<" + Object.class.getName() + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
         out.println("\t}");
         out.println();
         
@@ -376,6 +376,7 @@ public class TextParserGenerator extends BaseGenerator {
         		String attributeName = tokenDefinition.getAttributeName();
     	        // figure out which feature the token belongs to
     			out.println("\t\t\t\tif (token.getType() == " + lexerName + "." + tokenDefinition.getName() + ") {");
+    			// TODO mseifert: we should use the constant for the feature ID instead of the attribute name
     	        out.println("\t\t\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
     	        out.println("\t\t\t\t\tif (feature != null) {");
     	        out.println("\t\t\t\t\t\t// call token resolver");
@@ -716,7 +717,8 @@ public class TextParserGenerator extends BaseGenerator {
 
     }
     
-    private int printTerminal(Terminal terminal,Rule rule,PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent){
+    private int printTerminal(Terminal terminal, Rule rule, PrintWriter out, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences, String indent){
+    	final GenClass genClass = rule.getMetaclass();
     	final GenFeature genFeature = terminal.getFeature();
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
 		final String ident = "a" + count;
@@ -777,7 +779,7 @@ public class TextParserGenerator extends BaseGenerator {
            	resolvements.append(ITokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");\n");
            	resolvements.append(resolverIdent +".setOptions(getOptions());\n");
            	resolvements.append(ITokenResolveResult.class.getName() + " result = new " + TokenResolveResult.class.getName() + "();\n");
-           	resolvements.append(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), result);\n");
+           	resolvements.append(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), result);\n");
            	resolvements.append("Object " + preResolved + " = result.getResolvedToken();\n");
            	resolvements.append("if (" + preResolved + " == null) getResource().addError(result.getErrorMessage(), element);\n");
         	
@@ -810,7 +812,7 @@ public class TextParserGenerator extends BaseGenerator {
             	resolvements.append(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";\n");
             	resolvements.append(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";\n"); 
             	resolvements.append("collectHiddenTokens(element, " + expressionToBeSet + ");\n");
-            	resolvements.append("getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + resolvedIdent + ", "+ proxyIdent + ");\n");
+            	resolvements.append("getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");\n");
 	           	//remember where proxies have to be resolved
             	proxyReferences.add(genFeature);
         	}
@@ -828,11 +830,11 @@ public class TextParserGenerator extends BaseGenerator {
     	out.println("}");
     	out.println(resolvements);
         if (eFeature.getUpperBound() == 1) {
-           out.println("element.eSet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + expressionToBeSet +"); ");
+           out.println("element.eSet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + expressionToBeSet +"); ");
         } else {
             //TODO Warning, if a value is used twice. 
         	//whatever...
-            out.println("addObjectToList(element, \"" + eFeature.getName() + "\", " + expressionToBeSet +"); ");
+            out.println("addObjectToList(element, " + GeneratorUtil.getFeatureConstant(genClass, genFeature) + ", " + expressionToBeSet +"); ");
         }
         out.println("collectHiddenTokens(element, " + expressionToBeSet + ");");
         if (terminal instanceof Containment) {

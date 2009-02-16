@@ -65,10 +65,9 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
 			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
-			// TODO we should use the featureID constant instead of the integer value
-			int featureID = genClass.getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
+			GenFeature genFeature = GeneratorUtil.findGenFeature(genClass, proxyReference.getName());
 			s.append("\n\t\tif (" + accessorName+ ".isInstance(container)) {");
-			s.append("\n\t\t\torg.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(" + featureID + ");");
+			s.append("\n\t\t\torg.eclipse.emf.ecore.EStructuralFeature feature = container.eClass()." + GeneratorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 			s.append("\n\t\t\tif (feature instanceof org.eclipse.emf.ecore.EReference) {");
 			s.append("\n\t\t\t\t" + low(generatedClassName) + ".resolve(identifier, (" + genClass.getQualifiedInterfaceName() + ") container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);");
 			s.append("\n\t\t\t}");
@@ -90,9 +89,9 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 		s.append("\tpublic " + String.class.getName() + " deResolve(" + EObject.class.getName() + " refObject, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference) {\n");
 		for(GenFeature proxyReference : context.getNonContainmentReferences()) {
 			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
-			String genClassName = proxyReference.getGenClass().getQualifiedInterfaceName();
-			// TODO we should use the featureID constant instead of the integer value
-			int featureID = proxyReference.getGenClass().getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
+			final GenClass genClass = proxyReference.getGenClass();
+			String genClassName = genClass.getQualifiedInterfaceName();
+			String featureID = GeneratorUtil.getFeatureConstant(genClass, GeneratorUtil.findGenFeature(genClass, proxyReference.getName()));
 			s.append("\t\tif (container instanceof " + genClassName + " && reference.getFeatureID() == " + featureID + ") {\n");		
 			s.append("\t\t\treturn " + low(generatedClassName)+".deResolve(refObject, (" + genClassName + ") container, reference);\n");			
 			s.append("\t\t}\n");
@@ -106,8 +105,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 		for(GenFeature proxyReference : context.getNonContainmentReferences()) {
 			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
 			GenClass genClass = proxyReference.getGenClass();
-			final int featureID = genClass.getEcoreClass().getEStructuralFeature(proxyReference.getName()).getFeatureID();
-			// TODO we should use the featureID constant instead of the integer value
+			String featureID = GeneratorUtil.getFeatureConstant(genClass, GeneratorUtil.findGenFeature(genClass, proxyReference.getName()));
 			final String genClassName = genClass.getQualifiedInterfaceName();
 			s.append("\t\tif (container instanceof " + genClassName + " && reference.getFeatureID() == " + featureID + ") {\n");		
 			s.append("\t\t\t" + low(generatedClassName) + ".resolve(identifier, (" + genClassName + ") container, reference, position, false, result);\n");
