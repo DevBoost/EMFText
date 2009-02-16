@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.jface.dialogs.Dialog;
 
 /**
- * TODO skarol: add comment
+ * A utility class for pixel conversion.
  */
 public class PixelConverter {
     
