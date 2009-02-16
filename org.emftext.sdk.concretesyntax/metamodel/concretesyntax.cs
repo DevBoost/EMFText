@@ -26,7 +26,7 @@ RULES {
 
   Import         ::=  prefix[] ":" package['<','>'] ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[])?;
  
-  //Note: There is an additional OCL expressions in the model which check whether an option is allowed
+  //Note: There are additional OCL expressions in the model which check whether an option is allowed
   
   Option 		::= name[] "=" value['"','"'];
  
