@@ -5,10 +5,13 @@ import java.util.Map;
 
 import org.emftext.runtime.IOptions;
 
-public class OptionProvider implements org.emftext.runtime.IOptionProvider {
+/**
+ * A provider for the OCL validator that is registered to an extension point
+ * of EMFText.
+ */
+public class OCLValidationOptionProvider implements org.emftext.runtime.IOptionProvider {
 
-	public OptionProvider() {
-		
+	public OCLValidationOptionProvider() {
 	}
 
 	public Map<?, ?> getOptions() {

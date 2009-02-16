@@ -4,7 +4,7 @@
    <extension
          point="org.emftext.runtime.default_load_options">
       <provider
-            class="org.emftext.runtime.ocl.OptionProvider"
+            class="org.emftext.runtime.ocl.OCLValidationOptionProvider"
             csName="*"
             id="org.emftext.runtime.ocl.OptionProvider">
       </provider>

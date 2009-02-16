@@ -26,7 +26,10 @@ import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
 
-
+/**
+ * A post-processor that retrieves OCL constraints from the meta model of a text
+ * resource and evaluates them. 
+ */
 public class OCLModelValidator implements IResourcePostProcessor, IResourcePostProcessorProvider {
 
 	private static final AdapterFactory reflectiveAdapterFactory = new ReflectiveItemProviderAdapterFactory();
