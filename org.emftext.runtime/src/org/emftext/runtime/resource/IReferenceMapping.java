@@ -15,7 +15,11 @@ public interface IReferenceMapping {
 	public String getIdentifier();
 	
 	/**
-	 * TODO jjohannes: what was this used for again? 
+	 * A mapping can have a warning attached that contains
+	 * additional information (e.g., when the mapping might
+	 * be wrong under specific conditions). The warning is 
+	 * meant to be presented to the user together with the
+	 * mapping result.
 	 */
 	public String getWarning();
 }
