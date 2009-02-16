@@ -38,10 +38,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.TokenConversionException;
+import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.sdk.GenClassFinder;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
@@ -381,11 +383,14 @@ public class TextParserGenerator extends BaseGenerator {
     			String identifierPrefix = "resolved";
     			String resolverIdentifier = identifierPrefix + "Resolver";
     			String resolvedObjectIdentifier = identifierPrefix + "Object";
+    			String resolveResultIdentifier = identifierPrefix + "Result";
     			
     			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createCollectInTokenResolver(\"" + attributeName + "\");");
     			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
-    			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolverIdentifier + ".resolve(token.getText(), feature, element, getResource());");
-    			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) throw new " + TokenConversionException.class.getName() + "(token, " + resolverIdentifier + ".getErrorMessage());");
+    			out.println("\t\t\t\t\t\t" + ITokenResolveResult.class.getName() + " " + resolveResultIdentifier + " = new " + TokenResolveResult.class.getName() + "();"); 
+    			out.println("\t\t\t\t\t\t" + resolverIdentifier + ".resolve(token.getText(), feature, " + resolveResultIdentifier + ");");
+    			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolveResultIdentifier + ".getResolvedToken();");
+    			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) throw new " + TokenConversionException.class.getName() + "(token, " + resolveResultIdentifier + ".getErrorMessage());");
     			out.println("\t\t\t\t\t\tif (java.lang.String.class.isInstance(" + resolvedObjectIdentifier + ")) {");
     	        out.println("\t\t\t\t\t\t\t((java.util.List) element.eGet(feature)).add((String) " + resolvedObjectIdentifier + ");");
     	        out.println("\t\t\t\t\t\t} else {");
@@ -718,7 +723,7 @@ public class TextParserGenerator extends BaseGenerator {
     	final String proxyIdent = "proxy";
     	
 		String expressionToBeSet = null;
-    	String resolvements = "";
+    	StringBuffer resolvements = new StringBuffer();
     	
     	out.print(indent);
     	out.print(ident + " = ");
@@ -767,14 +772,16 @@ public class TextParserGenerator extends BaseGenerator {
         	
         	String targetTypeName = null;
         	String resolvedIdent = "resolved";
-        	String preResolved = resolvedIdent+"Object";
-        	String resolverIdent = resolvedIdent+"Resolver";
-           	resolvements += ITokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");";
-           	resolvements += resolverIdent +".setOptions(getOptions());";
-        	resolvements += "Object " + preResolved + " ="+resolverIdent+".resolve(" +ident+ ".getText(),element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"),element,getResource());";
-        	resolvements += "if(" + preResolved + "==null) throw new " + TokenConversionException.class.getName() + "("+ident+","+resolverIdent+".getErrorMessage());";
+        	String preResolved = resolvedIdent + "Object";
+        	String resolverIdent = "tokenResolver";
+           	resolvements.append(ITokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");\n");
+           	resolvements.append(resolverIdent +".setOptions(getOptions());\n");
+           	resolvements.append(ITokenResolveResult.class.getName() + " result = new " + TokenResolveResult.class.getName() + "();\n");
+           	resolvements.append(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), result);\n");
+           	resolvements.append("Object " + preResolved + " = result.getResolvedToken();\n");
+           	resolvements.append("if (" + preResolved + " == null) getResource().addError(result.getErrorMessage(), element);\n");
         	
-        	if(eFeature instanceof EReference){
+        	if (eFeature instanceof EReference) {
         		targetTypeName = "String";
         		expressionToBeSet = proxyIdent;
    
@@ -783,7 +790,7 @@ public class TextParserGenerator extends BaseGenerator {
             	GenClass proxyType = null;
             	String genPackagePrefix = null;
             	
-            	if(instanceType.isAbstract()||instanceType.isInterface()){
+            	if(instanceType.isAbstract() || instanceType.isInterface()) {
             		for(GenClass instanceCand : allGenClasses){
             			Collection<String> supertypes = genClasses2superNames.get(instanceCand.getEcoreClass().getName());		
             			if (!instanceCand.isAbstract()&&!instanceCand.isInterface()&&supertypes.contains(instanceType.getEcoreClass().getName())) {
@@ -800,46 +807,45 @@ public class TextParserGenerator extends BaseGenerator {
             	if (genPackagePrefix == null) {
             		addProblem(new GenerationProblem("The type of non-containment reference '" + eFeature.getName() + "' is abstract and has no concrete sub classes.", eFeature, GenerationProblem.Severity.ERROR));
             	}
-            	resolvements += targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";";
-            	resolvements += proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";" 
-            	+ "collectHiddenTokens(element, " + expressionToBeSet + "); "
-				//+ "((InternalEObject)" + expressionToBeSet + ").eSetProxyURI((resource.getURI()==null?URI.createURI(\"dummy\"):resource.getURI()).appendFragment(" + resolvedIdent + ")); ";
-            	+ "getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + resolvedIdent + ", "+ proxyIdent + ");";
+            	resolvements.append(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";\n");
+            	resolvements.append(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";\n"); 
+            	resolvements.append("collectHiddenTokens(element, " + expressionToBeSet + ");\n");
+            	resolvements.append("getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + resolvedIdent + ", "+ proxyIdent + ");\n");
 	           	//remember where proxies have to be resolved
             	proxyReferences.add(genFeature);
-
         	}
         	else{
         		// the feature is an EAttribute
        			targetTypeName = genFeature.getQualifiedListItemType(null);
-               	resolvements += targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";";
+               	resolvements.append(targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";\n");
         		expressionToBeSet = "resolved";
         	}
         }
         	
     	out.print("{");
-    	out.print("if (element == null) element = " + getCreateObjectCall(rule.getMetaclass()) + "; ");
-    	out.print(resolvements);
-        if(eFeature.getUpperBound()==1){
-           out.print("element.eSet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + expressionToBeSet +"); ");
-        }
-        else{
+    	out.println("if (element == null) {");
+    	out.println("\telement = " + getCreateObjectCall(rule.getMetaclass()) + "; ");
+    	out.println("}");
+    	out.println(resolvements);
+        if (eFeature.getUpperBound() == 1) {
+           out.println("element.eSet(element.eClass().getEStructuralFeature(\"" + eFeature.getName() + "\"), " + expressionToBeSet +"); ");
+        } else {
             //TODO Warning, if a value is used twice. 
         	//whatever...
-            out.print("addObjectToList(element, \"" + eFeature.getName() + "\", " + expressionToBeSet +"); ");
+            out.println("addObjectToList(element, \"" + eFeature.getName() + "\", " + expressionToBeSet +"); ");
         }
-        out.print("collectHiddenTokens(element, " + expressionToBeSet + ");");
-        if(terminal instanceof Containment){
-            out.print("copyLocalizationInfos(" + ident + ", element); "); 
-        }else{
-            out.print("copyLocalizationInfos((CommonToken) " + ident + ", element); "); 
-            if(eFeature instanceof EReference){
+        out.println("collectHiddenTokens(element, " + expressionToBeSet + ");");
+        if (terminal instanceof Containment) {
+            out.println("copyLocalizationInfos(" + ident + ", element); "); 
+        } else {
+            out.println("copyLocalizationInfos((CommonToken) " + ident + ", element); "); 
+            if (eFeature instanceof EReference) {
             	//additionally set position information for the proxy instance	
-                out.print("copyLocalizationInfos((CommonToken) " + ident + ", " + proxyIdent + "); "); 
+                out.println("copyLocalizationInfos((CommonToken) " + ident + ", " + proxyIdent + "); "); 
             }
         }
     	
-        out.print("}");
+        out.println("}");
     	return ++count;	
     }
     

@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 
@@ -54,7 +54,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		out.println("\t}");
 		out.println();
 		out.println("\t@Override");
-		out.println("\tpublic " + Object.class.getName() + " resolve(" + String.class.getName() + " lexem, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container, " + ITextResource.class.getName() + " resource) {");
+		out.println("\tpublic void resolve(" + String.class.getName() + " lexem, " + EStructuralFeature.class.getName() + " feature, " + ITokenResolveResult.class.getName() + " result) {");
 		if(definition.getPrefix()!=null){
 			int count = definition.getPrefix().length();
 			out.println("\t\tlexem = lexem.substring(" + count + ");");			
@@ -69,7 +69,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 			}
 		}
 		
-		out.println("\t\treturn super.resolve(lexem,feature,container,resource);");
+		out.println("\t\tsuper.resolve(lexem, feature, result);");
 		out.println("\t}");
 		
 		out.println("}");

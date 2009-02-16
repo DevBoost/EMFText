@@ -2,7 +2,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 
@@ -17,10 +17,10 @@ public class CsQUOTED_34_34TokenResolver extends JavaBasedTokenResolver implemen
 	}
 
 	@Override
-	public Object resolve(String lexem, EStructuralFeature feature, EObject container, ITextResource resource) {
+	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, ITokenResolveResult result) {
 		lexem = lexem.substring(1);
 		lexem = lexem.substring(0,lexem.length()-1);
 		lexem = lexem.replaceAll("\\\\"+java.util.regex.Pattern.quote("\""),"\"");
-		return super.resolve(lexem,feature,container,resource);
+		super.resolve(lexem, feature, result);
 	}
 }
