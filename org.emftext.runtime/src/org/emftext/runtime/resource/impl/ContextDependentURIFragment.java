@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
@@ -83,7 +84,7 @@ public class ContextDependentURIFragment {
 				addResultToList(mapping, proxy, list);
 			}
 			else {
-				//TODO give error
+				EMFTextPlugin.logError("", null);
 			}
 		}
 	}
