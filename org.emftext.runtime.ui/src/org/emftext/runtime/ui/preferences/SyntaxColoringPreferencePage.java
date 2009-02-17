@@ -74,7 +74,8 @@ public class SyntaxColoringPreferencePage
              * @since 3.1
              */
             private String fStrikethroughKey;
-            /** Underline preference key.
+            /** 
+             * Underline preference key.
              * @since 3.1
              */
             private String fUnderlineKey;
@@ -262,13 +263,13 @@ public class SyntaxColoringPreferencePage
          * @since  3.1
          */
         private Button fUnderlineCheckBox;
+		private Button fForegroundColorButton;
 
         /**
          * Highlighting color list viewer
          * @since  3.0
          */
         private StructuredViewer fListViewer;
-
 
         public void performDefaults() {
             super.performDefaults();
@@ -287,7 +288,7 @@ public class SyntaxColoringPreferencePage
         }
 
         private void handleSyntaxColorListSelection() {
-            HighlightingColorListItem item= getHighlightingColorListItem();
+            HighlightingColorListItem item = getHighlightingColorListItem();
             if (item == null) {
                 fEnableCheckbox.setEnabled(false);
                 fSyntaxForegroundColorEditor.getButton().setEnabled(false);
@@ -319,7 +320,7 @@ public class SyntaxColoringPreferencePage
         
         private Control createSyntaxPage(final Composite parent) {
             
-            Composite colorComposite= new Composite(parent, SWT.NONE);
+            Composite colorComposite = new Composite(parent, SWT.NONE);
             GridLayout layout= new GridLayout();
             layout.marginHeight= 0;
             layout.marginWidth= 0;
@@ -327,25 +328,40 @@ public class SyntaxColoringPreferencePage
 
             addFiller(colorComposite, 1);
             
-            Label label;
-            label= new Label(colorComposite, SWT.LEFT);
+            Label label = new Label(colorComposite, SWT.LEFT);
             label.setText("Element:"); 
-            label.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        
-            Composite editorComposite= new Composite(colorComposite, SWT.NONE);
+            label.setLayoutData(new GridData(GridData.FILL, GridData.BEGINNING, true, false));
+
+            Composite editorComposite = createEditorComposite(colorComposite);
+            createListViewer(editorComposite);
+            createStylesComposite(editorComposite);
+            
+            addListenersToStyleButtons();
+            colorComposite.layout(false);
+            handleSyntaxColorListSelection();
+            
+            return colorComposite;
+        }
+
+		private Composite createEditorComposite(Composite colorComposite) {
+			GridLayout layout;
+			Composite editorComposite = new Composite(colorComposite, SWT.NONE);
             layout= new GridLayout();
             layout.numColumns= 2;
             layout.marginHeight= 0;
             layout.marginWidth= 0;
             editorComposite.setLayout(layout);
-            GridData gd= new GridData(SWT.FILL, SWT.BEGINNING, true, false);
-            editorComposite.setLayoutData(gd);      
-        
-            fListViewer= new TreeViewer(editorComposite, SWT.SINGLE | SWT.BORDER);
+            GridData gd = new GridData(GridData.FILL, GridData.FILL, true, true);
+            editorComposite.setLayoutData(gd);
+			return editorComposite;
+		}
+
+		private void createListViewer(Composite editorComposite) {
+			fListViewer= new TreeViewer(editorComposite, SWT.SINGLE | SWT.BORDER);
             fListViewer.setLabelProvider(new ColorListLabelProvider());
             fListViewer.setContentProvider(new ColorListContentProvider());
 
-            gd= new GridData(SWT.BEGINNING, SWT.BEGINNING, false, true);
+            GridData gd = new GridData(GridData.FILL, GridData.FILL, true, true);
             gd.heightHint = convertHeightInCharsToPixels(26);
             int maxWidth= 0;
             for (Iterator<List<HighlightingColorListItem>> it= content.values().iterator(); it.hasNext();) {
@@ -363,69 +379,15 @@ public class SyntaxColoringPreferencePage
             
             fListViewer.setInput(content);
             fListViewer.setSelection(new StructuredSelection(content.values().iterator().next()));
-
-                            
-            Composite stylesComposite= new Composite(editorComposite, SWT.NONE);
-            layout= new GridLayout();
-            layout.marginHeight= 0;
-            layout.marginWidth= 0;
-            layout.numColumns= 2;
-            stylesComposite.setLayout(layout);
-            stylesComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-            
-            fEnableCheckbox= new Button(stylesComposite, SWT.CHECK);
-            fEnableCheckbox.setText("Enable"); 
-            gd= new GridData(GridData.FILL_HORIZONTAL);
-            gd.horizontalAlignment= GridData.BEGINNING;
-            gd.horizontalSpan= 2;
-            fEnableCheckbox.setLayoutData(gd);
-            
-            fColorEditorLabel= new Label(stylesComposite, SWT.LEFT);
-            fColorEditorLabel.setText("Color:"); 
-            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-            gd.horizontalIndent= 20;
-            fColorEditorLabel.setLayoutData(gd);
-        
-            fSyntaxForegroundColorEditor= new ColorSelector(stylesComposite);
-            Button foregroundColorButton= fSyntaxForegroundColorEditor.getButton();
-            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-            foregroundColorButton.setLayoutData(gd);
-            
-            fBoldCheckBox= new Button(stylesComposite, SWT.CHECK);
-            fBoldCheckBox.setText("Bold"); 
-            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-            gd.horizontalIndent= 20;
-            gd.horizontalSpan= 2;
-            fBoldCheckBox.setLayoutData(gd);
-            
-            fItalicCheckBox= new Button(stylesComposite, SWT.CHECK);
-            fItalicCheckBox.setText("Italic"); 
-            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-            gd.horizontalIndent= 20;
-            gd.horizontalSpan= 2;
-            fItalicCheckBox.setLayoutData(gd);
-            
-            fStrikethroughCheckBox= new Button(stylesComposite, SWT.CHECK);
-            fStrikethroughCheckBox.setText("Strikethrough"); 
-            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-            gd.horizontalIndent= 20;
-            gd.horizontalSpan= 2;
-            fStrikethroughCheckBox.setLayoutData(gd);
-            
-            fUnderlineCheckBox= new Button(stylesComposite, SWT.CHECK);
-            fUnderlineCheckBox.setText("Underlined"); 
-            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-            gd.horizontalIndent= 20;
-            gd.horizontalSpan= 2;
-            fUnderlineCheckBox.setLayoutData(gd);
-            
             fListViewer.addSelectionChangedListener(new ISelectionChangedListener() {
                 public void selectionChanged(SelectionChangedEvent event) {
                     handleSyntaxColorListSelection();
                 }
             });
-            
-            foregroundColorButton.addSelectionListener(new SelectionListener() {
+		}
+
+		private void addListenersToStyleButtons() {
+			fForegroundColorButton.addSelectionListener(new SelectionListener() {
                 public void widgetDefaultSelected(SelectionEvent e) {
                     // do nothing
                 }
@@ -494,10 +456,65 @@ public class SyntaxColoringPreferencePage
                     //installSemanticHighlighting();
                 }
             });
-            colorComposite.layout(false);
-                    
-            return colorComposite;
-        }
+		}
+
+		private void createStylesComposite(Composite editorComposite) {
+			GridLayout layout;
+			GridData gd;
+			Composite stylesComposite= new Composite(editorComposite, SWT.NONE);
+            layout= new GridLayout();
+            layout.marginHeight= 0;
+            layout.marginWidth= 0;
+            layout.numColumns= 2;
+            stylesComposite.setLayout(layout);
+            stylesComposite.setLayoutData(new GridData(GridData.END, GridData.FILL, false, true));
+            
+            fEnableCheckbox= new Button(stylesComposite, SWT.CHECK);
+            fEnableCheckbox.setText("Enable"); 
+            gd= new GridData(GridData.FILL_HORIZONTAL);
+            gd.horizontalAlignment= GridData.BEGINNING;
+            gd.horizontalSpan= 2;
+            fEnableCheckbox.setLayoutData(gd);
+            
+            fColorEditorLabel= new Label(stylesComposite, SWT.LEFT);
+            fColorEditorLabel.setText("Color:"); 
+            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+            gd.horizontalIndent= 20;
+            fColorEditorLabel.setLayoutData(gd);
+        
+            fSyntaxForegroundColorEditor= new ColorSelector(stylesComposite);
+            fForegroundColorButton= fSyntaxForegroundColorEditor.getButton();
+            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+            fForegroundColorButton.setLayoutData(gd);
+            
+            fBoldCheckBox= new Button(stylesComposite, SWT.CHECK);
+            fBoldCheckBox.setText("Bold"); 
+            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+            gd.horizontalIndent= 20;
+            gd.horizontalSpan= 2;
+            fBoldCheckBox.setLayoutData(gd);
+            
+            fItalicCheckBox= new Button(stylesComposite, SWT.CHECK);
+            fItalicCheckBox.setText("Italic"); 
+            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+            gd.horizontalIndent= 20;
+            gd.horizontalSpan= 2;
+            fItalicCheckBox.setLayoutData(gd);
+            
+            fStrikethroughCheckBox= new Button(stylesComposite, SWT.CHECK);
+            fStrikethroughCheckBox.setText("Strikethrough"); 
+            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+            gd.horizontalIndent= 20;
+            gd.horizontalSpan= 2;
+            fStrikethroughCheckBox.setLayoutData(gd);
+            
+            fUnderlineCheckBox= new Button(stylesComposite, SWT.CHECK);
+            fUnderlineCheckBox.setText("Underlined"); 
+            gd= new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+            gd.horizontalIndent= 20;
+            gd.horizontalSpan= 2;
+            fUnderlineCheckBox.setLayoutData(gd);
+		}
         
         private void addFiller(Composite composite, int horizontalSpan) {
             PixelConverter pixelConverter= new PixelConverter(composite);
