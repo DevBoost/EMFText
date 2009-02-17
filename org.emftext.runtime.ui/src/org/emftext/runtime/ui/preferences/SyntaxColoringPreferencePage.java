@@ -564,7 +564,7 @@ public class SyntaxColoringPreferencePage
         }
    
 		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
-		setDescription("Define the syntax coloring for components and composition programs.");
+		setDescription("Define the syntax coloring for registered textual syntaxes.");
     }
     
 
