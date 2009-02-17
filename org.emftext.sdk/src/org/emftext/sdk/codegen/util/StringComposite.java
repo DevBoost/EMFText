@@ -166,9 +166,12 @@ public class StringComposite {
 
 			final boolean isStarter = isIndendationStarter(component);
 			final boolean isStopper = isIndendationStopper(component);
+			final Tree parent = subTree.getParent();
 			if (isStarter) {
 				if (isStopper) {
-					subTree = (Tree) subTree.getParent();
+					if (parent != null) {
+						subTree = (Tree) parent;
+					}
 					subTree.addChildNode(node);
 					subTree = new Tree(subTree);
 				} else {
@@ -177,7 +180,9 @@ public class StringComposite {
 				}
 			} else {
 				if (isStopper) {
-					subTree = (Tree) subTree.getParent();
+					if (parent != null) {
+						subTree = (Tree) parent;
+					}
 					subTree.addChildNode(node);
 				} else {
 					subTree.addChildNode(node);
