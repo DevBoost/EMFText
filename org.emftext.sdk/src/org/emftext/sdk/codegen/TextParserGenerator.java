@@ -42,7 +42,6 @@ import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
-import org.emftext.runtime.resource.impl.TokenConversionException;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.sdk.GenClassFinder;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
@@ -338,6 +337,8 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("@members{");  
         out.println("\tprivate " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
         out.println("\tprivate int lastPosition;");
+        out.println("\tprivate " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
+
         out.println();
         out.println("\tprotected EObject doParse() throws RecognitionException {");
         out.println("\tlastPosition = 0;");
@@ -352,10 +353,16 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("\t\treturn ((" + List.class.getName() + "<" + Object.class.getName() + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
         out.println("\t}");
         out.println();
+
+        out.println("\tprivate " + TokenResolveResult.class.getName() + " getFreshTokenResolveResult() {");
+        out.println("\t\ttokenResolveResult.clear();");
+        out.println("\t\treturn tokenResolveResult;");
+        out.println("\t}");
+        out.println();
         
         List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(conreteSyntax.getTokens());       
-        out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) throws " + TokenConversionException.class.getName() + " {");
-        if(!collectTokenDefinitions.isEmpty()){          
+        out.println("\tprotected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) {");
+        if (!collectTokenDefinitions.isEmpty()) {          
             //out.println("\t\tSystem.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
             out.println("\t\tint currentPos = getTokenStream().index();");
             out.println("\t\tif (currentPos == 0) {");
@@ -394,10 +401,12 @@ public class TextParserGenerator extends BaseGenerator {
     			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createCollectInTokenResolver(\"" + attributeName + "\");");
     			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
     			// TODO mseifert: reuse tokenResolveResult object instead of creating new ones
-    			out.println("\t\t\t\t\t\t" + ITokenResolveResult.class.getName() + " " + resolveResultIdentifier + " = new " + TokenResolveResult.class.getName() + "();"); 
+    			out.println("\t\t\t\t\t\t" + ITokenResolveResult.class.getName() + " " + resolveResultIdentifier + " = getFreshTokenResolveResult();"); 
     			out.println("\t\t\t\t\t\t" + resolverIdentifier + ".resolve(token.getText(), feature, " + resolveResultIdentifier + ");");
     			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolveResultIdentifier + ".getResolvedToken();");
-    			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) throw new " + TokenConversionException.class.getName() + "(token, " + resolveResultIdentifier + ".getErrorMessage());");
+    			out.println("\t\t\t\t\t\tif (" + resolvedObjectIdentifier + " == null) {");
+    			out.println("\t\t\t\t\t\t\tgetResource().addError(" + resolveResultIdentifier + ".getErrorMessage(), ((CommonToken) token).getLine(), ((CommonToken) token).getCharPositionInLine(), ((CommonToken) token).getStartIndex(), ((CommonToken) token).getStopIndex());\n");
+    			out.println("\t\t\t\t\t\t}");
     			out.println("\t\t\t\t\t\tif (java.lang.String.class.isInstance(" + resolvedObjectIdentifier + ")) {");
     	        out.println("\t\t\t\t\t\t\t((java.util.List) element.eGet(feature)).add((String) " + resolvedObjectIdentifier + ");");
     	        out.println("\t\t\t\t\t\t} else {");
@@ -785,11 +794,11 @@ public class TextParserGenerator extends BaseGenerator {
         	String resolverIdent = "tokenResolver";
            	resolvements.append(ITokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");\n");
            	resolvements.append(resolverIdent +".setOptions(getOptions());\n");
-           	resolvements.append(ITokenResolveResult.class.getName() + " result = new " + TokenResolveResult.class.getName() + "();\n");
+           	resolvements.append(ITokenResolveResult.class.getName() + " result = getFreshTokenResolveResult();\n");
            	resolvements.append(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), result);\n");
            	resolvements.append("Object " + preResolved + " = result.getResolvedToken();\n");
            	resolvements.append("if (" + preResolved + " == null) {\n");
-           	resolvements.append("\tgetResource().addError(result.getErrorMessage(), element);\n");
+           	resolvements.append("\tgetResource().addError(result.getErrorMessage(), ((CommonToken) " + ident + ").getLine(), ((CommonToken) " + ident + ").getCharPositionInLine(), ((CommonToken) " + ident + ").getStartIndex(), ((CommonToken) " + ident + ").getStopIndex());\n");
            	resolvements.append("}\n");
         	
         	if (eFeature instanceof EReference) {
@@ -829,7 +838,7 @@ public class TextParserGenerator extends BaseGenerator {
         	else{
         		// the feature is an EAttribute
        			targetTypeName = genFeature.getQualifiedListItemType(null);
-               	resolvements.append(targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";\n");
+               	resolvements.append("\t" + targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";\n");
         		expressionToBeSet = "resolved";
         	}
         }
@@ -839,12 +848,14 @@ public class TextParserGenerator extends BaseGenerator {
     	out.println("\telement = " + getCreateObjectCall(rule.getMetaclass()) + "; ");
     	out.println("}");
     	out.println(resolvements);
+    	out.println("if (" + expressionToBeSet + " != null) {");
         if (eFeature.getUpperBound() == 1) {
            out.println("element.eSet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + expressionToBeSet +"); ");
         } else {
             // TODO jjohannes: "Warning, if a value is used twice. whatever..."
             out.println("addObjectToList(element, " + GeneratorUtil.getFeatureConstant(genClass, genFeature) + ", " + expressionToBeSet +"); ");
         }
+        out.println("}");
         out.println("collectHiddenTokens(element, " + expressionToBeSet + ");");
         if (terminal instanceof Containment) {
             out.println("copyLocalizationInfos(" + ident + ", element); "); 

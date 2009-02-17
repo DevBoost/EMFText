@@ -192,12 +192,9 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
      */
     @Override
     public void reportError(RecognitionException e)  {
-        String message = "";
+        String message = e.getMessage();
         
-        if( e instanceof TokenConversionException){
-        	message = e.getMessage();
-        }
-        else if ( e instanceof MismatchedTokenException ) {
+        if ( e instanceof MismatchedTokenException ) {
             MismatchedTokenException mte = (MismatchedTokenException)e;
             String tokenName="<unknown>";
             if ( mte.expecting==Token.EOF ) {

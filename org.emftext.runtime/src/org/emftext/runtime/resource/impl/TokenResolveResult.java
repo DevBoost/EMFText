@@ -9,6 +9,11 @@ public class TokenResolveResult implements ITokenResolveResult {
 
 	private String errorMessage;
 	private Object resolvedToken;
+	
+	public TokenResolveResult() {
+		super();
+		clear();
+	}
 
 	public String getErrorMessage() {
 		return errorMessage;
@@ -24,5 +29,10 @@ public class TokenResolveResult implements ITokenResolveResult {
 
 	public void setResolvedToken(Object resolvedToken) {
 		this.resolvedToken = resolvedToken;
+	}
+	
+	public void clear() {
+		errorMessage = "Can't resolve token.";
+		resolvedToken = null;
 	}
 }

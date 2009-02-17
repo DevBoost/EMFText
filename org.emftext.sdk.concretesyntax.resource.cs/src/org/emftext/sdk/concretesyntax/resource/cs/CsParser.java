@@ -93,7 +93,7 @@ public class CsParser extends AbstractEMFTextParser {
     		return ((java.util.List<java.lang.Object>) element.eGet(element.eClass().getEStructuralFeature(featureName))).add(proxy);
     	}
 
-    	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element, Object o) throws org.emftext.runtime.resource.impl.TokenConversionException {
+    	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element, Object o) {
     	}
 
 
