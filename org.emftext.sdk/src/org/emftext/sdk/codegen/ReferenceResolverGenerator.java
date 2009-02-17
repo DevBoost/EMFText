@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
+import org.emftext.sdk.codegen.util.JavaStringComposite;
+import org.emftext.sdk.codegen.util.StringComposite;
 
 /**
  * A generator that can create basic stub for a single reference resolver.
@@ -21,23 +23,37 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	}
 	
 	@Override
-	public boolean generate(PrintWriter out) {     
-	    out.println("package " + getResourcePackageName() + ";");	
-	    out.println();
-	    out.println("public class " + getResourceClassName() + " extends " + AbstractReferenceResolver.class.getName() + "<" + proxyReference.getGenClass().getQualifiedInterfaceName() + "> {\n");
-		generateDoDeResolveMethod(out);
-		out.println("}");
+	public boolean generate(PrintWriter out) {
+		StringComposite sc = new JavaStringComposite();
+	    sc.add("package " + getResourcePackageName() + ";");	
+	    sc.addLineBreak();
+	    sc.add("public class " + getResourceClassName() + " extends " + AbstractReferenceResolver.class.getName() + "<" + proxyReference.getGenClass().getQualifiedInterfaceName() + "> {");
+
+	    sc.addLineBreak();
+	    generateDoDeResolveMethod(sc);
+	    
+	    sc.addLineBreak();
+		generateDoResolveMethod(sc);
+
+		sc.add("}");
+		
+		out.print(sc.toString());
 		return true;
 	}
 
-	private void generateDoDeResolveMethod(PrintWriter out) {
-		out.println("\t@Override");
-		out.println("\tprotected " + String.class.getName() + " doDeResolve(" + EObject.class.getName() + " element, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference) {");
-		out.println("\t\treturn super.doDeResolve(element, container, reference);");
-		out.println("\t}\n");
-		out.println("\t@Override");
-		out.println("\tprotected void doResolve(" + String.class.getName() + " identifier, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + " result) {");
-		out.println("\t\tsuper.doResolve(identifier, container, reference, position, resolveFuzzy, result);");
-		out.println("\t}");
+	private void generateDoDeResolveMethod(StringComposite sc) {
+		sc.add("@Override");
+	    sc.addLineBreak();
+		sc.add("protected " + String.class.getName() + " doDeResolve(" + EObject.class.getName() + " element, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference) {");
+		sc.add("return super.doDeResolve(element, container, reference);");
+		sc.add("}");
+	}
+
+	private void generateDoResolveMethod(StringComposite sc) {
+		sc.add("@Override");
+	    sc.addLineBreak();
+		sc.add("protected void doResolve(" + String.class.getName() + " identifier, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + " result) {");
+		sc.add("super.doResolve(identifier, container, reference, position, resolveFuzzy, result);");
+		sc.add("}");
 	}
 }
