@@ -103,7 +103,6 @@ public class MetamodelManager {
 		boolean foundMultiple = false;
 		for (IConcreteSyntaxFinder finder : concreteSyntaxFinders) {
 			IConcreteSyntaxFinderResult finderResult = finder.findConcreteSyntax(csURI, textResource);
-			//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
 			if (finderResult != null) {
 				if (foundSyntax != null || finderResult.foundMultiple()) {
 					foundMultiple = true;
