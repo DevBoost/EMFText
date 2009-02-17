@@ -105,7 +105,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		GenClassFinder genClassFinder = new GenClassFinder();
 		List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, false);
 		EList<Rule> allRules = syntax.getAllRules();
-		// this set ensure that we do not add warnings for a missing rule twice
+		// this set ensures that we do not add warnings for a missing rule twice
 		Set<String> namesOfCompletedGenClasses = new LinkedHashSet<String>();
 		
 		for (GenClass genClass : allGenClasses) {
