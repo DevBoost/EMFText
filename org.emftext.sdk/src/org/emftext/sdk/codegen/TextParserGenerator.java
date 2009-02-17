@@ -842,8 +842,7 @@ public class TextParserGenerator extends BaseGenerator {
         if (eFeature.getUpperBound() == 1) {
            out.println("element.eSet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + expressionToBeSet +"); ");
         } else {
-            //TODO Warning, if a value is used twice. 
-        	//whatever...
+            // TODO jjohannes: "Warning, if a value is used twice. whatever..."
             out.println("addObjectToList(element, " + GeneratorUtil.getFeatureConstant(genClass, genFeature) + ", " + expressionToBeSet +"); ");
         }
         out.println("collectHiddenTokens(element, " + expressionToBeSet + ");");
