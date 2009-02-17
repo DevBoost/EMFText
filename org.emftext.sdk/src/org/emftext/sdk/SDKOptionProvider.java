@@ -242,7 +242,7 @@ public class SDKOptionProvider implements IOptionProvider {
 	 * by another appearance.
 	 * 
 	 * Valid sequences of cardinalities are: 1-*, 1-1-*, 1-1-1-*.
-	 * Invalid sequences are cardinalities are: ?-*, *-*, *-?, *-1.
+	 * Invalid sequences of cardinalities are: ?-*, *-*, *-?, *-1.
 	 * 
 	 * @param definition
 	 * @param feature
