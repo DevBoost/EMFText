@@ -23,12 +23,12 @@ import org.emftext.sdk.concretesyntax.Sequence;
  */
 public class LeftRecursionDetector {
 
-	private Map<String, Collection<String>> genClasses2superNames;
+	private Map<String, Collection<String>> genClassNames2superNames;
 	private ConcreteSyntax grammar;
 
 	public LeftRecursionDetector(
-			Map<String, Collection<String>> genClasses2superNames, ConcreteSyntax concreteSyntax) {
-		this.genClasses2superNames = genClasses2superNames;
+			Map<String, Collection<String>> genClassNames2superNames, ConcreteSyntax concreteSyntax) {
+		this.genClassNames2superNames = genClassNames2superNames;
 		this.grammar = concreteSyntax;
 	}
 
@@ -64,7 +64,7 @@ public class LeftRecursionDetector {
 				GenClass featureType = feature.getTypeGenClass();
 				if (metaclass.equals(featureType) || 
 						//this.genClasses2superNames.get(featureType.getName()).contains(metaclass.getName()) ||
-						genClasses2superNames.get(metaclass.getName()).contains(featureType.getName())) {
+						genClassNames2superNames.get(metaclass.getQualifiedInterfaceName()).contains(featureType.getQualifiedInterfaceName())) {
 					return currentRule;
 				} else {
 					Rule featureRule = null;
@@ -75,7 +75,7 @@ public class LeftRecursionDetector {
 						}
 					}
 					if (currentRule.equals(featureRule) ) {
-						if (this.genClasses2superNames.get(metaclass.getName()).contains(currentRule.getMetaclass().getName())) {
+						if (genClassNames2superNames.get(metaclass.getQualifiedInterfaceName()).contains(currentRule.getMetaclass().getQualifiedInterfaceName())) {
 							return featureRule;
 						}
 						else return null; // we have found a recursion, but not for the type we started from
@@ -116,7 +116,7 @@ public class LeftRecursionDetector {
 				Containment c = (Containment) sequence.getParts().get(0);
 				GenClass featureType = c.getFeature().getTypeGenClass();
 				if (metaclass.equals(featureType) || 
-						this.genClasses2superNames.get(metaclass.getName()).contains(featureType.getName())) {
+						genClassNames2superNames.get(metaclass.getQualifiedInterfaceName()).contains(featureType.getQualifiedInterfaceName())) {
 					isDirectLeftRecursive = true;
 					
 					if (recursiveFeature == null) {

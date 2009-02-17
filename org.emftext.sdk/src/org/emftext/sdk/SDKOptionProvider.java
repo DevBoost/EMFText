@@ -143,8 +143,8 @@ public class SDKOptionProvider implements IOptionProvider {
 				ConcreteSyntax cs = (ConcreteSyntax) next;
 				GenClassFinder genClassFinder = new GenClassFinder();
 				List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(cs, true);
-				Map<String, Collection<String>> genClasses2superNames = genClassFinder.findAllSuperclasses(allGenClasses);
-				LeftRecursionDetector lrd = new LeftRecursionDetector(genClasses2superNames, cs);
+				Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
+				LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, cs);
 				
 				EList<Rule> allRules = cs.getAllRules();
 				

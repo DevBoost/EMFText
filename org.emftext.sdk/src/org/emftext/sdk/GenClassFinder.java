@@ -10,7 +10,6 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -111,15 +110,15 @@ public class GenClassFinder {
 	}
 
 	public Map<String, Collection<String>> findAllSuperclasses(Collection<GenClass> allGenClasses) {
-		Map<String, Collection<String>> genClasses2superNames = new HashMap<String, Collection<String>>();
+		Map<String, Collection<String>> genClassName2superNames = new HashMap<String, Collection<String>>();
 	    
 	    for (GenClass genClass : allGenClasses) {
-			Collection<String> supertypes = new LinkedList<String>();
-			for (EClass superClass : genClass.getEcoreClass().getEAllSuperTypes()) {
-				supertypes.add(superClass.getName());
+			Collection<String> superClasses = new LinkedList<String>();
+			for (GenClass superClass : genClass.getBaseGenClasses()) {
+				superClasses.add(superClass.getQualifiedInterfaceName());
 			}
-			genClasses2superNames.put(genClass.getEcoreClass().getName(), supertypes);
+			genClassName2superNames.put(genClass.getQualifiedInterfaceName(), superClasses);
 		}
-	    return genClasses2superNames;
+	    return genClassName2superNames;
 	}
 }

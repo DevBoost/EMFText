@@ -242,8 +242,12 @@ public class TextParserGenerator extends BaseGenerator {
 	 * objects after parsing.
 	 */
 	private Collection<GenFeature> nonContainmentReferences;
-	//TODO Mapping only for strings might possibly cause name clashes ...
-	private Map<String, Collection<String>> genClasses2superNames;
+	
+	/**
+	 * A map that projects the fully qualified name of generator classes to 
+	 * the set of fully qualified names of all their super classes. 
+	 */
+	private Map<String, Collection<String>> genClassNames2superClassNames;
 	private Collection<GenClass> allGenClasses;
 	private Map<DerivedPlaceholder,String> placeholder2TokenName;
 	
@@ -284,7 +288,7 @@ public class TextParserGenerator extends BaseGenerator {
 		
 		printedTokens = new LinkedList<InternalTokenDefinition>();
 	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true);
-	    genClasses2superNames = genClassFinder.findAllSuperclasses(allGenClasses);
+	    genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 	}
 	
 	public boolean generate(PrintWriter out){
@@ -498,7 +502,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        choice.getOptions().add(newSequence);
 	        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
 	        
-	        LeftRecursionDetector lrd = new LeftRecursionDetector(genClasses2superNames, conreteSyntax);
+	        LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conreteSyntax);
 	        
 	        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
 	        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
@@ -536,8 +540,8 @@ public class TextParserGenerator extends BaseGenerator {
 						Containment c = (Containment) definition;
 						GenClass featureType = c.getFeature().getTypeGenClass();
 						if (recursiveType.equals(featureType) || 
-								this.genClasses2superNames.get(featureType.getName()).contains(recursiveType.getName()) ||
-								this.genClasses2superNames.get(recursiveType.getName()).contains(featureType.getName())) {
+								genClassNames2superClassNames.get(featureType.getQualifiedInterfaceName()).contains(recursiveType.getQualifiedInterfaceName()) ||
+								genClassNames2superClassNames.get(recursiveType.getQualifiedInterfaceName()).contains(featureType.getQualifiedInterfaceName())) {
 							indexRecurse = parts.indexOf(definition);	
 							recurseName = c.getFeature().getName();
 							break;	
@@ -584,7 +588,7 @@ public class TextParserGenerator extends BaseGenerator {
         
 		for(Rule rule : conreteSyntax.getAllRules()) {
 			
-        	LeftRecursionDetector lrd = new LeftRecursionDetector(genClasses2superNames, conreteSyntax);
+        	LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conreteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
                 boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
@@ -796,16 +800,17 @@ public class TextParserGenerator extends BaseGenerator {
             	String genPackagePrefix = null;
             	
             	if(instanceType.isAbstract() || instanceType.isInterface()) {
-            		for(GenClass instanceCand : allGenClasses){
-            			Collection<String> supertypes = genClasses2superNames.get(instanceCand.getEcoreClass().getName());		
-            			if (!instanceCand.isAbstract()&&!instanceCand.isInterface()&&supertypes.contains(instanceType.getEcoreClass().getName())) {
+            		for(GenClass instanceCand : allGenClasses) {
+            			Collection<String> supertypes = genClassNames2superClassNames.get(instanceCand.getQualifiedInterfaceName());		
+            			if (!instanceCand.isAbstract() && 
+            				!instanceCand.isInterface() &&
+            				supertypes.contains(instanceType.getQualifiedInterfaceName())) {
         					genPackagePrefix = instanceCand.getGenPackage().getPrefix();
         	            	proxyType = instanceCand;
         	            	break;
         				}            			
             		}
-            	}
-            	else{
+            	} else {
             		proxyType = instanceType;
             		genPackagePrefix = instanceType.getGenPackage().getPrefix();
             	}
