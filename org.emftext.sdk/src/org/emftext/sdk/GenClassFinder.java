@@ -110,13 +110,13 @@ public class GenClassFinder {
 		return foundClasses;
 	}
 
-	public Map<String, Collection<String>> findAllSuperclasses(	Collection<GenClass> allGenClasses) {
-		HashMap<String, Collection<String>> genClasses2superNames = new HashMap<String, Collection<String>>();
+	public Map<String, Collection<String>> findAllSuperclasses(Collection<GenClass> allGenClasses) {
+		Map<String, Collection<String>> genClasses2superNames = new HashMap<String, Collection<String>>();
 	    
 	    for (GenClass genClass : allGenClasses) {
 			Collection<String> supertypes = new LinkedList<String>();
-			for (EClass c : genClass.getEcoreClass().getEAllSuperTypes()) {
-				supertypes.add(c.getName());
+			for (EClass superClass : genClass.getEcoreClass().getEAllSuperTypes()) {
+				supertypes.add(superClass.getName());
 			}
 			genClasses2superNames.put(genClass.getEcoreClass().getName(), supertypes);
 		}

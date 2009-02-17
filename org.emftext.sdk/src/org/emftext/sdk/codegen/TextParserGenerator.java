@@ -237,8 +237,11 @@ public class TextParserGenerator extends BaseGenerator {
 	private Map<String,InternalTokenDefinition> derivedTokens;
 	private Collection<InternalTokenDefinition> printedTokens;
 	
-	//Map to collect all (non-containment) references that will contain proxies after parsing.
-	private Collection<GenFeature> proxyReferences;
+	/** 
+	 * A map to collect all (non-containment) references that will contain proxy 
+	 * objects after parsing.
+	 */
+	private Collection<GenFeature> nonContainmentReferences;
 	//TODO Mapping only for strings might possibly cause name clashes ...
 	private Map<String, Collection<String>> genClasses2superNames;
 	private Collection<GenClass> allGenClasses;
@@ -270,22 +273,18 @@ public class TextParserGenerator extends BaseGenerator {
 	}
 	
 	private void initCaches(){
-		proxyReferences = new LinkedList<GenFeature>();
-		derivedTokens = new HashMap<String,InternalTokenDefinition>();
+		nonContainmentReferences = new LinkedList<GenFeature>();
 		placeholder2TokenName = new HashMap<DerivedPlaceholder,String>();
 		
+		derivedTokens = new HashMap<String,InternalTokenDefinition>();
 		if (usePredefinedTokens) {
 			derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false,false));
 			derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false,false));			
 		}
 		
 		printedTokens = new LinkedList<InternalTokenDefinition>();
-		
-	    
 	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true);
-	    
 	    genClasses2superNames = genClassFinder.findAllSuperclasses(allGenClasses);
-	    
 	}
 	
 	public boolean generate(PrintWriter out){
@@ -390,6 +389,7 @@ public class TextParserGenerator extends BaseGenerator {
     			
     			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createCollectInTokenResolver(\"" + attributeName + "\");");
     			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
+    			// TODO mseifert: reuse tokenResolveResult object instead of creating new ones
     			out.println("\t\t\t\t\t\t" + ITokenResolveResult.class.getName() + " " + resolveResultIdentifier + " = new " + TokenResolveResult.class.getName() + "();"); 
     			out.println("\t\t\t\t\t\t" + resolverIdentifier + ".resolve(token.getText(), feature, " + resolveResultIdentifier + ");");
     			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolveResultIdentifier + ".getResolvedToken();");
@@ -498,7 +498,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        choice.getOptions().add(newSequence);
 	        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
 	        
-	        LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.conreteSyntax);
+	        LeftRecursionDetector lrd = new LeftRecursionDetector(genClasses2superNames, conreteSyntax);
 	        
 	        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
 	        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
@@ -510,7 +510,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        
 	        ruleCopy.setDefinition(choice);
 	        
-	        printChoice(ruleCopy.getDefinition(),ruleCopy,out,0,classesReferenced,proxyReferences,"\t");
+	        printChoice(ruleCopy.getDefinition(),ruleCopy,out,0,classesReferenced,nonContainmentReferences,"\t");
 	        
 	        
 	        out.println(" ( dummyEObject = "+ getLowerCase(ruleName) +  "_tail { dummyEObjects.add(dummyEObject);} )*");
@@ -566,7 +566,7 @@ public class TextParserGenerator extends BaseGenerator {
 	        out.println("}");
 	        out.println(":");
 	        
-	        printChoice(tailCopy.getDefinition(),tailCopy,out,0,classesReferenced,proxyReferences,"\t");
+	        printChoice(tailCopy.getDefinition(),tailCopy,out,0,classesReferenced,nonContainmentReferences,"\t");
 	        
 	        out.println(";");
 	        out.println();
@@ -580,10 +580,11 @@ public class TextParserGenerator extends BaseGenerator {
 		return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()";
 	}
 	
-	private void printGrammarRules(PrintWriter out,EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
+	private void printGrammarRules(PrintWriter out, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
         
 		for(Rule rule : conreteSyntax.getAllRules()) {
-        	LeftRecursionDetector lrd = new LeftRecursionDetector(this.genClasses2superNames, this.conreteSyntax);
+			
+        	LeftRecursionDetector lrd = new LeftRecursionDetector(genClasses2superNames, conreteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
                 boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
@@ -641,7 +642,7 @@ public class TextParserGenerator extends BaseGenerator {
         out.println("}");
         out.println(":");
         
-        printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,proxyReferences,"\t");
+        printChoice(rule.getDefinition(),rule,out,0,eClassesReferenced,nonContainmentReferences,"\t");
         
         Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(genClass, conreteSyntax.getAllRules());
         if(!subClasses.isEmpty()){
@@ -1146,7 +1147,7 @@ public class TextParserGenerator extends BaseGenerator {
 	 */
 	
 	public Collection<GenFeature> getProxyReferences(){
-		return proxyReferences;
+		return nonContainmentReferences;
 	}
 	
 	/**
