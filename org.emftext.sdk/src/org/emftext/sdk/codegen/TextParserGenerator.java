@@ -376,7 +376,9 @@ public class TextParserGenerator extends BaseGenerator {
         		String attributeName = tokenDefinition.getAttributeName();
     	        // figure out which feature the token belongs to
     			out.println("\t\t\t\tif (token.getType() == " + lexerName + "." + tokenDefinition.getName() + ") {");
-    			// TODO mseifert: we should use the constant for the feature ID instead of the attribute name
+    			// Unfortunately, we must use the feature name instead of the constant here,
+    			// because collect-in tokens can be stored in arbitrary classes. Therefore, 
+    			// we do not know the EClass of the element at generation time.
     	        out.println("\t\t\t\t\t" + EStructuralFeature.class.getName() + " feature = element.eClass().getEStructuralFeature(\"" + attributeName + "\");");
     	        out.println("\t\t\t\t\tif (feature != null) {");
     	        out.println("\t\t\t\t\t\t// call token resolver");
