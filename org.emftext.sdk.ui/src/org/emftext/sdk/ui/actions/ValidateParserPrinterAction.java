@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
@@ -68,7 +69,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 			Shell shell = new Shell();
 			MessageDialog.openInformation(shell, e.getClass().getName(), e
 					.getMessage());
-			e.printStackTrace();
+        	EMFTextPlugin.logError("Exception while running validate parser action.", e);
 			return;
 		}
 
