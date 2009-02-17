@@ -4,7 +4,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 
 /**
- * TODO skarol: add documentation
+ * An exception indicating that EMFText was not able to resolve a token. 
  */
 public class TokenConversionException extends RecognitionException {
 	
