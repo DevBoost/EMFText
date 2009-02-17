@@ -18,7 +18,7 @@ public class ImportPackageReferenceResolver extends AbstractReferenceResolver<Im
 	protected void doResolve(String identifier, Import container,
 			EReference reference, int position, boolean resolveFuzzy,
 			IReferenceResolveResult result) {
-		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), identifier, (ITextResource) container.eResource());
+		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), container, identifier, (ITextResource) container.eResource());
 		if (genPackage != null) {
 			ConcreteSyntax cs = (ConcreteSyntax) container.eContainer();
 			if(!cs.getPackage().equals(genPackage)&&!cs.getPackage().getNSURI().equals(genPackage.getNSURI()))

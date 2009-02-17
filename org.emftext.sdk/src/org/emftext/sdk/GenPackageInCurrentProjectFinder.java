@@ -1,7 +1,8 @@
 package org.emftext.sdk;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -22,10 +23,10 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextPlugin;
 
 /**
- * A finder that searches in the current Eclipse workspace
+ * A finder that searches in the current project in the Eclipse workspace
  * for files that contain generator packages.
  */
-public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
+public class GenPackageInCurrentProjectFinder implements IGenPackageFinder {
 	
 	/**
 	 * An implementation of the IGenPackageFinderResult that is used to
@@ -36,6 +37,7 @@ public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 		private IFile file;
 		private long initialModifiedStamp;
 		private GenPackage genPackage;
+		private boolean foundMultiple;
 		
 		public GenPackageInWorkspaceFinderResult(GenPackage genPackage, IFile file) {
 			Assert.isNotNull(genPackage);
@@ -52,6 +54,14 @@ public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 
 		public boolean hasChanged() {
 			return initialModifiedStamp != file.getModificationStamp();
+		}
+
+		public void setFoundMultiple(boolean foundMultiple) {
+			this.foundMultiple = foundMultiple;
+		}
+
+		public boolean foundMultiple() {
+			return foundMultiple;
 		}
 	}
 	
@@ -74,49 +84,59 @@ public class GenPackageInWorkspaceFinder implements IGenPackageFinder {
 	 */
 	private IGenPackageFinderResult findGenPackageInCurrentProject(String nsURI, String platformString) {
 		final ResourceSet rs = new ResourceSetImpl();
-		final Map<String, GenPackageInWorkspaceFinderResult> genPackages = new HashMap<String, GenPackageInWorkspaceFinderResult>();
+		final List<GenPackageInWorkspaceFinderResult> allPackages = new ArrayList<GenPackageInWorkspaceFinderResult>();
 		IResource member = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
-		if (member != null) {
-			IProject thisProject = member.getProject();        
-			try {
-				thisProject.accept(new IResourceVisitor() {
-					//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
-					public boolean visit(IResource resource) throws CoreException {
-						if(resource instanceof IFile) {
-							IFile file = (IFile) resource;
-							
-							if ("genmodel".equals(file.getFileExtension())) {
-								URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-								Resource genModelResource = rs.getResource(genModelURI, true);
-				            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-				            	
-				            	if(!file.isReadOnly()){
-					            	try {
-					            		updateGenModel(genModel);
-					            	} catch (Exception e){
-					            		EMFTextPlugin.logError("Error while updating genmodel " + file, e);
-					            	}				            		
-				            	}
-				            	
-				            	Map<String,GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
-				            	for (String uri : packages.keySet()) {
-				            		genPackages.put(uri, new GenPackageInWorkspaceFinderResult(packages.get(uri), file));
-				            	}
-							}
-							return false;
+		if (member == null) {
+			return null;
+		}
+		IProject thisProject = member.getProject();
+		try {
+			thisProject.accept(new IResourceVisitor() {
+				public boolean visit(IResource resource) throws CoreException {
+					if(resource instanceof IFile) {
+						IFile file = (IFile) resource;
+						
+						if ("genmodel".equals(file.getFileExtension())) {
+							URI genModelURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+							Resource genModelResource = rs.getResource(genModelURI, true);
+			            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
+			            	
+			            	if(!file.isReadOnly()){
+				            	try {
+				            		updateGenModel(genModel);
+				            	} catch (Exception e){
+				            		EMFTextPlugin.logError("Error while updating genmodel " + file, e);
+				            	}				            		
+			            	}
+			            	
+			            	Map<String, GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
+			            	for (String uri : packages.keySet()) {
+			            		allPackages.add(new GenPackageInWorkspaceFinderResult(packages.get(uri), file));
+			            	}
 						}
-						return true;
+						return false;
 					}
-				});
-			} catch (CoreException e) {
-				EMFTextPlugin.logError("Error while traversing resources.", e);
-			}
+					return true;
+				}
+			});
+		} catch (CoreException e) {
+			EMFTextPlugin.logError("Error while traversing resources.", e);
+		}
 		
-			if (genPackages.containsKey(nsURI)) {
-				return genPackages.get(nsURI);
+		GenPackageInWorkspaceFinderResult foundResult = null;
+		boolean foundMultiple = false;
+		for (GenPackageInWorkspaceFinderResult result : allPackages) {
+			if (result.getResult().getNSURI().equals(nsURI)) {
+				if (foundResult != null) {
+					foundMultiple = true;
+				}
+				foundResult = result;
 			}
 		}
-		return null;
+		if (foundResult != null) {
+			foundResult.setFoundMultiple(foundMultiple);
+		}
+		return foundResult;
 	}
 	
 	private void updateGenModel(final GenModel genModel) throws Exception {

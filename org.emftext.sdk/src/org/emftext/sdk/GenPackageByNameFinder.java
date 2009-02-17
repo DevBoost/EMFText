@@ -36,6 +36,10 @@ public class GenPackageByNameFinder implements IGenPackageFinder {
 			public boolean hasChanged() {
 				return false;
 			}
+
+			public boolean foundMultiple() {
+				return false;
+			}
 		};
 	}
 }

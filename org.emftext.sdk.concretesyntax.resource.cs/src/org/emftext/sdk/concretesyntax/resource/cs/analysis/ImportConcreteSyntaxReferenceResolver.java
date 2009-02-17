@@ -20,7 +20,7 @@ public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceReso
 			result.setErrorMessage(createErrorMessage(identifier));
 			return;
 		}
-		EObject concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, 
+		EObject concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, container,  
 				((Import) container).getPackage(), (ITextResource) container.eResource());
 
 		if (concreteSyntax == null) {

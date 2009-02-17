@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -66,7 +66,7 @@ public class MetamodelManager {
 		genPackageFinders.add(finder);
 	}
 
-	public GenPackage findGenPackage(String nsURI, Resource resource) {
+	public GenPackage findGenPackage(EObject container, String nsURI, ITextResource resource) {
 		if (nsURI == null) {
 			return null;
 		}
@@ -75,30 +75,46 @@ public class MetamodelManager {
 			return modelCache.load(nsURI);
 		}
 		
+		boolean foundMultiple = false;
+		GenPackage foundPackage = null;
 		for (IGenPackageFinder finder : genPackageFinders) {
-			IGenPackageFinderResult foundPackage = finder.findGenPackage(nsURI, resource);
-			if (foundPackage != null) {
-				modelCache.store(nsURI, foundPackage);
-				return foundPackage.getResult();
+			IGenPackageFinderResult finderResult = finder.findGenPackage(nsURI, resource);
+			if (finderResult != null) {
+				modelCache.store(nsURI, finderResult);
+				if (foundPackage != null || finderResult.foundMultiple()) {
+					foundMultiple = true;
+				}
+				foundPackage = finderResult.getResult();
 			}
 		}
-		return null;
+		if (foundMultiple) {
+			resource.addError("Found multiple generator models for URI '" + nsURI + "'.", container);
+		}
+		return foundPackage;
 	}
 
-	public ConcreteSyntax findConcreteSyntax(String csName, GenPackage genPackage, ITextResource textResource) {
+	public ConcreteSyntax findConcreteSyntax(String csName, EObject container, GenPackage genPackage, ITextResource textResource) {
 		if (csName == null || genPackage == null) {
 			return null;
 		}
 		
 		String csURI = getConcreteSyntaxURI(csName, genPackage);
+		ConcreteSyntax foundSyntax = null;
+		boolean foundMultiple = false;
 		for (IConcreteSyntaxFinder finder : concreteSyntaxFinders) {
-			ConcreteSyntax foundSyntax = finder.findConcreteSyntax(csURI, textResource);
+			IConcreteSyntaxFinderResult finderResult = finder.findConcreteSyntax(csURI, textResource);
 			//TODO add some check if there are several copies of the same models, maybe prefer copies in same folder...
-			if (foundSyntax != null) {
-				return foundSyntax;
+			if (finderResult != null) {
+				if (foundSyntax != null || finderResult.foundMultiple()) {
+					foundMultiple = true;
+				}
+				foundSyntax = finderResult.getConcreteSyntax();
 			}
 		}
-        return null;
+		if (foundMultiple) {
+	        textResource.addError("Found multiple CS definitions matching '" + csName + "'.", container);
+		}
+		return foundSyntax;
 	}
 
 	public static String getConcreteSyntaxURI(String csName, GenPackage genPackage) {

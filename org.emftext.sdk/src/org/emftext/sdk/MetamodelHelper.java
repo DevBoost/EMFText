@@ -17,15 +17,15 @@ public class MetamodelHelper {
 	public final static String GEN_PACKAGE_FINDER_KEY = "GEN_PACKAGE_FINDER";
 	public final static String CONCRETE_SYNTAX_FINDER_KEY = "CONCRETE_SYNTAX_FINDER";
 	
-	public GenPackage findGenPackage(Map<?,?> options, String fragment, ITextResource resource) {
+	public GenPackage findGenPackage(Map<?,?> options, EObject container, String uri, ITextResource resource) {
 		MetamodelManager mmManager = createMetaModelManager(options);
-		return mmManager.findGenPackage(fragment, resource);
+		return mmManager.findGenPackage(container, uri, resource);
 	}
 
 	public EObject findConcreteSyntax(Map<?, ?> options, String fragment,
-			GenPackage genPackage, ITextResource resource) {
+			EObject container, GenPackage genPackage, ITextResource resource) {
 		MetamodelManager mmManager = createMetaModelManager(options);
-		return mmManager.findConcreteSyntax(fragment, genPackage, resource);
+		return mmManager.findConcreteSyntax(fragment, container, genPackage, resource);
 	}
 
 	private MetamodelManager createMetaModelManager(Map<?, ?> options) {

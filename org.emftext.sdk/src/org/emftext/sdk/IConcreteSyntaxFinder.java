@@ -1,7 +1,6 @@
 package org.emftext.sdk;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * IConcreteSyntaxFinder is an interface for finders that can locate concrete
@@ -16,5 +15,5 @@ public interface IConcreteSyntaxFinder {
 	 * @param resource the resource that triggered the search
 	 * @return
 	 */
-	public ConcreteSyntax findConcreteSyntax(String csURI, Resource resource);
+	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, Resource resource);
 }

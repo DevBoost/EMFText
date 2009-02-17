@@ -1,6 +1,10 @@
 package org.emftext.sdk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -25,11 +29,13 @@ public class ConcreteSyntaxInWorkspaceFinder implements IConcreteSyntaxFinder {
 	private final class WorkspaceVisitor implements IResourceVisitor {
 		private final IResource workspaceResource;
 		private final String csURI;
-		private ConcreteSyntax foundSyntax;
+		private List<ConcreteSyntax> foundSyntaxes = new ArrayList<ConcreteSyntax>();
+		private ResourceSet resourceSet;
 
 		private WorkspaceVisitor(IResource workspaceResource, String csURI) {
 			this.workspaceResource = workspaceResource;
 			this.csURI = csURI;
+    		resourceSet = new ResourceSetImpl();
 		}
 
 		public boolean visit(IResource resource) throws CoreException {
@@ -38,18 +44,22 @@ public class ConcreteSyntaxInWorkspaceFinder implements IConcreteSyntaxFinder {
 			if (resource.equals(workspaceResource)) {
 				return false;
 			}
+			if (resource instanceof IProject) {
+				if (!((IProject) resource).isOpen()) {
+					return false;
+				}
+			}
 			if (resource instanceof IFile) {
 				IFile file = (IFile) resource;
 				if ("cs".equals(file.getFileExtension())) {
 		        	URI csLocation = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-		    		ResourceSet resourceSet = new ResourceSetImpl();
 		        	Resource aCsResource = resourceSet.getResource(csLocation, true);
 		        	if (!aCsResource.getContents().isEmpty()){
 			        	ConcreteSyntax nextSyntax = (ConcreteSyntax) aCsResource.getContents().get(0);
 			        	if (nextSyntax.getName() != null && nextSyntax.getPackage() != null) {
 				        	String nextSyntaxURI = MetamodelManager.getConcreteSyntaxURI(nextSyntax.getName(), nextSyntax.getPackage());
 				        	if (csURI.equals(nextSyntaxURI)) {
-				        		foundSyntax = nextSyntax;
+				        		foundSyntaxes.add(nextSyntax);
 				        	}
 			        	}
 		        	}
@@ -59,12 +69,16 @@ public class ConcreteSyntaxInWorkspaceFinder implements IConcreteSyntaxFinder {
 			return true;
 		}
 
-		public ConcreteSyntax getFoundSyntax() {
-			return foundSyntax;
+		public IConcreteSyntaxFinderResult getFinderResult() {
+			if (foundSyntaxes.size() > 0) {
+				return new ConcreteSyntaxFinderResult(foundSyntaxes.get(0), foundSyntaxes.size() > 1);
+			} else {
+				return null;
+			}
 		}
 	}
 
-	public ConcreteSyntax findConcreteSyntax(String csURI, Resource resource) {
+	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, Resource resource) {
         // search the workspace for CS definitions
 		IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));
 		IWorkspaceRoot workspaceRoot = workspaceResource.getWorkspace().getRoot();
@@ -73,7 +87,7 @@ public class ConcreteSyntaxInWorkspaceFinder implements IConcreteSyntaxFinder {
 			workspaceRoot.accept(visitor);
 		} catch (CoreException e) {
 			EMFTextPlugin.logError("Exception while looking up concrete syntax.", e);
-		} 
-       	return visitor.getFoundSyntax();
+		}
+       	return visitor.getFinderResult();
 	}
 }

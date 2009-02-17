@@ -9,7 +9,7 @@ import org.emftext.runtime.IOptionProvider;
 import org.emftext.sdk.ConcreteSyntaxInRegistryFinder;
 import org.emftext.sdk.ConcreteSyntaxInWorkspaceFinder;
 import org.emftext.sdk.GenPackageInRegistryFinder;
-import org.emftext.sdk.GenPackageInWorkspaceFinder;
+import org.emftext.sdk.GenPackageInCurrentProjectFinder;
 import org.emftext.sdk.IConcreteSyntaxFinder;
 import org.emftext.sdk.IGenPackageFinder;
 import org.emftext.sdk.MetamodelHelper;
@@ -27,7 +27,7 @@ public class SDKOptionProvider implements IOptionProvider {
 
 	public Map<?, ?> getOptions() {
 		List<IGenPackageFinder> genPackageFinders = new ArrayList<IGenPackageFinder>(2);
-		genPackageFinders.add(new GenPackageInWorkspaceFinder());
+		genPackageFinders.add(new GenPackageInCurrentProjectFinder());
 		genPackageFinders.add(new GenPackageInRegistryFinder());
 		
 		List<IConcreteSyntaxFinder> concreteSyntaxFinders = new ArrayList<IConcreteSyntaxFinder>(2);

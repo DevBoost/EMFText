@@ -16,7 +16,7 @@ public class ConcreteSyntaxPackageReferenceResolver extends AbstractReferenceRes
 	@Override
 	protected void doResolve(String identifier, ConcreteSyntax container,
 			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
-		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), identifier, (ITextResource) container.eResource());
+		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), container, identifier, (ITextResource) container.eResource());
 		if (genPackage == null) {
 			result.setErrorMessage("Generator model \"" + identifier + "\" could not be resolved");
 		} else {
