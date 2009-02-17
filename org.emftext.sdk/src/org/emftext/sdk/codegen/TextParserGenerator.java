@@ -400,7 +400,6 @@ public class TextParserGenerator extends BaseGenerator {
     			
     			out.println("\t\t\t\t\t\t" + ITokenResolver.class.getName() + " " + resolverIdentifier +" = tokenResolverFactory.createCollectInTokenResolver(\"" + attributeName + "\");");
     			out.println("\t\t\t\t\t\t" + resolverIdentifier +".setOptions(getOptions());");
-    			// TODO mseifert: reuse tokenResolveResult object instead of creating new ones
     			out.println("\t\t\t\t\t\t" + ITokenResolveResult.class.getName() + " " + resolveResultIdentifier + " = getFreshTokenResolveResult();"); 
     			out.println("\t\t\t\t\t\t" + resolverIdentifier + ".resolve(token.getText(), feature, " + resolveResultIdentifier + ");");
     			out.println("\t\t\t\t\t\tjava.lang.Object " + resolvedObjectIdentifier + " = " + resolveResultIdentifier + ".getResolvedToken();");
