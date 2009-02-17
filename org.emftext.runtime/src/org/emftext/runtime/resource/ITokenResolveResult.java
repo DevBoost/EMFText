@@ -1,5 +1,9 @@
 package org.emftext.runtime.resource;
 
+/**
+ * Implementations of this interface are used store the result of
+ * resolving a token.
+ */
 public interface ITokenResolveResult {
 	/**
 	 * Returns the error message that describes what went wrong while

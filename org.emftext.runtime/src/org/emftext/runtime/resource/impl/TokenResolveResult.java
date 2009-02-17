@@ -2,6 +2,9 @@ package org.emftext.runtime.resource.impl;
 
 import org.emftext.runtime.resource.ITokenResolveResult;
 
+/**
+ * A basic implementation of the ITokenResolveResult interface.
+ */
 public class TokenResolveResult implements ITokenResolveResult {
 
 	private String errorMessage;
