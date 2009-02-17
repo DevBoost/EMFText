@@ -788,7 +788,9 @@ public class TextParserGenerator extends BaseGenerator {
            	resolvements.append(ITokenResolveResult.class.getName() + " result = new " + TokenResolveResult.class.getName() + "();\n");
            	resolvements.append(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), result);\n");
            	resolvements.append("Object " + preResolved + " = result.getResolvedToken();\n");
-           	resolvements.append("if (" + preResolved + " == null) getResource().addError(result.getErrorMessage(), element);\n");
+           	resolvements.append("if (" + preResolved + " == null) {\n");
+           	resolvements.append("\tgetResource().addError(result.getErrorMessage(), element);\n");
+           	resolvements.append("}\n");
         	
         	if (eFeature instanceof EReference) {
         		targetTypeName = "String";
