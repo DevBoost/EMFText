@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  * or more objects) or failed (identifier was not resolved). In
  * the case of failure, the result provides an error message.
  * 
+ * TODO mseifert: try to add type parameter for target
  */
 public interface IReferenceResolveResult {
 	
