@@ -7,6 +7,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
  * A helper class that can be used search for generator packages, 
@@ -17,9 +18,9 @@ public class MetamodelHelper {
 	public final static String GEN_PACKAGE_FINDER_KEY = "GEN_PACKAGE_FINDER";
 	public final static String CONCRETE_SYNTAX_FINDER_KEY = "CONCRETE_SYNTAX_FINDER";
 	
-	public GenPackage findGenPackage(Map<?,?> options, EObject container, String uri, ITextResource resource) {
+	public GenPackage findGenPackage(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, ITextResource resource) {
 		MetamodelManager mmManager = createMetaModelManager(options);
-		return mmManager.findGenPackage(container, uri, resource);
+		return mmManager.findGenPackage(container, uri, locationHint, resource);
 	}
 
 	public EObject findConcreteSyntax(Map<?, ?> options, String fragment,

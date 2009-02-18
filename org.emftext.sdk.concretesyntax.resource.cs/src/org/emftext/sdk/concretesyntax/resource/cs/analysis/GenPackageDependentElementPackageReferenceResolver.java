@@ -9,10 +9,11 @@ public class GenPackageDependentElementPackageReferenceResolver extends org.emft
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 
 	@Override	
-	protected void doResolve(java.lang.String identifier, org.emftext.sdk.concretesyntax.GenPackageDependentElement container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult result) {
-		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), container, identifier, (ITextResource) container.eResource());
+	protected void doResolve(java.lang.String nsURI, org.emftext.sdk.concretesyntax.GenPackageDependentElement container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult result) {
+		String locationHint = container.getPackageLocationHint();
+		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), container, nsURI, locationHint, (ITextResource) container.eResource());
 		if (genPackage == null) {
-			result.setErrorMessage("Generator model \"" + identifier + "\" could not be resolved");
+			result.setErrorMessage("Generator model \"" + nsURI + "\" could not be resolved");
 		} else {
 			/*
 			if (genPackage != null) {
@@ -22,7 +23,7 @@ public class GenPackageDependentElementPackageReferenceResolver extends org.emft
 				}
 			}
  			*/
-			result.addMapping(identifier, genPackage);
+			result.addMapping(nsURI, genPackage);
 		}
 	}
 	

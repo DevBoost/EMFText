@@ -8,6 +8,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
  * A GenPackageFinder that searches for generator models by removing the
@@ -16,7 +18,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 public class GenPackageByNameFinder implements IGenPackageFinder {
 	
 	public IGenPackageFinderResult findGenPackage(String nsURI,
-			Resource resource) {
+			String locationHint, GenPackageDependentElement container, ITextResource resource) {
 		ResourceSet rs = new ResourceSetImpl();
 		URI resourceURI = resource.getURI();
 		resourceURI = resourceURI.trimFileExtension();
@@ -34,10 +36,6 @@ public class GenPackageByNameFinder implements IGenPackageFinder {
 			}
 
 			public boolean hasChanged() {
-				return false;
-			}
-
-			public boolean foundMultiple() {
 				return false;
 			}
 		};

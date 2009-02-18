@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -63,9 +64,12 @@ public class GenClassFinder {
 
 		if (includeUsedGeneratorModels) {
 			// second add classes from used generator packages
-		    for (GenPackage usedGenPackage : genPackage.getGenModel().getUsedGenPackages()) {
-		    	foundClasses.addAll(findAllGenClassesAndPrefixes(prefix, usedGenPackage));
-			}
+		    if (genPackage.eContainer() != null) {
+			    final GenModel genModel = genPackage.getGenModel();
+				for (GenPackage usedGenPackage : genModel.getUsedGenPackages()) {
+			    	foundClasses.addAll(findAllGenClassesAndPrefixes(prefix, usedGenPackage));
+				}
+		    }
 		}
 		
 		// then add the imported generator classes

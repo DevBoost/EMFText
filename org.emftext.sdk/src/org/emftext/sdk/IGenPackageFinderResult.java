@@ -23,10 +23,4 @@ public interface IGenPackageFinderResult {
 	 *         changed, <code>false</code> otherwise.
 	 */
 	public boolean hasChanged();
-
-	/**
-	 * Returns true if multiple generator package with the same namespace
-	 * URI were found.
-	 */
-	public boolean foundMultiple();
 }

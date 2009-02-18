@@ -10,6 +10,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 // FIXME the cache is not used right now, because new instances of this class are
 // created for each request
@@ -66,7 +67,7 @@ public class MetamodelManager {
 		genPackageFinders.add(finder);
 	}
 
-	public GenPackage findGenPackage(EObject container, String nsURI, ITextResource resource) {
+	public GenPackage findGenPackage(GenPackageDependentElement container, String nsURI, String locationHint, ITextResource resource) {
 		if (nsURI == null) {
 			return null;
 		}
@@ -75,25 +76,17 @@ public class MetamodelManager {
 			return modelCache.load(nsURI);
 		}
 		
-		boolean foundMultiple = false;
-		GenPackage foundPackage = null;
 		for (IGenPackageFinder finder : genPackageFinders) {
-			IGenPackageFinderResult finderResult = finder.findGenPackage(nsURI, resource);
+			IGenPackageFinderResult finderResult = finder.findGenPackage(nsURI, locationHint, container, resource);
 			if (finderResult != null) {
 				modelCache.store(nsURI, finderResult);
-				if (foundPackage != null || finderResult.foundMultiple()) {
-					foundMultiple = true;
-				}
-				foundPackage = finderResult.getResult();
+				GenPackage foundPackage = finderResult.getResult();
 				if (foundPackage != null) {
 					return foundPackage;
 				}
 			}
 		}
-		if (foundMultiple) {
-			resource.addError("Found multiple generator models for URI '" + nsURI + "'.", container);
-		}
-		return foundPackage;
+		return null;
 	}
 
 	public ConcreteSyntax findConcreteSyntax(String csName, EObject container, GenPackage genPackage, ITextResource textResource) {
