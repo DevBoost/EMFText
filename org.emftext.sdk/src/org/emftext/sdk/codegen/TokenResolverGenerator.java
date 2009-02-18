@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
+import org.emftext.sdk.codegen.util.JavaStringComposite;
+import org.emftext.sdk.codegen.util.StringComposite;
 
 /**
  * A TokenResolverGenerator generates a single TokenResolver for a given TokenDefinition.
@@ -32,49 +34,60 @@ public class TokenResolverGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		out.println("package " + super.getResourcePackageName()+ ";");
-		out.println();
+		StringComposite sc = new JavaStringComposite();
 		
-		out.println("public class " + super.getResourceClassName() + " extends " + JavaBasedTokenResolver.class.getName() + " implements " + ITokenResolver.class.getName() + " {");
-		out.println("\t@Override");
-		out.println("\tpublic " + String.class.getName() + " deResolve(" + Object.class.getName() + " value, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container) {");
-		out.println("\t\t" + String.class.getName() + " result = super.deResolve(value, feature, container);");
-		if(definition.getSuffix()!=null){
+		sc.add("package " + super.getResourcePackageName()+ ";");
+		sc.addLineBreak();
+		
+		sc.add("public class " + super.getResourceClassName() + " extends " + JavaBasedTokenResolver.class.getName() + " implements " + ITokenResolver.class.getName() + " {");
+		sc.addLineBreak();
+		generateDeResolveMethod(sc);
+		generateResolveMethod(sc);
+		sc.add("}");
+		
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void generateDeResolveMethod(StringComposite sc) {
+		sc.add("@Override");
+		sc.addLineBreak();
+		sc.add("public " + String.class.getName() + " deResolve(" + Object.class.getName() + " value, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container) {");
+		sc.add(String.class.getName() + " result = super.deResolve(value, feature, container);");
+		if (definition.getSuffix() != null) {
 			String escapedSuffix = escapeChars(definition.getSuffix());
-			if(definition.isDerived()){
-				out.println("\t\tresult = result.replaceAll(" + java.util.regex.Pattern.class.getName() + ".quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
+			if (definition.isDerived()) {
+				sc.add("result = result.replaceAll(" + java.util.regex.Pattern.class.getName() + ".quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
 			}
-			out.println("\t\tresult += \"" + escapedSuffix + "\";");
+			sc.add("result += \"" + escapedSuffix + "\";");
 		}	
 		
-		if(definition.getPrefix()!=null){
-			out.println("\t\tresult = \"" + escapeChars(definition.getPrefix()) + "\" + result;");
+		if (definition.getPrefix() != null) {
+			sc.add("result = \"" + escapeChars(definition.getPrefix()) + "\" + result;");
 		}
-		out.println("\t\treturn result;");
-		out.println("\t}");
-		out.println();
-		out.println("\t@Override");
-		out.println("\tpublic void resolve(" + String.class.getName() + " lexem, " + EStructuralFeature.class.getName() + " feature, " + ITokenResolveResult.class.getName() + " result) {");
-		if(definition.getPrefix()!=null){
+		sc.add("return result;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void generateResolveMethod(StringComposite sc) {
+		sc.add("@Override");
+		sc.addLineBreak();
+		sc.add("public void resolve(" + String.class.getName() + " lexem, " + EStructuralFeature.class.getName() + " feature, " + ITokenResolveResult.class.getName() + " result) {");
+		if (definition.getPrefix() != null) {
 			int count = definition.getPrefix().length();
-			out.println("\t\tlexem = lexem.substring(" + count + ");");			
+			sc.add("lexem = lexem.substring(" + count + ");");			
 		}
-		if(definition.getSuffix()!=null){
+		if (definition.getSuffix() != null) {
 			int count = definition.getSuffix().length();
-			out.println("\t\tlexem = lexem.substring(0,lexem.length()-" + count + ");");
-			if(definition.isDerived()){
+			sc.add("lexem = lexem.substring(0, lexem.length() - " + count + ");");
+			if( definition.isDerived()) {
 				String replacement = escapeChars(definition.getSuffix());
-				//String replacement = (definition.getSuffix().charAt(0)=='"'||definition.getSuffix().charAt(0)=='\\'?"\\"+definition.getSuffix():definition.getSuffix());
-				out.println("\t\tlexem = lexem.replaceAll(\"\\\\\\\\\"+" + java.util.regex.Pattern.class.getName() + ".quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
+				sc.add("lexem = lexem.replaceAll(\"\\\\\\\\\"+" + java.util.regex.Pattern.class.getName() + ".quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
 			}
 		}
-		
-		out.println("\t\tsuper.resolve(lexem, feature, result);");
-		out.println("\t}");
-		
-		out.println("}");
-		
-		return true;
+		sc.add("super.resolve(lexem, feature, result);");
+		sc.add("}");
 	}
 	
 	private String escapeChars(String candidate){

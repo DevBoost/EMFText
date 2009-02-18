@@ -2,6 +2,9 @@ package org.emftext.sdk.codegen;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.codegen.util.JavaStringComposite;
+import org.emftext.sdk.codegen.util.StringComposite;
+
 /**
  * Generates a factory for the TextResource which loads and stores generated resources. 
  * It can be registered to the EMF resource framework.
@@ -26,23 +29,30 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-        out.println("package " + getResourcePackageName() + ";");
-        out.println();
+		StringComposite sc = new JavaStringComposite();
+		
+        sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
         
-		out.println("import " + org.eclipse.emf.common.util.URI.class.getName() + ";");
-		out.println("import " + org.eclipse.emf.ecore.resource.Resource.class.getName() + ";");
+        sc.add("import " + org.eclipse.emf.common.util.URI.class.getName() + ";");
+        sc.add("import " + org.eclipse.emf.ecore.resource.Resource.class.getName() + ";");
+		sc.addLineBreak();
+
+        sc.add("public class " + getResourceClassName()+ " implements Resource.Factory {");
+        sc.addLineBreak();
+        
+		sc.add("public " + getResourceClassName() + "() {");
+		sc.add("super();");
+		sc.add("}");
+		sc.addLineBreak();
 		
-		out.println("public class " + getResourceClassName()+ " implements Resource.Factory {\n\n");
-		out.println("\tpublic " + getResourceClassName() + "() {");
-		out.println("\t\tsuper();");
-		out.println("\t}");
-		out.println();
+		sc.add("public Resource createResource(URI uri) {");
+		sc.add("return new " + textResourceClassName + "(uri);");
+		sc.add("}");
 		
-		out.println("\tpublic Resource createResource(URI uri) {");
-		out.println("\t\treturn new " + textResourceClassName + "(uri);");
-		out.println("\t}");
-		out.println("}");
+		sc.add("}");
     	
+		out.print(sc.toString());
     	return true;	
     }
 }
