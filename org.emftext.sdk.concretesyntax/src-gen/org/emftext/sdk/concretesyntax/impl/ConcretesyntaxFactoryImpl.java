@@ -9,11 +9,29 @@ package org.emftext.sdk.concretesyntax.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.emftext.sdk.concretesyntax.*;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.DecoratedToken;
+import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
+import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
+import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 
 /**

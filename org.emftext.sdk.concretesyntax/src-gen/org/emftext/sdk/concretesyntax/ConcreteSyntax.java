@@ -7,11 +7,7 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-
 import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getName <em>Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getPackage <em>Package</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getStartSymbols <em>Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}</li>
@@ -36,7 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ConcreteSyntax extends EObject {
+public interface ConcreteSyntax extends GenPackageDependentElement {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -62,32 +57,6 @@ public interface ConcreteSyntax extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Package</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Package</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Package</em>' reference.
-	 * @see #setPackage(GenPackage)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_Package()
-	 * @model required="true"
-	 * @generated
-	 */
-	GenPackage getPackage();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getPackage <em>Package</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Package</em>' reference.
-	 * @see #getPackage()
-	 * @generated
-	 */
-	void setPackage(GenPackage value);
 
 	/**
 	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.

@@ -8,11 +8,35 @@ package org.emftext.sdk.concretesyntax.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
+import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.DecoratedToken;
+import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
+import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
+import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
+import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.NewDefinedToken;
+import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 
 /**
@@ -71,6 +95,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected ConcretesyntaxSwitch<Adapter> modelSwitch =
 		new ConcretesyntaxSwitch<Adapter>() {
+			@Override
+			public Adapter caseGenPackageDependentElement(GenPackageDependentElement object) {
+				return createGenPackageDependentElementAdapter();
+			}
 			@Override
 			public Adapter caseConcreteSyntax(ConcreteSyntax object) {
 				return createConcreteSyntaxAdapter();
@@ -190,6 +218,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.GenPackageDependentElement <em>Gen Package Dependent Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.GenPackageDependentElement
+	 * @generated
+	 */
+	public Adapter createGenPackageDependentElementAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax <em>Concrete Syntax</em>}'.

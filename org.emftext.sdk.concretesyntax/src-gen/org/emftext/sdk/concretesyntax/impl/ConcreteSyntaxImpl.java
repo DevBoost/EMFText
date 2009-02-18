@@ -9,7 +9,6 @@ package org.emftext.sdk.concretesyntax.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
@@ -18,7 +17,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -39,7 +37,6 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getPackage <em>Package</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getStartSymbols <em>Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
@@ -51,7 +48,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  *
  * @generated
  */
-public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
+public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implements ConcreteSyntax {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -71,16 +68,6 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getPackage() <em>Package</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPackage()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenPackage package_;
 
 	/**
 	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
@@ -170,44 +157,6 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenPackage getPackage() {
-		if (package_ != null && package_.eIsProxy()) {
-			InternalEObject oldPackage = (InternalEObject)package_;
-			package_ = (GenPackage)eResolveProxy(oldPackage);
-			if (package_ != oldPackage) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE, oldPackage, package_));
-			}
-		}
-		return package_;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenPackage basicGetPackage() {
-		return package_;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPackage(GenPackage newPackage) {
-		GenPackage oldPackage = package_;
-		package_ = newPackage;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE, oldPackage, package_));
 	}
 
 	/**
@@ -334,9 +283,6 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				return getName();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE:
-				if (resolve) return getPackage();
-				return basicGetPackage();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				return getImports();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
@@ -364,9 +310,6 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				setName((String)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE:
-				setPackage((GenPackage)newValue);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				getImports().clear();
@@ -403,9 +346,6 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE:
-				setPackage((GenPackage)null);
-				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				getImports().clear();
 				return;
@@ -435,8 +375,6 @@ public class ConcreteSyntaxImpl extends EObjectImpl implements ConcreteSyntax {
 		switch (featureID) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE:
-				return package_ != null;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				return imports != null && !imports.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:

@@ -6,15 +6,10 @@
  */
 package org.emftext.sdk.concretesyntax.impl;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
@@ -29,13 +24,13 @@ import org.emftext.sdk.concretesyntax.Import;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getPackage <em>Package</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ImportImpl#getCsLocationHint <em>Cs Location Hint</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ImportImpl extends EObjectImpl implements Import {
+public class ImportImpl extends GenPackageDependentElementImpl implements Import {
 	/**
 	 * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -67,14 +62,24 @@ public class ImportImpl extends EObjectImpl implements Import {
 	protected ConcreteSyntax concreteSyntax;
 
 	/**
-	 * The cached value of the '{@link #getPackage() <em>Package</em>}' reference.
+	 * The default value of the '{@link #getCsLocationHint() <em>Cs Location Hint</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPackage()
+	 * @see #getCsLocationHint()
 	 * @generated
 	 * @ordered
 	 */
-	protected GenPackage package_;
+	protected static final String CS_LOCATION_HINT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCsLocationHint() <em>Cs Location Hint</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCsLocationHint()
+	 * @generated
+	 * @ordered
+	 */
+	protected String csLocationHint = CS_LOCATION_HINT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,16 +164,8 @@ public class ImportImpl extends EObjectImpl implements Import {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenPackage getPackage() {
-		if (package_ != null && package_.eIsProxy()) {
-			InternalEObject oldPackage = (InternalEObject)package_;
-			package_ = (GenPackage)eResolveProxy(oldPackage);
-			if (package_ != oldPackage) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.IMPORT__PACKAGE, oldPackage, package_));
-			}
-		}
-		return package_;
+	public String getCsLocationHint() {
+		return csLocationHint;
 	}
 
 	/**
@@ -176,20 +173,11 @@ public class ImportImpl extends EObjectImpl implements Import {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenPackage basicGetPackage() {
-		return package_;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPackage(GenPackage newPackage) {
-		GenPackage oldPackage = package_;
-		package_ = newPackage;
+	public void setCsLocationHint(String newCsLocationHint) {
+		String oldCsLocationHint = csLocationHint;
+		csLocationHint = newCsLocationHint;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.IMPORT__PACKAGE, oldPackage, package_));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT, oldCsLocationHint, csLocationHint));
 	}
 
 	/**
@@ -205,9 +193,8 @@ public class ImportImpl extends EObjectImpl implements Import {
 			case ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX:
 				if (resolve) return getConcreteSyntax();
 				return basicGetConcreteSyntax();
-			case ConcretesyntaxPackage.IMPORT__PACKAGE:
-				if (resolve) return getPackage();
-				return basicGetPackage();
+			case ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT:
+				return getCsLocationHint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -226,8 +213,8 @@ public class ImportImpl extends EObjectImpl implements Import {
 			case ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX:
 				setConcreteSyntax((ConcreteSyntax)newValue);
 				return;
-			case ConcretesyntaxPackage.IMPORT__PACKAGE:
-				setPackage((GenPackage)newValue);
+			case ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT:
+				setCsLocationHint((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -247,8 +234,8 @@ public class ImportImpl extends EObjectImpl implements Import {
 			case ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX:
 				setConcreteSyntax((ConcreteSyntax)null);
 				return;
-			case ConcretesyntaxPackage.IMPORT__PACKAGE:
-				setPackage((GenPackage)null);
+			case ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT:
+				setCsLocationHint(CS_LOCATION_HINT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -266,8 +253,8 @@ public class ImportImpl extends EObjectImpl implements Import {
 				return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
 			case ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX:
 				return concreteSyntax != null;
-			case ConcretesyntaxPackage.IMPORT__PACKAGE:
-				return package_ != null;
+			case ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT:
+				return CS_LOCATION_HINT_EDEFAULT == null ? csLocationHint != null : !CS_LOCATION_HINT_EDEFAULT.equals(csLocationHint);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -284,6 +271,8 @@ public class ImportImpl extends EObjectImpl implements Import {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (prefix: ");
 		result.append(prefix);
+		result.append(", csLocationHint: ");
+		result.append(csLocationHint);
 		result.append(')');
 		return result.toString();
 	}

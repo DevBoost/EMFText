@@ -10,7 +10,33 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
+import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.DecoratedToken;
+import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
+import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
+import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
+import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.NewDefinedToken;
+import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 
 /**
@@ -87,15 +113,23 @@ public class ConcretesyntaxSwitch<T> {
 	 */
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT: {
+				GenPackageDependentElement genPackageDependentElement = (GenPackageDependentElement)theEObject;
+				T result = caseGenPackageDependentElement(genPackageDependentElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX: {
 				ConcreteSyntax concreteSyntax = (ConcreteSyntax)theEObject;
 				T result = caseConcreteSyntax(concreteSyntax);
+				if (result == null) result = caseGenPackageDependentElement(concreteSyntax);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ConcretesyntaxPackage.IMPORT: {
 				Import import_ = (Import)theEObject;
 				T result = caseImport(import_);
+				if (result == null) result = caseGenPackageDependentElement(import_);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -263,6 +297,21 @@ public class ConcretesyntaxSwitch<T> {
 			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Package Dependent Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Package Dependent Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenPackageDependentElement(GenPackageDependentElement object) {
+		return null;
 	}
 
 	/**

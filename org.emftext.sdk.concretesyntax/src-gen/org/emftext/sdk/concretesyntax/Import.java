@@ -6,9 +6,6 @@
  */
 package org.emftext.sdk.concretesyntax;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.Import#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.Import#getConcreteSyntax <em>Concrete Syntax</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.Import#getPackage <em>Package</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.Import#getCsLocationHint <em>Cs Location Hint</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Import extends EObject {
+public interface Import extends GenPackageDependentElement {
 	/**
 	 * Returns the value of the '<em><b>Prefix</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -82,29 +79,29 @@ public interface Import extends EObject {
 	void setConcreteSyntax(ConcreteSyntax value);
 
 	/**
-	 * Returns the value of the '<em><b>Package</b></em>' reference.
+	 * Returns the value of the '<em><b>Cs Location Hint</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Package</em>' reference isn't clear,
+	 * If the meaning of the '<em>Cs Location Hint</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Package</em>' reference.
-	 * @see #setPackage(GenPackage)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getImport_Package()
-	 * @model required="true"
+	 * @return the value of the '<em>Cs Location Hint</em>' attribute.
+	 * @see #setCsLocationHint(String)
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getImport_CsLocationHint()
+	 * @model
 	 * @generated
 	 */
-	GenPackage getPackage();
+	String getCsLocationHint();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Import#getPackage <em>Package</em>}' reference.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Import#getCsLocationHint <em>Cs Location Hint</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Package</em>' reference.
-	 * @see #getPackage()
+	 * @param value the new value of the '<em>Cs Location Hint</em>' attribute.
+	 * @see #getCsLocationHint()
 	 * @generated
 	 */
-	void setPackage(GenPackage value);
+	void setCsLocationHint(String value);
 
 } // Import
