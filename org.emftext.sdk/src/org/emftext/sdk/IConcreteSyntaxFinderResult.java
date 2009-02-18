@@ -13,10 +13,4 @@ public interface IConcreteSyntaxFinderResult {
 	 * null if none was found.
 	 */
 	public ConcreteSyntax getConcreteSyntax();
-	
-	/**
-	 * Returns true if multipe concrete syntax definitions
-	 * matching the namespace URI were found.
-	 */
-	public boolean foundMultiple();
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.sdk.ConcreteSyntaxInRegistryFinder;
-import org.emftext.sdk.ConcreteSyntaxInWorkspaceFinder;
+import org.emftext.sdk.ConcreteSyntaxByHintFinder;
 import org.emftext.sdk.GenPackageByNameFinder;
 import org.emftext.sdk.GenPackageInRegistryFinder;
 import org.emftext.sdk.GenPackageByHintFinder;
@@ -33,7 +33,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		genPackageFinders.add(new GenPackageInRegistryFinder());
 		
 		List<IConcreteSyntaxFinder> concreteSyntaxFinders = new ArrayList<IConcreteSyntaxFinder>(2);
-		concreteSyntaxFinders.add(new ConcreteSyntaxInWorkspaceFinder());
+		concreteSyntaxFinders.add(new ConcreteSyntaxByHintFinder());
 		concreteSyntaxFinders.add(new ConcreteSyntaxInRegistryFinder());
 		
 		Map<String, List<? extends Object>> options = new HashMap<String, List<? extends Object>>();

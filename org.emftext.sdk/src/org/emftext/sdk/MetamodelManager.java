@@ -7,10 +7,10 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
+import org.emftext.sdk.concretesyntax.Import;
 
 // FIXME the cache is not used right now, because new instances of this class are
 // created for each request
@@ -89,27 +89,22 @@ public class MetamodelManager {
 		return null;
 	}
 
-	public ConcreteSyntax findConcreteSyntax(String csName, EObject container, GenPackage genPackage, ITextResource textResource) {
+	public ConcreteSyntax findConcreteSyntax(String csName, String locationHint, Import container, GenPackage genPackage, ITextResource textResource) {
 		if (csName == null || genPackage == null) {
 			return null;
 		}
 		
 		String csURI = getConcreteSyntaxURI(csName, genPackage);
-		ConcreteSyntax foundSyntax = null;
-		boolean foundMultiple = false;
 		for (IConcreteSyntaxFinder finder : concreteSyntaxFinders) {
-			IConcreteSyntaxFinderResult finderResult = finder.findConcreteSyntax(csURI, textResource);
+			IConcreteSyntaxFinderResult finderResult = finder.findConcreteSyntax(csURI, locationHint, container, textResource);
 			if (finderResult != null) {
-				if (foundSyntax != null || finderResult.foundMultiple()) {
-					foundMultiple = true;
+				ConcreteSyntax foundSyntax = finderResult.getConcreteSyntax();
+				if (foundSyntax != null) {
+					return foundSyntax;
 				}
-				foundSyntax = finderResult.getConcreteSyntax();
 			}
 		}
-		if (foundMultiple) {
-	        textResource.addError("Found multiple CS definitions matching '" + csName + "'.", container);
-		}
-		return foundSyntax;
+		return null;
 	}
 
 	public static String getConcreteSyntaxURI(String csName, GenPackage genPackage) {

@@ -8,17 +8,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 class ConcreteSyntaxFinderResult implements IConcreteSyntaxFinderResult {
 
 	private ConcreteSyntax concreteSyntax;
-	private boolean foundMultiple;
 	
-	public ConcreteSyntaxFinderResult(
-			ConcreteSyntax concreteSyntax, boolean foundMultiple) {
+	public ConcreteSyntaxFinderResult(ConcreteSyntax concreteSyntax) {
 		super();
 		this.concreteSyntax = concreteSyntax;
-		this.foundMultiple = foundMultiple;
-	}
-
-	public boolean foundMultiple() {
-		return foundMultiple;
 	}
 
 	public ConcreteSyntax getConcreteSyntax() {

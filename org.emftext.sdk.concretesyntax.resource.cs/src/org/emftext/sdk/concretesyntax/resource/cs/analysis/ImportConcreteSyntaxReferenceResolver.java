@@ -16,7 +16,8 @@ public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceReso
 	protected void doResolve(String identifier, Import container,
 			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
 		
-		EObject concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, container,  
+		String locationHint = container.getCsLocationHint();
+		EObject concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, locationHint, container,  
 				container.getPackage(), (ITextResource) container.eResource());
 
 		if (concreteSyntax == null) {
