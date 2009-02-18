@@ -3,7 +3,9 @@ package org.emftext.sdk;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -46,14 +48,18 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	}
 
 	public IGenPackageFinderResult findGenPackage(String nsURI, Resource resource) {
-		final ResourceSet rs = new ResourceSetImpl();
 		//search all registered generator models
 		GenPackage foundGenPackage = null;
         boolean foundMultiple = false;
 		for (URI genModelURI : EcorePlugin.getEPackageNsURIToGenModelLocationMap().values()) {
         	try {
+        		final ResourceSet rs = new ResourceSetImpl();
         		Resource genModelResource = rs.getResource(genModelURI, true);
-            	GenModel genModel = (GenModel) genModelResource.getContents().get(0);
+            	final EList<EObject> contents = genModelResource.getContents();
+            	if (contents == null || contents.size() == 0) {
+            		continue;
+            	}
+				GenModel genModel = (GenModel) contents.get(0);
             	for(GenPackage genPackage : genModel.getGenPackages()) {
             		if (nsURI.equals(genPackage.getNSURI())) {
             			if (foundGenPackage != null) {
