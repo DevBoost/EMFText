@@ -138,9 +138,11 @@ copyLocalizationInfos((CommonToken) a4, element);
 
 		)
 	)?
-	a5 = 'START'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a5);copyLocalizationInfos((CommonToken)a5, element); }
 	(
-		a6 = QUALIFIED_NAME{if (element == null) {
+		(
+			a5 = 'START'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a5);copyLocalizationInfos((CommonToken)a5, element); }
+			(
+				a6 = QUALIFIED_NAME{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
@@ -164,12 +166,12 @@ copyLocalizationInfos((CommonToken) a6, element);
 copyLocalizationInfos((CommonToken) a6, proxy); 
 }
 
-	)
-	(
-		(
-			a7 = ','{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a7);copyLocalizationInfos((CommonToken)a7, element); }
+			)
 			(
-				a8 = QUALIFIED_NAME{if (element == null) {
+				(
+					a7 = ','{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a7);copyLocalizationInfos((CommonToken)a7, element); }
+					(
+						a8 = QUALIFIED_NAME{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
@@ -193,9 +195,11 @@ copyLocalizationInfos((CommonToken) a8, element);
 copyLocalizationInfos((CommonToken) a8, proxy); 
 }
 
-			)
+					)
+				)
+			)*
 		)
-	)*
+	)?
 	(
 		(
 			a9 = 'IMPORTS'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a9);copyLocalizationInfos((CommonToken)a9, element); }
