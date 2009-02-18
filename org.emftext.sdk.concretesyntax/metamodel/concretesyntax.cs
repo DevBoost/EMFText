@@ -22,9 +22,9 @@ TOKENS {
 
 RULES {
 
-  ConcreteSyntax ::= "SYNTAXDEF" #1 name[] !0 "FOR" #1 package['<','>']  !0 "START" #1 (startSymbols[]) ("," (startSymbols[]))* ( !0 !0  "IMPORTS" "{" ( !2 imports)* !0 "}")? ( !0 !0 "OPTIONS" "{" (!2 options ";" )*  !0 "}")?   (!0 !0 "TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
+  ConcreteSyntax ::= "SYNTAXDEF" #1 name[] !0 "FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 "START" #1 (startSymbols[]) ("," (startSymbols[]))* ( !0 !0  "IMPORTS" "{" ( !2 imports)* !0 "}")? ( !0 !0 "OPTIONS" "{" (!2 options ";" )*  !0 "}")?   (!0 !0 "TOKENS" "{" ( !2 tokens ";")* !0 "}")? !0!0 "RULES" "{" ( !2 rules+) !0"}";
 
-  Import         ::=  prefix[] ":" package['<','>'] ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[])?;
+  Import         ::=  prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
  
   //Note: There are additional OCL expressions in the model which check whether an option is allowed
   
