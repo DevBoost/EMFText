@@ -286,7 +286,7 @@ public class TextParserGenerator extends BaseGenerator {
 		}
 		
 		printedTokens = new LinkedList<InternalTokenDefinition>();
-	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true);
+	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true, true);
 	    genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 	}
 	

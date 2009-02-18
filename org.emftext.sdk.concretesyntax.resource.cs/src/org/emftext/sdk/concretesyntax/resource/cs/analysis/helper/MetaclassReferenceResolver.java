@@ -86,7 +86,7 @@ public class MetaclassReferenceResolver {
 
 	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IReferenceResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
 		// first collect all generator classes
-		List<Pair<String, GenClass>> prefixedGenClasses = genClassFinder.findAllGenClassesAndPrefixes(syntax, true);
+		List<Pair<String, GenClass>> prefixedGenClasses = genClassFinder.findAllGenClassesAndPrefixes(syntax, true, true);
 		// then check which are accepted by the filter
 		for (Pair<String, GenClass> prefixedGenClass : prefixedGenClasses) {
 			String prefix = prefixedGenClass.getLeft();

@@ -107,7 +107,7 @@ public class GenerationContext {
 			if (nextSyntax == null) {
 				continue;
 			}
-			if (genClassFinder.findAllGenClasses(nextSyntax, true).contains(genFeature.getGenClass())) {
+			if (genClassFinder.findAllGenClasses(nextSyntax, true, true).contains(genFeature.getGenClass())) {
 				return nextSyntax;
 			}
 		}
@@ -281,7 +281,7 @@ public class GenerationContext {
 	}
 
 	public boolean isImportedReference(GenFeature genFeature) {
-		List<GenClass> classes = genClassFinder.findAllGenClasses(concreteSyntax, false);
+		List<GenClass> classes = genClassFinder.findAllGenClasses(concreteSyntax, false, true);
 		for (GenClass genClass : classes) {
 			if (genClass != null && genClass.equals(genFeature.getGenClass())) {
 				return false;

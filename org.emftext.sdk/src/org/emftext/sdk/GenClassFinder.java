@@ -31,8 +31,8 @@ public class GenClassFinder {
 	 * 
 	 * @return a found classes
 	 */
-	public List<GenClass> findAllGenClasses(ConcreteSyntax syntax, boolean includingImports) {
-		List<Pair<String, GenClass>> foundClassesAndPrefixes = findAllGenClassesAndPrefixes(syntax, includingImports);
+	public List<GenClass> findAllGenClasses(ConcreteSyntax syntax, boolean includingImports, boolean includeUsedGeneratorModels) {
+		List<Pair<String, GenClass>> foundClassesAndPrefixes = findAllGenClassesAndPrefixes(syntax, includingImports, includeUsedGeneratorModels);
 		return convertToGenClassList(foundClassesAndPrefixes);
 	}
 
@@ -44,11 +44,11 @@ public class GenClassFinder {
 	 * 
 	 * @return a found classes
 	 */
-	public List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(ConcreteSyntax syntax, boolean includingImports) {
-		return findAllGenClassesAndPrefixes(null, syntax, includingImports);
+	public List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(ConcreteSyntax syntax, boolean includingImports, boolean includeUsedGeneratorModels) {
+		return findAllGenClassesAndPrefixes(null, syntax, includingImports, includeUsedGeneratorModels);
 	}
 	
-	private List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(String prefix, ConcreteSyntax syntax, boolean includingImports) {
+	private List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(String prefix, ConcreteSyntax syntax, boolean includingImports, boolean includeUsedGeneratorModels) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
 		if (syntax == null) {
 			return foundClasses;
@@ -61,9 +61,11 @@ public class GenClassFinder {
 		}
 		foundClasses.addAll(findAllGenClassesAndPrefixes(prefix, genPackage));
 
-		// second add classes from used generator packages
-	    for (GenPackage usedGenPackage : genPackage.getGenModel().getUsedGenPackages()) {
-	    	foundClasses.addAll(findAllGenClassesAndPrefixes(prefix, usedGenPackage));
+		if (includeUsedGeneratorModels) {
+			// second add classes from used generator packages
+		    for (GenPackage usedGenPackage : genPackage.getGenModel().getUsedGenPackages()) {
+		    	foundClasses.addAll(findAllGenClassesAndPrefixes(prefix, usedGenPackage));
+			}
 		}
 		
 		// then add the imported generator classes

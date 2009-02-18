@@ -103,7 +103,7 @@ public class SDKOptionProvider implements IOptionProvider {
 	
 	private void checkMissingRules(ITextResource resource, ConcreteSyntax syntax) {
 		GenClassFinder genClassFinder = new GenClassFinder();
-		List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, false);
+		List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, false, false);
 		EList<Rule> allRules = syntax.getAllRules();
 		// this set ensures that we do not add warnings for a missing rule twice
 		Set<String> namesOfCompletedGenClasses = new LinkedHashSet<String>();
@@ -142,7 +142,7 @@ public class SDKOptionProvider implements IOptionProvider {
 				
 				ConcreteSyntax cs = (ConcreteSyntax) next;
 				GenClassFinder genClassFinder = new GenClassFinder();
-				List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(cs, true);
+				List<GenClass> allGenClasses = genClassFinder.findAllGenClasses(cs, true, true);
 				Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 				LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, cs);
 				
