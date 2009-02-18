@@ -1,6 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-
 /**
 * This is the printer class used by EMFText.
 * Users may implement own behavior by overriding printing methods in the printer base.
@@ -8,7 +7,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 * is not granted to work in all cases, but should work in most cases.
 */
 public class CsPrinter extends CsPrinterBase {
-
+	
 	public CsPrinter(java.io.OutputStream o, org.emftext.runtime.resource.ITextResource resource) {
 		super(o, resource);
 	}

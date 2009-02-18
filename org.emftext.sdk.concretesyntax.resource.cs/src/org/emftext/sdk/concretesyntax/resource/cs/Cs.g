@@ -31,6 +31,7 @@ import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 @members{
 	private org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
 	private int lastPosition;
+	private org.emftext.runtime.resource.impl.TokenResolveResult tokenResolveResult = new org.emftext.runtime.resource.impl.TokenResolveResult();
 
 	protected EObject doParse() throws RecognitionException {
 	lastPosition = 0;
@@ -40,11 +41,16 @@ import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean addObjectToList(org.eclipse.emf.ecore.EObject element, java.lang.String featureName, java.lang.Object proxy) {
-		return ((java.util.List<java.lang.Object>) element.eGet(element.eClass().getEStructuralFeature(featureName))).add(proxy);
+	private boolean addObjectToList(org.eclipse.emf.ecore.EObject element, int featureID, java.lang.Object proxy) {
+		return ((java.util.List<java.lang.Object>) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);
 	}
 
-	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element, Object o) throws org.emftext.runtime.resource.impl.TokenConversionException {
+	private org.emftext.runtime.resource.impl.TokenResolveResult getFreshTokenResolveResult() {
+		tokenResolveResult.clear();
+		return tokenResolveResult;
+	}
+
+	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element, Object o) {
 	}
 }
 
@@ -68,13 +74,17 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a1, element); 
 }
@@ -85,66 +95,102 @@ copyLocalizationInfos((CommonToken) a1, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature("package"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenPackage();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("package"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("package"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a3, element); 
 copyLocalizationInfos((CommonToken) a3, proxy); 
 }
 
-	a4 = 'START'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a4);copyLocalizationInfos((CommonToken)a4, element); }
 	(
-		a5 = QUALIFIED_NAME{if (element == null) {
+		(
+			a4 = QUOTED_60_62{if (element == null) {
+	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
+}
+org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+tokenResolver.setOptions(getOptions());
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
+
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), resolved); 
+}
+collectHiddenTokens(element, resolved);
+copyLocalizationInfos((CommonToken) a4, element); 
+}
+
+		)
+	)?
+	a5 = 'START'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a5);copyLocalizationInfos((CommonToken)a5, element); }
+	(
+		a6 = QUALIFIED_NAME{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("startSymbols"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a6).getLine(), ((CommonToken) a6).getCharPositionInLine(), ((CommonToken) a6).getStartIndex(), ((CommonToken) a6).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("startSymbols"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
 
-addObjectToList(element, "startSymbols", proxy); 
+if (proxy != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy); 
+}
 collectHiddenTokens(element, proxy);
-copyLocalizationInfos((CommonToken) a5, element); 
-copyLocalizationInfos((CommonToken) a5, proxy); 
+copyLocalizationInfos((CommonToken) a6, element); 
+copyLocalizationInfos((CommonToken) a6, proxy); 
 }
 
 	)
 	(
 		(
-			a6 = ','{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a6);copyLocalizationInfos((CommonToken)a6, element); }
+			a7 = ','{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a7);copyLocalizationInfos((CommonToken)a7, element); }
 			(
-				a7 = QUALIFIED_NAME{if (element == null) {
+				a8 = QUALIFIED_NAME{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature("startSymbols"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a8.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a8).getLine(), ((CommonToken) a8).getCharPositionInLine(), ((CommonToken) a8).getStartIndex(), ((CommonToken) a8).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("startSymbols"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
 
-addObjectToList(element, "startSymbols", proxy); 
+if (proxy != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy); 
+}
 collectHiddenTokens(element, proxy);
-copyLocalizationInfos((CommonToken) a7, element); 
-copyLocalizationInfos((CommonToken) a7, proxy); 
+copyLocalizationInfos((CommonToken) a8, element); 
+copyLocalizationInfos((CommonToken) a8, proxy); 
 }
 
 			)
@@ -152,82 +198,90 @@ copyLocalizationInfos((CommonToken) a7, proxy);
 	)*
 	(
 		(
-			a8 = 'IMPORTS'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a8);copyLocalizationInfos((CommonToken)a8, element); }
-			a9 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a9);copyLocalizationInfos((CommonToken)a9, element); }
+			a9 = 'IMPORTS'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a9);copyLocalizationInfos((CommonToken)a9, element); }
+			a10 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a10);copyLocalizationInfos((CommonToken)a10, element); }
 			(
 				(
-					a10 = keywordimport{if (element == null) {
+					a11 = keywordimport{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 
-addObjectToList(element, "imports", a10); 
-collectHiddenTokens(element, a10);
-copyLocalizationInfos(a10, element); 
+if (a11 != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS, a11); 
+}
+collectHiddenTokens(element, a11);
+copyLocalizationInfos(a11, element); 
 }
 
 				)
 			)*
-			a11 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a11);copyLocalizationInfos((CommonToken)a11, element); }
+			a12 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a12);copyLocalizationInfos((CommonToken)a12, element); }
 		)
 	)?
 	(
 		(
-			a12 = 'OPTIONS'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a12);copyLocalizationInfos((CommonToken)a12, element); }
-			a13 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a13);copyLocalizationInfos((CommonToken)a13, element); }
+			a13 = 'OPTIONS'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a13);copyLocalizationInfos((CommonToken)a13, element); }
+			a14 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a14);copyLocalizationInfos((CommonToken)a14, element); }
 			(
 				(
-					a14 = option{if (element == null) {
+					a15 = option{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 
-addObjectToList(element, "options", a14); 
-collectHiddenTokens(element, a14);
-copyLocalizationInfos(a14, element); 
+if (a15 != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS, a15); 
+}
+collectHiddenTokens(element, a15);
+copyLocalizationInfos(a15, element); 
 }
 
-					a15 = ';'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a15);copyLocalizationInfos((CommonToken)a15, element); }
+					a16 = ';'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a16);copyLocalizationInfos((CommonToken)a16, element); }
 				)
 			)*
-			a16 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a16);copyLocalizationInfos((CommonToken)a16, element); }
+			a17 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a17);copyLocalizationInfos((CommonToken)a17, element); }
 		)
 	)?
 	(
 		(
-			a17 = 'TOKENS'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a17);copyLocalizationInfos((CommonToken)a17, element); }
-			a18 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a18);copyLocalizationInfos((CommonToken)a18, element); }
+			a18 = 'TOKENS'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a18);copyLocalizationInfos((CommonToken)a18, element); }
+			a19 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a19);copyLocalizationInfos((CommonToken)a19, element); }
 			(
 				(
-					a19 = tokendefinition{if (element == null) {
+					a20 = tokendefinition{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 
-addObjectToList(element, "tokens", a19); 
-collectHiddenTokens(element, a19);
-copyLocalizationInfos(a19, element); 
+if (a20 != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS, a20); 
+}
+collectHiddenTokens(element, a20);
+copyLocalizationInfos(a20, element); 
 }
 
-					a20 = ';'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a20);copyLocalizationInfos((CommonToken)a20, element); }
+					a21 = ';'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a21);copyLocalizationInfos((CommonToken)a21, element); }
 				)
 			)*
-			a21 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a21);copyLocalizationInfos((CommonToken)a21, element); }
+			a22 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a22);copyLocalizationInfos((CommonToken)a22, element); }
 		)
 	)?
-	a22 = 'RULES'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a22);copyLocalizationInfos((CommonToken)a22, element); }
-	a23 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a23);copyLocalizationInfos((CommonToken)a23, element); }
+	a23 = 'RULES'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a23);copyLocalizationInfos((CommonToken)a23, element); }
+	a24 = '{'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a24);copyLocalizationInfos((CommonToken)a24, element); }
 	(
 		(
-			a24 = rule{if (element == null) {
+			a25 = rule{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
 }
 
-addObjectToList(element, "rules", a24); 
-collectHiddenTokens(element, a24);
-copyLocalizationInfos(a24, element); 
+if (a25 != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, a25); 
+}
+collectHiddenTokens(element, a25);
+copyLocalizationInfos(a25, element); 
 }
 
 		)+
 	)
-	a25 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a25);copyLocalizationInfos((CommonToken)a25, element); }
+	a26 = '}'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a26);copyLocalizationInfos((CommonToken)a26, element); }
 ;
 
 keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
@@ -239,13 +293,17 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("prefix"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a0, element); 
 }
@@ -256,16 +314,20 @@ copyLocalizationInfos((CommonToken) a0, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("package"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenPackage();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("package"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("package"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a2, element); 
 copyLocalizationInfos((CommonToken) a2, proxy); 
@@ -273,28 +335,80 @@ copyLocalizationInfos((CommonToken) a2, proxy);
 
 	(
 		(
-			a3 = 'WITH'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); }
-			a4 = 'SYNTAX'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a4);copyLocalizationInfos((CommonToken)a4, element); }
-			a5 = QUALIFIED_NAME{if (element == null) {
+			a3 = QUOTED_60_62{if (element == null) {
+	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
+}
+org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+tokenResolver.setOptions(getOptions());
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
+
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), resolved); 
+}
+collectHiddenTokens(element, resolved);
+copyLocalizationInfos((CommonToken) a3, element); 
+}
+
+		)
+	)?
+	(
+		(
+			a4 = 'WITH'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a4);copyLocalizationInfos((CommonToken)a4, element); }
+			a5 = 'SYNTAX'{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a5);copyLocalizationInfos((CommonToken)a5, element); }
+			a6 = QUALIFIED_NAME{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("concreteSyntax"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a6).getLine(), ((CommonToken) a6).getCharPositionInLine(), ((CommonToken) a6).getStartIndex(), ((CommonToken) a6).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.emftext.sdk.concretesyntax.ConcreteSyntax proxy = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("concreteSyntax"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("concreteSyntax"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), proxy); 
+}
 collectHiddenTokens(element, proxy);
-copyLocalizationInfos((CommonToken) a5, element); 
-copyLocalizationInfos((CommonToken) a5, proxy); 
+copyLocalizationInfos((CommonToken) a6, element); 
+copyLocalizationInfos((CommonToken) a6, proxy); 
 }
 
+			(
+				(
+					a7 = QUOTED_60_62{if (element == null) {
+	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
+}
+org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+tokenResolver.setOptions(getOptions());
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a7).getLine(), ((CommonToken) a7).getCharPositionInLine(), ((CommonToken) a7).getStartIndex(), ((CommonToken) a7).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
+
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), resolved); 
+}
+collectHiddenTokens(element, resolved);
+copyLocalizationInfos((CommonToken) a7, element); 
+}
+
+				)
+			)?
 		)
 	)?
 ;
@@ -308,13 +422,17 @@ option returns [org.emftext.sdk.concretesyntax.Option element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("name"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a0, element); 
 }
@@ -325,13 +443,17 @@ copyLocalizationInfos((CommonToken) a0, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("value"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("value"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a2, element); 
 }
@@ -348,16 +470,20 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("metaclass"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("metaclass"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a0, element); 
 copyLocalizationInfos((CommonToken) a0, proxy); 
@@ -369,7 +495,9 @@ copyLocalizationInfos((CommonToken) a0, proxy);
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createRule(); 
 }
 
-element.eSet(element.eClass().getEStructuralFeature("definition"), a2); 
+if (a2 != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), a2); 
+}
 collectHiddenTokens(element, a2);
 copyLocalizationInfos(a2, element); 
 }
@@ -386,7 +514,9 @@ sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null]
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createSequence(); 
 }
 
-addObjectToList(element, "parts", a0); 
+if (a0 != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS, a0); 
+}
 collectHiddenTokens(element, a0);
 copyLocalizationInfos(a0, element); 
 }
@@ -402,7 +532,9 @@ choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); 
 }
 
-addObjectToList(element, "options", a0); 
+if (a0 != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a0); 
+}
 collectHiddenTokens(element, a0);
 copyLocalizationInfos(a0, element); 
 }
@@ -414,7 +546,9 @@ copyLocalizationInfos(a0, element);
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); 
 }
 
-addObjectToList(element, "options", a2); 
+if (a2 != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a2); 
+}
 collectHiddenTokens(element, a2);
 copyLocalizationInfos(a2, element); 
 }
@@ -432,13 +566,17 @@ csstring returns [org.emftext.sdk.concretesyntax.CsString element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("value"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("value"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a0, element); 
 }
@@ -454,16 +592,20 @@ definedplaceholder returns [org.emftext.sdk.concretesyntax.DefinedPlaceholder el
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("feature"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__FEATURE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenFeature();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("feature"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__FEATURE), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__FEATURE), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a0, element); 
 copyLocalizationInfos((CommonToken) a0, proxy); 
@@ -475,16 +617,20 @@ copyLocalizationInfos((CommonToken) a0, proxy);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("token"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
 String resolved = (String) resolvedObject;
-org.emftext.sdk.concretesyntax.NormalToken proxy = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken();
+org.emftext.sdk.concretesyntax.PreDefinedToken proxy = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPreDefinedToken();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("token"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("token"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a2, element); 
 copyLocalizationInfos((CommonToken) a2, proxy); 
@@ -496,7 +642,9 @@ copyLocalizationInfos((CommonToken) a2, proxy);
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDefinedPlaceholder(); 
 }
 
-element.eSet(element.eClass().getEStructuralFeature("cardinality"), a4); 
+if (a4 != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__CARDINALITY), a4); 
+}
 collectHiddenTokens(element, a4);
 copyLocalizationInfos(a4, element); 
 }
@@ -513,16 +661,20 @@ derivedplaceholder returns [org.emftext.sdk.concretesyntax.DerivedPlaceholder el
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("feature"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__FEATURE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenFeature();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("feature"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__FEATURE), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__FEATURE), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a0, element); 
 copyLocalizationInfos((CommonToken) a0, proxy); 
@@ -536,13 +688,17 @@ copyLocalizationInfos((CommonToken) a0, proxy);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("prefix"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a2, element); 
 }
@@ -555,13 +711,17 @@ copyLocalizationInfos((CommonToken) a2, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature("suffix"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a4, element); 
 }
@@ -576,7 +736,9 @@ copyLocalizationInfos((CommonToken) a4, element);
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder(); 
 }
 
-element.eSet(element.eClass().getEStructuralFeature("cardinality"), a6); 
+if (a6 != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__CARDINALITY), a6); 
+}
 collectHiddenTokens(element, a6);
 copyLocalizationInfos(a6, element); 
 }
@@ -593,16 +755,20 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("feature"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenFeature();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("feature"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a0, element); 
 copyLocalizationInfos((CommonToken) a0, proxy); 
@@ -616,16 +782,20 @@ copyLocalizationInfos((CommonToken) a0, proxy);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("type"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("type"), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), resolved, proxy);
 
-element.eSet(element.eClass().getEStructuralFeature("type"), proxy); 
+if (proxy != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), proxy); 
+}
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a2, element); 
 copyLocalizationInfos((CommonToken) a2, proxy); 
@@ -638,7 +808,9 @@ copyLocalizationInfos((CommonToken) a2, proxy);
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment(); 
 }
 
-element.eSet(element.eClass().getEStructuralFeature("cardinality"), a3); 
+if (a3 != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a3); 
+}
 collectHiddenTokens(element, a3);
 copyLocalizationInfos(a3, element); 
 }
@@ -655,7 +827,9 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createCompoundDefinition(); 
 }
 
-element.eSet(element.eClass().getEStructuralFeature("definitions"), a1); 
+if (a1 != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), a1); 
+}
 collectHiddenTokens(element, a1);
 copyLocalizationInfos(a1, element); 
 }
@@ -666,7 +840,9 @@ copyLocalizationInfos(a1, element);
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createCompoundDefinition(); 
 }
 
-element.eSet(element.eClass().getEStructuralFeature("cardinality"), a3); 
+if (a3 != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), a3); 
+}
 collectHiddenTokens(element, a3);
 copyLocalizationInfos(a3, element); 
 }
@@ -705,13 +881,17 @@ whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("NUMBER");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("amount"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+}
+	java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("amount"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a1, element); 
 }
@@ -728,13 +908,17 @@ linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("NUMBER");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("tab"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+}
+	java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("tab"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a1, element); 
 }
@@ -751,13 +935,17 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a1, element); 
 }
@@ -767,13 +955,17 @@ copyLocalizationInfos((CommonToken) a1, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("regex"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a2, element); 
 }
@@ -787,13 +979,17 @@ copyLocalizationInfos((CommonToken) a2, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("attributeName"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("attributeName"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a5, element); 
 }
@@ -812,13 +1008,17 @@ decoratedtoken returns [org.emftext.sdk.concretesyntax.DecoratedToken element = 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a1, element); 
 }
@@ -831,13 +1031,17 @@ copyLocalizationInfos((CommonToken) a1, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature("prefix"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__PREFIX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__PREFIX), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a3, element); 
 }
@@ -850,13 +1054,17 @@ copyLocalizationInfos((CommonToken) a3, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("regex"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__REGEX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__REGEX), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a5, element); 
 }
@@ -869,13 +1077,17 @@ copyLocalizationInfos((CommonToken) a5, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature("suffix"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__SUFFIX), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a7).getLine(), ((CommonToken) a7).getCharPositionInLine(), ((CommonToken) a7).getStartIndex(), ((CommonToken) a7).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__SUFFIX), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a7, element); 
 }
@@ -892,13 +1104,17 @@ copyLocalizationInfos((CommonToken) a7, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a11.getText(), element.eClass().getEStructuralFeature("attributeName"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a11.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__ATTRIBUTE_NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a11).getLine(), ((CommonToken) a11).getCharPositionInLine(), ((CommonToken) a11).getStartIndex(), ((CommonToken) a11).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("attributeName"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__ATTRIBUTE_NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a11, element); 
 }
@@ -917,13 +1133,17 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PreDefinedToken element 
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a1, element); 
 }
@@ -937,13 +1157,17 @@ copyLocalizationInfos((CommonToken) a1, element);
 }
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
-org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature("attributeName"), result);
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__ATTRIBUTE_NAME), result);
 Object resolvedObject = result.getResolvedToken();
-if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-java.lang.String resolved = (java.lang.String)resolvedObject;
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+}
+	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-element.eSet(element.eClass().getEStructuralFeature("attributeName"), resolved); 
+if (resolved != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__ATTRIBUTE_NAME), resolved); 
+}
 collectHiddenTokens(element, resolved);
 copyLocalizationInfos((CommonToken) a4, element); 
 }

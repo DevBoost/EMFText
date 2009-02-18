@@ -85,6 +85,9 @@ public class MetamodelManager {
 					foundMultiple = true;
 				}
 				foundPackage = finderResult.getResult();
+				if (foundPackage != null) {
+					return foundPackage;
+				}
 			}
 		}
 		if (foundMultiple) {

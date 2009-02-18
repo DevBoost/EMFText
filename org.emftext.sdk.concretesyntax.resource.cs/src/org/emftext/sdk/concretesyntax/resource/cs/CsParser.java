@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-02-16 22:53:37
+// $ANTLR 3.1.1 D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-02-18 21:16:42
 
 package org.emftext.sdk.concretesyntax.resource.cs;
 
@@ -70,7 +70,7 @@ public class CsParser extends AbstractEMFTextParser {
         }
         public CsParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-            this.state.ruleMemo = new HashMap[54+1];
+            this.state.ruleMemo = new HashMap[57+1];
              
              
         }
@@ -81,6 +81,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     	private org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
+    	private org.emftext.runtime.resource.impl.TokenResolveResult tokenResolveResult = new org.emftext.runtime.resource.impl.TokenResolveResult();
 
     	protected EObject doParse() throws RecognitionException {
     		((CsLexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
@@ -89,8 +90,13 @@ public class CsParser extends AbstractEMFTextParser {
     	}
 
     	@SuppressWarnings("unchecked")
-    	private boolean addObjectToList(org.eclipse.emf.ecore.EObject element, java.lang.String featureName, java.lang.Object proxy) {
-    		return ((java.util.List<java.lang.Object>) element.eGet(element.eClass().getEStructuralFeature(featureName))).add(proxy);
+    	private boolean addObjectToList(org.eclipse.emf.ecore.EObject element, int featureID, java.lang.Object proxy) {
+    		return ((java.util.List<java.lang.Object>) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);
+    	}
+
+    	private org.emftext.runtime.resource.impl.TokenResolveResult getFreshTokenResolveResult() {
+    		tokenResolveResult.clear();
+    		return tokenResolveResult;
     	}
 
     	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element, Object o) {
@@ -99,7 +105,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "start"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:51:1: start returns [ EObject element = null] : (c0= concretesyntax ) EOF ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:57:1: start returns [ EObject element = null] : (c0= concretesyntax ) EOF ;
     public final EObject start() throws RecognitionException {
         EObject element =  null;
         int start_StartIndex = input.index();
@@ -108,11 +114,11 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:53:1: ( (c0= concretesyntax ) EOF )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:54:2: (c0= concretesyntax ) EOF
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:59:1: ( (c0= concretesyntax ) EOF )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:60:2: (c0= concretesyntax ) EOF
             {
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:54:2: (c0= concretesyntax )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:55:1: c0= concretesyntax
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:60:2: (c0= concretesyntax )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:61:1: c0= concretesyntax
             {
             pushFollow(FOLLOW_concretesyntax_in_start76);
             c0=concretesyntax();
@@ -143,7 +149,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "concretesyntax"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:61:1: concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : a0= 'SYNTAXDEF' a1= QUALIFIED_NAME a2= 'FOR' a3= QUOTED_60_62 a4= 'START' (a5= QUALIFIED_NAME ) ( (a6= ',' (a7= QUALIFIED_NAME ) ) )* ( (a8= 'IMPORTS' a9= '{' ( (a10= keywordimport ) )* a11= '}' ) )? ( (a12= 'OPTIONS' a13= '{' ( (a14= option a15= ';' ) )* a16= '}' ) )? ( (a17= 'TOKENS' a18= '{' ( (a19= tokendefinition a20= ';' ) )* a21= '}' ) )? a22= 'RULES' a23= '{' ( (a24= rule )+ ) a25= '}' ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:67:1: concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : a0= 'SYNTAXDEF' a1= QUALIFIED_NAME a2= 'FOR' a3= QUOTED_60_62 ( (a4= QUOTED_60_62 ) )? a5= 'START' (a6= QUALIFIED_NAME ) ( (a7= ',' (a8= QUALIFIED_NAME ) ) )* ( (a9= 'IMPORTS' a10= '{' ( (a11= keywordimport ) )* a12= '}' ) )? ( (a13= 'OPTIONS' a14= '{' ( (a15= option a16= ';' ) )* a17= '}' ) )? ( (a18= 'TOKENS' a19= '{' ( (a20= tokendefinition a21= ';' ) )* a22= '}' ) )? a23= 'RULES' a24= '{' ( (a25= rule )+ ) a26= '}' ;
     public final org.emftext.sdk.concretesyntax.ConcreteSyntax concretesyntax() throws RecognitionException {
         org.emftext.sdk.concretesyntax.ConcreteSyntax element =  null;
         int concretesyntax_StartIndex = input.index();
@@ -157,33 +163,34 @@ public class CsParser extends AbstractEMFTextParser {
         Token a7=null;
         Token a8=null;
         Token a9=null;
-        Token a11=null;
+        Token a10=null;
         Token a12=null;
         Token a13=null;
-        Token a15=null;
+        Token a14=null;
         Token a16=null;
         Token a17=null;
         Token a18=null;
-        Token a20=null;
+        Token a19=null;
         Token a21=null;
         Token a22=null;
         Token a23=null;
-        Token a25=null;
-        org.emftext.sdk.concretesyntax.Import a10 = null;
+        Token a24=null;
+        Token a26=null;
+        org.emftext.sdk.concretesyntax.Import a11 = null;
 
-        org.emftext.sdk.concretesyntax.Option a14 = null;
+        org.emftext.sdk.concretesyntax.Option a15 = null;
 
-        org.emftext.sdk.concretesyntax.TokenDefinition a19 = null;
+        org.emftext.sdk.concretesyntax.TokenDefinition a20 = null;
 
-        org.emftext.sdk.concretesyntax.Rule a24 = null;
+        org.emftext.sdk.concretesyntax.Rule a25 = null;
 
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:64:1: (a0= 'SYNTAXDEF' a1= QUALIFIED_NAME a2= 'FOR' a3= QUOTED_60_62 a4= 'START' (a5= QUALIFIED_NAME ) ( (a6= ',' (a7= QUALIFIED_NAME ) ) )* ( (a8= 'IMPORTS' a9= '{' ( (a10= keywordimport ) )* a11= '}' ) )? ( (a12= 'OPTIONS' a13= '{' ( (a14= option a15= ';' ) )* a16= '}' ) )? ( (a17= 'TOKENS' a18= '{' ( (a19= tokendefinition a20= ';' ) )* a21= '}' ) )? a22= 'RULES' a23= '{' ( (a24= rule )+ ) a25= '}' )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:65:2: a0= 'SYNTAXDEF' a1= QUALIFIED_NAME a2= 'FOR' a3= QUOTED_60_62 a4= 'START' (a5= QUALIFIED_NAME ) ( (a6= ',' (a7= QUALIFIED_NAME ) ) )* ( (a8= 'IMPORTS' a9= '{' ( (a10= keywordimport ) )* a11= '}' ) )? ( (a12= 'OPTIONS' a13= '{' ( (a14= option a15= ';' ) )* a16= '}' ) )? ( (a17= 'TOKENS' a18= '{' ( (a19= tokendefinition a20= ';' ) )* a21= '}' ) )? a22= 'RULES' a23= '{' ( (a24= rule )+ ) a25= '}'
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:70:1: (a0= 'SYNTAXDEF' a1= QUALIFIED_NAME a2= 'FOR' a3= QUOTED_60_62 ( (a4= QUOTED_60_62 ) )? a5= 'START' (a6= QUALIFIED_NAME ) ( (a7= ',' (a8= QUALIFIED_NAME ) ) )* ( (a9= 'IMPORTS' a10= '{' ( (a11= keywordimport ) )* a12= '}' ) )? ( (a13= 'OPTIONS' a14= '{' ( (a15= option a16= ';' ) )* a17= '}' ) )? ( (a18= 'TOKENS' a19= '{' ( (a20= tokendefinition a21= ';' ) )* a22= '}' ) )? a23= 'RULES' a24= '{' ( (a25= rule )+ ) a26= '}' )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:71:2: a0= 'SYNTAXDEF' a1= QUALIFIED_NAME a2= 'FOR' a3= QUOTED_60_62 ( (a4= QUOTED_60_62 ) )? a5= 'START' (a6= QUALIFIED_NAME ) ( (a7= ',' (a8= QUALIFIED_NAME ) ) )* ( (a9= 'IMPORTS' a10= '{' ( (a11= keywordimport ) )* a12= '}' ) )? ( (a13= 'OPTIONS' a14= '{' ( (a15= option a16= ';' ) )* a17= '}' ) )? ( (a18= 'TOKENS' a19= '{' ( (a20= tokendefinition a21= ';' ) )* a22= '}' ) )? a23= 'RULES' a24= '{' ( (a25= rule )+ ) a26= '}'
             {
             a0=(Token)match(input,13,FOLLOW_13_in_concretesyntax106); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -196,13 +203,17 @@ public class CsParser extends AbstractEMFTextParser {
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a1, element); 
 
@@ -218,98 +229,155 @@ public class CsParser extends AbstractEMFTextParser {
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature("package"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
               org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenPackage();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("package"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), resolved, proxy);
 
-              element.eSet(element.eClass().getEStructuralFeature("package"), proxy); 
+              if (proxy != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), proxy); 
+              }
               collectHiddenTokens(element, proxy);
               copyLocalizationInfos((CommonToken) a3, element); 
               copyLocalizationInfos((CommonToken) a3, proxy); 
 
             }
-            a4=(Token)match(input,15,FOLLOW_15_in_concretesyntax140); if (state.failed) return element;
-            if ( state.backtracking==0 ) {
-               if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a4);copyLocalizationInfos((CommonToken)a4, element); 
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:117:2: ( (a4= QUOTED_60_62 ) )?
+            int alt1=2;
+            int LA1_0 = input.LA(1);
+
+            if ( (LA1_0==QUOTED_60_62) ) {
+                alt1=1;
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:104:2: (a5= QUALIFIED_NAME )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:105:3: a5= QUALIFIED_NAME
+            switch (alt1) {
+                case 1 :
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:118:3: (a4= QUOTED_60_62 )
+                    {
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:118:3: (a4= QUOTED_60_62 )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:119:4: a4= QUOTED_60_62
+                    {
+                    a4=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_concretesyntax149); if (state.failed) return element;
+                    if ( state.backtracking==0 ) {
+                      if (element == null) {
+                      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
+                      }
+                      org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+                      tokenResolver.setOptions(getOptions());
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), result);
+                      Object resolvedObject = result.getResolvedToken();
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+                      }
+                      	java.lang.String resolved = (java.lang.String)resolvedObject;
+
+                      if (resolved != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), resolved); 
+                      }
+                      collectHiddenTokens(element, resolved);
+                      copyLocalizationInfos((CommonToken) a4, element); 
+
+                    }
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            a5=(Token)match(input,15,FOLLOW_15_in_concretesyntax166); if (state.failed) return element;
+            if ( state.backtracking==0 ) {
+               if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a5);copyLocalizationInfos((CommonToken)a5, element); 
+            }
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:142:2: (a6= QUALIFIED_NAME )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:143:3: a6= QUALIFIED_NAME
             {
-            a5=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_concretesyntax152); if (state.failed) return element;
+            a6=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_concretesyntax178); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("startSymbols"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a6).getLine(), ((CommonToken) a6).getCharPositionInLine(), ((CommonToken) a6).getStartIndex(), ((CommonToken) a6).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
               org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("startSymbols"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
 
-              addObjectToList(element, "startSymbols", proxy); 
+              if (proxy != null) {
+              addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy); 
+              }
               collectHiddenTokens(element, proxy);
-              copyLocalizationInfos((CommonToken) a5, element); 
-              copyLocalizationInfos((CommonToken) a5, proxy); 
+              copyLocalizationInfos((CommonToken) a6, element); 
+              copyLocalizationInfos((CommonToken) a6, proxy); 
 
             }
 
             }
 
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:126:2: ( (a6= ',' (a7= QUALIFIED_NAME ) ) )*
-            loop1:
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:168:2: ( (a7= ',' (a8= QUALIFIED_NAME ) ) )*
+            loop2:
             do {
-                int alt1=2;
-                int LA1_0 = input.LA(1);
+                int alt2=2;
+                int LA2_0 = input.LA(1);
 
-                if ( (LA1_0==16) ) {
-                    alt1=1;
+                if ( (LA2_0==16) ) {
+                    alt2=1;
                 }
 
 
-                switch (alt1) {
+                switch (alt2) {
             	case 1 :
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:127:3: (a6= ',' (a7= QUALIFIED_NAME ) )
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:169:3: (a7= ',' (a8= QUALIFIED_NAME ) )
             	    {
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:127:3: (a6= ',' (a7= QUALIFIED_NAME ) )
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:128:4: a6= ',' (a7= QUALIFIED_NAME )
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:169:3: (a7= ',' (a8= QUALIFIED_NAME ) )
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:170:4: a7= ',' (a8= QUALIFIED_NAME )
             	    {
-            	    a6=(Token)match(input,16,FOLLOW_16_in_concretesyntax173); if (state.failed) return element;
+            	    a7=(Token)match(input,16,FOLLOW_16_in_concretesyntax199); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
-            	       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a6);copyLocalizationInfos((CommonToken)a6, element); 
+            	       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a7);copyLocalizationInfos((CommonToken)a7, element); 
             	    }
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:129:4: (a7= QUALIFIED_NAME )
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:130:5: a7= QUALIFIED_NAME
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:171:4: (a8= QUALIFIED_NAME )
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:172:5: a8= QUALIFIED_NAME
             	    {
-            	    a7=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_concretesyntax189); if (state.failed) return element;
+            	    a8=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_concretesyntax215); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
             	      if (element == null) {
             	      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
             	      }
             	      org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
             	      tokenResolver.setOptions(getOptions());
-            	      org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-            	      tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature("startSymbols"), result);
+            	      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+            	      tokenResolver.resolve(a8.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
             	      Object resolvedObject = result.getResolvedToken();
-            	      if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+            	      if (resolvedObject == null) {
+            	      	getResource().addError(result.getErrorMessage(), ((CommonToken) a8).getLine(), ((CommonToken) a8).getCharPositionInLine(), ((CommonToken) a8).getStartIndex(), ((CommonToken) a8).getStopIndex());
+            	      }
             	      String resolved = (String) resolvedObject;
             	      org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
             	      collectHiddenTokens(element, proxy);
-            	      getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("startSymbols"), resolved, proxy);
+            	      getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
 
-            	      addObjectToList(element, "startSymbols", proxy); 
+            	      if (proxy != null) {
+            	      addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy); 
+            	      }
             	      collectHiddenTokens(element, proxy);
-            	      copyLocalizationInfos((CommonToken) a7, element); 
-            	      copyLocalizationInfos((CommonToken) a7, proxy); 
+            	      copyLocalizationInfos((CommonToken) a8, element); 
+            	      copyLocalizationInfos((CommonToken) a8, proxy); 
 
             	    }
 
@@ -323,52 +391,52 @@ public class CsParser extends AbstractEMFTextParser {
             	    break;
 
             	default :
-            	    break loop1;
+            	    break loop2;
                 }
             } while (true);
 
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:153:2: ( (a8= 'IMPORTS' a9= '{' ( (a10= keywordimport ) )* a11= '}' ) )?
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:199:2: ( (a9= 'IMPORTS' a10= '{' ( (a11= keywordimport ) )* a12= '}' ) )?
+            int alt4=2;
+            int LA4_0 = input.LA(1);
 
-            if ( (LA3_0==17) ) {
-                alt3=1;
+            if ( (LA4_0==17) ) {
+                alt4=1;
             }
-            switch (alt3) {
+            switch (alt4) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:154:3: (a8= 'IMPORTS' a9= '{' ( (a10= keywordimport ) )* a11= '}' )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:200:3: (a9= 'IMPORTS' a10= '{' ( (a11= keywordimport ) )* a12= '}' )
                     {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:154:3: (a8= 'IMPORTS' a9= '{' ( (a10= keywordimport ) )* a11= '}' )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:155:4: a8= 'IMPORTS' a9= '{' ( (a10= keywordimport ) )* a11= '}'
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:200:3: (a9= 'IMPORTS' a10= '{' ( (a11= keywordimport ) )* a12= '}' )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:201:4: a9= 'IMPORTS' a10= '{' ( (a11= keywordimport ) )* a12= '}'
                     {
-                    a8=(Token)match(input,17,FOLLOW_17_in_concretesyntax220); if (state.failed) return element;
-                    if ( state.backtracking==0 ) {
-                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a8);copyLocalizationInfos((CommonToken)a8, element); 
-                    }
-                    a9=(Token)match(input,18,FOLLOW_18_in_concretesyntax230); if (state.failed) return element;
+                    a9=(Token)match(input,17,FOLLOW_17_in_concretesyntax246); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a9);copyLocalizationInfos((CommonToken)a9, element); 
                     }
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:157:4: ( (a10= keywordimport ) )*
-                    loop2:
+                    a10=(Token)match(input,18,FOLLOW_18_in_concretesyntax256); if (state.failed) return element;
+                    if ( state.backtracking==0 ) {
+                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a10);copyLocalizationInfos((CommonToken)a10, element); 
+                    }
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:203:4: ( (a11= keywordimport ) )*
+                    loop3:
                     do {
-                        int alt2=2;
-                        int LA2_0 = input.LA(1);
+                        int alt3=2;
+                        int LA3_0 = input.LA(1);
 
-                        if ( (LA2_0==QUALIFIED_NAME) ) {
-                            alt2=1;
+                        if ( (LA3_0==QUALIFIED_NAME) ) {
+                            alt3=1;
                         }
 
 
-                        switch (alt2) {
+                        switch (alt3) {
                     	case 1 :
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:158:5: (a10= keywordimport )
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:204:5: (a11= keywordimport )
                     	    {
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:158:5: (a10= keywordimport )
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:159:6: a10= keywordimport
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:204:5: (a11= keywordimport )
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:205:6: a11= keywordimport
                     	    {
-                    	    pushFollow(FOLLOW_keywordimport_in_concretesyntax253);
-                    	    a10=keywordimport();
+                    	    pushFollow(FOLLOW_keywordimport_in_concretesyntax279);
+                    	    a11=keywordimport();
 
                     	    state._fsp--;
                     	    if (state.failed) return element;
@@ -377,9 +445,11 @@ public class CsParser extends AbstractEMFTextParser {
                     	      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
                     	      }
 
-                    	      addObjectToList(element, "imports", a10); 
-                    	      collectHiddenTokens(element, a10);
-                    	      copyLocalizationInfos(a10, element); 
+                    	      if (a11 != null) {
+                    	      addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS, a11); 
+                    	      }
+                    	      collectHiddenTokens(element, a11);
+                    	      copyLocalizationInfos(a11, element); 
 
                     	    }
 
@@ -390,65 +460,65 @@ public class CsParser extends AbstractEMFTextParser {
                     	    break;
 
                     	default :
-                    	    break loop2;
+                    	    break loop3;
                         }
                     } while (true);
 
-                    a11=(Token)match(input,19,FOLLOW_19_in_concretesyntax276); if (state.failed) return element;
-                    if ( state.backtracking==0 ) {
-                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a11);copyLocalizationInfos((CommonToken)a11, element); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:173:2: ( (a12= 'OPTIONS' a13= '{' ( (a14= option a15= ';' ) )* a16= '}' ) )?
-            int alt5=2;
-            int LA5_0 = input.LA(1);
-
-            if ( (LA5_0==20) ) {
-                alt5=1;
-            }
-            switch (alt5) {
-                case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:174:3: (a12= 'OPTIONS' a13= '{' ( (a14= option a15= ';' ) )* a16= '}' )
-                    {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:174:3: (a12= 'OPTIONS' a13= '{' ( (a14= option a15= ';' ) )* a16= '}' )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:175:4: a12= 'OPTIONS' a13= '{' ( (a14= option a15= ';' ) )* a16= '}'
-                    {
-                    a12=(Token)match(input,20,FOLLOW_20_in_concretesyntax301); if (state.failed) return element;
+                    a12=(Token)match(input,19,FOLLOW_19_in_concretesyntax302); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a12);copyLocalizationInfos((CommonToken)a12, element); 
                     }
-                    a13=(Token)match(input,18,FOLLOW_18_in_concretesyntax311); if (state.failed) return element;
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:221:2: ( (a13= 'OPTIONS' a14= '{' ( (a15= option a16= ';' ) )* a17= '}' ) )?
+            int alt6=2;
+            int LA6_0 = input.LA(1);
+
+            if ( (LA6_0==20) ) {
+                alt6=1;
+            }
+            switch (alt6) {
+                case 1 :
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:222:3: (a13= 'OPTIONS' a14= '{' ( (a15= option a16= ';' ) )* a17= '}' )
+                    {
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:222:3: (a13= 'OPTIONS' a14= '{' ( (a15= option a16= ';' ) )* a17= '}' )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:223:4: a13= 'OPTIONS' a14= '{' ( (a15= option a16= ';' ) )* a17= '}'
+                    {
+                    a13=(Token)match(input,20,FOLLOW_20_in_concretesyntax327); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a13);copyLocalizationInfos((CommonToken)a13, element); 
                     }
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:177:4: ( (a14= option a15= ';' ) )*
-                    loop4:
+                    a14=(Token)match(input,18,FOLLOW_18_in_concretesyntax337); if (state.failed) return element;
+                    if ( state.backtracking==0 ) {
+                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a14);copyLocalizationInfos((CommonToken)a14, element); 
+                    }
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:225:4: ( (a15= option a16= ';' ) )*
+                    loop5:
                     do {
-                        int alt4=2;
-                        int LA4_0 = input.LA(1);
+                        int alt5=2;
+                        int LA5_0 = input.LA(1);
 
-                        if ( (LA4_0==QUALIFIED_NAME) ) {
-                            alt4=1;
+                        if ( (LA5_0==QUALIFIED_NAME) ) {
+                            alt5=1;
                         }
 
 
-                        switch (alt4) {
+                        switch (alt5) {
                     	case 1 :
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:178:5: (a14= option a15= ';' )
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:226:5: (a15= option a16= ';' )
                     	    {
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:178:5: (a14= option a15= ';' )
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:179:6: a14= option a15= ';'
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:226:5: (a15= option a16= ';' )
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:227:6: a15= option a16= ';'
                     	    {
-                    	    pushFollow(FOLLOW_option_in_concretesyntax334);
-                    	    a14=option();
+                    	    pushFollow(FOLLOW_option_in_concretesyntax360);
+                    	    a15=option();
 
                     	    state._fsp--;
                     	    if (state.failed) return element;
@@ -457,14 +527,16 @@ public class CsParser extends AbstractEMFTextParser {
                     	      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
                     	      }
 
-                    	      addObjectToList(element, "options", a14); 
-                    	      collectHiddenTokens(element, a14);
-                    	      copyLocalizationInfos(a14, element); 
+                    	      if (a15 != null) {
+                    	      addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS, a15); 
+                    	      }
+                    	      collectHiddenTokens(element, a15);
+                    	      copyLocalizationInfos(a15, element); 
 
                     	    }
-                    	    a15=(Token)match(input,21,FOLLOW_21_in_concretesyntax347); if (state.failed) return element;
+                    	    a16=(Token)match(input,21,FOLLOW_21_in_concretesyntax373); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
-                    	       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a15);copyLocalizationInfos((CommonToken)a15, element); 
+                    	       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a16);copyLocalizationInfos((CommonToken)a16, element); 
                     	    }
 
                     	    }
@@ -474,65 +546,65 @@ public class CsParser extends AbstractEMFTextParser {
                     	    break;
 
                     	default :
-                    	    break loop4;
+                    	    break loop5;
                         }
                     } while (true);
 
-                    a16=(Token)match(input,19,FOLLOW_19_in_concretesyntax369); if (state.failed) return element;
-                    if ( state.backtracking==0 ) {
-                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a16);copyLocalizationInfos((CommonToken)a16, element); 
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:194:2: ( (a17= 'TOKENS' a18= '{' ( (a19= tokendefinition a20= ';' ) )* a21= '}' ) )?
-            int alt7=2;
-            int LA7_0 = input.LA(1);
-
-            if ( (LA7_0==22) ) {
-                alt7=1;
-            }
-            switch (alt7) {
-                case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:195:3: (a17= 'TOKENS' a18= '{' ( (a19= tokendefinition a20= ';' ) )* a21= '}' )
-                    {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:195:3: (a17= 'TOKENS' a18= '{' ( (a19= tokendefinition a20= ';' ) )* a21= '}' )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:196:4: a17= 'TOKENS' a18= '{' ( (a19= tokendefinition a20= ';' ) )* a21= '}'
-                    {
-                    a17=(Token)match(input,22,FOLLOW_22_in_concretesyntax394); if (state.failed) return element;
+                    a17=(Token)match(input,19,FOLLOW_19_in_concretesyntax395); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a17);copyLocalizationInfos((CommonToken)a17, element); 
                     }
-                    a18=(Token)match(input,18,FOLLOW_18_in_concretesyntax404); if (state.failed) return element;
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:244:2: ( (a18= 'TOKENS' a19= '{' ( (a20= tokendefinition a21= ';' ) )* a22= '}' ) )?
+            int alt8=2;
+            int LA8_0 = input.LA(1);
+
+            if ( (LA8_0==22) ) {
+                alt8=1;
+            }
+            switch (alt8) {
+                case 1 :
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:245:3: (a18= 'TOKENS' a19= '{' ( (a20= tokendefinition a21= ';' ) )* a22= '}' )
+                    {
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:245:3: (a18= 'TOKENS' a19= '{' ( (a20= tokendefinition a21= ';' ) )* a22= '}' )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:246:4: a18= 'TOKENS' a19= '{' ( (a20= tokendefinition a21= ';' ) )* a22= '}'
+                    {
+                    a18=(Token)match(input,22,FOLLOW_22_in_concretesyntax420); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a18);copyLocalizationInfos((CommonToken)a18, element); 
                     }
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:198:4: ( (a19= tokendefinition a20= ';' ) )*
-                    loop6:
+                    a19=(Token)match(input,18,FOLLOW_18_in_concretesyntax430); if (state.failed) return element;
+                    if ( state.backtracking==0 ) {
+                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a19);copyLocalizationInfos((CommonToken)a19, element); 
+                    }
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:248:4: ( (a20= tokendefinition a21= ';' ) )*
+                    loop7:
                     do {
-                        int alt6=2;
-                        int LA6_0 = input.LA(1);
+                        int alt7=2;
+                        int LA7_0 = input.LA(1);
 
-                        if ( (LA6_0==39||LA6_0==42) ) {
-                            alt6=1;
+                        if ( (LA7_0==39||LA7_0==42) ) {
+                            alt7=1;
                         }
 
 
-                        switch (alt6) {
+                        switch (alt7) {
                     	case 1 :
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:199:5: (a19= tokendefinition a20= ';' )
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:249:5: (a20= tokendefinition a21= ';' )
                     	    {
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:199:5: (a19= tokendefinition a20= ';' )
-                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:200:6: a19= tokendefinition a20= ';'
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:249:5: (a20= tokendefinition a21= ';' )
+                    	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:250:6: a20= tokendefinition a21= ';'
                     	    {
-                    	    pushFollow(FOLLOW_tokendefinition_in_concretesyntax427);
-                    	    a19=tokendefinition();
+                    	    pushFollow(FOLLOW_tokendefinition_in_concretesyntax453);
+                    	    a20=tokendefinition();
 
                     	    state._fsp--;
                     	    if (state.failed) return element;
@@ -541,14 +613,16 @@ public class CsParser extends AbstractEMFTextParser {
                     	      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
                     	      }
 
-                    	      addObjectToList(element, "tokens", a19); 
-                    	      collectHiddenTokens(element, a19);
-                    	      copyLocalizationInfos(a19, element); 
+                    	      if (a20 != null) {
+                    	      addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS, a20); 
+                    	      }
+                    	      collectHiddenTokens(element, a20);
+                    	      copyLocalizationInfos(a20, element); 
 
                     	    }
-                    	    a20=(Token)match(input,21,FOLLOW_21_in_concretesyntax440); if (state.failed) return element;
+                    	    a21=(Token)match(input,21,FOLLOW_21_in_concretesyntax466); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
-                    	       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a20);copyLocalizationInfos((CommonToken)a20, element); 
+                    	       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a21);copyLocalizationInfos((CommonToken)a21, element); 
                     	    }
 
                     	    }
@@ -558,13 +632,13 @@ public class CsParser extends AbstractEMFTextParser {
                     	    break;
 
                     	default :
-                    	    break loop6;
+                    	    break loop7;
                         }
                     } while (true);
 
-                    a21=(Token)match(input,19,FOLLOW_19_in_concretesyntax462); if (state.failed) return element;
+                    a22=(Token)match(input,19,FOLLOW_19_in_concretesyntax488); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a21);copyLocalizationInfos((CommonToken)a21, element); 
+                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a22);copyLocalizationInfos((CommonToken)a22, element); 
                     }
 
                     }
@@ -575,35 +649,35 @@ public class CsParser extends AbstractEMFTextParser {
 
             }
 
-            a22=(Token)match(input,23,FOLLOW_23_in_concretesyntax478); if (state.failed) return element;
-            if ( state.backtracking==0 ) {
-               if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a22);copyLocalizationInfos((CommonToken)a22, element); 
-            }
-            a23=(Token)match(input,18,FOLLOW_18_in_concretesyntax486); if (state.failed) return element;
+            a23=(Token)match(input,23,FOLLOW_23_in_concretesyntax504); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a23);copyLocalizationInfos((CommonToken)a23, element); 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:217:2: ( (a24= rule )+ )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:218:3: (a24= rule )+
+            a24=(Token)match(input,18,FOLLOW_18_in_concretesyntax512); if (state.failed) return element;
+            if ( state.backtracking==0 ) {
+               if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a24);copyLocalizationInfos((CommonToken)a24, element); 
+            }
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:269:2: ( (a25= rule )+ )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:270:3: (a25= rule )+
             {
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:218:3: (a24= rule )+
-            int cnt8=0;
-            loop8:
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:270:3: (a25= rule )+
+            int cnt9=0;
+            loop9:
             do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
+                int alt9=2;
+                int LA9_0 = input.LA(1);
 
-                if ( (LA8_0==QUALIFIED_NAME) ) {
-                    alt8=1;
+                if ( (LA9_0==QUALIFIED_NAME) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
             	case 1 :
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:219:4: a24= rule
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:271:4: a25= rule
             	    {
-            	    pushFollow(FOLLOW_rule_in_concretesyntax503);
-            	    a24=rule();
+            	    pushFollow(FOLLOW_rule_in_concretesyntax529);
+            	    a25=rule();
 
             	    state._fsp--;
             	    if (state.failed) return element;
@@ -612,9 +686,11 @@ public class CsParser extends AbstractEMFTextParser {
             	      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax(); 
             	      }
 
-            	      addObjectToList(element, "rules", a24); 
-            	      collectHiddenTokens(element, a24);
-            	      copyLocalizationInfos(a24, element); 
+            	      if (a25 != null) {
+            	      addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, a25); 
+            	      }
+            	      collectHiddenTokens(element, a25);
+            	      copyLocalizationInfos(a25, element); 
 
             	    }
 
@@ -622,21 +698,21 @@ public class CsParser extends AbstractEMFTextParser {
             	    break;
 
             	default :
-            	    if ( cnt8 >= 1 ) break loop8;
+            	    if ( cnt9 >= 1 ) break loop9;
             	    if (state.backtracking>0) {state.failed=true; return element;}
                         EarlyExitException eee =
-                            new EarlyExitException(8, input);
+                            new EarlyExitException(9, input);
                         throw eee;
                 }
-                cnt8++;
+                cnt9++;
             } while (true);
 
 
             }
 
-            a25=(Token)match(input,19,FOLLOW_19_in_concretesyntax520); if (state.failed) return element;
+            a26=(Token)match(input,19,FOLLOW_19_in_concretesyntax546); if (state.failed) return element;
             if ( state.backtracking==0 ) {
-               if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a25);copyLocalizationInfos((CommonToken)a25, element); 
+               if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();} collectHiddenTokens(element, (CommonToken)a26);copyLocalizationInfos((CommonToken)a26, element); 
             }
 
             }
@@ -655,7 +731,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "keywordimport"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:233:1: keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null] : a0= QUALIFIED_NAME a1= ':' a2= QUOTED_60_62 ( (a3= 'WITH' a4= 'SYNTAX' a5= QUALIFIED_NAME ) )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:287:1: keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null] : a0= QUALIFIED_NAME a1= ':' a2= QUOTED_60_62 ( (a3= QUOTED_60_62 ) )? ( (a4= 'WITH' a5= 'SYNTAX' a6= QUALIFIED_NAME ( (a7= QUOTED_60_62 ) )? ) )? ;
     public final org.emftext.sdk.concretesyntax.Import keywordimport() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Import element =  null;
         int keywordimport_StartIndex = input.index();
@@ -665,102 +741,206 @@ public class CsParser extends AbstractEMFTextParser {
         Token a3=null;
         Token a4=null;
         Token a5=null;
+        Token a6=null;
+        Token a7=null;
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:236:1: (a0= QUALIFIED_NAME a1= ':' a2= QUOTED_60_62 ( (a3= 'WITH' a4= 'SYNTAX' a5= QUALIFIED_NAME ) )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:237:2: a0= QUALIFIED_NAME a1= ':' a2= QUOTED_60_62 ( (a3= 'WITH' a4= 'SYNTAX' a5= QUALIFIED_NAME ) )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:290:1: (a0= QUALIFIED_NAME a1= ':' a2= QUOTED_60_62 ( (a3= QUOTED_60_62 ) )? ( (a4= 'WITH' a5= 'SYNTAX' a6= QUALIFIED_NAME ( (a7= QUOTED_60_62 ) )? ) )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:291:2: a0= QUALIFIED_NAME a1= ':' a2= QUOTED_60_62 ( (a3= QUOTED_60_62 ) )? ( (a4= 'WITH' a5= 'SYNTAX' a6= QUALIFIED_NAME ( (a7= QUOTED_60_62 ) )? ) )?
             {
-            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_keywordimport543); if (state.failed) return element;
+            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_keywordimport569); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("prefix"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a0, element); 
 
             }
-            a1=(Token)match(input,24,FOLLOW_24_in_keywordimport552); if (state.failed) return element;
+            a1=(Token)match(input,24,FOLLOW_24_in_keywordimport578); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a1);copyLocalizationInfos((CommonToken)a1, element); 
             }
-            a2=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_keywordimport560); if (state.failed) return element;
+            a2=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_keywordimport586); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("package"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
               org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenPackage();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("package"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), resolved, proxy);
 
-              element.eSet(element.eClass().getEStructuralFeature("package"), proxy); 
+              if (proxy != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), proxy); 
+              }
               collectHiddenTokens(element, proxy);
               copyLocalizationInfos((CommonToken) a2, element); 
               copyLocalizationInfos((CommonToken) a2, proxy); 
 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:274:2: ( (a3= 'WITH' a4= 'SYNTAX' a5= QUALIFIED_NAME ) )?
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:336:2: ( (a3= QUOTED_60_62 ) )?
+            int alt10=2;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA9_0==25) ) {
-                alt9=1;
+            if ( (LA10_0==QUOTED_60_62) ) {
+                alt10=1;
             }
-            switch (alt9) {
+            switch (alt10) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:275:3: (a3= 'WITH' a4= 'SYNTAX' a5= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:337:3: (a3= QUOTED_60_62 )
                     {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:275:3: (a3= 'WITH' a4= 'SYNTAX' a5= QUALIFIED_NAME )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:276:4: a3= 'WITH' a4= 'SYNTAX' a5= QUALIFIED_NAME
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:337:3: (a3= QUOTED_60_62 )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:338:4: a3= QUOTED_60_62
                     {
-                    a3=(Token)match(input,25,FOLLOW_25_in_keywordimport578); if (state.failed) return element;
+                    a3=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_keywordimport604); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
-                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); 
+                      if (element == null) {
+                      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
+                      }
+                      org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+                      tokenResolver.setOptions(getOptions());
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), result);
+                      Object resolvedObject = result.getResolvedToken();
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+                      }
+                      	java.lang.String resolved = (java.lang.String)resolvedObject;
+
+                      if (resolved != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), resolved); 
+                      }
+                      collectHiddenTokens(element, resolved);
+                      copyLocalizationInfos((CommonToken) a3, element); 
+
                     }
-                    a4=(Token)match(input,26,FOLLOW_26_in_keywordimport588); if (state.failed) return element;
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:360:2: ( (a4= 'WITH' a5= 'SYNTAX' a6= QUALIFIED_NAME ( (a7= QUOTED_60_62 ) )? ) )?
+            int alt12=2;
+            int LA12_0 = input.LA(1);
+
+            if ( (LA12_0==25) ) {
+                alt12=1;
+            }
+            switch (alt12) {
+                case 1 :
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:361:3: (a4= 'WITH' a5= 'SYNTAX' a6= QUALIFIED_NAME ( (a7= QUOTED_60_62 ) )? )
+                    {
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:361:3: (a4= 'WITH' a5= 'SYNTAX' a6= QUALIFIED_NAME ( (a7= QUOTED_60_62 ) )? )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:362:4: a4= 'WITH' a5= 'SYNTAX' a6= QUALIFIED_NAME ( (a7= QUOTED_60_62 ) )?
+                    {
+                    a4=(Token)match(input,25,FOLLOW_25_in_keywordimport630); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a4);copyLocalizationInfos((CommonToken)a4, element); 
                     }
-                    a5=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_keywordimport598); if (state.failed) return element;
+                    a5=(Token)match(input,26,FOLLOW_26_in_keywordimport640); if (state.failed) return element;
+                    if ( state.backtracking==0 ) {
+                       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport();} collectHiddenTokens(element, (CommonToken)a5);copyLocalizationInfos((CommonToken)a5, element); 
+                    }
+                    a6=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_keywordimport650); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                       if (element == null) {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
                       }
                       org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       tokenResolver.setOptions(getOptions());
-                      org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-                      tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("concreteSyntax"), result);
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), result);
                       Object resolvedObject = result.getResolvedToken();
-                      if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a6).getLine(), ((CommonToken) a6).getCharPositionInLine(), ((CommonToken) a6).getStartIndex(), ((CommonToken) a6).getStopIndex());
+                      }
                       String resolved = (String) resolvedObject;
                       org.emftext.sdk.concretesyntax.ConcreteSyntax proxy = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createConcreteSyntax();
                       collectHiddenTokens(element, proxy);
-                      getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("concreteSyntax"), resolved, proxy);
+                      getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), resolved, proxy);
 
-                      element.eSet(element.eClass().getEStructuralFeature("concreteSyntax"), proxy); 
+                      if (proxy != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), proxy); 
+                      }
                       collectHiddenTokens(element, proxy);
-                      copyLocalizationInfos((CommonToken) a5, element); 
-                      copyLocalizationInfos((CommonToken) a5, proxy); 
+                      copyLocalizationInfos((CommonToken) a6, element); 
+                      copyLocalizationInfos((CommonToken) a6, proxy); 
 
                     }
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:388:4: ( (a7= QUOTED_60_62 ) )?
+                    int alt11=2;
+                    int LA11_0 = input.LA(1);
+
+                    if ( (LA11_0==QUOTED_60_62) ) {
+                        alt11=1;
+                    }
+                    switch (alt11) {
+                        case 1 :
+                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:389:5: (a7= QUOTED_60_62 )
+                            {
+                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:389:5: (a7= QUOTED_60_62 )
+                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:390:6: a7= QUOTED_60_62
+                            {
+                            a7=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_keywordimport674); if (state.failed) return element;
+                            if ( state.backtracking==0 ) {
+                              if (element == null) {
+                              	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createImport(); 
+                              }
+                              org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
+                              tokenResolver.setOptions(getOptions());
+                              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                              tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), result);
+                              Object resolvedObject = result.getResolvedToken();
+                              if (resolvedObject == null) {
+                              	getResource().addError(result.getErrorMessage(), ((CommonToken) a7).getLine(), ((CommonToken) a7).getCharPositionInLine(), ((CommonToken) a7).getStartIndex(), ((CommonToken) a7).getStopIndex());
+                              }
+                              	java.lang.String resolved = (java.lang.String)resolvedObject;
+
+                              if (resolved != null) {
+                              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), resolved); 
+                              }
+                              collectHiddenTokens(element, resolved);
+                              copyLocalizationInfos((CommonToken) a7, element); 
+
+                            }
+
+                            }
+
+
+                            }
+                            break;
+
+                    }
+
 
                     }
 
@@ -787,7 +967,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "option"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:302:1: option returns [org.emftext.sdk.concretesyntax.Option element = null] : a0= QUALIFIED_NAME a1= '=' a2= QUOTED_34_34 ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:416:1: option returns [org.emftext.sdk.concretesyntax.Option element = null] : a0= QUALIFIED_NAME a1= '=' a2= QUOTED_34_34 ;
     public final org.emftext.sdk.concretesyntax.Option option() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Option element =  null;
         int option_StartIndex = input.index();
@@ -799,45 +979,53 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:305:1: (a0= QUALIFIED_NAME a1= '=' a2= QUOTED_34_34 )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:306:2: a0= QUALIFIED_NAME a1= '=' a2= QUOTED_34_34
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:419:1: (a0= QUALIFIED_NAME a1= '=' a2= QUOTED_34_34 )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:420:2: a0= QUALIFIED_NAME a1= '=' a2= QUOTED_34_34
             {
-            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_option630); if (state.failed) return element;
+            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_option718); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createOption(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("name"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__NAME), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__NAME), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a0, element); 
 
             }
-            a1=(Token)match(input,27,FOLLOW_27_in_option639); if (state.failed) return element;
+            a1=(Token)match(input,27,FOLLOW_27_in_option727); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createOption();} collectHiddenTokens(element, (CommonToken)a1);copyLocalizationInfos((CommonToken)a1, element); 
             }
-            a2=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_option647); if (state.failed) return element;
+            a2=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_option735); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createOption(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("value"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("value"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a2, element); 
 
@@ -859,7 +1047,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "rule"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:341:1: rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : (a0= QUALIFIED_NAME ) a1= '::=' a2= choice a3= ';' ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:463:1: rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : (a0= QUALIFIED_NAME ) a1= '::=' a2= choice a3= ';' ;
     public final org.emftext.sdk.concretesyntax.Rule rule() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Rule element =  null;
         int rule_StartIndex = input.index();
@@ -873,29 +1061,33 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:344:1: ( (a0= QUALIFIED_NAME ) a1= '::=' a2= choice a3= ';' )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:345:2: (a0= QUALIFIED_NAME ) a1= '::=' a2= choice a3= ';'
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:466:1: ( (a0= QUALIFIED_NAME ) a1= '::=' a2= choice a3= ';' )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:467:2: (a0= QUALIFIED_NAME ) a1= '::=' a2= choice a3= ';'
             {
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:345:2: (a0= QUALIFIED_NAME )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:346:3: a0= QUALIFIED_NAME
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:467:2: (a0= QUALIFIED_NAME )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:468:3: a0= QUALIFIED_NAME
             {
-            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_rule675); if (state.failed) return element;
+            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_rule763); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createRule(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("metaclass"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
               org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("metaclass"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), resolved, proxy);
 
-              element.eSet(element.eClass().getEStructuralFeature("metaclass"), proxy); 
+              if (proxy != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), proxy); 
+              }
               collectHiddenTokens(element, proxy);
               copyLocalizationInfos((CommonToken) a0, element); 
               copyLocalizationInfos((CommonToken) a0, proxy); 
@@ -904,11 +1096,11 @@ public class CsParser extends AbstractEMFTextParser {
 
             }
 
-            a1=(Token)match(input,28,FOLLOW_28_in_rule687); if (state.failed) return element;
+            a1=(Token)match(input,28,FOLLOW_28_in_rule775); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createRule();} collectHiddenTokens(element, (CommonToken)a1);copyLocalizationInfos((CommonToken)a1, element); 
             }
-            pushFollow(FOLLOW_choice_in_rule695);
+            pushFollow(FOLLOW_choice_in_rule783);
             a2=choice();
 
             state._fsp--;
@@ -918,12 +1110,14 @@ public class CsParser extends AbstractEMFTextParser {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createRule(); 
               }
 
-              element.eSet(element.eClass().getEStructuralFeature("definition"), a2); 
+              if (a2 != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), a2); 
+              }
               collectHiddenTokens(element, a2);
               copyLocalizationInfos(a2, element); 
 
             }
-            a3=(Token)match(input,21,FOLLOW_21_in_rule704); if (state.failed) return element;
+            a3=(Token)match(input,21,FOLLOW_21_in_rule792); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createRule();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); 
             }
@@ -944,7 +1138,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "sequence"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:380:1: sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : (a0= definition )+ ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:508:1: sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : (a0= definition )+ ;
     public final org.emftext.sdk.concretesyntax.Sequence sequence() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Sequence element =  null;
         int sequence_StartIndex = input.index();
@@ -955,26 +1149,26 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:383:1: ( (a0= definition )+ )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:384:2: (a0= definition )+
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:511:1: ( (a0= definition )+ )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:512:2: (a0= definition )+
             {
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:384:2: (a0= definition )+
-            int cnt10=0;
-            loop10:
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:512:2: (a0= definition )+
+            int cnt13=0;
+            loop13:
             do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
+                int alt13=2;
+                int LA13_0 = input.LA(1);
 
-                if ( (LA10_0==QUALIFIED_NAME||LA10_0==QUOTED_34_34||LA10_0==32||(LA10_0>=37 && LA10_0<=38)) ) {
-                    alt10=1;
+                if ( (LA13_0==QUALIFIED_NAME||LA13_0==QUOTED_34_34||LA13_0==32||(LA13_0>=37 && LA13_0<=38)) ) {
+                    alt13=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt13) {
             	case 1 :
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:385:3: a0= definition
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:513:3: a0= definition
             	    {
-            	    pushFollow(FOLLOW_definition_in_sequence731);
+            	    pushFollow(FOLLOW_definition_in_sequence819);
             	    a0=definition();
 
             	    state._fsp--;
@@ -984,7 +1178,9 @@ public class CsParser extends AbstractEMFTextParser {
             	      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createSequence(); 
             	      }
 
-            	      addObjectToList(element, "parts", a0); 
+            	      if (a0 != null) {
+            	      addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS, a0); 
+            	      }
             	      collectHiddenTokens(element, a0);
             	      copyLocalizationInfos(a0, element); 
 
@@ -994,13 +1190,13 @@ public class CsParser extends AbstractEMFTextParser {
             	    break;
 
             	default :
-            	    if ( cnt10 >= 1 ) break loop10;
+            	    if ( cnt13 >= 1 ) break loop13;
             	    if (state.backtracking>0) {state.failed=true; return element;}
                         EarlyExitException eee =
-                            new EarlyExitException(10, input);
+                            new EarlyExitException(13, input);
                         throw eee;
                 }
-                cnt10++;
+                cnt13++;
             } while (true);
 
 
@@ -1020,7 +1216,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "choice"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:397:1: choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : a0= sequence ( (a1= '|' a2= sequence ) )* ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:527:1: choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : a0= sequence ( (a1= '|' a2= sequence ) )* ;
     public final org.emftext.sdk.concretesyntax.Choice choice() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Choice element =  null;
         int choice_StartIndex = input.index();
@@ -1034,10 +1230,10 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:400:1: (a0= sequence ( (a1= '|' a2= sequence ) )* )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:401:2: a0= sequence ( (a1= '|' a2= sequence ) )*
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:1: (a0= sequence ( (a1= '|' a2= sequence ) )* )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:531:2: a0= sequence ( (a1= '|' a2= sequence ) )*
             {
-            pushFollow(FOLLOW_sequence_in_choice759);
+            pushFollow(FOLLOW_sequence_in_choice847);
             a0=sequence();
 
             state._fsp--;
@@ -1047,34 +1243,36 @@ public class CsParser extends AbstractEMFTextParser {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); 
               }
 
-              addObjectToList(element, "options", a0); 
+              if (a0 != null) {
+              addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a0); 
+              }
               collectHiddenTokens(element, a0);
               copyLocalizationInfos(a0, element); 
 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:410:2: ( (a1= '|' a2= sequence ) )*
-            loop11:
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:542:2: ( (a1= '|' a2= sequence ) )*
+            loop14:
             do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
+                int alt14=2;
+                int LA14_0 = input.LA(1);
 
-                if ( (LA11_0==29) ) {
-                    alt11=1;
+                if ( (LA14_0==29) ) {
+                    alt14=1;
                 }
 
 
-                switch (alt11) {
+                switch (alt14) {
             	case 1 :
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:411:3: (a1= '|' a2= sequence )
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:543:3: (a1= '|' a2= sequence )
             	    {
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:411:3: (a1= '|' a2= sequence )
-            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:412:4: a1= '|' a2= sequence
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:543:3: (a1= '|' a2= sequence )
+            	    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:544:4: a1= '|' a2= sequence
             	    {
-            	    a1=(Token)match(input,29,FOLLOW_29_in_choice777); if (state.failed) return element;
+            	    a1=(Token)match(input,29,FOLLOW_29_in_choice865); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
             	       if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice();} collectHiddenTokens(element, (CommonToken)a1);copyLocalizationInfos((CommonToken)a1, element); 
             	    }
-            	    pushFollow(FOLLOW_sequence_in_choice787);
+            	    pushFollow(FOLLOW_sequence_in_choice875);
             	    a2=sequence();
 
             	    state._fsp--;
@@ -1084,7 +1282,9 @@ public class CsParser extends AbstractEMFTextParser {
             	      	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createChoice(); 
             	      }
 
-            	      addObjectToList(element, "options", a2); 
+            	      if (a2 != null) {
+            	      addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a2); 
+            	      }
             	      collectHiddenTokens(element, a2);
             	      copyLocalizationInfos(a2, element); 
 
@@ -1097,7 +1297,7 @@ public class CsParser extends AbstractEMFTextParser {
             	    break;
 
             	default :
-            	    break loop11;
+            	    break loop14;
                 }
             } while (true);
 
@@ -1118,7 +1318,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "csstring"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:426:1: csstring returns [org.emftext.sdk.concretesyntax.CsString element = null] : a0= QUOTED_34_34 ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:560:1: csstring returns [org.emftext.sdk.concretesyntax.CsString element = null] : a0= QUOTED_34_34 ;
     public final org.emftext.sdk.concretesyntax.CsString csstring() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CsString element =  null;
         int csstring_StartIndex = input.index();
@@ -1128,23 +1328,27 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:429:1: (a0= QUOTED_34_34 )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:430:2: a0= QUOTED_34_34
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:563:1: (a0= QUOTED_34_34 )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:564:2: a0= QUOTED_34_34
             {
-            a0=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_csstring819); if (state.failed) return element;
+            a0=(Token)match(input,QUOTED_34_34,FOLLOW_QUOTED_34_34_in_csstring907); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createCsString(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("value"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("value"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a0, element); 
 
@@ -1166,7 +1370,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "definedplaceholder"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:448:1: definedplaceholder returns [org.emftext.sdk.concretesyntax.DefinedPlaceholder element = null] : a0= QUALIFIED_NAME a1= '[' a2= QUALIFIED_NAME a3= ']' (a4= cardinality )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:586:1: definedplaceholder returns [org.emftext.sdk.concretesyntax.DefinedPlaceholder element = null] : a0= QUALIFIED_NAME a1= '[' a2= QUALIFIED_NAME a3= ']' (a4= cardinality )? ;
     public final org.emftext.sdk.concretesyntax.DefinedPlaceholder definedplaceholder() throws RecognitionException {
         org.emftext.sdk.concretesyntax.DefinedPlaceholder element =  null;
         int definedplaceholder_StartIndex = input.index();
@@ -1181,73 +1385,81 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:451:1: (a0= QUALIFIED_NAME a1= '[' a2= QUALIFIED_NAME a3= ']' (a4= cardinality )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:452:2: a0= QUALIFIED_NAME a1= '[' a2= QUALIFIED_NAME a3= ']' (a4= cardinality )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:589:1: (a0= QUALIFIED_NAME a1= '[' a2= QUALIFIED_NAME a3= ']' (a4= cardinality )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:590:2: a0= QUALIFIED_NAME a1= '[' a2= QUALIFIED_NAME a3= ']' (a4= cardinality )?
             {
-            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_definedplaceholder843); if (state.failed) return element;
+            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_definedplaceholder931); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDefinedPlaceholder(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("feature"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__FEATURE), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
               org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenFeature();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("feature"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__FEATURE), resolved, proxy);
 
-              element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); 
+              if (proxy != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__FEATURE), proxy); 
+              }
               collectHiddenTokens(element, proxy);
               copyLocalizationInfos((CommonToken) a0, element); 
               copyLocalizationInfos((CommonToken) a0, proxy); 
 
             }
-            a1=(Token)match(input,30,FOLLOW_30_in_definedplaceholder852); if (state.failed) return element;
+            a1=(Token)match(input,30,FOLLOW_30_in_definedplaceholder940); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDefinedPlaceholder();} collectHiddenTokens(element, (CommonToken)a1);copyLocalizationInfos((CommonToken)a1, element); 
             }
-            a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_definedplaceholder860); if (state.failed) return element;
+            a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_definedplaceholder948); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDefinedPlaceholder(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("token"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
-              org.emftext.sdk.concretesyntax.NormalToken proxy = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken();
+              org.emftext.sdk.concretesyntax.PreDefinedToken proxy = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPreDefinedToken();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("token"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), resolved, proxy);
 
-              element.eSet(element.eClass().getEStructuralFeature("token"), proxy); 
+              if (proxy != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), proxy); 
+              }
               collectHiddenTokens(element, proxy);
               copyLocalizationInfos((CommonToken) a2, element); 
               copyLocalizationInfos((CommonToken) a2, proxy); 
 
             }
-            a3=(Token)match(input,31,FOLLOW_31_in_definedplaceholder869); if (state.failed) return element;
+            a3=(Token)match(input,31,FOLLOW_31_in_definedplaceholder957); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDefinedPlaceholder();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:494:2: (a4= cardinality )?
-            int alt12=2;
-            int LA12_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:640:2: (a4= cardinality )?
+            int alt15=2;
+            int LA15_0 = input.LA(1);
 
-            if ( ((LA12_0>=34 && LA12_0<=36)) ) {
-                alt12=1;
+            if ( ((LA15_0>=34 && LA15_0<=36)) ) {
+                alt15=1;
             }
-            switch (alt12) {
+            switch (alt15) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:495:3: a4= cardinality
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:641:3: a4= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_definedplaceholder881);
+                    pushFollow(FOLLOW_cardinality_in_definedplaceholder969);
                     a4=cardinality();
 
                     state._fsp--;
@@ -1257,7 +1469,9 @@ public class CsParser extends AbstractEMFTextParser {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDefinedPlaceholder(); 
                       }
 
-                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a4); 
+                      if (a4 != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__CARDINALITY), a4); 
+                      }
                       collectHiddenTokens(element, a4);
                       copyLocalizationInfos(a4, element); 
 
@@ -1285,7 +1499,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "derivedplaceholder"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:507:1: derivedplaceholder returns [org.emftext.sdk.concretesyntax.DerivedPlaceholder element = null] : a0= QUALIFIED_NAME a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:655:1: derivedplaceholder returns [org.emftext.sdk.concretesyntax.DerivedPlaceholder element = null] : a0= QUALIFIED_NAME a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )? ;
     public final org.emftext.sdk.concretesyntax.DerivedPlaceholder derivedplaceholder() throws RecognitionException {
         org.emftext.sdk.concretesyntax.DerivedPlaceholder element =  null;
         int derivedplaceholder_StartIndex = input.index();
@@ -1302,99 +1516,111 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:510:1: (a0= QUALIFIED_NAME a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:511:2: a0= QUALIFIED_NAME a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:658:1: (a0= QUALIFIED_NAME a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:659:2: a0= QUALIFIED_NAME a1= '[' ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )? a5= ']' (a6= cardinality )?
             {
-            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_derivedplaceholder909); if (state.failed) return element;
+            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_derivedplaceholder997); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("feature"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__FEATURE), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
               org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenFeature();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("feature"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__FEATURE), resolved, proxy);
 
-              element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); 
+              if (proxy != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__FEATURE), proxy); 
+              }
               collectHiddenTokens(element, proxy);
               copyLocalizationInfos((CommonToken) a0, element); 
               copyLocalizationInfos((CommonToken) a0, proxy); 
 
             }
-            a1=(Token)match(input,30,FOLLOW_30_in_derivedplaceholder918); if (state.failed) return element;
+            a1=(Token)match(input,30,FOLLOW_30_in_derivedplaceholder1006); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder();} collectHiddenTokens(element, (CommonToken)a1);copyLocalizationInfos((CommonToken)a1, element); 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:532:2: ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )?
-            int alt14=2;
-            int LA14_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:684:2: ( (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? ) )?
+            int alt17=2;
+            int LA17_0 = input.LA(1);
 
-            if ( (LA14_0==QUOTED_39_39) ) {
-                alt14=1;
+            if ( (LA17_0==QUOTED_39_39) ) {
+                alt17=1;
             }
-            switch (alt14) {
+            switch (alt17) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:533:3: (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:685:3: (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? )
                     {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:533:3: (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:4: a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )?
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:685:3: (a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )? )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:686:4: a2= QUOTED_39_39 ( (a3= ',' a4= QUOTED_39_39 ) )?
                     {
-                    a2=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder935); if (state.failed) return element;
+                    a2=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder1023); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                       if (element == null) {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder(); 
                       }
                       org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
                       tokenResolver.setOptions(getOptions());
-                      org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-                      tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("prefix"), result);
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX), result);
                       Object resolvedObject = result.getResolvedToken();
-                      if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-                      java.lang.String resolved = (java.lang.String)resolvedObject;
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+                      }
+                      	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-                      element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); 
+                      if (resolved != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX), resolved); 
+                      }
                       collectHiddenTokens(element, resolved);
                       copyLocalizationInfos((CommonToken) a2, element); 
 
                     }
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:550:4: ( (a3= ',' a4= QUOTED_39_39 ) )?
-                    int alt13=2;
-                    int LA13_0 = input.LA(1);
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:706:4: ( (a3= ',' a4= QUOTED_39_39 ) )?
+                    int alt16=2;
+                    int LA16_0 = input.LA(1);
 
-                    if ( (LA13_0==16) ) {
-                        alt13=1;
+                    if ( (LA16_0==16) ) {
+                        alt16=1;
                     }
-                    switch (alt13) {
+                    switch (alt16) {
                         case 1 :
-                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:551:5: (a3= ',' a4= QUOTED_39_39 )
+                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:707:5: (a3= ',' a4= QUOTED_39_39 )
                             {
-                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:551:5: (a3= ',' a4= QUOTED_39_39 )
-                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:552:6: a3= ',' a4= QUOTED_39_39
+                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:707:5: (a3= ',' a4= QUOTED_39_39 )
+                            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:708:6: a3= ',' a4= QUOTED_39_39
                             {
-                            a3=(Token)match(input,16,FOLLOW_16_in_derivedplaceholder959); if (state.failed) return element;
+                            a3=(Token)match(input,16,FOLLOW_16_in_derivedplaceholder1047); if (state.failed) return element;
                             if ( state.backtracking==0 ) {
                                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); 
                             }
-                            a4=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder971); if (state.failed) return element;
+                            a4=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_derivedplaceholder1059); if (state.failed) return element;
                             if ( state.backtracking==0 ) {
                               if (element == null) {
                               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder(); 
                               }
                               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
                               tokenResolver.setOptions(getOptions());
-                              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-                              tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature("suffix"), result);
+                              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                              tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX), result);
                               Object resolvedObject = result.getResolvedToken();
-                              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-                              java.lang.String resolved = (java.lang.String)resolvedObject;
+                              if (resolvedObject == null) {
+                              	getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+                              }
+                              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-                              element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); 
+                              if (resolved != null) {
+                              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX), resolved); 
+                              }
                               collectHiddenTokens(element, resolved);
                               copyLocalizationInfos((CommonToken) a4, element); 
 
@@ -1417,22 +1643,22 @@ public class CsParser extends AbstractEMFTextParser {
 
             }
 
-            a5=(Token)match(input,31,FOLLOW_31_in_derivedplaceholder1000); if (state.failed) return element;
+            a5=(Token)match(input,31,FOLLOW_31_in_derivedplaceholder1088); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder();} collectHiddenTokens(element, (CommonToken)a5);copyLocalizationInfos((CommonToken)a5, element); 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:2: (a6= cardinality )?
-            int alt15=2;
-            int LA15_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:734:2: (a6= cardinality )?
+            int alt18=2;
+            int LA18_0 = input.LA(1);
 
-            if ( ((LA15_0>=34 && LA15_0<=36)) ) {
-                alt15=1;
+            if ( ((LA18_0>=34 && LA18_0<=36)) ) {
+                alt18=1;
             }
-            switch (alt15) {
+            switch (alt18) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:575:3: a6= cardinality
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:735:3: a6= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_derivedplaceholder1012);
+                    pushFollow(FOLLOW_cardinality_in_derivedplaceholder1100);
                     a6=cardinality();
 
                     state._fsp--;
@@ -1442,7 +1668,9 @@ public class CsParser extends AbstractEMFTextParser {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDerivedPlaceholder(); 
                       }
 
-                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a6); 
+                      if (a6 != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DERIVED_PLACEHOLDER__CARDINALITY), a6); 
+                      }
                       collectHiddenTokens(element, a6);
                       copyLocalizationInfos(a6, element); 
 
@@ -1470,7 +1698,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "containment"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:587:1: containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : a0= QUALIFIED_NAME ( (a1= ':' a2= QUALIFIED_NAME ) )? (a3= cardinality )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:749:1: containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : a0= QUALIFIED_NAME ( (a1= ':' a2= QUALIFIED_NAME ) )? (a3= cardinality )? ;
     public final org.emftext.sdk.concretesyntax.Containment containment() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Containment element =  null;
         int containment_StartIndex = input.index();
@@ -1484,66 +1712,74 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:590:1: (a0= QUALIFIED_NAME ( (a1= ':' a2= QUALIFIED_NAME ) )? (a3= cardinality )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:591:2: a0= QUALIFIED_NAME ( (a1= ':' a2= QUALIFIED_NAME ) )? (a3= cardinality )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:752:1: (a0= QUALIFIED_NAME ( (a1= ':' a2= QUALIFIED_NAME ) )? (a3= cardinality )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:753:2: a0= QUALIFIED_NAME ( (a1= ':' a2= QUALIFIED_NAME ) )? (a3= cardinality )?
             {
-            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_containment1040); if (state.failed) return element;
+            a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_containment1128); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature("feature"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+              }
               String resolved = (String) resolvedObject;
               org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenFeature();
               collectHiddenTokens(element, proxy);
-              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("feature"), resolved, proxy);
+              getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), resolved, proxy);
 
-              element.eSet(element.eClass().getEStructuralFeature("feature"), proxy); 
+              if (proxy != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), proxy); 
+              }
               collectHiddenTokens(element, proxy);
               copyLocalizationInfos((CommonToken) a0, element); 
               copyLocalizationInfos((CommonToken) a0, proxy); 
 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:611:2: ( (a1= ':' a2= QUALIFIED_NAME ) )?
-            int alt16=2;
-            int LA16_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:777:2: ( (a1= ':' a2= QUALIFIED_NAME ) )?
+            int alt19=2;
+            int LA19_0 = input.LA(1);
 
-            if ( (LA16_0==24) ) {
-                alt16=1;
+            if ( (LA19_0==24) ) {
+                alt19=1;
             }
-            switch (alt16) {
+            switch (alt19) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:612:3: (a1= ':' a2= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:778:3: (a1= ':' a2= QUALIFIED_NAME )
                     {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:612:3: (a1= ':' a2= QUALIFIED_NAME )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:613:4: a1= ':' a2= QUALIFIED_NAME
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:778:3: (a1= ':' a2= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:779:4: a1= ':' a2= QUALIFIED_NAME
                     {
-                    a1=(Token)match(input,24,FOLLOW_24_in_containment1058); if (state.failed) return element;
+                    a1=(Token)match(input,24,FOLLOW_24_in_containment1146); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment();} collectHiddenTokens(element, (CommonToken)a1);copyLocalizationInfos((CommonToken)a1, element); 
                     }
-                    a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_containment1068); if (state.failed) return element;
+                    a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_containment1156); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                       if (element == null) {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment(); 
                       }
                       org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       tokenResolver.setOptions(getOptions());
-                      org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-                      tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("type"), result);
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), result);
                       Object resolvedObject = result.getResolvedToken();
-                      if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+                      }
                       String resolved = (String) resolvedObject;
                       org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
                       collectHiddenTokens(element, proxy);
-                      getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("type"), resolved, proxy);
+                      getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), resolved, proxy);
 
-                      element.eSet(element.eClass().getEStructuralFeature("type"), proxy); 
+                      if (proxy != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), proxy); 
+                      }
                       collectHiddenTokens(element, proxy);
                       copyLocalizationInfos((CommonToken) a2, element); 
                       copyLocalizationInfos((CommonToken) a2, proxy); 
@@ -1558,18 +1794,18 @@ public class CsParser extends AbstractEMFTextParser {
 
             }
 
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:636:2: (a3= cardinality )?
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:806:2: (a3= cardinality )?
+            int alt20=2;
+            int LA20_0 = input.LA(1);
 
-            if ( ((LA17_0>=34 && LA17_0<=36)) ) {
-                alt17=1;
+            if ( ((LA20_0>=34 && LA20_0<=36)) ) {
+                alt20=1;
             }
-            switch (alt17) {
+            switch (alt20) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:637:3: a3= cardinality
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:807:3: a3= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_containment1089);
+                    pushFollow(FOLLOW_cardinality_in_containment1177);
                     a3=cardinality();
 
                     state._fsp--;
@@ -1579,7 +1815,9 @@ public class CsParser extends AbstractEMFTextParser {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment(); 
                       }
 
-                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a3); 
+                      if (a3 != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a3); 
+                      }
                       collectHiddenTokens(element, a3);
                       copyLocalizationInfos(a3, element); 
 
@@ -1607,7 +1845,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "compounddefinition"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:649:1: compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' a1= choice a2= ')' (a3= cardinality )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:821:1: compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' a1= choice a2= ')' (a3= cardinality )? ;
     public final org.emftext.sdk.concretesyntax.CompoundDefinition compounddefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CompoundDefinition element =  null;
         int compounddefinition_StartIndex = input.index();
@@ -1622,14 +1860,14 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:652:1: (a0= '(' a1= choice a2= ')' (a3= cardinality )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:653:2: a0= '(' a1= choice a2= ')' (a3= cardinality )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:824:1: (a0= '(' a1= choice a2= ')' (a3= cardinality )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:825:2: a0= '(' a1= choice a2= ')' (a3= cardinality )?
             {
-            a0=(Token)match(input,32,FOLLOW_32_in_compounddefinition1117); if (state.failed) return element;
+            a0=(Token)match(input,32,FOLLOW_32_in_compounddefinition1205); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createCompoundDefinition();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
-            pushFollow(FOLLOW_choice_in_compounddefinition1125);
+            pushFollow(FOLLOW_choice_in_compounddefinition1213);
             a1=choice();
 
             state._fsp--;
@@ -1639,27 +1877,29 @@ public class CsParser extends AbstractEMFTextParser {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createCompoundDefinition(); 
               }
 
-              element.eSet(element.eClass().getEStructuralFeature("definitions"), a1); 
+              if (a1 != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), a1); 
+              }
               collectHiddenTokens(element, a1);
               copyLocalizationInfos(a1, element); 
 
             }
-            a2=(Token)match(input,33,FOLLOW_33_in_compounddefinition1134); if (state.failed) return element;
+            a2=(Token)match(input,33,FOLLOW_33_in_compounddefinition1222); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createCompoundDefinition();} collectHiddenTokens(element, (CommonToken)a2);copyLocalizationInfos((CommonToken)a2, element); 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:664:2: (a3= cardinality )?
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:838:2: (a3= cardinality )?
+            int alt21=2;
+            int LA21_0 = input.LA(1);
 
-            if ( ((LA18_0>=34 && LA18_0<=36)) ) {
-                alt18=1;
+            if ( ((LA21_0>=34 && LA21_0<=36)) ) {
+                alt21=1;
             }
-            switch (alt18) {
+            switch (alt21) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:665:3: a3= cardinality
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:839:3: a3= cardinality
                     {
-                    pushFollow(FOLLOW_cardinality_in_compounddefinition1146);
+                    pushFollow(FOLLOW_cardinality_in_compounddefinition1234);
                     a3=cardinality();
 
                     state._fsp--;
@@ -1669,7 +1909,9 @@ public class CsParser extends AbstractEMFTextParser {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createCompoundDefinition(); 
                       }
 
-                      element.eSet(element.eClass().getEStructuralFeature("cardinality"), a3); 
+                      if (a3 != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), a3); 
+                      }
                       collectHiddenTokens(element, a3);
                       copyLocalizationInfos(a3, element); 
 
@@ -1697,7 +1939,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "plus"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:677:1: plus returns [org.emftext.sdk.concretesyntax.PLUS element = null] : a0= '+' ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:853:1: plus returns [org.emftext.sdk.concretesyntax.PLUS element = null] : a0= '+' ;
     public final org.emftext.sdk.concretesyntax.PLUS plus() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PLUS element =  null;
         int plus_StartIndex = input.index();
@@ -1707,10 +1949,10 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:680:1: (a0= '+' )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:681:2: a0= '+'
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:856:1: (a0= '+' )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:857:2: a0= '+'
             {
-            a0=(Token)match(input,34,FOLLOW_34_in_plus1174); if (state.failed) return element;
+            a0=(Token)match(input,34,FOLLOW_34_in_plus1262); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPLUS();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
@@ -1731,7 +1973,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "star"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:684:1: star returns [org.emftext.sdk.concretesyntax.STAR element = null] : a0= '*' ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:860:1: star returns [org.emftext.sdk.concretesyntax.STAR element = null] : a0= '*' ;
     public final org.emftext.sdk.concretesyntax.STAR star() throws RecognitionException {
         org.emftext.sdk.concretesyntax.STAR element =  null;
         int star_StartIndex = input.index();
@@ -1741,10 +1983,10 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:687:1: (a0= '*' )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:688:2: a0= '*'
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:863:1: (a0= '*' )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:864:2: a0= '*'
             {
-            a0=(Token)match(input,35,FOLLOW_35_in_star1197); if (state.failed) return element;
+            a0=(Token)match(input,35,FOLLOW_35_in_star1285); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createSTAR();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
@@ -1765,7 +2007,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "questionmark"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:691:1: questionmark returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null] : a0= '?' ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:867:1: questionmark returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null] : a0= '?' ;
     public final org.emftext.sdk.concretesyntax.QUESTIONMARK questionmark() throws RecognitionException {
         org.emftext.sdk.concretesyntax.QUESTIONMARK element =  null;
         int questionmark_StartIndex = input.index();
@@ -1775,10 +2017,10 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:694:1: (a0= '?' )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:695:2: a0= '?'
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:870:1: (a0= '?' )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:871:2: a0= '?'
             {
-            a0=(Token)match(input,36,FOLLOW_36_in_questionmark1220); if (state.failed) return element;
+            a0=(Token)match(input,36,FOLLOW_36_in_questionmark1308); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createQUESTIONMARK();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
@@ -1799,7 +2041,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "whitespaces"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:698:1: whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : a0= '#' a1= NUMBER ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:874:1: whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : a0= '#' a1= NUMBER ;
     public final org.emftext.sdk.concretesyntax.WhiteSpaces whitespaces() throws RecognitionException {
         org.emftext.sdk.concretesyntax.WhiteSpaces element =  null;
         int whitespaces_StartIndex = input.index();
@@ -1810,27 +2052,31 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:701:1: (a0= '#' a1= NUMBER )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:702:2: a0= '#' a1= NUMBER
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:877:1: (a0= '#' a1= NUMBER )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:878:2: a0= '#' a1= NUMBER
             {
-            a0=(Token)match(input,37,FOLLOW_37_in_whitespaces1243); if (state.failed) return element;
+            a0=(Token)match(input,37,FOLLOW_37_in_whitespaces1331); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createWhiteSpaces();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
-            a1=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_whitespaces1251); if (state.failed) return element;
+            a1=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_whitespaces1339); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createWhiteSpaces(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("NUMBER");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("amount"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+              }
+              	java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("amount"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a1, element); 
 
@@ -1852,7 +2098,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "linebreak"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:721:1: linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : a0= '!' a1= NUMBER ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:901:1: linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : a0= '!' a1= NUMBER ;
     public final org.emftext.sdk.concretesyntax.LineBreak linebreak() throws RecognitionException {
         org.emftext.sdk.concretesyntax.LineBreak element =  null;
         int linebreak_StartIndex = input.index();
@@ -1863,27 +2109,31 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:724:1: (a0= '!' a1= NUMBER )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:725:2: a0= '!' a1= NUMBER
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:904:1: (a0= '!' a1= NUMBER )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:905:2: a0= '!' a1= NUMBER
             {
-            a0=(Token)match(input,38,FOLLOW_38_in_linebreak1275); if (state.failed) return element;
+            a0=(Token)match(input,38,FOLLOW_38_in_linebreak1363); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createLineBreak();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
-            a1=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_linebreak1283); if (state.failed) return element;
+            a1=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_linebreak1371); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createLineBreak(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("NUMBER");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("tab"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+              }
+              	java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("tab"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a1, element); 
 
@@ -1905,7 +2155,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "normaltoken"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:744:1: normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null] : a0= 'DEFINE' a1= QUALIFIED_NAME a2= QUOTED_36_36 ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:928:1: normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null] : a0= 'DEFINE' a1= QUALIFIED_NAME a2= QUOTED_36_36 ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )? ;
     public final org.emftext.sdk.concretesyntax.NormalToken normaltoken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.NormalToken element =  null;
         int normaltoken_StartIndex = input.index();
@@ -1920,85 +2170,97 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:747:1: (a0= 'DEFINE' a1= QUALIFIED_NAME a2= QUOTED_36_36 ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:748:2: a0= 'DEFINE' a1= QUALIFIED_NAME a2= QUOTED_36_36 ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:931:1: (a0= 'DEFINE' a1= QUALIFIED_NAME a2= QUOTED_36_36 ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:932:2: a0= 'DEFINE' a1= QUALIFIED_NAME a2= QUOTED_36_36 ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )?
             {
-            a0=(Token)match(input,39,FOLLOW_39_in_normaltoken1307); if (state.failed) return element;
+            a0=(Token)match(input,39,FOLLOW_39_in_normaltoken1395); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
-            a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_normaltoken1315); if (state.failed) return element;
+            a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_normaltoken1403); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a1, element); 
 
             }
-            a2=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_normaltoken1324); if (state.failed) return element;
+            a2=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_normaltoken1412); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature("regex"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a2, element); 
 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:781:2: ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:973:2: ( (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME ) )?
+            int alt22=2;
+            int LA22_0 = input.LA(1);
 
-            if ( (LA19_0==40) ) {
-                alt19=1;
+            if ( (LA22_0==40) ) {
+                alt22=1;
             }
-            switch (alt19) {
+            switch (alt22) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:782:3: (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:974:3: (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME )
                     {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:782:3: (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:783:4: a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:974:3: (a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:975:4: a3= 'COLLECT' a4= 'IN' a5= QUALIFIED_NAME
                     {
-                    a3=(Token)match(input,40,FOLLOW_40_in_normaltoken1342); if (state.failed) return element;
+                    a3=(Token)match(input,40,FOLLOW_40_in_normaltoken1430); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); 
                     }
-                    a4=(Token)match(input,41,FOLLOW_41_in_normaltoken1352); if (state.failed) return element;
+                    a4=(Token)match(input,41,FOLLOW_41_in_normaltoken1440); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken();} collectHiddenTokens(element, (CommonToken)a4);copyLocalizationInfos((CommonToken)a4, element); 
                     }
-                    a5=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_normaltoken1362); if (state.failed) return element;
+                    a5=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_normaltoken1450); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                       if (element == null) {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createNormalToken(); 
                       }
                       org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       tokenResolver.setOptions(getOptions());
-                      org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-                      tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("attributeName"), result);
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), result);
                       Object resolvedObject = result.getResolvedToken();
-                      if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-                      java.lang.String resolved = (java.lang.String)resolvedObject;
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+                      }
+                      	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-                      element.eSet(element.eClass().getEStructuralFeature("attributeName"), resolved); 
+                      if (resolved != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), resolved); 
+                      }
                       collectHiddenTokens(element, resolved);
                       copyLocalizationInfos((CommonToken) a5, element); 
 
@@ -2029,7 +2291,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "decoratedtoken"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:805:1: decoratedtoken returns [org.emftext.sdk.concretesyntax.DecoratedToken element = null] : a0= 'DEFINE' a1= QUALIFIED_NAME (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1001:1: decoratedtoken returns [org.emftext.sdk.concretesyntax.DecoratedToken element = null] : a0= 'DEFINE' a1= QUALIFIED_NAME (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )? ;
     public final org.emftext.sdk.concretesyntax.DecoratedToken decoratedtoken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.DecoratedToken element =  null;
         int decoratedtoken_StartIndex = input.index();
@@ -2050,55 +2312,63 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:808:1: (a0= 'DEFINE' a1= QUALIFIED_NAME (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:809:2: a0= 'DEFINE' a1= QUALIFIED_NAME (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1004:1: (a0= 'DEFINE' a1= QUALIFIED_NAME (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1005:2: a0= 'DEFINE' a1= QUALIFIED_NAME (a2= '[' (a3= QUOTED_39_39 ) a4= ']' ) a5= QUOTED_36_36 (a6= '[' (a7= QUOTED_39_39 ) a8= ']' ) ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )?
             {
-            a0=(Token)match(input,39,FOLLOW_39_in_decoratedtoken1394); if (state.failed) return element;
+            a0=(Token)match(input,39,FOLLOW_39_in_decoratedtoken1482); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
-            a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_decoratedtoken1402); if (state.failed) return element;
+            a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_decoratedtoken1490); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__NAME), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__NAME), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a1, element); 
 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:826:2: (a2= '[' (a3= QUOTED_39_39 ) a4= ']' )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:827:3: a2= '[' (a3= QUOTED_39_39 ) a4= ']'
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1026:2: (a2= '[' (a3= QUOTED_39_39 ) a4= ']' )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1027:3: a2= '[' (a3= QUOTED_39_39 ) a4= ']'
             {
-            a2=(Token)match(input,30,FOLLOW_30_in_decoratedtoken1415); if (state.failed) return element;
+            a2=(Token)match(input,30,FOLLOW_30_in_decoratedtoken1503); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken();} collectHiddenTokens(element, (CommonToken)a2);copyLocalizationInfos((CommonToken)a2, element); 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:828:3: (a3= QUOTED_39_39 )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:829:4: a3= QUOTED_39_39
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1028:3: (a3= QUOTED_39_39 )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1029:4: a3= QUOTED_39_39
             {
-            a3=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1429); if (state.failed) return element;
+            a3=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1517); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature("prefix"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__PREFIX), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("prefix"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__PREFIX), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a3, element); 
 
@@ -2106,55 +2376,63 @@ public class CsParser extends AbstractEMFTextParser {
 
             }
 
-            a4=(Token)match(input,31,FOLLOW_31_in_decoratedtoken1443); if (state.failed) return element;
+            a4=(Token)match(input,31,FOLLOW_31_in_decoratedtoken1531); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken();} collectHiddenTokens(element, (CommonToken)a4);copyLocalizationInfos((CommonToken)a4, element); 
             }
 
             }
 
-            a5=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_decoratedtoken1454); if (state.failed) return element;
+            a5=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_decoratedtoken1542); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature("regex"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__REGEX), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("regex"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__REGEX), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a5, element); 
 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:864:2: (a6= '[' (a7= QUOTED_39_39 ) a8= ']' )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:865:3: a6= '[' (a7= QUOTED_39_39 ) a8= ']'
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1072:2: (a6= '[' (a7= QUOTED_39_39 ) a8= ']' )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1073:3: a6= '[' (a7= QUOTED_39_39 ) a8= ']'
             {
-            a6=(Token)match(input,30,FOLLOW_30_in_decoratedtoken1467); if (state.failed) return element;
+            a6=(Token)match(input,30,FOLLOW_30_in_decoratedtoken1555); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken();} collectHiddenTokens(element, (CommonToken)a6);copyLocalizationInfos((CommonToken)a6, element); 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:866:3: (a7= QUOTED_39_39 )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:867:4: a7= QUOTED_39_39
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1074:3: (a7= QUOTED_39_39 )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1075:4: a7= QUOTED_39_39
             {
-            a7=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1481); if (state.failed) return element;
+            a7=(Token)match(input,QUOTED_39_39,FOLLOW_QUOTED_39_39_in_decoratedtoken1569); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature("suffix"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__SUFFIX), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a7).getLine(), ((CommonToken) a7).getCharPositionInLine(), ((CommonToken) a7).getStartIndex(), ((CommonToken) a7).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("suffix"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__SUFFIX), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a7, element); 
 
@@ -2162,49 +2440,53 @@ public class CsParser extends AbstractEMFTextParser {
 
             }
 
-            a8=(Token)match(input,31,FOLLOW_31_in_decoratedtoken1495); if (state.failed) return element;
+            a8=(Token)match(input,31,FOLLOW_31_in_decoratedtoken1583); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken();} collectHiddenTokens(element, (CommonToken)a8);copyLocalizationInfos((CommonToken)a8, element); 
             }
 
             }
 
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:886:2: ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )?
-            int alt20=2;
-            int LA20_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1098:2: ( (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME ) )?
+            int alt23=2;
+            int LA23_0 = input.LA(1);
 
-            if ( (LA20_0==40) ) {
-                alt20=1;
+            if ( (LA23_0==40) ) {
+                alt23=1;
             }
-            switch (alt20) {
+            switch (alt23) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:887:3: (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1099:3: (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME )
                     {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:887:3: (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:888:4: a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1099:3: (a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1100:4: a9= 'COLLECT' a10= 'IN' a11= QUALIFIED_NAME
                     {
-                    a9=(Token)match(input,40,FOLLOW_40_in_decoratedtoken1515); if (state.failed) return element;
+                    a9=(Token)match(input,40,FOLLOW_40_in_decoratedtoken1603); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken();} collectHiddenTokens(element, (CommonToken)a9);copyLocalizationInfos((CommonToken)a9, element); 
                     }
-                    a10=(Token)match(input,41,FOLLOW_41_in_decoratedtoken1525); if (state.failed) return element;
+                    a10=(Token)match(input,41,FOLLOW_41_in_decoratedtoken1613); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken();} collectHiddenTokens(element, (CommonToken)a10);copyLocalizationInfos((CommonToken)a10, element); 
                     }
-                    a11=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_decoratedtoken1535); if (state.failed) return element;
+                    a11=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_decoratedtoken1623); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                       if (element == null) {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createDecoratedToken(); 
                       }
                       org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       tokenResolver.setOptions(getOptions());
-                      org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-                      tokenResolver.resolve(a11.getText(), element.eClass().getEStructuralFeature("attributeName"), result);
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a11.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__ATTRIBUTE_NAME), result);
                       Object resolvedObject = result.getResolvedToken();
-                      if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-                      java.lang.String resolved = (java.lang.String)resolvedObject;
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a11).getLine(), ((CommonToken) a11).getCharPositionInLine(), ((CommonToken) a11).getStartIndex(), ((CommonToken) a11).getStopIndex());
+                      }
+                      	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-                      element.eSet(element.eClass().getEStructuralFeature("attributeName"), resolved); 
+                      if (resolved != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DECORATED_TOKEN__ATTRIBUTE_NAME), resolved); 
+                      }
                       collectHiddenTokens(element, resolved);
                       copyLocalizationInfos((CommonToken) a11, element); 
 
@@ -2235,7 +2517,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "predefinedtoken"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:910:1: predefinedtoken returns [org.emftext.sdk.concretesyntax.PreDefinedToken element = null] : a0= 'PREDEFINED' a1= QUALIFIED_NAME ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )? ;
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1126:1: predefinedtoken returns [org.emftext.sdk.concretesyntax.PreDefinedToken element = null] : a0= 'PREDEFINED' a1= QUALIFIED_NAME ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )? ;
     public final org.emftext.sdk.concretesyntax.PreDefinedToken predefinedtoken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PreDefinedToken element =  null;
         int predefinedtoken_StartIndex = input.index();
@@ -2249,67 +2531,75 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:913:1: (a0= 'PREDEFINED' a1= QUALIFIED_NAME ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )? )
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:914:2: a0= 'PREDEFINED' a1= QUALIFIED_NAME ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )?
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1129:1: (a0= 'PREDEFINED' a1= QUALIFIED_NAME ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )? )
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1130:2: a0= 'PREDEFINED' a1= QUALIFIED_NAME ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )?
             {
-            a0=(Token)match(input,42,FOLLOW_42_in_predefinedtoken1567); if (state.failed) return element;
+            a0=(Token)match(input,42,FOLLOW_42_in_predefinedtoken1655); if (state.failed) return element;
             if ( state.backtracking==0 ) {
                if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPreDefinedToken();} collectHiddenTokens(element, (CommonToken)a0);copyLocalizationInfos((CommonToken)a0, element); 
             }
-            a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_predefinedtoken1575); if (state.failed) return element;
+            a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_predefinedtoken1663); if (state.failed) return element;
             if ( state.backtracking==0 ) {
               if (element == null) {
               	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPreDefinedToken(); 
               }
               org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               tokenResolver.setOptions(getOptions());
-              org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature("name"), result);
+              org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+              tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__NAME), result);
               Object resolvedObject = result.getResolvedToken();
-              if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-              java.lang.String resolved = (java.lang.String)resolvedObject;
+              if (resolvedObject == null) {
+              	getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+              }
+              	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-              element.eSet(element.eClass().getEStructuralFeature("name"), resolved); 
+              if (resolved != null) {
+              element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__NAME), resolved); 
+              }
               collectHiddenTokens(element, resolved);
               copyLocalizationInfos((CommonToken) a1, element); 
 
             }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:931:2: ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )?
-            int alt21=2;
-            int LA21_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1151:2: ( (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME ) )?
+            int alt24=2;
+            int LA24_0 = input.LA(1);
 
-            if ( (LA21_0==40) ) {
-                alt21=1;
+            if ( (LA24_0==40) ) {
+                alt24=1;
             }
-            switch (alt21) {
+            switch (alt24) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:932:3: (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1152:3: (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME )
                     {
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:932:3: (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME )
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:933:4: a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1152:3: (a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME )
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1153:4: a2= 'COLLECT' a3= 'IN' a4= QUALIFIED_NAME
                     {
-                    a2=(Token)match(input,40,FOLLOW_40_in_predefinedtoken1593); if (state.failed) return element;
+                    a2=(Token)match(input,40,FOLLOW_40_in_predefinedtoken1681); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPreDefinedToken();} collectHiddenTokens(element, (CommonToken)a2);copyLocalizationInfos((CommonToken)a2, element); 
                     }
-                    a3=(Token)match(input,41,FOLLOW_41_in_predefinedtoken1603); if (state.failed) return element;
+                    a3=(Token)match(input,41,FOLLOW_41_in_predefinedtoken1691); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                        if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPreDefinedToken();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); 
                     }
-                    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_predefinedtoken1613); if (state.failed) return element;
+                    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_predefinedtoken1701); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
                       if (element == null) {
                       	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createPreDefinedToken(); 
                       }
                       org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       tokenResolver.setOptions(getOptions());
-                      org.emftext.runtime.resource.ITokenResolveResult result = new org.emftext.runtime.resource.impl.TokenResolveResult();
-                      tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature("attributeName"), result);
+                      org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+                      tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__ATTRIBUTE_NAME), result);
                       Object resolvedObject = result.getResolvedToken();
-                      if (resolvedObject == null) getResource().addError(result.getErrorMessage(), element);
-                      java.lang.String resolved = (java.lang.String)resolvedObject;
+                      if (resolvedObject == null) {
+                      	getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+                      }
+                      	java.lang.String resolved = (java.lang.String)resolvedObject;
 
-                      element.eSet(element.eClass().getEStructuralFeature("attributeName"), resolved); 
+                      if (resolved != null) {
+                      element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PRE_DEFINED_TOKEN__ATTRIBUTE_NAME), resolved); 
+                      }
                       collectHiddenTokens(element, resolved);
                       copyLocalizationInfos((CommonToken) a4, element); 
 
@@ -2340,7 +2630,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "tokendefinition"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:955:1: tokendefinition returns [org.emftext.sdk.concretesyntax.TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1179:1: tokendefinition returns [org.emftext.sdk.concretesyntax.TokenDefinition element = null] : (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken );
     public final org.emftext.sdk.concretesyntax.TokenDefinition tokendefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenDefinition element =  null;
         int tokendefinition_StartIndex = input.index();
@@ -2353,26 +2643,26 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:957:1: (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken )
-            int alt22=3;
-            int LA22_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1181:1: (c0= normaltoken | c1= decoratedtoken | c2= predefinedtoken )
+            int alt25=3;
+            int LA25_0 = input.LA(1);
 
-            if ( (LA22_0==39) ) {
-                int LA22_1 = input.LA(2);
+            if ( (LA25_0==39) ) {
+                int LA25_1 = input.LA(2);
 
-                if ( (LA22_1==QUALIFIED_NAME) ) {
-                    int LA22_3 = input.LA(3);
+                if ( (LA25_1==QUALIFIED_NAME) ) {
+                    int LA25_3 = input.LA(3);
 
-                    if ( (LA22_3==QUOTED_36_36) ) {
-                        alt22=1;
+                    if ( (LA25_3==30) ) {
+                        alt25=2;
                     }
-                    else if ( (LA22_3==30) ) {
-                        alt22=2;
+                    else if ( (LA25_3==QUOTED_36_36) ) {
+                        alt25=1;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return element;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 22, 3, input);
+                            new NoViableAltException("", 25, 3, input);
 
                         throw nvae;
                     }
@@ -2380,26 +2670,26 @@ public class CsParser extends AbstractEMFTextParser {
                 else {
                     if (state.backtracking>0) {state.failed=true; return element;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 22, 1, input);
+                        new NoViableAltException("", 25, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA22_0==42) ) {
-                alt22=3;
+            else if ( (LA25_0==42) ) {
+                alt25=3;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 22, 0, input);
+                    new NoViableAltException("", 25, 0, input);
 
                 throw nvae;
             }
-            switch (alt22) {
+            switch (alt25) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:958:2: c0= normaltoken
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1182:2: c0= normaltoken
                     {
-                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1641);
+                    pushFollow(FOLLOW_normaltoken_in_tokendefinition1729);
                     c0=normaltoken();
 
                     state._fsp--;
@@ -2411,9 +2701,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 2 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:959:2: c1= decoratedtoken
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1183:2: c1= decoratedtoken
                     {
-                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1651);
+                    pushFollow(FOLLOW_decoratedtoken_in_tokendefinition1739);
                     c1=decoratedtoken();
 
                     state._fsp--;
@@ -2425,9 +2715,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 3 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:960:2: c2= predefinedtoken
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1184:2: c2= predefinedtoken
                     {
-                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1661);
+                    pushFollow(FOLLOW_predefinedtoken_in_tokendefinition1749);
                     c2=predefinedtoken();
 
                     state._fsp--;
@@ -2454,7 +2744,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "definition"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:963:1: definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1187:1: definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );
     public final org.emftext.sdk.concretesyntax.Definition definition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Definition element =  null;
         int definition_StartIndex = input.index();
@@ -2475,14 +2765,14 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:965:1: (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak )
-            int alt23=7;
-            alt23 = dfa23.predict(input);
-            switch (alt23) {
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1189:1: (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak )
+            int alt26=7;
+            alt26 = dfa26.predict(input);
+            switch (alt26) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:966:2: c0= csstring
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1190:2: c0= csstring
                     {
-                    pushFollow(FOLLOW_csstring_in_definition1680);
+                    pushFollow(FOLLOW_csstring_in_definition1768);
                     c0=csstring();
 
                     state._fsp--;
@@ -2494,9 +2784,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 2 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:967:2: c1= definedplaceholder
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1191:2: c1= definedplaceholder
                     {
-                    pushFollow(FOLLOW_definedplaceholder_in_definition1690);
+                    pushFollow(FOLLOW_definedplaceholder_in_definition1778);
                     c1=definedplaceholder();
 
                     state._fsp--;
@@ -2508,9 +2798,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 3 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:968:2: c2= derivedplaceholder
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1192:2: c2= derivedplaceholder
                     {
-                    pushFollow(FOLLOW_derivedplaceholder_in_definition1700);
+                    pushFollow(FOLLOW_derivedplaceholder_in_definition1788);
                     c2=derivedplaceholder();
 
                     state._fsp--;
@@ -2522,9 +2812,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 4 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:969:2: c3= containment
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1193:2: c3= containment
                     {
-                    pushFollow(FOLLOW_containment_in_definition1710);
+                    pushFollow(FOLLOW_containment_in_definition1798);
                     c3=containment();
 
                     state._fsp--;
@@ -2536,9 +2826,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 5 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:970:2: c4= compounddefinition
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1194:2: c4= compounddefinition
                     {
-                    pushFollow(FOLLOW_compounddefinition_in_definition1720);
+                    pushFollow(FOLLOW_compounddefinition_in_definition1808);
                     c4=compounddefinition();
 
                     state._fsp--;
@@ -2550,9 +2840,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 6 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:971:2: c5= whitespaces
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1195:2: c5= whitespaces
                     {
-                    pushFollow(FOLLOW_whitespaces_in_definition1730);
+                    pushFollow(FOLLOW_whitespaces_in_definition1818);
                     c5=whitespaces();
 
                     state._fsp--;
@@ -2564,9 +2854,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 7 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:972:2: c6= linebreak
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1196:2: c6= linebreak
                     {
-                    pushFollow(FOLLOW_linebreak_in_definition1740);
+                    pushFollow(FOLLOW_linebreak_in_definition1828);
                     c6=linebreak();
 
                     state._fsp--;
@@ -2593,7 +2883,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "cardinality"
-    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:975:1: cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null] : (c0= plus | c1= star | c2= questionmark );
+    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1199:1: cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null] : (c0= plus | c1= star | c2= questionmark );
     public final org.emftext.sdk.concretesyntax.Cardinality cardinality() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Cardinality element =  null;
         int cardinality_StartIndex = input.index();
@@ -2606,37 +2896,37 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return element; }
-            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:977:1: (c0= plus | c1= star | c2= questionmark )
-            int alt24=3;
+            // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1201:1: (c0= plus | c1= star | c2= questionmark )
+            int alt27=3;
             switch ( input.LA(1) ) {
             case 34:
                 {
-                alt24=1;
+                alt27=1;
                 }
                 break;
             case 35:
                 {
-                alt24=2;
+                alt27=2;
                 }
                 break;
             case 36:
                 {
-                alt24=3;
+                alt27=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return element;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 24, 0, input);
+                    new NoViableAltException("", 27, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt24) {
+            switch (alt27) {
                 case 1 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:978:2: c0= plus
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1202:2: c0= plus
                     {
-                    pushFollow(FOLLOW_plus_in_cardinality1759);
+                    pushFollow(FOLLOW_plus_in_cardinality1847);
                     c0=plus();
 
                     state._fsp--;
@@ -2648,9 +2938,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 2 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:979:2: c1= star
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1203:2: c1= star
                     {
-                    pushFollow(FOLLOW_star_in_cardinality1769);
+                    pushFollow(FOLLOW_star_in_cardinality1857);
                     c1=star();
 
                     state._fsp--;
@@ -2662,9 +2952,9 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 3 :
-                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:980:2: c2= questionmark
+                    // D:\\Projekte\\Eclipse Workspaces\\EMFText Languages DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1204:2: c2= questionmark
                     {
-                    pushFollow(FOLLOW_questionmark_in_cardinality1779);
+                    pushFollow(FOLLOW_questionmark_in_cardinality1867);
                     c2=questionmark();
 
                     state._fsp--;
@@ -2692,20 +2982,20 @@ public class CsParser extends AbstractEMFTextParser {
     // Delegated rules
 
 
-    protected DFA23 dfa23 = new DFA23(this);
-    static final String DFA23_eotS =
+    protected DFA26 dfa26 = new DFA26(this);
+    static final String DFA26_eotS =
         "\12\uffff";
-    static final String DFA23_eofS =
+    static final String DFA26_eofS =
         "\2\uffff\1\7\7\uffff";
-    static final String DFA23_minS =
+    static final String DFA26_minS =
         "\1\4\1\uffff\1\4\3\uffff\1\4\3\uffff";
-    static final String DFA23_maxS =
+    static final String DFA26_maxS =
         "\1\46\1\uffff\1\46\3\uffff\1\37\3\uffff";
-    static final String DFA23_acceptS =
+    static final String DFA26_acceptS =
         "\1\uffff\1\1\1\uffff\1\5\1\6\1\7\1\uffff\1\4\1\2\1\3";
-    static final String DFA23_specialS =
+    static final String DFA26_specialS =
         "\12\uffff}>";
-    static final String[] DFA23_transitionS = {
+    static final String[] DFA26_transitionS = {
             "\1\2\1\uffff\1\1\31\uffff\1\3\4\uffff\1\4\1\5",
             "",
             "\1\7\1\uffff\1\7\16\uffff\1\7\2\uffff\1\7\4\uffff\1\7\1\6"+
@@ -2719,37 +3009,37 @@ public class CsParser extends AbstractEMFTextParser {
             ""
     };
 
-    static final short[] DFA23_eot = DFA.unpackEncodedString(DFA23_eotS);
-    static final short[] DFA23_eof = DFA.unpackEncodedString(DFA23_eofS);
-    static final char[] DFA23_min = DFA.unpackEncodedStringToUnsignedChars(DFA23_minS);
-    static final char[] DFA23_max = DFA.unpackEncodedStringToUnsignedChars(DFA23_maxS);
-    static final short[] DFA23_accept = DFA.unpackEncodedString(DFA23_acceptS);
-    static final short[] DFA23_special = DFA.unpackEncodedString(DFA23_specialS);
-    static final short[][] DFA23_transition;
+    static final short[] DFA26_eot = DFA.unpackEncodedString(DFA26_eotS);
+    static final short[] DFA26_eof = DFA.unpackEncodedString(DFA26_eofS);
+    static final char[] DFA26_min = DFA.unpackEncodedStringToUnsignedChars(DFA26_minS);
+    static final char[] DFA26_max = DFA.unpackEncodedStringToUnsignedChars(DFA26_maxS);
+    static final short[] DFA26_accept = DFA.unpackEncodedString(DFA26_acceptS);
+    static final short[] DFA26_special = DFA.unpackEncodedString(DFA26_specialS);
+    static final short[][] DFA26_transition;
 
     static {
-        int numStates = DFA23_transitionS.length;
-        DFA23_transition = new short[numStates][];
+        int numStates = DFA26_transitionS.length;
+        DFA26_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA23_transition[i] = DFA.unpackEncodedString(DFA23_transitionS[i]);
+            DFA26_transition[i] = DFA.unpackEncodedString(DFA26_transitionS[i]);
         }
     }
 
-    class DFA23 extends DFA {
+    class DFA26 extends DFA {
 
-        public DFA23(BaseRecognizer recognizer) {
+        public DFA26(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 23;
-            this.eot = DFA23_eot;
-            this.eof = DFA23_eof;
-            this.min = DFA23_min;
-            this.max = DFA23_max;
-            this.accept = DFA23_accept;
-            this.special = DFA23_special;
-            this.transition = DFA23_transition;
+            this.decisionNumber = 26;
+            this.eot = DFA26_eot;
+            this.eof = DFA26_eof;
+            this.min = DFA26_min;
+            this.max = DFA26_max;
+            this.accept = DFA26_accept;
+            this.special = DFA26_special;
+            this.transition = DFA26_transition;
         }
         public String getDescription() {
-            return "963:1: definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );";
+            return "1187:1: definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= csstring | c1= definedplaceholder | c2= derivedplaceholder | c3= containment | c4= compounddefinition | c5= whitespaces | c6= linebreak );";
         }
     }
  
@@ -2759,109 +3049,112 @@ public class CsParser extends AbstractEMFTextParser {
     public static final BitSet FOLLOW_13_in_concretesyntax106 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_QUALIFIED_NAME_in_concretesyntax114 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_concretesyntax123 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_concretesyntax131 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_concretesyntax140 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_concretesyntax152 = new BitSet(new long[]{0x0000000000D30000L});
-    public static final BitSet FOLLOW_16_in_concretesyntax173 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_concretesyntax189 = new BitSet(new long[]{0x0000000000D30000L});
-    public static final BitSet FOLLOW_17_in_concretesyntax220 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_concretesyntax230 = new BitSet(new long[]{0x0000000000080010L});
-    public static final BitSet FOLLOW_keywordimport_in_concretesyntax253 = new BitSet(new long[]{0x0000000000080010L});
-    public static final BitSet FOLLOW_19_in_concretesyntax276 = new BitSet(new long[]{0x0000000000D00000L});
-    public static final BitSet FOLLOW_20_in_concretesyntax301 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_concretesyntax311 = new BitSet(new long[]{0x0000000000080010L});
-    public static final BitSet FOLLOW_option_in_concretesyntax334 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_concretesyntax347 = new BitSet(new long[]{0x0000000000080010L});
-    public static final BitSet FOLLOW_19_in_concretesyntax369 = new BitSet(new long[]{0x0000000000C00000L});
-    public static final BitSet FOLLOW_22_in_concretesyntax394 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_concretesyntax404 = new BitSet(new long[]{0x0000048000080000L});
-    public static final BitSet FOLLOW_tokendefinition_in_concretesyntax427 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_concretesyntax440 = new BitSet(new long[]{0x0000048000080000L});
-    public static final BitSet FOLLOW_19_in_concretesyntax462 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_concretesyntax478 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_concretesyntax486 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule_in_concretesyntax503 = new BitSet(new long[]{0x0000000000080010L});
-    public static final BitSet FOLLOW_19_in_concretesyntax520 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_keywordimport543 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_keywordimport552 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_QUOTED_60_62_in_keywordimport560 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_25_in_keywordimport578 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_keywordimport588 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_keywordimport598 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_option630 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_option639 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_QUOTED_34_34_in_option647 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_rule675 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_rule687 = new BitSet(new long[]{0x0000006100000050L});
-    public static final BitSet FOLLOW_choice_in_rule695 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_rule704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_definition_in_sequence731 = new BitSet(new long[]{0x0000006100000052L});
-    public static final BitSet FOLLOW_sequence_in_choice759 = new BitSet(new long[]{0x0000000020000002L});
-    public static final BitSet FOLLOW_29_in_choice777 = new BitSet(new long[]{0x0000006100000050L});
-    public static final BitSet FOLLOW_sequence_in_choice787 = new BitSet(new long[]{0x0000000020000002L});
-    public static final BitSet FOLLOW_QUOTED_34_34_in_csstring819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_definedplaceholder843 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_definedplaceholder852 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_definedplaceholder860 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_definedplaceholder869 = new BitSet(new long[]{0x0000001C00000002L});
-    public static final BitSet FOLLOW_cardinality_in_definedplaceholder881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_derivedplaceholder909 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_derivedplaceholder918 = new BitSet(new long[]{0x0000000080000080L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder935 = new BitSet(new long[]{0x0000000080010000L});
-    public static final BitSet FOLLOW_16_in_derivedplaceholder959 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder971 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_derivedplaceholder1000 = new BitSet(new long[]{0x0000001C00000002L});
-    public static final BitSet FOLLOW_cardinality_in_derivedplaceholder1012 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_containment1040 = new BitSet(new long[]{0x0000001C01000002L});
-    public static final BitSet FOLLOW_24_in_containment1058 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_containment1068 = new BitSet(new long[]{0x0000001C00000002L});
-    public static final BitSet FOLLOW_cardinality_in_containment1089 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_compounddefinition1117 = new BitSet(new long[]{0x0000006100000050L});
-    public static final BitSet FOLLOW_choice_in_compounddefinition1125 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_compounddefinition1134 = new BitSet(new long[]{0x0000001C00000002L});
-    public static final BitSet FOLLOW_cardinality_in_compounddefinition1146 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_plus1174 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_star1197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_questionmark1220 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_whitespaces1243 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_NUMBER_in_whitespaces1251 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_linebreak1275 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_NUMBER_in_linebreak1283 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_normaltoken1307 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_normaltoken1315 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_QUOTED_36_36_in_normaltoken1324 = new BitSet(new long[]{0x0000010000000002L});
-    public static final BitSet FOLLOW_40_in_normaltoken1342 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_41_in_normaltoken1352 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_normaltoken1362 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_decoratedtoken1394 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_decoratedtoken1402 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_decoratedtoken1415 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1429 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_decoratedtoken1443 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_QUOTED_36_36_in_decoratedtoken1454 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_decoratedtoken1467 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1481 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_decoratedtoken1495 = new BitSet(new long[]{0x0000010000000002L});
-    public static final BitSet FOLLOW_40_in_decoratedtoken1515 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_41_in_decoratedtoken1525 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_decoratedtoken1535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_predefinedtoken1567 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_predefinedtoken1575 = new BitSet(new long[]{0x0000010000000002L});
-    public static final BitSet FOLLOW_40_in_predefinedtoken1593 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_41_in_predefinedtoken1603 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_QUALIFIED_NAME_in_predefinedtoken1613 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1641 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1651 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1661 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_csstring_in_definition1680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_definedplaceholder_in_definition1690 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_derivedplaceholder_in_definition1700 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_containment_in_definition1710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_compounddefinition_in_definition1720 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_whitespaces_in_definition1730 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_linebreak_in_definition1740 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_plus_in_cardinality1759 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_star_in_cardinality1769 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_questionmark_in_cardinality1779 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_concretesyntax131 = new BitSet(new long[]{0x0000000000008020L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_concretesyntax149 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_concretesyntax166 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_concretesyntax178 = new BitSet(new long[]{0x0000000000D30000L});
+    public static final BitSet FOLLOW_16_in_concretesyntax199 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_concretesyntax215 = new BitSet(new long[]{0x0000000000D30000L});
+    public static final BitSet FOLLOW_17_in_concretesyntax246 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_concretesyntax256 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_keywordimport_in_concretesyntax279 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_19_in_concretesyntax302 = new BitSet(new long[]{0x0000000000D00000L});
+    public static final BitSet FOLLOW_20_in_concretesyntax327 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_concretesyntax337 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_option_in_concretesyntax360 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_concretesyntax373 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_19_in_concretesyntax395 = new BitSet(new long[]{0x0000000000C00000L});
+    public static final BitSet FOLLOW_22_in_concretesyntax420 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_concretesyntax430 = new BitSet(new long[]{0x0000048000080000L});
+    public static final BitSet FOLLOW_tokendefinition_in_concretesyntax453 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_concretesyntax466 = new BitSet(new long[]{0x0000048000080000L});
+    public static final BitSet FOLLOW_19_in_concretesyntax488 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_concretesyntax504 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_concretesyntax512 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule_in_concretesyntax529 = new BitSet(new long[]{0x0000000000080010L});
+    public static final BitSet FOLLOW_19_in_concretesyntax546 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_keywordimport569 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_keywordimport578 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_keywordimport586 = new BitSet(new long[]{0x0000000002000022L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_keywordimport604 = new BitSet(new long[]{0x0000000002000002L});
+    public static final BitSet FOLLOW_25_in_keywordimport630 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_keywordimport640 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_keywordimport650 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_QUOTED_60_62_in_keywordimport674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_option718 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_27_in_option727 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_QUOTED_34_34_in_option735 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_rule763 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_rule775 = new BitSet(new long[]{0x0000006100000050L});
+    public static final BitSet FOLLOW_choice_in_rule783 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_rule792 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_definition_in_sequence819 = new BitSet(new long[]{0x0000006100000052L});
+    public static final BitSet FOLLOW_sequence_in_choice847 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_29_in_choice865 = new BitSet(new long[]{0x0000006100000050L});
+    public static final BitSet FOLLOW_sequence_in_choice875 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_QUOTED_34_34_in_csstring907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_definedplaceholder931 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_definedplaceholder940 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_definedplaceholder948 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_definedplaceholder957 = new BitSet(new long[]{0x0000001C00000002L});
+    public static final BitSet FOLLOW_cardinality_in_definedplaceholder969 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_derivedplaceholder997 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_derivedplaceholder1006 = new BitSet(new long[]{0x0000000080000080L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder1023 = new BitSet(new long[]{0x0000000080010000L});
+    public static final BitSet FOLLOW_16_in_derivedplaceholder1047 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_derivedplaceholder1059 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_derivedplaceholder1088 = new BitSet(new long[]{0x0000001C00000002L});
+    public static final BitSet FOLLOW_cardinality_in_derivedplaceholder1100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_containment1128 = new BitSet(new long[]{0x0000001C01000002L});
+    public static final BitSet FOLLOW_24_in_containment1146 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_containment1156 = new BitSet(new long[]{0x0000001C00000002L});
+    public static final BitSet FOLLOW_cardinality_in_containment1177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_compounddefinition1205 = new BitSet(new long[]{0x0000006100000050L});
+    public static final BitSet FOLLOW_choice_in_compounddefinition1213 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_compounddefinition1222 = new BitSet(new long[]{0x0000001C00000002L});
+    public static final BitSet FOLLOW_cardinality_in_compounddefinition1234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_plus1262 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_star1285 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_questionmark1308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_whitespaces1331 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_NUMBER_in_whitespaces1339 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_linebreak1363 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_NUMBER_in_linebreak1371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_normaltoken1395 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_normaltoken1403 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_QUOTED_36_36_in_normaltoken1412 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_40_in_normaltoken1430 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_41_in_normaltoken1440 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_normaltoken1450 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_decoratedtoken1482 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_decoratedtoken1490 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_decoratedtoken1503 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1517 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_decoratedtoken1531 = new BitSet(new long[]{0x0000000000000200L});
+    public static final BitSet FOLLOW_QUOTED_36_36_in_decoratedtoken1542 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_30_in_decoratedtoken1555 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_QUOTED_39_39_in_decoratedtoken1569 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_decoratedtoken1583 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_40_in_decoratedtoken1603 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_41_in_decoratedtoken1613 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_decoratedtoken1623 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_predefinedtoken1655 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_predefinedtoken1663 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_40_in_predefinedtoken1681 = new BitSet(new long[]{0x0000020000000000L});
+    public static final BitSet FOLLOW_41_in_predefinedtoken1691 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_QUALIFIED_NAME_in_predefinedtoken1701 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_normaltoken_in_tokendefinition1729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_decoratedtoken_in_tokendefinition1739 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_predefinedtoken_in_tokendefinition1749 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_csstring_in_definition1768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_definedplaceholder_in_definition1778 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_derivedplaceholder_in_definition1788 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_containment_in_definition1798 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_compounddefinition_in_definition1808 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_whitespaces_in_definition1818 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_linebreak_in_definition1828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_plus_in_cardinality1847 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_star_in_cardinality1857 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_questionmark_in_cardinality1867 = new BitSet(new long[]{0x0000000000000002L});
 
 }
