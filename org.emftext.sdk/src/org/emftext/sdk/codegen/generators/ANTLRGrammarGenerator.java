@@ -89,7 +89,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TextParserGenerator extends BaseGenerator {
+public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	/**
 	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
@@ -263,7 +263,7 @@ public class TextParserGenerator extends BaseGenerator {
 	private boolean usePredefinedTokens;
 	private GenClassFinder genClassFinder = new GenClassFinder();
 	
-	public TextParserGenerator(GenerationContext context) {
+	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		conreteSyntax = context.getConcreteSyntax();
 		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
@@ -1223,7 +1223,8 @@ public class TextParserGenerator extends BaseGenerator {
     	else
     		return "*";
     }
-   
+
+    // TODO this should be performed in a post processor
     private boolean checkANTLRRegex(InternalTokenDefinition def){
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
     	PrintWriter w = new PrintWriter(new BufferedOutputStream(out));

@@ -7,7 +7,7 @@ import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.TextParserGenerator.InternalTokenDefinition;
+import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator.InternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**

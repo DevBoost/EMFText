@@ -20,7 +20,7 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.generators.TextParserGenerator;
+import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
 
@@ -62,14 +62,14 @@ public class ConcreteSyntaxTestHelper {
 		return resource;
 	}
 
-	public static TextParserGenerator createANTLRGenerator(ConcreteSyntax concreteSyntax) {
+	public static ANTLRGrammarGenerator createANTLRGenerator(ConcreteSyntax concreteSyntax) {
 		IProblemCollector collector = new IProblemCollector() {
 			public void addProblem(GenerationProblem problem) {
 				fail();
 			}
 		};
 		GenerationContext context = new GenerationContext(concreteSyntax, collector);
-		TextParserGenerator antlrGenerator = new TextParserGenerator(context);
+		ANTLRGrammarGenerator antlrGenerator = new ANTLRGrammarGenerator(context);
 		return antlrGenerator;
 	}
 
@@ -79,7 +79,7 @@ public class ConcreteSyntaxTestHelper {
 		assertNotNull("The concrete syntax should be successfully loaded.",
 				concreteSyntax);
 		
-		TextParserGenerator antlrGenerator = createANTLRGenerator(concreteSyntax);
+		ANTLRGrammarGenerator antlrGenerator = createANTLRGenerator(concreteSyntax);
 
 		File tempGrammarFile = File.createTempFile(
 				ConcreteSyntaxTestHelper.class.getSimpleName(), ".g");

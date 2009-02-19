@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
-import org.emftext.sdk.codegen.generators.TextParserGenerator.InternalTokenDefinition;
+import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator.InternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;

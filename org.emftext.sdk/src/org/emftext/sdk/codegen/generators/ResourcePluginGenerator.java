@@ -79,7 +79,7 @@ public class ResourcePluginGenerator {
 	    IFile treeAnalyserFile = targetFolder.getFile(csPackagePath.append(treeAnalyserName + JAVA_FILE_EXTENSION));
 	    IFile tokenResolverFactoryFile = targetFolder.getFile(csPackagePath.append(tokenResolverFactoryName + JAVA_FILE_EXTENSION));
 	    	    
-	    TextParserGenerator antlrGenenerator = new TextParserGenerator(context);
+	    ANTLRGrammarGenerator antlrGenenerator = new ANTLRGrammarGenerator(context);
 	    IGenerator resourceGenenerator = new TextResourceGenerator(context);
 	    IGenerator resourceFactoryGenenerator = new ResourceFactoryGenerator(context);
 	    
@@ -163,11 +163,11 @@ public class ResourcePluginGenerator {
 	private void generateTokenResolvers(
 			GenerationContext context, SubMonitor progress,
 			ITextResource csResource,
-			IPath resolverPackagePath, TextParserGenerator parserGenerator)
+			IPath resolverPackagePath, ANTLRGrammarGenerator parserGenerator)
 			throws CoreException {
 		progress.setTaskName("generating token resolvers...");
 		IFolder targetFolder = context.getTargetFolder();
-		for(TextParserGenerator.InternalTokenDefinition tokenDefinition : parserGenerator.getPrintedTokenDefinitions()){
+		for(ANTLRGrammarGenerator.InternalTokenDefinition tokenDefinition : parserGenerator.getPrintedTokenDefinitions()){
 			if (!tokenDefinition.isReferenced() && !tokenDefinition.isCollect()) {
 				continue;
 			}
@@ -204,7 +204,7 @@ public class ResourcePluginGenerator {
 	private void generateReferenceResolvers(
 			GenerationContext context, SubMonitor monitor, 
 			ITextResource csResource, IPath resolverPackagePath,
-			TextParserGenerator antlrGenerator) throws CoreException {
+			ANTLRGrammarGenerator antlrGenerator) throws CoreException {
 		
 		monitor.setTaskName("generating reference resolvers...");
 		
@@ -234,7 +234,7 @@ public class ResourcePluginGenerator {
 			SubMonitor progress, ITextResource csResource, IFile printerFile,
 			IFile printerBaseFile, String antlrName, String printerName,
 			String printerBaseName, String treeAnalyserName,
-			String tokenResolverFactoryName, TextParserGenerator antlrGen)
+			String tokenResolverFactoryName, ANTLRGrammarGenerator antlrGen)
 			throws CoreException {
 		
 		progress.setTaskName("generating printer...");
