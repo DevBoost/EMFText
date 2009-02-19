@@ -7,26 +7,28 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>QUESTIONMARK</b></em>'.
+ * An implementation of the model object '<em><b>Abstract</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class QUESTIONMARKImpl extends CardinalityImpl implements QUESTIONMARK {
+public class AbstractImpl extends EObjectImpl implements Abstract {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected QUESTIONMARKImpl() {
+	protected AbstractImpl() {
 		super();
 	}
 
@@ -37,7 +39,7 @@ public class QUESTIONMARKImpl extends CardinalityImpl implements QUESTIONMARK {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.QUESTIONMARK;
+		return ConcretesyntaxPackage.Literals.ABSTRACT;
 	}
 
-} //QUESTIONMARKImpl
+} //AbstractImpl
