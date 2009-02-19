@@ -13,7 +13,7 @@ import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
@@ -42,7 +42,7 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaStringComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
         

@@ -30,7 +30,7 @@ import org.emftext.sdk.analysis.ConcreteSyntaxAnalyser;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
@@ -185,7 +185,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter writer) {
 		List<Rule> rules = prepare();
 		
-		StringComposite sc = new JavaStringComposite();
+		StringComposite sc = new JavaComposite();
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -349,7 +349,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			if (seqIt.hasNext()) {
 				Sequence firstSeq = seqIt.next();
 				int count = 0;
-				StringComposite sc1 = new JavaStringComposite();
+				StringComposite sc1 = new JavaComposite();
 				sc1.add("switch(alt) {");
 				sc.add("alt=" + count++ + ";");
 				sc.add("int matches=");

@@ -4,9 +4,9 @@ package org.emftext.sdk.codegen.composites;
  * A custom StringComposite that is configured with the Java-specific
  * line break characters and indentation starter and stoppers.
  */
-public class JavaStringComposite extends StringComposite {
+public class JavaComposite extends StringComposite {
 
-	public JavaStringComposite() {
+	public JavaComposite() {
 		super(true);
 		addIndentationStarter("{");
 		addIndentationStopper("}");

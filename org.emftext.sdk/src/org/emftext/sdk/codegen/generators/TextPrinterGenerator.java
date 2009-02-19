@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
@@ -32,7 +32,7 @@ public class TextPrinterGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {
 		boolean noBaseClass = basePrinterClassName == null;
 
-		StringComposite sc = new JavaStringComposite();
+		StringComposite sc = new JavaComposite();
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

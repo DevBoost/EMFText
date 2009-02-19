@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
@@ -25,7 +25,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	
 	@Override
 	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaStringComposite();
+		StringComposite sc = new JavaComposite();
 	    sc.add("package " + getResourcePackageName() + ";");	
 	    sc.addLineBreak();
 	    sc.add("public class " + getResourceClassName() + " extends " + AbstractReferenceResolver.class.getName() + "<" + proxyReference.getGenClass().getQualifiedInterfaceName() + "> {");

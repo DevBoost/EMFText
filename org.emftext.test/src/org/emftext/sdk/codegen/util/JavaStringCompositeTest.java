@@ -2,7 +2,7 @@ package org.emftext.sdk.codegen.util;
 
 import static org.junit.Assert.assertEquals;
 
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class JavaStringCompositeTest {
 
 	@Test
 	public void testSimple() {
-		JavaStringComposite sc = new JavaStringComposite();
+		JavaComposite sc = new JavaComposite();
 		sc.add("{");
 		sc.add(new StringComponent("var1", "var1"));
 		sc.add("}");
@@ -28,7 +28,7 @@ public class JavaStringCompositeTest {
 
 	@Test
 	public void testScoping1() {
-		JavaStringComposite sc = new JavaStringComposite();
+		JavaComposite sc = new JavaComposite();
 		sc.add("{");
 		sc.add(new StringComponent("var1", "var1"));
 		sc.add("}");
@@ -44,7 +44,7 @@ public class JavaStringCompositeTest {
 
 	@Test
 	public void testScoping2() {
-		JavaStringComposite sc = new JavaStringComposite();
+		JavaComposite sc = new JavaComposite();
 		sc.add("{");
 		sc.add(new StringComponent("var1", "var1"));
 		sc.add("{");
@@ -62,7 +62,7 @@ public class JavaStringCompositeTest {
 
 	@Test
 	public void testScoping3() {
-		JavaStringComposite sc = new JavaStringComposite();
+		JavaComposite sc = new JavaComposite();
 		sc.add("{");
 		sc.add(new StringComponent("var1", "var1"));
 		sc.add("var1"); // using var1 in same scope after declaration
@@ -79,7 +79,7 @@ public class JavaStringCompositeTest {
 
 	@Test
 	public void testScoping4() {
-		JavaStringComposite sc = new JavaStringComposite();
+		JavaComposite sc = new JavaComposite();
 		sc.add("{");
 		sc.add("var1"); // using var1 in same scope, but before
 		sc.add(new StringComponent("var1", "var1"));
@@ -95,7 +95,7 @@ public class JavaStringCompositeTest {
 
 	@Test
 	public void testScoping5() {
-		JavaStringComposite sc = new JavaStringComposite();
+		JavaComposite sc = new JavaComposite();
 		sc.add("{");
 		sc.add("{");
 		sc.add("var1"); // using var1, in sub scope before
@@ -113,7 +113,7 @@ public class JavaStringCompositeTest {
 
 	@Test
 	public void testScoping6() {
-		JavaStringComposite sc = new JavaStringComposite();
+		JavaComposite sc = new JavaComposite();
 		sc.add("{");
 		sc.add(new StringComponent("var1", "var1"));
 		sc.add("}");

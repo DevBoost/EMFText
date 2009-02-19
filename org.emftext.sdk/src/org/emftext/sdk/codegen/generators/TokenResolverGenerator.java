@@ -8,7 +8,7 @@ import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
@@ -35,7 +35,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaStringComposite();
+		StringComposite sc = new JavaComposite();
 		
 		sc.add("package " + super.getResourcePackageName()+ ";");
 		sc.addLineBreak();

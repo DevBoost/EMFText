@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.TextParserGenerator.InternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -29,7 +29,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	
 	@Override
 	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaStringComposite();
+		StringComposite sc = new JavaComposite();
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

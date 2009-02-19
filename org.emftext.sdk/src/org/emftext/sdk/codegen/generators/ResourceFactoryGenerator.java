@@ -3,7 +3,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
@@ -30,7 +30,7 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaStringComposite();
+		StringComposite sc = new JavaComposite();
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
