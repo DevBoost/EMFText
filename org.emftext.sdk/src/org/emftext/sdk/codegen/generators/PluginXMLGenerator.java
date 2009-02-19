@@ -9,6 +9,8 @@ import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -48,49 +50,42 @@ public class PluginXMLGenerator implements IGenerator {
 		final String factoryClassName = context.getResourceFactoryClassName();
 		final String packageName = context.getPackageName();
 
-		StringBuffer s = new StringBuffer();
-		s.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		s.append("<?eclipse version=\"3.2\"?>\n");
-		s.append("<plugin>\n");
+		StringComposite s = new XMLComposite();
+		s.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		s.add("<?eclipse version=\"3.2\"?>");
+		s.add("<plugin>");
 
 		// register the generated resource factory
-		s.append("   <extension\n");
-		s.append("         point=\"org.eclipse.emf.ecore.extension_parser\">\n");
-		s.append("      <parser\n");
-		s.append("            class=\"" + packageName + "." + factoryClassName + "\"\n");
-		s.append("            type=\"" + concreteSyntaxName + "\">\n");
-		s.append("      </parser>\n");
-		s.append("   </extension>\n\n");
+		s.add("<extension point=\"org.eclipse.emf.ecore.extension_parser\">");
+		s.add("<parser class=\"" + packageName + "." + factoryClassName + "\" type=\"" + concreteSyntaxName + "\">");
+		s.add("</parser>");
+		s.add("</extension>");
+		s.addLineBreak();
 
 		// register the cs file
-		s.append("   <extension\n");
-		s.append("         point=\"" + EMFTextPlugin.EP_CONCRETESYNTAX_ID + "\">\n");
-		s.append("      <concretesyntax\n");
-		s.append("            uri=\"" + concreteSyntax.getPackage().getNSURI() + "\"\n");
-		s.append("            csName=\"" + concreteSyntaxName + "\"\n");
-		s.append("            csDefinition=\"" + context.getConcreteSyntaxFile().getProject().getName() + "/" + context.getConcreteSyntaxFile().getProjectRelativePath() + "\">\n");
-		s.append("      </concretesyntax>\n");
-		s.append("   </extension>\n\n");
+		s.add("<extension point=\"" + EMFTextPlugin.EP_CONCRETESYNTAX_ID + "\">");
+		s.add("<concretesyntax uri=\"" + concreteSyntax.getPackage().getNSURI() + "\" csName=\"" + concreteSyntaxName + "\" csDefinition=\"" + context.getConcreteSyntaxFile().getProject().getName() + "/" + context.getConcreteSyntaxFile().getProjectRelativePath() + "\">");
+		s.add("</concretesyntax>");
+		s.add("</extension>");
+		s.addLineBreak();
 
 		// registers the file extension for the EMF Text Editor
-		s.append("   <extension\n");
-		s.append("         point=\"org.eclipse.core.contenttype.contentTypes\">\n");
-		s.append("      <file-association\n");
-		s.append("            content-type=\"org.emftext.filetype\"\n");
-		s.append("            file-extensions=\"" + concreteSyntaxName + "\">\n");
-		s.append("      </file-association>\n");
-		s.append("   </extension>\n\n");
+		s.add("<extension point=\"org.eclipse.core.contenttype.contentTypes\">");
+		s.add("<file-association content-type=\"org.emftext.filetype\" file-extensions=\"" + concreteSyntaxName + "\">");
+		s.add("</file-association>");
+		s.add("</extension>");
+		s.addLineBreak();
 
 		if (generateTestAction) {
-			s.append(generateTestActionExtension());
+			s.add(generateTestActionExtension());
 		}
 
-		s.append("</plugin>\n");
+		s.add("</plugin>");
 
 		return s.toString();
 	}
 
-	private String generateTestActionExtension() {
+	private StringComposite generateTestActionExtension() {
 
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		final String concreteSyntaxName = concreteSyntax.getName();
@@ -100,23 +95,14 @@ public class PluginXMLGenerator implements IGenerator {
 				: concreteSyntaxBasePackage + ".")
 				+ concreteSyntaxName;
 
-		StringBuffer s = new StringBuffer();
-		s.append("\t<extension\n");
-		s.append("\t\t\tpoint=\"org.eclipse.ui.popupMenus\">\n");
-		s.append("\t\t<objectContribution\n");
-		s.append("\t\t\t\tid=\"" + baseId + ".contributions\"\n");
-		s.append("\t\t\t\tobjectClass=\"org.eclipse.core.resources.IFile\"\n");
-		s.append("\t\t\t\tnameFilter=\"*." + concreteSyntaxName + "\">\n");
-		s.append("\t\t\t<action\n");
-		s.append("\t\t\t\t\tclass=\"org.emftext.sdk.ui.actions.ValidateParserPrinterAction\"\n");
-		s.append("\t\t\t\t\tenablesFor=\"1\"\n");
-		s.append("\t\t\t\t\tid=\"" + baseId + ".validate\"\n");
-		s.append("\t\t\t\t\tlabel=\"Validate\"\n");
-		s.append("\t\t\t\t\tmenubarPath=\"org.emftext.sdk.ui.menu1/group1\">\n");
-		s.append("\t\t\t</action>\n");
-		s.append("\t\t</objectContribution>\n");
-		s.append("\t</extension>\n");
-		return s.toString();
+		StringComposite s = new XMLComposite();
+		s.add("<extension point=\"org.eclipse.ui.popupMenus\">");
+		s.add("<objectContribution id=\"" + baseId + ".contributions\" objectClass=\"org.eclipse.core.resources.IFile\" nameFilter=\"*." + concreteSyntaxName + "\">");
+		s.add("<action class=\"org.emftext.sdk.ui.actions.ValidateParserPrinterAction\" enablesFor=\"1\" id=\"" + baseId + ".validate\" label=\"Validate\" menubarPath=\"org.emftext.sdk.ui.menu1/group1\">");
+		s.add("</action>");
+		s.add("</objectContribution>");
+		s.add("</extension>");
+		return s;
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {
