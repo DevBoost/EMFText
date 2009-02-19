@@ -749,21 +749,37 @@ public class TextParserGenerator extends BaseGenerator {
     		assert ((EReference)eFeature).isContainment(); 
     		Containment containment = (Containment) terminal;
     		
-    		GenClass type = genFeature.getTypeGenClass();
+    		EList<GenClass> types; 
     		//is there an explicit type defined?
-    		if (containment.getType() != null) {
-    			type = containment.getType();
+    		/*if (!containment.getTypes().isEmpty()) {
+    			types = containment.getTypes();
     		}
-    		
-            out.print(getLowerCase(type.getName())); 
-            if(!(genFeature.getEcoreFeature() instanceof EAttribute)){
-                //remember which classes are referenced to add choice rules for these classes later
-                if (!eClassesReferenced.keySet().contains(type)) {
-                  	eClassesReferenced.put(type, new HashSet<Terminal>());
+    		else*/ {
+    			types = new BasicEList<GenClass>();
+    			types.add(genFeature.getTypeGenClass());
+    		}
+
+    		boolean first = true;
+    		for(GenClass type : types) {
+    			if (first) {
+    				first = false;
+    			}
+    			else {
+    				out.print("|");
+    			}
+                out.print(getLowerCase(type.getName())); 
+                
+                if(!(genFeature.getEcoreFeature() instanceof EAttribute)){
+                    //remember which classes are referenced to add choice rules for these classes later
+                    if (!eClassesReferenced.keySet().contains(type)) {
+                      	eClassesReferenced.put(type, new HashSet<Terminal>());
+                    }
+                   
+                    eClassesReferenced.get(type).add(terminal);            	
                 }
-               
-                eClassesReferenced.get(type).add(terminal);            	
-            }
+    		}
+
+
             expressionToBeSet = ident;
     	}
         else {

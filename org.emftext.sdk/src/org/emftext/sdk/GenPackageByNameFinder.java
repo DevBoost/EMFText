@@ -23,11 +23,16 @@ public class GenPackageByNameFinder implements IGenPackageFinder {
 		URI resourceURI = resource.getURI();
 		resourceURI = resourceURI.trimFileExtension();
 		URI genModelURI = resourceURI.appendFileExtension("genmodel");
-		Resource genModelResource = rs.getResource(genModelURI, true);
-		GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-		Map<String, GenPackage> genPackages = MetamodelManager
-				.getGenPackages(genModel);
-		final GenPackage result = genPackages.get(nsURI);
+		GenPackage genPackage = null;
+		try {
+			Resource genModelResource = rs.getResource(genModelURI, true);
+			GenModel genModel = (GenModel) genModelResource.getContents().get(0);
+			Map<String, GenPackage> genPackages = MetamodelManager
+					.getGenPackages(genModel);
+			genPackage = genPackages.get(nsURI);
+		} catch (Exception e) {}
+		
+		final GenPackage result = genPackage;
 
 		return new IGenPackageFinderResult() {
 

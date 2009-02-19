@@ -90,7 +90,7 @@ public class MetamodelManager {
 	}
 
 	public ConcreteSyntax findConcreteSyntax(String csName, String locationHint, Import container, GenPackage genPackage, ITextResource textResource) {
-		if (csName == null || genPackage == null) {
+		if (csName == null || genPackage == null || genPackage.getEcorePackage() == null) {
 			return null;
 		}
 		

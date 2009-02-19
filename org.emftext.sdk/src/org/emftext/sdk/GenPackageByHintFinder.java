@@ -80,10 +80,27 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 	private IGenPackageFinderResult findGenPackageUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
 		final ResourceSet rs = new ResourceSetImpl();
 		try {
-			URI hintURI = URI.createURI(locationHint);
+			URI hintURI = null;
+			if(locationHint.contains(":")) {
+				//absolute path
+				hintURI = URI.createURI(locationHint);
+			}
+			else {
+				//relative path
+				hintURI = container.eResource().getURI().trimSegments(1).appendSegment(locationHint);
+			}
 			if ("genmodel".equals(hintURI.fileExtension())) {
-				Resource genModelResource = rs.getResource(hintURI, true);
-				final EList<EObject> contents = genModelResource.getContents();
+				
+				Resource genModelResource = null;
+				
+				try {
+					genModelResource = rs.getResource(hintURI, true);
+				} catch (Exception e) {}
+				
+				EList<EObject> contents = null; 
+				if (genModelResource != null) {
+					contents = genModelResource.getContents();	
+				}
 				if (contents != null && contents.size() > 0) {
 					GenModel genModel = (GenModel) contents.get(0);
 					IResource member = ResourcesPlugin.getWorkspace().getRoot().findMember(hintURI.toPlatformString(true));
