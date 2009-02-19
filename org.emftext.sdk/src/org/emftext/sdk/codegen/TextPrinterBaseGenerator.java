@@ -26,6 +26,7 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
+import org.emftext.sdk.ConcreteSyntaxAnalyser;
 import org.emftext.sdk.codegen.util.JavaStringComposite;
 import org.emftext.sdk.codegen.util.StringComponent;
 import org.emftext.sdk.codegen.util.StringComposite;
@@ -46,7 +47,6 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
@@ -321,7 +321,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("// print collected hidden tokens");
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
-			if (isCollectInFeature(rule, feature)) {
+			if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule, feature)) {
 				sc.add("{");
 				sc.add(EStructuralFeature.class.getName() + " feature = element.eClass()." + GeneratorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 				sc.add(OBJECT_CLASS_NAME + " value = element.eGet(feature);");
@@ -333,21 +333,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				sc.add("}");
 			}
 		}
-	}
-
-	private boolean isCollectInFeature(Rule rule, EStructuralFeature feature) {
-		for (TokenDefinition tokenDefinition : rule.getSyntax().getTokens()) {
-			final String attributeName = tokenDefinition.getAttributeName();
-			final boolean isCollectToken = attributeName != null;
-			if (!isCollectToken) {
-				continue;
-			}
-			final boolean namesMatch = attributeName.equals(feature.getName());
-			if (namesMatch) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private void printChoice(Choice choice, StringComposite sc, GenClass genClass) {

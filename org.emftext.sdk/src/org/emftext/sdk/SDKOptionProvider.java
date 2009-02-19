@@ -15,6 +15,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessor;
@@ -98,11 +100,150 @@ public class SDKOptionProvider implements IOptionProvider {
 				};
 			}
 		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkForDuplicateRules(resource);
+					}
+				};
+			}
+		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkForUnusedFeatures(resource);
+					}
+				};
+			}
+		});
 		
 		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
 		return options;
 	}
+
+
+	private void checkForDuplicateRules(ITextResource resource) {
+		EList<EObject> objects = resource.getContents();
+		for (EObject next : objects) {
+			if (next instanceof ConcreteSyntax) {
+				checkForDuplicateRules(resource, (ConcreteSyntax) next);
+			}
+		}
+	}
+
+	private void checkForDuplicateRules(ITextResource resource,
+			ConcreteSyntax syntax) {
+
+		final EList<Rule> allRules = syntax.getAllRules();
+		for (int i = 0; i < allRules.size(); i++) {
+			Rule rule_i = allRules.get(i);
+			GenClass genClass_i = rule_i.getMetaclass();
+			if (genClass_i == null) {
+				continue;
+			}
+			final String name_i = genClass_i.getQualifiedInterfaceName();
+			if (name_i == null) {
+				continue;
+			}
+			
+			List<Rule> duplicates = new ArrayList<Rule>();
+			for (int j = i + 1; j < allRules.size(); j++) {
+				Rule rule_j = allRules.get(j);
+				GenClass genClass_j = rule_j.getMetaclass();
+				if (genClass_j == null) {
+					continue;
+				}
+				final String name_j = genClass_j.getQualifiedInterfaceName();
+				if (name_i.equals(name_j)) {
+					duplicates.add(rule_j);
+				}
+			}
+			if (duplicates.size() > 0) {
+				final String message = "Found duplicate rule for meta class \"" + genClass_i.getName() + "\" (may be imported).";
+				resource.addError(message, rule_i);
+				for (Rule duplicate : duplicates) {
+					resource.addError(message, duplicate);
+				}
+			}
+		}
+	}
+
+
+	private void checkForUnusedFeatures(ITextResource resource) {
+		EList<EObject> objects = resource.getContents();
+		for (EObject next : objects) {
+			if (next instanceof ConcreteSyntax) {
+				checkForUnusedFeatures(resource, (ConcreteSyntax) next);
+			}
+		}
+	}
+	
+	private void checkForUnusedFeatures(ITextResource resource,
+			ConcreteSyntax syntax) {
+		
+		// get collect-in feature to tag them as used
+
+		final EList<Rule> rules = syntax.getRules();
+		for (Rule rule : rules) {
+			GenClass genClass = rule.getMetaclass();
+			if (genClass == null) {
+				continue;
+			}
+			for (GenFeature genFeature : genClass.getAllGenFeatures()) {
+				final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
+				if (ecoreFeature == null) {
+					continue;
+				}
+				if (ecoreFeature.isDerived()) {
+					continue;
+				}
+				if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule, ecoreFeature)) {
+					continue;
+				}
+				if (ecoreFeature instanceof EReference) {
+					EReference ecoreReference = (EReference) ecoreFeature;
+					// TODO this is not correct: pairs of opposite references
+					// must be defined in at least one rule. the references are
+					// only unused if they are not defined anywhere.
+					if (!ecoreReference.isContainment() && ecoreReference.getEOpposite() != null) {
+						continue;
+					}
+				}
+				Choice choice = rule.getDefinition();
+				if (!isUsed(choice, genFeature)) {
+					resource.addWarning("Feature \"" + genFeature.getName() + "\" has no syntax.", rule);
+				}
+			}
+		}
+	}
+
+
+	private boolean isUsed(Choice choice, GenFeature genFeature) {
+		for (Sequence sequence : choice.getOptions()) {
+			for (Definition part : sequence.getParts()) {
+				if (part instanceof Terminal) {
+					Terminal terminal = (Terminal) part;
+					if (genFeature.getName().equals(terminal.getFeature().getName())) {
+						return true;
+					}
+				} else if (part instanceof CompoundDefinition) {
+					CompoundDefinition compound = (CompoundDefinition) part;
+					Choice subChoice = compound.getDefinitions();
+					boolean isUsedInSubChoice = isUsed(subChoice, genFeature);
+					if (isUsedInSubChoice) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 
 	private void checkMissingRules(ITextResource resource) {
 		EList<EObject> objects = resource.getContents();
