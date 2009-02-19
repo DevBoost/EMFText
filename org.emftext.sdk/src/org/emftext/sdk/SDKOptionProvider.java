@@ -22,7 +22,8 @@ import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.sdk.codegen.LeftRecursionDetector;
+import org.emftext.sdk.analysis.ConcreteSyntaxAnalyser;
+import org.emftext.sdk.analysis.LeftRecursionDetector;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -35,6 +36,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * The SDKOptionProvider adds a post-processor to the default 

@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
@@ -12,6 +12,7 @@ import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.util.JavaStringComposite;
 import org.emftext.sdk.codegen.util.StringComposite;
 

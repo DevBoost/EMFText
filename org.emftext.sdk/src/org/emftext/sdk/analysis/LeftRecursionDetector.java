@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.analysis;
 
 import java.util.Collection;
 import java.util.Map;

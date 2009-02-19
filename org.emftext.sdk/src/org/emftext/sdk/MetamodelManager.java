@@ -11,6 +11,10 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.finders.IConcreteSyntaxFinder;
+import org.emftext.sdk.finders.IConcreteSyntaxFinderResult;
+import org.emftext.sdk.finders.IGenPackageFinder;
+import org.emftext.sdk.finders.IGenPackageFinderResult;
 
 // FIXME the cache is not used right now, because new instances of this class are
 // created for each request

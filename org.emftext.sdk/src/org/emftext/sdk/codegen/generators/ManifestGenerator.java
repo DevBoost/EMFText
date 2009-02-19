@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 

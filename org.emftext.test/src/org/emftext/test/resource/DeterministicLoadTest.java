@@ -24,9 +24,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextPlugin;
-import org.emftext.sdk.GenPackageInRegistryFinder;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory;
+import org.emftext.sdk.finders.GenPackageInRegistryFinder;
 import org.junit.Before;
 import org.junit.Test;
 

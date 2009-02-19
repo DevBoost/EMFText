@@ -17,11 +17,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
-import org.emftext.sdk.GenClassFinder;
-import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
+import org.emftext.sdk.codegen.generators.TextParserGenerator.InternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * A GenerationContext provides all information that is needed by the 
@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * the context collects information about the generation process as it
  * is executed.
  * 
- * @see org.emftext.sdk.codegen.ResourcePluginGenerator
+ * @see org.emftext.sdk.codegen.generators.ResourcePluginGenerator
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */

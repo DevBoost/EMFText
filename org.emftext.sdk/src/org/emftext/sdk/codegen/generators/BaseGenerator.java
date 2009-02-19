@@ -1,11 +1,15 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IProblemCollector;
 
 /**
  * A basic implementation for generators which generate Java or ANTLR code. 

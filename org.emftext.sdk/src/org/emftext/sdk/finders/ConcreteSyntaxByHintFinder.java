@@ -1,4 +1,4 @@
-package org.emftext.sdk;
+package org.emftext.sdk.finders;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;

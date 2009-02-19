@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.ICodeGenOptions.GENERATE_PRINTER_STUB_ONLY;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_ANTLR_SPEC;
@@ -34,6 +34,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.IProblemCollector;
+import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.TextResourceGeneratorANTLRErrorListener;
 
 /**
  * A generator that uses multiple other generators to create

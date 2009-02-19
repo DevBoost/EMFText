@@ -1,4 +1,4 @@
-package org.emftext.sdk;
+package org.emftext.sdk.finders;
 
 import java.util.HashMap;
 import java.util.HashSet;

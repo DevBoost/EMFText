@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
-import org.emftext.sdk.GenPackageByNameFinder;
 import org.emftext.sdk.MetamodelHelper;
+import org.emftext.sdk.finders.GenPackageByNameFinder;
 import org.junit.Before;
 import org.junit.Test;
 

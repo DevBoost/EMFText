@@ -8,10 +8,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
-import org.emftext.sdk.GenClassFinder;
 import org.emftext.sdk.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * A resolver for EMF generator classes. The classes must be identified

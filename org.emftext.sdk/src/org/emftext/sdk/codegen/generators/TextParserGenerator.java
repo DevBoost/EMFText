@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.runtime.IStandardTokenDefinitions.LB_TOKEN_DEF;
 import static org.emftext.runtime.IStandardTokenDefinitions.LB_TOKEN_NAME;
@@ -43,7 +43,12 @@ import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
-import org.emftext.sdk.GenClassFinder;
+import org.emftext.sdk.analysis.LeftRecursionDetector;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.GeneratorUtil;
+import org.emftext.sdk.codegen.ICodeGenOptions;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
 import org.emftext.sdk.codegen.regex.ANTLRexpParser;
@@ -69,6 +74,7 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
+import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * The text parser generator maps from one or more concrete syntaxes (*.cs) and 

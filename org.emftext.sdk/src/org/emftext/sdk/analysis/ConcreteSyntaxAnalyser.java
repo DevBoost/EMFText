@@ -1,4 +1,4 @@
-package org.emftext.sdk;
+package org.emftext.sdk.analysis;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;

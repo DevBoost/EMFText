@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.util.JavaStringComposite;
 import org.emftext.sdk.codegen.util.StringComposite;
 

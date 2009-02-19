@@ -1,7 +1,8 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.util.JavaStringComposite;
 import org.emftext.sdk.codegen.util.StringComposite;
 
@@ -9,7 +10,7 @@ import org.emftext.sdk.codegen.util.StringComposite;
  * Generates a factory for the TextResource which loads and stores generated resources. 
  * It can be registered to the EMF resource framework.
  * 
- * @see org.emftext.sdk.codegen.TextResourceGenerator
+ * @see org.emftext.sdk.codegen.generators.TextResourceGenerator
  * @see org.emftext.runtime.resource.ITextResource
  */
 public class ResourceFactoryGenerator extends BaseGenerator {

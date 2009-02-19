@@ -1,4 +1,4 @@
-package org.emftext.sdk;
+package org.emftext.sdk.finders;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.MetamodelManager;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**

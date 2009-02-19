@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -8,8 +8,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.IReferenceResolveResult;
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GeneratorUtil;
 import org.emftext.sdk.codegen.util.JavaStringComposite;
 import org.emftext.sdk.codegen.util.StringComposite;
 

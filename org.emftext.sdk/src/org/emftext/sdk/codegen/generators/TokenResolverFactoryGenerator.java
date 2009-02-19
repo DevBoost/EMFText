@@ -1,10 +1,11 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
-import org.emftext.sdk.codegen.TextParserGenerator.InternalTokenDefinition;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.generators.TextParserGenerator.InternalTokenDefinition;
 import org.emftext.sdk.codegen.util.JavaStringComposite;
 import org.emftext.sdk.codegen.util.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;

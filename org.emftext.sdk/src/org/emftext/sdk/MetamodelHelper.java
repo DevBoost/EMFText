@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.finders.IConcreteSyntaxFinder;
+import org.emftext.sdk.finders.IGenPackageFinder;
 
 /**
  * A helper class that can be used search for generator packages, 

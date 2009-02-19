@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.emftext.runtime.IOptionProvider;
-import org.emftext.sdk.ConcreteSyntaxInRegistryFinder;
-import org.emftext.sdk.ConcreteSyntaxByHintFinder;
-import org.emftext.sdk.GenPackageByNameFinder;
-import org.emftext.sdk.GenPackageInRegistryFinder;
-import org.emftext.sdk.GenPackageByHintFinder;
-import org.emftext.sdk.IConcreteSyntaxFinder;
-import org.emftext.sdk.IGenPackageFinder;
 import org.emftext.sdk.MetamodelHelper;
+import org.emftext.sdk.finders.ConcreteSyntaxByHintFinder;
+import org.emftext.sdk.finders.ConcreteSyntaxInRegistryFinder;
+import org.emftext.sdk.finders.GenPackageByHintFinder;
+import org.emftext.sdk.finders.GenPackageByNameFinder;
+import org.emftext.sdk.finders.GenPackageInRegistryFinder;
+import org.emftext.sdk.finders.IConcreteSyntaxFinder;
+import org.emftext.sdk.finders.IGenPackageFinder;
 
 /**
  * A provider for different load options used by the SDK of
