@@ -202,7 +202,7 @@ public class SDKOptionProvider implements IOptionProvider {
 				if (ecoreFeature.isDerived()) {
 					continue;
 				}
-				if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule, ecoreFeature)) {
+				if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule.getSyntax(), ecoreFeature)) {
 					continue;
 				}
 				if (ecoreFeature instanceof EReference) {
@@ -216,7 +216,7 @@ public class SDKOptionProvider implements IOptionProvider {
 				}
 				Choice choice = rule.getDefinition();
 				if (!isUsed(choice, genFeature)) {
-					resource.addWarning("Feature \"" + genFeature.getName() + "\" has no syntax.", rule);
+					resource.addWarning("Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", rule);
 				}
 			}
 		}

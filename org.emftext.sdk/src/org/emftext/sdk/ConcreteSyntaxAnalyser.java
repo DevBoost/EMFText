@@ -1,13 +1,39 @@
 package org.emftext.sdk;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 public class ConcreteSyntaxAnalyser {
 
-	public boolean isCollectInFeature(Rule rule, EStructuralFeature feature) {
-		for (TokenDefinition tokenDefinition : rule.getSyntax().getTokens()) {
+	/**
+	 * Checks whether the given feature is defined as a collect-in
+	 * feature. Note that the feature may also be defined as collect-in
+	 * token in imported syntaxes. 
+	 * 
+	 * @see DefinedPlaceholderTokenReferenceResolver
+	 * 
+	 * @param rule
+	 * @param syntax
+	 * @return
+	 */
+	public boolean isCollectInFeature(ConcreteSyntax syntax, EStructuralFeature feature) {
+		for (Import importElement : syntax.getImports()) {
+			ConcreteSyntax importedSyntax = importElement.getConcreteSyntax();
+			if (importedSyntax == null) {
+				continue;
+			}
+			boolean isCollectInInImport = isCollectInFeatureWithoutImports(importedSyntax, feature);
+			if (isCollectInInImport) {
+				return true;
+			}
+		}
+		return isCollectInFeatureWithoutImports(syntax, feature);
+	}
+
+	private boolean isCollectInFeatureWithoutImports(ConcreteSyntax syntax, EStructuralFeature feature) {
+		for (TokenDefinition tokenDefinition : syntax.getTokens()) {
 			final String attributeName = tokenDefinition.getAttributeName();
 			final boolean isCollectToken = attributeName != null;
 			if (!isCollectToken) {

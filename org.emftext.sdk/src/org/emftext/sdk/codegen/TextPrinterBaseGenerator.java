@@ -321,7 +321,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("// print collected hidden tokens");
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
-			if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule, feature)) {
+			if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule.getSyntax(), feature)) {
 				sc.add("{");
 				sc.add(EStructuralFeature.class.getName() + " feature = element.eClass()." + GeneratorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 				sc.add(OBJECT_CLASS_NAME + " value = element.eGet(feature);");
