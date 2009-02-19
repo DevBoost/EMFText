@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.codegen.composites;
 
 import java.util.ArrayList;
 import java.util.List;

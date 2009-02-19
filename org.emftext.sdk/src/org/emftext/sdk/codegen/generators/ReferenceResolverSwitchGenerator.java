@@ -11,9 +11,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.GeneratorUtil;
-import org.emftext.sdk.codegen.util.JavaStringComposite;
-import org.emftext.sdk.codegen.util.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.GeneratorUtil;
 
 /**
  * A generator that creates a multiplexing reference resolver.

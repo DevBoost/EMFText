@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.codegen.composites;
 
 /**
  * A StringComponent is a part of a StringComposite. By

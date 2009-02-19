@@ -13,8 +13,8 @@ import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.util.JavaStringComposite;
-import org.emftext.sdk.codegen.util.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
  * Generates the resource class. The created <code>doLoad()</code> and 

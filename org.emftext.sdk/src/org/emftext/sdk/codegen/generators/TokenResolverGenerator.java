@@ -8,8 +8,8 @@ import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.util.JavaStringComposite;
-import org.emftext.sdk.codegen.util.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
  * A TokenResolverGenerator generates a single TokenResolver for a given TokenDefinition.

@@ -5,9 +5,9 @@ import java.io.PrintWriter;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.TextParserGenerator.InternalTokenDefinition;
-import org.emftext.sdk.codegen.util.JavaStringComposite;
-import org.emftext.sdk.codegen.util.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**

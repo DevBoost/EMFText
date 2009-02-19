@@ -2,6 +2,8 @@ package org.emftext.sdk.codegen.util;
 
 import static org.junit.Assert.assertEquals;
 
+import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.StringComponent;
 import org.junit.Test;
 
 /**

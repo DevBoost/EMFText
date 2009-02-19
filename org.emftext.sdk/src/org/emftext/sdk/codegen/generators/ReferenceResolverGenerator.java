@@ -8,8 +8,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.util.JavaStringComposite;
-import org.emftext.sdk.codegen.util.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
  * A generator that can create basic stub for a single reference resolver.

@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.codegen.composites;
 
 /**
  * A custom StringComposite that is configured with the Java-specific

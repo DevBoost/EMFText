@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.util;
 
 import java.util.Collection;
 import java.util.LinkedList;

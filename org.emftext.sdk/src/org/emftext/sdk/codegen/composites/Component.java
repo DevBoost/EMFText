@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.codegen.composites;
 
 /**
  * A component is a piece of text that can be used to 

@@ -3,8 +3,8 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.util.JavaStringComposite;
-import org.emftext.sdk.codegen.util.StringComposite;
+import org.emftext.sdk.codegen.composites.JavaStringComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
  * Generates a factory for the TextResource which loads and stores generated resources. 

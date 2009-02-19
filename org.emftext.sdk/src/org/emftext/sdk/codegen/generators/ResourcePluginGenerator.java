@@ -39,7 +39,7 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
-import org.emftext.sdk.codegen.TextResourceGeneratorANTLRErrorListener;
+import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
 
 /**
  * A generator that uses multiple other generators to create

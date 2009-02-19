@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen;
+package org.emftext.sdk.codegen.util;
 
 import org.antlr.tool.ANTLRErrorListener;
 import org.antlr.tool.Message;

@@ -1,4 +1,4 @@
-package org.emftext.sdk;
+package org.emftext.sdk.codegen.util;
 
 /**
  * A types pair of objects.
