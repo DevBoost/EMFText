@@ -19,6 +19,7 @@ TOKENS {
 RULES {
 
   ConcreteSyntax ::= 
+    modifier? #1
     "SYNTAXDEF" #1 name[] !0 
     "FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 
     ("START" #1 (startSymbols[]) ("," (startSymbols[]))*)? 
@@ -61,4 +62,5 @@ RULES {
   DecoratedToken ::= "DEFINE" #1 name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" ) ("COLLECT" "IN" attributeName[])?;
   PreDefinedToken ::= "PREDEFINED" #1 name[] ("COLLECT" "IN" attributeName[])?;
 
+  Abstract ::= "ABSTRACT";
 }
