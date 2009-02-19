@@ -10,6 +10,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.ManifestComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -45,52 +47,48 @@ public class ManifestGenerator implements IGenerator {
 	 * @return generated content
 	 */
 	private String getManifestContent() {
+		StringComposite sc = new ManifestComposite();
 		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		String projectName = context.getProject().getName();
 		
-		StringBuffer s = new StringBuffer();
-
-		s.append("Manifest-Version: 1.0\n");
-		s.append("Bundle-ManifestVersion: 2\n");
-		s.append("Bundle-Name: EMFText Parser Plugin: " + concreteSyntax.getName()
-				+ "\n");
-		s.append("Bundle-SymbolicName: " + projectName + ";singleton:=true\n");
-		s.append("Bundle-Version: 1.0.0\n");
-		s
-				.append("Bundle-Vendor: Software Engineering Group - TU Dresden Germany\n");
-		// s.append("Bundle-Localization: plugin\n");
-		s.append("Require-Bundle: org.eclipse.core.runtime,\n");
-		s.append("  org.eclipse.emf.ecore,\n");
+		sc.add("Manifest-Version: 1.0");
+		sc.add("Bundle-ManifestVersion: 2");
+		sc.add("Bundle-Name: EMFText Parser Plugin: " + concreteSyntax.getName());
+		sc.add("Bundle-SymbolicName: " + projectName + ";singleton:=true");
+		sc.add("Bundle-Version: 1.0.0");
+		sc.add("Bundle-Vendor: Software Engineering Group - TU Dresden Germany");
+		sc.add("Require-Bundle: org.eclipse.core.runtime,");
+		sc.add("  org.eclipse.emf.ecore,");
 		List<String> importedPlugins = new ArrayList<String>();
 		String modelPluginID = concreteSyntax.getPackage().getGenModel().getModelPluginID();
 		importedPlugins.add(modelPluginID);
-		s.append("  " + modelPluginID
-				+ ",\n");
+		sc.add("  " + modelPluginID + ",");
 		if (generateTestAction) {
-			s.append("  org.emftext.sdk.ui,\n");
+			sc.add("  org.emftext.sdk.ui,");
 		}
 		for (Import aImport : concreteSyntax.getImports()) {
 			GenModel genModel = aImport.getPackage().getGenModel();
 			String pluginID = genModel.getModelPluginID();
 			if (!importedPlugins.contains(pluginID)) {
-				s.append("  " + pluginID + ",\n");
+				sc.add("  " + pluginID + ",");
 				// TODO this is not quite right, because the resolver package of the imported
 				// plug-in may not exist
-				s.append("  " + context.getPackageName(aImport.getConcreteSyntax()) + ",\n");
+				sc.add("  " + context.getPackageName(aImport.getConcreteSyntax()) + ",");
 				importedPlugins.add(pluginID);
 			}
 		}
-		s.append("  org.emftext.runtime\n");
-		s.append("Bundle-ActivationPolicy: lazy\n");
-		s.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\n");
+		sc.add("  org.emftext.runtime");
+		sc.add("Bundle-ActivationPolicy: lazy");
+		sc.add("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
 		// export the generated packages
-		s.append("Export-Package: " + projectName);
 		if (context.getResolverClasses().size() > 0) {
-			s.append(",\n" + "  " + context.getResolverPackageName());
+			sc.add("Export-Package: " + projectName + ",");
+			sc.add("  " + context.getResolverPackageName());
+		} else {
+			sc.add("Export-Package: " + projectName);
 		}
-		s.append("\n");
 
-		return s.toString();
+		return sc.toString();
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {
