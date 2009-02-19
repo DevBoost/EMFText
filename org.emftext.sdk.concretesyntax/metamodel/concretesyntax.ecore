@@ -93,7 +93,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PreDefinedToken" eSuperTypes="#//TokenDefinition"/>
   <eClassifiers xsi:type="ecore:EClass" name="Containment" eSuperTypes="#//Terminal">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DefinedPlaceholder" eSuperTypes="#//Placeholder">
     <eStructuralFeatures xsi:type="ecore:EReference" name="token" lowerBound="1" eType="#//TokenDefinition"

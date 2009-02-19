@@ -8,7 +8,7 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver ruleMetaclassReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.TerminalFeatureReferenceResolver terminalFeatureReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.TerminalFeatureReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.DefinedPlaceholderTokenReferenceResolver definedPlaceholderTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.DefinedPlaceholderTokenReferenceResolver();
-	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypeReferenceResolver containmentTypeReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypeReferenceResolver();
+	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver containmentTypesReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver();
 	
 	public void resolve(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult result) {
 		if (resolveFuzzy) {
@@ -59,8 +59,12 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 			terminalFeatureReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Terminal) container, reference, position, false, result);
 			return;
 		}
-		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE) {
-			containmentTypeReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, reference, position, false, result);
+		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES) {
+			containmentTypesReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, reference, position, false, result);
+			return;
+		}
+		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES) {
+			containmentTypesReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, reference, position, false, result);
 			return;
 		}
 	}
@@ -96,8 +100,11 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		if (container instanceof org.emftext.sdk.concretesyntax.Terminal && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE) {
 			return terminalFeatureReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Terminal) container, reference);
 		}
-		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE) {
-			return containmentTypeReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
+		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES) {
+			return containmentTypesReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
+		}
+		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES) {
+			return containmentTypesReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
 		}
 		return null;
 	}
@@ -113,7 +120,8 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		definedPlaceholderTokenReferenceResolver.setOptions(options);
 		terminalFeatureReferenceResolver.setOptions(options);
 		terminalFeatureReferenceResolver.setOptions(options);
-		containmentTypeReferenceResolver.setOptions(options);
+		containmentTypesReferenceResolver.setOptions(options);
+		containmentTypesReferenceResolver.setOptions(options);
 	}
 	
 	public void resolveFuzzy(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, int position, org.emftext.runtime.resource.IReferenceResolveResult result) {
@@ -178,9 +186,15 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().isInstance(container)) {
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES);
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				containmentTypeReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+				containmentTypesReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
+			}
+		}
+		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().isInstance(container)) {
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES);
+			if (feature instanceof org.eclipse.emf.ecore.EReference) {
+				containmentTypesReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, (org.eclipse.emf.ecore.EReference) feature, position, true, result);
 			}
 		}
 	}

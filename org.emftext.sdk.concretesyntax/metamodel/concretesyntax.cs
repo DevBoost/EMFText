@@ -1,10 +1,6 @@
 SYNTAXDEF cs 
-FOR       <http://www.emftext.org/sdk/concretesyntax>
-START     cs.ConcreteSyntax
-
-IMPORTS {
-	cs:<http://www.emftext.org/sdk/concretesyntax>
-} 
+FOR       <http://www.emftext.org/sdk/concretesyntax> <concretesyntax.genmodel>
+START     ConcreteSyntax
 
 OPTIONS {
 	tokenspace = "0";
@@ -50,7 +46,7 @@ RULES {
   
   DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] ("," suffix['\'','\''] )? )? "]" #1 cardinality?;
   
-  Containment ::=  feature[] (":" type[])? cardinality? #1 ;
+  Containment ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
   
   CompoundDefinition ::= "(" definitions ")" cardinality?;
 

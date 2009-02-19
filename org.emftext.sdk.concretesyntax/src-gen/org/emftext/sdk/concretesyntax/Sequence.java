@@ -27,19 +27,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Sequence extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Definition}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
+   * The list contents are of type {@link org.emftext.sdk.concretesyntax.Definition}.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Parts</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parts</em>' containment reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getSequence_Parts()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Parts</em>' containment reference list.
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getSequence_Parts()
+   * @model containment="true" required="true"
+   * @generated
+   */
 	EList<Definition> getParts();
 
 } // Sequence

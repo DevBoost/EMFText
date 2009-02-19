@@ -31,147 +31,154 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  */
 public class CompoundDefinitionImpl extends DefinitionImpl implements CompoundDefinition {
 	/**
-	 * The cached value of the '{@link #getDefinitions() <em>Definitions</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getDefinitions() <em>Definitions</em>}' containment reference.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDefinitions()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getDefinitions()
+   * @generated
+   * @ordered
+   */
 	protected Choice definitions;
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected CompoundDefinitionImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.COMPOUND_DEFINITION;
-	}
+    return ConcretesyntaxPackage.Literals.COMPOUND_DEFINITION;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public Choice getDefinitions() {
-		return definitions;
-	}
+    return definitions;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public NotificationChain basicSetDefinitions(Choice newDefinitions, NotificationChain msgs) {
-		Choice oldDefinitions = definitions;
-		definitions = newDefinitions;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, oldDefinitions, newDefinitions);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    Choice oldDefinitions = definitions;
+    definitions = newDefinitions;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, oldDefinitions, newDefinitions);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setDefinitions(Choice newDefinitions) {
-		if (newDefinitions != definitions) {
-			NotificationChain msgs = null;
-			if (definitions != null)
-				msgs = ((InternalEObject)definitions).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, null, msgs);
-			if (newDefinitions != null)
-				msgs = ((InternalEObject)newDefinitions).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, null, msgs);
-			msgs = basicSetDefinitions(newDefinitions, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, newDefinitions, newDefinitions));
-	}
+    if (newDefinitions != definitions)
+    {
+      NotificationChain msgs = null;
+      if (definitions != null)
+        msgs = ((InternalEObject)definitions).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, null, msgs);
+      if (newDefinitions != null)
+        msgs = ((InternalEObject)newDefinitions).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, null, msgs);
+      msgs = basicSetDefinitions(newDefinitions, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS, newDefinitions, newDefinitions));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
-				return basicSetDefinitions(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
+        return basicSetDefinitions(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
-				return getDefinitions();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
+        return getDefinitions();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
-				setDefinitions((Choice)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
+        setDefinitions((Choice)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
-				setDefinitions((Choice)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
+        setDefinitions((Choice)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
-				return definitions != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS:
+        return definitions != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //CompoundDefinitionImpl

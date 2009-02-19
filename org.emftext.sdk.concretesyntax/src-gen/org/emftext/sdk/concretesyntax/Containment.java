@@ -7,6 +7,7 @@
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.common.util.EList;
 
 
 /**
@@ -17,7 +18,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.Containment#getType <em>Type</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.Containment#getTypes <em>Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,28 +29,18 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 public interface Containment extends Terminal {
 
 	/**
-	 * Returns the value of the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Type</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' reference.
-	 * @see #setType(GenClass)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getContainment_Type()
-	 * @model
-	 * @generated
-	 */
-	GenClass getType();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Containment#getType <em>Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' reference.
-	 * @see #getType()
-	 * @generated
-	 */
-	void setType(GenClass value);
+   * Returns the value of the '<em><b>Types</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenClass}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Types</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Types</em>' reference list.
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getContainment_Types()
+   * @model
+   * @generated
+   */
+  EList<GenClass> getTypes();
 } // Containment

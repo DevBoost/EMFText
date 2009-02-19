@@ -31,196 +31,202 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  */
 public abstract class GenPackageDependentElementImpl extends EObjectImpl implements GenPackageDependentElement {
 	/**
-	 * The cached value of the '{@link #getPackage() <em>Package</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getPackage() <em>Package</em>}' reference.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPackage()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getPackage()
+   * @generated
+   * @ordered
+   */
 	protected GenPackage package_;
 
 	/**
-	 * The default value of the '{@link #getPackageLocationHint() <em>Package Location Hint</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getPackageLocationHint() <em>Package Location Hint</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPackageLocationHint()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getPackageLocationHint()
+   * @generated
+   * @ordered
+   */
 	protected static final String PACKAGE_LOCATION_HINT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getPackageLocationHint() <em>Package Location Hint</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getPackageLocationHint() <em>Package Location Hint</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPackageLocationHint()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getPackageLocationHint()
+   * @generated
+   * @ordered
+   */
 	protected String packageLocationHint = PACKAGE_LOCATION_HINT_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected GenPackageDependentElementImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.GEN_PACKAGE_DEPENDENT_ELEMENT;
-	}
+    return ConcretesyntaxPackage.Literals.GEN_PACKAGE_DEPENDENT_ELEMENT;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public GenPackage getPackage() {
-		if (package_ != null && package_.eIsProxy()) {
-			InternalEObject oldPackage = (InternalEObject)package_;
-			package_ = (GenPackage)eResolveProxy(oldPackage);
-			if (package_ != oldPackage) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE, oldPackage, package_));
-			}
-		}
-		return package_;
-	}
+    if (package_ != null && package_.eIsProxy())
+    {
+      InternalEObject oldPackage = (InternalEObject)package_;
+      package_ = (GenPackage)eResolveProxy(oldPackage);
+      if (package_ != oldPackage)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE, oldPackage, package_));
+      }
+    }
+    return package_;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public GenPackage basicGetPackage() {
-		return package_;
-	}
+    return package_;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setPackage(GenPackage newPackage) {
-		GenPackage oldPackage = package_;
-		package_ = newPackage;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE, oldPackage, package_));
-	}
+    GenPackage oldPackage = package_;
+    package_ = newPackage;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE, oldPackage, package_));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public String getPackageLocationHint() {
-		return packageLocationHint;
-	}
+    return packageLocationHint;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setPackageLocationHint(String newPackageLocationHint) {
-		String oldPackageLocationHint = packageLocationHint;
-		packageLocationHint = newPackageLocationHint;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT, oldPackageLocationHint, packageLocationHint));
-	}
+    String oldPackageLocationHint = packageLocationHint;
+    packageLocationHint = newPackageLocationHint;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT, oldPackageLocationHint, packageLocationHint));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
-				if (resolve) return getPackage();
-				return basicGetPackage();
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
-				return getPackageLocationHint();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
+        if (resolve) return getPackage();
+        return basicGetPackage();
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
+        return getPackageLocationHint();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
-				setPackage((GenPackage)newValue);
-				return;
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
-				setPackageLocationHint((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
+        setPackage((GenPackage)newValue);
+        return;
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
+        setPackageLocationHint((String)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
-				setPackage((GenPackage)null);
-				return;
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
-				setPackageLocationHint(PACKAGE_LOCATION_HINT_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
+        setPackage((GenPackage)null);
+        return;
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
+        setPackageLocationHint(PACKAGE_LOCATION_HINT_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
-				return package_ != null;
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
-				return PACKAGE_LOCATION_HINT_EDEFAULT == null ? packageLocationHint != null : !PACKAGE_LOCATION_HINT_EDEFAULT.equals(packageLocationHint);
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE:
+        return package_ != null;
+      case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
+        return PACKAGE_LOCATION_HINT_EDEFAULT == null ? packageLocationHint != null : !PACKAGE_LOCATION_HINT_EDEFAULT.equals(packageLocationHint);
+    }
+    return super.eIsSet(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (packageLocationHint: ");
-		result.append(packageLocationHint);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (packageLocationHint: ");
+    result.append(packageLocationHint);
+    result.append(')');
+    return result.toString();
+  }
 
 } //GenPackageDependentElementImpl

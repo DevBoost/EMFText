@@ -739,11 +739,10 @@ public class TextParserGenerator extends BaseGenerator {
 		final String ident = "a" + count;
     	final String proxyIdent = "proxy";
     	
-		String expressionToBeSet = null;
     	StringBuffer resolvements = new StringBuffer();
     	
     	out.print(indent);
-    	out.print(ident + " = ");
+		out.print("(");
     	
     	if(terminal instanceof Containment){
     		assert ((EReference)eFeature).isContainment(); 
@@ -751,22 +750,22 @@ public class TextParserGenerator extends BaseGenerator {
     		
     		EList<GenClass> types; 
     		//is there an explicit type defined?
-    		/*if (!containment.getTypes().isEmpty()) {
+    		if (!containment.getTypes().isEmpty()) {
     			types = containment.getTypes();
     		}
-    		else*/ {
+    		else {
     			types = new BasicEList<GenClass>();
     			types.add(genFeature.getTypeGenClass());
     		}
 
-    		boolean first = true;
+    		int internalCount = 0;
     		for(GenClass type : types) {
-    			if (first) {
-    				first = false;
-    			}
-    			else {
+    			if (internalCount != 0) {
     				out.print("|");
     			}
+    			
+                String internalIdent = ident + "_" + internalCount;
+    	    	out.print(internalIdent + " = ");
                 out.print(getLowerCase(type.getName())); 
                 
                 if(!(genFeature.getEcoreFeature() instanceof EAttribute)){
@@ -777,13 +776,15 @@ public class TextParserGenerator extends BaseGenerator {
                    
                     eClassesReferenced.get(type).add(terminal);            	
                 }
+                
+            	printTerminalAction(terminal, rule, out, genClass, genFeature,
+        				eFeature, internalIdent, proxyIdent, internalIdent, resolvements);
+            	
+            	internalCount++;
     		}
-
-
-            expressionToBeSet = ident;
     	}
         else {
-        	
+        	out.print(ident + " = ");
         	String tokenName = null;
         	if(terminal instanceof DerivedPlaceholder){
         		
@@ -816,6 +817,8 @@ public class TextParserGenerator extends BaseGenerator {
            	resolvements.append("\tgetResource().addError(result.getErrorMessage(), ((CommonToken) " + ident + ").getLine(), ((CommonToken) " + ident + ").getCharPositionInLine(), ((CommonToken) " + ident + ").getStartIndex(), ((CommonToken) " + ident + ").getStopIndex());\n");
            	resolvements.append("}\n");
         	
+           	String expressionToBeSet = null;
+           	
         	if (eFeature instanceof EReference) {
         		targetTypeName = "String";
         		expressionToBeSet = proxyIdent;
@@ -856,9 +859,21 @@ public class TextParserGenerator extends BaseGenerator {
                	resolvements.append("\t" + targetTypeName + " " + resolvedIdent + " = (" + getObjectTypeName(targetTypeName) + ")" + preResolved + ";\n");
         		expressionToBeSet = "resolved";
         	}
-        }
         	
-    	out.print("{");
+        	printTerminalAction(terminal, rule, out, genClass, genFeature,
+    				eFeature, ident, proxyIdent, expressionToBeSet, resolvements);
+        }
+    	
+		out.print(")");
+    	return ++count;	
+    }
+
+	private void printTerminalAction(Terminal terminal, Rule rule,
+			PrintWriter out, final GenClass genClass,
+			final GenFeature genFeature, final EStructuralFeature eFeature,
+			final String ident, final String proxyIdent,
+			String expressionToBeSet, StringBuffer resolvements) {
+		out.print("{");
     	out.println("if (element == null) {");
     	out.println("\telement = " + getCreateObjectCall(rule.getMetaclass()) + "; ");
     	out.println("}");
@@ -883,8 +898,7 @@ public class TextParserGenerator extends BaseGenerator {
         }
     	
         out.println("}");
-    	return ++count;	
-    }
+	}
     
     
 	private void printImplicitChoiceRules(PrintWriter out, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){

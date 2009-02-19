@@ -787,7 +787,7 @@ copyLocalizationInfos((CommonToken) a0, proxy);
 org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 tokenResolver.setOptions(getOptions());
 org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), result);
+tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), result);
 Object resolvedObject = result.getResolvedToken();
 if (resolvedObject == null) {
 	getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
@@ -795,28 +795,57 @@ if (resolvedObject == null) {
 String resolved = (String) resolvedObject;
 org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
 collectHiddenTokens(element, proxy);
-getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), resolved, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), resolved, proxy);
 
 if (proxy != null) {
-element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPE), proxy); 
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES, proxy); 
 }
 collectHiddenTokens(element, proxy);
 copyLocalizationInfos((CommonToken) a2, element); 
 copyLocalizationInfos((CommonToken) a2, proxy); 
 }
 
+			(
+				(
+					a3 = ','{ if (element == null) {element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment();} collectHiddenTokens(element, (CommonToken)a3);copyLocalizationInfos((CommonToken)a3, element); }
+					a4 = QUALIFIED_NAME{if (element == null) {
+	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment(); 
+}
+org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
+tokenResolver.setOptions(getOptions());
+org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), result);
+Object resolvedObject = result.getResolvedToken();
+if (resolvedObject == null) {
+	getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+}
+String resolved = (String) resolvedObject;
+org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelFactoryImpl.eINSTANCE.createGenClass();
+collectHiddenTokens(element, proxy);
+getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), resolved, proxy);
+
+if (proxy != null) {
+addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES, proxy); 
+}
+collectHiddenTokens(element, proxy);
+copyLocalizationInfos((CommonToken) a4, element); 
+copyLocalizationInfos((CommonToken) a4, proxy); 
+}
+
+				)
+			)*
 		)
 	)?
 	(
-		a3 = cardinality{if (element == null) {
+		a5 = cardinality{if (element == null) {
 	element = org.emftext.sdk.concretesyntax.impl.ConcretesyntaxFactoryImpl.eINSTANCE.createContainment(); 
 }
 
-if (a3 != null) {
-element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a3); 
+if (a5 != null) {
+element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a5); 
 }
-collectHiddenTokens(element, a3);
-copyLocalizationInfos(a3, element); 
+collectHiddenTokens(element, a5);
+copyLocalizationInfos(a5, element); 
 }
 
 	)?
@@ -1228,17 +1257,17 @@ LINEBREAK
 :
 	('\r\n'|'\r'|'\n'){ _channel = 99; }
 ;
-QUOTED_60_62
+QUOTED_36_36
 :
-	('<')(~('>')|('\\''>'))*('>')
+	('$')(~('$')|('\\''$'))*('$')
 ;
 QUOTED_39_39
 :
 	('\'')(~('\'')|('\\''\''))*('\'')
 ;
-QUOTED_36_36
+QUOTED_60_62
 :
-	('$')(~('$')|('\\''$'))*('$')
+	('<')(~('>')|('\\''>'))*('>')
 ;
 QUOTED_34_34
 :

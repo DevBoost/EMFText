@@ -23,22 +23,22 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  */
 public abstract class CardinalityImpl extends EObjectImpl implements Cardinality {
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected CardinalityImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.CARDINALITY;
-	}
+    return ConcretesyntaxPackage.Literals.CARDINALITY;
+  }
 
 } //CardinalityImpl

@@ -50,150 +50,153 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  */
 public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implements ConcreteSyntax {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImports()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getImports()
+   * @generated
+   * @ordered
+   */
 	protected EList<Import> imports;
 
 	/**
-	 * The cached value of the '{@link #getStartSymbols() <em>Start Symbols</em>}' reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getStartSymbols() <em>Start Symbols</em>}' reference list.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStartSymbols()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getStartSymbols()
+   * @generated
+   * @ordered
+   */
 	protected EList<GenClass> startSymbols;
 
 	/**
-	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRules()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getRules()
+   * @generated
+   * @ordered
+   */
 	protected EList<Rule> rules;
 
 	/**
-	 * The cached value of the '{@link #getTokens() <em>Tokens</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTokens() <em>Tokens</em>}' containment reference list.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTokens()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTokens()
+   * @generated
+   * @ordered
+   */
 	protected EList<TokenDefinition> tokens;
 
 	/**
-	 * The cached value of the '{@link #getOptions() <em>Options</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getOptions() <em>Options</em>}' containment reference list.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOptions()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getOptions()
+   * @generated
+   * @ordered
+   */
 	protected EList<Option> options;
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected ConcreteSyntaxImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX;
-	}
+    return ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public String getName() {
-		return name;
-	}
+    return name;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME, oldName, name));
-	}
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME, oldName, name));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public EList<Import> getImports() {
-		if (imports == null) {
-			imports = new EObjectContainmentEList<Import>(Import.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS);
-		}
-		return imports;
-	}
+    if (imports == null)
+    {
+      imports = new EObjectContainmentEList<Import>(Import.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS);
+    }
+    return imports;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public EList<GenClass> getStartSymbols() {
-		if (startSymbols == null) {
-			startSymbols = new EObjectResolvingEList<GenClass>(GenClass.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS);
-		}
-		return startSymbols;
-	}
+    if (startSymbols == null)
+    {
+      startSymbols = new EObjectResolvingEList<GenClass>(GenClass.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS);
+    }
+    return startSymbols;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public EList<Rule> getRules() {
-		if (rules == null) {
-			rules = new EObjectContainmentWithInverseEList<Rule>(Rule.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, ConcretesyntaxPackage.RULE__SYNTAX);
-		}
-		return rules;
-	}
+    if (rules == null)
+    {
+      rules = new EObjectContainmentWithInverseEList<Rule>(Rule.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, ConcretesyntaxPackage.RULE__SYNTAX);
+    }
+    return rules;
+  }
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -215,196 +218,204 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public EList<TokenDefinition> getTokens() {
-		if (tokens == null) {
-			tokens = new EObjectContainmentEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
-		}
-		return tokens;
-	}
+    if (tokens == null)
+    {
+      tokens = new EObjectContainmentEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
+    }
+    return tokens;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public EList<Option> getOptions() {
-		if (options == null) {
-			options = new EObjectContainmentEList<Option>(Option.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS);
-		}
-		return options;
-	}
+    if (options == null)
+    {
+      options = new EObjectContainmentEList<Option>(Option.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS);
+    }
+    return options;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getRules()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getRules()).basicAdd(otherEnd, msgs);
+    }
+    return super.eInverseAdd(otherEnd, featureID, msgs);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
-				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
-				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
-				return ((InternalEList<?>)getTokens()).basicRemove(otherEnd, msgs);
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
-				return ((InternalEList<?>)getOptions()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
+        return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
+        return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
+        return ((InternalEList<?>)getTokens()).basicRemove(otherEnd, msgs);
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+        return ((InternalEList<?>)getOptions()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
-				return getName();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
-				return getImports();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
-				return getStartSymbols();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
-				return getRules();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
-				return getAllRules();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
-				return getTokens();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
-				return getOptions();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
+        return getName();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
+        return getImports();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
+        return getStartSymbols();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
+        return getRules();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
+        return getAllRules();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
+        return getTokens();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+        return getOptions();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
-				setName((String)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
-				getImports().clear();
-				getImports().addAll((Collection<? extends Import>)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
-				getStartSymbols().clear();
-				getStartSymbols().addAll((Collection<? extends GenClass>)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
-				getRules().clear();
-				getRules().addAll((Collection<? extends Rule>)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
-				getTokens().clear();
-				getTokens().addAll((Collection<? extends TokenDefinition>)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
-				getOptions().clear();
-				getOptions().addAll((Collection<? extends Option>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
+        setName((String)newValue);
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
+        getImports().clear();
+        getImports().addAll((Collection<? extends Import>)newValue);
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
+        getStartSymbols().clear();
+        getStartSymbols().addAll((Collection<? extends GenClass>)newValue);
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
+        getRules().clear();
+        getRules().addAll((Collection<? extends Rule>)newValue);
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
+        getTokens().clear();
+        getTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+        getOptions().clear();
+        getOptions().addAll((Collection<? extends Option>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
-				getImports().clear();
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
-				getStartSymbols().clear();
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
-				getRules().clear();
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
-				getTokens().clear();
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
-				getOptions().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
+        getImports().clear();
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
+        getStartSymbols().clear();
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
+        getRules().clear();
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
+        getTokens().clear();
+        return;
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+        getOptions().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
-				return imports != null && !imports.isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
-				return startSymbols != null && !startSymbols.isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
-				return rules != null && !rules.isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
-				return !getAllRules().isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
-				return tokens != null && !tokens.isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
-				return options != null && !options.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
+        return imports != null && !imports.isEmpty();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
+        return startSymbols != null && !startSymbols.isEmpty();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
+        return rules != null && !rules.isEmpty();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
+        return !getAllRules().isEmpty();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
+        return tokens != null && !tokens.isEmpty();
+      case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
+        return options != null && !options.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
+  }
 
 } //ConcreteSyntaxImpl

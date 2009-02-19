@@ -29,190 +29,194 @@ import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
  */
 public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPlaceholder {
 	/**
-	 * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPrefix()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getPrefix()
+   * @generated
+   * @ordered
+   */
 	protected static final String PREFIX_EDEFAULT = "";
 
 	/**
-	 * The cached value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPrefix()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getPrefix()
+   * @generated
+   * @ordered
+   */
 	protected String prefix = PREFIX_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSuffix()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getSuffix()
+   * @generated
+   * @ordered
+   */
 	protected static final String SUFFIX_EDEFAULT = "";
 
 	/**
-	 * The cached value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getSuffix() <em>Suffix</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSuffix()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getSuffix()
+   * @generated
+   * @ordered
+   */
 	protected String suffix = SUFFIX_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected DerivedPlaceholderImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.DERIVED_PLACEHOLDER;
-	}
+    return ConcretesyntaxPackage.Literals.DERIVED_PLACEHOLDER;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public String getPrefix() {
-		return prefix;
-	}
+    return prefix;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setPrefix(String newPrefix) {
-		String oldPrefix = prefix;
-		prefix = newPrefix;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX, oldPrefix, prefix));
-	}
+    String oldPrefix = prefix;
+    prefix = newPrefix;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX, oldPrefix, prefix));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public String getSuffix() {
-		return suffix;
-	}
+    return suffix;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setSuffix(String newSuffix) {
-		String oldSuffix = suffix;
-		suffix = newSuffix;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX, oldSuffix, suffix));
-	}
+    String oldSuffix = suffix;
+    suffix = newSuffix;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX, oldSuffix, suffix));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
-				return getPrefix();
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
-				return getSuffix();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+        return getPrefix();
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+        return getSuffix();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
-				setPrefix((String)newValue);
-				return;
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
-				setSuffix((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+        setPrefix((String)newValue);
+        return;
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+        setSuffix((String)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
-				setPrefix(PREFIX_EDEFAULT);
-				return;
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
-				setSuffix(SUFFIX_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+        setPrefix(PREFIX_EDEFAULT);
+        return;
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+        setSuffix(SUFFIX_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
-				return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
-				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+        return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
+      case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+        return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
+    }
+    return super.eIsSet(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (prefix: ");
-		result.append(prefix);
-		result.append(", suffix: ");
-		result.append(suffix);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (prefix: ");
+    result.append(prefix);
+    result.append(", suffix: ");
+    result.append(suffix);
+    result.append(')');
+    return result.toString();
+  }
 
 } //DerivedPlaceholderImpl
