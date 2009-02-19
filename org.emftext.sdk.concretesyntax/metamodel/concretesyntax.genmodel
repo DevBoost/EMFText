@@ -15,6 +15,7 @@
     <genClasses ecoreClass="concretesyntax.ecore#//ConcreteSyntax">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//ConcreteSyntax/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/startSymbols"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allStartSymbols"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/imports"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/options"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/tokens"/>

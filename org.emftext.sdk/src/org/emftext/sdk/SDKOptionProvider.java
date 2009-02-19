@@ -21,6 +21,7 @@ import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.LeftRecursionDetector;
+import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -87,6 +88,17 @@ public class SDKOptionProvider implements IOptionProvider {
 				};
 			}
 		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkCorrectUseOfAbstractModifier(resource);
+					}
+				};
+			}
+		});
+		
 		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
 		return options;
@@ -178,6 +190,50 @@ public class SDKOptionProvider implements IOptionProvider {
 				}
 			}
 		}
+	}
+	
+	private void checkCorrectUseOfAbstractModifier(ITextResource resource) {
+		EList<EObject> contents = resource.getContents();
+		if (contents == null) {
+			return;
+		}
+		if (contents.size() == 0) {
+			return;
+		}
+		EObject root = contents.get(0);
+		if (!(root instanceof ConcreteSyntax)) {
+			return;
+		}
+		ConcreteSyntax cs = (ConcreteSyntax) root;
+		List<GenClass> symbols = cs.getActiveStartSymbols();
+		Abstract modifier = cs.getModifier();
+		boolean isDeclaredAbstract = modifier != null;
+		if (isDeclaredAbstract) {
+			// assert there is no start symbol (not a 
+			// declared one and not an imported one)
+			if (symbols.size() > 0) {
+				resource.addError("Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract.", modifier);
+			}
+		} else {
+			// assert the is at least one start symbol (either a 
+			// declared one or an imported one)
+			if (symbols.size() == 0) {
+				resource.addError("Syntax has no start symbols, but is not declared abstract.", cs);
+			}
+		}
+	}
+
+	private String getListOfNames(List<GenClass> classes) {
+		boolean isFirst = true;
+		String listOfNames = "";
+		for (GenClass symbol : classes) {
+			if (!isFirst) {
+				listOfNames += ", ";
+			}
+			isFirst = false;
+			listOfNames += symbol.getName();
+		}
+		return listOfNames;
 	}
 
 	private void checkForOptionalKeywords(ITextResource resource) {

@@ -101,7 +101,7 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
         				}
         				for (GenClass genClass : genClasses) {
         					if (!genClass.isAbstract() && !genClass.isInterface() && !containsSelfOfSuper(containedClasses, genClass.getEcoreClass()) ) {
-        						cSyntax.getStartSymbols().add(genClass);
+        						cSyntax.getActiveStartSymbols().add(genClass);
         					}
         				}
         				

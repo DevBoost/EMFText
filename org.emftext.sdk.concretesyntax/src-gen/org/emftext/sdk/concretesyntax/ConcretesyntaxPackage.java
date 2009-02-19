@@ -143,13 +143,31 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Active Start Symbols</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>All Start Symbols</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__ALL_START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__IMPORTS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 2;
+	int CONCRETE_SYNTAX__IMPORTS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Options</b></em>' containment reference list.
@@ -158,7 +176,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__OPTIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 3;
+	int CONCRETE_SYNTAX__OPTIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
@@ -167,7 +185,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
+	int CONCRETE_SYNTAX__TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -176,7 +194,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 5;
+	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>All Rules</b></em>' reference list.
@@ -185,7 +203,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 6;
+	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Modifier</b></em>' containment reference.
@@ -194,7 +212,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__MODIFIER = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 7;
+	int CONCRETE_SYNTAX__MODIFIER = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
@@ -203,7 +221,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
+	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -1254,6 +1272,28 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getConcreteSyntax_StartSymbols();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveStartSymbols <em>Active Start Symbols</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Active Start Symbols</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveStartSymbols()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax_ActiveStartSymbols();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllStartSymbols <em>All Start Symbols</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>All Start Symbols</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllStartSymbols()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax_AllStartSymbols();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1925,6 +1965,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONCRETE_SYNTAX__START_SYMBOLS = eINSTANCE.getConcreteSyntax_StartSymbols();
+
+		/**
+		 * The meta object literal for the '<em><b>Active Start Symbols</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS = eINSTANCE.getConcreteSyntax_ActiveStartSymbols();
+
+		/**
+		 * The meta object literal for the '<em><b>All Start Symbols</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__ALL_START_SYMBOLS = eINSTANCE.getConcreteSyntax_AllStartSymbols();
 
 		/**
 		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.

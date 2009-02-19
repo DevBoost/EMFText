@@ -19,6 +19,8 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getStartSymbols <em>Start Symbols</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveStartSymbols <em>Active Start Symbols</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllStartSymbols <em>All Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOptions <em>Options</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getTokens <em>Tokens</em>}</li>
@@ -90,6 +92,38 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	 * @generated
 	 */
 	EList<GenClass> getStartSymbols();
+
+	/**
+	 * Returns the value of the '<em><b>Active Start Symbols</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenClass}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Active Start Symbols</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Active Start Symbols</em>' reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_ActiveStartSymbols()
+	 * @model resolveProxies="false" required="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<GenClass> getActiveStartSymbols();
+
+	/**
+	 * Returns the value of the '<em><b>All Start Symbols</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenClass}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>All Start Symbols</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>All Start Symbols</em>' reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_AllStartSymbols()
+	 * @model resolveProxies="false" required="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<GenClass> getAllStartSymbols();
 
 	/**
 	 * Returns the value of the '<em><b>Rules</b></em>' containment reference list.

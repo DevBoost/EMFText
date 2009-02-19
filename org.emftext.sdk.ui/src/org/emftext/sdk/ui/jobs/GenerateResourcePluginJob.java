@@ -28,6 +28,10 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.MarkerHelper;
@@ -89,6 +93,9 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 					addGenerationProblem(csResource, problem);
 				}
 			};
+			if (checkAbstract(concreteSyntax)) {
+				return Status.OK_STATUS;
+			}
 			
 			GenerationContext context = new GenerationContext(concreteSyntax, collector);
 			// create a project
@@ -119,6 +126,24 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			return new Status(Status.ERROR, EMFTextSDKUIPlugin.PLUGIN_ID, CoreException.class.getSimpleName(), new InvocationTargetException(e));
 		}
 		return Status.OK_STATUS;
+	}
+
+	private boolean checkAbstract(final ConcreteSyntax concreteSyntax) {
+		if (concreteSyntax.getModifier() != null) {
+			// show error message, because we can not generate plug-ins for
+			// abstract syntaxes
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					Shell parent = new Shell();
+					MessageDialog dialog = new MessageDialog(parent, "Abstract syntax", null, "Can't generate resource plug-in for abstract syntax definition.", MessageDialog.ERROR,
+							new String[] { IDialogConstants.OK_LABEL }, 0) {
+					};
+					dialog.open();
+				}
+			});
+			return true;
+		}
+		return false;
 	}
 
 	private static void addGenerationProblem(ITextResource csResource,

@@ -359,7 +359,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Imports() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(2);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -376,25 +376,25 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConcreteSyntax_ActiveStartSymbols() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcreteSyntax_AllStartSymbols() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getConcreteSyntax_Rules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getConcreteSyntax_AllRules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getConcreteSyntax_Modifier() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -403,8 +403,26 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConcreteSyntax_AllRules() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcreteSyntax_Modifier() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getConcreteSyntax_Tokens() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(4);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -413,7 +431,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Options() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(3);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -911,6 +929,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		concreteSyntaxEClass = createEClass(CONCRETE_SYNTAX);
 		createEAttribute(concreteSyntaxEClass, CONCRETE_SYNTAX__NAME);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__START_SYMBOLS);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_START_SYMBOLS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__IMPORTS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__OPTIONS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKENS);
@@ -1054,6 +1074,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEClass(concreteSyntaxEClass, ConcreteSyntax.class, "ConcreteSyntax", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConcreteSyntax_Name(), ecorePackage.getEString(), "name", null, 1, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_StartSymbols(), theGenModelPackage.getGenClass(), null, "startSymbols", null, 1, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax_ActiveStartSymbols(), theGenModelPackage.getGenClass(), null, "activeStartSymbols", null, 1, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax_AllStartSymbols(), theGenModelPackage.getGenClass(), null, "allStartSymbols", null, 1, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Imports(), this.getImport(), null, "imports", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Options(), this.getOption(), null, "options", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Tokens(), this.getTokenDefinition(), null, "tokens", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

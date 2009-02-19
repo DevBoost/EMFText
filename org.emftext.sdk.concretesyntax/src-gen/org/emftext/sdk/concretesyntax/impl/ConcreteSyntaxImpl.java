@@ -39,6 +39,8 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getStartSymbols <em>Start Symbols</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getActiveStartSymbols <em>Active Start Symbols</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllStartSymbols <em>All Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getOptions <em>Options</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getTokens <em>Tokens</em>}</li>
@@ -197,6 +199,53 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Returns all active start symbols. A symbol is active if it is 
+	 * either declared in this syntax of if it is part of an imported
+	 * syntax.
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenClass> getActiveStartSymbols() {
+		EList<GenClass> symbols = new BasicEList<GenClass>();
+		symbols.addAll(getStartSymbols());
+		if (symbols.size() > 0) {
+			return symbols;
+		}
+		
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				symbols.addAll(importedSyntax.getActiveStartSymbols());
+			}
+		}
+		return symbols;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Returns all start symbols. This includes both the symbols declared 
+	 * in this syntax and the symbols from imported syntaxes.
+	 * syntax.
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenClass> getAllStartSymbols() {
+		EList<GenClass> symbols = new BasicEList<GenClass>();
+		symbols.addAll(getStartSymbols());
+		
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				symbols.addAll(importedSyntax.getAllStartSymbols());
+			}
+		}
+		return symbols;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -342,6 +391,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getName();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
 				return getStartSymbols();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS:
+				return getActiveStartSymbols();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_START_SYMBOLS:
+				return getAllStartSymbols();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				return getImports();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
@@ -442,6 +495,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
 				return startSymbols != null && !startSymbols.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS:
+				return !getActiveStartSymbols().isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_START_SYMBOLS:
+				return !getAllStartSymbols().isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				return imports != null && !imports.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
