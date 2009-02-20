@@ -505,7 +505,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        sc.add(" returns [" + ruleName + " element = null]");
 	        sc.add("@init{");
 			sc.add("element = " + getCreateObjectCall(recursiveType) + ";");
-			// TODO here collectHiddenTokens() should be called
+			// TODO mseifert, cwende: here collectHiddenTokens() should be called
 	        sc.add("List<EObject> dummyEObjects  = new ArrayList<EObject>();");
 	        sc.add("}");
 	        sc.add(":");
@@ -587,7 +587,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        sc.add(" returns [DummyEObject element = null]");
 	        sc.add("@init{");
 	        sc.add("element = new DummyEObject(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
-			// TODO here collectHiddenTokens() should be called
+			// TODO mseifert, cwende: here collectHiddenTokens() should be called
 	        sc.add("}");
 	        sc.add(":");
 	        

@@ -23,7 +23,7 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
  * A finder that looks up generator packages in the EMF package
  * registry.
  * 
- * TODO this finder does not work properly
+ * TODO jjohannes: check whether this finder works properly
  */
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	

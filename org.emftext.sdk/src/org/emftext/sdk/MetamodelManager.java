@@ -16,7 +16,7 @@ import org.emftext.sdk.finders.IConcreteSyntaxFinderResult;
 import org.emftext.sdk.finders.IGenPackageFinder;
 import org.emftext.sdk.finders.IGenPackageFinderResult;
 
-// FIXME remove the cache, because:
+// FIXME mseifert: remove the cache, because:
 // a) it is not used right now, because new instances of this class are created for each request
 // b) it is not needed anymore, since we do not search in the workspace for generator models anymore.
 //    we either specify a URL of a generator model or look it up in the registry, which does not
