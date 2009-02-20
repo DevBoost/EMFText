@@ -6,10 +6,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -50,12 +47,10 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
-import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
-import org.emftext.runtime.ui.ISaveListener;
 import org.emftext.runtime.ui.MarkerHelper;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
@@ -131,8 +126,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			this.enabled = enabled;
 		}
 	}
-
-	private static final String SAVE_PERFORMED_EXTENSION_POINT_ID = "org.emftext.runtime.ui.perform_save";
 
 	private ColorManager colorManager;
 
@@ -258,8 +251,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			EcoreUtil.resolveAll(thisFile);
 			markerAdapter.setEnabled(true);
 			
-			fireSaveEvent(thisFile);
-			
 			MarkerHelper.unmark(thisFile);
 			MarkerHelper.mark(thisFile);
 		} catch (Exception e) {
@@ -361,20 +352,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		this.invalidateTextRepresentation();
 	}
 	
-	private void fireSaveEvent(ITextResource resource) {
-		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-		IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextEditor.SAVE_PERFORMED_EXTENSION_POINT_ID);
-		for (IConfigurationElement element : configurationElements) {
-			try {
-				ISaveListener listener = (ISaveListener) element.createExecutableExtension("class");//$NON-NLS-1$
-				listener.savePerformed(resource);
-			} catch (CoreException ce) {
-				EMFTextPlugin.logError("Exception while calling save listeners for text resource.", ce);
-			}
-		}
-	}
-
-
 	@Override
 	protected void performSaveAs(IProgressMonitor progressMonitor) {
 		FileEditorInput input = (FileEditorInput) getEditorInput();
