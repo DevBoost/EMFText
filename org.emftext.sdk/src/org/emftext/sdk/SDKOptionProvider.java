@@ -209,7 +209,7 @@ public class SDKOptionProvider implements IOptionProvider {
 				}
 				if (ecoreFeature instanceof EReference) {
 					EReference ecoreReference = (EReference) ecoreFeature;
-					// TODO this is not correct: pairs of opposite references
+					// TODO mseifert: this is not correct: pairs of opposite references
 					// must be defined in at least one rule. the references are
 					// only unused if they are not defined anywhere.
 					if (!ecoreReference.isContainment() && ecoreReference.getEOpposite() != null) {

@@ -1224,7 +1224,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     		return "*";
     }
 
-    // TODO this should be performed in a post processor
+    // TODO mseifert: this should be performed in a post processor
     private boolean checkANTLRRegex(InternalTokenDefinition def){
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
     	PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
