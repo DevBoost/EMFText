@@ -568,7 +568,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							else {
 								assert terminal instanceof DerivedPlaceholder;
 								tokenName = placeholder2TokenName
-										.get((DerivedPlaceholder) terminal);
+										.get(terminal);
 							}
 
 							if (feature instanceof EReference) {

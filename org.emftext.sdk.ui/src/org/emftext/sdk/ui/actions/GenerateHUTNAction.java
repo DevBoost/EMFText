@@ -80,7 +80,7 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
         				
         				final ConcretesyntaxFactory concretesyntaxFactory = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory();
         				Resource csResource = rs.createResource(URI.createPlatformResourceURI(file.getFullPath().removeFileExtension().addFileExtension("cs").toString(), true));
-        				final ConcreteSyntax cSyntax = (ConcreteSyntax) concretesyntaxFactory.createConcreteSyntax();		
+        				final ConcreteSyntax cSyntax = concretesyntaxFactory.createConcreteSyntax();		
         				csResource.getContents().clear();
         				csResource.getContents().add(cSyntax);
         				

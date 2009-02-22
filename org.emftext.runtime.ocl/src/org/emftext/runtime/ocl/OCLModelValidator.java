@@ -51,7 +51,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 		TreeIterator<EObject> allContents = resource.getAllContents();
 
 		while (allContents.hasNext()) {
-			evaluate((EObject) allContents.next());
+			evaluate(allContents.next());
 		}
 	}
 

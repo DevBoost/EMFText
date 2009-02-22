@@ -170,7 +170,7 @@ public class StringComposite {
 			if (isStarter) {
 				if (isStopper) {
 					if (parent != null) {
-						subTree = (Tree) parent;
+						subTree = parent;
 					}
 					subTree.addChildNode(node);
 					subTree = new Tree(subTree);
@@ -181,7 +181,7 @@ public class StringComposite {
 			} else {
 				if (isStopper) {
 					if (parent != null) {
-						subTree = (Tree) parent;
+						subTree = parent;
 					}
 					subTree.addChildNode(node);
 				} else {

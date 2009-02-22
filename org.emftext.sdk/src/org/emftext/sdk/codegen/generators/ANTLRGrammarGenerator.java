@@ -1061,7 +1061,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	for(int i=0;i<chars.length;i++){
     		if(chars[i]<10)
     			result += "0";
-    		result += (int)chars[i];
+    		result += (int) chars[i];
     	}
     	return result;
     }
