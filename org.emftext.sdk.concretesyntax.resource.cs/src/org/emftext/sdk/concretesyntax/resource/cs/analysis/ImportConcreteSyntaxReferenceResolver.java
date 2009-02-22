@@ -1,6 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis; 
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextResource;
@@ -15,10 +14,10 @@ public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceReso
 
 	@Override
 	protected void doResolve(String identifier, Import container,
-			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<ConcreteSyntax> result) {
 		
 		String locationHint = container.getCsLocationHint();
-		EObject concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, locationHint, container,  
+		ConcreteSyntax concreteSyntax = mmHelper.findConcreteSyntax(getOptions(), identifier, locationHint, container,  
 				container.getPackage(), (ITextResource) container.eResource());
 
 		if (concreteSyntax == null) {

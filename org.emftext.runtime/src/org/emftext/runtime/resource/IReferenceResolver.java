@@ -9,6 +9,9 @@ import org.eclipse.emf.ecore.EObject;
  * @param <ContainerType> the type of the container that contains
  * the reference that is resolved by this resolver
  * 
+ * @param <ReferenceType> the type of the reference that is
+ * resolved by this resolver
+ * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public interface IReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> extends ITypedReferenceResolver<ContainerType, ReferenceType>, IConfigurable {

@@ -22,7 +22,7 @@ public interface ITypedReferenceResolver<ContainerType, ReferenceType> {
 	 * @return an object that contains the result of the resolve operation.
 	 */
 	public void resolve(String identifier, ContainerType container,
-			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result);
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<ReferenceType> result);
 
 	/**
 	 * Reverse of the resolve operation: constructs a representing String of the given

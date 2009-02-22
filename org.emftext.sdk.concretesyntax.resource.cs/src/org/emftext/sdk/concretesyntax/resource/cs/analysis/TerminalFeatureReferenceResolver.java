@@ -14,16 +14,16 @@ import org.emftext.sdk.concretesyntax.Terminal;
 
 public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<Terminal, GenFeature> {
 	
-	private interface FeatureResolveResult extends IReferenceResolveResult {
+	private interface FeatureResolveResult extends IReferenceResolveResult<GenFeature> {
 		public boolean foundFeatureWithCorrectName();
 		public void setFoundFeatureWithCorrectName();
 	}
 	
-	private class FeatureResolveResultImpl extends DelegatingResolveResult implements FeatureResolveResult {
+	private class FeatureResolveResultImpl extends DelegatingResolveResult<GenFeature> implements FeatureResolveResult {
 		
 		private boolean foundFeatureWithCorrectName = false;
 
-		public FeatureResolveResultImpl(IReferenceResolveResult result) {
+		public FeatureResolveResultImpl(IReferenceResolveResult<GenFeature> result) {
 			super(result);
 		}
 
@@ -120,7 +120,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 
 	@Override
 	protected void doResolve(final String identifier, final Terminal container,
-			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<GenFeature> result) {
 		if (resolveFuzzy) {
 			doResolveFuzzy(identifier, container, result);
 		} else {
@@ -128,15 +128,15 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		}
 	}
 
-	private void doResolveFuzzy(String identifier, Terminal container, IReferenceResolveResult result) {
+	private void doResolveFuzzy(String identifier, Terminal container, IReferenceResolveResult<GenFeature> result) {
 		doResolveFeature(container, new NameStartsWithFilter(identifier), identifier, result);
 	}
 
-	private void doResolveStrict(String identifier, Terminal container, IReferenceResolveResult result) {
+	private void doResolveStrict(String identifier, Terminal container, IReferenceResolveResult<GenFeature> result) {
 		doResolveFeature(container, new NameAndContainmentFilter(identifier, container), identifier, result);
 	}
 
-	private void doResolveFeature(Terminal container, GenFeatureFilter filter, String identifier, IReferenceResolveResult result) {
+	private void doResolveFeature(Terminal container, GenFeatureFilter filter, String identifier, IReferenceResolveResult<GenFeature> result) {
 		Rule rule = getContainingRule(container);
 		
 		if (rule == null) {

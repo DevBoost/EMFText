@@ -14,7 +14,7 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 	@Override
 	protected void doResolve(String identifier, DefinedPlaceholder container,
 			EReference reference, int position, boolean resolveFuzzy,
-			IReferenceResolveResult result) {
+			IReferenceResolveResult<TokenDefinition> result) {
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);
@@ -27,7 +27,7 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
-			DefinedPlaceholder container, boolean resolveFuzzy, IReferenceResolveResult result) {
+			DefinedPlaceholder container, boolean resolveFuzzy, IReferenceResolveResult<TokenDefinition> result) {
 		EObject root = findRoot(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;

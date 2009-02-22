@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 
@@ -12,7 +11,7 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
  * A basic implementation of IResolveResult interface
  * that collects mappings in a list.
  */
-public class ReferenceResolveResult implements IReferenceResolveResult {
+public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveResult<ReferenceType> {
 	
 	private Collection<IReferenceMapping> mappings;
 	private String errorMessage;
@@ -52,18 +51,18 @@ public class ReferenceResolveResult implements IReferenceResolveResult {
 		errorMessage = message;
 	}
 
-	public void addMapping(String identifier, EObject target) {
+	public void addMapping(String identifier, ReferenceType target) {
 		if (resolveFuzzy && target == null) {
 			throw new IllegalArgumentException("Mapping references to null is only allowed for fuzzy resolution.");
 		}
 		addMapping(identifier, target, null);
 	}
 
-	public void addMapping(String identifier, EObject target, String warning) {
+	public void addMapping(String identifier, ReferenceType target, String warning) {
 		if (mappings == null) {
 			mappings = new ArrayList<IReferenceMapping>();
 		}
-		mappings.add(new ElementMapping(identifier, target, warning));
+		mappings.add(new ElementMapping<ReferenceType>(identifier, target, warning));
 		errorMessage = null;
 	}
 

@@ -3,7 +3,6 @@ package org.emftext.runtime.resource.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 
@@ -12,11 +11,11 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
  * all method calls to another ResolveResult. Client may subclass 
  * this class to easily create custom ResolveResults.
  */
-public class DelegatingResolveResult implements IReferenceResolveResult {
+public class DelegatingResolveResult<ReferenceType> implements IReferenceResolveResult<ReferenceType> {
 	
-	private IReferenceResolveResult delegate;
+	private IReferenceResolveResult<ReferenceType> delegate;
 
-	public DelegatingResolveResult(IReferenceResolveResult delegate) {
+	public DelegatingResolveResult(IReferenceResolveResult<ReferenceType> delegate) {
 		this.delegate = delegate;
 	}
 
@@ -44,7 +43,7 @@ public class DelegatingResolveResult implements IReferenceResolveResult {
 		delegate.setErrorMessage(message);
 	}
 
-	public void addMapping(String identifier, EObject target) {
+	public void addMapping(String identifier, ReferenceType target) {
 		delegate.addMapping(identifier, target);
 	}
 
@@ -52,7 +51,7 @@ public class DelegatingResolveResult implements IReferenceResolveResult {
 		delegate.addMapping(identifier, uri);
 	}
 
-	public void addMapping(String identifier, EObject target, String warning) {
+	public void addMapping(String identifier, ReferenceType target, String warning) {
 		delegate.addMapping(identifier, target, warning);
 	}
 

@@ -1,21 +1,20 @@
 package org.emftext.runtime.resource.impl;
 
-import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IElementMapping;
 
 /**
  * A basic implementation of the IElementMapping interface.
  */
-public class ElementMapping extends AbstractReferenceMapping implements IElementMapping {
+public class ElementMapping<ReferenceType> extends AbstractReferenceMapping implements IElementMapping<ReferenceType> {
 	
-	private final EObject target;
+	private final ReferenceType target;
 	
-	public ElementMapping(String identifier, EObject target, String warning) {
+	public ElementMapping(String identifier, ReferenceType target, String warning) {
 		super(identifier, warning);
 		this.target = target;
 	}
 
-	public EObject getTargetElement() {
+	public ReferenceType getTargetElement() {
 		return target;
 	}
 }

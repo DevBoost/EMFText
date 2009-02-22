@@ -45,19 +45,19 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 
 	private ILocationMap locationMap = new LocationMap();
 	
-	private Map<String, IContextDependentURIFragment> internalURIFragmentMap =
-		new HashMap<String, IContextDependentURIFragment>();
+	private Map<String, IContextDependentURIFragment<? extends EObject>> internalURIFragmentMap =
+		new HashMap<String, IContextDependentURIFragment<? extends EObject>>();
 	
     private int proxyCounter = 0;
     
-	public void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement) {
+	public <ReferenceType extends EObject> void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement) {
 		int pos = -1;
 		if (reference.isMany()) {
 			pos = ((List<?>)container.eGet(reference)).size();
 		}
 		InternalEObject proxy = (InternalEObject) proxyElement; 
 		String internalURIFragment = IContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX + proxyCounter++ + "_" + id;
-		IContextDependentURIFragment uriFragment = new ContextDependentURIFragment(
+		IContextDependentURIFragment<? extends EObject> uriFragment = new ContextDependentURIFragment<ReferenceType>(
 				id,
 				container,
 				reference,
@@ -71,11 +71,11 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	@Override
 	public EObject getEObject(String id) {
 		if (internalURIFragmentMap.containsKey(id)) {
-			IContextDependentURIFragment uriFragment = 
+			IContextDependentURIFragment<? extends EObject> uriFragment = 
 				internalURIFragmentMap.get(id);
 
 			boolean wasResolvedBefore = uriFragment.isResolved();
-			IReferenceResolveResult result = uriFragment.resolve(getReferenceResolverSwitch());
+			IReferenceResolveResult<? extends EObject> result = uriFragment.resolve(getReferenceResolverSwitch());
 			
 			if (result == null) {
 				//the resolving did call itself
@@ -104,13 +104,13 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 	}
 
-	private EObject getResultElement(IContextDependentURIFragment uriFragment,
+	private EObject getResultElement(IContextDependentURIFragment<? extends EObject> uriFragment,
 			IReferenceMapping mapping) {
 		if (mapping instanceof IURIMapping) {
 			return this.getResourceSet().getEObject(((IURIMapping)mapping).getTargetIdentifier(), true);
 		}
 		else if (mapping instanceof IElementMapping) {
-			EObject element = ((IElementMapping)mapping).getTargetElement();
+			EObject element = ((IElementMapping<? extends EObject>)mapping).getTargetElement();
 			EReference reference = uriFragment.getReference();
 			EReference oppositeReference = uriFragment.getReference().getEOpposite();
 			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
@@ -143,7 +143,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 	}
 	
-	private void attachErrors(IReferenceResolveResult result, EObject proxy) {
+	private void attachErrors(IReferenceResolveResult<?> result, EObject proxy) {
 		// attach errors to resource
 		assert result != null;
 		String errorMessage = result.getErrorMessage();
@@ -154,7 +154,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 	}
 
-	private void attachWarnings(IReferenceResolveResult result) {
+	private void attachWarnings(IReferenceResolveResult<? extends EObject> result) {
 		assert result != null;
 		assert result.wasResolved();
 		
@@ -165,7 +165,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 					continue;
 				}
 				if (mapping instanceof IElementMapping) {
-					final EObject target = ((IElementMapping) mapping).getTargetElement();
+					final EObject target = ((IElementMapping<? extends EObject>) mapping).getTargetElement();
 					addWarning(warningMessage, target);
 				} else {
 					assert false;

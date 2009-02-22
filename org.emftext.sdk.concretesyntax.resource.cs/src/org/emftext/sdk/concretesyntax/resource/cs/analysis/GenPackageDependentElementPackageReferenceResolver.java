@@ -9,7 +9,7 @@ public class GenPackageDependentElementPackageReferenceResolver extends org.emft
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 
 	@Override	
-	protected void doResolve(java.lang.String nsURI, org.emftext.sdk.concretesyntax.GenPackageDependentElement container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult result) {
+	protected void doResolve(java.lang.String nsURI, org.emftext.sdk.concretesyntax.GenPackageDependentElement container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult<GenPackage> result) {
 		String locationHint = container.getPackageLocationHint();
 		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), container, nsURI, locationHint, (ITextResource) container.eResource());
 		if (genPackage == null) {

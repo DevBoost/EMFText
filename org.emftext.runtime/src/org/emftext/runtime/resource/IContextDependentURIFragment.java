@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EReference;
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  *
  */
-public interface IContextDependentURIFragment {
+public interface IContextDependentURIFragment<ReferenceType extends EObject> {
 
 	/**
 	 * A prefix that can be used in a <code>URI.fragment</code> String of a proxy
@@ -62,7 +62,7 @@ public interface IContextDependentURIFragment {
 	 * @param resolverSwitch a resolver switch that can handle the context
 	 * @return result of resolving process
 	 */
-	public IReferenceResolveResult resolve(IReferenceResolverSwitch resolverSwitch);
+	public IReferenceResolveResult<ReferenceType> resolve(IReferenceResolverSwitch resolverSwitch);
 	
 	/**
 	 * @return <code>true</code> if <code>resolve()</code> was called successfully before.

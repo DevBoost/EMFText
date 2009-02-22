@@ -52,7 +52,7 @@ public class MetaclassReferenceResolver {
 	}
 
 	public void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		
 		if (resolveFuzzy) {
 			doResolveFuzzy(getConcreteSyntax(container), identifier, result, requiredSuperType, canBeAbstract);
@@ -61,7 +61,7 @@ public class MetaclassReferenceResolver {
 		}
 	}
 
-	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IReferenceResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
+	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		doResolveMetaclass(syntax, new MetaClassFilter() {
 
 			public String accept(String importPrefix, GenClass genClass) {
@@ -84,7 +84,7 @@ public class MetaclassReferenceResolver {
 		}, identifier, result, requiredSuperType, canBeAbstract);
 	}
 
-	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IReferenceResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
+	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		// first collect all generator classes
 		List<Pair<String, GenClass>> prefixedGenClasses = genClassFinder.findAllGenClassesAndPrefixes(syntax, true, true);
 		// then check which are accepted by the filter
@@ -157,7 +157,7 @@ public class MetaclassReferenceResolver {
 
 
 	private void doResolveStrict(ConcreteSyntax container,
-			final String identifier, IReferenceResolveResult result, GenClass requiredSuperType, boolean canBeAbstract) {
+			final String identifier, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		
 		doResolveMetaclass(container, new MetaClassFilter() {
 

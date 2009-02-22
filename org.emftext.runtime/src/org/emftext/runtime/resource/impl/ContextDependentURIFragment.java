@@ -17,14 +17,14 @@ import org.emftext.runtime.resource.IURIMapping;
 /**
  * Standard implementation of <code>IContextDependentURIFragment</code>.
  */
-public class ContextDependentURIFragment implements IContextDependentURIFragment {
+public class ContextDependentURIFragment<ReferenceType extends EObject> implements IContextDependentURIFragment<ReferenceType> {
 
 	protected String     identifier;
 	protected EObject    container;
 	protected EReference reference;
 	protected int        positionInReference;
 	protected EObject    proxy;
-	protected IReferenceResolveResult result;
+	protected IReferenceResolveResult<ReferenceType> result;
 	
 	private boolean resolving;
 	
@@ -41,13 +41,13 @@ public class ContextDependentURIFragment implements IContextDependentURIFragment
 		return result != null;
 	}
 	
-	public synchronized IReferenceResolveResult resolve(IReferenceResolverSwitch resolverSwitch) {
+	public synchronized IReferenceResolveResult<ReferenceType> resolve(IReferenceResolverSwitch resolverSwitch) {
 		if (resolving) {
 			return null;
 		}
 		resolving = true;
 		if (result == null || !result.wasResolved()) {
-			result = new ReferenceResolveResult(false);
+			result = new ReferenceResolveResult<ReferenceType>(false);
 			//set an initial default error message
 			result.setErrorMessage(getStdErrorMessage());
 			//do the actual resolving
@@ -88,7 +88,7 @@ public class ContextDependentURIFragment implements IContextDependentURIFragment
 				EMFTextPlugin.logError(
 						container.eClass().getName() +
 						"." + reference.getName() + 
-						"has multiplicity 1 but was resolved to multiple elements", 
+						" has multiplicity 1 but was resolved to multiple elements", 
 						null);
 			}
 		}
@@ -99,7 +99,7 @@ public class ContextDependentURIFragment implements IContextDependentURIFragment
 		int proxyPosition = list.indexOf(proxy);
 		
 		if (mapping instanceof IElementMapping) {
-			target = ((IElementMapping) mapping).getTargetElement();
+			target = ((IElementMapping<ReferenceType>) mapping).getTargetElement();
 		} else if (mapping instanceof IURIMapping) {
 			target = EcoreUtil.copy(proxy);
 			URI uri = ((IURIMapping) mapping).getTargetIdentifier();

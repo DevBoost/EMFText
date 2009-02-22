@@ -39,7 +39,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject, R
 	}
 	
 	public void resolve(String identifier, ContainerType container, 
-			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<ReferenceType> result) {
 		try {
 			doResolve(identifier, container, reference, position, resolveFuzzy, result);
 		} catch (RuntimeException rte) {
@@ -61,7 +61,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject, R
 	 * @return The resolved object or null if resolving fails.
 	 */
 	protected void doResolve(String identifier, ContainerType container,
-			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult result) {
+			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<ReferenceType> result) {
 
 		EClass type     = reference.getEReferenceType();
 		EObject root = findRoot(container);
@@ -72,7 +72,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject, R
 				if (eClass.equals(type) || eClass.getEAllSuperTypes().contains(type)) {
 					final String match = matches(element, identifier, resolveFuzzy);
 					if (match != null) {
-						result.addMapping(match, element);
+						result.addMapping(match, (ReferenceType) element);
 						if (!resolveFuzzy) {
 							return;
 						}

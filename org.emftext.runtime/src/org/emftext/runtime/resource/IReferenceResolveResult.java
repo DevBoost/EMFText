@@ -3,17 +3,14 @@ package org.emftext.runtime.resource;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * The result of a single attempt to resolve an identifier. The 
  * result can either be successful (identifier was resolved to one
  * or more objects) or failed (identifier was not resolved). In
  * the case of failure, the result provides an error message.
- * 
- * TODO mseifert: try to add type parameter for target
  */
-public interface IReferenceResolveResult {
+public interface IReferenceResolveResult<ReferenceType> {
 	
 	/**
 	 * Returns the error message that describes what went wrong while
@@ -47,8 +44,8 @@ public interface IReferenceResolveResult {
 	 * Optionally a warning can be passed to this method if resolving
 	 * the reference was successful, but not accurate.
 	 */
-	public void addMapping(String identifier, EObject target, String warning);
-	public void addMapping(String identifier, EObject target);
+	public void addMapping(String identifier, ReferenceType target, String warning);
+	public void addMapping(String identifier, ReferenceType target);
 	
 	/**
 	 * Adds a mapping from the given identifier to another identifier.

@@ -74,5 +74,5 @@ public interface ITextResource extends Resource {
 	 * @param id
 	 * @param proxyElement
 	 */
-	public void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement);
+	public <ReferenceType extends EObject> void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement);
 }

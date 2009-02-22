@@ -2,6 +2,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver;
 
 public class ContainmentTypesReferenceResolver extends org.emftext.runtime.resource.impl.AbstractReferenceResolver<org.emftext.sdk.concretesyntax.Containment, GenClass> {
@@ -14,7 +15,7 @@ public class ContainmentTypesReferenceResolver extends org.emftext.runtime.resou
 	}
 
 	@Override
-	protected void doResolve(java.lang.String identifier, org.emftext.sdk.concretesyntax.Containment container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult result) {
+	protected void doResolve(java.lang.String identifier, org.emftext.sdk.concretesyntax.Containment container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<GenClass> result) {
 		GenClass superType = null;
 		final GenFeature feature = container.getFeature();
 		if (feature != null && feature.getEcoreFeature() != null) {
