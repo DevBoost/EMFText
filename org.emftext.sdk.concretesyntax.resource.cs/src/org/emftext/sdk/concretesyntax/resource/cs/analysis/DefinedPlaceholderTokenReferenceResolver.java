@@ -9,7 +9,7 @@ import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
-public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceResolver<DefinedPlaceholder> {
+public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceResolver<DefinedPlaceholder, TokenDefinition> {
 
 	@Override
 	protected void doResolve(String identifier, DefinedPlaceholder container,

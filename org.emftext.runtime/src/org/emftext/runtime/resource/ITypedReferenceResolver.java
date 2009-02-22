@@ -1,6 +1,5 @@
 package org.emftext.runtime.resource;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 /**
@@ -8,8 +7,9 @@ import org.eclipse.emf.ecore.EReference;
  * contained in objects of a given class.
  *
  * @param <ContainerType> the type of the container that has the references
+ * @param <ReferenceType> the type of the reference itself
  */
-public interface ITypedReferenceResolver<ContainerType> {
+public interface ITypedReferenceResolver<ContainerType, ReferenceType> {
 	
 	/**
 	 * Attempts to resolve a reference string.
@@ -28,10 +28,11 @@ public interface ITypedReferenceResolver<ContainerType> {
 	 * Reverse of the resolve operation: constructs a representing String of the given
 	 * object.
 	 *
-	 * @param proxy The model element.
+	 * @param element The referenced model element.
 	 * @param container The object referencing the element.
 	 * @param reference The reference that holds the element.
+	 * 
 	 * @return The identification string for the reference
 	 */
-	public String deResolve(EObject element, ContainerType container, EReference reference);
+	public String deResolve(ReferenceType element, ContainerType container, EReference reference);
 }

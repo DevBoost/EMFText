@@ -11,5 +11,5 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
-public interface IReferenceResolver<ContainerType extends EObject> extends ITypedReferenceResolver<ContainerType>, IConfigurable {
+public interface IReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> extends ITypedReferenceResolver<ContainerType, ReferenceType>, IConfigurable {
 }

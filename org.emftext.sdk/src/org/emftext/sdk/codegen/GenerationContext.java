@@ -60,7 +60,7 @@ public class GenerationContext {
 	 * contained in imported syntaxes and that are reused.
 	 */
 	private Collection<String> resolverClasses = new LinkedHashSet<String>();
-	private Collection<GenFeature> nonContainmentReferences = new ArrayList<GenFeature>();
+	private Collection<GenFeature> nonContainmentReferences = new LinkedHashSet<GenFeature>();
 	private Collection<InternalTokenDefinition> usedTokens = new ArrayList<InternalTokenDefinition>();
 	
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
@@ -283,7 +283,7 @@ public class GenerationContext {
 	public boolean isImportedReference(GenFeature genFeature) {
 		List<GenClass> classes = genClassFinder.findAllGenClasses(concreteSyntax, false, true);
 		for (GenClass genClass : classes) {
-			if (genClass != null && genClass.equals(genFeature.getGenClass())) {
+			if (genClass != null && genClass.getQualifiedInterfaceName().equals(genFeature.getGenClass().getQualifiedInterfaceName())) {
 				return false;
 			}
 		}

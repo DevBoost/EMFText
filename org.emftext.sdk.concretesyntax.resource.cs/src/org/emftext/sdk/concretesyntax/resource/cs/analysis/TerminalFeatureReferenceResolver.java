@@ -12,7 +12,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Terminal;
 
-public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<Terminal> {
+public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<Terminal, GenFeature> {
 	
 	private interface FeatureResolveResult extends IReferenceResolveResult {
 		public boolean foundFeatureWithCorrectName();
@@ -158,8 +158,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 	}
 
 	@Override
-	public String deResolve(EObject element, Terminal container, EReference reference){
-		GenFeature feature = (GenFeature) element;
+	public String deResolve(GenFeature feature, Terminal container, EReference reference){
 		return feature.getName();
 	}
 

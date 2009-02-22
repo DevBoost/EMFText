@@ -6,9 +6,10 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.MetamodelHelper;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
-public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceResolver<Import> {
+public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceResolver<Import, ConcreteSyntax> {
 
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 

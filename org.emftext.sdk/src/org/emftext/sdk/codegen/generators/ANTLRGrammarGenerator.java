@@ -986,6 +986,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     
     private InternalTokenDefinition deriveTokenDefinition(String prefix, String suffix) {
     	String derivedTokenName = null;
+        // TODO mseifert: this checks should be performed in a post processor
     	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
 		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
 		
@@ -1200,13 +1201,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 * and therefore need reference resolvers.
 	 */
 	
-	public Collection<GenFeature> getProxyReferences(){
+	public Collection<GenFeature> getNonContainmentReferences() {
 		return nonContainmentReferences;
 	}
 	
 	/**
 	 * 
-	 * @return A mapping between derived Placeholders and Tokennames
+	 * @return A mapping between derived place holders and token names.
 	 */
 	public Map<DerivedPlaceholder,String> getPlaceHolderTokenMapping(){
 		return placeholder2TokenName;

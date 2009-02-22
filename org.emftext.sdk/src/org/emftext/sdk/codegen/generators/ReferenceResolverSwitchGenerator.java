@@ -92,6 +92,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
+	// TODO this method creates duplicate if branches for some references
 	private void generateDeResolveMethod(StringComposite sc) {
 		sc.add("public " + String.class.getName() + " deResolve(" + EObject.class.getName() + " refObject, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference) {");
 		for(GenFeature proxyReference : context.getNonContainmentReferences()) {
@@ -100,7 +101,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			String genClassName = genClass.getQualifiedInterfaceName();
 			String featureID = GeneratorUtil.getFeatureConstant(genClass, GeneratorUtil.findGenFeature(genClass, proxyReference.getName()));
 			sc.add("if (container instanceof " + genClassName + " && reference.getFeatureID() == " + featureID + ") {");		
-			sc.add("return " + low(generatedClassName)+".deResolve(refObject, (" + genClassName + ") container, reference);");			
+			sc.add("return " + low(generatedClassName)+".deResolve((" + proxyReference.getTypeGenClass().getQualifiedInterfaceName() + ") refObject, (" + genClassName + ") container, reference);");			
 			sc.add("}");
 		}
 		sc.add("return null;");

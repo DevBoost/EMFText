@@ -3,7 +3,6 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
@@ -28,7 +27,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 		StringComposite sc = new JavaComposite();
 	    sc.add("package " + getResourcePackageName() + ";");	
 	    sc.addLineBreak();
-	    sc.add("public class " + getResourceClassName() + " extends " + AbstractReferenceResolver.class.getName() + "<" + proxyReference.getGenClass().getQualifiedInterfaceName() + "> {");
+	    sc.add("public class " + getResourceClassName() + " extends " + AbstractReferenceResolver.class.getName() + "<" + proxyReference.getGenClass().getQualifiedInterfaceName() + ", " + proxyReference.getTypeGenClass().getQualifiedInterfaceName() + "> {");
 
 	    sc.addLineBreak();
 	    generateDoDeResolveMethod(sc);
@@ -45,7 +44,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	private void generateDoDeResolveMethod(StringComposite sc) {
 		sc.add("@Override");
 	    sc.addLineBreak();
-		sc.add("protected " + String.class.getName() + " doDeResolve(" + EObject.class.getName() + " element, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference) {");
+		sc.add("protected " + String.class.getName() + " doDeResolve(" + proxyReference.getTypeGenClass().getQualifiedInterfaceName() + " element, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference) {");
 		sc.add("return super.doDeResolve(element, container, reference);");
 		sc.add("}");
 	}

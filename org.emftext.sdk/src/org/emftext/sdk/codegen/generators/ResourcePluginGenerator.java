@@ -210,7 +210,7 @@ public class ResourcePluginGenerator {
 		
 		IFolder targetFolder = context.getTargetFolder();
 		
-		for (GenFeature proxyReference : antlrGenerator.getProxyReferences()){
+		for (GenFeature proxyReference : antlrGenerator.getNonContainmentReferences()){
 			String resolverClassName = context.getReferenceResolverClassName(proxyReference);
 			context.addNonContainmentReference(proxyReference);
 			// do not generate resolvers for references in imported rules

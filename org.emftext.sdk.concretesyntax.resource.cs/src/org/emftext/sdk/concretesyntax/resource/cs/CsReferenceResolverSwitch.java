@@ -1,5 +1,11 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
+
 public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.IReferenceResolverSwitch {
 	
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.GenPackageDependentElementPackageReferenceResolver genPackageDependentElementPackageReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.GenPackageDependentElementPackageReferenceResolver();
@@ -71,40 +77,40 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 	
 	public java.lang.String deResolve(org.eclipse.emf.ecore.EObject refObject, org.eclipse.emf.ecore.EObject container, org.eclipse.emf.ecore.EReference reference) {
 		if (container instanceof org.emftext.sdk.concretesyntax.GenPackageDependentElement && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE) {
-			return genPackageDependentElementPackageReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.GenPackageDependentElement) container, reference);
+			return genPackageDependentElementPackageReferenceResolver.deResolve((GenPackage) refObject, (org.emftext.sdk.concretesyntax.GenPackageDependentElement) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS) {
-			return concreteSyntaxStartSymbolsReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference);
+			return concreteSyntaxStartSymbolsReferenceResolver.deResolve((GenClass) refObject, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS) {
-			return concreteSyntaxStartSymbolsReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference);
+			return concreteSyntaxStartSymbolsReferenceResolver.deResolve((GenClass) refObject, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.GenPackageDependentElement && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE) {
-			return genPackageDependentElementPackageReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.GenPackageDependentElement) container, reference);
+			return genPackageDependentElementPackageReferenceResolver.deResolve((GenPackage) refObject, (org.emftext.sdk.concretesyntax.GenPackageDependentElement) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Import && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX) {
-			return importConcreteSyntaxReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Import) container, reference);
+			return importConcreteSyntaxReferenceResolver.deResolve((ConcreteSyntax) refObject, (org.emftext.sdk.concretesyntax.Import) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Rule && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS) {
-			return ruleMetaclassReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Rule) container, reference);
+			return ruleMetaclassReferenceResolver.deResolve((GenClass) refObject, (org.emftext.sdk.concretesyntax.Rule) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Terminal && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE) {
-			return terminalFeatureReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Terminal) container, reference);
+			return terminalFeatureReferenceResolver.deResolve((GenFeature) refObject, (org.emftext.sdk.concretesyntax.Terminal) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.DefinedPlaceholder && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN) {
-			return definedPlaceholderTokenReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.DefinedPlaceholder) container, reference);
+			return definedPlaceholderTokenReferenceResolver.deResolve((TokenDefinition) refObject, (org.emftext.sdk.concretesyntax.DefinedPlaceholder) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Terminal && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE) {
-			return terminalFeatureReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Terminal) container, reference);
+			return terminalFeatureReferenceResolver.deResolve((GenFeature) refObject, (org.emftext.sdk.concretesyntax.Terminal) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Terminal && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE) {
-			return terminalFeatureReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Terminal) container, reference);
+			return terminalFeatureReferenceResolver.deResolve((GenFeature) refObject, (org.emftext.sdk.concretesyntax.Terminal) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES) {
-			return containmentTypesReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
+			return containmentTypesReferenceResolver.deResolve((GenClass) refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
 		}
 		if (container instanceof org.emftext.sdk.concretesyntax.Containment && reference.getFeatureID() == org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES) {
-			return containmentTypesReferenceResolver.deResolve(refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
+			return containmentTypesReferenceResolver.deResolve((GenClass) refObject, (org.emftext.sdk.concretesyntax.Containment) container, reference);
 		}
 		return null;
 	}

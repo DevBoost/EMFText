@@ -4,7 +4,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.MetamodelHelper;
 
-public class GenPackageDependentElementPackageReferenceResolver extends org.emftext.runtime.resource.impl.AbstractReferenceResolver<org.emftext.sdk.concretesyntax.GenPackageDependentElement> {
+public class GenPackageDependentElementPackageReferenceResolver extends org.emftext.runtime.resource.impl.AbstractReferenceResolver<org.emftext.sdk.concretesyntax.GenPackageDependentElement, GenPackage> {
 	
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 
@@ -28,8 +28,7 @@ public class GenPackageDependentElementPackageReferenceResolver extends org.emft
 	}
 	
 	@Override	
-	protected java.lang.String doDeResolve(org.eclipse.emf.ecore.EObject element, org.emftext.sdk.concretesyntax.GenPackageDependentElement container, org.eclipse.emf.ecore.EReference reference) {
-		GenPackage pck = (GenPackage)element;
-		return pck.getNSURI();
+	protected java.lang.String doDeResolve(GenPackage element, org.emftext.sdk.concretesyntax.GenPackageDependentElement container, org.eclipse.emf.ecore.EReference reference) {
+		return element.getNSURI();
 	}
 }

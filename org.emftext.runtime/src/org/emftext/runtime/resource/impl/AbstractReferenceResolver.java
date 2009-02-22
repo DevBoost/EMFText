@@ -25,7 +25,7 @@ import org.emftext.runtime.resource.ITextResource;
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
-public abstract class AbstractReferenceResolver<ContainerType extends EObject> implements IReferenceResolver<ContainerType> {
+public abstract class AbstractReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> implements IReferenceResolver<ContainerType, ReferenceType> {
 
 	public final static String NAME_FEATURE = "name";
 
@@ -99,7 +99,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 		
 	}
 	
-	protected String doDeResolve(EObject element, ContainerType container,
+	protected String doDeResolve(ReferenceType element, ContainerType container,
 			EReference reference) {
 		return getName(element);
 	}
@@ -148,7 +148,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 		return null;
 	}
 
-	private String getName(EObject element) {
+	private String getName(ReferenceType element) {
 		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
 		if (nameAttr instanceof EAttribute) {
 			return (String) element.eGet(nameAttr);
@@ -197,7 +197,7 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject> i
 	}
 
 	
-	public String deResolve(EObject element, ContainerType container,
+	public String deResolve(ReferenceType element, ContainerType container,
 			EReference reference) {
 		return doDeResolve(element, container, reference);
 	}
