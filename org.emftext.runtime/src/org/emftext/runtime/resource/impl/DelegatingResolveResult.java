@@ -23,7 +23,7 @@ public class DelegatingResolveResult<ReferenceType> implements IReferenceResolve
 		return delegate.getErrorMessage();
 	}
 
-	public Collection<IReferenceMapping> getMappings() {
+	public Collection<IReferenceMapping<ReferenceType>> getMappings() {
 		return delegate.getMappings();
 	}
 

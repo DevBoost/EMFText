@@ -42,6 +42,7 @@ import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
+import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.sdk.analysis.LeftRecursionDetector;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -262,9 +263,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private boolean forceEOFToken;
 	private boolean usePredefinedTokens;
 	private GenClassFinder genClassFinder = new GenClassFinder();
+
+	private GenerationContext context;
 	
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
+		this.context = context;
 		conreteSyntax = context.getConcreteSyntax();
 		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
 	}
@@ -371,6 +375,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("}");
         sc.addLineBreak();
         
+
         List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(conreteSyntax.getTokens());       
         sc.add("protected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) {");
         if (!collectTokenDefinitions.isEmpty()) {          
@@ -435,6 +440,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("}");
         sc.addLineBreak();
+        
         
         printStartRule(sc);
         
@@ -857,7 +863,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element, " + expressionToBeSet + ");");
-            	resolvements.add("getResource().registerContextDependentProxy(element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
+            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverSwitchClassName() + ".get" + context.getReferenceResolverClassName(genFeature) + "()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	//remember where proxies have to be resolved
             	proxyReferences.add(genFeature);
         	}

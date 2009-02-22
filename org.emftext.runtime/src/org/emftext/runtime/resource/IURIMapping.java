@@ -7,6 +7,6 @@ import org.eclipse.emf.common.util.URI;
  * This is sometime necessary when resolving references depends 
  * on the resolution of others.
  */
-public interface IURIMapping extends IReferenceMapping {
+public interface IURIMapping<ReferenceType> extends IReferenceMapping<ReferenceType> {
 	public URI getTargetIdentifier();
 }

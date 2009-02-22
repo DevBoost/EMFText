@@ -95,5 +95,5 @@ public interface IReferenceResolveResult<ReferenceType> {
 	 * Returns all mappings that were found while resolving an
 	 * identifier.
 	 */
-	public Collection<IReferenceMapping> getMappings();
+	public Collection<IReferenceMapping<ReferenceType>> getMappings();
 }

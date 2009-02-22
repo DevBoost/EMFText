@@ -56,13 +56,11 @@ public interface IContextDependentURIFragment<ReferenceType extends EObject> {
 	public int getPositionInReference();
 
 	/**
-	 * Uses the given <code>IReferenceResolverSwitch</code> to resolve the proxy
-	 * to the real element(s) using context information.
+	 * Resolves the proxy to the real element(s) using context information.
 	 * 
-	 * @param resolverSwitch a resolver switch that can handle the context
 	 * @return result of resolving process
 	 */
-	public IReferenceResolveResult<ReferenceType> resolve(IReferenceResolverSwitch resolverSwitch);
+	public IReferenceResolveResult<ReferenceType> resolve();
 	
 	/**
 	 * @return <code>true</code> if <code>resolve()</code> was called successfully before.

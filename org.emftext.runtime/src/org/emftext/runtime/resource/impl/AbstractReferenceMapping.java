@@ -6,7 +6,7 @@ import org.emftext.runtime.resource.IReferenceMapping;
  * A base class for all reference mappings. Instances store the identifier
  * that was resolves and a warning message.
  */
-public abstract class AbstractReferenceMapping implements IReferenceMapping {
+public abstract class AbstractReferenceMapping<ReferenceType> implements IReferenceMapping<ReferenceType> {
 
 	private String identifier;
 	private String warning;

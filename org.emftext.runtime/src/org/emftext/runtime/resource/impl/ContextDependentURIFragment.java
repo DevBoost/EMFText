@@ -10,17 +10,17 @@ import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.IReferenceMapping;
-import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.IReferenceResolveResult;
+import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IURIMapping;
 
 /**
  * Standard implementation of <code>IContextDependentURIFragment</code>.
  */
-public class ContextDependentURIFragment<ReferenceType extends EObject> implements IContextDependentURIFragment<ReferenceType> {
+public abstract class ContextDependentURIFragment<ContainerType extends EObject, ReferenceType extends EObject> implements IContextDependentURIFragment<ReferenceType> {
 
 	protected String     identifier;
-	protected EObject    container;
+	protected ContainerType    container;
 	protected EReference reference;
 	protected int        positionInReference;
 	protected EObject    proxy;
@@ -28,7 +28,7 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 	
 	private boolean resolving;
 	
-	public ContextDependentURIFragment(String identifier, EObject container,
+	public ContextDependentURIFragment(String identifier, ContainerType container,
 			EReference reference, int positionInReference, EObject proxy) {
 		this.identifier = identifier;
 		this.container = container;
@@ -41,7 +41,7 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 		return result != null;
 	}
 	
-	public synchronized IReferenceResolveResult<ReferenceType> resolve(IReferenceResolverSwitch resolverSwitch) {
+	public synchronized IReferenceResolveResult<ReferenceType> resolve() {
 		if (resolving) {
 			return null;
 		}
@@ -50,8 +50,10 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 			result = new ReferenceResolveResult<ReferenceType>(false);
 			//set an initial default error message
 			result.setErrorMessage(getStdErrorMessage());
+			
+			IReferenceResolver<ContainerType, ReferenceType> resolver = getResolver();
 			//do the actual resolving
-			resolverSwitch.resolve(
+			resolver.resolve(
 					this.getIdentifier(),
 					this.getContainer(), 
 					this.getReference(), 
@@ -68,6 +70,8 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 		resolving = false;
 		return result;
 	}
+	
+	public abstract IReferenceResolver<ContainerType, ReferenceType> getResolver();
 
 	private void handleMultipleResults() {
 		EList<EObject> list = null;
@@ -77,7 +81,7 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 		}
 		
 		boolean first = true; 
-		for(IReferenceMapping mapping : result.getMappings()) {
+		for(IReferenceMapping<ReferenceType> mapping : result.getMappings()) {
 			if (first) {
 				first = false;
 			}
@@ -94,7 +98,7 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 		}
 	}
 
-	private void addResultToList(IReferenceMapping mapping, EObject proxy, EList<EObject> list) {
+	private void addResultToList(IReferenceMapping<ReferenceType> mapping, EObject proxy, EList<EObject> list) {
 		EObject target = null;
 		int proxyPosition = list.indexOf(proxy);
 		
@@ -102,7 +106,7 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 			target = ((IElementMapping<ReferenceType>) mapping).getTargetElement();
 		} else if (mapping instanceof IURIMapping) {
 			target = EcoreUtil.copy(proxy);
-			URI uri = ((IURIMapping) mapping).getTargetIdentifier();
+			URI uri = ((IURIMapping<ReferenceType>) mapping).getTargetIdentifier();
 			((InternalEObject) target).eSetProxyURI(uri);
 		} else {
 			assert false;
@@ -133,7 +137,7 @@ public class ContextDependentURIFragment<ReferenceType extends EObject> implemen
 		return identifier;
 	}
 
-	public EObject getContainer() {
+	public ContainerType getContainer() {
 		return container;
 	}
 

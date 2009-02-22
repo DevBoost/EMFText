@@ -13,7 +13,7 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
  */
 public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveResult<ReferenceType> {
 	
-	private Collection<IReferenceMapping> mappings;
+	private Collection<IReferenceMapping<ReferenceType>> mappings;
 	private String errorMessage;
 	private boolean resolveFuzzy;
 
@@ -27,7 +27,7 @@ public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveR
 		return errorMessage;
 	}
 
-	public Collection<IReferenceMapping> getMappings() {
+	public Collection<IReferenceMapping<ReferenceType>> getMappings() {
 		assert errorMessage == null;
 		return mappings;
 	}
@@ -60,7 +60,7 @@ public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveR
 
 	public void addMapping(String identifier, ReferenceType target, String warning) {
 		if (mappings == null) {
-			mappings = new ArrayList<IReferenceMapping>();
+			mappings = new ArrayList<IReferenceMapping<ReferenceType>>();
 		}
 		mappings.add(new ElementMapping<ReferenceType>(identifier, target, warning));
 		errorMessage = null;
@@ -72,8 +72,8 @@ public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveR
 	
 	public void addMapping(String identifier, URI uri, String warning) {
 		if (mappings == null) {
-			mappings = new ArrayList<IReferenceMapping>();
+			mappings = new ArrayList<IReferenceMapping<ReferenceType>>();
 		}
-		mappings.add(new URIMapping(identifier, uri, warning));
+		mappings.add(new URIMapping<ReferenceType>(identifier, uri, warning));
 	}
 }

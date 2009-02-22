@@ -54,6 +54,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
         sc.addLineBreak();
 		
 		generateFields(sc);
+		generateGetMethods(sc);
 		generateResolveMethod(sc);
 		generateResolveStrictMethod(sc);   
 		generateDeResolveMethod(sc);   
@@ -142,10 +143,26 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
-				String fullClassName = context.getResolverPackageName(proxyReference) + "." + generatedClassName;
-				sc.add("protected " + fullClassName + " " + low(generatedClassName) + " = new " + fullClassName + "();");			
+				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);
+				sc.add("protected final static " + fullClassName + " " + low(generatedClassName) + " = new " + fullClassName + "();");			
 			}
 		}
 	    sc.addLineBreak();
+	}
+
+	private void generateGetMethods(StringComposite sc) {
+    	List<String> generatedResolvers = new ArrayList<String>();
+
+		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
+			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
+			if (!generatedResolvers.contains(generatedClassName)) {
+				generatedResolvers.add(generatedClassName);
+				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);
+				sc.add("public static " + fullClassName + " get" + generatedClassName + "() {");
+				sc.add("return " + low(generatedClassName) + ";");			
+				sc.add("}");
+			    sc.addLineBreak();
+			}
+		}
 	}
 }

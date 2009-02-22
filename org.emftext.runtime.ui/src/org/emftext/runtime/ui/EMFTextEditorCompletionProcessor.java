@@ -80,7 +80,7 @@ public class EMFTextEditorCompletionProcessor implements
 			return EMPTY_PROPOSAL_ARRAY;
 		}
 		
-		List<IReferenceMapping> mappings = new ArrayList<IReferenceMapping>(resolved.getMappings());
+		List<IReferenceMapping<?>> mappings = new ArrayList<IReferenceMapping<?>>(resolved.getMappings());
 		// sort identifiers alphabetically
 		sortAlphabetically(mappings);
 		removeDuplicates(mappings);
@@ -89,12 +89,12 @@ public class EMFTextEditorCompletionProcessor implements
 		return proposals;
 	}
 
-	private void removeDuplicates(List<IReferenceMapping> mappings) {
+	private void removeDuplicates(List<IReferenceMapping<?>> mappings) {
 		for (int i = 0; i < mappings.size(); i++) {
-			IReferenceMapping mapping_i = mappings.get(i);
+			IReferenceMapping<?> mapping_i = mappings.get(i);
 			String identifier_i = mapping_i.getIdentifier();
 			for (int j = i + 1; j < mappings.size(); j++) {
-				IReferenceMapping mapping_j = mappings.get(j);
+				IReferenceMapping<?> mapping_j = mappings.get(j);
 				String identifier_j = mapping_j.getIdentifier();
 				if (identifier_i != null && identifier_i.equals(identifier_j)) {
 					mappings.remove(j);
@@ -105,10 +105,10 @@ public class EMFTextEditorCompletionProcessor implements
 	}
 
 	private ICompletionProposal[] createProposals(int documentOffset,
-			String prefix, Collection<IReferenceMapping> mappings) {
+			String prefix, Collection<IReferenceMapping<?>> mappings) {
 		ICompletionProposal[] result = new ICompletionProposal[mappings.size()];
 		int i = 0;
-		for (IReferenceMapping next : mappings) {
+		for (IReferenceMapping<?> next : mappings) {
 			String proposal = next.getIdentifier();
 			assert proposal != null;
 			IContextInformation info = new ContextInformation(proposal,
@@ -121,9 +121,9 @@ public class EMFTextEditorCompletionProcessor implements
 		return result;
 	}
 
-	private void sortAlphabetically(List<IReferenceMapping> mappings) {
-		Collections.sort(mappings, new Comparator<IReferenceMapping>() {
-			public int compare(IReferenceMapping o1, IReferenceMapping o2) {
+	private void sortAlphabetically(List<IReferenceMapping<?>> mappings) {
+		Collections.sort(mappings, new Comparator<IReferenceMapping<?>>() {
+			public int compare(IReferenceMapping<?> o1, IReferenceMapping<?> o2) {
 				return o1.getIdentifier().compareTo(o2.getIdentifier());
 			}
 		});

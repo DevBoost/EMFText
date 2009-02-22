@@ -293,4 +293,9 @@ public class GenerationContext {
 	public boolean isImportedToken(InternalTokenDefinition tokenDefinition) {
 		return !concreteSyntax.equals(getContainingSyntax(tokenDefinition));
 	}
+
+	public String getQualifiedReferenceResolverClassName(
+			GenFeature proxyReference) {
+		return getResolverPackageName(proxyReference) + "." + getReferenceResolverClassName(proxyReference);
+	}
 }

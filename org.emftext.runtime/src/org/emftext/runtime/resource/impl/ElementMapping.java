@@ -5,7 +5,7 @@ import org.emftext.runtime.resource.IElementMapping;
 /**
  * A basic implementation of the IElementMapping interface.
  */
-public class ElementMapping<ReferenceType> extends AbstractReferenceMapping implements IElementMapping<ReferenceType> {
+public class ElementMapping<ReferenceType> extends AbstractReferenceMapping<ReferenceType> implements IElementMapping<ReferenceType> {
 	
 	private final ReferenceType target;
 	

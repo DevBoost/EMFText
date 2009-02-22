@@ -1,7 +1,6 @@
 package org.emftext.runtime.resource;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
@@ -74,5 +73,5 @@ public interface ITextResource extends Resource {
 	 * @param id
 	 * @param proxyElement
 	 */
-	public <ReferenceType extends EObject> void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement);
+	public <ContainerType extends EObject, ReferenceType extends EObject> void registerContextDependentProxy(org.emftext.runtime.resource.IContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, ContainerType container, org.eclipse.emf.ecore.EReference reference, java.lang.String id, org.eclipse.emf.ecore.EObject proxyElement);
 }

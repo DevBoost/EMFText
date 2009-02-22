@@ -16,7 +16,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -45,29 +44,27 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 
 	private ILocationMap locationMap = new LocationMap();
 	
+	private int proxyCounter = 0;
+	
 	private Map<String, IContextDependentURIFragment<? extends EObject>> internalURIFragmentMap =
 		new HashMap<String, IContextDependentURIFragment<? extends EObject>>();
 	
-    private int proxyCounter = 0;
-    
-	public <ReferenceType extends EObject> void registerContextDependentProxy(EObject container, EReference reference, String id, EObject proxyElement) {
-		int pos = -1;
-		if (reference.isMany()) {
-			pos = ((List<?>)container.eGet(reference)).size();
-		}
-		InternalEObject proxy = (InternalEObject) proxyElement; 
-		String internalURIFragment = IContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX + proxyCounter++ + "_" + id;
-		IContextDependentURIFragment<? extends EObject> uriFragment = new ContextDependentURIFragment<ReferenceType>(
-				id,
-				container,
-				reference,
-				pos,
-				proxy
-			);
-		proxy.eSetProxyURI(this.getURI().appendFragment(internalURIFragment));
+	public void addURIFragment(String internalURIFragment, IContextDependentURIFragment<? extends EObject> uriFragment) {
 		internalURIFragmentMap.put(internalURIFragment, uriFragment);
 	}
 
+	public <ContainerType extends EObject, ReferenceType extends EObject> void registerContextDependentProxy(org.emftext.runtime.resource.IContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, ContainerType container, org.eclipse.emf.ecore.EReference reference, java.lang.String id, org.eclipse.emf.ecore.EObject proxyElement) {
+		int pos = -1;
+		if (reference.isMany()) {
+			pos = ((java.util.List<?>)container.eGet(reference)).size();
+		}
+		org.eclipse.emf.ecore.InternalEObject proxy = (org.eclipse.emf.ecore.InternalEObject) proxyElement;
+		java.lang.String internalURIFragment = org.emftext.runtime.resource.IContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + "_" + id;
+		org.emftext.runtime.resource.IContextDependentURIFragment<?> uriFragment = factory.create(id, container, reference, pos, proxy);
+		proxy.eSetProxyURI(getURI().appendFragment(internalURIFragment));
+		addURIFragment(internalURIFragment, uriFragment);
+	}
+	
 	@Override
 	public EObject getEObject(String id) {
 		if (internalURIFragmentMap.containsKey(id)) {
@@ -75,7 +72,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				internalURIFragmentMap.get(id);
 
 			boolean wasResolvedBefore = uriFragment.isResolved();
-			IReferenceResolveResult<? extends EObject> result = uriFragment.resolve(getReferenceResolverSwitch());
+			IReferenceResolveResult<? extends EObject> result = uriFragment.resolve();
 			
 			if (result == null) {
 				//the resolving did call itself
@@ -94,7 +91,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				removeError(uriFragment.getProxy());
 				attachWarnings(result);
 
-				IReferenceMapping mapping = result.getMappings().iterator().next();
+				IReferenceMapping<? extends EObject> mapping = result.getMappings().iterator().next();
 				
 				return getResultElement(uriFragment, mapping);
 			}
@@ -105,9 +102,9 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	}
 
 	private EObject getResultElement(IContextDependentURIFragment<? extends EObject> uriFragment,
-			IReferenceMapping mapping) {
+			IReferenceMapping<? extends EObject> mapping) {
 		if (mapping instanceof IURIMapping) {
-			return this.getResourceSet().getEObject(((IURIMapping)mapping).getTargetIdentifier(), true);
+			return this.getResourceSet().getEObject(((IURIMapping<? extends EObject>)mapping).getTargetIdentifier(), true);
 		}
 		else if (mapping instanceof IElementMapping) {
 			EObject element = ((IElementMapping<? extends EObject>)mapping).getTargetElement();
@@ -159,7 +156,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		assert result.wasResolved();
 		
 		if (result.wasResolved()) {
-			for (IReferenceMapping mapping : result.getMappings()) {
+			for (IReferenceMapping<? extends EObject> mapping : result.getMappings()) {
 				String warningMessage = mapping.getWarning();
 				if (warningMessage == null) {
 					continue;

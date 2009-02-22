@@ -7,7 +7,7 @@ package org.emftext.runtime.resource;
  * are used during the process of resolving references,
  * where identifiers need to be mapped to other object.
  */
-public interface IReferenceMapping {
+public interface IReferenceMapping<ReferenceType> {
 	
 	/**
 	 * Returns the identifier that is mapped.
