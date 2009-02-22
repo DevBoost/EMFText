@@ -85,7 +85,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			if (!wasResolvedBefore && !result.wasResolved()) {
 				attachErrors(result, uriFragment.getProxy());
 				return null;
-			} 
+			}
 			else if (!result.wasResolved()) {
 				return null;
 			}
