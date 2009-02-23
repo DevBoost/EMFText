@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.STAR;
  */
 public class STARImpl extends CardinalityImpl implements STAR {
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected STARImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.STAR;
-	}
+    return ConcretesyntaxPackage.Literals.STAR;
+  }
 
 } //STARImpl

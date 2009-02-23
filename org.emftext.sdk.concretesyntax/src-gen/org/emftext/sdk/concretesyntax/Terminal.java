@@ -25,31 +25,31 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  *        annotation="OCL Multiplicity\040of\040Structurural\040Feature\040does\040not\040match\040Cardinality='if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) \r\n\tthen true \r\n\telse (self.feature.ecoreFeature.upperBound = -1) \r\nendif'"
  * @generated
  */
-public interface Terminal extends Definition {
+public interface Terminal extends CardinalityDefinition {
 	/**
-	 * Returns the value of the '<em><b>Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Feature</b></em>' reference.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Feature</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature</em>' reference.
-	 * @see #setFeature(GenFeature)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTerminal_Feature()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Feature</em>' reference.
+   * @see #setFeature(GenFeature)
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTerminal_Feature()
+   * @model required="true"
+   * @generated
+   */
 	GenFeature getFeature();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Terminal#getFeature <em>Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Terminal#getFeature <em>Feature</em>}' reference.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature</em>' reference.
-	 * @see #getFeature()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Feature</em>' reference.
+   * @see #getFeature()
+   * @generated
+   */
 	void setFeature(GenFeature value);
 
 } // Terminal

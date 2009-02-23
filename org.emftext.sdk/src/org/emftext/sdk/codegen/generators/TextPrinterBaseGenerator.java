@@ -35,6 +35,7 @@ import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -101,11 +102,13 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
 	private Map<DerivedPlaceholder, String> placeholder2TokenName;
 	private String treeAnalyserClassName;
+	private GenerationContext context;
 
 	public TextPrinterBaseGenerator(GenerationContext context, Map<DerivedPlaceholder, String> placeholder2TokenName) {
 		
 		super(context.getPackageName(), context.getPrinterBaseClassName());
 
+		this.context = context;
 		this.concretSyntax = context.getConcreteSyntax();
 		this.tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
 		this.treeAnalyserClassName = context.getReferenceResolverSwitchClassName();
@@ -136,6 +139,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			necessaryMap.put(seq, sequenceNecessaryFeatures);
 			reachableMap.put(seq, sequenceReachableFeatures);
 			for (Definition def : seq.getParts()) {
+				final boolean hasMinimalCardinalityOneOrHigher = GeneratorUtil.hasMinimalCardinalityOneOrHigher(def);
 				if (def instanceof CompoundDefinition) {
 					String subChoiceName = namePrefix + choiceIndex++;
 					Choice currentChoice = ((CompoundDefinition) def)
@@ -144,13 +148,13 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 					choiceSet.add(currentChoice);
 					extractChoices(currentChoice, choiceSet, choiceMap,
 							necessaryMap, reachableMap,
-							(def.getCardinality() == null || def
-									.getCardinality() instanceof PLUS) ? seq
+							hasMinimalCardinalityOneOrHigher ? seq
 									: null, subChoiceName + "_", 0);
 				} else if (def instanceof Terminal) {
-					if ((def.getCardinality() == null || def.getCardinality() instanceof PLUS))
+					if (hasMinimalCardinalityOneOrHigher) {
 						sequenceNecessaryFeatures.add(((Terminal) def)
 								.getFeature().getName());
+					}
 					sequenceReachableFeatures.add(((Terminal) def).getFeature()
 							.getName());
 				}
@@ -458,7 +462,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 					}
 
 				} else {
-					Cardinality cardinality = definition.getCardinality();
+					Cardinality cardinality = null;
+					if (definition instanceof CardinalityDefinition) {
+						cardinality = ((CardinalityDefinition) definition).getCardinality();
+					}
 					if (definition instanceof CompoundDefinition) {
 						CompoundDefinition compound = (CompoundDefinition) definition;
 						String printStatement = 
@@ -558,7 +565,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								+ featureName + "\");");
 						EStructuralFeature feature = genFeature
 								.getEcoreFeature();
-						String printStatement = null;
+						StringComposite printStatements = new JavaComposite();
 
 						if (terminal instanceof Placeholder) {
 							String tokenName;
@@ -572,26 +579,26 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							}
 
 							if (feature instanceof EReference) {
-								printStatement = 
-										ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
+								printStatements.add(ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
-										+ "\");resolver.setOptions(getOptions());"
-										+ printPrefix 
-										+ "resolver.deResolve(referenceResolverSwitch.deResolve((" + EOBJECT_CLASS_NAME + ")o, element, (" + EREFERENCE_CLASS_NAME + ")element.eClass().getEStructuralFeature("
+										+ "\");");
+								printStatements.add("resolver.setOptions(getOptions());");
+								printStatements.add(printPrefix + "resolver.deResolve(" 
+										+ context.getReferenceResolverAccessor(genFeature)
+										+ ".deResolve((" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ") o, element, (" + EREFERENCE_CLASS_NAME + ") element.eClass().getEStructuralFeature("
 										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
-										+ ")),element.eClass().getEStructuralFeature("
+										+ ")), element.eClass().getEStructuralFeature("
 										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
-										+ "),element));";
+										+ "), element));");
 							} else {
-								printStatement = 
-										ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
+								printStatements.add(ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
-										+ "\");"
-										+ "resolver.setOptions(getOptions());"
-										+ printPrefix
-										+ "resolver.deResolve((" + OBJECT_CLASS_NAME + ")o,element.eClass().getEStructuralFeature("
+										+ "\");");
+								printStatements.add("resolver.setOptions(getOptions());");
+								printStatements.add(printPrefix
+										+ "resolver.deResolve((" + OBJECT_CLASS_NAME + ") o, element.eClass().getEStructuralFeature("
 										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
-										+ "),element));";
+										+ "), element));");
 							}
 
 
@@ -607,15 +614,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								if (lookahead == null
 										|| !(lookahead instanceof WhiteSpaces)) {
 									String printSuffix = getWhiteSpaceString(tokenSpace);
-									printStatement = printStatement
-											+ "out.print(\"" + printSuffix + "\");";
+									printStatements.add("out.print(\"" + printSuffix + "\");");
 								}
-									
 							}
-
 						} else {
 							assert terminal instanceof Containment;
-							printStatement = "doPrint((" + EOBJECT_CLASS_NAME + ") o, out, localtab);";
+							printStatements.add("doPrint((" + EOBJECT_CLASS_NAME + ") o, out, localtab);");
 							//localTabDefinition.enable();
 						}
 
@@ -624,12 +628,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						if (cardinality == null
 								|| (cardinality instanceof QUESTIONMARK && !neededFeatures
 										.contains(featureName))) {
-							sc.add("Object o =element."
+							sc.add("Object o = element."
 									+ generateAccessMethod(genClass, genFeature) + ";");
 							if (feature.getUpperBound() != 1) {
 								sc.add("o = ((" + LIST_CLASS_NAME +"<?>)o).get(((" + LIST_CLASS_NAME +"<?>)o).size() - count);");
 							}
-							sc.add(printStatement);
+							sc.add(printStatements);
 							sc.add("printCountingMap.put(\""
 									+ featureName + "\",count-1);");
 							neededFeatures.remove(featureName);
@@ -648,14 +652,14 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 									sc.add("if(!it.hasNext())");
 									sc.add("break;");
 								}
-								sc.add(printStatement);
+								sc.add(printStatements);
 								sc.add("}");
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\",0);");
 							} else if (cardinality instanceof PLUS) {
 								sc.add(OBJECT_CLASS_NAME + " o =element."
 										+ generateAccessMethod(genClass, genFeature) + ";");
-								sc.add(printStatement);
+								sc.add(printStatements);
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\",count-1);");
 							}

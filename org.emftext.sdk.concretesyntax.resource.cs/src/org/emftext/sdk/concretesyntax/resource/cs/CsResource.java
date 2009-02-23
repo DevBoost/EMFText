@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.emftext.runtime.resource.impl.AbstractLocationMap;
-
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
 	public CsResource() {
@@ -40,7 +38,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		org.eclipse.emf.ecore.EObject root = parser.parse();
 		if (root != null) {
 			getContents().add(root);
-			((AbstractLocationMap) getLocationMap()).setRoot(root);
+			((org.emftext.runtime.resource.impl.AbstractLocationMap) getLocationMap()).setRoot(root);
 		}
 		getReferenceResolverSwitch().setOptions(options);
 	}

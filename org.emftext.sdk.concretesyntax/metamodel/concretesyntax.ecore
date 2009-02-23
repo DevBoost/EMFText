@@ -54,11 +54,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parts" lowerBound="1" upperBound="-1"
         eType="#//Definition" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Definition" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="Definition" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CardinalityDefinition" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="cardinality" eType="#//Cardinality"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Terminal" abstract="true" eSuperTypes="#//Definition">
+  <eClassifiers xsi:type="ecore:EClass" name="Terminal" abstract="true" eSuperTypes="#//CardinalityDefinition">
     <eAnnotations source="OCL">
       <details key="Multiplicity of Structurural Feature does not match Cardinality"
           value="if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) &#xD;&#xA;&#x9;then true &#xD;&#xA;&#x9;else (self.feature.ecoreFeature.upperBound = -1) &#xD;&#xA;endif"/>
@@ -79,7 +80,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PLUS" eSuperTypes="#//Cardinality"/>
   <eClassifiers xsi:type="ecore:EClass" name="STAR" eSuperTypes="#//Cardinality"/>
   <eClassifiers xsi:type="ecore:EClass" name="QUESTIONMARK" eSuperTypes="#//Cardinality"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CompoundDefinition" eSuperTypes="#//Definition">
+  <eClassifiers xsi:type="ecore:EClass" name="CompoundDefinition" eSuperTypes="#//CardinalityDefinition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="definitions" eType="#//Choice"
         containment="true"/>
   </eClassifiers>

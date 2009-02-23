@@ -9,12 +9,12 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
+import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 
@@ -96,7 +96,7 @@ public class LeftRecursionDetector {
 					return leftProducingRule;
 				}
 			} 
-			if (  (definition.getCardinality() instanceof PLUS) || definition.getCardinality() == null) {
+			if (GeneratorUtil.hasMinimalCardinalityOneOrHigher(definition)) {
 				break;
 			}
 		}

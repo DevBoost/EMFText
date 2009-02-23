@@ -7,9 +7,9 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
+import org.emftext.runtime.resource.impl.FuzzyResolveResult;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -55,9 +55,9 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 		
 		generateFields(sc);
 		generateGetMethods(sc);
-		generateResolveMethod(sc);
-		generateResolveStrictMethod(sc);   
-		generateDeResolveMethod(sc);   
+		//generateResolveMethod(sc);
+		//generateResolveStrictMethod(sc);   
+		//generateDeResolveMethod(sc);
         generateSetOptionsMethod(sc);
 		generateResolveFuzzyMethod(sc);
 		
@@ -67,16 +67,17 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     }
 
 	private void generateResolveFuzzyMethod(StringComposite sc) {
-		sc.add("public <ContainerType extends " + EObject.class.getName() + ", ReferenceType> void resolveFuzzy(" + String.class.getName() + " identifier, ContainerType container, int position, " + IReferenceResolveResult.class.getName() + "<ReferenceType> result) {");
+		sc.add("public void resolveFuzzy(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, int position, " + IReferenceResolveResult.class.getName() + "<" + EObject.class.getName() + "> result) {");
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
 			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
 			GenFeature genFeature = GeneratorUtil.findGenFeature(genClass, proxyReference.getName());
 			sc.add("if (" + accessorName+ ".isInstance(container)) {");
+			sc.add(FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + "> frr = new " + FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(result);");
 			sc.add(org.eclipse.emf.ecore.EStructuralFeature.class.getName() + " feature = container.eClass()." + GeneratorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 			sc.add("if (feature instanceof " + org.eclipse.emf.ecore.EReference.class.getName() + ") {");
-			sc.add(low(generatedClassName) + ".resolve(identifier, (" + genClass.getQualifiedInterfaceName() + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, (" + IReferenceResolveResult.class.getName() + "<" + proxyReference.getTypeGenClass().getQualifiedInterfaceName() + ">) result);");
+			sc.add(low(generatedClassName) + ".resolve(identifier, (" + genClass.getQualifiedInterfaceName() + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, frr);");
 			sc.add("}");
 			sc.add("}");
 		}
@@ -89,49 +90,6 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
 			sc.add(low(generatedClassName) + ".setOptions(options);");			
 		}
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void generateDeResolveMethod(StringComposite sc) {
-		sc.add("public <ContainerType extends " + EObject.class.getName() + ", ReferenceType> " + String.class.getName() + " deResolve(ReferenceType refObject, ContainerType container, " + EReference.class.getName() + " reference) {");
-		for(GenFeature proxyReference : context.getNonContainmentReferences()) {
-			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
-			final GenClass genClass = proxyReference.getGenClass();
-			String genClassName = genClass.getQualifiedInterfaceName();
-			String featureID = GeneratorUtil.getFeatureConstant(genClass, GeneratorUtil.findGenFeature(genClass, proxyReference.getName()));
-			sc.add("if (container instanceof " + genClassName + " && reference.getFeatureID() == " + featureID + ") {");		
-			sc.add("return " + low(generatedClassName)+".deResolve((" + proxyReference.getTypeGenClass().getQualifiedInterfaceName() + ") refObject, (" + genClassName + ") container, reference);");			
-			sc.add("}");
-		}
-		sc.add("return null;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void generateResolveStrictMethod(StringComposite sc) {
-		sc.add("public <ContainerType, ReferenceType> void resolveStrict(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, " + EReference.class.getName() + " reference, int position, " + IReferenceResolveResult.class.getName() + "<ReferenceType> result) {");		
-		for(GenFeature proxyReference : context.getNonContainmentReferences()) {
-			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
-			GenClass genClass = proxyReference.getGenClass();
-			String featureID = GeneratorUtil.getFeatureConstant(genClass, GeneratorUtil.findGenFeature(genClass, proxyReference.getName()));
-			final String genClassName = genClass.getQualifiedInterfaceName();
-			sc.add("if (container instanceof " + genClassName + " && reference.getFeatureID() == " + featureID + ") {");
-			sc.add(low(generatedClassName) + ".resolve(identifier, (" + genClassName + ") container, reference, position, false, (" + IReferenceResolveResult.class.getName() + "<" + proxyReference.getTypeGenClass().getQualifiedInterfaceName() + ">) result);");
-			sc.add("return;");
-			sc.add("}");			
-		}
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void generateResolveMethod(StringComposite sc) {
-		sc.add("public <ContainerType extends " + EObject.class.getName() + ", ReferenceType> void resolve(" + String.class.getName() + " identifier, ContainerType container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + "<ReferenceType> result) {");
-		sc.add("if (resolveFuzzy) {");
-		sc.add("resolveFuzzy(identifier, container, position, result);");
-		sc.add("} else {");
-		sc.add("resolveStrict(identifier, container, reference, position, result);");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}

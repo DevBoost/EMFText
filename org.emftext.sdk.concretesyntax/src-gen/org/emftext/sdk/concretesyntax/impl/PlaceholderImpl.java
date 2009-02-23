@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.Placeholder;
  */
 public abstract class PlaceholderImpl extends TerminalImpl implements Placeholder {
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected PlaceholderImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.PLACEHOLDER;
-	}
+    return ConcretesyntaxPackage.Literals.PLACEHOLDER;
+  }
 
 } //PlaceholderImpl

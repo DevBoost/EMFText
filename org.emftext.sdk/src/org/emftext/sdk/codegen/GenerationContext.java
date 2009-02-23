@@ -298,4 +298,8 @@ public class GenerationContext {
 			GenFeature proxyReference) {
 		return getResolverPackageName(proxyReference) + "." + getReferenceResolverClassName(proxyReference);
 	}
+
+	public String getReferenceResolverAccessor(GenFeature genFeature) {
+		return getReferenceResolverSwitchClassName() + ".get" + getReferenceResolverClassName(genFeature) + "()";
+	}
 }

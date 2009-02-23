@@ -24,8 +24,10 @@ import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.analysis.ConcreteSyntaxAnalyser;
 import org.emftext.sdk.analysis.LeftRecursionDetector;
+import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -395,8 +397,7 @@ public class SDKOptionProvider implements IOptionProvider {
 							if (definition instanceof CsString) {
 								containsKeyword = true;
 							}
-							else if (!(definition.getCardinality() instanceof QUESTIONMARK ||
-									definition.getCardinality() instanceof STAR)) {
+							else if (GeneratorUtil.hasNoOptionalPart(definition)) {
 								restOptional = false;
 							}
 						}
@@ -470,7 +471,10 @@ public class SDKOptionProvider implements IOptionProvider {
 			List<Definition> definitions = sequence.getParts();
 			for (Definition definition : definitions) {
 				// incorporate cardinality of the definition
-				final Cardinality cardinality = definition.getCardinality();
+				Cardinality cardinality = null;
+				if (definition instanceof CardinalityDefinition) {
+					cardinality = ((CardinalityDefinition) definition).getCardinality();
+				}
 				if (definition instanceof Terminal) {
 					Terminal terminal = (Terminal) definition;
 					if (terminal.getFeature() == feature) {

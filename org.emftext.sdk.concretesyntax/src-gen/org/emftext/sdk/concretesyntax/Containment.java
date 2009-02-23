@@ -29,18 +29,18 @@ import org.eclipse.emf.common.util.EList;
 public interface Containment extends Terminal {
 
 	/**
-	 * Returns the value of the '<em><b>Types</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenClass}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Types</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenClass}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Types</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Types</em>' reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getContainment_Types()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Types</em>' reference list.
+   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getContainment_Types()
+   * @model
+   * @generated
+   */
   EList<GenClass> getTypes();
 } // Containment

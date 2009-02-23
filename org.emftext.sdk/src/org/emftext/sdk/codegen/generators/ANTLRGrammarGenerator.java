@@ -56,6 +56,7 @@ import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
 import org.emftext.sdk.codegen.regex.ANTLRexpParser;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
+import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -708,7 +709,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     		Definition def = it.next();
     		if(def instanceof LineBreak || def instanceof WhiteSpaces)
     			continue;
-    		String cardinality = computeCardinalityString(def.getCardinality());
+    		String cardinality = computeCardinalityString(def);
     		if(cardinality!=null){
     			sc.add("(");
     		}
@@ -863,7 +864,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
-            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverSwitchClassName() + ".get" + context.getReferenceResolverClassName(genFeature) + "()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
+            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	//remember where proxies have to be resolved
             	proxyReferences.add(genFeature);
         	}
@@ -1220,12 +1221,16 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 	
     
-    private String computeCardinalityString(Cardinality card){
-    	if(card==null)
+    private String computeCardinalityString(Definition definition){
+    	Cardinality cardinality = null;
+    	if (definition instanceof CardinalityDefinition) {
+    		cardinality = ((CardinalityDefinition) definition).getCardinality();
+    	}
+    	if(cardinality==null)
     		return null;
-    	else if(card instanceof PLUS)
+    	else if(cardinality instanceof PLUS)
     		return "+";
-    	else if(card instanceof QUESTIONMARK)
+    	else if(cardinality instanceof QUESTIONMARK)
     		return "?";
     	else
     		return "*";

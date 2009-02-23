@@ -7,9 +7,7 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 
@@ -24,22 +22,22 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  */
 public class AbstractImpl extends EObjectImpl implements Abstract {
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected AbstractImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.ABSTRACT;
-	}
+    return ConcretesyntaxPackage.Literals.ABSTRACT;
+  }
 
 } //AbstractImpl

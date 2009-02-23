@@ -31,104 +31,109 @@ import org.emftext.sdk.concretesyntax.Containment;
  */
 public class ContainmentImpl extends TerminalImpl implements Containment {
 	/**
-	 * The cached value of the '{@link #getTypes() <em>Types</em>}' reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTypes() <em>Types</em>}' reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTypes()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTypes()
+   * @generated
+   * @ordered
+   */
   protected EList<GenClass> types;
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected ContainmentImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.CONTAINMENT;
-	}
+    return ConcretesyntaxPackage.Literals.CONTAINMENT;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public EList<GenClass> getTypes()
   {
-		if (types == null) {
-			types = new EObjectResolvingEList<GenClass>(GenClass.class, this, ConcretesyntaxPackage.CONTAINMENT__TYPES);
-		}
-		return types;
-	}
+    if (types == null)
+    {
+      types = new EObjectResolvingEList<GenClass>(GenClass.class, this, ConcretesyntaxPackage.CONTAINMENT__TYPES);
+    }
+    return types;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONTAINMENT__TYPES:
-				return getTypes();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONTAINMENT__TYPES:
+        return getTypes();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@SuppressWarnings("unchecked")
   @Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONTAINMENT__TYPES:
-				getTypes().clear();
-				getTypes().addAll((Collection<? extends GenClass>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONTAINMENT__TYPES:
+        getTypes().clear();
+        getTypes().addAll((Collection<? extends GenClass>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONTAINMENT__TYPES:
-				getTypes().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONTAINMENT__TYPES:
+        getTypes().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case ConcretesyntaxPackage.CONTAINMENT__TYPES:
-				return types != null && !types.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case ConcretesyntaxPackage.CONTAINMENT__TYPES:
+        return types != null && !types.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //ContainmentImpl

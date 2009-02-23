@@ -7,13 +7,38 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
+import org.emftext.sdk.concretesyntax.CardinalityDefinition;
+import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.STAR;
 
 /**
  * A utility class used by all generators.
  */
 public class GeneratorUtil {
 
+	public static boolean hasMinimalCardinalityOneOrHigher(Definition definition) {
+		if (definition instanceof CardinalityDefinition) {
+			CardinalityDefinition cd = (CardinalityDefinition) definition;
+			return (cd.getCardinality() == null || cd.getCardinality() instanceof PLUS);
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean hasNoOptionalPart(Definition definition) {
+		if (definition instanceof CardinalityDefinition) {
+			CardinalityDefinition cd = (CardinalityDefinition) definition;
+			return !
+				(cd.getCardinality() instanceof QUESTIONMARK ||
+				 cd.getCardinality() instanceof STAR);
+		} else {
+			return false;
+		}
+	}
+	
 	/**
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 */

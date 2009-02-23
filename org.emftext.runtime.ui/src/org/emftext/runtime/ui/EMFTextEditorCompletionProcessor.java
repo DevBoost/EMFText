@@ -74,8 +74,8 @@ public class EMFTextEditorCompletionProcessor implements
 		}
 
 		IReferenceResolverSwitch resolverSwitch = textResource.getReferenceResolverSwitch();
-		IReferenceResolveResult<?> resolved = new ReferenceResolveResult<EObject>(true); 
-		resolverSwitch.resolve(prefix, containerAtChar, null, 0, true, resolved);
+		IReferenceResolveResult<EObject> resolved = new ReferenceResolveResult<EObject>(true); 
+		resolverSwitch.resolveFuzzy(prefix, containerAtChar, 0, resolved);
 		if (!resolved.wasResolvedMultiple()) {
 			return EMPTY_PROPOSAL_ARRAY;
 		}
