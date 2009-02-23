@@ -145,7 +145,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		for (int i = 0; i < allRules.size(); i++) {
 			Rule rule_i = allRules.get(i);
 			GenClass genClass_i = rule_i.getMetaclass();
-			if (genClass_i == null) {
+			if (genClass_i == null || genClass_i.eIsProxy()) {
 				continue;
 			}
 			final String name_i = genClass_i.getQualifiedInterfaceName();
@@ -193,7 +193,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		final EList<Rule> rules = syntax.getRules();
 		for (Rule rule : rules) {
 			GenClass genClass = rule.getMetaclass();
-			if (genClass == null) {
+			if (genClass == null || genClass.eIsProxy()) {
 				continue;
 			}
 			for (GenFeature genFeature : genClass.getAllGenFeatures()) {
@@ -279,7 +279,7 @@ public class SDKOptionProvider implements IOptionProvider {
 			boolean foundRuleForClass = false;
 			for (Rule rule : allRules) {
 				GenClass ruleClass = rule.getMetaclass();
-				if (ruleClass != null && ruleClass.getQualifiedInterfaceName().equals(qualifiedName)) {
+				if (ruleClass != null && !ruleClass.eIsProxy() && ruleClass.getQualifiedInterfaceName().equals(qualifiedName)) {
 					foundRuleForClass = true;
 					break;
 				}
