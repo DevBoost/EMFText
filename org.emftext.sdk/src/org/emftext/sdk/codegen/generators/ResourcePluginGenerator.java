@@ -214,12 +214,15 @@ public class ResourcePluginGenerator {
 			String resolverClassName = context.getReferenceResolverClassName(proxyReference);
 			context.addNonContainmentReference(proxyReference);
 			// do not generate resolvers for references in imported rules
-			if (context.isImportedReference(proxyReference)) {
+			final boolean isImportedReference = context.isImportedReference(proxyReference);
+			if (isImportedReference) {
 				continue;
 			}
 			String resolverFileName = resolverClassName + JAVA_FILE_EXTENSION;
 			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(resolverFileName));
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
+			boolean generateResolver = 
+				!resolverFile.exists() || 
+				OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator proxyGen = new ReferenceResolverGenerator(context, proxyReference);
 				setContents(resolverFile, invokeGeneration(proxyGen, context.getProblemCollector()));		

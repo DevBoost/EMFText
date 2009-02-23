@@ -3,9 +3,11 @@ package org.emftext.sdk.finders;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -33,7 +35,7 @@ public class GenClassFinder {
 	 * 
 	 * @return a found classes
 	 */
-	public List<GenClass> findAllGenClasses(ConcreteSyntax syntax, boolean includingImports, boolean includeUsedGeneratorModels) {
+	public Set<GenClass> findAllGenClasses(ConcreteSyntax syntax, boolean includingImports, boolean includeUsedGeneratorModels) {
 		List<Pair<String, GenClass>> foundClassesAndPrefixes = findAllGenClassesAndPrefixes(syntax, includingImports, includeUsedGeneratorModels);
 		return convertToGenClassList(foundClassesAndPrefixes);
 	}
@@ -80,15 +82,27 @@ public class GenClassFinder {
 		return foundClasses;
 	}
 
-	private List<GenClass> convertToGenClassList(
+	private Set<GenClass> convertToGenClassList(
 			final List<Pair<String, GenClass>> foundClassesAndPrefixes) {
-		List<GenClass> foundClasses = new ArrayList<GenClass>();
+		Set<GenClass> foundClasses = new LinkedHashSet<GenClass>();
 		for (Pair<String, GenClass> prefixAndGenClass : foundClassesAndPrefixes) {
-			foundClasses.add(prefixAndGenClass.getRight());
+			final GenClass right = prefixAndGenClass.getRight();
+			if (!contains(foundClasses, right)) {
+				foundClasses.add(right);
+			}
 		}
 		return foundClasses;
 	}
 	
+	private boolean contains(Set<GenClass> genClasses, GenClass genClass) {
+		for (GenClass next : genClasses) {
+			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private List<Pair<String, GenClass>> findGenClassesAndPrefixesInImports(String prefix, ConcreteSyntax syntax) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
 		for (Import nextImport : syntax.getImports()) {

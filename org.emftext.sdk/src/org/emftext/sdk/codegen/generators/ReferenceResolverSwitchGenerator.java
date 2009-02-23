@@ -55,9 +55,6 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 		
 		generateFields(sc);
 		generateGetMethods(sc);
-		//generateResolveMethod(sc);
-		//generateResolveStrictMethod(sc);   
-		//generateDeResolveMethod(sc);
         generateSetOptionsMethod(sc);
 		generateResolveFuzzyMethod(sc);
 		

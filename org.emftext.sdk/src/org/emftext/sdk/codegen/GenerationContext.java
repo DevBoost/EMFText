@@ -3,7 +3,7 @@ package org.emftext.sdk.codegen;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -281,8 +281,8 @@ public class GenerationContext {
 	}
 
 	public boolean isImportedReference(GenFeature genFeature) {
-		List<GenClass> classes = genClassFinder.findAllGenClasses(concreteSyntax, false, true);
-		for (GenClass genClass : classes) {
+		Set<GenClass> classesExceptImports = genClassFinder.findAllGenClasses(concreteSyntax, false, false);
+		for (GenClass genClass : classesExceptImports) {
 			if (genClass != null && genClass.getQualifiedInterfaceName().equals(genFeature.getGenClass().getQualifiedInterfaceName())) {
 				return false;
 			}
