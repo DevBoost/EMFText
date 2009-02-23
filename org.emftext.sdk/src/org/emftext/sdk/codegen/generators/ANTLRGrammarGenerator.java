@@ -896,7 +896,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         if (eFeature.getUpperBound() == 1) {
            sc.add("element.eSet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + expressionToBeSet +");");
         } else {
-            // TODO jjohannes: "Warning, if a value is used twice. whatever..."
             sc.add("addObjectToList(element, " + GeneratorUtil.getFeatureConstant(genClass, genFeature) + ", " + expressionToBeSet +");");
         }
         sc.add("}");
