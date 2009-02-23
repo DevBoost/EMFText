@@ -13,3 +13,4 @@ Require-Bundle: org.junit4,
  org.eclipse.emf.codegen.ecore,
  org.emftext.runtime.antlr;visibility:=reexport
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
+Bundle-ActivationPolicy: lazy
