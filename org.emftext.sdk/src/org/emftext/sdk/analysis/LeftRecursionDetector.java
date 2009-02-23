@@ -18,8 +18,10 @@ import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 
-/**
- * TODO cwende add comment
+/** 
+ * Checks whether the given Concrete Syntax definition contains left-recursive rules.
+ * It currently detects direct left recursion and a subset of indirect left recursive rules.
+ * 
  */
 public class LeftRecursionDetector {
 

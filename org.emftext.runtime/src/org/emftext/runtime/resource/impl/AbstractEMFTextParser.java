@@ -66,7 +66,13 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 	}
 	
 	/**
-	 * TODO cwende: add documentation
+	 * The DummyEObject is used to build a stack of dummy objects when descending 
+	 * by tail recursion into left recursive rules. They cache the setting 
+	 * information for initializing concrete EObject instances.
+ 	 *
+	 * When the tail descent is finished this stack is reduced in reverse order. The
+	 * EObjects are created using the setting informations and a containment hierarchy 
+	 * is build using the left recursive EStructuralFeature.
 	 */
 	public class DummyEObject extends EObjectImpl  {
 		private Map<EStructuralFeature, Object> keyValueMap;
