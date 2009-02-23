@@ -50,7 +50,7 @@ public class ConcreteSyntaxByHintFinder implements IConcreteSyntaxFinder {
 		}
 
 		// TODO mseifert: this warning is added multiple times, since the finder is called
-		// not only once
+		// not only once. maybe the resolver that uses the finders should add the warning?
 		resource.addWarning("Can't find syntax at " + locationHint, container);
        	return null;
 	}

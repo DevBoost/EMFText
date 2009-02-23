@@ -20,7 +20,7 @@ import org.emftext.runtime.EMFTextPlugin;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
- * TODO skarol add comment
+ * TODO skarol: add comment
  */
 public class ValidateParserPrinterAction implements IObjectActionDelegate {
 

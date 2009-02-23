@@ -156,9 +156,10 @@ public class StringComposite {
 	private void enableComponents() {
 		List<ComponentNode> disabledComponents = new ArrayList<ComponentNode>();
 
-		// find the scoping depth for the disabled components
-		// TODO mseifert: this should be created when the components are added and replace
+		// TODO mseifert: this tree should be created when the components are added and replace
 		// the field 'components'.
+		
+		// find the scoping depth for the disabled components
 		Tree subTree = new Tree(null);
 		for (int i = 0; i < components.size(); i++) {
 			StringComponent component = components.get(i);
