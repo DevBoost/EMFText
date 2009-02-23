@@ -5,6 +5,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
+/**
+ * An analyzer that checks syntaxes for some properties required
+ * by the code generation of post-processors.
+ */
 public class ConcreteSyntaxAnalyser {
 
 	/**

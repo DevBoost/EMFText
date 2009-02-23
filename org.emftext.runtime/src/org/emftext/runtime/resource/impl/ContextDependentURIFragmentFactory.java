@@ -6,6 +6,14 @@ import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IContextDependentURIFragmentFactory;
 import org.emftext.runtime.resource.IReferenceResolver;
 
+/**
+ * A factory for ContextDependentURIFragments. Given a feasible reference resolver,
+ * the factory returns a matching fragment that used the resolver to resolver proxy
+ * objects.
+ *
+ * @param <ContainerType> the type of the class containing the reference to be resolved
+ * @param <ReferenceType> the type of the reference to be resolved
+ */
 public class ContextDependentURIFragmentFactory<ContainerType extends EObject, ReferenceType extends EObject>  implements IContextDependentURIFragmentFactory<ContainerType, ReferenceType> {
 	
 	private final IReferenceResolver<ContainerType, ReferenceType> resolver;

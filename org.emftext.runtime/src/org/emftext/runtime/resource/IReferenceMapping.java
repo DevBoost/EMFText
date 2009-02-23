@@ -6,6 +6,8 @@ package org.emftext.runtime.resource;
  * of this interface. Implementors of such subclasses
  * are used during the process of resolving references,
  * where identifiers need to be mapped to other object.
+ * 
+ * @param <ReferenceType> the type of the reference this mapping points to.
  */
 public interface IReferenceMapping<ReferenceType> {
 	

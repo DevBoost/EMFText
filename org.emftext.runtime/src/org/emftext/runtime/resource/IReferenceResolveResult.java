@@ -9,6 +9,8 @@ import org.eclipse.emf.common.util.URI;
  * result can either be successful (identifier was resolved to one
  * or more objects) or failed (identifier was not resolved). In
  * the case of failure, the result provides an error message.
+ * 
+ * @param <ReferenceType> the type of the references that can be contained in this result
  */
 public interface IReferenceResolveResult<ReferenceType> {
 	

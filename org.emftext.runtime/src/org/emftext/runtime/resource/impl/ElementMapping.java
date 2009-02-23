@@ -4,6 +4,8 @@ import org.emftext.runtime.resource.IElementMapping;
 
 /**
  * A basic implementation of the IElementMapping interface.
+ * 
+ * @param <ReferenceType> the type of the reference that can be mapped to
  */
 public class ElementMapping<ReferenceType> extends AbstractReferenceMapping<ReferenceType> implements IElementMapping<ReferenceType> {
 	

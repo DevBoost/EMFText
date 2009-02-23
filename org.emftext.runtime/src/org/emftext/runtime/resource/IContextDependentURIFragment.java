@@ -19,8 +19,9 @@ import org.eclipse.emf.ecore.EReference;
  * <code>URI.fragment</code>-based resolving when an
  * <code>IContextDependentURIFragment.resolve()</code> is available.
  * 
+ * @param <ReferenceType> the type of the reference that can be resolved by this fragment
+ * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
- *
  */
 public interface IContextDependentURIFragment<ReferenceType extends EObject> {
 

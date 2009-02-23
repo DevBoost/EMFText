@@ -16,6 +16,9 @@ import org.emftext.runtime.resource.IURIMapping;
 
 /**
  * Standard implementation of <code>IContextDependentURIFragment</code>.
+ * 
+ * @param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.
+ * @param <ReferenceType> the type of the reference which shall be resolved by this fragment.
  */
 public abstract class ContextDependentURIFragment<ContainerType extends EObject, ReferenceType extends EObject> implements IContextDependentURIFragment<ReferenceType> {
 

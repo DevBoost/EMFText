@@ -23,6 +23,9 @@ import org.emftext.runtime.resource.ITextResource;
  * @param <ContainerType> the type of the container that contains
  * the reference that is resolved by this resolver
  * 
+ * @param <ReferenceType> the type of the reference that is resolved 
+ * by this resolver
+ * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public abstract class AbstractReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> implements IReferenceResolver<ContainerType, ReferenceType> {

@@ -5,6 +5,8 @@ import org.emftext.runtime.resource.IReferenceMapping;
 /**
  * A base class for all reference mappings. Instances store the identifier
  * that was resolves and a warning message.
+ * 
+ * @param <ReferenceType> the type of the reference the identifier can be mapped to.
  */
 public abstract class AbstractReferenceMapping<ReferenceType> implements IReferenceMapping<ReferenceType> {
 

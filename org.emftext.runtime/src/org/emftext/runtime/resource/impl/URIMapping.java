@@ -6,6 +6,8 @@ import org.emftext.runtime.resource.IURIMapping;
 /**
  * A basic implementation of the IURIMapping interface that can
  * map identifiers to URIs.
+ * 
+ * @param <ReferenceType> unused type parameter which is needed to implement IURIMapping.
  */
 public class URIMapping<ReferenceType> extends AbstractReferenceMapping<ReferenceType> implements IURIMapping<ReferenceType> {
 	

@@ -10,6 +10,8 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
  * An implementation of the ResolveResult interface that delegates 
  * all method calls to another ResolveResult. Client may subclass 
  * this class to easily create custom ResolveResults.
+ * 
+ * @param <ReferenceType> the type of the references that can be contained in this result
  */
 public class DelegatingResolveResult<ReferenceType> implements IReferenceResolveResult<ReferenceType> {
 	

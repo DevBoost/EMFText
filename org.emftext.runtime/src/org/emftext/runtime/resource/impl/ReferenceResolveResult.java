@@ -10,6 +10,8 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
 /**
  * A basic implementation of IResolveResult interface
  * that collects mappings in a list.
+ * 
+ * @param <ReferenceType> the type of the references that can be contained in this result
  */
 public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveResult<ReferenceType> {
 	

@@ -1,5 +1,9 @@
 package org.emftext.sdk.codegen.composites;
 
+/**
+ * A custom StringComposite that can be used to build XML
+ * documents.
+ */
 public class XMLComposite extends StringComposite {
 	
 	public XMLComposite() {
