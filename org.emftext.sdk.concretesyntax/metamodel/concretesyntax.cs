@@ -45,7 +45,7 @@ RULES {
   
   DefinedPlaceholder ::= feature[] "["  token[] "]" cardinality?;
   
-  DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] ("," suffix['\'','\''] )? )? "]" #1 cardinality?;
+  DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] "," suffix['\'','\''] )? "]" #1 cardinality?;
   
   Containment ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
   
