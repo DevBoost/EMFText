@@ -104,7 +104,12 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	private EObject getResultElement(IContextDependentURIFragment<? extends EObject> uriFragment,
 			IReferenceMapping<? extends EObject> mapping) {
 		if (mapping instanceof IURIMapping) {
-			return this.getResourceSet().getEObject(((IURIMapping<? extends EObject>)mapping).getTargetIdentifier(), true);
+			URI uri = ((IURIMapping<? extends EObject>)mapping).getTargetIdentifier();
+			if (uri != null) {
+				return this.getResourceSet().getEObject(uri, true);
+			}
+			return null;
+
 		}
 		else if (mapping instanceof IElementMapping) {
 			EObject element = ((IElementMapping<? extends EObject>)mapping).getTargetElement();
