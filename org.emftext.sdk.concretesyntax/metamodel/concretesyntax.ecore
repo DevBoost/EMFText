@@ -55,7 +55,8 @@
         eType="#//Definition" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Definition" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CardinalityDefinition" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="CardinalityDefinition" abstract="true"
+      eSuperTypes="#//Definition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="cardinality" eType="#//Cardinality"
         containment="true"/>
   </eClassifiers>

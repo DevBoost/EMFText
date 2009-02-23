@@ -6,6 +6,8 @@
  */
 package org.emftext.sdk.concretesyntax;
 
+import org.eclipse.emf.ecore.EObject;
+
 
 /**
  * <!-- begin-user-doc -->
