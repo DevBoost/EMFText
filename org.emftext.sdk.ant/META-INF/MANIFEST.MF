@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ant
+Bundle-SymbolicName: org.emftext.sdk.ant
+Bundle-Version: 1.0.0
+Require-Bundle: org.apache.ant;bundle-version="1.7.0",
+ org.emftext.sdk;bundle-version="1.0.0",
+ org.emftext.sdk.antlr;bundle-version="1.0.0",
+ org.emftext.sdk.concretesyntax;bundle-version="1.0.0",
+ org.emftext.sdk.concretesyntax.resource.cs;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
