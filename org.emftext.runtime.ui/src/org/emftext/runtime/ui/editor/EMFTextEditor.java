@@ -29,7 +29,6 @@ import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.ITextPresentationListener;
-import org.eclipse.jface.text.TextPresentation;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -37,7 +36,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
@@ -255,81 +253,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			MarkerHelper.mark(thisFile);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-	
-	public void createPartControl(Composite parent){
-		super.createPartControl(parent);
-
-		ISourceViewer viewer = getSourceViewer();
-		if (viewer != null) {
-			registerDefaultTextPresentationListener(viewer);
-		}
-	}
-	
-	private void registerDefaultTextPresentationListener(ISourceViewer viewer) {
-		if (viewer instanceof TextViewer) {
-			((TextViewer) viewer).addTextPresentationListener(new ITextPresentationListener() {
-				public void applyTextPresentation(TextPresentation textPresentation) {
-					// TODO mseifert
-					//markOccurences(textPresentation);
-				}
-
-				/*
-				private void markOccurences(TextPresentation textPresentation) {
-					ISelection selection = getSelectionProvider().getSelection();
-					if (selection instanceof TextSelection) {
-						TextSelection textSelection = (TextSelection) selection;
-						int offset = textSelection.getOffset();
-						ILocationMap locationMap = resource.getLocationMap();
-						List<EObject> elements = locationMap.getElementsAt(offset);
-						if (elements.isEmpty()) {
-							return;
-						}
-						EObject first = elements.get(0);
-						System.out.println("first is " + first.eClass().getName() + "@" + first.hashCode());
-						System.out.println("first is " + first);
-						Map<EObject, Collection<EStructuralFeature.Setting>> references =
-						    CrossReferencer.find(resource.getContents());
-						for (EObject next : references.keySet()) {
-						    for (EStructuralFeature.Setting setting : references.get(next)) {
-						    	String temp = setting.getEObject().eClass().getName() + "." + setting.getEStructuralFeature().getName();
-						    	
-								String nextClassName = next.eClass().getName();
-								if ("NormalToken".equals(nextClassName)) {
-									System.out.println(temp + " ==> " + nextClassName + "@" + next.hashCode());
-									System.out.println(temp + " ==> " + next);
-								}
-						    }
-						}
-						if (references.containsKey(first)) {
-							System.out.println("found reference to " + first);
-						    for (EStructuralFeature.Setting setting : references.get(first)) {
-						        //setting = instance of EStructuralFeature
-
-						        //the element with the cross reference
-						    	EObject container = setting.getEObject();
-						    	System.out.println(".markOccurences()" + container);
-
-						        //the feature of the cross reference
-						    	EStructuralFeature feature = setting.getEStructuralFeature();
-						    	System.out.println(".markOccurences()" + feature);
-						    }
-							//addStyle(textPresentation, locationMap.getCharStart(reference), locationMap.getCharEnd(reference));
-						} 
-					}
-				}
-
-				private void addStyle(TextPresentation textPresentation,
-						int charStart, int charEnd) {
-					StyleRange range = new StyleRange();
-					range.background = new Color(Display.getCurrent(), new RGB(255,255,0));
-					range.start = charStart;
-					range.length = charEnd;
-					textPresentation.replaceStyleRange(range);
-				}
-				*/
-			});
 		}
 	}
 	
