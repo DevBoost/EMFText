@@ -16,48 +16,14 @@ import org.emftext.sdk.finders.IConcreteSyntaxFinderResult;
 import org.emftext.sdk.finders.IGenPackageFinder;
 import org.emftext.sdk.finders.IGenPackageFinderResult;
 
-// FIXME mseifert: remove the cache, because:
-// a) it is not used right now, because new instances of this class are created for each request
-// b) it is not needed anymore, since we do not search in the workspace for generator models anymore.
-//    we either specify a URL of a generator model or look it up in the registry, which does not
-//    need a cache
-//
-// The cache was originally used to avoid reloading generator models over and over. Since we do now 
-// refer to one generator model at most, i think repetitive reloading is ok.
 /**
  * The MetamodelManager uses finders to search for generator packages and
- * concrete syntaxes. Found packages are stored in a cache.
+ * concrete syntaxes.
  */
 public class MetamodelManager {
 	
 	private List<IGenPackageFinder> genPackageFinders = new ArrayList<IGenPackageFinder>();
-	private MetamodelCache modelCache = new MetamodelCache();
-	
 	private List<IConcreteSyntaxFinder> concreteSyntaxFinders = new ArrayList<IConcreteSyntaxFinder>();
-	
-	/**
-	 * The MetamodelCache maps namespace URIs to generator packages.
-	 */
-	private class MetamodelCache {
-		
-		private Map<String,IGenPackageFinderResult> internalCache = new HashMap<String,IGenPackageFinderResult>();
-		
-		public boolean isCached(String nsURI) {
-			IGenPackageFinderResult result = internalCache.get(nsURI);
-			if (result != null) {
-				return !result.hasChanged();
-			}
-			return false;
-		}
-		
-		public GenPackage load(String nsURI) {
-			return internalCache.get(nsURI).getResult();
-		}
-		
-		public void store(String nsURI, IGenPackageFinderResult foundPackage) {
-			internalCache.put(nsURI, foundPackage);
-		}
-	}
 	
 	public MetamodelManager() {
 		super();
@@ -82,14 +48,9 @@ public class MetamodelManager {
 			return null;
 		}
 		
-		if (modelCache.isCached(nsURI)) {
-			return modelCache.load(nsURI);
-		}
-		
 		for (IGenPackageFinder finder : genPackageFinders) {
 			IGenPackageFinderResult finderResult = finder.findGenPackage(nsURI, locationHint, container, resource);
 			if (finderResult != null) {
-				modelCache.store(nsURI, finderResult);
 				GenPackage foundPackage = finderResult.getResult();
 				if (foundPackage != null) {
 					return foundPackage;

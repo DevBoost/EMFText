@@ -94,7 +94,7 @@ public class GenClassFinder {
 		return foundClasses;
 	}
 	
-	private boolean contains(Set<GenClass> genClasses, GenClass genClass) {
+	public boolean contains(Set<GenClass> genClasses, GenClass genClass) {
 		for (GenClass next : genClasses) {
 			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
 				return true;

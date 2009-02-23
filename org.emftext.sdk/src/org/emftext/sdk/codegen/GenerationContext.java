@@ -107,7 +107,7 @@ public class GenerationContext {
 			if (nextSyntax == null) {
 				continue;
 			}
-			if (genClassFinder.findAllGenClasses(nextSyntax, true, true).contains(genFeature.getGenClass())) {
+			if (genClassFinder.contains(genClassFinder.findAllGenClasses(nextSyntax, true, true), genFeature.getGenClass())) {
 				return nextSyntax;
 			}
 		}
@@ -282,12 +282,7 @@ public class GenerationContext {
 
 	public boolean isImportedReference(GenFeature genFeature) {
 		Set<GenClass> classesExceptImports = genClassFinder.findAllGenClasses(concreteSyntax, false, false);
-		for (GenClass genClass : classesExceptImports) {
-			if (genClass != null && genClass.getQualifiedInterfaceName().equals(genFeature.getGenClass().getQualifiedInterfaceName())) {
-				return false;
-			}
-		}
-		return true;
+		return ! genClassFinder.contains(classesExceptImports, genFeature.getGenClass());
 	}
 
 	public boolean isImportedToken(InternalTokenDefinition tokenDefinition) {
