@@ -1,9 +1,7 @@
 package org.emftext.sdk.finders;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -21,20 +19,61 @@ import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
  * A finder that looks up generator packages in the EMF package
- * registry.
- * 
- * TODO jjohannes: check whether this finder works properly
+ * registry. This implementation queries the registry once at its first usage
+ * and loads and caches all valid generator packages.
  */
 public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	
-	private Map<String, GenPackageInRegistryFinderResult> cache = new HashMap<String, GenPackageInRegistryFinderResult>();
-	private Set<URI> defectGenModelURIs = new HashSet<URI>();
+	private static final Map<String, GenPackageInRegistryFinderResult> cache = new HashMap<String, GenPackageInRegistryFinderResult>();
+	
+	static { init(); }
+	
+	private static void init() {
+		//search all registered generator models
+		final Map<String, URI> packageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
+		for (String nextNS : packageNsURIToGenModelLocationMap.keySet()) {
+			URI genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);
+	    	try {
+	    		final ResourceSet rs = new ResourceSetImpl();
+        		Resource genModelResource = rs.getResource(genModelURI, true);
+        		if (genModelResource == null) {
+        			continue;
+        		}
+            	final EList<EObject> contents = genModelResource.getContents();
+            	if (contents == null || contents.size() == 0) {
+            		continue;
+            	}
+				GenModel genModel = (GenModel) contents.get(0);
+            	for (GenPackage genPackage : genModel.getGenPackages()) {
+        			if (genPackage != null && !genPackage.eIsProxy()) {
+	            		String nsURI = genPackage.getNSURI();
+	            		final GenPackageInRegistryFinderResult result = new GenPackageInRegistryFinderResult(genPackage);
+						cache.put(nsURI, result);
+						registerSubGenPackages(genPackage);
+        			}
+            	}
+	    	} catch (Exception e ) {
+	    		EMFTextPlugin.logError("Exception while looking up concrete syntaxes in the registry.", e);
+	    	}
+        }
+	}
+	
+	private static void registerSubGenPackages(GenPackage parentPackage) {
+		for(GenPackage genPackage : parentPackage.getSubGenPackages()) {
+			if (genPackage != null && !genPackage.eIsProxy()) {
+        		String nsURI = genPackage.getNSURI();
+        		final GenPackageInRegistryFinderResult result = new GenPackageInRegistryFinderResult(genPackage);
+				cache.put(nsURI, result);
+				registerSubGenPackages(genPackage);
+			}
+		}
+	}
 	
 	/**
 	 * An implementation of the IGenPackageFinderResult that is used to
 	 * return generator package found in the EMF registry.
 	 */
-	private class GenPackageInRegistryFinderResult implements IGenPackageFinderResult {
+	private static class GenPackageInRegistryFinderResult implements IGenPackageFinderResult {
 
 		private GenPackage genPackage;
 		
@@ -52,45 +91,14 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 			return genPackage;
 		}
 	}
+	
+
+
 
 	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
 		if (cache.containsKey(nsURI)) {
 			return cache.get(nsURI);
 		}
-		//search all registered generator models
-		final Map<String, URI> packageNsURIToGenModelLocationMap = EcorePlugin.getEPackageNsURIToGenModelLocationMap();
-		for (String nextNS : packageNsURIToGenModelLocationMap.keySet()) {
-			URI genModelURI = packageNsURIToGenModelLocationMap.get(nextNS);
-			if (defectGenModelURIs.contains(genModelURI)) {
-				continue;
-			}
-	    	try {
-	    		final ResourceSet rs = new ResourceSetImpl();
-        		Resource genModelResource = rs.getResource(genModelURI, false);
-        		if (genModelResource == null) {
-        			defectGenModelURIs.add(genModelURI);
-        			continue;
-        		}
-            	final EList<EObject> contents = genModelResource.getContents();
-            	if (contents == null || contents.size() == 0) {
-            		continue;
-            	}
-				GenModel genModel = (GenModel) contents.get(0);
-            	for (GenPackage genPackage : genModel.getGenPackages()) {
-        			if (genPackage != null) {
-	            		if (nsURI.equals(genPackage.getNSURI())) {
-	            			final GenPackageInRegistryFinderResult result = new GenPackageInRegistryFinderResult(genPackage);
-							cache.put(nsURI, result);
-							return result;
-	            		}
-        			}
-            	}
-	    	} catch (Exception e ) {
-	    		defectGenModelURIs.add(genModelURI);
-	    		EMFTextPlugin.logError("Exception while looking up concrete syntaxes in the registry.", e);
-	    	}
-        }
-		cache.put(nsURI, null);
 		return null;
 	}
 }
