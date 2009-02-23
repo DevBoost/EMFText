@@ -377,7 +377,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         
 
         List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(conreteSyntax.getTokens());       
-        sc.add("protected void collectHiddenTokens(" + EObject.class.getName() + " element, Object o) {");
+        sc.add("protected void collectHiddenTokens(" + EObject.class.getName() + " element) {");
         if (!collectTokenDefinitions.isEmpty()) {          
             //sc.add("System.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
             sc.add("int currentPos = getTokenStream().index();");
@@ -511,7 +511,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        sc.add(" returns [" + ruleName + " element = null]");
 	        sc.add("@init{");
 			sc.add("element = " + getCreateObjectCall(recursiveType) + ";");
-			// TODO mseifert, cwende: here collectHiddenTokens() should be called
+	        sc.add("collectHiddenTokens(element);");
 	        sc.add("List<EObject> dummyEObjects  = new ArrayList<EObject>();");
 	        sc.add("}");
 	        sc.add(":");
@@ -593,7 +593,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        sc.add(" returns [DummyEObject element = null]");
 	        sc.add("@init{");
 	        sc.add("element = new DummyEObject(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
-			// TODO mseifert, cwende: here collectHiddenTokens() should be called
+	        sc.add("collectHiddenTokens(element);");
 	        sc.add("}");
 	        sc.add(":");
 	        
@@ -741,7 +741,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
-    	sc.add("collectHiddenTokens(element, (CommonToken)" + identifier + ");");
+    	sc.add("collectHiddenTokens(element);");
     	sc.add("copyLocalizationInfos((CommonToken)" + identifier + ", element);");
     	sc.add("}"); 
     	return ++count;
@@ -862,7 +862,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	}
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
-            	resolvements.add("collectHiddenTokens(element, " + expressionToBeSet + ");");
+            	resolvements.add("collectHiddenTokens(element);");
             	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverSwitchClassName() + ".get" + context.getReferenceResolverClassName(genFeature) + "()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	//remember where proxies have to be resolved
             	proxyReferences.add(genFeature);
@@ -900,7 +900,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             sc.add("addObjectToList(element, " + GeneratorUtil.getFeatureConstant(genClass, genFeature) + ", " + expressionToBeSet +");");
         }
         sc.add("}");
-        sc.add("collectHiddenTokens(element, " + expressionToBeSet + ");");
+        sc.add("collectHiddenTokens(element);");
         if (terminal instanceof Containment) {
             sc.add("copyLocalizationInfos(" + ident + ", element); "); 
         } else {
@@ -992,7 +992,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     
     private InternalTokenDefinition deriveTokenDefinition(String prefix, String suffix) {
     	String derivedTokenName = null;
-        // TODO mseifert: this checks should be performed in a post processor
+        // TODO cwende: this checks should be performed in a post processor (unify with check
+    	// that token definitions contain correct regular expressions
     	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
 		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
 		
@@ -1231,7 +1232,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     		return "*";
     }
 
-    // TODO mseifert: this should be performed in a post processor
+    // TODO cwende: this should be performed in a post processor
     private boolean checkANTLRRegex(InternalTokenDefinition def){
     	ByteArrayOutputStream out = new ByteArrayOutputStream();
     	PrintWriter w = new PrintWriter(new BufferedOutputStream(out));

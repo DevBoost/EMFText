@@ -58,21 +58,19 @@ public interface ILocationMap {
 	 * multiple elements, because containers include their
 	 * children in the textual representation.
 	 * 
-	 * @param root an object where to start the search
 	 * @param documentOffset
 	 * @return
 	 */
-	public List<EObject> getElementsAt(EObject root, int documentOffset);
+	public List<EObject> getElementsAt(int documentOffset);
 	
 	/**
 	 * Returns all EObjects that are located between the given 
 	 * offsets in the text document. The method can return
 	 * multiple elements.
 	 * 
-	 * @param root an object where to start the search
 	 * @param startOffset
 	 * @param endOffset
 	 * @return
 	 */
-	public List<EObject> getElementsBetween(EObject root, int startOffset, int endOffset);
+	public List<EObject> getElementsBetween(int startOffset, int endOffset);
 }

@@ -1,5 +1,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.emftext.runtime.resource.impl.AbstractLocationMap;
+
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
 	public CsResource() {
@@ -11,6 +13,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	}
 	
 	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
+		resetLocationMap();
 		java.lang.String encoding = null;
 		java.io.InputStream actualInputStream = inputStream;
 		java.lang.Object inputStreamPreProcessorProvider = null;
@@ -35,9 +38,9 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		parser.setResource(this);
 		parser.setOptions(options);
 		org.eclipse.emf.ecore.EObject root = parser.parse();
-		while (root != null) {
+		if (root != null) {
 			getContents().add(root);
-			root = null;
+			((AbstractLocationMap) getLocationMap()).setRoot(root);
 		}
 		getReferenceResolverSwitch().setOptions(options);
 	}

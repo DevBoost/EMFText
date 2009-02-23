@@ -25,11 +25,11 @@ public class DevNullLocationMap implements ILocationMap {
 		return 0;
 	}
 
-	public List<EObject> getElementsAt(EObject root, int documentOffset) {
+	public List<EObject> getElementsAt(int documentOffset) {
 		return null;
 	}
 
-	public List<EObject> getElementsBetween(EObject root, int startOffset,
+	public List<EObject> getElementsBetween(int startOffset,
 			int endOffset) {
 		return null;
 	}

@@ -5,13 +5,12 @@ import java.util.List;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.ILocationMap;
 
 /**
  * An implementation of the ILocationMap interface that stores location
  * data in EMF adapters using absolute line and column information.
  */
-public class AbsoluteAdapterLocationMap implements ILocationMap {
+public class AbsoluteAdapterLocationMap extends AbstractLocationMap {
 
 	/**
 	 * An EMF adapter implementation that is attached to EObjects
@@ -94,12 +93,12 @@ public class AbsoluteAdapterLocationMap implements ILocationMap {
 		getLocationAdapter(element, true).setLine(line);
 	}
 
-	public List<EObject> getElementsAt(EObject root, int documentOffset) {
+	public List<EObject> getElementsAt(int documentOffset) {
 		// TODO mseifert: implement
 		return null;
 	}
 
-	public List<EObject> getElementsBetween(EObject root, int startOffset, int endOffset) {
+	public List<EObject> getElementsBetween(int startOffset, int endOffset) {
 		// TODO mseifert: implement
 		return null;
 	}

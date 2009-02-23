@@ -8,7 +8,6 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.ILocationMap;
 
 /**
  * A basic implementation of the ILocationMap interface. Instances
@@ -24,7 +23,7 @@ import org.emftext.runtime.resource.ILocationMap;
  * Start:  The lowest of all sources is used for target<br>
  * End:    The highest of all sources is used for target<br>
  */
-public class LocationMap implements ILocationMap {
+public class LocationMap extends AbstractLocationMap {
 
 	/**
 	 * A basic interface that can be implemented to select
@@ -88,17 +87,17 @@ public class LocationMap implements ILocationMap {
 		map.put(element, value);
 	}
 
-	public List<EObject> getElementsAt(EObject root, final int documentOffset) {
-		List<EObject> result = getElements(root, new ISelector() {
+	public List<EObject> getElementsAt(final int documentOffset) {
+		List<EObject> result = getElements(getRoot(), new ISelector() {
 			public boolean accept(int start, int end) {
-				return start < documentOffset && end > documentOffset;
+				return start <= documentOffset && end >= documentOffset;
 			}
 		});
 		return result;
 	}
 
-	public List<EObject> getElementsBetween(EObject root, final int startOffset, final int endOffset) {
-		List<EObject> result = getElements(root, new ISelector() {
+	public List<EObject> getElementsBetween(final int startOffset, final int endOffset) {
+		List<EObject> result = getElements(getRoot(), new ISelector() {
 			public boolean accept(int start, int end) {
 				return start >= startOffset && end <= endOffset;
 			}

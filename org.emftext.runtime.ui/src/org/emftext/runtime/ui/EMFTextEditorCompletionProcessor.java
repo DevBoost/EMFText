@@ -55,7 +55,7 @@ public class EMFTextEditorCompletionProcessor implements
 		if (contents.size() == 0) {
 			return EMPTY_PROPOSAL_ARRAY;
 		}
-		List<EObject> elementsAtChar = locationMap.getElementsAt(contents.get(0), documentOffset);
+		List<EObject> elementsAtChar = locationMap.getElementsAt(documentOffset);
 		sortElements(elementsAtChar);
 		if (elementsAtChar.size() < 2) {
 			return EMPTY_PROPOSAL_ARRAY;

@@ -42,12 +42,16 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	
 	private static final String ARBITRARY_SYNTAX_NAME = "*";
 
-	private ILocationMap locationMap = new LocationMap();
+	private ILocationMap locationMap;
 	
 	private int proxyCounter = 0;
 	
 	private Map<String, IContextDependentURIFragment<? extends EObject>> internalURIFragmentMap =
 		new HashMap<String, IContextDependentURIFragment<? extends EObject>>();
+	
+	protected void resetLocationMap() {
+		locationMap = new LocationMap();
+	}
 	
 	public void addURIFragment(String internalURIFragment, IContextDependentURIFragment<? extends EObject> uriFragment) {
 		internalURIFragmentMap.put(internalURIFragment, uriFragment);
@@ -184,7 +188,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		super.doUnload();
 		
 		//clear concrete syntax information
-		locationMap = new LocationMap();
+		resetLocationMap();
 		internalURIFragmentMap.clear();
 		proxyCounter = 0;
 	}
@@ -213,8 +217,6 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 					}
 				}
 			}
-			
-		
 		}
 	}
 
