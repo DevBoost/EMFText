@@ -27,7 +27,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -230,7 +230,7 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
         				try {
 							csResource.save(null);
 						} catch (IOException e) {
-							EMFTextPlugin.logError("Exception while saving resource.", e);
+							EMFTextRuntimePlugin.logError("Exception while saving resource.", e);
 						}
         		}
 
@@ -249,10 +249,10 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
         	PlatformUI.getWorkbench().getProgressService().busyCursorWhile(runnable);
          } 
         catch (InvocationTargetException e){
-        	EMFTextPlugin.logError("Exception while generating HUTN syntax.", e);
+        	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
         }
         catch (InterruptedException e){
-        	EMFTextPlugin.logError("Exception while generating HUTN syntax.", e);
+        	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
         }
      }
     

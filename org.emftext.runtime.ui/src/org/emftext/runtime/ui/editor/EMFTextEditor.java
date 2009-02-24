@@ -45,10 +45,12 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
+import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.MarkerHelper;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
@@ -195,14 +197,20 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		resource = (ITextResource) editingDomain.getResourceSet().getResource(uri, false);
 		if (resource == null) {
 			try {
-				resource = (ITextResource) editingDomain.getResourceSet().getResource(uri, true);
-				EcoreUtil.resolveAll(resource);
-				resourceCopy = (ITextResource) new ResourceSetImpl().createResource(uri);
-				MarkerHelper.unmark(resource);
-				MarkerHelper.mark(resource);
-				resource.eAdapters().add(markerAdapter);
+				Resource loadedResource = editingDomain.getResourceSet().getResource(uri, true);
+				if (loadedResource instanceof ITextResource) {
+					resource = (ITextResource) loadedResource;
+					EcoreUtil.resolveAll(resource);
+					resourceCopy = (ITextResource) new ResourceSetImpl().createResource(uri);
+					MarkerHelper.unmark(resource);
+					MarkerHelper.mark(resource);
+					resource.eAdapters().add(markerAdapter);
+				} else {
+					// the resource was not loaded by an EMFText resource, but some other EMF resource
+					EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("No EMFText resource.", "Sorry, no registered EMFText resource can handle this file type.");
+				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				EMFTextRuntimePlugin.logError("Exception while loading resource in " + EMFTextEditor.class.getSimpleName() + ".", e);
 			}
 		}
 	}

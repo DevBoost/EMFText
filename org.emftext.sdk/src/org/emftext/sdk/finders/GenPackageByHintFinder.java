@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.MetamodelManager;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -111,7 +111,7 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 			            	try {
 			            		updateGenModel(genModel);
 			            	} catch (Exception e){
-			            		EMFTextPlugin.logError("Error while updating genmodel " + file, e);
+			            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
 			            	}				            		
 			        	}
 						
@@ -125,7 +125,7 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 				}
 			}
 		} catch (Exception e) {
-			EMFTextPlugin.logError("Exception while looking for generator package.", e);
+			EMFTextRuntimePlugin.logError("Exception while looking for generator package.", e);
 		}
 		
 		resource.addWarning("The generator package was not found at " + locationHint, container);

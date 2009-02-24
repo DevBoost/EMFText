@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -63,7 +63,7 @@ public class PluginXMLGenerator implements IGenerator {
 		s.addLineBreak();
 
 		// register the cs file
-		s.add("<extension point=\"" + EMFTextPlugin.EP_CONCRETESYNTAX_ID + "\">");
+		s.add("<extension point=\"" + EMFTextRuntimePlugin.EP_CONCRETESYNTAX_ID + "\">");
 		s.add("<concretesyntax uri=\"" + concreteSyntax.getPackage().getNSURI() + "\" csName=\"" + concreteSyntaxName + "\" csDefinition=\"" + context.getConcreteSyntaxFile().getProject().getName() + "/" + context.getConcreteSyntaxFile().getProjectRelativePath() + "\">");
 		s.add("</concretesyntax>");
 		s.add("</extension>");

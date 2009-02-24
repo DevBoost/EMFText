@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
@@ -53,7 +53,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
         			}
             	}
 	    	} catch (Exception e ) {
-	    		EMFTextPlugin.logError("Exception while looking up concrete syntaxes in the registry.", e);
+	    		EMFTextRuntimePlugin.logError("Exception while looking up concrete syntaxes in the registry.", e);
 	    	}
         }
 	}

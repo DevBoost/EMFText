@@ -13,7 +13,7 @@ import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
@@ -98,7 +98,7 @@ public class AntlrTokenScanner implements ITokenScanner {
         try {
             lexer.setCharStream(new ANTLRStringStream(document.get(offset, length)));
         } catch (BadLocationException e) {
-            EMFTextPlugin.logError("Unexpected error:", e);
+            EMFTextRuntimePlugin.logError("Unexpected error:", e);
         }
     }
 

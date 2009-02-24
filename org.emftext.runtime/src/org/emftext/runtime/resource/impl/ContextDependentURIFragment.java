@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.IReferenceMapping;
@@ -92,7 +92,7 @@ public abstract class ContextDependentURIFragment<ContainerType extends EObject,
 				addResultToList(mapping, proxy, list);
 			}
 			else {
-				EMFTextPlugin.logError(
+				EMFTextRuntimePlugin.logError(
 						container.eClass().getName() +
 						"." + reference.getName() + 
 						" has multiplicity 1 but was resolved to multiple elements", 

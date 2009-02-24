@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextResource;
@@ -186,15 +186,15 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject, R
 				return (String) result;
 			}
 		} catch (SecurityException e) {
-			EMFTextPlugin.logError("Exception while matching proxy URI.", e);
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
 		} catch (NoSuchMethodException e) {
-			EMFTextPlugin.logError("Exception while matching proxy URI.", e);
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
 		} catch (IllegalArgumentException e) {
-			EMFTextPlugin.logError("Exception while matching proxy URI.", e);
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
 		} catch (IllegalAccessException e) {
-			EMFTextPlugin.logError("Exception while matching proxy URI.", e);
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
 		} catch (InvocationTargetException e) {
-			EMFTextPlugin.logError("Exception while matching proxy URI.", e);
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
 		}
 		return null;
 	}

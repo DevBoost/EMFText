@@ -1,5 +1,9 @@
 package org.emftext.runtime.ui;
 
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -39,5 +43,17 @@ public class EMFTextRuntimeUIPlugin extends AbstractUIPlugin {
 	 */
 	public static EMFTextRuntimeUIPlugin getDefault() {
 		return plugin;
+	}
+
+	public void showErrorDialog(final String title, final String message) {
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				Shell parent = new Shell();
+				MessageDialog dialog = new MessageDialog(parent, title, null, message, MessageDialog.ERROR,
+						new String[] { IDialogConstants.OK_LABEL }, 0) {
+				};
+				dialog.open();
+			}
+		});
 	}
 }

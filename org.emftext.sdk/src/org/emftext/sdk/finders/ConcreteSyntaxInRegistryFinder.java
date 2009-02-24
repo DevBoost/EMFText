@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -21,7 +21,7 @@ public class ConcreteSyntaxInRegistryFinder implements IConcreteSyntaxFinder {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		
 		//find all registered concrete syntax definitions
-        final Map<String, URI> uriToCSLocationMap = EMFTextPlugin.getURIToConcreteSyntaxLocationMap();
+        final Map<String, URI> uriToCSLocationMap = EMFTextRuntimePlugin.getURIToConcreteSyntaxLocationMap();
 		for (String candCsURI : uriToCSLocationMap.keySet()) {
         	URI csLocation = uriToCSLocationMap.get(csURI);
         	if (csLocation == null) {

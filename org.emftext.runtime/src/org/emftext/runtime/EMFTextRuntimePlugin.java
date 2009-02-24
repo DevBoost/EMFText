@@ -17,18 +17,18 @@ import org.osgi.framework.BundleContext;
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
-public class EMFTextPlugin extends Plugin {
+public class EMFTextRuntimePlugin extends Plugin {
 	
 	public static final String PLUGIN_ID = "org.reuseware.ecoretextedit.runtime";
 	public static final String EP_CONCRETESYNTAX_ID = "org.emftext.runtime.concretesyntax";
 	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = "org.emftext.runtime.default_load_options";
 	
-	private static EMFTextPlugin plugin;
+	private static EMFTextRuntimePlugin plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public EMFTextPlugin() {
+	public EMFTextRuntimePlugin() {
 	}
 
 	public void start(BundleContext context) throws Exception {
@@ -46,7 +46,7 @@ public class EMFTextPlugin extends Plugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static EMFTextPlugin getDefault() {
+	public static EMFTextRuntimePlugin getDefault() {
 		return plugin;
 	}
 	
@@ -93,15 +93,15 @@ public class EMFTextPlugin extends Plugin {
 	public static IStatus logError(String message, Throwable exception) {
 		IStatus status;
 		if (exception != null) {
-			status = new Status(IStatus.ERROR, EMFTextPlugin.PLUGIN_ID,
+			status = new Status(IStatus.ERROR, EMFTextRuntimePlugin.PLUGIN_ID,
 					0, message, exception);
 		}
 		else {
-			status = new Status(IStatus.ERROR, EMFTextPlugin.PLUGIN_ID,
+			status = new Status(IStatus.ERROR, EMFTextRuntimePlugin.PLUGIN_ID,
 					message);
 		}
 		
-		final EMFTextPlugin pluginInstance = EMFTextPlugin.getDefault();
+		final EMFTextRuntimePlugin pluginInstance = EMFTextRuntimePlugin.getDefault();
 		if (pluginInstance == null) {
 			System.err.println(message);
 			if (exception != null) {

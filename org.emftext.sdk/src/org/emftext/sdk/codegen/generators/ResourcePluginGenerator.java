@@ -32,7 +32,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -311,7 +311,7 @@ public class ResourcePluginGenerator {
     		   return new ByteArrayInputStream(stream.toByteArray());
        	   }
 		} catch (Exception e) {
-			EMFTextPlugin.logError("Exception while invoking code generator.", e);
+			EMFTextRuntimePlugin.logError("Exception while invoking code generator.", e);
 		} finally {
 			out.close();
 			Collection<GenerationProblem> collectedProblems = generator.getCollectedProblems();

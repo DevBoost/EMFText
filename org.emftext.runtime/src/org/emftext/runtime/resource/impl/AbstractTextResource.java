@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.EMFTextPlugin;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
@@ -212,7 +212,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 						try {
 							postProcessor.process(this);
 						} catch (Exception e) {
-							EMFTextPlugin.logError("Exception while running a post-processor.", e);
+							EMFTextRuntimePlugin.logError("Exception while running a post-processor.", e);
 						}
 					}
 				}
@@ -271,7 +271,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		if (Platform.isRunning()) {
 			// find default load option providers
 			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-			IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
+			IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(EMFTextRuntimePlugin.EP_DEFAULT_LOAD_OPTIONS_ID);
 			for (IConfigurationElement element : configurationElements) {
 				try {
 					String csName = element.getAttribute(IOptionProvider.CS_NAME);
@@ -288,7 +288,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 					}
 					
 				} catch (CoreException ce) {
-					EMFTextPlugin.logError("Exception while getting default options.", ce);
+					EMFTextRuntimePlugin.logError("Exception while getting default options.", ce);
 				}
 			}
 		}
