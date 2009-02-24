@@ -993,7 +993,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     private InternalTokenDefinition deriveTokenDefinition(String prefix, String suffix) {
     	String derivedTokenName = null;
         // TODO cwende: this checks should be performed in a post processor (unify with check
-    	// that token definitions contain correct regular expressions
+    	// that token definitions contain correct regular expressions)
+    	//
+    	// Attention: suffix and prefix can be null, because they are defined in
+    	// meta class DerivedPlaceholder, which is used both for featureName[]
+    	// and featureName['prefix', 'suffix']. However, if one is not null,
+    	// the other should not be null too.
+    	// A clean solution would be to introduce separate meta classes for
+    	// features the use the default token and features the use prefix and
+    	// suffix
     	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
 		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
 		
