@@ -7,6 +7,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 
+/**
+ * A FuzzyResolveResult is an implementation of the IReferenceResolveResult
+ * interface that delegates all method calls to a given IReferenceResolveResult
+ * with ReferenceType EObject. It is used by reference resolver switches to 
+ * collect results from different reference resolvers in a type safe manner.
+ *
+ * @param <ReferenceType> the type of the reference that is resolved
+ */
 public class FuzzyResolveResult<ReferenceType extends EObject> implements IReferenceResolveResult<ReferenceType> {
 	
 	private IReferenceResolveResult<EObject> delegate;
