@@ -156,9 +156,6 @@ public class StringComposite {
 	private void enableComponents() {
 		List<ComponentNode> disabledComponents = new ArrayList<ComponentNode>();
 
-		// TODO MINOR, PERFORMANCE: this tree should be created when the components are added and replace
-		// the field 'components'.
-		
 		// find the scoping depth for the disabled components
 		Tree subTree = new Tree(null);
 		for (int i = 0; i < components.size(); i++) {
