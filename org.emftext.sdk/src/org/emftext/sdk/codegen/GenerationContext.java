@@ -153,6 +153,14 @@ public class GenerationContext {
 		return resolverClasses;
 	}
 
+	public String getPluginName() {
+		return getPackageName();
+	}
+
+	public String getPluginName(ConcreteSyntax syntax) {
+		return getPackageName(syntax);
+	}
+
 	public String getPackageName() {
 		return getPackageName(concreteSyntax);
 	}

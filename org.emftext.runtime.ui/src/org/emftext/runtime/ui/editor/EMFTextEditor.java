@@ -69,7 +69,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 	/**
 	 * A custom document listener that triggers background parsing if 
-	 * needed. 
+	 * needed.
 	 */
 	private final class DocumentListener implements IDocumentListener {
 		
@@ -79,7 +79,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			if (!bgParsingStrategy.isParsingRequired(event)) {
 				return;
 			}
-			// TODO mseifert: enable this feature once it is implemented
 			parseNewContents(event);
 			bgParsingListener.parsingCompleted(resourceCopy);
 		}
