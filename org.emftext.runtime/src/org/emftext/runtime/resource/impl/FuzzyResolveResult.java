@@ -28,7 +28,7 @@ public class FuzzyResolveResult<ReferenceType extends EObject> implements IRefer
 	}
 
 	public Collection<IReferenceMapping<ReferenceType>> getMappings() {
-		throw new RuntimeException("Method not implemented.");
+		return null;
 	}
 
 	public boolean wasResolved() {
