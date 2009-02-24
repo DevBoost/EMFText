@@ -232,8 +232,11 @@ public class SDKOptionProvider implements IOptionProvider {
 			for (Definition part : sequence.getParts()) {
 				if (part instanceof Terminal) {
 					Terminal terminal = (Terminal) part;
-					if (genFeature.getName().equals(terminal.getFeature().getName())) {
-						return true;
+					GenFeature terminalGenFeature = terminal.getFeature();
+					if(terminalGenFeature != null && !terminalGenFeature.eIsProxy()) {
+						if (genFeature.getName().equals(terminalGenFeature.getName())) {
+							return true;
+						}
 					}
 				} else if (part instanceof CompoundDefinition) {
 					CompoundDefinition compound = (CompoundDefinition) part;
