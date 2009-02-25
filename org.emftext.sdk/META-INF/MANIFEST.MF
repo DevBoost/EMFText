@@ -8,6 +8,7 @@ Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
  org.eclipse.emf.workspace,
  org.eclipse.ocl.ecore,
  org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
  org.emftext.runtime,
  org.emftext.sdk.antlr,
  org.emftext.sdk.concretesyntax;visibility:=reexport

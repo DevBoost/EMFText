@@ -1,4 +1,4 @@
-package org.emftext.runtime.ui;
+package org.emftext.runtime;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
