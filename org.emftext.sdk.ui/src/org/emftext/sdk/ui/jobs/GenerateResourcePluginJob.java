@@ -39,7 +39,7 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.ManifestGenerator;
 import org.emftext.sdk.codegen.generators.PluginXMLGenerator;
-import org.emftext.sdk.codegen.generators.ResourcePluginGenerator;
+import org.emftext.sdk.codegen.generators.ResourcePluginContentGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
@@ -99,7 +99,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			createProject(context, progress);
 
 			// generate the resource class, parser, and printer
-			ResourcePluginGenerator pluginGenerator = new ResourcePluginGenerator();
+			ResourcePluginContentGenerator pluginGenerator = new ResourcePluginContentGenerator();
 			pluginGenerator.generate(context, progress
 					.newChild(TICKS_GENERATE_RESOURCE));
 
@@ -118,11 +118,11 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 
 			context.getProject().refreshLocal(IProject.DEPTH_INFINITE, progress
 					.newChild(TICKS_REFRESH_PROJECT));
+			return Status.OK_STATUS;
 		} catch (CoreException e) {
 			EMFTextRuntimePlugin.logError("Exception while generating resource plug-in.", e);
 			return new Status(Status.ERROR, EMFTextSDKUIPlugin.PLUGIN_ID, CoreException.class.getSimpleName(), new InvocationTargetException(e));
 		}
-		return Status.OK_STATUS;
 	}
 
 	private boolean checkAbstract(final ConcreteSyntax concreteSyntax) {

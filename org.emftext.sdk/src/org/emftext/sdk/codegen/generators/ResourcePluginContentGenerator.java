@@ -45,7 +45,7 @@ import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
  * A generator that uses multiple other generators to create
  * a resource plug-in from as CS specification and a meta model.
  */
-public class ResourcePluginGenerator {
+public class ResourcePluginContentGenerator {
 	
 	private static final String JAVA_FILE_EXTENSION = ".java";
 	

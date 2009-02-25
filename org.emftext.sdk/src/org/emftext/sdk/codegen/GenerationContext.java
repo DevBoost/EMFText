@@ -31,7 +31,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * the context collects information about the generation process as it
  * is executed.
  * 
- * @see org.emftext.sdk.codegen.generators.ResourcePluginGenerator
+ * @see org.emftext.sdk.codegen.generators.ResourcePluginContentGenerator
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
