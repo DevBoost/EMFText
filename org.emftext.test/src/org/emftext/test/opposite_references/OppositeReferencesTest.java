@@ -20,6 +20,9 @@ import org.junit.Test;
  * It check whether opposite references are correctly 
  * tagged as unused, if they are not defined at all in 
  * the concrete syntax. 
+ * 
+ * This test must be executed as JUnit Plug-in Test since
+ * it relies on a running OSGi platform.
  */
 public class OppositeReferencesTest extends TestCase {
 
@@ -30,24 +33,25 @@ public class OppositeReferencesTest extends TestCase {
 
 	@Test
 	public void testOptions() throws FileNotFoundException, IOException {
-		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite1.cs", 1, 0);
-		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite2.cs", 0, 0);
-		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite3.cs", 0, 0);
-		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite4.cs", 0, 0);
+		assertProblems("opposite1.cs", 2, 0);
+		assertProblems("opposite2.cs", 0, 0);
+		assertProblems("opposite3.cs", 0, 0);
+		assertProblems("opposite4.cs", 0, 0);
 	}
 
-	private void assertProblems(String path, int expectedWarnings, int expectedErrors) {
-		File file = new File(path);
+	private void assertProblems(String filename, int expectedWarnings, int expectedErrors) {
+		final String path = "src\\org\\emftext\\test\\opposite_references\\";
+		File file = new File(path + filename);
 		
 		ITextResource resource = new TextResourceHelper().getResource(file);
 		assertNotNull(resource);
 		
 		EList<Diagnostic> warnings = resource.getWarnings();
 		printDiagnostics(warnings);
-		assertEquals(path + " should contain " + expectedWarnings + " warnings.", expectedWarnings, warnings.size());
+		assertEquals(filename + " should contain " + expectedWarnings + " warnings.", expectedWarnings, warnings.size());
 		EList<Diagnostic> errors = resource.getErrors();
 		printDiagnostics(errors);
-		assertEquals(path + " should contain " + expectedWarnings + " errors.", expectedErrors, errors.size());
+		assertEquals(filename + " should contain " + expectedWarnings + " errors.", expectedErrors, errors.size());
 	}
 
 	private void printDiagnostics(EList<Diagnostic> diagnostics) {

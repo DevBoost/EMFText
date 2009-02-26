@@ -192,6 +192,8 @@ public class SDKOptionProvider implements IOptionProvider {
 		
 		// get collect-in feature to tag them as used
 
+		Map<EStructuralFeature, Rule> unusedReferencesWithOpposite = new HashMap<EStructuralFeature, Rule>();
+
 		final EList<Rule> rules = syntax.getRules();
 		for (Rule rule : rules) {
 			GenClass genClass = rule.getMetaclass();
@@ -209,21 +211,50 @@ public class SDKOptionProvider implements IOptionProvider {
 				if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule.getSyntax(), ecoreFeature)) {
 					continue;
 				}
-				if (ecoreFeature instanceof EReference) {
-					EReference ecoreReference = (EReference) ecoreFeature;
-					// TODO mseifert: this is not correct: pairs of opposite references
-					// must be defined in at least one rule. the references are
-					// only unused if they are not defined anywhere.
-					if (!ecoreReference.isContainment() && ecoreReference.getEOpposite() != null) {
-						continue;
-					}
-				}
 				Choice choice = rule.getDefinition();
-				if (!isUsed(choice, genFeature)) {
-					resource.addWarning("Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", rule);
+				final boolean isUsed = isUsed(choice, genFeature);
+				final EReference opposite = getOpposite(ecoreFeature);
+				if (!isUsed) {
+					if (opposite != null) {
+						unusedReferencesWithOpposite.put(ecoreFeature, rule);
+					} else {
+						resource.addWarning("Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", rule);
+					}
 				}
 			}
 		}
+
+		List<EStructuralFeature> handledFeatures = new ArrayList<EStructuralFeature>();
+		for (EStructuralFeature feature : unusedReferencesWithOpposite.keySet()) {
+			if (handledFeatures.contains(feature)) {
+				continue;
+			}
+			final EReference opposite = getOpposite(feature);
+			handledFeatures.add(opposite);
+			if (unusedReferencesWithOpposite.containsKey(opposite)) {
+				// both are not defined
+				Rule rule1 = unusedReferencesWithOpposite.get(feature);
+				Rule rule2 = unusedReferencesWithOpposite.get(opposite);
+
+				resource.addWarning("Feature " + getFeatureString(feature) + " (Opposite is " + getFeatureString(opposite) + ") has no syntax.", rule1);
+				resource.addWarning("Feature " + getFeatureString(opposite) + " (Opposite is " + getFeatureString(feature) + ") has no syntax.", rule2);
+			}
+		}
+	}
+
+
+	private String getFeatureString(EStructuralFeature f) {
+		EClass containerClass = f.getEContainingClass();
+		return containerClass.getName() + "." + f.getName();
+	}
+
+
+	private EReference getOpposite(EStructuralFeature ecoreFeature) {
+		if (ecoreFeature instanceof EReference) {
+			EReference ecoreReference = (EReference) ecoreFeature;
+			return ecoreReference.getEOpposite();
+		}
+		return null;
 	}
 
 
