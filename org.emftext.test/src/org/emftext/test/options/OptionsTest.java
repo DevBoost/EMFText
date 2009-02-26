@@ -21,6 +21,7 @@ import org.junit.Test;
  * by EMFText.
  */
 public class OptionsTest {
+	
 	@Before
 	public void setUp() {
 		registerResourceFactories();
