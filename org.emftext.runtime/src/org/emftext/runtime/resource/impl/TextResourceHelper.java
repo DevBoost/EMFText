@@ -26,7 +26,7 @@ import org.emftext.runtime.resource.ITextResource;
  */
 public class TextResourceHelper {
 
-	protected void saveResource(File file, Resource resource) throws IOException {
+	public void saveResource(File file, Resource resource) throws IOException {
 		Map<?, ?> options = Collections.EMPTY_MAP;
 		OutputStream outputStream = new FileOutputStream(file);
 		resource.save(outputStream, options);
