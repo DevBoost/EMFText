@@ -13,16 +13,10 @@ public class GenPackageDependentElementPackageReferenceResolver extends org.emft
 		String locationHint = container.getPackageLocationHint();
 		GenPackage genPackage = mmHelper.findGenPackage(getOptions(), container, nsURI, locationHint, (ITextResource) container.eResource());
 		if (genPackage == null) {
-			result.setErrorMessage("Generator model \"" + nsURI + "\" could not be resolved");
+			result.setErrorMessage("Generator model \"" + nsURI + "\" could not be resolved." + 
+					(locationHint == null ? "" : " Maybe " + locationHint + " is wrong?")
+			);
 		} else {
-			/*
-			if (genPackage != null) {
-				ConcreteSyntax cs = (ConcreteSyntax) container.eContainer();
-				if(!cs.getPackage().equals(genPackage)&&!cs.getPackage().getNSURI().equals(genPackage.getNSURI())) {
-					cs.getPackage().getGenModel().getUsedGenPackages().add(genPackage);
-				}
-			}
- 			*/
 			result.addMapping(nsURI, genPackage);
 		}
 	}

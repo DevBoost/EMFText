@@ -127,8 +127,6 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 			EMFTextRuntimePlugin.logError("Exception while looking for generator package.", e);
 		}
 		
-		resource.addWarning("The generator package was not found at " + locationHint, container);
-		faultyHints.add(locationHint);
 		return null;
 	}
 	

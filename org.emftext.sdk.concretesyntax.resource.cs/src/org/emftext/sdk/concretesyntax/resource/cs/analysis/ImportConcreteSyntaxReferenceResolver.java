@@ -21,13 +21,14 @@ public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceReso
 				container.getPackage(), (ITextResource) container.eResource());
 
 		if (concreteSyntax == null) {
-			result.setErrorMessage(createErrorMessage(identifier));
+			result.setErrorMessage(createErrorMessage(identifier, locationHint));
 			return;
 		}
 		result.addMapping(identifier, concreteSyntax);
 	}
 
-	private String createErrorMessage(String identifier) {
-		return "Concrete syntax definition for prefix \"" + identifier + "\" could not be resolved";
+	private String createErrorMessage(String identifier, String locationHint) {
+		return "Concrete syntax definition for prefix \"" + identifier + "\" could not be resolved." +
+			(locationHint == null ? "" : " Maybe " + locationHint + " is wrong?");
 	}
 }
