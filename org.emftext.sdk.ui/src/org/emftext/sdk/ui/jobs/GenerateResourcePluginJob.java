@@ -56,8 +56,20 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			}
 			case ERROR_SYNTAX_HAS_ERRORS :  {
 				// show error message, because we can not generate plug-ins for
-				// abstract syntaxes
+				// syntaxes with errors
 				EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains errors.");
+				break;
+			}
+			case ERROR_FOUND_UNRESOLVED_PROXIES :  {
+				// show error message, because we can not generate plug-ins for
+				// syntaxes dangling references
+				EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains references that can not be resolved.");
+				break;
+			}
+			case ERROR_GEN_PACKAGE_NOT_FOUND :  {
+				// show error message, because we can not generate plug-ins for
+				// syntaxes with missing generator packages
+				EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in. A generator package was not found.");
 				break;
 			}
 			case SUCCESS :  {

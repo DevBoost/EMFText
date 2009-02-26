@@ -41,7 +41,6 @@ public abstract class ResourcePluginGenerator {
 		SUCCESS,
 		ERROR_ABSTRACT_SYNTAX, 
 		ERROR_SYNTAX_HAS_ERRORS, 
-		// TODO mseifert: handle these two results in clients
 		ERROR_GEN_PACKAGE_NOT_FOUND, 
 		ERROR_FOUND_UNRESOLVED_PROXIES;
 
