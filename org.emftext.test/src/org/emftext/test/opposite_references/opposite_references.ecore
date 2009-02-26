@@ -5,9 +5,13 @@
     nsURI="http://www.emftext.org/test/opposite_references" nsPrefix="opposite">
   <eClassifiers xsi:type="ecore:EClass" name="Root">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classes" upperBound="-1"
-        eType="#//ClassA" containment="true" eOpposite="#//ClassA/root"/>
+        eType="#//AbstractSuperClass" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassA">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//Root" eOpposite="#//Root/classes"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractSuperClass" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassA" eSuperTypes="#//AbstractSuperClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="b" eType="#//ClassB" eOpposite="#//ClassB/a"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassB" eSuperTypes="#//AbstractSuperClass">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a" eType="#//ClassA" eOpposite="#//ClassA/b"/>
   </eClassifiers>
 </ecore:EPackage>

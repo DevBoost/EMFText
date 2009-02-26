@@ -9,8 +9,12 @@
     <genClasses ecoreClass="opposite_references.ecore#//Root">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opposite_references.ecore#//Root/classes"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="opposite_references.ecore#//AbstractSuperClass"/>
     <genClasses ecoreClass="opposite_references.ecore#//ClassA">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference opposite_references.ecore#//ClassA/root"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opposite_references.ecore#//ClassA/b"/>
+    </genClasses>
+    <genClasses ecoreClass="opposite_references.ecore#//ClassB">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opposite_references.ecore#//ClassB/a"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.junit.Before;
@@ -28,16 +30,29 @@ public class OppositeReferencesTest extends TestCase {
 
 	@Test
 	public void testOptions() throws FileNotFoundException, IOException {
-		String path = "src\\org\\emftext\\test\\opposite_references\\opposite_references.cs";
+		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite1.cs", 1, 0);
+		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite2.cs", 0, 0);
+		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite3.cs", 0, 0);
+		assertProblems("src\\org\\emftext\\test\\opposite_references\\opposite4.cs", 0, 0);
+	}
+
+	private void assertProblems(String path, int expectedWarnings, int expectedErrors) {
 		File file = new File(path);
 		
 		ITextResource resource = new TextResourceHelper().getResource(file);
 		assertNotNull(resource);
-		assertProblems(resource, 1, 0);
+		
+		EList<Diagnostic> warnings = resource.getWarnings();
+		printDiagnostics(warnings);
+		assertEquals(path + " should contain " + expectedWarnings + " warnings.", expectedWarnings, warnings.size());
+		EList<Diagnostic> errors = resource.getErrors();
+		printDiagnostics(errors);
+		assertEquals(path + " should contain " + expectedWarnings + " errors.", expectedErrors, errors.size());
 	}
 
-	private void assertProblems(ITextResource resource, int expectedWarnings, int expectedErrors) {
-		assertEquals(expectedWarnings, resource.getWarnings().size());
-		assertEquals(expectedErrors, resource.getErrors().size());
+	private void printDiagnostics(EList<Diagnostic> diagnostics) {
+		for (Diagnostic diagnotic : diagnostics) {
+			System.out.println("assertProblems() " + diagnotic.getMessage());
+		}
 	}
 }
