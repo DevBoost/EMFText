@@ -321,7 +321,7 @@ public class SDKOptionProvider implements IOptionProvider {
 				}
 			}
 			if (!foundRuleForClass) {
-				resource.addWarning(NO_RULE_FOR_META_CLASS + genClass.getName(), syntax);
+				resource.addWarning(NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1);
 			}
 		}
 	}
