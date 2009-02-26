@@ -99,16 +99,19 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 					GenModel genModel = (GenModel) contents.get(0);
 					if (Platform.isRunning()) {
 						IWorkspace workspace = ResourcesPlugin.getWorkspace();
-						IResource member = workspace.getRoot().findMember(hintURI.toPlatformString(true));
-						if (member instanceof IFile) {
-							IFile file = (IFile) member;
-							if (!file.isReadOnly()) {
-				            	try {
-				            		updateGenModel(genModel);
-				            	} catch (Exception e){
-				            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
-				            	}				            		
-				        	}
+						final String platformString = hintURI.toPlatformString(true);
+						if (platformString != null) {
+							IResource member = workspace.getRoot().findMember(platformString);
+							if (member instanceof IFile) {
+								IFile file = (IFile) member;
+								if (!file.isReadOnly()) {
+					            	try {
+					            		updateGenModel(genModel);
+					            	} catch (Exception e){
+					            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
+					            	}				            		
+					        	}
+							}
 						}
 					}
 		        	Map<String, GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
@@ -120,6 +123,7 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			EMFTextRuntimePlugin.logError("Exception while looking for generator package.", e);
 		}
 		
