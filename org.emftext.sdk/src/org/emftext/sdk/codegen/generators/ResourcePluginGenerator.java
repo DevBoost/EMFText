@@ -1,37 +1,28 @@
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.util.GeneratorUtil.setContents;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.List;
 
-import org.eclipse.core.resources.ICommand;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.launching.JavaRuntime;
-import org.emftext.runtime.MarkerHelper;
-import org.emftext.runtime.resource.ITextResource;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenOptions;
-import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -40,7 +31,7 @@ import org.emftext.sdk.concretesyntax.Import;
  * The ResourcePluginGenerator generates the complete resource plug-in.
  * It delegates generation task to the other generators to do so.
  */
-public class ResourcePluginGenerator {
+public abstract class ResourcePluginGenerator {
 	
 	/**
 	 * An enumeration of all possible result of the generation
@@ -49,7 +40,20 @@ public class ResourcePluginGenerator {
 	public enum Result {
 		SUCCESS,
 		ERROR_ABSTRACT_SYNTAX, 
-		ERROR_SYNTAX_HAS_ERRORS
+		ERROR_SYNTAX_HAS_ERRORS, 
+		// TODO mseifert: handle these two results in clients
+		ERROR_GEN_PACKAGE_NOT_FOUND, 
+		ERROR_FOUND_UNRESOLVED_PROXIES;
+
+		private List<EObject> unresolvedProxies;
+
+		public void setUnresolvedProxies(List<EObject> unresolvedProxies) {
+			this.unresolvedProxies = unresolvedProxies;
+		}
+
+		public List<EObject> getUnresolvedProxies() {
+			return unresolvedProxies;
+		}
 	}
 	
 	private final static TextResourceHelper resourceHelper = new TextResourceHelper();
@@ -64,32 +68,40 @@ public class ResourcePluginGenerator {
 	protected static final int TICKS_CREATE_MODELS_FOLDER = 2;
 	protected static final int TICKS_GENERATE_RESOURCE = 26;
 	protected static final int TICKS_GENERATE_METAMODEL_CODE = 40;
-	protected static final int TICKS_REFRESH_PROJECT = 20;
 	
-	public Result run(IFile csFile, IProgressMonitor monitor) throws CoreException {
-		SubMonitor progress = SubMonitor.convert(monitor, 100);
-		final ITextResource csResource = resourceHelper.getResource(csFile);
+	public abstract void createProject(GenerationContext context, SubMonitor progress) throws Exception;
 
-		MarkerHelper.unmark(csResource);
+	public Result run(
+			ConcreteSyntax concreteSyntax, 
+			GenerationContext context,
+			IResourceMarker marker, 
+			IProgressMonitor monitor) throws Exception {
+		
+		SubMonitor progress = SubMonitor.convert(monitor, 100);
+
+		Resource csResource = concreteSyntax.eResource();
+		monitor.setTaskName("Unmarking resource");
+		marker.unmark(csResource);
 		if (resourceHelper.containsErrors(csResource)) {
-			MarkerHelper.mark(csResource);
+			marker.mark(csResource);
 			return Result.ERROR_SYNTAX_HAS_ERRORS;
 		}
 
-		final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource
-				.getContents().get(0);
-		
-		IProblemCollector collector = new IProblemCollector() {
-
-			public void addProblem(GenerationProblem problem) {
-				addGenerationProblem(csResource, problem);
-			}
-		};
+		// perform some initial checks
 		if (checkAbstract(concreteSyntax)) {
 			return Result.ERROR_ABSTRACT_SYNTAX;
 		}
+		GenPackage genPackage = concreteSyntax.getPackage();
+		if (genPackage == null) {
+			return Result.ERROR_GEN_PACKAGE_NOT_FOUND;
+		}
+		List<EObject> unresolvedProxies = new TextResourceHelper().findUnresolvedProxies(csResource);
+		if (unresolvedProxies.size() > 0) {
+			Result result = Result.ERROR_FOUND_UNRESOLVED_PROXIES;
+			result.setUnresolvedProxies(unresolvedProxies);
+			return result;
+		}
 		
-		GenerationContext context = new GenerationContext(concreteSyntax, collector);
 		// create a project
 		createProject(context, progress);
 
@@ -100,19 +112,17 @@ public class ResourcePluginGenerator {
 
 		// errors from parser generator?
 		if (resourceHelper.containsProblems(csResource)) {
-			MarkerHelper.mark(csResource);
+			marker.mark(csResource);
 		}
 
 		createMetaFolder(context, progress);
 		createManifest(context, progress);
 		createPluginXML(context, progress);
 
-		markErrors(context.getConcreteSyntax());
+		markErrors(marker, context.getConcreteSyntax());
 
 		createMetaModelCode(context, progress);
 
-		context.getProject().refreshLocal(IProject.DEPTH_INFINITE, progress
-				.newChild(TICKS_REFRESH_PROJECT));
 		return Result.SUCCESS;
 	}
 
@@ -123,17 +133,6 @@ public class ResourcePluginGenerator {
 		return false;
 	}
 
-	private static void addGenerationProblem(ITextResource csResource,
-			GenerationProblem problem) {
-		if(problem.getSeverity() == GenerationProblem.Severity.WARNING){
-			csResource.addWarning(problem.getMessage(),problem.getCause());
-		}
-		else{
-			csResource.addError(problem.getMessage(),problem.getCause());
-			
-		}
-	}
-	
 	private void generateMetaModelCode(GenPackage genPackage,
 			IProgressMonitor monitor) {
 		monitor.setTaskName("generating metamodel code...");
@@ -148,14 +147,6 @@ public class ResourcePluginGenerator {
 		generator.generate(genModel,
 				GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE,
 				new BasicMonitor.EclipseSubProgress(monitor, 100));
-	}
-
-	private void createProject(GenerationContext context, SubMonitor progress)
-			throws CoreException, JavaModelException {
-		String projectName = context.getPackageName();
-		IJavaProject javaProject = createJavaProject(progress, projectName);
-		context.setJavaProject(javaProject);
-		setClasspath(context, progress);
 	}
 
 	private void createMetaModelCode(GenerationContext context, SubMonitor progress) {
@@ -176,76 +167,37 @@ public class ResourcePluginGenerator {
 		}
 	}
 
-	private IJavaProject createJavaProject(SubMonitor progress,
-			String projectName) throws CoreException, JavaModelException {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(
-				projectName);
-		if (!project.exists()) {
-			project.create(progress.newChild(TICKS_CREATE_PROJECT));
-		} else {
-			progress.internalWorked(TICKS_CREATE_PROJECT);
-		}
-		project.open(progress.newChild(TICKS_OPEN_PROJECT));
-		IProjectDescription description = project.getDescription();
-		description.setNatureIds(new String[] { JavaCore.NATURE_ID,
-				"org.eclipse.pde.PluginNature" });
-		ICommand command1 = description.newCommand();
-		command1.setBuilderName("org.eclipse.jdt.core.javabuilder");
-		ICommand command2 = description.newCommand();
-		command2.setBuilderName("org.eclipse.pde.ManifestBuilder");
-		ICommand command3 = description.newCommand();
-		command3.setBuilderName("org.eclipse.pde.SchemaBuilder");
-		description
-				.setBuildSpec(new ICommand[] { command1, command2, command3 });
-		project.setDescription(description, null);
-
-		IJavaProject javaProject = JavaCore.create(project);
-		return javaProject;
-	}
-
-	private void setClasspath(GenerationContext context, SubMonitor progress)
-			throws JavaModelException {
-		IFolder srcFolder = context.getTargetFolder();
-		IFolder outFolder = context.getOutputFolder();
-		context.getJavaProject().setRawClasspath(new IClasspathEntry[] {
-				JavaCore.newSourceEntry(srcFolder.getFullPath()),
-				JavaCore.newContainerEntry(new Path(JavaRuntime.JRE_CONTAINER)),
-				JavaCore.newContainerEntry(new Path(
-						"org.eclipse.pde.core.requiredPlugins")) }, outFolder
-				.getFullPath(), progress.newChild(TICKS_SET_CLASSPATH));
-	}
-
 	private void createMetaFolder(GenerationContext context, SubMonitor progress)
 			throws CoreException {
-		IProject project = context.getProject();
-		IFolder metaFolder = project.getFolder("/META-INF");
+		File project = context.getPluginProjectFolder();
+		File metaFolder = new File(project.getAbsolutePath() + File.separator +  "META-INF");
 		if (!metaFolder.exists()) {
-			metaFolder.create(true, true, progress
-					.newChild(TICKS_CREATE_META_FOLDER));
-		} else {
-			progress.internalWorked(TICKS_CREATE_META_FOLDER);
+			metaFolder.mkdir();
 		}
+		progress.internalWorked(TICKS_CREATE_META_FOLDER);
 	}
 
 	private void createManifest(GenerationContext context,
-			SubMonitor progress) throws CoreException {
+			SubMonitor progress) throws IOException {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
-		final IProject project = context.getProject();
+		final File project = context.getPluginProjectFolder();
 
 		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
 
-		IFile manifestMFFile = project.getFile("/META-INF/MANIFEST.MF");
+		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 		if (manifestMFFile.exists()) {
 			if (overrideManifest) {
 				InputStream stream = generateManifest(context);
-				manifestMFFile.setContents(stream, true, true, progress.newChild(TICKS_CREATE_MANIFEST));
+				setContents(manifestMFFile, stream);
+				progress.newChild(TICKS_CREATE_MANIFEST);
 			} else {
 				progress.internalWorked(TICKS_CREATE_MANIFEST);
 			}
 		} else {
 			InputStream stream = generateManifest(context);
-			manifestMFFile.create(stream, true, progress.newChild(TICKS_CREATE_MANIFEST));
+			setContents(manifestMFFile, stream);
+			progress.newChild(TICKS_CREATE_MANIFEST);
 		}
 	}
 
@@ -258,14 +210,14 @@ public class ResourcePluginGenerator {
 	}
 
 	private void createPluginXML(GenerationContext context, SubMonitor progress)
-			throws CoreException {
+			throws IOException {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
-		IProject project = context.getProject();
+		File project = context.getPluginProjectFolder();
 		
 		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML);
 		
-		IFile pluginXMLFile = project.getFile("/plugin.xml");
+		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
 		if (pluginXMLFile.exists()) {
 			if (overridePluginXML) {
 				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context,
@@ -273,9 +225,8 @@ public class ResourcePluginGenerator {
 				);
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 				pluginXMLGenerator.generate(new PrintWriter(outputStream));
-				pluginXMLFile.setContents(new ByteArrayInputStream(
-						outputStream.toByteArray()), true, true, progress
-						.newChild(TICKS_CREATE_PLUGIN_XML));
+				setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
+				progress.newChild(TICKS_CREATE_PLUGIN_XML);
 			} else {
 				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
 			}
@@ -285,8 +236,8 @@ public class ResourcePluginGenerator {
 			);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			pluginXMLGenerator.generate(new PrintWriter(outputStream));
-			pluginXMLFile.create(new ByteArrayInputStream(outputStream.toByteArray()), true, progress
-					.newChild(TICKS_CREATE_PLUGIN_XML));
+			setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
+			progress.newChild(TICKS_CREATE_PLUGIN_XML);
 		}
 	}
 
@@ -294,13 +245,13 @@ public class ResourcePluginGenerator {
 		return OptionManager.INSTANCE.getBooleanOptionValue(syntax, ICodeGenOptions.GENERATE_TEST_ACTION);
 	}
 
-	private void markErrors(final ConcreteSyntax cSyntax) throws CoreException {
+	private void markErrors(IResourceMarker marker, final ConcreteSyntax cSyntax) throws CoreException {
 		// also mark errors on imported concrete syntaxes
 		for (Import aImport : cSyntax.getImports()) {
 			ConcreteSyntax importedCS = aImport.getConcreteSyntax();
 			if (importedCS != null) {
-				MarkerHelper.unmark(importedCS.eResource());
-				MarkerHelper.mark(aImport.eResource());
+				marker.unmark(importedCS.eResource());
+				marker.mark(aImport.eResource());
 			}
 		}
 	}

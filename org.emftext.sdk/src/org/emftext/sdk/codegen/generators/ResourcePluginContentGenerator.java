@@ -8,26 +8,23 @@ import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVE
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TREE_ANALYSER;
+import static org.emftext.sdk.codegen.util.GeneratorUtil.setContents;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 import org.antlr.Tool;
 import org.antlr.tool.ErrorManager;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -49,15 +46,15 @@ public class ResourcePluginContentGenerator {
 	
 	private static final String JAVA_FILE_EXTENSION = ".java";
 	
-	public void generate(GenerationContext context, IProgressMonitor monitor)throws CoreException{
+	public void generate(GenerationContext context, IProgressMonitor monitor)throws IOException{
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
 	    
-		IFolder targetFolder = context.getTargetFolder();
+		File targetFolder = context.getSourceFolder();
 		
 		ITextResource csResource = (ITextResource) context.getConcreteSyntax().eResource();
 		EcoreUtil.resolveAll(csResource);
 		if (!targetFolder.exists()) {
-		   	targetFolder.create(false, true, progress.newChild(5));
+		   	targetFolder.mkdir();
 		}
   		
 		IPath csPackagePath = new Path(context.getPackageName().replaceAll("\\.","/"));
@@ -71,13 +68,13 @@ public class ResourcePluginContentGenerator {
 	    String treeAnalyserName = context.getReferenceResolverSwitchClassName();
 	    String tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
         
-  		IFile antlrFile = targetFolder.getFile(csPackagePath.append(antlrName + ".g"));
-	    IFile printerFile = targetFolder.getFile(csPackagePath.append(printerName + JAVA_FILE_EXTENSION));
-	    IFile printerBaseFile = targetFolder.getFile(csPackagePath.append(printerBaseName + JAVA_FILE_EXTENSION));
-	    IFile resourceFile = targetFolder.getFile(csPackagePath.append(resourceName + JAVA_FILE_EXTENSION));
-        IFile resourceFactoryFile = targetFolder.getFile(csPackagePath.append(resourceFactoryName + JAVA_FILE_EXTENSION));
-	    IFile treeAnalyserFile = targetFolder.getFile(csPackagePath.append(treeAnalyserName + JAVA_FILE_EXTENSION));
-	    IFile tokenResolverFactoryFile = targetFolder.getFile(csPackagePath.append(tokenResolverFactoryName + JAVA_FILE_EXTENSION));
+  		File antlrFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + antlrName + ".g");
+	    File printerFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + printerName + JAVA_FILE_EXTENSION);
+	    File printerBaseFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + printerBaseName + JAVA_FILE_EXTENSION);
+	    File resourceFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + resourceName + JAVA_FILE_EXTENSION);
+        File resourceFactoryFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + resourceFactoryName + JAVA_FILE_EXTENSION);
+	    File treeAnalyserFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + treeAnalyserName + JAVA_FILE_EXTENSION);
+	    File tokenResolverFactoryFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + tokenResolverFactoryName + JAVA_FILE_EXTENSION);
 	    	    
 	    ANTLRGrammarGenerator antlrGenenerator = new ANTLRGrammarGenerator(context);
 	    IGenerator resourceGenenerator = new TextResourceGenerator(context);
@@ -121,22 +118,21 @@ public class ResourcePluginContentGenerator {
 	}
 
 	private static void searchForUnusedResolvers(
-			GenerationContext context, IPath resolverPackagePath) throws CoreException {
+			GenerationContext context, IPath resolverPackagePath) {
 		
 		Set<String> resolverFiles = new LinkedHashSet<String>();
 		for (String className : context.getResolverClasses()) {
 			resolverFiles.add(className + JAVA_FILE_EXTENSION);
 		}
 		
-		IFolder resolverPackageFolder = context.getTargetFolder().getFolder(resolverPackagePath);
+		File resolverPackageFolder = new File(context.getSourceFolder().getAbsolutePath() + File.separator + resolverPackagePath);
 		if (!resolverPackageFolder.exists()) {
 			return;
 		}
-		IResource[] contents = resolverPackageFolder.members();
-		for (IResource member : contents) {
-			if (member instanceof IFile) {
-				IFile file = (IFile) member;
-				String fileName = file.getName();
+		File[] contents = resolverPackageFolder.listFiles();
+		for (File member : contents) {
+			if (!member.isDirectory()) {
+				String fileName = member.getName();
 				if (!resolverFiles.contains(fileName)) {
 					// issue warning about unused resolver
 					((ITextResource) context.getConcreteSyntax().eResource()).addWarning("Found unused class '" + fileName + "' in analysis package.", null);
@@ -149,14 +145,14 @@ public class ResourcePluginContentGenerator {
 			GenerationContext context,
 			SubMonitor progress,
 			ITextResource csResource,
-			IFile tokenResolverFactoryFile,
+			File tokenResolverFactoryFile,
 			String tokenResolverFactoryName)
-			throws CoreException {
+			throws IOException {
 		progress.setTaskName("generating token resolver factory...");
 		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY);
 		if (generateTokenResolverFactory) {
 			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(context);
-			setContents(tokenResolverFactoryFile,invokeGeneration(factoryGen, context.getProblemCollector()));
+			setContents(tokenResolverFactoryFile, invokeGeneration(factoryGen, context.getProblemCollector()));
 		}
 	}
 
@@ -164,9 +160,9 @@ public class ResourcePluginContentGenerator {
 			GenerationContext context, SubMonitor progress,
 			ITextResource csResource,
 			IPath resolverPackagePath, ANTLRGrammarGenerator parserGenerator)
-			throws CoreException {
+			throws IOException {
 		progress.setTaskName("generating token resolvers...");
-		IFolder targetFolder = context.getTargetFolder();
+		File targetFolder = context.getSourceFolder();
 		for(ANTLRGrammarGenerator.InternalTokenDefinition tokenDefinition : parserGenerator.getPrintedTokenDefinitions()){
 			if (!tokenDefinition.isReferenced() && !tokenDefinition.isCollect()) {
 				continue;
@@ -177,7 +173,7 @@ public class ResourcePluginContentGenerator {
 			if (context.isImportedToken(tokenDefinition)) {
 				continue;
 			}
-			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(tokenResolverClassName + JAVA_FILE_EXTENSION));
+			File resolverFile = new File(targetFolder.getAbsolutePath() + File.separator + resolverPackagePath + File.separator + tokenResolverClassName + JAVA_FILE_EXTENSION);
 			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator resolverGenerator = new TokenResolverGenerator(context, tokenResolverClassName, tokenDefinition);
@@ -190,7 +186,7 @@ public class ResourcePluginContentGenerator {
 
 	private static void generateReferenceResolverSwitch(GenerationContext context,
 			SubMonitor progress, ITextResource csResource,
-			IFile resolverSwitchFile, String referenceResolverName) throws CoreException {
+			File resolverSwitchFile, String referenceResolverName) throws IOException {
 		progress.setTaskName("generating reference resolver switch...");
 
 		boolean generateReferenceResolverSwitch = !resolverSwitchFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
@@ -204,11 +200,11 @@ public class ResourcePluginContentGenerator {
 	private void generateReferenceResolvers(
 			GenerationContext context, SubMonitor monitor, 
 			ITextResource csResource, IPath resolverPackagePath,
-			ANTLRGrammarGenerator antlrGenerator) throws CoreException {
+			ANTLRGrammarGenerator antlrGenerator) throws IOException {
 		
 		monitor.setTaskName("generating reference resolvers...");
 		
-		IFolder targetFolder = context.getTargetFolder();
+		File targetFolder = context.getSourceFolder();
 		
 		for (GenFeature proxyReference : antlrGenerator.getNonContainmentReferences()){
 			String resolverClassName = context.getReferenceResolverClassName(proxyReference);
@@ -219,7 +215,7 @@ public class ResourcePluginContentGenerator {
 				continue;
 			}
 			String resolverFileName = resolverClassName + JAVA_FILE_EXTENSION;
-			IFile resolverFile = targetFolder.getFile(resolverPackagePath.append(resolverFileName));
+			File resolverFile = new File(targetFolder + File.separator + resolverPackagePath + File.separator + resolverFileName);
 			boolean generateResolver = 
 				!resolverFile.exists() || 
 				OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
@@ -234,11 +230,11 @@ public class ResourcePluginContentGenerator {
 	}
 
 	private static void generatePrinterAndPrinterBase(GenerationContext context,
-			SubMonitor progress, ITextResource csResource, IFile printerFile,
-			IFile printerBaseFile, String antlrName, String printerName,
+			SubMonitor progress, ITextResource csResource, File printerFile,
+			File printerBaseFile, String antlrName, String printerName,
 			String printerBaseName, String treeAnalyserName,
 			String tokenResolverFactoryName, ANTLRGrammarGenerator antlrGen)
-			throws CoreException {
+			throws IOException {
 		
 		progress.setTaskName("generating printer...");
 		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY);
@@ -270,35 +266,34 @@ public class ResourcePluginContentGenerator {
 	    progress.worked(20);
 	}
 
-	private static void runANTLR(GenerationContext pck, SubMonitor progress,
-			IFile antlrFile) {
+	private static void runANTLR(GenerationContext context, SubMonitor progress,
+			File antlrFile) {
 		progress.setTaskName("running ANTLR on grammar file...");
-        ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(pck.getConcreteSyntax().eResource()));
-        Tool antlrTool = new Tool(new String[]{"-Xconversiontimeout", "10000", "-o", antlrFile.getLocation().removeLastSegments(1).toOSString(), antlrFile.getLocation().toOSString()});
+        ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(context.getConcreteSyntax().eResource()));
+        Tool antlrTool = new Tool(new String[]{"-Xconversiontimeout", "10000", "-o", antlrFile.getParentFile().getAbsolutePath(), antlrFile.getAbsolutePath()});
         antlrTool.process();
         progress.worked(20);
 	}
 
 	private static void generateEMFResources(SubMonitor progress,
-			IFile resourceFile,
-			IFile resourceFactoryFile, IGenerator resourceGen,
-			IGenerator resourceFactoryGen, GenerationContext context) throws CoreException {
+			File resourceFile,
+			File resourceFactoryFile, IGenerator resourceGen,
+			IGenerator resourceFactoryGen, GenerationContext context) throws IOException {
 		progress.setTaskName("generating EMF resources...");
 		setContents(resourceFile, invokeGeneration(resourceGen, context.getProblemCollector()));
 		setContents(resourceFactoryFile, invokeGeneration(resourceFactoryGen, context.getProblemCollector()));
 		progress.worked(5);
 	}
 
-	public static InputStream deriveGrammar(IGenerator antlrGen, GenerationContext context)
-			throws CoreException {
+	public static InputStream deriveGrammar(IGenerator antlrGen, GenerationContext context) {
 		InputStream content = invokeGeneration(antlrGen, context.getProblemCollector());
 		return content;
 	}
 	
-	private static void saveGrammar(InputStream content, GenerationContext pck, IFile antlrFile) throws CoreException {
-		boolean generateANTLRSpecification = !antlrFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(pck.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
+	private static void saveGrammar(InputStream content, GenerationContext context, File grammarFile) throws IOException {
+		boolean generateANTLRSpecification = !grammarFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
 	    if (generateANTLRSpecification) {
-	    	setContents(antlrFile, content);
+	    	setContents(grammarFile, content);
 	    }
 	}
        
@@ -324,6 +319,7 @@ public class ResourcePluginContentGenerator {
 		return null;
 	}
 
+	/*
 	private static void setContents(IFile target, InputStream in) throws CoreException {
 		if (target.exists()) {
 			target.setContents(in, false, false, new NullProgressMonitor());
@@ -342,4 +338,5 @@ public class ResourcePluginContentGenerator {
 			target.create(in, false, new NullProgressMonitor());
 		}
 	}
+	*/
 }

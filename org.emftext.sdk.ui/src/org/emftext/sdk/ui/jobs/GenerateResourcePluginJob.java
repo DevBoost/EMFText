@@ -8,9 +8,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
-import org.emftext.sdk.codegen.generators.ResourcePluginGenerator;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**
@@ -18,6 +23,8 @@ import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
  * CS specification and a meta model.
  */
 public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
+
+	private final static TextResourceHelper resourceHelper = new TextResourceHelper();
 
 	private final IFile csFile;
 
@@ -28,8 +35,18 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
+
 		try {
-			Result result = new ResourcePluginGenerator().run(csFile, monitor);
+			final ITextResource csResource = resourceHelper.getResource(csFile);
+			IProblemCollector collector = new IProblemCollector() {
+				public void addProblem(GenerationProblem problem) {
+					addGenerationProblem(csResource, problem);
+				}
+			};
+			final ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
+			GenerationContext context = new UIGenerationContext(concreteSyntax, collector);
+			
+			Result result = new UIResourcePluginGenerator().run(concreteSyntax, context, new WorkspaceMarker(), monitor);
 			switch (result) {
 			case ERROR_ABSTRACT_SYNTAX :  {
 				// show error message, because we can not generate plug-ins for
@@ -47,10 +64,19 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 				return Status.OK_STATUS;
 			}
 			}
-		} catch (CoreException e) {
+		} catch (Exception e) {
 			EMFTextRuntimePlugin.logError("Exception while generating resource plug-in.", e);
 			return new Status(Status.ERROR, EMFTextSDKUIPlugin.PLUGIN_ID, CoreException.class.getSimpleName(), new InvocationTargetException(e));
 		}
 		return Status.OK_STATUS;
+	}
+
+	private static void addGenerationProblem(ITextResource csResource,
+			GenerationProblem problem) {
+		if (problem.getSeverity() == GenerationProblem.Severity.WARNING) {
+			csResource.addWarning(problem.getMessage(), problem.getCause());
+		} else {
+			csResource.addError(problem.getMessage(), problem.getCause());
+		}
 	}
 }

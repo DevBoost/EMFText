@@ -7,8 +7,10 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -38,25 +40,16 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 	 */
 	private class GenPackageInWorkspaceFinderResult implements IGenPackageFinderResult {
 
-		private IFile file;
-		private long initialModifiedStamp;
 		private GenPackage genPackage;
 		
-		public GenPackageInWorkspaceFinderResult(GenPackage genPackage, IFile file) {
+		public GenPackageInWorkspaceFinderResult(GenPackage genPackage) {
 			Assert.isNotNull(genPackage);
-			Assert.isNotNull(file);
 			
 			this.genPackage = genPackage;
-			this.file = file;
-			this.initialModifiedStamp = file.getModificationStamp();
 		}
 		
 		public GenPackage getResult() {
 			return genPackage;
-		}
-
-		public boolean hasChanged() {
-			return initialModifiedStamp != file.getModificationStamp();
 		}
 	}
 	
@@ -104,24 +97,26 @@ public class GenPackageByHintFinder implements IGenPackageFinder {
 				}
 				if (contents != null && contents.size() > 0) {
 					GenModel genModel = (GenModel) contents.get(0);
-					IResource member = ResourcesPlugin.getWorkspace().getRoot().findMember(hintURI.toPlatformString(true));
-					if (member instanceof IFile) {
-						IFile file = (IFile) member;
-						if (!file.isReadOnly()) {
-			            	try {
-			            		updateGenModel(genModel);
-			            	} catch (Exception e){
-			            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
-			            	}				            		
-			        	}
-						
-			        	Map<String, GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
-			        	for (String uri : packages.keySet()) {
-			    			if (uri.equals(nsURI)) {
-			    				return new GenPackageInWorkspaceFinderResult(packages.get(uri), file);
-			    			}
-			        	}
+					if (Platform.isRunning()) {
+						IWorkspace workspace = ResourcesPlugin.getWorkspace();
+						IResource member = workspace.getRoot().findMember(hintURI.toPlatformString(true));
+						if (member instanceof IFile) {
+							IFile file = (IFile) member;
+							if (!file.isReadOnly()) {
+				            	try {
+				            		updateGenModel(genModel);
+				            	} catch (Exception e){
+				            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
+				            	}				            		
+				        	}
+						}
 					}
+		        	Map<String, GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
+		        	for (String uri : packages.keySet()) {
+		    			if (uri.equals(nsURI)) {
+		    				return new GenPackageInWorkspaceFinderResult(packages.get(uri));
+		    			}
+		        	}
 				}
 			}
 		} catch (Exception e) {

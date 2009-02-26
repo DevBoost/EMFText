@@ -49,7 +49,7 @@ public class ManifestGenerator implements IGenerator {
 	private String getManifestContent() {
 		StringComposite sc = new ManifestComposite();
 		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
-		String projectName = context.getProject().getName();
+		String projectName = context.getPluginName();
 		
 		sc.add("Manifest-Version: 1.0");
 		sc.add("Bundle-ManifestVersion: 2");

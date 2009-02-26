@@ -9,6 +9,11 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.finders.ConcreteSyntaxByHintFinder;
+import org.emftext.sdk.finders.ConcreteSyntaxInRegistryFinder;
+import org.emftext.sdk.finders.GenPackageByHintFinder;
+import org.emftext.sdk.finders.GenPackageByNameFinder;
+import org.emftext.sdk.finders.GenPackageInRegistryFinder;
 import org.emftext.sdk.finders.IConcreteSyntaxFinder;
 import org.emftext.sdk.finders.IGenPackageFinder;
 
@@ -34,6 +39,14 @@ public class MetamodelHelper {
 
 	private MetamodelManager createMetaModelManager(Map<?, ?> options) {
 		MetamodelManager mmManager = new MetamodelManager();
+		
+		mmManager.addGenPackageFinder(new GenPackageByHintFinder());
+		mmManager.addGenPackageFinder(new GenPackageByNameFinder());
+		mmManager.addGenPackageFinder(new GenPackageInRegistryFinder());
+		
+		mmManager.addConcreteSyntaxFinder(new ConcreteSyntaxByHintFinder());
+		mmManager.addConcreteSyntaxFinder(new ConcreteSyntaxInRegistryFinder());
+		
 		List<IGenPackageFinder> genPackageFinders = findFinders(options, GEN_PACKAGE_FINDER_KEY, IGenPackageFinder.class);
 		for (IGenPackageFinder finder : genPackageFinders) {
 			mmManager.addGenPackageFinder(finder);

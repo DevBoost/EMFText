@@ -64,7 +64,7 @@ public class PluginXMLGenerator implements IGenerator {
 
 		// register the cs file
 		s.add("<extension point=\"" + EMFTextRuntimePlugin.EP_CONCRETESYNTAX_ID + "\">");
-		s.add("<concretesyntax uri=\"" + concreteSyntax.getPackage().getNSURI() + "\" csName=\"" + concreteSyntaxName + "\" csDefinition=\"" + context.getConcreteSyntaxFile().getProject().getName() + "/" + context.getConcreteSyntaxFile().getProjectRelativePath() + "\">");
+		s.add("<concretesyntax uri=\"" + concreteSyntax.getPackage().getNSURI() + "\" csName=\"" + concreteSyntaxName + "\" csDefinition=\"" + context.getSyntaxProjectName() + "/" + context.getSyntaxProjectRelativePath() + "\">");
 		s.add("</concretesyntax>");
 		s.add("</extension>");
 		s.addLineBreak();

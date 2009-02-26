@@ -40,10 +40,6 @@ public class GenPackageByNameFinder implements IGenPackageFinder {
 			public GenPackage getResult() {
 				return result;
 			}
-
-			public boolean hasChanged() {
-				return false;
-			}
 		};
 	}
 }

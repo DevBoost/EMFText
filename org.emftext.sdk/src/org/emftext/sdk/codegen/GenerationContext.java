@@ -1,19 +1,17 @@
 package org.emftext.sdk.codegen;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
@@ -35,7 +33,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class GenerationContext {
+public abstract class GenerationContext {
 	
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
@@ -51,7 +49,6 @@ public class GenerationContext {
 
 	private final ConcreteSyntax concreteSyntax;
 	private final IProblemCollector problemCollector;
-	private IJavaProject javaProject;
 	
 	/**
 	 * A list that contains the names of all resolver classes that are needed.
@@ -122,25 +119,26 @@ public class GenerationContext {
 		return concreteSyntax;
 	}
 	
+	public abstract File getPluginProjectFolder();
+
 	/**
 	 * Returns the actual file which contains the CS specification.
 	 */
-	public IFile getConcreteSyntaxFile() {
-		IFile file = (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(concreteSyntax.eResource().getURI().toPlatformString(true));
+	public File getConcreteSyntaxFile() {
+		Resource resource = concreteSyntax.eResource();
+		URI uri = resource.getURI();
+		File file = new File(uri.toFileString());
 		return file;
 	}
 	
-	/**
-	 * @return The base folder to which generated packages are printed.
-	 */
-	public IFolder getTargetFolder(){
-		return javaProject.getProject().getFolder("/src");
-	}
-	
-	public IFolder getOutputFolder() {
-		return javaProject.getProject().getFolder("/bin");
+	public File getOutputFolder() {
+		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + "bin");
 	}
 
+	public File getSourceFolder() {
+		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + "src");
+	}
+	
 	/**
 	 * Returns a collection that contains the names of all resolver
 	 * classes (both token and reference resolvers) that are needed.
@@ -175,18 +173,6 @@ public class GenerationContext {
 		return baseName
 				+ concreteSyntaxPackage.getEcorePackage().getName()
 				+ ".resource." + syntax.getName();
-	}
-
-	public IProject getProject() {
-		return javaProject.getProject();
-	}
-
-	public IJavaProject getJavaProject() {
-		return javaProject;
-	}
-
-	public void setJavaProject(IJavaProject project) {
-		this.javaProject = project;
 	}
 
 	public IProblemCollector getProblemCollector() {
@@ -305,4 +291,18 @@ public class GenerationContext {
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
 		return getReferenceResolverSwitchClassName() + ".get" + getReferenceResolverClassName(genFeature) + "()";
 	}
+
+	/**
+	 * Returns the name of the project that contains the concrete 
+	 * syntax definition. Note that this is usually NOT the text
+	 * resource project.
+	 */
+	public abstract String getSyntaxProjectName();
+
+	/**
+	 * Returns the path of the concrete syntax definition
+	 * file relative to the project that contains the
+	 * file.
+	 */
+	public abstract String getSyntaxProjectRelativePath();
 }
