@@ -24,6 +24,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -49,6 +50,18 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 	
 	protected Map<?,?> getOptions() {
 		return options;
+	}
+	
+	protected void addMapEntry(EObject element, EStructuralFeature structuralFeature, DummyEObject dummy) {
+		Object value = element.eGet(structuralFeature);
+		Object mapKey = dummy.getValueByName("key");
+		Object mapValue = dummy.getValueByName("value");
+		if (value instanceof EMap){
+			EMap valueMap = (EMap) value;
+			if (mapKey != null && mapValue != null) {
+				valueMap.put(mapKey, mapValue);
+			}
+		}
 	}
 	
 	protected EObject apply(EObject target, List<EObject> dummyEObjects) {
@@ -97,6 +110,13 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 			return newEObject;
 		}
 
+		public Object getValueByName(String name) {
+			for(EStructuralFeature f : this.keyValueMap.keySet()) {
+				if (f.getName().equals(name)) return this.keyValueMap.get(f);
+			}
+			return null;
+ 		}
+		
 		// proxy method
 		public EClass eClass() {
 			return type;

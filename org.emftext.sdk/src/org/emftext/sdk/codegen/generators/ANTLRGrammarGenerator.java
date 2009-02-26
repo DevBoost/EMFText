@@ -609,7 +609,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private String getCreateObjectCall(GenClass genClass) {
 		GenPackage genPackage = genClass.getGenPackage();
-		return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()";
+		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
+			return "new DummyEObject("+ genPackage.getQualifiedPackageClassName() + ".eINSTANCE.get" + genClass.getName() 
+					+ "(),\"" + genClass.getName() + "\")";
+	    } else {
+	    	return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()";
+	    }
 	}
 	
 	private void printGrammarRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
@@ -663,13 +668,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
    
 	private void printGrammarRule(Rule rule, StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		GenClass genClass = rule.getMetaclass();
-
-        String ruleName = genClass.getName();
-        
+		
+	    String ruleName = genClass.getName();
 		String qualifiedClassName = genClass.getQualifiedInterfaceName();
         
         sc.add(getLowerCase(ruleName));
-		sc.add(" returns [" + qualifiedClassName + " element = null]");
+		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
+			sc.add(" returns [DummyEObject element = null]");
+		} else {
+			sc.add(" returns [" + qualifiedClassName + " element = null]");
+		}
+        
         sc.add("@init{");
         sc.add("}");
         sc.add(":");
@@ -683,7 +692,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         	printSubClassChoices(sc,subClasses);
         	sc.addLineBreak();
         }
-        
+    
         sc.add(";");
     	sc.addLineBreak();
         
@@ -893,13 +902,35 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
     	sc.add(resolvements);
-    	sc.add("if (" + expressionToBeSet + " != null) {");
-        if (eFeature.getUpperBound() == 1) {
-           sc.add("element.eSet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + expressionToBeSet +");");
-        } else {
-            sc.add("addObjectToList(element, " + GeneratorUtil.getFeatureConstant(genClass, genFeature) + ", " + expressionToBeSet +");");
-        }
-        sc.add("}");
+		sc.add("if (" + expressionToBeSet + " != null) {");
+		if (eFeature.getUpperBound() == 1) {
+			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
+				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
+								+ GeneratorUtil.getFeatureConstant(genClass,
+										genFeature)
+								+ "), "
+								+ expressionToBeSet
+								+ ");");
+			} else {
+				sc.add("element.eSet(element.eClass().getEStructuralFeature("
+						+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
+						+ "), " + expressionToBeSet + ");");
+			}
+		} else {
+			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
+				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
+								+ GeneratorUtil.getFeatureConstant(genClass,
+										genFeature)
+								+ "), "
+								+ expressionToBeSet
+								+ ");");
+			} else {
+				sc.add("addObjectToList(element, "
+						+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
+						+ ", " + expressionToBeSet + ");");
+			}
+		}
+		sc.add("}");
         sc.add("collectHiddenTokens(element);");
         if (terminal instanceof Containment) {
             sc.add("copyLocalizationInfos(" + ident + ", element); "); 
