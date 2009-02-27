@@ -47,9 +47,6 @@ public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveR
 	}
 
 	public void setErrorMessage(String message) {
-		if (mappings != null) {
-			return;
-		}
 		errorMessage = message;
 	}
 
