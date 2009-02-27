@@ -1,7 +1,6 @@
 package org.emftext.runtime.resource.impl;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

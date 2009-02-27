@@ -29,8 +29,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
