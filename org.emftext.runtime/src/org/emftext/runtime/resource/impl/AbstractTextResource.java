@@ -1,6 +1,7 @@
 package org.emftext.runtime.resource.impl;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -93,11 +94,13 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			else {
 				//remove an error that might have been added by an earlier attempt
 				removeError(uriFragment.getProxy());
-				attachWarnings(result);
+				//remove old warnings and attach new
+				removeWarnings(uriFragment.getProxy());
+				attachWarnings(result, uriFragment.getProxy());
 
 				IReferenceMapping<? extends EObject> mapping = result.getMappings().iterator().next();
 				
-				return getResultElement(uriFragment, mapping);
+				return getResultElement(uriFragment, mapping, uriFragment.getProxy(), result.getErrorMessage());
 			}
 		}
 		else {
@@ -106,11 +109,25 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	}
 
 	private EObject getResultElement(IContextDependentURIFragment<? extends EObject> uriFragment,
-			IReferenceMapping<? extends EObject> mapping) {
+			IReferenceMapping<? extends EObject> mapping, EObject proxy, String errorMessage) {
 		if (mapping instanceof IURIMapping) {
 			URI uri = ((IURIMapping<? extends EObject>)mapping).getTargetIdentifier();
 			if (uri != null) {
-				return this.getResourceSet().getEObject(uri, true);
+				EObject result = null;
+				try {
+					result = this.getResourceSet().getEObject(uri, true); 
+				} catch (Exception e) { 
+					//we can catch exceptions here, because EMF will try to resolve again and handle the exception
+				}
+				if(result == null || result.eIsProxy()) {
+					//unable to resolve: attach error
+					if (errorMessage == null) {
+						assert(false);
+					} else {
+						addError(errorMessage, proxy);
+					}
+				}
+				return result;
 			}
 			return null;
 
@@ -139,11 +156,22 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	}
 
 	private void removeError(EObject proxy) {
-		// attach errors to resource
+		// remove errors from resource
 		for(Diagnostic errorCand : new BasicEList<Diagnostic>(getErrors())) {
 			if(errorCand instanceof ITextDiagnostic) {
 				if(((ITextDiagnostic) errorCand).wasCausedBy(proxy)) {
 					getErrors().remove(errorCand);
+				}
+			}
+		}
+	}
+	
+	private void removeWarnings(EObject proxy) {
+		// remove warnings from resource
+		for(Diagnostic errorCand : new BasicEList<Diagnostic>(getWarnings())) {
+			if(errorCand instanceof ITextDiagnostic) {
+				if(((ITextDiagnostic) errorCand).wasCausedBy(proxy)) {
+					getWarnings().remove(errorCand);
 				}
 			}
 		}
@@ -160,7 +188,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		}
 	}
 
-	private void attachWarnings(IReferenceResolveResult<? extends EObject> result) {
+	private void attachWarnings(IReferenceResolveResult<? extends EObject> result, EObject proxy) {
 		assert result != null;
 		assert result.wasResolved();
 		
@@ -170,12 +198,8 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				if (warningMessage == null) {
 					continue;
 				}
-				if (mapping instanceof IElementMapping) {
-					final EObject target = ((IElementMapping<? extends EObject>) mapping).getTargetElement();
-					addWarning(warningMessage, target);
-				} else {
-					assert false;
-				}
+
+				addWarning(warningMessage, proxy);
 			}
 		}
 	}
