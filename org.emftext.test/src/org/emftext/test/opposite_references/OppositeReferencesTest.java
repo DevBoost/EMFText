@@ -38,7 +38,7 @@ public class OppositeReferencesTest extends TestCase {
 	}
 
 	private void assertProblems(String filename, int expectedWarnings, int expectedErrors) {
-		final String path = "src\\org\\emftext\\test\\opposite_references\\";
+		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "opposite_references" + File.separator;
 		File file = new File(path + filename);
 		
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
