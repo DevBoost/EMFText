@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
-import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator.InternalTokenDefinition;
+import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
@@ -58,7 +58,7 @@ public abstract class GenerationContext {
 	 */
 	private Collection<String> resolverClasses = new LinkedHashSet<String>();
 	private Collection<GenFeature> nonContainmentReferences = new LinkedHashSet<GenFeature>();
-	private Collection<InternalTokenDefinition> usedTokens = new ArrayList<InternalTokenDefinition>();
+	private Collection<IInternalTokenDefinition> usedTokens = new ArrayList<IInternalTokenDefinition>();
 	
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
 		if (concreteSyntax == null) {
@@ -212,7 +212,7 @@ public abstract class GenerationContext {
     }
 
 	public String getTokenResolverClassName(
-			InternalTokenDefinition tokenDefinition) {
+			IInternalTokenDefinition tokenDefinition) {
 
 		String syntaxName = getCapitalizedConcreteSyntaxName(getContainingSyntax(tokenDefinition));
 		if (tokenDefinition.isCollect()) {
@@ -227,7 +227,7 @@ public abstract class GenerationContext {
 		return proxyReference.getGenClass().getName() + capitalize(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
 	}
 	
-	public ConcreteSyntax getContainingSyntax(InternalTokenDefinition def) {
+	public ConcreteSyntax getContainingSyntax(IInternalTokenDefinition def) {
 		TokenDefinition baseDefinition = def.getBaseDefinition();
 		if (baseDefinition != null) {
 			EObject container = baseDefinition.eContainer();
@@ -266,11 +266,11 @@ public abstract class GenerationContext {
 		return nonContainmentReferences;
 	}
 
-	public void addUsedToken(InternalTokenDefinition tokenDefinition) {
+	public void addUsedToken(IInternalTokenDefinition tokenDefinition) {
 		usedTokens.add(tokenDefinition);
 	}
 
-	public Collection<InternalTokenDefinition> getUsedTokens() {
+	public Collection<IInternalTokenDefinition> getUsedTokens() {
 		return usedTokens;
 	}
 
@@ -279,7 +279,7 @@ public abstract class GenerationContext {
 		return ! genClassFinder.contains(classesExceptImports, genFeature.getGenClass());
 	}
 
-	public boolean isImportedToken(InternalTokenDefinition tokenDefinition) {
+	public boolean isImportedToken(IInternalTokenDefinition tokenDefinition) {
 		return !concreteSyntax.equals(getContainingSyntax(tokenDefinition));
 	}
 

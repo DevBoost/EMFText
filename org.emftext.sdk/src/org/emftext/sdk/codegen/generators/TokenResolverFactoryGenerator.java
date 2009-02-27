@@ -7,7 +7,7 @@ import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator.InternalTokenDefinition;
+import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -36,7 +36,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		sc.add("public class " + getResourceClassName() + " extends " + AbstractTokenResolverFactory.class.getName() + " implements " + ITokenResolverFactory.class.getName() + " {");
 		sc.addLineBreak();
 		sc.add("public " + getResourceClassName() + "() {");
-		for (InternalTokenDefinition def : context.getUsedTokens()) {
+		for (IInternalTokenDefinition def : context.getUsedTokens()) {
 			// user defined tokens may stem from an imported syntax
 			ConcreteSyntax containingSyntax = context.getContainingSyntax(def);
 			String tokenResolverClassName = context.getTokenResolverClassName(def);

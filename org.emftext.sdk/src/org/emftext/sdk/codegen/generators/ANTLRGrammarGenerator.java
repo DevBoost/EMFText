@@ -46,6 +46,9 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
+import org.emftext.sdk.codegen.generators.adapter.DerivedTokenDefinition;
+import org.emftext.sdk.codegen.generators.adapter.UseDefinedTokenDefinitionAdapter;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -55,7 +58,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DecoratedToken;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
@@ -93,153 +95,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	/**
 	 * The name prefix of derived token definitions. 
 	 * The full name later is constructed by DERIVED_TOKEN_NAME+_+PREFIXCODE+_+SUFFIXCODE.
-	 * 
-	 * TODO mseifert: use FEATURENAME_RULENAME_COUNTER instead
 	 */
 	public static final String DERIVED_TOKEN_NAME= "QUOTED";
-	
-	/**
-	 * These class/interface definitions bring automatically derived TokenDefinitions 
-	 * and user-defined TokenDefinitions together. 
-	 * 
-	 * @author Sven Karol (Sven.Karol@tu-dresden.de)
-	 */
-	public static interface InternalTokenDefinition{
-		public String getName();
-		public String getExpression();
-		//might be null
-		public String getPrefix();
-		//might be null
-		public String getSuffix();
-		//might be null
-		public TokenDefinition getBaseDefinition();
-		
-		public boolean isReferenced();
-		
-		public boolean isDerived();
-		public boolean isCollect();
-	}
-	
-	/**
-	 * A common implementation for all derived token definitions.
-	 */
-	private static class InternalTokenDefinitionImpl implements InternalTokenDefinition{
-		private String name;
-		private String expression;
-		private String prefix;
-		private String suffix;
-		private PreDefinedToken base;
-		private boolean implicitlyReferenced;
-		private boolean isCollect;
-		
-		public InternalTokenDefinitionImpl(String name, String expression, String prefix, String suffix, PreDefinedToken base, boolean implicitlyReferenced, boolean isCollect){
-			this.name = name;
-			this.expression = expression;
-			this.prefix = prefix;
-			this.suffix = suffix;
-			this.base = base;
-			this.implicitlyReferenced = implicitlyReferenced;
-			this.isCollect = isCollect;
-		}
-		
-		public String getName() {
-			return name;
-		}
-		public String getExpression() {
-			return expression;
-		}
-		public String getPrefix() {
-			return prefix;
-		}
-		public String getSuffix() {
-			return suffix;
-		}
-		
-		public PreDefinedToken getBaseDefinition(){
-			return base;
-		}
-		
-		public void setBaseDefinition(PreDefinedToken newBase){
-			base = newBase;
-		}
-		
-		public boolean isReferenced(){
-			return base==null?implicitlyReferenced:!base.getAttributeReferences().isEmpty();
-		}
-		
-		public boolean isDerived(){
-			return true;
-		}
-
-		public boolean isCollect() {
-			return isCollect;
-		}
-	}
-	
-	/**
-	 * Adapts explicitly defined tokens from the CS specification to the internal 
-	 * interfaces.
-	 */
-	public static class TokenDefinitionAdapter implements InternalTokenDefinition {
-		private NewDefinedToken adaptee;
-		private boolean implicitlyReferenced;
-		
-		public TokenDefinitionAdapter(NewDefinedToken adaptee){
-			this(adaptee,false);
-		}
-		
-		public TokenDefinitionAdapter(NewDefinedToken adaptee,boolean implicitlyReferenced){
-			if(adaptee==null)
-				throw new NullPointerException("Adaptee shouldnt be null!");
-			this.adaptee = adaptee;
-			this.implicitlyReferenced = implicitlyReferenced;
-		}
-		
-
-		public TokenDefinition getBaseDefinition() {
-			return adaptee;
-		}
-
-		public String getExpression() {
-			return adaptee.getRegex();
-		}
-
-		public String getName() {
-			return adaptee.getName();
-		}
-
-		public String getPrefix() {
-			if(adaptee instanceof DecoratedToken)
-				return ((DecoratedToken)adaptee).getPrefix();
-			return null;
-		}
-
-		public String getSuffix() {
-			if(adaptee instanceof DecoratedToken)
-				return ((DecoratedToken)adaptee).getSuffix();
-			return null;
-		}
-		
-		public boolean isReferenced(){
-			return implicitlyReferenced||!adaptee.getAttributeReferences().isEmpty();
-		}
-		
-		public boolean isDerived(){
-			return false;
-		}
-
-		public boolean isCollect() {
-			return adaptee.getAttributeName() != null;
-		}
-	}
-	
-	
 	
 	private ConcreteSyntax conreteSyntax;
 	private String tokenResolverFactoryName;
 	
-	private Map<String,InternalTokenDefinition> derivedTokens;
-	private Collection<InternalTokenDefinition> printedTokens;
+	private Map<String,IInternalTokenDefinition> derivedTokens;
+	private Collection<IInternalTokenDefinition> printedTokens;
 	
 	/** 
 	 * A map to collect all (non-containment) references that will contain proxy 
@@ -284,13 +147,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		nonContainmentReferences = new LinkedList<GenFeature>();
 		placeholder2TokenName = new HashMap<DerivedPlaceholder,String>();
 		
-		derivedTokens = new HashMap<String,InternalTokenDefinition>();
+		derivedTokens = new HashMap<String,IInternalTokenDefinition>();
 		if (usePredefinedTokens) {
-			derivedTokens.put(LB_TOKEN_NAME,new InternalTokenDefinitionImpl(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,null,false,false));
-			derivedTokens.put(WS_TOKEN_NAME,new InternalTokenDefinitionImpl(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,null,false,false));			
+			derivedTokens.put(LB_TOKEN_NAME,new DerivedTokenDefinition(LB_TOKEN_NAME,LB_TOKEN_DEF,null,null,false,false));
+			derivedTokens.put(WS_TOKEN_NAME,new DerivedTokenDefinition(WS_TOKEN_NAME,WS_TOKEN_DEF,null,null,false,false));			
 		}
 		
-		printedTokens = new LinkedList<InternalTokenDefinition>();
+		printedTokens = new LinkedList<IInternalTokenDefinition>();
 	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true, true);
 	    genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 	}
@@ -814,9 +677,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				if (suffix.length() == 0) suffix = null;
 				
 				String derivedTokenName = deriveTokenName(prefix, suffix);
-				InternalTokenDefinition definition = null;
+				IInternalTokenDefinition definition = null;
 				if (!tokenExists(derivedTokenName)) {
-					String derivedExpression = tokenDerivator .deriveTokenDefinition(prefix, suffix);
+					String derivedExpression = tokenDerivator.deriveTokenDefinition(prefix, suffix);
 					definition = addTokenDefinition(derivedTokenName, derivedExpression, prefix, suffix);
 				}
 				else {
@@ -1022,12 +885,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	if (suffixIsSet) {
         	if (prefixIsSet) {
     			derivedTokenName = DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(prefix) + "_" + deriveCodeSequence(suffix);
-    		
     		} else {
        			derivedTokenName = DERIVED_TOKEN_NAME + "_" + "_" + deriveCodeSequence(suffix);
     		}
-		}
-    	else{
+		} else {
     		if (prefixIsSet) {
 				derivedTokenName = standardTextTokenName + "_" + deriveCodeSequence(prefix) + "_";
 			} else {
@@ -1043,10 +904,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return exists;
 	}
 
-	private InternalTokenDefinition addTokenDefinition(String tokenName, String expression, String prefix, String suffix) {
-		InternalTokenDefinition newDefintion =  new InternalTokenDefinitionImpl(tokenName, expression, prefix, suffix, null, true, false);
-		derivedTokens.put(tokenName, newDefintion);
-		return newDefintion;
+	private IInternalTokenDefinition addTokenDefinition(String tokenName, String expression, String prefix, String suffix) {
+		IInternalTokenDefinition newDefinition =  new DerivedTokenDefinition(tokenName, expression, prefix, suffix, true, false);
+		derivedTokens.put(tokenName, newDefinition);
+		return newDefinition;
 	}
     
     private String deriveCodeSequence(String original){
@@ -1071,13 +932,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		Collection<TokenDefinition> userDefinedTokens = getTokens(conreteSyntax);
 		for (TokenDefinition tokenDefinition : userDefinedTokens) {
 			if (tokenDefinition instanceof NewDefinedToken) {
-				InternalTokenDefinition derivedDef = derivedTokens.remove(tokenDefinition.getName());
-				InternalTokenDefinition defAdapter = null;
+				IInternalTokenDefinition derivedDef = derivedTokens.remove(tokenDefinition.getName());
+				IInternalTokenDefinition defAdapter = null;
 				if(derivedDef==null){
-					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)tokenDefinition);
+					defAdapter = new UseDefinedTokenDefinitionAdapter((NewDefinedToken)tokenDefinition);
 				}		
 				else{
-					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)tokenDefinition,derivedDef.isReferenced());
+					defAdapter = new UseDefinedTokenDefinitionAdapter((NewDefinedToken)tokenDefinition,derivedDef.isReferenced());
 				}
 			
 				printToken(defAdapter,sc);
@@ -1086,7 +947,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 			else if(tokenDefinition instanceof PreDefinedToken){
 				if(derivedTokens.get(tokenDefinition.getName())!=null){
-					InternalTokenDefinition defAdapter = derivedTokens.remove(tokenDefinition.getName());
+					IInternalTokenDefinition defAdapter = derivedTokens.remove(tokenDefinition.getName());
 					printToken(defAdapter,sc);
 					processedTokenNames.add(defAdapter.getName().toLowerCase());
 					printedTokens.add(defAdapter);
@@ -1114,14 +975,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Set<String> processedTokenNames) {
 		//finally process untouched derived definitions
 		for (String tokenName : derivedTokens.keySet()) {
-			InternalTokenDefinition def = derivedTokens.get(tokenName);
+			IInternalTokenDefinition def = derivedTokens.get(tokenName);
 			printToken(def, sc);
 			processedTokenNames.add(tokenName.toLowerCase());
 			printedTokens.add(def);
 		}
 	}
 
-	private void printToken(InternalTokenDefinition def, StringComposite sc){
+	private void printToken(IInternalTokenDefinition def, StringComposite sc){
 		sc.add(def.getName());
 		sc.add(":");
 		
@@ -1153,7 +1014,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 * @return The token definitions which were printed during last 
 	 * execution for printing token resolvers.
 	 */
-	public Collection<InternalTokenDefinition> getPrintedTokenDefinitions(){
+	public Collection<IInternalTokenDefinition> getPrintedTokenDefinitions(){
 		return printedTokens;
 	}
 	

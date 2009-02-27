@@ -10,6 +10,7 @@ import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 
 /**
  * A TokenResolverGenerator generates a single TokenResolver for a given TokenDefinition.
@@ -26,9 +27,9 @@ import org.emftext.sdk.codegen.composites.StringComposite;
  */
 public class TokenResolverGenerator extends BaseGenerator {
 	
-	private ANTLRGrammarGenerator.InternalTokenDefinition definition;
+	private IInternalTokenDefinition definition;
 	
-	public TokenResolverGenerator(GenerationContext context, String resolverClassName, ANTLRGrammarGenerator.InternalTokenDefinition definition) {
+	public TokenResolverGenerator(GenerationContext context, String resolverClassName, IInternalTokenDefinition definition) {
 		super(context.getResolverPackageName(), resolverClassName);
 		this.definition = definition;
 	}

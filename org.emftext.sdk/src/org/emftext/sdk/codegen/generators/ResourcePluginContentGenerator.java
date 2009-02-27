@@ -36,6 +36,7 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
 
 /**
@@ -163,7 +164,7 @@ public class ResourcePluginContentGenerator {
 			throws IOException {
 		progress.setTaskName("generating token resolvers...");
 		File targetFolder = context.getSourceFolder();
-		for(ANTLRGrammarGenerator.InternalTokenDefinition tokenDefinition : parserGenerator.getPrintedTokenDefinitions()){
+		for(IInternalTokenDefinition tokenDefinition : parserGenerator.getPrintedTokenDefinitions()){
 			if (!tokenDefinition.isReferenced() && !tokenDefinition.isCollect()) {
 				continue;
 			}
