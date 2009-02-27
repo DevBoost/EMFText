@@ -1,4 +1,4 @@
-package org.emftext.test.opposite_references;
+package org.emftext.test.syntax_analysis;
 
 import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactories;
 
