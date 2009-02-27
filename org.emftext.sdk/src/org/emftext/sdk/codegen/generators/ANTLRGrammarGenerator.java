@@ -1149,10 +1149,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				else{
 					defAdapter = new TokenDefinitionAdapter((NewDefinedToken)tokenDefinition,derivedDef.isReferenced());
 				}
-				
-				if(!checkANTLRRegex(defAdapter)){ 
-						continue;
-				}
+			
 				printToken(defAdapter,sc);
 				processedTokenNames.add(defAdapter.getName().toLowerCase());
 				printedTokens.add(defAdapter);
@@ -1263,32 +1260,5 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     		return "*";
     }
 
-    // TODO cwende: this should be performed in a post processor
-    private boolean checkANTLRRegex(InternalTokenDefinition def){
-    	ByteArrayOutputStream out = new ByteArrayOutputStream();
-    	PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
-    	w.print(def.getExpression());
-    	w.flush();
-    	w.close(); 
-    	
-    	try{
-    		ANTLRexpLexer lexer = new ANTLRexpLexer(new ANTLRInputStream(new  ByteArrayInputStream(out.toByteArray())));
-    		ANTLRexpParser parser = new ANTLRexpParser(new CommonTokenStream(lexer));
-         	parser.root();
-         	if(!parser.recExceptions.isEmpty()){
-         		for(RecognitionException e:parser.recExceptions){
-         			String message = lexer.getErrorMessage(e,lexer.getTokenNames());
-         			if(message==null||message.equals(""))
-         				message = parser.getErrorMessage(e,parser.getTokenNames());
-         			addProblem(new GenerationProblem(message, def.getBaseDefinition()));
-         		}
-         		return false;
-         	}
-         	
-        }catch(Exception e){
-        	addProblem(new GenerationProblem(e.getMessage(), def.getBaseDefinition()));
-        	return false;
-        }
-       return true;
-    }
+   
 }

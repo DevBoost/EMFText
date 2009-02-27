@@ -1,5 +1,9 @@
 package org.emftext.sdk;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
@@ -24,6 +31,8 @@ import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.analysis.ConcreteSyntaxAnalyser;
 import org.emftext.sdk.analysis.LeftRecursionDetector;
+import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
+import org.emftext.sdk.codegen.regex.ANTLRexpParser;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
@@ -33,6 +42,7 @@ import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
@@ -74,6 +84,18 @@ public class SDKOptionProvider implements IOptionProvider {
 			}
 			
 		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkANTLRRegex(resource);
+					}
+				};
+			}
+			
+		});
+		
 		postProcessors.add( new IResourcePostProcessorProvider() {
 
 			public IResourcePostProcessor getResourcePostProcessor() {
@@ -604,5 +626,40 @@ public class SDKOptionProvider implements IOptionProvider {
 			}
 		}
 		return result;
+	}
+	
+	private void checkANTLRRegex(ITextResource resource) {
+		for (Iterator<EObject> i = resource.getAllContents(); i.hasNext();) {
+			EObject next = i.next();
+			if (next instanceof NewDefinedToken) {
+				NewDefinedToken def = (NewDefinedToken) next;
+
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
+				w.print(def.getRegex());
+				w.flush();
+				w.close();
+
+				try {
+					ANTLRexpLexer lexer = new ANTLRexpLexer(
+							new ANTLRInputStream(new ByteArrayInputStream(out
+									.toByteArray())));
+					ANTLRexpParser parser = new ANTLRexpParser(
+							new CommonTokenStream(lexer));
+					parser.root();
+					if (!parser.recExceptions.isEmpty()) {
+						for (RecognitionException e : parser.recExceptions) {
+							String message = lexer.getErrorMessage(e, lexer.getTokenNames());
+							if (message == null || message.equals(""))
+								message = parser.getErrorMessage(e, parser.getTokenNames());
+							resource.addError(message, def);
+						}
+					}
+
+				} catch (Exception e) {
+					resource.addError(e.getMessage(), def);
+				}
+			}
+		}
 	}
 }
