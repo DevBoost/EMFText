@@ -863,6 +863,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             		genPackagePrefix = instanceType.getGenPackage().getPrefix();
             	}
             	if (genPackagePrefix == null) {
+            		// TODO this can be checked early in a post processor
             		addProblem(new GenerationProblem("The type of non-containment reference '" + eFeature.getName() + "' is abstract and has no concrete sub classes.", eFeature, GenerationProblem.Severity.ERROR));
             	}
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
@@ -942,38 +943,38 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     
     
 	private void printImplicitChoiceRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
-        
-    	for(GenClass referencedClass : eClassesReferenced.keySet()) {
-            if(!cointainsEqualByName(eClassesWithSyntax,referencedClass)) {
-            	//rule not explicitly defined in CS: most likely a choice rule in the AS
-            	Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(referencedClass,conreteSyntax.getAllRules());
-            	
-            	if (subClasses.isEmpty()) {
-            	  String message = "Referenced class '"+referencedClass.getName()+"' has no defined concrete Syntax.";
-            	  for(Terminal terminal:eClassesReferenced.get(referencedClass)){
-            		  addProblem(new GenerationProblem(message,terminal));
-            	  }
-               }
-               else {
-               	
-                   sc.add(getLowerCase(referencedClass.getName()));
-                   sc.add(" returns [" + referencedClass.getQualifiedInterfaceName() + " element = null]");
-                   sc.add(":");
-                   printSubClassChoices(sc, subClasses);
-                   sc.addLineBreak();
-                   sc.add(";");
-                   sc.addLineBreak();
-                   
-                   //add import .... shouldnt it already be there?
-                   //GenPackage p = referencedClass.getGenPackage();
-                   //s.insert(importIdx, "import " + ( p.getBasePackage()==null?"": p.getBasePackage() + "." )+ p.getEcorePackage().getName() + "." + referencedClass.getName() + ";\n");
-                   //referenced class now has syntax
-                   eClassesWithSyntax.add(referencedClass);
-               }
-               
-           }
-       }	
-    }
+
+		for(GenClass referencedClass : eClassesReferenced.keySet()) {
+			if(!cointainsEqualByName(eClassesWithSyntax,referencedClass)) {
+				//rule not explicitly defined in CS: most likely a choice rule in the AS
+				Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(referencedClass,conreteSyntax.getAllRules());
+
+				if (subClasses.isEmpty()) {
+            		// TODO this can be checked early in a post processor
+					String message = "Referenced class '"+referencedClass.getName()+"' has no defined concrete Syntax.";
+					for (Terminal terminal : eClassesReferenced.get(referencedClass)) {
+						addProblem(new GenerationProblem(message,terminal));
+					}
+				}
+				else {
+
+					sc.add(getLowerCase(referencedClass.getName()));
+					sc.add(" returns [" + referencedClass.getQualifiedInterfaceName() + " element = null]");
+					sc.add(":");
+					printSubClassChoices(sc, subClasses);
+					sc.addLineBreak();
+					sc.add(";");
+					sc.addLineBreak();
+
+					//add import .... shouldnt it already be there?
+					//GenPackage p = referencedClass.getGenPackage();
+					//s.insert(importIdx, "import " + ( p.getBasePackage()==null?"": p.getBasePackage() + "." )+ p.getEcorePackage().getName() + "." + referencedClass.getName() + ";\n");
+					//referenced class now has syntax
+					eClassesWithSyntax.add(referencedClass);
+				}
+			}
+		}	
+	}
     
     private void printSubClassChoices(StringComposite sc, Collection<GenClass> subClasses){
         int count = 0;
