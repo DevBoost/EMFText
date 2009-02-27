@@ -309,11 +309,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private String getMetaClassName(Rule rule) {
+		if (hasMapType(rule.getMetaclass()) ) {
+			return rule.getMetaclass().getQualifiedClassName();
+			
+		}
 		return rule.getMetaclass().getQualifiedInterfaceName();
 	}
 
 	private String getMethodName(Rule rule) {
-		String className = rule.getMetaclass().getQualifiedInterfaceName();
+		String className = getMetaClassName(rule);
+		
 		// first escape underscore with their unicode value
 		className = className.replace("_", "_005f");
 		// then replace package separator with underscore
@@ -712,9 +717,30 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
+	 /**
+     * Capitalizes the first letter of the given string.
+     * 
+     * @param text a string.
+     * @return the modified string.
+     */
+    private static String capitalize(String text) {
+        String h = text.substring(0, 1).toUpperCase();
+        String t = text.substring(1);      
+        return h + t;
+    }
+	
 	protected static String generateAccessMethod(GenClass genClass, GenFeature genFeature) {
-		String method = "eGet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "))";
-		return method;
+		if (hasMapType(genClass)) {
+			return "get" + capitalize(genFeature.getName()) + "()";
+		}	
+		else {
+			String method = "eGet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "))";
+			return method;
+		}
+	}
+
+	private static boolean hasMapType(GenClass genClass) {
+		return java.util.Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName());
 	}
 
 	private String getTabString(int count) {
