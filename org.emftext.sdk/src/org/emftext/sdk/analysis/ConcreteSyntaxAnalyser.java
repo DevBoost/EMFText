@@ -26,7 +26,7 @@ public class ConcreteSyntaxAnalyser {
 		return result;
 	}
 
-	public List<TokenDefinition> getDuplicatTokenDefinitions(ConcreteSyntax syntax) {
+	public List<TokenDefinition> getDuplicateTokenDefinitions(ConcreteSyntax syntax) {
 		List<TokenDefinition> duplicateTokens = new ArrayList<TokenDefinition>();
 		
 		List<String> foundTokenNames = new ArrayList<String>();

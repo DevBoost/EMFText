@@ -204,7 +204,7 @@ public class SDKOptionProvider implements IOptionProvider {
 	private void checkDuplicateTokens(ITextResource resource,
 			ConcreteSyntax syntax) {
 		ConcreteSyntaxAnalyser analyser = new ConcreteSyntaxAnalyser();
-		List<TokenDefinition> duplicateDefinitions = analyser.getDuplicatTokenDefinitions(syntax);
+		List<TokenDefinition> duplicateDefinitions = analyser.getDuplicateTokenDefinitions(syntax);
 		for (TokenDefinition duplicate : duplicateDefinitions) {
 			resource.addError("Duplicate token name (names are not case sensitive).", duplicate);
 		}
