@@ -613,7 +613,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			return "new DummyEObject("+ genPackage.getQualifiedPackageClassName() + ".eINSTANCE.get" + genClass.getName() 
 					+ "(),\"" + genClass.getName() + "\")";
 	    } else {
-	    	return genPackage.getQualifiedFactoryClassName() + ".eINSTANCE.create" + genClass.getName() + "()";
+	    	return genPackage.getQualifiedFactoryInterfaceName() + ".eINSTANCE.create" + genClass.getName() + "()";
 	    }
 	}
 	
