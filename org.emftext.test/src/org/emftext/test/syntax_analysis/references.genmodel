@@ -5,7 +5,7 @@
     modelPluginID="org.emftext.test" modelName="References" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="5.0" copyrightFields="false">
   <foreignModel>references.ecore</foreignModel>
-  <genPackages prefix="Opposite" disposableProviderFactory="true" ecorePackage="references.ecore#/">
+  <genPackages prefix="References" disposableProviderFactory="true" ecorePackage="references.ecore#/">
     <genClasses ecoreClass="references.ecore#//Root">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference references.ecore#//Root/toAbstract"/>
     </genClasses>

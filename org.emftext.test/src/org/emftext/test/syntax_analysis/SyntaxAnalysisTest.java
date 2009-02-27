@@ -36,30 +36,41 @@ public class SyntaxAnalysisTest extends TestCase {
 	 */
 	@Test
 	public void testUnusedOppositeReferences() throws FileNotFoundException, IOException {
-		assertProblems("opposite1.cs", 2, 0);
-		assertProblems("opposite2.cs", 0, 0);
-		assertProblems("opposite3.cs", 0, 0);
-		assertProblems("opposite4.cs", 0, 0);
+		final String featureHasNoSyntax = "Feature.*has no syntax.";
+		assertProblems("opposite1.cs", new String[] {featureHasNoSyntax, featureHasNoSyntax}, new String[0]);
+		assertProblems("opposite2.cs", new String[0], new String[0]);
+		assertProblems("opposite3.cs", new String[0], new String[0]);
+		assertProblems("opposite4.cs", new String[0], new String[0]);
 	}
 
 	@Test
-	public void testReferencesWithAbstractType() throws FileNotFoundException, IOException {
-		assertProblems("reference1.cs", 1, 0);
+	public void testReferences() throws FileNotFoundException, IOException {
+		assertProblems("reference1.cs", new String[0], new String[] {"The type of non-containment reference.*is abstract and has no concrete sub classes."});
+		assertProblems("reference2.cs", new String[] {"Feature.*has no syntax."}, new String[0]);
+		assertProblems("reference3.cs", new String[] {"Feature.*has wrong type."}, new String[0]);
 	}
 
-	private void assertProblems(String filename, int expectedWarnings, int expectedErrors) {
+	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_analysis" + File.separator;
 		File file = new File(path + filename);
 		
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		
-		EList<Diagnostic> warnings = resource.getWarnings();
-		printDiagnostics(warnings);
-		assertEquals(filename + " should contain " + expectedWarnings + " warnings.", expectedWarnings, warnings.size());
-		EList<Diagnostic> errors = resource.getErrors();
-		printDiagnostics(errors);
-		assertEquals(filename + " should contain " + expectedWarnings + " errors.", expectedErrors, errors.size());
+		assertDiagnostics(filename, expectedWarnings, resource.getWarnings(), "warnings");
+		assertDiagnostics(filename, expectedErrors, resource.getErrors(), "errors");
+	}
+
+	private void assertDiagnostics(String filename, String[] expectedDiagnostics,
+			EList<Diagnostic> diagnostics, String type) {
+		printDiagnostics(diagnostics);
+		assertEquals(filename + " should contain " + expectedDiagnostics + " " + type + ".", expectedDiagnostics.length, diagnostics.size());
+		for (int i = 0; i < expectedDiagnostics.length; i++) {
+			String actualDiagnostic = diagnostics.get(i).getMessage();
+			assertNotNull(actualDiagnostic);
+			String expectedDiagnostic = expectedDiagnostics[i];
+			assertTrue("Diagnostic ("+actualDiagnostic+") should match \""+expectedDiagnostic+"\".", actualDiagnostic.matches(expectedDiagnostic));
+		}
 	}
 
 	private void printDiagnostics(EList<Diagnostic> diagnostics) {
