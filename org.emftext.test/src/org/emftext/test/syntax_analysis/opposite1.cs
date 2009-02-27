@@ -1,5 +1,5 @@
 SYNTAXDEF opposite
-FOR <http://www.emftext.org/test/simple> <simple.genmodel>
+FOR <http://www.emftext.org/test/opposite> <opposite.genmodel>
 START Root
 
 RULES {

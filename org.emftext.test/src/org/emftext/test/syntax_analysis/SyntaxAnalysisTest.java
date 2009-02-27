@@ -35,11 +35,16 @@ public class SyntaxAnalysisTest extends TestCase {
 	 * @throws IOException
 	 */
 	@Test
-	public void testOptions() throws FileNotFoundException, IOException {
+	public void testUnusedOppositeReferences() throws FileNotFoundException, IOException {
 		assertProblems("opposite1.cs", 2, 0);
 		assertProblems("opposite2.cs", 0, 0);
 		assertProblems("opposite3.cs", 0, 0);
 		assertProblems("opposite4.cs", 0, 0);
+	}
+
+	@Test
+	public void testReferencesWithAbstractType() throws FileNotFoundException, IOException {
+		assertProblems("reference1.cs", 1, 0);
 	}
 
 	private void assertProblems(String filename, int expectedWarnings, int expectedErrors) {
