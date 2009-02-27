@@ -1139,10 +1139,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Set<String> processedTokenNames) {
 		Collection<TokenDefinition> userDefinedTokens = getTokens(conreteSyntax);
 		for (TokenDefinition tokenDefinition : userDefinedTokens) {
-			if (processedTokenNames.contains(tokenDefinition.getName().toLowerCase())) {
-				addProblem(new GenerationProblem("Tokenname already in use (ignoring case).",tokenDefinition));
-				continue;
-			}
 			if (tokenDefinition instanceof NewDefinedToken) {
 				InternalTokenDefinition derivedDef = derivedTokens.remove(tokenDefinition.getName());
 				InternalTokenDefinition defAdapter = null;

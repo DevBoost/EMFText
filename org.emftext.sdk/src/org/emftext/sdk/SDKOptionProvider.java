@@ -135,6 +135,16 @@ public class SDKOptionProvider implements IOptionProvider {
 				};
 			}
 		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkDuplicateTokens(resource);
+					}
+				};
+			}
+		});
 		
 		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
@@ -155,6 +165,24 @@ public class SDKOptionProvider implements IOptionProvider {
 		List<TokenDefinition> wrongDefinitions = analyser.getTokenDefinitionsWithInvalidNames(syntax);
 		for (TokenDefinition next : wrongDefinitions) {
 			resource.addError("Token names must start with a capital letter.", next);
+		}
+	}
+	
+	private void checkDuplicateTokens(ITextResource resource) {
+		EList<EObject> objects = resource.getContents();
+		for (EObject next : objects) {
+			if (next instanceof ConcreteSyntax) {
+				checkDuplicateTokens(resource, (ConcreteSyntax) next);
+			}
+		}
+	}
+
+	private void checkDuplicateTokens(ITextResource resource,
+			ConcreteSyntax syntax) {
+		ConcreteSyntaxAnalyser analyser = new ConcreteSyntaxAnalyser();
+		List<TokenDefinition> duplicateDefinitions = analyser.getDuplicatTokenDefinitions(syntax);
+		for (TokenDefinition duplicate : duplicateDefinitions) {
+			resource.addError("Duplicate token name (names are not case sensitive).", duplicate);
 		}
 	}
 
