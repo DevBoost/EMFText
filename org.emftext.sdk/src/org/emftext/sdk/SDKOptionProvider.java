@@ -38,6 +38,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -124,12 +125,38 @@ public class SDKOptionProvider implements IOptionProvider {
 				};
 			}
 		});
+		postProcessors.add( new IResourcePostProcessorProvider() {
+
+			public IResourcePostProcessor getResourcePostProcessor() {
+				return new IResourcePostProcessor() {
+					public void process(ITextResource resource) {
+						checkTokenNames(resource);
+					}
+				};
+			}
+		});
 		
 		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
 		return options;
 	}
 
+	private void checkTokenNames(ITextResource resource) {
+		EList<EObject> objects = resource.getContents();
+		for (EObject next : objects) {
+			if (next instanceof ConcreteSyntax) {
+				checkTokenNames(resource, (ConcreteSyntax) next);
+			}
+		}
+	}
+
+	private void checkTokenNames(ITextResource resource, ConcreteSyntax syntax) {
+		ConcreteSyntaxAnalyser analyser = new ConcreteSyntaxAnalyser();
+		List<TokenDefinition> wrongDefinitions = analyser.getTokenDefinitionsWithInvalidNames(syntax);
+		for (TokenDefinition next : wrongDefinitions) {
+			resource.addError("Token names must start with a capital letter.", next);
+		}
+	}
 
 	private void checkForDuplicateRules(ITextResource resource) {
 		EList<EObject> objects = resource.getContents();
