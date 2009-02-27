@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.sdk.SDKOptionProvider;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,9 +21,6 @@ import org.junit.Test;
  * It check whether opposite references are correctly 
  * tagged as unused, if they are not defined at all in 
  * the concrete syntax. 
- * 
- * This test must be executed as JUnit Plug-in Test since
- * it relies on a running OSGi platform.
  */
 public class OppositeReferencesTest extends TestCase {
 
@@ -43,7 +41,7 @@ public class OppositeReferencesTest extends TestCase {
 		final String path = "src\\org\\emftext\\test\\opposite_references\\";
 		File file = new File(path + filename);
 		
-		ITextResource resource = new TextResourceHelper().getResource(file);
+		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		
 		EList<Diagnostic> warnings = resource.getWarnings();

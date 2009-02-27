@@ -33,7 +33,14 @@ public class TextResourceHelper {
 	}
 
 	public ITextResource getResource(File file) {
+		return getResource(file, null);
+	}
+
+	public ITextResource getResource(File file, Map<?,?> options) {
 		ResourceSet rs = new ResourceSetImpl();
+		if (options != null) {
+			rs.getLoadOptions().putAll(options);
+		}
 		Resource csResource = rs.getResource(URI.createFileURI(file.getAbsolutePath()), true);
 		return (ITextResource) csResource;
 	}
