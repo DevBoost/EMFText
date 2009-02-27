@@ -22,22 +22,22 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  */
 public class AbstractImpl extends EObjectImpl implements Abstract {
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected AbstractImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.ABSTRACT;
-  }
+		return ConcretesyntaxPackage.Literals.ABSTRACT;
+	}
 
 } //AbstractImpl

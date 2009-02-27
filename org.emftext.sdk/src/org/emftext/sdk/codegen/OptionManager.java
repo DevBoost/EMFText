@@ -78,12 +78,12 @@ public class OptionManager {
 			return true;
 		}
 		if (optionName.equals(GENERATE_CODE_FROM_GENERATOR_MODEL)) {
-			return true;
+			return false;
 		}
 		if (optionName.equals(OVERRIDE_ANTLR_SPEC)) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_TREE_ANALYSER)) {
+		if (optionName.equals(OVERRIDE_REFERENCE_RESOLVER_SWITCH)) {
 			return true;
 		}
 		if (optionName.equals(OVERRIDE_TOKEN_RESOLVER_FACTORY)) {

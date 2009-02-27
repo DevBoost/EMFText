@@ -27,29 +27,29 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  */
 public interface Terminal extends CardinalityDefinition {
 	/**
-   * Returns the value of the '<em><b>Feature</b></em>' reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Feature</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-   * @return the value of the '<em>Feature</em>' reference.
-   * @see #setFeature(GenFeature)
-   * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTerminal_Feature()
-   * @model required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Feature</em>' reference.
+	 * @see #setFeature(GenFeature)
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTerminal_Feature()
+	 * @model required="true"
+	 * @generated
+	 */
 	GenFeature getFeature();
 
 	/**
-   * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Terminal#getFeature <em>Feature</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Terminal#getFeature <em>Feature</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Feature</em>' reference.
-   * @see #getFeature()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Feature</em>' reference.
+	 * @see #getFeature()
+	 * @generated
+	 */
 	void setFeature(GenFeature value);
 
 } // Terminal

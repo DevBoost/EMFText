@@ -26,13 +26,6 @@ import org.emftext.runtime.resource.ITextResource;
  */
 public class TextResourceHelper {
 
-	public void saveResource(File file, Resource resource) throws IOException {
-		Map<?, ?> options = Collections.EMPTY_MAP;
-		OutputStream outputStream = new FileOutputStream(file);
-		resource.save(outputStream, options);
-		outputStream.close();
-	}
-
 	public ITextResource getResource(IFile file) {
 		ResourceSet rs = new ResourceSetImpl();
 		Resource csResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
@@ -43,6 +36,13 @@ public class TextResourceHelper {
 		ResourceSet rs = new ResourceSetImpl();
 		Resource csResource = rs.getResource(URI.createFileURI(file.getAbsolutePath()), true);
 		return (ITextResource) csResource;
+	}
+
+	public void saveResource(File file, Resource resource) throws IOException {
+		Map<?, ?> options = Collections.EMPTY_MAP;
+		OutputStream outputStream = new FileOutputStream(file);
+		resource.save(outputStream, options);
+		outputStream.close();
 	}
 
 	public boolean containsErrors(Resource resource) {
@@ -57,21 +57,23 @@ public class TextResourceHelper {
 		return containsErrors(resource) || containsWarnings(resource);
 	}
 
+	/**
+	 * Searches for all unresolved proxy object in the given resource.
+	 * 
+	 * @param resource
+	 * @return all proxy object that are not resolvable
+	 */
 	public List<EObject> findUnresolvedProxies(Resource resource) {
 		List<EObject> unresolveProxies = new ArrayList<EObject>();
 		
 		for(Iterator<EObject> elementIt = EcoreUtil.getAllContents(resource, true); elementIt.hasNext(); ) {
 			InternalEObject nextElement = (InternalEObject) elementIt.next();
 			if (nextElement.eIsProxy()) {
-				System.out.println("findUnresolvedProxies() " + nextElement);
-				System.out.println("findUnresolvedProxies() " + ((InternalEObject) nextElement).eProxyURI());
 				unresolveProxies.add(nextElement);
 			}
 			for (EObject crElement : nextElement.eCrossReferences()) {
 				crElement = EcoreUtil.resolve(crElement, resource);
 				if (crElement.eIsProxy()) {
-					System.out.println("findUnresolvedProxies() " + nextElement);
-					System.out.println("findUnresolvedProxies() " + ((InternalEObject) nextElement).eProxyURI());
 					unresolveProxies.add(nextElement);
 				}
 			}

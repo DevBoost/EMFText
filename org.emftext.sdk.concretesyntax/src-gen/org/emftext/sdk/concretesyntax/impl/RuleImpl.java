@@ -37,301 +37,289 @@ import org.emftext.sdk.concretesyntax.Rule;
  */
 public class RuleImpl extends EObjectImpl implements Rule {
 	/**
-   * The cached value of the '{@link #getDefinition() <em>Definition</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDefinition() <em>Definition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getDefinition()
-   * @generated
-   * @ordered
-   */
+	 * @see #getDefinition()
+	 * @generated
+	 * @ordered
+	 */
 	protected Choice definition;
 
 	/**
-   * The cached value of the '{@link #getMetaclass() <em>Metaclass</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getMetaclass() <em>Metaclass</em>}' reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @see #getMetaclass()
-   * @generated
-   * @ordered
-   */
+	 * @see #getMetaclass()
+	 * @generated
+	 * @ordered
+	 */
 	protected GenClass metaclass;
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected RuleImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.RULE;
-  }
+		return ConcretesyntaxPackage.Literals.RULE;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public Choice getDefinition() {
-    return definition;
-  }
+		return definition;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public NotificationChain basicSetDefinition(Choice newDefinition, NotificationChain msgs) {
-    Choice oldDefinition = definition;
-    definition = newDefinition;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__DEFINITION, oldDefinition, newDefinition);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
+		Choice oldDefinition = definition;
+		definition = newDefinition;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__DEFINITION, oldDefinition, newDefinition);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public void setDefinition(Choice newDefinition) {
-    if (newDefinition != definition)
-    {
-      NotificationChain msgs = null;
-      if (definition != null)
-        msgs = ((InternalEObject)definition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.RULE__DEFINITION, null, msgs);
-      if (newDefinition != null)
-        msgs = ((InternalEObject)newDefinition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.RULE__DEFINITION, null, msgs);
-      msgs = basicSetDefinition(newDefinition, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__DEFINITION, newDefinition, newDefinition));
-  }
+		if (newDefinition != definition) {
+			NotificationChain msgs = null;
+			if (definition != null)
+				msgs = ((InternalEObject)definition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.RULE__DEFINITION, null, msgs);
+			if (newDefinition != null)
+				msgs = ((InternalEObject)newDefinition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ConcretesyntaxPackage.RULE__DEFINITION, null, msgs);
+			msgs = basicSetDefinition(newDefinition, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__DEFINITION, newDefinition, newDefinition));
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public GenClass getMetaclass() {
-    if (metaclass != null && metaclass.eIsProxy())
-    {
-      InternalEObject oldMetaclass = (InternalEObject)metaclass;
-      metaclass = (GenClass)eResolveProxy(oldMetaclass);
-      if (metaclass != oldMetaclass)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.RULE__METACLASS, oldMetaclass, metaclass));
-      }
-    }
-    return metaclass;
-  }
+		if (metaclass != null && metaclass.eIsProxy()) {
+			InternalEObject oldMetaclass = (InternalEObject)metaclass;
+			metaclass = (GenClass)eResolveProxy(oldMetaclass);
+			if (metaclass != oldMetaclass) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ConcretesyntaxPackage.RULE__METACLASS, oldMetaclass, metaclass));
+			}
+		}
+		return metaclass;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public GenClass basicGetMetaclass() {
-    return metaclass;
-  }
+		return metaclass;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public void setMetaclass(GenClass newMetaclass) {
-    GenClass oldMetaclass = metaclass;
-    metaclass = newMetaclass;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__METACLASS, oldMetaclass, metaclass));
-  }
+		GenClass oldMetaclass = metaclass;
+		metaclass = newMetaclass;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__METACLASS, oldMetaclass, metaclass));
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public ConcreteSyntax getSyntax() {
-    if (eContainerFeatureID != ConcretesyntaxPackage.RULE__SYNTAX) return null;
-    return (ConcreteSyntax)eContainer();
-  }
+		if (eContainerFeatureID != ConcretesyntaxPackage.RULE__SYNTAX) return null;
+		return (ConcreteSyntax)eContainer();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public NotificationChain basicSetSyntax(ConcreteSyntax newSyntax, NotificationChain msgs) {
-    msgs = eBasicSetContainer((InternalEObject)newSyntax, ConcretesyntaxPackage.RULE__SYNTAX, msgs);
-    return msgs;
-  }
+		msgs = eBasicSetContainer((InternalEObject)newSyntax, ConcretesyntaxPackage.RULE__SYNTAX, msgs);
+		return msgs;
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	public void setSyntax(ConcreteSyntax newSyntax) {
-    if (newSyntax != eInternalContainer() || (eContainerFeatureID != ConcretesyntaxPackage.RULE__SYNTAX && newSyntax != null))
-    {
-      if (EcoreUtil.isAncestor(this, newSyntax))
-        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-      NotificationChain msgs = null;
-      if (eInternalContainer() != null)
-        msgs = eBasicRemoveFromContainer(msgs);
-      if (newSyntax != null)
-        msgs = ((InternalEObject)newSyntax).eInverseAdd(this, ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, ConcreteSyntax.class, msgs);
-      msgs = basicSetSyntax(newSyntax, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__SYNTAX, newSyntax, newSyntax));
-  }
+		if (newSyntax != eInternalContainer() || (eContainerFeatureID != ConcretesyntaxPackage.RULE__SYNTAX && newSyntax != null)) {
+			if (EcoreUtil.isAncestor(this, newSyntax))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newSyntax != null)
+				msgs = ((InternalEObject)newSyntax).eInverseAdd(this, ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, ConcreteSyntax.class, msgs);
+			msgs = basicSetSyntax(newSyntax, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.RULE__SYNTAX, newSyntax, newSyntax));
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.RULE__SYNTAX:
-        if (eInternalContainer() != null)
-          msgs = eBasicRemoveFromContainer(msgs);
-        return basicSetSyntax((ConcreteSyntax)otherEnd, msgs);
-    }
-    return super.eInverseAdd(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.RULE__SYNTAX:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetSyntax((ConcreteSyntax)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.RULE__DEFINITION:
-        return basicSetDefinition(null, msgs);
-      case ConcretesyntaxPackage.RULE__SYNTAX:
-        return basicSetSyntax(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.RULE__DEFINITION:
+				return basicSetDefinition(null, msgs);
+			case ConcretesyntaxPackage.RULE__SYNTAX:
+				return basicSetSyntax(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-    switch (eContainerFeatureID)
-    {
-      case ConcretesyntaxPackage.RULE__SYNTAX:
-        return eInternalContainer().eInverseRemove(this, ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, ConcreteSyntax.class, msgs);
-    }
-    return super.eBasicRemoveFromContainerFeature(msgs);
-  }
+		switch (eContainerFeatureID) {
+			case ConcretesyntaxPackage.RULE__SYNTAX:
+				return eInternalContainer().eInverseRemove(this, ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, ConcreteSyntax.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.RULE__DEFINITION:
-        return getDefinition();
-      case ConcretesyntaxPackage.RULE__METACLASS:
-        if (resolve) return getMetaclass();
-        return basicGetMetaclass();
-      case ConcretesyntaxPackage.RULE__SYNTAX:
-        return getSyntax();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.RULE__DEFINITION:
+				return getDefinition();
+			case ConcretesyntaxPackage.RULE__METACLASS:
+				if (resolve) return getMetaclass();
+				return basicGetMetaclass();
+			case ConcretesyntaxPackage.RULE__SYNTAX:
+				return getSyntax();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.RULE__DEFINITION:
-        setDefinition((Choice)newValue);
-        return;
-      case ConcretesyntaxPackage.RULE__METACLASS:
-        setMetaclass((GenClass)newValue);
-        return;
-      case ConcretesyntaxPackage.RULE__SYNTAX:
-        setSyntax((ConcreteSyntax)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.RULE__DEFINITION:
+				setDefinition((Choice)newValue);
+				return;
+			case ConcretesyntaxPackage.RULE__METACLASS:
+				setMetaclass((GenClass)newValue);
+				return;
+			case ConcretesyntaxPackage.RULE__SYNTAX:
+				setSyntax((ConcreteSyntax)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public void eUnset(int featureID) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.RULE__DEFINITION:
-        setDefinition((Choice)null);
-        return;
-      case ConcretesyntaxPackage.RULE__METACLASS:
-        setMetaclass((GenClass)null);
-        return;
-      case ConcretesyntaxPackage.RULE__SYNTAX:
-        setSyntax((ConcreteSyntax)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.RULE__DEFINITION:
+				setDefinition((Choice)null);
+				return;
+			case ConcretesyntaxPackage.RULE__METACLASS:
+				setMetaclass((GenClass)null);
+				return;
+			case ConcretesyntaxPackage.RULE__SYNTAX:
+				setSyntax((ConcreteSyntax)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	public boolean eIsSet(int featureID) {
-    switch (featureID)
-    {
-      case ConcretesyntaxPackage.RULE__DEFINITION:
-        return definition != null;
-      case ConcretesyntaxPackage.RULE__METACLASS:
-        return metaclass != null;
-      case ConcretesyntaxPackage.RULE__SYNTAX:
-        return getSyntax() != null;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case ConcretesyntaxPackage.RULE__DEFINITION:
+				return definition != null;
+			case ConcretesyntaxPackage.RULE__METACLASS:
+				return metaclass != null;
+			case ConcretesyntaxPackage.RULE__SYNTAX:
+				return getSyntax() != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //RuleImpl

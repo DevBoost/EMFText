@@ -7,7 +7,7 @@ import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER_BASE;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVERS;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TREE_ANALYSER;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVER_SWITCH;
 import static org.emftext.sdk.codegen.util.GeneratorUtil.setContents;
 
 import java.io.BufferedOutputStream;
@@ -189,7 +189,7 @@ public class ResourcePluginContentGenerator {
 			File resolverSwitchFile, String referenceResolverName) throws IOException {
 		progress.setTaskName("generating reference resolver switch...");
 
-		boolean generateReferenceResolverSwitch = !resolverSwitchFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TREE_ANALYSER);
+		boolean generateReferenceResolverSwitch = !resolverSwitchFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVER_SWITCH);
 		if (generateReferenceResolverSwitch) {
 			BaseGenerator analyserGen = new ReferenceResolverSwitchGenerator(context);
 			setContents(resolverSwitchFile,invokeGeneration(analyserGen, context.getProblemCollector()));

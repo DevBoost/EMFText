@@ -23,22 +23,22 @@ import org.emftext.sdk.concretesyntax.Definition;
  */
 public abstract class DefinitionImpl extends EObjectImpl implements Definition {
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	protected DefinitionImpl() {
-    super();
-  }
+		super();
+	}
 
 	/**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-    return ConcretesyntaxPackage.Literals.DEFINITION;
-  }
+		return ConcretesyntaxPackage.Literals.DEFINITION;
+	}
 
 } //DefinitionImpl
