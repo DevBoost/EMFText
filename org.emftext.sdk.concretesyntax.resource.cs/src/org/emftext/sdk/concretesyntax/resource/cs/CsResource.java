@@ -38,7 +38,6 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		org.eclipse.emf.ecore.EObject root = parser.parse();
 		if (root != null) {
 			getContents().add(root);
-			((org.emftext.runtime.resource.impl.AbstractLocationMap) getLocationMap()).setRoot(root);
 		}
 		getReferenceResolverSwitch().setOptions(options);
 	}

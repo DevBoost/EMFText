@@ -2,7 +2,6 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.runtime.IStandardTokenDefinitions.LB_TOKEN_DEF;
 import static org.emftext.runtime.IStandardTokenDefinitions.LB_TOKEN_NAME;
-import static org.emftext.runtime.IStandardTokenDefinitions.STD_TOKEN_DEF;
 import static org.emftext.runtime.IStandardTokenDefinitions.STD_TOKEN_NAME;
 import static org.emftext.runtime.IStandardTokenDefinitions.WS_TOKEN_DEF;
 import static org.emftext.runtime.IStandardTokenDefinitions.WS_TOKEN_NAME;
@@ -92,8 +91,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public static final String EOF_TOKEN_NAME = "EOF";
 	
 	/**
-	 * The name prefix of derived tokendefinitions. 
-	 * The full name later is constructed by DERIVED_TOKEN_NAME+_+PREFIXCODE+_+SUFFIXCODE.  
+	 * The name prefix of derived token definitions. 
+	 * The full name later is constructed by DERIVED_TOKEN_NAME+_+PREFIXCODE+_+SUFFIXCODE.
+	 * 
+	 * TODO mseifert: use FEATURENAME_RULENAME_COUNTER instead
 	 */
 	public static final String DERIVED_TOKEN_NAME= "QUOTED";
 	

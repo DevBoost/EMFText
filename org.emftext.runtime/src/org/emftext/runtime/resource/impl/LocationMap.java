@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.runtime.resource.ILocationMap;
 
 /**
  * A basic implementation of the ILocationMap interface. Instances
@@ -23,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * Start:  The lowest of all sources is used for target<br>
  * End:    The highest of all sources is used for target<br>
  */
-public class LocationMap extends AbstractLocationMap {
+public class LocationMap implements ILocationMap {
 
 	/**
 	 * A basic interface that can be implemented to select
@@ -88,7 +89,7 @@ public class LocationMap extends AbstractLocationMap {
 	}
 
 	public List<EObject> getElementsAt(final int documentOffset) {
-		List<EObject> result = getElements(getRoot(), new ISelector() {
+		List<EObject> result = getElements(new ISelector() {
 			public boolean accept(int start, int end) {
 				return start <= documentOffset && end >= documentOffset;
 			}
@@ -97,7 +98,7 @@ public class LocationMap extends AbstractLocationMap {
 	}
 
 	public List<EObject> getElementsBetween(final int startOffset, final int endOffset) {
-		List<EObject> result = getElements(getRoot(), new ISelector() {
+		List<EObject> result = getElements(new ISelector() {
 			public boolean accept(int start, int end) {
 				return start >= startOffset && end <= endOffset;
 			}
@@ -105,15 +106,12 @@ public class LocationMap extends AbstractLocationMap {
 		return result;
 	}
 
-	private List<EObject> getElements(EObject root, ISelector s) {
+	private List<EObject> getElements(ISelector s) {
 		// there might be more than one element at the given offset
 		// thus, we collect all of them and sort them afterwards
 		List<EObject> result = new ArrayList<EObject>();
 		
 		for (EObject next : charStartMap.keySet()) {
-			if (!isContainedIn(root, next)) {
-				continue;
-			}
 			int start = charStartMap.get(next);
 			int end = charEndMap.get(next);
 			if (s.accept(start, end)) {
@@ -128,16 +126,5 @@ public class LocationMap extends AbstractLocationMap {
 			}
 		});
 		return result;
-	}
-
-	private boolean isContainedIn(EObject root, EObject next) {
-		EObject container = next;
-		while (container != null) {
-			if (container == root) {
-				return true;
-			}
-			container = container.eContainer();
-		}
-		return false;
 	}
 }

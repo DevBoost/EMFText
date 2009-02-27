@@ -11,7 +11,6 @@ import org.emftext.runtime.InputStreamProcessor;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextPrinter;
-import org.emftext.runtime.resource.impl.AbstractLocationMap;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -157,7 +156,6 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add(EObject.class.getName() + " root = parser.parse();");
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");
-        sc.add("((" + AbstractLocationMap.class.getName() + ") getLocationMap()).setRoot(root);");
         sc.add("}");
         sc.add("getReferenceResolverSwitch().setOptions(options);");
         sc.add("}");
