@@ -279,11 +279,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		if (standardTextTokenName == null) {
 			standardTextTokenName = STD_TOKEN_NAME;
 		}
-		char firstLetter = standardTextTokenName.charAt(0);
-		//can this check be done by OCL?
-		if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
-			addProblem(new GenerationProblem("Token names must start with a capital letter.", conreteSyntax, Severity.ERROR));
-		}
 		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
 		usePredefinedTokens = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_USE_PREDEFINED_TOKENS);
 	}
@@ -1144,10 +1139,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			Set<String> processedTokenNames) {
 		Collection<TokenDefinition> userDefinedTokens = getTokens(conreteSyntax);
 		for (TokenDefinition tokenDefinition : userDefinedTokens) {
-			if (tokenDefinition.getName().charAt(0) < 'A' || tokenDefinition.getName().charAt(0) > 'Z') {
-				addProblem(new GenerationProblem("Token names must start with a capital letter.",tokenDefinition));
-				continue;
-			}
 			if (processedTokenNames.contains(tokenDefinition.getName().toLowerCase())) {
 				addProblem(new GenerationProblem("Tokenname already in use (ignoring case).",tokenDefinition));
 				continue;
