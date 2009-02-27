@@ -179,7 +179,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 * Adapts explicitly defined tokens from the CS specification to the internal 
 	 * interfaces.
 	 */
-	private static class TokenDefinitionAdapter implements InternalTokenDefinition {
+	public static class TokenDefinitionAdapter implements InternalTokenDefinition {
 		private NewDefinedToken adaptee;
 		private boolean implicitlyReferenced;
 		
@@ -260,6 +260,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private GenClassFinder genClassFinder = new GenClassFinder();
 
 	private GenerationContext context;
+
+	private AntlrTokenDerivator tokenDerivator ;
 	
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
@@ -295,6 +297,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter pw){
 		initOptions();
 		initCaches();
+		
+		tokenDerivator = new AntlrTokenDerivator(conreteSyntax);
 		
         String csName = getResourceClassName();
         String lexerName = getLexerName(csName);
@@ -803,9 +807,22 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         		DerivedPlaceholder placeholder = (DerivedPlaceholder) terminal;
         		String prefix = placeholder.getPrefix();
 				String suffix = placeholder.getSuffix();
-
-				InternalTokenDefinition definition = deriveTokenDefinition(prefix, suffix);
-            	tokenName = definition.getName();
+				
+				// normalize prefix and suffix
+				if (prefix.length() == 0) prefix = null;
+				if (suffix.length() == 0) suffix = null;
+				
+				String derivedTokenName = deriveTokenName(prefix, suffix);
+				InternalTokenDefinition definition = null;
+				if (!tokenExists(derivedTokenName)) {
+					String derivedExpression = tokenDerivator .deriveTokenDefinition(prefix, suffix);
+					definition = addTokenDefinition(derivedTokenName, derivedExpression, prefix, suffix);
+				}
+				else {
+					definition = derivedTokens.get(derivedTokenName);
+				}
+				
+				tokenName = definition.getName();
                 placeholder2TokenName.put(placeholder,tokenName);
         	}
         	else{
@@ -995,94 +1012,40 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	return false;
     }
     
-    /**
-     * <p>Derives a Tokendefinition from the given prefix and suffix char. If the suffix is valued -1,
-     * a standard Definition using the static values STD_TOKEN_NAME and STD_TOKEN_DEF will be created and registered 
-     * (if not yet been done) and returned. If additionally a prefix is given, the tokens name will be the conjunction
-     * of the value STD_TOKEN_NAME, "_", "prefix", "_". The resulting regular expression is constructed by prepending
-     * the prefix to the value STD_TOKEN_DEF.  </p>
-     * <p>
-     * If suffix is given a Tokendefinition, matching the given prefix (if there) first and than matching all characters,
-     * excepting the suffix, is created and returned. The name of this definition is the conjunction of the value 
-     * in DERIVED_TOKEN_NAME, "_", prefix, "_" and suffix. </p>
-     * 
-     * @param prefix
-     * @param suffix
-     * @return
-     */
     
-    private InternalTokenDefinition deriveTokenDefinition(String prefix, String suffix) {
-    	String derivedTokenName = null;
-        // TODO cwende: this checks should be performed in a post processor (unify with check
-    	// that token definitions contain correct regular expressions)
-    	//
-    	// Attention: suffix and prefix can be null, because they are defined in
-    	// meta class DerivedPlaceholder, which is used both for featureName[]
-    	// and featureName['prefix', 'suffix']. However, if one is not null,
-    	// the other should not be null too.
-    	// A clean solution would be to introduce separate meta classes for
-    	// features the use the default token and features the use prefix and
-    	// suffix
+    private String deriveTokenName(String prefix, String suffix) {
+    	String derivedTokenName;
     	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
 		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
 		
-		if (suffixIsSet) {
-        	String derivedExpression = null;
-    		if (prefixIsSet) {
+    	if (suffixIsSet) {
+        	if (prefixIsSet) {
     			derivedTokenName = DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(prefix) + "_" + deriveCodeSequence(suffix);
-    			if (!tokenExists(derivedTokenName)) {
-    				derivedExpression = "(~('" + escapeLiteralChars(suffix) + "')|('\\\\''" + escapeLiteralChars(suffix) + "'))*";
-    				addTokenDefinition(derivedTokenName, derivedExpression, prefix, suffix);
-    			}
+    		
     		} else {
        			derivedTokenName = DERIVED_TOKEN_NAME + "_" + "_" + deriveCodeSequence(suffix);
-    			if (!tokenExists(derivedTokenName)) {
-    				derivedExpression =  "(~('" + escapeLiteralChars(suffix) + "')|( '\\\\' '" + escapeLiteralChars(suffix)+"' ))* '";
-    				addTokenDefinition(derivedTokenName, derivedExpression, null, suffix);
-    			}	
     		}
 		}
     	else{
     		if (prefixIsSet) {
-				String derivedExpression = null;
-    			derivedTokenName = standardTextTokenName + "_" + deriveCodeSequence(prefix) + "_";
-				if (!tokenExists(derivedTokenName)) {
-					derivedExpression = getStandardTokenExpression();
-    				addTokenDefinition(derivedTokenName, derivedExpression, prefix, null);
-				}
-    		} else {
+				derivedTokenName = standardTextTokenName + "_" + deriveCodeSequence(prefix) + "_";
+			} else {
     			derivedTokenName = standardTextTokenName;
-    			if (!tokenExists(derivedTokenName)) {
-    				addTokenDefinition(derivedTokenName, getStandardTokenExpression(), null, null);
-    			}
     		}
     	}
-    	return derivedTokens.get(derivedTokenName);
-    }
-
-	private String getStandardTokenExpression() {
-		if (!STD_TOKEN_NAME.equals(standardTextTokenName)) {
-			Collection<TokenDefinition> tokens = conreteSyntax.getTokens();
-			for (TokenDefinition token : tokens) {
-				String tokenName = token.getName();
-				if (tokenName.equals(standardTextTokenName)) {
-					if (token instanceof NewDefinedToken) {
-						return new TokenDefinitionAdapter((NewDefinedToken) token).getExpression();
-					}
-				}
-			}
-		}
-		return STD_TOKEN_DEF;
+    	return derivedTokenName;
 	}
-
+    
+    
 	private boolean tokenExists(String derivedTokenName) {
 		boolean exists = derivedTokens.containsKey(derivedTokenName);
 		return exists;
 	}
 
-	private void addTokenDefinition(String tokenName, String expression, String prefix, String suffix) {
+	private InternalTokenDefinition addTokenDefinition(String tokenName, String expression, String prefix, String suffix) {
 		InternalTokenDefinition newDefintion =  new InternalTokenDefinitionImpl(tokenName, expression, prefix, suffix, null, true, false);
 		derivedTokens.put(tokenName, newDefintion);
+		return newDefintion;
 	}
     
     private String deriveCodeSequence(String original){
@@ -1095,34 +1058,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	}
     	return result;
     }
-    
-    
-    private String escapeLiteralChar(char candidate){
-    	String result = "";
-    	switch (candidate){
-    		case '\'': case '\\': 
-    			result += "\\";
-    		default:
-    			result += candidate;
-    	}
-    	return result;
-    }
-    
-    /**
-     * Used to escape prefix/suffix strings (surrounded by "'" in ANTLR).
-     * 
-     */
-    private String escapeLiteralChars(String candidate){
-    	StringBuffer escaped = new StringBuffer();
-    	char[] chars = candidate.toCharArray();
-    	for(int i=0;i<chars.length;i++){
-    		escaped.append(escapeLiteralChar(chars[i]));
-    	}
-    		
-    	return escaped.toString();
-    }
-    
-  
 	
 	private void printTokenDefinitions(StringComposite sc){
 		Set<String> processedTokenNames = new HashSet<String>();
@@ -1190,14 +1125,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(":");
 		
 		if(def.getPrefix()!=null && def.getPrefix().length()>0){
-			String regex = "('" + escapeLiteralChars(def.getPrefix()) + "')";
+			String regex = "('" + tokenDerivator.escapeLiteralChars(def.getPrefix()) + "')";
 			sc.add(regex);
 		}
 		
 		sc.add(def.getExpression());
 		
 		if(def.getSuffix()!=null && def.getPrefix().length()>0){
-			String regex = "('" + escapeLiteralChars(def.getSuffix()) + "')";
+			String regex = "('" + tokenDerivator.escapeLiteralChars(def.getSuffix()) + "')";
 			sc.add(regex);
 		}
 		

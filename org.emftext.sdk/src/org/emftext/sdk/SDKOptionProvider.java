@@ -31,6 +31,7 @@ import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.analysis.ConcreteSyntaxAnalyser;
 import org.emftext.sdk.analysis.LeftRecursionDetector;
+import org.emftext.sdk.codegen.generators.AntlrTokenDerivator;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
 import org.emftext.sdk.codegen.regex.ANTLRexpParser;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
@@ -42,6 +43,7 @@ import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -629,37 +631,58 @@ public class SDKOptionProvider implements IOptionProvider {
 	}
 	
 	private void checkANTLRRegex(ITextResource resource) {
+		if (resource.getContents().size() == 0) return;
+		EObject root = resource.getContents().get(0);
+		if (!(root instanceof ConcreteSyntax)) {
+			return;
+		}
+		AntlrTokenDerivator tokenDerivator = new AntlrTokenDerivator((ConcreteSyntax) root);
 		for (Iterator<EObject> i = resource.getAllContents(); i.hasNext();) {
 			EObject next = i.next();
+			if (next instanceof DerivedPlaceholder) {
+				DerivedPlaceholder placeholder = (DerivedPlaceholder) next;
+				String prefix = placeholder.getPrefix();
+				String suffix = placeholder.getSuffix();
+				// normalize prefix and suffix
+				if (prefix.length() == 0) prefix = null;
+				if (suffix.length() == 0) suffix = null;
+				String derivedExpression = tokenDerivator.deriveTokenDefinition(prefix, suffix);
+		
+				checkRegexp(resource, derivedExpression, placeholder);
+			}
+    		
 			if (next instanceof NewDefinedToken) {
 				NewDefinedToken def = (NewDefinedToken) next;
+				checkRegexp(resource, def.getRegex(), def);
+			}
+		}
+	}
 
-				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
-				w.print(def.getRegex());
-				w.flush();
-				w.close();
+	private void checkRegexp(ITextResource resource, String regExp, EObject container) {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
+		w.print(regExp);
+		w.flush();
+		w.close();
 
-				try {
-					ANTLRexpLexer lexer = new ANTLRexpLexer(
-							new ANTLRInputStream(new ByteArrayInputStream(out
-									.toByteArray())));
-					ANTLRexpParser parser = new ANTLRexpParser(
-							new CommonTokenStream(lexer));
-					parser.root();
-					if (!parser.recExceptions.isEmpty()) {
-						for (RecognitionException e : parser.recExceptions) {
-							String message = lexer.getErrorMessage(e, lexer.getTokenNames());
-							if (message == null || message.equals(""))
-								message = parser.getErrorMessage(e, parser.getTokenNames());
-							resource.addError(message, def);
-						}
-					}
-
-				} catch (Exception e) {
-					resource.addError(e.getMessage(), def);
+		try {
+			ANTLRexpLexer lexer = new ANTLRexpLexer(
+					new ANTLRInputStream(new ByteArrayInputStream(out
+							.toByteArray())));
+			ANTLRexpParser parser = new ANTLRexpParser(
+					new CommonTokenStream(lexer));
+			parser.root();
+			if (!parser.recExceptions.isEmpty()) {
+				for (RecognitionException e : parser.recExceptions) {
+					String message = lexer.getErrorMessage(e, lexer.getTokenNames());
+					if (message == null || message.equals(""))
+						message = parser.getErrorMessage(e, parser.getTokenNames());
+					resource.addError(message, container);
 				}
 			}
+
+		} catch (Exception e) {
+			resource.addError(e.getMessage(), container);
 		}
 	}
 }
