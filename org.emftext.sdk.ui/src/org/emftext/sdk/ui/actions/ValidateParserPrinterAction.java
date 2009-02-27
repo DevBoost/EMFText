@@ -20,7 +20,10 @@ import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
- * TODO skarol: add comment
+ * A simple Action class for loading model instances from EMFText resources
+ * and print them back to an adjacent text file. This is essentially useful 
+ * for EMFText SDK users to test, if generated printers do formatting the text
+ * as it was intended.  
  */
 public class ValidateParserPrinterAction implements IObjectActionDelegate {
 
