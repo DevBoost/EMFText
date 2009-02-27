@@ -43,7 +43,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	}
 
 	private void assertProblems(String filename, int expectedWarnings, int expectedErrors) {
-		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "opposite_references" + File.separator;
+		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_analysis" + File.separator;
 		File file = new File(path + filename);
 		
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
