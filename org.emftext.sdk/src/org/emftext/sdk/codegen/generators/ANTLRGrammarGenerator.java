@@ -7,9 +7,6 @@ import static org.emftext.runtime.IStandardTokenDefinitions.STD_TOKEN_NAME;
 import static org.emftext.runtime.IStandardTokenDefinitions.WS_TOKEN_DEF;
 import static org.emftext.runtime.IStandardTokenDefinitions.WS_TOKEN_NAME;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,9 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -52,8 +47,6 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
-import org.emftext.sdk.codegen.regex.ANTLRexpParser;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -127,7 +120,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 	
 	/**
-	 * TODO skarol: add comment
+	 * A common implementation for all derived token definitions.
 	 */
 	private static class InternalTokenDefinitionImpl implements InternalTokenDefinition{
 		private String name;
@@ -183,7 +176,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 	
 	/**
-	 * TODO skarol: add comment
+	 * Adapts explicitly defined tokens from the CS specification to the internal 
+	 * interfaces.
 	 */
 	private static class TokenDefinitionAdapter implements InternalTokenDefinition {
 		private NewDefinedToken adaptee;
