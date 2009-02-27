@@ -17,18 +17,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * This is a test for one of the syntax analysis steps.
- * It check whether opposite references are correctly 
- * tagged as unused, if they are not defined at all in 
- * the concrete syntax. 
+ * This is a test for the syntax analysis steps.
  */
-public class OppositeReferencesTest extends TestCase {
+public class SyntaxAnalysisTest extends TestCase {
 
 	@Before
 	public void setUp() {
 		registerResourceFactories();
 	}
 
+	/**
+	 * This test checks whether opposite references are correctly 
+	 * tagged as unused, if they are not defined at all in 
+	 * the concrete syntax.
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	@Test
 	public void testOptions() throws FileNotFoundException, IOException {
 		assertProblems("opposite1.cs", 2, 0);
