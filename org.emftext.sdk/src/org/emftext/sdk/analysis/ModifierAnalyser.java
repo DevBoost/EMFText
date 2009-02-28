@@ -7,6 +7,10 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * An analyser that checks whether the modifier ABSTRACT is used
+ * correctly.
+ */
 public class ModifierAnalyser extends AbstractAnalyser {
 
 	@Override

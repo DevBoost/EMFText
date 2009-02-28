@@ -13,6 +13,11 @@ import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 
+/**
+ * An analyser that looks optional keywords (static strings) in 
+ * syntax rules. Such keywords are not reflected in the models 
+ * after parsing and are thus lost after printing.
+ */
 public class OptionalKeywordAnalyser extends AbstractAnalyser {
 
 	private static final String OPTIONAL_KEYWORD_WARNING = 

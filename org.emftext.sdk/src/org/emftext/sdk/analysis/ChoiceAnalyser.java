@@ -7,6 +7,12 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * An analyser that looks for explicit choices in the syntax
+ * definition. Such choices are not reflected in the models
+ * after parsing and can thus cause a result different from
+ * the original text after printing.
+ */
 public class ChoiceAnalyser extends AbstractAnalyser {
 
 	private static final String EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS = 

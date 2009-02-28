@@ -17,6 +17,11 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.finders.GenClassFinder;
 
+/**
+ * An analyser that checks that whether there are concrete sub classes for
+ * types of all used references. If a reference has an abstract type, which
+ * in turn has no concrete sub classes, there is no way to parse correctly.
+ */
 public class ReferencesToAbstractClassesAnalyser extends AbstractAnalyser {
 
 	private final static GenClassFinder genClassFinder = new GenClassFinder();

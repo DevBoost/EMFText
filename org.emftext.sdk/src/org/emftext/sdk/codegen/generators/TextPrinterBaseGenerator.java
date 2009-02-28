@@ -26,7 +26,7 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
-import org.emftext.sdk.analysis.ConcreteSyntaxAnalyser;
+import org.emftext.sdk.analysis.CollectInFeatureHelper;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
@@ -334,7 +334,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("// print collected hidden tokens");
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
-			if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule.getSyntax(), feature)) {
+			if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), feature)) {
 				sc.add("{");
 				sc.add(EStructuralFeature.class.getName() + " feature = element.eClass()." + GeneratorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 				sc.add(OBJECT_CLASS_NAME + " value = element.eGet(feature);");

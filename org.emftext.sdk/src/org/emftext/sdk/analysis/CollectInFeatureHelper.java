@@ -1,30 +1,16 @@
 package org.emftext.sdk.analysis;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
- * An analyzer that checks syntaxes for some properties required
- * by the code generation of post-processors.
+ * A class that can be used to analyse collect-in features. This class
+ * is required by the code generation of post-processors.
  */
-public class ConcreteSyntaxAnalyser {
+public class CollectInFeatureHelper {
 	
-	public List<TokenDefinition> getTokenDefinitionsWithInvalidNames(ConcreteSyntax syntax) {
-		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
-		for (TokenDefinition definition : syntax.getTokens()) {
-			char firstLetter = definition.getName().charAt(0);
-			if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
-				result.add(definition);
-			}
-		}
-		return result;
-	}
-
 	/**
 	 * Checks whether the given feature is defined as a collect-in
 	 * feature. Note that the feature may also be defined as collect-in
@@ -32,9 +18,10 @@ public class ConcreteSyntaxAnalyser {
 	 * 
 	 * @see DefinedPlaceholderTokenReferenceResolver
 	 * 
-	 * @param rule
-	 * @param syntax
-	 * @return
+	 * @param feature the feature to check
+	 * @param syntax the syntax containing the reference to the feature
+	 * 
+	 * @return true if the feature is a collect-in feature
 	 */
 	public boolean isCollectInFeature(ConcreteSyntax syntax, EStructuralFeature feature) {
 		for (Import importElement : syntax.getImports()) {

@@ -9,6 +9,10 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 
+/**
+ * An analyser that checks that there is not more than one rule
+ * per meta class.
+ */
 public class DuplicateRuleAnalyser extends AbstractAnalyser {
 
 	@Override

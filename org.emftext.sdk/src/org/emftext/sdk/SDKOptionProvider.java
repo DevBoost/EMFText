@@ -21,11 +21,11 @@ import org.emftext.sdk.analysis.TokenNameAnalyser;
 import org.emftext.sdk.analysis.UnusedFeatureAnalyser;
 
 /**
- * The SDKOptionProvider adds a post-processor to the default 
- * load options for CS files. This post-processor checks
- * whether CS files contain potential problems. The current
- * implementation checks for a number of cases which might 
- * cause problems when parsed resources are printed.
+ * The SDKOptionProvider adds post-processors to the default 
+ * load options for CS files. This post-processors check
+ * whether CS files contain potential problems. For example,
+ * checks for cases which might cause problems when parsed 
+ * resources are printed are detected.
  */
 public class SDKOptionProvider implements IOptionProvider {
 

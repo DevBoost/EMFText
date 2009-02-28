@@ -19,6 +19,12 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 
+/**
+ * An analyser that looks for features that are multiply used in 
+ * syntax rules. The mapping of elements to one occurrence of the other
+ * is not reflected in the models after parsing and can thus cause a 
+ * result different from the original text after printing.
+ */
 public class DuplicateReferenceAnalyser extends AbstractAnalyser {
 
 	private static final String MULTIPLE_FEATURE_WARNING = 

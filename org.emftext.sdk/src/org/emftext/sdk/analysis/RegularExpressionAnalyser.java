@@ -18,6 +18,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
 
+/**
+ * An analyser that checks all regular expressions used in a syntax
+ * definition.
+ */
 public class RegularExpressionAnalyser extends AbstractAnalyser {
 
 	@Override

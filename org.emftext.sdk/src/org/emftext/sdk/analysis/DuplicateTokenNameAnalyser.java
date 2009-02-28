@@ -8,6 +8,9 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
+/**
+ * An analyser that checks that each token name is used at most once.
+ */
 public class DuplicateTokenNameAnalyser extends AbstractAnalyser {
 
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

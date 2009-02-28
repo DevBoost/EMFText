@@ -20,6 +20,10 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 
+/**
+ * A analyser that looks for features defined in the meta model that do
+ * no have concrete syntax.
+ */
 public class UnusedFeatureAnalyser extends AbstractAnalyser {
 
 	@Override
@@ -42,7 +46,7 @@ public class UnusedFeatureAnalyser extends AbstractAnalyser {
 				if (ecoreFeature.isDerived()) {
 					continue;
 				}
-				if (new ConcreteSyntaxAnalyser().isCollectInFeature(rule.getSyntax(), ecoreFeature)) {
+				if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), ecoreFeature)) {
 					continue;
 				}
 				Choice choice = rule.getDefinition();
