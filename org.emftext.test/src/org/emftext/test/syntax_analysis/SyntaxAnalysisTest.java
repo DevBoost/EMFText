@@ -23,7 +23,7 @@ public class SyntaxAnalysisTest extends TestCase {
 
 	private static final String[] NONE = new String[0];
 	private static final String WRONG_CONTAINMENT_TYPE = "Feature.*has wrong containment type.*";
-	private static final String NO_SUB_CLASSES_FOUND = "The type of non-containment reference.*is abstract and has no concrete sub classes.";
+	private static final String NO_SUB_CLASSES_FOUND = "The type of non-containment reference.*is abstract and has no concrete sub classes with defined syntax.";
 	private static final String FEATURE_HAS_NO_SYNTAX = "Feature.*has no syntax.";
 	private static final String MULTIPLICITY_DOES_NOT_MATCH = "Multiplicity of feature.*does not match cardinality.";
 

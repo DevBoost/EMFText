@@ -12,6 +12,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -56,16 +57,16 @@ public class GeneratorUtil {
 	/**
 	 * Collects all the subclasses for which concrete syntax is defined.
 	 */
-	public static Collection<GenClass> getSubClassesWithCS(GenClass genClass,
-			Collection<Rule> source) {
+	public static Collection<GenClass> getSubClassesWithSyntax(GenClass genClass,
+			ConcreteSyntax syntax) {
+		Collection<Rule> rules = syntax.getAllRules();
 		Collection<GenClass> subClasses = new LinkedList<GenClass>();
 
-		for (Rule rule : source) {
+		for (Rule rule : rules) {
 			GenClass subClassCand = rule.getMetaclass();
-			// There seem to be multiple instances of metaclasses when accessed
-			// through the genmodel. Therefore, we compare by name
-			for (EClass superClass : subClassCand.getEcoreClass()
-					.getEAllSuperTypes()) {
+			// There seem to be multiple instances of meta classes when accessed
+			// through the generator model. Therefore, we compare by name.
+			for (EClass superClass : subClassCand.getEcoreClass().getEAllSuperTypes()) {
 				EClass ecoreClass = genClass.getEcoreClass();
 				if (namesAndPackageURIsAreEqual(superClass, ecoreClass)) {
 					subClasses.add(subClassCand);

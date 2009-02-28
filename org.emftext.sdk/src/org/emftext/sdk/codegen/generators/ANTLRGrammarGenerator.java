@@ -488,7 +488,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
                     	printRightRecursion(sc, rule, eClassesWithSyntax, eClassesReferenced);	
                     	
     					
-    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(rule.getMetaclass(),conreteSyntax.getAllRules());
+    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(rule.getMetaclass(), conreteSyntax);
                         if(!subClasses.isEmpty()){
                         	sc.add("|//derived choice rules for sub-classes: ");
                         	printSubClassChoices(sc,subClasses);
@@ -542,7 +542,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         
         printChoice(rule.getDefinition(),rule,sc,0,eClassesReferenced,nonContainmentReferences);
         
-        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(genClass, conreteSyntax.getAllRules());
+        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(genClass, conreteSyntax);
         if(!subClasses.isEmpty()){
         	sc.add("|//derived choice rules for sub-classes: ");
         	sc.addLineBreak();
@@ -813,17 +813,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void printImplicitChoiceRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
 
 		for(GenClass referencedClass : eClassesReferenced.keySet()) {
-			if(!cointainsEqualByName(eClassesWithSyntax,referencedClass)) {
+			if(!containsEqualByName(eClassesWithSyntax,referencedClass)) {
 				//rule not explicitly defined in CS: most likely a choice rule in the AS
-				Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithCS(referencedClass,conreteSyntax.getAllRules());
+				Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(referencedClass, conreteSyntax);
 
-				if (subClasses.isEmpty()) {
-            		// TODO this can be checked early in a post processor
-					String message = "Referenced class '"+referencedClass.getName()+"' has no defined concrete Syntax.";
-					for (Terminal terminal : eClassesReferenced.get(referencedClass)) {
-						addProblem(new GenerationProblem(message,terminal));
-					}
-				} else {
+				if (!subClasses.isEmpty()) {
 					sc.add(getLowerCase(referencedClass.getName()));
 					sc.add(" returns [" + referencedClass.getQualifiedInterfaceName() + " element = null]");
 					sc.add(":");
@@ -832,10 +826,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					sc.add(";");
 					sc.addLineBreak();
 
-					//add import .... shouldnt it already be there?
-					//GenPackage p = referencedClass.getGenPackage();
-					//s.insert(importIdx, "import " + ( p.getBasePackage()==null?"": p.getBasePackage() + "." )+ p.getEcorePackage().getName() + "." + referencedClass.getName() + ";\n");
-					//referenced class now has syntax
 					eClassesWithSyntax.add(referencedClass);
 				}
 			}
@@ -856,7 +846,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     
  
       
-    private boolean cointainsEqualByName(EList<GenClass> list, GenClass o){
+    private boolean containsEqualByName(EList<GenClass> list, GenClass o){
     	for(GenClass entry:list){
      		EClass entryClass = entry.getEcoreClass();
      		EClass oClass = o.getEcoreClass();
