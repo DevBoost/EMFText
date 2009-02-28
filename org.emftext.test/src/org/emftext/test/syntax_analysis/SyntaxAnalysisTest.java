@@ -21,6 +21,12 @@ import org.junit.Test;
  */
 public class SyntaxAnalysisTest extends TestCase {
 
+	private static final String[] NONE = new String[0];
+	private static final String WRONG_CONTAINMENT_TYPE = "Feature.*has wrong containment type.*";
+	private static final String NO_SUB_CLASSES_FOUND = "The type of non-containment reference.*is abstract and has no concrete sub classes.";
+	private static final String FEATURE_HAS_NO_SYNTAX = "Feature.*has no syntax.";
+	private static final String MULTIPLICITY_DOES_NOT_MATCH = "Multiplicity of feature.*does not match cardinality.";
+
 	@Before
 	public void setUp() {
 		registerResourceFactories();
@@ -36,18 +42,19 @@ public class SyntaxAnalysisTest extends TestCase {
 	 */
 	@Test
 	public void testUnusedOppositeReferences() throws FileNotFoundException, IOException {
-		final String featureHasNoSyntax = "Feature.*has no syntax.";
-		assertProblems("opposite1.cs", new String[] {featureHasNoSyntax, featureHasNoSyntax}, new String[0]);
-		assertProblems("opposite2.cs", new String[0], new String[0]);
-		assertProblems("opposite3.cs", new String[0], new String[0]);
-		assertProblems("opposite4.cs", new String[0], new String[0]);
+		assertProblems("opposite1.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX}, NONE);
+		assertProblems("opposite2.cs", NONE, NONE);
+		assertProblems("opposite3.cs", NONE, NONE);
+		assertProblems("opposite4.cs", NONE, NONE);
 	}
 
 	@Test
 	public void testReferences() throws FileNotFoundException, IOException {
-		assertProblems("reference1.cs", new String[0], new String[] {"The type of non-containment reference.*is abstract and has no concrete sub classes."});
-		assertProblems("reference2.cs", new String[] {"Feature.*has no syntax."}, new String[0]);
-		assertProblems("reference3.cs", new String[0], new String[] {"Feature.*has wrong containment type.*"});
+		assertProblems("reference1.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND});
+		assertProblems("reference2.cs", new String[] {FEATURE_HAS_NO_SYNTAX}, NONE);
+		assertProblems("reference3.cs", NONE, new String[] {WRONG_CONTAINMENT_TYPE});
+
+		assertProblems("cardinality.cs", NONE, new String[] {MULTIPLICITY_DOES_NOT_MATCH});
 	}
 
 	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {

@@ -11,6 +11,7 @@ import org.emftext.sdk.analysis.ChoiceAnalyser;
 import org.emftext.sdk.analysis.DuplicateReferenceAnalyser;
 import org.emftext.sdk.analysis.DuplicateRuleAnalyser;
 import org.emftext.sdk.analysis.DuplicateTokenNameAnalyser;
+import org.emftext.sdk.analysis.FeatureCardinalityAnalyser;
 import org.emftext.sdk.analysis.LeftRecursionAnalyser;
 import org.emftext.sdk.analysis.MissingRulesAnalyser;
 import org.emftext.sdk.analysis.ModifierAnalyser;
@@ -31,15 +32,9 @@ public class SDKOptionProvider implements IOptionProvider {
 
 	public Map<?, ?> getOptions() {
 		Map<String, Object> options = new HashMap<String, Object>();
-		// TODO add checker for constraint:
-		// "Multiplicity of Structural Feature does not match Cardinality", 
-		// if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) 
-		//   then true 
-		//   else (self.feature.ecoreFeature.upperBound = -1)
-		// endif
 
 		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
-		
+		postProcessors.add(new FeatureCardinalityAnalyser());
 		postProcessors.add(new OptionalKeywordAnalyser());
 		postProcessors.add(new DuplicateReferenceAnalyser());
 		postProcessors.add(new ChoiceAnalyser());

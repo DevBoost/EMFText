@@ -1200,12 +1200,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	protected void createOCLAnnotations() {
 		String source = "OCL";		
 		addAnnotation
-		  (terminalEClass, 
-		   source, 
-		   new String[] {
-			 "Multiplicity of Structurural Feature does not match Cardinality", "if ( self.cardinality = null or not self.cardinality.oclIsTypeOf(STAR) ) \r\n\tthen true \r\n\telse (self.feature.ecoreFeature.upperBound = -1) \r\nendif"
-		   });		
-		addAnnotation
 		  (optionEClass, 
 		   source, 
 		   new String[] {
