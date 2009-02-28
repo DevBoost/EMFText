@@ -47,7 +47,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	public void testReferences() throws FileNotFoundException, IOException {
 		assertProblems("reference1.cs", new String[0], new String[] {"The type of non-containment reference.*is abstract and has no concrete sub classes."});
 		assertProblems("reference2.cs", new String[] {"Feature.*has no syntax."}, new String[0]);
-		assertProblems("reference3.cs", new String[] {"Feature.*has wrong type."}, new String[0]);
+		assertProblems("reference3.cs", new String[0], new String[] {"Feature.*has wrong containment type.*"});
 	}
 
 	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {
@@ -64,7 +64,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private void assertDiagnostics(String filename, String[] expectedDiagnostics,
 			EList<Diagnostic> diagnostics, String type) {
 		printDiagnostics(diagnostics);
-		assertEquals(filename + " should contain " + expectedDiagnostics + " " + type + ".", expectedDiagnostics.length, diagnostics.size());
+		assertEquals(filename + " should contain " + expectedDiagnostics.length + " " + type + ".", expectedDiagnostics.length, diagnostics.size());
 		for (int i = 0; i < expectedDiagnostics.length; i++) {
 			String actualDiagnostic = diagnostics.get(i).getMessage();
 			assertNotNull(actualDiagnostic);

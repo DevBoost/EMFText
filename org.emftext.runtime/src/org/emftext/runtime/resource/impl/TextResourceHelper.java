@@ -87,4 +87,13 @@ public class TextResourceHelper {
 		}
 		return unresolveProxies;
 	}
+
+	public boolean resolveAll(Resource resource) {
+		EcoreUtil.resolveAll(resource);
+		if (findUnresolvedProxies(resource).size() > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

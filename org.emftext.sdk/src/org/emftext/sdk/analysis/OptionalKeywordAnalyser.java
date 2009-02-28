@@ -1,0 +1,57 @@
+package org.emftext.sdk.analysis;
+
+import java.util.Iterator;
+
+import org.eclipse.emf.ecore.EObject;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.codegen.util.GeneratorUtil;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.Sequence;
+
+public class OptionalKeywordAnalyser extends AbstractAnalyser {
+
+	private static final String OPTIONAL_KEYWORD_WARNING = 
+		"The keyword might be used stand alone and will not be reprinted in such case: ";
+
+	@Override
+	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
+		for(Iterator<EObject> i = syntax.eAllContents(); i.hasNext(); ) {
+			EObject next = i.next();
+			if (next instanceof CompoundDefinition) {
+				CompoundDefinition compoundDefinition = (CompoundDefinition) next;
+				if (compoundDefinition.getCardinality() instanceof QUESTIONMARK ||
+						compoundDefinition.getCardinality() instanceof STAR) {
+					for (Sequence sequence : compoundDefinition.getDefinitions().getOptions()) {
+						boolean containsKeyword = false;
+						boolean restOptional = true;
+						
+						for (Definition definition : sequence.getParts()) {
+							
+							if (definition instanceof CsString) {
+								containsKeyword = true;
+							}
+							else if (GeneratorUtil.hasNoOptionalPart(definition)) {
+								restOptional = false;
+							}
+						}
+						if(containsKeyword && restOptional) {
+							for (Definition definition : sequence.getParts()) {
+								if (definition instanceof CsString) {
+									CsString csString = (CsString) definition;
+									resource.addWarning(
+											OPTIONAL_KEYWORD_WARNING + csString.getValue(),
+											definition);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

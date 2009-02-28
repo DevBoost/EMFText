@@ -25,12 +25,10 @@ public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveR
 	}
 
 	public String getErrorMessage() {
-		//assert mappings == null || mappings.size() == 0;
 		return errorMessage;
 	}
 
 	public Collection<IReferenceMapping<ReferenceType>> getMappings() {
-		assert errorMessage == null;
 		return mappings;
 	}
 

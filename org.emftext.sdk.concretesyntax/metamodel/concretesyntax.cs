@@ -29,13 +29,13 @@ RULES {
     !0 !0 "RULES" "{" ( !2 rules+) !0"}"
     ;
 
-  Import         ::=  prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
+  Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
  
   //Note: There are additional OCL expressions in the model which check whether an option is allowed
   
-  Option 		::= name[] "=" value['"','"'];
+  Option 		 ::= name[] "=" value['"','"'];
  
-  Rule           ::= !0 ( metaclass[] ) "::=" definition ";" !0;
+  Rule           ::= !0 metaclass[] "::=" definition ";" !0;
  
   Sequence       ::= parts+;
  
@@ -44,23 +44,21 @@ RULES {
   CsString       ::= #1 value['"','"'] #1 ;
   
   DefinedPlaceholder ::= feature[] "["  token[] "]" cardinality?;
-  
-  DerivedPlaceholder ::=  feature[] "[" ( prefix['\'','\''] "," suffix['\'','\''] )? "]" #1 cardinality?;
-  
-  Containment ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
+  DerivedPlaceholder ::= feature[] "[" ( prefix['\'','\''] "," suffix['\'','\''] )? "]" #1 cardinality?;
+  Containment        ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
   
   CompoundDefinition ::= "(" definitions ")" cardinality?;
 
-  PLUS ::= "+";
-  STAR ::= "*";   
-  QUESTIONMARK ::= "?";
+  WhiteSpaces  ::= "#" amount[NUMBER] #1;
+  LineBreak    ::= "!" tab[NUMBER] #1;
   
-  WhiteSpaces    ::= "#" amount[NUMBER] #1;
-  LineBreak      ::= "!" tab[NUMBER] #1;
-  
-  NormalToken ::= "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
-  DecoratedToken ::= "DEFINE" #1 name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" ) ("COLLECT" "IN" attributeName[])?;
+  NormalToken     ::= "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
+  DecoratedToken  ::= "DEFINE" #1 name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" ) ("COLLECT" "IN" attributeName[])?;
   PreDefinedToken ::= "PREDEFINED" #1 name[] ("COLLECT" "IN" attributeName[])?;
 
+  PLUS         ::= "+";
+  STAR         ::= "*";   
+  QUESTIONMARK ::= "?";
+  
   Abstract ::= "ABSTRACT";
 }

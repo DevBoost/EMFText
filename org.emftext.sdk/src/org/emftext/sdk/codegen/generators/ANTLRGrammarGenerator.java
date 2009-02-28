@@ -717,35 +717,28 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         		targetTypeName = "String";
         		expressionToBeSet = proxyIdent;
    
-        		//a subtype that can be instantiated as a proxy
+        		//a sub type that can be instantiated as a proxy
             	GenClass instanceType = genFeature.getTypeGenClass();
             	GenClass proxyType = null;
-            	String genPackagePrefix = null;
             	
-            	if(instanceType.isAbstract() || instanceType.isInterface()) {
+            	if (instanceType.isAbstract() || instanceType.isInterface()) {
             		for(GenClass instanceCand : allGenClasses) {
             			Collection<String> supertypes = genClassNames2superClassNames.get(instanceCand.getQualifiedInterfaceName());		
             			if (!instanceCand.isAbstract() && 
             				!instanceCand.isInterface() &&
             				supertypes.contains(instanceType.getQualifiedInterfaceName())) {
-        					genPackagePrefix = instanceCand.getGenPackage().getPrefix();
         	            	proxyType = instanceCand;
         	            	break;
-        				}            			
+        				}
             		}
             	} else {
             		proxyType = instanceType;
-            		genPackagePrefix = instanceType.getGenPackage().getPrefix();
-            	}
-            	if (genPackagePrefix == null) {
-            		// TODO this can be checked early in a post processor
-            		addProblem(new GenerationProblem("The type of non-containment reference '" + eFeature.getName() + "' is abstract and has no concrete sub classes.", eFeature, GenerationProblem.Severity.ERROR));
             	}
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
             	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
-	           	//remember where proxies have to be resolved
+	           	// remember that we must resolve proxy objects for this feature
             	proxyReferences.add(genFeature);
         	}
         	else{
@@ -830,9 +823,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					for (Terminal terminal : eClassesReferenced.get(referencedClass)) {
 						addProblem(new GenerationProblem(message,terminal));
 					}
-				}
-				else {
-
+				} else {
 					sc.add(getLowerCase(referencedClass.getName()));
 					sc.add(" returns [" + referencedClass.getQualifiedInterfaceName() + " element = null]");
 					sc.add(":");
