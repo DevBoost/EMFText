@@ -18,12 +18,44 @@ import org.emftext.sdk.finders.IGenPackageFinderResult;
 
 /**
  * The MetamodelManager uses finders to search for generator packages and
- * concrete syntaxes.
+ * concrete syntaxes. The found package are stored in a cache. Attention:
+ * This can cause problems, if multiple generator packages with the same
+ * name space URI exist, because only the first one that is found is stored
+ * in the cache and used subsequently.
  */
-public class MetamodelManager {
+public class MetamodelManager implements IGenPackageFinder {
 	
 	private List<IGenPackageFinder> genPackageFinders = new ArrayList<IGenPackageFinder>();
 	private List<IConcreteSyntaxFinder> concreteSyntaxFinders = new ArrayList<IConcreteSyntaxFinder>();
+	
+	private MetamodelCache cache = new MetamodelCache();
+	
+	/**
+	 * The MetamodelCache maps namespace URIs and location hints to generator packages.
+	 * The key for this map is a combination of name space URI and location hint to make
+	 * sure that duplicate generator package (i.e., package with the same name space URI)
+	 * are correctly looked up.
+	 */
+	private class MetamodelCache {
+		
+		private Map<String, IGenPackageFinderResult> internalCache = new HashMap<String, IGenPackageFinderResult>();
+		
+		public boolean isCached(String nsURI) {
+			IGenPackageFinderResult result = internalCache.get(nsURI);
+			if (result != null) {
+				return !result.hasChanged();
+			}
+			return false;
+		}
+		
+		public IGenPackageFinderResult lookUp(String nsURI) {
+			return internalCache.get(nsURI);
+		}
+		
+		public void store(String nsURI, IGenPackageFinderResult foundPackage) {
+			internalCache.put(nsURI, foundPackage);
+		}
+	}
 	
 	public MetamodelManager() {
 		super();
@@ -43,17 +75,25 @@ public class MetamodelManager {
 		genPackageFinders.add(finder);
 	}
 
-	public GenPackage findGenPackage(GenPackageDependentElement container, String nsURI, String locationHint, ITextResource resource) {
+	public IGenPackageFinderResult findGenPackage(String nsURI,
+			String locationHint, GenPackageDependentElement container,
+			ITextResource resource) {
+
 		if (nsURI == null) {
 			return null;
+		}
+		
+		if (cache.isCached(nsURI)) {
+			return cache.lookUp(nsURI);
 		}
 		
 		for (IGenPackageFinder finder : genPackageFinders) {
 			IGenPackageFinderResult finderResult = finder.findGenPackage(nsURI, locationHint, container, resource);
 			if (finderResult != null) {
+				cache.store(nsURI, finderResult);
 				GenPackage foundPackage = finderResult.getResult();
 				if (foundPackage != null) {
-					return foundPackage;
+					return finderResult;
 				}
 			}
 		}
@@ -106,5 +146,10 @@ public class MetamodelManager {
 			result.putAll(getNestedPackages(nextNested));
 		}
 		return result;
+	}
+
+	public void clearFinders() {
+		genPackageFinders.clear();
+		concreteSyntaxFinders.clear();
 	}
 }

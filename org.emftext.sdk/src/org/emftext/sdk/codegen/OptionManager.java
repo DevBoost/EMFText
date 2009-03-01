@@ -110,6 +110,9 @@ public class OptionManager {
 		if (optionName.equals(CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION)) {
 			return false;
 		}
+		if (optionName.equals(RELOAD_GENERATOR_MODEL)) {
+			return false;
+		}
 		return false;
 	}
 

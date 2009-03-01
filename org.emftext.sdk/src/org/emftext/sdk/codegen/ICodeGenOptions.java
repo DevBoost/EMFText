@@ -129,4 +129,12 @@ public interface ICodeGenOptions {
 	 * rules. The default value for this option is 0.
 	 */
 	public static final String CS_OPTION_TOKENSPACE = "tokenspace";
+
+	/**
+	 * If this option is set to true, EMFText reloads the generator model
+	 * before loading it. This is particular useful, when the meta model
+	 * (i.e., the Ecore file) is changing a lot during language development.
+	 * The default value of this option is <code>false</code>. 
+	 */
+	public static final String RELOAD_GENERATOR_MODEL = "reloadGeneratorModel";
 }

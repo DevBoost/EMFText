@@ -16,6 +16,7 @@ import org.emftext.sdk.finders.GenPackageByNameFinder;
 import org.emftext.sdk.finders.GenPackageInRegistryFinder;
 import org.emftext.sdk.finders.IConcreteSyntaxFinder;
 import org.emftext.sdk.finders.IGenPackageFinder;
+import org.emftext.sdk.finders.IGenPackageFinderResult;
 
 /**
  * A helper class that can be used search for generator packages, 
@@ -23,29 +24,43 @@ import org.emftext.sdk.finders.IGenPackageFinder;
  */
 public class MetamodelHelper {
 	
+	private static final ConcreteSyntaxInRegistryFinder CONCRETE_SYNTAX_IN_REGISTRY_FINDER = new ConcreteSyntaxInRegistryFinder();
+	private static final ConcreteSyntaxByHintFinder CONCRETE_SYNTAX_BY_HINT_FINDER = new ConcreteSyntaxByHintFinder();
+	
+	private static final GenPackageInRegistryFinder GEN_PACKAGE_IN_REGISTRY_FINDER = new GenPackageInRegistryFinder();
+	private static final GenPackageByNameFinder GEN_PACKAGE_BY_NAME_FINDER = new GenPackageByNameFinder();
+	private static final GenPackageByHintFinder GEN_PACKAGE_BY_HINT_FINDER = new GenPackageByHintFinder();
+	
 	public final static String GEN_PACKAGE_FINDER_KEY = "GEN_PACKAGE_FINDER";
 	public final static String CONCRETE_SYNTAX_FINDER_KEY = "CONCRETE_SYNTAX_FINDER";
-	
+
+	private final static MetamodelManager mmManager = new MetamodelManager();
+
 	public GenPackage findGenPackage(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, ITextResource resource) {
-		MetamodelManager mmManager = createMetaModelManager(options);
-		return mmManager.findGenPackage(container, uri, locationHint, resource);
+		configureMetaModelManager(options);
+		final IGenPackageFinderResult result = mmManager.findGenPackage(uri, locationHint, container, resource);
+		if (result != null) {
+			return result.getResult();
+		} else {
+			return null;
+		}
 	}
 
 	public ConcreteSyntax findConcreteSyntax(Map<?, ?> options, String fragment, String locationHint, 
 			Import container, GenPackage genPackage, ITextResource resource) {
-		MetamodelManager mmManager = createMetaModelManager(options);
+		configureMetaModelManager(options);
 		return mmManager.findConcreteSyntax(fragment, locationHint, container, genPackage, resource);
 	}
 
-	private MetamodelManager createMetaModelManager(Map<?, ?> options) {
-		MetamodelManager mmManager = new MetamodelManager();
+	private void configureMetaModelManager(Map<?, ?> options) {
+		mmManager.clearFinders();
 		
-		mmManager.addGenPackageFinder(new GenPackageByHintFinder());
-		mmManager.addGenPackageFinder(new GenPackageByNameFinder());
-		mmManager.addGenPackageFinder(new GenPackageInRegistryFinder());
+		mmManager.addGenPackageFinder(GEN_PACKAGE_BY_HINT_FINDER);
+		mmManager.addGenPackageFinder(GEN_PACKAGE_BY_NAME_FINDER);
+		mmManager.addGenPackageFinder(GEN_PACKAGE_IN_REGISTRY_FINDER);
 		
-		mmManager.addConcreteSyntaxFinder(new ConcreteSyntaxByHintFinder());
-		mmManager.addConcreteSyntaxFinder(new ConcreteSyntaxInRegistryFinder());
+		mmManager.addConcreteSyntaxFinder(CONCRETE_SYNTAX_BY_HINT_FINDER);
+		mmManager.addConcreteSyntaxFinder(CONCRETE_SYNTAX_IN_REGISTRY_FINDER);
 		
 		List<IGenPackageFinder> genPackageFinders = findFinders(options, GEN_PACKAGE_FINDER_KEY, IGenPackageFinder.class);
 		for (IGenPackageFinder finder : genPackageFinders) {
@@ -55,7 +70,6 @@ public class MetamodelHelper {
 		for (IConcreteSyntaxFinder finder : concreteSyntaxFinders) {
 			mmManager.addConcreteSyntaxFinder(finder);
 		}
-		return mmManager;
 	}
 
 	@SuppressWarnings("unchecked")
