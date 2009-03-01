@@ -484,9 +484,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
                 boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {
-            			System.out.println();
                     	printRightRecursion(sc, rule, eClassesWithSyntax, eClassesReferenced);	
-                    	
     					
     					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(rule.getMetaclass(), conreteSyntax);
                         if(!subClasses.isEmpty()){

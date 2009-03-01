@@ -81,7 +81,6 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 	}
 
 	private GenModel reloadGeneratorModel(GenModel genModel) {
-		System.out.println("reloadGeneratorModel()");
 		if (Platform.isRunning()) {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			final URI genModelURI = genModel.eResource().getURI();
