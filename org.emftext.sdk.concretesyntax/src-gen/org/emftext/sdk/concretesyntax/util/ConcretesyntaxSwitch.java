@@ -19,7 +19,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DecoratedToken;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
@@ -241,14 +240,6 @@ public class ConcretesyntaxSwitch<T> {
 				T result = caseNormalToken(normalToken);
 				if (result == null) result = caseNewDefinedToken(normalToken);
 				if (result == null) result = caseTokenDefinition(normalToken);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ConcretesyntaxPackage.DECORATED_TOKEN: {
-				DecoratedToken decoratedToken = (DecoratedToken)theEObject;
-				T result = caseDecoratedToken(decoratedToken);
-				if (result == null) result = caseNewDefinedToken(decoratedToken);
-				if (result == null) result = caseTokenDefinition(decoratedToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -603,21 +594,6 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseNormalToken(NormalToken object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Decorated Token</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Decorated Token</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDecoratedToken(DecoratedToken object) {
 		return null;
 	}
 

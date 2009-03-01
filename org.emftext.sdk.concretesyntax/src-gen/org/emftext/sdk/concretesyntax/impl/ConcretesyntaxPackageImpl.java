@@ -23,7 +23,6 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DecoratedToken;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
@@ -181,13 +180,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass normalTokenEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass decoratedTokenEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -755,33 +747,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDecoratedToken() {
-		return decoratedTokenEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDecoratedToken_Prefix() {
-		return (EAttribute)decoratedTokenEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDecoratedToken_Suffix() {
-		return (EAttribute)decoratedTokenEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getNewDefinedToken() {
 		return newDefinedTokenEClass;
 	}
@@ -1008,10 +973,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		normalTokenEClass = createEClass(NORMAL_TOKEN);
 
-		decoratedTokenEClass = createEClass(DECORATED_TOKEN);
-		createEAttribute(decoratedTokenEClass, DECORATED_TOKEN__PREFIX);
-		createEAttribute(decoratedTokenEClass, DECORATED_TOKEN__SUFFIX);
-
 		newDefinedTokenEClass = createEClass(NEW_DEFINED_TOKEN);
 		createEAttribute(newDefinedTokenEClass, NEW_DEFINED_TOKEN__REGEX);
 
@@ -1080,7 +1041,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		questionmarkEClass.getESuperTypes().add(this.getCardinality());
 		compoundDefinitionEClass.getESuperTypes().add(this.getCardinalityDefinition());
 		normalTokenEClass.getESuperTypes().add(this.getNewDefinedToken());
-		decoratedTokenEClass.getESuperTypes().add(this.getNewDefinedToken());
 		newDefinedTokenEClass.getESuperTypes().add(this.getTokenDefinition());
 		preDefinedTokenEClass.getESuperTypes().add(this.getTokenDefinition());
 		containmentEClass.getESuperTypes().add(this.getTerminal());
@@ -1155,10 +1115,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getTokenDefinition_AttributeName(), theEcorePackage.getEString(), "attributeName", null, 0, 1, TokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(normalTokenEClass, NormalToken.class, "NormalToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(decoratedTokenEClass, DecoratedToken.class, "DecoratedToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDecoratedToken_Prefix(), theEcorePackage.getEString(), "prefix", null, 1, 1, DecoratedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDecoratedToken_Suffix(), theEcorePackage.getEString(), "suffix", null, 1, 1, DecoratedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(newDefinedTokenEClass, NewDefinedToken.class, "NewDefinedToken", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNewDefinedToken_Regex(), theEcorePackage.getEString(), "regex", null, 1, 1, NewDefinedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

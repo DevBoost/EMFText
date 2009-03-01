@@ -48,7 +48,7 @@ import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 import org.emftext.sdk.codegen.generators.adapter.DerivedTokenDefinition;
-import org.emftext.sdk.codegen.generators.adapter.UseDefinedTokenDefinitionAdapter;
+import org.emftext.sdk.codegen.generators.adapter.UserDefinedTokenDefinitionAdapter;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -914,10 +914,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				IInternalTokenDefinition derivedDef = derivedTokens.remove(tokenDefinition.getName());
 				IInternalTokenDefinition defAdapter = null;
 				if(derivedDef==null){
-					defAdapter = new UseDefinedTokenDefinitionAdapter((NewDefinedToken)tokenDefinition);
+					defAdapter = new UserDefinedTokenDefinitionAdapter((NewDefinedToken)tokenDefinition);
 				}		
 				else{
-					defAdapter = new UseDefinedTokenDefinitionAdapter((NewDefinedToken)tokenDefinition,derivedDef.isReferenced());
+					defAdapter = new UserDefinedTokenDefinitionAdapter((NewDefinedToken)tokenDefinition,derivedDef.isReferenced());
 				}
 			
 				printToken(defAdapter,sc);

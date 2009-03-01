@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
-import org.emftext.sdk.codegen.generators.adapter.UseDefinedTokenDefinitionAdapter;
+import org.emftext.sdk.codegen.generators.adapter.UserDefinedTokenDefinitionAdapter;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
@@ -114,7 +114,7 @@ public class AntlrTokenDerivator {
 				String tokenName = token.getName();
 				if (tokenName.equals(standardTextTokenName)) {
 					if (token instanceof NewDefinedToken) {
-						return new UseDefinedTokenDefinitionAdapter((NewDefinedToken) token).getExpression();
+						return new UserDefinedTokenDefinitionAdapter((NewDefinedToken) token).getExpression();
 					}
 				}
 			}

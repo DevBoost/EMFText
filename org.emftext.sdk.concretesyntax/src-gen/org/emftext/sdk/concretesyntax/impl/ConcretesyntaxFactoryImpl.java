@@ -19,7 +19,6 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DecoratedToken;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.Import;
@@ -92,7 +91,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.QUESTIONMARK: return createQUESTIONMARK();
 			case ConcretesyntaxPackage.COMPOUND_DEFINITION: return createCompoundDefinition();
 			case ConcretesyntaxPackage.NORMAL_TOKEN: return createNormalToken();
-			case ConcretesyntaxPackage.DECORATED_TOKEN: return createDecoratedToken();
 			case ConcretesyntaxPackage.PRE_DEFINED_TOKEN: return createPreDefinedToken();
 			case ConcretesyntaxPackage.CONTAINMENT: return createContainment();
 			case ConcretesyntaxPackage.DEFINED_PLACEHOLDER: return createDefinedPlaceholder();
@@ -232,16 +230,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public NormalToken createNormalToken() {
 		NormalTokenImpl normalToken = new NormalTokenImpl();
 		return normalToken;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DecoratedToken createDecoratedToken() {
-		DecoratedTokenImpl decoratedToken = new DecoratedTokenImpl();
-		return decoratedToken;
 	}
 
 	/**

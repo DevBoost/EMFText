@@ -143,15 +143,6 @@ public interface ConcretesyntaxFactory extends EFactory {
 	NormalToken createNormalToken();
 
 	/**
-	 * Returns a new object of class '<em>Decorated Token</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Decorated Token</em>'.
-	 * @generated
-	 */
-	DecoratedToken createDecoratedToken();
-
-	/**
 	 * Returns a new object of class '<em>Pre Defined Token</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

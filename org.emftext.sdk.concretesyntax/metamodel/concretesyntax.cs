@@ -53,7 +53,6 @@ RULES {
   LineBreak    ::= "!" tab[NUMBER] #1;
   
   NormalToken     ::= "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
-  DecoratedToken  ::= "DEFINE" #1 name[] ( "[" ( prefix['\'','\''] ) "]" ) regex['$','$']  ( "[" ( suffix['\'','\'']) "]" ) ("COLLECT" "IN" attributeName[])?;
   PreDefinedToken ::= "PREDEFINED" #1 name[] ("COLLECT" "IN" attributeName[])?;
 
   PLUS         ::= "+";

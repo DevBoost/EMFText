@@ -19,7 +19,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DecoratedToken;
 import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
@@ -172,10 +171,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseNormalToken(NormalToken object) {
 				return createNormalTokenAdapter();
-			}
-			@Override
-			public Adapter caseDecoratedToken(DecoratedToken object) {
-				return createDecoratedTokenAdapter();
 			}
 			@Override
 			public Adapter caseNewDefinedToken(NewDefinedToken object) {
@@ -493,20 +488,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNormalTokenAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DecoratedToken <em>Decorated Token</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.DecoratedToken
-	 * @generated
-	 */
-	public Adapter createDecoratedTokenAdapter() {
 		return null;
 	}
 

@@ -724,7 +724,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNewDefinedToken()
 	 * @generated
 	 */
-	int NEW_DEFINED_TOKEN = 20;
+	int NEW_DEFINED_TOKEN = 19;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -827,79 +827,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int NORMAL_TOKEN_FEATURE_COUNT = NEW_DEFINED_TOKEN_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.DecoratedTokenImpl <em>Decorated Token</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.DecoratedTokenImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getDecoratedToken()
-	 * @generated
-	 */
-	int DECORATED_TOKEN = 19;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATED_TOKEN__NAME = NEW_DEFINED_TOKEN__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATED_TOKEN__ATTRIBUTE_REFERENCES = NEW_DEFINED_TOKEN__ATTRIBUTE_REFERENCES;
-
-	/**
-	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATED_TOKEN__ATTRIBUTE_NAME = NEW_DEFINED_TOKEN__ATTRIBUTE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Regex</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATED_TOKEN__REGEX = NEW_DEFINED_TOKEN__REGEX;
-
-	/**
-	 * The feature id for the '<em><b>Prefix</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATED_TOKEN__PREFIX = NEW_DEFINED_TOKEN_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Suffix</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATED_TOKEN__SUFFIX = NEW_DEFINED_TOKEN_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Decorated Token</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATED_TOKEN_FEATURE_COUNT = NEW_DEFINED_TOKEN_FEATURE_COUNT + 2;
-
-	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.PreDefinedTokenImpl <em>Pre Defined Token</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -907,7 +834,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPreDefinedToken()
 	 * @generated
 	 */
-	int PRE_DEFINED_TOKEN = 21;
+	int PRE_DEFINED_TOKEN = 20;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -953,7 +880,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getContainment()
 	 * @generated
 	 */
-	int CONTAINMENT = 22;
+	int CONTAINMENT = 21;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -999,7 +926,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholder()
 	 * @generated
 	 */
-	int PLACEHOLDER = 25;
+	int PLACEHOLDER = 24;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1036,7 +963,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getDefinedPlaceholder()
 	 * @generated
 	 */
-	int DEFINED_PLACEHOLDER = 23;
+	int DEFINED_PLACEHOLDER = 22;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1082,7 +1009,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getDerivedPlaceholder()
 	 * @generated
 	 */
-	int DERIVED_PLACEHOLDER = 24;
+	int DERIVED_PLACEHOLDER = 23;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1138,7 +1065,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
 	 * @generated
 	 */
-	int OPTION = 26;
+	int OPTION = 25;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1176,7 +1103,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 27;
+	int ABSTRACT = 26;
 
 	/**
 	 * The number of structural features of the '<em>Abstract</em>' class.
@@ -1696,38 +1623,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getNormalToken();
-
-	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.DecoratedToken <em>Decorated Token</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Decorated Token</em>'.
-	 * @see org.emftext.sdk.concretesyntax.DecoratedToken
-	 * @generated
-	 */
-	EClass getDecoratedToken();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.DecoratedToken#getPrefix <em>Prefix</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Prefix</em>'.
-	 * @see org.emftext.sdk.concretesyntax.DecoratedToken#getPrefix()
-	 * @see #getDecoratedToken()
-	 * @generated
-	 */
-	EAttribute getDecoratedToken_Prefix();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.DecoratedToken#getSuffix <em>Suffix</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Suffix</em>'.
-	 * @see org.emftext.sdk.concretesyntax.DecoratedToken#getSuffix()
-	 * @see #getDecoratedToken()
-	 * @generated
-	 */
-	EAttribute getDecoratedToken_Suffix();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.NewDefinedToken <em>New Defined Token</em>}'.
@@ -2329,32 +2224,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NORMAL_TOKEN = eINSTANCE.getNormalToken();
-
-		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.DecoratedTokenImpl <em>Decorated Token</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.DecoratedTokenImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getDecoratedToken()
-		 * @generated
-		 */
-		EClass DECORATED_TOKEN = eINSTANCE.getDecoratedToken();
-
-		/**
-		 * The meta object literal for the '<em><b>Prefix</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DECORATED_TOKEN__PREFIX = eINSTANCE.getDecoratedToken_Prefix();
-
-		/**
-		 * The meta object literal for the '<em><b>Suffix</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DECORATED_TOKEN__SUFFIX = eINSTANCE.getDecoratedToken_Suffix();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.NewDefinedTokenImpl <em>New Defined Token</em>}' class.

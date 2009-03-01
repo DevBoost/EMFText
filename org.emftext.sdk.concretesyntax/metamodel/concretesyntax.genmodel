@@ -69,10 +69,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenDefinition/attributeName"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//NormalToken"/>
-    <genClasses ecoreClass="concretesyntax.ecore#//DecoratedToken">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//DecoratedToken/prefix"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//DecoratedToken/suffix"/>
-    </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//NewDefinedToken">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//NewDefinedToken/regex"/>
     </genClasses>
