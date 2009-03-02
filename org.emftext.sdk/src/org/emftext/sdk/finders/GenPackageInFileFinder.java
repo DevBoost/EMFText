@@ -29,6 +29,12 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
+/**
+ * An abstract super class for all finders that search for generator 
+ * packages in files. Concrete sub classes basically determine the
+ * URI of the file to look in and the remaining functionality (loading
+ * generator models, updating them) is performed in this class.
+ */
 public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 
 	protected IGenPackageFinderResult findGenPackage(ConcreteSyntax syntax, String nsURI, final ResourceSet rs, URI genModelURI) {
