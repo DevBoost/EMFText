@@ -27,7 +27,7 @@ public class ReferencesToAbstractClassesAnalyser extends AbstractAnalyser {
 		List<Placeholder> danglingReferences = getReferencesToAbstractClassesWithConcreteSubtypes(syntax);
 		for (Placeholder next : danglingReferences) {
 			GenFeature genFeature = next.getFeature();
-			resource.addError("The type of non-containment reference '" + genFeature.getName() + "' is abstract and has no concrete sub classes with defined syntax.", next);
+			resource.addWarning("The type of non-containment reference '" + genFeature.getName() + "' is abstract and has no concrete sub classes with defined syntax.", next);
 		}
 	}
 
