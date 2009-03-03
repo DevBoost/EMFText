@@ -22,16 +22,7 @@ public class ConcreteSyntaxByHintFinder implements IConcreteSyntaxFinder {
 		if (locationHint == null) {
 			return null;
 		}
-		URI hintURI = null;
-		if(locationHint.contains(":")) {
-			// locationHint is an absolute path - we can use it as it is
-			hintURI = URI.createURI(locationHint);
-		}
-		else {
-			// locationHint is an relative path - we must resolve it
-			URI containerURI = container.eResource().getURI();
-			hintURI = URI.createURI(locationHint).resolve(containerURI);
-		}
+		URI hintURI = new LocationHintResolver().getLocationHintURI(locationHint, container);
 		if ("cs".equals(hintURI.fileExtension())) {
 			Resource csResource = null;
 			

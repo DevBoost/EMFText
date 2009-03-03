@@ -39,15 +39,7 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	private IGenPackageFinderResult findGenPackageUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
 		final ResourceSet rs = new ResourceSetImpl();
 		try {
-			URI hintURI = null;
-			if(locationHint.contains(":")) {
-				//absolute path
-				hintURI = URI.createURI(locationHint);
-			}
-			else {
-				//relative path
-				hintURI = container.eResource().getURI().trimSegments(1).appendSegment(locationHint);
-			}
+			URI hintURI = new LocationHintResolver().getLocationHintURI(locationHint, container);
 			if ("genmodel".equals(hintURI.fileExtension())) {
 				return findGenPackage(getSyntax(container), nsURI, rs, hintURI);
 			}
