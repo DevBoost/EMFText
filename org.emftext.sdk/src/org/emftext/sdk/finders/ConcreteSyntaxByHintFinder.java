@@ -24,12 +24,13 @@ public class ConcreteSyntaxByHintFinder implements IConcreteSyntaxFinder {
 		}
 		URI hintURI = null;
 		if(locationHint.contains(":")) {
-			//absolute path
+			// locationHint is an absolute path - we can use it as it is
 			hintURI = URI.createURI(locationHint);
 		}
 		else {
-			//relative path
-			hintURI = container.eResource().getURI().trimSegments(1).appendSegment(locationHint);
+			// locationHint is an relative path - we must resolve it
+			URI containerURI = container.eResource().getURI();
+			hintURI = URI.createURI(locationHint).resolve(containerURI);
 		}
 		if ("cs".equals(hintURI.fileExtension())) {
 			Resource csResource = null;
