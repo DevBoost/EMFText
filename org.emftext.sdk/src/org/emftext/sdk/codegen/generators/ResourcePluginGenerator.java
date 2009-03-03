@@ -79,7 +79,7 @@ public abstract class ResourcePluginGenerator {
 		SubMonitor progress = SubMonitor.convert(monitor, 100);
 
 		Resource csResource = concreteSyntax.eResource();
-		monitor.setTaskName("Unmarking resource");
+		monitor.setTaskName("unmarking resource...");
 		marker.unmark(csResource);
 		if (resourceHelper.containsErrors(csResource)) {
 			marker.mark(csResource);

@@ -38,7 +38,7 @@ public class GenerateTextResourceTask extends Task {
 		checkParameters();
 		registerResourceFactories();
 		try {
-			log("Loading syntax file");
+			log("loading syntax file...");
 			final ITextResource csResource = resourceHelper.getResource(syntaxFile);
 			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
 			Result result = new AntResourcePluginGenerator().run(
