@@ -304,5 +304,5 @@ public abstract class GenerationContext {
 	 * file relative to the project that contains the
 	 * file.
 	 */
-	public abstract String getSyntaxProjectRelativePath();
+	public abstract String getProjectRelativePathToSyntaxFile();
 }

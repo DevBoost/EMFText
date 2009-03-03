@@ -45,7 +45,7 @@ public class UIGenerationContext extends GenerationContext {
 	}
 
 	@Override
-	public String getSyntaxProjectRelativePath() {
+	public String getProjectRelativePathToSyntaxFile() {
 		return getWorkspaceFile().getProjectRelativePath().toString();
 	}
 

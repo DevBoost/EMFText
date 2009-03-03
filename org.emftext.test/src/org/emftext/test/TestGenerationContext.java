@@ -28,7 +28,7 @@ public class TestGenerationContext extends GenerationContext {
 	}
 
 	@Override
-	public String getSyntaxProjectRelativePath() {
+	public String getProjectRelativePathToSyntaxFile() {
 		return null;
 	}
 }

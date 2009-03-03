@@ -36,7 +36,9 @@ public class AntGenerationContext extends GenerationContext {
 	}
 
 	@Override
-	public String getSyntaxProjectRelativePath() {
-		return getConcreteSyntaxFile().getAbsolutePath().substring(syntaxProjectName.length());
+	public String getProjectRelativePathToSyntaxFile() {
+		String syntaxFilePath = getConcreteSyntaxFile().getAbsolutePath();
+		String syntaxPluginFolderPath = workspaceRootFolder.getAbsolutePath() + File.separator + getSyntaxProjectName() + File.separator;
+		return syntaxFilePath.substring(syntaxPluginFolderPath.length()).replace(File.separator, "/");
 	}
 }
