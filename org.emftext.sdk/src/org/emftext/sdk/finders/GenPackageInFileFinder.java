@@ -78,6 +78,9 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 
 			Map<String, GenPackage> packages =  MetamodelManager.getGenPackages(genModel);
 			for (String uri : packages.keySet()) {
+				if (uri == null) {
+					continue;
+				}
 				if (uri.equals(nsURI)) {
 					return new GenPackageInFileResult(packages.get(nsURI), ecoreFile);
 				}
