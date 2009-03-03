@@ -1,11 +1,17 @@
 package org.emftext.sdk.ant;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
@@ -23,6 +29,9 @@ public class GenerateTextResourceTask extends Task {
 	private File rootFolder;
 	private File syntaxFile;
 	private String syntaxProjectName;
+
+	private List<GenModelElement> genModels = new ArrayList<GenModelElement>();
+	private List<GenPackageElement> genPackages = new ArrayList<GenPackageElement>();
 
 	@Override
 	public void execute() throws BuildException {
@@ -77,16 +86,52 @@ public class GenerateTextResourceTask extends Task {
 	public void setSyntaxProjectName(String syntaxProjectName) {
 		this.syntaxProjectName = syntaxProjectName;
 	}
+	
+	public void addGenModel(GenModelElement factory) {
+		genModels.add(factory);
+	}
+
+	public void addGenPackage(GenPackageElement factory) {
+		genPackages.add(factory);
+	}
 
 	public void registerResourceFactories() {
-		org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory csResourceFactoryImpl = new org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory();
+		registerFactory("ecore", new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
+		registerFactory("genmodel", new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
+		registerFactory("cs", new org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory());
+		
+		for (GenModelElement genModelElement : genModels) {
+			String namespaceURI = genModelElement.getNamespaceURI();
+			String genModelURI = genModelElement.getGenModelURI();
+			try {
+				log("registering genmodel " + namespaceURI + " at " + genModelURI);
+				EcorePlugin.getEPackageNsURIToGenModelLocationMap().put(
+						namespaceURI,
+						URI.createURI(genModelURI)
+				);
+			} catch (Exception e) {
+				throw new BuildException("Error while registering genmodel " + namespaceURI, e);
+			}
+		}
+
+		for (GenPackageElement genPackage : genPackages) {
+			String namespaceURI = genPackage.getNamespaceURI();
+			String ePackageClassName = genPackage.getEPackageClassName();
+			try {
+				log("registering ePackage " + namespaceURI + " at " + ePackageClassName);
+				Field factoryInstance = Class.forName(ePackageClassName).getField("eINSTANCE");
+				Object ePackageObject = factoryInstance.get(null);
+				EPackage.Registry.INSTANCE.put(namespaceURI, ePackageObject);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new BuildException("Error while registering EPackage " + namespaceURI, e);
+			}
+		}
+	}
+
+	private void registerFactory(String extension, Object factory) {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-				"ecore",
-				new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-				"genmodel",
-				new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("cs",
-				csResourceFactoryImpl);
+				extension,
+				factory);
 	}
 }
