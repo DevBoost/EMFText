@@ -3,6 +3,11 @@ package org.emftext.sdk.ant;
 import org.apache.tools.ant.Task;
 import org.eclipse.core.runtime.IProgressMonitor;
 
+/**
+ * This class delegates progress events that are passed to an
+ * IProgressMonitor to an ANT task. The progress is sent to the
+ * console using the log() method in org.apache.tools.ant.Task.
+ */
 public class AntDelegateProgressMonitor implements IProgressMonitor {
 
 	private Task antTask;

@@ -5,6 +5,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
 
+/**
+ * This class delegates calls to the IResourceMarker interface to
+ * and ANT task. Errors contained in the resource are logged using
+ * the log() method in org.apache.tools.ant.Task.
+ */
 public class AntLogMarker implements IResourceMarker {
 
 	private Task antTask;
@@ -20,6 +25,5 @@ public class AntLogMarker implements IResourceMarker {
 	}
 
 	public void unmark(Resource resource) {
-		antTask.log("Removing all markings from " + resource);
 	}
 }
