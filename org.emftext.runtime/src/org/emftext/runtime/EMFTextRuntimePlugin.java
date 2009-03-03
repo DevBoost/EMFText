@@ -65,17 +65,19 @@ public class EMFTextRuntimePlugin extends Plugin {
 	public static Map<String, URI> getURIToConcreteSyntaxLocationMap() {
 		if (URIToConcreteSyntaxLocationMap == null) {
 			URIToConcreteSyntaxLocationMap = new HashMap<String, URI>();
-			
-	        IExtensionPoint csExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(EP_CONCRETESYNTAX_ID);
-	        IConfigurationElement[] parserPoints = csExtensionPoint.getConfigurationElements();
-	        for(int i = 0;i < parserPoints.length;i++) {
-	        	String uri       = parserPoints[i].getAttribute("uri");
-	            String csName    = parserPoints[i].getAttribute("csName");
-	            String file      = parserPoints[i].getAttribute("csDefinition");
-	            URI fileURI = URI.createPlatformPluginURI("/" + file, true);
-	            
-	            URIToConcreteSyntaxLocationMap.put(uri + "%%" + csName, fileURI);
-	        }
+
+			if (Platform.isRunning()) {
+		        IExtensionPoint csExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(EP_CONCRETESYNTAX_ID);
+		        IConfigurationElement[] parserPoints = csExtensionPoint.getConfigurationElements();
+		        for(int i = 0;i < parserPoints.length;i++) {
+		        	String uri       = parserPoints[i].getAttribute("uri");
+		            String csName    = parserPoints[i].getAttribute("csName");
+		            String file      = parserPoints[i].getAttribute("csDefinition");
+		            URI fileURI = URI.createPlatformPluginURI("/" + file, true);
+		            
+		            URIToConcreteSyntaxLocationMap.put(uri + "%%" + csName, fileURI);
+		        }
+			}
 			
 		}
 		return URIToConcreteSyntaxLocationMap;
