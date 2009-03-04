@@ -64,8 +64,8 @@ import org.emftext.runtime.ui.outline.EMFTextOutlinePage;
  */
 public class EMFTextEditor extends TextEditor implements IEditingDomainProvider {
 
-	public IBackgroundParsingStrategy bgParsingStrategy = new NoBackgroundParsingStrategy();
-	public IBackgroundParsingListener bgParsingListener;
+	private IBackgroundParsingStrategy bgParsingStrategy = new NoBackgroundParsingStrategy();
+	private IBackgroundParsingListener bgParsingListener = new NoBackgroundParsingListener();
 
 	/**
 	 * A custom document listener that triggers background parsing if 
