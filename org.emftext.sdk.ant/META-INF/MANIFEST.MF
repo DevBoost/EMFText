@@ -13,3 +13,4 @@ Require-Bundle: org.apache.ant,
  org.emftext.runtime,
  org.eclipse.emf.ecore.xmi;bundle-version="2.4.1"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.emftext.sdk.ant
