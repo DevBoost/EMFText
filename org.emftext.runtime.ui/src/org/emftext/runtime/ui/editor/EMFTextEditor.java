@@ -54,6 +54,7 @@ import org.emftext.runtime.ui.EMFTextEditorConfiguration;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
+import org.emftext.runtime.ui.editor.bg_parsing.NoBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.NoBackgroundParsingStrategy;
 import org.emftext.runtime.ui.outline.EMFTextOutlinePage;
 

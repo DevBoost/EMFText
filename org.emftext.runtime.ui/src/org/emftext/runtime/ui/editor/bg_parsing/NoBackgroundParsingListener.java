@@ -1,7 +1,6 @@
-package org.emftext.runtime.ui.editor;
+package org.emftext.runtime.ui.editor.bg_parsing;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 
 public class NoBackgroundParsingListener implements IBackgroundParsingListener {
 
