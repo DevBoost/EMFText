@@ -72,7 +72,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	private void generateDoResolveMethod(StringComposite sc) {
 		sc.add("@Override");
 	    sc.addLineBreak();
-		sc.add("protected void doResolve(" + String.class.getName() + " identifier, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + " result) {");
+		sc.add("protected void doResolve(" + String.class.getName() + " identifier, " + proxyReference.getGenClass().getQualifiedInterfaceName() + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + "<" + proxyReference.getTypeGenClass().getQualifiedInterfaceName() + "> result) {");
 		sc.add("super.doResolve(identifier, container, reference, position, resolveFuzzy, result);");
 		sc.add("}");
 	}
