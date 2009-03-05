@@ -91,7 +91,9 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 						continue;
 					}
 					IResource ecoreMember = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
-					ecoreFile = ecoreMember.getLocation().toFile();
+					if (ecoreMember != null) {
+						ecoreFile = ecoreMember.getLocation().toFile();
+					}
 					break;
 				}
 			}
