@@ -17,6 +17,9 @@ public class AntDelegateProgressMonitor implements IProgressMonitor {
 	}
 
 	public void beginTask(String name, int totalWork) {
+		if (name == null || name.trim().length() == 0) {
+			return;
+		}
 		antTask.log(name);
 	}
 
