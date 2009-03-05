@@ -30,19 +30,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
 
 /**
  * A helper class for all EMFText tests.
@@ -67,12 +70,12 @@ public class ConcreteSyntaxTestHelper {
 		return concreteSyntax;
 	}
 
-	public static Resource getConcreteSyntaxResource(URI fileURI, Map<?, ?> options) {
-		ITextResource resource = new CsResource(fileURI);
-		try {
-			resource.load(options);
-		} catch (IOException e) {
-			fail(e.getMessage());
+	public static Resource getConcreteSyntaxResource(URI fileURI) {
+		ResourceSet rs = new ResourceSetImpl();
+		ITextResource resource = (ITextResource) rs.getResource(fileURI, true);
+		final List<EObject> proxies = new TextResourceHelper().findUnresolvedProxies(resource);
+		for (EObject proxy : proxies) {
+			System.out.println("getConcreteSyntaxResource() unresolved proxy : " + proxy);
 		}
 		final EList<Diagnostic> errors = resource.getErrors();
 		for (Diagnostic error : errors) {
@@ -93,9 +96,9 @@ public class ConcreteSyntaxTestHelper {
 		return antlrGenerator;
 	}
 
-	public static File generateANTLRGrammarToTempFile(URI fileURI, Map<?,?> options) throws IOException,
+	public static File generateANTLRGrammarToTempFile(URI fileURI) throws IOException,
 			FileNotFoundException {
-		ConcreteSyntax concreteSyntax = getConcreteSyntax(getConcreteSyntaxResource(fileURI, options));
+		ConcreteSyntax concreteSyntax = getConcreteSyntax(getConcreteSyntaxResource(fileURI));
 		assertNotNull("The concrete syntax should be successfully loaded.",
 				concreteSyntax);
 		

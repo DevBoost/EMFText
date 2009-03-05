@@ -70,7 +70,7 @@ public class SyntaxAnalysisTest extends TestCase {
 
 	@Test
 	public void testReferences() throws FileNotFoundException, IOException {
-		assertProblems("reference1.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND});
+		assertProblems("reference1.cs", new String[] {NO_SUB_CLASSES_FOUND}, NONE);
 		assertProblems("reference2.cs", new String[] {FEATURE_HAS_NO_SYNTAX}, NONE);
 		assertProblems("reference3.cs", NONE, new String[] {WRONG_CONTAINMENT_TYPE});
 
