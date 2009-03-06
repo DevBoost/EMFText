@@ -20,5 +20,8 @@ public class GenModelElement {
 	}
 	public void setGenModelURI(String genmodelURI) {
 		this.genModelURI = genmodelURI;
+		if (this.genModelURI != null) {
+			this.genModelURI = this.genModelURI.replace('\\', '/');
+		}
 	}
 }
