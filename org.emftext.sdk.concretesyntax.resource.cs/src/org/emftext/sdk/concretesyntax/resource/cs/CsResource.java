@@ -60,8 +60,11 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			getContents().add(root);
 		}
 		getReferenceResolverSwitch().setOptions(options);
+		runPostProcessors(options);
 	}
 	
+	
+
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		org.emftext.runtime.resource.ITextPrinter p = new CsPrinter(outputStream, this);
 		for(org.eclipse.emf.ecore.EObject root : getContents()) {

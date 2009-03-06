@@ -236,31 +236,31 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		proxyCounter = 0;
 	}
 	
-	@Override
-	public void load(Map<?, ?> options) throws IOException {
-		boolean wasLoaded = !isLoaded;
-		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
-		super.load(loadOptions);
-
-		if (wasLoaded) {
-			Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
-			if (resourcePostProcessorProvider != null) {
-				if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
-					((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
-				} else if (resourcePostProcessorProvider instanceof Collection) {
-					@SuppressWarnings("unchecked")
-					Collection<IResourcePostProcessorProvider> resourcePostProcessorProviderCollection = (Collection<IResourcePostProcessorProvider>) resourcePostProcessorProvider;
-					for (IResourcePostProcessorProvider processorProvider : resourcePostProcessorProviderCollection) {
-						IResourcePostProcessor postProcessor = processorProvider.getResourcePostProcessor();
-						try {
-							postProcessor.process(this);
-						} catch (Exception e) {
-							EMFTextRuntimePlugin.logError("Exception while running a post-processor.", e);
-						}
+	
+	protected void runPostProcessors(Map<?, ?> loadOptions) {
+		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
+		if (resourcePostProcessorProvider != null) {
+			if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
+				((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
+			} else if (resourcePostProcessorProvider instanceof Collection) {
+				@SuppressWarnings("unchecked")
+				Collection<IResourcePostProcessorProvider> resourcePostProcessorProviderCollection = (Collection<IResourcePostProcessorProvider>) resourcePostProcessorProvider;
+				for (IResourcePostProcessorProvider processorProvider : resourcePostProcessorProviderCollection) {
+					IResourcePostProcessor postProcessor = processorProvider.getResourcePostProcessor();
+					try {
+						postProcessor.process(this);
+					} catch (Exception e) {
+						EMFTextRuntimePlugin.logError("Exception while running a post-processor.", e);
 					}
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void load(Map<?, ?> options) throws IOException {
+		java.util.Map<Object, Object> loadOptions = addDefaultLoadOptions(options);
+		super.load(loadOptions);
 	}
 
 	/**
