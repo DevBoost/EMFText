@@ -66,6 +66,9 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("opposite1b.cs", NONE, NONE);
 		assertProblems("opposite1c.cs", NONE, NONE);
 		assertProblems("opposite1d.cs", NONE, NONE);
+
+		assertProblems("opposite2a.cs", NONE, NONE);
+		assertProblems("opposite2b.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX}, NONE);
 	}
 
 	@Test
@@ -90,7 +93,7 @@ public class SyntaxAnalysisTest extends TestCase {
 
 	private void assertDiagnostics(String filename, String[] expectedDiagnostics,
 			EList<Diagnostic> diagnostics, String type) {
-		printDiagnostics(diagnostics);
+		printDiagnostics(diagnostics, type);
 		assertEquals(filename + " should contain " + expectedDiagnostics.length + " " + type + ".", expectedDiagnostics.length, diagnostics.size());
 		for (int i = 0; i < expectedDiagnostics.length; i++) {
 			String actualDiagnostic = diagnostics.get(i).getMessage();
@@ -100,9 +103,9 @@ public class SyntaxAnalysisTest extends TestCase {
 		}
 	}
 
-	private void printDiagnostics(EList<Diagnostic> diagnostics) {
+	private void printDiagnostics(EList<Diagnostic> diagnostics, String type) {
 		for (Diagnostic diagnotic : diagnostics) {
-			System.out.println("assertProblems() " + diagnotic.getMessage());
+			System.out.println("assertProblems() " + type + ": " + diagnotic.getMessage());
 		}
 	}
 }
