@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.test/src"
+    modelPluginID="org.emftext.test" modelName="Opposite_references" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>opposite1.ecore</foreignModel>
+  <genPackages prefix="Opposite1" disposableProviderFactory="true" ecorePackage="opposite1.ecore#/">
+    <genClasses ecoreClass="opposite1.ecore#//Root">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opposite1.ecore#//Root/classes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="opposite1.ecore#//AbstractSuperClass"/>
+    <genClasses ecoreClass="opposite1.ecore#//ClassA">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opposite1.ecore#//ClassA/b"/>
+    </genClasses>
+    <genClasses ecoreClass="opposite1.ecore#//ClassB">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opposite1.ecore#//ClassB/a"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

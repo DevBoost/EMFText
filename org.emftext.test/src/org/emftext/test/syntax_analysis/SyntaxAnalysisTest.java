@@ -62,10 +62,10 @@ public class SyntaxAnalysisTest extends TestCase {
 	 */
 	@Test
 	public void testUnusedOppositeReferences() throws FileNotFoundException, IOException {
-		assertProblems("opposite1.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX}, NONE);
-		assertProblems("opposite2.cs", NONE, NONE);
-		assertProblems("opposite3.cs", NONE, NONE);
-		assertProblems("opposite4.cs", NONE, NONE);
+		assertProblems("opposite1a.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX}, NONE);
+		assertProblems("opposite1b.cs", NONE, NONE);
+		assertProblems("opposite1c.cs", NONE, NONE);
+		assertProblems("opposite1d.cs", NONE, NONE);
 	}
 
 	@Test
