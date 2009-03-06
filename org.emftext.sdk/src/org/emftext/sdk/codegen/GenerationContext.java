@@ -308,8 +308,8 @@ public abstract class GenerationContext {
 		return getResolverPackageName(proxyReference) + "." + getReferenceResolverClassName(proxyReference);
 	}
 
-	public String getReferenceResolverAccessor(GenFeature genFeature) {
-		return getReferenceResolverSwitchClassName() + ".get" + getReferenceResolverClassName(genFeature) + "()";
+	public String getReferenceResolverAccessor(String prefix, GenFeature genFeature) {
+		return prefix + ".get" + getReferenceResolverClassName(genFeature) + "()";
 	}
 
 	/**

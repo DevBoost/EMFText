@@ -120,6 +120,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private ConcreteSyntax conreteSyntax;
 	private String tokenResolverFactoryName;
+	private String referenceResolverSwitchName;
 	
 	private Map<String,IInternalTokenDefinition> derivedTokens;
 	private Collection<IInternalTokenDefinition> printedTokens;
@@ -150,6 +151,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		this.context = context;
+		referenceResolverSwitchName = context.getReferenceResolverSwitchClassName();
 		conreteSyntax = context.getConcreteSyntax();
 		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
 	}
@@ -231,7 +233,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
         sc.add("private int lastPosition;");
         sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
-
+        sc.add("private " + referenceResolverSwitchName + " referenceResolverSwitch = new " + referenceResolverSwitchName +"();");
+        
         sc.addLineBreak();
         sc.add("protected EObject doParse() throws RecognitionException {");
         sc.add("lastPosition = 0;");
@@ -755,7 +758,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
-            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
+            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor("referenceResolverSwitch",genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	// remember that we must resolve proxy objects for this feature
             	proxyReferences.add(genFeature);
         	}

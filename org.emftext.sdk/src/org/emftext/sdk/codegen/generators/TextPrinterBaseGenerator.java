@@ -41,7 +41,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
@@ -99,7 +98,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	
 	private static final String ITEXT_RESOURCE_CLASS_NAME = ITextResource.class.getName();
 	private static final String ITOKEN_RESOLVER_FACTORY_CLASS_NAME = ITokenResolverFactory.class.getName();
-	private static final String IREFERENCE_RESOLVER_SWITCH_CLASS_NAME = IReferenceResolverSwitch.class.getName();
 	
 	private static final String OUTPUT_STREAM_CLASS_NAME = OutputStream.class.getName();
 	private static final String PRINTER_WRITER_CLASS_NAME = PrintWriter.class.getName();
@@ -109,7 +107,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
-
+	
 	private int tokenSpace;
 	/** maps all choices to a method name */
 	private Map<Choice, String> choice2Name;
@@ -121,7 +119,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
 	private Map<DerivedPlaceholder, String> placeholder2TokenName;
-	private String treeAnalyserClassName;
+	private String referenceResolverSwitchClassName;
 	private GenerationContext context;
 
 	public TextPrinterBaseGenerator(GenerationContext context, Map<DerivedPlaceholder, String> placeholder2TokenName) {
@@ -131,7 +129,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		this.context = context;
 		this.concretSyntax = context.getConcreteSyntax();
 		this.tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
-		this.treeAnalyserClassName = context.getReferenceResolverSwitchClassName();
+		this.referenceResolverSwitchClassName = context.getReferenceResolverSwitchClassName();
 		this.placeholder2TokenName = placeholder2TokenName;
 	}
 
@@ -274,8 +272,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private void generateMembers(StringComposite sc) {
 		sc.add("protected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
-		sc.add("protected " + IREFERENCE_RESOLVER_SWITCH_CLASS_NAME + " referenceResolverSwitch = new "
-				+ treeAnalyserClassName + "();");
+		sc.add("protected " + referenceResolverSwitchClassName + " referenceResolverSwitch = new "
+				+ referenceResolverSwitchClassName + "();");
 	}
 
 	private void generatePrintRuleMethod(StringComposite sc, Rule rule) {
@@ -609,7 +607,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix + "resolver.deResolve(" 
-										+ context.getReferenceResolverAccessor(genFeature)
+										+ context.getReferenceResolverAccessor("referenceResolverSwitch",genFeature)
 										+ ".deResolve((" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ") o, element, (" + EREFERENCE_CLASS_NAME + ") element.eClass().getEStructuralFeature("
 										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
 										+ ")), element.eClass().getEStructuralFeature("

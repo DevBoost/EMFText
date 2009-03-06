@@ -119,7 +119,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
 				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);
-				sc.add("protected final static " + fullClassName + " " + low(generatedClassName) + " = new " + fullClassName + "();");			
+				sc.add("protected " + fullClassName + " " + low(generatedClassName) + " = new " + fullClassName + "();");			
 			}
 		}
 	    sc.addLineBreak();
@@ -133,7 +133,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
 				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);
-				sc.add("public static " + fullClassName + " get" + generatedClassName + "() {");
+				sc.add("public " + fullClassName + " get" + generatedClassName + "() {");
 				sc.add("return " + low(generatedClassName) + ";");			
 				sc.add("}");
 			    sc.addLineBreak();
