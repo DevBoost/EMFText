@@ -3,15 +3,14 @@ Ant-Version: Apache Ant 1.7.0
 Created-By: 1.5.0_13-121 ("Apple Computer, Inc.")
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Concretesyntax Metamodel
-Bundle-SymbolicName: org.emftext.sdk.concretesyntax;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-SymbolicName: org.emftext.sdk.concretesyntax; singleton:=true
+Bundle-Version: 1.0.0.v200903061841
 Bundle-ClassPath: .
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.emftext.sdk.concretesyntax,
- org.emftext.sdk.concretesyntax.impl,
- org.emftext.sdk.concretesyntax.util
+Export-Package: org.emftext.sdk.concretesyntax,org.emftext.sdk.concret
+ esyntax.impl,org.emftext.sdk.concretesyntax.util
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.emf.ecore;visibil
  ity:=reexport,org.eclipse.emf.codegen.ecore
 Bundle-ActivationPolicy: lazy

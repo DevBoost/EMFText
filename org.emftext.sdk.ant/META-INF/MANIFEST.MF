@@ -1,16 +1,15 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: Ant
-Bundle-SymbolicName: org.emftext.sdk.ant
-Bundle-Version: 1.0.0
-Require-Bundle: org.apache.ant,
- org.emftext.sdk,
- org.emftext.sdk.antlr,
- org.emftext.sdk.concretesyntax,
- org.emftext.sdk.concretesyntax.resource.cs,
- org.eclipse.core.resources,
- org.eclipse.core.runtime,
- org.emftext.runtime,
- org.eclipse.emf.ecore.xmi;bundle-version="2.4.1"
+Bundle-Name: EMFText SDK Ant Support
+Bundle-SymbolicName: org.emftext.sdk.ant; singleton:=true
+Bundle-Version: 1.0.0.v200903061841
+Require-Bundle: org.apache.ant,org.emftext.sdk,org.emftext.sdk.antlr,o
+ rg.emftext.sdk.concretesyntax,org.emftext.sdk.concretesyntax.resource
+ .cs,org.eclipse.core.resources,org.eclipse.core.runtime,org.emftext.r
+ untime,org.eclipse.emf.ecore.xmi;bundle-version="2.4.1"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.sdk.ant
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
+

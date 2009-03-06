@@ -1,20 +1,17 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFText SDK UI Plug-in
-Bundle-SymbolicName: org.emftext.sdk.ui;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Name: EMFText SDK Eclipse UI
+Bundle-SymbolicName: org.emftext.sdk.ui; singleton:=true
+Bundle-Version: 1.0.0.v200903061841
 Bundle-Activator: org.emftext.sdk.ui.EMFTextSDKUIPlugin
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.core.resources,
- org.eclipse.jdt.core,
- org.eclipse.jdt.launching,
- org.emftext.runtime,
- org.emftext.runtime.ui,
- org.emftext.sdk
-Export-Package: org.emftext.sdk.ui,
- org.emftext.sdk.ui.actions,
- org.emftext.sdk.ui.jobs
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.co
+ re.resources,org.eclipse.jdt.core,org.eclipse.jdt.launching,org.emfte
+ xt.runtime,org.emftext.runtime.ui,org.emftext.sdk
+Export-Package: org.emftext.sdk.ui,org.emftext.sdk.ui.actions,org.emft
+ ext.sdk.ui.jobs
+

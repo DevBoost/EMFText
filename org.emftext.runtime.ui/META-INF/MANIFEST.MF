@@ -1,19 +1,17 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFText Runtime UI Plug-in
-Bundle-SymbolicName: org.emftext.runtime.ui;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Name: EMFText Eclipse UI
+Bundle-SymbolicName: org.emftext.runtime.ui; singleton:=true
+Bundle-Version: 1.0.0.v200903061841
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Activator: org.emftext.runtime.ui.EMFTextRuntimeUIPlugin
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui.editors,
- org.eclipse.emf.ecore.editor,
- org.eclipse.jface.text,
- org.eclipse.core.resources,
- org.emftext.runtime
-Export-Package: org.emftext.runtime.ui,
- org.emftext.runtime.ui.editor,
- org.emftext.runtime.ui.outline,
- org.emftext.runtime.ui.preferences
+Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui.editors,org.ec
+ lipse.emf.ecore.editor,org.eclipse.jface.text,org.eclipse.core.resour
+ ces,org.emftext.runtime
+Export-Package: org.emftext.runtime.ui,org.emftext.runtime.ui.editor,o
+ rg.emftext.runtime.ui.outline,org.emftext.runtime.ui.preferences
+

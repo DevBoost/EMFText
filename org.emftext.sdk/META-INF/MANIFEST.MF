@@ -1,23 +1,18 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFText SDK Plug-in
-Bundle-SymbolicName: org.emftext.sdk;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Name: EMFText SDK
+Bundle-SymbolicName: org.emftext.sdk; singleton:=true
+Bundle-Version: 1.0.0.v200903061841
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
- org.eclipse.emf.workspace,
- org.eclipse.jdt.core,
- org.eclipse.jdt.launching,
- org.emftext.runtime,
- org.emftext.sdk.antlr,
- org.emftext.sdk.concretesyntax;visibility:=reexport
-Export-Package: org.emftext.sdk,
- org.emftext.sdk.analysis,
- org.emftext.sdk.codegen,
- org.emftext.sdk.codegen.composites,
- org.emftext.sdk.codegen.generators,
- org.emftext.sdk.codegen.regex,
- org.emftext.sdk.codegen.util,
- org.emftext.sdk.finders
+Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,org
+ .eclipse.emf.workspace,org.eclipse.jdt.core,org.eclipse.jdt.launching
+ ,org.emftext.runtime,org.emftext.sdk.antlr,org.emftext.sdk.concretesy
+ ntax;visibility:=reexport
+Export-Package: org.emftext.sdk,org.emftext.sdk.analysis,org.emftext.s
+ dk.codegen,org.emftext.sdk.codegen.composites,org.emftext.sdk.codegen
+ .generators,org.emftext.sdk.codegen.regex,org.emftext.sdk.codegen.uti
+ l,org.emftext.sdk.finders
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 

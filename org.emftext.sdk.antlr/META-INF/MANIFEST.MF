@@ -2,31 +2,16 @@ Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.7.0
 Created-By: 1.5.0_16-132 ("Apple Computer, Inc.")
 Bundle-ManifestVersion: 2
-Bundle-Name: Reuseware Dependencies: ANTLR3, ANTLR3, STRINGTEMPLATE
-Bundle-SymbolicName: org.emftext.sdk.antlr;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Name: Dependencies: ANTLR3 SDK, ANTLR2, STRINGTEMPLATE
+Bundle-SymbolicName: org.emftext.sdk.antlr; singleton:=true
+Bundle-Version: 1.0.0.v200903061841
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Export-Package: antlr,
- antlr.ASdebug,
- antlr.actions.cpp,
- antlr.actions.csharp,
- antlr.actions.java,
- antlr.actions.python,
- antlr.build,
- antlr.collections,
- antlr.collections.impl,
- antlr.debug,
- antlr.debug.misc,
- antlr.preprocessor,
- org.antlr,
- org.antlr.analysis,
- org.antlr.codegen,
- org.antlr.gunit,
- org.antlr.misc,
- org.antlr.stringtemplate,
- org.antlr.stringtemplate.language,
- org.antlr.stringtemplate.misc,
- org.antlr.tool
+Export-Package: antlr,antlr.ASdebug,antlr.actions.cpp,antlr.actions.cs
+ harp,antlr.actions.java,antlr.actions.python,antlr.build,antlr.collec
+ tions,antlr.collections.impl,antlr.debug,antlr.debug.misc,antlr.prepr
+ ocessor,org.antlr,org.antlr.analysis,org.antlr.codegen,org.antlr.guni
+ t,org.antlr.misc,org.antlr.stringtemplate,org.antlr.stringtemplate.la
+ nguage,org.antlr.stringtemplate.misc,org.antlr.tool
 Require-Bundle: org.emftext.runtime.antlr
 
