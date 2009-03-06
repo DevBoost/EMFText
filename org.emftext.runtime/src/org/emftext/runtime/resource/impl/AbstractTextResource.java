@@ -238,6 +238,9 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	
 	
 	protected void runPostProcessors(Map<?, ?> loadOptions) {
+		if (loadOptions == null) {
+			return;
+		}
 		Object resourcePostProcessorProvider = loadOptions.get(org.emftext.runtime.IOptions.RESOURCE_POSTPROCESSOR_PROVIDER);
 		if (resourcePostProcessorProvider != null) {
 			if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
