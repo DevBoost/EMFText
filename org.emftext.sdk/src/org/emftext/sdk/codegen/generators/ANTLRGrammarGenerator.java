@@ -120,7 +120,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private ConcreteSyntax conreteSyntax;
 	private String tokenResolverFactoryName;
-	private String referenceResolverSwitchName;
+	private String qualifiedReferenceResolverSwitchName;
 	
 	private Map<String,IInternalTokenDefinition> derivedTokens;
 	private Collection<IInternalTokenDefinition> printedTokens;
@@ -151,7 +151,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		this.context = context;
-		referenceResolverSwitchName = context.getReferenceResolverSwitchClassName();
+		qualifiedReferenceResolverSwitchName = context.getQualifiedReferenceResolverSwitchClassName();
 		conreteSyntax = context.getConcreteSyntax();
 		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
 	}
@@ -233,7 +233,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
         sc.add("private int lastPosition;");
         sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
-        sc.add("private " + referenceResolverSwitchName + " referenceResolverSwitch = new " + referenceResolverSwitchName +"();");
+        sc.add("private " + qualifiedReferenceResolverSwitchName + " referenceResolverSwitch = new " + qualifiedReferenceResolverSwitchName +"();");
         
         sc.addLineBreak();
         sc.add("protected EObject doParse() throws RecognitionException {");

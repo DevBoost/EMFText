@@ -227,6 +227,10 @@ public abstract class GenerationContext {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH;
     }
     
+    public String getQualifiedReferenceResolverSwitchClassName() {
+    	return getPackageName() + "." + getReferenceResolverSwitchClassName();
+    }
+    
     public String getTokenResolverFactoryClassName() {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
     }

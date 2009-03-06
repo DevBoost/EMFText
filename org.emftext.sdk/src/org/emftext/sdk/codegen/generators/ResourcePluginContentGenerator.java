@@ -86,7 +86,7 @@ public class ResourcePluginContentGenerator {
 	    String printerBaseName = context.getPrinterBaseClassName();
 	    String resourceName = context.getResourceClassName();
 	    String resourceFactoryName = context.getResourceFactoryClassName();
-	    String treeAnalyserName = context.getReferenceResolverSwitchClassName();
+	    String referenceResolverSwitchName = context.getReferenceResolverSwitchClassName();
 	    String tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
         
   		File antlrFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + antlrName + ".g");
@@ -94,7 +94,7 @@ public class ResourcePluginContentGenerator {
 	    File printerBaseFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + printerBaseName + JAVA_FILE_EXTENSION);
 	    File resourceFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + resourceName + JAVA_FILE_EXTENSION);
         File resourceFactoryFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + resourceFactoryName + JAVA_FILE_EXTENSION);
-	    File treeAnalyserFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + treeAnalyserName + JAVA_FILE_EXTENSION);
+	    File treeAnalyserFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + referenceResolverSwitchName + JAVA_FILE_EXTENSION);
 	    File tokenResolverFactoryFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + tokenResolverFactoryName + JAVA_FILE_EXTENSION);
 	    	    
 	    ANTLRGrammarGenerator antlrGenenerator = new ANTLRGrammarGenerator(context);
@@ -119,14 +119,14 @@ public class ResourcePluginContentGenerator {
     	
         generatePrinterAndPrinterBase(context, progress, csResource, printerFile,
 				printerBaseFile, antlrName, printerName, printerBaseName,
-				treeAnalyserName, tokenResolverFactoryName, antlrGenenerator);
+				referenceResolverSwitchName, tokenResolverFactoryName, antlrGenenerator);
 	    
 	    generateReferenceResolvers(context,
 				progress, csResource, resolverPackagePath,
 				antlrGenenerator);
 		
 		generateReferenceResolverSwitch(context, progress, csResource, treeAnalyserFile,
-				treeAnalyserName);
+				referenceResolverSwitchName);
 		
 		generateTokenResolvers(
 				context, progress, csResource,

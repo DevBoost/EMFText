@@ -56,7 +56,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		super(context.getPackageName(), context.getResourceClassName());
 		this.csSyntaxName = context.getConcreteSyntax().getName();
 		this.csClassName = context.getCapitalizedConcreteSyntaxName();
-		this.resolverSwitchClassName = context.getReferenceResolverSwitchClassName();
+		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
 		this.printerClassName = context.getPrinterName();
 	}
 
