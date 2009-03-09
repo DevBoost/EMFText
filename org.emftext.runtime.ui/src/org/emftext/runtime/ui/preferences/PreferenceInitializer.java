@@ -81,7 +81,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, false);
 	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX, false);
 	                }
-	                else if (tokenName.matches(".[a-zA-Z][a-zA-Z0-9]+.")) {
+	                else if (tokenName.matches(".[a-zA-Z][a-zA-Z0-9:]+.")) { 
 	                    tokenName = tokenName.substring(1,tokenName.length()-1).trim();
 	                    //a keyword (most likely)
 	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_BOLD_SUFFIX, true);
