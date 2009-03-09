@@ -148,4 +148,13 @@ public class GeneratorUtil {
 		}
 		return null;
 	}
+
+	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
+		for (Rule rule : concreteSyntax.getAllRules()) {
+			if (rule.getMetaclass().getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+				return rule;
+			}
+		}
+		return null;
+	}
 }
