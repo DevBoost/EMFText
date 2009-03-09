@@ -155,7 +155,7 @@ public class GenClassFinder {
 	    
 	    for (GenClass genClass : allGenClasses) {
 			Collection<String> superClasses = new LinkedList<String>();
-			for (GenClass superClass : genClass.getBaseGenClasses()) {
+			for (GenClass superClass : genClass.getAllBaseGenClasses()) {
 				superClasses.add(superClass.getQualifiedInterfaceName());
 			}
 			genClassName2superNames.put(genClass.getQualifiedInterfaceName(), superClasses);
