@@ -53,6 +53,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
+import org.emftext.sdk.codegen.util.StringUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -735,22 +736,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	 /**
-     * Capitalizes the first letter of the given string.
-     * 
-     * @param text a string.
-     * @return the modified string.
-     */
-    private static String capitalize(String text) {
-        String h = text.substring(0, 1).toUpperCase();
-        String t = text.substring(1);      
-        return h + t;
-    }
-	
 	protected static String generateAccessMethod(GenClass genClass, GenFeature genFeature) {
 		if (hasMapType(genClass)) {
-			return "get" + capitalize(genFeature.getName()) + "()";
-		}	
+			return "get" + StringUtil.capitalize(genFeature.getName()) + "()";
+		}
 		else {
 			String method = "eGet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "))";
 			return method;

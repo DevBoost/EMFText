@@ -64,6 +64,7 @@ public abstract class GenerationContext {
 	private static final String CLASS_SUFFIX_RESOURCE = "Resource";
 	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactory";
 	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
+	private static final String CLASS_SUFFIX_NEW_FILE_ACTION = "NewFileAction";
 	
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
@@ -221,6 +222,10 @@ public abstract class GenerationContext {
     
     public String getResourceFactoryClassName() {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_RESOURCE_FACTORY;
+    }
+    
+    public String getNewFileActionClassName() {
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_NEW_FILE_ACTION;
     }
     
     public String getReferenceResolverSwitchClassName() {

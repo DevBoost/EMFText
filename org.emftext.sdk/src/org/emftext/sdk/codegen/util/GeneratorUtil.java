@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -151,10 +152,25 @@ public class GeneratorUtil {
 
 	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
 		for (Rule rule : concreteSyntax.getAllRules()) {
-			if (rule.getMetaclass().getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+			GenClass metaclass = rule.getMetaclass();
+			if (metaclass.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+				return rule;
+			}
+			if (contains(genClass.getAllBaseGenClasses(), metaclass)) {
+				System.out.println("GeneratorUtil.getRule() Found sub class rule.");
 				return rule;
 			}
 		}
 		return null;
+	}
+
+	private boolean contains(List<GenClass> genClasses,
+			GenClass genClass) {
+		for (GenClass next : genClasses) {
+			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

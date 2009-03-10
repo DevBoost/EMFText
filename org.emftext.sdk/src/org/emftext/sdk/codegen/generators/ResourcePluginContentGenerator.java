@@ -87,6 +87,7 @@ public class ResourcePluginContentGenerator {
 	    String printerBaseName = context.getPrinterBaseClassName();
 	    String resourceName = context.getResourceClassName();
 	    String resourceFactoryName = context.getResourceFactoryClassName();
+	    String newFileActionName = context.getNewFileActionClassName();
 	    String referenceResolverSwitchName = context.getReferenceResolverSwitchClassName();
 	    String tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
         
@@ -98,6 +99,7 @@ public class ResourcePluginContentGenerator {
 	    File resourceFile = new File(packagePath + resourceName + JAVA_FILE_EXTENSION);
         File resourceFactoryFile = new File(packagePath + resourceFactoryName + JAVA_FILE_EXTENSION);
 	    File referenceResolverFile = new File(packagePath + referenceResolverSwitchName + JAVA_FILE_EXTENSION);
+	    File newFileActionFile = new File(packagePath + newFileActionName + JAVA_FILE_EXTENSION);
 	    File tokenResolverFactoryFile = new File(packagePath + tokenResolverFactoryName + JAVA_FILE_EXTENSION);
 	    	    
 	    ANTLRGrammarGenerator antlrGenenerator = new ANTLRGrammarGenerator(context);
@@ -130,6 +132,8 @@ public class ResourcePluginContentGenerator {
 		
 		generateReferenceResolverSwitch(context, progress, csResource, referenceResolverFile,
 				referenceResolverSwitchName);
+		
+		generateNewFileAction(context, progress, csResource, newFileActionFile, newFileActionName);
 		
 		generateTokenResolvers(
 				context, progress, csResource,
@@ -218,6 +222,16 @@ public class ResourcePluginContentGenerator {
 			BaseGenerator analyserGen = new ReferenceResolverSwitchGenerator(context);
 			setContents(resolverSwitchFile,invokeGeneration(analyserGen, context.getProblemCollector()));
 		}
+		progress.worked(5);
+	}
+
+	private static void generateNewFileAction(GenerationContext context,
+			SubMonitor progress, ITextResource csResource,
+			File newFileActionFile, String newFileActionName) throws IOException {
+		progress.setTaskName("generating new file action...");
+
+		IGenerator analyserGen = new NewFileContentGenerator(context);
+		setContents(newFileActionFile, invokeGeneration(analyserGen, context.getProblemCollector()));
 		progress.worked(5);
 	}
 

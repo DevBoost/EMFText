@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -17,7 +18,10 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
+import org.emftext.sdk.codegen.util.StringUtil;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -33,6 +37,9 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  * The NewFileContentGenerator can be used to derive a minimal sample file
  * from a concrete syntax. All mandatory parts of the syntax are included 
  * in this sample file.
+ * 
+ * TODO for references that point to abstract classes we must look for a
+ * rule of a concrete subclass.
  */
 public class NewFileContentGenerator implements IGenerator {
 	
@@ -48,27 +55,44 @@ public class NewFileContentGenerator implements IGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
+		sb = new StringBuffer();
+		getExampleDocument();
+		String exampleDocument = sb.toString();
+		exampleDocument = exampleDocument.replace("\"", "\\\"");
+		exampleDocument = exampleDocument.replace("\n", "\\\n");
+		exampleDocument = exampleDocument.replace("\r", "\\\r");
+		
+		StringComposite sc = new JavaComposite();
+		sc.add("package " + context.getPackageName() + ";");
+		sc.add("public class " + context.getNewFileActionClassName() + " {");
+		sc.add("public String getExampleDocument() {");
+		sc.add("return \"" + exampleDocument + "\";");
+		sc.add("}");
+		sc.add("}");
+		
+		out.write(sc.toString());
+		out.flush();
+		return true;
+	}
+
+	private void getExampleDocument() {
 		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		tokenSpace = OptionManager.INSTANCE.getIntegerOptionValue(concreteSyntax, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, null);
 		
 		List<GenClass> startSymbols = concreteSyntax.getAllStartSymbols();
 		if (startSymbols.size() == 0) {
-			return false;
+			return;
 		}
 		GenClass firstStartSymbol = startSymbols.get(0);
 		
 		Rule startRule = helper.getRule(concreteSyntax, firstStartSymbol);
-		if (startRule == null) {
-			return false;
-		}
-		sb = new StringBuffer();
 		generateContent(concreteSyntax, startRule);
-		out.write(sb.toString());
-		out.flush();
-		return true;
 	}
 
 	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule) {
+		if (rule == null) {
+			return;
+		}
 		Choice choice = rule.getDefinition();
 		List<Sequence> options = choice.getOptions();
 		for (Sequence option : options) {
@@ -78,10 +102,10 @@ public class NewFileContentGenerator implements IGenerator {
 					CardinalityDefinition cardinalityDefinition = (CardinalityDefinition) definition;
 					if (cardinalityDefinition.getCardinality() == null) {
 						// is mandatory
-						generateContent(concreteSyntax, definition);
+						generateContent(concreteSyntax, rule, definition);
 					}
 				} else {
-					generateContent(concreteSyntax, definition);
+					generateContent(concreteSyntax, rule, definition);
 				}
 			}
 			// use first option only
@@ -89,7 +113,7 @@ public class NewFileContentGenerator implements IGenerator {
 		}
 	}
 
-	private void generateContent(ConcreteSyntax concreteSyntax, Definition definition) {
+	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule, Definition definition) {
 		if (definition instanceof LineBreak) {
 			LineBreak lineBreak = (LineBreak) definition;
 			int count = lineBreak.getTab();
@@ -111,7 +135,7 @@ public class NewFileContentGenerator implements IGenerator {
 			EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
 			if (ecoreFeature instanceof EAttribute) {
 				EAttribute attribute = (EAttribute) ecoreFeature;
-				append(getDefaultText(attribute), false);
+				append(getDefaultText(rule.getMetaclass().getEcoreClass(), attribute), false);
 			} else if (ecoreFeature instanceof EReference) {
 				EReference reference = (EReference) ecoreFeature;
 				boolean isContainment = reference.isContainment();
@@ -138,7 +162,7 @@ public class NewFileContentGenerator implements IGenerator {
 		}
 	}
 
-	private String getDefaultText(EAttribute attribute) {
+	private String getDefaultText(EClass eClass, EAttribute attribute) {
 		EClassifier type = attribute.getEType();
 		String typeName = type.getName();
 		if (type instanceof EEnum) {
@@ -150,9 +174,13 @@ public class NewFileContentGenerator implements IGenerator {
 			}
 		}
 		if ("EInt".equals(typeName) ||
-			"EIntegerObject".equals(typeName)) {
-			return "0";
-		}
+				"EIntegerObject".equals(typeName)) {
+				return "0";
+			}
+		if ("EString".equals(typeName) ||
+			String.class.getName().equals(typeName)) {
+				return "some" + StringUtil.capitalize(eClass.getName()) + StringUtil.capitalize(attribute.getName());
+			}
 		// TODO return values for different frequently used types such as EInteger
 		return "value";
 	}
