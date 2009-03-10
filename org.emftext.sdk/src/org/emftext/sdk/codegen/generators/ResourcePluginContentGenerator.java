@@ -65,6 +65,7 @@ import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
  */
 public class ResourcePluginContentGenerator {
 	
+	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 	private static final String JAVA_FILE_EXTENSION = ".java";
 	
 	public void generate(GenerationContext context, IProgressMonitor monitor)throws IOException{
@@ -89,13 +90,15 @@ public class ResourcePluginContentGenerator {
 	    String referenceResolverSwitchName = context.getReferenceResolverSwitchClassName();
 	    String tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
         
-  		File antlrFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + antlrName + ".g");
-	    File printerFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + printerName + JAVA_FILE_EXTENSION);
-	    File printerBaseFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + printerBaseName + JAVA_FILE_EXTENSION);
-	    File resourceFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + resourceName + JAVA_FILE_EXTENSION);
-        File resourceFactoryFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + resourceFactoryName + JAVA_FILE_EXTENSION);
-	    File treeAnalyserFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + referenceResolverSwitchName + JAVA_FILE_EXTENSION);
-	    File tokenResolverFactoryFile = new File(targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator + tokenResolverFactoryName + JAVA_FILE_EXTENSION);
+  		String packagePath = targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator;
+		
+  		File antlrFile = new File(packagePath + antlrName + ANTRL_GRAMMAR_FILE_EXTENSION);
+	    File printerFile = new File(packagePath + printerName + JAVA_FILE_EXTENSION);
+	    File printerBaseFile = new File(packagePath + printerBaseName + JAVA_FILE_EXTENSION);
+	    File resourceFile = new File(packagePath + resourceName + JAVA_FILE_EXTENSION);
+        File resourceFactoryFile = new File(packagePath + resourceFactoryName + JAVA_FILE_EXTENSION);
+	    File referenceResolverFile = new File(packagePath + referenceResolverSwitchName + JAVA_FILE_EXTENSION);
+	    File tokenResolverFactoryFile = new File(packagePath + tokenResolverFactoryName + JAVA_FILE_EXTENSION);
 	    	    
 	    ANTLRGrammarGenerator antlrGenenerator = new ANTLRGrammarGenerator(context);
 	    IGenerator resourceGenenerator = new TextResourceGenerator(context);
@@ -125,7 +128,7 @@ public class ResourcePluginContentGenerator {
 				progress, csResource, resolverPackagePath,
 				antlrGenenerator);
 		
-		generateReferenceResolverSwitch(context, progress, csResource, treeAnalyserFile,
+		generateReferenceResolverSwitch(context, progress, csResource, referenceResolverFile,
 				referenceResolverSwitchName);
 		
 		generateTokenResolvers(
@@ -253,7 +256,7 @@ public class ResourcePluginContentGenerator {
 	private static void generatePrinterAndPrinterBase(GenerationContext context,
 			SubMonitor progress, ITextResource csResource, File printerFile,
 			File printerBaseFile, String antlrName, String printerName,
-			String printerBaseName, String treeAnalyserName,
+			String printerBaseName, String referenceResolverName,
 			String tokenResolverFactoryName, ANTLRGrammarGenerator antlrGen)
 			throws IOException {
 		
