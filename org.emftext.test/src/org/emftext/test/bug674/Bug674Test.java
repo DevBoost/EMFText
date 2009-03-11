@@ -29,6 +29,7 @@ public class Bug674Test extends TestCase {
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		assertEquals(1, resource.getErrors().size());
-		assertEquals(GenModelAnalyser.INVALID_GENMODEL_MESSAGE, resource.getErrors().get(0).getMessage());
+		String errorMessage = resource.getErrors().get(0).getMessage();
+		assertEquals(GenModelAnalyser.INVALID_GENMODEL_MESSAGE, errorMessage);
 	}
 }

@@ -8,7 +8,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 public class GenModelAnalyser extends AbstractAnalyser {
 
-	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel is invalid. Please validate it using the EMF genmodel editor.";
+	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel is invalid. Please reconcile it.";
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
