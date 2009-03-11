@@ -64,7 +64,7 @@ public abstract class GenerationContext {
 	private static final String CLASS_SUFFIX_RESOURCE = "Resource";
 	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactory";
 	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
-	private static final String CLASS_SUFFIX_NEW_FILE_ACTION = "NewFileAction";
+	private static final String CLASS_SUFFIX_NEW_FILE_WIZARD = "NewFileWizard";
 	
 	private static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
 	private static final String DEFAULT_ICON_DIR = "icons";
@@ -228,7 +228,7 @@ public abstract class GenerationContext {
     }
     
     public String getNewFileActionClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_NEW_FILE_ACTION;
+    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_NEW_FILE_WIZARD;
     }
     
 	public String getQualifiedNewFileActionName() {
