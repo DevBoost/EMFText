@@ -230,7 +230,7 @@ public class ResourcePluginContentGenerator {
 			File newFileActionFile, String newFileActionName) throws IOException {
 		progress.setTaskName("generating new file action...");
 
-		IGenerator analyserGen = new NewFileContentGenerator(context);
+		IGenerator analyserGen = new NewFileWizardGenerator(context);
 		setContents(newFileActionFile, invokeGeneration(analyserGen, context.getProblemCollector()));
 		progress.worked(5);
 	}

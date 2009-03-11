@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenOptions;
@@ -41,7 +42,7 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  * TODO for references that point to abstract classes we must look for a
  * rule of a concrete subclass.
  */
-public class NewFileContentGenerator implements IGenerator {
+public class NewFileWizardGenerator implements IGenerator {
 	
 	public static final String LINE_BREAK = System.getProperty("line.separator");
 	private final static GeneratorUtil helper = new GeneratorUtil();
@@ -50,7 +51,7 @@ public class NewFileContentGenerator implements IGenerator {
 	private int tokenSpace;
 	private StringBuffer sb;
 
-	public NewFileContentGenerator(GenerationContext context) {
+	public NewFileWizardGenerator(GenerationContext context) {
 		this.context = context;
 	}
 
@@ -64,8 +65,11 @@ public class NewFileContentGenerator implements IGenerator {
 		
 		StringComposite sc = new JavaComposite();
 		sc.add("package " + context.getPackageName() + ";");
-		sc.add("public class " + context.getNewFileActionClassName() + " {");
-		sc.add("public String getExampleDocument() {");
+		sc.add("public class " + context.getNewFileActionClassName() + " extends " + AbstractNewFileWizard.class.getName() + " {");
+		sc.add("public String getFileExtension() {");
+		sc.add("return \"" + context.getConcreteSyntax().getName() + "\";");
+		sc.add("}");
+		sc.add("public String getExampleContent() {");
 		sc.add("return \"" + exampleDocument + "\";");
 		sc.add("}");
 		sc.add("}");

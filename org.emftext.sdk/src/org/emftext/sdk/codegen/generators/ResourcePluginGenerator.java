@@ -25,6 +25,7 @@ import static org.emftext.sdk.codegen.util.GeneratorUtil.setContents;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -40,7 +41,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
@@ -126,8 +129,7 @@ public abstract class ResourcePluginGenerator {
 
 		// generate the resource class, parser, and printer
 		ResourcePluginContentGenerator pluginGenerator = new ResourcePluginContentGenerator();
-		pluginGenerator.generate(context, progress
-				.newChild(TICKS_GENERATE_RESOURCE));
+		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE));
 
 		// errors from parser generator?
 		if (resourceHelper.containsProblems(csResource)) {
@@ -137,12 +139,31 @@ public abstract class ResourcePluginGenerator {
 		createMetaFolder(context, progress);
 		createManifest(context, progress);
 		createPluginXML(context, progress);
+		copyIcon(context, progress);
 
 		markErrors(marker, context.getConcreteSyntax());
 
 		createMetaModelCode(context, progress);
 
 		return Result.SUCCESS;
+	}
+
+	private void copyIcon(GenerationContext context, SubMonitor progress) {
+		File iconsDir = context.getIconsDir();
+		iconsDir.mkdir();
+		
+		InputStream in = AbstractNewFileWizard.class.getResourceAsStream("default_new_icon.gif");
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(context.getNewIconFile());
+			int read;
+			while ((read = in.read()) >= 0) {
+				fos.write(read);
+			}
+			fos.close();
+		} catch (IOException e) {
+			EMFTextRuntimePlugin.logError("Error while copying icon.", e);
+		}
 	}
 
 	private boolean checkAbstract(final ConcreteSyntax concreteSyntax) {

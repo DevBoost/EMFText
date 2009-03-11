@@ -6,10 +6,14 @@ Bundle-Name: EMFText SDK
 Bundle-SymbolicName: org.emftext.sdk; singleton:=true
 Bundle-Version: 1.0.0.v200903061841
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,org
- .eclipse.emf.workspace,org.eclipse.jdt.core,org.eclipse.jdt.launching
- ,org.emftext.runtime,org.emftext.sdk.antlr,org.emftext.sdk.concretesy
- ntax;visibility:=reexport
+Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
+ org.eclipse.emf.workspace,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
+ org.emftext.runtime,
+ org.emftext.sdk.antlr,
+ org.emftext.sdk.concretesyntax;visibility:=reexport,
+ org.emftext.runtime.ui
 Export-Package: org.emftext.sdk,org.emftext.sdk.analysis,org.emftext.s
  dk.codegen,org.emftext.sdk.codegen.composites,org.emftext.sdk.codegen
  .generators,org.emftext.sdk.codegen.regex,org.emftext.sdk.codegen.uti

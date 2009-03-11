@@ -35,7 +35,7 @@ public class NewFileContentGeneratorTest extends TestCase {
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		ConcreteSyntax syntax = (ConcreteSyntax) resource.getContents().get(0);
-		NewFileContentGenerator nfcg = new NewFileContentGenerator(new GenerationContext(syntax, null) {
+		NewFileWizardGenerator nfcg = new NewFileWizardGenerator(new GenerationContext(syntax, null) {
 
 			@Override
 			public File getPluginProjectFolder() {
@@ -58,6 +58,6 @@ public class NewFileContentGeneratorTest extends TestCase {
 		assertTrue(success);
 		String result = buffer.toString();
 		System.out.println("testContentGenerator() => \"" + result + "\"");
-		assertEquals("ROOT {" + NewFileContentGenerator.LINE_BREAK + "CHILD (0, value, A) identifier" + NewFileContentGenerator.LINE_BREAK + "}", result);
+		assertEquals("ROOT {" + NewFileWizardGenerator.LINE_BREAK + "CHILD (0, value, A) identifier" + NewFileWizardGenerator.LINE_BREAK + "}", result);
 	}
 }

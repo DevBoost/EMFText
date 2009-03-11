@@ -95,7 +95,11 @@ public class ManifestGenerator implements IGenerator {
 				importedPlugins.add(pluginID);
 			}
 		}
-		sc.add("  org.emftext.runtime");
+		sc.add("  org.eclipse.jface,");
+		sc.add("  org.eclipse.ui,");
+		sc.add("  org.emftext.runtime,");
+		sc.add("  org.emftext.runtime.ui");
+
 		sc.add("Bundle-ActivationPolicy: lazy");
 		sc.add("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
 		// export the generated packages

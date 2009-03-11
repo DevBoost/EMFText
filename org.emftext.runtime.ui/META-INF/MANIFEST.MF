@@ -12,6 +12,10 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui.editors,org.ec
  lipse.emf.ecore.editor,org.eclipse.jface.text,org.eclipse.core.resour
  ces,org.emftext.runtime
-Export-Package: org.emftext.runtime.ui,org.emftext.runtime.ui.editor,o
- rg.emftext.runtime.ui.outline,org.emftext.runtime.ui.preferences
+Export-Package: org.emftext.runtime.ui,
+ org.emftext.runtime.ui.editor,
+ org.emftext.runtime.ui.editor.bg_parsing,
+ org.emftext.runtime.ui.new_wizard,
+ org.emftext.runtime.ui.outline,
+ org.emftext.runtime.ui.preferences
 

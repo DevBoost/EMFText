@@ -66,6 +66,9 @@ public abstract class GenerationContext {
 	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
 	private static final String CLASS_SUFFIX_NEW_FILE_ACTION = "NewFileAction";
 	
+	private static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
+	private static final String DEFAULT_ICON_DIR = "icons";
+	
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private final ConcreteSyntax concreteSyntax;
@@ -228,7 +231,11 @@ public abstract class GenerationContext {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_NEW_FILE_ACTION;
     }
     
-    public String getReferenceResolverSwitchClassName() {
+	public String getQualifiedNewFileActionName() {
+		return getPackageName() + "." + getNewFileActionClassName();
+	}
+
+	public String getReferenceResolverSwitchClassName() {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH;
     }
     
@@ -334,4 +341,20 @@ public abstract class GenerationContext {
 	 * file.
 	 */
 	public abstract String getProjectRelativePathToSyntaxFile();
+
+	public File getIconsDir() {
+		return new File(getPluginProjectFolder().getAbsolutePath() + getProjectRelativeIconsPath());
+	}
+
+	public File getNewIconFile() {
+		return new File(getPluginProjectFolder().getAbsolutePath() + getProjectRelativeNewIconPath());
+	}
+
+	public String getProjectRelativeIconsPath() {
+		return File.separator + DEFAULT_ICON_DIR;
+	}
+
+	public String getProjectRelativeNewIconPath() {
+		return getProjectRelativeIconsPath() + File.separator + DEFAULT_NEW_ICON_NAME;
+	}
 }

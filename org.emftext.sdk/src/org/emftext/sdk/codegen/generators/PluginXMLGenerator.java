@@ -95,6 +95,15 @@ public class PluginXMLGenerator implements IGenerator {
 		s.add("</file-association>");
 		s.add("</extension>");
 		s.addLineBreak();
+		
+		s.add("<extension point=\"org.eclipse.ui.newWizards\">");
+		s.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");
+		s.add("</category>");
+		String newFileWizard = context.getQualifiedNewFileActionName();
+		s.add("<wizard category=\"org.emftext.runtime.ui.EMFTextFileCategory\" icon=\"" + context.getProjectRelativeNewIconPath() + "\" class=\"" + newFileWizard + "\" id=\"" + newFileWizard + "\" name=\"EMFText ." + context.getConcreteSyntax().getName() + " file\">");
+		s.add("</wizard>");
+		s.add("</extension>");
+		s.addLineBreak();
 
 		if (generateTestAction) {
 			s.add(generateTestActionExtension());
