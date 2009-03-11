@@ -32,6 +32,7 @@ import org.emftext.sdk.analysis.DuplicateReferenceAnalyser;
 import org.emftext.sdk.analysis.DuplicateRuleAnalyser;
 import org.emftext.sdk.analysis.DuplicateTokenNameAnalyser;
 import org.emftext.sdk.analysis.FeatureCardinalityAnalyser;
+import org.emftext.sdk.analysis.GenModelAnalyser;
 import org.emftext.sdk.analysis.LeftRecursionAnalyser;
 import org.emftext.sdk.analysis.MissingRulesAnalyser;
 import org.emftext.sdk.analysis.ModifierAnalyser;
@@ -54,6 +55,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		Map<String, Object> options = new HashMap<String, Object>();
 
 		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
+		postProcessors.add(new GenModelAnalyser());
 		postProcessors.add(new FeatureCardinalityAnalyser());
 		postProcessors.add(new OptionalKeywordAnalyser());
 		postProcessors.add(new DuplicateReferenceAnalyser());

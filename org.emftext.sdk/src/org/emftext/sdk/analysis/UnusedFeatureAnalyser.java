@@ -117,7 +117,11 @@ public class UnusedFeatureAnalyser extends AbstractAnalyser {
 					GenFeature terminalGenFeature = terminal.getFeature();
 					if (terminalGenFeature != null) {
 						if (!terminalGenFeature.eIsProxy()) {
-							if (genFeature.getName().equals(terminalGenFeature.getName())) {
+							String genFeatureName = genFeature.getName();
+							if (genFeatureName == null) {
+								continue;
+							}
+							if (genFeatureName.equals(terminalGenFeature.getName())) {
 								return true;
 							}
 						}
