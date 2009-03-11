@@ -91,6 +91,7 @@ public class NewFileWizardGenerator implements IGenerator {
 		
 		Rule startRule = helper.getRule(concreteSyntax, firstStartSymbol);
 		generateContent(concreteSyntax, startRule);
+		// TODO mseifert: if the first start symbol returns an empty string we can try the other ones
 	}
 
 	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule) {
