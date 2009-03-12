@@ -93,7 +93,11 @@ public class StringComposite {
 		}
 	}
 
-	public static final String LINE_BREAK = System.getProperty("line.separator");
+	// we do intentionally not use the platform specific line separation
+	// character, because the files that are generated using this StringComposite
+	// shall look the same on all platforms. Eclipse does understand the different
+	// kinds of line separators anyway and treats them correctly on all platforms.
+	public static final String LINE_BREAK = "\n";
 	
 	private List<StringComponent> components = new ArrayList<StringComponent>();
 

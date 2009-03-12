@@ -203,11 +203,11 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		return false;
 	}
 
-	protected String getResourceClassName(){
+	protected String getResourceClassName() {
     	return className;
     }
     
-    protected String getResourcePackageName(){
+    protected String getResourcePackageName() {
     	return packageName;
     }
     

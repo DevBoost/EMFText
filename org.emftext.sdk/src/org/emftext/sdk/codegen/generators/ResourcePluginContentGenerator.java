@@ -91,7 +91,11 @@ public class ResourcePluginContentGenerator {
 	    String referenceResolverSwitchName = context.getReferenceResolverSwitchClassName();
 	    String tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
         
-  		String packagePath = targetFolder.getAbsolutePath() + File.separator + csPackagePath + File.separator;
+  		String targetFolderPath = targetFolder.getAbsolutePath();
+		String packagePath = targetFolderPath + File.separator + csPackagePath + File.separator;
+		
+		File dotClasspathFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + ".classpath");
+		File dotProjectFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + ".project");
 		
   		File antlrFile = new File(packagePath + antlrName + ANTRL_GRAMMAR_FILE_EXTENSION);
 	    File printerFile = new File(packagePath + printerName + JAVA_FILE_EXTENSION);
@@ -105,7 +109,14 @@ public class ResourcePluginContentGenerator {
 	    ANTLRGrammarGenerator antlrGenenerator = new ANTLRGrammarGenerator(context);
 	    IGenerator resourceGenenerator = new TextResourceGenerator(context);
 	    IGenerator resourceFactoryGenenerator = new ResourceFactoryGenerator(context);
+	    IGenerator dotClasspathGenerator = new DotClasspathGenerator(context);
+	    IGenerator dotProjectGenerator = new DotProjectGenerator(context);
 	    
+	    progress.setTaskName("setting classpath...");
+	    setContents(dotClasspathFile, invokeGeneration(dotClasspathGenerator, context.getProblemCollector()));
+	    progress.setTaskName("setting project description...");
+	    setContents(dotProjectFile, invokeGeneration(dotProjectGenerator, context.getProblemCollector()));
+
 	    progress.setTaskName("deriving grammar...");
 	    InputStream grammarStream = deriveGrammar(antlrGenenerator, context);
 	    if (grammarStream == null) {
