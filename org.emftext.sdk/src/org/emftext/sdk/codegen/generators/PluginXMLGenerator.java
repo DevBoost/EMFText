@@ -100,8 +100,6 @@ public class PluginXMLGenerator implements IGenerator {
 		s.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");
 		s.add("</category>");
 		String newFileWizard = context.getQualifiedNewFileActionName();
-		// TODO mseifert: getProjectRelativeNewIconPath() returns a path with platform specific separators
-		// we should use a path with slashes instead
 		s.add("<wizard category=\"org.emftext.runtime.ui.EMFTextFileCategory\" icon=\"" + context.getProjectRelativeNewIconPath() + "\" class=\"" + newFileWizard + "\" id=\"" + newFileWizard + "\" name=\"EMFText ." + context.getConcreteSyntax().getName() + " file\">");
 		s.add("</wizard>");
 		s.add("</extension>");

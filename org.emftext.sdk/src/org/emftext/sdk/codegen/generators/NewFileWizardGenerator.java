@@ -1,6 +1,7 @@
 package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,7 +41,7 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  * from a concrete syntax. All mandatory parts of the syntax are included 
  * in this sample file.
  * 
- * TODO for references that point to abstract classes we must look for a
+ * TODO mseifert: for references that point to abstract classes we must look for a
  * rule of a concrete subclass.
  */
 public class NewFileWizardGenerator implements IGenerator {
@@ -56,9 +57,9 @@ public class NewFileWizardGenerator implements IGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		StringBuffer sb = new StringBuffer();
-		getExampleDocument(sb);
-		String exampleDocument = sb.toString();
+		String exampleDocument = getExampleDocument();
+		// escape special characters to avoid compilation
+		// problems in generated code
 		exampleDocument = exampleDocument.replace("\"", "\\\"");
 		exampleDocument = exampleDocument.replace("\n", "\\\n");
 		exampleDocument = exampleDocument.replace("\r", "\\\r");
@@ -79,19 +80,25 @@ public class NewFileWizardGenerator implements IGenerator {
 		return true;
 	}
 
-	public void getExampleDocument(StringBuffer sb) {
+	public String getExampleDocument() {
 		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		tokenSpace = OptionManager.INSTANCE.getIntegerOptionValue(concreteSyntax, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, null);
 		
 		List<GenClass> startSymbols = concreteSyntax.getAllStartSymbols();
 		if (startSymbols.size() == 0) {
-			return;
+			return "";
 		}
-		GenClass firstStartSymbol = startSymbols.get(0);
-		
-		Rule startRule = helper.getRule(concreteSyntax, firstStartSymbol);
-		generateContent(concreteSyntax, startRule, sb);
-		// TODO mseifert: if the first start symbol returns an empty string we can try the other ones
+		for (GenClass startSymbol : startSymbols) {
+			StringBuffer sb = new StringBuffer();
+			Rule startRule = helper.getRule(concreteSyntax, startSymbol);
+			generateContent(concreteSyntax, startRule, sb);
+			String result = sb.toString();
+			// if the start symbol returns an empty string we can try the other ones
+			if (result.trim().length() > 0) {
+				return result;
+			}
+		}
+		return "";
 	}
 
 	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule, StringBuffer sb) {
@@ -188,25 +195,25 @@ public class NewFileWizardGenerator implements IGenerator {
 				return firstLiteral.getLiteral();
 			}
 		}
-		if ("EInt".equals(typeName) ||
-				"EIntegerObject".equals(typeName)) {
-				return "0";
-			}
-		if ("EString".equals(typeName) ||
-			String.class.getName().equals(typeName)) {
-				return "some" + StringUtil.capitalize(eClass.getName()) + StringUtil.capitalize(attribute.getName());
-			}
-		// TODO return values for different frequently used types such as EInteger
+		boolean isInteger = "EInt".equals(typeName) ||
+				"EIntegerObject".equals(typeName) ||
+				Integer.class.getName().equals(typeName);
+		if (isInteger) {
+			return "0";
+		}
+		boolean isString = "EString".equals(typeName) ||
+			String.class.getName().equals(typeName);
+		if (isString) {
+			return "some" + StringUtil.capitalize(eClass.getName()) + StringUtil.capitalize(attribute.getName());
+		}
 		return "value";
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<GenerationProblem>();
 	}
 
 	public Collection<GenerationProblem> getCollectedProblems() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<GenerationProblem>();
 	}
 }

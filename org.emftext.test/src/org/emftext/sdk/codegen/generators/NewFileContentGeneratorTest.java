@@ -60,9 +60,7 @@ public class NewFileContentGeneratorTest extends TestCase {
 				return null;
 			}
 		});
-		StringBuffer buffer = new StringBuffer();
-		nfcg.getExampleDocument(buffer);
-		String result = buffer.toString();
+		String result = nfcg.getExampleDocument();
 		System.out.println("testContentGenerator() => \"" + result + "\"");
 		assertEquals(expectedContent, result);
 	}
