@@ -160,10 +160,6 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		return errors;
 	}
 	
-	public Collection<GenerationProblem> getCollectedWarnings(){
-		return warnings;
-	}
-	
 	public Collection<GenerationProblem> getCollectedProblems(){
 		List<GenerationProblem> allProblems = new LinkedList<GenerationProblem>(errors);
 		allProblems.addAll(warnings);
