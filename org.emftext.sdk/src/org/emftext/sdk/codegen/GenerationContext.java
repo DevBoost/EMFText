@@ -343,18 +343,16 @@ public abstract class GenerationContext {
 	public abstract String getProjectRelativePathToSyntaxFile();
 
 	public File getIconsDir() {
-		return new File(getPluginProjectFolder().getAbsolutePath() + getProjectRelativeIconsPath());
+		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + DEFAULT_ICON_DIR);
 	}
 
 	public File getNewIconFile() {
-		return new File(getPluginProjectFolder().getAbsolutePath() + getProjectRelativeNewIconPath());
-	}
-
-	public String getProjectRelativeIconsPath() {
-		return File.separator + DEFAULT_ICON_DIR;
+		return new File(getIconsDir().getAbsolutePath() + File.separator + DEFAULT_NEW_ICON_NAME);
 	}
 
 	public String getProjectRelativeNewIconPath() {
-		return getProjectRelativeIconsPath() + File.separator + DEFAULT_NEW_ICON_NAME;
+		// it is OK to use slashes here, because this path is put into
+		// the plugin.xml
+		return "/" + DEFAULT_ICON_DIR + "/" + DEFAULT_NEW_ICON_NAME;
 	}
 }

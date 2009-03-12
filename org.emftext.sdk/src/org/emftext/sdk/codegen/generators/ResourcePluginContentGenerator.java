@@ -228,7 +228,7 @@ public class ResourcePluginContentGenerator {
 	private static void generateNewFileAction(GenerationContext context,
 			SubMonitor progress, ITextResource csResource,
 			File newFileActionFile, String newFileActionName) throws IOException {
-		progress.setTaskName("generating new file action...");
+		progress.setTaskName("generating new file wizard...");
 
 		IGenerator analyserGen = new NewFileWizardGenerator(context);
 		setContents(newFileActionFile, invokeGeneration(analyserGen, context.getProblemCollector()));
