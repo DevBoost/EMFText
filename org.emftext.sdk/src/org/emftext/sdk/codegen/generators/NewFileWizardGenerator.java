@@ -28,6 +28,7 @@ import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -49,15 +50,14 @@ public class NewFileWizardGenerator implements IGenerator {
 	
 	private GenerationContext context;
 	private int tokenSpace;
-	private StringBuffer sb;
 
 	public NewFileWizardGenerator(GenerationContext context) {
 		this.context = context;
 	}
 
 	public boolean generate(PrintWriter out) {
-		sb = new StringBuffer();
-		getExampleDocument();
+		StringBuffer sb = new StringBuffer();
+		getExampleDocument(sb);
 		String exampleDocument = sb.toString();
 		exampleDocument = exampleDocument.replace("\"", "\\\"");
 		exampleDocument = exampleDocument.replace("\n", "\\\n");
@@ -79,7 +79,7 @@ public class NewFileWizardGenerator implements IGenerator {
 		return true;
 	}
 
-	private void getExampleDocument() {
+	public void getExampleDocument(StringBuffer sb) {
 		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		tokenSpace = OptionManager.INSTANCE.getIntegerOptionValue(concreteSyntax, ICodeGenOptions.CS_OPTION_TOKENSPACE, true, null);
 		
@@ -90,11 +90,11 @@ public class NewFileWizardGenerator implements IGenerator {
 		GenClass firstStartSymbol = startSymbols.get(0);
 		
 		Rule startRule = helper.getRule(concreteSyntax, firstStartSymbol);
-		generateContent(concreteSyntax, startRule);
+		generateContent(concreteSyntax, startRule, sb);
 		// TODO mseifert: if the first start symbol returns an empty string we can try the other ones
 	}
 
-	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule) {
+	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule, StringBuffer sb) {
 		if (rule == null) {
 			return;
 		}
@@ -107,10 +107,10 @@ public class NewFileWizardGenerator implements IGenerator {
 					CardinalityDefinition cardinalityDefinition = (CardinalityDefinition) definition;
 					if (cardinalityDefinition.getCardinality() == null) {
 						// is mandatory
-						generateContent(concreteSyntax, rule, definition);
+						generateContent(concreteSyntax, rule, definition, sb);
 					}
 				} else {
-					generateContent(concreteSyntax, rule, definition);
+					generateContent(concreteSyntax, rule, definition, sb);
 				}
 			}
 			// use first option only
@@ -118,44 +118,54 @@ public class NewFileWizardGenerator implements IGenerator {
 		}
 	}
 
-	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule, Definition definition) {
+	private void generateContent(ConcreteSyntax concreteSyntax, Rule rule, Definition definition, StringBuffer sb) {
 		if (definition instanceof LineBreak) {
 			LineBreak lineBreak = (LineBreak) definition;
 			int count = lineBreak.getTab();
 			for (int i = 0; i < count; i++) {
-				append(LINE_BREAK, false);
+				append(LINE_BREAK, false, sb);
 			}
 		} else if (definition instanceof WhiteSpaces) {
 			WhiteSpaces ws = (WhiteSpaces) definition;
 			int count = ws.getAmount();
 			for (int i = 0; i < count; i++) {
-				append(" ", true);
+				append(" ", true, sb);
 			}
 		} else if (definition instanceof CsString) {
 			CsString csString = (CsString) definition;
-			append(csString.getValue(), false);
+			append(csString.getValue(), false, sb);
 		} else if (definition instanceof Terminal) {
 			Terminal terminal = (Terminal) definition;
+			DerivedPlaceholder derivedPlaceholder = null;
+			if (terminal instanceof DerivedPlaceholder) {
+				derivedPlaceholder = (DerivedPlaceholder) terminal;
+			}
+			if (derivedPlaceholder != null) {
+				append(derivedPlaceholder.getPrefix(), false, sb);
+			}
 			GenFeature genFeature = terminal.getFeature();
 			EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
 			if (ecoreFeature instanceof EAttribute) {
 				EAttribute attribute = (EAttribute) ecoreFeature;
-				append(getDefaultText(rule.getMetaclass().getEcoreClass(), attribute), false);
+				append(getDefaultText(rule.getMetaclass().getEcoreClass(), attribute), false, sb);
 			} else if (ecoreFeature instanceof EReference) {
 				EReference reference = (EReference) ecoreFeature;
 				boolean isContainment = reference.isContainment();
 				if (isContainment) {
 					GenClass type = genFeature.getTypeGenClass();
 					Rule containedRule = helper.getRule(concreteSyntax, type);
-					generateContent(concreteSyntax, containedRule);
+					generateContent(concreteSyntax, containedRule, sb);
 				} else {
-					append("identifier", false);
+					append("identifier", false, sb);
 				}
+			}
+			if (derivedPlaceholder != null) {
+				append(derivedPlaceholder.getSuffix(), false, sb);
 			}
 		}
 	}
 
-	private void append(String text, boolean isWhitespace) {
+	private void append(String text, boolean isWhitespace, StringBuffer sb) {
 		boolean tokenSpaceIsSet = tokenSpace > 0;
 		if (!(isWhitespace && tokenSpaceIsSet)) {
 			sb.append(text);
