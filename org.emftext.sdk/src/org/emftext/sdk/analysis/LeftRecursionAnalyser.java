@@ -40,6 +40,11 @@ public class LeftRecursionAnalyser extends AbstractAnalyser {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
+		// stop if errors have been detected by previous analysis 
+		if (!resource.getErrors().isEmpty()) {
+			return;
+		}
+		
 		GenClassFinder genClassFinder = new GenClassFinder();
 		Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, true, true);
 		Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);

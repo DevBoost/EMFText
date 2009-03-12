@@ -54,7 +54,7 @@ public class MetamodelHelper {
 	public final static String GEN_PACKAGE_FINDER_KEY = "GEN_PACKAGE_FINDER";
 	public final static String CONCRETE_SYNTAX_FINDER_KEY = "CONCRETE_SYNTAX_FINDER";
 
-	private final static MetamodelManager mmManager = new MetamodelManager();
+	private MetamodelManager mmManager = new MetamodelManager();
 
 	public GenPackage findGenPackage(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, ITextResource resource) {
 		configureMetaModelManager(options);
