@@ -42,11 +42,9 @@ import org.emftext.sdk.concretesyntax.Import;
 public class ManifestGenerator implements IGenerator {
 
 	private final GenerationContext context;
-	private final boolean generateTestAction;
 
-	public ManifestGenerator(GenerationContext context, boolean generateTestAction) {
+	public ManifestGenerator(GenerationContext context) {
 		this.context = context;
-		this.generateTestAction = generateTestAction;
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -83,6 +81,9 @@ public class ManifestGenerator implements IGenerator {
 		String modelPluginID = concreteSyntax.getPackage().getGenModel().getModelPluginID();
 		importedPlugins.add(modelPluginID);
 		sc.add("  " + modelPluginID + ",");
+		
+		boolean generateTestAction = context.isGenerateTestActionEnabled();
+
 		if (generateTestAction) {
 			sc.add("  org.emftext.sdk.ui,");
 		}

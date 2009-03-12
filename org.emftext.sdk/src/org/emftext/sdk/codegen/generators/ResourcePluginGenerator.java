@@ -242,8 +242,7 @@ public abstract class ResourcePluginGenerator {
 	}
 
 	private InputStream generateManifest(GenerationContext context) {
-		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
-		ManifestGenerator mGenerator = new ManifestGenerator(context, isGenerateTestActionEnabled(cSyntax));
+		ManifestGenerator mGenerator = new ManifestGenerator(context);
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		mGenerator.generate(new PrintWriter(outputStream));
 		return new ByteArrayInputStream(outputStream.toByteArray());
@@ -260,9 +259,7 @@ public abstract class ResourcePluginGenerator {
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
 		if (pluginXMLFile.exists()) {
 			if (overridePluginXML) {
-				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context,
-					isGenerateTestActionEnabled(cSyntax)
-				);
+				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context);
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 				pluginXMLGenerator.generate(new PrintWriter(outputStream));
 				setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
@@ -271,18 +268,12 @@ public abstract class ResourcePluginGenerator {
 				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
 			}
 		} else {
-			PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context,
-					isGenerateTestActionEnabled(cSyntax)
-			);
+			PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			pluginXMLGenerator.generate(new PrintWriter(outputStream));
 			setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
 			progress.newChild(TICKS_CREATE_PLUGIN_XML);
 		}
-	}
-
-	private boolean isGenerateTestActionEnabled(ConcreteSyntax syntax) {
-		return OptionManager.INSTANCE.getBooleanOptionValue(syntax, ICodeGenOptions.GENERATE_TEST_ACTION);
 	}
 
 	private void markErrors(IResourceMarker marker, final ConcreteSyntax cSyntax) throws CoreException {

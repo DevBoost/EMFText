@@ -39,12 +39,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class PluginXMLGenerator implements IGenerator {
 
 	private final GenerationContext context;
-	private final boolean generateTestAction;
 
-	public PluginXMLGenerator(GenerationContext context, boolean generateTestAction) {
+	public PluginXMLGenerator(GenerationContext context) {
 		super();
 		this.context = context;
-		this.generateTestAction = generateTestAction;
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -105,7 +103,7 @@ public class PluginXMLGenerator implements IGenerator {
 		s.add("</extension>");
 		s.addLineBreak();
 
-		if (generateTestAction) {
+		if (context.isGenerateTestActionEnabled()) {
 			s.add(generateTestActionExtension());
 		}
 

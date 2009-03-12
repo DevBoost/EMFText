@@ -355,4 +355,8 @@ public abstract class GenerationContext {
 		// the plugin.xml
 		return "/" + DEFAULT_ICON_DIR + "/" + DEFAULT_NEW_ICON_NAME;
 	}
+
+	public boolean isGenerateTestActionEnabled() {
+		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), ICodeGenOptions.GENERATE_TEST_ACTION);
+	}
 }
