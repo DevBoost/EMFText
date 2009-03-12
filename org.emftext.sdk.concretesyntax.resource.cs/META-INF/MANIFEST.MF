@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Parser Plugin: cs
 Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Vendor: Software Engineering Group - TU Dresden Germany
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.core.runtime,
   org.eclipse.emf.ecore,
   org.emftext.sdk,

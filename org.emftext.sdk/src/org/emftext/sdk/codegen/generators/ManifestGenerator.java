@@ -76,7 +76,7 @@ public class ManifestGenerator implements IGenerator {
 		sc.add("Bundle-Name: EMFText Parser Plugin: " + concreteSyntax.getName());
 		sc.add("Bundle-SymbolicName: " + projectName + ";singleton:=true");
 		sc.add("Bundle-Version: 1.0.0");
-		sc.add("Bundle-Vendor: Software Engineering Group - TU Dresden Germany");
+		sc.add("Bundle-Vendor: Software Technology Group - TU Dresden Germany");
 		sc.add("Require-Bundle: org.eclipse.core.runtime,");
 		sc.add("  org.eclipse.emf.ecore,");
 		List<String> importedPlugins = new ArrayList<String>();
