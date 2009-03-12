@@ -93,7 +93,7 @@ public class StringComposite {
 		}
 	}
 
-	public static final String LINE_BREAK = "\n";
+	public static final String LINE_BREAK = System.getProperty("line.separator");
 	
 	private List<StringComponent> components = new ArrayList<StringComponent>();
 

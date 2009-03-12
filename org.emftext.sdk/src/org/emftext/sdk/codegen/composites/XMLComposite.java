@@ -33,17 +33,27 @@ public class XMLComposite extends StringComposite {
 
 	@Override
 	public boolean isIndendationStarter(Component component) {
-		return component.toString().endsWith(">") &&
+		boolean isStarter = component.toString().endsWith(">") &&
 			!component.toString().endsWith("?>") && 
-			!isEndTag(component);
+			!(isEndTag(component) || isCompactTag(component) || isTagOnOneLine(component));
+		return isStarter;
 	}
 
 	@Override
 	public boolean isIndendationStopper(Component component) {
-		return isEndTag(component);
+		boolean isStopper = isEndTag(component) && !isCompactTag(component) && !isTagOnOneLine(component);
+		return isStopper;
 	}
 
 	private boolean isEndTag(Component component) {
 		return component.toString().matches("</.*>");
+	}
+
+	private boolean isCompactTag(Component component) {
+		return component.toString().matches("<.*/>");
+	}
+	
+	private boolean isTagOnOneLine(Component component) {
+		return component.toString().matches("<.*>.*</.*>");
 	}
 }
