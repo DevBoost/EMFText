@@ -20,7 +20,7 @@ Require-Bundle: org.eclipse.ui,
  org.emftext.sdk,
  org.emftext.sdk.ui
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.emftext.sdk.codegen.util,
+Export-Package: org.emftext.sdk.codegen.composites,
  org.emftext.test,
  org.emftext.test.options,
  org.emftext.test.resource

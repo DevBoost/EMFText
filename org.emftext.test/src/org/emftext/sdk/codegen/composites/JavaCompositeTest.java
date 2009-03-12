@@ -18,7 +18,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.util;
+package org.emftext.sdk.codegen.composites;
 
 import static org.junit.Assert.assertEquals;
 
