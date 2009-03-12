@@ -24,6 +24,8 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
  * The "New" wizard page allows setting the container for the new file as well
  * as the file name. The page will only accept file name without the extension
  * OR with the extension that matches the expected one.
+ * 
+ * TODO the wizard should ask for confirmation if a file with the same name already exists
  */
 public class AbstractNewFileWizardPage extends WizardPage {
 	
@@ -109,6 +111,8 @@ public class AbstractNewFileWizardPage extends WizardPage {
 				containerText.setText(container.getFullPath().toString());
 			}
 		}
+		// TODO we should use the name of the currently selected file
+		// instead of 'new_file'.
 		fileText.setText("new_file." + fileExtension);
 	}
 
