@@ -26,6 +26,10 @@ public class NewFileContentGeneratorTest extends TestCase {
 	@Test
 	public void testContentGenerator() {
 		assertContent(
+			"content3.cs",
+			"ROOT CONCRETE"
+		);
+		assertContent(
 			"content.cs",
 			"ROOT {" + NewFileWizardGenerator.LINE_BREAK + "CHILD (0, someChildAString, A) identifier" + NewFileWizardGenerator.LINE_BREAK + "}"
 		);

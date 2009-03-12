@@ -150,14 +150,24 @@ public class GeneratorUtil {
 		return null;
 	}
 
+	/**
+	 * Checks whether the given syntax contains a rule for the given
+	 * GenClass or a sub type of it. If such a rule is found, it is 
+	 * returned.
+	 * 
+	 * @param concreteSyntax the syntax to search for rules in
+	 * @param genClass the class to search for
+	 * 
+	 * @return a rule that references 'genClass' or a sub type, null if 
+	 *         no rule is found.
+	 */
 	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			GenClass metaclass = rule.getMetaclass();
 			if (metaclass.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
 				return rule;
 			}
-			if (contains(genClass.getAllBaseGenClasses(), metaclass)) {
-				System.out.println("GeneratorUtil.getRule() Found sub class rule.");
+			if (contains(metaclass.getAllBaseGenClasses(), genClass)) {
 				return rule;
 			}
 		}

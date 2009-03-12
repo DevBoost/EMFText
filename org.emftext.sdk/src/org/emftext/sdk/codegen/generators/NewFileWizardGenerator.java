@@ -40,9 +40,6 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
  * The NewFileContentGenerator can be used to derive a minimal sample file
  * from a concrete syntax. All mandatory parts of the syntax are included 
  * in this sample file.
- * 
- * TODO mseifert: for references that point to abstract classes we must look for a
- * rule of a concrete subclass.
  */
 public class NewFileWizardGenerator implements IGenerator {
 	
