@@ -57,7 +57,7 @@ import org.emftext.sdk.concretesyntax.Import;
 public abstract class ResourcePluginGenerator {
 	
 	/**
-	 * An enumeration of all possible result of the generation
+	 * An enumeration of all possible results of the generation
 	 * process.
 	 */
 	public enum Result {
@@ -110,7 +110,7 @@ public abstract class ResourcePluginGenerator {
 		}
 
 		// perform some initial checks
-		if (checkAbstract(concreteSyntax)) {
+		if (isAbstract(concreteSyntax)) {
 			return Result.ERROR_ABSTRACT_SYNTAX;
 		}
 		GenPackage genPackage = concreteSyntax.getPackage();
@@ -166,7 +166,7 @@ public abstract class ResourcePluginGenerator {
 		}
 	}
 
-	private boolean checkAbstract(final ConcreteSyntax concreteSyntax) {
+	private boolean isAbstract(final ConcreteSyntax concreteSyntax) {
 		if (concreteSyntax.getModifier() != null) {
 			return true;
 		}
@@ -241,13 +241,6 @@ public abstract class ResourcePluginGenerator {
 		}
 	}
 
-	private InputStream generateManifest(GenerationContext context) {
-		ManifestGenerator mGenerator = new ManifestGenerator(context);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		mGenerator.generate(new PrintWriter(outputStream));
-		return new ByteArrayInputStream(outputStream.toByteArray());
-	}
-
 	private void createPluginXML(GenerationContext context, SubMonitor progress)
 			throws IOException {
 		
@@ -259,21 +252,31 @@ public abstract class ResourcePluginGenerator {
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
 		if (pluginXMLFile.exists()) {
 			if (overridePluginXML) {
-				PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context);
-				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-				pluginXMLGenerator.generate(new PrintWriter(outputStream));
+				ByteArrayOutputStream outputStream = generatePluginXML(context);
 				setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
 				progress.newChild(TICKS_CREATE_PLUGIN_XML);
 			} else {
 				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
 			}
 		} else {
-			PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context);
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			pluginXMLGenerator.generate(new PrintWriter(outputStream));
+			ByteArrayOutputStream outputStream = generatePluginXML(context);
 			setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
 			progress.newChild(TICKS_CREATE_PLUGIN_XML);
 		}
+	}
+
+	private InputStream generateManifest(GenerationContext context) {
+		ManifestGenerator mGenerator = new ManifestGenerator(context);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		mGenerator.generate(new PrintWriter(outputStream));
+		return new ByteArrayInputStream(outputStream.toByteArray());
+	}
+
+	private ByteArrayOutputStream generatePluginXML(GenerationContext context) {
+		PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		pluginXMLGenerator.generate(new PrintWriter(outputStream));
+		return outputStream;
 	}
 
 	private void markErrors(IResourceMarker marker, final ConcreteSyntax cSyntax) throws CoreException {
