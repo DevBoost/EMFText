@@ -77,11 +77,25 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 		Object mapKey = dummy.getValueByName("key");
 		Object mapValue = dummy.getValueByName("value");
 		if (value instanceof EMap) {
-			EMap<Object, Object> valueMap = (EMap<Object,Object>) value;
+			EMap<Object, Object> valueMap = castToMap(value);
 			if (mapKey != null && mapValue != null) {
 				valueMap.put(mapKey, mapValue);
 			}
 		}
+	}
+
+	/**
+	 * This method encapsulate an unchecked cast from Object to
+	 * EMap<Object, Object>. This case can not be performed type
+	 * safe, because type parameters are not available for
+	 * reflective access to Ecore models.
+	 * 
+	 * @param value
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private EMap<Object, Object> castToMap(Object value) {
+		return (EMap<Object,Object>) value;
 	}
 	
 	protected EObject apply(EObject target, List<EObject> dummyEObjects) {

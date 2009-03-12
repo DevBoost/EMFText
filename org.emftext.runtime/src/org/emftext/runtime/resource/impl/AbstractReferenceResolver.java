@@ -86,23 +86,48 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject, R
 	protected void doResolve(String identifier, ContainerType container,
 			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<ReferenceType> result) {
 
-		EClass type     = reference.getEReferenceType();
+		EClass type = reference.getEReferenceType();
 		EObject root = findRoot(container);
-		for (Iterator<EObject> i = root.eAllContents(); i.hasNext(); ) {
-			EObject element = i.next();
-			if (!element.eIsProxy()) {
-				EClass eClass = element.eClass();
-				if (eClass.equals(type) || eClass.getEAllSuperTypes().contains(type)) {
-					final String match = matches(element, identifier, resolveFuzzy);
-					if (match != null) {
-						result.addMapping(match, (ReferenceType) element);
-						if (!resolveFuzzy) {
-							return;
-						}
-					}
-				}
+		for (Iterator<EObject> iterator = root.eAllContents(); iterator.hasNext(); ) {
+			EObject element = iterator.next();
+			if (element.eIsProxy()) {
+				continue;
+			}
+			
+			EClass eClass = element.eClass();
+			boolean hasCorrectType = eClass.equals(type) || eClass.getEAllSuperTypes().contains(type);
+			if (!hasCorrectType) {
+				continue;
+			}
+			
+			final String match = matches(element, identifier, resolveFuzzy);
+			if (match == null) {
+				continue;
+			}
+			// we can safely cast 'element' to 'ReferenceType' here,
+			// because we've checked the type of 'element' against
+			// the type of the reference. unfortunately the compiler
+			// does not know that this is sufficient, so we must call
+			// cast(), which is not type safe by itself.
+			result.addMapping(match, cast(element));
+			if (!resolveFuzzy) {
+				return;
 			}
 		}
+	}
+
+	/**
+	 * This method encapsulates an unchecked cast from EObject to
+	 * ReferenceType. We can not do this cast strictly type safe,
+	 * because type parameters are erased by compilation. Thus, an
+	 * instanceof check can not be performed at runtime.
+	 * 
+	 * @param element
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private ReferenceType cast(EObject element) {
+		return (ReferenceType) element;
 	}
 	
 	protected EObject findRoot(EObject object) {
