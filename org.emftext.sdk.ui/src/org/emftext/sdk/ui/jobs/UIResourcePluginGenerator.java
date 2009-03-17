@@ -47,7 +47,10 @@ public class UIResourcePluginGenerator extends ResourcePluginGenerator {
 		Result result = super.run(concreteSyntax, context, marker, monitor);
 
 		UIGenerationContext uiContext = (UIGenerationContext) context;
-		uiContext.getProject().refreshLocal(IProject.DEPTH_INFINITE, monitor);
+		IProject project = uiContext.getProject();
+		if (project != null) {
+			project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
+		}
 
 		return result;
 	}

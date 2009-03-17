@@ -44,7 +44,11 @@ public class UIGenerationContext extends GenerationContext {
 	private IJavaProject javaProject;
 
 	public IProject getProject() {
-		return javaProject.getProject();
+		if (javaProject != null) {
+			return javaProject.getProject();
+		} else {
+			return null;
+		}
 	}
 
 	public IJavaProject getJavaProject() {
