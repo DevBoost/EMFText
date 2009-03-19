@@ -22,8 +22,10 @@ package org.emftext.sdk;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -59,6 +61,7 @@ public class MetamodelManager implements IGenPackageFinder {
 	private class MetamodelCache {
 		
 		private Map<String, IGenPackageFinderResult> internalCache = new HashMap<String, IGenPackageFinderResult>();
+		private Set<String> invalidUris = new HashSet<String>();
 		
 		public boolean isCached(String nsURI) {
 			IGenPackageFinderResult result = internalCache.get(nsURI);
@@ -74,6 +77,14 @@ public class MetamodelManager implements IGenPackageFinder {
 		
 		public void store(String nsURI, IGenPackageFinderResult foundPackage) {
 			internalCache.put(nsURI, foundPackage);
+		}
+		
+		public boolean isInvalidUri(String uri) {
+			return this.invalidUris.contains(uri);
+		}
+
+		public void addInvalidUri(String nsURI) {
+			this.invalidUris.add(nsURI);			
 		}
 	}
 	
@@ -102,7 +113,9 @@ public class MetamodelManager implements IGenPackageFinder {
 		if (nsURI == null) {
 			return null;
 		}
-		
+		if (cache.isInvalidUri(nsURI)) {
+			return null;
+		}
 		if (cache.isCached(nsURI)) {
 			return cache.lookUp(nsURI);
 		}
@@ -117,6 +130,7 @@ public class MetamodelManager implements IGenPackageFinder {
 				}
 			}
 		}
+		this.cache.addInvalidUri(nsURI);
 		return null;
 	}
 
