@@ -253,34 +253,12 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setHidden(boolean newHidden) {
-		// TODO: implement this method to set the 'Hidden' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean isUsed() {
 		boolean isReferenced = !getAttributeReferences().isEmpty();
 		boolean isCollectInToken = getAttributeName() != null;
 		return isReferenced || isCollectInToken;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setUsed(boolean newUsed) {
-		// TODO: implement this method to set the 'Used' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -358,12 +336,6 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
 				setRegex((String)newValue);
 				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
-				setHidden(((Boolean)newValue).booleanValue());
-				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
-				setUsed(((Boolean)newValue).booleanValue());
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -387,12 +359,6 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 				return;
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
 				setRegex(REGEX_EDEFAULT);
-				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
-				setHidden(HIDDEN_EDEFAULT);
-				return;
-			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
-				setUsed(USED_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);

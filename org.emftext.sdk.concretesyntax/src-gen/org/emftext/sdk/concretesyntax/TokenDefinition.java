@@ -151,22 +151,11 @@ public interface TokenDefinition extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Hidden</em>' attribute.
-	 * @see #setHidden(boolean)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_Hidden()
-	 * @model transient="true" volatile="true"
+	 * @model transient="true" changeable="false" volatile="true"
 	 * @generated
 	 */
 	boolean isHidden();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.TokenDefinition#isHidden <em>Hidden</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Hidden</em>' attribute.
-	 * @see #isHidden()
-	 * @generated
-	 */
-	void setHidden(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Used</b></em>' attribute.
@@ -177,21 +166,10 @@ public interface TokenDefinition extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Used</em>' attribute.
-	 * @see #setUsed(boolean)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_Used()
-	 * @model transient="true" volatile="true"
+	 * @model transient="true" changeable="false" volatile="true"
 	 * @generated
 	 */
 	boolean isUsed();
-
-	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.TokenDefinition#isUsed <em>Used</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Used</em>' attribute.
-	 * @see #isUsed()
-	 * @generated
-	 */
-	void setUsed(boolean value);
 
 } // TokenDefinition
