@@ -70,6 +70,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 		if (contents != null && contents.size() > 0) {
 			GenModel genModel = (GenModel) contents.get(0);
 			File ecoreFile = null;
+			File genmodelFile = null;
 			
 			if (Platform.isRunning()) {
 				// reload generator model if option is enabled
@@ -78,18 +79,27 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 					genModel = reloadGeneratorModel(genModel, rs);
 				}
 
+				if (genModelResource != null) {
+					URI genmodelURI = genModelResource.getURI();
+					if (genmodelURI != null) {
+						IResource genmodelMember = ResourcesPlugin.getWorkspace().getRoot().findMember(genmodelURI.toPlatformString(true));
+						if (genmodelMember != null) {
+							genmodelFile = genmodelMember.getLocation().toFile();
+						}
+					}
+				}
 				// find the Ecore files used by the generator model 
 				List<GenFeature> allGenFeatures = genModel.getAllGenFeatures();
 				for (GenFeature genFeature : allGenFeatures) {
-					final Resource resource = genFeature.getEcoreFeature().eResource();
-					if (resource == null) {
+					final Resource ecoreResource = genFeature.getEcoreFeature().eResource();
+					if (ecoreResource == null) {
 						continue;
 					}
-					URI uri = resource.getURI();
-					if (uri == null) {
+					URI ecoreURI = ecoreResource.getURI();
+					if (ecoreURI == null) {
 						continue;
 					}
-					IResource ecoreMember = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
+					IResource ecoreMember = ResourcesPlugin.getWorkspace().getRoot().findMember(ecoreURI.toPlatformString(true));
 					if (ecoreMember != null) {
 						ecoreFile = ecoreMember.getLocation().toFile();
 					}
@@ -103,7 +113,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 					continue;
 				}
 				if (uri.equals(nsURI)) {
-					return new GenPackageInFileResult(packages.get(nsURI), ecoreFile);
+					return new GenPackageInFileResult(packages.get(nsURI), ecoreFile, genmodelFile);
 				}
 			}
 		}

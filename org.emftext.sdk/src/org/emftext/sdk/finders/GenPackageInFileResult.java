@@ -37,16 +37,22 @@ public class GenPackageInFileResult implements IGenPackageFinderResult {
 
 	private GenPackage genPackage;
 	private File ecoreFile;
-	private long initialModifiedStamp;
+	private File genmodelFile;
+	private long initialEcoreModificationStamp;
+	private long initialGenmodelModificationStamp;
 	
-	public GenPackageInFileResult(GenPackage genPackage, File ecoreFile) {
+	public GenPackageInFileResult(GenPackage genPackage, File ecoreFile, File genmodelFile) {
 		assert genPackage != null;
 		assert ecoreFile != null;
 		
 		this.genPackage = genPackage;
 		this.ecoreFile = ecoreFile;
 		if (ecoreFile != null) {
-			this.initialModifiedStamp = ecoreFile.lastModified();
+			this.initialEcoreModificationStamp = ecoreFile.lastModified();
+		}
+		this.genmodelFile = genmodelFile;
+		if (genmodelFile != null) {
+			this.initialGenmodelModificationStamp = genmodelFile.lastModified();
 		}
 	}
 	
@@ -55,10 +61,14 @@ public class GenPackageInFileResult implements IGenPackageFinderResult {
 	}
 
 	public boolean hasChanged() {
+		boolean ecoreFileDiffers = false;
+		boolean genmodelFileDiffers = false;
 		if (ecoreFile != null) {
-			return initialModifiedStamp != ecoreFile.lastModified();
-		} else {
-			return false;
+			ecoreFileDiffers = initialEcoreModificationStamp != ecoreFile.lastModified();
 		}
+		if (genmodelFile != null) {
+			genmodelFileDiffers = initialGenmodelModificationStamp != genmodelFile.lastModified();
+		}
+		return ecoreFileDiffers || genmodelFileDiffers;
 	}
 }

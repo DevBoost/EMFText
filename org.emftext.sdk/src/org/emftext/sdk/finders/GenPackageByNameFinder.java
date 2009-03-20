@@ -22,6 +22,7 @@ package org.emftext.sdk.finders;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -35,7 +36,10 @@ public class GenPackageByNameFinder extends GenPackageInFileFinder {
 	public IGenPackageFinderResult findGenPackage(String nsURI,
 			String locationHint, GenPackageDependentElement container, ITextResource resource) {
 		
-		ResourceSet rs = resource.getResourceSet();
+		// here we do NOT use the resource set of the resource because we want to load
+		// changed genmodels. if we reuse the resource set we get the old genmodels instead
+		// of loading the changed version.
+		ResourceSet rs = new ResourceSetImpl();
 		URI resourceURI = resource.getURI();
 		resourceURI = resourceURI.trimFileExtension();
 		URI genModelURI = resourceURI.appendFileExtension("genmodel");
