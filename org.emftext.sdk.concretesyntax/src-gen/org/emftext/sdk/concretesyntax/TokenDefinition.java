@@ -152,7 +152,7 @@ public interface TokenDefinition extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Hidden</em>' attribute.
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_Hidden()
-	 * @model transient="true" changeable="false" volatile="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	boolean isHidden();
@@ -167,7 +167,7 @@ public interface TokenDefinition extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Used</em>' attribute.
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenDefinition_Used()
-	 * @model transient="true" changeable="false" volatile="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	boolean isUsed();

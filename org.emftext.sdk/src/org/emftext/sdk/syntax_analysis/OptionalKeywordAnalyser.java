@@ -24,6 +24,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;

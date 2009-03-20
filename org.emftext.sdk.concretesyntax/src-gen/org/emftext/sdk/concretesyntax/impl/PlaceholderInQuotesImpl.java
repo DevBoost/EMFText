@@ -6,6 +6,7 @@
  */
 package org.emftext.sdk.concretesyntax.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -226,18 +227,22 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (prefix: ");
+		StringBuffer result = new StringBuffer();
+		GenFeature feature = getFeature();
+		if (feature != null) {
+			result.append(feature.getName());
+		}
+		result.append("['");
 		result.append(prefix);
-		result.append(", suffix: ");
+		result.append("', '");
 		result.append(suffix);
-		result.append(')');
+		result.append("']");
 		return result.toString();
 	}
 

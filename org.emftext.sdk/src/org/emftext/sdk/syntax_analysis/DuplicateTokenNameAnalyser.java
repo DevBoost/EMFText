@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
@@ -44,7 +45,7 @@ public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 		List<TokenDefinition> duplicateTokens = new ArrayList<TokenDefinition>();
 		
 		List<String> foundTokenNames = new ArrayList<String>();
-		EList<TokenDefinition> tokens = syntax.getTokens();
+		EList<TokenDefinition> tokens = syntax.getAllTokens();
 		for (int i = 0; i < tokens.size(); i++) {
 			TokenDefinition token_i = tokens.get(i);
 			String token_i_name = token_i.getName();

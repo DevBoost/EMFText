@@ -3,13 +3,13 @@ package org.emftext.sdk.syntax_extension;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.generators.AntlrTokenDerivator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.syntax_analysis.AbstractPostProcessor;
 
 /**
  * The DerivedTokenCreator searches for DerivedPlaceholders in the
