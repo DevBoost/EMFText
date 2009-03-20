@@ -18,40 +18,40 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.analysis;
+package org.emftext.sdk.syntax_analysis;
 
-import java.util.Iterator;
-
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.runtime.IResourcePostProcessor;
+import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
- * An analyser that looks for explicit choices in the syntax
- * definition. Such choices are not reflected in the models
- * after parsing and can thus cause a result different from
- * the original text after printing.
+ * An abstract super class for all post processors. It tries to resolve all 
+ * proxy objects and if this succeeds analyse(ITextResource, ConcreteSyntax)
+ * is called.
  */
-public class ChoiceAnalyser extends AbstractPostProcessor {
+public abstract class AbstractPostProcessor implements IResourcePostProcessorProvider, IResourcePostProcessor {
 
-	private static final String EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS = 
-		"Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
-
-	@Override
-	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		Iterator<EObject> iterator = syntax.eAllContents();
-		while (iterator.hasNext()) {
-			EObject next = iterator.next();
-			if (next instanceof Choice) {
-				Choice choice = (Choice) next;
-				if (choice.getOptions().size() > 1) {
-					resource.addWarning(
-							EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS,
-							choice);
-				}
+	private static final TextResourceHelper resourceHelper = new TextResourceHelper();
+	
+	public IResourcePostProcessor getResourcePostProcessor() {
+		return this;
+	}
+	
+	public void process(ITextResource resource) {
+		if (!resourceHelper.resolveAll(resource)) {
+			return;
+		}
+		EList<EObject> objects = resource.getContents();
+		for (EObject next : objects) {
+			if (next instanceof ConcreteSyntax) {
+				analyse(resource, (ConcreteSyntax) next);
 			}
 		}
 	}
 
+	public abstract void analyse(ITextResource resource, ConcreteSyntax syntax);
 }

@@ -18,7 +18,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.analysis;
+package org.emftext.sdk.syntax_analysis;
 
 import java.util.Collection;
 import java.util.Map;

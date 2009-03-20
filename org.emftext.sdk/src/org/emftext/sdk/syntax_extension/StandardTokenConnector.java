@@ -4,12 +4,12 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.sdk.analysis.AbstractPostProcessor;
 import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.syntax_analysis.AbstractPostProcessor;
 
 /**
  * The StandardTokenConnector looks for DerivedPlaceholders that do not have a 

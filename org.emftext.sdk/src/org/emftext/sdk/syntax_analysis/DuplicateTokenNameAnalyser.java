@@ -18,36 +18,55 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.analysis;
+package org.emftext.sdk.syntax_analysis;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
- * A analyser that checks that all token names start with a capital letter.
+ * An analyser that checks that each token name is used at most once.
  */
-public class TokenNameAnalyser extends AbstractPostProcessor {
+public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 
-	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		List<TokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidNames(syntax);
-		for (TokenDefinition next : wrongDefinitions) {
-			resource.addError("Token names must start with a capital letter.", next);
+		List<TokenDefinition> duplicateDefinitions = getDuplicateTokenDefinitions(syntax);
+		for (TokenDefinition duplicate : duplicateDefinitions) {
+			resource.addError("Duplicate token name (names are not case sensitive).", duplicate);
 		}
 	}
 
-	public List<TokenDefinition> getTokenDefinitionsWithInvalidNames(ConcreteSyntax syntax) {
-		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
-		for (TokenDefinition definition : syntax.getTokens()) {
-			char firstLetter = definition.getName().charAt(0);
-			if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
-				result.add(definition);
+	public List<TokenDefinition> getDuplicateTokenDefinitions(ConcreteSyntax syntax) {
+		List<TokenDefinition> duplicateTokens = new ArrayList<TokenDefinition>();
+		
+		List<String> foundTokenNames = new ArrayList<String>();
+		EList<TokenDefinition> tokens = syntax.getTokens();
+		for (int i = 0; i < tokens.size(); i++) {
+			TokenDefinition token_i = tokens.get(i);
+			String token_i_name = token_i.getName();
+			if (foundTokenNames.contains(token_i_name.toLowerCase())) {
+				continue;
+			}
+			
+			foundTokenNames.add(token_i_name.toLowerCase());
+			
+			boolean foundDuplicate = false;
+			// name was not found before
+			for (int j = i + 1; j < tokens.size(); j++) {
+				TokenDefinition token_j = tokens.get(j);
+				if (token_j.getName().equalsIgnoreCase(token_i_name)) {
+					duplicateTokens.add(token_j);
+					foundDuplicate = true;
+				}
+			}
+			if (foundDuplicate) {
+				duplicateTokens.add(token_i);
 			}
 		}
-		return result;
+		return duplicateTokens;
 	}
 }

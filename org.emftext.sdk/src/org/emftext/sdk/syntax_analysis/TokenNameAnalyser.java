@@ -18,51 +18,36 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.analysis;
+package org.emftext.sdk.syntax_analysis;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
- * An analyser that checks whether the modifier ABSTRACT is used
- * correctly.
+ * A analyser that checks that all token names start with a capital letter.
  */
-public class ModifierAnalyser extends AbstractPostProcessor {
+public class TokenNameAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		List<GenClass> symbols = syntax.getActiveStartSymbols();
-		Abstract modifier = syntax.getModifier();
-		boolean isDeclaredAbstract = modifier != null;
-		if (isDeclaredAbstract) {
-			// assert there is no start symbol (not a 
-			// declared one and not an imported one)
-			if (symbols.size() > 0) {
-				resource.addError("Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract.", modifier);
-			}
-		} else {
-			// assert the is at least one start symbol (either a 
-			// declared one or an imported one)
-			if (symbols.size() == 0) {
-				resource.addError("Syntax has no start symbols, but is not declared abstract.", syntax);
-			}
+		List<TokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidNames(syntax);
+		for (TokenDefinition next : wrongDefinitions) {
+			resource.addError("Token names must start with a capital letter.", next);
 		}
 	}
 
-	private String getListOfNames(List<GenClass> classes) {
-		boolean isFirst = true;
-		String listOfNames = "";
-		for (GenClass symbol : classes) {
-			if (!isFirst) {
-				listOfNames += ", ";
+	public List<TokenDefinition> getTokenDefinitionsWithInvalidNames(ConcreteSyntax syntax) {
+		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
+		for (TokenDefinition definition : syntax.getTokens()) {
+			char firstLetter = definition.getName().charAt(0);
+			if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
+				result.add(definition);
 			}
-			isFirst = false;
-			listOfNames += symbol.getName();
 		}
-		return listOfNames;
+		return result;
 	}
 }

@@ -1,4 +1,4 @@
-package org.emftext.sdk.analysis;
+package org.emftext.sdk.syntax_analysis;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;

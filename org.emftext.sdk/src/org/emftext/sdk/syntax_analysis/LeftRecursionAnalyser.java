@@ -18,58 +18,44 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.analysis;
+package org.emftext.sdk.syntax_analysis;
 
-import java.util.LinkedHashSet;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
- * An analyser that checks whether there is a syntax rule for
- * each meta class.
+ * An analyser that checks whether the syntax contains left-recursive rules.
  */
-public class MissingRulesAnalyser extends AbstractPostProcessor {
-
-	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class: ";
+public class LeftRecursionAnalyser extends AbstractPostProcessor {
+	
+	private static final String RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO = "The rule is left recursive in relation to rule: ";
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		GenClassFinder genClassFinder = new GenClassFinder();
-		Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, false, false);
-		EList<Rule> allRules = syntax.getAllRules();
-		// this set ensures that we do not add warnings for a missing rule twice
-		Set<String> namesOfCompletedGenClasses = new LinkedHashSet<String>();
+		// stop if errors have been detected by previous analysis 
+		if (!resource.getErrors().isEmpty()) {
+			return;
+		}
 		
-		for (GenClass genClass : allGenClasses) {
-			EClass ecoreClass = genClass.getEcoreClass();
-			if (ecoreClass == null) {
-				continue;
-			}
-			if (ecoreClass.isAbstract()) {
-				continue;
-			}
-			String qualifiedName = genClass.getQualifiedInterfaceName();
-			if (namesOfCompletedGenClasses.contains(qualifiedName)) {
-				continue;
-			}
-			namesOfCompletedGenClasses.add(qualifiedName);
-			boolean foundRuleForClass = false;
-			for (Rule rule : allRules) {
-				GenClass ruleClass = rule.getMetaclass();
-				if (ruleClass != null && !ruleClass.eIsProxy() && ruleClass.getQualifiedInterfaceName().equals(qualifiedName)) {
-					foundRuleForClass = true;
-					break;
-				}
-			}
-			if (!foundRuleForClass) {
-				resource.addWarning(NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1);
+		GenClassFinder genClassFinder = new GenClassFinder();
+		Set<GenClass> allGenClasses = genClassFinder.findAllGenClasses(syntax, true, true);
+		Map<String, Collection<String>> genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
+		LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, syntax);
+		
+		EList<Rule> allRules = syntax.getAllRules();
+		
+		for (Rule rule : allRules) {
+			Rule recursionRule = lrd.findLeftRecursion(rule);
+			if (recursionRule != null) {
+				resource.addWarning(RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
 			}
 		}
 	}

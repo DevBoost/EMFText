@@ -45,7 +45,6 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
-import org.emftext.sdk.analysis.CollectInFeatureHelper;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
@@ -71,6 +70,7 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
+import org.emftext.sdk.syntax_analysis.CollectInFeatureHelper;
 
 /**
  * A generator that creates the base class for the printer.

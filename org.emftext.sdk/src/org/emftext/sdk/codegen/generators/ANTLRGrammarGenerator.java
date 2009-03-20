@@ -51,7 +51,6 @@ import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
-import org.emftext.sdk.analysis.LeftRecursionDetector;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.ICodeGenOptions;
@@ -79,6 +78,7 @@ import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.syntax_analysis.LeftRecursionDetector;
 
 /**
  * The text parser generator maps from one or more concrete syntaxes (*.cs) and 
