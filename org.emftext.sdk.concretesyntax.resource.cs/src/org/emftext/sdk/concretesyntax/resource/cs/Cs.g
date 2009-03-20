@@ -26,19 +26,87 @@ options {
 	import org.eclipse.emf.ecore.InternalEObject;
 	import org.eclipse.emf.common.util.URI;
 	import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
+	import org.emftext.runtime.IOptions;
+	import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
+	import org.eclipse.emf.ecore.EClass;
 }
 
 @members{
 	private org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
 	private int lastPosition;
 	private org.emftext.runtime.resource.impl.TokenResolveResult tokenResolveResult = new org.emftext.runtime.resource.impl.TokenResolveResult();
-	private org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch referenceResolverSwitch = new org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch();
+	private org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch referenceResolverSwitch;
 	
 	protected EObject doParse() throws RecognitionException {
 		lastPosition = 0;
 		((CsLexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
 		((CsLexer)getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;
+		Object typeObject = null;
+		if(this.getOptions()!=null)
+		typeObject = this.getOptions().get(IOptions.RESOURCE_CONTENT_TYPE);
+		if(typeObject==null)
 		return start();
+		else if(typeObject instanceof EClass){
+			EClass type = (EClass)typeObject;
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.ConcreteSyntax.class){
+				return concretesyntax();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.Import.class){
+				return keywordimport();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.Option.class){
+				return option();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.Rule.class){
+				return rule();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.Sequence.class){
+				return sequence();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.Choice.class){
+				return choice();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.CsString.class){
+				return csstring();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.DefinedPlaceholder.class){
+				return definedplaceholder();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.DerivedPlaceholder.class){
+				return derivedplaceholder();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.Containment.class){
+				return containment();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.CompoundDefinition.class){
+				return compounddefinition();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.WhiteSpaces.class){
+				return whitespaces();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.LineBreak.class){
+				return linebreak();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.NormalToken.class){
+				return normaltoken();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.PreDefinedToken.class){
+				return predefinedtoken();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.PLUS.class){
+				return plus();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.STAR.class){
+				return star();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.QUESTIONMARK.class){
+				return questionmark();
+			}
+			if(type.getInstanceClass()==org.emftext.sdk.concretesyntax.Abstract.class){
+				return keywordabstract();
+			}
+		}
+		throw new org.emftext.runtime.resource.impl.UnexpectedContentTypeException(typeObject);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -52,6 +120,9 @@ options {
 	}
 	
 	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element) {
+	}
+	public void setReferenceResolverSwitch(org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch referenceResolverSwitch) {
+		this.referenceResolverSwitch = referenceResolverSwitch;
 	}
 }
 
@@ -895,7 +966,7 @@ definedplaceholder returns [org.emftext.sdk.concretesyntax.DefinedPlaceholder el
 			String resolved = (String) resolvedObject;
 			org.emftext.sdk.concretesyntax.NormalToken proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.DefinedPlaceholder, org.emftext.sdk.concretesyntax.TokenDefinition>(referenceResolverSwitch.getDefinedPlaceholderTokenReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), resolved, proxy);
+			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Placeholder, org.emftext.sdk.concretesyntax.TokenDefinition>(referenceResolverSwitch.getPlaceholderTokenReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN), proxy);
 			}
@@ -1573,9 +1644,9 @@ COMMENTS:
 	{ _channel = 99; }
 ;
 QUALIFIED_NAME:
-	('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*	;
+	('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*;
 NUMBER:
-	('0'..'9')+	;
+	('0'..'9')+;
 WHITESPACE:
 	(' '|'\t'|'\f')
 	{ _channel = 99; }
@@ -1584,19 +1655,15 @@ LINEBREAK:
 	('\r\n'|'\r'|'\n')
 	{ _channel = 99; }
 ;
-QUOTED_36_36:
-	('$')
-	(~('$')|('\\''$'))*	('$')
-	;
-QUOTED_39_39:
-	('\'')
-	(~('\'')|('\\''\''))*	('\'')
-	;
 QUOTED_60_62:
-	('<')
-	(~('>')|('\\''>'))*	('>')
-	;
+	('<')(~('>')|('\\''>'))*('>')
+;
 QUOTED_34_34:
-	('"')
-	(~('"')|('\\''"'))*	('"')
-	;
+	('"')(~('"')|('\\''"'))*('"')
+;
+QUOTED_39_39:
+	('\'')(~('\'')|('\\''\''))*('\'')
+;
+QUOTED_36_36:
+	('$')(~('$')|('\\''$'))*('$')
+;

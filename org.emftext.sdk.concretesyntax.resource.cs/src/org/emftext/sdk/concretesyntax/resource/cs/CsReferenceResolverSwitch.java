@@ -7,7 +7,7 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.ImportConcreteSyntaxReferenceResolver importConcreteSyntaxReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.ImportConcreteSyntaxReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver ruleMetaclassReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.RuleMetaclassReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.TerminalFeatureReferenceResolver terminalFeatureReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.TerminalFeatureReferenceResolver();
-	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.DefinedPlaceholderTokenReferenceResolver definedPlaceholderTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.DefinedPlaceholderTokenReferenceResolver();
+	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.PlaceholderTokenReferenceResolver placeholderTokenReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.PlaceholderTokenReferenceResolver();
 	protected org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver containmentTypesReferenceResolver = new org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver();
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.analysis.GenPackageDependentElementPackageReferenceResolver getGenPackageDependentElementPackageReferenceResolver() {
@@ -30,8 +30,8 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		return terminalFeatureReferenceResolver;
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.analysis.DefinedPlaceholderTokenReferenceResolver getDefinedPlaceholderTokenReferenceResolver() {
-		return definedPlaceholderTokenReferenceResolver;
+	public org.emftext.sdk.concretesyntax.resource.cs.analysis.PlaceholderTokenReferenceResolver getPlaceholderTokenReferenceResolver() {
+		return placeholderTokenReferenceResolver;
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.analysis.ContainmentTypesReferenceResolver getContainmentTypesReferenceResolver() {
@@ -44,7 +44,7 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 		importConcreteSyntaxReferenceResolver.setOptions(options);
 		ruleMetaclassReferenceResolver.setOptions(options);
 		terminalFeatureReferenceResolver.setOptions(options);
-		definedPlaceholderTokenReferenceResolver.setOptions(options);
+		placeholderTokenReferenceResolver.setOptions(options);
 		containmentTypesReferenceResolver.setOptions(options);
 	}
 	
@@ -84,11 +84,11 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 				terminalFeatureReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Terminal) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
-		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getDefinedPlaceholder().isInstance(container)) {
+		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholder().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER__TOKEN);
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
-				definedPlaceholderTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.DefinedPlaceholder) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
+				placeholderTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Placeholder) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().isInstance(container)) {

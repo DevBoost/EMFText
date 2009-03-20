@@ -4,6 +4,6 @@ public class CsNewFileWizard extends org.emftext.runtime.ui.new_wizard.AbstractN
 		return "cs";
 	}
 	public String getExampleContent() {
-		return " SYNTAXDEF someConcreteSyntaxNameFOR identifierRULES{}";
+		return " SYNTAXDEF someConcreteSyntaxNameFOR <identifier>RULES{}";
 	}
 }
