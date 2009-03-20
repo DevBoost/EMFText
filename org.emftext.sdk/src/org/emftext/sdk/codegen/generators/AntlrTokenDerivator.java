@@ -86,9 +86,7 @@ public class AntlrTokenDerivator {
 		assert prefixIsSet;
 		assert suffixIsSet;
 
-		String derivedExpression = "";
-
-		derivedExpression += "('" + escapeLiteralChars(prefix) + "')";
+		String derivedExpression = "('" + escapeLiteralChars(prefix) + "')";
 		
 		derivedExpression += "(~('" + escapeLiteralChars(suffix)
 				+ "')|('\\\\''" + escapeLiteralChars(suffix) + "'))*";
@@ -102,24 +100,13 @@ public class AntlrTokenDerivator {
 		String prefix = placeholder.getNormalizedPrefix();
 		String suffix = placeholder.getNormalizedSuffix();
 
-		String derivedTokenName;
     	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
 		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
 		
-    	if (suffixIsSet) {
-        	if (prefixIsSet) {
-    			derivedTokenName = DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(prefix) + "_" + deriveCodeSequence(suffix);
-    		} else {
-       			derivedTokenName = DERIVED_TOKEN_NAME + "_" + "_" + deriveCodeSequence(suffix);
-    		}
-		} else {
-    		if (prefixIsSet) {
-				derivedTokenName = placeholder.getToken().getName() + "_" + deriveCodeSequence(prefix) + "_";
-			} else {
-    			derivedTokenName = placeholder.getToken().getName();
-    		}
-    	}
-    	return derivedTokenName;
+		assert prefixIsSet;
+		assert suffixIsSet;
+
+ 		return DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(prefix) + "_" + deriveCodeSequence(suffix);
 	}
 
     private String deriveCodeSequence(String original) {
