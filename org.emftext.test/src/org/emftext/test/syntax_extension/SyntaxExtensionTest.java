@@ -5,6 +5,8 @@ import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactorie
 import java.io.File;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -14,14 +16,12 @@ import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.junit.Before;
 import org.junit.Test;
-
-import junit.framework.TestCase;
 
 public class SyntaxExtensionTest extends TestCase {
 
@@ -75,9 +75,6 @@ public class SyntaxExtensionTest extends TestCase {
 		List<Definition> parts = sequence.getParts();
 		assertEquals(expectedPartsInRuleOne, parts.size());
 		
-		Definition secondPart = parts.get(1);
-		assertTrue(secondPart instanceof DerivedPlaceholder);
-		
 		assertAllTokensReferencesAreSet(syntax);
 	}
 
@@ -97,8 +94,8 @@ public class SyntaxExtensionTest extends TestCase {
 		TreeIterator<EObject> contentIterator = syntax.eAllContents();
 		while (contentIterator.hasNext()) {
 			EObject next = contentIterator.next();
-			if (next instanceof DerivedPlaceholder) {
-				DerivedPlaceholder placeholder = (DerivedPlaceholder) next;
+			if (next instanceof Placeholder) {
+				Placeholder placeholder = (Placeholder) next;
 				assertNotNull("The token for " + placeholder + " (feature \"" + placeholder.getFeature().getName() + "\") should be set.", placeholder.getToken());
 			}
 		}

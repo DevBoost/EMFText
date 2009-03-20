@@ -20,9 +20,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
-import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
+import org.emftext.sdk.concretesyntax.PredefinedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
@@ -82,7 +82,7 @@ public class AntlrTokenDerivator {
      * @param suffix
      * @return
      */
-	public String deriveTokenExpression(DerivedPlaceholder placeholder) {
+	public String deriveTokenExpression(PlaceholderInQuotes placeholder) {
 		String prefix = placeholder.getNormalizedPrefix();
 		String suffix = placeholder.getNormalizedSuffix();
 		// Attention: suffix and prefix can be null, because they are defined in
@@ -131,8 +131,8 @@ public class AntlrTokenDerivator {
 		if (token instanceof NewDefinedToken) {
 			NewDefinedToken definedToken = (NewDefinedToken) token;
 			return definedToken.getRegex();
-		} else if (token instanceof PreDefinedToken) {
-			PreDefinedToken preDefinedToken = (PreDefinedToken) token;
+		} else if (token instanceof PredefinedToken) {
+			PredefinedToken preDefinedToken = (PredefinedToken) token;
 			String name = preDefinedToken.getName();
 			return getPreDefinedTokenExpression(name);
 		} else {
@@ -147,7 +147,7 @@ public class AntlrTokenDerivator {
 		return null;
 	}
 
-    public String deriveTokenName(DerivedPlaceholder placeholder) {
+    public String deriveTokenName(PlaceholderInQuotes placeholder) {
 		String prefix = placeholder.getNormalizedPrefix();
 		String suffix = placeholder.getNormalizedSuffix();
 

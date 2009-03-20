@@ -34,7 +34,7 @@ import org.emftext.sdk.concretesyntax.NormalToken;
  *
  * @generated
  */
-public class NormalTokenImpl extends NewDefinedTokenImpl implements NormalToken {
+public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

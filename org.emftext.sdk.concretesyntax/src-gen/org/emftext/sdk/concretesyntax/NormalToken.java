@@ -31,5 +31,5 @@ package org.emftext.sdk.concretesyntax;
  * @model
  * @generated
  */
-public interface NormalToken extends NewDefinedToken {
+public interface NormalToken extends TokenDefinition {
 } // NormalToken

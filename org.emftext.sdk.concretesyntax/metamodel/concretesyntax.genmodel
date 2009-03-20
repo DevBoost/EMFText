@@ -73,25 +73,25 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenDefinition/hidden"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenDefinition/used"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="concretesyntax.ecore#//NewDefinedToken"/>
     <genClasses ecoreClass="concretesyntax.ecore#//NormalToken"/>
     <genClasses ecoreClass="concretesyntax.ecore#//QuotedToken">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedToken/prefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//QuotedToken/suffix"/>
     </genClasses>
-    <genClasses ecoreClass="concretesyntax.ecore#//PreDefinedToken"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//PredefinedToken"/>
     <genClasses ecoreClass="concretesyntax.ecore#//Containment">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Containment/types"/>
     </genClasses>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//Placeholder">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//Placeholder/token"/>
     </genClasses>
-    <genClasses ecoreClass="concretesyntax.ecore#//DefinedPlaceholder"/>
-    <genClasses ecoreClass="concretesyntax.ecore#//DerivedPlaceholder">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//DerivedPlaceholder/prefix"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//DerivedPlaceholder/suffix"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//DerivedPlaceholder/getNormalizedPrefix"/>
-      <genOperations ecoreOperation="concretesyntax.ecore#//DerivedPlaceholder/getNormalizedSuffix"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//PlaceholderUsingSpecifiedToken"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//PlaceholderUsingDefaultToken"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//PlaceholderInQuotes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//PlaceholderInQuotes/prefix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//PlaceholderInQuotes/suffix"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedPrefix"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedSuffix"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Option">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/name"/>

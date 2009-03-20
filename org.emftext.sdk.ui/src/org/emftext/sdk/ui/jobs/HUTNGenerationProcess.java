@@ -50,9 +50,9 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.NormalToken;
+import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
+import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -205,34 +205,34 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		else{
 			String typeName = genFeature.getEcoreFeature().getEType().getInstanceClassName();
 			if (genFeature.isStringType()) {
-				DerivedPlaceholder placeholder = concretesyntaxFactory.createDerivedPlaceholder();
+				PlaceholderInQuotes placeholder = concretesyntaxFactory.createPlaceholderInQuotes();
 				placeholder.setPrefix("\"");
 				placeholder.setSuffix("\"");
 				content = placeholder;
 			}
 			else if (typeName == null) {
-				content = concretesyntaxFactory.createDefinedPlaceholder();
+				content = concretesyntaxFactory.createPlaceholderUsingSpecifiedToken();
 			}
 			else if(typeName.equals("String")) {
-				DerivedPlaceholder placeholder = concretesyntaxFactory.createDerivedPlaceholder();
+				PlaceholderInQuotes placeholder = concretesyntaxFactory.createPlaceholderInQuotes();
 				placeholder.setPrefix("\"");
 				placeholder.setSuffix("\"");
 				content = placeholder;
 			}
 			
 			else if(typeName.equals("int") || typeName.equals("long")  || typeName.equals("short")){
-				DefinedPlaceholder placeholder = concretesyntaxFactory.createDefinedPlaceholder();
+				PlaceholderUsingSpecifiedToken placeholder = concretesyntaxFactory.createPlaceholderUsingSpecifiedToken();
 				placeholder.setToken(intToken);
 				content = placeholder;
 			}
 			
 			else if(typeName.equals("float") || typeName.equals("double")){
-				DefinedPlaceholder placeholder = concretesyntaxFactory.createDefinedPlaceholder();
+				PlaceholderUsingSpecifiedToken placeholder = concretesyntaxFactory.createPlaceholderUsingSpecifiedToken();
 				placeholder.setToken(floatToken);
 				content = placeholder;
 			}										
 			else {
-				content = concretesyntaxFactory.createDefinedPlaceholder();
+				content = concretesyntaxFactory.createPlaceholderUsingSpecifiedToken();
 			}
 			
 			
@@ -244,7 +244,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 	}
 
 	private void addBooleanModifier(Sequence ruleSequence, GenFeature genFeature) {
-		DefinedPlaceholder adjective = concretesyntaxFactory.createDefinedPlaceholder();
+		PlaceholderUsingSpecifiedToken adjective = concretesyntaxFactory.createPlaceholderUsingSpecifiedToken();
 		adjective.setCardinality(concretesyntaxFactory.createQUESTIONMARK());
 		adjective.setFeature(genFeature);
 		ruleSequence.getParts().add(adjective);

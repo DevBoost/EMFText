@@ -20,7 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.adapter;
 
-import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.PredefinedToken;
 
 /**
  * A common implementation for all derived token definitions.
@@ -59,7 +59,7 @@ public class DerivedTokenDefinition implements IInternalTokenDefinition {
 		return suffix;
 	}
 	
-	public PreDefinedToken getBaseDefinition() {
+	public PredefinedToken getBaseDefinition() {
 		return null;
 	}
 	

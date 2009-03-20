@@ -166,13 +166,13 @@ public interface ConcretesyntaxFactory extends EFactory {
 	QuotedToken createQuotedToken();
 
 	/**
-	 * Returns a new object of class '<em>Pre Defined Token</em>'.
+	 * Returns a new object of class '<em>Predefined Token</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Pre Defined Token</em>'.
+	 * @return a new object of class '<em>Predefined Token</em>'.
 	 * @generated
 	 */
-	PreDefinedToken createPreDefinedToken();
+	PredefinedToken createPredefinedToken();
 
 	/**
 	 * Returns a new object of class '<em>Containment</em>'.
@@ -184,22 +184,31 @@ public interface ConcretesyntaxFactory extends EFactory {
 	Containment createContainment();
 
 	/**
-	 * Returns a new object of class '<em>Defined Placeholder</em>'.
+	 * Returns a new object of class '<em>Placeholder Using Specified Token</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Defined Placeholder</em>'.
+	 * @return a new object of class '<em>Placeholder Using Specified Token</em>'.
 	 * @generated
 	 */
-	DefinedPlaceholder createDefinedPlaceholder();
+	PlaceholderUsingSpecifiedToken createPlaceholderUsingSpecifiedToken();
 
 	/**
-	 * Returns a new object of class '<em>Derived Placeholder</em>'.
+	 * Returns a new object of class '<em>Placeholder Using Default Token</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Derived Placeholder</em>'.
+	 * @return a new object of class '<em>Placeholder Using Default Token</em>'.
 	 * @generated
 	 */
-	DerivedPlaceholder createDerivedPlaceholder();
+	PlaceholderUsingDefaultToken createPlaceholderUsingDefaultToken();
+
+	/**
+	 * Returns a new object of class '<em>Placeholder In Quotes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Placeholder In Quotes</em>'.
+	 * @generated
+	 */
+	PlaceholderInQuotes createPlaceholderInQuotes();
 
 	/**
 	 * Returns a new object of class '<em>Option</em>'.

@@ -1,47 +1,35 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version. This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * 
- * See the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
- * program; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
- * Suite 330, Boston, MA  02111-1307 USA
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *   - initial API and implementation
- ******************************************************************************/
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 
+import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Derived Placeholder</b></em>'.
+ * An implementation of the model object '<em><b>Placeholder In Quotes</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.DerivedPlaceholderImpl#getPrefix <em>Prefix</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.DerivedPlaceholderImpl#getSuffix <em>Suffix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.PlaceholderInQuotesImpl#getPrefix <em>Prefix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.PlaceholderInQuotesImpl#getSuffix <em>Suffix</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPlaceholder {
+public class PlaceholderInQuotesImpl extends PlaceholderImpl implements PlaceholderInQuotes {
 	/**
 	 * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -87,7 +75,7 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DerivedPlaceholderImpl() {
+	protected PlaceholderInQuotesImpl() {
 		super();
 	}
 
@@ -98,7 +86,7 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ConcretesyntaxPackage.Literals.DERIVED_PLACEHOLDER;
+		return ConcretesyntaxPackage.Literals.PLACEHOLDER_IN_QUOTES;
 	}
 
 	/**
@@ -119,7 +107,7 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 		String oldPrefix = prefix;
 		prefix = newPrefix;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX, oldPrefix, prefix));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX, oldPrefix, prefix));
 	}
 
 	/**
@@ -140,7 +128,7 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 		String oldSuffix = suffix;
 		suffix = newSuffix;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX, oldSuffix, suffix));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX, oldSuffix, suffix));
 	}
 
 	/**
@@ -175,9 +163,9 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX:
 				return getPrefix();
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				return getSuffix();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -191,10 +179,10 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX:
 				setPrefix((String)newValue);
 				return;
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				setSuffix((String)newValue);
 				return;
 		}
@@ -209,10 +197,10 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX:
 				setPrefix(PREFIX_EDEFAULT);
 				return;
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				setSuffix(SUFFIX_EDEFAULT);
 				return;
 		}
@@ -227,9 +215,9 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__PREFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX:
 				return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
-			case ConcretesyntaxPackage.DERIVED_PLACEHOLDER__SUFFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
 		}
 		return super.eIsSet(featureID);
@@ -253,4 +241,4 @@ public class DerivedPlaceholderImpl extends PlaceholderImpl implements DerivedPl
 		return result.toString();
 	}
 
-} //DerivedPlaceholderImpl
+} //PlaceholderInQuotesImpl

@@ -198,16 +198,18 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
         sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;"); //required because the lexer class can not be subclassed
         sc.add("Object typeObject = null;");
-        sc.add("if(this.getOptions()!=null)");
-        	sc.add("typeObject = this.getOptions().get(IOptions.RESOURCE_CONTENT_TYPE);");
-   		sc.add("if(typeObject==null)");
+        sc.add("Map<?,?> options = getOptions();");
+        sc.add("if (options != null) {");
+        	sc.add("typeObject = options.get(IOptions.RESOURCE_CONTENT_TYPE);");
+        sc.add("}");
+   		sc.add("if (typeObject == null) {");
    			sc.add("return start();");
-   		sc.add("else if(typeObject instanceof EClass){");
+   		sc.add("} else if (typeObject instanceof EClass) {");
    			sc.add("EClass type = (EClass)typeObject;");
    			for(Rule rule:conrceteSyntax.getAllRules()){
    				String qualifiedClassName = rule.getMetaclass().getQualifiedInterfaceName();
    				String ruleName = getLowerCase(rule.getMetaclass().getName());
-   				sc.add("if(type.getInstanceClass()==" + qualifiedClassName +".class){");
+   				sc.add("if (type.getInstanceClass() == " + qualifiedClassName +".class) {");
    				sc.add("return " + ruleName + "();");
    				sc.add("}");
    			}

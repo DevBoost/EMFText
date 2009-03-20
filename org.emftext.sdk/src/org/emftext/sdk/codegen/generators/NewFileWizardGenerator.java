@@ -29,8 +29,8 @@ import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -140,12 +140,12 @@ public class NewFileWizardGenerator implements IGenerator {
 			append(csString.getValue(), false, sb);
 		} else if (definition instanceof Terminal) {
 			Terminal terminal = (Terminal) definition;
-			DerivedPlaceholder derivedPlaceholder = null;
-			if (terminal instanceof DerivedPlaceholder) {
-				derivedPlaceholder = (DerivedPlaceholder) terminal;
+			PlaceholderInQuotes quotedPlaceholder = null;
+			if (terminal instanceof PlaceholderInQuotes) {
+				quotedPlaceholder = (PlaceholderInQuotes) terminal;
 			}
-			if (derivedPlaceholder != null) {
-				append(derivedPlaceholder.getPrefix(), false, sb);
+			if (quotedPlaceholder != null) {
+				append(quotedPlaceholder.getPrefix(), false, sb);
 			}
 			GenFeature genFeature = terminal.getFeature();
 			EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
@@ -163,8 +163,8 @@ public class NewFileWizardGenerator implements IGenerator {
 					append("identifier", false, sb);
 				}
 			}
-			if (derivedPlaceholder != null) {
-				append(derivedPlaceholder.getSuffix(), false, sb);
+			if (quotedPlaceholder != null) {
+				append(quotedPlaceholder.getSuffix(), false, sb);
 			}
 		}
 	}

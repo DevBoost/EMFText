@@ -43,8 +43,10 @@ RULES {
 
   CsString       ::= #1 value['"','"'] #1 ;
   
-  DefinedPlaceholder ::= feature[] "["  token[] "]" cardinality?;
-  DerivedPlaceholder ::= feature[] "[" ( prefix['\'','\''] "," suffix['\'','\''] )? "]" #1 cardinality?;
+  PlaceholderUsingSpecifiedToken ::= feature[] "[" token[] "]" cardinality?;
+  PlaceholderUsingDefaultToken ::= feature[] "[" "]" cardinality?;
+  PlaceholderInQuotes ::= feature[] "[" prefix['\'','\''] "," suffix['\'','\''] "]" #1 cardinality?;
+  
   Containment        ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
   
   CompoundDefinition ::= "(" definitions ")" cardinality?;
@@ -53,7 +55,7 @@ RULES {
   LineBreak    ::= "!" tab[NUMBER] #1;
   
   NormalToken     ::= "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
-  PreDefinedToken ::= "PREDEFINED" #1 name[] ("COLLECT" "IN" attributeName[])?;
+  PredefinedToken ::= "PREDEFINED" #1 name[] ("COLLECT" "IN" attributeName[])?;
 
   PLUS         ::= "+";
   STAR         ::= "*";   

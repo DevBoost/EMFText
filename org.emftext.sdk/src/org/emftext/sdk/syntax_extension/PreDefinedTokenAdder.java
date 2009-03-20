@@ -9,7 +9,7 @@ import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
-import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.PredefinedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
@@ -48,7 +48,7 @@ public class PreDefinedTokenAdder extends AbstractPostProcessor {
 			}
 			
 			// if not create one and add it to the end of the token list
-			TokenDefinition definition = ConcretesyntaxFactory.eINSTANCE.createPreDefinedToken();
+			TokenDefinition definition = ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
 			definition.setName(predefinedToken.getTokenName());
 			definition.setRegex(predefinedToken.getExpression());
 			syntax.getSyntheticTokens().add(definition);
@@ -58,8 +58,8 @@ public class PreDefinedTokenAdder extends AbstractPostProcessor {
 	private boolean searchForPredefinedTokenDeclaration(ConcreteSyntax syntax,
 			EPredefinedTokens predefinedToken) {
 		for (TokenDefinition next : syntax.getTokens()) {
-			if (next instanceof PreDefinedToken) {
-				PreDefinedToken predefined = (PreDefinedToken) next;
+			if (next instanceof PredefinedToken) {
+				PredefinedToken predefined = (PredefinedToken) next;
 				if (predefinedToken.getTokenName().equals(predefined.getName())) {
 					// found a declaration for the predefined token
 					predefined.setRegex(predefinedToken.getExpression());

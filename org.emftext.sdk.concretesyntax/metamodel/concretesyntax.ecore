@@ -96,15 +96,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="used" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"
         changeable="false" volatile="true" transient="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NewDefinedToken" abstract="true" eSuperTypes="#//TokenDefinition"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NormalToken" eSuperTypes="#//NewDefinedToken"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NormalToken" eSuperTypes="#//TokenDefinition"/>
   <eClassifiers xsi:type="ecore:EClass" name="QuotedToken" eSuperTypes="#//TokenDefinition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         defaultValueLiteral=""/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PreDefinedToken" eSuperTypes="#//TokenDefinition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PredefinedToken" eSuperTypes="#//TokenDefinition"/>
   <eClassifiers xsi:type="ecore:EClass" name="Containment" eSuperTypes="#//Terminal">
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
@@ -113,8 +112,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="token" lowerBound="1" eType="#//TokenDefinition"
         eOpposite="#//TokenDefinition/attributeReferences"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DefinedPlaceholder" eSuperTypes="#//Placeholder"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DerivedPlaceholder" eSuperTypes="#//Placeholder">
+  <eClassifiers xsi:type="ecore:EClass" name="PlaceholderUsingSpecifiedToken" eSuperTypes="#//Placeholder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PlaceholderUsingDefaultToken" eSuperTypes="#//Placeholder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PlaceholderInQuotes" eSuperTypes="#//Placeholder">
     <eOperations name="getNormalizedPrefix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eOperations name="getNormalizedSuffix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"

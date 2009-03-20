@@ -36,12 +36,12 @@ public enum EPredefinedTokens {
 	/**
 	 * The whitespace token definition.
 	 */
-	WHITESPACE("WS", "(' ' | '\\t' | '\\f')"),
+	WHITESPACE("WHITESPACE", "(' ' | '\\t' | '\\f')"),
 
 	/**
 	 * The line break token definition.
 	 */
-	LINEBREAK("LB", "('\\r\\n' | '\\r' | '\\n')");
+	LINEBREAK("LINEBREAK", "('\\r\\n' | '\\r' | '\\n')");
 
 	private String tokenName;
 	private String expression;

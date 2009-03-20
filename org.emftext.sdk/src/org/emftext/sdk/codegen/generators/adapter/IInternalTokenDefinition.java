@@ -27,6 +27,8 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * and user-defined token definitions.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
+ * 
+ * TODO mseifert: remove this class and all implementations
  */
 public interface IInternalTokenDefinition {
 	

@@ -24,7 +24,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -34,19 +33,20 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.LineBreak;
-import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
+import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
+import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
+import org.emftext.sdk.concretesyntax.PredefinedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
+import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
@@ -184,10 +184,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createTokenDefinitionAdapter();
 			}
 			@Override
-			public Adapter caseNewDefinedToken(NewDefinedToken object) {
-				return createNewDefinedTokenAdapter();
-			}
-			@Override
 			public Adapter caseNormalToken(NormalToken object) {
 				return createNormalTokenAdapter();
 			}
@@ -196,8 +192,8 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createQuotedTokenAdapter();
 			}
 			@Override
-			public Adapter casePreDefinedToken(PreDefinedToken object) {
-				return createPreDefinedTokenAdapter();
+			public Adapter casePredefinedToken(PredefinedToken object) {
+				return createPredefinedTokenAdapter();
 			}
 			@Override
 			public Adapter caseContainment(Containment object) {
@@ -208,12 +204,16 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createPlaceholderAdapter();
 			}
 			@Override
-			public Adapter caseDefinedPlaceholder(DefinedPlaceholder object) {
-				return createDefinedPlaceholderAdapter();
+			public Adapter casePlaceholderUsingSpecifiedToken(PlaceholderUsingSpecifiedToken object) {
+				return createPlaceholderUsingSpecifiedTokenAdapter();
 			}
 			@Override
-			public Adapter caseDerivedPlaceholder(DerivedPlaceholder object) {
-				return createDerivedPlaceholderAdapter();
+			public Adapter casePlaceholderUsingDefaultToken(PlaceholderUsingDefaultToken object) {
+				return createPlaceholderUsingDefaultTokenAdapter();
+			}
+			@Override
+			public Adapter casePlaceholderInQuotes(PlaceholderInQuotes object) {
+				return createPlaceholderInQuotesAdapter();
 			}
 			@Override
 			public Adapter caseOption(Option object) {
@@ -525,30 +525,16 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.NewDefinedToken <em>New Defined Token</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PredefinedToken <em>Predefined Token</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.NewDefinedToken
+	 * @see org.emftext.sdk.concretesyntax.PredefinedToken
 	 * @generated
 	 */
-	public Adapter createNewDefinedTokenAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PreDefinedToken <em>Pre Defined Token</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.PreDefinedToken
-	 * @generated
-	 */
-	public Adapter createPreDefinedTokenAdapter() {
+	public Adapter createPredefinedTokenAdapter() {
 		return null;
 	}
 
@@ -567,34 +553,6 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DefinedPlaceholder <em>Defined Placeholder</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.DefinedPlaceholder
-	 * @generated
-	 */
-	public Adapter createDefinedPlaceholderAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.DerivedPlaceholder <em>Derived Placeholder</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.DerivedPlaceholder
-	 * @generated
-	 */
-	public Adapter createDerivedPlaceholderAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.Placeholder <em>Placeholder</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -605,6 +563,48 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPlaceholderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken <em>Placeholder Using Specified Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken
+	 * @generated
+	 */
+	public Adapter createPlaceholderUsingSpecifiedTokenAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken <em>Placeholder Using Default Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken
+	 * @generated
+	 */
+	public Adapter createPlaceholderUsingDefaultTokenAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PlaceholderInQuotes <em>Placeholder In Quotes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.PlaceholderInQuotes
+	 * @generated
+	 */
+	public Adapter createPlaceholderInQuotesAdapter() {
 		return null;
 	}
 
