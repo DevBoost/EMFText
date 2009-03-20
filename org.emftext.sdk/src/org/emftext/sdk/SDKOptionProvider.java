@@ -43,7 +43,7 @@ import org.emftext.sdk.syntax_analysis.TokenNameAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedFeatureAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedTokenAnalyser;
 import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
-import org.emftext.sdk.syntax_extension.PreDefinedTokenAdder;
+import org.emftext.sdk.syntax_extension.PredefinedTokenAdder;
 import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
 
 /**
@@ -60,7 +60,7 @@ public class SDKOptionProvider implements IOptionProvider {
 
 		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
 		// first add implicit information to the resource
-		postProcessors.add(new PreDefinedTokenAdder());
+		postProcessors.add(new PredefinedTokenAdder());
 		postProcessors.add(new DerivedTokenCreator());
 		postProcessors.add(new DefaultTokenConnector());
 		

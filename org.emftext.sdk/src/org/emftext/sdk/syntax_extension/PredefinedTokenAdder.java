@@ -16,7 +16,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * The PreDefinedTokenAdder adds all predefined tokens to the syntax
  * unless the option to disable the usage of predefined tokens was set.
  */
-public class PreDefinedTokenAdder extends AbstractPostProcessor {
+public class PredefinedTokenAdder extends AbstractPostProcessor {
 
 	/**
 	 * We override process() because we do not want to resolve all proxies before
