@@ -210,6 +210,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("}");
 		}
 		sc.add("}");
+		sc.add("throw new " + UnexpectedContentTypeException.class.getName() + "(typeObject);");
         sc.add("}");
         sc.addLineBreak();
   
