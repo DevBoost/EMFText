@@ -43,12 +43,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.emftext.runtime.IOptions;
 import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
+import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
 import org.emftext.sdk.analysis.LeftRecursionDetector;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -96,7 +98,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 */
 	public static final String EOF_TOKEN_NAME = "EOF";
 	
-	private ConcreteSyntax conreteSyntax;
+	private ConcreteSyntax conrceteSyntax;
 	private String tokenResolverFactoryName;
 	private String qualifiedReferenceResolverSwitchName;
 	
@@ -122,18 +124,18 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		this.context = context;
 		qualifiedReferenceResolverSwitchName = context.getQualifiedReferenceResolverSwitchClassName();
-		conreteSyntax = context.getConcreteSyntax();
+		conrceteSyntax = context.getConcreteSyntax();
 		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
 	}
 	
 	private void initOptions() {
-		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
+		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
 	}
 	
 	private void initCaches(){
 		nonContainmentReferences = new LinkedList<GenFeature>();
 		
-	    allGenClasses = genClassFinder.findAllGenClasses(conreteSyntax, true, true);
+	    allGenClasses = genClassFinder.findAllGenClasses(conrceteSyntax, true, true);
 	    genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 	}
 	
@@ -143,8 +145,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		
         String csName = getResourceClassName();
         String lexerName = getLexerName(csName);
-        boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
-        boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.ANTLR_MEMOIZE);
+        boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
+        boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.ANTLR_MEMOIZE);
                 
         StringComposite sc = new ANTLRGrammarComposite();
 
@@ -195,9 +197,22 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("lastPosition = 0;");
 		sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
         sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;"); //required because the lexer class can not be subclassed
-        sc.add("return start();" );
+        sc.add("Object typeObject = this.getOptions().get(IOptions.RESOURCE_CONTENT_TYPE);");
+   		sc.add("if(typeObject==null)");
+   		sc.add("return start();");
+   		sc.add("else if(typeObject instanceof EClass){");
+		sc.add("EClass type = (EClass)typeObject;");
+		for(Rule rule:conrceteSyntax.getAllRules()){
+			String qualifiedClassName = rule.getMetaclass().getQualifiedInterfaceName();
+			String ruleName = getLowerCase(rule.getMetaclass().getName());
+			sc.add("if(type.getInstanceClass()==" + qualifiedClassName +".class){");
+			sc.add("return " + ruleName + "();");
+			sc.add("}");
+		}
+		sc.add("}");
         sc.add("}");
         sc.addLineBreak();
+  
         
         sc.add("@SuppressWarnings(\"unchecked\")");
         sc.add("private boolean addObjectToList(" + EObject.class.getName() + " element, int featureID, " + Object.class.getName() + " proxy) {");
@@ -212,7 +227,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.addLineBreak();
         
 
-        List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(conreteSyntax.getTokens());       
+        List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(conrceteSyntax.getTokens());       
         sc.add("protected void collectHiddenTokens(" + EObject.class.getName() + " element) {");
         if (!collectTokenDefinitions.isEmpty()) {          
             //sc.add("System.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
@@ -319,7 +334,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add(":");
     	sc.add("(");
         int count = 0;
-        for (Iterator<GenClass> i = conreteSyntax.getActiveStartSymbols().iterator(); i.hasNext(); ) {
+        for (Iterator<GenClass> i = conrceteSyntax.getActiveStartSymbols().iterator(); i.hasNext(); ) {
             GenClass aStart = i.next();
             sc.add("c" + count + " = " + getLowerCase(aStart.getName()) + "{ element = c" + count + "; }"); 
             if (i.hasNext()) { 
@@ -369,7 +384,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        choice.getOptions().add(newSequence);
 	        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
 	        
-	        LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conreteSyntax);
+	        LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conrceteSyntax);
 	        
 	        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
 	        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
@@ -459,17 +474,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private void printGrammarRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
         
-		for(Rule rule : conreteSyntax.getAllRules()) {
+		for(Rule rule : conrceteSyntax.getAllRules()) {
 			
-        	LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conreteSyntax);
+        	LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conrceteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-                boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conreteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
+                boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {
                     	printRightRecursion(sc, rule, eClassesWithSyntax, eClassesReferenced);	
     					
-    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(rule.getMetaclass(), conreteSyntax);
+    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(rule.getMetaclass(), conrceteSyntax);
                         if(!subClasses.isEmpty()){
                         	sc.add("|//derived choice rules for sub-classes: ");
                         	printSubClassChoices(sc,subClasses);
@@ -523,7 +538,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         
         printChoice(rule.getDefinition(),rule,sc,0,eClassesReferenced,nonContainmentReferences);
         
-        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(genClass, conreteSyntax);
+        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(genClass, conrceteSyntax);
         if(!subClasses.isEmpty()){
         	sc.add("|//derived choice rules for sub-classes: ");
         	sc.addLineBreak();
@@ -769,7 +784,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for(GenClass referencedClass : eClassesReferenced.keySet()) {
 			if(!containsEqualByName(eClassesWithSyntax,referencedClass)) {
 				//rule not explicitly defined in CS: most likely a choice rule in the AS
-				Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(referencedClass, conreteSyntax);
+				Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(referencedClass, conrceteSyntax);
 
 				if (!subClasses.isEmpty()) {
 					sc.add(getLowerCase(referencedClass.getName()));
@@ -812,7 +827,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     }
     
 	private void printTokenDefinitions(StringComposite sc) {
-		for (TokenDefinition tokenDefinition : conreteSyntax.getAllTokens()) {
+		for (TokenDefinition tokenDefinition : conrceteSyntax.getAllTokens()) {
 			printToken(tokenDefinition, sc);
 		}
 	}
@@ -834,6 +849,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("import " + org.eclipse.emf.ecore.InternalEObject.class.getName() + ";");
         sc.add("import " + org.eclipse.emf.common.util.URI.class.getName() + ";");
         sc.add("import " + AbstractEMFTextParser.class.getName() + ";");
+        sc.add("import " + IOptions.class.getName() + ";");
+        sc.add("import " + UnexpectedContentTypeException.class.getName() + ";");
+        sc.add("import " + EClass.class.getName() + ";");
+
 	}
 	
 	/**
