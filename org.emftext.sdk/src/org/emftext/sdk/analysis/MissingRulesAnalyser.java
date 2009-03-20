@@ -35,7 +35,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * An analyser that checks whether there is a syntax rule for
  * each meta class.
  */
-public class MissingRulesAnalyser extends AbstractAnalyser {
+public class MissingRulesAnalyser extends AbstractPostProcessor {
 
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class: ";
 

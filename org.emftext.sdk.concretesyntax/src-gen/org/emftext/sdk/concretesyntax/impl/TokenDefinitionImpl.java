@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 
@@ -46,6 +46,9 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getAttributeReferences <em>Attribute References</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getAttributeName <em>Attribute Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#getRegex <em>Regex</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#isHidden <em>Hidden</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl#isUsed <em>Used</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,7 +83,7 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<DefinedPlaceholder> attributeReferences;
+	protected EList<Placeholder> attributeReferences;
 
 	/**
 	 * The default value of the '{@link #getAttributeName() <em>Attribute Name</em>}' attribute.
@@ -101,6 +104,46 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 	 * @ordered
 	 */
 	protected String attributeName = ATTRIBUTE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getRegex() <em>Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRegex()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String REGEX_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getRegex() <em>Regex</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRegex()
+	 * @generated
+	 * @ordered
+	 */
+	protected String regex = REGEX_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isHidden() <em>Hidden</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isHidden()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean HIDDEN_EDEFAULT = false;
+
+	/**
+	 * The default value of the '{@link #isUsed() <em>Used</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUsed()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean USED_EDEFAULT = false;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -147,9 +190,9 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<DefinedPlaceholder> getAttributeReferences() {
+	public EList<Placeholder> getAttributeReferences() {
 		if (attributeReferences == null) {
-			attributeReferences = new EObjectWithInverseResolvingEList<DefinedPlaceholder>(DefinedPlaceholder.class, this, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ConcretesyntaxPackage.DEFINED_PLACEHOLDER__TOKEN);
+			attributeReferences = new EObjectWithInverseResolvingEList<Placeholder>(Placeholder.class, this, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES, ConcretesyntaxPackage.PLACEHOLDER__TOKEN);
 		}
 		return attributeReferences;
 	}
@@ -173,6 +216,71 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 		attributeName = newAttributeName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME, oldAttributeName, attributeName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getRegex() {
+		return regex;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRegex(String newRegex) {
+		String oldRegex = regex;
+		regex = newRegex;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX, oldRegex, regex));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isHidden() {
+		boolean isReferenced = !getAttributeReferences().isEmpty();
+		boolean isCollectInToken = getAttributeName() != null;
+		return !isReferenced || isCollectInToken;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHidden(boolean newHidden) {
+		// TODO: implement this method to set the 'Hidden' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isUsed() {
+		boolean isReferenced = !getAttributeReferences().isEmpty();
+		boolean isCollectInToken = getAttributeName() != null;
+		return isReferenced || isCollectInToken;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUsed(boolean newUsed) {
+		// TODO: implement this method to set the 'Used' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -218,6 +326,12 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 				return getAttributeReferences();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return getAttributeName();
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+				return getRegex();
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
+				return isHidden() ? Boolean.TRUE : Boolean.FALSE;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
+				return isUsed() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -236,10 +350,19 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 				return;
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_REFERENCES:
 				getAttributeReferences().clear();
-				getAttributeReferences().addAll((Collection<? extends DefinedPlaceholder>)newValue);
+				getAttributeReferences().addAll((Collection<? extends Placeholder>)newValue);
 				return;
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				setAttributeName((String)newValue);
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+				setRegex((String)newValue);
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
+				setHidden(((Boolean)newValue).booleanValue());
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
+				setUsed(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -262,6 +385,15 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				setAttributeName(ATTRIBUTE_NAME_EDEFAULT);
 				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+				setRegex(REGEX_EDEFAULT);
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
+				setHidden(HIDDEN_EDEFAULT);
+				return;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
+				setUsed(USED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -280,6 +412,12 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 				return attributeReferences != null && !attributeReferences.isEmpty();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__ATTRIBUTE_NAME:
 				return ATTRIBUTE_NAME_EDEFAULT == null ? attributeName != null : !ATTRIBUTE_NAME_EDEFAULT.equals(attributeName);
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
+				return REGEX_EDEFAULT == null ? regex != null : !REGEX_EDEFAULT.equals(regex);
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
+				return isHidden() != HIDDEN_EDEFAULT;
+			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
+				return isUsed() != USED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -298,6 +436,8 @@ public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDe
 		result.append(name);
 		result.append(", attributeName: ");
 		result.append(attributeName);
+		result.append(", regex: ");
+		result.append(regex);
 		result.append(')');
 		return result.toString();
 	}

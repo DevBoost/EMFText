@@ -27,8 +27,8 @@ import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
  * Generates a TokenResolverFactory which will contain a mapping from ANTLR token names to 
@@ -56,16 +56,19 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		sc.add("public class " + getResourceClassName() + " extends " + AbstractTokenResolverFactory.class.getName() + " implements " + ITokenResolverFactory.class.getName() + " {");
 		sc.addLineBreak();
 		sc.add("public " + getResourceClassName() + "() {");
-		for (IInternalTokenDefinition def : context.getUsedTokens()) {
+		for (TokenDefinition definition : context.getConcreteSyntax().getAllTokens()) {
+			if (!definition.isUsed()) {
+				continue;
+			}
 			// user defined tokens may stem from an imported syntax
-			ConcreteSyntax containingSyntax = context.getContainingSyntax(def);
-			String tokenResolverClassName = context.getTokenResolverClassName(def);
+			ConcreteSyntax containingSyntax = context.getContainingSyntax(definition);
+			String tokenResolverClassName = context.getTokenResolverClassName(definition);
 			if (tokenResolverClassName != null) {
-				if (def.isCollect()) {
-					String featureName = def.getBaseDefinition().getAttributeName();
+				if (definition.getAttributeName() != null) {
+					String featureName = definition.getAttributeName();
 					sc.add("super.registerCollectInTokenResolver(\"" + featureName + "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
 				} else {
-					sc.add("super.registerTokenResolver(\"" +def.getName()+ "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
+					sc.add("super.registerTokenResolver(\"" +definition.getName()+ "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
 				}
 			}
 		}

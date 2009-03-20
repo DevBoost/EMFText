@@ -25,7 +25,6 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -57,7 +56,7 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	 * @return
 	 */
 	private IGenPackageFinderResult findGenPackageUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
-		final ResourceSet rs = new ResourceSetImpl();
+		ResourceSet rs = resource.getResourceSet();
 		try {
 			URI hintURI = new LocationHintResolver().getLocationHintURI(locationHint, container);
 			if ("genmodel".equals(hintURI.fileExtension())) {

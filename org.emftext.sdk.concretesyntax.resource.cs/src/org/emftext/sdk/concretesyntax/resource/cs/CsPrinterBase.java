@@ -3,13 +3,17 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.AbstractEMFTextPrinter {
 	
 	protected org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
-	protected CsReferenceResolverSwitch referenceResolverSwitch = new CsReferenceResolverSwitch();
+	protected CsReferenceResolverSwitch referenceResolverSwitch;
 	
 	public CsPrinterBase(java.io.OutputStream o, org.emftext.runtime.resource.ITextResource resource) {
 		super(o, resource);
 	}
 	
-	protected static int matchCount(java.util.Map<java.lang.String, java.lang.Integer> featureCounter, java.util.Collection<java.lang.String> needed){
+    public void setReferenceResolverSwitch(CsReferenceResolverSwitch referenceResolverSwitch) {
+    	this.referenceResolverSwitch = referenceResolverSwitch;
+    }
+
+    protected static int matchCount(java.util.Map<java.lang.String, java.lang.Integer> featureCounter, java.util.Collection<java.lang.String> needed){
 		int pos = 0;
 		int neg = 0;
 		

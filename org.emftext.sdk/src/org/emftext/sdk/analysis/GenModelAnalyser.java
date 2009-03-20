@@ -6,7 +6,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public class GenModelAnalyser extends AbstractAnalyser {
+public class GenModelAnalyser extends AbstractPostProcessor {
 
 	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel is invalid. Please reconcile it.";
 

@@ -25,9 +25,9 @@ import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_ANTLR_SPEC;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER_BASE;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVERS;
+import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVER_SWITCH;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS;
 import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVER_SWITCH;
 import static org.emftext.sdk.codegen.util.GeneratorUtil.setContents;
 
 import java.io.BufferedOutputStream;
@@ -56,8 +56,9 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
-import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
  * A generator that uses multiple other generators to create
@@ -156,7 +157,7 @@ public class ResourcePluginContentGenerator {
 		searchForUnusedResolvers(context, resolverPackagePath);
 	}
 
-	private static void searchForUnusedResolvers(
+	private void searchForUnusedResolvers(
 			GenerationContext context, IPath resolverPackagePath) {
 		
 		Set<String> resolverFiles = new LinkedHashSet<String>();
@@ -180,7 +181,7 @@ public class ResourcePluginContentGenerator {
 		}
 	}
 
-	private static void generateTokenResolverFactory(
+	private void generateTokenResolverFactory(
 			GenerationContext context,
 			SubMonitor progress,
 			ITextResource csResource,
@@ -202,12 +203,12 @@ public class ResourcePluginContentGenerator {
 			throws IOException {
 		progress.setTaskName("generating token resolvers...");
 		File targetFolder = context.getSourceFolder();
-		for(IInternalTokenDefinition tokenDefinition : parserGenerator.getPrintedTokenDefinitions()){
-			if (!tokenDefinition.isReferenced() && !tokenDefinition.isCollect()) {
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		for (TokenDefinition tokenDefinition : syntax.getAllTokens()) {
+			if (!tokenDefinition.isUsed()) {
 				continue;
 			}
 			String tokenResolverClassName = context.getTokenResolverClassName(tokenDefinition);
-			context.addUsedToken(tokenDefinition);
 			// do not generate a resolver for imported tokens
 			if (context.isImportedToken(tokenDefinition)) {
 				continue;
@@ -223,7 +224,7 @@ public class ResourcePluginContentGenerator {
 		progress.worked(20);
 	}
 
-	private static void generateReferenceResolverSwitch(GenerationContext context,
+	private void generateReferenceResolverSwitch(GenerationContext context,
 			SubMonitor progress, ITextResource csResource,
 			File resolverSwitchFile, String referenceResolverName) throws IOException {
 		progress.setTaskName("generating reference resolver switch...");
@@ -236,7 +237,7 @@ public class ResourcePluginContentGenerator {
 		progress.worked(5);
 	}
 
-	private static void generateNewFileAction(GenerationContext context,
+	private void generateNewFileAction(GenerationContext context,
 			SubMonitor progress, ITextResource csResource,
 			File newFileActionFile, String newFileActionName) throws IOException {
 		progress.setTaskName("generating new file wizard...");
@@ -278,7 +279,7 @@ public class ResourcePluginContentGenerator {
 		monitor.worked(20);
 	}
 
-	private static void generatePrinterAndPrinterBase(GenerationContext context,
+	private void generatePrinterAndPrinterBase(GenerationContext context,
 			SubMonitor progress, ITextResource csResource, File printerFile,
 			File printerBaseFile, String antlrName, String printerName,
 			String printerBaseName, String referenceResolverName,
@@ -298,9 +299,7 @@ public class ResourcePluginContentGenerator {
 
 	    // always generate printer base
 		if (generatePrinterBase && !generatePrinterStubOnly) {
-	        BaseGenerator printerBaseGenerator = new TextPrinterBaseGenerator(context, 
-	        		antlrGen.getPlaceHolderTokenMapping()
-	        );
+	        BaseGenerator printerBaseGenerator = new TextPrinterBaseGenerator(context);
 		    setContents(printerBaseFile, invokeGeneration(printerBaseGenerator, context.getProblemCollector()));	    		
     	}
 		if (generatePrinter) {
@@ -315,7 +314,7 @@ public class ResourcePluginContentGenerator {
 	    progress.worked(20);
 	}
 
-	private static void runANTLR(GenerationContext context, SubMonitor progress,
+	private void runANTLR(GenerationContext context, SubMonitor progress,
 			File antlrFile) {
 		progress.setTaskName("running ANTLR on grammar file...");
         ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(context.getConcreteSyntax().eResource()));
@@ -324,7 +323,7 @@ public class ResourcePluginContentGenerator {
         progress.worked(20);
 	}
 
-	private static void generateEMFResources(SubMonitor progress,
+	private void generateEMFResources(SubMonitor progress,
 			File resourceFile,
 			File resourceFactoryFile, IGenerator resourceGen,
 			IGenerator resourceFactoryGen, GenerationContext context) throws IOException {
@@ -334,19 +333,19 @@ public class ResourcePluginContentGenerator {
 		progress.worked(5);
 	}
 
-	public static InputStream deriveGrammar(IGenerator antlrGen, GenerationContext context) {
+	public InputStream deriveGrammar(IGenerator antlrGen, GenerationContext context) {
 		InputStream content = invokeGeneration(antlrGen, context.getProblemCollector());
 		return content;
 	}
 	
-	private static void saveGrammar(InputStream content, GenerationContext context, File grammarFile) throws IOException {
+	private void saveGrammar(InputStream content, GenerationContext context, File grammarFile) throws IOException {
 		boolean generateANTLRSpecification = !grammarFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
 	    if (generateANTLRSpecification) {
 	    	setContents(grammarFile, content);
 	    }
 	}
        
-	private static InputStream invokeGeneration(IGenerator generator, IProblemCollector collector){
+	private InputStream invokeGeneration(IGenerator generator, IProblemCollector collector){
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	   PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
        try {
@@ -367,25 +366,4 @@ public class ResourcePluginContentGenerator {
 		}
 		return null;
 	}
-
-	/*
-	private static void setContents(IFile target, InputStream in) throws CoreException {
-		if (target.exists()) {
-			target.setContents(in, false, false, new NullProgressMonitor());
-		} else {
-			LinkedList<IResource> stack = new LinkedList<IResource>();
-			if (!target.getParent().exists()) {
-				stack.addFirst(target.getParent());
-				while (!stack.isEmpty()) {
-					if (!stack.peek().getParent().exists())
-						stack.addFirst(stack.peek().getParent());
-					else
-						((IFolder) stack.removeFirst()).create(false, false,
-								new NullProgressMonitor());
-				}
-			}
-			target.create(in, false, new NullProgressMonitor());
-		}
-	}
-	*/
 }

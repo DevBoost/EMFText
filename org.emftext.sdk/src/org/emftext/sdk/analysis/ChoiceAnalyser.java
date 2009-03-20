@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * after parsing and can thus cause a result different from
  * the original text after printing.
  */
-public class ChoiceAnalyser extends AbstractAnalyser {
+public class ChoiceAnalyser extends AbstractPostProcessor {
 
 	private static final String EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS = 
 		"Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";

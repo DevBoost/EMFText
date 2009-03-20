@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -249,6 +250,13 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ConcretesyntaxPackage.NEW_DEFINED_TOKEN: {
+				NewDefinedToken newDefinedToken = (NewDefinedToken)theEObject;
+				T result = caseNewDefinedToken(newDefinedToken);
+				if (result == null) result = caseTokenDefinition(newDefinedToken);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ConcretesyntaxPackage.NORMAL_TOKEN: {
 				NormalToken normalToken = (NormalToken)theEObject;
 				T result = caseNormalToken(normalToken);
@@ -257,10 +265,10 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ConcretesyntaxPackage.NEW_DEFINED_TOKEN: {
-				NewDefinedToken newDefinedToken = (NewDefinedToken)theEObject;
-				T result = caseNewDefinedToken(newDefinedToken);
-				if (result == null) result = caseTokenDefinition(newDefinedToken);
+			case ConcretesyntaxPackage.QUOTED_TOKEN: {
+				QuotedToken quotedToken = (QuotedToken)theEObject;
+				T result = caseQuotedToken(quotedToken);
+				if (result == null) result = caseTokenDefinition(quotedToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -277,6 +285,15 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTerminal(containment);
 				if (result == null) result = caseCardinalityDefinition(containment);
 				if (result == null) result = caseDefinition(containment);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.PLACEHOLDER: {
+				Placeholder placeholder = (Placeholder)theEObject;
+				T result = casePlaceholder(placeholder);
+				if (result == null) result = caseTerminal(placeholder);
+				if (result == null) result = caseCardinalityDefinition(placeholder);
+				if (result == null) result = caseDefinition(placeholder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -297,15 +314,6 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = caseTerminal(derivedPlaceholder);
 				if (result == null) result = caseCardinalityDefinition(derivedPlaceholder);
 				if (result == null) result = caseDefinition(derivedPlaceholder);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ConcretesyntaxPackage.PLACEHOLDER: {
-				Placeholder placeholder = (Placeholder)theEObject;
-				T result = casePlaceholder(placeholder);
-				if (result == null) result = caseTerminal(placeholder);
-				if (result == null) result = caseCardinalityDefinition(placeholder);
-				if (result == null) result = caseDefinition(placeholder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -608,6 +616,21 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseNormalToken(NormalToken object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Quoted Token</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Quoted Token</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseQuotedToken(QuotedToken object) {
 		return null;
 	}
 

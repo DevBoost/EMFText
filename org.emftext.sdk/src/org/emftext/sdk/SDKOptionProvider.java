@@ -41,6 +41,9 @@ import org.emftext.sdk.analysis.ReferencesToAbstractClassesAnalyser;
 import org.emftext.sdk.analysis.RegularExpressionAnalyser;
 import org.emftext.sdk.analysis.TokenNameAnalyser;
 import org.emftext.sdk.analysis.UnusedFeatureAnalyser;
+import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
+import org.emftext.sdk.syntax_extension.PreDefinedTokenAdder;
+import org.emftext.sdk.syntax_extension.StandardTokenConnector;
 
 /**
  * The SDKOptionProvider adds post-processors to the default 
@@ -55,6 +58,12 @@ public class SDKOptionProvider implements IOptionProvider {
 		Map<String, Object> options = new HashMap<String, Object>();
 
 		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
+		// first add implicit information to the resource
+		postProcessors.add(new PreDefinedTokenAdder());
+		postProcessors.add(new DerivedTokenCreator());
+		postProcessors.add(new StandardTokenConnector());
+		
+		// then analyse it
 		postProcessors.add(new GenModelAnalyser());
 		postProcessors.add(new FeatureCardinalityAnalyser());
 		postProcessors.add(new OptionalKeywordAnalyser());

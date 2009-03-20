@@ -29,8 +29,6 @@ import org.emftext.runtime.IInputStreamProcessorProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.InputStreamProcessor;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.ITextParser;
-import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -38,8 +36,8 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 
 /**
  * Generates the resource class. The created <code>doLoad()</code> and 
- * <code>doSave()</code> methods will call the generated parser, analyser 
- * and printer.
+ * <code>doSave()</code> methods will call the generated parser and 
+ * printer.
  * 
  * @see org.emftext.runtime.resource.ITextResource
  */
@@ -50,6 +48,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String csClassName;
 	private String resolverSwitchClassName;
 	private String printerClassName;
+	private String parserClassName;
 	private String csSyntaxName;
 	
 	public TextResourceGenerator(GenerationContext context) {
@@ -57,7 +56,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		this.csSyntaxName = context.getConcreteSyntax().getName();
 		this.csClassName = context.getCapitalizedConcreteSyntaxName();
 		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
-		this.printerClassName = context.getPrinterName();
+		this.printerClassName = context.getQualifiedPrinterName();
+		this.parserClassName = context.getQualifiedParserClassName();
 	}
 
 	@Override
@@ -68,7 +68,9 @@ public class TextResourceGenerator extends BaseGenerator {
         
 		sc.add("public class " + getResourceClassName() + " extends " + AbstractTextResource.class.getName() + " {");
 
-		sc.add("private " + IReferenceResolverSwitch.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";\n");
+		sc.addLineBreak();
+		sc.add("private " + IReferenceResolverSwitch.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
+		sc.addLineBreak();
 		
 		generateConstructors(sc);
         generateDoLoadMethod(sc);
@@ -126,9 +128,12 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void generateDoSaveMethod(StringComposite sc) {
 		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        sc.add(ITextPrinter.class.getName() + " p = new " + printerClassName + "(outputStream, this);");
+        sc.add(printerClassName + " printer = new " + printerClassName + "(outputStream, this);");
+        sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
+        sc.add("referenceResolverSwitch.setOptions(options);");
+        sc.add("printer.setReferenceResolverSwitch((" + resolverSwitchClassName + ") referenceResolverSwitch);");
         sc.add("for(" + EObject.class.getName() + " root : getContents()) {");
-        sc.add("p.print(root);");
+        sc.add("printer.print(root);");
         sc.add("}");
         sc.add("}");
         sc.addLineBreak();
@@ -165,7 +170,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("}");
         sc.addLineBreak();
         
-        sc.add(ITextParser.class.getName() + " parser;");
+        sc.add(parserClassName + " parser;");
 		sc.add("if (encoding == null) {");
         sc.add("parser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream))));");
 		sc.add("} else {");
@@ -173,6 +178,9 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("}");
         sc.add("parser.setResource(this);");
         sc.add("parser.setOptions(options);");
+        sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
+        sc.add("referenceResolverSwitch.setOptions(options);");
+        sc.add("parser.setReferenceResolverSwitch((" + resolverSwitchClassName + ") referenceResolverSwitch);");
         sc.add(EObject.class.getName() + " root = parser.parse();");
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");

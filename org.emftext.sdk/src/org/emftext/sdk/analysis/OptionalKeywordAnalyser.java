@@ -38,7 +38,7 @@ import org.emftext.sdk.concretesyntax.Sequence;
  * syntax rules. Such keywords are not reflected in the models 
  * after parsing and are thus lost after printing.
  */
-public class OptionalKeywordAnalyser extends AbstractAnalyser {
+public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 
 	private static final String OPTIONAL_KEYWORD_WARNING = 
 		"The keyword might be used stand alone and will not be reprinted in such case: ";

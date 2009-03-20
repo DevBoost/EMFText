@@ -44,7 +44,7 @@ import org.emftext.sdk.concretesyntax.Terminal;
  * A analyser that looks for features defined in the meta model that do
  * no have concrete syntax.
  */
-public class UnusedFeatureAnalyser extends AbstractAnalyser {
+public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

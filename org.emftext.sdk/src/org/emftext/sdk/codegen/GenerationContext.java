@@ -21,7 +21,6 @@
 package org.emftext.sdk.codegen;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -35,7 +34,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
-import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
@@ -82,7 +80,7 @@ public abstract class GenerationContext {
 	 */
 	private Collection<String> resolverClasses = new LinkedHashSet<String>();
 	private Collection<GenFeature> nonContainmentReferences = new LinkedHashSet<GenFeature>();
-	private Collection<IInternalTokenDefinition> usedTokens = new ArrayList<IInternalTokenDefinition>();
+	//private Collection<TokenDefinition> usedTokens = new ArrayList<TokenDefinition>();
 	
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
 		if (concreteSyntax == null) {
@@ -247,12 +245,12 @@ public abstract class GenerationContext {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
     }
 
-	public String getTokenResolverClassName(
-			IInternalTokenDefinition tokenDefinition) {
+	public String getTokenResolverClassName(TokenDefinition tokenDefinition) {
 
 		String syntaxName = getCapitalizedConcreteSyntaxName(getContainingSyntax(tokenDefinition));
-		if (tokenDefinition.isCollect()) {
-			String attributeName = tokenDefinition.getBaseDefinition().getAttributeName();
+		boolean isCollect = tokenDefinition.getAttributeName() != null;
+		if (isCollect) {
+			String attributeName = tokenDefinition.getAttributeName();
 			return syntaxName +  "COLLECT_" + attributeName + CLASS_SUFFIX_TOKEN_RESOLVER;
 		} else {
 			return syntaxName +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
@@ -263,13 +261,10 @@ public abstract class GenerationContext {
 		return proxyReference.getGenClass().getName() + capitalize(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
 	}
 	
-	public ConcreteSyntax getContainingSyntax(IInternalTokenDefinition def) {
-		TokenDefinition baseDefinition = def.getBaseDefinition();
-		if (baseDefinition != null) {
-			EObject container = baseDefinition.eContainer();
-			if (container instanceof ConcreteSyntax) {
-				return (ConcreteSyntax) container;
-			}
+	public ConcreteSyntax getContainingSyntax(TokenDefinition baseDefinition) {
+		EObject container = baseDefinition.eContainer();
+		if (container instanceof ConcreteSyntax) {
+			return (ConcreteSyntax) container;
 		}
 		return concreteSyntax;
 	}
@@ -302,20 +297,12 @@ public abstract class GenerationContext {
 		return nonContainmentReferences;
 	}
 
-	public void addUsedToken(IInternalTokenDefinition tokenDefinition) {
-		usedTokens.add(tokenDefinition);
-	}
-
-	public Collection<IInternalTokenDefinition> getUsedTokens() {
-		return usedTokens;
-	}
-
 	public boolean isImportedReference(GenFeature genFeature) {
 		Set<GenClass> classesExceptImports = genClassFinder.findAllGenClasses(concreteSyntax, false, false);
 		return ! genClassFinder.contains(classesExceptImports, genFeature.getGenClass());
 	}
 
-	public boolean isImportedToken(IInternalTokenDefinition tokenDefinition) {
+	public boolean isImportedToken(TokenDefinition tokenDefinition) {
 		return !concreteSyntax.equals(getContainingSyntax(tokenDefinition));
 	}
 
@@ -358,5 +345,13 @@ public abstract class GenerationContext {
 
 	public boolean isGenerateTestActionEnabled() {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), ICodeGenOptions.GENERATE_TEST_ACTION);
+	}
+
+	public String getQualifiedParserClassName() {
+		return getPackageName() + "." + getCapitalizedConcreteSyntaxName() + "Parser";
+	}
+
+	public String getQualifiedPrinterName() {
+		return getPackageName() + "." + getPrinterName();
 	}
 }

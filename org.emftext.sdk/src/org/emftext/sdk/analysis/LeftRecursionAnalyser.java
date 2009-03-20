@@ -34,7 +34,7 @@ import org.emftext.sdk.finders.GenClassFinder;
 /**
  * An analyser that checks whether the syntax contains left-recursive rules.
  */
-public class LeftRecursionAnalyser extends AbstractAnalyser {
+public class LeftRecursionAnalyser extends AbstractPostProcessor {
 	
 	private static final String RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO = "The rule is left recursive in relation to rule: ";
 

@@ -40,7 +40,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.sdk.MetamodelManager;
@@ -76,7 +75,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 				// reload generator model if option is enabled
 				boolean reloadEnabled = OptionManager.INSTANCE.getBooleanOptionValue(syntax, ICodeGenOptions.RELOAD_GENERATOR_MODEL);
 				if (reloadEnabled) {
-					genModel = reloadGeneratorModel(genModel);
+					genModel = reloadGeneratorModel(genModel, rs);
 				}
 
 				// find the Ecore files used by the generator model 
@@ -111,7 +110,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 		return null;
 	}
 
-	private GenModel reloadGeneratorModel(GenModel genModel) {
+	private GenModel reloadGeneratorModel(GenModel genModel, ResourceSet rs) {
 		if (Platform.isRunning()) {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			final URI genModelURI = genModel.eResource().getURI();
@@ -121,7 +120,6 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 				if (!file.isReadOnly()) {
 	            	try {
 	            		updateGenModel(genModel);
-	            		ResourceSet rs = new ResourceSetImpl();
 	            		Resource genModelResource = rs.getResource(genModelURI, true);
 	        			return (GenModel) genModelResource.getContents().get(0);
 	            	} catch (Exception e) {

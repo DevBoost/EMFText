@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.Terminal;
  * An analyser that checks whether the cardinality of a feature
  * matches the cardinality given in the syntax.
  */
-public class FeatureCardinalityAnalyser extends AbstractAnalyser {
+public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

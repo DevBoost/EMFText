@@ -30,7 +30,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
 /**
  * A analyser that checks that all token names start with a capital letter.
  */
-public class TokenNameAnalyser extends AbstractAnalyser {
+public class TokenNameAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

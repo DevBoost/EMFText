@@ -40,7 +40,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
  * types of all used references. If a reference has an abstract type, which
  * in turn has no concrete sub classes, there is no way to parse correctly.
  */
-public class ReferencesToAbstractClassesAnalyser extends AbstractAnalyser {
+public class ReferencesToAbstractClassesAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

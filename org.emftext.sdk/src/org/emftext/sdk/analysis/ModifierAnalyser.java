@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * An analyser that checks whether the modifier ABSTRACT is used
  * correctly.
  */
-public class ModifierAnalyser extends AbstractAnalyser {
+public class ModifierAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

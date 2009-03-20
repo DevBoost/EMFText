@@ -42,8 +42,12 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 			return;
 		}
 		// then look in the resource itself
-		super.doResolve(identifier, container, reference, position, resolveFuzzy,
-				result);
+		EObject root = findRoot(container);
+		if (!(root instanceof ConcreteSyntax)) {
+			return;
+		}
+		ConcreteSyntax syntax = (ConcreteSyntax) root;
+		searchForToken(identifier, resolveFuzzy, result, syntax);
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
@@ -58,15 +62,25 @@ public class DefinedPlaceholderTokenReferenceResolver extends AbstractReferenceR
 			if (nextImportedSyntax == null) {
 				continue;
 			}
-			for (TokenDefinition tokenDefinition : nextImportedSyntax.getTokens()) {
-				final String tokenName = tokenDefinition.getName();
-				if (tokenName.equals(identifier) && !resolveFuzzy) {
-					result.addMapping(identifier, tokenDefinition);
-					return false;
-				}
-				if (tokenName.startsWith(identifier) && resolveFuzzy) {
-					result.addMapping(tokenName, tokenDefinition);
-				}
+			boolean continueSearch = searchForToken(identifier, resolveFuzzy, result, nextImportedSyntax);
+			if (!continueSearch) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean searchForToken(String identifier, boolean resolveFuzzy,
+			IReferenceResolveResult<TokenDefinition> result,
+			ConcreteSyntax nextImportedSyntax) {
+		for (TokenDefinition tokenDefinition : nextImportedSyntax.getAllTokens()) {
+			final String tokenName = tokenDefinition.getName();
+			if (tokenName.equals(identifier) && !resolveFuzzy) {
+				result.addMapping(identifier, tokenDefinition);
+				return false;
+			}
+			if (tokenName.startsWith(identifier) && resolveFuzzy) {
+				result.addMapping(tokenName, tokenDefinition);
 			}
 		}
 		return true;

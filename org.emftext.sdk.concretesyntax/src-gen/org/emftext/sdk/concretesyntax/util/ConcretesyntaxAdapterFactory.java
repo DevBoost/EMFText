@@ -24,6 +24,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -183,12 +184,16 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createTokenDefinitionAdapter();
 			}
 			@Override
+			public Adapter caseNewDefinedToken(NewDefinedToken object) {
+				return createNewDefinedTokenAdapter();
+			}
+			@Override
 			public Adapter caseNormalToken(NormalToken object) {
 				return createNormalTokenAdapter();
 			}
 			@Override
-			public Adapter caseNewDefinedToken(NewDefinedToken object) {
-				return createNewDefinedTokenAdapter();
+			public Adapter caseQuotedToken(QuotedToken object) {
+				return createQuotedTokenAdapter();
 			}
 			@Override
 			public Adapter casePreDefinedToken(PreDefinedToken object) {
@@ -199,16 +204,16 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createContainmentAdapter();
 			}
 			@Override
+			public Adapter casePlaceholder(Placeholder object) {
+				return createPlaceholderAdapter();
+			}
+			@Override
 			public Adapter caseDefinedPlaceholder(DefinedPlaceholder object) {
 				return createDefinedPlaceholderAdapter();
 			}
 			@Override
 			public Adapter caseDerivedPlaceholder(DerivedPlaceholder object) {
 				return createDerivedPlaceholderAdapter();
-			}
-			@Override
-			public Adapter casePlaceholder(Placeholder object) {
-				return createPlaceholderAdapter();
 			}
 			@Override
 			public Adapter caseOption(Option object) {
@@ -502,6 +507,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNormalTokenAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.QuotedToken <em>Quoted Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.QuotedToken
+	 * @generated
+	 */
+	public Adapter createQuotedTokenAdapter() {
 		return null;
 	}
 

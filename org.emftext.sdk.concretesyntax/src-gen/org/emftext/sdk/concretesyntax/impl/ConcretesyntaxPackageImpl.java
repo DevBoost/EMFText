@@ -48,6 +48,7 @@ import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PreDefinedToken;
+import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -194,6 +195,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass normalTokenEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass quotedTokenEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -364,7 +372,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EAttribute getConcreteSyntax_Name() {
-		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)concreteSyntaxEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -373,7 +381,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Imports() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(4);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -382,15 +390,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_StartSymbols() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getConcreteSyntax_ActiveStartSymbols() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -399,7 +398,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax_AllStartSymbols() {
+	public EReference getConcreteSyntax_ActiveStartSymbols() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -408,8 +407,17 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConcreteSyntax_AllStartSymbols() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getConcreteSyntax_Rules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(7);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -418,7 +426,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_AllRules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -427,7 +435,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Modifier() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(9);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -436,7 +444,25 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Tokens() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(6);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcreteSyntax_SyntheticTokens() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcreteSyntax_AllTokens() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -445,7 +471,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Options() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(5);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -752,6 +778,33 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTokenDefinition_Regex() {
+		return (EAttribute)tokenDefinitionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTokenDefinition_Hidden() {
+		return (EAttribute)tokenDefinitionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTokenDefinition_Used() {
+		return (EAttribute)tokenDefinitionEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNormalToken() {
 		return normalTokenEClass;
 	}
@@ -761,8 +814,8 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getNewDefinedToken() {
-		return newDefinedTokenEClass;
+	public EClass getQuotedToken() {
+		return quotedTokenEClass;
 	}
 
 	/**
@@ -770,8 +823,26 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNewDefinedToken_Regex() {
-		return (EAttribute)newDefinedTokenEClass.getEStructuralFeatures().get(0);
+	public EAttribute getQuotedToken_Prefix() {
+		return (EAttribute)quotedTokenEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getQuotedToken_Suffix() {
+		return (EAttribute)quotedTokenEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNewDefinedToken() {
+		return newDefinedTokenEClass;
 	}
 
 	/**
@@ -816,15 +887,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDefinedPlaceholder_Token() {
-		return (EReference)definedPlaceholderEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getDerivedPlaceholder() {
 		return derivedPlaceholderEClass;
 	}
@@ -854,6 +916,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EClass getPlaceholder() {
 		return placeholderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPlaceholder_Token() {
+		return (EReference)placeholderEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -925,6 +996,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(genPackageDependentElementEClass, GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT);
 
 		concreteSyntaxEClass = createEClass(CONCRETE_SYNTAX);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__MODIFIER);
 		createEAttribute(concreteSyntaxEClass, CONCRETE_SYNTAX__NAME);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__START_SYMBOLS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS);
@@ -932,9 +1004,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__IMPORTS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__OPTIONS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKENS);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__RULES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_RULES);
-		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__MODIFIER);
 
 		importEClass = createEClass(IMPORT);
 		createEAttribute(importEClass, IMPORT__PREFIX);
@@ -984,25 +1057,31 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(tokenDefinitionEClass, TOKEN_DEFINITION__NAME);
 		createEReference(tokenDefinitionEClass, TOKEN_DEFINITION__ATTRIBUTE_REFERENCES);
 		createEAttribute(tokenDefinitionEClass, TOKEN_DEFINITION__ATTRIBUTE_NAME);
+		createEAttribute(tokenDefinitionEClass, TOKEN_DEFINITION__REGEX);
+		createEAttribute(tokenDefinitionEClass, TOKEN_DEFINITION__HIDDEN);
+		createEAttribute(tokenDefinitionEClass, TOKEN_DEFINITION__USED);
+
+		newDefinedTokenEClass = createEClass(NEW_DEFINED_TOKEN);
 
 		normalTokenEClass = createEClass(NORMAL_TOKEN);
 
-		newDefinedTokenEClass = createEClass(NEW_DEFINED_TOKEN);
-		createEAttribute(newDefinedTokenEClass, NEW_DEFINED_TOKEN__REGEX);
+		quotedTokenEClass = createEClass(QUOTED_TOKEN);
+		createEAttribute(quotedTokenEClass, QUOTED_TOKEN__PREFIX);
+		createEAttribute(quotedTokenEClass, QUOTED_TOKEN__SUFFIX);
 
 		preDefinedTokenEClass = createEClass(PRE_DEFINED_TOKEN);
 
 		containmentEClass = createEClass(CONTAINMENT);
 		createEReference(containmentEClass, CONTAINMENT__TYPES);
 
+		placeholderEClass = createEClass(PLACEHOLDER);
+		createEReference(placeholderEClass, PLACEHOLDER__TOKEN);
+
 		definedPlaceholderEClass = createEClass(DEFINED_PLACEHOLDER);
-		createEReference(definedPlaceholderEClass, DEFINED_PLACEHOLDER__TOKEN);
 
 		derivedPlaceholderEClass = createEClass(DERIVED_PLACEHOLDER);
 		createEAttribute(derivedPlaceholderEClass, DERIVED_PLACEHOLDER__PREFIX);
 		createEAttribute(derivedPlaceholderEClass, DERIVED_PLACEHOLDER__SUFFIX);
-
-		placeholderEClass = createEClass(PLACEHOLDER);
 
 		optionEClass = createEClass(OPTION);
 		createEAttribute(optionEClass, OPTION__NAME);
@@ -1054,13 +1133,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		starEClass.getESuperTypes().add(this.getCardinality());
 		questionmarkEClass.getESuperTypes().add(this.getCardinality());
 		compoundDefinitionEClass.getESuperTypes().add(this.getCardinalityDefinition());
-		normalTokenEClass.getESuperTypes().add(this.getNewDefinedToken());
 		newDefinedTokenEClass.getESuperTypes().add(this.getTokenDefinition());
+		normalTokenEClass.getESuperTypes().add(this.getNewDefinedToken());
+		quotedTokenEClass.getESuperTypes().add(this.getTokenDefinition());
 		preDefinedTokenEClass.getESuperTypes().add(this.getTokenDefinition());
 		containmentEClass.getESuperTypes().add(this.getTerminal());
+		placeholderEClass.getESuperTypes().add(this.getTerminal());
 		definedPlaceholderEClass.getESuperTypes().add(this.getPlaceholder());
 		derivedPlaceholderEClass.getESuperTypes().add(this.getPlaceholder());
-		placeholderEClass.getESuperTypes().add(this.getTerminal());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genPackageDependentElementEClass, GenPackageDependentElement.class, "GenPackageDependentElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1068,6 +1148,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getGenPackageDependentElement_PackageLocationHint(), theEcorePackage.getEString(), "packageLocationHint", null, 0, 1, GenPackageDependentElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(concreteSyntaxEClass, ConcreteSyntax.class, "ConcreteSyntax", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConcreteSyntax_Modifier(), this.getAbstract(), null, "modifier", null, 0, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConcreteSyntax_Name(), ecorePackage.getEString(), "name", null, 1, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_StartSymbols(), theGenModelPackage.getGenClass(), null, "startSymbols", null, 1, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_ActiveStartSymbols(), theGenModelPackage.getGenClass(), null, "activeStartSymbols", null, 1, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -1075,9 +1156,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEReference(getConcreteSyntax_Imports(), this.getImport(), null, "imports", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Options(), this.getOption(), null, "options", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Tokens(), this.getTokenDefinition(), null, "tokens", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax_SyntheticTokens(), this.getTokenDefinition(), null, "syntheticTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax_AllTokens(), this.getTokenDefinition(), null, "allTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Rules(), this.getRule(), this.getRule_Syntax(), "rules", null, 1, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_AllRules(), this.getRule(), null, "allRules", null, 1, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getConcreteSyntax_Modifier(), this.getAbstract(), null, "modifier", null, 0, 1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImport_Prefix(), ecorePackage.getEString(), "prefix", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1125,27 +1207,37 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		initEClass(tokenDefinitionEClass, TokenDefinition.class, "TokenDefinition", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTokenDefinition_Name(), theEcorePackage.getEString(), "name", null, 1, 1, TokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTokenDefinition_AttributeReferences(), this.getDefinedPlaceholder(), this.getDefinedPlaceholder_Token(), "attributeReferences", null, 0, -1, TokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTokenDefinition_AttributeReferences(), this.getPlaceholder(), this.getPlaceholder_Token(), "attributeReferences", null, 0, -1, TokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTokenDefinition_AttributeName(), theEcorePackage.getEString(), "attributeName", null, 0, 1, TokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTokenDefinition_Regex(), theEcorePackage.getEString(), "regex", null, 1, 1, TokenDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTokenDefinition_Hidden(), theEcorePackage.getEBoolean(), "hidden", null, 0, 1, TokenDefinition.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTokenDefinition_Used(), theEcorePackage.getEBoolean(), "used", null, 0, 1, TokenDefinition.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(newDefinedTokenEClass, NewDefinedToken.class, "NewDefinedToken", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(normalTokenEClass, NormalToken.class, "NormalToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(newDefinedTokenEClass, NewDefinedToken.class, "NewDefinedToken", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNewDefinedToken_Regex(), theEcorePackage.getEString(), "regex", null, 1, 1, NewDefinedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(quotedTokenEClass, QuotedToken.class, "QuotedToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getQuotedToken_Prefix(), theEcorePackage.getEString(), "prefix", "", 0, 1, QuotedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQuotedToken_Suffix(), theEcorePackage.getEString(), "suffix", "", 0, 1, QuotedToken.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(preDefinedTokenEClass, PreDefinedToken.class, "PreDefinedToken", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(containmentEClass, Containment.class, "Containment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getContainment_Types(), theGenModelPackage.getGenClass(), null, "types", null, 0, -1, Containment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(placeholderEClass, Placeholder.class, "Placeholder", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPlaceholder_Token(), this.getTokenDefinition(), this.getTokenDefinition_AttributeReferences(), "token", null, 1, 1, Placeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(definedPlaceholderEClass, DefinedPlaceholder.class, "DefinedPlaceholder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDefinedPlaceholder_Token(), this.getTokenDefinition(), this.getTokenDefinition_AttributeReferences(), "token", null, 1, 1, DefinedPlaceholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(derivedPlaceholderEClass, DerivedPlaceholder.class, "DerivedPlaceholder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDerivedPlaceholder_Prefix(), theEcorePackage.getEString(), "prefix", "", 0, 1, DerivedPlaceholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDerivedPlaceholder_Suffix(), theEcorePackage.getEString(), "suffix", "", 0, 1, DerivedPlaceholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(placeholderEClass, Placeholder.class, "Placeholder", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		addEOperation(derivedPlaceholderEClass, theEcorePackage.getEString(), "getNormalizedPrefix", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(derivedPlaceholderEClass, theEcorePackage.getEString(), "getNormalizedSuffix", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOption_Name(), ecorePackage.getEString(), "name", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

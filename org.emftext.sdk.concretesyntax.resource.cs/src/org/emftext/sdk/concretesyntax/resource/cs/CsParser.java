@@ -75,7 +75,9 @@ public class CsParser extends AbstractEMFTextParser {
              
              
         }
-        
+        public void setReferenceResolverSwitch(CsReferenceResolverSwitch referenceResolverSwitch) {
+        	this.referenceResolverSwitch = referenceResolverSwitch;
+        }
 
     public String[] getTokenNames() { return CsParser.tokenNames; }
     public String getGrammarFileName() { return "C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g"; }
@@ -83,7 +85,7 @@ public class CsParser extends AbstractEMFTextParser {
 
     	private org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
     	private org.emftext.runtime.resource.impl.TokenResolveResult tokenResolveResult = new org.emftext.runtime.resource.impl.TokenResolveResult();
-    	private org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch referenceResolverSwitch = new org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch();
+    	private org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch referenceResolverSwitch;
     	
     	protected EObject doParse() throws RecognitionException {
     		((CsLexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;

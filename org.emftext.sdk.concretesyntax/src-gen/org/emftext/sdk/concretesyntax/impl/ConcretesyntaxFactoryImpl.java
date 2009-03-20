@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -105,6 +106,7 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.QUESTIONMARK: return createQUESTIONMARK();
 			case ConcretesyntaxPackage.COMPOUND_DEFINITION: return createCompoundDefinition();
 			case ConcretesyntaxPackage.NORMAL_TOKEN: return createNormalToken();
+			case ConcretesyntaxPackage.QUOTED_TOKEN: return createQuotedToken();
 			case ConcretesyntaxPackage.PRE_DEFINED_TOKEN: return createPreDefinedToken();
 			case ConcretesyntaxPackage.CONTAINMENT: return createContainment();
 			case ConcretesyntaxPackage.DEFINED_PLACEHOLDER: return createDefinedPlaceholder();
@@ -244,6 +246,16 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public NormalToken createNormalToken() {
 		NormalTokenImpl normalToken = new NormalTokenImpl();
 		return normalToken;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public QuotedToken createQuotedToken() {
+		QuotedTokenImpl quotedToken = new QuotedTokenImpl();
+		return quotedToken;
 	}
 
 	/**

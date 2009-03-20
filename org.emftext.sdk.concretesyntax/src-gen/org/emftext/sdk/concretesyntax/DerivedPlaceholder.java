@@ -93,4 +93,20 @@ public interface DerivedPlaceholder extends Placeholder {
 	 */
 	void setSuffix(String value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getNormalizedPrefix();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getNormalizedSuffix();
+
 } // DerivedPlaceholder

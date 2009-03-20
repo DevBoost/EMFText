@@ -24,57 +24,46 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.sdk.codegen.generators.AntlrTokenDerivator;
 import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
 import org.emftext.sdk.codegen.regex.ANTLRexpParser;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
+import org.emftext.sdk.concretesyntax.Placeholder;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
  * An analyser that checks all regular expressions used in a syntax
  * definition.
  */
-public class RegularExpressionAnalyser extends AbstractAnalyser {
+public class RegularExpressionAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		AntlrTokenDerivator tokenDerivator = new AntlrTokenDerivator(syntax);
 		for (Iterator<EObject> i = resource.getAllContents(); i.hasNext();) {
 			EObject next = i.next();
-			if (next instanceof DerivedPlaceholder) {
-				DerivedPlaceholder placeholder = (DerivedPlaceholder) next;
-				String prefix = placeholder.getPrefix();
-				String suffix = placeholder.getSuffix();
-				// normalize prefix and suffix
-				if (prefix.length() == 0) prefix = null;
-				if (suffix.length() == 0) suffix = null;
-				String derivedExpression = tokenDerivator.deriveTokenDefinition(prefix, suffix);
-		
-				checkRegexp(resource, derivedExpression, placeholder);
-			}
-    		
-			if (next instanceof NewDefinedToken) {
-				NewDefinedToken def = (NewDefinedToken) next;
-				checkRegexp(resource, def.getRegex(), def);
+			if (next instanceof TokenDefinition) {
+				checkRegexp(resource, (TokenDefinition) next);
 			}
 		}
 	}
 
-	private void checkRegexp(ITextResource resource, String regExp, EObject container) {
+	private void checkRegexp(ITextResource resource, TokenDefinition tokenDefinition) {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PrintWriter w = new PrintWriter(new BufferedOutputStream(out));
-		w.print(regExp);
+		w.print(tokenDefinition.getRegex());
 		w.flush();
 		w.close();
 
+		List<String> errors = new ArrayList<String>();
 		try {
 			ANTLRexpLexer lexer = new ANTLRexpLexer(
 					new ANTLRInputStream(new ByteArrayInputStream(out
@@ -87,12 +76,23 @@ public class RegularExpressionAnalyser extends AbstractAnalyser {
 					String message = lexer.getErrorMessage(e, lexer.getTokenNames());
 					if (message == null || message.equals(""))
 						message = parser.getErrorMessage(e, parser.getTokenNames());
-					resource.addError(message, container);
+					errors.add("Invalid regular expression: " + message);
 				}
 			}
 
 		} catch (Exception e) {
-			resource.addError(e.getMessage(), container);
+			errors.add(e.getMessage());
+		}
+		
+		for (String error : errors) {
+			if (tokenDefinition instanceof NewDefinedToken) {
+				resource.addError(error, tokenDefinition);
+			} else {
+				List<Placeholder> placeholders = tokenDefinition.getAttributeReferences();
+				for (Placeholder next : placeholders) {
+					resource.addError(error, next);
+				}
+			}
 		}
 	}
 }

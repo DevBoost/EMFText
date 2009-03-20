@@ -61,9 +61,7 @@ import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
-import org.emftext.sdk.concretesyntax.DefinedPlaceholder;
 import org.emftext.sdk.concretesyntax.Definition;
-import org.emftext.sdk.concretesyntax.DerivedPlaceholder;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
@@ -119,11 +117,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	 */
 	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
-	private Map<DerivedPlaceholder, String> placeholder2TokenName;
 	private String referenceResolverSwitchClassName;
 	private GenerationContext context;
 
-	public TextPrinterBaseGenerator(GenerationContext context, Map<DerivedPlaceholder, String> placeholder2TokenName) {
+	public TextPrinterBaseGenerator(GenerationContext context) {
 		
 		super(context.getPackageName(), context.getPrinterBaseClassName());
 
@@ -131,7 +128,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		this.concretSyntax = context.getConcreteSyntax();
 		this.tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
 		this.referenceResolverSwitchClassName = context.getReferenceResolverSwitchClassName();
-		this.placeholder2TokenName = placeholder2TokenName;
 	}
 
 	private void extractChoices(List<Rule> rules,
@@ -228,7 +224,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		generateDoPrintMethod(sc, rules);
 		sc.addLineBreak();
 		
-		for (Rule rule : rules) {
+        generateSetReferenceResolverSwitch(sc);
+		sc.addLineBreak();
+
+        for (Rule rule : rules) {
 			generatePrintRuleMethod(sc, rule);
 			sc.addLineBreak();
 		}
@@ -237,6 +236,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		
 		writer.write(sc.toString());
 		return true;
+	}
+
+	private void generateSetReferenceResolverSwitch(StringComposite sc) {
+		sc.add("public void setReferenceResolverSwitch(" + referenceResolverSwitchClassName + " referenceResolverSwitch) {");
+        sc.add("this.referenceResolverSwitch = referenceResolverSwitch;");
+        sc.add("}");
 	}
 
 	private void generateDoPrintMethod(StringComposite sc, List<Rule> rules) {
@@ -273,8 +278,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private void generateMembers(StringComposite sc) {
 		sc.add("protected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
-		sc.add("protected " + referenceResolverSwitchClassName + " referenceResolverSwitch = new "
-				+ referenceResolverSwitchClassName + "();");
+		sc.add("protected " + referenceResolverSwitchClassName + " referenceResolverSwitch;");
 	}
 
 	private void generatePrintRuleMethod(StringComposite sc, Rule rule) {
@@ -593,6 +597,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 						if (terminal instanceof Placeholder) {
 							String tokenName;
+							tokenName = ((Placeholder) terminal).getToken().getName();
+							/*
 							if (terminal instanceof DefinedPlaceholder)
 								tokenName = ((DefinedPlaceholder) terminal)
 										.getToken().getName();
@@ -601,6 +607,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								tokenName = placeholder2TokenName
 										.get(terminal);
 							}
+							*/
 
 							if (feature instanceof EReference) {
 								printStatements.add(ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""

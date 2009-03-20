@@ -22,7 +22,6 @@ package org.emftext.sdk.finders;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -36,7 +35,7 @@ public class GenPackageByNameFinder extends GenPackageInFileFinder {
 	public IGenPackageFinderResult findGenPackage(String nsURI,
 			String locationHint, GenPackageDependentElement container, ITextResource resource) {
 		
-		ResourceSet rs = new ResourceSetImpl();
+		ResourceSet rs = resource.getResourceSet();
 		URI resourceURI = resource.getURI();
 		resourceURI = resourceURI.trimFileExtension();
 		URI genModelURI = resourceURI.appendFileExtension("genmodel");

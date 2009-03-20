@@ -51,6 +51,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getStartSymbols <em>Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getActiveStartSymbols <em>Active Start Symbols</em>}</li>
@@ -58,15 +59,26 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getOptions <em>Options</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getSyntheticTokens <em>Synthetic Tokens</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokens <em>All Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllRules <em>All Rules</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getModifier <em>Modifier</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implements ConcreteSyntax {
+	/**
+	 * The cached value of the '{@link #getModifier() <em>Modifier</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected Abstract modifier;
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -128,6 +140,16 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	protected EList<TokenDefinition> tokens;
 
 	/**
+	 * The cached value of the '{@link #getSyntheticTokens() <em>Synthetic Tokens</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSyntheticTokens()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TokenDefinition> syntheticTokens;
+
+	/**
 	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -136,16 +158,6 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @ordered
 	 */
 	protected EList<Rule> rules;
-
-	/**
-	 * The cached value of the '{@link #getModifier() <em>Modifier</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getModifier()
-	 * @generated
-	 * @ordered
-	 */
-	protected Abstract modifier;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -335,6 +347,27 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<TokenDefinition> getAllTokens() {
+		EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKENS;		
+		EList<TokenDefinition> l = new BasicEList<TokenDefinition>();
+    	l.addAll(getTokens());
+    	l.addAll(getSyntheticTokens());
+    	
+    	for (Import nextImport : getImports()) {
+    		ConcreteSyntax importedSyntax = nextImport.getConcreteSyntax();
+    		if (importedSyntax != null) {
+    			l.addAll(importedSyntax.getAllTokens());
+    		}
+    	}
+	
+    	return new EcoreEList.UnmodifiableEList<TokenDefinition>(this, eFeature, l.size(), l.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<TokenDefinition> getTokens() {
@@ -342,6 +375,18 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			tokens = new EObjectContainmentEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
 		}
 		return tokens;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<TokenDefinition> getSyntheticTokens() {
+		if (syntheticTokens == null) {
+			syntheticTokens = new EObjectContainmentEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
+		}
+		return syntheticTokens;
 	}
 
 	/**
@@ -379,16 +424,18 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
+				return basicSetModifier(null, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
 				return ((InternalEList<?>)getOptions()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				return ((InternalEList<?>)getTokens()).basicRemove(otherEnd, msgs);
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
+				return ((InternalEList<?>)getSyntheticTokens()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				return basicSetModifier(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -401,6 +448,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
+				return getModifier();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				return getName();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
@@ -415,12 +464,14 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getOptions();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				return getTokens();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
+				return getSyntheticTokens();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
+				return getAllTokens();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				return getRules();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
 				return getAllRules();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				return getModifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -434,6 +485,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
+				setModifier((Abstract)newValue);
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				setName((String)newValue);
 				return;
@@ -453,12 +507,17 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				getTokens().clear();
 				getTokens().addAll((Collection<? extends TokenDefinition>)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
+				getSyntheticTokens().clear();
+				getSyntheticTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
+				getAllTokens().clear();
+				getAllTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				getRules().clear();
 				getRules().addAll((Collection<? extends Rule>)newValue);
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				setModifier((Abstract)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -472,6 +531,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
+				setModifier((Abstract)null);
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -487,11 +549,14 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				getTokens().clear();
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
+				getSyntheticTokens().clear();
+				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
+				getAllTokens().clear();
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				getRules().clear();
-				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				setModifier((Abstract)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -505,6 +570,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
+				return modifier != null;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
@@ -519,12 +586,14 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return options != null && !options.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				return tokens != null && !tokens.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
+				return syntheticTokens != null && !syntheticTokens.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
+				return !getAllTokens().isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				return rules != null && !rules.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
 				return !getAllRules().isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
-				return modifier != null;
 		}
 		return super.eIsSet(featureID);
 	}

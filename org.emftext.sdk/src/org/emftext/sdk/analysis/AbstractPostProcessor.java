@@ -29,11 +29,11 @@ import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
- * An abstract super class for all syntax analysers. It tries to resolve all 
+ * An abstract super class for all post processors. It tries to resolve all 
  * proxy objects and if this succeeds analyse(ITextResource, ConcreteSyntax)
  * is called.
  */
-public abstract class AbstractAnalyser implements IResourcePostProcessorProvider, IResourcePostProcessor {
+public abstract class AbstractPostProcessor implements IResourcePostProcessorProvider, IResourcePostProcessor {
 
 	private static final TextResourceHelper resourceHelper = new TextResourceHelper();
 	

@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getStartSymbols <em>Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveStartSymbols <em>Active Start Symbols</em>}</li>
@@ -38,9 +39,10 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOptions <em>Options</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getSyntheticTokens <em>Synthetic Tokens</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokens <em>All Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllRules <em>All Rules</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getModifier <em>Modifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -200,6 +202,18 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	void setModifier(Abstract value);
 
 	/**
+	 * Returns the value of the '<em><b>All Tokens</b></em>' reference list.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>All Tokens</em>' reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_AllTokens()
+	 * @model transient="true" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList<TokenDefinition> getAllTokens();
+
+	/**
 	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
 	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
 	 * <!-- begin-user-doc -->
@@ -214,6 +228,22 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	 * @generated
 	 */
 	EList<TokenDefinition> getTokens();
+
+	/**
+	 * Returns the value of the '<em><b>Synthetic Tokens</b></em>' containment reference list.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Synthetic Tokens</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Synthetic Tokens</em>' containment reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_SyntheticTokens()
+	 * @model containment="true" transient="true"
+	 * @generated
+	 */
+	EList<TokenDefinition> getSyntheticTokens();
 
 	/**
 	 * Returns the value of the '<em><b>Options</b></em>' containment reference list.

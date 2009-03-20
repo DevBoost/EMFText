@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.Rule;
  * An analyser that checks that there is not more than one rule
  * per meta class.
  */
-public class DuplicateRuleAnalyser extends AbstractAnalyser {
+public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

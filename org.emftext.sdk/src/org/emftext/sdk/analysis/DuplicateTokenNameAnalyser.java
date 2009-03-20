@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
 /**
  * An analyser that checks that each token name is used at most once.
  */
-public class DuplicateTokenNameAnalyser extends AbstractAnalyser {
+public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		List<TokenDefinition> duplicateDefinitions = getDuplicateTokenDefinitions(syntax);

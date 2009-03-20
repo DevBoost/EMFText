@@ -30,7 +30,8 @@ import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
+import org.emftext.sdk.concretesyntax.QuotedToken;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
  * A TokenResolverGenerator generates a single TokenResolver for a given TokenDefinition.
@@ -47,9 +48,9 @@ import org.emftext.sdk.codegen.generators.adapter.IInternalTokenDefinition;
  */
 public class TokenResolverGenerator extends BaseGenerator {
 	
-	private IInternalTokenDefinition definition;
+	private TokenDefinition definition;
 	
-	public TokenResolverGenerator(GenerationContext context, String resolverClassName, IInternalTokenDefinition definition) {
+	public TokenResolverGenerator(GenerationContext context, String resolverClassName, TokenDefinition definition) {
 		super(context.getResolverPackageName(), resolverClassName);
 		this.definition = definition;
 	}
@@ -76,16 +77,17 @@ public class TokenResolverGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public " + String.class.getName() + " deResolve(" + Object.class.getName() + " value, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container) {");
 		sc.add(String.class.getName() + " result = super.deResolve(value, feature, container);");
-		if (definition.getSuffix() != null) {
-			String escapedSuffix = escapeChars(definition.getSuffix());
-			if (definition.isDerived()) {
-				sc.add("result = result.replaceAll(" + java.util.regex.Pattern.class.getName() + ".quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
-			}
+		String suffix = getSuffix();
+		String prefix = getPrefix();
+		
+		if (suffix != null) {
+			String escapedSuffix = escapeChars(suffix);
+			sc.add("result = result.replaceAll(" + java.util.regex.Pattern.class.getName() + ".quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
 			sc.add("result += \"" + escapedSuffix + "\";");
 		}	
 		
-		if (definition.getPrefix() != null) {
-			sc.add("result = \"" + escapeChars(definition.getPrefix()) + "\" + result;");
+		if (prefix != null) {
+			sc.add("result = \"" + escapeChars(prefix) + "\" + result;");
 		}
 		sc.add("return result;");
 		sc.add("}");
@@ -96,30 +98,47 @@ public class TokenResolverGenerator extends BaseGenerator {
 		sc.add("@Override");
 		sc.addLineBreak();
 		sc.add("public void resolve(" + String.class.getName() + " lexem, " + EStructuralFeature.class.getName() + " feature, " + ITokenResolveResult.class.getName() + " result) {");
-		if (definition.getPrefix() != null) {
-			int count = definition.getPrefix().length();
+
+		String suffix = getSuffix();
+		String prefix = getPrefix();
+		
+		if (prefix != null) {
+			int count = prefix.length();
 			sc.add("lexem = lexem.substring(" + count + ");");			
 		}
-		if (definition.getSuffix() != null) {
-			int count = definition.getSuffix().length();
+		if (suffix != null) {
+			int count = suffix.length();
 			sc.add("lexem = lexem.substring(0, lexem.length() - " + count + ");");
-			if( definition.isDerived()) {
-				String replacement = escapeChars(definition.getSuffix());
-				sc.add("lexem = lexem.replaceAll(\"\\\\\\\\\"+" + java.util.regex.Pattern.class.getName() + ".quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
-			}
+			String replacement = escapeChars(suffix);
+			sc.add("lexem = lexem.replaceAll(\"\\\\\\\\\"+" + java.util.regex.Pattern.class.getName() + ".quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
 		}
 		sc.add("super.resolve(lexem, feature, result);");
 		sc.add("}");
 	}
 	
-	private String escapeChars(String candidate){
+	private String escapeChars(String candidate) {
 		//for javac: replace one backslash by two and escape double quotes
 		return candidate.replaceAll("\\\\","\\\\\\\\").replaceAll("\"","\\\\\"");
 	}
 	
-	private String escapeDollar(String candidate){
+	private String escapeDollar(String candidate) {
 		//for java regex: $ is meta char in java regex patterns and has semantics in replacement (back references)
 		return candidate.replaceAll(java.util.regex.Pattern.quote("$"),"\\\\\\\\\\$");
 	}
 
+	private String getPrefix() {
+		String prefix = null;
+		if (definition instanceof QuotedToken) {
+			prefix = ((QuotedToken) definition).getPrefix();
+		}
+		return prefix;
+	}
+
+	private String getSuffix() {
+		String suffix = null;
+		if (definition instanceof QuotedToken) {
+			suffix = ((QuotedToken) definition).getSuffix();
+		}
+		return suffix;
+	}
 }

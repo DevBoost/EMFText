@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.emftext.runtime.IStandardTokenDefinitions;
+import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 
@@ -62,7 +62,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	            for(int i=6; i<tr.getTokenNames().length; i++) {
 	                String tokenName = tr.getTokenNames()[i];
 	
-	                if (tokenName.matches("[A-Z]+") && !tokenName.equals(IStandardTokenDefinitions.STD_TOKEN_NAME)) {
+	                if (tokenName.matches("[A-Z]+") && !tokenName.equals(EPredefinedTokens.STANDARD.getTokenName())) {
 	                    //a string like thing (most likely)
 	                    String color = "0,0,0";
 	                    if (z == 0) {

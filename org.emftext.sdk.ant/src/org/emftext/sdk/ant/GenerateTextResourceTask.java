@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
@@ -39,7 +40,7 @@ public class GenerateTextResourceTask extends Task {
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
-			final ITextResource csResource = resourceHelper.getResource(syntaxFile);
+			final ITextResource csResource = resourceHelper.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
 			Result result = new AntResourcePluginGenerator().run(
 					syntax, 

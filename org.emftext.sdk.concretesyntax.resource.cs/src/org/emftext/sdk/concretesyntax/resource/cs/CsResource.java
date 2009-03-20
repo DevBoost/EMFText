@@ -1,5 +1,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
+
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
 	public CsResource() {
@@ -27,7 +29,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			}
 		}
 		
-		org.emftext.runtime.resource.ITextParser parser;
+		CsParser parser;
 		if (encoding == null) {
 			parser = new CsParser(new org.antlr.runtime.CommonTokenStream(new CsLexer(new org.antlr.runtime.ANTLRInputStream(actualInputStream))));
 		} else {
@@ -35,16 +37,21 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		}
 		parser.setResource(this);
 		parser.setOptions(options);
+		IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
+		referenceResolverSwitch.setOptions(options);
+		parser.setReferenceResolverSwitch((CsReferenceResolverSwitch) referenceResolverSwitch);
 		org.eclipse.emf.ecore.EObject root = parser.parse();
 		if (root != null) {
 			getContents().add(root);
 		}
-		getReferenceResolverSwitch().setOptions(options);
 		runPostProcessors(options);
 	}
 	
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		org.emftext.runtime.resource.ITextPrinter p = new CsPrinter(outputStream, this);
+		CsPrinter p = new CsPrinter(outputStream, this);
+		IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
+		referenceResolverSwitch.setOptions(options);
+		p.setReferenceResolverSwitch((CsReferenceResolverSwitch) referenceResolverSwitch);
 		for(org.eclipse.emf.ecore.EObject root : getContents()) {
 			p.print(root);
 		}
