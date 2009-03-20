@@ -39,7 +39,6 @@ public class PreDefinedTokenAdder extends AbstractPostProcessor {
 			return;
 		}
 		
-		// TODO mseifert: figure why TEXT was not added here before refactoring
 		for (EPredefinedTokens predefinedToken : EPredefinedTokens.values()) {
 			// first look whether there is a PreDefinedToken
 			boolean found = searchForPredefinedTokenDeclaration(syntax, predefinedToken);

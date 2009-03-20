@@ -20,18 +20,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
-import org.emftext.sdk.concretesyntax.PredefinedToken;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
  * The AntlrTokenDerivator is used to derive implicit Antrl Tokens for
- * prefixed and/or suffixed derived placeholders.
+ * quoted placeholders.
  * 
  * @author Christian Wende
- *
- * TODO mseifert: remove case where only on of suffix and prefix is null 
  */
 public class AntlrTokenDerivator {
 
@@ -43,9 +38,8 @@ public class AntlrTokenDerivator {
 	
 	/**
 	 * Used to escape prefix/suffix strings (surrounded by "'" in ANTLR).
-	 * 
 	 */
-	public String escapeLiteralChars(String candidate) {
+	private String escapeLiteralChars(String candidate) {
 		StringBuffer escaped = new StringBuffer();
 		char[] chars = candidate.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
@@ -85,68 +79,25 @@ public class AntlrTokenDerivator {
 	public String deriveTokenExpression(PlaceholderInQuotes placeholder) {
 		String prefix = placeholder.getNormalizedPrefix();
 		String suffix = placeholder.getNormalizedSuffix();
-		// Attention: suffix and prefix can be null, because they are defined in
-		// meta class DerivedPlaceholder, which is used both for featureName[]
-		// and featureName['prefix', 'suffix']. However, if one is not null,
-		// the other should not be null too.
-		// A clean solution would be to introduce separate meta classes for
-		// features the use the default token and features that use prefix and
-		// suffix (TODO do this)
+
 		boolean prefixIsSet = prefix != null && prefix.length() > 0;
 		boolean suffixIsSet = suffix != null && suffix.length() > 0;
-
-		TokenDefinition tokenDefinition = placeholder.getToken();
+		
+		assert prefixIsSet;
+		assert suffixIsSet;
 
 		String derivedExpression = "";
 
-		if (prefixIsSet) {
-			derivedExpression += "('" + escapeLiteralChars(prefix) + "')";
-		}
+		derivedExpression += "('" + escapeLiteralChars(prefix) + "')";
 		
-		if (suffixIsSet) {
-			if (prefixIsSet) {
-				derivedExpression += "(~('" + escapeLiteralChars(suffix)
-						+ "')|('\\\\''" + escapeLiteralChars(suffix) + "'))*";
-			} else {
-				derivedExpression += "(~('" + escapeLiteralChars(suffix)
-						+ "')|( '\\\\' '" + escapeLiteralChars(suffix)
-						+ "' ))* '";
-			}
-		} else {
-			if (prefixIsSet) {
-				derivedExpression = getTokenExpression(tokenDefinition);
-			} else {
-				derivedExpression = getTokenExpression(tokenDefinition);
-			}
-		}
+		derivedExpression += "(~('" + escapeLiteralChars(suffix)
+				+ "')|('\\\\''" + escapeLiteralChars(suffix) + "'))*";
 		
-		if (suffixIsSet) {
-			derivedExpression += "('" + escapeLiteralChars(suffix) + "')";
-		}
+		derivedExpression += "('" + escapeLiteralChars(suffix) + "')";
 
 		return derivedExpression;
 	}
 	
-	private String getTokenExpression(TokenDefinition token) {
-		if (token instanceof NewDefinedToken) {
-			NewDefinedToken definedToken = (NewDefinedToken) token;
-			return definedToken.getRegex();
-		} else if (token instanceof PredefinedToken) {
-			PredefinedToken preDefinedToken = (PredefinedToken) token;
-			String name = preDefinedToken.getName();
-			return getPreDefinedTokenExpression(name);
-		} else {
-			// there should be no other subclasses of TokenDefinition
-			assert false;
-			return null;
-		}
-	}
-
-	private String getPreDefinedTokenExpression(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
     public String deriveTokenName(PlaceholderInQuotes placeholder) {
 		String prefix = placeholder.getNormalizedPrefix();
 		String suffix = placeholder.getNormalizedSuffix();

@@ -44,7 +44,7 @@ import org.emftext.sdk.syntax_analysis.UnusedFeatureAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedTokenAnalyser;
 import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
 import org.emftext.sdk.syntax_extension.PreDefinedTokenAdder;
-import org.emftext.sdk.syntax_extension.StandardTokenConnector;
+import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
 
 /**
  * The SDKOptionProvider adds post-processors to the default 
@@ -62,7 +62,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		// first add implicit information to the resource
 		postProcessors.add(new PreDefinedTokenAdder());
 		postProcessors.add(new DerivedTokenCreator());
-		postProcessors.add(new StandardTokenConnector());
+		postProcessors.add(new DefaultTokenConnector());
 		
 		// then analyse it
 		postProcessors.add(new GenModelAnalyser());

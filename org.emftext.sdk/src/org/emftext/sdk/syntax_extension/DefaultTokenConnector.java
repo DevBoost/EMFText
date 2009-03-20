@@ -12,13 +12,11 @@ import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
- * The StandardTokenConnector looks for DerivedPlaceholders that do not have a 
- * suffix and prefix and thus use the standard token. For each DerivedPlaceholder
- * that is found in the resource, the 'token' reference is set.
- * 
- * TODO mseifert: renamed this class to 'DefaultTokenConnector'
+ * The DefaultTokenConnector looks for PlaceholderUsingDefaultToken. 
+ * For each PlaceholderUsingDefaultToken that is found in the resource, 
+ * the 'token' reference is set.
  */
-public class StandardTokenConnector extends AbstractPostProcessor {
+public class DefaultTokenConnector extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
