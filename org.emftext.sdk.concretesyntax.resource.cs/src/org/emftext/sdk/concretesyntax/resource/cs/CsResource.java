@@ -83,6 +83,12 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	}
 
 	public org.emftext.runtime.resource.ITokenStyle getDefaultTokenStyle(java.lang.String tokenName) {
+		if ("NUMBER".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x00, 0xD0, 0xFF}, false, false, false, false);
+		}
+		if ("HEXNUMBER".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x00, 0xD0, 0xFF}, false, false, false, false);
+		}
 		return null;
 	}
 }
