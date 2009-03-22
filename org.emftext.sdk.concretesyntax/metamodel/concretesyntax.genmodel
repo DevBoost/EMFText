@@ -8,6 +8,12 @@
   <foreignModel>concretesyntax.ecore</foreignModel>
   <genPackages prefix="Concretesyntax" basePackage="org.emftext.sdk" disposableProviderFactory="true"
       ecorePackage="concretesyntax.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/ITALIC"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/STRIKETHROUGH"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/UNDERLINE"/>
+    </genEnums>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//GenPackageDependentElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenPackageDependentElement/package"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//GenPackageDependentElement/packageLocationHint"/>
@@ -21,6 +27,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/imports"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/options"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/tokens"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/tokenStyles"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/syntheticTokens"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/allTokens"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//ConcreteSyntax/rules"/>
@@ -98,5 +105,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/value"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Abstract"/>
+    <genClasses ecoreClass="concretesyntax.ecore#//TokenStyle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/tokenName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/rgb"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//TokenStyle/fontStyles"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

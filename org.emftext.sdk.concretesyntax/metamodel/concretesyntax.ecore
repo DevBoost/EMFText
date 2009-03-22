@@ -26,6 +26,8 @@
         eType="#//Option" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
         eType="#//TokenDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tokenStyles" upperBound="-1"
+        eType="#//TokenStyle" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="syntheticTokens" upperBound="-1"
         eType="#//TokenDefinition" transient="true" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="allTokens" upperBound="-1"
@@ -139,4 +141,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokenName" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rgb" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fontStyles" upperBound="-1"
+        eType="#//FontStyle"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="FontStyle">
+    <eLiterals name="BOLD"/>
+    <eLiterals name="ITALIC" value="1"/>
+    <eLiterals name="STRIKETHROUGH" value="2"/>
+    <eLiterals name="UNDERLINE" value="3"/>
+  </eClassifiers>
 </ecore:EPackage>
