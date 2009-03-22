@@ -50,6 +50,7 @@ import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.IURIMapping;
 
 /**
@@ -411,5 +412,16 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			castedCopy.add(it.next());
 		}
 		return castedCopy;
+	}
+
+	/**
+	 * This a default implementation for this method. It is needed
+	 * because getDefaultTokenStyle() was introduced after EMFText
+	 * 1.0.1. Existing text resources do not provide this method 
+	 * and would not compile against the new ITextResource if this
+	 * default implementation is missing.
+	 */
+	public ITokenStyle getDefaultTokenStyle(String tokenName) {
+		return null;
 	}
 }

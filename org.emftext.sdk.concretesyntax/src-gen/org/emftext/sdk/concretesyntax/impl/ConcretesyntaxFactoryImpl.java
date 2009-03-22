@@ -21,10 +21,12 @@
 package org.emftext.sdk.concretesyntax.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -115,8 +117,39 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES: return createPlaceholderInQuotes();
 			case ConcretesyntaxPackage.OPTION: return createOption();
 			case ConcretesyntaxPackage.ABSTRACT: return createAbstract();
+			case ConcretesyntaxPackage.TOKEN_STYLE: return createTokenStyle();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case ConcretesyntaxPackage.FONT_STYLE:
+				return createFontStyleFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case ConcretesyntaxPackage.FONT_STYLE:
+				return convertFontStyleToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -328,6 +361,36 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public Abstract createAbstract() {
 		AbstractImpl abstract_ = new AbstractImpl();
 		return abstract_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TokenStyle createTokenStyle() {
+		TokenStyleImpl tokenStyle = new TokenStyleImpl();
+		return tokenStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FontStyle createFontStyleFromString(EDataType eDataType, String initialValue) {
+		FontStyle result = FontStyle.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFontStyleToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

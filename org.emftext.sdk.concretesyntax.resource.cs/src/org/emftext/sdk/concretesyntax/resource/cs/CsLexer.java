@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-03-20 21:20:21
+// $ANTLR 3.1.1 D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-03-21 13:29:07
 
 	package org.emftext.sdk.concretesyntax.resource.cs;
 
@@ -14,46 +14,48 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 
 public class CsLexer extends Lexer {
-    public static final int T__42=42;
+    public static final int T__29=29;
     public static final int T__28=28;
-    public static final int T__23=23;
-    public static final int NUMBER=8;
-    public static final int T__13=13;
-    public static final int T__21=21;
-    public static final int T__19=19;
-    public static final int COMMENTS=10;
-    public static final int T__39=39;
-    public static final int T__30=30;
-    public static final int T__17=17;
     public static final int T__27=27;
-    public static final int T__24=24;
-    public static final int QUALIFIED_NAME=4;
+    public static final int T__26=26;
     public static final int QUOTED_39_39=7;
-    public static final int T__34=34;
+    public static final int T__25=25;
+    public static final int T__24=24;
+    public static final int T__23=23;
+    public static final int T__22=22;
+    public static final int T__21=21;
+    public static final int T__20=20;
+    public static final int EOF=-1;
+    public static final int T__19=19;
+    public static final int T__16=16;
     public static final int T__15=15;
+    public static final int COMMENTS=11;
+    public static final int T__18=18;
+    public static final int T__17=17;
+    public static final int T__14=14;
+    public static final int QUOTED_36_36=10;
+    public static final int LINEBREAK=13;
+    public static final int HEXNUMBER=8;
+    public static final int QUALIFIED_NAME=4;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int NUMBER=9;
+    public static final int WHITESPACE=12;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
+    public static final int T__33=33;
+    public static final int T__34=34;
     public static final int T__35=35;
     public static final int T__36=36;
-    public static final int QUOTED_36_36=9;
-    public static final int T__20=20;
-    public static final int T__14=14;
-    public static final int T__33=33;
-    public static final int T__22=22;
-    public static final int QUOTED_60_62=5;
-    public static final int T__29=29;
-    public static final int WHITESPACE=11;
-    public static final int T__43=43;
-    public static final int T__31=31;
-    public static final int T__40=40;
-    public static final int EOF=-1;
-    public static final int T__16=16;
-    public static final int T__32=32;
-    public static final int T__38=38;
     public static final int T__37=37;
-    public static final int LINEBREAK=12;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__41=41;
-    public static final int T__18=18;
+    public static final int T__38=38;
+    public static final int T__39=39;
+    public static final int QUOTED_60_62=5;
     public static final int QUOTED_34_34=6;
 
     	public java.util.List<org.antlr.runtime.RecognitionException> lexerExceptions  = new java.util.ArrayList<org.antlr.runtime.RecognitionException>();
@@ -76,38 +78,17 @@ public class CsLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g"; }
-
-    // $ANTLR start "T__13"
-    public final void mT__13() throws RecognitionException {
-        try {
-            int _type = T__13;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:16:7: ( 'SYNTAXDEF' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:16:9: 'SYNTAXDEF'
-            {
-            match("SYNTAXDEF"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__13"
+    public String getGrammarFileName() { return "D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g"; }
 
     // $ANTLR start "T__14"
     public final void mT__14() throws RecognitionException {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:7: ( 'FOR' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:9: 'FOR'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:16:7: ( 'SYNTAXDEF' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:16:9: 'SYNTAXDEF'
             {
-            match("FOR"); 
+            match("SYNTAXDEF"); 
 
 
             }
@@ -125,10 +106,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:7: ( 'START' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:9: 'START'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:7: ( 'FOR' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:17:9: 'FOR'
             {
-            match("START"); 
+            match("FOR"); 
 
 
             }
@@ -146,10 +127,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:7: ( ',' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:9: ','
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:7: ( 'START' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:18:9: 'START'
             {
-            match(','); 
+            match("START"); 
+
 
             }
 
@@ -166,11 +148,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:7: ( 'IMPORTS' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:9: 'IMPORTS'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:7: ( ',' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:19:9: ','
             {
-            match("IMPORTS"); 
-
+            match(','); 
 
             }
 
@@ -187,10 +168,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:7: ( '{' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:9: '{'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:7: ( 'IMPORTS' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:20:9: 'IMPORTS'
             {
-            match('{'); 
+            match("IMPORTS"); 
+
 
             }
 
@@ -207,10 +189,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:7: ( '}' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:9: '}'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:7: ( '{' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:21:9: '{'
             {
-            match('}'); 
+            match('{'); 
 
             }
 
@@ -227,11 +209,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:7: ( 'OPTIONS' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:9: 'OPTIONS'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:7: ( '}' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:22:9: '}'
             {
-            match("OPTIONS"); 
-
+            match('}'); 
 
             }
 
@@ -248,10 +229,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:7: ( ';' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:9: ';'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:7: ( 'OPTIONS' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:23:9: 'OPTIONS'
             {
-            match(';'); 
+            match("OPTIONS"); 
+
 
             }
 
@@ -268,11 +250,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:7: ( 'TOKENS' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:9: 'TOKENS'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:7: ( ';' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:24:9: ';'
             {
-            match("TOKENS"); 
-
+            match(';'); 
 
             }
 
@@ -289,10 +270,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:7: ( 'RULES' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:9: 'RULES'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:7: ( 'TOKENS' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:25:9: 'TOKENS'
             {
-            match("RULES"); 
+            match("TOKENS"); 
 
 
             }
@@ -310,10 +291,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:7: ( ':' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:9: ':'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:7: ( 'TOKENSTYLES' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:26:9: 'TOKENSTYLES'
             {
-            match(':'); 
+            match("TOKENSTYLES"); 
+
 
             }
 
@@ -330,10 +312,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:7: ( 'WITH' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:9: 'WITH'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:7: ( 'RULES' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:27:9: 'RULES'
             {
-            match("WITH"); 
+            match("RULES"); 
 
 
             }
@@ -351,11 +333,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:7: ( 'SYNTAX' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:9: 'SYNTAX'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:7: ( ':' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:28:9: ':'
             {
-            match("SYNTAX"); 
-
+            match(':'); 
 
             }
 
@@ -372,10 +353,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:7: ( '=' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:9: '='
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:7: ( 'WITH' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:29:9: 'WITH'
             {
-            match('='); 
+            match("WITH"); 
+
 
             }
 
@@ -392,10 +374,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:7: ( '::=' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:9: '::='
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:7: ( 'SYNTAX' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:30:9: 'SYNTAX'
             {
-            match("::="); 
+            match("SYNTAX"); 
 
 
             }
@@ -413,10 +395,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:7: ( '|' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:9: '|'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:7: ( '=' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:31:9: '='
             {
-            match('|'); 
+            match('='); 
 
             }
 
@@ -433,10 +415,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:7: ( '[' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:9: '['
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:7: ( '::=' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:32:9: '::='
             {
-            match('['); 
+            match("::="); 
+
 
             }
 
@@ -453,10 +436,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:7: ( ']' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:9: ']'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:7: ( '|' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:33:9: '|'
             {
-            match(']'); 
+            match('|'); 
 
             }
 
@@ -473,10 +456,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:7: ( '(' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:9: '('
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:7: ( '[' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:34:9: '['
             {
-            match('('); 
+            match('['); 
 
             }
 
@@ -493,10 +476,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:7: ( ')' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:9: ')'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:7: ( ']' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:35:9: ']'
             {
-            match(')'); 
+            match(']'); 
 
             }
 
@@ -513,10 +496,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:7: ( '#' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:9: '#'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:7: ( '(' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:36:9: '('
             {
-            match('#'); 
+            match('('); 
 
             }
 
@@ -533,10 +516,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:7: ( '!' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:9: '!'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:7: ( ')' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:37:9: ')'
             {
-            match('!'); 
+            match(')'); 
 
             }
 
@@ -553,11 +536,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:7: ( 'DEFINE' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:9: 'DEFINE'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:7: ( '!' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:38:9: '!'
             {
-            match("DEFINE"); 
-
+            match('!'); 
 
             }
 
@@ -574,10 +556,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:7: ( 'COLLECT' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:9: 'COLLECT'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:7: ( 'DEFINE' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:39:9: 'DEFINE'
             {
-            match("COLLECT"); 
+            match("DEFINE"); 
 
 
             }
@@ -595,10 +577,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:7: ( 'IN' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:9: 'IN'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:7: ( 'COLLECT' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:40:9: 'COLLECT'
             {
-            match("IN"); 
+            match("COLLECT"); 
 
 
             }
@@ -616,10 +598,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:7: ( 'PREDEFINED' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:9: 'PREDEFINED'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:7: ( 'IN' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:41:9: 'IN'
             {
-            match("PREDEFINED"); 
+            match("IN"); 
 
 
             }
@@ -637,10 +619,11 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:43:7: ( '+' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:43:9: '+'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:7: ( 'PREDEFINED' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:42:9: 'PREDEFINED'
             {
-            match('+'); 
+            match("PREDEFINED"); 
+
 
             }
 
@@ -657,10 +640,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:44:7: ( '*' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:44:9: '*'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:43:7: ( '+' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:43:9: '+'
             {
-            match('*'); 
+            match('+'); 
 
             }
 
@@ -677,10 +660,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:45:7: ( '?' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:45:9: '?'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:44:7: ( '*' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:44:9: '*'
             {
-            match('?'); 
+            match('*'); 
 
             }
 
@@ -697,8 +680,28 @@ public class CsLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:46:7: ( 'ABSTRACT' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:46:9: 'ABSTRACT'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:45:7: ( '?' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:45:9: '?'
+            {
+            match('?'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__43"
+
+    // $ANTLR start "T__44"
+    public final void mT__44() throws RecognitionException {
+        try {
+            int _type = T__44;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:46:7: ( 'ABSTRACT' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:46:9: 'ABSTRACT'
             {
             match("ABSTRACT"); 
 
@@ -711,19 +714,40 @@ public class CsLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__43"
+    // $ANTLR end "T__44"
+
+    // $ANTLR start "T__45"
+    public final void mT__45() throws RecognitionException {
+        try {
+            int _type = T__45;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:47:7: ( 'COLOR' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:47:9: 'COLOR'
+            {
+            match("COLOR"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__45"
 
     // $ANTLR start "COMMENTS"
     public final void mCOMMENTS() throws RecognitionException {
         try {
             int _type = COMMENTS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1706:9: ( '//' (~ ( '\\n' | '\\r' ) )* )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1707:2: '//' (~ ( '\\n' | '\\r' ) )*
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1851:9: ( '//' (~ ( '\\n' | '\\r' ) )* )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1852:2: '//' (~ ( '\\n' | '\\r' ) )*
             {
             match("//"); 
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1707:6: (~ ( '\\n' | '\\r' ) )*
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1852:6: (~ ( '\\n' | '\\r' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -736,7 +760,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1707:7: ~ ( '\\n' | '\\r' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1852:7: ~ ( '\\n' | '\\r' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -773,8 +797,8 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUALIFIED_NAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1710:15: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1711:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1855:15: ( ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )* )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1856:2: ( 'A' .. 'Z' | 'a' .. 'z' | '_' ) ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )* ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -785,7 +809,7 @@ public class CsLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1711:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )*
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1856:25: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -798,7 +822,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
             	    {
             	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -818,7 +842,7 @@ public class CsLexer extends Lexer {
                 }
             } while (true);
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1711:62: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1856:62: ( '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+ )*
             loop4:
             do {
                 int alt4=2;
@@ -831,10 +855,10 @@ public class CsLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1711:63: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1856:63: '.' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    {
             	    match('.'); 
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1711:66: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1856:66: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '-' | '0' .. '9' )+
             	    int cnt3=0;
             	    loop3:
             	    do {
@@ -848,7 +872,7 @@ public class CsLexer extends Lexer {
 
             	        switch (alt3) {
             	    	case 1 :
-            	    	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
             	    	    {
             	    	    if ( input.LA(1)=='-'||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	    	        input.consume();
@@ -897,10 +921,10 @@ public class CsLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1712:7: ( ( '0' .. '9' )+ )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1713:2: ( '0' .. '9' )+
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1857:7: ( ( '0' .. '9' )+ )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1858:2: ( '0' .. '9' )+
             {
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1713:2: ( '0' .. '9' )+
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1858:2: ( '0' .. '9' )+
             int cnt5=0;
             loop5:
             do {
@@ -914,7 +938,7 @@ public class CsLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1713:3: '0' .. '9'
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1858:3: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -941,13 +965,71 @@ public class CsLexer extends Lexer {
     }
     // $ANTLR end "NUMBER"
 
+    // $ANTLR start "HEXNUMBER"
+    public final void mHEXNUMBER() throws RecognitionException {
+        try {
+            int _type = HEXNUMBER;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1859:10: ( '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+ )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1860:2: '#' ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
+            {
+            match('#'); 
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1860:5: ( '0' .. '9' | 'A' .. 'F' | 'a' .. 'f' )+
+            int cnt6=0;
+            loop6:
+            do {
+                int alt6=2;
+                int LA6_0 = input.LA(1);
+
+                if ( ((LA6_0>='0' && LA6_0<='9')||(LA6_0>='A' && LA6_0<='F')||(LA6_0>='a' && LA6_0<='f')) ) {
+                    alt6=1;
+                }
+
+
+                switch (alt6) {
+            	case 1 :
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:
+            	    {
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
+            	        input.consume();
+
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;}
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt6 >= 1 ) break loop6;
+                        EarlyExitException eee =
+                            new EarlyExitException(6, input);
+                        throw eee;
+                }
+                cnt6++;
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "HEXNUMBER"
+
     // $ANTLR start "WHITESPACE"
     public final void mWHITESPACE() throws RecognitionException {
         try {
             int _type = WHITESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1714:11: ( ( ' ' | '\\t' | '\\f' ) )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1715:2: ( ' ' | '\\t' | '\\f' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1861:11: ( ( ' ' | '\\t' | '\\f' ) )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1862:2: ( ' ' | '\\t' | '\\f' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
                 input.consume();
@@ -975,34 +1057,34 @@ public class CsLexer extends Lexer {
         try {
             int _type = LINEBREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1718:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1719:2: ( '\\r\\n' | '\\r' | '\\n' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1865:10: ( ( '\\r\\n' | '\\r' | '\\n' ) )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1866:2: ( '\\r\\n' | '\\r' | '\\n' )
             {
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1719:2: ( '\\r\\n' | '\\r' | '\\n' )
-            int alt6=3;
-            int LA6_0 = input.LA(1);
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1866:2: ( '\\r\\n' | '\\r' | '\\n' )
+            int alt7=3;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA6_0=='\r') ) {
-                int LA6_1 = input.LA(2);
+            if ( (LA7_0=='\r') ) {
+                int LA7_1 = input.LA(2);
 
-                if ( (LA6_1=='\n') ) {
-                    alt6=1;
+                if ( (LA7_1=='\n') ) {
+                    alt7=1;
                 }
                 else {
-                    alt6=2;}
+                    alt7=2;}
             }
-            else if ( (LA6_0=='\n') ) {
-                alt6=3;
+            else if ( (LA7_0=='\n') ) {
+                alt7=3;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 6, 0, input);
+                    new NoViableAltException("", 7, 0, input);
 
                 throw nvae;
             }
-            switch (alt6) {
+            switch (alt7) {
                 case 1 :
-                    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1719:3: '\\r\\n'
+                    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1866:3: '\\r\\n'
                     {
                     match("\r\n"); 
 
@@ -1010,14 +1092,14 @@ public class CsLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1719:10: '\\r'
+                    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1866:10: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1719:15: '\\n'
+                    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1866:15: '\\n'
                     {
                     match('\n'); 
 
@@ -1043,51 +1125,51 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_60_62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1722:13: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1869:13: ( ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' ) )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:2: ( '<' ) (~ ( '>' ) | ( '\\\\' '>' ) )* ( '>' )
             {
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:2: ( '<' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:3: '<'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:2: ( '<' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:3: '<'
             {
             match('<'); 
 
             }
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
-            loop7:
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:7: (~ ( '>' ) | ( '\\\\' '>' ) )*
+            loop8:
             do {
-                int alt7=3;
-                int LA7_0 = input.LA(1);
+                int alt8=3;
+                int LA8_0 = input.LA(1);
 
-                if ( (LA7_0=='\\') ) {
-                    int LA7_2 = input.LA(2);
+                if ( (LA8_0=='\\') ) {
+                    int LA8_2 = input.LA(2);
 
-                    if ( (LA7_2=='>') ) {
-                        int LA7_4 = input.LA(3);
+                    if ( (LA8_2=='>') ) {
+                        int LA8_4 = input.LA(3);
 
-                        if ( ((LA7_4>='\u0000' && LA7_4<='\uFFFF')) ) {
-                            alt7=2;
+                        if ( ((LA8_4>='\u0000' && LA8_4<='\uFFFF')) ) {
+                            alt8=2;
                         }
 
                         else {
-                            alt7=1;
+                            alt8=1;
                         }
 
                     }
-                    else if ( ((LA7_2>='\u0000' && LA7_2<='=')||(LA7_2>='?' && LA7_2<='\uFFFF')) ) {
-                        alt7=1;
+                    else if ( ((LA8_2>='\u0000' && LA8_2<='=')||(LA8_2>='?' && LA8_2<='\uFFFF')) ) {
+                        alt8=1;
                     }
 
 
                 }
-                else if ( ((LA7_0>='\u0000' && LA7_0<='=')||(LA7_0>='?' && LA7_0<='[')||(LA7_0>=']' && LA7_0<='\uFFFF')) ) {
-                    alt7=1;
+                else if ( ((LA8_0>='\u0000' && LA8_0<='=')||(LA8_0>='?' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFF')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:8: ~ ( '>' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:8: ~ ( '>' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='=')||(input.LA(1)>='?' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1102,10 +1184,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:15: ( '\\\\' '>' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:15: ( '\\\\' '>' )
             	    {
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:15: ( '\\\\' '>' )
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:16: '\\\\' '>'
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:15: ( '\\\\' '>' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:16: '\\\\' '>'
             	    {
             	    match('\\'); 
             	    match('>'); 
@@ -1117,12 +1199,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop7;
+            	    break loop8;
                 }
             } while (true);
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:26: ( '>' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1723:27: '>'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:26: ( '>' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1870:27: '>'
             {
             match('>'); 
 
@@ -1144,51 +1226,51 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_34_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1725:13: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1872:13: ( ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' ) )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:2: ( '\"' ) (~ ( '\"' ) | ( '\\\\' '\"' ) )* ( '\"' )
             {
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:2: ( '\"' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:3: '\"'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:2: ( '\"' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:3: '\"'
             {
             match('\"'); 
 
             }
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
-            loop8:
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:7: (~ ( '\"' ) | ( '\\\\' '\"' ) )*
+            loop9:
             do {
-                int alt8=3;
-                int LA8_0 = input.LA(1);
+                int alt9=3;
+                int LA9_0 = input.LA(1);
 
-                if ( (LA8_0=='\\') ) {
-                    int LA8_2 = input.LA(2);
+                if ( (LA9_0=='\\') ) {
+                    int LA9_2 = input.LA(2);
 
-                    if ( (LA8_2=='\"') ) {
-                        int LA8_4 = input.LA(3);
+                    if ( (LA9_2=='\"') ) {
+                        int LA9_4 = input.LA(3);
 
-                        if ( ((LA8_4>='\u0000' && LA8_4<='\uFFFF')) ) {
-                            alt8=2;
+                        if ( ((LA9_4>='\u0000' && LA9_4<='\uFFFF')) ) {
+                            alt9=2;
                         }
 
                         else {
-                            alt8=1;
+                            alt9=1;
                         }
 
                     }
-                    else if ( ((LA8_2>='\u0000' && LA8_2<='!')||(LA8_2>='#' && LA8_2<='\uFFFF')) ) {
-                        alt8=1;
+                    else if ( ((LA9_2>='\u0000' && LA9_2<='!')||(LA9_2>='#' && LA9_2<='\uFFFF')) ) {
+                        alt9=1;
                     }
 
 
                 }
-                else if ( ((LA8_0>='\u0000' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFF')) ) {
-                    alt8=1;
+                else if ( ((LA9_0>='\u0000' && LA9_0<='!')||(LA9_0>='#' && LA9_0<='[')||(LA9_0>=']' && LA9_0<='\uFFFF')) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt8) {
+                switch (alt9) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:8: ~ ( '\"' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:8: ~ ( '\"' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1203,10 +1285,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:15: ( '\\\\' '\"' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:15: ( '\\\\' '\"' )
             	    {
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:15: ( '\\\\' '\"' )
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:16: '\\\\' '\"'
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:15: ( '\\\\' '\"' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:16: '\\\\' '\"'
             	    {
             	    match('\\'); 
             	    match('\"'); 
@@ -1218,12 +1300,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop8;
+            	    break loop9;
                 }
             } while (true);
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:26: ( '\"' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1726:27: '\"'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:26: ( '\"' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1873:27: '\"'
             {
             match('\"'); 
 
@@ -1245,51 +1327,51 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_39_39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1728:13: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1875:13: ( ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' ) )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:2: ( '\\'' ) (~ ( '\\'' ) | ( '\\\\' '\\'' ) )* ( '\\'' )
             {
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:2: ( '\\'' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:3: '\\''
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:2: ( '\\'' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:3: '\\''
             {
             match('\''); 
 
             }
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
-            loop9:
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:8: (~ ( '\\'' ) | ( '\\\\' '\\'' ) )*
+            loop10:
             do {
-                int alt9=3;
-                int LA9_0 = input.LA(1);
+                int alt10=3;
+                int LA10_0 = input.LA(1);
 
-                if ( (LA9_0=='\\') ) {
-                    int LA9_2 = input.LA(2);
+                if ( (LA10_0=='\\') ) {
+                    int LA10_2 = input.LA(2);
 
-                    if ( (LA9_2=='\'') ) {
-                        int LA9_4 = input.LA(3);
+                    if ( (LA10_2=='\'') ) {
+                        int LA10_4 = input.LA(3);
 
-                        if ( ((LA9_4>='\u0000' && LA9_4<='\uFFFF')) ) {
-                            alt9=2;
+                        if ( ((LA10_4>='\u0000' && LA10_4<='\uFFFF')) ) {
+                            alt10=2;
                         }
 
                         else {
-                            alt9=1;
+                            alt10=1;
                         }
 
                     }
-                    else if ( ((LA9_2>='\u0000' && LA9_2<='&')||(LA9_2>='(' && LA9_2<='\uFFFF')) ) {
-                        alt9=1;
+                    else if ( ((LA10_2>='\u0000' && LA10_2<='&')||(LA10_2>='(' && LA10_2<='\uFFFF')) ) {
+                        alt10=1;
                     }
 
 
                 }
-                else if ( ((LA9_0>='\u0000' && LA9_0<='&')||(LA9_0>='(' && LA9_0<='[')||(LA9_0>=']' && LA9_0<='\uFFFF')) ) {
-                    alt9=1;
+                else if ( ((LA10_0>='\u0000' && LA10_0<='&')||(LA10_0>='(' && LA10_0<='[')||(LA10_0>=']' && LA10_0<='\uFFFF')) ) {
+                    alt10=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt10) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:9: ~ ( '\\'' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:9: ~ ( '\\'' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1304,10 +1386,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:17: ( '\\\\' '\\'' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:17: ( '\\\\' '\\'' )
             	    {
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:17: ( '\\\\' '\\'' )
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:18: '\\\\' '\\''
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:17: ( '\\\\' '\\'' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:18: '\\\\' '\\''
             	    {
             	    match('\\'); 
             	    match('\''); 
@@ -1319,12 +1401,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop9;
+            	    break loop10;
                 }
             } while (true);
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:29: ( '\\'' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1729:30: '\\''
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:29: ( '\\'' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:30: '\\''
             {
             match('\''); 
 
@@ -1346,51 +1428,51 @@ public class CsLexer extends Lexer {
         try {
             int _type = QUOTED_36_36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1731:13: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1878:13: ( ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' ) )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:2: ( '$' ) (~ ( '$' ) | ( '\\\\' '$' ) )* ( '$' )
             {
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:2: ( '$' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:3: '$'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:2: ( '$' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:3: '$'
             {
             match('$'); 
 
             }
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
-            loop10:
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:7: (~ ( '$' ) | ( '\\\\' '$' ) )*
+            loop11:
             do {
-                int alt10=3;
-                int LA10_0 = input.LA(1);
+                int alt11=3;
+                int LA11_0 = input.LA(1);
 
-                if ( (LA10_0=='\\') ) {
-                    int LA10_2 = input.LA(2);
+                if ( (LA11_0=='\\') ) {
+                    int LA11_2 = input.LA(2);
 
-                    if ( (LA10_2=='$') ) {
-                        int LA10_4 = input.LA(3);
+                    if ( (LA11_2=='$') ) {
+                        int LA11_4 = input.LA(3);
 
-                        if ( ((LA10_4>='\u0000' && LA10_4<='\uFFFF')) ) {
-                            alt10=2;
+                        if ( ((LA11_4>='\u0000' && LA11_4<='\uFFFF')) ) {
+                            alt11=2;
                         }
 
                         else {
-                            alt10=1;
+                            alt11=1;
                         }
 
                     }
-                    else if ( ((LA10_2>='\u0000' && LA10_2<='#')||(LA10_2>='%' && LA10_2<='\uFFFF')) ) {
-                        alt10=1;
+                    else if ( ((LA11_2>='\u0000' && LA11_2<='#')||(LA11_2>='%' && LA11_2<='\uFFFF')) ) {
+                        alt11=1;
                     }
 
 
                 }
-                else if ( ((LA10_0>='\u0000' && LA10_0<='#')||(LA10_0>='%' && LA10_0<='[')||(LA10_0>=']' && LA10_0<='\uFFFF')) ) {
-                    alt10=1;
+                else if ( ((LA11_0>='\u0000' && LA11_0<='#')||(LA11_0>='%' && LA11_0<='[')||(LA11_0>=']' && LA11_0<='\uFFFF')) ) {
+                    alt11=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt11) {
             	case 1 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:8: ~ ( '$' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:8: ~ ( '$' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='#')||(input.LA(1)>='%' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1405,10 +1487,10 @@ public class CsLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:15: ( '\\\\' '$' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:15: ( '\\\\' '$' )
             	    {
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:15: ( '\\\\' '$' )
-            	    // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:16: '\\\\' '$'
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:15: ( '\\\\' '$' )
+            	    // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:16: '\\\\' '$'
             	    {
             	    match('\\'); 
             	    match('$'); 
@@ -1420,12 +1502,12 @@ public class CsLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop10;
+            	    break loop11;
                 }
             } while (true);
 
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:26: ( '$' )
-            // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1732:27: '$'
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:26: ( '$' )
+            // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:27: '$'
             {
             match('$'); 
 
@@ -1443,285 +1525,299 @@ public class CsLexer extends Lexer {
     // $ANTLR end "QUOTED_36_36"
 
     public void mTokens() throws RecognitionException {
-        // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | COMMENTS | QUALIFIED_NAME | NUMBER | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_34_34 | QUOTED_39_39 | QUOTED_36_36 )
-        int alt11=40;
-        alt11 = dfa11.predict(input);
-        switch (alt11) {
+        // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_34_34 | QUOTED_39_39 | QUOTED_36_36 )
+        int alt12=42;
+        alt12 = dfa12.predict(input);
+        switch (alt12) {
             case 1 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:10: T__13
-                {
-                mT__13(); 
-
-                }
-                break;
-            case 2 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:16: T__14
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:10: T__14
                 {
                 mT__14(); 
 
                 }
                 break;
-            case 3 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:22: T__15
+            case 2 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:16: T__15
                 {
                 mT__15(); 
 
                 }
                 break;
-            case 4 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:28: T__16
+            case 3 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:22: T__16
                 {
                 mT__16(); 
 
                 }
                 break;
-            case 5 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:34: T__17
+            case 4 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:28: T__17
                 {
                 mT__17(); 
 
                 }
                 break;
-            case 6 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:40: T__18
+            case 5 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:34: T__18
                 {
                 mT__18(); 
 
                 }
                 break;
-            case 7 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:46: T__19
+            case 6 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:40: T__19
                 {
                 mT__19(); 
 
                 }
                 break;
-            case 8 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:52: T__20
+            case 7 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:46: T__20
                 {
                 mT__20(); 
 
                 }
                 break;
-            case 9 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:58: T__21
+            case 8 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:52: T__21
                 {
                 mT__21(); 
 
                 }
                 break;
-            case 10 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:64: T__22
+            case 9 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:58: T__22
                 {
                 mT__22(); 
 
                 }
                 break;
-            case 11 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:70: T__23
+            case 10 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:64: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
-            case 12 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:76: T__24
+            case 11 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:70: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
-            case 13 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:82: T__25
+            case 12 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:76: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
-            case 14 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:88: T__26
+            case 13 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:82: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
-            case 15 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:94: T__27
+            case 14 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:88: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
-            case 16 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:100: T__28
+            case 15 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:94: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
-            case 17 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:106: T__29
+            case 16 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:100: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
-            case 18 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:112: T__30
+            case 17 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:106: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
-            case 19 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:118: T__31
+            case 18 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:112: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
-            case 20 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:124: T__32
+            case 19 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:118: T__32
                 {
                 mT__32(); 
 
                 }
                 break;
-            case 21 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:130: T__33
+            case 20 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:124: T__33
                 {
                 mT__33(); 
 
                 }
                 break;
-            case 22 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:136: T__34
+            case 21 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:130: T__34
                 {
                 mT__34(); 
 
                 }
                 break;
-            case 23 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:142: T__35
+            case 22 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:136: T__35
                 {
                 mT__35(); 
 
                 }
                 break;
-            case 24 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:148: T__36
+            case 23 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:142: T__36
                 {
                 mT__36(); 
 
                 }
                 break;
-            case 25 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:154: T__37
+            case 24 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:148: T__37
                 {
                 mT__37(); 
 
                 }
                 break;
-            case 26 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:160: T__38
+            case 25 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:154: T__38
                 {
                 mT__38(); 
 
                 }
                 break;
-            case 27 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:166: T__39
+            case 26 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:160: T__39
                 {
                 mT__39(); 
 
                 }
                 break;
-            case 28 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:172: T__40
+            case 27 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:166: T__40
                 {
                 mT__40(); 
 
                 }
                 break;
-            case 29 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:178: T__41
+            case 28 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:172: T__41
                 {
                 mT__41(); 
 
                 }
                 break;
-            case 30 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:184: T__42
+            case 29 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:178: T__42
                 {
                 mT__42(); 
 
                 }
                 break;
-            case 31 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:190: T__43
+            case 30 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:184: T__43
                 {
                 mT__43(); 
 
                 }
                 break;
+            case 31 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:190: T__44
+                {
+                mT__44(); 
+
+                }
+                break;
             case 32 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:196: COMMENTS
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:196: T__45
+                {
+                mT__45(); 
+
+                }
+                break;
+            case 33 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:202: COMMENTS
                 {
                 mCOMMENTS(); 
 
                 }
                 break;
-            case 33 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:205: QUALIFIED_NAME
+            case 34 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:211: QUALIFIED_NAME
                 {
                 mQUALIFIED_NAME(); 
 
                 }
                 break;
-            case 34 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:220: NUMBER
+            case 35 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:226: NUMBER
                 {
                 mNUMBER(); 
 
                 }
                 break;
-            case 35 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:227: WHITESPACE
+            case 36 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:233: HEXNUMBER
+                {
+                mHEXNUMBER(); 
+
+                }
+                break;
+            case 37 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:243: WHITESPACE
                 {
                 mWHITESPACE(); 
 
                 }
                 break;
-            case 36 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:238: LINEBREAK
+            case 38 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:254: LINEBREAK
                 {
                 mLINEBREAK(); 
 
                 }
                 break;
-            case 37 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:248: QUOTED_60_62
+            case 39 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:264: QUOTED_60_62
                 {
                 mQUOTED_60_62(); 
 
                 }
                 break;
-            case 38 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:261: QUOTED_34_34
+            case 40 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:277: QUOTED_34_34
                 {
                 mQUOTED_34_34(); 
 
                 }
                 break;
-            case 39 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:274: QUOTED_39_39
+            case 41 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:290: QUOTED_39_39
                 {
                 mQUOTED_39_39(); 
 
                 }
                 break;
-            case 40 :
-                // C:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:287: QUOTED_36_36
+            case 42 :
+                // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1:303: QUOTED_36_36
                 {
                 mQUOTED_36_36(); 
 
@@ -1733,51 +1829,54 @@ public class CsLexer extends Lexer {
     }
 
 
-    protected DFA11 dfa11 = new DFA11(this);
-    static final String DFA11_eotS =
-        "\1\uffff\2\35\1\uffff\1\35\2\uffff\1\35\1\uffff\2\35\1\56\1\35"+
-        "\10\uffff\3\35\3\uffff\1\35\11\uffff\4\35\1\70\3\35\2\uffff\7\35"+
-        "\1\103\1\35\1\uffff\12\35\1\uffff\4\35\1\123\5\35\1\131\3\35\1\135"+
-        "\1\uffff\4\35\1\143\1\uffff\2\35\1\146\1\uffff\1\147\4\35\1\uffff"+
-        "\1\154\1\155\2\uffff\1\156\3\35\3\uffff\1\35\1\163\1\164\1\35\2"+
-        "\uffff\1\166\1\uffff";
-    static final String DFA11_eofS =
-        "\167\uffff";
-    static final String DFA11_minS =
+    protected DFA12 dfa12 = new DFA12(this);
+    static final String DFA12_eotS =
+        "\1\uffff\2\34\1\uffff\1\34\2\uffff\1\34\1\uffff\2\34\1\56\1\34"+
+        "\7\uffff\3\34\3\uffff\1\34\12\uffff\4\34\1\70\3\34\2\uffff\7\34"+
+        "\1\103\1\34\1\uffff\12\34\1\uffff\4\34\1\124\6\34\1\133\3\34\1\137"+
+        "\1\uffff\2\34\1\142\2\34\1\146\1\uffff\2\34\1\152\1\uffff\1\153"+
+        "\1\34\1\uffff\3\34\1\uffff\1\160\1\161\1\34\2\uffff\1\163\3\34\2"+
+        "\uffff\1\34\1\uffff\1\34\1\171\1\172\2\34\2\uffff\1\34\1\176\1\177"+
+        "\2\uffff";
+    static final String DFA12_eofS =
+        "\u0080\uffff";
+    static final String DFA12_minS =
         "\1\11\1\124\1\117\1\uffff\1\115\2\uffff\1\120\1\uffff\1\117\1\125"+
-        "\1\72\1\111\10\uffff\1\105\1\117\1\122\3\uffff\1\102\11\uffff\1"+
-        "\116\1\101\1\122\1\120\1\55\1\124\1\113\1\114\2\uffff\1\124\1\106"+
-        "\1\114\1\105\1\123\1\124\1\122\1\55\1\117\1\uffff\1\111\2\105\1"+
-        "\110\1\111\1\114\1\104\1\124\1\101\1\124\1\uffff\1\122\1\117\1\116"+
-        "\1\123\1\55\1\116\2\105\1\122\1\130\1\55\1\124\1\116\1\123\1\55"+
-        "\1\uffff\1\105\1\103\1\106\1\101\1\55\1\uffff\2\123\1\55\1\uffff"+
-        "\1\55\1\124\1\111\1\103\1\105\1\uffff\2\55\2\uffff\1\55\1\116\1"+
-        "\124\1\106\3\uffff\1\105\2\55\1\104\2\uffff\1\55\1\uffff";
-    static final String DFA11_maxS =
+        "\1\72\1\111\7\uffff\1\105\1\117\1\122\3\uffff\1\102\12\uffff\1\116"+
+        "\1\101\1\122\1\120\1\55\1\124\1\113\1\114\2\uffff\1\124\1\106\1"+
+        "\114\1\105\1\123\1\124\1\122\1\55\1\117\1\uffff\1\111\2\105\1\110"+
+        "\1\111\1\114\1\104\1\124\1\101\1\124\1\uffff\1\122\1\117\1\116\1"+
+        "\123\1\55\1\116\1\105\1\122\1\105\1\122\1\130\1\55\1\124\1\116\1"+
+        "\123\1\55\1\uffff\1\105\1\103\1\55\1\106\1\101\1\55\1\uffff\2\123"+
+        "\1\55\1\uffff\1\55\1\124\1\uffff\1\111\1\103\1\105\1\uffff\2\55"+
+        "\1\131\2\uffff\1\55\1\116\1\124\1\106\2\uffff\1\114\1\uffff\1\105"+
+        "\2\55\1\105\1\104\2\uffff\1\123\2\55\2\uffff";
+    static final String DFA12_maxS =
         "\1\175\1\131\1\117\1\uffff\1\116\2\uffff\1\120\1\uffff\1\117\1"+
-        "\125\1\72\1\111\10\uffff\1\105\1\117\1\122\3\uffff\1\102\11\uffff"+
+        "\125\1\72\1\111\7\uffff\1\105\1\117\1\122\3\uffff\1\102\12\uffff"+
         "\1\116\1\101\1\122\1\120\1\172\1\124\1\113\1\114\2\uffff\1\124\1"+
         "\106\1\114\1\105\1\123\1\124\1\122\1\172\1\117\1\uffff\1\111\2\105"+
-        "\1\110\1\111\1\114\1\104\1\124\1\101\1\124\1\uffff\1\122\1\117\1"+
-        "\116\1\123\1\172\1\116\2\105\1\122\1\130\1\172\1\124\1\116\1\123"+
-        "\1\172\1\uffff\1\105\1\103\1\106\1\101\1\172\1\uffff\2\123\1\172"+
-        "\1\uffff\1\172\1\124\1\111\1\103\1\105\1\uffff\2\172\2\uffff\1\172"+
-        "\1\116\1\124\1\106\3\uffff\1\105\2\172\1\104\2\uffff\1\172\1\uffff";
-    static final String DFA11_acceptS =
-        "\3\uffff\1\4\1\uffff\1\6\1\7\1\uffff\1\11\4\uffff\1\17\1\21\1\22"+
-        "\1\23\1\24\1\25\1\26\1\27\3\uffff\1\34\1\35\1\36\1\uffff\1\40\1"+
-        "\41\1\42\1\43\1\44\1\45\1\46\1\47\1\50\10\uffff\1\20\1\14\11\uffff"+
-        "\1\32\12\uffff\1\2\17\uffff\1\15\5\uffff\1\3\3\uffff\1\13\5\uffff"+
-        "\1\16\2\uffff\1\12\1\30\4\uffff\1\5\1\10\1\31\4\uffff\1\37\1\1\1"+
-        "\uffff\1\33";
-    static final String DFA11_specialS =
-        "\167\uffff}>";
-    static final String[] DFA11_transitionS = {
-            "\1\37\1\40\1\uffff\1\37\1\40\22\uffff\1\37\1\24\1\42\1\23\1"+
-            "\44\2\uffff\1\43\1\21\1\22\1\31\1\30\1\3\2\uffff\1\34\12\36"+
-            "\1\13\1\10\1\41\1\15\1\uffff\1\32\1\uffff\1\33\1\35\1\26\1\25"+
-            "\1\35\1\2\2\35\1\4\5\35\1\7\1\27\1\35\1\12\1\1\1\11\2\35\1\14"+
-            "\3\35\1\17\1\uffff\1\20\1\uffff\1\35\1\uffff\32\35\1\5\1\16"+
+        "\1\110\1\111\1\117\1\104\1\124\1\101\1\124\1\uffff\1\122\1\117\1"+
+        "\116\1\123\1\172\1\116\1\105\1\122\1\105\1\122\1\130\1\172\1\124"+
+        "\1\116\1\123\1\172\1\uffff\1\105\1\103\1\172\1\106\1\101\1\172\1"+
+        "\uffff\2\123\1\172\1\uffff\1\172\1\124\1\uffff\1\111\1\103\1\105"+
+        "\1\uffff\2\172\1\131\2\uffff\1\172\1\116\1\124\1\106\2\uffff\1\114"+
+        "\1\uffff\1\105\2\172\1\105\1\104\2\uffff\1\123\2\172\2\uffff";
+    static final String DFA12_acceptS =
+        "\3\uffff\1\4\1\uffff\1\6\1\7\1\uffff\1\11\4\uffff\1\20\1\22\1\23"+
+        "\1\24\1\25\1\26\1\27\3\uffff\1\34\1\35\1\36\1\uffff\1\41\1\42\1"+
+        "\43\1\44\1\45\1\46\1\47\1\50\1\51\1\52\10\uffff\1\21\1\15\11\uffff"+
+        "\1\32\12\uffff\1\2\20\uffff\1\16\6\uffff\1\3\3\uffff\1\14\2\uffff"+
+        "\1\40\3\uffff\1\17\3\uffff\1\12\1\30\4\uffff\1\5\1\10\1\uffff\1"+
+        "\31\5\uffff\1\37\1\1\3\uffff\1\33\1\13";
+    static final String DFA12_specialS =
+        "\u0080\uffff}>";
+    static final String[] DFA12_transitionS = {
+            "\1\37\1\40\1\uffff\1\37\1\40\22\uffff\1\37\1\23\1\42\1\36\1"+
+            "\44\2\uffff\1\43\1\21\1\22\1\30\1\27\1\3\2\uffff\1\33\12\35"+
+            "\1\13\1\10\1\41\1\15\1\uffff\1\31\1\uffff\1\32\1\34\1\25\1\24"+
+            "\1\34\1\2\2\34\1\4\5\34\1\7\1\26\1\34\1\12\1\1\1\11\2\34\1\14"+
+            "\3\34\1\17\1\uffff\1\20\1\uffff\1\34\1\uffff\32\34\1\5\1\16"+
             "\1\6",
             "\1\46\4\uffff\1\45",
             "\1\47",
@@ -1791,7 +1890,6 @@ public class CsLexer extends Lexer {
             "\1\54",
             "\1\55",
             "\1\57",
-            "",
             "",
             "",
             "",
@@ -1815,12 +1913,13 @@ public class CsLexer extends Lexer {
             "",
             "",
             "",
+            "",
             "\1\64",
             "\1\65",
             "\1\66",
             "\1\67",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\71",
             "\1\72",
             "\1\73",
@@ -1833,8 +1932,8 @@ public class CsLexer extends Lexer {
             "\1\100",
             "\1\101",
             "\1\102",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\104",
             "",
             "\1\105",
@@ -1842,108 +1941,119 @@ public class CsLexer extends Lexer {
             "\1\107",
             "\1\110",
             "\1\111",
-            "\1\112",
-            "\1\113",
+            "\1\112\2\uffff\1\113",
             "\1\114",
             "\1\115",
             "\1\116",
-            "",
             "\1\117",
+            "",
             "\1\120",
             "\1\121",
             "\1\122",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
-            "\1\124",
+            "\1\123",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\125",
             "\1\126",
             "\1\127",
             "\1\130",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\1\131",
             "\1\132",
-            "\1\133",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\134",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
-            "",
+            "\1\135",
             "\1\136",
-            "\1\137",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "",
             "\1\140",
             "\1\141",
-            "\2\35\1\uffff\12\35\7\uffff\3\35\1\142\26\35\4\uffff\1\35"+
-            "\1\uffff\32\35",
-            "",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\1\143",
             "\1\144",
-            "\1\145",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\3\34\1\145\26\34\4\uffff\1\34"+
+            "\1\uffff\32\34",
             "",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\1\147",
             "\1\150",
-            "\1\151",
-            "\1\152",
-            "\1\153",
+            "\2\34\1\uffff\12\34\7\uffff\23\34\1\151\6\34\4\uffff\1\34"+
+            "\1\uffff\32\34",
             "",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\1\154",
             "",
-            "",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\1\155",
+            "\1\156",
             "\1\157",
-            "\1\160",
-            "\1\161",
             "",
-            "",
-            "",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
             "\1\162",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "",
+            "",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\1\164",
             "\1\165",
+            "\1\166",
             "",
             "",
-            "\2\35\1\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35",
+            "\1\167",
+            "",
+            "\1\170",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\1\173",
+            "\1\174",
+            "",
+            "",
+            "\1\175",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "\2\34\1\uffff\12\34\7\uffff\32\34\4\uffff\1\34\1\uffff\32"+
+            "\34",
+            "",
             ""
     };
 
-    static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
-    static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
-    static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
-    static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
-    static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
-    static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
-    static final short[][] DFA11_transition;
+    static final short[] DFA12_eot = DFA.unpackEncodedString(DFA12_eotS);
+    static final short[] DFA12_eof = DFA.unpackEncodedString(DFA12_eofS);
+    static final char[] DFA12_min = DFA.unpackEncodedStringToUnsignedChars(DFA12_minS);
+    static final char[] DFA12_max = DFA.unpackEncodedStringToUnsignedChars(DFA12_maxS);
+    static final short[] DFA12_accept = DFA.unpackEncodedString(DFA12_acceptS);
+    static final short[] DFA12_special = DFA.unpackEncodedString(DFA12_specialS);
+    static final short[][] DFA12_transition;
 
     static {
-        int numStates = DFA11_transitionS.length;
-        DFA11_transition = new short[numStates][];
+        int numStates = DFA12_transitionS.length;
+        DFA12_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
+            DFA12_transition[i] = DFA.unpackEncodedString(DFA12_transitionS[i]);
         }
     }
 
-    class DFA11 extends DFA {
+    class DFA12 extends DFA {
 
-        public DFA11(BaseRecognizer recognizer) {
+        public DFA12(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 11;
-            this.eot = DFA11_eot;
-            this.eof = DFA11_eof;
-            this.min = DFA11_min;
-            this.max = DFA11_max;
-            this.accept = DFA11_accept;
-            this.special = DFA11_special;
-            this.transition = DFA11_transition;
+            this.decisionNumber = 12;
+            this.eot = DFA12_eot;
+            this.eof = DFA12_eof;
+            this.min = DFA12_min;
+            this.max = DFA12_max;
+            this.accept = DFA12_accept;
+            this.special = DFA12_special;
+            this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | COMMENTS | QUALIFIED_NAME | NUMBER | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_34_34 | QUOTED_39_39 | QUOTED_36_36 );";
+            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | COMMENTS | QUALIFIED_NAME | NUMBER | HEXNUMBER | WHITESPACE | LINEBREAK | QUOTED_60_62 | QUOTED_34_34 | QUOTED_39_39 | QUOTED_36_36 );";
         }
     }
  

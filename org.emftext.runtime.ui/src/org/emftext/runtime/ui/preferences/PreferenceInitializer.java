@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 
 /**
@@ -49,7 +50,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		Map<String, Object> extensionToFactoryMap = 
 			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
 		
-        for(String extension : extensionToFactoryMap.keySet()) {
+        for (String extension : extensionToFactoryMap.keySet()) {
         	ResourceSet rs = new ResourceSetImpl();
         	Resource tempResource = rs.createResource(URI.createURI("temp." + extension));
         	
@@ -59,10 +60,19 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         		String languageId = extension;
 	            int z = 0;;
 	            
+	            // TODO mseifert: starting at index 6 is wrong
 	            for(int i=6; i<tr.getTokenNames().length; i++) {
-	                String tokenName = tr.getTokenNames()[i];
-	
-	                if (tokenName.matches("[A-Z]+") && !tokenName.equals(EPredefinedTokens.STANDARD.getTokenName())) {
+	                String originalTokenName = tr.getTokenNames()[i];
+	                String tokenName = originalTokenName;
+	                if (tokenName.startsWith("'") && tokenName.endsWith("'")) {
+	                	tokenName = tokenName.substring(1, tokenName.length()-1);
+	                }
+	        		ITokenStyle style = tr.getDefaultTokenStyle(tokenName);
+	        		
+	        		if (style != null) {
+	        			String color = getColorString(style.getColorAsRGB());
+	                    setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
+	        		} else if (originalTokenName.matches("[A-Z]+") && !originalTokenName.equals(EPredefinedTokens.STANDARD.getTokenName())) {
 	                    //a string like thing (most likely)
 	                    String color = "0,0,0";
 	                    if (z == 0) {
@@ -74,35 +84,44 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	                        z++;
 	                    }
 	                    
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_BOLD_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_COLOR_SUFFIX, color);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_ENABLE_SUFFIX, true);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_ITALIC_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX, false);
+	                    setProperties(store, languageId, originalTokenName, color, false, true, false, false, false);
 	                }
-	                else if (tokenName.matches(".[a-zA-Z][a-zA-Z0-9:]+.")) { 
-	                    tokenName = tokenName.substring(1,tokenName.length()-1).trim();
+	                else if (originalTokenName.matches(".[a-zA-Z][a-zA-Z0-9:]+.")) { 
+	                    //tokenName = tokenName.substring(1,tokenName.length()-1).trim();
 	                    //a keyword (most likely)
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_BOLD_SUFFIX, true);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_COLOR_SUFFIX, "127,0,85");
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_ENABLE_SUFFIX, true);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_ITALIC_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX, false);                   
+	                    setProperties(store, languageId, originalTokenName, "127,0,85", true, true, false, false, false);
 	                }
 	                else {
-	                    tokenName = tokenName.substring(1,tokenName.length()-1).trim();
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_BOLD_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_COLOR_SUFFIX, "0,0,0");
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_ENABLE_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_ITALIC_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, false);
-	                    store.setDefault(languageId + "_" + tokenName + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX, false); 
+	                    //tokenName = tokenName.substring(1,tokenName.length()-1).trim();
+	                    setProperties(store, languageId, originalTokenName, "0,0,0", false, false, false, false, false);
 	                }
 	            }
             }
         }   
 	}
 
+	private void setProperties(IPreferenceStore store, String languageID,
+			String tokenName, String color,
+			boolean bold,
+			boolean enable,
+			boolean italic,
+			boolean striketrough,
+			boolean underline) {
+		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_BOLD_SUFFIX, bold);
+		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_COLOR_SUFFIX, color);
+		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_ENABLE_SUFFIX, enable);
+		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_ITALIC_SUFFIX, italic);
+		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, striketrough);
+		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX, underline);
+	}
+
+	private String getColorString(int[] colorAsRGB) {
+		if (colorAsRGB == null) {
+			return "0,0,0";
+		}
+		if (colorAsRGB.length != 3) {
+			return "0,0,0";
+		}
+		return colorAsRGB[0] + "," +colorAsRGB[1] + ","+ colorAsRGB[2];
+	}
 }

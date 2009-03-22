@@ -229,6 +229,15 @@ public interface ConcretesyntaxFactory extends EFactory {
 	Abstract createAbstract();
 
 	/**
+	 * Returns a new object of class '<em>Token Style</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Token Style</em>'.
+	 * @generated
+	 */
+	TokenStyle createTokenStyle();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

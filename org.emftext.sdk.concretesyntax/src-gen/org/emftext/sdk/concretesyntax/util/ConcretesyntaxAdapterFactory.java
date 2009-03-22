@@ -24,6 +24,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -222,6 +223,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseAbstract(Abstract object) {
 				return createAbstractAdapter();
+			}
+			@Override
+			public Adapter caseTokenStyle(TokenStyle object) {
+				return createTokenStyleAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -633,6 +638,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAbstractAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenStyle <em>Token Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.TokenStyle
+	 * @generated
+	 */
+	public Adapter createTokenStyleAdapter() {
 		return null;
 	}
 

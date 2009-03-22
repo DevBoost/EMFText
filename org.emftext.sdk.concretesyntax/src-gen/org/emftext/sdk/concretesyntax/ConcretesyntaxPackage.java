@@ -22,6 +22,7 @@ package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -211,13 +212,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Token Styles</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
+
+	/**
 	 * The feature id for the '<em><b>Synthetic Tokens</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__SYNTHETIC_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
+	int CONCRETE_SYNTAX__SYNTHETIC_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>All Tokens</b></em>' reference list.
@@ -226,7 +236,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
+	int CONCRETE_SYNTAX__ALL_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -235,7 +245,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
+	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>All Rules</b></em>' reference list.
@@ -244,7 +254,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
+	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
 
 	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
@@ -253,7 +263,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
+	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -1319,6 +1329,63 @@ public interface ConcretesyntaxPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl <em>Token Style</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.TokenStyleImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
+	 * @generated
+	 */
+	int TOKEN_STYLE = 28;
+
+	/**
+	 * The feature id for the '<em><b>Token Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_STYLE__TOKEN_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Rgb</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_STYLE__RGB = 1;
+
+	/**
+	 * The feature id for the '<em><b>Font Styles</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_STYLE__FONT_STYLES = 2;
+
+	/**
+	 * The number of structural features of the '<em>Token Style</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_STYLE_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.FontStyle
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
+	 * @generated
+	 */
+	int FONT_STYLE = 29;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.GenPackageDependentElement <em>Gen Package Dependent Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1458,6 +1525,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConcreteSyntax_Tokens();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getTokenStyles <em>Token Styles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Token Styles</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getTokenStyles()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax_TokenStyles();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getSyntheticTokens <em>Synthetic Tokens</em>}'.
@@ -2061,6 +2139,59 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getAbstract();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenStyle <em>Token Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Token Style</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenStyle
+	 * @generated
+	 */
+	EClass getTokenStyle();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenStyle#getTokenName <em>Token Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Token Name</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenStyle#getTokenName()
+	 * @see #getTokenStyle()
+	 * @generated
+	 */
+	EAttribute getTokenStyle_TokenName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.TokenStyle#getRgb <em>Rgb</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Rgb</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenStyle#getRgb()
+	 * @see #getTokenStyle()
+	 * @generated
+	 */
+	EAttribute getTokenStyle_Rgb();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.emftext.sdk.concretesyntax.TokenStyle#getFontStyles <em>Font Styles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Font Styles</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenStyle#getFontStyles()
+	 * @see #getTokenStyle()
+	 * @generated
+	 */
+	EAttribute getTokenStyle_FontStyles();
+
+	/**
+	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Font Style</em>'.
+	 * @see org.emftext.sdk.concretesyntax.FontStyle
+	 * @generated
+	 */
+	EEnum getFontStyle();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2189,6 +2320,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONCRETE_SYNTAX__TOKENS = eINSTANCE.getConcreteSyntax_Tokens();
+
+		/**
+		 * The meta object literal for the '<em><b>Token Styles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__TOKEN_STYLES = eINSTANCE.getConcreteSyntax_TokenStyles();
 
 		/**
 		 * The meta object literal for the '<em><b>Synthetic Tokens</b></em>' containment reference list feature.
@@ -2697,6 +2836,50 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ABSTRACT = eINSTANCE.getAbstract();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenStyleImpl <em>Token Style</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.TokenStyleImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
+		 * @generated
+		 */
+		EClass TOKEN_STYLE = eINSTANCE.getTokenStyle();
+
+		/**
+		 * The meta object literal for the '<em><b>Token Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TOKEN_STYLE__TOKEN_NAME = eINSTANCE.getTokenStyle_TokenName();
+
+		/**
+		 * The meta object literal for the '<em><b>Rgb</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TOKEN_STYLE__RGB = eINSTANCE.getTokenStyle_Rgb();
+
+		/**
+		 * The meta object literal for the '<em><b>Font Styles</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TOKEN_STYLE__FONT_STYLES = eINSTANCE.getTokenStyle_FontStyles();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.FontStyle
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
+		 * @generated
+		 */
+		EEnum FONT_STYLE = eINSTANCE.getFontStyle();
 
 	}
 

@@ -23,6 +23,7 @@ package org.emftext.sdk.concretesyntax.impl;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -38,6 +39,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.LineBreak;
@@ -53,6 +55,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 
@@ -260,6 +263,20 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	private EClass abstractEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tokenStyleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum fontStyleEEnum = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -417,7 +434,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Rules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -426,7 +443,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_AllRules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -452,7 +469,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax_SyntheticTokens() {
+	public EReference getConcreteSyntax_TokenStyles() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -461,8 +478,17 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConcreteSyntax_AllTokens() {
+	public EReference getConcreteSyntax_SyntheticTokens() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcreteSyntax_AllTokens() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -968,6 +994,51 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTokenStyle() {
+		return tokenStyleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTokenStyle_TokenName() {
+		return (EAttribute)tokenStyleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTokenStyle_Rgb() {
+		return (EAttribute)tokenStyleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTokenStyle_FontStyles() {
+		return (EAttribute)tokenStyleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getFontStyle() {
+		return fontStyleEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConcretesyntaxFactory getConcretesyntaxFactory() {
 		return (ConcretesyntaxFactory)getEFactoryInstance();
 	}
@@ -1004,6 +1075,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__IMPORTS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__OPTIONS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKENS);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKEN_STYLES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__RULES);
@@ -1088,6 +1160,14 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(optionEClass, OPTION__VALUE);
 
 		abstractEClass = createEClass(ABSTRACT);
+
+		tokenStyleEClass = createEClass(TOKEN_STYLE);
+		createEAttribute(tokenStyleEClass, TOKEN_STYLE__TOKEN_NAME);
+		createEAttribute(tokenStyleEClass, TOKEN_STYLE__RGB);
+		createEAttribute(tokenStyleEClass, TOKEN_STYLE__FONT_STYLES);
+
+		// Create enums
+		fontStyleEEnum = createEEnum(FONT_STYLE);
 	}
 
 	/**
@@ -1156,6 +1236,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEReference(getConcreteSyntax_Imports(), this.getImport(), null, "imports", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Options(), this.getOption(), null, "options", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Tokens(), this.getTokenDefinition(), null, "tokens", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax_TokenStyles(), this.getTokenStyle(), null, "tokenStyles", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_SyntheticTokens(), this.getTokenDefinition(), null, "syntheticTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_AllTokens(), this.getTokenDefinition(), null, "allTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Rules(), this.getRule(), this.getRule_Syntax(), "rules", null, 1, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1244,6 +1325,18 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getOption_Value(), ecorePackage.getEString(), "value", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractEClass, Abstract.class, "Abstract", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(tokenStyleEClass, TokenStyle.class, "TokenStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTokenStyle_TokenName(), theEcorePackage.getEString(), "tokenName", null, 0, 1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTokenStyle_Rgb(), theEcorePackage.getEString(), "rgb", null, 0, 1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTokenStyle_FontStyles(), this.getFontStyle(), "fontStyles", null, 0, -1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
+		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
+		addEEnumLiteral(fontStyleEEnum, FontStyle.ITALIC);
+		addEEnumLiteral(fontStyleEEnum, FontStyle.STRIKETHROUGH);
+		addEEnumLiteral(fontStyleEEnum, FontStyle.UNDERLINE);
 
 		// Create resource
 		createResource(eNS_URI);

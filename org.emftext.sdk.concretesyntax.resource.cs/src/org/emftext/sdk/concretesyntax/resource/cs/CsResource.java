@@ -81,4 +81,8 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		super.doUnload();
 		resolverSwitch = null;
 	}
+
+	public org.emftext.runtime.resource.ITokenStyle getDefaultTokenStyle(java.lang.String tokenName) {
+		return null;
+	}
 }

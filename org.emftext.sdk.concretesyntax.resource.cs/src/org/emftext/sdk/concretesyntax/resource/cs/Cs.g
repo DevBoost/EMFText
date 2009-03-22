@@ -110,6 +110,9 @@ options {
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Abstract.class) {
 				return keywordabstract();
 			}
+			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.TokenStyle.class) {
+				return tokenstyle();
+			}
 		}
 		throw new org.emftext.runtime.resource.impl.UnexpectedContentTypeException(typeObject);
 	}
@@ -491,45 +494,91 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 		)
 		
 	)?	
-	a24 = 'RULES' {
+	(
+		(
+			a24 = 'TOKENSTYLES' {
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a24, element);
+			}
+			
+			a25 = '{' {
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a25, element);
+			}
+			
+			(
+				(
+					(
+						a26_0 = tokenstyle						{
+							if (element == null) {
+								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
+							}
+							if (a26_0 != null) {
+								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES, a26_0);
+							}
+							collectHiddenTokens(element);
+							copyLocalizationInfos(a26_0, element); 						}
+					)
+					
+				)
+				
+			)*			
+			a27 = '}' {
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a27, element);
+			}
+			
+		)
+		
+	)?	
+	a28 = 'RULES' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
 		collectHiddenTokens(element);
-		copyLocalizationInfos((CommonToken)a24, element);
+		copyLocalizationInfos((CommonToken)a28, element);
 	}
 	
-	a25 = '{' {
+	a29 = '{' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
 		collectHiddenTokens(element);
-		copyLocalizationInfos((CommonToken)a25, element);
+		copyLocalizationInfos((CommonToken)a29, element);
 	}
 	
 	(
 		(
 			(
-				a26_0 = rule				{
+				a30_0 = rule				{
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 					}
-					if (a26_0 != null) {
-						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, a26_0);
+					if (a30_0 != null) {
+						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, a30_0);
 					}
 					collectHiddenTokens(element);
-					copyLocalizationInfos(a26_0, element); 				}
+					copyLocalizationInfos(a30_0, element); 				}
 			)
 			
 		)+		
 	)
 	
-	a27 = '}' {
+	a31 = '}' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
 		collectHiddenTokens(element);
-		copyLocalizationInfos((CommonToken)a27, element);
+		copyLocalizationInfos((CommonToken)a31, element);
 	}
 	
 ;
@@ -1364,34 +1413,26 @@ whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
 @init{
 }
 :
-	a0 = '#' {
-		if (element == null) {
-			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
-		}
-		collectHiddenTokens(element);
-		copyLocalizationInfos((CommonToken)a0, element);
-	}
-	
 	(
-		a1 = NUMBER		
+		a0 = HEXNUMBER		
 		{
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
 			}
-			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("NUMBER");
+			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("HEXNUMBER");
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), result);
+			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), result);
 			Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
 			}
 			java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
 			if (resolved != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), resolved);
 			}
 			collectHiddenTokens(element);
-			copyLocalizationInfos((CommonToken) a1, element);
+			copyLocalizationInfos((CommonToken) a0, element);
 		}
 	)
 	
@@ -1675,6 +1716,110 @@ keywordabstract returns [org.emftext.sdk.concretesyntax.Abstract element = null]
 	
 ;
 
+tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
+@init{
+}
+:
+	(
+		a0 = QUALIFIED_NAME		
+		{
+			if (element == null) {
+				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+			}
+			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
+			tokenResolver.setOptions(getOptions());
+			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), result);
+			Object resolvedObject = result.getResolvedToken();
+			if (resolvedObject == null) {
+				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+			}
+			java.lang.String resolved = (java.lang.String)resolvedObject;
+			if (resolved != null) {
+				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), resolved);
+			}
+			collectHiddenTokens(element);
+			copyLocalizationInfos((CommonToken) a0, element);
+		}
+	)
+	
+	a1 = 'COLOR' {
+		if (element == null) {
+			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+		}
+		collectHiddenTokens(element);
+		copyLocalizationInfos((CommonToken)a1, element);
+	}
+	
+	(
+		a2 = HEXNUMBER		
+		{
+			if (element == null) {
+				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+			}
+			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("HEXNUMBER");
+			tokenResolver.setOptions(getOptions());
+			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), result);
+			Object resolvedObject = result.getResolvedToken();
+			if (resolvedObject == null) {
+				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+			}
+			java.lang.String resolved = (java.lang.String)resolvedObject;
+			if (resolved != null) {
+				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), resolved);
+			}
+			collectHiddenTokens(element);
+			copyLocalizationInfos((CommonToken) a2, element);
+		}
+	)
+	
+	(
+		(
+			a3 = ',' {
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a3, element);
+			}
+			
+			(
+				a4 = QUALIFIED_NAME				
+				{
+					if (element == null) {
+						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+					}
+					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
+					tokenResolver.setOptions(getOptions());
+					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+					tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES), result);
+					Object resolvedObject = result.getResolvedToken();
+					if (resolvedObject == null) {
+						getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+					}
+					org.emftext.sdk.concretesyntax.FontStyle resolved = (org.emftext.sdk.concretesyntax.FontStyle)resolvedObject;
+					if (resolved != null) {
+						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES, resolved);
+					}
+					collectHiddenTokens(element);
+					copyLocalizationInfos((CommonToken) a4, element);
+				}
+			)
+			
+		)
+		
+	)*	
+	a5 = ';' {
+		if (element == null) {
+			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
+		}
+		collectHiddenTokens(element);
+		copyLocalizationInfos((CommonToken)a5, element);
+	}
+	
+;
+
 tokendefinition returns [org.emftext.sdk.concretesyntax.TokenDefinition element = null]
 :
 	c0 = normaltoken{ element = c0; }
@@ -1711,6 +1856,8 @@ QUALIFIED_NAME:
 	('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*;
 NUMBER:
 	('0'..'9')+;
+HEXNUMBER:
+	'#'('0'..'9'|'A'..'F'|'a'..'f')+;
 WHITESPACE:
 	(' '|'\t'|'\f')
 	{ _channel = 99; }

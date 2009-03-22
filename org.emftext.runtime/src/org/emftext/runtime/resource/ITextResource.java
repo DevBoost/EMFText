@@ -94,4 +94,13 @@ public interface ITextResource extends Resource {
 	 * @param proxyElement
 	 */
 	public <ContainerType extends EObject, ReferenceType extends EObject> void registerContextDependentProxy(org.emftext.runtime.resource.IContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, ContainerType container, org.eclipse.emf.ecore.EReference reference, java.lang.String id, org.eclipse.emf.ecore.EObject proxyElement);
+
+	/**
+	 * Return the default style that should be used to present tokens of the
+	 * given type.
+	 *  
+	 * @param tokenName the name of the token type
+	 * @return a style object or null if not default style is set
+	 */
+	public ITokenStyle getDefaultTokenStyle(String tokenName);
 }

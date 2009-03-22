@@ -21,6 +21,7 @@
 package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -29,10 +30,15 @@ import org.emftext.runtime.IInputStreamProcessorProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.InputStreamProcessor;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
+import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
+import org.emftext.runtime.resource.impl.BasicTokenStyle;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.FontStyle;
+import org.emftext.sdk.concretesyntax.TokenStyle;
 
 /**
  * Generates the resource class. The created <code>doLoad()</code> and 
@@ -45,6 +51,7 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private static final String RESOLVER_SWITCH_FIELD_NAME = "resolverSwitch";
 	
+	private ConcreteSyntax concreteSyntax;
 	private String csClassName;
 	private String resolverSwitchClassName;
 	private String printerClassName;
@@ -53,7 +60,8 @@ public class TextResourceGenerator extends BaseGenerator {
 	
 	public TextResourceGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getResourceClassName());
-		this.csSyntaxName = context.getConcreteSyntax().getName();
+		this.concreteSyntax = context.getConcreteSyntax();
+		this.csSyntaxName = concreteSyntax.getName();
 		this.csClassName = context.getCapitalizedConcreteSyntaxName();
 		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
 		this.printerClassName = context.getQualifiedPrinterName();
@@ -80,12 +88,35 @@ public class TextResourceGenerator extends BaseGenerator {
         generateGetScannerMethod(sc);
         generateGetReferenceResolverSwitchMethod(sc);
     	generateDoUnLoadMethod(sc);
+    	generateGetDefaultStyleMethod(sc);
 
     	sc.add("}");
     	
     	out.print(sc.toString());
     	return true;
     }
+
+	private void generateGetDefaultStyleMethod(StringComposite sc) {
+		// TODO mseifert: implement code generation here
+		List<TokenStyle> styles = concreteSyntax.getTokenStyles();
+		
+		sc.add("public " + ITokenStyle.class.getName() + " getDefaultTokenStyle(java.lang.String tokenName) {");
+		for (TokenStyle nextStyle : styles) {
+			String name = nextStyle.getTokenName();
+			sc.add("if (\"" + name + "\".equals(tokenName)) {");
+			String rgb = nextStyle.getRgb();
+			String color = "new int[] {0x" + rgb.substring(0, 2)+ ", 0x" + rgb.substring(2, 4) + ", 0x" + rgb.substring(4, 6) + "}";
+			String bold = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.BOLD));
+			String italic = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.ITALIC));
+			String strikethrough = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.STRIKETHROUGH));
+			String underline = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.UNDERLINE));
+			sc.add("return new " + BasicTokenStyle.class.getName() + "(" + color + ", " + bold + ", " + italic + ", " + strikethrough + ", " + underline + ");");
+			sc.add("}");
+		}
+		sc.add("return null;");
+		sc.add("}");
+        sc.addLineBreak();
+	}
 
 	private void generateGetSyntaxNameMethod(StringComposite sc) {
 		sc.add("@Override ");

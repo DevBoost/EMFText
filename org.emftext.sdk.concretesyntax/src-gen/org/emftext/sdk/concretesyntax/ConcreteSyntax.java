@@ -39,6 +39,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOptions <em>Options</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getTokenStyles <em>Token Styles</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getSyntheticTokens <em>Synthetic Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokens <em>All Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}</li>
@@ -228,6 +229,22 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	 * @generated
 	 */
 	EList<TokenDefinition> getTokens();
+
+	/**
+	 * Returns the value of the '<em><b>Token Styles</b></em>' containment reference list.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenStyle}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Token Styles</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Token Styles</em>' containment reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_TokenStyles()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<TokenStyle> getTokenStyles();
 
 	/**
 	 * Returns the value of the '<em><b>Synthetic Tokens</b></em>' containment reference list.
