@@ -84,16 +84,14 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	                        z++;
 	                    }
 	                    
-	                    setProperties(store, languageId, originalTokenName, color, false, true, false, false, false);
+	                    setProperties(store, languageId, tokenName, color, false, true, false, false, false);
 	                }
 	                else if (originalTokenName.matches(".[a-zA-Z][a-zA-Z0-9:]+.")) { 
-	                    //tokenName = tokenName.substring(1,tokenName.length()-1).trim();
 	                    //a keyword (most likely)
-	                    setProperties(store, languageId, originalTokenName, "127,0,85", true, true, false, false, false);
+	                    setProperties(store, languageId, tokenName, "127,0,85", true, true, false, false, false);
 	                }
 	                else {
-	                    //tokenName = tokenName.substring(1,tokenName.length()-1).trim();
-	                    setProperties(store, languageId, originalTokenName, "0,0,0", false, false, false, false, false);
+	                    setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
 	                }
 	            }
             }
