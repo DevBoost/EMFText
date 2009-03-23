@@ -26,10 +26,10 @@
         eType="#//Option" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
         eType="#//TokenDefinition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tokenStyles" upperBound="-1"
-        eType="#//TokenStyle" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="syntheticTokens" upperBound="-1"
         eType="#//TokenDefinition" transient="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tokenStyles" upperBound="-1"
+        eType="#//TokenStyle" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="allTokens" upperBound="-1"
         eType="#//TokenDefinition" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" lowerBound="1" upperBound="-1"
