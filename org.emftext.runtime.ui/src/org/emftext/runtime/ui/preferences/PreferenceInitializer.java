@@ -32,12 +32,15 @@ import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
+import org.emftext.runtime.ui.TokenHelper;
 
 /**
  * Class used to initialize default preference values.
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
+	private final static TokenHelper tokenHelper = new TokenHelper();
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -58,15 +61,17 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         		ITextResource tr = (ITextResource) tempResource;
         		
         		String languageId = extension;
-	            int z = 0;;
+	            int z = 0;
 	            
-	            // TODO mseifert: starting at index 6 is wrong
-	            for(int i=6; i<tr.getTokenNames().length; i++) {
-	                String originalTokenName = tr.getTokenNames()[i];
-	                String tokenName = originalTokenName;
-	                if (tokenName.startsWith("'") && tokenName.endsWith("'")) {
-	                	tokenName = tokenName.substring(1, tokenName.length()-1);
-	                }
+	            String[] tokenNames = tr.getTokenNames();
+	            
+				for (int i = 0; i < tokenNames.length; i++) {
+					if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
+						continue;
+					}
+					
+	                String originalTokenName = tokenNames[i];
+					String tokenName = tokenHelper.getTokenName(tokenNames, i);
 	        		ITokenStyle style = tr.getDefaultTokenStyle(tokenName);
 	        		
 	        		if (style != null) {
