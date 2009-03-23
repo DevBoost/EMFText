@@ -103,13 +103,13 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 			boolean bold,
 			boolean enable,
 			boolean italic,
-			boolean striketrough,
+			boolean strikethrough,
 			boolean underline) {
 		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_BOLD_SUFFIX, bold);
 		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_COLOR_SUFFIX, color);
 		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_ENABLE_SUFFIX, enable);
 		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_ITALIC_SUFFIX, italic);
-		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, striketrough);
+		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, strikethrough);
 		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX, underline);
 	}
 
