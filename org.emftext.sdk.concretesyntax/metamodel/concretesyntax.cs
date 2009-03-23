@@ -18,8 +18,11 @@ TOKENS {
 }
 
 TOKENSTYLES {
-	NUMBER COLOR #00D0FF;
-	HEXNUMBER COLOR #00D0FF;
+	"NUMBER" COLOR #00D0FF;
+	"HEXNUMBER" COLOR #00D0FF;
+	"DEFINE" COLOR #FF9000, BOLD;
+	"PREDEFINED" COLOR #FF9000, BOLD;
+	"COMMENTS" COLOR #008000;
 }
 
 RULES {
@@ -70,5 +73,5 @@ RULES {
   
   Abstract ::= "ABSTRACT";
   
-  TokenStyle ::= tokenName[] "COLOR" rgb[HEXNUMBER] ("," fontStyles[])* ";";
+  TokenStyle ::= tokenName['"','"'] "COLOR" rgb[HEXNUMBER] ("," fontStyles[])* ";";
 }
