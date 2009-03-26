@@ -115,9 +115,7 @@ public class GenClassFinder {
 	}
 	
 	public boolean contains(Collection<GenClass> genClasses, GenClass genClass) {
-		System.out.println("search "+ genClass.getQualifiedInterfaceName());
 		for (GenClass next : genClasses) {
-			System.out.println(next.getQualifiedInterfaceName());
 			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
 				return true;
 			}
