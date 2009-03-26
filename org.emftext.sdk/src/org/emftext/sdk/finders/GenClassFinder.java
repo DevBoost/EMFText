@@ -114,8 +114,10 @@ public class GenClassFinder {
 		return foundClasses;
 	}
 	
-	public boolean contains(Set<GenClass> genClasses, GenClass genClass) {
+	public boolean contains(Collection<GenClass> genClasses, GenClass genClass) {
+		System.out.println("search "+ genClass.getQualifiedInterfaceName());
 		for (GenClass next : genClasses) {
+			System.out.println(next.getQualifiedInterfaceName());
 			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
 				return true;
 			}
@@ -161,5 +163,19 @@ public class GenClassFinder {
 			genClassName2superNames.put(genClass.getQualifiedInterfaceName(), superClasses);
 		}
 	    return genClassName2superNames;
+	}
+
+	public ConcreteSyntax getContainingSyntax(ConcreteSyntax cs, GenClass genClass) {
+		if (contains(findAllGenClasses(cs, false, false), genClass)) {
+			return cs;
+		}
+		EList<Import> imports = cs.getImports();
+		for (Import imported : imports) {
+			ConcreteSyntax containingSyntax = getContainingSyntax(imported.getConcreteSyntax(), genClass);
+			if (containingSyntax != null) {
+				return containingSyntax;
+			}
+		}
+		return null;
 	}
 }

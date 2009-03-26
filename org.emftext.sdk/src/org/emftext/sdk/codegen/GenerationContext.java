@@ -127,7 +127,8 @@ public abstract class GenerationContext {
 				continue;
 			}
 			if (genClassFinder.contains(genClassFinder.findAllGenClasses(nextSyntax, true, true), genFeature.getGenClass())) {
-				return nextSyntax;
+				ConcreteSyntax cs = genClassFinder.getContainingSyntax(nextSyntax, genFeature.getGenClass());
+				return cs;
 			}
 		}
 		return concreteSyntax;
