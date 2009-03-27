@@ -114,7 +114,6 @@ public class TextResourceGenerator extends BaseGenerator {
 		}
 		sc.add("return null;");
 		sc.add("}");
-        sc.addLineBreak();
 	}
 
 	private void generateGetSyntaxNameMethod(StringComposite sc) {
@@ -130,6 +129,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("super.doUnload();");
     	sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
     	sc.add("}");
+    	sc.addLineBreak();
 	}
 
 	private void generateGetReferenceResolverSwitchMethod(StringComposite sc) {
