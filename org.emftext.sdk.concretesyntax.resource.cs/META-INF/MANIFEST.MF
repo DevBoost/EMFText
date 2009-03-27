@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Parser Plugin: cs
 Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.v200903061841
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.core.runtime,
   org.eclipse.emf.ecore,
@@ -16,16 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
   org.eclipse.emf.codegen.ecore
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.emftext.sdk.concretesyntax.resource.cs;uses:="org.emftext.concretesyntax,  
- org.eclipse.emf.ecore.resource,  
- org.eclipse.emf.ecore, 
- org.emftext.resource, 
- org.eclipse.emf.common.util, 
- org.antlr.runtime, 
- org.emftext.concretesyntax.resource.cs.analysis, 
- org.emftext.resource.impl",
-  org.emftext.sdk.concretesyntax.resource.cs.analysis;uses:="org.emftext.concretesyntax,
-  org.eclipse.emf.codegen.ecore.genmodel, 
-  org.eclipse.emf.ecore, 
-  org.emftext.resource, 
-  org.emftext.resource.impl"
+Export-Package: 
+ org.emftext.sdk.concretesyntax.resource.cs,
+ org.emftext.sdk.concretesyntax.resource.cs.analysis
