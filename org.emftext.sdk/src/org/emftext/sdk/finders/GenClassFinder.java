@@ -164,6 +164,7 @@ public class GenClassFinder {
 	}
 
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax cs, GenClass genClass) {
+		if (cs == null) return null;
 		if (contains(findAllGenClasses(cs, false, false), genClass)) {
 			return cs;
 		}

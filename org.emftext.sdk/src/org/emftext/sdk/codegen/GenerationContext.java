@@ -28,6 +28,7 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -298,9 +299,11 @@ public abstract class GenerationContext {
 		return nonContainmentReferences;
 	}
 
-	public boolean isImportedReference(GenFeature genFeature) {
-		Set<GenClass> classesExceptImports = genClassFinder.findAllGenClasses(concreteSyntax, false, false);
-		return ! genClassFinder.contains(classesExceptImports, genFeature.getGenClass());
+	public boolean isImportedWithSyntaxReference(GenFeature genFeature) {
+		//Set<GenClass> classesExceptImports = genClassFinder.findAllGenClasses(concreteSyntax, false, false);
+		ConcreteSyntax containingSyntax = genClassFinder.getContainingSyntax(concreteSyntax, genFeature.getGenClass());
+		if (containingSyntax == null) return false;
+		return true;
 	}
 
 	public boolean isImportedToken(TokenDefinition tokenDefinition) {

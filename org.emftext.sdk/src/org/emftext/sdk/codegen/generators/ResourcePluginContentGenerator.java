@@ -259,8 +259,9 @@ public class ResourcePluginContentGenerator {
 		for (GenFeature proxyReference : antlrGenerator.getNonContainmentReferences()){
 			String resolverClassName = context.getReferenceResolverClassName(proxyReference);
 			context.addNonContainmentReference(proxyReference);
-			// do not generate resolvers for references in imported rules
-			final boolean isImportedReference = context.isImportedReference(proxyReference);
+			// do not generate resolvers for references in imported rules with 
+			// a syntax defined elsewhere
+			final boolean isImportedReference = context.isImportedWithSyntaxReference(proxyReference);
 			if (isImportedReference) {
 				continue;
 			}
