@@ -23,12 +23,9 @@ package org.emftext.sdk.codegen;
 import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
