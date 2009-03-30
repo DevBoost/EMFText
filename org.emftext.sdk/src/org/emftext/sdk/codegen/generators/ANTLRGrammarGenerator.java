@@ -53,7 +53,6 @@ import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
-import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
@@ -69,6 +68,7 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -129,7 +129,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 	
 	private void initOptions() {
-		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.CS_OPTION_FORCE_EOF);
+		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.FORCE_EOF);
 	}
 	
 	private void initCaches(){
@@ -145,8 +145,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		
         String csName = getResourceClassName();
         String lexerName = getLexerName(csName);
-        boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.ANTLR_BACKTRACKING);
-        boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.ANTLR_MEMOIZE);
+        boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.ANTLR_BACKTRACKING);
+        boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.ANTLR_MEMOIZE);
                 
         StringComposite sc = new ANTLRGrammarComposite();
 
@@ -484,7 +484,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         	LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conrceteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-                boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, ICodeGenOptions.CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION);
+                boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {
                     	printRightRecursion(sc, rule, eClassesWithSyntax, eClassesReferenced);	

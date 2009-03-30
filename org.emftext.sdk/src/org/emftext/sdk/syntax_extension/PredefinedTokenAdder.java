@@ -5,10 +5,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PredefinedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
@@ -34,7 +34,7 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 	
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		boolean usePredefinedTokens = OptionManager.INSTANCE.getBooleanOptionValue(syntax, ICodeGenOptions.CS_OPTION_USE_PREDEFINED_TOKENS);
+		boolean usePredefinedTokens = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.USE_PREDEFINED_TOKENS);
 		if (!usePredefinedTokens) {
 			return;
 		}

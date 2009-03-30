@@ -125,20 +125,30 @@
         defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Option">
-    <eAnnotations source="OCL">
-      <details key="This generation option is not allowed." value="if(self.name='tokenspace' or &#xD;&#xA;&#x9;self.name = 'autofixSimpleLeftrecursion' or &#xD;&#xA;&#x9;self.name = 'forceEOF' or &#xD;&#xA;&#x9;self.name = 'defaultTokenName' or&#xD;&#xA;&#x9;self.name = 'generateTestAction' or&#xD;&#xA;&#x9;self.name = 'generateCodeFromGeneratorModel' or&#xD;&#xA;&#x9;self.name = 'generatePrinterStubOnly' or&#xD;&#xA;&#x9;self.name = 'reloadGeneratorModel' or&#xD;&#xA;&#xD;&#xA;&#x9;self.name = 'overridePluginXML' or&#xD;&#xA;&#x9;self.name = 'overrideManifest' or&#xD;&#xA;&#x9;self.name = 'overrideAntlrSpecification' or&#xD;&#xA;&#x9;self.name = 'overrideTokenResolvers' or&#xD;&#xA;&#x9;self.name = 'overrideReferenceResolvers' or&#xD;&#xA;&#x9;self.name = 'overrideReferenceResolverSwitch' or&#xD;&#xA;&#x9;self.name = 'overrideTokenResolverFactory' or&#xD;&#xA;&#x9;self.name = 'overridePrinter' or&#xD;&#xA;&#x9;self.name = 'overridePrinterBase' or&#xD;&#xA;&#x9;self.name = 'usePredefinedTokens' or&#xD;&#xA;&#x9;self.name = 'backtracking' or&#xD;&#xA;&#x9;self.name = 'memoize')&#xD;&#xA;&#x9;then true&#xD;&#xA;else&#xD;&#xA;&#x9;false&#xD;&#xA;endif"/>
-    </eAnnotations>
-    <eAnnotations source="OCL">
-      <details key="Only positive integers are allowed." value="if (self.name='tokenspace') &#xD;&#xA;&#x9;then if( self.value.toInteger()>=0)&#xD;&#xA;&#x9;&#x9;then true&#xD;&#xA;&#x9;&#x9;else false&#xD;&#xA;&#x9;endif&#x9;&#xD;&#xA;&#x9;else true&#xD;&#xA;endif"/>
-    </eAnnotations>
-    <eAnnotations source="OCL">
-      <details key="Please provide a String with at least two letters." value="if (self.name='defaultTokenName') &#xD;&#xA;&#x9;then if( self.value.size()&lt;2)&#xD;&#xA;&#x9;&#x9;then false&#xD;&#xA;&#x9;&#x9;else &#xD;&#xA;&#x9;&#x9;&#x9;true&#xD;&#xA;&#x9;&#x9;endif&#xD;&#xA;&#x9;else true&#xD;&#xA;endif"/>
-    </eAnnotations>
-    <eAnnotations source="OCL">
-      <details key="Only boolean values: 'true' or 'false' are supported" value="if(self.name = 'autofixSimpleLeftrecursion' or &#xD;&#xA;&#x9;self.name = 'forceEOF' or &#xD;&#xA;&#x9;self.name = 'generateTestAction' or&#xD;&#xA;&#x9;self.name = 'generateCodeFromGeneratorModel' or&#xD;&#xA;&#x9;self.name = 'generatePrinterStubOnly' or&#xD;&#xA;&#x9;self.name = 'reloadGeneratorModel' or&#xD;&#xA;&#x9;self.name = 'overridePluginXML' or&#xD;&#xA;&#x9;self.name = 'overrideManifest' or&#xD;&#xA;&#x9;self.name = 'overrideAntlrSpecification' or&#xD;&#xA;&#x9;self.name = 'overrideTokenResolvers' or&#xD;&#xA;&#x9;self.name = 'overrideReferenceResolvers' or&#xD;&#xA;&#x9;self.name = 'overrideReferenceResolverSwitch' or&#xD;&#xA;&#x9;self.name = 'overrideTokenResolverFactory' or&#xD;&#xA;&#x9;self.name = 'overridePrinter' or&#xD;&#xA;&#x9;self.name = 'overridePrinterBase' or&#xD;&#xA;&#x9;self.name = 'usePredefinedTokens' or&#xD;&#xA;&#x9;self.name = 'backtracking' or&#xD;&#xA;&#x9;self.name = 'memoize')&#xD;&#xA;&#x9;then (self.value = 'false' or self.value = 'true')&#xD;&#xA;else&#xD;&#xA;&#x9;true&#xD;&#xA;endif"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//OptionTypes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OptionTypes">
+    <eLiterals name="GENERATE_TEST_ACTION" literal="generateTestAction"/>
+    <eLiterals name="GENERATE_CODE_FROM_GENERATOR_MODEL" value="1" literal="generateCodeFromGeneratorModel"/>
+    <eLiterals name="GENERATE_PRINTER_STUB_ONLY" value="2" literal="generatePrinterStubOnly"/>
+    <eLiterals name="OVERRIDE_PLUGIN_XML" value="3" literal="overridePluginXML"/>
+    <eLiterals name="OVERRIDE_MANIFEST" value="4" literal="overrideManifest"/>
+    <eLiterals name="OVERRIDE_ANTLR_SPEC" value="5" literal="overrideAntlrSpecification"/>
+    <eLiterals name="OVERRIDE_TOKEN_RESOLVERS" value="6" literal="overrideTokenResolvers"/>
+    <eLiterals name="OVERRIDE_REFERENCE_RESOLVERS" value="7" literal="overrideReferenceResolvers"/>
+    <eLiterals name="OVERRIDE_REFERENCE_RESOLVER_SWITCH" value="8" literal="overrideReferenceResolverSwitch"/>
+    <eLiterals name="OVERRIDE_TOKEN_RESOLVER_FACTORY" value="9" literal="overrideTokenResolverFactory"/>
+    <eLiterals name="OVERRIDE_PRINTER" value="10" literal="overridePrinter"/>
+    <eLiterals name="OVERRIDE_PRINTER_BASE" value="11" literal="overridePrinterBase"/>
+    <eLiterals name="ANTLR_BACKTRACKING" value="12" literal="backtracking"/>
+    <eLiterals name="ANTLR_MEMOIZE" value="13" literal="memoize"/>
+    <eLiterals name="AUTOFIX_SIMPLE_LEFTRECURSION" value="14" literal="autofixSimpleLeftrecursion"/>
+    <eLiterals name="FORCE_EOF" value="15" literal="forceEOF"/>
+    <eLiterals name="DEFAULT_TOKEN_NAME" value="16" literal="defaultTokenName"/>
+    <eLiterals name="USE_PREDEFINED_TOKENS" value="17" literal="usePredefinedTokens"/>
+    <eLiterals name="TOKENSPACE" value="18" literal="tokenspace"/>
+    <eLiterals name="RELOAD_GENERATOR_MODEL" value="19" literal="reloadGeneratorModel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

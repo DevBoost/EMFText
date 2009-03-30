@@ -45,10 +45,10 @@ import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * The ResourcePluginGenerator generates the complete resource plug-in.
@@ -199,7 +199,7 @@ public abstract class ResourcePluginGenerator {
 		}
 		
 		// call EMF code generator if specified
-		if (OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.GENERATE_CODE_FROM_GENERATOR_MODEL)) {
+		if (OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL)) {
 			generateMetaModelCode(cSyntax.getPackage(), progress
 					.newChild(TICKS_GENERATE_METAMODEL_CODE));
 		} else {
@@ -223,7 +223,7 @@ public abstract class ResourcePluginGenerator {
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
 		final File project = context.getPluginProjectFolder();
 
-		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.OVERRIDE_MANIFEST);
+		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.OVERRIDE_MANIFEST);
 
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 		if (manifestMFFile.exists()) {
@@ -247,7 +247,7 @@ public abstract class ResourcePluginGenerator {
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
 		File project = context.getPluginProjectFolder();
 		
-		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, ICodeGenOptions.OVERRIDE_PLUGIN_XML);
+		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.OVERRIDE_PLUGIN_XML);
 		
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
 		if (pluginXMLFile.exists()) {

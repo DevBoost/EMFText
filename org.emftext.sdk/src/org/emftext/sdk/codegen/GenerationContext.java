@@ -34,6 +34,7 @@ import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
 
@@ -345,7 +346,7 @@ public abstract class GenerationContext {
 	}
 
 	public boolean isGenerateTestActionEnabled() {
-		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), ICodeGenOptions.GENERATE_TEST_ACTION);
+		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
 	public String getQualifiedParserClassName() {

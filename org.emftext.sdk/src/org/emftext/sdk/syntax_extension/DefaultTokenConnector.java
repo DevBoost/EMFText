@@ -5,9 +5,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
@@ -20,7 +20,7 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		String standardTokenName = OptionManager.INSTANCE.getStringOptionValue(syntax, ICodeGenOptions.CS_OPTION_STD_TOKEN_NAME);
+		String standardTokenName = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.DEFAULT_TOKEN_NAME);
 		if (standardTokenName == null) {
 			standardTokenName = EPredefinedTokens.STANDARD.getTokenName();
 		}

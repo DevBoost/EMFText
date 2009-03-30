@@ -45,6 +45,7 @@ import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
@@ -268,6 +269,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EClass tokenStyleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum optionTypesEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -967,7 +975,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOption_Name() {
+	public EAttribute getOption_Type() {
 		return (EAttribute)optionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1023,6 +1031,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EAttribute getTokenStyle_FontStyles() {
 		return (EAttribute)tokenStyleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getOptionTypes() {
+		return optionTypesEEnum;
 	}
 
 	/**
@@ -1156,7 +1173,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(placeholderInQuotesEClass, PLACEHOLDER_IN_QUOTES__SUFFIX);
 
 		optionEClass = createEClass(OPTION);
-		createEAttribute(optionEClass, OPTION__NAME);
+		createEAttribute(optionEClass, OPTION__TYPE);
 		createEAttribute(optionEClass, OPTION__VALUE);
 
 		abstractEClass = createEClass(ABSTRACT);
@@ -1167,6 +1184,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(tokenStyleEClass, TOKEN_STYLE__FONT_STYLES);
 
 		// Create enums
+		optionTypesEEnum = createEEnum(OPTION_TYPES);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 	}
 
@@ -1321,7 +1339,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEOperation(placeholderInQuotesEClass, theEcorePackage.getEString(), "getNormalizedSuffix", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOption_Name(), ecorePackage.getEString(), "name", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOption_Type(), this.getOptionTypes(), "type", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOption_Value(), ecorePackage.getEString(), "value", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractEClass, Abstract.class, "Abstract", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1332,6 +1350,28 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getTokenStyle_FontStyles(), this.getFontStyle(), "fontStyles", null, 0, -1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
+		initEEnum(optionTypesEEnum, OptionTypes.class, "OptionTypes");
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_TEST_ACTION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_PRINTER_STUB_ONLY);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PLUGIN_XML);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_MANIFEST);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ANTLR_SPEC);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_REFERENCE_RESOLVERS);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PRINTER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PRINTER_BASE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.ANTLR_BACKTRACKING);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.ANTLR_MEMOIZE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.FORCE_EOF);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.DEFAULT_TOKEN_NAME);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.USE_PREDEFINED_TOKENS);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.TOKENSPACE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.RELOAD_GENERATOR_MODEL);
+
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);
 		addEEnumLiteral(fontStyleEEnum, FontStyle.ITALIC);
@@ -1340,44 +1380,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 
 		// Create resource
 		createResource(eNS_URI);
-
-		// Create annotations
-		// OCL
-		createOCLAnnotations();
-	}
-
-	/**
-	 * Initializes the annotations for <b>OCL</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createOCLAnnotations() {
-		String source = "OCL";		
-		addAnnotation
-		  (optionEClass, 
-		   source, 
-		   new String[] {
-			 "This generation option is not allowed.", "if(self.name=\'tokenspace\' or \r\n\tself.name = \'autofixSimpleLeftrecursion\' or \r\n\tself.name = \'forceEOF\' or \r\n\tself.name = \'defaultTokenName\' or\r\n\tself.name = \'generateTestAction\' or\r\n\tself.name = \'generateCodeFromGeneratorModel\' or\r\n\tself.name = \'generatePrinterStubOnly\' or\r\n\tself.name = \'reloadGeneratorModel\' or\r\n\r\n\tself.name = \'overridePluginXML\' or\r\n\tself.name = \'overrideManifest\' or\r\n\tself.name = \'overrideAntlrSpecification\' or\r\n\tself.name = \'overrideTokenResolvers\' or\r\n\tself.name = \'overrideReferenceResolvers\' or\r\n\tself.name = \'overrideReferenceResolverSwitch\' or\r\n\tself.name = \'overrideTokenResolverFactory\' or\r\n\tself.name = \'overridePrinter\' or\r\n\tself.name = \'overridePrinterBase\' or\r\n\tself.name = \'usePredefinedTokens\' or\r\n\tself.name = \'backtracking\' or\r\n\tself.name = \'memoize\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif"
-		   });		
-		addAnnotation
-		  (optionEClass, 
-		   source, 
-		   new String[] {
-			 "Only positive integers are allowed.", "if (self.name=\'tokenspace\') \r\n\tthen if( self.value.toInteger()>=0)\r\n\t\tthen true\r\n\t\telse false\r\n\tendif\t\r\n\telse true\r\nendif"
-		   });		
-		addAnnotation
-		  (optionEClass, 
-		   source, 
-		   new String[] {
-			 "Please provide a String with at least two letters.", "if (self.name=\'defaultTokenName\') \r\n\tthen if( self.value.size()<2)\r\n\t\tthen false\r\n\t\telse \r\n\t\t\ttrue\r\n\t\tendif\r\n\telse true\r\nendif"
-		   });		
-		addAnnotation
-		  (optionEClass, 
-		   source, 
-		   new String[] {
-			 "Only boolean values: \'true\' or \'false\' are supported", "if(self.name = \'autofixSimpleLeftrecursion\' or \r\n\tself.name = \'forceEOF\' or \r\n\tself.name = \'generateTestAction\' or\r\n\tself.name = \'generateCodeFromGeneratorModel\' or\r\n\tself.name = \'generatePrinterStubOnly\' or\r\n\tself.name = \'reloadGeneratorModel\' or\r\n\tself.name = \'overridePluginXML\' or\r\n\tself.name = \'overrideManifest\' or\r\n\tself.name = \'overrideAntlrSpecification\' or\r\n\tself.name = \'overrideTokenResolvers\' or\r\n\tself.name = \'overrideReferenceResolvers\' or\r\n\tself.name = \'overrideReferenceResolverSwitch\' or\r\n\tself.name = \'overrideTokenResolverFactory\' or\r\n\tself.name = \'overridePrinter\' or\r\n\tself.name = \'overridePrinterBase\' or\r\n\tself.name = \'usePredefinedTokens\' or\r\n\tself.name = \'backtracking\' or\r\n\tself.name = \'memoize\')\r\n\tthen (self.value = \'false\' or self.value = \'true\')\r\nelse\r\n\ttrue\r\nendif"
-		   });
 	}
 
 } //ConcretesyntaxPackageImpl

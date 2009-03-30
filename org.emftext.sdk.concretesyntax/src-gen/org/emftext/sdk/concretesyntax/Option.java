@@ -30,44 +30,44 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.Option#getName <em>Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.Option#getType <em>Type</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.Option#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getOption()
- * @model annotation="OCL This\040generation\040option\040is\040not\040allowed.='if(self.name=\'tokenspace\' or \r\n\tself.name = \'autofixSimpleLeftrecursion\' or \r\n\tself.name = \'forceEOF\' or \r\n\tself.name = \'defaultTokenName\' or\r\n\tself.name = \'generateTestAction\' or\r\n\tself.name = \'generateCodeFromGeneratorModel\' or\r\n\tself.name = \'generatePrinterStubOnly\' or\r\n\tself.name = \'reloadGeneratorModel\' or\r\n\r\n\tself.name = \'overridePluginXML\' or\r\n\tself.name = \'overrideManifest\' or\r\n\tself.name = \'overrideAntlrSpecification\' or\r\n\tself.name = \'overrideTokenResolvers\' or\r\n\tself.name = \'overrideReferenceResolvers\' or\r\n\tself.name = \'overrideReferenceResolverSwitch\' or\r\n\tself.name = \'overrideTokenResolverFactory\' or\r\n\tself.name = \'overridePrinter\' or\r\n\tself.name = \'overridePrinterBase\' or\r\n\tself.name = \'usePredefinedTokens\' or\r\n\tself.name = \'backtracking\' or\r\n\tself.name = \'memoize\')\r\n\tthen true\r\nelse\r\n\tfalse\r\nendif'"
- *        annotation="OCL Only\040positive\040integers\040are\040allowed.='if (self.name=\'tokenspace\') \r\n\tthen if( self.value.toInteger()>=0)\r\n\t\tthen true\r\n\t\telse false\r\n\tendif\t\r\n\telse true\r\nendif'"
- *        annotation="OCL Please\040provide\040a\040String\040with\040at\040least\040two\040letters.='if (self.name=\'defaultTokenName\') \r\n\tthen if( self.value.size()<2)\r\n\t\tthen false\r\n\t\telse \r\n\t\t\ttrue\r\n\t\tendif\r\n\telse true\r\nendif'"
- *        annotation="OCL Only\040boolean\040values:\040\'true\'\040or\040\'false\'\040are\040supported='if(self.name = \'autofixSimpleLeftrecursion\' or \r\n\tself.name = \'forceEOF\' or \r\n\tself.name = \'generateTestAction\' or\r\n\tself.name = \'generateCodeFromGeneratorModel\' or\r\n\tself.name = \'generatePrinterStubOnly\' or\r\n\tself.name = \'reloadGeneratorModel\' or\r\n\tself.name = \'overridePluginXML\' or\r\n\tself.name = \'overrideManifest\' or\r\n\tself.name = \'overrideAntlrSpecification\' or\r\n\tself.name = \'overrideTokenResolvers\' or\r\n\tself.name = \'overrideReferenceResolvers\' or\r\n\tself.name = \'overrideReferenceResolverSwitch\' or\r\n\tself.name = \'overrideTokenResolverFactory\' or\r\n\tself.name = \'overridePrinter\' or\r\n\tself.name = \'overridePrinterBase\' or\r\n\tself.name = \'usePredefinedTokens\' or\r\n\tself.name = \'backtracking\' or\r\n\tself.name = \'memoize\')\r\n\tthen (self.value = \'false\' or self.value = \'true\')\r\nelse\r\n\ttrue\r\nendif'"
+ * @model
  * @generated
  */
 public interface Option extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.emftext.sdk.concretesyntax.OptionTypes}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getOption_Name()
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see org.emftext.sdk.concretesyntax.OptionTypes
+	 * @see #setType(OptionTypes)
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getOption_Type()
 	 * @model required="true"
 	 * @generated
 	 */
-	String getName();
+	OptionTypes getType();
 
 	/**
-	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Option#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.Option#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see org.emftext.sdk.concretesyntax.OptionTypes
+	 * @see #getType()
 	 * @generated
 	 */
-	void setName(String value);
+	void setType(OptionTypes value);
 
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.

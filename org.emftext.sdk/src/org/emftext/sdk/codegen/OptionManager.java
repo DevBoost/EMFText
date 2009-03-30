@@ -20,12 +20,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
-import static org.emftext.sdk.codegen.ICodeGenOptions.*;
-
 import java.util.List;
 
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * A manager for code generation options. The manager can be queried
@@ -41,12 +40,12 @@ public class OptionManager {
 	}
 
 	public String getStringOptionValue(ConcreteSyntax concreteSyntax,
-			String optionName) {
+			OptionTypes type) {
 		List<Option> options = concreteSyntax.getOptions();
 		if (options == null) {
 			return null;
 		}
-		Option option = findOptionByName(options, optionName);
+		Option option = findOptionByType(options, type);
 		if (option == null) {
 			return null;
 		}
@@ -54,92 +53,92 @@ public class OptionManager {
 	}
 	
 	public boolean getBooleanOptionValue(ConcreteSyntax concreteSyntax,
-			String optionName) {
+			OptionTypes type) {
 		List<Option> options = concreteSyntax.getOptions();
 		if (options == null) {
-			return getBooleanOptionsDefaultValue(optionName);
+			return getBooleanOptionsDefaultValue(type);
 		}
-		Option option = findOptionByName(options, optionName);
+		Option option = findOptionByType(options, type);
 		if (option == null) {
-			return getBooleanOptionsDefaultValue(optionName);
+			return getBooleanOptionsDefaultValue(type);
 		}
 		String value = option.getValue();
 		if (value == null) {
-			return getBooleanOptionsDefaultValue(optionName);
+			return getBooleanOptionsDefaultValue(type);
 		}
 		if ("true".equals(value)) {
 			return true;
 		} else if ("false".equals(value)) {
 			return false;
 		} else {
-			return getBooleanOptionsDefaultValue(optionName);
+			return getBooleanOptionsDefaultValue(type);
 		}
 	}
 
-	private boolean getBooleanOptionsDefaultValue(String optionName) {
+	private boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
 		// documented in ICodeGenOptions!
-		if (optionName.equals(GENERATE_TEST_ACTION)) {
+		if (option == OptionTypes.GENERATE_TEST_ACTION) {
 			return false;
 		}
-		if (optionName.equals(GENERATE_PRINTER_STUB_ONLY)) {
+		if (option == OptionTypes.GENERATE_PRINTER_STUB_ONLY) {
 			return false;
 		}
-		if (optionName.equals(OVERRIDE_REFERENCE_RESOLVERS)) {
+		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVERS) {
 			return false;
 		}
-		if (optionName.equals(OVERRIDE_TOKEN_RESOLVERS)) {
+		if (option == OptionTypes.OVERRIDE_TOKEN_RESOLVERS) {
 			return false;
 		}
-		if (optionName.equals(OVERRIDE_PLUGIN_XML)) {
+		if (option == OptionTypes.OVERRIDE_PLUGIN_XML) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_MANIFEST)) {
+		if (option == OptionTypes.OVERRIDE_MANIFEST) {
 			return true;
 		}
-		if (optionName.equals(GENERATE_CODE_FROM_GENERATOR_MODEL)) {
+		if (option == OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL) {
 			return false;
 		}
-		if (optionName.equals(OVERRIDE_ANTLR_SPEC)) {
+		if (option == OptionTypes.OVERRIDE_ANTLR_SPEC) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_REFERENCE_RESOLVER_SWITCH)) {
+		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_TOKEN_RESOLVER_FACTORY)) {
+		if (option == OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_PRINTER)) {
+		if (option == OptionTypes.OVERRIDE_PRINTER) {
 			return true;
 		}
-		if (optionName.equals(OVERRIDE_PRINTER_BASE)) {
+		if (option == OptionTypes.OVERRIDE_PRINTER_BASE) {
 			return true;
 		}
-		if (optionName.equals(CS_OPTION_FORCE_EOF)) {
+		if (option == OptionTypes.FORCE_EOF) {
 			return true;
 		}
-		if (optionName.equals(CS_OPTION_USE_PREDEFINED_TOKENS)) {
+		if (option == OptionTypes.USE_PREDEFINED_TOKENS) {
 			return true;
 		}
-		if (optionName.equals(ANTLR_BACKTRACKING)) {
+		if (option == OptionTypes.ANTLR_BACKTRACKING) {
 			return true;
 		}
-		if (optionName.equals(ANTLR_MEMOIZE)) {
+		if (option == OptionTypes.ANTLR_MEMOIZE) {
 			return true;
 		}
-		if (optionName.equals(CS_OPTION_AUTOFIX_SIMPLE_LEFTRECURSION)) {
+		if (option == OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION) {
 			return false;
 		}
-		if (optionName.equals(RELOAD_GENERATOR_MODEL)) {
+		if (option == OptionTypes.RELOAD_GENERATOR_MODEL) {
 			return false;
 		}
 		return false;
 	}
 
 	public int getIntegerOptionValue(ConcreteSyntax syntax,
-			String optionName, boolean expectPositiveValue, IProblemCollector problemCollector) {
+			OptionTypes type, boolean expectPositiveValue, IProblemCollector problemCollector) {
 		
-		Option option = findOptionByName(syntax.getOptions(), optionName);
+		Option option = findOptionByType(syntax.getOptions(), type);
 		if (option == null) {
 			return -1;
 		}
@@ -157,10 +156,10 @@ public class OptionManager {
 		return -1;
 	}
 
-	private Option findOptionByName(List<Option> options,
-			String optionName) {
+	private Option findOptionByType(List<Option> options,
+			OptionTypes type) {
 		for (Option option : options) {
-			if (optionName.equals(option.getName())) {
+			if (type == option.getType()) {
 				return option;
 			}
 		}

@@ -131,6 +131,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case ConcretesyntaxPackage.OPTION_TYPES:
+				return createOptionTypesFromString(eDataType, initialValue);
 			case ConcretesyntaxPackage.FONT_STYLE:
 				return createFontStyleFromString(eDataType, initialValue);
 			default:
@@ -146,6 +148,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case ConcretesyntaxPackage.OPTION_TYPES:
+				return convertOptionTypesToString(eDataType, instanceValue);
 			case ConcretesyntaxPackage.FONT_STYLE:
 				return convertFontStyleToString(eDataType, instanceValue);
 			default:
@@ -371,6 +375,26 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public TokenStyle createTokenStyle() {
 		TokenStyleImpl tokenStyle = new TokenStyleImpl();
 		return tokenStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OptionTypes createOptionTypesFromString(EDataType eDataType, String initialValue) {
+		OptionTypes result = OptionTypes.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertOptionTypesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

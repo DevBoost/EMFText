@@ -1281,13 +1281,13 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int OPTION = 26;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPTION__NAME = 0;
+	int OPTION__TYPE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1375,6 +1375,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int TOKEN_STYLE_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.OptionTypes
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
+	 * @generated
+	 */
+	int OPTION_TYPES = 29;
+
+	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1382,7 +1392,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 29;
+	int FONT_STYLE = 30;
 
 
 	/**
@@ -2107,15 +2117,15 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EClass getOption();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.Option#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.Option#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.emftext.sdk.concretesyntax.Option#getName()
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.emftext.sdk.concretesyntax.Option#getType()
 	 * @see #getOption()
 	 * @generated
 	 */
-	EAttribute getOption_Name();
+	EAttribute getOption_Type();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.Option#getValue <em>Value</em>}'.
@@ -2180,6 +2190,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTokenStyle_FontStyles();
+
+	/**
+	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Option Types</em>'.
+	 * @see org.emftext.sdk.concretesyntax.OptionTypes
+	 * @generated
+	 */
+	EEnum getOptionTypes();
 
 	/**
 	 * Returns the meta object for enum '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}'.
@@ -2812,12 +2832,12 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EClass OPTION = eINSTANCE.getOption();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute OPTION__NAME = eINSTANCE.getOption_Name();
+		EAttribute OPTION__TYPE = eINSTANCE.getOption_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
@@ -2870,6 +2890,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TOKEN_STYLE__FONT_STYLES = eINSTANCE.getTokenStyle_FontStyles();
+
+		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.OptionTypes <em>Option Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.OptionTypes
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
+		 * @generated
+		 */
+		EEnum OPTION_TYPES = eINSTANCE.getOptionTypes();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.

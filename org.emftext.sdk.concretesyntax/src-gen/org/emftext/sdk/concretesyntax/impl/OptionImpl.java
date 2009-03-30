@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 
 /**
@@ -35,7 +36,7 @@ import org.emftext.sdk.concretesyntax.Option;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.OptionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.OptionImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.OptionImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -44,24 +45,24 @@ import org.emftext.sdk.concretesyntax.Option;
  */
 public class OptionImpl extends EObjectImpl implements Option {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final OptionTypes TYPE_EDEFAULT = OptionTypes.GENERATE_TEST_ACTION;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getType()
 	 * @generated
 	 * @ordered
 	 */
-	protected String name = NAME_EDEFAULT;
+	protected OptionTypes type = TYPE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -107,8 +108,8 @@ public class OptionImpl extends EObjectImpl implements Option {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getName() {
-		return name;
+	public OptionTypes getType() {
+		return type;
 	}
 
 	/**
@@ -116,11 +117,11 @@ public class OptionImpl extends EObjectImpl implements Option {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
+	public void setType(OptionTypes newType) {
+		OptionTypes oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.OPTION__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.OPTION__TYPE, oldType, type));
 	}
 
 	/**
@@ -152,8 +153,8 @@ public class OptionImpl extends EObjectImpl implements Option {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.OPTION__NAME:
-				return getName();
+			case ConcretesyntaxPackage.OPTION__TYPE:
+				return getType();
 			case ConcretesyntaxPackage.OPTION__VALUE:
 				return getValue();
 		}
@@ -168,8 +169,8 @@ public class OptionImpl extends EObjectImpl implements Option {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.OPTION__NAME:
-				setName((String)newValue);
+			case ConcretesyntaxPackage.OPTION__TYPE:
+				setType((OptionTypes)newValue);
 				return;
 			case ConcretesyntaxPackage.OPTION__VALUE:
 				setValue((String)newValue);
@@ -186,8 +187,8 @@ public class OptionImpl extends EObjectImpl implements Option {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.OPTION__NAME:
-				setName(NAME_EDEFAULT);
+			case ConcretesyntaxPackage.OPTION__TYPE:
+				setType(TYPE_EDEFAULT);
 				return;
 			case ConcretesyntaxPackage.OPTION__VALUE:
 				setValue(VALUE_EDEFAULT);
@@ -204,8 +205,8 @@ public class OptionImpl extends EObjectImpl implements Option {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ConcretesyntaxPackage.OPTION__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ConcretesyntaxPackage.OPTION__TYPE:
+				return type != TYPE_EDEFAULT;
 			case ConcretesyntaxPackage.OPTION__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
@@ -222,8 +223,8 @@ public class OptionImpl extends EObjectImpl implements Option {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
+		result.append(" (type: ");
+		result.append(type);
 		result.append(", value: ");
 		result.append(value);
 		result.append(')');

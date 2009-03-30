@@ -20,14 +20,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.ICodeGenOptions.GENERATE_PRINTER_STUB_ONLY;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_ANTLR_SPEC;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_PRINTER_BASE;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVERS;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_REFERENCE_RESOLVER_SWITCH;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVERS;
-import static org.emftext.sdk.codegen.ICodeGenOptions.OVERRIDE_TOKEN_RESOLVER_FACTORY;
 import static org.emftext.sdk.codegen.util.GeneratorUtil.setContents;
 
 import java.io.BufferedOutputStream;
@@ -58,6 +50,7 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
@@ -189,7 +182,7 @@ public class ResourcePluginContentGenerator {
 			String tokenResolverFactoryName)
 			throws IOException {
 		progress.setTaskName("generating token resolver factory...");
-		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVER_FACTORY);
+		boolean generateTokenResolverFactory = !tokenResolverFactoryFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY);
 		if (generateTokenResolverFactory) {
 			BaseGenerator factoryGen = new TokenResolverFactoryGenerator(context);
 			setContents(tokenResolverFactoryFile, invokeGeneration(factoryGen, context.getProblemCollector()));
@@ -214,7 +207,7 @@ public class ResourcePluginContentGenerator {
 				continue;
 			}
 			File resolverFile = new File(targetFolder.getAbsolutePath() + File.separator + resolverPackagePath + File.separator + tokenResolverClassName + JAVA_FILE_EXTENSION);
-			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_TOKEN_RESOLVERS);
+			boolean generateResolver = !resolverFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.OVERRIDE_TOKEN_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator resolverGenerator = new TokenResolverGenerator(context, tokenResolverClassName, tokenDefinition);
 				setContents(resolverFile, invokeGeneration(resolverGenerator, context.getProblemCollector()));
@@ -229,7 +222,7 @@ public class ResourcePluginContentGenerator {
 			File resolverSwitchFile, String referenceResolverName) throws IOException {
 		progress.setTaskName("generating reference resolver switch...");
 
-		boolean generateReferenceResolverSwitch = !resolverSwitchFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVER_SWITCH);
+		boolean generateReferenceResolverSwitch = !resolverSwitchFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH);
 		if (generateReferenceResolverSwitch) {
 			BaseGenerator analyserGen = new ReferenceResolverSwitchGenerator(context);
 			setContents(resolverSwitchFile,invokeGeneration(analyserGen, context.getProblemCollector()));
@@ -269,7 +262,7 @@ public class ResourcePluginContentGenerator {
 			File resolverFile = new File(targetFolder + File.separator + resolverPackagePath + File.separator + resolverFileName);
 			boolean generateResolver = 
 				!resolverFile.exists() || 
-				OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_REFERENCE_RESOLVERS);
+				OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.OVERRIDE_REFERENCE_RESOLVERS);
 			if (generateResolver) {
 				BaseGenerator proxyGen = new ReferenceResolverGenerator(context, proxyReference);
 				setContents(resolverFile, invokeGeneration(proxyGen, context.getProblemCollector()));		
@@ -288,9 +281,9 @@ public class ResourcePluginContentGenerator {
 			throws IOException {
 		
 		progress.setTaskName("generating printer...");
-		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), GENERATE_PRINTER_STUB_ONLY);
-		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_PRINTER);
-		boolean overridePrinterBase = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_PRINTER_BASE);
+		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.GENERATE_PRINTER_STUB_ONLY);
+		boolean overridePrinter = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.OVERRIDE_PRINTER);
+		boolean overridePrinterBase = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.OVERRIDE_PRINTER_BASE);
 
 		boolean printerExists = printerFile.exists();
 		boolean printerBaseExists = printerBaseFile.exists();
@@ -340,7 +333,7 @@ public class ResourcePluginContentGenerator {
 	}
 	
 	private void saveGrammar(InputStream content, GenerationContext context, File grammarFile) throws IOException {
-		boolean generateANTLRSpecification = !grammarFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OVERRIDE_ANTLR_SPEC);
+		boolean generateANTLRSpecification = !grammarFile.exists() || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.OVERRIDE_ANTLR_SPEC);
 	    if (generateANTLRSpecification) {
 	    	setContents(grammarFile, content);
 	    }

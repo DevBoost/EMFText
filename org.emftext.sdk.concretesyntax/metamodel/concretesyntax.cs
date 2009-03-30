@@ -43,7 +43,7 @@ RULES {
  
   //Note: There are additional OCL expressions in the model which check whether an option is allowed
   
-  Option 		 ::= name[] "=" value['"','"'];
+  Option 		 ::= type[] "=" value['"','"'];
  
   Rule           ::= !0 metaclass[] "::=" definition ";" !0;
  

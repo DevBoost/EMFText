@@ -6,7 +6,7 @@ OPTIONS {
 	tokenspace = "1";
 	autofixSimpleLeftrecursion = "false";
 	forceEOF = "true"; 
-	standardTextTokenName = "TEXT";
+	defaultTokenName = "TEXT";
 	usePredefinedTokens = "false";
 }
 

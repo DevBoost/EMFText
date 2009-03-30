@@ -43,10 +43,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.sdk.MetamodelManager;
-import org.emftext.sdk.codegen.ICodeGenOptions;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * An abstract super class for all finders that search for generator 
@@ -74,7 +74,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 			
 			if (Platform.isRunning()) {
 				// reload generator model if option is enabled
-				boolean reloadEnabled = OptionManager.INSTANCE.getBooleanOptionValue(syntax, ICodeGenOptions.RELOAD_GENERATOR_MODEL);
+				boolean reloadEnabled = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.RELOAD_GENERATOR_MODEL);
 				if (reloadEnabled) {
 					genModel = reloadGeneratorModel(genModel, rs);
 				}
