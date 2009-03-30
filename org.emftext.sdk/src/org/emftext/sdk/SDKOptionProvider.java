@@ -37,6 +37,7 @@ import org.emftext.sdk.syntax_analysis.LeftRecursionAnalyser;
 import org.emftext.sdk.syntax_analysis.MissingRulesAnalyser;
 import org.emftext.sdk.syntax_analysis.ModifierAnalyser;
 import org.emftext.sdk.syntax_analysis.OptionalKeywordAnalyser;
+import org.emftext.sdk.syntax_analysis.OptionsAnalyser;
 import org.emftext.sdk.syntax_analysis.ReferencesToAbstractClassesAnalyser;
 import org.emftext.sdk.syntax_analysis.RegularExpressionAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenNameAnalyser;
@@ -80,6 +81,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		postProcessors.add(new DuplicateTokenNameAnalyser());
 		postProcessors.add(new ReferencesToAbstractClassesAnalyser());
 		postProcessors.add(new UnusedTokenAnalyser());
+		postProcessors.add(new OptionsAnalyser());
 		
 		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
