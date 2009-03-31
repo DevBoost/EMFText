@@ -17,10 +17,12 @@ Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
 Export-Package: org.emftext.sdk,
  org.emftext.sdk.codegen,
  org.emftext.sdk.codegen.composites,
+ org.emftext.sdk.codegen.creators,
  org.emftext.sdk.codegen.generators,
  org.emftext.sdk.codegen.regex,
  org.emftext.sdk.codegen.util,
  org.emftext.sdk.finders,
- org.emftext.sdk.syntax_analysis
+ org.emftext.sdk.syntax_analysis,
+ org.emftext.sdk.syntax_extension
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 

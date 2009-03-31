@@ -23,7 +23,10 @@ package org.emftext.sdk.codegen;
 import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
@@ -46,9 +49,11 @@ import org.emftext.sdk.finders.GenClassFinder;
  * the context collects information about the generation process as it
  * is executed.
  * 
- * @see org.emftext.sdk.codegen.generators.ResourcePluginContentGenerator
+ * @see org.emftext.sdk.codegen.creators.ResourcePluginContentCreator
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
+ * 
+ * TODO this class is a total mess. we must figure out what really belongs in here.
  */
 public abstract class GenerationContext {
 	
@@ -63,6 +68,9 @@ public abstract class GenerationContext {
 	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
 	private static final String CLASS_SUFFIX_NEW_FILE_WIZARD = "NewFileWizard";
 	
+	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
+	private static final String JAVA_FILE_EXTENSION = ".java";
+
 	private static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
 	private static final String DEFAULT_ICON_DIR = "icons";
 	
@@ -77,9 +85,8 @@ public abstract class GenerationContext {
 	 * may already exist. This list must not contain resolver classes that are
 	 * contained in imported syntaxes and that are reused.
 	 */
-	private Collection<String> resolverClasses = new LinkedHashSet<String>();
+	private Set<String> resolverFileNames = new LinkedHashSet<String>();
 	private Collection<GenFeature> nonContainmentReferences = new LinkedHashSet<GenFeature>();
-	//private Collection<TokenDefinition> usedTokens = new ArrayList<TokenDefinition>();
 	
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
 		if (concreteSyntax == null) {
@@ -169,8 +176,8 @@ public abstract class GenerationContext {
 	 * 
 	 * @return the collection of already generated resolver classes
 	 */
-	public Collection<String> getResolverClasses() {
-		return resolverClasses;
+	public Set<String> getResolverFileNames() {
+		return resolverFileNames;
 	}
 
 	public String getPluginName() {
@@ -285,12 +292,12 @@ public abstract class GenerationContext {
 		nonContainmentReferences.add(proxyReference);
 	}
 
-	public void addReferenceResolverClass(String name) {
-		resolverClasses.add(name);
+	public void addReferenceResolverClass(GenFeature proxyReference) {
+		resolverFileNames.add(getReferenceResolverClassName(proxyReference) + JAVA_FILE_EXTENSION);
 	}
 
-	public void addTokenResolverClass(String name) {
-		resolverClasses.add(name);
+	public void addTokenResolverClass(TokenDefinition tokenDefinition) {
+		resolverFileNames.add(getTokenResolverClassName(tokenDefinition) + JAVA_FILE_EXTENSION);
 	}
 
 	public Collection<GenFeature> getNonContainmentReferences() {
@@ -355,5 +362,65 @@ public abstract class GenerationContext {
 
 	public String getQualifiedPrinterName() {
 		return getPackageName() + "." + getPrinterName();
+	}
+
+	public String getPackagePath() {
+		File targetFolder = getSourceFolder();
+		IPath csPackagePath = new Path(getPackageName().replaceAll("\\.","/"));
+		String targetFolderPath = targetFolder.getAbsolutePath();
+		String packagePath = targetFolderPath + File.separator + csPackagePath + File.separator;
+		return packagePath;
+	}
+
+	public File getPrinterFile() {
+		return new File(getPackagePath() + getPrinterName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getPrinterBaseFile() {
+		return new File(getPackagePath() + getPrinterBaseClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getTextResourceFile() {
+		return new File(getPackagePath() + getResourceClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getTokenResolverFactoryFile() {
+		return new File(getPackagePath() + getTokenResolverFactoryClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getNewFileWizardFile() {
+		return new File(getPackagePath() + getNewFileActionClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getReferenceResolverSwitchFile() {
+		return new File(getPackagePath() + getReferenceResolverSwitchClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getResourceFactoryFile() {
+		return new File(getPackagePath() + getResourceFactoryClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getResolverFile(GenFeature proxyReference) {
+		File resolverFile = new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + getReferenceResolverClassName(proxyReference) + JAVA_FILE_EXTENSION);
+		return resolverFile;
+	}
+
+	public File getTokenResolverFile(TokenDefinition tokenDefinition) {
+		return new File(getSourceFolder().getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + getTokenResolverClassName(tokenDefinition) + JAVA_FILE_EXTENSION);
+	}
+
+	private IPath getResolverPackagePath() {
+		return new Path(getResolverPackageName().replaceAll("\\.","/"));
+	}
+
+	public File getResolverPackageFile() {
+		return new File(getSourceFolder().getAbsolutePath() + File.separator + getResolverPackagePath());
+	}
+
+	public File getANTLRGrammarFile() {
+		String antlrName = getCapitalizedConcreteSyntaxName();
+		String packagePath = getPackagePath();
+  		File antlrFile = new File(packagePath + antlrName + ANTRL_GRAMMAR_FILE_EXTENSION);
+		return antlrFile;
 	}
 }

@@ -20,15 +20,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.util.GeneratorUtil.setContents;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
@@ -46,6 +41,7 @@ import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.creators.ResourcePluginContentCreator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -128,7 +124,7 @@ public abstract class ResourcePluginGenerator {
 		createProject(context, progress);
 
 		// generate the resource class, parser, and printer
-		ResourcePluginContentGenerator pluginGenerator = new ResourcePluginContentGenerator();
+		ResourcePluginContentCreator pluginGenerator = new ResourcePluginContentCreator();
 		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE));
 
 		// errors from parser generator?
@@ -136,9 +132,8 @@ public abstract class ResourcePluginGenerator {
 			marker.mark(csResource);
 		}
 
+		// TODO mseifert: these two things should be done in ResourcePluginContentCreator
 		createMetaFolder(context, progress);
-		createManifest(context, progress);
-		createPluginXML(context, progress);
 		copyIcon(context, progress);
 
 		markErrors(marker, context.getConcreteSyntax());
@@ -215,68 +210,6 @@ public abstract class ResourcePluginGenerator {
 			metaFolder.mkdir();
 		}
 		progress.internalWorked(TICKS_CREATE_META_FOLDER);
-	}
-
-	private void createManifest(GenerationContext context,
-			SubMonitor progress) throws IOException {
-		
-		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
-		final File project = context.getPluginProjectFolder();
-
-		boolean overrideManifest = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.OVERRIDE_MANIFEST);
-
-		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
-		if (manifestMFFile.exists()) {
-			if (overrideManifest) {
-				InputStream stream = generateManifest(context);
-				setContents(manifestMFFile, stream);
-				progress.newChild(TICKS_CREATE_MANIFEST);
-			} else {
-				progress.internalWorked(TICKS_CREATE_MANIFEST);
-			}
-		} else {
-			InputStream stream = generateManifest(context);
-			setContents(manifestMFFile, stream);
-			progress.newChild(TICKS_CREATE_MANIFEST);
-		}
-	}
-
-	private void createPluginXML(GenerationContext context, SubMonitor progress)
-			throws IOException {
-		
-		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
-		File project = context.getPluginProjectFolder();
-		
-		boolean overridePluginXML = OptionManager.INSTANCE.getBooleanOptionValue(cSyntax, OptionTypes.OVERRIDE_PLUGIN_XML);
-		
-		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
-		if (pluginXMLFile.exists()) {
-			if (overridePluginXML) {
-				ByteArrayOutputStream outputStream = generatePluginXML(context);
-				setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
-				progress.newChild(TICKS_CREATE_PLUGIN_XML);
-			} else {
-				progress.internalWorked(TICKS_CREATE_PLUGIN_XML);
-			}
-		} else {
-			ByteArrayOutputStream outputStream = generatePluginXML(context);
-			setContents(pluginXMLFile, new ByteArrayInputStream(outputStream.toByteArray()));
-			progress.newChild(TICKS_CREATE_PLUGIN_XML);
-		}
-	}
-
-	private InputStream generateManifest(GenerationContext context) {
-		ManifestGenerator mGenerator = new ManifestGenerator(context);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		mGenerator.generate(new PrintWriter(outputStream));
-		return new ByteArrayInputStream(outputStream.toByteArray());
-	}
-
-	private ByteArrayOutputStream generatePluginXML(GenerationContext context) {
-		PluginXMLGenerator pluginXMLGenerator = new PluginXMLGenerator(context);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		pluginXMLGenerator.generate(new PrintWriter(outputStream));
-		return outputStream;
 	}
 
 	private void markErrors(IResourceMarker marker, final ConcreteSyntax cSyntax) throws CoreException {

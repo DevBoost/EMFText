@@ -149,6 +149,11 @@
     <eLiterals name="USE_PREDEFINED_TOKENS" value="17" literal="usePredefinedTokens"/>
     <eLiterals name="TOKENSPACE" value="18" literal="tokenspace"/>
     <eLiterals name="RELOAD_GENERATOR_MODEL" value="19" literal="reloadGeneratorModel"/>
+    <eLiterals name="OVERRIDE_DOT_CLASSPATH" value="20" literal="overrideClasspath"/>
+    <eLiterals name="OVERRIDE_DOT_PROJECT" value="21" literal="overrideProjectFile"/>
+    <eLiterals name="OVERRIDE_TEXT_RESOURCE" value="22" literal="overrideTextResource"/>
+    <eLiterals name="OVERRIDE_RESOURCE_FACTORY" value="23" literal="overrideResourceFactory"/>
+    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD" value="23" literal="overrideNewFileWizard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

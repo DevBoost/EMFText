@@ -24,8 +24,10 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 /**
- * Basic generator interfaces which should be implemented by all generators 
- * in org.emftext.sdk.codegen.* .
+ * A basic generator interface which should be implemented by all generators 
+ * in org.emftext.sdk.codegen.generators. Generators can create content for
+ * arbitrary artifacts (e.g., Java classes). They do not care about whether 
+ * this content is eventually put into a file or somewhere else.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */

@@ -20,10 +20,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,16 +40,6 @@ import org.emftext.sdk.concretesyntax.STAR;
  * A utility class used by all generators.
  */
 public class GeneratorUtil {
-
-	public static void setContents(File target, InputStream in) throws IOException {
-		target.getParentFile().mkdirs();
-		FileOutputStream fos = new FileOutputStream(target);
-		int next = -1;
-		while ((next = in.read()) >= 0) {
-			fos.write(next);
-		}
-		fos.close();
-	}
 
 	public static boolean hasMinimalCardinalityOneOrHigher(Definition definition) {
 		if (definition instanceof CardinalityDefinition) {

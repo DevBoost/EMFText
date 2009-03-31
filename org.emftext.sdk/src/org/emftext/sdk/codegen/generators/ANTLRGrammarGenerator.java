@@ -106,7 +106,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 * A map to collect all (non-containment) references that will contain proxy 
 	 * objects after parsing.
 	 */
-	private Collection<GenFeature> nonContainmentReferences;
+	//private Collection<GenFeature> nonContainmentReferences;
 	
 	/**
 	 * A map that projects the fully qualified name of generator classes to 
@@ -133,8 +133,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 	
 	private void initCaches(){
-		nonContainmentReferences = new LinkedList<GenFeature>();
-		
 	    allGenClasses = genClassFinder.findAllGenClasses(conrceteSyntax, true, true);
 	    genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 	}
@@ -401,7 +399,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        
 	        ruleCopy.setDefinition(choice);
 	        
-	        printChoice(ruleCopy.getDefinition(),ruleCopy,sc,0,classesReferenced,nonContainmentReferences);
+	        printChoice(ruleCopy.getDefinition(), ruleCopy, sc, 0, classesReferenced);
 	        
 	        sc.add(" ( dummyEObject = "+ getLowerCase(ruleName) +  "_tail { dummyEObjects.add(dummyEObject);} )*");
 	        sc.add("{");
@@ -458,7 +456,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        sc.add("}");
 	        sc.add(":");
 	        
-	        printChoice(tailCopy.getDefinition(),tailCopy,sc,0,classesReferenced,nonContainmentReferences);
+	        printChoice(tailCopy.getDefinition(), tailCopy, sc, 0, classesReferenced);
 	        
 	        sc.add(";");
 	        sc.addLineBreak();
@@ -541,7 +539,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("}");
         sc.add(":");
         
-        printChoice(rule.getDefinition(),rule,sc,0,eClassesReferenced,nonContainmentReferences);
+        printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced);
         
         Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(genClass, conrceteSyntax);
         if(!subClasses.isEmpty()){
@@ -557,11 +555,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         eClassesWithSyntax.add(genClass);
 	}
 
-	private int printChoice(Choice choice, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences) {
+	private int printChoice(Choice choice, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced) {
     	Iterator<Sequence> it = choice.getOptions().iterator();
     	while(it.hasNext()){
     		Sequence seq = it.next();
-            count = printSequence(seq, rule, sc, count, eClassesReferenced, proxyReferences);
+            count = printSequence(seq, rule, sc, count, eClassesReferenced);
             if(it.hasNext()){
             	sc.addLineBreak();
             	sc.add("|");
@@ -570,7 +568,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         return count;
     }
 	
-    private int printSequence(Sequence sequence, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences) {
+    private int printSequence(Sequence sequence, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced) {
     	Iterator<Definition> it = sequence.getParts().iterator();
     	while(it.hasNext()){
     		Definition def = it.next();
@@ -583,15 +581,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     		if(def instanceof CompoundDefinition){
             	CompoundDefinition compoundDef = (CompoundDefinition) def;
                 sc.add("(");
-                count = printChoice(compoundDef.getDefinitions(), rule,sc, count, eClassesReferenced, proxyReferences);
+                count = printChoice(compoundDef.getDefinitions(), rule,sc, count, eClassesReferenced);
                 sc.add(")");
     		}
     		else if(def instanceof CsString){
-    			count = printCsString((CsString) def, rule, sc, count, eClassesReferenced, proxyReferences);
+    			count = printCsString((CsString) def, rule, sc, count, eClassesReferenced);
     		}
     		else{
     			assert def instanceof Terminal;
-    			count = printTerminal((Terminal) def, rule, sc, count, eClassesReferenced, proxyReferences);
+    			count = printTerminal((Terminal) def, rule, sc, count, eClassesReferenced);
     		}
     		if(cardinality!=null){
     			sc.addLineBreak();
@@ -603,7 +601,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	return count;
     }
     
-    private int printCsString(CsString csString, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences){
+    private int printCsString(CsString csString, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced){
     	final String identifier = "a" + count;
     	sc.add(identifier + " = '" + csString.getValue().replaceAll("'", "\\\\'") + "' {");
     	sc.add("if (element == null) {");
@@ -615,7 +613,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	return ++count;
     }
     
-    private int printTerminal(Terminal terminal, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced, Collection<GenFeature> proxyReferences){
+    private int printTerminal(Terminal terminal, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced){
     	final GenClass genClass = rule.getMetaclass();
     	final GenFeature genFeature = terminal.getFeature();
 		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
@@ -713,7 +711,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	resolvements.add("collectHiddenTokens(element);");
             	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor("referenceResolverSwitch",genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	// remember that we must resolve proxy objects for this feature
-            	proxyReferences.add(genFeature);
+            	context.addNonContainmentReference(genFeature);
         	}
         	else{
         		// the feature is an EAttribute
@@ -857,16 +855,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("import " + IOptions.class.getName() + ";");
         sc.add("import " + UnexpectedContentTypeException.class.getName() + ";");
         sc.add("import " + EClass.class.getName() + ";");
-
-	}
-	
-	/**
-	 * @return All features which will be replaced with a proxy during a parse 
-	 * and therefore need reference resolvers.
-	 */
-	
-	public Collection<GenFeature> getNonContainmentReferences() {
-		return nonContainmentReferences;
 	}
 	
     private String computeCardinalityString(Definition definition){

@@ -50,8 +50,8 @@ public class TokenResolverGenerator extends BaseGenerator {
 	
 	private TokenDefinition definition;
 	
-	public TokenResolverGenerator(GenerationContext context, String resolverClassName, TokenDefinition definition) {
-		super(context.getResolverPackageName(), resolverClassName);
+	public TokenResolverGenerator(GenerationContext context, TokenDefinition definition) {
+		super(context.getResolverPackageName(), context.getTokenResolverClassName(definition));
 		this.definition = definition;
 	}
 

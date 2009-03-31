@@ -272,7 +272,47 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RELOAD_GENERATOR_MODEL(19, "RELOAD_GENERATOR_MODEL", "reloadGeneratorModel");
+	RELOAD_GENERATOR_MODEL(19, "RELOAD_GENERATOR_MODEL", "reloadGeneratorModel"), /**
+	 * The '<em><b>OVERRIDE DOT CLASSPATH</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DOT_CLASSPATH_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DOT_CLASSPATH(20, "OVERRIDE_DOT_CLASSPATH", "overrideClasspath"), /**
+	 * The '<em><b>OVERRIDE DOT PROJECT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DOT_PROJECT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DOT_PROJECT(21, "OVERRIDE_DOT_PROJECT", "overrideProjectFile"), /**
+	 * The '<em><b>OVERRIDE TEXT RESOURCE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_RESOURCE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TEXT_RESOURCE(22, "OVERRIDE_TEXT_RESOURCE", "overrideTextResource"), /**
+	 * The '<em><b>OVERRIDE RESOURCE FACTORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_FACTORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_RESOURCE_FACTORY(23, "OVERRIDE_RESOURCE_FACTORY", "overrideResourceFactory"), /**
+	 * The '<em><b>OVERRIDE NEW FILE WIZARD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_FILE_WIZARD_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_NEW_FILE_WIZARD(23, "OVERRIDE_NEW_FILE_WIZARD", "overrideNewFileWizard");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -575,6 +615,81 @@ public enum OptionTypes implements Enumerator {
 	public static final int RELOAD_GENERATOR_MODEL_VALUE = 19;
 
 	/**
+	 * The '<em><b>OVERRIDE DOT CLASSPATH</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DOT CLASSPATH</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DOT_CLASSPATH
+	 * @model literal="overrideClasspath"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DOT_CLASSPATH_VALUE = 20;
+
+	/**
+	 * The '<em><b>OVERRIDE DOT PROJECT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DOT PROJECT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DOT_PROJECT
+	 * @model literal="overrideProjectFile"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DOT_PROJECT_VALUE = 21;
+
+	/**
+	 * The '<em><b>OVERRIDE TEXT RESOURCE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TEXT RESOURCE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_RESOURCE
+	 * @model literal="overrideTextResource"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TEXT_RESOURCE_VALUE = 22;
+
+	/**
+	 * The '<em><b>OVERRIDE RESOURCE FACTORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE RESOURCE FACTORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_FACTORY
+	 * @model literal="overrideResourceFactory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_RESOURCE_FACTORY_VALUE = 23;
+
+	/**
+	 * The '<em><b>OVERRIDE NEW FILE WIZARD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE NEW FILE WIZARD</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_FILE_WIZARD
+	 * @model literal="overrideNewFileWizard"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_NEW_FILE_WIZARD_VALUE = 23;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -602,6 +717,11 @@ public enum OptionTypes implements Enumerator {
 			USE_PREDEFINED_TOKENS,
 			TOKENSPACE,
 			RELOAD_GENERATOR_MODEL,
+			OVERRIDE_DOT_CLASSPATH,
+			OVERRIDE_DOT_PROJECT,
+			OVERRIDE_TEXT_RESOURCE,
+			OVERRIDE_RESOURCE_FACTORY,
+			OVERRIDE_NEW_FILE_WIZARD,
 		};
 
 	/**
@@ -672,6 +792,10 @@ public enum OptionTypes implements Enumerator {
 			case USE_PREDEFINED_TOKENS_VALUE: return USE_PREDEFINED_TOKENS;
 			case TOKENSPACE_VALUE: return TOKENSPACE;
 			case RELOAD_GENERATOR_MODEL_VALUE: return RELOAD_GENERATOR_MODEL;
+			case OVERRIDE_DOT_CLASSPATH_VALUE: return OVERRIDE_DOT_CLASSPATH;
+			case OVERRIDE_DOT_PROJECT_VALUE: return OVERRIDE_DOT_PROJECT;
+			case OVERRIDE_TEXT_RESOURCE_VALUE: return OVERRIDE_TEXT_RESOURCE;
+			case OVERRIDE_RESOURCE_FACTORY_VALUE: return OVERRIDE_RESOURCE_FACTORY;
 		}
 		return null;
 	}
