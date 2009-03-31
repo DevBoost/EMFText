@@ -132,6 +132,21 @@ public class OptionManager {
 		if (option == OptionTypes.RELOAD_GENERATOR_MODEL) {
 			return false;
 		}
+		if (option == OptionTypes.OVERRIDE_DOT_CLASSPATH) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_DOT_PROJECT) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_TEXT_RESOURCE) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_RESOURCE_FACTORY) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_NEW_FILE_WIZARD) {
+			return true;
+		}
 		return false;
 	}
 
