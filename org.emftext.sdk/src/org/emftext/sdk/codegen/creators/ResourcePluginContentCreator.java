@@ -60,6 +60,7 @@ public class ResourcePluginContentCreator {
 	    IArtifactCreator tokenResolverFactoryCreator = new TokenResolverFactoryCreator();
 	    IArtifactCreator newFileWizardCreator = new NewFileWizardCreator();
 	    IArtifactCreator pluginXMLCreator = new PluginXMLCreator();
+	    IArtifactCreator manifestCreator = new ManifestCreator();
 	    
 	    // TODO mseifert: the creators should all be handled the same
 	    // there should be a list of creation steps where each one
@@ -73,6 +74,7 @@ public class ResourcePluginContentCreator {
 	    dotProjectCreator.createArtifacts(context);
 	    
 	    pluginXMLCreator.createArtifacts(context);
+	    manifestCreator.createArtifacts(context);
 
 	    progress.setTaskName("creating grammar...");
 	    antlrGrammarCreator.createArtifacts(context);
