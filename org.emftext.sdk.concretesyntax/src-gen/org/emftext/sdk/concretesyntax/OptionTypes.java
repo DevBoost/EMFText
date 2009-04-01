@@ -272,41 +272,61 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RELOAD_GENERATOR_MODEL(19, "RELOAD_GENERATOR_MODEL", "reloadGeneratorModel"), /**
+	RELOAD_GENERATOR_MODEL(19, "RELOAD_GENERATOR_MODEL", "reloadGeneratorModel"), 
+	
+	/**
 	 * The '<em><b>OVERRIDE DOT CLASSPATH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the .classpath file will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DOT_CLASSPATH_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DOT_CLASSPATH(20, "OVERRIDE_DOT_CLASSPATH", "overrideClasspath"), /**
+	OVERRIDE_DOT_CLASSPATH(20, "OVERRIDE_DOT_CLASSPATH", "overrideClasspath"), 
+	
+	/**
 	 * The '<em><b>OVERRIDE DOT PROJECT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the .project file will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_DOT_PROJECT_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DOT_PROJECT(21, "OVERRIDE_DOT_PROJECT", "overrideProjectFile"), /**
+	OVERRIDE_DOT_PROJECT(21, "OVERRIDE_DOT_PROJECT", "overrideProjectFile"), 
+	
+	/**
 	 * The '<em><b>OVERRIDE TEXT RESOURCE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the text resource class will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_TEXT_RESOURCE_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TEXT_RESOURCE(22, "OVERRIDE_TEXT_RESOURCE", "overrideTextResource"), /**
+	OVERRIDE_TEXT_RESOURCE(22, "OVERRIDE_TEXT_RESOURCE", "overrideTextResource"), 
+	
+	/**
 	 * The '<em><b>OVERRIDE RESOURCE FACTORY</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the resource factory class will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_RESOURCE_FACTORY_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_RESOURCE_FACTORY(23, "OVERRIDE_RESOURCE_FACTORY", "overrideResourceFactory"), /**
+	OVERRIDE_RESOURCE_FACTORY(23, "OVERRIDE_RESOURCE_FACTORY", "overrideResourceFactory"), 
+	
+	/**
 	 * The '<em><b>OVERRIDE NEW FILE WIZARD</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the new file wizard class will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_NEW_FILE_WIZARD_VALUE
 	 * @generated
