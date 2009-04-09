@@ -74,7 +74,6 @@ public class ResourcePluginContentCreator {
 	    dotProjectCreator.createArtifacts(context);
 	    
 	    pluginXMLCreator.createArtifacts(context);
-	    manifestCreator.createArtifacts(context);
 
 	    progress.setTaskName("creating grammar...");
 	    antlrGrammarCreator.createArtifacts(context);
@@ -113,6 +112,9 @@ public class ResourcePluginContentCreator {
 		progress.setTaskName("generating token resolver factory...");
 		tokenResolverFactoryCreator.createArtifacts(context);
 		
+		progress.setTaskName("generating manifest file...");
+	    manifestCreator.createArtifacts(context);
+	    
 		searchForUnusedResolvers(context);
 	}
 
