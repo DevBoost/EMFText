@@ -158,7 +158,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("}");
         sc.addLineBreak();
         
-        //the lexer: package def. and error handling
+        //the lexer: package definition and error handling
         sc.add("@lexer::header {");
         sc.add("package " + super.getResourcePackageName() + ";");
         sc.add("}");
@@ -174,7 +174,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("}");
         
-        //the parser: package def. and entry (doParse) method 
+        //the parser: package definition and entry (doParse) method 
         sc.add("@header{");
         sc.add("package " + super.getResourcePackageName() + ";");
         sc.addLineBreak();
