@@ -171,7 +171,14 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 		}
 	}
 
-	
+	/**
+	 * Use this no-arguments constructor to create
+	 * a dummy parser and call createInstance() to
+	 * obtain a real parser.
+	 */
+	public AbstractEMFTextParser() {
+		super(null);
+	}
 	
     public AbstractEMFTextParser(TokenStream input) {
     	super(input);

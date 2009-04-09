@@ -99,7 +99,7 @@ public class OptionManager {
 		if (option == OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL) {
 			return false;
 		}
-		if (option == OptionTypes.OVERRIDE_ANTLR_SPEC) {
+		if (option == OptionTypes.OVERRIDE_PARSER_SPEC) {
 			return true;
 		}
 		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH) {

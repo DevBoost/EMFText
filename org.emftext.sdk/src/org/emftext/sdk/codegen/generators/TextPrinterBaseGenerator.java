@@ -117,7 +117,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	 */
 	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
-	private String referenceResolverSwitchClassName;
 	private GenerationContext context;
 
 	public TextPrinterBaseGenerator(GenerationContext context) {
@@ -127,7 +126,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		this.context = context;
 		this.concretSyntax = context.getConcreteSyntax();
 		this.tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
-		this.referenceResolverSwitchClassName = context.getReferenceResolverSwitchClassName();
 	}
 
 	private void extractChoices(List<Rule> rules,
@@ -224,9 +222,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		generateDoPrintMethod(sc, rules);
 		sc.addLineBreak();
 		
-        generateSetReferenceResolverSwitch(sc);
-		sc.addLineBreak();
-
         for (Rule rule : rules) {
 			generatePrintRuleMethod(sc, rule);
 			sc.addLineBreak();
@@ -236,12 +231,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		
 		writer.write(sc.toString());
 		return true;
-	}
-
-	private void generateSetReferenceResolverSwitch(StringComposite sc) {
-		sc.add("public void setReferenceResolverSwitch(" + referenceResolverSwitchClassName + " referenceResolverSwitch) {");
-        sc.add("this.referenceResolverSwitch = referenceResolverSwitch;");
-        sc.add("}");
 	}
 
 	private void generateDoPrintMethod(StringComposite sc, List<Rule> rules) {
@@ -278,7 +267,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private void generateMembers(StringComposite sc) {
 		sc.add("protected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
-		sc.add("protected " + referenceResolverSwitchClassName + " referenceResolverSwitch;");
+		//sc.add("protected " + referenceResolverSwitchClassName + " referenceResolverSwitch;");
 	}
 
 	private void generatePrintRuleMethod(StringComposite sc, Rule rule) {
@@ -615,7 +604,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix + "resolver.deResolve(" 
-										+ context.getReferenceResolverAccessor("referenceResolverSwitch",genFeature)
+										+ context.getReferenceResolverAccessor(genFeature)
 										+ ".deResolve((" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ") o, element, (" + EREFERENCE_CLASS_NAME + ") element.eClass().getEStructuralFeature("
 										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
 										+ ")), element.eClass().getEStructuralFeature("

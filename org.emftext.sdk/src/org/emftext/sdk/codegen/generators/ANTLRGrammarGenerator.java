@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +32,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -43,7 +47,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.IOptions;
+import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
@@ -100,7 +106,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private ConcreteSyntax conrceteSyntax;
 	private String tokenResolverFactoryName;
-	private String qualifiedReferenceResolverSwitchName;
 	
 	/** 
 	 * A map to collect all (non-containment) references that will contain proxy 
@@ -123,7 +128,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		this.context = context;
-		qualifiedReferenceResolverSwitchName = context.getQualifiedReferenceResolverSwitchClassName();
 		conrceteSyntax = context.getConcreteSyntax();
 		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
 	}
@@ -143,6 +147,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		
         String csName = getResourceClassName();
         String lexerName = getLexerName(csName);
+        String parserName = getParserName(csName);
         boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.ANTLR_BACKTRACKING);
         boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.ANTLR_MEMOIZE);
                 
@@ -188,7 +193,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
         sc.add("private int lastPosition;");
         sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
-        sc.add("private " + qualifiedReferenceResolverSwitchName + " referenceResolverSwitch;");
+        
+        sc.addLineBreak();
+        sc.add("// This default constructor is only used to call createInstance() on it");
+        sc.add("public " + parserName + "() {");
+        sc.add("super();");
+        sc.add("}");
         
         sc.addLineBreak();
         sc.add("protected EObject doParse() throws RecognitionException {");
@@ -293,9 +303,19 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         }   
         sc.add("}");
         
-        sc.add("public void setReferenceResolverSwitch(" + context.getQualifiedReferenceResolverSwitchClassName() + " referenceResolverSwitch) {");
-        sc.add("this.referenceResolverSwitch = referenceResolverSwitch;");
-        sc.add("}");
+        sc.add("public " + ITextParser.class.getName() + " createInstance(" + InputStream.class.getName() + " actualInputStream, " + String.class.getName() + " encoding) {");
+		sc.add("try {");
+		sc.add("if (encoding == null) {");
+		sc.add("return new " + parserName + "(new " + CommonTokenStream.class.getName() + "(new " + lexerName + "(new " + ANTLRInputStream.class.getName() + "(actualInputStream))));");
+		sc.add("} else {");
+		sc.add("return new " + parserName + "(new " + CommonTokenStream.class.getName() + "(new " + lexerName + "(new " + ANTLRInputStream.class.getName() + "(actualInputStream, encoding))));");
+		sc.add("}");
+		sc.add("} catch (" + IOException.class.getName() + " e) {");
+		sc.add(EMFTextRuntimePlugin.class.getName() + ".logError(\"Error while creating parser.\", e);");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("}");
+
 
         sc.add("}");
         sc.addLineBreak();
@@ -328,6 +348,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private String getLexerName(String csName) {
 		return csName + "Lexer";
+	}
+	
+	private String getParserName(String csName) {
+		return csName + "Parser";
 	}
 	
 	private void printStartRule(StringComposite sc){
@@ -709,7 +733,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
-            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor("referenceResolverSwitch",genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
+            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	// remember that we must resolve proxy objects for this feature
             	context.addNonContainmentReference(genFeature);
         	}

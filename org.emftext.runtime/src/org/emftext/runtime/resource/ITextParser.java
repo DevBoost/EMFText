@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.runtime.resource;
 
+import java.io.InputStream;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,6 +33,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ITextParser extends IConfigurable {
 
+	/**
+	 * Returns an instance of the parser. This factory method
+	 * is needed, because we can not create ANTLR parsers using
+	 * the default constructor without arguments, because they
+	 * expect the input stream or rather a token stream.
+	 * 
+	 * @param inputStream
+	 * @param encoding
+	 * @return
+	 */
+	public ITextParser createInstance(InputStream inputStream,
+			String encoding);
+	
 	/**
 	 * Set the associate text resource.
 	 * 

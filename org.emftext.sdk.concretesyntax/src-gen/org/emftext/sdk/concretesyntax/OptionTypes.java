@@ -87,18 +87,14 @@ public enum OptionTypes implements Enumerator {
 	OVERRIDE_MANIFEST(4, "OVERRIDE_MANIFEST", "overrideManifest"),
 
 	/**
-	 * The '<em><b>OVERRIDE ANTLR SPEC</b></em>' literal object.
+	 * The '<em><b>OVERRIDE PARSER SPEC</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the ANTLR grammar will be overridden during code
-	 * generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_ANTLR_SPEC_VALUE
+	 * @see #OVERRIDE_PARSER_SPEC_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ANTLR_SPEC(5, "OVERRIDE_ANTLR_SPEC", "overrideAntlrSpecification"),
-
-	/**
+	OVERRIDE_PARSER_SPEC(5, "OVERRIDE_PARSER_SPEC", "overrideParserSpecification"), /**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVERS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * If this option is set to true, the token resolver classes will be overridden during code
@@ -332,7 +328,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_FILE_WIZARD(23, "OVERRIDE_NEW_FILE_WIZARD", "overrideNewFileWizard");
+	OVERRIDE_NEW_FILE_WIZARD(24, "OVERRIDE_NEW_FILE_WIZARD", "overrideNewFileWizard"), /**
+	 * The '<em><b>PARSER GENERATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #PARSER_GENERATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	PARSER_GENERATOR(25, "PARSER_GENERATOR", "parserGenerator");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -410,19 +414,19 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_MANIFEST_VALUE = 4;
 
 	/**
-	 * The '<em><b>OVERRIDE ANTLR SPEC</b></em>' literal value.
+	 * The '<em><b>OVERRIDE PARSER SPEC</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE ANTLR SPEC</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>OVERRIDE PARSER SPEC</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_ANTLR_SPEC
-	 * @model literal="overrideAntlrSpecification"
+	 * @see #OVERRIDE_PARSER_SPEC
+	 * @model literal="overrideParserSpecification"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_ANTLR_SPEC_VALUE = 5;
+	public static final int OVERRIDE_PARSER_SPEC_VALUE = 5;
 
 	/**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVERS</b></em>' literal value.
@@ -707,7 +711,22 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_NEW_FILE_WIZARD_VALUE = 23;
+	public static final int OVERRIDE_NEW_FILE_WIZARD_VALUE = 24;
+
+	/**
+	 * The '<em><b>PARSER GENERATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>PARSER GENERATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #PARSER_GENERATOR
+	 * @model literal="parserGenerator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PARSER_GENERATOR_VALUE = 25;
 
 	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
@@ -722,7 +741,7 @@ public enum OptionTypes implements Enumerator {
 			GENERATE_PRINTER_STUB_ONLY,
 			OVERRIDE_PLUGIN_XML,
 			OVERRIDE_MANIFEST,
-			OVERRIDE_ANTLR_SPEC,
+			OVERRIDE_PARSER_SPEC,
 			OVERRIDE_TOKEN_RESOLVERS,
 			OVERRIDE_REFERENCE_RESOLVERS,
 			OVERRIDE_REFERENCE_RESOLVER_SWITCH,
@@ -742,6 +761,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TEXT_RESOURCE,
 			OVERRIDE_RESOURCE_FACTORY,
 			OVERRIDE_NEW_FILE_WIZARD,
+			PARSER_GENERATOR,
 		};
 
 	/**
@@ -797,7 +817,7 @@ public enum OptionTypes implements Enumerator {
 			case GENERATE_PRINTER_STUB_ONLY_VALUE: return GENERATE_PRINTER_STUB_ONLY;
 			case OVERRIDE_PLUGIN_XML_VALUE: return OVERRIDE_PLUGIN_XML;
 			case OVERRIDE_MANIFEST_VALUE: return OVERRIDE_MANIFEST;
-			case OVERRIDE_ANTLR_SPEC_VALUE: return OVERRIDE_ANTLR_SPEC;
+			case OVERRIDE_PARSER_SPEC_VALUE: return OVERRIDE_PARSER_SPEC;
 			case OVERRIDE_TOKEN_RESOLVERS_VALUE: return OVERRIDE_TOKEN_RESOLVERS;
 			case OVERRIDE_REFERENCE_RESOLVERS_VALUE: return OVERRIDE_REFERENCE_RESOLVERS;
 			case OVERRIDE_REFERENCE_RESOLVER_SWITCH_VALUE: return OVERRIDE_REFERENCE_RESOLVER_SWITCH;
@@ -816,6 +836,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_DOT_PROJECT_VALUE: return OVERRIDE_DOT_PROJECT;
 			case OVERRIDE_TEXT_RESOURCE_VALUE: return OVERRIDE_TEXT_RESOURCE;
 			case OVERRIDE_RESOURCE_FACTORY_VALUE: return OVERRIDE_RESOURCE_FACTORY;
+			case OVERRIDE_NEW_FILE_WIZARD_VALUE: return OVERRIDE_NEW_FILE_WIZARD;
+			case PARSER_GENERATOR_VALUE: return PARSER_GENERATOR;
 		}
 		return null;
 	}

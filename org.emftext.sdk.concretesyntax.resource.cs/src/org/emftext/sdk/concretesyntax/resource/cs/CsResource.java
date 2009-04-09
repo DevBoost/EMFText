@@ -1,5 +1,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.emftext.runtime.resource.ITextParser;
+
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
@@ -29,17 +31,11 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			}
 		}
 		
-		org.emftext.sdk.concretesyntax.resource.cs.CsParser parser;
-		if (encoding == null) {
-			parser = new CsParser(new org.antlr.runtime.CommonTokenStream(new CsLexer(new org.antlr.runtime.ANTLRInputStream(actualInputStream))));
-		} else {
-			parser = new CsParser(new org.antlr.runtime.CommonTokenStream(new CsLexer(new org.antlr.runtime.ANTLRInputStream(actualInputStream, encoding))));
-		}
+		ITextParser parser = new CsParser().createInstance(actualInputStream, encoding);
 		parser.setResource(this);
 		parser.setOptions(options);
 		org.emftext.runtime.resource.IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
-		parser.setReferenceResolverSwitch((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) referenceResolverSwitch);
 		org.eclipse.emf.ecore.EObject root = parser.parse();
 		if (root != null) {
 			getContents().add(root);

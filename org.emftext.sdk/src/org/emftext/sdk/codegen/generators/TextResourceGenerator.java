@@ -23,13 +23,12 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 import java.util.List;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.IInputStreamProcessorProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.InputStreamProcessor;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
+import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.runtime.resource.impl.BasicTokenStyle;
@@ -161,7 +160,6 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add(printerClassName + " printer = new " + printerClassName + "(outputStream, this);");
         sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
-        sc.add("printer.setReferenceResolverSwitch((" + resolverSwitchClassName + ") referenceResolverSwitch);");
         sc.add("for(" + EObject.class.getName() + " root : getContents()) {");
         sc.add("printer.print(root);");
         sc.add("}");
@@ -200,17 +198,11 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("}");
         sc.addLineBreak();
         
-        sc.add(parserClassName + " parser;");
-		sc.add("if (encoding == null) {");
-        sc.add("parser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream))));");
-		sc.add("} else {");
-        sc.add("parser = new " + csClassName + "Parser(new " + CommonTokenStream.class.getName() + "(new " + csClassName + "Lexer(new " + ANTLRInputStream.class.getName()+ "(actualInputStream, encoding))));");
-		sc.add("}");
+        sc.add(ITextParser.class.getName() + " parser = new " + parserClassName + "().createInstance(actualInputStream, encoding);");
         sc.add("parser.setResource(this);");
         sc.add("parser.setOptions(options);");
         sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
-        sc.add("parser.setReferenceResolverSwitch((" + resolverSwitchClassName + ") referenceResolverSwitch);");
         sc.add(EObject.class.getName() + " root = parser.parse();");
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");

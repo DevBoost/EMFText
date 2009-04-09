@@ -134,7 +134,7 @@
     <eLiterals name="GENERATE_PRINTER_STUB_ONLY" value="2" literal="generatePrinterStubOnly"/>
     <eLiterals name="OVERRIDE_PLUGIN_XML" value="3" literal="overridePluginXML"/>
     <eLiterals name="OVERRIDE_MANIFEST" value="4" literal="overrideManifest"/>
-    <eLiterals name="OVERRIDE_ANTLR_SPEC" value="5" literal="overrideAntlrSpecification"/>
+    <eLiterals name="OVERRIDE_PARSER_SPEC" value="5" literal="overrideParserSpecification"/>
     <eLiterals name="OVERRIDE_TOKEN_RESOLVERS" value="6" literal="overrideTokenResolvers"/>
     <eLiterals name="OVERRIDE_REFERENCE_RESOLVERS" value="7" literal="overrideReferenceResolvers"/>
     <eLiterals name="OVERRIDE_REFERENCE_RESOLVER_SWITCH" value="8" literal="overrideReferenceResolverSwitch"/>
@@ -153,7 +153,8 @@
     <eLiterals name="OVERRIDE_DOT_PROJECT" value="21" literal="overrideProjectFile"/>
     <eLiterals name="OVERRIDE_TEXT_RESOURCE" value="22" literal="overrideTextResource"/>
     <eLiterals name="OVERRIDE_RESOURCE_FACTORY" value="23" literal="overrideResourceFactory"/>
-    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD" value="23" literal="overrideNewFileWizard"/>
+    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD" value="24" literal="overrideNewFileWizard"/>
+    <eLiterals name="PARSER_GENERATOR" value="25" literal="parserGenerator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
