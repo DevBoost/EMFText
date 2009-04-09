@@ -308,6 +308,7 @@ public abstract class GenerationContext {
 		//Set<GenClass> classesExceptImports = genClassFinder.findAllGenClasses(concreteSyntax, false, false);
 		ConcreteSyntax containingSyntax = genClassFinder.getContainingSyntax(concreteSyntax, genFeature.getGenClass());
 		if (containingSyntax == null) return false;
+		if (containingSyntax == concreteSyntax) return false;
 		return true;
 	}
 
