@@ -165,7 +165,16 @@ public abstract class GenerationContext {
 	}
 
 	public File getSourceFolder() {
-		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + "src");
+		String srcFolderName;
+		String srcFolderOptionValue = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.SOURCE_FOLDER);
+		if (srcFolderOptionValue != null) {
+			// use package plug-in from option
+			srcFolderName = srcFolderOptionValue;
+		} else {
+			// use default plug-in name
+			srcFolderName = "src";
+		}
+		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + srcFolderName);
 	}
 	
 	/**
@@ -181,11 +190,18 @@ public abstract class GenerationContext {
 	}
 
 	public String getPluginName() {
-		return getPackageName();
+		return getPluginName(concreteSyntax);
 	}
 
 	public String getPluginName(ConcreteSyntax syntax) {
-		return getPackageName(syntax);
+		String resourcePluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.RESOURCE_PLUGIN_ID);
+		if (resourcePluginID != null) {
+			// use package plug-in from option
+			return resourcePluginID;
+		} else {
+			// use default plug-in name
+			return getPackageName(syntax);
+		}
 	}
 
 	public String getPackageName() {
@@ -193,15 +209,22 @@ public abstract class GenerationContext {
 	}
 
 	public String getPackageName(ConcreteSyntax syntax) {
-		GenPackage concreteSyntaxPackage = syntax.getPackage();
-		boolean hasBasePackage = concreteSyntaxPackage.getBasePackage() != null;
-		String baseName = "";
-		if (hasBasePackage) {
-			baseName = concreteSyntaxPackage.getBasePackage() + ".";
+		String packageName = "";
+		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_PACKAGE);
+		if (basePackage != null) {
+			// use package name from option
+			packageName = basePackage;
+		} else {
+			// use default package name
+			GenPackage concreteSyntaxPackage = syntax.getPackage();
+			boolean hasBasePackage = concreteSyntaxPackage.getBasePackage() != null;
+			if (hasBasePackage) {
+				packageName = concreteSyntaxPackage.getBasePackage() + ".";
+			}
+			packageName += concreteSyntaxPackage.getEcorePackage().getName();
+			packageName += ".resource." + syntax.getName();
 		}
-		return baseName
-				+ concreteSyntaxPackage.getEcorePackage().getName()
-				+ ".resource." + syntax.getName();
+		return packageName;
 	}
 
 	public IProblemCollector getProblemCollector() {

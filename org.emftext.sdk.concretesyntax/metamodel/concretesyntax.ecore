@@ -155,6 +155,9 @@
     <eLiterals name="OVERRIDE_RESOURCE_FACTORY" value="23" literal="overrideResourceFactory"/>
     <eLiterals name="OVERRIDE_NEW_FILE_WIZARD" value="24" literal="overrideNewFileWizard"/>
     <eLiterals name="PARSER_GENERATOR" value="25" literal="parserGenerator"/>
+    <eLiterals name="SOURCE_FOLDER" value="26" literal="srcFolder"/>
+    <eLiterals name="BASE_PACKAGE" value="27" literal="basePackage"/>
+    <eLiterals name="RESOURCE_PLUGIN_ID" value="28" literal="resourcePluginID"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

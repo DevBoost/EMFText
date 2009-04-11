@@ -331,12 +331,44 @@ public enum OptionTypes implements Enumerator {
 	OVERRIDE_NEW_FILE_WIZARD(24, "OVERRIDE_NEW_FILE_WIZARD", "overrideNewFileWizard"), /**
 	 * The '<em><b>PARSER GENERATOR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * The name of the parser generator to use. The default value for this
+	 * option is ANTLR.
 	 * <!-- end-user-doc -->
 	 * @see #PARSER_GENERATOR_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	PARSER_GENERATOR(25, "PARSER_GENERATOR", "parserGenerator");
+	PARSER_GENERATOR(25, "PARSER_GENERATOR", "parserGenerator"), /**
+	 * The '<em><b>SOURCE FOLDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * The name of the folder EMFText shall store the generated classes in.
+	 * The default value for this option is 'src'.
+	 * <!-- end-user-doc -->
+	 * @see #SOURCE_FOLDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	SOURCE_FOLDER(26, "SOURCE_FOLDER", "srcFolder"), /**
+	 * The '<em><b>BASE PACKAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * The name of the base package EMFText shall store the generated 
+	 * classes in.
+	 * <!-- end-user-doc -->
+	 * @see #BASE_PACKAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BASE_PACKAGE(27, "BASE_PACKAGE", "basePackage"), /**
+	 * The '<em><b>RESOURCE PLUGIN ID</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * The ID of the generated resource plug-in. The resource 
+	 * plug-in is stored in a folder that is equal to this ID.
+	 * <!-- end-user-doc -->
+	 * @see #RESOURCE_PLUGIN_ID_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	RESOURCE_PLUGIN_ID(28, "RESOURCE_PLUGIN_ID", "resourcePluginID");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -729,6 +761,51 @@ public enum OptionTypes implements Enumerator {
 	public static final int PARSER_GENERATOR_VALUE = 25;
 
 	/**
+	 * The '<em><b>SOURCE FOLDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>SOURCE FOLDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #SOURCE_FOLDER
+	 * @model literal="srcFolder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SOURCE_FOLDER_VALUE = 26;
+
+	/**
+	 * The '<em><b>BASE PACKAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>BASE PACKAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #BASE_PACKAGE
+	 * @model literal="basePackage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BASE_PACKAGE_VALUE = 27;
+
+	/**
+	 * The '<em><b>RESOURCE PLUGIN ID</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>RESOURCE PLUGIN ID</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #RESOURCE_PLUGIN_ID
+	 * @model literal="resourcePluginID"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RESOURCE_PLUGIN_ID_VALUE = 28;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -762,6 +839,9 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_RESOURCE_FACTORY,
 			OVERRIDE_NEW_FILE_WIZARD,
 			PARSER_GENERATOR,
+			SOURCE_FOLDER,
+			BASE_PACKAGE,
+			RESOURCE_PLUGIN_ID,
 		};
 
 	/**
@@ -838,6 +918,9 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_RESOURCE_FACTORY_VALUE: return OVERRIDE_RESOURCE_FACTORY;
 			case OVERRIDE_NEW_FILE_WIZARD_VALUE: return OVERRIDE_NEW_FILE_WIZARD;
 			case PARSER_GENERATOR_VALUE: return PARSER_GENERATOR;
+			case SOURCE_FOLDER_VALUE: return SOURCE_FOLDER;
+			case BASE_PACKAGE_VALUE: return BASE_PACKAGE;
+			case RESOURCE_PLUGIN_ID_VALUE: return RESOURCE_PLUGIN_ID;
 		}
 		return null;
 	}

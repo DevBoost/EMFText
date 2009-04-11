@@ -12,6 +12,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class OptionsAnalyser extends AbstractPostProcessor {
 
 	private final List<OptionTypes> BOOLEAN_OPTIONS;
+	private final List<OptionTypes> STRING_OPTIONS;
 	
 	public OptionsAnalyser() {
 		BOOLEAN_OPTIONS = new ArrayList<OptionTypes>();
@@ -38,6 +39,11 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		BOOLEAN_OPTIONS.add(OptionTypes.OVERRIDE_TEXT_RESOURCE);
 		BOOLEAN_OPTIONS.add(OptionTypes.OVERRIDE_RESOURCE_FACTORY);
 		BOOLEAN_OPTIONS.add(OptionTypes.OVERRIDE_NEW_FILE_WIZARD);
+
+		STRING_OPTIONS = new ArrayList<OptionTypes>();
+		STRING_OPTIONS.add(OptionTypes.BASE_PACKAGE);
+		STRING_OPTIONS.add(OptionTypes.RESOURCE_PLUGIN_ID);
+		STRING_OPTIONS.add(OptionTypes.SOURCE_FOLDER);
 	}
 
 	@Override
@@ -57,6 +63,8 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	private void checkValue(ITextResource resource, Option option, OptionTypes type, String value) {
 		if (BOOLEAN_OPTIONS.contains(type)) {
 			checkBooleanValue(resource, option, type, value);
+		} else if (STRING_OPTIONS.contains(type)) {
+			// string values are accepted as they are
 		} else if (type == OptionTypes.TOKENSPACE) {
 			checkTokenspaceValue(resource, option, value);
 		} else if (type == OptionTypes.DEFAULT_TOKEN_NAME) {
