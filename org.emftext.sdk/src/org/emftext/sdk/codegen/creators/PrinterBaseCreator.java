@@ -12,6 +12,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class PrinterBaseCreator extends AbstractArtifactCreator {
 
+	public PrinterBaseCreator() {
+		super("printer base class");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.GENERATE_PRINTER_STUB_ONLY);

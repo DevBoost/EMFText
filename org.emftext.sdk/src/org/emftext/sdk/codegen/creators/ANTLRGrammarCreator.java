@@ -12,6 +12,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ANTLRGrammarCreator extends AbstractArtifactCreator {
 
+	public ANTLRGrammarCreator() {
+		super("ANTLR grammar");
+	}
+
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
 	    File antlrFile = context.getANTLRGrammarFile();

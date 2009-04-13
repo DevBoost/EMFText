@@ -9,6 +9,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class PluginXMLCreator extends AbstractArtifactCreator {
 
+	public PluginXMLCreator() {
+		super("plugin.xml");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		

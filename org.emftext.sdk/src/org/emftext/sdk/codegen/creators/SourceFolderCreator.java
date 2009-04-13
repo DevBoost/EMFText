@@ -19,4 +19,8 @@ public class SourceFolderCreator implements IArtifactCreator {
 		// there is not option to prevent the creation of the source folder
 		return null;
 	}
+
+	public String getArtifactDescription() {
+		return "source folder";
+	}
 }

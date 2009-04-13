@@ -13,6 +13,10 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 public class TokenResolversCreator extends AbstractArtifactCreator {
 
+	public TokenResolversCreator() {
+		super("token resolvers");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();

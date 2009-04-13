@@ -10,6 +10,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class TokenResolverFactoryCreator extends AbstractArtifactCreator {
 
+	public TokenResolverFactoryCreator() {
+		super("token resolver factory");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 	    File tokenResolverFactoryFile = context.getTokenResolverFactoryFile();

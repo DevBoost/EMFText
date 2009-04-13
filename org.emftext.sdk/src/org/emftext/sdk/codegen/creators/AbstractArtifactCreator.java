@@ -21,6 +21,17 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public abstract class AbstractArtifactCreator implements IArtifactCreator {
+	
+	private String artifactName;
+
+	public AbstractArtifactCreator(String artifactName) {
+		super();
+		this.artifactName = artifactName;
+	}
+	
+	public String getArtifactDescription() {
+		return artifactName;
+	}
 
 	public void createArtifacts(GenerationContext context) {
 		OptionTypes overrideOption = getOverrideOption();

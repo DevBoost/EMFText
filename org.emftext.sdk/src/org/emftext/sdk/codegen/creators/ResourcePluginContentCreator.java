@@ -22,21 +22,21 @@ package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-import org.antlr.Tool;
-import org.antlr.tool.ErrorManager;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
-import org.emftext.sdk.codegen.util.TextResourceGeneratorANTLRErrorListener;
 
 /**
  * A creator that uses multiple other creators to create
- * a resource plug-in from as CS specification and a meta model.
+ * a resource plug-in from a CS specification and a meta 
+ * model.
  */
 public class ResourcePluginContentCreator {
 	
@@ -45,87 +45,36 @@ public class ResourcePluginContentCreator {
 	    
 		ITextResource csResource = (ITextResource) context.getConcreteSyntax().eResource();
 		EcoreUtil.resolveAll(csResource);
-		
-		IArtifactCreator targetFolderCreator = new SourceFolderCreator();
-	    IArtifactCreator antlrGrammarCreator = new ANTLRGrammarCreator();
-	    IArtifactCreator resourceCreator = new TextResourceCreator();
-	    IArtifactCreator resourceFactoryCreator = new ResourceFactoryCreator();
-	    IArtifactCreator printerCreator = new PrinterCreator();
-	    IArtifactCreator printerBaseCreator = new PrinterBaseCreator();
-	    IArtifactCreator dotClasspathCreator = new DotClasspathCreator();
-	    IArtifactCreator dotProjectCreator = new DotProjectCreator();
-	    IArtifactCreator referenceResolversCreator = new ReferenceResolversCreator();
-	    IArtifactCreator referenceResolverSwitchCreator = new ReferenceResolverSwitchCreator();
-	    IArtifactCreator tokenResolversCreator = new TokenResolversCreator();
-	    IArtifactCreator tokenResolverFactoryCreator = new TokenResolverFactoryCreator();
-	    IArtifactCreator newFileWizardCreator = new NewFileWizardCreator();
-	    IArtifactCreator pluginXMLCreator = new PluginXMLCreator();
-	    IArtifactCreator manifestCreator = new ManifestCreator();
 	    
-	    // TODO mseifert: the creators should all be handled the same
-	    // there should be a list of creation steps where each one
-	    // consists of a name, a creator and a progress value
-		targetFolderCreator.createArtifacts(context);
+	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
+	    creators.add(new SourceFolderCreator());
+	    creators.add(new DotClasspathCreator());
+	    creators.add(new DotProjectCreator());
+	    creators.add(new PluginXMLCreator());
+	    creators.add(new ANTLRGrammarCreator());
+	    creators.add(new TextResourceCreator());
+	    creators.add(new ResourceFactoryCreator());
+	    creators.add(new ANTLRParserCreator());
+	    creators.add(new PrinterBaseCreator());
+	    creators.add(new PrinterCreator());
+	    creators.add(new ReferenceResolversCreator());
+	    creators.add(new ReferenceResolverSwitchCreator());
+	    creators.add(new NewFileWizardCreator());
+	    creators.add(new NewFileIconCreator());
+	    creators.add(new TokenResolversCreator());
+	    creators.add(new TokenResolverFactoryCreator());
+	    creators.add(new MetaInfFolderCreator());
+	    creators.add(new ManifestCreator());
 
-		progress.setTaskName("setting classpath...");
-	    dotClasspathCreator.createArtifacts(context);
-	    
-	    progress.setTaskName("setting project description...");
-	    dotProjectCreator.createArtifacts(context);
-	    
-	    pluginXMLCreator.createArtifacts(context);
+		for (IArtifactCreator creator : creators) {
+			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
+			creator.createArtifacts(context);
+		    progress.worked(100 / creators.size());
+	    }
 
-	    progress.setTaskName("creating grammar...");
-	    antlrGrammarCreator.createArtifacts(context);
-	    progress.worked(20);
-	    
-		progress.setTaskName("generating EMF resources...");
-		resourceCreator.createArtifacts(context);
-		resourceFactoryCreator.createArtifacts(context);
-		progress.worked(5);
-		
-		progress.setTaskName("running ANTLR on grammar file...");
-		runANTLR(context, progress);
-        progress.worked(20);
-    	
-        progress.setTaskName("generating printer...");
-		printerBaseCreator.createArtifacts(context);
-		printerCreator.createArtifacts(context);
-	    progress.worked(20);
-	    
-		monitor.setTaskName("generating reference resolvers...");
-		referenceResolversCreator.createArtifacts(context);
-		monitor.worked(20);
-		
-		progress.setTaskName("generating reference resolver switch...");
-		referenceResolverSwitchCreator.createArtifacts(context);
-		progress.worked(5);
-		
-		progress.setTaskName("generating new file wizard...");
-		newFileWizardCreator.createArtifacts(context);
-		progress.worked(5);
-		
-		progress.setTaskName("generating token resolvers...");
-		tokenResolversCreator.createArtifacts(context);
-		progress.worked(20);
-		
-		progress.setTaskName("generating token resolver factory...");
-		tokenResolverFactoryCreator.createArtifacts(context);
-		
-		progress.setTaskName("generating manifest file...");
-	    manifestCreator.createArtifacts(context);
-	    
 		searchForUnusedResolvers(context);
 	}
 
-
-	private void runANTLR(GenerationContext context, SubMonitor progress) {
-		File antlrFile = context.getANTLRGrammarFile();
-        ErrorManager.setErrorListener(new TextResourceGeneratorANTLRErrorListener(context.getConcreteSyntax().eResource()));
-        Tool antlrTool = new Tool(new String[]{"-Xconversiontimeout", "10000", "-o", antlrFile.getParentFile().getAbsolutePath(), antlrFile.getAbsolutePath()});
-        antlrTool.process();
-	}
-	
 	// TODO mseifert: I think we could do this in a post processor
 	private void searchForUnusedResolvers(GenerationContext context) {
 		Set<String> resolverFiles = context.getResolverFileNames();

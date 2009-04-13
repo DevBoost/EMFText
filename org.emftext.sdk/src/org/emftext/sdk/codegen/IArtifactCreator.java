@@ -9,6 +9,14 @@ package org.emftext.sdk.codegen;
 public interface IArtifactCreator {
 	
 	/**
+	 * Returns the name of the artifact(s) that is
+	 * created by this creator.
+	 * 
+	 * @return the artifacts name
+	 */
+	public String getArtifactDescription();
+	
+	/**
 	 * Creates one or more artifacts.
 	 * 
 	 * @param context

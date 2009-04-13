@@ -10,6 +10,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class DotProjectCreator extends AbstractArtifactCreator {
 
+	public DotProjectCreator() {
+		super(".project file");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		File dotProjectFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + ".project");

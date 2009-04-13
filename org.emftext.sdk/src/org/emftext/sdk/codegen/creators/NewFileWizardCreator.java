@@ -10,6 +10,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class NewFileWizardCreator extends AbstractArtifactCreator {
 
+	public NewFileWizardCreator() {
+		super("new file wizard");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 	    File newFileActionFile = context.getNewFileWizardFile();

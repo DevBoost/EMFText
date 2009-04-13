@@ -12,6 +12,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class BabylonSpecificationCreator extends AbstractArtifactCreator {
 
+	public BabylonSpecificationCreator() {
+		super("Babylon specification");
+	}
+
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
 		String specificationName = context.getCapitalizedConcreteSyntaxName();

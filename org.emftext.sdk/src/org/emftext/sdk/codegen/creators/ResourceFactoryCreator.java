@@ -10,6 +10,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ResourceFactoryCreator extends AbstractArtifactCreator {
 
+	public ResourceFactoryCreator() {
+		super("resource factory");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		IGenerator resourceFactoryGen = new ResourceFactoryGenerator(context);

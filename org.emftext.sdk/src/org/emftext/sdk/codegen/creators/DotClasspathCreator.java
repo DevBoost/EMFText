@@ -10,6 +10,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class DotClasspathCreator extends AbstractArtifactCreator {
 
+	public DotClasspathCreator() {
+		super(".classpath file");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		

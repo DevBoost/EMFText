@@ -20,10 +20,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
@@ -36,9 +32,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
-import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.creators.ResourcePluginContentCreator;
@@ -79,12 +73,7 @@ public abstract class ResourcePluginGenerator {
 	// these must add up to 100
 	protected static final int TICKS_CREATE_PROJECT = 2;
 	protected static final int TICKS_OPEN_PROJECT = 2;
-	protected static final int TICKS_SET_CLASSPATH = 2;
-	protected static final int TICKS_CREATE_META_FOLDER = 2;
-	protected static final int TICKS_CREATE_MANIFEST = 2;
-	protected static final int TICKS_CREATE_PLUGIN_XML = 2;
-	protected static final int TICKS_CREATE_MODELS_FOLDER = 2;
-	protected static final int TICKS_GENERATE_RESOURCE = 26;
+	protected static final int TICKS_GENERATE_RESOURCE = 56;
 	protected static final int TICKS_GENERATE_METAMODEL_CODE = 40;
 	
 	public abstract void createProject(GenerationContext context, SubMonitor progress) throws Exception;
@@ -132,33 +121,11 @@ public abstract class ResourcePluginGenerator {
 			marker.mark(csResource);
 		}
 
-		// TODO mseifert: these two things should be done in ResourcePluginContentCreator
-		createMetaFolder(context, progress);
-		copyIcon(context, progress);
-
 		markErrors(marker, context.getConcreteSyntax());
 
 		createMetaModelCode(context, progress);
 
 		return Result.SUCCESS;
-	}
-
-	private void copyIcon(GenerationContext context, SubMonitor progress) {
-		File iconsDir = context.getIconsDir();
-		iconsDir.mkdir();
-		
-		InputStream in = AbstractNewFileWizard.class.getResourceAsStream("default_new_icon.gif");
-		FileOutputStream fos;
-		try {
-			fos = new FileOutputStream(context.getNewIconFile());
-			int read;
-			while ((read = in.read()) >= 0) {
-				fos.write(read);
-			}
-			fos.close();
-		} catch (IOException e) {
-			EMFTextRuntimePlugin.logError("Error while copying icon.", e);
-		}
 	}
 
 	private boolean isAbstract(final ConcreteSyntax concreteSyntax) {
@@ -200,16 +167,6 @@ public abstract class ResourcePluginGenerator {
 		} else {
 			progress.internalWorked(TICKS_GENERATE_METAMODEL_CODE);
 		}
-	}
-
-	private void createMetaFolder(GenerationContext context, SubMonitor progress)
-			throws CoreException {
-		File project = context.getPluginProjectFolder();
-		File metaFolder = new File(project.getAbsolutePath() + File.separator +  "META-INF");
-		if (!metaFolder.exists()) {
-			metaFolder.mkdir();
-		}
-		progress.internalWorked(TICKS_CREATE_META_FOLDER);
 	}
 
 	private void markErrors(IResourceMarker marker, final ConcreteSyntax cSyntax) throws CoreException {

@@ -10,6 +10,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class TextResourceCreator extends AbstractArtifactCreator {
 
+	public TextResourceCreator() {
+		super("text resource");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 	    File resourceFile = context.getTextResourceFile();

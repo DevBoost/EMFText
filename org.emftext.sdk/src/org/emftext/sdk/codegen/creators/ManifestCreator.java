@@ -9,6 +9,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ManifestCreator extends AbstractArtifactCreator {
 
+	public ManifestCreator() {
+		super("manifest");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		final File project = context.getPluginProjectFolder();

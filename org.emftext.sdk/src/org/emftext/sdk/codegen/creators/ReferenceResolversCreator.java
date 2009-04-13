@@ -12,6 +12,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ReferenceResolversCreator extends AbstractArtifactCreator {
 
+	public ReferenceResolversCreator() {
+		super("reference resolvers");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();

@@ -10,6 +10,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ReferenceResolverSwitchCreator extends AbstractArtifactCreator {
 
+	public ReferenceResolverSwitchCreator() {
+		super("reference resolver switch");
+	}
+
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 	    File referenceResolverSwitchFile = context.getReferenceResolverSwitchFile();
