@@ -87,7 +87,6 @@ public class CsParser extends AbstractEMFTextParser {
         
 
     public CsParser() {
-		// TODO Auto-generated constructor stub
     	super();
 	}
     
