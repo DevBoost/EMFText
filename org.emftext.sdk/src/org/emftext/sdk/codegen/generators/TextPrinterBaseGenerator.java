@@ -547,7 +547,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ it.next() + "\")<1");
 								while (it.hasNext()) {
 									String feature = it.next();
-									sc.add("printCountingMap1.get(\""
+									sc.add("||printCountingMap1.get(\""
 											+ feature + "\")<1");
 								}
 								sc.add(") {");
