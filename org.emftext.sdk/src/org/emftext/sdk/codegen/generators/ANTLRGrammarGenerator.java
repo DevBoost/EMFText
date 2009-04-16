@@ -206,7 +206,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
         sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;"); //required because the lexer class can not be subclassed
         sc.add("Object typeObject = null;");
-        sc.add("Map<?,?> options = getOptions();");
+        sc.add(Map.class.getName() + "<?,?> options = getOptions();");
         sc.add("if (options != null) {");
         	sc.add("typeObject = options.get(IOptions.RESOURCE_CONTENT_TYPE);");
         sc.add("}");
