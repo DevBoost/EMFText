@@ -1,19 +1,39 @@
 package org.emftext.runtime.ui.new_wizard;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.core.runtime.*;
-import org.eclipse.jface.operation.*;
-import java.lang.reflect.InvocationTargetException;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.core.resources.*;
-import org.eclipse.core.runtime.CoreException;
-import java.io.*;
-import org.eclipse.ui.*;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWizard;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
+import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.ITextPrinter;
+import org.emftext.runtime.util.MinimalModelHelper;
 
 /**
  * This is a sample new wizard. Its role is to create a new file 
@@ -142,6 +162,32 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 		this.selection = selection;
 	}
 
+	protected String getExampleContent(EClass[] startClasses, EClass[] allClassesWithSyntax) {
+		String content = "";
+		for (EClass next : startClasses) {
+			content = getExampleContent(next, allClassesWithSyntax);
+			if (content.trim().length() > 0) {
+				break;
+			}
+		}
+		return content;
+	}
+
+	private String getExampleContent(EClass eClass, EClass[] allClassesWithSyntax) {
+		// create a minimal model
+		EObject root = new MinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax);
+		// use printer to get text for model
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		ITextPrinter printer = getPrinter(buffer);
+		try {
+			printer.print(root);
+		} catch (IOException e) {
+			EMFTextRuntimePlugin.logError("Exception while generation example content.", e);
+		}
+		return buffer.toString();
+	}
+
+	public abstract ITextPrinter getPrinter(OutputStream outputStream);
 	public abstract String getExampleContent();
 	public abstract String getFileExtension();
 }

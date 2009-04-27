@@ -125,6 +125,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private GenerationContext context;
 
+	private GeneratorUtil generatorUtil = new GeneratorUtil();
+
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		this.context = context;
@@ -511,7 +513,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             		if (autofix) {
                     	printRightRecursion(sc, rule, eClassesWithSyntax, eClassesReferenced);	
     					
-    					Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(rule.getMetaclass(), conrceteSyntax);
+    					Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(rule.getMetaclass(), conrceteSyntax);
                         if(!subClasses.isEmpty()){
                         	sc.add("|//derived choice rules for sub-classes: ");
                         	printSubClassChoices(sc,subClasses);
@@ -565,7 +567,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         
         printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced);
         
-        Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(genClass, conrceteSyntax);
+        Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(genClass, conrceteSyntax);
         if(!subClasses.isEmpty()){
         	sc.add("|//derived choice rules for sub-classes: ");
         	sc.addLineBreak();
@@ -811,7 +813,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for(GenClass referencedClass : eClassesReferenced.keySet()) {
 			if(!containsEqualByName(eClassesWithSyntax,referencedClass)) {
 				//rule not explicitly defined in CS: most likely a choice rule in the AS
-				Collection<GenClass> subClasses = GeneratorUtil.getSubClassesWithSyntax(referencedClass, conrceteSyntax);
+				Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(referencedClass, conrceteSyntax);
 
 				if (!subClasses.isEmpty()) {
 					sc.add(getLowerCase(referencedClass.getName()));

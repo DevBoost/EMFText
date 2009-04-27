@@ -43,6 +43,8 @@ import org.emftext.sdk.concretesyntax.Placeholder;
  */
 public class ReferencesToAbstractClassesAnalyser extends AbstractPostProcessor {
 
+	private GeneratorUtil generatorUtil = new GeneratorUtil();
+
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		List<Placeholder> danglingReferences = getReferencesToAbstractClassesWithConcreteSubtypes(syntax);
@@ -72,7 +74,7 @@ public class ReferencesToAbstractClassesAnalyser extends AbstractPostProcessor {
             	GenClass genFeatureType = genFeature.getTypeGenClass();
 				
 				if (isNotConcrete(genFeatureType)) {
-					Collection<GenClass> subClassesWithSyntax = GeneratorUtil.getSubClassesWithSyntax(genFeatureType, syntax);
+					Collection<GenClass> subClassesWithSyntax = generatorUtil.getSubClassesWithSyntax(genFeatureType, syntax);
             		if (subClassesWithSyntax.isEmpty()) {
             			referencesToAbstractClassesWithConcreteSubtypes.add(placeholder);
             		}

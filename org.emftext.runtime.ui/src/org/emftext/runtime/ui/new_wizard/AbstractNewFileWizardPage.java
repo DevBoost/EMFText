@@ -3,6 +3,7 @@ package org.emftext.runtime.ui.new_wizard;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -25,7 +26,7 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
  * as the file name. The page will only accept file name without the extension
  * OR with the extension that matches the expected one.
  * 
- * TODO the wizard should ask for confirmation if a file with the same name already exists
+ * TODO mseifert: the wizard should ask for confirmation if a file with the same name already exists
  */
 public class AbstractNewFileWizardPage extends WizardPage {
 	
@@ -96,6 +97,7 @@ public class AbstractNewFileWizardPage extends WizardPage {
 	 */
 
 	private void initialize() {
+		String name = "new_file";
 		if (selection != null && selection.isEmpty() == false
 				&& selection instanceof IStructuredSelection) {
 			IStructuredSelection ssel = (IStructuredSelection) selection;
@@ -104,16 +106,20 @@ public class AbstractNewFileWizardPage extends WizardPage {
 			Object obj = ssel.getFirstElement();
 			if (obj instanceof IResource) {
 				IContainer container;
-				if (obj instanceof IContainer)
+				if (obj instanceof IContainer) {
 					container = (IContainer) obj;
-				else
-					container = ((IResource) obj).getParent();
-				containerText.setText(container.getFullPath().toString());
+				} else {
+					IResource resource = (IResource) obj;
+					container = resource.getParent();
+					// we use the name of the currently selected file
+					// instead of 'new_file'.
+					name = resource.getFullPath().removeFileExtension().lastSegment();
+				}
+				IPath fullPath = container.getFullPath();
+				containerText.setText(fullPath.toString());
 			}
 		}
-		// TODO we should use the name of the currently selected file
-		// instead of 'new_file'.
-		fileText.setText("new_file." + fileExtension);
+		fileText.setText(name + "." + fileExtension);
 	}
 
 	/**

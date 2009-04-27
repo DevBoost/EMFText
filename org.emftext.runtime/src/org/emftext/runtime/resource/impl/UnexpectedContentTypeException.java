@@ -5,7 +5,7 @@ import org.antlr.runtime.RecognitionException;
 /**
  * Exception class to represent invalid content types for parser instances.
  * 
- * @see org.emftext.runtime.IOptions.RESOURCE_CONTENT_TYPE
+ * @see org.emftext.runtime.util.IOptions.RESOURCE_CONTENT_TYPE
  */
 public class UnexpectedContentTypeException extends RecognitionException{
 	

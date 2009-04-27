@@ -32,6 +32,7 @@ public class JavaComposite extends StringComposite {
 		addIndentationStopper("}");
 		addLineBreaker("{");
 		addLineBreaker(";");
+		addLineBreaker(",");
 		addLineBreaker("}");
 		addLineBreaker("*/");
 	}

@@ -1,4 +1,4 @@
-package org.emftext.sdk.codegen.util;
+package org.emftext.runtime.util;
 
 public class StringUtil {
 
