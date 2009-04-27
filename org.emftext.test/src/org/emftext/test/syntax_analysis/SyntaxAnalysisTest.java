@@ -46,6 +46,8 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String NO_SUB_CLASSES_FOUND = "The type of non-containment reference.*is abstract and has no concrete sub classes with defined syntax.";
 	private static final String FEATURE_HAS_NO_SYNTAX = "Feature.*has no syntax.";
 	private static final String MULTIPLICITY_DOES_NOT_MATCH = "Multiplicity of feature.*does not match cardinality.";
+	private static final String START_SYMBOL_WITHOUT_SYNTAX_FOUND = "Meta class.*has no syntax and can therefore not be used as start element.";
+	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class.*";
 
 	@Before
 	public void setUp() {
@@ -78,6 +80,11 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("reference3.cs", NONE, new String[] {WRONG_CONTAINMENT_TYPE});
 
 		assertProblems("cardinality.cs", NONE, new String[] {MULTIPLICITY_DOES_NOT_MATCH});
+	}
+
+	@Test
+	public void testStartSymbolWithoutSyntax() throws FileNotFoundException, IOException {
+		assertProblems("startWithoutSyntax.cs", new String[] {NO_RULE_FOR_META_CLASS}, new String[] {START_SYMBOL_WITHOUT_SYNTAX_FOUND});
 	}
 
 	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {
