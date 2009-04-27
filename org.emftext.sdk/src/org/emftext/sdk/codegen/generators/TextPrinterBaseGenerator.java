@@ -45,13 +45,13 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
-import org.emftext.sdk.codegen.util.StringUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -292,7 +292,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
 			sc.add("temp = element." + generateAccessMethod(genClass, genFeature)
 					+ ";");
-			String featureSize = feature.getUpperBound() == -1 ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
+			// TODO skarol: was getUpperBound() == -1 (is the new version correct?)
+			String featureSize = feature.getUpperBound() > 1 ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
 					: "1";
 			sc.add("printCountingMap.put(\"" + feature.getName()
 					+ "\", temp == null ? 0 : " + featureSize + ");");
@@ -660,12 +661,15 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						} else if (cardinality instanceof PLUS
 								|| cardinality instanceof STAR) {
 							if (feature.getUpperBound() != 1) {
-								sc.add(LIST_ITERATOR_CLASS_NAME + "<?> it  = ((" + LIST_CLASS_NAME +"<?>) element."
-												+ generateAccessMethod(genClass, genFeature)
-												+ ").listIterator(((" + LIST_CLASS_NAME +"<?>)element."
-												+ generateAccessMethod(genClass, genFeature)
-												+ ").size()-count);");
-								sc.add("while(it.hasNext()){");
+								sc.add(LIST_CLASS_NAME + "<?> list = (" + LIST_CLASS_NAME +"<?>)element."
+										+ generateAccessMethod(genClass, genFeature)
+										+ ";");
+								sc.add("int index  = list.size() - count;");
+								sc.add("if (index < 0) {");
+								sc.add("index = 0;");
+								sc.add("}");
+								sc.add(LIST_ITERATOR_CLASS_NAME + "<?> it  = list.listIterator(index);");
+								sc.add("while (it.hasNext()) {");
 								sc.add(OBJECT_CLASS_NAME + " o = it.next();");
 								if (cardinality instanceof STAR
 										&& neededFeatures.contains(featureName)) {
