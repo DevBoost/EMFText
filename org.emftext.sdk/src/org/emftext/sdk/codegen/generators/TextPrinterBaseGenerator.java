@@ -652,11 +652,18 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							sc.add("Object o = element."
 									+ generateAccessMethod(genClass, genFeature) + ";");
 							if (feature.getUpperBound() != 1) {
-								sc.add("o = ((" + LIST_CLASS_NAME +"<?>)o).get(((" + LIST_CLASS_NAME +"<?>)o).size() - count);");
+								sc.add(LIST_CLASS_NAME +"<?> list = (" + LIST_CLASS_NAME + "<?>) o;");
+								sc.add("int index = list.size() - count;");
+								sc.add("if (index >= 0) {");
+								sc.add("o = list.get(index);");
+								sc.add("} else {");
+								sc.add("o = null;");
+								sc.add("}");
 							}
+							sc.add("if (o != null) {");
 							sc.add(printStatements);
-							sc.add("printCountingMap.put(\""
-									+ featureName + "\",count-1);");
+							sc.add("}");
+							sc.add("printCountingMap.put(\"" + featureName + "\", count - 1);");
 							neededFeatures.remove(featureName);
 						} else if (cardinality instanceof PLUS
 								|| cardinality instanceof STAR) {
