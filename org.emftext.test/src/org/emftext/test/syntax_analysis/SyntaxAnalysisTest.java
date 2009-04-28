@@ -49,6 +49,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String START_SYMBOL_WITHOUT_SYNTAX_FOUND = "Meta class.*has no syntax and can therefore not be used as start element.";
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class.*";
 	private static final String MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS = "The feature has cardinality.*in the meta model, but the syntax definition does match. This may cause problems when printed models are parsed again.";
+	private static final String REFERENCE_TO_TYPE_WITHOUT_SYNTAX = "There is no syntax for the type (.*) of reference.*.";
 
 	@Before
 	public void setUp() {
@@ -79,6 +80,8 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("reference1.cs", new String[] {NO_SUB_CLASSES_FOUND}, NONE);
 		assertProblems("reference2.cs", new String[] {FEATURE_HAS_NO_SYNTAX}, NONE);
 		assertProblems("reference3.cs", NONE, new String[] {WRONG_CONTAINMENT_TYPE});
+		// this is a test for bug 729 (Add syntax analyser that checks that every reference used in the CS has a type with syntax)
+		assertProblems("referenceWithoutSyntax.cs", new String[] {NO_RULE_FOR_META_CLASS}, new String[] {REFERENCE_TO_TYPE_WITHOUT_SYNTAX});
 	}
 
 	@Test
