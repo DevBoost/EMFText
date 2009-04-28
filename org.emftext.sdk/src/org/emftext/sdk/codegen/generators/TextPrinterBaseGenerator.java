@@ -655,6 +655,15 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							if (feature.getUpperBound() != 1) {
 								sc.add(LIST_CLASS_NAME +"<?> list = (" + LIST_CLASS_NAME + "<?>) o;");
 								sc.add("int index = list.size() - count;");
+								// we must check the index, because the list in the model
+								// may contain less elements than expected.
+								//
+								// this is for example the case, for a CS definitions like:
+								//
+								// feature ("," feature)*
+								//
+								// where the first element is mandatory in the CS rule, but
+								// the meta model defines a cardinality of 0..* for 'feature'.
 								sc.add("if (index >= 0) {");
 								sc.add("o = list.get(index);");
 								sc.add("} else {");
