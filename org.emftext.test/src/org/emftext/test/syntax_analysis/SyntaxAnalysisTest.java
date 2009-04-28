@@ -48,6 +48,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String MULTIPLICITY_DOES_NOT_MATCH = "Multiplicity of feature.*does not match cardinality.";
 	private static final String START_SYMBOL_WITHOUT_SYNTAX_FOUND = "Meta class.*has no syntax and can therefore not be used as start element.";
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class.*";
+	private static final String MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS = "The feature has cardinality.*in the meta model, but the syntax definition does match. This may cause problems when printed models are parsed again.";
 
 	@Before
 	public void setUp() {
@@ -78,8 +79,13 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("reference1.cs", new String[] {NO_SUB_CLASSES_FOUND}, NONE);
 		assertProblems("reference2.cs", new String[] {FEATURE_HAS_NO_SYNTAX}, NONE);
 		assertProblems("reference3.cs", NONE, new String[] {WRONG_CONTAINMENT_TYPE});
+	}
 
+	@Test
+	public void testCardinalityChecks() throws FileNotFoundException, IOException {
 		assertProblems("cardinality.cs", NONE, new String[] {MULTIPLICITY_DOES_NOT_MATCH});
+		// this is a test for bug 730 (Add syntax analyser that checks that meta model cardinalities match the defined syntax) 
+		assertProblems("cardinality2.cs", new String[] {MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS}, NONE);
 	}
 
 	@Test
