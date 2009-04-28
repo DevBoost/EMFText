@@ -292,8 +292,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
 			sc.add("temp = element." + generateAccessMethod(genClass, genFeature)
 					+ ";");
-			// TODO skarol: was getUpperBound() == -1 (is the new version correct?)
-			String featureSize = feature.getUpperBound() > 1 ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
+
+			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
+			String featureSize = isMultiple ? "((" + java.util.Collection.class.getName() + "<?>) temp).size()"
 					: "1";
 			sc.add("printCountingMap.put(\"" + feature.getName()
 					+ "\", temp == null ? 0 : " + featureSize + ");");
