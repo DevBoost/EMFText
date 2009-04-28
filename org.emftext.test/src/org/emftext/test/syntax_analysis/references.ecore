@@ -5,7 +5,7 @@
     nsURI="http://www.emftext.org/test/references" nsPrefix="references">
   <eClassifiers xsi:type="ecore:EClass" name="Root">
     <eStructuralFeatures xsi:type="ecore:EReference" name="toAbstract" upperBound="-1"
-        eType="#//AbstractClassA"/>
+        eType="#//AbstractClassA" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractClassA" abstract="true"/>
 </ecore:EPackage>

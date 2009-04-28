@@ -8,6 +8,7 @@ OPTIONS {
 
 RULES {
 	// here we should get an error, because the reference 
-	// 'toAbstract' is not a containment reference.
-	Root ::= "ROOT" toAbstract*;
+	// 'toAbstract' is a containment reference and we use
+	// it ase if it were a non-containment.
+	Root ::= "ROOT" toAbstract['"','"']*;
 }
