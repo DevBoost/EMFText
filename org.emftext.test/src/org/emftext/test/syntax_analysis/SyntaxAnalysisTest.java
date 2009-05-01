@@ -89,6 +89,7 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("cardinality.cs", NONE, new String[] {MULTIPLICITY_DOES_NOT_MATCH});
 		// this is a test for bug 730 (Add syntax analyser that checks that meta model cardinalities match the defined syntax) 
 		assertProblems("cardinality2.cs", new String[] {MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS}, NONE);
+		assertProblems("cardinality3.cs", new String[] {MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS}, NONE);
 	}
 
 	@Test
@@ -103,8 +104,8 @@ public class SyntaxAnalysisTest extends TestCase {
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		
-		assertDiagnostics(filename, expectedWarnings, resource.getWarnings(), "warnings");
-		assertDiagnostics(filename, expectedErrors, resource.getErrors(), "errors");
+		assertDiagnostics(filename, expectedWarnings, resource.getWarnings(), "warning(s)");
+		assertDiagnostics(filename, expectedErrors, resource.getErrors(), "error(s)");
 	}
 
 	private void assertDiagnostics(String filename, String[] expectedDiagnostics,
