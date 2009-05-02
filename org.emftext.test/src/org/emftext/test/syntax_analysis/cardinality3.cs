@@ -7,8 +7,12 @@ OPTIONS {
 }
 
 RULES {
-	// here we should get a warning, because the reference 'reference'
+	// here we should get two warnings:
+	// 1. because the reference 'reference'
 	// has an upper bound of 2, but is defined mandatory three times 
+	// in the syntax
+	// 2. because the reference 'reference'
+	// has an lower bound of 0, but is defined mandatory three times
 	// in the syntax
 	Root ::= "ROOT" reference "," reference "," reference;
 	A    ::= "A";

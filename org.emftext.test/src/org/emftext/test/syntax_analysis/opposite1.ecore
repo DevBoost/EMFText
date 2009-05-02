@@ -9,9 +9,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractSuperClass" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ClassA" eSuperTypes="#//AbstractSuperClass">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="b" eType="#//ClassB" eOpposite="#//ClassB/a"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="b" lowerBound="1" eType="#//ClassB"
+        eOpposite="#//ClassB/a"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ClassB" eSuperTypes="#//AbstractSuperClass">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="a" eType="#//ClassA" eOpposite="#//ClassA/b"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="a" lowerBound="1" eType="#//ClassA"
+        eOpposite="#//ClassA/b"/>
   </eClassifiers>
 </ecore:EPackage>

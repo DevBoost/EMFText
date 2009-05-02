@@ -41,14 +41,17 @@ import org.junit.Test;
  */
 public class SyntaxAnalysisTest extends TestCase {
 
+	private static final String OCCURENCES_DO_NOT_MATCH = " occurences (.*) of feature .* do not match (.*).";
 	private static final String[] NONE = new String[0];
 	private static final String WRONG_CONTAINMENT_TYPE = "Feature.*has wrong containment type.*";
 	private static final String NO_SUB_CLASSES_FOUND = "The type of containment reference.*is abstract and has no concrete sub classes with defined syntax.";
 	private static final String FEATURE_HAS_NO_SYNTAX = "Feature.*has no syntax.";
-	private static final String MULTIPLICITY_DOES_NOT_MATCH = "Multiplicity of feature.*does not match cardinality.";
+	private static final String MAX_OCCURENCES_DO_NOT_MATCH = "Maximum" + OCCURENCES_DO_NOT_MATCH;
+	private static final String MIN_OCCURENCES_DO_NOT_MATCH = "Minimum" + OCCURENCES_DO_NOT_MATCH;
+	private static final String EXPLICIT_SYNTAX_CHOICE = "Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
 	private static final String START_SYMBOL_WITHOUT_SYNTAX_FOUND = "Meta class.*has no syntax and can therefore not be used as start element.";
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class.*";
-	private static final String MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS = "The feature has cardinality.*in the meta model, but the syntax definition does match. This may cause problems when printed models are parsed again.";
+	//private static final String MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS = "The feature has cardinality.*in the meta model, but the syntax definition does match. This may cause problems when printed models are parsed again.";
 	private static final String REFERENCE_TO_TYPE_WITHOUT_SYNTAX = "There is no syntax for the type (.*) of reference.*.";
 
 	@Before
@@ -86,10 +89,13 @@ public class SyntaxAnalysisTest extends TestCase {
 
 	@Test
 	public void testCardinalityChecks() throws FileNotFoundException, IOException {
-		assertProblems("cardinality.cs", NONE, new String[] {MULTIPLICITY_DOES_NOT_MATCH});
-		// this is a test for bug 730 (Add syntax analyser that checks that meta model cardinalities match the defined syntax) 
-		assertProblems("cardinality2.cs", new String[] {MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS}, NONE);
-		assertProblems("cardinality3.cs", new String[] {MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS}, NONE);
+		assertProblems("cardinality.cs", NONE, new String[] {MAX_OCCURENCES_DO_NOT_MATCH});
+		
+		// these are tests for bug 730 (Add syntax analyser that checks that meta model cardinalities match the defined syntax) 
+		assertProblems("cardinality2.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH}, NONE);
+		assertProblems("cardinality3.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH}, new String[] {MAX_OCCURENCES_DO_NOT_MATCH});
+		assertProblems("cardinality4a.cs", new String[] {EXPLICIT_SYNTAX_CHOICE}, NONE);
+		assertProblems("cardinality4b.cs", new String[] {EXPLICIT_SYNTAX_CHOICE, EXPLICIT_SYNTAX_CHOICE}, NONE);
 	}
 
 	@Test
@@ -104,13 +110,16 @@ public class SyntaxAnalysisTest extends TestCase {
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		
-		assertDiagnostics(filename, expectedWarnings, resource.getWarnings(), "warning(s)");
-		assertDiagnostics(filename, expectedErrors, resource.getErrors(), "error(s)");
+		EList<Diagnostic> warnings = resource.getWarnings();
+		EList<Diagnostic> errors = resource.getErrors();
+		printDiagnostics(warnings, filename, "warning(s)");
+		printDiagnostics(errors, filename, "error(s)");
+		assertDiagnostics(filename, expectedWarnings, warnings, "warning(s)");
+		assertDiagnostics(filename, expectedErrors, errors, "error(s)");
 	}
 
 	private void assertDiagnostics(String filename, String[] expectedDiagnostics,
 			EList<Diagnostic> diagnostics, String type) {
-		printDiagnostics(diagnostics, filename, type);
 		assertEquals(filename + " should contain " + expectedDiagnostics.length + " " + type + ".", expectedDiagnostics.length, diagnostics.size());
 		for (int i = 0; i < expectedDiagnostics.length; i++) {
 			String actualDiagnostic = diagnostics.get(i).getMessage();
