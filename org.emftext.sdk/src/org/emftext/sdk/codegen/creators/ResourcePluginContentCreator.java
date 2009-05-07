@@ -75,7 +75,7 @@ public class ResourcePluginContentCreator {
 		searchForUnusedResolvers(context);
 	}
 
-	// TODO mseifert: I think we could do this in a post processor
+	// TODO mseifert: I think we could do this in a post processor (bug 732)
 	private void searchForUnusedResolvers(GenerationContext context) {
 		Set<String> resolverFiles = context.getResolverFileNames();
 		

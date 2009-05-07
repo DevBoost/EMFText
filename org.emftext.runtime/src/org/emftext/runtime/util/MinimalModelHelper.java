@@ -14,6 +14,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 /**
  * A helper class that is able to create minimal model instances for Ecore
  * models.
+ * 
+ * TODO mseifert: add cross references where possible
  */
 public class MinimalModelHelper {
 
@@ -30,7 +32,8 @@ public class MinimalModelHelper {
 			if (feature instanceof EReference) {
 				EReference reference = (EReference) feature;
 				if (reference.isContainment()) {
-					// TODO handle opposite containments properly
+					// TODO mseifert: handle opposite containments properly
+					// TODO @jjohannes: can you comment on this?
 					EClassifier type = reference.getEType();
 					if (type instanceof EClass) {
 						EClass typeClass = (EClass) type;

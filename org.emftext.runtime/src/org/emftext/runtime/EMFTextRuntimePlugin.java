@@ -113,8 +113,9 @@ public class EMFTextRuntimePlugin extends Plugin {
 	 * @return the status object describing the error
 	 * 
 	 * TODO mseifert: check whether the calls to this method are really
-	 * needed. some error may be handled better by adding them as problems
-	 * to the generation context.
+	 * needed. some errors may be handled better by adding them as problems
+	 * to the generation context. other should be probably shown to the user
+	 * when the UI version of the generation is used (bug 733).
 	 */
 	public static IStatus logError(String message, Throwable exception) {
 		IStatus status;
