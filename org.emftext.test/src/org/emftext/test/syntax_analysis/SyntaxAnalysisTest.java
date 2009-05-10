@@ -89,13 +89,16 @@ public class SyntaxAnalysisTest extends TestCase {
 
 	@Test
 	public void testCardinalityChecks() throws FileNotFoundException, IOException {
-		assertProblems("cardinality.cs", NONE, new String[] {MAX_OCCURENCES_DO_NOT_MATCH});
+		assertProblems("cardinality.cs", new String[] {MAX_OCCURENCES_DO_NOT_MATCH}, NONE);
 		
 		// these are tests for bug 730 (Add syntax analyser that checks that meta model cardinalities match the defined syntax) 
 		assertProblems("cardinality2.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH}, NONE);
-		assertProblems("cardinality3.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH}, new String[] {MAX_OCCURENCES_DO_NOT_MATCH});
+		assertProblems("cardinality3.cs", new String[] {MAX_OCCURENCES_DO_NOT_MATCH, MIN_OCCURENCES_DO_NOT_MATCH}, NONE);
 		assertProblems("cardinality4a.cs", new String[] {EXPLICIT_SYNTAX_CHOICE}, NONE);
 		assertProblems("cardinality4b.cs", new String[] {EXPLICIT_SYNTAX_CHOICE, EXPLICIT_SYNTAX_CHOICE}, NONE);
+
+		assertProblems("cardinality5a.cs", new String[] {EXPLICIT_SYNTAX_CHOICE}, NONE);
+		assertProblems("cardinality5b.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH, EXPLICIT_SYNTAX_CHOICE, EXPLICIT_SYNTAX_CHOICE}, NONE);
 	}
 
 	@Test
@@ -104,6 +107,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	}
 
 	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {
+		System.out.println("-----> " + filename);
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_analysis" + File.separator;
 		File file = new File(path + filename);
 		
