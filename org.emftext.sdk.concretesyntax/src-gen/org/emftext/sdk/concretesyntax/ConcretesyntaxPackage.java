@@ -230,13 +230,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
+	 * The feature id for the '<em><b>All Token Styles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__ALL_TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
+
+	/**
 	 * The feature id for the '<em><b>All Tokens</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
+	int CONCRETE_SYNTAX__ALL_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -245,7 +254,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
+	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>All Rules</b></em>' reference list.
@@ -254,7 +263,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
+	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 13;
 
 	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
@@ -263,7 +272,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 13;
+	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 14;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -1548,6 +1557,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getConcreteSyntax_TokenStyles();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenStyles <em>All Token Styles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>All Token Styles</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenStyles()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax_AllTokenStyles();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getSyntheticTokens <em>Synthetic Tokens</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2348,6 +2368,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONCRETE_SYNTAX__TOKEN_STYLES = eINSTANCE.getConcreteSyntax_TokenStyles();
+
+		/**
+		 * The meta object literal for the '<em><b>All Token Styles</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__ALL_TOKEN_STYLES = eINSTANCE.getConcreteSyntax_AllTokenStyles();
 
 		/**
 		 * The meta object literal for the '<em><b>Synthetic Tokens</b></em>' containment reference list feature.

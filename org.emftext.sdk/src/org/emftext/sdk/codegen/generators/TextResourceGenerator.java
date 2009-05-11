@@ -96,7 +96,7 @@ public class TextResourceGenerator extends BaseGenerator {
     }
 
 	private void generateGetDefaultStyleMethod(StringComposite sc) {
-		List<TokenStyle> styles = concreteSyntax.getTokenStyles();
+		List<TokenStyle> styles = concreteSyntax.getAllTokenStyles();
 		
 		sc.add("public " + ITokenStyle.class.getName() + " getDefaultTokenStyle(java.lang.String tokenName) {");
 		for (TokenStyle nextStyle : styles) {

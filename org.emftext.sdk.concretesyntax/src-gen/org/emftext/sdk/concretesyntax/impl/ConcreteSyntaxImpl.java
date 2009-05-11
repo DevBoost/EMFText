@@ -62,6 +62,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getTokens <em>Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getSyntheticTokens <em>Synthetic Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getTokenStyles <em>Token Styles</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokenStyles <em>All Token Styles</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokens <em>All Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllRules <em>All Rules</em>}</li>
@@ -404,6 +405,36 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<TokenStyle> getAllTokenStyles() {
+		EList<TokenStyle> styles = new BasicEList<TokenStyle>();
+		styles.addAll(getTokenStyles());
+		
+		EList<Import> imports = getImports();
+		for (Import importedElement : imports) {
+			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
+			if (importedSyntax != null) {
+				EList<TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
+				for (TokenStyle importedStyle : importedStyles) {
+					boolean exists = false;
+					for (TokenStyle existingStyle : styles) {
+						if (existingStyle.getTokenName().equals(importedStyle.getTokenName())) {
+							exists = true;
+						}
+					}
+					if (!exists){
+						styles.add(importedStyle);
+					}
+				}
+			}
+		}
+		return styles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<TokenDefinition> getSyntheticTokens() {
@@ -494,6 +525,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getSyntheticTokens();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				return getTokenStyles();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
+				return getAllTokenStyles();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
 				return getAllTokens();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
@@ -543,6 +576,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				getTokenStyles().clear();
 				getTokenStyles().addAll((Collection<? extends TokenStyle>)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
+				getAllTokenStyles().clear();
+				getAllTokenStyles().addAll((Collection<? extends TokenStyle>)newValue);
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
 				getAllTokens().clear();
 				getAllTokens().addAll((Collection<? extends TokenDefinition>)newValue);
@@ -587,6 +624,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				getTokenStyles().clear();
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
+				getAllTokenStyles().clear();
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
 				getAllTokens().clear();
 				return;
@@ -625,6 +665,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return syntheticTokens != null && !syntheticTokens.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				return tokenStyles != null && !tokenStyles.isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
+				return !getAllTokenStyles().isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
 				return !getAllTokens().isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:

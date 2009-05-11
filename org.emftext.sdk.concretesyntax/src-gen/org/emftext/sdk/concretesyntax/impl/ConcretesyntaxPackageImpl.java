@@ -442,7 +442,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_Rules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -451,7 +451,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_AllRules() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(12);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -486,6 +486,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConcreteSyntax_AllTokenStyles() {
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getConcreteSyntax_SyntheticTokens() {
 		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(8);
 	}
@@ -496,7 +505,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	public EReference getConcreteSyntax_AllTokens() {
-		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(10);
+		return (EReference)concreteSyntaxEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1094,6 +1103,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__TOKEN_STYLES);
+		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_TOKENS);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__RULES);
 		createEReference(concreteSyntaxEClass, CONCRETE_SYNTAX__ALL_RULES);
@@ -1256,6 +1266,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEReference(getConcreteSyntax_Tokens(), this.getTokenDefinition(), null, "tokens", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_SyntheticTokens(), this.getTokenDefinition(), null, "syntheticTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_TokenStyles(), this.getTokenStyle(), null, "tokenStyles", null, 0, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcreteSyntax_AllTokenStyles(), this.getTokenStyle(), null, "allTokenStyles", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_AllTokens(), this.getTokenDefinition(), null, "allTokens", null, 0, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_Rules(), this.getRule(), this.getRule_Syntax(), "rules", null, 1, -1, ConcreteSyntax.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConcreteSyntax_AllRules(), this.getRule(), null, "allRules", null, 1, -1, ConcreteSyntax.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
