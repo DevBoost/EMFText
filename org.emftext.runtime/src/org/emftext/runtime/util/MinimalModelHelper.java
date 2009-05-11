@@ -67,7 +67,14 @@ public class MinimalModelHelper {
 			} else if (feature instanceof EAttribute) {
 				EAttribute attribute = (EAttribute) feature;
 				if ("EString".equals(attribute.getEType().getName())) {
-					root.eSet(attribute, "some" + StringUtil.capitalize(attribute.getName()));
+					String initialValue = "some" + StringUtil.capitalize(attribute.getName());
+					Object value = root.eGet(attribute);
+					if (value instanceof List) {
+						List<String> list = (List<String>) value;
+						list.add(initialValue);
+					} else {
+						root.eSet(attribute, initialValue);
+					}
 				}
 			}
 		}
