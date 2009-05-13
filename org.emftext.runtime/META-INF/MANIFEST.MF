@@ -11,9 +11,8 @@ Export-Package: org.emftext.runtime,
  org.emftext.runtime.resource,
  org.emftext.runtime.resource.impl,
  org.emftext.runtime.util
-Require-Bundle: org.eclipse.emf.workspace,
- org.eclipse.emf.codegen.ecore,
- org.emftext.runtime.antlr;visibility:=reexport
+Require-Bundle: org.emftext.runtime.antlr;visibility:=reexport,
+ org.eclipse.emf.workspace
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-ActivationPolicy: lazy
 

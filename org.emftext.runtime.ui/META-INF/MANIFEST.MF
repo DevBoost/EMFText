@@ -9,9 +9,14 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Bundle-Activator: org.emftext.runtime.ui.EMFTextRuntimeUIPlugin
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.core.runtime,org.eclipse.ui.editors,org.ec
- lipse.emf.ecore.editor,org.eclipse.jface.text,org.eclipse.core.resour
- ces,org.emftext.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.emftext.runtime,
+ org.eclipse.emf.ecore.edit,
+ org.eclipse.emf.edit.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.editors,
+ org.eclipse.jface.text
 Export-Package: org.emftext.runtime.ui,
  org.emftext.runtime.ui.editor,
  org.emftext.runtime.ui.editor.bg_parsing,
