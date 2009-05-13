@@ -5,10 +5,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText SDK Ant Support
 Bundle-SymbolicName: org.emftext.sdk.ant; singleton:=true
 Bundle-Version: 1.0.0.v200903061841
-Require-Bundle: org.apache.ant,org.emftext.sdk,org.emftext.sdk.antlr,o
- rg.emftext.sdk.concretesyntax,org.emftext.sdk.concretesyntax.resource
- .cs,org.eclipse.core.resources,org.eclipse.core.runtime,org.emftext.r
- untime,org.eclipse.emf.ecore.xmi;bundle-version="2.4.1"
+Require-Bundle: org.apache.ant,
+ org.emftext.sdk,
+ org.emftext.sdk.antlr,
+ org.emftext.sdk.concretesyntax,
+ org.emftext.sdk.concretesyntax.resource.cs,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.emftext.runtime
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.sdk.ant
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
