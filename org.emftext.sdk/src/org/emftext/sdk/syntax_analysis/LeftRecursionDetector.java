@@ -20,6 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -80,16 +81,22 @@ public class LeftRecursionDetector {
 				if (feature.getEcoreFeature() == null) {
 					continue;
 				}
-				GenClass featureType = feature.getTypeGenClass();
-				if (metaclass.equals(featureType) || 
-						//this.genClasses2superNames.get(featureType.getName()).contains(metaclass.getName()) ||
-						genClassNames2superNames.get(metaclass.getQualifiedInterfaceName()).contains(featureType.getQualifiedInterfaceName())) {
+				
+				Collection<GenClass> featureTypes = new ArrayList<GenClass>();
+				if (c.getTypes().size() == 0) {
+					featureTypes.add(feature.getTypeGenClass());
+				}
+				else {
+					featureTypes.addAll(c.getTypes());
+				}
+				if (featureTypes.contains(metaclass) || 
+						isSubtypeofOneOf(metaclass, featureTypes)) {
 					return currentRule;
 				} else {
 					Rule featureRule = null;
 					EList<Rule> allRules = this.grammar.getAllRules();
 					for (Rule rule : allRules) {
-						if (rule.getMetaclass().equals(featureType)) {
+						if (featureTypes.contains(rule.getMetaclass())) {
 							featureRule = rule;
 						}
 					}
@@ -118,6 +125,15 @@ public class LeftRecursionDetector {
 			}
 		}
 		return null;
+	}
+
+	private boolean isSubtypeofOneOf(GenClass metaclass, Collection<GenClass> featureTypes) {
+		Collection<String> superNames = genClassNames2superNames.get(metaclass.getQualifiedInterfaceName());
+		for (GenClass featureType : featureTypes) {
+			if (superNames.contains(featureType.getQualifiedInterfaceName())) return true;
+		}
+	
+		return false;
 	}
 
 	public boolean isDirectLeftRecursive(Rule rule) {
