@@ -140,7 +140,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 							}
 						}
 					} catch (ParserException e) {
-						errorMsg += "Parse Error for OCL Expression: " + value;
+						errorMsg += "Parse Error for OCL Expression (" + e.getMessage() + "): " + value;
 					}
 					
 
@@ -197,7 +197,9 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 			error += "Evaluation of OCL expression failed: OclInvalid";
 		} 
 		else if (result instanceof String) {
-			error = "'" + result + "'";
+			if (((String) result).length() > 0) {
+				error = "'" + result + "'";	
+			}
 		} 
 		else if (result instanceof Tuple) {
 			Object[] array = ((Tuple<?,?>) result).getTupleType().oclProperties().toArray(new Object[]{});
