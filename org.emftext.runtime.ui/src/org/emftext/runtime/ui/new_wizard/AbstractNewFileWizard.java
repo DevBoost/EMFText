@@ -91,6 +91,7 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 		} catch (InvocationTargetException e) {
 			Throwable realException = e.getTargetException();
 			MessageDialog.openError(getShell(), "Error", realException.getMessage());
+			EMFTextRuntimePlugin.logError("Exception while initializing new file", e);
 			return false;
 		}
 		return true;
