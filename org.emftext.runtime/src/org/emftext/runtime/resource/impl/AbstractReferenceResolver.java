@@ -31,9 +31,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IReferenceResolveResult;
+import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
@@ -198,13 +200,21 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject, R
 
 	private String getName(ReferenceType element) {
 		EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
-		if (nameAttr instanceof EAttribute) {
+		if(element.eIsProxy()) {
+			String fragment = ((InternalEObject)element).eProxyURI().fragment();
+			if (fragment != null && fragment.startsWith(IContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX)) {
+				fragment = fragment.substring(IContextDependentURIFragment.INTERNAL_URI_FRAGMENT_PREFIX.length());
+			}
+			return fragment;
+		}
+		else if (nameAttr instanceof EAttribute) {
 			return (String) element.eGet(nameAttr);
 		}
 		else {
 			//try any other string attribute found
 			for(EAttribute strAttribute : element.eClass().getEAllAttributes()) {
-				if (strAttribute.getEType().getInstanceClassName().equals(java.lang.String.class.getName())) {
+				if (!strAttribute.isMany() &&
+						strAttribute.getEType().getInstanceClassName().equals(java.lang.String.class.getName())) {
 					return (String) element.eGet(strAttribute);
 				}
 			}
