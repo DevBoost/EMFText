@@ -3,6 +3,7 @@ package org.emftext.runtime.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -10,12 +11,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 
 /**
  * A helper class that is able to create minimal model instances for Ecore
  * models.
  * 
  * TODO mseifert: add cross references where possible
+ *                Proxies are now added with a pointer to nowhere. This way we have 
+ *                at least something that can be printed even if it results in an error.
  */
 public class MinimalModelHelper {
 
@@ -31,36 +35,43 @@ public class MinimalModelHelper {
 		for (EStructuralFeature feature : features) {
 			if (feature instanceof EReference) {
 				EReference reference = (EReference) feature;
-				if (reference.isContainment()) {
-					// TODO mseifert: handle opposite containments properly
-					// TODO @jjohannes: can you comment on this?
-					EClassifier type = reference.getEType();
-					if (type instanceof EClass) {
-						EClass typeClass = (EClass) type;
-						if (typeClass.isAbstract()) {
-							// find subclasses
-							List<EClass> subClasses = findSubClasses(typeClass, allAvailableClasses);
-							if (subClasses.size() == 0) {
-								continue;
-							} else {
-								// pick the first subclass
-								typeClass = subClasses.get(0);
-							}
-						}
-						int lowerBound = reference.getLowerBound();
-						for (int i = 0; i < lowerBound; i++) {
-							EObject subModel = getMinimalModel(typeClass, allAvailableClasses);
-							if (subModel == null) {
-								continue;
-							}
 
-							Object value = root.eGet(reference);
-							if (value instanceof List) {
-								List<EObject> list = (List<EObject>) value;
-								list.add(subModel);
-							} else {
-								root.eSet(reference, subModel);
-							}
+				EClassifier type = reference.getEType();
+				if (type instanceof EClass) {
+					EClass typeClass = (EClass) type;
+					if (typeClass.isAbstract()) {
+						// find subclasses
+						List<EClass> subClasses = findSubClasses(typeClass, allAvailableClasses);
+						if (subClasses.size() == 0) {
+							continue;
+						} else {
+							// pick the first subclass
+							typeClass = subClasses.get(0);
+						}
+					}
+					int lowerBound = reference.getLowerBound();
+					for (int i = 0; i < lowerBound; i++) {
+						EObject subModel = null;
+						if (reference.isContainment()) {
+							subModel = getMinimalModel(typeClass, allAvailableClasses);
+						}
+						else {
+							subModel = typeClass.getEPackage().getEFactoryInstance().create(typeClass);
+							//set some proxy URI to make this object a proxy
+							String initialValue = "#some" + StringUtil.capitalize(typeClass.getName());
+							URI proxyURI = URI.createURI(initialValue);
+							((InternalEObject)subModel).eSetProxyURI(proxyURI);
+						}
+						if (subModel == null) {
+							continue;
+						}
+
+						Object value = root.eGet(reference);
+						if (value instanceof List) {
+							List<EObject> list = (List<EObject>) value;
+							list.add(subModel);
+						} else {
+							root.eSet(reference, subModel);
 						}
 					}
 				}
