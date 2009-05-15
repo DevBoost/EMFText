@@ -48,6 +48,7 @@ import org.emftext.runtime.util.MinimalModelHelper;
 public abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 	private AbstractNewFileWizardPage page;
 	private ISelection selection;
+	private String newName = null;
 
 	/**
 	 * Constructor for AbstractNewFileWizard.
@@ -73,6 +74,11 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 	public boolean performFinish() {
 		final String containerName = page.getContainerName();
 		final String fileName = page.getFileName();
+		this.newName = fileName;
+		int seperatorIdx = newName.indexOf('.');
+		if(seperatorIdx != -1) {
+			newName = newName.substring(0, seperatorIdx);
+		}
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
@@ -176,7 +182,7 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 
 	private String getExampleContent(EClass eClass, EClass[] allClassesWithSyntax) {
 		// create a minimal model
-		EObject root = new MinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax);
+		EObject root = new MinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newName);
 		// use printer to get text for model
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		ITextPrinter printer = getPrinter(buffer);

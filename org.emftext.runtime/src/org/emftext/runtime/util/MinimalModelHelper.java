@@ -26,6 +26,10 @@ public class MinimalModelHelper {
 	private final static EClassUtil eClassUtil = new EClassUtil();
 
 	public EObject getMinimalModel(EClass eClass, EClass[] allAvailableClasses) {
+		return getMinimalModel(eClass, allAvailableClasses, null);
+	}
+	
+	public EObject getMinimalModel(EClass eClass, EClass[] allAvailableClasses, String name) {
 		EPackage ePackage = eClass.getEPackage();
 		if (ePackage == null) {
 			return null;
@@ -78,7 +82,13 @@ public class MinimalModelHelper {
 			} else if (feature instanceof EAttribute) {
 				EAttribute attribute = (EAttribute) feature;
 				if ("EString".equals(attribute.getEType().getName())) {
-					String initialValue = "some" + StringUtil.capitalize(attribute.getName());
+					String initialValue;
+					if(attribute.getName().equals("name") && name != null) {
+						initialValue = name;
+					}
+					else {
+						initialValue = "some" + StringUtil.capitalize(attribute.getName());
+					}
 					Object value = root.eGet(attribute);
 					if (value instanceof List) {
 						List<String> list = (List<String>) value;
