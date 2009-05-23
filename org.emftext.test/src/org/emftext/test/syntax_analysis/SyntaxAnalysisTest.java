@@ -51,6 +51,8 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String EXPLICIT_SYNTAX_CHOICE = "Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
 	private static final String START_SYMBOL_WITHOUT_SYNTAX_FOUND = "Meta class.*has no syntax and can therefore not be used as start element.";
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class.*";
+	private static final String DUPLICATE_TOKENSTYLE_FOUND = "Duplicate style definition for token.*.";
+	
 	//private static final String MULTIPLICITY_IN_MM_DOES_NOT_MATCH_CS = "The feature has cardinality.*in the meta model, but the syntax definition does match. This may cause problems when printed models are parsed again.";
 	private static final String REFERENCE_TO_TYPE_WITHOUT_SYNTAX = "There is no syntax for the type (.*) of reference.*.";
 
@@ -78,6 +80,12 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("opposite2b.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX}, NONE);
 	}
 
+	@Test
+	public void testDuplicateTokenStyleDetection() throws FileNotFoundException, IOException {
+		// this is a test for bug 740
+		assertProblems("duplicate_tokenstyle.cs", new String[] {DUPLICATE_TOKENSTYLE_FOUND}, NONE);
+	}
+	
 	@Test
 	public void testReferences() throws FileNotFoundException, IOException {
 		assertProblems("reference1.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND});
