@@ -27,7 +27,7 @@
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             id="org.emftext.filetype"
-            name="EMF Text Editor Files">
+            name="EMFText Editor Files">
       </content-type>
    </extension>
    
@@ -38,7 +38,7 @@
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             icon="icons/editor.gif"
             id="org.emftext.runtime.ui.texteditor"
-            name="EMF Text Editor">
+            name="EMFText Editor">
          <contentTypeBinding contentTypeId="org.eclipse.core.runtime.text"/>
          <contentTypeBinding
                contentTypeId="org.emftext.filetype">
