@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.emftext.runtime.resource.ITextParser;
-
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
@@ -31,7 +29,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			}
 		}
 		
-		ITextParser parser = new CsParser().createInstance(actualInputStream, encoding);
+		org.emftext.runtime.resource.ITextParser parser = new org.emftext.sdk.concretesyntax.resource.cs.CsParser().createInstance(actualInputStream, encoding);
 		parser.setResource(this);
 		parser.setOptions(options);
 		org.emftext.runtime.resource.IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
@@ -48,7 +46,6 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		org.emftext.sdk.concretesyntax.resource.cs.CsPrinter printer = new org.emftext.sdk.concretesyntax.resource.cs.CsPrinter(outputStream, this);
 		org.emftext.runtime.resource.IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
-		printer.setReferenceResolverSwitch((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) referenceResolverSwitch);
 		for(org.eclipse.emf.ecore.EObject root : getContents()) {
 			printer.print(root);
 		}
