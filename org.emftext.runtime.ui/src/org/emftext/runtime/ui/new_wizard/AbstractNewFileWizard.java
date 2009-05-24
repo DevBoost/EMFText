@@ -24,6 +24,8 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -41,7 +43,7 @@ import org.emftext.runtime.util.MinimalModelHelper;
  * (a folder or a project) is selected in the workspace 
  * when the wizard is opened, it will accept it as the target
  * container. The wizard creates one file with the extension
- * "mpe". If a sample multi-page editor (also available
+ * returned by getFileExtension(). If a sample multi-page editor (also available
  * as a template) is registered for the same extension, it will
  * be able to open it.
  */
@@ -79,6 +81,26 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 		if(seperatorIdx != -1) {
 			newName = newName.substring(0, seperatorIdx);
 		}
+		final IFile file;
+		try {
+			file = getFile(fileName, containerName);
+		} catch (CoreException e1) {
+			EMFTextRuntimePlugin.logError("Exception while initializing new file", e1);
+			return false;
+		}
+		
+		if (file.exists()) {
+			// ask for confirmation
+	        MessageBox messageBox = new MessageBox(getShell(), SWT.ICON_QUESTION
+	                | SWT.YES | SWT.NO);
+	        messageBox.setMessage("File \"" + fileName + "\" already exists. Do you want to override it?");
+	        messageBox.setText("File exists");
+	        int response = messageBox.open();
+	        if (response == SWT.NO) {
+				return true;
+	        }
+		}
+		
 		IRunnableWithProgress op = new IRunnableWithProgress() {
 			public void run(IProgressMonitor monitor) throws InvocationTargetException {
 				try {
@@ -115,13 +137,7 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 		throws CoreException {
 		// create a sample file
 		monitor.beginTask("Creating " + fileName, 2);
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IResource resource = root.findMember(new Path(containerName));
-		if (!resource.exists() || !(resource instanceof IContainer)) {
-			throwCoreException("Container \"" + containerName + "\" does not exist.");
-		}
-		IContainer container = (IContainer) resource;
-		final IFile file = container.getFile(new Path(fileName));
+		final IFile file = getFile(fileName, containerName);
 		try {
 			InputStream stream = openContentStream();
 			if (file.exists()) {
@@ -145,6 +161,17 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 			}
 		});
 		monitor.worked(1);
+	}
+
+	private IFile getFile(String fileName, String containerName) throws CoreException {
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IResource resource = root.findMember(new Path(containerName));
+		if (!resource.exists() || !(resource instanceof IContainer)) {
+			throwCoreException("Container \"" + containerName + "\" does not exist.");
+		}
+		IContainer container = (IContainer) resource;
+		final IFile file = container.getFile(new Path(fileName));
+		return file;
 	}
 	
 	/**
@@ -189,7 +216,7 @@ public abstract class AbstractNewFileWizard extends Wizard implements INewWizard
 		try {
 			printer.print(root);
 		} catch (IOException e) {
-			EMFTextRuntimePlugin.logError("Exception while generation example content.", e);
+			EMFTextRuntimePlugin.logError("Exception while generating example content.", e);
 		}
 		return buffer.toString();
 	}
