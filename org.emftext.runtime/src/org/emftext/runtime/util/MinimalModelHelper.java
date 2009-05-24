@@ -1,6 +1,7 @@
 package org.emftext.runtime.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
@@ -25,6 +26,10 @@ public class MinimalModelHelper {
 
 	private final static EClassUtil eClassUtil = new EClassUtil();
 
+	public EObject getMinimalModel(EClass eClass, Collection<EClass> allAvailableClasses) {
+		return getMinimalModel(eClass, allAvailableClasses.toArray(new EClass[allAvailableClasses.size()]), null);
+	}
+	
 	public EObject getMinimalModel(EClass eClass, EClass[] allAvailableClasses) {
 		return getMinimalModel(eClass, allAvailableClasses, null);
 	}
@@ -39,6 +44,12 @@ public class MinimalModelHelper {
 		for (EStructuralFeature feature : features) {
 			if (feature instanceof EReference) {
 				EReference reference = (EReference) feature;
+				if (reference.isUnsettable()) {
+					continue;
+				}
+				if (!reference.isChangeable()) {
+					continue;
+				}
 
 				EClassifier type = reference.getEType();
 				if (type instanceof EClass) {
