@@ -6,6 +6,7 @@ OPTIONS {
 	tokenspace = "0";
 	defaultTokenName = "QUALIFIED_NAME";
 	usePredefinedTokens = "false";
+	overrideManifest = "false";
 }
 
 TOKENS {
