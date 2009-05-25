@@ -14,9 +14,13 @@ TOKENS {
 RULES {
 	Root ::= "ROOT" theAs* theBs*;
 	
-	// here we should get two warnings, because the reference 'toA' is not
+	// we should have three warnings alltogether:
+	// 
+	// we should get two warnings, because the reference 'toA' is not
 	// defined in all concrete subclasses of AbstractClassB
 	// it is defined in ConcreteEndB1, but missing in ConcreteEndB2
+	//
+	// we should get a warning that toA has a nc-opposite
 	EndA ::= "A";
 	ConcreteEndB1 ::= "B1" toA[]*;
 	ConcreteEndB2 ::= "B2";

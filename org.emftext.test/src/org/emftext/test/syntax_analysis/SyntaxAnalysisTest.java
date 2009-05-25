@@ -46,6 +46,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String WRONG_CONTAINMENT_TYPE = "Feature.*has wrong containment type.*";
 	private static final String NO_SUB_CLASSES_FOUND = "The type of containment reference.*is abstract and has no concrete sub classes with defined syntax.";
 	private static final String FEATURE_HAS_NO_SYNTAX = "Feature.*has no syntax.";
+	private static final String FEATURE_HAS_NC_OPPOSITE = "Feature has a non-containment opposite feature. The opposite is only established after reference resolving.*";
 	private static final String MAX_OCCURENCES_DO_NOT_MATCH = "Maximum" + OCCURENCES_DO_NOT_MATCH;
 	private static final String MIN_OCCURENCES_DO_NOT_MATCH = "Minimum" + OCCURENCES_DO_NOT_MATCH;
 	private static final String EXPLICIT_SYNTAX_CHOICE = "Explicit syntax choices are not reflected in model instances and may thus cause problem when printing models.";
@@ -70,12 +71,12 @@ public class SyntaxAnalysisTest extends TestCase {
 	@Test
 	public void testUnusedOppositeReferences() throws FileNotFoundException, IOException {
 		assertProblems("opposite1a.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX}, NONE);
-		assertProblems("opposite1b.cs", NONE, NONE);
-		assertProblems("opposite1c.cs", NONE, NONE);
+		assertProblems("opposite1b.cs", new String[] {FEATURE_HAS_NC_OPPOSITE}, NONE);
+		assertProblems("opposite1c.cs", new String[] {FEATURE_HAS_NC_OPPOSITE}, NONE);
 		assertProblems("opposite1d.cs", NONE, NONE);
 
-		assertProblems("opposite2a.cs", NONE, NONE);
-		assertProblems("opposite2b.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX}, NONE);
+		assertProblems("opposite2a.cs", new String[] {FEATURE_HAS_NC_OPPOSITE, FEATURE_HAS_NC_OPPOSITE}, NONE);
+		assertProblems("opposite2b.cs", new String[] {FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NO_SYNTAX, FEATURE_HAS_NC_OPPOSITE}, NONE);
 	}
 
 	@Test

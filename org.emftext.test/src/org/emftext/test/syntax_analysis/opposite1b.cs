@@ -13,8 +13,13 @@ TOKENS {
 
 RULES {
 	Root ::= "ROOT" classes*;
-	// here we should NOT get a warning, because the reference a is
+	
+	// here we should get one warning
+	//
+	// we should NOT get a warning, because the reference a is
 	// defined in ClassB
+	//
+	// we should get a warning that a has a nc-opposite
 	ClassA ::= "A";
 	ClassB ::= "B" (a[]);
 }
