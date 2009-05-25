@@ -20,7 +20,10 @@ public class ReferenceResolversCreator extends AbstractArtifactCreator {
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();
 		
-		for (GenFeature proxyReference : context.getNonContainmentReferences()){
+		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
+			// TODO this looks stupid to me. adding the proxyReference to the 
+			// same list we iterate of does not make sense to me. Am I missing
+			// something here? Why is there no ConcurrentModificationExcpetion?
 			context.addNonContainmentReference(proxyReference);
 			// do not generate resolvers for references in imported rules with 
 			// a syntax defined elsewhere
