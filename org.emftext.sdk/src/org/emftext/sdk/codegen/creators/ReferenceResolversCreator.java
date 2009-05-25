@@ -22,7 +22,7 @@ public class ReferenceResolversCreator extends AbstractArtifactCreator {
 		
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
 			// TODO this looks stupid to me. adding the proxyReference to the 
-			// same list we iterate of does not make sense to me. Am I missing
+			// same list we iterate over does not make sense to me. Am I missing
 			// something here? Why is there no ConcurrentModificationExcpetion?
 			context.addNonContainmentReference(proxyReference);
 			// do not generate resolvers for references in imported rules with 
