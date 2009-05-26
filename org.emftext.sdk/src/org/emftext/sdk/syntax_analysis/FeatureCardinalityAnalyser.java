@@ -28,6 +28,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -47,6 +48,8 @@ import org.emftext.sdk.concretesyntax.Terminal;
  */
 public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 	
+	private ConcreteSyntaxUtil concreteSyntaxUtil = new ConcreteSyntaxUtil();
+
 	private static class MinMax {
 		private int min;
 		private int max;
@@ -87,6 +90,9 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		for (Rule rule : syntax.getAllRules()) {
+			if (concreteSyntaxUtil.isImportedRule(syntax, rule)) {
+				continue;
+			}
 			analyse(resource, rule);
 		}
 	}

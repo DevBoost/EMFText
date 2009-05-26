@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 public class ConcreteSyntaxUtil {
@@ -16,5 +17,18 @@ public class ConcreteSyntaxUtil {
 			return (ConcreteSyntax) container;
 		}
 		return syntax;
+	}
+
+	/**
+	 * Returns true if the given rule was defined in the given syntax.
+	 * If the rule is defined in an imported syntax, this method returns
+	 * false.
+	 * 
+	 * @param syntax the syntax that refers to the rule
+	 * @param rule the rule to check
+	 * @return true if the rule is contained, false if it is imported
+	 */
+	public boolean isImportedRule(ConcreteSyntax syntax, Rule rule) {
+		return rule.getSyntax() != syntax;
 	}
 }
