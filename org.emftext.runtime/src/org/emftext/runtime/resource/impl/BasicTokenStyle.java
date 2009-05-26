@@ -2,6 +2,12 @@ package org.emftext.runtime.resource.impl;
 
 import org.emftext.runtime.resource.ITokenStyle;
 
+/**
+ * A basic implementation of the ITokenStyle interface. This class
+ * is instantiated by generated text resources. Modifications made
+ * to the constructor must therefore be reflected in the text resource
+ * code generator.
+ */
 public class BasicTokenStyle implements ITokenStyle {
 
 	private int[] color;

@@ -2,6 +2,9 @@ package org.emftext.runtime.util;
 
 import org.eclipse.emf.ecore.EClass;
 
+/**
+ * A utility class that provides methods to handle EClasses.
+ */
 public class EClassUtil {
 	
 	public boolean isSubClass(EClass subClassCandidate, EClass superClass) {

@@ -1,5 +1,9 @@
 package org.emftext.runtime.util;
 
+/**
+ * A utility class that provides some common methods to work
+ * with Strings.
+ */
 public class StringUtil {
 
 	 /**
