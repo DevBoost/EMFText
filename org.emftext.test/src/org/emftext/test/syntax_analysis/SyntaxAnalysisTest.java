@@ -86,6 +86,13 @@ public class SyntaxAnalysisTest extends TestCase {
 	}
 	
 	@Test
+	public void testCardinalityWarningsInImportedSyntaxes() throws FileNotFoundException, IOException {
+		// this is a test for bug 760
+		assertProblems("wrongCardinalityInImportedSyntax_import.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH}, NONE);
+		assertProblems("wrongCardinalityInImportedSyntax.cs", NONE, NONE);
+	}
+	
+	@Test
 	public void testReferences() throws FileNotFoundException, IOException {
 		assertProblems("reference1.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND});
 		assertProblems("reference2.cs", new String[] {FEATURE_HAS_NO_SYNTAX}, NONE);
