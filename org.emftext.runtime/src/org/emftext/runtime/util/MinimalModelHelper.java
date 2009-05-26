@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.InternalEObject;
  */
 public class MinimalModelHelper {
 
+	private final static ListUtil listUtil = new ListUtil();
 	private final static EClassUtil eClassUtil = new EClassUtil();
 
 	public EObject getMinimalModel(EClass eClass, Collection<EClass> allAvailableClasses) {
@@ -83,7 +84,7 @@ public class MinimalModelHelper {
 
 						Object value = root.eGet(reference);
 						if (value instanceof List) {
-							List<EObject> list = (List<EObject>) value;
+							List<EObject> list = listUtil.castListUnchecked(value);
 							list.add(subModel);
 						} else {
 							root.eSet(reference, subModel);
@@ -102,7 +103,7 @@ public class MinimalModelHelper {
 					}
 					Object value = root.eGet(attribute);
 					if (value instanceof List) {
-						List<String> list = (List<String>) value;
+						List<String> list = listUtil.castListUnchecked(value);
 						list.add(initialValue);
 					} else {
 						root.eSet(attribute, initialValue);
