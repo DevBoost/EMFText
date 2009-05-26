@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -12,7 +11,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 
 /**
  * A helper class that is able to create minimal model instances for Ecore
@@ -72,11 +70,20 @@ public class MinimalModelHelper {
 							subModel = getMinimalModel(typeClass, allAvailableClasses);
 						}
 						else {
+							// TODO jjohannes: can we actually do this? proxies with
+							// URIs that can not be resolved cause problem when printing
+							// them. I think we should rather use object that exists in
+							// the model and fill non-containment references with them.
+							//
+							// the code below prevents the NewFileWizard for the CS language
+							// to work
+							/*
 							subModel = typeClass.getEPackage().getEFactoryInstance().create(typeClass);
 							//set some proxy URI to make this object a proxy
 							String initialValue = "#some" + StringUtil.capitalize(typeClass.getName());
 							URI proxyURI = URI.createURI(initialValue);
 							((InternalEObject)subModel).eSetProxyURI(proxyURI);
+							*/
 						}
 						if (subModel == null) {
 							continue;
