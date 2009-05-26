@@ -26,6 +26,9 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 
+/**
+ * A test for the XMLComposite class.
+ */
 public class XMLCompositeTest extends TestCase {
 
 	@Test

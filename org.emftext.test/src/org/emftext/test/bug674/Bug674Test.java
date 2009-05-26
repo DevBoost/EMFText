@@ -13,6 +13,9 @@ import org.emftext.sdk.syntax_analysis.GenModelAnalyser;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A test case for bug 674.
+ */
 public class Bug674Test extends TestCase {
 
 	@Before

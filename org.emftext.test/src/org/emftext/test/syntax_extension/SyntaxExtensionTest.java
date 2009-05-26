@@ -23,6 +23,10 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A test for the extension that are performed by post processors when
+ * CS specification are loaded.
+ */
 public class SyntaxExtensionTest extends TestCase {
 
 	@Before

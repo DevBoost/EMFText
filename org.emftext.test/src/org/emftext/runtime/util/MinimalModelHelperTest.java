@@ -12,6 +12,9 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import junit.framework.TestCase;
 
+/**
+ * A test for the MinimalModelHelper class.
+ */
 public class MinimalModelHelperTest extends TestCase {
 
 	public void testSimpleModelCreation() {
