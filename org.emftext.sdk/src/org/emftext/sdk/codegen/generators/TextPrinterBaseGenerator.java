@@ -104,6 +104,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	
 	private final static String localtabName = "localtab";
 
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+
 	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
 	
@@ -141,7 +143,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		}
 	}
 
-	private static void extractChoices(Choice choice, Set<Choice> choiceSet,
+	private void extractChoices(Choice choice, Set<Choice> choiceSet,
 			Map<Choice, String> choiceMap,
 			Map<Sequence, Set<String>> necessaryMap,
 			Map<Sequence, Set<String>> reachableMap, Sequence parent,
@@ -152,7 +154,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			necessaryMap.put(seq, sequenceNecessaryFeatures);
 			reachableMap.put(seq, sequenceReachableFeatures);
 			for (Definition def : seq.getParts()) {
-				final boolean hasMinimalCardinalityOneOrHigher = GeneratorUtil.hasMinimalCardinalityOneOrHigher(def);
+				final boolean hasMinimalCardinalityOneOrHigher = generatorUtil.hasMinimalCardinalityOneOrHigher(def);
 				if (def instanceof CompoundDefinition) {
 					String subChoiceName = namePrefix + choiceIndex++;
 					Choice currentChoice = ((CompoundDefinition) def)
@@ -241,7 +243,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		while (!ruleQueue.isEmpty()) {
 			Rule rule = ruleQueue.remove();
 			// check whether all subclass calls have been printed
-			if (GeneratorUtil.hasSubClassesWithCS(rule.getMetaclass(),
+			if (generatorUtil.hasSubClassesWithCS(rule.getMetaclass(),
 					ruleQueue)) {
 				ruleQueue.add(rule);
 			} else {
@@ -350,7 +352,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
 			if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), feature)) {
 				sc.add("{");
-				sc.add(EStructuralFeature.class.getName() + " feature = element.eClass()." + GeneratorUtil.createGetFeatureCall(genClass, genFeature) + ";");
+				sc.add(EStructuralFeature.class.getName() + " feature = element.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 				sc.add(OBJECT_CLASS_NAME + " value = element.eGet(feature);");
 				sc.add("if (value instanceof " + LIST_CLASS_NAME + ") {");
 				sc.add("for (" + OBJECT_CLASS_NAME + " next : (" + LIST_CLASS_NAME + "<?>) value) {");
@@ -600,6 +602,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							}
 							*/
 
+							String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
 							if (feature instanceof EReference) {
 								printStatements.add(ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
@@ -608,9 +611,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								printStatements.add(printPrefix + "resolver.deResolve(" 
 										+ context.getReferenceResolverAccessor(genFeature)
 										+ ".deResolve((" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ") o, element, (" + EREFERENCE_CLASS_NAME + ") element.eClass().getEStructuralFeature("
-										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
+										+ featureConstant
 										+ ")), element.eClass().getEStructuralFeature("
-										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
+										+ featureConstant
 										+ "), element));");
 							} else {
 								printStatements.add(ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
@@ -619,7 +622,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix
 										+ "resolver.deResolve((" + OBJECT_CLASS_NAME + ") o, element.eClass().getEStructuralFeature("
-										+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
+										+ featureConstant
 										+ "), element));");
 							}
 
@@ -753,12 +756,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	protected static String generateAccessMethod(GenClass genClass, GenFeature genFeature) {
+	protected String generateAccessMethod(GenClass genClass, GenFeature genFeature) {
 		if (hasMapType(genClass)) {
 			return "get" + StringUtil.capitalize(genFeature.getName()) + "()";
 		}
 		else {
-			String method = "eGet(element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "))";
+			String method = "eGet(element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "))";
 			return method;
 		}
 	}

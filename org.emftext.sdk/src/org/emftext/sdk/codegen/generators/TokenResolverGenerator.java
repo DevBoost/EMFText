@@ -30,6 +30,7 @@ import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
@@ -48,10 +49,12 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  */
 public class TokenResolverGenerator extends BaseGenerator {
 	
+	private static NameUtil nameUtil = new NameUtil();
+	
 	private TokenDefinition definition;
 	
 	public TokenResolverGenerator(GenerationContext context, TokenDefinition definition) {
-		super(context.getResolverPackageName(), context.getTokenResolverClassName(definition));
+		super(context.getResolverPackageName(), nameUtil.getTokenResolverClassName(context.getConcreteSyntax(), definition));
 		this.definition = definition;
 	}
 

@@ -43,8 +43,10 @@ import org.emftext.sdk.concretesyntax.Sequence;
  */
 public class LeftRecursionDetector {
 
-	private Map<String, Collection<String>> genClassNames2superNames;
-	private ConcreteSyntax grammar;
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	
+	private final Map<String, Collection<String>> genClassNames2superNames;
+	private final ConcreteSyntax grammar;
 
 	public LeftRecursionDetector(
 			Map<String, Collection<String>> genClassNames2superNames, ConcreteSyntax concreteSyntax) {
@@ -120,7 +122,7 @@ public class LeftRecursionDetector {
 					return leftProducingRule;
 				}
 			} 
-			if (GeneratorUtil.hasMinimalCardinalityOneOrHigher(definition)) {
+			if (generatorUtil.hasMinimalCardinalityOneOrHigher(definition)) {
 				break;
 			}
 		}

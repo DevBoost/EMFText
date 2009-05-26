@@ -21,6 +21,7 @@
 package org.emftext.sdk.codegen.util;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,22 +30,29 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.util.EClassUtil;
+import org.emftext.runtime.util.EObjectUtil;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
  * A utility class used by all generators.
  */
 public class GeneratorUtil {
 
-	private static EClassUtil eClassUtil = new EClassUtil();
+	private final EClassUtil eClassUtil = new EClassUtil();
+	private final NameUtil nameUtil = new NameUtil();
+	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
-	public static boolean hasMinimalCardinalityOneOrHigher(Definition definition) {
+	public boolean hasMinimalCardinalityOneOrHigher(Definition definition) {
 		if (definition instanceof CardinalityDefinition) {
 			CardinalityDefinition cd = (CardinalityDefinition) definition;
 			return (cd.getCardinality() == null || cd.getCardinality() instanceof PLUS);
@@ -53,7 +61,7 @@ public class GeneratorUtil {
 		}
 	}
 
-	public static boolean hasNoOptionalPart(Definition definition) {
+	public boolean hasNoOptionalPart(Definition definition) {
 		if (definition instanceof CardinalityDefinition) {
 			CardinalityDefinition cd = (CardinalityDefinition) definition;
 			return !
@@ -97,7 +105,7 @@ public class GeneratorUtil {
 	/**
 	 * Checks whether a subclass with concrete syntax does exist.
 	 */
-	public static boolean hasSubClassesWithCS(GenClass genClass,
+	public boolean hasSubClassesWithCS(GenClass genClass,
 			Collection<Rule> source) {
 		for (Rule rule : source) {
 			GenClass subClassCand = rule.getMetaclass();
@@ -113,16 +121,16 @@ public class GeneratorUtil {
 
 	}
 
-	public static String createGetFeatureCall(GenClass genClass, GenFeature genFeature) {
+	public String createGetFeatureCall(GenClass genClass, GenFeature genFeature) {
 		return "getEStructuralFeature(" + getFeatureConstant(genClass, genFeature) + ")";
 	}
 
-	public static String getFeatureConstant(GenClass genClass, GenFeature genFeature) {
+	public String getFeatureConstant(GenClass genClass, GenFeature genFeature) {
 		GenPackage genPackage = genClass.getGenPackage();
 		return genPackage.getQualifiedPackageInterfaceName() + "." + genClass.getFeatureID(genFeature);
 	}
 
-	public static GenFeature findGenFeature(GenClass genClass, String name) {
+	public GenFeature findGenFeature(GenClass genClass, String name) {
 		for (GenFeature genFeature : genClass.getAllGenFeatures()) {
 			if (genFeature.getName().equals(name)) {
 				return genFeature;
@@ -163,5 +171,59 @@ public class GeneratorUtil {
 			}
 		}
 		return false;
+	}
+
+	public Collection<GenFeature> getNonContainmentFeaturesNeedingResolver(ConcreteSyntax syntax) {
+		Collection<Placeholder> placeholders = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
+		Collection<GenFeature> features = new LinkedHashSet<GenFeature>(placeholders.size());
+		for (Placeholder placeholder : placeholders) {
+			features.add(placeholder.getFeature());
+		}
+		return features;
+	}
+	
+	/**
+	 * Returns a collection that contains the names of all resolver
+	 * classes (both token and reference resolvers) that are needed.
+	 * Each resolver that is not part of an imported plug-in should 
+	 * be added to this list. 
+	 * 
+	 * @return the collection of already generated resolver classes
+	 */
+	public Collection<String> getResolverFileNames(ConcreteSyntax syntax) {
+		Collection<String> resolverFileNames = getReferenceResolverFileNames(syntax);
+		resolverFileNames.addAll(getTokenResolverFileNames(syntax));
+		return resolverFileNames;
+	}
+
+	/**
+	 * Returns a list that contains the names of all resolver classes that are needed.
+	 * Some of them might be generated during the generation process, others
+	 * may already exist. This list does not contain resolver classes that are
+	 * contained in imported syntaxes and that are reused.
+	 */
+	public Collection<String> getReferenceResolverFileNames(ConcreteSyntax syntax) {
+		Collection<GenFeature> features = getNonContainmentFeaturesNeedingResolver(syntax);
+		Collection<String> resolverFileNames = new LinkedHashSet<String>(features.size());
+		for (GenFeature feature : features) {
+			resolverFileNames.add(nameUtil.getReferenceResolverClassName(feature) + GenerationContext.JAVA_FILE_EXTENSION);
+		}
+		return resolverFileNames;
+	}
+
+	public Collection<String> getTokenResolverFileNames(ConcreteSyntax syntax) {
+		Collection<String> resolverFileNames = new LinkedHashSet<String>();
+		
+		for (TokenDefinition tokenDefinition : syntax.getAllTokens()) {
+			if (!tokenDefinition.isUsed()) {
+				continue;
+			}
+			// do not generate a resolver for imported tokens
+			if (csUtil.isImportedToken(syntax, tokenDefinition)) {
+				continue;
+			}
+			resolverFileNames.add(nameUtil.getTokenResolverClassName(syntax, tokenDefinition) + GenerationContext.JAVA_FILE_EXTENSION);
+		}
+		return resolverFileNames;
 	}
 }

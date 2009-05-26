@@ -703,7 +703,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
            	resolvements.add(ITokenResolver.class.getName() + " " +resolverIdent +" = tokenResolverFactory.createTokenResolver(\"" + tokenName + "\");");
            	resolvements.add(resolverIdent +".setOptions(getOptions());");
            	resolvements.add(ITokenResolveResult.class.getName() + " result = getFreshTokenResolveResult();");
-           	resolvements.add(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), result);");
+           	resolvements.add(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), result);");
            	resolvements.add("Object " + preResolved + " = result.getResolvedToken();");
            	resolvements.add("if (" + preResolved + " == null) {");
            	resolvements.add("getResource().addError(result.getErrorMessage(), ((CommonToken) " + ident + ").getLine(), ((CommonToken) " + ident + ").getCharPositionInLine(), ((CommonToken) " + ident + ").getStartIndex(), ((CommonToken) " + ident + ").getStopIndex());");
@@ -735,7 +735,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
-            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + GeneratorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
+            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	// remember that we must resolve proxy objects for this feature
             	context.addNonContainmentReference(genFeature);
         	}
@@ -768,27 +768,27 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		if (eFeature.getUpperBound() == 1) {
 			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
 				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
-								+ GeneratorUtil.getFeatureConstant(genClass,
+								+ generatorUtil.getFeatureConstant(genClass,
 										genFeature)
 								+ "), "
 								+ expressionToBeSet
 								+ ");");
 			} else {
 				sc.add("element.eSet(element.eClass().getEStructuralFeature("
-						+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
+						+ generatorUtil.getFeatureConstant(genClass, genFeature)
 						+ "), " + expressionToBeSet + ");");
 			}
 		} else {
 			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
 				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
-								+ GeneratorUtil.getFeatureConstant(genClass,
+								+ generatorUtil.getFeatureConstant(genClass,
 										genFeature)
 								+ "), "
 								+ expressionToBeSet
 								+ ");");
 			} else {
 				sc.add("addObjectToList(element, "
-						+ GeneratorUtil.getFeatureConstant(genClass, genFeature)
+						+ generatorUtil.getFeatureConstant(genClass, genFeature)
 						+ ", " + expressionToBeSet + ");");
 			}
 		}

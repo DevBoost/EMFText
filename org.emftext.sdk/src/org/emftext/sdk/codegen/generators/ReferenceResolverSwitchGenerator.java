@@ -34,6 +34,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
+import org.emftext.sdk.codegen.util.NameUtil;
 
 /**
  * A generator that creates a multiplexing reference resolver.
@@ -43,7 +44,11 @@ import org.emftext.sdk.codegen.util.GeneratorUtil;
  */
 public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	
+	private final NameUtil nameUtil = new NameUtil();
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+
 	private final GenerationContext context;
+
 	
 	/**
 	 * 
@@ -88,11 +93,11 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
-			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
-			GenFeature genFeature = GeneratorUtil.findGenFeature(genClass, proxyReference.getName());
+			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
+			GenFeature genFeature = generatorUtil.findGenFeature(genClass, proxyReference.getName());
 			sc.add("if (" + accessorName+ ".isInstance(container)) {");
 			sc.add(FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + "> frr = new " + FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(result);");
-			sc.add(org.eclipse.emf.ecore.EStructuralFeature.class.getName() + " feature = container.eClass()." + GeneratorUtil.createGetFeatureCall(genClass, genFeature) + ";");
+			sc.add(org.eclipse.emf.ecore.EStructuralFeature.class.getName() + " feature = container.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
 			sc.add("if (feature instanceof " + org.eclipse.emf.ecore.EReference.class.getName() + ") {");
 			sc.add(low(generatedClassName) + ".resolve(identifier, (" + genClass.getQualifiedInterfaceName() + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, frr);");
 			sc.add("}");
@@ -104,7 +109,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private void generateSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + java.util.Map.class.getName() + "<?, ?> options) {");
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
-			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
+			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			sc.add(low(generatedClassName) + ".setOptions(options);");			
 		}
 		sc.add("}");
@@ -115,7 +120,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     	List<String> generatedResolvers = new ArrayList<String>();
 
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
-			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
+			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
 				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);
@@ -129,7 +134,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     	List<String> generatedResolvers = new ArrayList<String>();
 
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
-			String generatedClassName = context.getReferenceResolverClassName(proxyReference);
+			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
 				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);

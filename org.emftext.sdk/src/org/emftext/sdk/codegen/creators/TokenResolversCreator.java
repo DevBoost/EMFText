@@ -7,11 +7,14 @@ import java.util.Collection;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverGenerator;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 public class TokenResolversCreator extends AbstractArtifactCreator {
+
+	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	public TokenResolversCreator() {
 		super("token resolvers");
@@ -28,14 +31,13 @@ public class TokenResolversCreator extends AbstractArtifactCreator {
 				continue;
 			}
 			// do not generate a resolver for imported tokens
-			if (context.isImportedToken(tokenDefinition)) {
+			if (csUtil.isImportedToken(syntax, tokenDefinition)) {
 				continue;
 			}
-			File resolverFile = context.getTokenResolverFile(tokenDefinition);
+			File resolverFile = context.getTokenResolverFile(syntax, tokenDefinition);
 			IGenerator resolverGenerator = new TokenResolverGenerator(context, tokenDefinition);
 			Artifact artifact = new Artifact(resolverFile, invokeGeneration(resolverGenerator, context.getProblemCollector()));
 			artifacts.add(artifact);
-			context.addTokenResolverClass(tokenDefinition);
 		}
 
 		return artifacts;

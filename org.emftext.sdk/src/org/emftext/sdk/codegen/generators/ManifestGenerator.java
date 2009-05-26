@@ -32,6 +32,8 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.GeneratorUtil;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -41,6 +43,8 @@ import org.emftext.sdk.concretesyntax.Import;
  */
 public class ManifestGenerator implements IGenerator {
 
+	private final NameUtil nameUtil = new NameUtil();
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenerationContext context;
 
 	public ManifestGenerator(GenerationContext context) {
@@ -92,7 +96,7 @@ public class ManifestGenerator implements IGenerator {
 			String pluginID = genModel.getModelPluginID();
 			if (!importedPlugins.contains(pluginID)) {
 				sc.add("  " + pluginID + ",");
-				sc.add("  " + context.getPluginName(aImport.getConcreteSyntax()) + ",");
+				sc.add("  " + nameUtil.getPluginName(aImport.getConcreteSyntax()) + ",");
 				importedPlugins.add(pluginID);
 			}
 		}
@@ -104,7 +108,7 @@ public class ManifestGenerator implements IGenerator {
 		sc.add("Bundle-ActivationPolicy: lazy");
 		sc.add("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
 		// export the generated packages
-		if (context.getResolverFileNames().size() > 0) {
+		if (generatorUtil.getResolverFileNames(concreteSyntax).size() > 0) {
 			sc.add("Export-Package: " + projectName + ",");
 			sc.add("  " + context.getResolverPackageName());
 		} else {

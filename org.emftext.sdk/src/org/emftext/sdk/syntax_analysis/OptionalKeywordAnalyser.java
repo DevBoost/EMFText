@@ -43,6 +43,8 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 
 	private static final String OPTIONAL_KEYWORD_WARNING = 
 		"The keyword might be used stand alone and will not be reprinted in such case: ";
+	
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
@@ -61,7 +63,7 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 							if (definition instanceof CsString) {
 								containsKeyword = true;
 							}
-							else if (GeneratorUtil.hasNoOptionalPart(definition)) {
+							else if (generatorUtil.hasNoOptionalPart(definition)) {
 								restOptional = false;
 							}
 						}

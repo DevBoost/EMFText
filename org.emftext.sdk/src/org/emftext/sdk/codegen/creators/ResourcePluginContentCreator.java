@@ -20,11 +20,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.creators;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
@@ -71,27 +69,5 @@ public class ResourcePluginContentCreator {
 			creator.createArtifacts(context);
 		    progress.worked(100 / creators.size());
 	    }
-
-		searchForUnusedResolvers(context);
-	}
-
-	// TODO mseifert: I think we could do this in a post processor (bug 732)
-	private void searchForUnusedResolvers(GenerationContext context) {
-		Set<String> resolverFiles = context.getResolverFileNames();
-		
-		File resolverPackageFolder = context.getResolverPackageFile();
-		if (!resolverPackageFolder.exists()) {
-			return;
-		}
-		File[] contents = resolverPackageFolder.listFiles();
-		for (File member : contents) {
-			if (!member.isDirectory()) {
-				String fileName = member.getName();
-				if (!resolverFiles.contains(fileName)) {
-					// issue warning about unused resolver
-					((ITextResource) context.getConcreteSyntax().eResource()).addWarning("Found unused class '" + fileName + "' in analysis package.", null);
-				}
-			}
-		}
 	}
 }

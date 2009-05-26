@@ -23,20 +23,18 @@ package org.emftext.sdk.codegen;
 import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
+import org.emftext.sdk.codegen.util.NameUtil;
+import org.emftext.sdk.codegen.util.PathUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
@@ -54,6 +52,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  * 
  * TODO this class is a total mess. we must figure out what really belongs in here.
+ * some of the code has already been move to NameUtil, PathUtil and ConcreteSyntaxUtil.
  */
 public abstract class GenerationContext {
 	
@@ -69,23 +68,18 @@ public abstract class GenerationContext {
 	private static final String CLASS_SUFFIX_NEW_FILE_WIZARD = "NewFileWizard";
 	
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
-	private static final String JAVA_FILE_EXTENSION = ".java";
+	public static final String JAVA_FILE_EXTENSION = ".java";
 
 	private static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
 	private static final String DEFAULT_ICON_DIR = "icons";
 	
-	private final GenClassFinder genClassFinder = new GenClassFinder();
+	private final NameUtil nameUtil = new NameUtil();
+	private final PathUtil pathUtil = new PathUtil();
 
 	private final ConcreteSyntax concreteSyntax;
 	private final IProblemCollector problemCollector;
+	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
-	/**
-	 * A list that contains the names of all resolver classes that are needed.
-	 * Some of them might be generated during the generation process, others
-	 * may already exist. This list must not contain resolver classes that are
-	 * contained in imported syntaxes and that are reused.
-	 */
-	private Set<String> resolverFileNames = new LinkedHashSet<String>();
 	private Collection<GenFeature> nonContainmentReferences = new LinkedHashSet<GenFeature>();
 	
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
@@ -94,50 +88,6 @@ public abstract class GenerationContext {
 		}
 		this.concreteSyntax = concreteSyntax;
 		this.problemCollector = problemCollector;
-	}
-
-	/**	 
-	 * Returns the name of the package where token and reference resolvers 
-	 * must go to. Depending on the given generator feature this package
-	 * might be part of a resource plug-in that belongs to an imported
-	 * syntax.
-	 */
-	public String getResolverPackageName(GenFeature genFeature) {
-		ConcreteSyntax syntax = getConcreteSyntax(genFeature);
-		return getResolverPackageName(syntax);
-	}
-
-	/**	 
-	 * Returns the name of the package where token and reference resolvers 
-	 * must go to.
-	 */
-	public String getResolverPackageName() {
-		return getResolverPackageName(concreteSyntax);
-	}
-	
-	/**	 
-	 * Returns the name of the package where token and reference resolvers 
-	 * must go to depending on the given syntax.
-	 */
-	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax);
-		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
-	}
-
-	// feature may be contained in imported rules and thus belong to a different
-	// CS specification
-	private ConcreteSyntax getConcreteSyntax(GenFeature genFeature) {
-		for (Import nextImport : concreteSyntax.getImports()) {
-			ConcreteSyntax nextSyntax = nextImport.getConcreteSyntax();
-			if (nextSyntax == null) {
-				continue;
-			}
-			if (genClassFinder.contains(genClassFinder.findAllGenClasses(nextSyntax, true, true), genFeature.getGenClass())) {
-				ConcreteSyntax cs = genClassFinder.getContainingSyntax(nextSyntax, genFeature.getGenClass());
-				return cs;
-			}
-		}
-		return concreteSyntax;
 	}
 
 	/**
@@ -164,79 +114,28 @@ public abstract class GenerationContext {
 		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + "bin");
 	}
 
-	public File getSourceFolder() {
-		String srcFolderName;
-		String srcFolderOptionValue = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.SOURCE_FOLDER);
-		if (srcFolderOptionValue != null) {
-			// use package plug-in from option
-			srcFolderName = srcFolderOptionValue;
-		} else {
-			// use default plug-in name
-			srcFolderName = "src";
-		}
-		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + srcFolderName);
-	}
-	
-	/**
-	 * Returns a collection that contains the names of all resolver
-	 * classes (both token and reference resolvers) that are needed.
-	 * Each resolver that is not part of an imported plug-in should 
-	 * be added to this list. 
-	 * 
-	 * @return the collection of already generated resolver classes
-	 */
-	public Set<String> getResolverFileNames() {
-		return resolverFileNames;
-	}
-
 	public String getPluginName() {
-		return getPluginName(concreteSyntax);
-	}
-
-	public String getPluginName(ConcreteSyntax syntax) {
-		String resourcePluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.RESOURCE_PLUGIN_ID);
-		if (resourcePluginID != null) {
-			// use package plug-in from option
-			return resourcePluginID;
-		} else {
-			// use default plug-in name
-			return getPackageName(syntax);
-		}
+		return nameUtil.getPluginName(concreteSyntax);
 	}
 
 	public String getPackageName() {
-		return getPackageName(concreteSyntax);
+		return nameUtil.getPackageName(concreteSyntax);
 	}
 
-	public String getPackageName(ConcreteSyntax syntax) {
-		String packageName = "";
-		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_PACKAGE);
-		if (basePackage != null) {
-			// use package name from option
-			packageName = basePackage;
-		} else {
-			// use default package name
-			GenPackage concreteSyntaxPackage = syntax.getPackage();
-			boolean hasBasePackage = concreteSyntaxPackage.getBasePackage() != null;
-			if (hasBasePackage) {
-				packageName = concreteSyntaxPackage.getBasePackage() + ".";
-			}
-			packageName += concreteSyntaxPackage.getEcorePackage().getName();
-			packageName += ".resource." + syntax.getName();
-		}
-		return packageName;
+	/**
+	 * Returns the name of the package where token and reference resolvers 
+	 * must go to.
+	 */
+	public String getResolverPackageName() {
+		return nameUtil.getResolverPackageName(concreteSyntax);
 	}
-
+	
 	public IProblemCollector getProblemCollector() {
 		return problemCollector;
 	}
 	
 	public String getCapitalizedConcreteSyntaxName() {
-		return getCapitalizedConcreteSyntaxName(getConcreteSyntax());
-	}
-	
-	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
-		return capitalize(syntax.getName());
+		return nameUtil.getCapitalizedConcreteSyntaxName(getConcreteSyntax());
 	}
 	
     public String getPrinterName() {
@@ -275,52 +174,8 @@ public abstract class GenerationContext {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
     }
 
-	public String getTokenResolverClassName(TokenDefinition tokenDefinition) {
-
-		String syntaxName = getCapitalizedConcreteSyntaxName(getContainingSyntax(tokenDefinition));
-		boolean isCollect = tokenDefinition.getAttributeName() != null;
-		if (isCollect) {
-			String attributeName = tokenDefinition.getAttributeName();
-			return syntaxName +  "COLLECT_" + attributeName + CLASS_SUFFIX_TOKEN_RESOLVER;
-		} else {
-			return syntaxName +  tokenDefinition.getName() + CLASS_SUFFIX_TOKEN_RESOLVER;
-		}
-	}
-
-	public String getReferenceResolverClassName(GenFeature proxyReference) {
-		return proxyReference.getGenClass().getName() + capitalize(proxyReference.getName()) + CLASS_SUFFIX_REFERENCE_RESOLVER;
-	}
-	
-	public ConcreteSyntax getContainingSyntax(TokenDefinition baseDefinition) {
-		EObject container = baseDefinition.eContainer();
-		if (container instanceof ConcreteSyntax) {
-			return (ConcreteSyntax) container;
-		}
-		return concreteSyntax;
-	}
-	
-    /**
-     * Capitalizes the first letter of the given string.
-     * 
-     * @param text a string.
-     * @return the modified string.
-     */
-    private String capitalize(String text) {
-        String h = text.substring(0, 1).toUpperCase();
-        String t = text.substring(1);      
-        return h + t;
-    }
-
 	public void addNonContainmentReference(GenFeature proxyReference) {
 		nonContainmentReferences.add(proxyReference);
-	}
-
-	public void addReferenceResolverClass(GenFeature proxyReference) {
-		resolverFileNames.add(getReferenceResolverClassName(proxyReference) + JAVA_FILE_EXTENSION);
-	}
-
-	public void addTokenResolverClass(TokenDefinition tokenDefinition) {
-		resolverFileNames.add(getTokenResolverClassName(tokenDefinition) + JAVA_FILE_EXTENSION);
 	}
 
 	public Collection<GenFeature> getNonContainmentReferences() {
@@ -335,18 +190,18 @@ public abstract class GenerationContext {
 		return true;
 	}
 
-	public boolean isImportedToken(TokenDefinition tokenDefinition) {
-		return !concreteSyntax.equals(getContainingSyntax(tokenDefinition));
-	}
-
 	public String getQualifiedReferenceResolverClassName(
 			GenFeature proxyReference) {
-		return getResolverPackageName(proxyReference) + "." + getReferenceResolverClassName(proxyReference);
+		return getResolverPackageName(proxyReference) + "." + nameUtil.getReferenceResolverClassName(proxyReference);
+	}
+
+	private String getResolverPackageName(GenFeature proxyReference) {
+		return pathUtil.getResolverPackageName(getConcreteSyntax(), proxyReference);
 	}
 
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
 		String prefix = "((" + getQualifiedReferenceResolverSwitchClassName() + ") resource.getReferenceResolverSwitch())";
-		return prefix + ".get" + getReferenceResolverClassName(genFeature) + "()";
+		return prefix + ".get" + nameUtil.getReferenceResolverClassName(genFeature) + "()";
 	}
 
 	/**
@@ -397,6 +252,10 @@ public abstract class GenerationContext {
 		return packagePath;
 	}
 
+	public File getSourceFolder() {
+		return pathUtil.getSourceFolder(getConcreteSyntax(), getPluginProjectFolder().getAbsolutePath());
+	}
+
 	public File getPrinterFile() {
 		return new File(getPackagePath() + getPrinterName() + JAVA_FILE_EXTENSION);
 	}
@@ -426,20 +285,16 @@ public abstract class GenerationContext {
 	}
 
 	public File getResolverFile(GenFeature proxyReference) {
-		File resolverFile = new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + getReferenceResolverClassName(proxyReference) + JAVA_FILE_EXTENSION);
+		File resolverFile = new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + nameUtil.getReferenceResolverClassName(proxyReference) + JAVA_FILE_EXTENSION);
 		return resolverFile;
 	}
 
-	public File getTokenResolverFile(TokenDefinition tokenDefinition) {
-		return new File(getSourceFolder().getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + getTokenResolverClassName(tokenDefinition) + JAVA_FILE_EXTENSION);
-	}
-
 	private IPath getResolverPackagePath() {
-		return new Path(getResolverPackageName().replaceAll("\\.","/"));
+		return pathUtil.getResolverPackagePath(getConcreteSyntax());
 	}
 
-	public File getResolverPackageFile() {
-		return new File(getSourceFolder().getAbsolutePath() + File.separator + getResolverPackagePath());
+	public File getTokenResolverFile(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {
+		return new File(getSourceFolder().getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + nameUtil.getTokenResolverClassName(syntax, tokenDefinition) + JAVA_FILE_EXTENSION);
 	}
 
 	public File getANTLRGrammarFile() {

@@ -27,6 +27,7 @@ import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
@@ -39,6 +40,8 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class TokenResolverFactoryGenerator extends BaseGenerator {
+	
+	private final NameUtil nameUtil = new NameUtil();
 	
 	private GenerationContext context;
 	
@@ -56,20 +59,18 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		sc.add("public class " + getResourceClassName() + " extends " + AbstractTokenResolverFactory.class.getName() + " implements " + ITokenResolverFactory.class.getName() + " {");
 		sc.addLineBreak();
 		sc.add("public " + getResourceClassName() + "() {");
-		for (TokenDefinition definition : context.getConcreteSyntax().getAllTokens()) {
+		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		for (TokenDefinition definition : concreteSyntax.getAllTokens()) {
 			if (!definition.isUsed()) {
 				continue;
 			}
 			// user defined tokens may stem from an imported syntax
-			ConcreteSyntax containingSyntax = context.getContainingSyntax(definition);
-			String tokenResolverClassName = context.getTokenResolverClassName(definition);
-			if (tokenResolverClassName != null) {
-				if (definition.getAttributeName() != null) {
-					String featureName = definition.getAttributeName();
-					sc.add("super.registerCollectInTokenResolver(\"" + featureName + "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
-				} else {
-					sc.add("super.registerTokenResolver(\"" +definition.getName()+ "\", new " + context.getResolverPackageName(containingSyntax) + "." + tokenResolverClassName + "());");
-				}
+			String tokenResolverClassName = nameUtil.getQualifiedTokenResolverClassName(concreteSyntax, definition);
+			if (definition.getAttributeName() != null) {
+				String featureName = definition.getAttributeName();
+				sc.add("super.registerCollectInTokenResolver(\"" + featureName + "\", new " + tokenResolverClassName + "());");
+			} else {
+				sc.add("super.registerTokenResolver(\"" +definition.getName()+ "\", new " + tokenResolverClassName + "());");
 			}
 		}
 		sc.add("}");

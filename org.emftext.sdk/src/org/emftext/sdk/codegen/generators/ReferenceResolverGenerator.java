@@ -29,16 +29,18 @@ import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.NameUtil;
 
 /**
  * A generator that can create basic stub for a single reference resolver.
  */
 public class ReferenceResolverGenerator extends BaseGenerator {
 	
+	private final static NameUtil nameUtil = new NameUtil();
 	private GenFeature proxyReference;
 
 	public ReferenceResolverGenerator(GenerationContext context, GenFeature proxyReference) {
-		super(context.getResolverPackageName(), context.getReferenceResolverClassName(proxyReference));
+		super(context.getResolverPackageName(), nameUtil.getReferenceResolverClassName(proxyReference));
 		this.proxyReference = proxyReference;
 	}
 	
