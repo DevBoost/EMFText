@@ -3,7 +3,10 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.io.InputStream;
 
-
+/**
+ * A default implementation of the IArtifact interface holding the
+ * target file and the content stream.
+ */
 public class Artifact implements IArtifact {
 
 	private File targetFile;

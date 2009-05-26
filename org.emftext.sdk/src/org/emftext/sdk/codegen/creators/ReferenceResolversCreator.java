@@ -10,6 +10,12 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolverGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the Java files for all reference resolvers using the content
+ * provided by ReferenceResolverGenerator. A reference resolver is generated
+ * for each non-containment reference in the CS specification that is not
+ * imported.
+ */
 public class ReferenceResolversCreator extends AbstractArtifactCreator {
 
 	public ReferenceResolversCreator() {

@@ -5,6 +5,10 @@ import java.util.Collection;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * An experimental (not yet implemented) creator for the SGLR compiler
+ * framework.
+ */
 //TODO sheyden: implement this creator
 public class SGLRGrammarCreator extends AbstractArtifactCreator {
 

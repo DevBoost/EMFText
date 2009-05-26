@@ -12,6 +12,12 @@ import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.codegen.util.PathUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * An analyser that checks whether the analysis package in generated
+ * text resource plug-ins contains unused resolver classes. This 
+ * analyser us disabled if no OSGi platform is running, because it
+ * depends on knowledge about the current workspace. 
+ */
 public class UnusedResolverAnalyser extends AbstractPostProcessor {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();

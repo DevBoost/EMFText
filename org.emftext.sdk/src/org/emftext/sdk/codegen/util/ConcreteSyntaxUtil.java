@@ -5,6 +5,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
+/**
+ * A utility class that provides methods used by the code generators
+ * to analyse CS specifications.
+ */
 public class ConcreteSyntaxUtil {
 
 	public boolean isImportedToken(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {

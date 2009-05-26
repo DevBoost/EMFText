@@ -50,6 +50,10 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 	
 	private ConcreteSyntaxUtil concreteSyntaxUtil = new ConcreteSyntaxUtil();
 
+	/**
+	 * A helper class to hold information about the cardinality
+	 * of a feature.
+	 */
 	private static class MinMax {
 		private int min;
 		private int max;

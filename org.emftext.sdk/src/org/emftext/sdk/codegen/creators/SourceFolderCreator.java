@@ -6,6 +6,13 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the source folder for generated text resource plug-ins.
+ * The name of this folder may vary depending on the value set for
+ * option OptionTypes.SOURCE_FOLDER.
+ * 
+ * @see org.emftext.sdk.concretesyntax.OptionTypes
+ */
 public class SourceFolderCreator implements IArtifactCreator {
 
 	public void createArtifacts(GenerationContext context) {

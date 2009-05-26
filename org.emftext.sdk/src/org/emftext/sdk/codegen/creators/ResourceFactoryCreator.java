@@ -8,6 +8,10 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ResourceFactoryGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the Java file for the resource factory class using the content
+ * provided by ResourceFactoryGenerator.
+ */
 public class ResourceFactoryCreator extends AbstractArtifactCreator {
 
 	public ResourceFactoryCreator() {

@@ -9,6 +9,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * A post processor that checks whether the values for all code generation
+ * options are valid.
+ */
 public class OptionsAnalyser extends AbstractPostProcessor {
 
 	private final List<OptionTypes> BOOLEAN_OPTIONS;

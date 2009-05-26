@@ -8,6 +8,10 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the content for .classpath files, which are used by Eclipse to determine the
+ * classes used by generated text resource plug-ins.
+ */
 public class DotClasspathGenerator extends BaseGenerator {
 
 	private GenerationContext context;

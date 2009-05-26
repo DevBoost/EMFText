@@ -20,6 +20,10 @@ import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * An abstract superclass for all creators that handles overriding
+ * of existing artifacts.
+ */
 public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	
 	private String artifactName;

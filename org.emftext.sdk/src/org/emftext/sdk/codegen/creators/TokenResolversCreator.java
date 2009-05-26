@@ -12,6 +12,11 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
+/**
+ * Creates the Java files for the token resolvers using the content
+ * provided by TokenResolverGenerator. A token resolver is generated
+ * for all tokens that are used and that are not imported.
+ */
 public class TokenResolversCreator extends AbstractArtifactCreator {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();

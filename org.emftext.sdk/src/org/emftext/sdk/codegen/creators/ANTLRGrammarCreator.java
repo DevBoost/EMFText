@@ -10,6 +10,10 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates an ANTLR .g file using the ANTLRGrammarGenerator, which
+ * creates the content for the file.
+ */
 public class ANTLRGrammarCreator extends AbstractArtifactCreator {
 
 	public ANTLRGrammarCreator() {

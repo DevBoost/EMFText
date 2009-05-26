@@ -7,7 +7,11 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 
-// TODO cbuerger
+/**
+ * An experimental (not yet implemented) generator for the Babylon compiler
+ * framework.
+ */
+// TODO cbuerger implement this class
 public class BabylonSpecificationGenerator implements IGenerator {
 
 	public BabylonSpecificationGenerator(GenerationContext context) {

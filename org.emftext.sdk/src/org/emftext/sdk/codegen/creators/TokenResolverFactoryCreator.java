@@ -8,6 +8,10 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the Java file for the token resolver factory class using the content
+ * provided by TokenResolverFactoryGenerator.
+ */
 public class TokenResolverFactoryCreator extends AbstractArtifactCreator {
 
 	public TokenResolverFactoryCreator() {

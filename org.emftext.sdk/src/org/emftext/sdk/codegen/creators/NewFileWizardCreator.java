@@ -8,6 +8,10 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.NewFileWizardGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Create the NewFileWizard class using the content provided by the
+ * NewFileWizardGenerator.
+ */
 public class NewFileWizardCreator extends AbstractArtifactCreator {
 
 	public NewFileWizardCreator() {

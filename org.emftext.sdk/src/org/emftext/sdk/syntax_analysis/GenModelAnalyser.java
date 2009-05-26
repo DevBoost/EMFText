@@ -7,6 +7,10 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
+/**
+ * An analyser that checks whether the EMF generator model referenced
+ * by a syntax is valid. If not, an error is raised.
+ */
 public class GenModelAnalyser extends AbstractPostProcessor {
 
 	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel is invalid. Please reconcile it.";

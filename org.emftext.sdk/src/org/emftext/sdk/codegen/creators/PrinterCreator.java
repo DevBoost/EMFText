@@ -10,6 +10,10 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.TextPrinterGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the Java file for the printer class using the content
+ * provided by TextPrinterGenerator.
+ */
 public class PrinterCreator extends AbstractArtifactCreator {
 
 	public PrinterCreator() {

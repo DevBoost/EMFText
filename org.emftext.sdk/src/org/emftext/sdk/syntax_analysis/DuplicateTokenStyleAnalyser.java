@@ -8,6 +8,11 @@ import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
+/**
+ * An analyser that checks whether multiple token styles refer to the
+ * same token. If duplicate definitions are found a warning is added to
+ * the CS resource.
+ */
 public class DuplicateTokenStyleAnalyser extends AbstractPostProcessor {
 
 	@Override

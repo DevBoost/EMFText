@@ -10,6 +10,10 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.generators.BabylonSpecificationGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * An experimental (not yet implemented) creator for the Babylon compiler
+ * framework.
+ */
 public class BabylonSpecificationCreator extends AbstractArtifactCreator {
 
 	public BabylonSpecificationCreator() {

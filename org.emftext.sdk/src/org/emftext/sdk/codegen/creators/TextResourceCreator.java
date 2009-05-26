@@ -8,6 +8,10 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.TextResourceGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the Java file for the text resource class using the content
+ * provided by TextResourceGenerator.
+ */
 public class TextResourceCreator extends AbstractArtifactCreator {
 
 	public TextResourceCreator() {

@@ -10,6 +10,11 @@ import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 
+/**
+ * Creates a default icon for the NewFileWizard of generated
+ * text resources by copying the default_new_icon.gif contained
+ * in this package.
+ */
 public class NewFileIconCreator implements IArtifactCreator {
 
 	public void createArtifacts(GenerationContext context) {

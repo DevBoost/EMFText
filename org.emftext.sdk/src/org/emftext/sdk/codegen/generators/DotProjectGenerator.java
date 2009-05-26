@@ -6,6 +6,10 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 
+/**
+ * Creates the content for .project files, which are used by Eclipse to store meta data
+ * about plug-ins.
+ */
 public class DotProjectGenerator extends BaseGenerator {
 
 	private GenerationContext context;

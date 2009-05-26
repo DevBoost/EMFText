@@ -8,6 +8,10 @@ import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolverSwitchGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
+/**
+ * Creates the Java file for the reference resolver switch class using the content
+ * provided by ReferenceResolverSwitchGenerator.
+ */
 public class ReferenceResolverSwitchCreator extends AbstractArtifactCreator {
 
 	public ReferenceResolverSwitchCreator() {

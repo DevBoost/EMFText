@@ -5,6 +5,9 @@ import java.io.File;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 
+/**
+ * Creates the folder META-INF in generated text resource plug-ins.
+ */
 public class MetaInfFolderCreator implements IArtifactCreator {
 
 	public void createArtifacts(GenerationContext context) {
