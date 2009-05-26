@@ -25,6 +25,7 @@ package org.emftext.runtime.resource;
  * resolving a token.
  */
 public interface ITokenResolveResult {
+	
 	/**
 	 * Returns the error message that describes what went wrong while
 	 * resolving a token.
@@ -42,7 +43,18 @@ public interface ITokenResolveResult {
 	 */
 	public void setErrorMessage(String message);
 	
+	/**
+	 * Sets the result of resolving a token.
+	 * 
+	 * @param resolvedToken
+	 */
 	public void setResolvedToken(Object resolvedToken);
 
+	/**
+	 * Returns the result of resolving a token or null if it
+	 * could not be resolved correctly.
+	 * 
+	 * @param resolvedToken
+	 */
 	public Object getResolvedToken();
 }

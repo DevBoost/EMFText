@@ -30,5 +30,7 @@ import org.eclipse.emf.common.util.URI;
  * @param <ReferenceType> unused type parameter which is needed to implement IReferenceMapping.
  */
 public interface IURIMapping<ReferenceType> extends IReferenceMapping<ReferenceType> {
+	
+	// TODO jjohannes: add Javadoc 
 	public URI getTargetIdentifier();
 }

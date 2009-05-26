@@ -27,5 +27,10 @@ import java.util.Map;
  * map of options (or parameters).
  */
 public interface IConfigurable {
+	
+	/**
+	 * Passed the options given by the map to the configurable
+	 * objects. 
+	 */
 	public void setOptions(Map<?,?> options);
 }

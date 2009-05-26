@@ -67,6 +67,10 @@ public interface IReferenceResolveResult<ReferenceType> {
 	 * the reference was successful, but not accurate.
 	 */
 	public void addMapping(String identifier, ReferenceType target, String warning);
+	
+	/**
+	 * @see addMapping(String, ReferenceType, String)
+	 */
 	public void addMapping(String identifier, ReferenceType target);
 	
 	/**
@@ -82,6 +86,10 @@ public interface IReferenceResolveResult<ReferenceType> {
 	 * @param newIdentifier
 	 */
 	public void addMapping(String identifier, URI newIdentifier, String warning);
+	
+	/**
+	 * @see addMapping(String, URI, String)
+	 */
 	public void addMapping(String identifier, URI newIdentifier);
 
 	/**

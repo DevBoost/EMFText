@@ -31,6 +31,16 @@ import org.eclipse.emf.ecore.EReference;
  */
 public interface IContextDependentURIFragmentFactory<ContainerType extends EObject, ReferenceType extends EObject> {
 
+	/**
+	 * Create a new instance of the IContextDependentURIFragment interface.
+	 * 
+	 * @param identifier the identifier that references an EObject
+	 * @param container the object that contains the reference
+	 * @param reference the reference itself
+	 * @param positionInReference the position of the identifier (if the reference is multiple)
+	 * @param proxy the proxy that will be resolved later to the actual EObject
+	 * @return
+	 */
 	public IContextDependentURIFragment<?> create(
 			String identifier, ContainerType container,
 			EReference reference, int positionInReference, EObject proxy);
