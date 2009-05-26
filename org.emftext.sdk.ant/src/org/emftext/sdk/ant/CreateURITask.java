@@ -4,6 +4,10 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.emf.common.util.URI;
 
+/**
+ * A custom ANT task that allows to assign the URI of a given
+ * file to a build property. 
+ */
 public class CreateURITask extends Task {
 	
 	private String propertyName;
