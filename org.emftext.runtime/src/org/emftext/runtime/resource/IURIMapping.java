@@ -31,6 +31,10 @@ import org.eclipse.emf.common.util.URI;
  */
 public interface IURIMapping<ReferenceType> extends IReferenceMapping<ReferenceType> {
 	
-	// TODO jjohannes: add Javadoc 
+	/**
+	 * Returns an alternative proxy URI that should follow EMF's default naming scheme
+	 * such that it can be resolved by the default resolution mechanism that will be called
+	 * on this URI (see <code>Resource.getEObject()</code>).
+	 */
 	public URI getTargetIdentifier();
 }
