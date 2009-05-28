@@ -44,7 +44,8 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String[] NONE = new String[0];
 	private static final String OCCURENCES_DO_NOT_MATCH = " occurences (.*) of feature .* do not match (.*).";
 	private static final String WRONG_CONTAINMENT_TYPE = "Feature.*has wrong containment type.*";
-	private static final String NO_SUB_CLASSES_FOUND = "The type of containment reference.*is abstract and has no concrete sub classes with defined syntax.";
+	private static final String NO_SUB_CLASSES_FOUND_FOR_C_REFERENCE = "The type.*of containment reference.*is abstract and has no concrete sub classes with defined syntax.";
+	private static final String NO_SUB_CLASSES_FOUND_FOR_NC_REFERENCE = "The type.*of non-containment reference.*is abstract and has no concrete sub classes.";
 	private static final String FEATURE_HAS_NO_SYNTAX = "Feature.*has no syntax.";
 	private static final String FEATURE_HAS_NC_OPPOSITE = "Feature has a non-containment opposite feature. The opposite is only established after reference resolving.*";
 	private static final String MAX_OCCURENCES_DO_NOT_MATCH = "Maximum" + OCCURENCES_DO_NOT_MATCH;
@@ -94,11 +95,19 @@ public class SyntaxAnalysisTest extends TestCase {
 	
 	@Test
 	public void testReferences() throws FileNotFoundException, IOException {
-		assertProblems("reference1.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND});
+		assertProblems("reference1.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND_FOR_C_REFERENCE});
 		assertProblems("reference2.cs", new String[] {FEATURE_HAS_NO_SYNTAX}, NONE);
 		assertProblems("reference3.cs", NONE, new String[] {WRONG_CONTAINMENT_TYPE});
 		// this is a test for bug 729 (Add syntax analyser that checks that every reference used in the CS has a type with syntax)
 		assertProblems("referenceWithoutSyntax.cs", new String[] {NO_RULE_FOR_META_CLASS}, new String[] {REFERENCE_TO_TYPE_WITHOUT_SYNTAX});
+	}
+
+	@Test
+	public void testNCReferencesWithAbstractType() throws FileNotFoundException, IOException {
+		// these are tests for bug 736
+		assertProblems("abstractNCReferenceWithoutSubclass1.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND_FOR_NC_REFERENCE});
+		assertProblems("abstractNCReferenceWithoutSubclass2.cs", new String[] {NO_SUB_CLASSES_FOUND_FOR_NC_REFERENCE}, NONE);
+		assertProblems("abstractNCReferenceWithoutSubclass3.cs", NONE, new String[] {NO_SUB_CLASSES_FOUND_FOR_NC_REFERENCE});
 	}
 
 	@Test
