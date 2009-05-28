@@ -26,31 +26,21 @@ public class CsNewFileWizard extends org.emftext.runtime.ui.new_wizard.AbstractN
 	}
 	
 	public String getExampleContent() {
-		return getExampleContent(new org.eclipse.emf.ecore.EClass[] {
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
-		}, new org.eclipse.emf.ecore.EClass[] {
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPredefinedToken(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPLUS(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSTAR(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getQUESTIONMARK(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAbstract(),
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle(),
-		});
+		return "SYNTAXDEF myFileExtension\n" +
+		"FOR <http://www.some-domain.org/myLanguage> <optional/path/to/myLanguage.genmodel>\n" +
+		"START StartMetaClass\n" +
+		"\n" +
+		"OPTIONS {\n" +
+		"\treloadGeneratorModel = \"true\";\n" +
+		"}\n" +
+		"\n" +
+		"RULES {\n" +
+		"\t// syntax definition for class 'StartMetaClass'\n" +
+		"\tStartMetaClass   ::= \"myKeyword\" attributeOfStartMetaClass[] aContainmentReference* ;\n" +
+		"\t\n" +
+		"\t// syntax definition for class 'AnotherMetaClass'\n" +
+		"\tAnotherMetaClass ::= \"otherKeyword\" aNonContainmentReference[];\n" +
+		"}";
 	}
 	
 	public org.emftext.runtime.resource.ITextPrinter getPrinter(java.io.OutputStream outputStream) {

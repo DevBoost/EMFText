@@ -7,6 +7,7 @@ OPTIONS {
 	defaultTokenName = "QUALIFIED_NAME";
 	usePredefinedTokens = "false";
 	overrideManifest = "false";
+	overrideNewFileWizard = "false";
 }
 
 TOKENS {
