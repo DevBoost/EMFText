@@ -720,6 +720,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	GenClass proxyType = null;
             	
             	if (instanceType.isAbstract() || instanceType.isInterface()) {
+            		// TODO mseifert: replace this code with a class to GenClassFinder
             		for(GenClass instanceCand : allGenClasses) {
             			Collection<String> supertypes = genClassNames2superClassNames.get(instanceCand.getQualifiedInterfaceName());		
             			if (!instanceCand.isAbstract() && 

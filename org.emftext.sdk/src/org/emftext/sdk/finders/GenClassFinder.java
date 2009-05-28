@@ -163,6 +163,17 @@ public class GenClassFinder {
 	    return genClassName2superNames;
 	}
 
+	public Collection<GenClass> findAllSubclasses(ConcreteSyntax syntax, GenClass superClass) {
+		Collection<GenClass> foundSubclasses = new ArrayList<GenClass>();
+	    
+	    for (GenClass genClass : findAllGenClasses(syntax, true, true)) {
+			if (genClass.getAllBaseGenClasses().contains(superClass)) {
+				foundSubclasses.add(genClass);
+			}
+		}
+	    return foundSubclasses;
+	}
+
 	public ConcreteSyntax getContainingSyntax(ConcreteSyntax cs, GenClass genClass) {
 		if (cs == null) return null;
 		if (contains(findAllGenClasses(cs, false, false), genClass)) {

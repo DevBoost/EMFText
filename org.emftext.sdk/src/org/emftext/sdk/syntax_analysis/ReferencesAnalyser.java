@@ -22,20 +22,22 @@ package org.emftext.sdk.syntax_analysis;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
+import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * An analyser that checks that whether there are concrete sub classes for
@@ -50,74 +52,124 @@ import org.emftext.sdk.concretesyntax.Rule;
 public class ReferencesAnalyser extends AbstractPostProcessor {
 
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
+	private GenClassFinder genClassFinder = new GenClassFinder();
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		List<Containment> referencesToAbstractClassesWithConcreteSubtypes = new ArrayList<Containment>();
-		List<Containment> referencesToClassesWithoutSyntax = new ArrayList<Containment>();
+		Collection<Containment> cReferencesToAbstractClassesWithoutConcreteSubtypes = new ArrayList<Containment>();
+		Collection<Containment> cReferencesToClassesWithoutSyntax = new ArrayList<Containment>();
+		Collection<Placeholder> ncReferencesToAbstractClassesWithoutConcreteSubtypes = new ArrayList<Placeholder>();
 		
 		getReferencesToAbstractClassesWithConcreteSubtypes(
 				syntax,
-				referencesToAbstractClassesWithConcreteSubtypes,
-				referencesToClassesWithoutSyntax
+				cReferencesToAbstractClassesWithoutConcreteSubtypes,
+				cReferencesToClassesWithoutSyntax,
+				ncReferencesToAbstractClassesWithoutConcreteSubtypes
 		);
-		for (Containment next : referencesToAbstractClassesWithConcreteSubtypes) {
+		addDiagnostics(
+				resource, 
+				syntax, 
+				cReferencesToAbstractClassesWithoutConcreteSubtypes,
+				"The type (%s) of containment reference '%s' is abstract and has no concrete sub classes with defined syntax."
+		);
+		addDiagnostics(
+				resource, 
+				syntax, 
+				cReferencesToClassesWithoutSyntax,
+				"There is no syntax for the type (%s) of reference '%s'."
+		);
+		addDiagnostics(
+				resource, 
+				syntax, 
+				ncReferencesToAbstractClassesWithoutConcreteSubtypes,
+				"The type (%s) of non-containment reference '%s' is abstract and has no concrete sub classes."
+		);
+	}
+
+	private void addDiagnostics(
+			ITextResource resource,
+			ConcreteSyntax syntax,
+			Collection<? extends Terminal> cReferencesToAbstractClassesWithoutConcreteSubtypes,
+			String message) {
+		for (Terminal next : cReferencesToAbstractClassesWithoutConcreteSubtypes) {
 			GenFeature genFeature = next.getFeature();
-			String message = "The type of containment reference '" + genFeature.getName() + "' is abstract and has no concrete sub classes with defined syntax.";
+			String formattedMessage = String.format(message, genFeature.getTypeGenClass().getName(), genFeature.getName());
 			if (syntax.getModifier() != null) {
 				// for abstract syntaxes a warning is sufficient
-				resource.addWarning(message, next);
+				resource.addWarning(formattedMessage, next);
 			} else {
-				resource.addError(message, next);
-			}
-		}
-		for (Containment next : referencesToClassesWithoutSyntax) {
-			GenFeature genFeature = next.getFeature();
-			String message = "There is no syntax for the type (" + genFeature.getTypeGenClass().getName() + ") of reference '" + genFeature.getName() + "'.";
-			if (syntax.getModifier() != null) {
-				// for abstract syntaxes a warning is sufficient
-				resource.addWarning(message, next);
-			} else {
-				resource.addError(message, next);
+				resource.addError(formattedMessage, next);
 			}
 		}
 	}
 
 	private void getReferencesToAbstractClassesWithConcreteSubtypes(
 			ConcreteSyntax syntax,
-			List<Containment> referencesToAbstractClassesWithConcreteSubtypes,
-			List<Containment> referencesToClassesWithoutSyntax) {
+			Collection<Containment> cReferencesToAbstractClassesWithConcreteSubtypes,
+			Collection<Containment> cReferencesToClassesWithoutSyntax,
+			Collection<Placeholder> ncReferencesToAbstractClassesWithoutConcreteSubtypes) {
 		
-		final TreeIterator<EObject> allContents = syntax.eAllContents();
-		while (allContents.hasNext()) {
-			EObject next = allContents.next();
-			if (next instanceof Containment) {
-				Containment placeholder = (Containment) next;
-				GenFeature genFeature = placeholder.getFeature();
-				final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
-				if (!(ecoreFeature instanceof EReference)) {
-					continue;
-				}
-				EReference ecoreReference = (EReference) ecoreFeature;
-				if (ecoreReference.isContainer()) {
-					continue;
-				}
-            	GenClass genFeatureType = genFeature.getTypeGenClass();
+		Collection<Terminal> terminals = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
+		for (Terminal terminal : terminals) {
+			GenClass genFeatureType = getGenFeatureType(terminal);
+			if (genFeatureType == null) {
+				continue;
+			}
+			boolean isAbstractGenFeatureType = isNotConcrete(genFeatureType);
+			
+			// handle containments
+			if (terminal instanceof Containment) {
+				Containment containment = (Containment) terminal;
 				
-				if (isNotConcrete(genFeatureType)) {
+				if (isAbstractGenFeatureType) {
 					Collection<GenClass> subClassesWithSyntax = generatorUtil.getSubClassesWithSyntax(genFeatureType, syntax);
             		if (subClassesWithSyntax.isEmpty()) {
-            			referencesToAbstractClassesWithConcreteSubtypes.add(placeholder);
+            			cReferencesToAbstractClassesWithConcreteSubtypes.add(containment);
             		}
             	} else {
             		// type is concrete -> check whether it has syntax
             		Rule rule = generatorUtil.getRule(syntax, genFeatureType);
             		if (rule == null) {
-            			referencesToClassesWithoutSyntax.add(placeholder);
+            			cReferencesToClassesWithoutSyntax.add(containment);
             		}
             	}
 			}
+			// handle placeholders
+			if (terminal instanceof Placeholder) {
+				Placeholder placeholder = (Placeholder) terminal;
+				if (isAbstractGenFeatureType) {
+					Collection<GenClass> subClasses = genClassFinder.findAllSubclasses(syntax, genFeatureType);
+					Collection<GenClass> concreteSubClasses = filterConcrete(subClasses);
+					if (concreteSubClasses.isEmpty()) {
+						ncReferencesToAbstractClassesWithoutConcreteSubtypes.add(placeholder);
+					}
+				}
+			}
 		}
+	}
+	
+	private Collection<GenClass> filterConcrete(Collection<GenClass> genClasses) {
+		Collection<GenClass> concreteClasses = new ArrayList<GenClass>();
+		for (GenClass genClass : genClasses) {
+			if (!isNotConcrete(genClass)) {
+				concreteClasses.add(genClass);
+			}
+		}
+		return concreteClasses;
+	}
+
+	private GenClass getGenFeatureType(Terminal terminal) {
+		GenFeature genFeature = terminal.getFeature();
+		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
+		if (!(ecoreFeature instanceof EReference)) {
+			return null;
+		}
+		EReference ecoreReference = (EReference) ecoreFeature;
+		if (ecoreReference.isContainer()) {
+			return null;
+		}
+    	GenClass genFeatureType = genFeature.getTypeGenClass();
+    	return genFeatureType;
 	}
 
 	private boolean isNotConcrete(GenClass genFeatureType) {
