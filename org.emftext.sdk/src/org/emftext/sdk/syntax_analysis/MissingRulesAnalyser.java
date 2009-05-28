@@ -27,6 +27,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.util.EClassUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -39,6 +40,7 @@ import org.emftext.sdk.finders.GenClassFinder;
 public class MissingRulesAnalyser extends AbstractPostProcessor {
 
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class: ";
+	private static final EClassUtil eClassUtil = new EClassUtil();
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
@@ -53,7 +55,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 			if (ecoreClass == null) {
 				continue;
 			}
-			if (ecoreClass.isAbstract()) {
+			if (eClassUtil.isNotConcrete(ecoreClass)) {
 				continue;
 			}
 			String qualifiedName = genClass.getQualifiedInterfaceName();

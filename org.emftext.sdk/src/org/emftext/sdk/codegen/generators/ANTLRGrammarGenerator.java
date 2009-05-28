@@ -63,6 +63,7 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -104,6 +105,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 */
 	public static final String EOF_TOKEN_NAME = "EOF";
 	
+	private final static GenClassUtil genClassUtil = new GenClassUtil();
+
 	private ConcreteSyntax conrceteSyntax;
 	private String tokenResolverFactoryName;
 	
@@ -719,12 +722,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	GenClass instanceType = genFeature.getTypeGenClass();
             	GenClass proxyType = null;
             	
-            	if (instanceType.isAbstract() || instanceType.isInterface()) {
+            	if (genClassUtil.isNotConcrete(instanceType)) {
             		// TODO mseifert: replace this code with a class to GenClassFinder
             		for(GenClass instanceCand : allGenClasses) {
             			Collection<String> supertypes = genClassNames2superClassNames.get(instanceCand.getQualifiedInterfaceName());		
-            			if (!instanceCand.isAbstract() && 
-            				!instanceCand.isInterface() &&
+            			if (genClassUtil.isConcrete(instanceCand) &&
             				supertypes.contains(instanceType.getQualifiedInterfaceName())) {
         	            	proxyType = instanceCand;
         	            	break;

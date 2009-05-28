@@ -54,4 +54,12 @@ public class EClassUtil {
 	public boolean namesAreEqual(EClass classA, EClass classB) {
 		return classA.getName().equals(classB.getName());
 	}
+
+	public boolean isConcrete(EClass eClass) {
+		return !eClass.isAbstract() && !eClass.isInterface();
+	}
+
+	public boolean isNotConcrete(EClass eClass) {
+		return !isConcrete(eClass);
+	}
 }

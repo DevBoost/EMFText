@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -51,6 +52,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  */
 public class ReferencesAnalyser extends AbstractPostProcessor {
 
+	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 	private GenClassFinder genClassFinder = new GenClassFinder();
 
@@ -115,7 +117,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 			if (genFeatureType == null) {
 				continue;
 			}
-			boolean isAbstractGenFeatureType = isNotConcrete(genFeatureType);
+			boolean isAbstractGenFeatureType = genClassUtil.isNotConcrete(genFeatureType);
 			
 			// handle containments
 			if (terminal instanceof Containment) {
@@ -151,7 +153,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 	private Collection<GenClass> filterConcrete(Collection<GenClass> genClasses) {
 		Collection<GenClass> concreteClasses = new ArrayList<GenClass>();
 		for (GenClass genClass : genClasses) {
-			if (!isNotConcrete(genClass)) {
+			if (genClassUtil.isConcrete(genClass)) {
 				concreteClasses.add(genClass);
 			}
 		}
@@ -170,9 +172,5 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 		}
     	GenClass genFeatureType = genFeature.getTypeGenClass();
     	return genFeatureType;
-	}
-
-	private boolean isNotConcrete(GenClass genFeatureType) {
-		return genFeatureType.isAbstract() || genFeatureType.isInterface();
 	}
 }

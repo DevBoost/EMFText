@@ -73,7 +73,7 @@ public class MinimalModelHelper {
 				EClassifier type = reference.getEType();
 				if (type instanceof EClass) {
 					EClass typeClass = (EClass) type;
-					if (typeClass.isAbstract()) {
+					if (eClassUtil.isNotConcrete(typeClass)) {
 						// find subclasses
 						List<EClass> subClasses = findSubClasses(typeClass, allAvailableClasses);
 						if (subClasses.size() == 0) {
@@ -147,8 +147,7 @@ public class MinimalModelHelper {
 		ArrayList<EClass> result = new ArrayList<EClass>();
 		for (EClass next : allAvailableClasses) {
 			if (eClassUtil.isSubClass(next, eClass) &&
-				!next.isAbstract() && 
-				!next.isInterface()) {
+				eClassUtil.isConcrete(next)) {
 				result.add(next);
 			}
 		}

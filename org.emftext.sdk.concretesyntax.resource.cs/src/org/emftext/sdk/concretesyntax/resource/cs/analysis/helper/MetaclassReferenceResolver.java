@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
+import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -39,6 +40,8 @@ import org.emftext.sdk.finders.GenClassFinder;
  */
 public class MetaclassReferenceResolver {
 
+	private final static GenClassUtil genClassUtil = new GenClassUtil();
+	
 	private interface MetaClassFilter {
 		public String accept(String importPrefix, GenClass genClass);
 		public boolean isFuzzy();
@@ -113,7 +116,7 @@ public class MetaclassReferenceResolver {
 			GenClass genClass = prefixedGenClass.getRight();
 			String identifier = filter.accept(prefix, genClass);
 			if (identifier != null) {
-				if (!canBeAbstract && isInterfaceOrAbstract(genClass)) {
+				if (!canBeAbstract && genClassUtil.isNotConcrete(genClass)) {
 					if (filter.isFuzzy()) {
 						continue;
 					} else {
@@ -170,11 +173,6 @@ public class MetaclassReferenceResolver {
 	private boolean namesAreEqual(EClass classA, EClass classB) {
 		return classA.getName().equals(classB.getName());
 	}
-
-	private boolean isInterfaceOrAbstract(GenClass genClass) {
-		return genClass.getEcoreClass().isAbstract() || genClass.getEcoreClass().isInterface();
-	}
-
 
 	private void doResolveStrict(ConcreteSyntax container,
 			final String identifier, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {

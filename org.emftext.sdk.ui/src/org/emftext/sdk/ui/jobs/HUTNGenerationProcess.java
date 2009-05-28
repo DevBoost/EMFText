@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -66,6 +67,9 @@ import org.emftext.sdk.concretesyntax.Terminal;
  *
  */
 public class HUTNGenerationProcess implements IRunnableWithProgress {
+	
+	private static final GenClassUtil genClassUtil = new GenClassUtil();
+	
 	private final IFile file;
 	private ConcretesyntaxFactory concretesyntaxFactory;
 	private ConcreteSyntax cSyntax;
@@ -104,7 +108,8 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 				}
 			}
 			for (GenClass genClass : genClasses) {
-				if (!genClass.isAbstract() && !genClass.isInterface() && !containsSelfOfSuper(containedClasses, genClass.getEcoreClass()) ) {
+				if (genClassUtil.isConcrete(genClass) && 
+					!containsSelfOfSuper(containedClasses, genClass.getEcoreClass()) ) {
 					cSyntax.getActiveStartSymbols().add(genClass);
 				}
 			}
@@ -124,7 +129,9 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 	}
 
 	private void generateRule(GenClass genClass) {
-		if (genClass.isAbstract() || genClass.isInterface()) return;
+		if (genClassUtil.isNotConcrete(genClass)) {
+			return;
+		}
 		Rule newRule = concretesyntaxFactory.createRule();
 		newRule.setMetaclass(genClass);
 		cSyntax.getRules().add(newRule);
