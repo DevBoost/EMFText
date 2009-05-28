@@ -1,5 +1,7 @@
 package org.emftext.sdk.codegen.util;
 
+import java.util.List;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 
 /**
@@ -13,5 +15,15 @@ public class GenClassUtil {
 
 	public boolean isNotConcrete(GenClass genClass) {
 		return !isConcrete(genClass);
+	}
+
+	public boolean isSuperClass(GenClass superClass, GenClass subClass) {
+		List<GenClass> superClasses = subClass.getAllBaseGenClasses();
+		for (GenClass nextSuperclass : superClasses) {
+			if (nextSuperclass.getQualifiedInterfaceName().equals(superClass.getQualifiedInterfaceName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

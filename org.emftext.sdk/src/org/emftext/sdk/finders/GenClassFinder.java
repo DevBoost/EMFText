@@ -33,6 +33,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
+import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -46,6 +47,8 @@ import org.emftext.sdk.concretesyntax.Import;
 public class GenClassFinder {
 	
 	public static final String DOT = ".";
+	
+	private static final GenClassUtil genClassUtil = new GenClassUtil();
 	
 	/**
 	 * Returns all generator classes in the given syntax.
@@ -167,7 +170,7 @@ public class GenClassFinder {
 		Collection<GenClass> foundSubclasses = new ArrayList<GenClass>();
 	    
 	    for (GenClass genClass : findAllGenClasses(syntax, true, true)) {
-			if (genClass.getAllBaseGenClasses().contains(superClass)) {
+			if (genClassUtil .isSuperClass(superClass, genClass)) {
 				foundSubclasses.add(genClass);
 			}
 		}
