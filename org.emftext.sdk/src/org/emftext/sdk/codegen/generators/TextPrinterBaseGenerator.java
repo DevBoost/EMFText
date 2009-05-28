@@ -194,8 +194,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		
         tokenSpace = OptionManager.INSTANCE.getIntegerOptionValue(concretSyntax, OptionTypes.TOKENSPACE, true, this);
-		if (tokenSpace < 0) {
-			tokenSpace = 0;
+		if (tokenSpace < 1) {
+			tokenSpace = 1;
 		}
 		return rules;
 	}
