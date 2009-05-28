@@ -41,11 +41,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 /**
  * The NewFileContentGenerator can be used to create a NewFileWizard that 
  * creates a minimal sample file from a concrete syntax when it is invoked.
- * 
- * TODO mseifert: check whether we can create the minimal model and thus
- * the example document at generation time instead of runtime. As the model
- * instantiation is performed using reflection the code for the meta model
- * should not be needed.
  */
 public class NewFileWizardGenerator implements IGenerator {
 	
