@@ -21,7 +21,6 @@
 package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
@@ -45,9 +44,12 @@ public class DotClasspathCreator extends AbstractArtifactCreator {
 
 		DotClasspathGenerator dotClasspathGenerator = new DotClasspathGenerator(context);
 		
-		Collection<IArtifact> artifacts = new ArrayList<IArtifact>(1);
-		artifacts.add(new Artifact(dotClasspathFile, invokeGeneration(dotClasspathGenerator, context.getProblemCollector())));
-		return artifacts;
+	    return createArtifact(
+	    		context,
+	    		dotClasspathGenerator,
+	    		dotClasspathFile,
+	    		"Exception while generating .classpath file."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

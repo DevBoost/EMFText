@@ -21,7 +21,6 @@
 package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
@@ -42,9 +41,12 @@ public class DotProjectCreator extends AbstractArtifactCreator {
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		File dotProjectFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + ".project");
 		
-		Collection<IArtifact> artifacts = new ArrayList<IArtifact>(1);
-		artifacts.add(new Artifact(dotProjectFile, invokeGeneration(new DotProjectGenerator(context), context.getProblemCollector())));
-		return artifacts;
+	    return createArtifact(
+	    		context,
+	    		new DotProjectGenerator(context),
+	    		dotProjectFile,
+	    		"Exception while generating .project file."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

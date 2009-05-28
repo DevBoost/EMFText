@@ -45,8 +45,12 @@ public class PluginXMLCreator extends AbstractArtifactCreator {
 
 		PluginXMLGenerator generator = new PluginXMLGenerator(context);
 
-		Artifact artifact = new Artifact(pluginXMLFile, invokeGeneration(generator, context.getProblemCollector()));
-		return toList(artifact);
+	    return createArtifact(
+	    		context,
+	    		generator,
+	    		pluginXMLFile,
+	    		"Exception while generating plugin.xml file."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

@@ -43,8 +43,12 @@ public class TokenResolverFactoryCreator extends AbstractArtifactCreator {
 	    File tokenResolverFactoryFile = context.getTokenResolverFactoryFile();
 		IGenerator generator = new TokenResolverFactoryGenerator(context);
 		
-		Artifact artifact = new Artifact(tokenResolverFactoryFile, invokeGeneration(generator, context.getProblemCollector()));
-		return toList(artifact);
+		return createArtifact(
+	    		context,
+	    		generator,
+	    		tokenResolverFactoryFile,
+	    		"Exception while generating token resolver factory."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

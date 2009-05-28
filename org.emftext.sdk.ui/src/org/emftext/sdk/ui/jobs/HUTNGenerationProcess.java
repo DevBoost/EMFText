@@ -124,6 +124,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			try {
 				csResource.save(null);
 			} catch (IOException e) {
+	        	// TODO cwende: this exception should be shown to the user
 				EMFTextRuntimePlugin.logError("Exception while saving resource.", e);
 			}
 	}

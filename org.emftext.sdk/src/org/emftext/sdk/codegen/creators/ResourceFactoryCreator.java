@@ -40,10 +40,14 @@ public class ResourceFactoryCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		IGenerator resourceFactoryGen = new ResourceFactoryGenerator(context);
+		IGenerator resourceFactoryGenerator = new ResourceFactoryGenerator(context);
         File resourceFactoryFile = context.getResourceFactoryFile();
-		Artifact artifact = new Artifact(resourceFactoryFile, invokeGeneration(resourceFactoryGen, context.getProblemCollector()));
-		return toList(artifact);
+		return createArtifact(
+	    		context,
+	    		resourceFactoryGenerator,
+	    		resourceFactoryFile,
+	    		"Exception while generating resource factory."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

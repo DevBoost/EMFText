@@ -43,14 +43,20 @@ public class PrinterBaseCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.GENERATE_PRINTER_STUB_ONLY);
-	    File printerBaseFile = context.getPrinterBaseFile();
 
-		Collection<IArtifact> artifacts = new ArrayList<IArtifact>(1);
-		if (!generatePrinterStubOnly) {
+		if (generatePrinterStubOnly) {
+			return new ArrayList<IArtifact>();
+		} else {
+		    File printerBaseFile = context.getPrinterBaseFile();
 	        IGenerator printerBaseGenerator = new TextPrinterBaseGenerator(context);
-	        artifacts.add(new Artifact(printerBaseFile, invokeGeneration(printerBaseGenerator, context.getProblemCollector())));	    		
+	        
+		    return createArtifact(
+		    		context,
+		    		printerBaseGenerator,
+		    		printerBaseFile,
+		    		"Exception while generating printer base class."
+		    );
     	}
-		return artifacts;
 	}
 
 	public OptionTypes getOverrideOption() {

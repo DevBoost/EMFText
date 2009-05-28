@@ -43,8 +43,12 @@ public class NewFileWizardCreator extends AbstractArtifactCreator {
 	    File newFileActionFile = context.getNewFileWizardFile();
 		IGenerator generator = new NewFileWizardGenerator(context);
 		
-		Artifact artifact = new Artifact(newFileActionFile, invokeGeneration(generator, context.getProblemCollector()));
-		return toList(artifact);
+	    return createArtifact(
+	    		context,
+	    		generator,
+	    		newFileActionFile,
+	    		"Exception while generating NewFileWizard file."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

@@ -69,10 +69,12 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
         	
         	PlatformUI.getWorkbench().getProgressService().busyCursorWhile(runnable);
          } 
-        catch (InvocationTargetException e){
+        catch (InvocationTargetException e) {
+        	// TODO cwende: this exception should be shown to the user
         	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
         }
-        catch (InterruptedException e){
+        catch (InterruptedException e) {
+        	// TODO cwende: this exception should be shown to the user
         	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
         }
      }

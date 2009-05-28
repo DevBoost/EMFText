@@ -45,8 +45,12 @@ public class ManifestCreator extends AbstractArtifactCreator {
 
 		ManifestGenerator generator = new ManifestGenerator(context);
 		
-		Artifact artifact = new Artifact(manifestMFFile, invokeGeneration(generator, context.getProblemCollector()));
-		return toList(artifact);
+	    return createArtifact(
+	    		context,
+	    		generator,
+	    		manifestMFFile,
+	    		"Exception while generating manifest file."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

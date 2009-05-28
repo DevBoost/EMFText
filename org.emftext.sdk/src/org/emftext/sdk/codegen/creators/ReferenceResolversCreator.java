@@ -55,8 +55,13 @@ public class ReferenceResolversCreator extends AbstractArtifactCreator {
 			}
 			File resolverFile = context.getResolverFile(proxyReference);
 			IGenerator generator = new ReferenceResolverGenerator(context, proxyReference);
-			Artifact artifact = new Artifact(resolverFile, invokeGeneration(generator, context.getProblemCollector()));
-			artifacts.add(artifact);
+			
+			artifacts.addAll(createArtifact(
+		    		context,
+		    		generator,
+		    		resolverFile,
+		    		"Exception while generating reference resolver."
+		    ));
 		}
 		
 		return artifacts;

@@ -28,6 +28,7 @@ import java.io.InputStream;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
 
 /**
@@ -51,6 +52,7 @@ public class NewFileIconCreator implements IArtifactCreator {
 			}
 			fos.close();
 		} catch (IOException e) {
+			context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying new file icon.", null, GenerationProblem.Severity.ERROR, e));
 			EMFTextRuntimePlugin.logError("Error while copying icon.", e);
 		}
 	}

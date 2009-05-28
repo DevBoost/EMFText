@@ -43,8 +43,12 @@ public class TextResourceCreator extends AbstractArtifactCreator {
 	    File resourceFile = context.getTextResourceFile();
 		IGenerator generator = new TextResourceGenerator(context);
 		
-		Artifact artifact = new Artifact(resourceFile, invokeGeneration(generator, context.getProblemCollector()));
-		return toList(artifact);
+		return createArtifact(
+	    		context,
+	    		generator,
+	    		resourceFile,
+	    		"Exception while generating text resource class."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

@@ -61,8 +61,13 @@ public class TokenResolversCreator extends AbstractArtifactCreator {
 			}
 			File resolverFile = context.getTokenResolverFile(syntax, tokenDefinition);
 			IGenerator resolverGenerator = new TokenResolverGenerator(context, tokenDefinition);
-			Artifact artifact = new Artifact(resolverFile, invokeGeneration(resolverGenerator, context.getProblemCollector()));
-			artifacts.add(artifact);
+
+			artifacts.addAll(createArtifact(
+		    		context,
+		    		resolverGenerator,
+		    		resolverFile,
+		    		"Exception while generating token resolver."
+		    ));
 		}
 
 		return artifacts;

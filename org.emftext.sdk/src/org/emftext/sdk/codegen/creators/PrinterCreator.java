@@ -21,7 +21,6 @@
 package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
@@ -52,9 +51,12 @@ public class PrinterCreator extends AbstractArtifactCreator {
 		} else {
     		printerGenerator = new TextPrinterGenerator(context, true);
 		}
-		Collection<IArtifact> artifacts = new ArrayList<IArtifact>(1);
-		artifacts.add(new Artifact(printerFile, invokeGeneration(printerGenerator, context.getProblemCollector())));
-		return artifacts;
+	    return createArtifact(
+	    		context,
+	    		printerGenerator,
+	    		printerFile,
+	    		"Exception while generating printer."
+	    );
 	}
 
 	public OptionTypes getOverrideOption() {

@@ -89,7 +89,19 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	 */
 	public abstract OptionTypes getOverrideOption();
 
-	protected InputStream invokeGeneration(IGenerator generator, IProblemCollector collector) {
+	protected Collection<IArtifact> createArtifact(GenerationContext context,
+			IGenerator generator, File targetFile, String errorMessage) {
+
+		InputStream grammarStream = invokeGeneration(generator, context.getProblemCollector());
+	    if (grammarStream == null) {
+			context.getProblemCollector().addProblem(new GenerationProblem(errorMessage, null, GenerationProblem.Severity.ERROR, null));
+	    	return new ArrayList<IArtifact>();
+	    }
+	    Artifact artifact = new Artifact(targetFile, grammarStream);
+	    return toList(artifact);
+	}
+
+	private InputStream invokeGeneration(IGenerator generator, IProblemCollector collector) {
        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	   PrintWriter out = new PrintWriter(new BufferedOutputStream(stream));
        try {
@@ -98,6 +110,10 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
     		   return new ByteArrayInputStream(stream.toByteArray());
        	   }
 		} catch (Exception e) {
+			// we do not need to propagate the exception, because in the
+			// case if an exception this method returns null. This is then
+			// handled in createArtifact() by adding a generation problem
+			// to the problem collector
 			EMFTextRuntimePlugin.logError("Exception while invoking code generator.", e);
 		} finally {
 			out.close();
