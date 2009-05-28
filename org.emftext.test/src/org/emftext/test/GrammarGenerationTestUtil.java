@@ -21,6 +21,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 import junit.framework.Assert;
 
+/**
+ * A utility class that provides some methods to test the generation of
+ * ANTLR grammars.
+ */
 public class GrammarGenerationTestUtil {
 
 	public String getContent(InputStream grammarStream) {

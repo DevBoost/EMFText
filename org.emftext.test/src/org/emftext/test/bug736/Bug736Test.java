@@ -13,6 +13,9 @@ import org.emftext.test.GrammarGenerationTestUtil;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * A JUnit test for bug 636.
+ */
 public class Bug736Test extends TestCase {
 
 	private GrammarGenerationTestUtil genUtil = new GrammarGenerationTestUtil();
