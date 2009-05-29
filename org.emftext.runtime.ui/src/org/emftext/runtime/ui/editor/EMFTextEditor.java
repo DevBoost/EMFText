@@ -221,7 +221,10 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 				if (loadedResource instanceof ITextResource) {
 					resource = (ITextResource) loadedResource;
 					EcoreUtil.resolveAll(resource);
-					resourceCopy = (ITextResource) new ResourceSetImpl().createResource(uri);
+					Resource newResource = new ResourceSetImpl().createResource(uri);
+					if (newResource instanceof ITextResource) {
+						resourceCopy = (ITextResource) newResource;
+					}
 					MarkerHelper.unmark(resource);
 					MarkerHelper.mark(resource);
 					resource.eAdapters().add(markerAdapter);
