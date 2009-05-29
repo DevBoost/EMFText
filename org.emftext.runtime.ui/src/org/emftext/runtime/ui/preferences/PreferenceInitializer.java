@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.preferences;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
@@ -53,9 +55,24 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		Map<String, Object> extensionToFactoryMap = 
 			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
 		
-        for (String extension : extensionToFactoryMap.keySet()) {
-        	ResourceSet rs = new ResourceSetImpl();
-        	Resource tempResource = rs.createResource(URI.createURI("temp." + extension));
+		List<String> extensions = new ArrayList<String>(extensionToFactoryMap.keySet());
+		//TODO remove special handling of ecore here
+		extensions.add("ecore");
+
+        for (String extension : extensions) {
+        	Resource tempResource = null;
+        	
+        	if (extension.equals("ecore")) {
+        		Resource.Factory rf =  Resource.Factory.Registry.INSTANCE.getFactory(
+        				URI.createURI("temp.ecore"), "org.eclipse.emf.ecore.textual");
+        		if (rf != null) {
+        			tempResource = rf.createResource(URI.createURI("temp.ecore"));
+        		}
+        	}
+        	else {
+	        	ResourceSet rs = new ResourceSetImpl();
+	        	tempResource = rs.createResource(URI.createURI("temp." + extension));
+        	}
         	
         	if (tempResource instanceof ITextResource) {
         		ITextResource tr = (ITextResource) tempResource;
