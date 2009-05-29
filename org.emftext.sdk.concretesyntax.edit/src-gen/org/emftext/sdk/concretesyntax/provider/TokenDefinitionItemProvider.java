@@ -263,7 +263,7 @@ public class TokenDefinitionItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return concretesyntaxEditPlugin.INSTANCE;
+		return ConcretesyntaxEditPlugin.INSTANCE;
 	}
 
 }

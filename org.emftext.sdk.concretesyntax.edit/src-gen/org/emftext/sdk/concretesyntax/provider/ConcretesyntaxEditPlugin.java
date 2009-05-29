@@ -15,19 +15,19 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 
 /**
- * This is the central singleton for the concretesyntax edit plugin.
+ * This is the central singleton for the Concretesyntax edit plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public final class concretesyntaxEditPlugin extends EMFPlugin {
+public final class ConcretesyntaxEditPlugin extends EMFPlugin {
 	/**
 	 * Keep track of the singleton.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final concretesyntaxEditPlugin INSTANCE = new concretesyntaxEditPlugin();
+	public static final ConcretesyntaxEditPlugin INSTANCE = new ConcretesyntaxEditPlugin();
 
 	/**
 	 * Keep track of the singleton.
@@ -43,7 +43,7 @@ public final class concretesyntaxEditPlugin extends EMFPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public concretesyntaxEditPlugin() {
+	public ConcretesyntaxEditPlugin() {
 		super
 		  (new ResourceLocator [] {
 		     EcoreEditPlugin.INSTANCE,

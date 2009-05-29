@@ -24,12 +24,12 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
- * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Definition} object.
+ * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Cardinality} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class DefinitionItemProvider
+public class CardinalityItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -43,7 +43,7 @@ public class DefinitionItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DefinitionItemProvider(AdapterFactory adapterFactory) {
+	public CardinalityItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -70,7 +70,7 @@ public class DefinitionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Definition_type");
+		return getString("_UI_Cardinality_type");
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class DefinitionItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return concretesyntaxEditPlugin.INSTANCE;
+		return ConcretesyntaxEditPlugin.INSTANCE;
 	}
 
 }

@@ -15,6 +15,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,21 +24,20 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.Option;
-import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.concretesyntax.Rule;
 
 /**
- * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Option} object.
+ * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Rule} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class OptionItemProvider
+public class RuleItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -50,7 +51,7 @@ public class OptionItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OptionItemProvider(AdapterFactory adapterFactory) {
+	public RuleItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -65,65 +66,72 @@ public class OptionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTypePropertyDescriptor(object);
-			addValuePropertyDescriptor(object);
+			addMetaclassPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Type feature.
+	 * This adds a property descriptor for the Metaclass feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTypePropertyDescriptor(Object object) {
+	protected void addMetaclassPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Option_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Option_type_feature", "_UI_Option_type"),
-				 ConcretesyntaxPackage.Literals.OPTION__TYPE,
+				 getString("_UI_Rule_metaclass_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Rule_metaclass_feature", "_UI_Rule_type"),
+				 ConcretesyntaxPackage.Literals.RULE__METACLASS,
 				 true,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Value feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addValuePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Option_value_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Option_value_feature", "_UI_Option_type"),
-				 ConcretesyntaxPackage.Literals.OPTION__VALUE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.RULE__DEFINITION);
+		}
+		return childrenFeatures;
 	}
 
 	/**
-	 * This returns Option.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
+	 * This returns Rule.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Option"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Rule"));
 	}
 
 	/**
@@ -134,11 +142,7 @@ public class OptionItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		OptionTypes labelValue = ((Option)object).getType();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Option_type") :
-			getString("_UI_Option_type") + " " + label;
+		return getString("_UI_Rule_type");
 	}
 
 	/**
@@ -152,10 +156,9 @@ public class OptionItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Option.class)) {
-			case ConcretesyntaxPackage.OPTION__TYPE:
-			case ConcretesyntaxPackage.OPTION__VALUE:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+		switch (notification.getFeatureID(Rule.class)) {
+			case ConcretesyntaxPackage.RULE__DEFINITION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -171,6 +174,11 @@ public class OptionItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.RULE__DEFINITION,
+				 ConcretesyntaxFactory.eINSTANCE.createChoice()));
 	}
 
 	/**
@@ -181,7 +189,7 @@ public class OptionItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return concretesyntaxEditPlugin.INSTANCE;
+		return ConcretesyntaxEditPlugin.INSTANCE;
 	}
 
 }

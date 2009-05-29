@@ -15,27 +15,28 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.TokenStyle;
+import org.emftext.sdk.concretesyntax.Sequence;
 
 /**
- * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.TokenStyle} object.
+ * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Sequence} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TokenStyleItemProvider
+public class SequenceItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -49,7 +50,7 @@ public class TokenStyleItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TokenStyleItemProvider(AdapterFactory adapterFactory) {
+	public SequenceItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,88 +65,49 @@ public class TokenStyleItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addTokenNamePropertyDescriptor(object);
-			addRgbPropertyDescriptor(object);
-			addFontStylesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Token Name feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTokenNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TokenStyle_tokenName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TokenStyle_tokenName_feature", "_UI_TokenStyle_type"),
-				 ConcretesyntaxPackage.Literals.TOKEN_STYLE__TOKEN_NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS);
+		}
+		return childrenFeatures;
 	}
 
 	/**
-	 * This adds a property descriptor for the Rgb feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRgbPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TokenStyle_rgb_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TokenStyle_rgb_feature", "_UI_TokenStyle_type"),
-				 ConcretesyntaxPackage.Literals.TOKEN_STYLE__RGB,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
-	 * This adds a property descriptor for the Font Styles feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFontStylesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TokenStyle_fontStyles_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TokenStyle_fontStyles_feature", "_UI_TokenStyle_type"),
-				 ConcretesyntaxPackage.Literals.TOKEN_STYLE__FONT_STYLES,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns TokenStyle.gif.
+	 * This returns Sequence.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TokenStyle"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Sequence"));
 	}
 
 	/**
@@ -156,10 +118,7 @@ public class TokenStyleItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((TokenStyle)object).getTokenName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_TokenStyle_type") :
-			getString("_UI_TokenStyle_type") + " " + label;
+		return getString("_UI_Sequence_type");
 	}
 
 	/**
@@ -173,11 +132,9 @@ public class TokenStyleItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(TokenStyle.class)) {
-			case ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME:
-			case ConcretesyntaxPackage.TOKEN_STYLE__RGB:
-			case ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+		switch (notification.getFeatureID(Sequence.class)) {
+			case ConcretesyntaxPackage.SEQUENCE__PARTS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -193,6 +150,46 @@ public class TokenStyleItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createCsString()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createLineBreak()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createContainment()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.SEQUENCE__PARTS,
+				 ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes()));
 	}
 
 	/**
@@ -203,7 +200,7 @@ public class TokenStyleItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return concretesyntaxEditPlugin.INSTANCE;
+		return ConcretesyntaxEditPlugin.INSTANCE;
 	}
 
 }

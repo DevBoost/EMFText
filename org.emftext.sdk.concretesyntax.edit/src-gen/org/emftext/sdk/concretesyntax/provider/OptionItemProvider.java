@@ -27,15 +27,16 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
+import org.emftext.sdk.concretesyntax.Option;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.GenPackageDependentElement} object.
+ * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Option} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenPackageDependentElementItemProvider
+public class OptionItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -49,7 +50,7 @@ public class GenPackageDependentElementItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenPackageDependentElementItemProvider(AdapterFactory adapterFactory) {
+	public OptionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,54 +65,65 @@ public class GenPackageDependentElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addPackagePropertyDescriptor(object);
-			addPackageLocationHintPropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
+			addValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Package feature.
+	 * This adds a property descriptor for the Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPackagePropertyDescriptor(Object object) {
+	protected void addTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenPackageDependentElement_package_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenPackageDependentElement_package_feature", "_UI_GenPackageDependentElement_type"),
-				 ConcretesyntaxPackage.Literals.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Package Location Hint feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPackageLocationHintPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenPackageDependentElement_packageLocationHint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenPackageDependentElement_packageLocationHint_feature", "_UI_GenPackageDependentElement_type"),
-				 ConcretesyntaxPackage.Literals.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT,
+				 getString("_UI_Option_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Option_type_feature", "_UI_Option_type"),
+				 ConcretesyntaxPackage.Literals.OPTION__TYPE,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Value feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValuePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Option_value_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Option_value_feature", "_UI_Option_type"),
+				 ConcretesyntaxPackage.Literals.OPTION__VALUE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns Option.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Option"));
 	}
 
 	/**
@@ -122,10 +134,11 @@ public class GenPackageDependentElementItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((GenPackageDependentElement)object).getPackageLocationHint();
+		OptionTypes labelValue = ((Option)object).getType();
+		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
-			getString("_UI_GenPackageDependentElement_type") :
-			getString("_UI_GenPackageDependentElement_type") + " " + label;
+			getString("_UI_Option_type") :
+			getString("_UI_Option_type") + " " + label;
 	}
 
 	/**
@@ -139,8 +152,9 @@ public class GenPackageDependentElementItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(GenPackageDependentElement.class)) {
-			case ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE_LOCATION_HINT:
+		switch (notification.getFeatureID(Option.class)) {
+			case ConcretesyntaxPackage.OPTION__TYPE:
+			case ConcretesyntaxPackage.OPTION__VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
@@ -167,7 +181,7 @@ public class GenPackageDependentElementItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return concretesyntaxEditPlugin.INSTANCE;
+		return ConcretesyntaxEditPlugin.INSTANCE;
 	}
 
 }

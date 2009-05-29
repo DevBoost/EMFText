@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.emftext.sdk.concretesyntax.edit;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .
-Bundle-Activator: org.emftext.sdk.concretesyntax.provider.concretesyntaxEditPlugin$Implementation
+Bundle-Activator: org.emftext.sdk.concretesyntax.provider.ConcretesyntaxEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

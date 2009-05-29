@@ -17,7 +17,6 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -27,17 +26,17 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
-import org.emftext.sdk.concretesyntax.Rule;
 
 /**
- * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Rule} object.
+ * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Choice} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class RuleItemProvider
+public class ChoiceItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -51,7 +50,7 @@ public class RuleItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RuleItemProvider(AdapterFactory adapterFactory) {
+	public ChoiceItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,31 +65,8 @@ public class RuleItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addMetaclassPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Metaclass feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMetaclassPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Rule_metaclass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Rule_metaclass_feature", "_UI_Rule_type"),
-				 ConcretesyntaxPackage.Literals.RULE__METACLASS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -105,7 +81,7 @@ public class RuleItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.RULE__DEFINITION);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.CHOICE__OPTIONS);
 		}
 		return childrenFeatures;
 	}
@@ -124,14 +100,14 @@ public class RuleItemProvider
 	}
 
 	/**
-	 * This returns Rule.gif.
+	 * This returns Choice.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Rule"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Choice"));
 	}
 
 	/**
@@ -142,7 +118,7 @@ public class RuleItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Rule_type");
+		return getString("_UI_Choice_type");
 	}
 
 	/**
@@ -156,8 +132,8 @@ public class RuleItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Rule.class)) {
-			case ConcretesyntaxPackage.RULE__DEFINITION:
+		switch (notification.getFeatureID(Choice.class)) {
+			case ConcretesyntaxPackage.CHOICE__OPTIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -177,8 +153,8 @@ public class RuleItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ConcretesyntaxPackage.Literals.RULE__DEFINITION,
-				 ConcretesyntaxFactory.eINSTANCE.createChoice()));
+				(ConcretesyntaxPackage.Literals.CHOICE__OPTIONS,
+				 ConcretesyntaxFactory.eINSTANCE.createSequence()));
 	}
 
 	/**
@@ -189,7 +165,7 @@ public class RuleItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return concretesyntaxEditPlugin.INSTANCE;
+		return ConcretesyntaxEditPlugin.INSTANCE;
 	}
 
 }
