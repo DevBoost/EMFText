@@ -4,25 +4,16 @@ Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText SDK
 Bundle-SymbolicName: org.emftext.sdk; singleton:=true
-Bundle-Version: 1.0.0.v200903061841
+Bundle-Version: 1.1.0.v200905291935
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
- org.eclipse.emf.workspace,
- org.eclipse.jdt.core,
- org.eclipse.jdt.launching,
- org.emftext.runtime,
- org.emftext.runtime.ui,
- org.emftext.sdk.antlr,
- org.emftext.sdk.concretesyntax;visibility:=reexport
-Export-Package: org.emftext.sdk,
- org.emftext.sdk.codegen,
- org.emftext.sdk.codegen.composites,
- org.emftext.sdk.codegen.creators,
- org.emftext.sdk.codegen.generators,
- org.emftext.sdk.codegen.regex,
- org.emftext.sdk.codegen.util,
- org.emftext.sdk.finders,
- org.emftext.sdk.syntax_analysis,
- org.emftext.sdk.syntax_extension
+Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,org
+ .eclipse.emf.workspace,org.eclipse.jdt.core,org.eclipse.jdt.launching
+ ,org.emftext.runtime,org.emftext.runtime.ui,org.emftext.sdk.antlr,org
+ .emftext.sdk.concretesyntax;visibility:=reexport
+Export-Package: org.emftext.sdk,org.emftext.sdk.codegen,org.emftext.sd
+ k.codegen.composites,org.emftext.sdk.codegen.creators,org.emftext.sdk
+ .codegen.generators,org.emftext.sdk.codegen.regex,org.emftext.sdk.cod
+ egen.util,org.emftext.sdk.finders,org.emftext.sdk.syntax_analysis,org
+ .emftext.sdk.syntax_extension
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 

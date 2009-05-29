@@ -4,7 +4,7 @@ Created-By: 1.5.0_16-132 ("Apple Computer, Inc.")
 Bundle-ManifestVersion: 2
 Bundle-Name: Dependencies: ANTLR3 SDK, ANTLR2, STRINGTEMPLATE
 Bundle-SymbolicName: org.emftext.sdk.antlr; singleton:=true
-Bundle-Version: 1.0.0.v200903061841
+Bundle-Version: 1.1.0.v200905291935
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Export-Package: antlr,antlr.ASdebug,antlr.actions.cpp,antlr.actions.cs

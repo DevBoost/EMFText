@@ -1,21 +1,18 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.0
+Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFText Parser Plugin: cs
-Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs;singleton:=true
-Bundle-Version: 1.0.0.v200903061841
+Bundle-Name: EMFText Concretesyntax Metamodel Text Syntax
+Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs; singl
+ eton:=true
+Bundle-Version: 1.1.0.v200905291935
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.core.runtime,
-  org.eclipse.emf.ecore,
-  org.emftext.sdk,
-  org.emftext.sdk.concretesyntax,
-  org.eclipse.jface,
-  org.eclipse.ui,
-  org.eclipse.core.resources,
-  org.emftext.runtime,
-  org.emftext.runtime.ui,
-  org.eclipse.emf.codegen.ecore
+Require-Bundle: org.eclipse.core.runtime, org.eclipse.emf.ecore, org.e
+ mftext.sdk, org.emftext.sdk.concretesyntax, org.eclipse.jface, org.ec
+ lipse.ui, org.eclipse.core.resources, org.emftext.runtime, org.emftex
+ t.runtime.ui, org.eclipse.emf.codegen.ecore
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: 
- org.emftext.sdk.concretesyntax.resource.cs,
- org.emftext.sdk.concretesyntax.resource.cs.analysis
+Export-Package: org.emftext.sdk.concretesyntax.resource.cs,org.emftext
+ .sdk.concretesyntax.resource.cs.analysis
+

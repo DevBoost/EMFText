@@ -4,6 +4,6 @@ Created-By: 1.5.0_13-121 ("Apple Computer, Inc.")
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Documentation
 Bundle-SymbolicName: org.emftext.doc; singleton:=true
-Bundle-Version: 1.0.0.v200903061841
+Bundle-Version: 1.1.0.v200905291935
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 
