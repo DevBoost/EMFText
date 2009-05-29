@@ -10,11 +10,10 @@ package org.emftext.sdk.concretesyntax.provider;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,7 +23,6 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -266,6 +264,7 @@ public class ConcreteSyntaxItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__MODIFIER);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__IMPORTS);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPTIONS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKEN_STYLES);
@@ -302,14 +301,19 @@ public class ConcreteSyntaxItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ConcreteSyntax)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_ConcreteSyntax_type") :
-			getString("_UI_ConcreteSyntax_type") + " " + label;
+		ConcreteSyntax concreteSyntax = (ConcreteSyntax)object;
+		String label = concreteSyntax.getName() + " : ";
+		if (!concreteSyntax.eIsProxy()) {
+			GenPackage genPackage = concreteSyntax.getPackage();
+			if(genPackage != null && !genPackage.eIsProxy()) {
+				label = label + genPackage.getNSURI();
+			}
+		}
+		return label;
 	}
 
 	/**
@@ -329,6 +333,7 @@ public class ConcreteSyntaxItemProvider
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
@@ -359,6 +364,11 @@ public class ConcreteSyntaxItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__IMPORTS,
 				 ConcretesyntaxFactory.eINSTANCE.createImport()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPTIONS,
+				 ConcretesyntaxFactory.eINSTANCE.createOption()));
 
 		newChildDescriptors.add
 			(createChildParameter

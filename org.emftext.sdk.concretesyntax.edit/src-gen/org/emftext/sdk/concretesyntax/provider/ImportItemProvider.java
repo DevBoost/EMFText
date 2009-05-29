@@ -10,9 +10,9 @@ package org.emftext.sdk.concretesyntax.provider;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,7 +22,6 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -149,14 +148,19 @@ public class ImportItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Import)object).getPackageLocationHint();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Import_type") :
-			getString("_UI_Import_type") + " " + label;
+		Import _import = (Import) object;
+		String label = _import.getPrefix() + " : ";
+		if (_import != null && !_import.eIsProxy()) {
+			GenPackage genPackage = _import.getPackage();
+			if (genPackage != null && !genPackage.eIsProxy()) {
+				label = label + genPackage.getNSURI();
+			}
+		}
+		return label;
 	}
 
 	/**

@@ -10,9 +10,9 @@ package org.emftext.sdk.concretesyntax.provider;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -20,8 +20,8 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Containment;
 
 /**
  * This is the item provider adapter for a {@link org.emftext.sdk.concretesyntax.Containment} object.
@@ -100,11 +100,19 @@ public class ContainmentItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Containment_type");
+		Containment containment = (Containment) object;
+		String label = "<unknown>";
+		if(containment != null && !containment.eIsProxy()) {
+			GenFeature genFeature = containment.getFeature();
+			if (genFeature != null && !genFeature.eIsProxy()) {
+				label = genFeature.getName();
+			}
+		}
+		return label;
 	}
 
 	/**
