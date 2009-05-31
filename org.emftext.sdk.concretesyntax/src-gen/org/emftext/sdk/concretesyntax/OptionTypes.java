@@ -368,7 +368,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RESOURCE_PLUGIN_ID(28, "RESOURCE_PLUGIN_ID", "resourcePluginID");
+	RESOURCE_PLUGIN_ID(28, "RESOURCE_PLUGIN_ID", "resourcePluginID"), /**
+	 * The '<em><b>OVERRIDE BUILD PROPERTIES</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BUILD_PROPERTIES_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BUILD_PROPERTIES(29, "OVERRIDE_BUILD_PROPERTIES", "overrideBuildProperties");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -806,6 +814,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int RESOURCE_PLUGIN_ID_VALUE = 28;
 
 	/**
+	 * The '<em><b>OVERRIDE BUILD PROPERTIES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BUILD PROPERTIES</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BUILD_PROPERTIES
+	 * @model literal="overrideBuildProperties"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BUILD_PROPERTIES_VALUE = 29;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -842,6 +865,7 @@ public enum OptionTypes implements Enumerator {
 			SOURCE_FOLDER,
 			BASE_PACKAGE,
 			RESOURCE_PLUGIN_ID,
+			OVERRIDE_BUILD_PROPERTIES,
 		};
 
 	/**
@@ -921,6 +945,7 @@ public enum OptionTypes implements Enumerator {
 			case SOURCE_FOLDER_VALUE: return SOURCE_FOLDER;
 			case BASE_PACKAGE_VALUE: return BASE_PACKAGE;
 			case RESOURCE_PLUGIN_ID_VALUE: return RESOURCE_PLUGIN_ID;
+			case OVERRIDE_BUILD_PROPERTIES_VALUE: return OVERRIDE_BUILD_PROPERTIES;
 		}
 		return null;
 	}

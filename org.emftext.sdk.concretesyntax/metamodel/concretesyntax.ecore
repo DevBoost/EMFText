@@ -160,6 +160,7 @@
     <eLiterals name="SOURCE_FOLDER" value="26" literal="srcFolder"/>
     <eLiterals name="BASE_PACKAGE" value="27" literal="basePackage"/>
     <eLiterals name="RESOURCE_PLUGIN_ID" value="28" literal="resourcePluginID"/>
+    <eLiterals name="OVERRIDE_BUILD_PROPERTIES" value="29" literal="overrideBuildProperties"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
