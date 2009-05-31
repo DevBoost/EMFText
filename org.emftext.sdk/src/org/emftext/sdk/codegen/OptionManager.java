@@ -96,6 +96,9 @@ public class OptionManager {
 		if (option == OptionTypes.OVERRIDE_MANIFEST) {
 			return true;
 		}
+		if (option == OptionTypes.OVERRIDE_BUILD_PROPERTIES) {
+			return true;
+		}
 		if (option == OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL) {
 			return false;
 		}
