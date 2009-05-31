@@ -64,7 +64,7 @@ public class JavaBasedTokenResolver implements ITokenResolver {
 					if(typeName.equals(java.lang.String.class.getName())) {
 						result.setResolvedToken(lexem);
 						return;
-					} else if(typeName.equals("char")) {
+					} else if(typeName.equals("char") || java.lang.Character.class.getName().equals(typeName)) {
 						if (lexem.length() != 1) {
 							result.setErrorMessage("Can convert to single Character only.");
 						} else {
@@ -72,27 +72,27 @@ public class JavaBasedTokenResolver implements ITokenResolver {
 							return;
 						}
 					}
-					else if(typeName.equals("boolean")){
+					else if(typeName.equals("boolean") || java.lang.Boolean.class.getName().equals(typeName)){
 						result.setResolvedToken(Boolean.parseBoolean(lexem));
 						return;
 					}
-					else if(typeName.equals("int")){
+					else if(typeName.equals("int") || java.lang.Integer.class.getName().equals(typeName)){
 						result.setResolvedToken(Integer.parseInt(lexem));
 						return;
 					}
-					else if(typeName.equals("long")){
+					else if(typeName.equals("long") || java.lang.Long.class.getName().equals(typeName)){
 						result.setResolvedToken(Long.parseLong(lexem));
 						return;
 					}
-					else if(typeName.equals("double")){
+					else if(typeName.equals("double") || java.lang.Double.class.getName().equals(typeName)){
 						result.setResolvedToken(Double.parseDouble(lexem));
 						return;
 					}
-					else if(typeName.equals("short")){
+					else if(typeName.equals("short") || java.lang.Short.class.getName().equals(typeName)){
 						result.setResolvedToken(Short.parseShort(lexem));
 						return;
 					}
-					else if(typeName.equals("float")){
+					else if(typeName.equals("float") || java.lang.Float.class.getName().equals(typeName)){
 						result.setResolvedToken(Float.parseFloat(lexem));
 						return;
 					}
