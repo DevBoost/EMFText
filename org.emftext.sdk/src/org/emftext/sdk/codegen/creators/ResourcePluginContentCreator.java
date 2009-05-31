@@ -48,6 +48,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new SourceFolderCreator());
 	    creators.add(new DotClasspathCreator());
 	    creators.add(new DotProjectCreator());
+	    creators.add(new BuildPropertiesCreator());
 	    creators.add(new PluginXMLCreator());
 	    creators.add(new ANTLRGrammarCreator());
 	    creators.add(new TextResourceCreator());
