@@ -32,10 +32,8 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.compare.diff.metamodel.DiffFactory;
 import org.eclipse.emf.compare.diff.metamodel.DiffGroup;
 import org.eclipse.emf.compare.diff.metamodel.DiffModel;
-import org.eclipse.emf.compare.diff.metamodel.ModelInputSnapshot;
 import org.eclipse.emf.compare.diff.service.DiffService;
 import org.eclipse.emf.compare.match.metamodel.MatchModel;
 import org.eclipse.emf.compare.match.service.MatchService;
@@ -87,11 +85,14 @@ public class DeterministicLoadTest {
 		final DiffModel inputDiff = DiffService.doDiff(inputMatch);
 
 		if (((DiffGroup) inputDiff.getOwnedElements().get(0)).getSubchanges() != 0) {
+			// TODO make this code run against Eclipse Galileo
+			/*
 			final ModelInputSnapshot snapshot = DiffFactory.eINSTANCE
 					.createModelInputSnapshot();
 			snapshot.setDiff(inputDiff);
 			snapshot.setMatch(inputMatch);
 			saveModel(snapshot, testName);
+			*/
 			fail("Diff failed");
 		}
 	}
