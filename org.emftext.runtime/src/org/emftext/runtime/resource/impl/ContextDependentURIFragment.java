@@ -99,7 +99,7 @@ public abstract class ContextDependentURIFragment<ContainerType extends EObject,
 	private void handleMultipleResults() {
 		EList<EObject> list = null;
 		Object temp = container.eGet(reference);
-		if (temp instanceof EList) {
+		if (temp instanceof EList<?>) {
 			list = Util.cast(temp);
 		}
 		
@@ -125,9 +125,9 @@ public abstract class ContextDependentURIFragment<ContainerType extends EObject,
 		EObject target = null;
 		int proxyPosition = list.indexOf(proxy);
 		
-		if (mapping instanceof IElementMapping) {
+		if (mapping instanceof IElementMapping<?>) {
 			target = ((IElementMapping<ReferenceType>) mapping).getTargetElement();
-		} else if (mapping instanceof IURIMapping) {
+		} else if (mapping instanceof IURIMapping<?>) {
 			target = EcoreUtil.copy(proxy);
 			URI uri = ((IURIMapping<ReferenceType>) mapping).getTargetIdentifier();
 			((InternalEObject) target).eSetProxyURI(uri);

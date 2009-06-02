@@ -81,7 +81,7 @@ public class MinimalModelHelperTest extends TestCase {
 			);
 		assertTrue(instance.eClass() == rootClass);
 		Object referenceValueObject = instance.eGet(reference);
-		assertTrue(referenceValueObject instanceof List);
+		assertTrue(referenceValueObject instanceof List<?>);
 		List<?> referenceValue = (List<?>) referenceValueObject;
 		assertEquals(2, referenceValue.size());
 	}
@@ -151,7 +151,7 @@ public class MinimalModelHelperTest extends TestCase {
 			);
 		assertTrue(instance.eClass() == rootClass);
 		Object referenceValueObject = instance.eGet(reference);
-		assertTrue(referenceValueObject instanceof List);
+		assertTrue(referenceValueObject instanceof List<?>);
 		List<?> referenceValue = (List<?>) referenceValueObject;
 		assertEquals(1, referenceValue.size());
 	}

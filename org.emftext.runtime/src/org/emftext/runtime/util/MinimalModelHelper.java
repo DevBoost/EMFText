@@ -110,7 +110,7 @@ public class MinimalModelHelper {
 						}
 
 						Object value = root.eGet(reference);
-						if (value instanceof List) {
+						if (value instanceof List<?>) {
 							List<EObject> list = listUtil.castListUnchecked(value);
 							list.add(subModel);
 						} else {
@@ -129,7 +129,7 @@ public class MinimalModelHelper {
 						initialValue = "some" + StringUtil.capitalize(attribute.getName());
 					}
 					Object value = root.eGet(attribute);
-					if (value instanceof List) {
+					if (value instanceof List<?>) {
 						List<String> list = listUtil.castListUnchecked(value);
 						list.add(initialValue);
 					} else {

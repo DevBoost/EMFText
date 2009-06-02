@@ -130,7 +130,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 
 	private EObject getResultElement(IContextDependentURIFragment<? extends EObject> uriFragment,
 			IReferenceMapping<? extends EObject> mapping, EObject proxy, String errorMessage) {
-		if (mapping instanceof IURIMapping) {
+		if (mapping instanceof IURIMapping<?>) {
 			URI uri = ((IURIMapping<? extends EObject>)mapping).getTargetIdentifier();
 			if (uri != null) {
 				EObject result = null;
@@ -152,7 +152,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			return null;
 
 		}
-		else if (mapping instanceof IElementMapping) {
+		else if (mapping instanceof IElementMapping<?>) {
 			EObject element = ((IElementMapping<? extends EObject>)mapping).getTargetElement();
 			EReference reference = uriFragment.getReference();
 			EReference oppositeReference = uriFragment.getReference().getEOpposite();
@@ -246,7 +246,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		if (resourcePostProcessorProvider != null) {
 			if (resourcePostProcessorProvider instanceof org.emftext.runtime.IResourcePostProcessorProvider) {
 				((org.emftext.runtime.IResourcePostProcessorProvider) resourcePostProcessorProvider).getResourcePostProcessor().process(this);
-			} else if (resourcePostProcessorProvider instanceof Collection) {
+			} else if (resourcePostProcessorProvider instanceof Collection<?>) {
 				@SuppressWarnings("unchecked")
 				Collection<IResourcePostProcessorProvider> resourcePostProcessorProviderCollection = (Collection<IResourcePostProcessorProvider>) resourcePostProcessorProvider;
 				for (IResourcePostProcessorProvider processorProvider : resourcePostProcessorProviderCollection) {
@@ -358,12 +358,12 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		// check if there is already an option set
 		if (options.containsKey(key)) {
 			Object currentValue = options.get(key);
-			if (currentValue instanceof List) {
+			if (currentValue instanceof List<?>) {
 				// if the current value is a list, we add the new value to
 				// this list
 				List<?> currentValueAsList = (List<?>) currentValue;
 				List<Object> currentValueAsObjectList = copySafelyToObjectList(currentValueAsList);
-				if (value instanceof Collection) {
+				if (value instanceof Collection<?>) {
 					currentValueAsObjectList.addAll((Collection<?>) value);
 				}
 				else {
@@ -376,7 +376,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				// and add both the old (current) and the new value to this list
 				List<Object> newValueList = new ArrayList<Object>();
 				newValueList.add(currentValue);
-				if (value instanceof Collection) {
+				if (value instanceof Collection<?>) {
 					newValueList.addAll((Collection<?>) value);
 				}
 				else {

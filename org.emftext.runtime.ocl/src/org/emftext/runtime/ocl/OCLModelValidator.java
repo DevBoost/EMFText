@@ -201,7 +201,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 				error = "'" + result + "'";	
 			}
 		} 
-		else if (result instanceof Tuple) {
+		else if (result instanceof Tuple<?, ?>) {
 			Object[] array = ((Tuple<?,?>) result).getTupleType().oclProperties().toArray(new Object[]{});
 			if (array.length > 0) {
 				error += constructErrorMsg(array[0]);
@@ -210,7 +210,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 				error += ", " + constructErrorMsg(array[i]);
 			}
 		} 
-		else if (result instanceof Collection) { 
+		else if (result instanceof Collection<?>) { 
 			Object[] array = ((Collection<?>) result).toArray(new Object[]{});
 			if (array.length > 0) {
 				error += constructErrorMsg(array[0]);
