@@ -344,13 +344,6 @@ public class ActionAnalysisLexer extends Lexer {
             else if ( (true) ) {
                 alt2=3;
             }
-            else {
-                if (state.backtracking>0) {state.failed=true; return ;}
-                NoViableAltException nvae =
-                    new NoViableAltException("1:1: Tokens options {k=1; backtrack=true; } : ( X_Y | X | Y );", 2, 1, input);
-
-                throw nvae;
-            }
         }
         else {
             if (state.backtracking>0) {state.failed=true; return ;}
