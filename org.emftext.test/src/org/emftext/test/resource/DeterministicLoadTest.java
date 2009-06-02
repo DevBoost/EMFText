@@ -23,8 +23,6 @@ package org.emftext.test.resource;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.Collections;
-
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -144,6 +142,7 @@ public class DeterministicLoadTest {
 		}
 	}
 
+	/*
 	private void saveModel(EObject root, String snapshotName) throws Exception {
 		final URI modelURI = URI.createPlatformResourceURI(OUTPUT_PROJECT + "/"
 				+ OUTPUT_FOLDER + "/" + snapshotName, true);
@@ -155,4 +154,5 @@ public class DeterministicLoadTest {
 		newModelResource.getContents().add(root);
 		newModelResource.save(Collections.EMPTY_MAP);
 	}
+	*/
 }
