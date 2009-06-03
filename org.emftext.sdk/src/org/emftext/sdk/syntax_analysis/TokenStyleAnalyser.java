@@ -30,7 +30,6 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 			Collection<CsString> csStringsInRule = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 			csStrings.addAll(csStringsInRule);
 		}
-		System.out.println("TokenStyleAnalyser.analyse() " + csStrings);
 
 		// then we search for each token style for a matching token
 		// definition of CsString
