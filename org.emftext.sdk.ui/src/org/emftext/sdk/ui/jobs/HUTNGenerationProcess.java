@@ -110,7 +110,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			for (GenClass genClass : genClasses) {
 				if (genClassUtil.isConcrete(genClass) && 
 					!containsSelfOfSuper(containedClasses, genClass.getEcoreClass()) ) {
-					cSyntax.getActiveStartSymbols().add(genClass);
+					cSyntax.getStartSymbols().add(genClass);
 				}
 			}
 			
