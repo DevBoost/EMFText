@@ -15,7 +15,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
 
 /**
  * A analyser that checks that all token styles refer either to
- * a token definition of a CsString.
+ * a token definition or a CsString.
  */
 public class TokenStyleAnalyser extends AbstractPostProcessor {
 
@@ -31,8 +31,8 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 			csStrings.addAll(csStringsInRule);
 		}
 
-		// then we search for each token style for a matching token
-		// definition of CsString
+		// for each token style we search for a matching token
+		// definition or CsString
 		Collection<TokenStyle> styles = syntax.getAllTokenStyles();
 		for (TokenStyle tokenStyle : styles) {
 			if (!refersToExistingToken(syntax, csStrings, tokenStyle)) {
