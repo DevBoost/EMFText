@@ -82,9 +82,9 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
     protected ITokenScanner getScanner(String fileName) {
 		FileEditorInput input = (FileEditorInput) theEditor.getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		ITextResource thisFile = (ITextResource) theEditor.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
+		ITextResource thisResource = (ITextResource) theEditor.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
         
-        return new AntlrTokenScanner(thisFile, fileName.substring(fileName.lastIndexOf(".") + 1), colorManager);
+        return new AntlrTokenScanner(thisResource, fileName.substring(fileName.lastIndexOf(".") + 1), colorManager);
     }
 
 	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
