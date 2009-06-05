@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.emftext.test.code_completion.test
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.junit4,
+ org.emftext.test.code_completion,
+ org.emftext.test.code_completion.resource.cct,
+ org.emftext.runtime,
+ org.emftext.runtime.antlr
