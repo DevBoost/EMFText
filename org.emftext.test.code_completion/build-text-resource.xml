@@ -1,0 +1,24 @@
+<project basedir="." default="generate-text-resources" name="Build EMFText text resource">
+
+	<!-- Define the EMF Generate Resource task. To have this task available, the plugin
+	     org.emftext.sdk.ant must be available in the classpath -->
+	<taskdef name="emftext-generate-text-resource" classname="org.emftext.sdk.ant.GenerateTextResourceTask" />
+	<taskdef name="emftext-create-uri" classname="org.emftext.sdk.ant.CreateURITask" />
+
+	<!-- A macro for generating one text resource plug-in -->
+	<macrodef name="generate-text-resource">
+	    <attribute name="plugin"/>
+	    <attribute name="syntax"/>
+		
+		<sequential>
+			<echo message="Building text resource for syntax '@{syntax}' in plug-in '@{plugin}'" />
+			<emftext-generate-text-resource syntax="../@{plugin}/metamodel/@{syntax}.cs" rootFolder=".." syntaxProjectName="@{plugin}" />
+		</sequential>
+	</macrodef>
+
+	<!-- A task for generating text resource plug-ins for all EMFText languages -->
+	<target name="generate-text-resources">
+		<generate-text-resource plugin="org.emftext.test.code_completion" syntax="code_completion" />
+	</target>
+	
+</project>

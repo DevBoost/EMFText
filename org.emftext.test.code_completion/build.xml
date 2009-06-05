@@ -1,0 +1,54 @@
+<project name="Test Build" default="generate-text-resource" basedir=".">
+
+	<target name="generate-text-resource" depends="generate-metamodel-code" description="Generate the EMF text resource plug-in">
+		<java classname="org.apache.tools.ant.Main" failonerror="true">
+			<arg value="-Declipse.home=${eclipse.home}" />
+			<arg value="-f" />
+			<arg value="${basedir}/build-text-resource.xml" />
+			<classpath>
+				<path path="../org.emftext.runtime/bin" />
+				<path path="../org.emftext.runtime.antlr/bin" />
+				<path path="../org.emftext.runtime.ocl/bin" />
+				<path path="../org.emftext.runtime.ui/bin" />
+				<path path="../org.emftext.sdk/bin" />
+				<path path="../org.emftext.sdk.ant/bin" />
+				<path path="../org.emftext.sdk.antlr/bin" />
+				<path path="../org.emftext.sdk.concretesyntax/bin" />
+				<path path="../org.emftext.sdk.concretesyntax.resource.cs/bin" />
+				<fileset dir="${eclipse.home}/">
+					<include name="plugins/**/*.jar"/>
+				</fileset>
+			</classpath>
+		</java>
+		
+		<eclipse.refreshLocal depth="infinite" resource="/"/>
+	</target>
+	
+	<target name="generate-metamodel-code">
+		<generate-metamodel-code plugin="org.emftext.test.code_completion" model="code_completion" generateEditProject="false" />
+	</target>
+	
+	<macrodef name="generate-metamodel-code">
+	    <attribute name="plugin"/>
+	    <attribute name="model"/>
+	    <attribute name="generateEditProject"/>
+		
+		<sequential>
+			<delete dir="../@{plugin}/src-gen" includes="**/*.java" excludes=".svn"/>
+			<eclipse.refreshLocal depth="infinite" resource="@{plugin}"/>
+			<echo message="../@{plugin}/metamodel/@{model}.ecore" />
+			<emf.Ecore2Java 
+				model="../@{plugin}/metamodel/@{model}.ecore" 
+				genModel="../@{plugin}/metamodel/@{model}.genmodel" 
+				generateeditproject="@{generateEditProject}" 
+				generateeditorproject="false"
+				modelProject="../@{plugin}" 
+				modelProjectFragmentPath="src-gen"
+				reconcileGenModel="keep"
+			/>
+			
+			<eclipse.refreshLocal depth="infinite" resource="@{plugin}"/>
+		</sequential>
+	</macrodef>
+	
+</project>
