@@ -77,7 +77,10 @@ public class OptionManager {
 
 	private boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
-		// documented in ICodeGenOptions!
+		// documented in class OptionTypes!
+		if (option == OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS) {
+			return true;
+		}
 		if (option == OptionTypes.GENERATE_TEST_ACTION) {
 			return false;
 		}
