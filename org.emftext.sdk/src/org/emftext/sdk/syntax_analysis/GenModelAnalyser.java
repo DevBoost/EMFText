@@ -33,7 +33,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class GenModelAnalyser extends AbstractPostProcessor {
 
-	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel is invalid. Please reconcile it.";
+	public static final String INVALID_GENMODEL_MESSAGE = "The genmodel (%s) is invalid. Please reconcile it.";
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
@@ -47,7 +47,8 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 		}
 		IStatus status = genModel.validate();
 		if (status.getSeverity() == IStatus.ERROR) {
-			resource.addError(INVALID_GENMODEL_MESSAGE, 0, 0, 0, 0);
+			String path = genModel.eResource().getURI().toString();
+			resource.addError(String.format(INVALID_GENMODEL_MESSAGE, path), 0, 0, 0, 0);
 		}
 	}
 }
