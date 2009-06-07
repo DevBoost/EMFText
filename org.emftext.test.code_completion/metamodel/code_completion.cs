@@ -12,5 +12,5 @@ RULES {
 		
 	Field  ::= visibility[] type[] name[] ";";
 		
-	Method ::= visibility[] "void" name[] "{" "}";	
+	Method ::= visibility[] "void" name[] "(" ")" "{" "}";	
 }
