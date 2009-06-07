@@ -37,4 +37,28 @@ public class StringUtil {
         String t = text.substring(1);      
         return h + t;
     }
+
+    /**
+     * Returns the part of 'tail' that is not present at the end of
+     * 'text'. For example if text = 'abc' and tail = 'cd' this method
+     * returns 'd'. If 'tail' can not be found at the end of 'text',
+     * 'tail' is returned as is.
+     * 
+     * @param text
+     * @param tail
+     * @return
+     */
+    public static String getMissingTail(String text, String tail) {
+		for (int i = 1; i < tail.length(); i++) {
+			int endIndex = text.length();
+			int end = Math.max(0, endIndex);
+			int start = Math.max(0, end - i);
+			String contentTail = text.substring(start, end);
+			String proposalHead = tail.substring(0, i);
+			if (contentTail.equals(proposalHead)) {
+				return tail.substring(i);
+			}
+		}
+		return tail;
+	}
 }
