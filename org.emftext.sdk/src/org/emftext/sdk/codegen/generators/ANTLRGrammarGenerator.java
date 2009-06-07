@@ -866,7 +866,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	final String identifier = "a" + count;
     	final String escapedCsString = csString.getValue().replaceAll("'", "\\\\'");
 		sc.add(identifier + " = '" + escapedCsString + "' {");
-    	sc.add("terminateParsingIfCursorIndexReached(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString + "\"));");
+		// we must use the unicode representation for the % character, because
+		// StringTemplate does treat % special
+    	sc.add("terminateParsingIfCursorIndexReached(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString.replace("%", "\\u0025") + "\"));");
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
