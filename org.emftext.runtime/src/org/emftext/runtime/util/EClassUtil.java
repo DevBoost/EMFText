@@ -20,6 +20,9 @@
  ******************************************************************************/
 package org.emftext.runtime.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 
 /**
@@ -36,6 +39,20 @@ public class EClassUtil {
 			}
 		}
 		return false;
+	}
+
+
+	public List<EClass> getSubClasses(EClass superClass,
+			EClass[] availableClasses) {
+		
+		List<EClass> result = new ArrayList<EClass>();
+		for (EClass next : availableClasses) {
+			if (isSubClass(next, superClass) &&
+				isConcrete(next)) {
+				result.add(next);
+			}
+		}
+		return result;
 	}
 
 	public boolean namesAndPackageURIsAreEqual(EClass classA,

@@ -20,7 +20,6 @@
  ******************************************************************************/
 package org.emftext.runtime.util;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -75,7 +74,7 @@ public class MinimalModelHelper {
 					EClass typeClass = (EClass) type;
 					if (eClassUtil.isNotConcrete(typeClass)) {
 						// find subclasses
-						List<EClass> subClasses = findSubClasses(typeClass, allAvailableClasses);
+						List<EClass> subClasses = eClassUtil.getSubClasses(typeClass, allAvailableClasses);
 						if (subClasses.size() == 0) {
 							continue;
 						} else {
@@ -139,18 +138,5 @@ public class MinimalModelHelper {
 			}
 		}
 		return root;
-	}
-
-	private List<EClass> findSubClasses(EClass eClass,
-			EClass[] allAvailableClasses) {
-		
-		ArrayList<EClass> result = new ArrayList<EClass>();
-		for (EClass next : allAvailableClasses) {
-			if (eClassUtil.isSubClass(next, eClass) &&
-				eClassUtil.isConcrete(next)) {
-				result.add(next);
-			}
-		}
-		return result;
 	}
 }
