@@ -20,9 +20,9 @@
  ******************************************************************************/
 package org.emftext.runtime.resource;
 
-import java.io.InputStream;
-
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.runtime.resource.impl.IExpectedElement;
 
 /**
  * A text parser parses a text into a tree of <code>EObject</code>s.
@@ -33,19 +33,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ITextParser extends IConfigurable {
 
-	/**
-	 * Returns an instance of the parser. This factory method
-	 * is needed, because we can not create ANTLR parsers using
-	 * the default constructor without arguments, because they
-	 * expect the input stream or rather a token stream.
-	 * 
-	 * @param inputStream
-	 * @param encoding
-	 * @return
-	 */
-	public ITextParser createInstance(InputStream inputStream,
-			String encoding);
-	
 	/**
 	 * Set the associate text resource.
 	 * 
@@ -67,4 +54,15 @@ public interface ITextParser extends IConfigurable {
      * @return The root object.
      */
 	public EObject parse();
+	
+	/**
+	 * Parses the input up to the given index in the stream
+	 * using 'type' as start symbol and returns the element
+	 * that is expected after index. If the parser implementation
+	 * can not determine the expected element null is returned.
+	 * This method is used by the code completion to figure out
+	 * which proposals can be shown to users for a given cursor
+	 * positiion.
+	 */
+	public IExpectedElement parseToIndex(int index, EClass type);
 }
