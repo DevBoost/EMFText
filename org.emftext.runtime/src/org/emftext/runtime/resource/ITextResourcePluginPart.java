@@ -7,5 +7,9 @@ package org.emftext.runtime.resource;
  */
 public interface ITextResourcePluginPart {
 
+	/**
+	 * Returns a meta information object for the language plug-in 
+	 * that contains this part.
+	 */
 	public ITextResourcePluginMetaInformation getMetaInformation();
 }
