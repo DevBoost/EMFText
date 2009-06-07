@@ -3,5 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="duplicate_tokenstyle"
     nsURI="http://www.emftext.org/test/duplicate_tokenstyle" nsPrefix="duplicate_tokenstyle">
-  <eClassifiers xsi:type="ecore:EClass" name="Root"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Root">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="att" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -6,6 +6,10 @@ OPTIONS {
 	usePredefinedTokens = "false";
 }
 
+TOKENS {
+	DEFINE TEXT $'a'$;
+}
+
 TOKENSTYLES {
 	// here we should get a warning, because two styles refer to the same token
 	"TEXT" COLOR #000000;
@@ -13,5 +17,5 @@ TOKENSTYLES {
 }
 
 RULES {
-	Root ::= "ROOT";
+	Root ::= "ROOT" att[TEXT];
 }
