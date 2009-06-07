@@ -376,7 +376,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_BUILD_PROPERTIES(29, "OVERRIDE_BUILD_PROPERTIES", "overrideBuildProperties");
+	OVERRIDE_BUILD_PROPERTIES(29, "OVERRIDE_BUILD_PROPERTIES", "overrideBuildProperties"), /**
+	 * The '<em><b>OVERRIDE PLUGIN META INFORMATION CLASS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PLUGIN_META_INFORMATION_CLASS(30, "OVERRIDE_PLUGIN_META_INFORMATION_CLASS", "overridePluginMetaInformationClass");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -829,6 +837,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_BUILD_PROPERTIES_VALUE = 29;
 
 	/**
+	 * The '<em><b>OVERRIDE PLUGIN META INFORMATION CLASS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PLUGIN META INFORMATION CLASS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PLUGIN_META_INFORMATION_CLASS
+	 * @model literal="overridePluginMetaInformationClass"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE = 30;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -866,6 +889,7 @@ public enum OptionTypes implements Enumerator {
 			BASE_PACKAGE,
 			RESOURCE_PLUGIN_ID,
 			OVERRIDE_BUILD_PROPERTIES,
+			OVERRIDE_PLUGIN_META_INFORMATION_CLASS,
 		};
 
 	/**
@@ -946,6 +970,7 @@ public enum OptionTypes implements Enumerator {
 			case BASE_PACKAGE_VALUE: return BASE_PACKAGE;
 			case RESOURCE_PLUGIN_ID_VALUE: return RESOURCE_PLUGIN_ID;
 			case OVERRIDE_BUILD_PROPERTIES_VALUE: return OVERRIDE_BUILD_PROPERTIES;
+			case OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE: return OVERRIDE_PLUGIN_META_INFORMATION_CLASS;
 		}
 		return null;
 	}
