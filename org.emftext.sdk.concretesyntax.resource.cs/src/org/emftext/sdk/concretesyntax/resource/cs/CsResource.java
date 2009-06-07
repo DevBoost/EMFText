@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
+
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
@@ -111,6 +113,12 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		if ("COMMENTS".equals(tokenName)) {
 			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x00, 0x80, 0x00}, false, false, false, false);
 		}
+		return null;
+	}
+
+	public ITextResourcePluginMetaInformation getMetaInformation() {
+		// TODO mseifert: regenerate CS text resource plug-in to obtain
+		// correct implementation of this method
 		return null;
 	}
 }
