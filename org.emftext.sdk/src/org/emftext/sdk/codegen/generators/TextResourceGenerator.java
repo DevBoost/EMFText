@@ -29,6 +29,7 @@ import org.emftext.runtime.IOptions;
 import org.emftext.runtime.InputStreamProcessor;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.runtime.resource.impl.BasicTokenStyle;
@@ -56,6 +57,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String printerClassName;
 	private String parserClassName;
 	private String csSyntaxName;
+	private String qualifiedMetaInformationClassName;
 	
 	public TextResourceGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getResourceClassName());
@@ -65,6 +67,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
 		this.printerClassName = context.getQualifiedPrinterName();
 		this.parserClassName = context.getQualifiedParserClassName();
+		this.qualifiedMetaInformationClassName = context.getQualifiedMetaInformationClassName();
 	}
 
 	@Override
@@ -88,12 +91,19 @@ public class TextResourceGenerator extends BaseGenerator {
         generateGetReferenceResolverSwitchMethod(sc);
     	generateDoUnLoadMethod(sc);
     	generateGetDefaultStyleMethod(sc);
+    	generateGetMetaInformationMethod(sc);
 
     	sc.add("}");
     	
     	out.print(sc.toString());
     	return true;
     }
+
+	private void generateGetMetaInformationMethod(StringComposite sc) {
+		sc.add("public " + ITextResourcePluginMetaInformation.class.getName() + " getMetaInformation() {");
+		sc.add("return new " + qualifiedMetaInformationClassName + "();");
+		sc.add("}");
+	}
 
 	private void generateGetDefaultStyleMethod(StringComposite sc) {
 		List<TokenStyle> styles = concreteSyntax.getAllTokenStyles();
@@ -113,6 +123,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		}
 		sc.add("return null;");
 		sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void generateGetSyntaxNameMethod(StringComposite sc) {
