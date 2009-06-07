@@ -38,7 +38,14 @@ public abstract class AbstractEMFTextPrinter implements ITextPrinter {
 	protected final static String NEW_LINE = System.getProperties().getProperty("line.separator");
 	
     protected OutputStream outputStream;
-    protected ITextResource resource;
+    
+    /** 
+     * Holds the resource that is associated with this
+     * printer. may be null if the printer is used
+     * stand alone.
+     */
+    private ITextResource resource;
+    
 	private Map<?, ?> options;
     
     /**
@@ -58,6 +65,10 @@ public abstract class AbstractEMFTextPrinter implements ITextPrinter {
     
     public Map<?,?> getOptions() {
     	return options;
+    }
+    
+    public ITextResource getResource() {
+    	return resource;
     }
     
     /**
