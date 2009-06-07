@@ -34,7 +34,10 @@ import java.util.Map;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.BitSet;
+import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.IntStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -49,19 +52,27 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.IOptions;
+import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
+import org.emftext.runtime.resource.impl.ExpectedCsString;
+import org.emftext.runtime.resource.impl.ExpectedStructuralFeature;
+import org.emftext.runtime.resource.impl.IExpectedElement;
+import org.emftext.runtime.resource.impl.ReachedCursorIndexException;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
+import org.emftext.runtime.resource.impl.AbstractEMFTextParser.DummyEObject;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
+import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
@@ -94,27 +105,37 @@ import org.emftext.sdk.syntax_analysis.LeftRecursionDetector;
  * could break the ANTLR generation algorithm or the ANTLR parsing algorithm 
  * (e.g. ambiguities in the configuration or in token definitions which are 
  * not checked by this generator) it can be used to generate a text parser 
- * which allows to create metamodel instances from plain text files.
+ * which allows to create model instances from plain text files.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
+	// constants for class names used in the generated code
+	private static final String ARRAY_LIST = ArrayList.class.getName();
+	private static final String COMMON_TOKEN = CommonToken.class.getName();
+	private static final String DUMMY_E_OBJECT = DummyEObject.class.getName();
+	private static final String E_CLASS = EClass.class.getName();
+	private static final String E_OBJECT = EObject.class.getName();
+	private static final String E_REFERENCE = EReference.class.getName();
+	private static final String INTEGER = Integer.class.getName();
+	private static final String I_EXPECTED_ELEMENT = IExpectedElement.class.getName();
+	private static final String I_LOCATION_MAP = ILocationMap.class.getName();
+	private static final String I_OPTIONS = IOptions.class.getName();
+	private static final String I_TEXT_RESOURCE = ITextResource.class.getName();
+	private static final String LIST = List.class.getName();
+	private static final String OBJECT = Object.class.getName();
+	private static final String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
+
 	/**
 	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
 	 */
 	public static final String EOF_TOKEN_NAME = "EOF";
 	
-	private final static GenClassUtil genClassUtil = new GenClassUtil();
+	private static final GenClassUtil genClassUtil = new GenClassUtil();
 
-	private ConcreteSyntax conrceteSyntax;
+	private ConcreteSyntax concreteSyntax;
 	private String tokenResolverFactoryName;
-	
-	/** 
-	 * A map to collect all (non-containment) references that will contain proxy 
-	 * objects after parsing.
-	 */
-	//private Collection<GenFeature> nonContainmentReferences;
 	
 	/**
 	 * A map that projects the fully qualified name of generator classes to 
@@ -133,28 +154,28 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getCapitalizedConcreteSyntaxName());
 		this.context = context;
-		conrceteSyntax = context.getConcreteSyntax();
+		concreteSyntax = context.getConcreteSyntax();
 		tokenResolverFactoryName = context.getTokenResolverFactoryClassName();
 	}
 	
 	private void initOptions() {
-		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.FORCE_EOF);
+		forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.FORCE_EOF);
 	}
 	
 	private void initCaches(){
-	    allGenClasses = genClassFinder.findAllGenClasses(conrceteSyntax, true, true);
+	    allGenClasses = genClassFinder.findAllGenClasses(concreteSyntax, true, true);
 	    genClassNames2superClassNames = genClassFinder.findAllSuperclasses(allGenClasses);
 	}
 	
-	public boolean generate(PrintWriter pw){
+	public boolean generate(PrintWriter writer){
 		initOptions();
 		initCaches();
 		
         String csName = getResourceClassName();
         String lexerName = getLexerName(csName);
         String parserName = getParserName(csName);
-        boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.ANTLR_BACKTRACKING);
-        boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.ANTLR_MEMOIZE);
+        boolean backtracking = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.ANTLR_BACKTRACKING);
+        boolean memoize = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.ANTLR_MEMOIZE);
                 
         StringComposite sc = new ANTLRGrammarComposite();
 
@@ -175,12 +196,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.addLineBreak();
         
         sc.add("@lexer::members {");
-        sc.add("public " + java.util.List.class.getName() + "<" + RecognitionException.class.getName() + "> lexerExceptions  = new " + java.util.ArrayList.class.getName() + "<" + RecognitionException.class.getName() + ">();");
-        sc.add("public " + java.util.List.class.getName() + "<" + Integer.class.getName() + "> lexerExceptionsPosition       = new " + java.util.ArrayList.class.getName() + "<" + Integer.class.getName() + ">();");
+        sc.add("public " + LIST + "<" + RECOGNITION_EXCEPTION + "> lexerExceptions  = new " + ARRAY_LIST + "<" + RECOGNITION_EXCEPTION + ">();");
+        sc.add("public " + LIST + "<" + INTEGER + "> lexerExceptionsPosition       = new " + ARRAY_LIST + "<" + INTEGER + ">();");
         sc.addLineBreak();
-        sc.add("public void reportError(" + RecognitionException.class.getName() + " e) {"); 
+        sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " e) {"); 
         sc.add("lexerExceptions.add(e);"); 
-        sc.add("lexerExceptionsPosition.add(((" + ANTLRStringStream.class.getName() + ")input).index());");
+        sc.add("lexerExceptionsPosition.add(((" + ANTLRStringStream.class.getName() + ") input).index());");
         sc.add("}");
         sc.add("}");
         
@@ -195,31 +216,122 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.addLineBreak();
         
         sc.add("@members{");  
-        sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
-        sc.add("private int lastPosition;");
-        sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
-        
+        addFields(sc);
         sc.addLineBreak();
-        sc.add("// This default constructor is only used to call createInstance() on it");
+        addMethods(lexerName, parserName, sc);
+        sc.add("}");
+        sc.addLineBreak();
+        
+        addRules(sc);
+	    addTokenDefinitions(sc);
+	    
+	    writer.print(sc.toString());
+	    return getCollectedErrors().size() == 0;
+	}
+
+	private void addRules(StringComposite sc) {
+		printStartRule(sc);
+        
+		EList<GenClass> eClassesWithSyntax = new BasicEList<GenClass>();
+	    Map<GenClass, Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass, Collection<Terminal>>();
+	    
+	    printGrammarRules(sc, eClassesWithSyntax, eClassesReferenced);
+	    printImplicitChoiceRules(sc, eClassesWithSyntax, eClassesReferenced);
+	}
+
+	private void addMethods(String lexerName, String parserName,
+			StringComposite sc) {
+		addDefaultConstructor(parserName, sc);
+        sc.addLineBreak();
+
+        addGetTypeObjectMethod(sc);
+        sc.addLineBreak();
+        
+        addGetReferenceResolverSwitchMethod(sc);
+        sc.addLineBreak();
+        
+        addDoParseMethod(lexerName, sc);
+        sc.addLineBreak();
+  
+        addAddObjectToListMethod(sc);
+        sc.addLineBreak();
+
+        addGetFreshTokenResolveResultMethod(sc);
+        sc.addLineBreak();
+        
+        addCollectHiddenTokensMethod(lexerName, sc);
+		sc.addLineBreak();
+        
+        addCreateInstanceMethod(lexerName, parserName, sc);
+		sc.addLineBreak();
+
+		addParseToIndexMethod(sc);
+		sc.addLineBreak();
+		
+		addGetParseToIndexTypeObjectMethod(sc);
+		sc.addLineBreak();
+
+		addRegisterContextDependentProxyMethod(sc);
+		sc.addLineBreak();
+
+		addAddErrorToResourceMethod(sc);
+		sc.addLineBreak();
+
+		addCopyLocalizationInfosMethod1(sc);
+		sc.addLineBreak();
+
+		addCopyLocalizationInfosMethod2(sc);
+		sc.addLineBreak();
+
+		addTerminateParsingIfCursorReachedMethod(sc);
+		sc.addLineBreak();
+
+		addRecoverFromMismatchedTokenMethod(sc);
+	}
+
+	private void addDefaultConstructor(String parserName, StringComposite sc) {
+		sc.add("// This default constructor is only used to call createInstance() on it");
         sc.add("public " + parserName + "() {");
         sc.add("super();");
         sc.add("}");
-        
-        sc.addLineBreak();
-        sc.add("protected EObject doParse() throws RecognitionException {");
-        sc.add("lastPosition = 0;");
-		sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
-        sc.add("((" + lexerName + ")getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;"); //required because the lexer class can not be subclassed
-        sc.add("Object typeObject = null;");
+	}
+
+	private void addGetTypeObjectMethod(StringComposite sc) {
+		sc.add("protected java.lang.Object getTypeObject() {");
+        sc.add("java.lang.Object typeObject = getParseToIndexTypeObject();");
+        sc.add("if (typeObject != null) {");
+        	sc.add("return typeObject;");
+    	sc.add("}");
         sc.add(Map.class.getName() + "<?,?> options = getOptions();");
         sc.add("if (options != null) {");
-        	sc.add("typeObject = options.get(IOptions.RESOURCE_CONTENT_TYPE);");
+        	sc.add("typeObject = options.get(" + I_OPTIONS + ".RESOURCE_CONTENT_TYPE);");
         sc.add("}");
+        sc.add("return typeObject;");
+        sc.add("}");
+	}
+
+	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
+		sc.add("protected " + context.getQualifiedReferenceResolverSwitchClassName() + " getReferenceResolverSwitch() {");
+        sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+        sc.add("if (resource == null) {");
+        sc.add("return null;");
+        sc.add("}");
+        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getReferenceResolverSwitch();");
+        sc.add("}");
+	}
+
+	private void addDoParseMethod(String lexerName, StringComposite sc) {
+		sc.add("protected " + E_OBJECT + " doParse() throws " + RECOGNITION_EXCEPTION + " {");
+        sc.add(new StringComponent("lastPosition = 0;", "lastPosition"));
+		sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;"); //required because the lexer class can not be subclassed
+        sc.add("((" + lexerName + ") getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;"); //required because the lexer class can not be subclassed
+
+   		sc.add("java.lang.Object typeObject = getTypeObject();");
    		sc.add("if (typeObject == null) {");
    			sc.add("return start();");
-   		sc.add("} else if (typeObject instanceof EClass) {");
-   			sc.add("EClass type = (EClass)typeObject;");
-   			for(Rule rule:conrceteSyntax.getAllRules()){
+   		sc.add("} else if (typeObject instanceof " + E_CLASS + ") {");
+   			sc.add(E_CLASS + " type = (" + E_CLASS + ") typeObject;");
+   			for (Rule rule : concreteSyntax.getAllRules()) {
    				String qualifiedClassName = rule.getMetaclass().getQualifiedInterfaceName();
    				String ruleName = getLowerCase(rule.getMetaclass().getName());
    				sc.add("if (type.getInstanceClass() == " + qualifiedClassName +".class) {");
@@ -229,24 +341,26 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("throw new " + UnexpectedContentTypeException.class.getName() + "(typeObject);");
         sc.add("}");
-        sc.addLineBreak();
-  
-        
-        sc.add("@SuppressWarnings(\"unchecked\")");
-        sc.add("private boolean addObjectToList(" + EObject.class.getName() + " element, int featureID, " + Object.class.getName() + " proxy) {");
-        sc.add("return ((" + List.class.getName() + "<" + Object.class.getName() + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
-        sc.add("}");
-        sc.addLineBreak();
+	}
 
-        sc.add("private " + TokenResolveResult.class.getName() + " getFreshTokenResolveResult() {");
+	private void addAddObjectToListMethod(StringComposite sc) {
+		sc.add("@SuppressWarnings(\"unchecked\")");
+        sc.add("private boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
+        sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
+        sc.add("}");
+	}
+
+	private void addGetFreshTokenResolveResultMethod(StringComposite sc) {
+		sc.add("private " + TokenResolveResult.class.getName() + " getFreshTokenResolveResult() {");
         sc.add("tokenResolveResult.clear();");
         sc.add("return tokenResolveResult;");
         sc.add("}");
-        sc.addLineBreak();
-        
+	}
 
-        List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(conrceteSyntax.getTokens());       
-        sc.add("protected void collectHiddenTokens(" + EObject.class.getName() + " element) {");
+	private void addCollectHiddenTokensMethod(String lexerName,
+			StringComposite sc) {
+		List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax.getTokens());       
+        sc.add("protected void collectHiddenTokens(" + E_OBJECT + " element) {");
         if (!collectTokenDefinitions.isEmpty()) {          
             //sc.add("System.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
             sc.add("int currentPos = getTokenStream().index();");
@@ -287,12 +401,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     			sc.add(resolverIdentifier +".setOptions(getOptions());");
     			sc.add(ITokenResolveResult.class.getName() + " " + resolveResultIdentifier + " = getFreshTokenResolveResult();"); 
     			sc.add(resolverIdentifier + ".resolve(token.getText(), feature, " + resolveResultIdentifier + ");");
-    			sc.add("java.lang.Object " + resolvedObjectIdentifier + " = " + resolveResultIdentifier + ".getResolvedToken();");
+    			sc.add(OBJECT + " " + resolvedObjectIdentifier + " = " + resolveResultIdentifier + ".getResolvedToken();");
     			sc.add("if (" + resolvedObjectIdentifier + " == null) {");
-    			sc.add("getResource().addError(" + resolveResultIdentifier + ".getErrorMessage(), ((CommonToken) token).getLine(), ((CommonToken) token).getCharPositionInLine(), ((CommonToken) token).getStartIndex(), ((CommonToken) token).getStopIndex());\n");
+    			sc.add("addErrorToResource(" + resolveResultIdentifier + ".getErrorMessage(), ((" + COMMON_TOKEN + ") token).getLine(), ((" + COMMON_TOKEN + ") token).getCharPositionInLine(), ((" + COMMON_TOKEN + ") token).getStartIndex(), ((" + COMMON_TOKEN + ") token).getStopIndex());\n");
     			sc.add("}");
     			sc.add("if (java.lang.String.class.isInstance(" + resolvedObjectIdentifier + ")) {");
-    	        sc.add("((java.util.List) element.eGet(feature)).add((String) " + resolvedObjectIdentifier + ");");
+    	        sc.add("((" + LIST + ") element.eGet(feature)).add((java.lang.String) " + resolvedObjectIdentifier + ");");
     	        sc.add("} else {");
     	        sc.add("System.out.println(\"WARNING: Attribute " + attributeName + " for token \" + token + \" has wrong type in element \" + element + \" (expected java.lang.String).\");");
     	        sc.add("}");
@@ -307,8 +421,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             sc.add("lastPosition = (endPos < 0 ? 0 : endPos);");
         }   
         sc.add("}");
-        
-        sc.add("public " + ITextParser.class.getName() + " createInstance(" + InputStream.class.getName() + " actualInputStream, " + String.class.getName() + " encoding) {");
+	}
+
+	private void addCreateInstanceMethod(String lexerName, String parserName,
+			StringComposite sc) {
+		sc.add("public " + ITextParser.class.getName() + " createInstance(" + InputStream.class.getName() + " actualInputStream, " + String.class.getName() + " encoding) {");
 		sc.add("try {");
 		sc.add("if (encoding == null) {");
 		sc.add("return new " + parserName + "(new " + CommonTokenStream.class.getName() + "(new " + lexerName + "(new " + ANTLRInputStream.class.getName() + "(actualInputStream))));");
@@ -320,24 +437,139 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");
+	}
 
+	private void addFields(StringComposite sc) {
+        sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
+        sc.add(new StringComponent("private int lastPosition;", "lastPosition"));
+        sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
+		sc.add("private int stopIndex = -1;");
+		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
+		sc.add("private int lastTokenIndex = 0;");
+	}
 
-        sc.add("}");
-        sc.addLineBreak();
-        
-        
-        printStartRule(sc);
-        
-		EList<GenClass> eClassesWithSyntax = new BasicEList<GenClass>();
-	    Map<GenClass, Collection<Terminal>> eClassesReferenced = new LinkedHashMap<GenClass, Collection<Terminal>>();
-	    
-	    printGrammarRules(sc, eClassesWithSyntax, eClassesReferenced);
-	    printImplicitChoiceRules(sc, eClassesWithSyntax, eClassesReferenced);
-	    
-	    printTokenDefinitions(sc);
-	    
-	    pw.print(sc.toString());
-	    return getCollectedErrors().size() == 0;
+	private void addParseToIndexMethod(StringComposite sc) {
+		sc.add("public " + I_EXPECTED_ELEMENT + " parseToIndex(int index, " + E_CLASS +  " type) {");
+		sc.add("stopIndex = index;");
+		sc.add("parseToIndexTypeObject = type;");
+		sc.add("try {");
+		sc.add("parse();");
+		sc.add("} catch (" + ReachedCursorIndexException.class.getName() + " pcie) {");
+		sc.add("final " + I_EXPECTED_ELEMENT + " expectedElement = pcie.getExpectedElement();");
+		sc.add("return expectedElement;");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+	}
+
+	private void addGetParseToIndexTypeObjectMethod(StringComposite sc) {
+		sc.add("public " + OBJECT + " getParseToIndexTypeObject() {");
+		sc.add("return parseToIndexTypeObject;");
+		sc.add("}");
+	}
+
+	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
+		sc.add("protected <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" +
+				ContextDependentURIFragmentFactory.class.getName() + "<ContainerType, ReferenceType> factory," +
+				"ContainerType element, " + E_REFERENCE + " reference, String id," +
+				E_OBJECT + " proxy) {");
+		sc.add("");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("resource.registerContextDependentProxy(factory, element, reference, id, proxy);");
+		sc.add("}");
+	}
+
+	private void addAddErrorToResourceMethod(StringComposite sc) {
+		sc.add("protected void addErrorToResource(java.lang.String errorMessage, int line,");
+		sc.add("int charPositionInLine, int startIndex, int stopIndex) {");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("resource.addError(errorMessage, line, charPositionInLine, startIndex, stopIndex);");
+		sc.add("}");
+	}
+
+	private void addCopyLocalizationInfosMethod1(StringComposite sc) {
+		sc.add("protected void copyLocalizationInfos(" + E_OBJECT + " source, " + E_OBJECT + " target) {");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("final " + I_LOCATION_MAP + " locationsMap = resource.getLocationMap();");
+		sc.add("locationsMap.setCharStart(target, locationsMap.getCharStart(source)); ");
+		sc.add("locationsMap.setCharEnd(target, locationsMap.getCharEnd(source)); ");
+		sc.add("locationsMap.setColumn(target, locationsMap.getColumn(source)); ");
+		sc.add("locationsMap.setLine(target, locationsMap.getLine(source));");
+		sc.add("}");
+	}
+
+	private void addCopyLocalizationInfosMethod2(StringComposite sc) {
+		sc.add("protected void copyLocalizationInfos(" + COMMON_TOKEN + " source, " + E_OBJECT + " target) {");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("final " + I_LOCATION_MAP + " locationsMap = resource.getLocationMap();");
+		sc.add("locationsMap.setCharStart(target, source.getStartIndex()); ");
+		sc.add("locationsMap.setCharEnd(target, source.getStopIndex());	");
+		sc.add("locationsMap.setColumn(target, source.getCharPositionInLine());	");
+		sc.add("locationsMap.setLine(target, source.getLine());");
+		sc.add("}");
+	}
+
+	private void addTerminateParsingIfCursorReachedMethod(StringComposite sc) {
+		sc.add("public void terminateParsingIfCursorIndexReached(" + I_EXPECTED_ELEMENT + " expectedElement) {");
+		sc.add("if (this.stopIndex < 0) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("if (lastTokenIndex >= input.size()) {");
+		sc.add("throw new " + ReachedCursorIndexException.class.getName() + "(expectedElement);");
+		sc.add("}");
+		sc.add("final " + COMMON_TOKEN + " lastToken = (" + COMMON_TOKEN + ") input.get(lastTokenIndex);");
+		sc.add(COMMON_TOKEN + " currentToken = null;");
+		sc.add("");
+		sc.add("final int currentTokenIndex = java.lang.Math.max(0, Math.min(input.size() - 1, input.index()));");
+		sc.add("for (int index = lastTokenIndex; index < currentTokenIndex; index++) {");
+		sc.add("final " + COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN + ") input.get(index);");
+		sc.add("currentToken = tokenAtIndex;");
+		sc.add("java.lang.System.out.println(\"TOKEN: \" + tokenAtIndex);");
+		sc.add("}");
+		sc.add("lastTokenIndex = java.lang.Math.max(0, currentTokenIndex);");
+		sc.add("if (currentToken != null) {");
+		sc.add("final int start = lastToken.getStartIndex();");
+		sc.add("final int end = currentToken.getStopIndex();");
+		sc.add("java.lang.System.out.println(\"At \" + start + \"-\" + end + \": \" + expectedElement);");
+		sc.add("boolean reachedStopIndex = end >= this.stopIndex - 1;");
+		sc.add("if (reachedStopIndex) {");
+		sc.add("throw new " + ReachedCursorIndexException.class.getName() + "(expectedElement);");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("java.lang.System.out.println(\"At ?-?: \" + expectedElement);");
+		sc.add("throw new " + ReachedCursorIndexException.class.getName() + "(expectedElement);");
+		sc.add("}");
+		sc.add("}");
+	}
+
+	private void addRecoverFromMismatchedTokenMethod(StringComposite sc) {
+		sc.add("public " + OBJECT + " recoverFromMismatchedToken(" + IntStream.class.getName() + " input, int ttype, " + BitSet.class.getName() + " follow) throws " + RECOGNITION_EXCEPTION + " {");
+		sc.add("if (stopIndex < 0) {");
+		sc.add("return super.recoverFromMismatchedToken(input, ttype, follow);");
+		sc.add("} else {");
+		sc.add("return null;");
+		sc.add("}");
+		sc.add("}");
 	}
 	
 	private List<TokenDefinition> collectCollectTokenDefinitions(List<TokenDefinition> tokenDefinitions){
@@ -362,11 +594,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void printStartRule(StringComposite sc){
 	       //do the start symbol rule
         sc.add("start ");
-        sc.add("returns [ EObject element = null]");
+        sc.add("returns [ " + E_OBJECT + " element = null]");
         sc.add(":");
     	sc.add("(");
         int count = 0;
-        for (Iterator<GenClass> i = conrceteSyntax.getActiveStartSymbols().iterator(); i.hasNext(); ) {
+        for (Iterator<GenClass> i = concreteSyntax.getActiveStartSymbols().iterator(); i.hasNext(); ) {
             GenClass aStart = i.next();
             sc.add("c" + count + " = " + getLowerCase(aStart.getName()) + "{ element = c" + count + "; }"); 
             if (i.hasNext()) { 
@@ -400,7 +632,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        sc.add("@init{");
 			sc.add("element = " + getCreateObjectCall(recursiveType) + ";");
 	        sc.add("collectHiddenTokens(element);");
-	        sc.add("List<EObject> dummyEObjects  = new ArrayList<EObject>();");
+	        sc.add(LIST + "<" + E_OBJECT + "> dummyEObjects  = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 	        sc.add("}");
 	        sc.add(":");
 	       
@@ -416,7 +648,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        choice.getOptions().add(newSequence);
 	        List<Sequence> recursionFreeSequences = new ArrayList<Sequence>();
 	        
-	        LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conrceteSyntax);
+	        LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, concreteSyntax);
 	        
 	        for (Sequence sequence : ruleCopy.getDefinition().getOptions()) {
 	        	Rule leftProducingRule = lrd.findLeftProducingRule(rule.getMetaclass(), sequence, rule);
@@ -478,9 +710,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			}
 	        
 	    	sc.add(getLowerCase(ruleName) +  "_tail");
-	        sc.add(" returns [DummyEObject element = null]");
+	        sc.add(" returns [" + DUMMY_E_OBJECT + " element = null]");
 	        sc.add("@init{");
-	        sc.add("element = new DummyEObject(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
+	        sc.add("element = new " + DUMMY_E_OBJECT + "(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
 	        sc.add("collectHiddenTokens(element);");
 	        sc.add("}");
 	        sc.add(":");
@@ -497,7 +729,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private String getCreateObjectCall(GenClass genClass) {
 		GenPackage genPackage = genClass.getGenPackage();
 		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
-			return "new DummyEObject("+ genPackage.getQualifiedPackageClassName() + ".eINSTANCE.get" + genClass.getName() 
+			return "new " + DUMMY_E_OBJECT + "("+ genPackage.getQualifiedPackageClassName() + ".eINSTANCE.get" + genClass.getName() 
 					+ "(),\"" + genClass.getName() + "\")";
 	    } else {
 	    	return genPackage.getQualifiedFactoryInterfaceName() + ".eINSTANCE.create" + genClass.getName() + "()";
@@ -506,17 +738,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private void printGrammarRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
         
-		for(Rule rule : conrceteSyntax.getAllRules()) {
+		for(Rule rule : concreteSyntax.getAllRules()) {
 			
-        	LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, conrceteSyntax);
+        	LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, concreteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
             if (recursionRule != null) {
-                boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(conrceteSyntax, OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
+                boolean autofix = OptionManager.INSTANCE.getBooleanOptionValue(concreteSyntax, OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);
             	if(lrd.isDirectLeftRecursive(rule)) {// direct left recursion
             		if (autofix) {
                     	printRightRecursion(sc, rule, eClassesWithSyntax, eClassesReferenced);	
     					
-    					Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(rule.getMetaclass(), conrceteSyntax);
+    					Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(rule.getMetaclass(), concreteSyntax);
                         if(!subClasses.isEmpty()){
                         	sc.add("|//derived choice rules for sub-classes: ");
                         	printSubClassChoices(sc,subClasses);
@@ -559,7 +791,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         
         sc.add(getLowerCase(ruleName));
 		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
-			sc.add(" returns [DummyEObject element = null]");
+			sc.add(" returns [" + DUMMY_E_OBJECT + " element = null]");
 		} else {
 			sc.add(" returns [" + qualifiedClassName + " element = null]");
 		}
@@ -570,7 +802,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         
         printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced);
         
-        Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(genClass, conrceteSyntax);
+        Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(genClass, concreteSyntax);
         if(!subClasses.isEmpty()){
         	sc.add("|//derived choice rules for sub-classes: ");
         	sc.addLineBreak();
@@ -632,7 +864,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     
     private int printCsString(CsString csString, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced){
     	final String identifier = "a" + count;
-    	sc.add(identifier + " = '" + csString.getValue().replaceAll("'", "\\\\'") + "' {");
+    	final String escapedCsString = csString.getValue().replaceAll("'", "\\\\'");
+		sc.add(identifier + " = '" + escapedCsString + "' {");
+    	sc.add("terminateParsingIfCursorIndexReached(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString + "\"));");
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
@@ -707,9 +941,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
            	resolvements.add(resolverIdent +".setOptions(getOptions());");
            	resolvements.add(ITokenResolveResult.class.getName() + " result = getFreshTokenResolveResult();");
            	resolvements.add(resolverIdent + ".resolve(" +ident+ ".getText(), element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), result);");
-           	resolvements.add("Object " + preResolved + " = result.getResolvedToken();");
+           	resolvements.add(OBJECT + " " + preResolved + " = result.getResolvedToken();");
            	resolvements.add("if (" + preResolved + " == null) {");
-           	resolvements.add("getResource().addError(result.getErrorMessage(), ((CommonToken) " + ident + ").getLine(), ((CommonToken) " + ident + ").getCharPositionInLine(), ((CommonToken) " + ident + ").getStartIndex(), ((CommonToken) " + ident + ").getStopIndex());");
+           	resolvements.add("addErrorToResource(result.getErrorMessage(), ((" + COMMON_TOKEN + ") " + ident + ").getLine(), ((" + COMMON_TOKEN + ") " + ident + ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") " + ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") " + ident + ").getStopIndex());");
            	resolvements.add("}");
         	
            	String expressionToBeSet = null;
@@ -723,7 +957,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	GenClass proxyType = null;
             	
             	if (genClassUtil.isNotConcrete(instanceType)) {
-            		// TODO mseifert: replace this code with a class to GenClassFinder
+            		// TODO mseifert: replace this code with a call to class GenClassFinder
             		for(GenClass instanceCand : allGenClasses) {
             			Collection<String> supertypes = genClassNames2superClassNames.get(instanceCand.getQualifiedInterfaceName());		
             			if (genClassUtil.isConcrete(instanceCand) &&
@@ -738,7 +972,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
             	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
-            	resolvements.add("getResource().registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
+            	resolvements.add("registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	// remember that we must resolve proxy objects for this feature
             	context.addNonContainmentReference(genFeature);
         	}
@@ -763,6 +997,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			final String ident, final String proxyIdent,
 			String expressionToBeSet, StringComposite resolvements) {
 		sc.add("{");
+    	sc.add("terminateParsingIfCursorIndexReached(new " + ExpectedStructuralFeature.class.getName() + "(" + 
+    			genClass.getGenPackage().getReflectionPackageName() + "." +
+    			genClass.getGenPackage().getPackageInterfaceName() +
+    			".eINSTANCE.get" + genClass.getClassifierAccessorName() + "()" + 
+    			".getEStructuralFeature(" +
+					generatorUtil.getFeatureConstant(genClass, genFeature) +
+				")"+
+    			"));");
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
@@ -771,8 +1013,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		if (eFeature.getUpperBound() == 1) {
 			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
 				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
-								+ generatorUtil.getFeatureConstant(genClass,
-										genFeature)
+								+ generatorUtil.getFeatureConstant(genClass, genFeature)
 								+ "), "
 								+ expressionToBeSet
 								+ ");");
@@ -816,7 +1057,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for(GenClass referencedClass : eClassesReferenced.keySet()) {
 			if(!containsEqualByName(eClassesWithSyntax,referencedClass)) {
 				//rule not explicitly defined in CS: most likely a choice rule in the AS
-				Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(referencedClass, conrceteSyntax);
+				Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(referencedClass, concreteSyntax);
 
 				if (!subClasses.isEmpty()) {
 					sc.add(getLowerCase(referencedClass.getName()));
@@ -858,8 +1099,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	return false;
     }
     
-	private void printTokenDefinitions(StringComposite sc) {
-		for (TokenDefinition tokenDefinition : conrceteSyntax.getAllTokens()) {
+	private void addTokenDefinitions(StringComposite sc) {
+		for (TokenDefinition tokenDefinition : concreteSyntax.getAllTokens()) {
 			printToken(tokenDefinition, sc);
 		}
 	}
@@ -876,17 +1117,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(";");
 	}
 	
-	private void printDefaultImports(StringComposite sc){
-        sc.add("import " + org.eclipse.emf.ecore.EObject.class.getName() + ";");
-        sc.add("import " + org.eclipse.emf.ecore.InternalEObject.class.getName() + ";");
-        sc.add("import " + org.eclipse.emf.common.util.URI.class.getName() + ";");
+	private void printDefaultImports(StringComposite sc) {
+		// do not add imports here
+		// all classes used by the generated parser must be
+		// fully qualified
         sc.add("import " + AbstractEMFTextParser.class.getName() + ";");
-        sc.add("import " + IOptions.class.getName() + ";");
-        sc.add("import " + UnexpectedContentTypeException.class.getName() + ";");
-        sc.add("import " + EClass.class.getName() + ";");
 	}
 	
-    private String computeCardinalityString(Definition definition){
+    private String computeCardinalityString(Definition definition) {
     	Cardinality cardinality = null;
     	if (definition instanceof CardinalityDefinition) {
     		cardinality = ((CardinalityDefinition) definition).getCardinality();
