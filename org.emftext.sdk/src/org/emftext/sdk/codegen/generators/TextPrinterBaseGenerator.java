@@ -224,6 +224,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		generateDoPrintMethod(sc, rules);
 		sc.addLineBreak();
 		
+        generateGetReferenceResolverSwitchMethod(sc);
+		sc.addLineBreak();
+		
+		addAddWarningToResourceMethod(sc);
+		sc.addLineBreak();
+
         for (Rule rule : rules) {
 			generatePrintRuleMethod(sc, rule);
 			sc.addLineBreak();
@@ -233,6 +239,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		
 		writer.write(sc.toString());
 		return true;
+	}
+
+	private void generateGetReferenceResolverSwitchMethod(StringComposite sc) {
+		sc.add("protected " + context.getQualifiedReferenceResolverSwitchClassName() + " getReferenceResolverSwitch() {");
+		sc.add(ITEXT_RESOURCE_CLASS_NAME + " resource = getResource();");
+        sc.add("if (resource == null) {");
+        sc.add("return null;");
+        sc.add("}");
+        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getReferenceResolverSwitch();");
+        sc.add("}");
 	}
 
 	private void generateDoPrintMethod(StringComposite sc, List<Rule> rules) {
@@ -255,21 +271,31 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			}
 		}
 		sc.addLineBreak();
-		sc.add("resource.addWarning(\"The cs printer can not handle \" + element.eClass().getName() + \" elements\", element);");
+		sc.add("addWarningToResource(\"The cs printer can not handle \" + element.eClass().getName() + \" elements\", element);");
 		sc.add("}");
 	}
 
 	private void generateConstructor(StringComposite sc) {
 		sc.add("public " + super.getResourceClassName()
-				+ "(" + OUTPUT_STREAM_CLASS_NAME + " o, " + ITEXT_RESOURCE_CLASS_NAME + " resource) {");
-		sc.add("super(o, resource);");
+				+ "(" + OUTPUT_STREAM_CLASS_NAME + " outputStream, " + ITEXT_RESOURCE_CLASS_NAME + " resource) {");
+		sc.add("super(outputStream, resource);");
 		sc.add("}");
 	}
 
 	private void generateMembers(StringComposite sc) {
 		sc.add("protected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
-		//sc.add("protected " + referenceResolverSwitchClassName + " referenceResolverSwitch;");
+	}
+
+	private void addAddWarningToResourceMethod(StringComposite sc) {
+		sc.add("protected void addWarningToResource(java.lang.String errorMessage, " + EOBJECT_CLASS_NAME + " cause) {");
+		sc.add(ITEXT_RESOURCE_CLASS_NAME + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the printer is used stand alone");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("resource.addWarning(errorMessage, cause);");
+		sc.add("}");
 	}
 
 	private void generatePrintRuleMethod(StringComposite sc, Rule rule) {
