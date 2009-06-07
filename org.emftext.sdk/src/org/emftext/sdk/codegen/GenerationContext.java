@@ -30,6 +30,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -59,6 +60,7 @@ public abstract class GenerationContext {
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
+	public static final String CLASS_SUFFIX_META_INFORMATION = ITextResourcePluginMetaInformation.class.getSimpleName().substring("ITextResourcePlugin".length());
 
 	private static final String CLASS_SUFFIX_PRINTER = "Printer";
 	private static final String CLASS_SUFFIX_PRINTER_BASE = "PrinterBase";
@@ -200,8 +202,8 @@ public abstract class GenerationContext {
 	}
 
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
-		String prefix = "((" + getQualifiedReferenceResolverSwitchClassName() + ") resource.getReferenceResolverSwitch())";
-		return prefix + ".get" + nameUtil.getReferenceResolverClassName(genFeature) + "()";
+		String prefix = "getReferenceResolverSwitch() == null ? null : ";
+		return prefix + "getReferenceResolverSwitch().get" + nameUtil.getReferenceResolverClassName(genFeature) + "()";
 	}
 
 	/**
@@ -302,5 +304,17 @@ public abstract class GenerationContext {
 		String packagePath = getPackagePath();
   		File antlrFile = new File(packagePath + antlrName + ANTRL_GRAMMAR_FILE_EXTENSION);
 		return antlrFile;
+	}
+
+	public String getMetaInformationClassName() {
+		return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_META_INFORMATION;
+	}
+
+	public String getQualifiedMetaInformationClassName() {
+		return getPackageName() + "." + getMetaInformationClassName();
+	}
+
+	public File getMetaInformationClassFile() {
+		return new File(getPackagePath() + getMetaInformationClassName() + JAVA_FILE_EXTENSION);
 	}
 }
