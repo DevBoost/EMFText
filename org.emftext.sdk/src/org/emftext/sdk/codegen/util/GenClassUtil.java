@@ -26,4 +26,8 @@ public class GenClassUtil {
 		}
 		return false;
 	}
+
+	public String getAccessor(GenClass genClass) {
+		return genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + genClass.getClassifierAccessorName() + "()";
+	}
 }
