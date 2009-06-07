@@ -29,13 +29,14 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.resource.ITextPrinter;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.util.GeneratorUtil;
+import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -44,8 +45,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class NewFileWizardGenerator implements IGenerator {
 	
-	private final static GeneratorUtil helper = new GeneratorUtil();
-	
+	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	private GenerationContext context;
 
 	public NewFileWizardGenerator(GenerationContext context) {
@@ -65,18 +65,18 @@ public class NewFileWizardGenerator implements IGenerator {
 		sc.addLineBreak();
 
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
-		Collection<GenClass> classesWithSyntax = helper.getClassesWithSyntax(syntax);
+
+		sc.add("public " + ITextResourcePluginMetaInformation.class.getName() + " getMetaInformation() {");
+		sc.add("return new " + context.getQualifiedMetaInformationClassName() + "();");
+		sc.add("}");
+		sc.addLineBreak();
 
 		sc.add("public String getExampleContent() {");
 		sc.add("return getExampleContent(new " + EClass.class.getName() + "[] {");
 		for (GenClass startSymbol : startSymbols) {
-			sc.add(getAccessor(startSymbol) + ",");
+			sc.add(genClassUtil.getAccessor(startSymbol) + ",");
 		}
-		sc.add("}, new " + EClass.class.getName() + "[] {");
-		for (GenClass startSymbol : classesWithSyntax) {
-			sc.add(getAccessor(startSymbol) + ",");
-		}
-		sc.add("});");
+		sc.add("}, getMetaInformation().getClassesWithSyntax());");
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -89,10 +89,6 @@ public class NewFileWizardGenerator implements IGenerator {
 		out.write(sc.toString());
 		out.flush();
 		return true;
-	}
-
-	private String getAccessor(GenClass startSymbol) {
-		return startSymbol.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + startSymbol.getClassifierAccessorName() + "()";
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {
