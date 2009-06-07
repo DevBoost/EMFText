@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  *
  */
-public interface ITextResource extends Resource {
+public interface ITextResource extends Resource, ITextResourcePluginPart {
 	
 	/**
 	 * Returns a map containing information about the location of model
