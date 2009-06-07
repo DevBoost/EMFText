@@ -41,7 +41,14 @@ public class EClassUtil {
 		return false;
 	}
 
-
+	/**
+	 * Returns all subclasses of 'superClass' that are contained
+	 * in 'availableClasses'.
+	 * 
+	 * @param superClass the superclass
+	 * @param availableClasses the set of classes to search in
+	 * @return a list of all subclasses of 'superClass'
+	 */
 	public List<EClass> getSubClasses(EClass superClass,
 			EClass[] availableClasses) {
 		
