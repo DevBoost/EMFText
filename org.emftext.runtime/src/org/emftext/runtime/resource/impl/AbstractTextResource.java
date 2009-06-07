@@ -272,6 +272,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	 */
 	public AbstractTextResource() {
 		super();
+		resetLocationMap();
 	}
 
 	/**
@@ -281,6 +282,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	 */
 	public AbstractTextResource(URI uri) {
 		super(uri);	
+		resetLocationMap();
 	}
 	
 	public void setURI(URI uri) {
