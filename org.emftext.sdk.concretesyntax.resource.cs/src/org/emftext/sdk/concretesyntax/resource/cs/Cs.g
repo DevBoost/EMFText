@@ -16,44 +16,55 @@ options {
 	
 	public void reportError(org.antlr.runtime.RecognitionException e) {
 		lexerExceptions.add(e);
-		lexerExceptionsPosition.add(((org.antlr.runtime.ANTLRStringStream)input).index());
+		lexerExceptionsPosition.add(((org.antlr.runtime.ANTLRStringStream) input).index());
 	}
 }
 @header{
 	package org.emftext.sdk.concretesyntax.resource.cs;
 	
-	import org.eclipse.emf.ecore.EObject;
-	import org.eclipse.emf.ecore.InternalEObject;
-	import org.eclipse.emf.common.util.URI;
 	import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
-	import org.emftext.runtime.IOptions;
-	import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
-	import org.eclipse.emf.ecore.EClass;
 }
 
 @members{
 	private org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new CsTokenResolverFactory();
-	private int lastPosition;
 	private org.emftext.runtime.resource.impl.TokenResolveResult tokenResolveResult = new org.emftext.runtime.resource.impl.TokenResolveResult();
+	private int stopIndex = -1;
+	private java.lang.Object parseToIndexTypeObject;
+	private int lastTokenIndex = 0;
 	
 	// This default constructor is only used to call createInstance() on it
 	public CsParser() {
 		super();
 	}
 	
-	protected EObject doParse() throws RecognitionException {
-		lastPosition = 0;
-		((CsLexer)getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
-		((CsLexer)getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;
-		Object typeObject = null;
+	protected java.lang.Object getTypeObject() {
+		java.lang.Object typeObject = getParseToIndexTypeObject();
+		if (typeObject != null) {
+			return typeObject;
+		}
 		java.util.Map<?,?> options = getOptions();
 		if (options != null) {
-			typeObject = options.get(IOptions.RESOURCE_CONTENT_TYPE);
+			typeObject = options.get(org.emftext.runtime.IOptions.RESOURCE_CONTENT_TYPE);
 		}
+		return typeObject;
+	}
+	
+	protected org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch getReferenceResolverSwitch() {
+		org.emftext.runtime.resource.ITextResource resource = getResource();
+		if (resource == null) {
+			return null;
+		}
+		return (org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch();
+	}
+	
+	protected org.eclipse.emf.ecore.EObject doParse() throws org.antlr.runtime.RecognitionException {
+		((CsLexer) getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
+		((CsLexer) getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;
+		java.lang.Object typeObject = getTypeObject();
 		if (typeObject == null) {
 			return start();
-		} else if (typeObject instanceof EClass) {
-			EClass type = (EClass)typeObject;
+		} else if (typeObject instanceof org.eclipse.emf.ecore.EClass) {
+			org.eclipse.emf.ecore.EClass type = (org.eclipse.emf.ecore.EClass) typeObject;
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.ConcreteSyntax.class) {
 				return concretesyntax();
 			}
@@ -133,6 +144,7 @@ options {
 	
 	protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element) {
 	}
+	
 	public org.emftext.runtime.resource.ITextParser createInstance(java.io.InputStream actualInputStream, java.lang.String encoding) {
 		try {
 			if (encoding == null) {
@@ -145,9 +157,106 @@ options {
 			return null;
 		}
 	}
+	
+	public org.emftext.runtime.resource.impl.IExpectedElement parseToIndex(int index, org.eclipse.emf.ecore.EClass type) {
+		stopIndex = index;
+		parseToIndexTypeObject = type;
+		try {
+			parse();
+		} catch (org.emftext.runtime.resource.impl.ReachedCursorIndexException pcie) {
+			final org.emftext.runtime.resource.impl.IExpectedElement expectedElement = pcie.getExpectedElement();
+			return expectedElement;
+		}
+		return null;
+	}
+	
+	public java.lang.Object getParseToIndexTypeObject() {
+		return parseToIndexTypeObject;
+	}
+	
+	protected <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory,ContainerType element, org.eclipse.emf.ecore.EReference reference, String id,org.eclipse.emf.ecore.EObject proxy) {
+				org.emftext.runtime.resource.ITextResource resource = getResource();
+		if (resource == null) {
+			// the resource can be null if the parser is used for
+			// code completion
+			return;
+		}
+		resource.registerContextDependentProxy(factory, element, reference, id, proxy);
+	}
+	
+	protected void addErrorToResource(java.lang.String errorMessage, int line,
+	int charPositionInLine, int startIndex, int stopIndex) {
+		org.emftext.runtime.resource.ITextResource resource = getResource();
+		if (resource == null) {
+			// the resource can be null if the parser is used for
+			// code completion
+			return;
+		}
+		resource.addError(errorMessage, line, charPositionInLine, startIndex, stopIndex);
+	}
+	
+	protected void copyLocalizationInfos(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject target) {
+		org.emftext.runtime.resource.ITextResource resource = getResource();
+		if (resource == null) {
+			// the resource can be null if the parser is used for
+			// code completion
+			return;
+		}
+		final org.emftext.runtime.resource.ILocationMap locationsMap = resource.getLocationMap();
+		locationsMap.setCharStart(target, locationsMap.getCharStart(source)); 		locationsMap.setCharEnd(target, locationsMap.getCharEnd(source)); 		locationsMap.setColumn(target, locationsMap.getColumn(source)); 		locationsMap.setLine(target, locationsMap.getLine(source));
+	}
+	
+	protected void copyLocalizationInfos(org.antlr.runtime.CommonToken source, org.eclipse.emf.ecore.EObject target) {
+		org.emftext.runtime.resource.ITextResource resource = getResource();
+		if (resource == null) {
+			// the resource can be null if the parser is used for
+			// code completion
+			return;
+		}
+		final org.emftext.runtime.resource.ILocationMap locationsMap = resource.getLocationMap();
+		locationsMap.setCharStart(target, source.getStartIndex()); 		locationsMap.setCharEnd(target, source.getStopIndex());			locationsMap.setColumn(target, source.getCharPositionInLine());			locationsMap.setLine(target, source.getLine());
+	}
+	
+	public void terminateParsingIfCursorIndexReached(org.emftext.runtime.resource.impl.IExpectedElement expectedElement) {
+		if (this.stopIndex < 0) {
+			return;
+		}
+		if (lastTokenIndex >= input.size()) {
+			throw new org.emftext.runtime.resource.impl.ReachedCursorIndexException(expectedElement);
+		}
+		final org.antlr.runtime.CommonToken lastToken = (org.antlr.runtime.CommonToken) input.get(lastTokenIndex);
+		org.antlr.runtime.CommonToken currentToken = null;
+				final int currentTokenIndex = java.lang.Math.max(0, Math.min(input.size() - 1, input.index()));
+		for (int index = lastTokenIndex; index < currentTokenIndex; index++) {
+			final org.antlr.runtime.CommonToken tokenAtIndex = (org.antlr.runtime.CommonToken) input.get(index);
+			currentToken = tokenAtIndex;
+			java.lang.System.out.println("TOKEN: " + tokenAtIndex);
+		}
+		lastTokenIndex = java.lang.Math.max(0, currentTokenIndex);
+		if (currentToken != null) {
+			final int start = lastToken.getStartIndex();
+			final int end = currentToken.getStopIndex();
+			java.lang.System.out.println("At " + start + "-" + end + ": " + expectedElement);
+			boolean reachedStopIndex = end >= this.stopIndex - 1;
+			if (reachedStopIndex) {
+				throw new org.emftext.runtime.resource.impl.ReachedCursorIndexException(expectedElement);
+			}
+		} else {
+			java.lang.System.out.println("At ?-?: " + expectedElement);
+			throw new org.emftext.runtime.resource.impl.ReachedCursorIndexException(expectedElement);
+		}
+	}
+	
+	public java.lang.Object recoverFromMismatchedToken(org.antlr.runtime.IntStream input, int ttype, org.antlr.runtime.BitSet follow) throws org.antlr.runtime.RecognitionException {
+		if (stopIndex < 0) {
+			return super.recoverFromMismatchedToken(input, ttype, follow);
+		} else {
+			return null;
+		}
+	}
 }
 
-start returns [ EObject element = null]
+start returns [ org.eclipse.emf.ecore.EObject element = null]
 :
 	(
 		c0 = concretesyntax{ element = c0; }
@@ -162,6 +271,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		(
 			a0_0 = keywordabstract			{
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -174,6 +284,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 		
 	)?	
 	a1 = 'SYNTAXDEF' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("SYNTAXDEF"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
@@ -184,6 +295,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		a2 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 			}
@@ -191,9 +303,9 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -205,6 +317,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	)
 	
 	a3 = 'FOR' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("FOR"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
@@ -215,6 +328,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		a4 = QUOTED_60_62		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 			}
@@ -222,14 +336,14 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a4).getLine(), ((org.antlr.runtime.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a4).getStartIndex(), ((org.antlr.runtime.CommonToken) a4).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenPackage();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.GenPackageDependentElement, org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getGenPackageDependentElementPackageReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.GenPackageDependentElement, org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getGenPackageDependentElementPackageReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), proxy);
 			}
@@ -244,6 +358,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			(
 				a5 = QUOTED_60_62				
 				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 					}
@@ -251,9 +366,9 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 					tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), result);
-					Object resolvedObject = result.getResolvedToken();
+					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						getResource().addError(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a5).getLine(), ((org.antlr.runtime.CommonToken) a5).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a5).getStartIndex(), ((org.antlr.runtime.CommonToken) a5).getStopIndex());
 					}
 					java.lang.String resolved = (java.lang.String)resolvedObject;
 					if (resolved != null) {
@@ -270,6 +385,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		(
 			a6 = 'START' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("START"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -281,6 +397,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				(
 					a7 = QUALIFIED_NAME					
 					{
+						terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS)));
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
@@ -288,14 +405,14 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 						tokenResolver.setOptions(getOptions());
 						org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 						tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
-						Object resolvedObject = result.getResolvedToken();
+						java.lang.Object resolvedObject = result.getResolvedToken();
 						if (resolvedObject == null) {
-							getResource().addError(result.getErrorMessage(), ((CommonToken) a7).getLine(), ((CommonToken) a7).getCharPositionInLine(), ((CommonToken) a7).getStartIndex(), ((CommonToken) a7).getStopIndex());
+							addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a7).getLine(), ((org.antlr.runtime.CommonToken) a7).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a7).getStartIndex(), ((org.antlr.runtime.CommonToken) a7).getStopIndex());
 						}
 						String resolved = (String) resolvedObject;
 						org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
 						collectHiddenTokens(element);
-						getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.ConcreteSyntax, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getConcreteSyntaxStartSymbolsReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
+						registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.ConcreteSyntax, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getConcreteSyntaxStartSymbolsReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
 						if (proxy != null) {
 							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy);
 						}
@@ -310,6 +427,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			(
 				(
 					a8 = ',' {
+						terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(","));
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
@@ -321,6 +439,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 						(
 							a9 = QUALIFIED_NAME							
 							{
+								terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS)));
 								if (element == null) {
 									element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 								}
@@ -328,14 +447,14 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 								tokenResolver.setOptions(getOptions());
 								org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 								tokenResolver.resolve(a9.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), result);
-								Object resolvedObject = result.getResolvedToken();
+								java.lang.Object resolvedObject = result.getResolvedToken();
 								if (resolvedObject == null) {
-									getResource().addError(result.getErrorMessage(), ((CommonToken) a9).getLine(), ((CommonToken) a9).getCharPositionInLine(), ((CommonToken) a9).getStartIndex(), ((CommonToken) a9).getStopIndex());
+									addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a9).getLine(), ((org.antlr.runtime.CommonToken) a9).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a9).getStartIndex(), ((org.antlr.runtime.CommonToken) a9).getStopIndex());
 								}
 								String resolved = (String) resolvedObject;
 								org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
 								collectHiddenTokens(element);
-								getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.ConcreteSyntax, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getConcreteSyntaxStartSymbolsReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
+								registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.ConcreteSyntax, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getConcreteSyntaxStartSymbolsReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), resolved, proxy);
 								if (proxy != null) {
 									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS, proxy);
 								}
@@ -356,6 +475,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		(
 			a10 = 'IMPORTS' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("IMPORTS"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -364,6 +484,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			}
 			
 			a11 = '{' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("{"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -375,6 +496,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				(
 					(
 						a12_0 = keywordimport						{
+							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 							}
@@ -389,6 +511,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				
 			)*			
 			a13 = '}' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("}"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -402,6 +525,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		(
 			a14 = 'OPTIONS' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("OPTIONS"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -410,6 +534,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			}
 			
 			a15 = '{' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("{"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -421,6 +546,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				(
 					(
 						a16_0 = option						{
+							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 							}
@@ -432,6 +558,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 					)
 					
 					a17 = ';' {
+						terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(";"));
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
@@ -443,6 +570,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				
 			)*			
 			a18 = '}' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("}"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -456,6 +584,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		(
 			a19 = 'TOKENS' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("TOKENS"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -464,6 +593,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			}
 			
 			a20 = '{' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("{"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -475,6 +605,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				(
 					(
 						a21_0 = tokendefinition						{
+							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 							}
@@ -486,6 +617,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 					)
 					
 					a22 = ';' {
+						terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(";"));
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
@@ -497,6 +629,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				
 			)*			
 			a23 = '}' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("}"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -510,6 +643,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		(
 			a24 = 'TOKENSTYLES' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("TOKENSTYLES"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -518,6 +652,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			}
 			
 			a25 = '{' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("{"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -529,6 +664,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				(
 					(
 						a26_0 = tokenstyle						{
+							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 							}
@@ -543,6 +679,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 				
 			)*			
 			a27 = '}' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("}"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
@@ -554,6 +691,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 		
 	)?	
 	a28 = 'RULES' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("RULES"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
@@ -562,6 +700,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	}
 	
 	a29 = '{' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("{"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
@@ -573,6 +712,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 		(
 			(
 				a30_0 = rule				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 					}
@@ -587,6 +727,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	)
 	
 	a31 = '}' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("}"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
@@ -603,6 +744,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 	(
 		a0 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 			}
@@ -610,9 +752,9 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -624,6 +766,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 	)
 	
 	a1 = ':' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(":"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 		}
@@ -634,6 +777,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 	(
 		a2 = QUOTED_60_62		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 			}
@@ -641,14 +785,14 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenPackage proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenPackage();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.GenPackageDependentElement, org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getGenPackageDependentElementPackageReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.GenPackageDependentElement, org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getGenPackageDependentElementPackageReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), proxy);
 			}
@@ -663,6 +807,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 			(
 				a3 = QUOTED_60_62				
 				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 					}
@@ -670,9 +815,9 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 					tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), result);
-					Object resolvedObject = result.getResolvedToken();
+					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						getResource().addError(result.getErrorMessage(), ((CommonToken) a3).getLine(), ((CommonToken) a3).getCharPositionInLine(), ((CommonToken) a3).getStartIndex(), ((CommonToken) a3).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a3).getLine(), ((org.antlr.runtime.CommonToken) a3).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a3).getStartIndex(), ((org.antlr.runtime.CommonToken) a3).getStopIndex());
 					}
 					java.lang.String resolved = (java.lang.String)resolvedObject;
 					if (resolved != null) {
@@ -689,6 +834,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 	(
 		(
 			a4 = 'WITH' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("WITH"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 				}
@@ -697,6 +843,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 			}
 			
 			a5 = 'SYNTAX' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("SYNTAX"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 				}
@@ -707,6 +854,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 			(
 				a6 = QUALIFIED_NAME				
 				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 					}
@@ -714,14 +862,14 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 					tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), result);
-					Object resolvedObject = result.getResolvedToken();
+					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						getResource().addError(result.getErrorMessage(), ((CommonToken) a6).getLine(), ((CommonToken) a6).getCharPositionInLine(), ((CommonToken) a6).getStartIndex(), ((CommonToken) a6).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a6).getLine(), ((org.antlr.runtime.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a6).getStartIndex(), ((org.antlr.runtime.CommonToken) a6).getStopIndex());
 					}
 					String resolved = (String) resolvedObject;
 					org.emftext.sdk.concretesyntax.ConcreteSyntax proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 					collectHiddenTokens(element);
-					getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Import, org.emftext.sdk.concretesyntax.ConcreteSyntax>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getImportConcreteSyntaxReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), resolved, proxy);
+					registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Import, org.emftext.sdk.concretesyntax.ConcreteSyntax>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getImportConcreteSyntaxReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), resolved, proxy);
 					if (proxy != null) {
 						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), proxy);
 					}
@@ -736,6 +884,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 					(
 						a7 = QUOTED_60_62						
 						{
+							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 							}
@@ -743,9 +892,9 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 							tokenResolver.setOptions(getOptions());
 							org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 							tokenResolver.resolve(a7.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), result);
-							Object resolvedObject = result.getResolvedToken();
+							java.lang.Object resolvedObject = result.getResolvedToken();
 							if (resolvedObject == null) {
-								getResource().addError(result.getErrorMessage(), ((CommonToken) a7).getLine(), ((CommonToken) a7).getCharPositionInLine(), ((CommonToken) a7).getStartIndex(), ((CommonToken) a7).getStopIndex());
+								addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a7).getLine(), ((org.antlr.runtime.CommonToken) a7).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a7).getStartIndex(), ((org.antlr.runtime.CommonToken) a7).getStopIndex());
 							}
 							java.lang.String resolved = (java.lang.String)resolvedObject;
 							if (resolved != null) {
@@ -771,6 +920,7 @@ option returns [org.emftext.sdk.concretesyntax.Option element = null]
 	(
 		a0 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
 			}
@@ -778,9 +928,9 @@ option returns [org.emftext.sdk.concretesyntax.Option element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			org.emftext.sdk.concretesyntax.OptionTypes resolved = (org.emftext.sdk.concretesyntax.OptionTypes)resolvedObject;
 			if (resolved != null) {
@@ -792,6 +942,7 @@ option returns [org.emftext.sdk.concretesyntax.Option element = null]
 	)
 	
 	a1 = '=' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("="));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
 		}
@@ -802,6 +953,7 @@ option returns [org.emftext.sdk.concretesyntax.Option element = null]
 	(
 		a2 = QUOTED_34_34		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
 			}
@@ -809,9 +961,9 @@ option returns [org.emftext.sdk.concretesyntax.Option element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -831,6 +983,7 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 	(
 		a0 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 			}
@@ -838,14 +991,14 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Rule, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getRuleMetaclassReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Rule, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getRuleMetaclassReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), proxy);
 			}
@@ -856,6 +1009,7 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 	)
 	
 	a1 = '::=' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("::="));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 		}
@@ -865,6 +1019,7 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 	
 	(
 		a2_0 = choice		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 			}
@@ -876,6 +1031,7 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 	)
 	
 	a3 = ';' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(";"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 		}
@@ -892,6 +1048,7 @@ sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null]
 	(
 		(
 			a0_0 = definition			{
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createSequence();
 				}
@@ -911,6 +1068,7 @@ choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
 :
 	(
 		a0_0 = sequence		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
 			}
@@ -924,6 +1082,7 @@ choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
 	(
 		(
 			a1 = '|' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("|"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
 				}
@@ -933,6 +1092,7 @@ choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
 			
 			(
 				a2_0 = sequence				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
 					}
@@ -955,6 +1115,7 @@ csstring returns [org.emftext.sdk.concretesyntax.CsString element = null]
 	(
 		a0 = QUOTED_34_34		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCsString();
 			}
@@ -962,9 +1123,9 @@ csstring returns [org.emftext.sdk.concretesyntax.CsString element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -984,6 +1145,7 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 	(
 		a0 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 			}
@@ -991,14 +1153,14 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), proxy);
 			}
@@ -1009,6 +1171,7 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 	)
 	
 	a1 = '[' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("["));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 		}
@@ -1019,6 +1182,7 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 	(
 		a2 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 			}
@@ -1026,14 +1190,14 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.emftext.sdk.concretesyntax.NormalToken proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Placeholder, org.emftext.sdk.concretesyntax.TokenDefinition>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getPlaceholderTokenReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Placeholder, org.emftext.sdk.concretesyntax.TokenDefinition>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getPlaceholderTokenReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), proxy);
 			}
@@ -1044,6 +1208,7 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 	)
 	
 	a3 = ']' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("]"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 		}
@@ -1054,6 +1219,7 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 	(
 		(
 			a4_0 = cardinality			{
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 				}
@@ -1074,6 +1240,7 @@ placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.Placeholder
 	(
 		a0 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
 			}
@@ -1081,14 +1248,14 @@ placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.Placeholder
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), proxy);
 			}
@@ -1099,6 +1266,7 @@ placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.Placeholder
 	)
 	
 	a1 = '[' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("["));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
 		}
@@ -1107,6 +1275,7 @@ placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.Placeholder
 	}
 	
 	a2 = ']' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("]"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
 		}
@@ -1117,6 +1286,7 @@ placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.Placeholder
 	(
 		(
 			a3_0 = cardinality			{
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
 				}
@@ -1137,6 +1307,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	(
 		a0 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 			}
@@ -1144,14 +1315,14 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), proxy);
 			}
@@ -1162,6 +1333,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	)
 	
 	a1 = '[' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("["));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 		}
@@ -1172,6 +1344,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	(
 		a2 = QUOTED_39_39		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 			}
@@ -1179,9 +1352,9 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -1193,6 +1366,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	)
 	
 	a3 = ',' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(","));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 		}
@@ -1203,6 +1377,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	(
 		a4 = QUOTED_39_39		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 			}
@@ -1210,9 +1385,9 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a4).getLine(), ((org.antlr.runtime.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a4).getStartIndex(), ((org.antlr.runtime.CommonToken) a4).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -1224,6 +1399,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	)
 	
 	a5 = ']' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("]"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 		}
@@ -1234,6 +1410,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	(
 		(
 			a6_0 = cardinality			{
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 				}
@@ -1254,6 +1431,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 	(
 		a0 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 			}
@@ -1261,14 +1439,14 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenFeature proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenFeature();
 			collectHiddenTokens(element);
-			getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), resolved, proxy);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Terminal, org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTerminalFeatureReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), resolved, proxy);
 			if (proxy != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), proxy);
 			}
@@ -1281,6 +1459,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 	(
 		(
 			a1 = ':' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(":"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 				}
@@ -1291,6 +1470,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 			(
 				a2 = QUALIFIED_NAME				
 				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 					}
@@ -1298,14 +1478,14 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 					tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), result);
-					Object resolvedObject = result.getResolvedToken();
+					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 					}
 					String resolved = (String) resolvedObject;
 					org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
 					collectHiddenTokens(element);
-					getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Containment, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getContainmentTypesReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), resolved, proxy);
+					registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Containment, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getContainmentTypesReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), resolved, proxy);
 					if (proxy != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES, proxy);
 					}
@@ -1318,6 +1498,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 			(
 				(
 					a3 = ',' {
+						terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(","));
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 						}
@@ -1328,6 +1509,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 					(
 						a4 = QUALIFIED_NAME						
 						{
+							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 							}
@@ -1335,14 +1517,14 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 							tokenResolver.setOptions(getOptions());
 							org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 							tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), result);
-							Object resolvedObject = result.getResolvedToken();
+							java.lang.Object resolvedObject = result.getResolvedToken();
 							if (resolvedObject == null) {
-								getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+								addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a4).getLine(), ((org.antlr.runtime.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a4).getStartIndex(), ((org.antlr.runtime.CommonToken) a4).getStopIndex());
 							}
 							String resolved = (String) resolvedObject;
 							org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
 							collectHiddenTokens(element);
-							getResource().registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Containment, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(((org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch()).getContainmentTypesReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), resolved, proxy);
+							registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.Containment, org.eclipse.emf.codegen.ecore.genmodel.GenClass>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getContainmentTypesReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), resolved, proxy);
 							if (proxy != null) {
 								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES, proxy);
 							}
@@ -1361,6 +1543,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 	(
 		(
 			a5_0 = cardinality			{
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 				}
@@ -1379,6 +1562,7 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 }
 :
 	a0 = '(' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("("));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 		}
@@ -1388,6 +1572,7 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 	
 	(
 		a1_0 = choice		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 			}
@@ -1399,6 +1584,7 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 	)
 	
 	a2 = ')' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(")"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 		}
@@ -1409,6 +1595,7 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 	(
 		(
 			a3_0 = cardinality			{
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 				}
@@ -1429,6 +1616,7 @@ whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
 	(
 		a0 = HEXNUMBER		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
 			}
@@ -1436,9 +1624,9 @@ whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
 			if (resolved != null) {
@@ -1456,6 +1644,7 @@ linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null]
 }
 :
 	a0 = '!' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("!"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createLineBreak();
 		}
@@ -1466,6 +1655,7 @@ linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null]
 	(
 		a1 = NUMBER		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createLineBreak();
 			}
@@ -1473,9 +1663,9 @@ linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a1).getLine(), ((org.antlr.runtime.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a1).getStartIndex(), ((org.antlr.runtime.CommonToken) a1).getStopIndex());
 			}
 			java.lang.Integer resolved = (java.lang.Integer)resolvedObject;
 			if (resolved != null) {
@@ -1493,6 +1683,7 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 }
 :
 	a0 = 'DEFINE' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("DEFINE"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 		}
@@ -1503,6 +1694,7 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 	(
 		a1 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 			}
@@ -1510,9 +1702,9 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a1).getLine(), ((org.antlr.runtime.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a1).getStartIndex(), ((org.antlr.runtime.CommonToken) a1).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -1526,6 +1718,7 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 	(
 		a2 = QUOTED_36_36		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 			}
@@ -1533,9 +1726,9 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -1549,6 +1742,7 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 	(
 		(
 			a3 = 'COLLECT' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("COLLECT"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 				}
@@ -1557,6 +1751,7 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 			}
 			
 			a4 = 'IN' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("IN"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 				}
@@ -1567,6 +1762,7 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 			(
 				a5 = QUALIFIED_NAME				
 				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 					}
@@ -1574,9 +1770,9 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 					tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), result);
-					Object resolvedObject = result.getResolvedToken();
+					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						getResource().addError(result.getErrorMessage(), ((CommonToken) a5).getLine(), ((CommonToken) a5).getCharPositionInLine(), ((CommonToken) a5).getStartIndex(), ((CommonToken) a5).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a5).getLine(), ((org.antlr.runtime.CommonToken) a5).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a5).getStartIndex(), ((org.antlr.runtime.CommonToken) a5).getStopIndex());
 					}
 					java.lang.String resolved = (java.lang.String)resolvedObject;
 					if (resolved != null) {
@@ -1597,6 +1793,7 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 }
 :
 	a0 = 'PREDEFINED' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("PREDEFINED"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
 		}
@@ -1607,6 +1804,7 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 	(
 		a1 = QUALIFIED_NAME		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPredefinedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__NAME)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
 			}
@@ -1614,9 +1812,9 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__NAME), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a1).getLine(), ((CommonToken) a1).getCharPositionInLine(), ((CommonToken) a1).getStartIndex(), ((CommonToken) a1).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a1).getLine(), ((org.antlr.runtime.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a1).getStartIndex(), ((org.antlr.runtime.CommonToken) a1).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -1630,6 +1828,7 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 	(
 		(
 			a2 = 'COLLECT' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("COLLECT"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
 				}
@@ -1638,6 +1837,7 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 			}
 			
 			a3 = 'IN' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("IN"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
 				}
@@ -1648,6 +1848,7 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 			(
 				a4 = QUALIFIED_NAME				
 				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPredefinedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__ATTRIBUTE_NAME)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
 					}
@@ -1655,9 +1856,9 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 					tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__ATTRIBUTE_NAME), result);
-					Object resolvedObject = result.getResolvedToken();
+					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a4).getLine(), ((org.antlr.runtime.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a4).getStartIndex(), ((org.antlr.runtime.CommonToken) a4).getStopIndex());
 					}
 					java.lang.String resolved = (java.lang.String)resolvedObject;
 					if (resolved != null) {
@@ -1678,6 +1879,7 @@ plus returns [org.emftext.sdk.concretesyntax.PLUS element = null]
 }
 :
 	a0 = '+' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("+"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPLUS();
 		}
@@ -1692,6 +1894,7 @@ star returns [org.emftext.sdk.concretesyntax.STAR element = null]
 }
 :
 	a0 = '*' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("*"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createSTAR();
 		}
@@ -1706,6 +1909,7 @@ questionmark returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null
 }
 :
 	a0 = '?' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("?"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createQUESTIONMARK();
 		}
@@ -1720,6 +1924,7 @@ keywordabstract returns [org.emftext.sdk.concretesyntax.Abstract element = null]
 }
 :
 	a0 = 'ABSTRACT' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("ABSTRACT"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAbstract();
 		}
@@ -1736,6 +1941,7 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 	(
 		a0 = QUOTED_34_34		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 			}
@@ -1743,9 +1949,9 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a0).getLine(), ((CommonToken) a0).getCharPositionInLine(), ((CommonToken) a0).getStartIndex(), ((CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -1757,6 +1963,7 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 	)
 	
 	a1 = 'COLOR' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("COLOR"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 		}
@@ -1767,6 +1974,7 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 	(
 		a2 = HEXNUMBER		
 		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 			}
@@ -1774,9 +1982,9 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), result);
-			Object resolvedObject = result.getResolvedToken();
+			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				getResource().addError(result.getErrorMessage(), ((CommonToken) a2).getLine(), ((CommonToken) a2).getCharPositionInLine(), ((CommonToken) a2).getStartIndex(), ((CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
@@ -1790,6 +1998,7 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 	(
 		(
 			a3 = ',' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(","));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 				}
@@ -1800,6 +2009,7 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 			(
 				a4 = QUALIFIED_NAME				
 				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 					}
@@ -1807,9 +2017,9 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
 					tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES), result);
-					Object resolvedObject = result.getResolvedToken();
+					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						getResource().addError(result.getErrorMessage(), ((CommonToken) a4).getLine(), ((CommonToken) a4).getCharPositionInLine(), ((CommonToken) a4).getStartIndex(), ((CommonToken) a4).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a4).getLine(), ((org.antlr.runtime.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a4).getStartIndex(), ((org.antlr.runtime.CommonToken) a4).getStopIndex());
 					}
 					org.emftext.sdk.concretesyntax.FontStyle resolved = (org.emftext.sdk.concretesyntax.FontStyle)resolvedObject;
 					if (resolved != null) {
@@ -1824,6 +2034,7 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 		
 	)*	
 	a5 = ';' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(";"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 		}
