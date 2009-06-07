@@ -49,7 +49,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
 
@@ -89,6 +88,8 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 	 * EMap<Object, Object>. This case can not be performed type
 	 * safe, because type parameters are not available for
 	 * reflective access to Ecore models.
+	 * 
+	 * TODO mseifert: move to some utility class
 	 * 
 	 * @param value
 	 * @return
@@ -155,7 +156,6 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 		public EClass eClass() {
 			return type;
 		}
-		
 
 		public void eSet(EStructuralFeature structuralFeature, Object a0) {
 			this.keyValueMap.put(structuralFeature, a0);
@@ -184,12 +184,11 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
     	super(input);
     }
     
-    
     public AbstractEMFTextParser(TokenStream input, RecognizerSharedState state) {
 		super(input, state);
 	}
 
-	protected ITextResource resource;
+	private ITextResource resource;
     
     public void setResource(ITextResource resource) {
         this.resource = resource;    	
@@ -197,22 +196,6 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
     
     public ITextResource getResource() {
     	return resource;
-    }
-    
-    protected void copyLocalizationInfos(EObject source, EObject target) {
-        final ILocationMap locationsMap = getResource().getLocationMap();
-		locationsMap.setCharStart(target, locationsMap.getCharStart(source)); 
-        locationsMap.setCharEnd(target, locationsMap.getCharEnd(source)); 
-        locationsMap.setColumn(target, locationsMap.getColumn(source)); 
-        locationsMap.setLine(target, locationsMap.getLine(source));
-    }
-    
-    protected void copyLocalizationInfos(CommonToken source, EObject target) {
-        final ILocationMap locationsMap = getResource().getLocationMap();
-        locationsMap.setCharStart(target, source.getStartIndex()); 
-        locationsMap.setCharEnd(target, source.getStopIndex());    
-        locationsMap.setColumn(target, source.getCharPositionInLine());    
-        locationsMap.setLine(target, source.getLine());
     }
 
     //helper lists to allow a lexer to pass errors to its parser
@@ -228,13 +211,13 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
      * Implementation that calls {@link #doParse()}  and handles the thrown
      * <code>RecognitionException</code>s.
      */
-    public EObject parse()  {
+    public EObject parse() {
         
         try {
             EObject result =  doParse();
-            if(lexerExceptions.isEmpty())
+            if (lexerExceptions.isEmpty()) {
             	return result;
-
+            }
         } catch (RecognitionException re) {
             reportError(re);
         } catch (IllegalArgumentException iae) {
@@ -245,7 +228,7 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
         		iae.printStackTrace();
         	}
         }
-        for(RecognitionException re: lexerExceptions){
+        for (RecognitionException re : lexerExceptions) {
         	reportLexicalError(re);
         }
         return null;
@@ -329,15 +312,16 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
                                fpe.predicateText+"}?";
         }
 
-        
-        if (e.token instanceof CommonToken) {
-            CommonToken ct = (CommonToken) e.token;
-            resource.addError(message, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
-        } 
-        else {
-            resource.addError(message, e.token.getCharPositionInLine(), e.token.getLine(),1,5);
+        // the resource may be null if the parse is used for code completion
+        if (resource != null) {
+	        if (e.token instanceof CommonToken) {
+	            CommonToken ct = (CommonToken) e.token;
+	            resource.addError(message, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
+	        } 
+	        else {
+	            resource.addError(message, e.token.getCharPositionInLine(), e.token.getLine(),1,5);
+	        }
         }
-
     }
 
 	public static String formatTokenName(String tokenName) {
@@ -420,5 +404,5 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 
 	public int getMismatchedTokenRecoveryTries() {
 		return mismatchedTokenRecoveryTries;
-	}
+	}	
 }
