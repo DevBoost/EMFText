@@ -53,6 +53,6 @@ public class Bug674Test extends TestCase {
 		assertNotNull(resource);
 		assertEquals(1, resource.getErrors().size());
 		String errorMessage = resource.getErrors().get(0).getMessage();
-		assertEquals(GenModelAnalyser.INVALID_GENMODEL_MESSAGE, errorMessage);
+		assertTrue(errorMessage.matches("The genmodel .* is invalid. Please reconcile it."));
 	}
 }
