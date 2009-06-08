@@ -333,7 +333,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
    			sc.add(E_CLASS + " type = (" + E_CLASS + ") typeObject;");
    			for (Rule rule : concreteSyntax.getAllRules()) {
    				String qualifiedClassName = rule.getMetaclass().getQualifiedInterfaceName();
-   				String ruleName = getLowerCase(rule.getMetaclass().getName());
+   				String ruleName = getRuleName(rule.getMetaclass());
    				sc.add("if (type.getInstanceClass() == " + qualifiedClassName +".class) {");
    				sc.add("return " + ruleName + "();");
    				sc.add("}");
@@ -600,7 +600,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         int count = 0;
         for (Iterator<GenClass> i = concreteSyntax.getActiveStartSymbols().iterator(); i.hasNext(); ) {
             GenClass aStart = i.next();
-            sc.add("c" + count + " = " + getLowerCase(aStart.getName()) + "{ element = c" + count + "; }"); 
+            sc.add("c" + count + " = " + getRuleName(aStart) + "{ element = c" + count + "; }"); 
             if (i.hasNext()) { 
             	sc.add("|  ");
             }
@@ -617,7 +617,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private void printRightRecursion(StringComposite sc, Rule rule, EList<GenClass> eClassesWithSyntax, Map<GenClass, Collection<Terminal>> classesReferenced) {
 		
-		String ruleName = rule.getMetaclass().getName();
+		String ruleName = getRuleName(rule.getMetaclass());
 		GenClass recursiveType = rule.getMetaclass();
 		
 		{	
@@ -627,8 +627,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			
 	 
 	        
-	        sc.add(getLowerCase(ruleName));
-	        sc.add(" returns [" + ruleName + " element = null]");
+	        sc.add(ruleName);
+	        sc.add(" returns [" + recursiveType.getQualifiedInterfaceName() + " element = null]");
 	        sc.add("@init{");
 			sc.add("element = " + getCreateObjectCall(recursiveType) + ";");
 	        sc.add("collectHiddenTokens(element);");
@@ -662,7 +662,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        
 	        printChoice(ruleCopy.getDefinition(), ruleCopy, sc, 0, classesReferenced);
 	        
-	        sc.add(" ( dummyEObject = "+ getLowerCase(ruleName) +  "_tail { dummyEObjects.add(dummyEObject);} )*");
+	        sc.add(" ( dummyEObject = "+ ruleName +  "_tail { dummyEObjects.add(dummyEObject);} )*");
 	        sc.add("{");
 	        sc.add("element = (" + ruleName+ ") apply(element, dummyEObjects);");
 	        sc.add("}");
@@ -709,7 +709,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				tailCopy.getDefinition().getOptions().remove(sequence);
 			}
 	        
-	    	sc.add(getLowerCase(ruleName) +  "_tail");
+	    	sc.add(ruleName +  "_tail");
 	        sc.add(" returns [" + DUMMY_E_OBJECT + " element = null]");
 	        sc.add("@init{");
 	        sc.add("element = new " + DUMMY_E_OBJECT + "(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
@@ -738,7 +738,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	private void printGrammarRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
         
-		for(Rule rule : concreteSyntax.getAllRules()) {
+		for (Rule rule : concreteSyntax.getAllRules()) {
 			
         	LeftRecursionDetector lrd = new LeftRecursionDetector(genClassNames2superClassNames, concreteSyntax);
         	Rule recursionRule = lrd.findLeftRecursion(rule);
@@ -786,10 +786,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void printGrammarRule(Rule rule, StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
 		GenClass genClass = rule.getMetaclass();
 		
-	    String ruleName = genClass.getName();
+	    String ruleName = getRuleName(genClass);
 		String qualifiedClassName = genClass.getQualifiedInterfaceName();
         
-        sc.add(getLowerCase(ruleName));
+        sc.add(ruleName);
 		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
 			sc.add(" returns [" + DUMMY_E_OBJECT + " element = null]");
 		} else {
@@ -814,6 +814,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	sc.addLineBreak();
         
         eClassesWithSyntax.add(genClass);
+	}
+
+	private String getRuleName(GenClass genClass) {
+		String interfaceName = genClass.getQualifiedInterfaceName();
+		String ruleName = interfaceName.replace("_", "_005F");
+		ruleName = ruleName.replace(".", "_");
+		return "rule_" + ruleName;
 	}
 
 	private int printChoice(Choice choice, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced) {
@@ -910,7 +917,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     			}
     			
                 String internalIdent = ident + "_" + internalCount;
-    	    	sc.add(internalIdent + " = " + getLowerCase(type.getName())); 
+    	    	sc.add(internalIdent + " = " + getRuleName(type)); 
                 
                 if(!(genFeature.getEcoreFeature() instanceof EAttribute)){
                     //remember which classes are referenced to add choice rules for these classes later
@@ -1062,7 +1069,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				Collection<GenClass> subClasses = generatorUtil.getSubClassesWithSyntax(referencedClass, concreteSyntax);
 
 				if (!subClasses.isEmpty()) {
-					sc.add(getLowerCase(referencedClass.getName()));
+					sc.add(getRuleName(referencedClass));
 					sc.add(" returns [" + referencedClass.getQualifiedInterfaceName() + " element = null]");
 					sc.add(":");
 					printSubClassChoices(sc, subClasses);
@@ -1080,7 +1087,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         int count = 0;
         for(Iterator<GenClass> i = subClasses.iterator(); i.hasNext(); ) {
             GenClass subRef = i.next();
-            sc.add("c" + count + " = " + getLowerCase(subRef.getName()) + "{ element = c" + count + "; }"); 
+            sc.add("c" + count + " = " + getRuleName(subRef) + "{ element = c" + count + "; }"); 
             if (i.hasNext()) {
          	   sc.add("|");
             }
