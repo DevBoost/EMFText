@@ -19,7 +19,6 @@ public class TokenPriorityDirectiveTokenReferenceResolver extends AbstractRefere
 	
 	@Override	
 	protected void doResolve(String identifier, TokenPriorityDirective container, EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<TokenDefinition> result) {
-		System.out.println("TokenPriorityDirectiveTokenReferenceResolver.doResolve(" + identifier + ")");
 		ConcreteSyntax syntax = (ConcreteSyntax) container.eContainer();
 		List<TokenDirective> tokens = syntax.getAllTokenDirectives();
 		for (TokenDirective tokenDirective : tokens) {

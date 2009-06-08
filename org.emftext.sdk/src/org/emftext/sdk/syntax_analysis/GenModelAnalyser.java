@@ -47,7 +47,6 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 		}
 		IStatus status = genModel.validate();
 		if (status.getSeverity() == IStatus.ERROR) {
-			System.out.println("GenModelAnalyser.analyse() " + status.getMessage());
 			String path = genModel.eResource().getURI().toString();
 			resource.addError(String.format(INVALID_GENMODEL_MESSAGE, path), 0, 0, 0, 0);
 		}

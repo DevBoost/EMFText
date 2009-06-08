@@ -35,7 +35,6 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 	protected void doResolve(String identifier, Placeholder container,
 			EReference reference, int position, boolean resolveFuzzy,
 			IReferenceResolveResult<TokenDefinition> result) {
-		System.out.println("PlaceholderTokenReferenceResolver.doResolve()");
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);

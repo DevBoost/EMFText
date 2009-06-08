@@ -82,7 +82,6 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     		}
     	}
     	
-    	System.out.println("TokenDefinitionMerger.analyse() " + mergeResult);
     	// finally set the merged tokens in the syntax model
     	List<TokenDirective> allTokenDirectives = syntax.getAllTokenDirectives();
 		allTokenDirectives.clear();
