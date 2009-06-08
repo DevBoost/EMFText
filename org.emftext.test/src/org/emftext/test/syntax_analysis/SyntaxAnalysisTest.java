@@ -87,6 +87,11 @@ public class SyntaxAnalysisTest extends TestCase {
 	}
 	
 	@Test
+	public void testDuplicateToken() throws FileNotFoundException, IOException {
+		assertProblems("duplicate_token1.cs", NONE, NONE);
+	}
+	
+	@Test
 	public void testCardinalityWarningsInImportedSyntaxes() throws FileNotFoundException, IOException {
 		// this is a test for bug 760
 		assertProblems("wrongCardinalityInImportedSyntax_import.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH}, NONE);
@@ -127,6 +132,11 @@ public class SyntaxAnalysisTest extends TestCase {
 	@Test
 	public void testStartSymbolWithoutSyntax() throws FileNotFoundException, IOException {
 		assertProblems("startWithoutSyntax.cs", new String[] {NO_RULE_FOR_META_CLASS}, new String[] {START_SYMBOL_WITHOUT_SYNTAX_FOUND});
+	}
+	
+	@Test
+	public void testIgnorePredefinedDirective() throws FileNotFoundException, IOException {
+		assertProblems("ignore_predefined_token_directive.cs", NONE, NONE);
 	}
 
 	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {
