@@ -176,13 +176,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Active Tokens</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_SYNTAX__ACTIVE_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The feature id for the '<em><b>All Start Symbols</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 4;
+	int CONCRETE_SYNTAX__ALL_START_SYMBOLS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
@@ -191,7 +200,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__IMPORTS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 5;
+	int CONCRETE_SYNTAX__IMPORTS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Options</b></em>' containment reference list.
@@ -200,7 +209,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__OPTIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 6;
+	int CONCRETE_SYNTAX__OPTIONS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
@@ -209,7 +218,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 7;
+	int CONCRETE_SYNTAX__TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Synthetic Tokens</b></em>' containment reference list.
@@ -218,7 +227,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__SYNTHETIC_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 8;
+	int CONCRETE_SYNTAX__SYNTHETIC_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Token Styles</b></em>' containment reference list.
@@ -227,7 +236,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 9;
+	int CONCRETE_SYNTAX__TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>All Token Styles</b></em>' reference list.
@@ -236,16 +245,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 10;
+	int CONCRETE_SYNTAX__ALL_TOKEN_STYLES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
-	 * The feature id for the '<em><b>All Tokens</b></em>' reference list.
+	 * The feature id for the '<em><b>All Token Directives</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_TOKENS = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 11;
+	int CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -254,7 +263,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 12;
+	int CONCRETE_SYNTAX__RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>All Rules</b></em>' reference list.
@@ -263,7 +272,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 13;
+	int CONCRETE_SYNTAX__ALL_RULES = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 14;
 
 	/**
 	 * The number of structural features of the '<em>Concrete Syntax</em>' class.
@@ -272,7 +281,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 14;
+	int CONCRETE_SYNTAX_FEATURE_COUNT = GEN_PACKAGE_DEPENDENT_ELEMENT_FEATURE_COUNT + 15;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.ImportImpl <em>Import</em>}' class.
@@ -722,6 +731,25 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int COMPOUND_DEFINITION_FEATURE_COUNT = CARDINALITY_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
+	 * @generated
+	 */
+	int TOKEN_DIRECTIVE = 17;
+
+	/**
+	 * The number of structural features of the '<em>Token Directive</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOKEN_DIRECTIVE_FEATURE_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl <em>Token Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -729,7 +757,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDefinition()
 	 * @generated
 	 */
-	int TOKEN_DEFINITION = 17;
+	int TOKEN_DEFINITION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -738,7 +766,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__NAME = 0;
+	int TOKEN_DEFINITION__NAME = TOKEN_DIRECTIVE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
@@ -747,7 +775,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = 1;
+	int TOKEN_DEFINITION__ATTRIBUTE_REFERENCES = TOKEN_DIRECTIVE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
@@ -756,7 +784,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__ATTRIBUTE_NAME = 2;
+	int TOKEN_DEFINITION__ATTRIBUTE_NAME = TOKEN_DIRECTIVE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Regex</b></em>' attribute.
@@ -765,7 +793,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__REGEX = 3;
+	int TOKEN_DEFINITION__REGEX = TOKEN_DIRECTIVE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
@@ -774,7 +802,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__HIDDEN = 4;
+	int TOKEN_DEFINITION__HIDDEN = TOKEN_DIRECTIVE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Used</b></em>' attribute.
@@ -783,7 +811,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION__USED = 5;
+	int TOKEN_DEFINITION__USED = TOKEN_DIRECTIVE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Token Definition</em>' class.
@@ -792,7 +820,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TOKEN_DEFINITION_FEATURE_COUNT = 6;
+	int TOKEN_DEFINITION_FEATURE_COUNT = TOKEN_DIRECTIVE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.NormalTokenImpl <em>Normal Token</em>}' class.
@@ -802,7 +830,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getNormalToken()
 	 * @generated
 	 */
-	int NORMAL_TOKEN = 18;
+	int NORMAL_TOKEN = 19;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -875,7 +903,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getQuotedToken()
 	 * @generated
 	 */
-	int QUOTED_TOKEN = 19;
+	int QUOTED_TOKEN = 20;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -959,77 +987,32 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int QUOTED_TOKEN_FEATURE_COUNT = TOKEN_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.PredefinedTokenImpl <em>Predefined Token</em>}' class.
+	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl <em>Token Priority Directive</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.emftext.sdk.concretesyntax.impl.PredefinedTokenImpl
-	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPredefinedToken()
+	 * @see org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl
+	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenPriorityDirective()
 	 * @generated
 	 */
-	int PREDEFINED_TOKEN = 20;
+	int TOKEN_PRIORITY_DIRECTIVE = 21;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Token</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREDEFINED_TOKEN__NAME = TOKEN_DEFINITION__NAME;
+	int TOKEN_PRIORITY_DIRECTIVE__TOKEN = TOKEN_DIRECTIVE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Attribute References</b></em>' reference list.
+	 * The number of structural features of the '<em>Token Priority Directive</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PREDEFINED_TOKEN__ATTRIBUTE_REFERENCES = TOKEN_DEFINITION__ATTRIBUTE_REFERENCES;
-
-	/**
-	 * The feature id for the '<em><b>Attribute Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREDEFINED_TOKEN__ATTRIBUTE_NAME = TOKEN_DEFINITION__ATTRIBUTE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Regex</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREDEFINED_TOKEN__REGEX = TOKEN_DEFINITION__REGEX;
-
-	/**
-	 * The feature id for the '<em><b>Hidden</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREDEFINED_TOKEN__HIDDEN = TOKEN_DEFINITION__HIDDEN;
-
-	/**
-	 * The feature id for the '<em><b>Used</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREDEFINED_TOKEN__USED = TOKEN_DEFINITION__USED;
-
-	/**
-	 * The number of structural features of the '<em>Predefined Token</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PREDEFINED_TOKEN_FEATURE_COUNT = TOKEN_DEFINITION_FEATURE_COUNT + 0;
+	int TOKEN_PRIORITY_DIRECTIVE_FEATURE_COUNT = TOKEN_DIRECTIVE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.ContainmentImpl <em>Containment</em>}' class.
@@ -1039,7 +1022,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getContainment()
 	 * @generated
 	 */
-	int CONTAINMENT = 21;
+	int CONTAINMENT = 22;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1085,7 +1068,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholder()
 	 * @generated
 	 */
-	int PLACEHOLDER = 22;
+	int PLACEHOLDER = 23;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1131,7 +1114,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingSpecifiedToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 23;
+	int PLACEHOLDER_USING_SPECIFIED_TOKEN = 24;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1177,7 +1160,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderUsingDefaultToken()
 	 * @generated
 	 */
-	int PLACEHOLDER_USING_DEFAULT_TOKEN = 24;
+	int PLACEHOLDER_USING_DEFAULT_TOKEN = 25;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1223,7 +1206,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPlaceholderInQuotes()
 	 * @generated
 	 */
-	int PLACEHOLDER_IN_QUOTES = 25;
+	int PLACEHOLDER_IN_QUOTES = 26;
 
 	/**
 	 * The feature id for the '<em><b>Cardinality</b></em>' containment reference.
@@ -1287,7 +1270,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOption()
 	 * @generated
 	 */
-	int OPTION = 26;
+	int OPTION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1325,7 +1308,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 27;
+	int ABSTRACT = 28;
 
 	/**
 	 * The number of structural features of the '<em>Abstract</em>' class.
@@ -1345,7 +1328,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenStyle()
 	 * @generated
 	 */
-	int TOKEN_STYLE = 28;
+	int TOKEN_STYLE = 29;
 
 	/**
 	 * The feature id for the '<em><b>Token Name</b></em>' attribute.
@@ -1391,7 +1374,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getOptionTypes()
 	 * @generated
 	 */
-	int OPTION_TYPES = 29;
+	int OPTION_TYPES = 30;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.FontStyle <em>Font Style</em>}' enum.
@@ -1401,7 +1384,7 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 30;
+	int FONT_STYLE = 31;
 
 
 	/**
@@ -1491,6 +1474,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getConcreteSyntax_ActiveStartSymbols();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveTokens <em>Active Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Active Tokens</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveTokens()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax_ActiveTokens();
+
+	/**
 	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllStartSymbols <em>All Start Symbols</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1568,6 +1562,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getConcreteSyntax_AllTokenStyles();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenDirectives <em>All Token Directives</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>All Token Directives</em>'.
+	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenDirectives()
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	EReference getConcreteSyntax_AllTokenDirectives();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getSyntheticTokens <em>Synthetic Tokens</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1577,17 +1582,6 @@ public interface ConcretesyntaxPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConcreteSyntax_SyntheticTokens();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokens <em>All Tokens</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>All Tokens</em>'.
-	 * @see org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokens()
-	 * @see #getConcreteSyntax()
-	 * @generated
-	 */
-	EReference getConcreteSyntax_AllTokens();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOptions <em>Options</em>}'.
@@ -1905,6 +1899,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EReference getCompoundDefinition_Definitions();
 
 	/**
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenDirective <em>Token Directive</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Token Directive</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenDirective
+	 * @generated
+	 */
+	EClass getTokenDirective();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenDefinition <em>Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2023,14 +2027,25 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getQuotedToken_Suffix();
 
 	/**
-	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.PredefinedToken <em>Predefined Token</em>}'.
+	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenPriorityDirective <em>Token Priority Directive</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Predefined Token</em>'.
-	 * @see org.emftext.sdk.concretesyntax.PredefinedToken
+	 * @return the meta object for class '<em>Token Priority Directive</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenPriorityDirective
 	 * @generated
 	 */
-	EClass getPredefinedToken();
+	EClass getTokenPriorityDirective();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.emftext.sdk.concretesyntax.TokenPriorityDirective#getToken <em>Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Token</em>'.
+	 * @see org.emftext.sdk.concretesyntax.TokenPriorityDirective#getToken()
+	 * @see #getTokenPriorityDirective()
+	 * @generated
+	 */
+	EReference getTokenPriorityDirective_Token();
 
 	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Containment <em>Containment</em>}'.
@@ -2322,6 +2337,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EReference CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS = eINSTANCE.getConcreteSyntax_ActiveStartSymbols();
 
 		/**
+		 * The meta object literal for the '<em><b>Active Tokens</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__ACTIVE_TOKENS = eINSTANCE.getConcreteSyntax_ActiveTokens();
+
+		/**
 		 * The meta object literal for the '<em><b>All Start Symbols</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2378,20 +2401,20 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EReference CONCRETE_SYNTAX__ALL_TOKEN_STYLES = eINSTANCE.getConcreteSyntax_AllTokenStyles();
 
 		/**
+		 * The meta object literal for the '<em><b>All Token Directives</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES = eINSTANCE.getConcreteSyntax_AllTokenDirectives();
+
+		/**
 		 * The meta object literal for the '<em><b>Synthetic Tokens</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference CONCRETE_SYNTAX__SYNTHETIC_TOKENS = eINSTANCE.getConcreteSyntax_SyntheticTokens();
-
-		/**
-		 * The meta object literal for the '<em><b>All Tokens</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONCRETE_SYNTAX__ALL_TOKENS = eINSTANCE.getConcreteSyntax_AllTokens();
 
 		/**
 		 * The meta object literal for the '<em><b>Options</b></em>' containment reference list feature.
@@ -2664,6 +2687,16 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EReference COMPOUND_DEFINITION__DEFINITIONS = eINSTANCE.getCompoundDefinition_Definitions();
 
 		/**
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl <em>Token Directive</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.emftext.sdk.concretesyntax.impl.TokenDirectiveImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenDirective()
+		 * @generated
+		 */
+		EClass TOKEN_DIRECTIVE = eINSTANCE.getTokenDirective();
+
+		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenDefinitionImpl <em>Token Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2758,14 +2791,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 		EAttribute QUOTED_TOKEN__SUFFIX = eINSTANCE.getQuotedToken_Suffix();
 
 		/**
-		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.PredefinedTokenImpl <em>Predefined Token</em>}' class.
+		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl <em>Token Priority Directive</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.emftext.sdk.concretesyntax.impl.PredefinedTokenImpl
-		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getPredefinedToken()
+		 * @see org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl
+		 * @see org.emftext.sdk.concretesyntax.impl.ConcretesyntaxPackageImpl#getTokenPriorityDirective()
 		 * @generated
 		 */
-		EClass PREDEFINED_TOKEN = eINSTANCE.getPredefinedToken();
+		EClass TOKEN_PRIORITY_DIRECTIVE = eINSTANCE.getTokenPriorityDirective();
+
+		/**
+		 * The meta object literal for the '<em><b>Token</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TOKEN_PRIORITY_DIRECTIVE__TOKEN = eINSTANCE.getTokenPriorityDirective_Token();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.ContainmentImpl <em>Containment</em>}' class.

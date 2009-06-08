@@ -63,7 +63,7 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 
 	private TokenDefinition findToken(ConcreteSyntax syntax,
 			String standardTokenName) {
-		for (TokenDefinition next : syntax.getAllTokens()) {
+		for (TokenDefinition next : syntax.getActiveTokens()) {
 			if (standardTokenName.equals(next.getName())) {
 				return next;
 			}

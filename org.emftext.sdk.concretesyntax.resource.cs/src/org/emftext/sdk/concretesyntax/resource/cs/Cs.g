@@ -110,8 +110,8 @@ options {
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.NormalToken.class) {
 				return normaltoken();
 			}
-			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.PredefinedToken.class) {
-				return predefinedtoken();
+			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.TokenPriorityDirective.class) {
+				return tokenprioritydirective();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.PLUS.class) {
 				return plus();
@@ -604,7 +604,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			(
 				(
 					(
-						a21_0 = tokendefinition						{
+						a21_0 = tokendirective						{
 							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1788,14 +1788,14 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 	)?	
 ;
 
-predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element = null]
+tokenprioritydirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null]
 @init{
 }
 :
-	a0 = 'PREDEFINED' {
-		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("PREDEFINED"));
+	a0 = 'PRIORITIZE' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("PRIORITIZE"));
 		if (element == null) {
-			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
+			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenPriorityDirective();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
@@ -1804,74 +1804,31 @@ predefinedtoken returns [org.emftext.sdk.concretesyntax.PredefinedToken element 
 	(
 		a1 = QUALIFIED_NAME		
 		{
-			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPredefinedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__NAME)));
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN)));
 			if (element == null) {
-				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
+				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenPriorityDirective();
 			}
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__NAME), result);
+			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), result);
 			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
 				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a1).getLine(), ((org.antlr.runtime.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a1).getStartIndex(), ((org.antlr.runtime.CommonToken) a1).getStopIndex());
 			}
-			java.lang.String resolved = (java.lang.String)resolvedObject;
-			if (resolved != null) {
-				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__NAME), resolved);
+			String resolved = (String) resolvedObject;
+			org.emftext.sdk.concretesyntax.NormalToken proxy = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
+			collectHiddenTokens(element);
+			registerContextDependentProxy(new org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<org.emftext.sdk.concretesyntax.TokenPriorityDirective, org.emftext.sdk.concretesyntax.TokenDefinition>(getReferenceResolverSwitch() == null ? null : getReferenceResolverSwitch().getTokenPriorityDirectiveTokenReferenceResolver()), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), resolved, proxy);
+			if (proxy != null) {
+				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), proxy);
 			}
 			collectHiddenTokens(element);
 			copyLocalizationInfos((CommonToken) a1, element);
+			copyLocalizationInfos((CommonToken) a1, proxy);
 		}
 	)
 	
-	(
-		(
-			a2 = 'COLLECT' {
-				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("COLLECT"));
-				if (element == null) {
-					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
-				}
-				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken)a2, element);
-			}
-			
-			a3 = 'IN' {
-				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("IN"));
-				if (element == null) {
-					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
-				}
-				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken)a3, element);
-			}
-			
-			(
-				a4 = QUALIFIED_NAME				
-				{
-					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPredefinedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__ATTRIBUTE_NAME)));
-					if (element == null) {
-						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
-					}
-					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
-					tokenResolver.setOptions(getOptions());
-					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-					tokenResolver.resolve(a4.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__ATTRIBUTE_NAME), result);
-					java.lang.Object resolvedObject = result.getResolvedToken();
-					if (resolvedObject == null) {
-						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a4).getLine(), ((org.antlr.runtime.CommonToken) a4).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a4).getStartIndex(), ((org.antlr.runtime.CommonToken) a4).getStopIndex());
-					}
-					java.lang.String resolved = (java.lang.String)resolvedObject;
-					if (resolved != null) {
-						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PREDEFINED_TOKEN__ATTRIBUTE_NAME), resolved);
-					}
-					collectHiddenTokens(element);
-					copyLocalizationInfos((CommonToken) a4, element);
-				}
-			)
-			
-		)
-		
-	)?	
 ;
 
 plus returns [org.emftext.sdk.concretesyntax.PLUS element = null]
@@ -2044,10 +2001,10 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 	
 ;
 
-tokendefinition returns [org.emftext.sdk.concretesyntax.TokenDefinition element = null]
+tokendirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null]
 :
 	c0 = normaltoken{ element = c0; }
-	|	c1 = predefinedtoken{ element = c1; }
+	|	c1 = tokenprioritydirective{ element = c1; }
 	
 ;
 

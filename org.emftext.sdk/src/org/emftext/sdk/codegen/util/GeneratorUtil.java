@@ -214,7 +214,7 @@ public class GeneratorUtil {
 	public Collection<String> getTokenResolverFileNames(ConcreteSyntax syntax) {
 		Collection<String> resolverFileNames = new LinkedHashSet<String>();
 		
-		for (TokenDefinition tokenDefinition : syntax.getAllTokens()) {
+		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (!tokenDefinition.isUsed()) {
 				continue;
 			}

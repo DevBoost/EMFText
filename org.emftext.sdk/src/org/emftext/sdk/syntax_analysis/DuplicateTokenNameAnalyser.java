@@ -45,7 +45,7 @@ public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 		List<TokenDefinition> duplicateTokens = new ArrayList<TokenDefinition>();
 		
 		List<String> foundTokenNames = new ArrayList<String>();
-		EList<TokenDefinition> tokens = syntax.getAllTokens();
+		EList<TokenDefinition> tokens = syntax.getActiveTokens();
 		for (int i = 0; i < tokens.size(); i++) {
 			TokenDefinition token_i = tokens.get(i);
 			String token_i_name = token_i.getName();

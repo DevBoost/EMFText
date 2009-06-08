@@ -58,7 +58,7 @@ public class CollectInFeatureHelper {
 	}
 
 	private boolean isCollectInFeatureWithoutImports(ConcreteSyntax syntax, EStructuralFeature feature) {
-		for (TokenDefinition tokenDefinition : syntax.getTokens()) {
+		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			final String attributeName = tokenDefinition.getAttributeName();
 			final boolean isCollectToken = attributeName != null;
 			if (!isCollectToken) {

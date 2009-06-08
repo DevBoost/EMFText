@@ -359,7 +359,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addCollectHiddenTokensMethod(String lexerName,
 			StringComposite sc) {
-		List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax.getTokens());       
+		List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax.getActiveTokens());
         sc.add("protected void collectHiddenTokens(" + E_OBJECT + " element) {");
         if (!collectTokenDefinitions.isEmpty()) {          
             //sc.add("System.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
@@ -1109,7 +1109,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     }
     
 	private void addTokenDefinitions(StringComposite sc) {
-		for (TokenDefinition tokenDefinition : concreteSyntax.getAllTokens()) {
+		for (TokenDefinition tokenDefinition : concreteSyntax.getActiveTokens()) {
 			printToken(tokenDefinition, sc);
 		}
 	}

@@ -396,26 +396,26 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.PredefinedToken} instances.
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.TokenPriorityDirective} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PredefinedTokenItemProvider predefinedTokenItemProvider;
+	protected TokenPriorityDirectiveItemProvider tokenPriorityDirectiveItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.PredefinedToken}.
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.TokenPriorityDirective}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createPredefinedTokenAdapter() {
-		if (predefinedTokenItemProvider == null) {
-			predefinedTokenItemProvider = new PredefinedTokenItemProvider(this);
+	public Adapter createTokenPriorityDirectiveAdapter() {
+		if (tokenPriorityDirectiveItemProvider == null) {
+			tokenPriorityDirectiveItemProvider = new TokenPriorityDirectiveItemProvider(this);
 		}
 
-		return predefinedTokenItemProvider;
+		return tokenPriorityDirectiveItemProvider;
 	}
 
 	/**
@@ -629,7 +629,7 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class<?>) || (((Class<?>)type).isInstance(adapter))) {
+			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
@@ -692,7 +692,7 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (compoundDefinitionItemProvider != null) compoundDefinitionItemProvider.dispose();
 		if (normalTokenItemProvider != null) normalTokenItemProvider.dispose();
 		if (quotedTokenItemProvider != null) quotedTokenItemProvider.dispose();
-		if (predefinedTokenItemProvider != null) predefinedTokenItemProvider.dispose();
+		if (tokenPriorityDirectiveItemProvider != null) tokenPriorityDirectiveItemProvider.dispose();
 		if (containmentItemProvider != null) containmentItemProvider.dispose();
 		if (placeholderUsingSpecifiedTokenItemProvider != null) placeholderUsingSpecifiedTokenItemProvider.dispose();
 		if (placeholderUsingDefaultTokenItemProvider != null) placeholderUsingDefaultTokenItemProvider.dispose();

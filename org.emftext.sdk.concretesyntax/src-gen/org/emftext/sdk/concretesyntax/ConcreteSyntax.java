@@ -35,6 +35,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getStartSymbols <em>Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveStartSymbols <em>Active Start Symbols</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getActiveTokens <em>Active Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllStartSymbols <em>All Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getOptions <em>Options</em>}</li>
@@ -42,7 +43,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getSyntheticTokens <em>Synthetic Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getTokenStyles <em>Token Styles</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenStyles <em>All Token Styles</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokens <em>All Tokens</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllTokenDirectives <em>All Token Directives</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.ConcreteSyntax#getAllRules <em>All Rules</em>}</li>
  * </ul>
@@ -128,6 +129,22 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	EList<GenClass> getActiveStartSymbols();
 
 	/**
+	 * Returns the value of the '<em><b>Active Tokens</b></em>' reference list.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Active Tokens</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Active Tokens</em>' reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_ActiveTokens()
+	 * @model transient="true"
+	 * @generated
+	 */
+	EList<TokenDefinition> getActiveTokens();
+
+	/**
 	 * Returns the value of the '<em><b>All Start Symbols</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenClass}.
 	 * <!-- begin-user-doc -->
@@ -204,20 +221,8 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	void setModifier(Abstract value);
 
 	/**
-	 * Returns the value of the '<em><b>All Tokens</b></em>' reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>All Tokens</em>' reference list.
-	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_AllTokens()
-	 * @model transient="true" volatile="true" derived="true"
-	 * @generated
-	 */
-	EList<TokenDefinition> getAllTokens();
-
-	/**
 	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDefinition}.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDirective}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Tokens</em>' containment reference list isn't clear,
@@ -229,7 +234,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<TokenDefinition> getTokens();
+	EList<TokenDirective> getTokens();
 
 	/**
 	 * Returns the value of the '<em><b>Token Styles</b></em>' containment reference list.
@@ -262,6 +267,22 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	 * @generated
 	 */
 	EList<TokenStyle> getAllTokenStyles();
+
+	/**
+	 * Returns the value of the '<em><b>All Token Directives</b></em>' reference list.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.TokenDirective}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>All Token Directives</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>All Token Directives</em>' reference list.
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_AllTokenDirectives()
+	 * @model transient="true"
+	 * @generated
+	 */
+	EList<TokenDirective> getAllTokenDirectives();
 
 	/**
 	 * Returns the value of the '<em><b>Synthetic Tokens</b></em>' containment reference list.

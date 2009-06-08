@@ -30,6 +30,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenDirective;
 
 /**
  * The DerivedTokenCreator searches for DerivedPlaceholders in the
@@ -63,10 +64,13 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 	private TokenDefinition findToken(ConcreteSyntax syntax,
 			AntlrTokenDerivator tokenDerivator, PlaceholderInQuotes placeholder) {
 		
-		for (TokenDefinition next : syntax.getAllTokens()) {
+		for (TokenDirective next : syntax.getSyntheticTokens()) {
 			String expression = tokenDerivator.deriveTokenExpression(placeholder);
-			if (expression.equals(next.getRegex())) {
-				return next;
+			if (next instanceof TokenDefinition) {
+				TokenDefinition token = (TokenDefinition) next;
+				if (expression.equals(token.getRegex())) {
+					return token;
+				}
 			}
 		}
 		return null;
@@ -88,5 +92,9 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 		
 		syntax.getSyntheticTokens().add(newToken);
 		return newToken;
+	}
+
+	protected boolean doResolveProxiesBeforeAnalysis() {
+		return false;
 	}
 }

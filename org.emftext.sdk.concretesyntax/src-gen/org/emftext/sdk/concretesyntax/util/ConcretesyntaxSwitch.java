@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -45,7 +44,6 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
-import org.emftext.sdk.concretesyntax.PredefinedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -53,6 +51,9 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenDirective;
+import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 
@@ -245,9 +246,16 @@ public class ConcretesyntaxSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ConcretesyntaxPackage.TOKEN_DIRECTIVE: {
+				TokenDirective tokenDirective = (TokenDirective)theEObject;
+				T result = caseTokenDirective(tokenDirective);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ConcretesyntaxPackage.TOKEN_DEFINITION: {
 				TokenDefinition tokenDefinition = (TokenDefinition)theEObject;
 				T result = caseTokenDefinition(tokenDefinition);
+				if (result == null) result = caseTokenDirective(tokenDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -255,6 +263,7 @@ public class ConcretesyntaxSwitch<T> {
 				NormalToken normalToken = (NormalToken)theEObject;
 				T result = caseNormalToken(normalToken);
 				if (result == null) result = caseTokenDefinition(normalToken);
+				if (result == null) result = caseTokenDirective(normalToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -262,13 +271,14 @@ public class ConcretesyntaxSwitch<T> {
 				QuotedToken quotedToken = (QuotedToken)theEObject;
 				T result = caseQuotedToken(quotedToken);
 				if (result == null) result = caseTokenDefinition(quotedToken);
+				if (result == null) result = caseTokenDirective(quotedToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ConcretesyntaxPackage.PREDEFINED_TOKEN: {
-				PredefinedToken predefinedToken = (PredefinedToken)theEObject;
-				T result = casePredefinedToken(predefinedToken);
-				if (result == null) result = caseTokenDefinition(predefinedToken);
+			case ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE: {
+				TokenPriorityDirective tokenPriorityDirective = (TokenPriorityDirective)theEObject;
+				T result = caseTokenPriorityDirective(tokenPriorityDirective);
+				if (result == null) result = caseTokenDirective(tokenPriorityDirective);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -599,6 +609,21 @@ public class ConcretesyntaxSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Token Directive</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Token Directive</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTokenDirective(TokenDirective object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Token Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -644,17 +669,17 @@ public class ConcretesyntaxSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Predefined Token</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Token Priority Directive</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Predefined Token</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Token Priority Directive</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePredefinedToken(PredefinedToken object) {
+	public T caseTokenPriorityDirective(TokenPriorityDirective object) {
 		return null;
 	}
 

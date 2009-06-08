@@ -33,7 +33,7 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		for (TokenDefinition definition : syntax.getAllTokens()) {
+		for (TokenDefinition definition : syntax.getActiveTokens()) {
 			if (!definition.isUsed()) {
 				resource.addWarning("Token " + definition.getName() + " is not used and will be discarded during parsing.", definition);
 			}

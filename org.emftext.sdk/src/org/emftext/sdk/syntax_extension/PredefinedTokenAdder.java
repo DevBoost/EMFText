@@ -29,7 +29,6 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.PredefinedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
@@ -67,7 +66,7 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 			}
 			
 			// if not create one and add it to the end of the token list
-			TokenDefinition definition = ConcretesyntaxFactory.eINSTANCE.createPredefinedToken();
+			TokenDefinition definition = ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 			definition.setName(predefinedToken.getTokenName());
 			definition.setRegex(predefinedToken.getExpression());
 			syntax.getSyntheticTokens().add(definition);
@@ -76,17 +75,16 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 
 	private boolean searchForPredefinedTokenDeclaration(ConcreteSyntax syntax,
 			EPredefinedTokens predefinedToken) {
-		for (TokenDefinition next : syntax.getTokens()) {
-			if (next instanceof PredefinedToken) {
-				PredefinedToken predefined = (PredefinedToken) next;
-				if (predefinedToken.getTokenName().equals(predefined.getName())) {
-					// found a declaration for the predefined token
-					predefined.setRegex(predefinedToken.getExpression());
-					return true;
-				}
+		for (TokenDefinition next : syntax.getActiveTokens()) {
+			if (predefinedToken.getTokenName().equals(next.getName())) {
+				// found a declaration for the predefined token
+				return true;
 			}
 		}
 		return false;
 	}
 
+	protected boolean doResolveProxiesBeforeAnalysis() {
+		return false;
+	}
 }

@@ -43,6 +43,7 @@ import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
 /**
@@ -56,6 +57,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getStartSymbols <em>Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getActiveStartSymbols <em>Active Start Symbols</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getActiveTokens <em>Active Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllStartSymbols <em>All Start Symbols</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getOptions <em>Options</em>}</li>
@@ -63,7 +65,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getSyntheticTokens <em>Synthetic Tokens</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getTokenStyles <em>Token Styles</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokenStyles <em>All Token Styles</em>}</li>
- *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokens <em>All Tokens</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllTokenDirectives <em>All Token Directives</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getRules <em>Rules</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAllRules <em>All Rules</em>}</li>
  * </ul>
@@ -113,6 +115,16 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	protected EList<GenClass> startSymbols;
 
 	/**
+	 * The cached value of the '{@link #getActiveTokens() <em>Active Tokens</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActiveTokens()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TokenDefinition> activeTokens;
+
+	/**
 	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -140,7 +152,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TokenDefinition> tokens;
+	protected EList<TokenDirective> tokens;
 
 	/**
 	 * The cached value of the '{@link #getSyntheticTokens() <em>Synthetic Tokens</em>}' containment reference list.
@@ -161,6 +173,16 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	 * @ordered
 	 */
 	protected EList<TokenStyle> tokenStyles;
+
+	/**
+	 * The cached value of the '{@link #getAllTokenDirectives() <em>All Token Directives</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAllTokenDirectives()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TokenDirective> allTokenDirectives;
 
 	/**
 	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
@@ -263,6 +285,18 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<TokenDefinition> getActiveTokens() {
+		if (activeTokens == null) {
+			activeTokens = new EObjectResolvingEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS);
+		}
+		return activeTokens;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * Returns all start symbols. This includes both the symbols declared 
 	 * in this syntax and the symbols from imported syntaxes.
 	 * syntax.
@@ -360,32 +394,11 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList<TokenDefinition> getAllTokens() {
-		EStructuralFeature eFeature = ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKENS;		
-		EList<TokenDefinition> l = new BasicEList<TokenDefinition>();
-    	l.addAll(getTokens());
-    	l.addAll(getSyntheticTokens());
-    	
-    	for (Import nextImport : getImports()) {
-    		ConcreteSyntax importedSyntax = nextImport.getConcreteSyntax();
-    		if (importedSyntax != null) {
-    			l.addAll(importedSyntax.getAllTokens());
-    		}
-    	}
-	
-    	return new EcoreEList.UnmodifiableEList<TokenDefinition>(this, eFeature, l.size(), l.toArray());
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TokenDefinition> getTokens() {
+	public EList<TokenDirective> getTokens() {
 		if (tokens == null) {
-			tokens = new EObjectContainmentEList<TokenDefinition>(TokenDefinition.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
+			tokens = new EObjectContainmentEList<TokenDirective>(TokenDirective.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS);
 		}
 		return tokens;
 	}
@@ -430,6 +443,18 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			}
 		}
 		return styles;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<TokenDirective> getAllTokenDirectives() {
+		if (allTokenDirectives == null) {
+			allTokenDirectives = new EObjectResolvingEList<TokenDirective>(TokenDirective.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES);
+		}
+		return allTokenDirectives;
 	}
 
 	/**
@@ -513,6 +538,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getStartSymbols();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS:
 				return getActiveStartSymbols();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS:
+				return getActiveTokens();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_START_SYMBOLS:
 				return getAllStartSymbols();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
@@ -527,8 +554,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return getTokenStyles();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
 				return getAllTokenStyles();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
-				return getAllTokens();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
+				return getAllTokenDirectives();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				return getRules();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:
@@ -556,6 +583,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				getStartSymbols().clear();
 				getStartSymbols().addAll((Collection<? extends GenClass>)newValue);
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS:
+				getActiveTokens().clear();
+				getActiveTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				getImports().clear();
 				getImports().addAll((Collection<? extends Import>)newValue);
@@ -566,7 +597,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 				getTokens().clear();
-				getTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+				getTokens().addAll((Collection<? extends TokenDirective>)newValue);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
 				getSyntheticTokens().clear();
@@ -580,9 +611,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				getAllTokenStyles().clear();
 				getAllTokenStyles().addAll((Collection<? extends TokenStyle>)newValue);
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
-				getAllTokens().clear();
-				getAllTokens().addAll((Collection<? extends TokenDefinition>)newValue);
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
+				getAllTokenDirectives().clear();
+				getAllTokenDirectives().addAll((Collection<? extends TokenDirective>)newValue);
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				getRules().clear();
@@ -609,6 +640,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS:
 				getStartSymbols().clear();
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS:
+				getActiveTokens().clear();
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 				getImports().clear();
 				return;
@@ -627,8 +661,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
 				getAllTokenStyles().clear();
 				return;
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
-				getAllTokens().clear();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
+				getAllTokenDirectives().clear();
 				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				getRules().clear();
@@ -653,6 +687,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return startSymbols != null && !startSymbols.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_START_SYMBOLS:
 				return !getActiveStartSymbols().isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ACTIVE_TOKENS:
+				return activeTokens != null && !activeTokens.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_START_SYMBOLS:
 				return !getAllStartSymbols().isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
@@ -667,8 +703,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return tokenStyles != null && !tokenStyles.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
 				return !getAllTokenStyles().isEmpty();
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKENS:
-				return !getAllTokens().isEmpty();
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
+				return allTokenDirectives != null && !allTokenDirectives.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				return rules != null && !rules.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_RULES:

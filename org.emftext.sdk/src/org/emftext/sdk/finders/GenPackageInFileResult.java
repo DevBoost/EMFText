@@ -43,7 +43,7 @@ public class GenPackageInFileResult implements IGenPackageFinderResult {
 	
 	public GenPackageInFileResult(GenPackage genPackage, File ecoreFile, File genmodelFile) {
 		assert genPackage != null;
-		assert ecoreFile != null;
+		//assert ecoreFile != null;
 		
 		this.genPackage = genPackage;
 		this.ecoreFile = ecoreFile;

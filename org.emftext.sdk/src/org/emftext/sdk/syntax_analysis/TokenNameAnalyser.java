@@ -43,7 +43,7 @@ public class TokenNameAnalyser extends AbstractPostProcessor {
 
 	public List<TokenDefinition> getTokenDefinitionsWithInvalidNames(ConcreteSyntax syntax) {
 		List<TokenDefinition> result = new ArrayList<TokenDefinition>();
-		for (TokenDefinition definition : syntax.getTokens()) {
+		for (TokenDefinition definition : syntax.getActiveTokens()) {
 			char firstLetter = definition.getName().charAt(0);
 			if (!(firstLetter >= 'A' && firstLetter <= 'Z')) {
 				result.add(definition);

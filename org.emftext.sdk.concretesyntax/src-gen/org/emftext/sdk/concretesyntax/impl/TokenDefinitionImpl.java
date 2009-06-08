@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -54,7 +53,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  *
  * @generated
  */
-public abstract class TokenDefinitionImpl extends EObjectImpl implements TokenDefinition {
+public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements TokenDefinition {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

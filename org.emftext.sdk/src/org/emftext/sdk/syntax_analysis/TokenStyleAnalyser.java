@@ -43,7 +43,7 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 
 	private boolean refersToExistingToken(ConcreteSyntax syntax, Collection<CsString> csStrings, TokenStyle tokenStyle) {
 		String name = tokenStyle.getTokenName();
-		for (TokenDefinition tokenDefinition : syntax.getAllTokens()) {
+		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (name.equals(tokenDefinition.getName())) {
 				return true;
 			}

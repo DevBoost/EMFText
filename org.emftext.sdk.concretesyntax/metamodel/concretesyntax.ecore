@@ -17,6 +17,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="activeStartSymbols" lowerBound="1"
         upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"
         changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activeTokens" upperBound="-1"
+        eType="#//TokenDefinition" transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="allStartSymbols" lowerBound="1"
         upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"
         changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
@@ -25,15 +27,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="options" upperBound="-1"
         eType="#//Option" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
-        eType="#//TokenDefinition" containment="true"/>
+        eType="#//TokenDirective" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="syntheticTokens" upperBound="-1"
         eType="#//TokenDefinition" transient="true" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokenStyles" upperBound="-1"
         eType="#//TokenStyle" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="allTokenStyles" upperBound="-1"
         eType="#//TokenStyle" volatile="true" transient="true" derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="allTokens" upperBound="-1"
-        eType="#//TokenDefinition" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="allTokenDirectives" upperBound="-1"
+        eType="#//TokenDirective" transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" lowerBound="1" upperBound="-1"
         eType="#//Rule" containment="true" eOpposite="#//Rule/syntax"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="allRules" lowerBound="1"
@@ -89,7 +91,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="definitions" eType="#//Choice"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TokenDefinition" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="TokenDirective" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenDefinition" abstract="true" eSuperTypes="#//TokenDirective">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributeReferences" upperBound="-1"
         eType="#//Placeholder" eOpposite="#//Placeholder/token"/>
@@ -107,7 +110,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffix" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
         defaultValueLiteral=""/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PredefinedToken" eSuperTypes="#//TokenDefinition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenPriorityDirective" eSuperTypes="#//TokenDirective">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="token" lowerBound="1" eType="#//TokenDefinition"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Containment" eSuperTypes="#//Terminal">
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>

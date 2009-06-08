@@ -23,7 +23,7 @@ TOKENSTYLES {
 	"NUMBER" COLOR #00D0FF;
 	"HEXNUMBER" COLOR #00D0FF;
 	"DEFINE" COLOR #FF9000, BOLD;
-	"PREDEFINED" COLOR #FF9000, BOLD;
+	"PRIORITIZE" COLOR #FF9000, BOLD;
 	"COMMENTS" COLOR #008000;
 }
 
@@ -67,7 +67,7 @@ RULES {
   LineBreak    ::= "!" tab[NUMBER] #1;
   
   NormalToken     ::= "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
-  PredefinedToken ::= "PREDEFINED" #1 name[] ("COLLECT" "IN" attributeName[])?;
+  TokenPriorityDirective ::= "PRIORITIZE" #1 token[];
 
   PLUS         ::= "+";
   STAR         ::= "*";   

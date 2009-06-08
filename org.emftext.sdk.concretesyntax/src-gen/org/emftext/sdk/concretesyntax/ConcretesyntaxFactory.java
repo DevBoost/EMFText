@@ -166,13 +166,13 @@ public interface ConcretesyntaxFactory extends EFactory {
 	QuotedToken createQuotedToken();
 
 	/**
-	 * Returns a new object of class '<em>Predefined Token</em>'.
+	 * Returns a new object of class '<em>Token Priority Directive</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Predefined Token</em>'.
+	 * @return a new object of class '<em>Token Priority Directive</em>'.
 	 * @generated
 	 */
-	PredefinedToken createPredefinedToken();
+	TokenPriorityDirective createTokenPriorityDirective();
 
 	/**
 	 * Returns a new object of class '<em>Containment</em>'.

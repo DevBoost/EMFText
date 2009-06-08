@@ -51,7 +51,7 @@ public class TokenResolversCreator extends AbstractArtifactCreator {
 		
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		
-		for (TokenDefinition tokenDefinition : syntax.getAllTokens()) {
+		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (!tokenDefinition.isUsed()) {
 				continue;
 			}

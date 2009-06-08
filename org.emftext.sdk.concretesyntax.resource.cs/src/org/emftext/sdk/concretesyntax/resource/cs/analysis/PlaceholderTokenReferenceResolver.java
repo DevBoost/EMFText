@@ -35,6 +35,7 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 	protected void doResolve(String identifier, Placeholder container,
 			EReference reference, int position, boolean resolveFuzzy,
 			IReferenceResolveResult<TokenDefinition> result) {
+		System.out.println("PlaceholderTokenReferenceResolver.doResolve()");
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);
@@ -73,7 +74,7 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 	private boolean searchForToken(String identifier, boolean resolveFuzzy,
 			IReferenceResolveResult<TokenDefinition> result,
 			ConcreteSyntax nextImportedSyntax) {
-		for (TokenDefinition tokenDefinition : nextImportedSyntax.getAllTokens()) {
+		for (TokenDefinition tokenDefinition : nextImportedSyntax.getActiveTokens()) {
 			final String tokenName = tokenDefinition.getName();
 			if (tokenName.equals(identifier) && !resolveFuzzy) {
 				result.addMapping(identifier, tokenDefinition);

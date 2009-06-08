@@ -60,7 +60,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public " + getResourceClassName() + "() {");
 		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
-		for (TokenDefinition definition : concreteSyntax.getAllTokens()) {
+		for (TokenDefinition definition : concreteSyntax.getActiveTokens()) {
 			if (!definition.isUsed()) {
 				continue;
 			}

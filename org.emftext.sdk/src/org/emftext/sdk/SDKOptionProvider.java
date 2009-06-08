@@ -51,6 +51,7 @@ import org.emftext.sdk.syntax_analysis.UnusedTokenAnalyser;
 import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
 import org.emftext.sdk.syntax_extension.PredefinedTokenAdder;
 import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
+import org.emftext.sdk.syntax_extension.TokenDefinitionMerger;
 
 /**
  * The SDKOptionProvider adds post-processors to the default 
@@ -65,13 +66,16 @@ public class SDKOptionProvider implements IOptionProvider {
 		Map<String, Object> options = new HashMap<String, Object>();
 
 		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
-		// first add implicit information to the resource
+		// first: check the generator model
+		postProcessors.add(new GenModelAnalyser());
+
+		// second: add implicit information to the resource
 		postProcessors.add(new PredefinedTokenAdder());
 		postProcessors.add(new DerivedTokenCreator());
+		postProcessors.add(new TokenDefinitionMerger());
 		postProcessors.add(new DefaultTokenConnector());
 		
 		// then analyse it
-		postProcessors.add(new GenModelAnalyser());
 		postProcessors.add(new FeatureCardinalityAnalyser());
 		postProcessors.add(new OptionalKeywordAnalyser());
 		postProcessors.add(new DuplicateReferenceAnalyser());

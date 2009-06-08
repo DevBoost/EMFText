@@ -42,8 +42,14 @@ public abstract class AbstractPostProcessor implements IResourcePostProcessorPro
 	}
 	
 	public void process(ITextResource resource) {
-		if (!resourceHelper.resolveAll(resource)) {
+		boolean hasErrors = resource.getErrors().size() > 0;
+		if (hasErrors && !doAnalysisAfterPreviousErrors()) {
 			return;
+		}
+		if (doResolveProxiesBeforeAnalysis()) {
+			if (!resourceHelper.resolveAll(resource)) {
+				return;
+			}
 		}
 		EList<EObject> objects = resource.getContents();
 		for (EObject next : objects) {
@@ -51,6 +57,14 @@ public abstract class AbstractPostProcessor implements IResourcePostProcessorPro
 				analyse(resource, (ConcreteSyntax) next);
 			}
 		}
+	}
+
+	protected boolean doAnalysisAfterPreviousErrors() {
+		return false;
+	}
+
+	protected boolean doResolveProxiesBeforeAnalysis() {
+		return true;
 	}
 
 	public abstract void analyse(ITextResource resource, ConcreteSyntax syntax);

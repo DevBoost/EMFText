@@ -24,7 +24,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -45,7 +44,6 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
-import org.emftext.sdk.concretesyntax.PredefinedToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -53,6 +51,9 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenDirective;
+import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 
@@ -181,6 +182,10 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createCompoundDefinitionAdapter();
 			}
 			@Override
+			public Adapter caseTokenDirective(TokenDirective object) {
+				return createTokenDirectiveAdapter();
+			}
+			@Override
 			public Adapter caseTokenDefinition(TokenDefinition object) {
 				return createTokenDefinitionAdapter();
 			}
@@ -193,8 +198,8 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 				return createQuotedTokenAdapter();
 			}
 			@Override
-			public Adapter casePredefinedToken(PredefinedToken object) {
-				return createPredefinedTokenAdapter();
+			public Adapter caseTokenPriorityDirective(TokenPriorityDirective object) {
+				return createTokenPriorityDirectiveAdapter();
 			}
 			@Override
 			public Adapter caseContainment(Containment object) {
@@ -488,6 +493,20 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenDirective <em>Token Directive</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.emftext.sdk.concretesyntax.TokenDirective
+	 * @generated
+	 */
+	public Adapter createTokenDirectiveAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenDefinition <em>Token Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -530,16 +549,16 @@ public class ConcretesyntaxAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.PredefinedToken <em>Predefined Token</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.emftext.sdk.concretesyntax.TokenPriorityDirective <em>Token Priority Directive</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.emftext.sdk.concretesyntax.PredefinedToken
+	 * @see org.emftext.sdk.concretesyntax.TokenPriorityDirective
 	 * @generated
 	 */
-	public Adapter createPredefinedTokenAdapter() {
+	public Adapter createTokenPriorityDirectiveAdapter() {
 		return null;
 	}
 
