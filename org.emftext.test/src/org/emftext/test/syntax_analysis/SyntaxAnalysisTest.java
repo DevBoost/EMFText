@@ -25,10 +25,10 @@ import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactorie
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
@@ -88,7 +88,13 @@ public class SyntaxAnalysisTest extends TestCase {
 	
 	@Test
 	public void testDuplicateToken() throws FileNotFoundException, IOException {
+		// this is a test for bug 794: Duplicate token name analyser does not handle PREDEFINED tokens correctly 
 		assertProblems("duplicate_token1.cs", NONE, NONE);
+	}
+	
+	@Test
+	public void testDuplicateAnalysisForQuotedTokens() throws FileNotFoundException, IOException {
+		assertProblems("duplicate_quoted_token.cs", NONE, NONE);
 	}
 	
 	@Test
@@ -140,15 +146,15 @@ public class SyntaxAnalysisTest extends TestCase {
 	}
 
 	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {
-		System.out.println("-----> " + filename);
+		System.out.println("\n-----> " + filename);
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_analysis" + File.separator;
 		File file = new File(path + filename);
 		
 		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		
-		EList<Diagnostic> warnings = resource.getWarnings();
-		EList<Diagnostic> errors = resource.getErrors();
+		List<Diagnostic> warnings = resource.getWarnings();
+		List<Diagnostic> errors = resource.getErrors();
 		printDiagnostics(warnings, filename, "warning(s)");
 		printDiagnostics(errors, filename, "error(s)");
 		assertDiagnostics(filename, expectedWarnings, warnings, "warning(s)");
@@ -156,7 +162,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	}
 
 	private void assertDiagnostics(String filename, String[] expectedDiagnostics,
-			EList<Diagnostic> diagnostics, String type) {
+			List<Diagnostic> diagnostics, String type) {
 		assertEquals(filename + " should contain " + expectedDiagnostics.length + " " + type + ".", expectedDiagnostics.length, diagnostics.size());
 		for (int i = 0; i < expectedDiagnostics.length; i++) {
 			String actualDiagnostic = diagnostics.get(i).getMessage();
@@ -166,9 +172,9 @@ public class SyntaxAnalysisTest extends TestCase {
 		}
 	}
 
-	private void printDiagnostics(EList<Diagnostic> diagnostics, String file, String type) {
+	private void printDiagnostics(List<Diagnostic> diagnostics, String file, String type) {
 		for (Diagnostic diagnotic : diagnostics) {
-			System.out.println("assertProblems(" + file + ") " + type + ": " + diagnotic.getMessage());
+			System.out.println(type + ": " + diagnotic.getMessage() + " at " + diagnotic.getLine() + "," + diagnotic.getColumn());
 		}
 	}
 }

@@ -85,7 +85,7 @@ public class SyntaxExtensionTest extends TestCase {
 		assertTrue(root instanceof ConcreteSyntax);
 		
 		ConcreteSyntax syntax = (ConcreteSyntax) root;
-		assertEquals(expectedNumberOfTokenDefinitions, syntax.getAllTokens().size());
+		assertEquals(expectedNumberOfTokenDefinitions, syntax.getActiveTokens().size());
 		
 		List<Rule> rules = syntax.getAllRules();
 		

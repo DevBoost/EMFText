@@ -4,9 +4,9 @@ START Root
 
 TOKENS {
 	// here we should NOT get any warnings - we basically sort the predefined tokens
-	PREDEFINED TEXT;
-	PREDEFINED WHITESPACE;
-	PREDEFINED LINEBREAK;
+	PRIORITIZE TEXT;
+	PRIORITIZE WHITESPACE;
+	PRIORITIZE LINEBREAK;
 }
 
 RULES {
