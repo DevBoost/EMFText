@@ -29,7 +29,6 @@ import junit.framework.TestCase;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.sdk.SDKOptionProvider;
-import org.emftext.sdk.syntax_analysis.GenModelAnalyser;
 import org.junit.Before;
 import org.junit.Test;
 
