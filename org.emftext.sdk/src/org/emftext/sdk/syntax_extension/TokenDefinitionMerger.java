@@ -51,10 +51,10 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		List<TokenDirective> mergeResult = new ArrayList<TokenDirective>();
     	// then we add the tokens in this syntax, if there are already imported
     	// tokens, we override them
-    	for (TokenDirective tokenDirective : syntax.getSyntheticTokens()) {
+    	for (TokenDirective tokenDirective : syntax.getTokens()) {
     		handleTokenDirective(mergeResult, tokenDirective);
     	}
-    	for (TokenDirective tokenDirective : syntax.getTokens()) {
+    	for (TokenDirective tokenDirective : syntax.getSyntheticTokens()) {
     		handleTokenDirective(mergeResult, tokenDirective);
     	}
     	
