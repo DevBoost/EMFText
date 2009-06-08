@@ -353,7 +353,6 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private String getMetaClassName(Rule rule) {
 		if (hasMapType(rule.getMetaclass()) ) {
 			return rule.getMetaclass().getQualifiedClassName();
-			
 		}
 		return rule.getMetaclass().getQualifiedInterfaceName();
 	}
