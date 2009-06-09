@@ -8,7 +8,7 @@
         eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenPackage"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageLocationHint" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConcreteSyntax" eSuperTypes="#//GenPackageDependentElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ConcreteSyntax" eSuperTypes="#//GenPackageDependentElement #//Annotable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Abstract"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

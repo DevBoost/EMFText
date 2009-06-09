@@ -37,6 +37,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.Annotable;
+import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Import;
@@ -53,6 +55,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.ConcreteSyntaxImpl#getStartSymbols <em>Start Symbols</em>}</li>
@@ -74,6 +77,16 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  * @generated
  */
 public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implements ConcreteSyntax {
+	/**
+	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnotations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Annotation> annotations;
+
 	/**
 	 * The cached value of the '{@link #getModifier() <em>Modifier</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -211,6 +224,18 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	protected EClass eStaticClass() {
 		return ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Annotation> getAnnotations() {
+		if (annotations == null) {
+			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS);
+		}
+		return annotations;
 	}
 
 	/**
@@ -504,6 +529,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
+				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 				return basicSetModifier(null, msgs);
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
@@ -530,6 +557,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
+				return getAnnotations();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 				return getModifier();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
@@ -573,6 +602,10 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
+				getAnnotations().clear();
+				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 				setModifier((Abstract)newValue);
 				return;
@@ -631,6 +664,9 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
+				getAnnotations().clear();
+				return;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 				setModifier((Abstract)null);
 				return;
@@ -679,6 +715,8 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
+				return annotations != null && !annotations.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 				return modifier != null;
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
@@ -711,6 +749,38 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 				return !getAllRules().isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == Annotable.class) {
+			switch (derivedFeatureID) {
+				case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS: return ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == Annotable.class) {
+			switch (baseFeatureID) {
+				case ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS: return ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

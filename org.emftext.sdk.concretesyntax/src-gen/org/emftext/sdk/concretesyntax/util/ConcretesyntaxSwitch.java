@@ -142,6 +142,7 @@ public class ConcretesyntaxSwitch<T> {
 				ConcreteSyntax concreteSyntax = (ConcreteSyntax)theEObject;
 				T result = caseConcreteSyntax(concreteSyntax);
 				if (result == null) result = caseGenPackageDependentElement(concreteSyntax);
+				if (result == null) result = caseAnnotable(concreteSyntax);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

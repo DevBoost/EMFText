@@ -30,6 +30,7 @@ TOKENSTYLES {
 RULES {
 
   ConcreteSyntax ::= 
+    (annotations !0)* 
     modifier? #1
     "SYNTAXDEF" #1 name[] !0 
     "FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 

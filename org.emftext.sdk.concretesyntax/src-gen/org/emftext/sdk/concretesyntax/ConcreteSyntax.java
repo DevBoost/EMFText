@@ -53,7 +53,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ConcreteSyntax extends GenPackageDependentElement {
+public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
