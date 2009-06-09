@@ -54,14 +54,23 @@ public class GenerateTextResourceTask extends Task {
 	private List<GenModelElement> genModels = new ArrayList<GenModelElement>();
 	private List<GenPackageElement> genPackages = new ArrayList<GenPackageElement>();
 
+	private static Resource.Factory alternativeEcoreEcoreFactory = null;
+	
 	@Override
 	public void execute() throws BuildException {
 		checkParameters();
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
-			final ITextResource csResource = resourceHelper.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ITextResource csResource = resourceHelper.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
+
+			EPackage ePackage = syntax.getPackage().getEcorePackage();
+			if (ePackage == null || ePackage.eIsProxy()) {
+				log("loading with alternative ecore format....");
+				syntax = tryAlternativeEcoreResourceFactory(syntax);
+			}
+			
 			Result result = new AntResourcePluginGenerator().run(
 					syntax, 
 					new AntGenerationContext(syntax, rootFolder, syntaxProjectName, new AntProblemCollector(this)), 
@@ -77,6 +86,30 @@ public class GenerateTextResourceTask extends Task {
 				} else {
 					throw new BuildException("Generation failed " + result);
 				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BuildException(e);
+		}
+	}
+
+	private ConcreteSyntax tryAlternativeEcoreResourceFactory(ConcreteSyntax syntax) throws BuildException {
+		try {
+			if (alternativeEcoreEcoreFactory == null) {
+				String alternativeEcoreResourceFactoryName = "org.emftext.language.ecore.resource.ecore.EcoreResourceFactory";
+				alternativeEcoreEcoreFactory = (Resource.Factory) Class.forName(alternativeEcoreResourceFactoryName).newInstance();
+			}
+			registerFactory("ecore", alternativeEcoreEcoreFactory);
+			ITextResource alternativeCsResource = resourceHelper.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ConcreteSyntax alternativeSyntax = (ConcreteSyntax) alternativeCsResource.getContents().get(0);
+			EPackage alternativeEPackage = alternativeSyntax.getPackage().getEcorePackage();
+			if (alternativeEPackage != null && !alternativeEPackage.eIsProxy()) {
+				//ecore file is loaded; we can reset the resource factory
+				registerFactory("ecore", new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
+				return alternativeSyntax;
+			}
+			else {
+				return syntax;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
