@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.util.MapUtil;
 
 /**
  * Base implementation for all generated ANTLR parsers. 
@@ -73,29 +74,13 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 		Object mapKey = dummy.getValueByName("key");
 		Object mapValue = dummy.getValueByName("value");
 		if (value instanceof EMap<?, ?>) {
-			EMap<Object, Object> valueMap = castToMap(value);
+			EMap<Object, Object> valueMap = MapUtil.castToMap(value);
 			if (mapKey != null && mapValue != null) {
 				valueMap.put(mapKey, mapValue);
 			}
 		}
 	}
 
-	/**
-	 * This method encapsulate an unchecked cast from Object to
-	 * EMap<Object, Object>. This case can not be performed type
-	 * safe, because type parameters are not available for
-	 * reflective access to Ecore models.
-	 * 
-	 * TODO mseifert: move to some utility class
-	 * 
-	 * @param value
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	private EMap<Object, Object> castToMap(Object value) {
-		return (EMap<Object,Object>) value;
-	}
-	
 	protected EObject apply(EObject target, List<EObject> dummyEObjects) {
 		EObject currentTarget = target;
 		
