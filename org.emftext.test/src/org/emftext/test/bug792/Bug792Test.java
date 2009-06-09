@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * A test case for bug 674.
+ * A test case for bug 792.
  */
 public class Bug792Test extends TestCase {
 
