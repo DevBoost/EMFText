@@ -29,6 +29,6 @@ import org.emftext.runtime.resource.ITextPrinter;
  */
 public abstract class AbstractEMFTextPrinter implements ITextPrinter {
 	// Attention: Please do add only code that adapts existing implementations of
-	// old versions of ITextResourcePluginMetaInformation here
+	// old versions of ITextPrinter here.
 	// Please document the date and version when the API was changed
 }
