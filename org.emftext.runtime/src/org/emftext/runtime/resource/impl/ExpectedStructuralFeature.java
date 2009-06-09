@@ -10,11 +10,6 @@ public class ExpectedStructuralFeature implements IExpectedElement {
 	private EStructuralFeature feature;
 	private EObject container;
 
-	// TODO mseifert: remove this constructor
-	public ExpectedStructuralFeature(EStructuralFeature feature) {
-		this.feature = feature;
-	}
-
 	public ExpectedStructuralFeature(EStructuralFeature feature, EObject container) {
 		this.feature = feature;
 		this.container = container;
