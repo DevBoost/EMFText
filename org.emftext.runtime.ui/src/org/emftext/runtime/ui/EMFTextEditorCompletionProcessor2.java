@@ -1,6 +1,6 @@
 package org.emftext.runtime.ui;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.text.ITextViewer;
@@ -31,7 +31,7 @@ public class EMFTextEditorCompletionProcessor2 implements
 		ITextResource textResource = (ITextResource) resource;
 		String content = viewer.getDocument().get();
 		CodeCompletionHelper helper = new CodeCompletionHelper();
-		List<String> proposals = helper.computeCompletionProposals(textResource, content, offset);
+		Collection<String> proposals = helper.computeCompletionProposals(textResource.getMetaInformation(), content, offset);
 		
 		ICompletionProposal[] result = new ICompletionProposal[proposals.size()];
 		int i = 0;

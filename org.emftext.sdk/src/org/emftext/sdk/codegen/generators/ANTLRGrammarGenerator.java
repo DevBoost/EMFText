@@ -551,7 +551,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("final int start = lastToken.getStartIndex();");
 		sc.add("final int end = currentToken.getStopIndex();");
 		sc.add("java.lang.System.out.println(\"At \" + start + \"-\" + end + \": \" + expectedElement);");
-		sc.add("boolean reachedStopIndex = end >= this.stopIndex - 1;");
+		sc.add("boolean reachedStopIndex = end >= this.stopIndex;");
 		sc.add("if (reachedStopIndex) {");
 		sc.add("throw new " + ReachedCursorIndexException.class.getName() + "(expectedElement);");
 		sc.add("}");
