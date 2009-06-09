@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -120,6 +121,9 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.OPTION: return createOption();
 			case ConcretesyntaxPackage.ABSTRACT: return createAbstract();
 			case ConcretesyntaxPackage.TOKEN_STYLE: return createTokenStyle();
+			case ConcretesyntaxPackage.ANNOTATION: return createAnnotation();
+			case ConcretesyntaxPackage.ANNOTABLE: return createAnnotable();
+			case ConcretesyntaxPackage.KEY_VALUE_PAIR: return createKeyValuePair();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -137,6 +141,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 				return createOptionTypesFromString(eDataType, initialValue);
 			case ConcretesyntaxPackage.FONT_STYLE:
 				return createFontStyleFromString(eDataType, initialValue);
+			case ConcretesyntaxPackage.ANNOTATION_TYPE:
+				return createAnnotationTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -154,6 +160,8 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 				return convertOptionTypesToString(eDataType, instanceValue);
 			case ConcretesyntaxPackage.FONT_STYLE:
 				return convertFontStyleToString(eDataType, instanceValue);
+			case ConcretesyntaxPackage.ANNOTATION_TYPE:
+				return convertAnnotationTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -384,6 +392,36 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Annotation createAnnotation() {
+		AnnotationImpl annotation = new AnnotationImpl();
+		return annotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Annotable createAnnotable() {
+		AnnotableImpl annotable = new AnnotableImpl();
+		return annotable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public KeyValuePair createKeyValuePair() {
+		KeyValuePairImpl keyValuePair = new KeyValuePairImpl();
+		return keyValuePair;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OptionTypes createOptionTypesFromString(EDataType eDataType, String initialValue) {
 		OptionTypes result = OptionTypes.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -416,6 +454,26 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	 * @generated
 	 */
 	public String convertFontStyleToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnnotationType createAnnotationTypeFromString(EDataType eDataType, String initialValue) {
+		AnnotationType result = AnnotationType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAnnotationTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

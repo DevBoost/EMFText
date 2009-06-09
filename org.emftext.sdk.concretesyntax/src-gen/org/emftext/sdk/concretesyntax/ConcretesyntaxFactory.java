@@ -238,6 +238,33 @@ public interface ConcretesyntaxFactory extends EFactory {
 	TokenStyle createTokenStyle();
 
 	/**
+	 * Returns a new object of class '<em>Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotation</em>'.
+	 * @generated
+	 */
+	Annotation createAnnotation();
+
+	/**
+	 * Returns a new object of class '<em>Annotable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotable</em>'.
+	 * @generated
+	 */
+	Annotable createAnnotable();
+
+	/**
+	 * Returns a new object of class '<em>Key Value Pair</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Key Value Pair</em>'.
+	 * @generated
+	 */
+	KeyValuePair createKeyValuePair();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.emftext.sdk.concretesyntax.*;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -154,6 +155,7 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.RULE: {
 				Rule rule = (Rule)theEObject;
 				T result = caseRule(rule);
+				if (result == null) result = caseAnnotable(rule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -263,6 +265,7 @@ public class ConcretesyntaxSwitch<T> {
 				NormalToken normalToken = (NormalToken)theEObject;
 				T result = caseNormalToken(normalToken);
 				if (result == null) result = caseTokenDefinition(normalToken);
+				if (result == null) result = caseAnnotable(normalToken);
 				if (result == null) result = caseTokenDirective(normalToken);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -345,6 +348,24 @@ public class ConcretesyntaxSwitch<T> {
 			case ConcretesyntaxPackage.TOKEN_STYLE: {
 				TokenStyle tokenStyle = (TokenStyle)theEObject;
 				T result = caseTokenStyle(tokenStyle);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.ANNOTATION: {
+				Annotation annotation = (Annotation)theEObject;
+				T result = caseAnnotation(annotation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.ANNOTABLE: {
+				Annotable annotable = (Annotable)theEObject;
+				T result = caseAnnotable(annotable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ConcretesyntaxPackage.KEY_VALUE_PAIR: {
+				KeyValuePair keyValuePair = (KeyValuePair)theEObject;
+				T result = caseKeyValuePair(keyValuePair);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -800,6 +821,51 @@ public class ConcretesyntaxSwitch<T> {
 	 * @generated
 	 */
 	public T caseTokenStyle(TokenStyle object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annotation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnnotation(Annotation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Annotable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annotable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnnotable(Annotable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Key Value Pair</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Key Value Pair</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseKeyValuePair(KeyValuePair object) {
 		return null;
 	}
 

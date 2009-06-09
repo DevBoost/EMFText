@@ -29,6 +29,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.emftext.sdk.concretesyntax.Abstract;
+import org.emftext.sdk.concretesyntax.Annotable;
+import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -42,6 +45,7 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.KeyValuePair;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.Option;
@@ -283,6 +287,27 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass annotationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass annotableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass keyValuePairEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum optionTypesEEnum = null;
 
 	/**
@@ -291,6 +316,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * @generated
 	 */
 	private EEnum fontStyleEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum annotationTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1082,6 +1114,78 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAnnotation() {
+		return annotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAnnotation_Type() {
+		return (EAttribute)annotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAnnotation_Parameters() {
+		return (EReference)annotationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnnotable() {
+		return annotableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAnnotable_Annotations() {
+		return (EReference)annotableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getKeyValuePair() {
+		return keyValuePairEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getKeyValuePair_Key() {
+		return (EAttribute)keyValuePairEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getKeyValuePair_Value() {
+		return (EAttribute)keyValuePairEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOptionTypes() {
 		return optionTypesEEnum;
 	}
@@ -1093,6 +1197,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 */
 	public EEnum getFontStyle() {
 		return fontStyleEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getAnnotationType() {
+		return annotationTypeEEnum;
 	}
 
 	/**
@@ -1232,9 +1345,21 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		createEAttribute(tokenStyleEClass, TOKEN_STYLE__RGB);
 		createEAttribute(tokenStyleEClass, TOKEN_STYLE__FONT_STYLES);
 
+		annotationEClass = createEClass(ANNOTATION);
+		createEAttribute(annotationEClass, ANNOTATION__TYPE);
+		createEReference(annotationEClass, ANNOTATION__PARAMETERS);
+
+		annotableEClass = createEClass(ANNOTABLE);
+		createEReference(annotableEClass, ANNOTABLE__ANNOTATIONS);
+
+		keyValuePairEClass = createEClass(KEY_VALUE_PAIR);
+		createEAttribute(keyValuePairEClass, KEY_VALUE_PAIR__KEY);
+		createEAttribute(keyValuePairEClass, KEY_VALUE_PAIR__VALUE);
+
 		// Create enums
 		optionTypesEEnum = createEEnum(OPTION_TYPES);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
+		annotationTypeEEnum = createEEnum(ANNOTATION_TYPE);
 	}
 
 	/**
@@ -1271,6 +1396,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		// Add supertypes to classes
 		concreteSyntaxEClass.getESuperTypes().add(this.getGenPackageDependentElement());
 		importEClass.getESuperTypes().add(this.getGenPackageDependentElement());
+		ruleEClass.getESuperTypes().add(this.getAnnotable());
 		cardinalityDefinitionEClass.getESuperTypes().add(this.getDefinition());
 		terminalEClass.getESuperTypes().add(this.getCardinalityDefinition());
 		csStringEClass.getESuperTypes().add(this.getDefinition());
@@ -1282,6 +1408,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		compoundDefinitionEClass.getESuperTypes().add(this.getCardinalityDefinition());
 		tokenDefinitionEClass.getESuperTypes().add(this.getTokenDirective());
 		normalTokenEClass.getESuperTypes().add(this.getTokenDefinition());
+		normalTokenEClass.getESuperTypes().add(this.getAnnotable());
 		quotedTokenEClass.getESuperTypes().add(this.getTokenDefinition());
 		tokenPriorityDirectiveEClass.getESuperTypes().add(this.getTokenDirective());
 		containmentEClass.getESuperTypes().add(this.getTerminal());
@@ -1404,6 +1531,17 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEAttribute(getTokenStyle_Rgb(), theEcorePackage.getEString(), "rgb", null, 0, 1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTokenStyle_FontStyles(), this.getFontStyle(), "fontStyles", null, 0, -1, TokenStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(annotationEClass, Annotation.class, "Annotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAnnotation_Type(), this.getAnnotationType(), "type", null, 1, 1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnotation_Parameters(), this.getKeyValuePair(), null, "parameters", null, 0, -1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(annotableEClass, Annotable.class, "Annotable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAnnotable_Annotations(), this.getAnnotable(), null, "annotations", null, 0, -1, Annotable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(keyValuePairEClass, KeyValuePair.class, "KeyValuePair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getKeyValuePair_Key(), theEcorePackage.getEString(), "key", null, 1, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getKeyValuePair_Value(), theEcorePackage.getEString(), "value", null, 0, 1, KeyValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(optionTypesEEnum, OptionTypes.class, "OptionTypes");
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_TEST_ACTION);
@@ -1443,6 +1581,10 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(fontStyleEEnum, FontStyle.ITALIC);
 		addEEnumLiteral(fontStyleEEnum, FontStyle.STRIKETHROUGH);
 		addEEnumLiteral(fontStyleEEnum, FontStyle.UNDERLINE);
+
+		initEEnum(annotationTypeEEnum, AnnotationType.class, "AnnotationType");
+		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OVERRIDE);
+		addEEnumLiteral(annotationTypeEEnum, AnnotationType.SUPPRESS_WARNINGS);
 
 		// Create resource
 		createResource(eNS_URI);
