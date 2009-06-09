@@ -57,56 +57,56 @@ public class CsReferenceResolverSwitch implements org.emftext.runtime.resource.I
 	public void resolveFuzzy(java.lang.String identifier, org.eclipse.emf.ecore.EObject container, int position, org.emftext.runtime.resource.IReferenceResolveResult<org.eclipse.emf.ecore.EObject> result) {
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getGenPackageDependentElement().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenPackage> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenPackage>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.GEN_PACKAGE_DEPENDENT_ELEMENT__PACKAGE);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("package");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				genPackageDependentElementPackageReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.GenPackageDependentElement) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("startSymbols");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				concreteSyntaxStartSymbolsReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.ConcreteSyntax) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.ConcreteSyntax> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.ConcreteSyntax>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("concreteSyntax");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				importConcreteSyntaxReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Import) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("metaclass");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				ruleMetaclassReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Rule) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTerminal().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenFeature> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenFeature>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TERMINAL__FEATURE);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("feature");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				terminalFeatureReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Terminal) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholder().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER__TOKEN);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("token");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				placeholderTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Placeholder) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.eclipse.emf.codegen.ecore.genmodel.GenClass>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("types");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				containmentTypesReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.Containment) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}
 		}
 		if (org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective().isInstance(container)) {
 			org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition> frr = new org.emftext.runtime.resource.impl.FuzzyResolveResult<org.emftext.sdk.concretesyntax.TokenDefinition>(result);
-			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN);
+			org.eclipse.emf.ecore.EStructuralFeature feature = container.eClass().getEStructuralFeature("token");
 			if (feature instanceof org.eclipse.emf.ecore.EReference) {
 				tokenPriorityDirectiveTokenReferenceResolver.resolve(identifier, (org.emftext.sdk.concretesyntax.TokenPriorityDirective) container, (org.eclipse.emf.ecore.EReference) feature, position, true, frr);
 			}

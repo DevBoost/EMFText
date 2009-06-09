@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.emftext.runtime.resource.IReferenceResolverSwitch;
-
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public org.emftext.runtime.resource.ITextParser createParser(java.io.InputStream inputStream, java.lang.String encoding) {
@@ -35,8 +33,8 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(),
 		};
 	}
-
-	public IReferenceResolverSwitch getReferenceResolverSwitch() {
-		return new CsReferenceResolverSwitch();
+	
+	public org.emftext.runtime.resource.IReferenceResolverSwitch getReferenceResolverSwitch() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch();
 	}
 }
