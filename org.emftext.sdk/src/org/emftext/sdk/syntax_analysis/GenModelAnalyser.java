@@ -38,11 +38,11 @@ public class GenModelAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		GenPackage genPackage = syntax.getPackage();
-		if (genPackage == null) {
+		if (genPackage == null || genPackage.eIsProxy()) {
 			return;
 		}
 		GenModel genModel = genPackage.getGenModel();
-		if (genModel == null) {
+		if (genModel == null || genModel.eIsProxy()) {
 			return;
 		}
 		IStatus status = genModel.validate();
