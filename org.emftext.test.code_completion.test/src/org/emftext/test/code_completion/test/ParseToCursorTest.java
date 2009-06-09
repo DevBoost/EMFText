@@ -112,13 +112,13 @@ public class ParseToCursorTest extends TestCase {
 		expectedInsertStringsMap = new HashMap<String, String[]>();
 		
 		expectedElementsMap.put("KeywordClassExpected1.cct", "class");
-		expectedInsertStringsMap.put("KeywordClassExpected1.cct", new String[] {"lass"});
+		expectedInsertStringsMap.put("KeywordClassExpected1.cct", new String[] {"class"});
 		
 		expectedElementsMap.put("KeywordClassExpected2.cct", "class");
 		expectedInsertStringsMap.put("KeywordClassExpected2.cct", new String[] {"class"});
 
 		expectedElementsMap.put("EnumVisibilityExpected1.cct", CCT_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected1.cct", new String[] {"ublic", "rivate"});
+		expectedInsertStringsMap.put("EnumVisibilityExpected1.cct", new String[] {"public", "private"});
 
 		expectedElementsMap.put("NameExpected1.cct", CCT_PACKAGE.getNamedElement_Name());
 		expectedInsertStringsMap.put("NameExpected1.cct", new String[] {});
@@ -133,10 +133,10 @@ public class ParseToCursorTest extends TestCase {
 		expectedInsertStringsMap.put("TypeExpected.cct", new String[] {"SomeName"});
 
 		expectedElementsMap.put("EnumVisibilityExpected2.cct", CCT_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected2.cct", new String[] {"ublic", "rivate"});
+		expectedInsertStringsMap.put("EnumVisibilityExpected2.cct", new String[] {"public", "private"});
 
 		expectedElementsMap.put("EnumVisibilityExpected3.cct", CCT_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected3.cct", new String[] {"ublic", "rivate"});
+		expectedInsertStringsMap.put("EnumVisibilityExpected3.cct", new String[] {"public", "private"});
 
 		expectedElementsMap.put("NameExpected3.cct", CCT_PACKAGE.getNamedElement_Name());
 		expectedInsertStringsMap.put("NameExpected3.cct", new String[] {});
@@ -149,7 +149,7 @@ public class ParseToCursorTest extends TestCase {
 		expectedInsertStringsMap.put("KeywordClassExpected3.cct", new String[] {"class"});
 
 		expectedElementsMap.put("MembersExpected1.cct", CCT_PACKAGE.getClass_Members());
-		expectedInsertStringsMap.put("MembersExpected1.cct", new String[] {"ublic", "rivate"});
+		expectedInsertStringsMap.put("MembersExpected1.cct", new String[] {"public", "private"});
 	}
 	
 	private void checkInsertStrings(File file) {

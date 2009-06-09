@@ -3,17 +3,33 @@
  */
 package org.emftext.runtime.resource.impl;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class ExpectedStructuralFeature implements IExpectedElement {
 	private EStructuralFeature feature;
+	private EObject container;
 
+	// TODO mseifert: remove this constructor
 	public ExpectedStructuralFeature(EStructuralFeature feature) {
 		this.feature = feature;
 	}
 
+	public ExpectedStructuralFeature(EStructuralFeature feature, EObject container) {
+		this.feature = feature;
+		this.container = container;
+	}
+
+	public EStructuralFeature getFeature() {
+		return feature;
+	}
+
+	public EObject getContainer() {
+		return container;
+	}
+	
 	public String toString() {
-		return "EFeature \"" + feature.getName() + "\"";
+		return "EFeature \"" + feature.getName() + "\" in " + container;
 	}
 
 	public boolean equals(Object o) {
@@ -21,9 +37,5 @@ public class ExpectedStructuralFeature implements IExpectedElement {
 			return this.feature.equals(((ExpectedStructuralFeature) o).feature);
 		}
 		return false;
-	}
-
-	public EStructuralFeature getFeature() {
-		return feature;
 	}
 }

@@ -11,12 +11,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.IReferenceMapping;
+import org.emftext.runtime.resource.IReferenceResolveResult;
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.util.EClassUtil;
-import org.emftext.runtime.util.StringUtil;
 
 public class CodeCompletionHelper {
 
@@ -51,13 +54,35 @@ public class CodeCompletionHelper {
 				return deriveProposals(enumType, content, offset);
 			}
 			if (feature instanceof EReference) {
-				EReference refernce = (EReference) feature;
+				EReference reference = (EReference) feature;
 				if (featureType instanceof EClass) {
-					if (refernce.isContainment()) {
+					if (reference.isContainment()) {
+						System.out.println("deriveProposals() CONTAINMENT");
 						EClass classType = (EClass) featureType;
 						return deriveProposals(classType, metaInformation, content, offset);
 					} else {
-						// TODO handle NC references
+						System.out.println("deriveProposals() NON-CONTAINMENT prefix =");
+						// handle non-containment references
+						IReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
+						EObject container = expectedFeature.getContainer();
+						IReferenceResolveResult<EObject> result = new ReferenceResolveResult<EObject>(true);
+						// TODO mseifert: this is a hack. we must rather use token information from
+						// the parser to figure out the prefix
+						String prefix = findPrefix(content, offset);
+						System.out.println("deriveProposals() NON-CONTAINMENT prefix = \"" + prefix + "\"");
+						resolverSwitch.resolveFuzzy(prefix, container, 0, result);
+						Collection<IReferenceMapping<EObject>> mappings = result.getMappings();
+						if (mappings != null) {
+							Collection<String> resultSet = new HashSet<String>();
+							for (IReferenceMapping<EObject> mapping : mappings) {
+								final String identifier = mapping.getIdentifier();
+								System.out.println("deriveProposals() " + identifier);
+								//String contentBefore = content.substring(0, offset);
+								//String insertString = StringUtil.getMissingTail(contentBefore, identifier);
+								resultSet.add(identifier);
+							}
+							return resultSet;
+						}
 					}
 				}
 			} else {
@@ -65,6 +90,11 @@ public class CodeCompletionHelper {
 			}
 		}
 		return Collections.emptyList();
+	}
+
+	private String findPrefix(String content, int offset) {
+		int lastSpace = content.substring(0, offset).lastIndexOf(" ");
+		return content.substring(lastSpace + 1, offset);
 	}
 
 	private Collection<String> deriveProposals(
@@ -93,9 +123,9 @@ public class CodeCompletionHelper {
 		Collection<String> result = new HashSet<String>();
 		for (EEnumLiteral literal : enumLiterals) {
 			String proposal = literal.getLiteral();
-			String contentBefore = content.substring(0, offset);
-			String insertString = StringUtil.getMissingTail(contentBefore, proposal);
-			result.add(insertString);
+			//String contentBefore = content.substring(0, offset);
+			//String insertString = StringUtil.getMissingTail(contentBefore, proposal);
+			result.add(proposal);
 		}
 		return result;
 	}
@@ -103,11 +133,11 @@ public class CodeCompletionHelper {
 	private Collection<String> deriveProposal(ExpectedCsString csString,
 			String content, int offset) {
 		String proposal = csString.getValue();
-		String contentBefore = content.substring(0, offset);
-		String insertString = StringUtil.getMissingTail(contentBefore, proposal);
+		//String contentBefore = content.substring(0, offset);
+		//String insertString = StringUtil.getMissingTail(contentBefore, proposal);
 		
 		Collection<String> result = new HashSet<String>(1);
-		result.add(insertString);
+		result.add(proposal);
 		return result;
 	}
 }

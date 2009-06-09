@@ -6,7 +6,7 @@ package org.emftext.runtime.resource.impl;
  * terminate parsing in parse-to-index mode. It is not intended to
  * be instantiated or catched by clients.
  */
-//TODO mseifert: maybe we should use a checked exception instead?
+//TODO mseifert: delete this class once the CS syntax is regenerated
 public class ReachedCursorIndexException extends RuntimeException {
 
 	private static final long serialVersionUID = 395796587666918437L;

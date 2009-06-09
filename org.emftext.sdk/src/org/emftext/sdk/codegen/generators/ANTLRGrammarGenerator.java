@@ -64,7 +64,6 @@ import org.emftext.runtime.resource.impl.DummyEObject;
 import org.emftext.runtime.resource.impl.ExpectedCsString;
 import org.emftext.runtime.resource.impl.ExpectedStructuralFeature;
 import org.emftext.runtime.resource.impl.IExpectedElement;
-import org.emftext.runtime.resource.impl.ReachedCursorIndexException;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -440,25 +439,22 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-        sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName +"();");
-        sc.add(new StringComponent("private int lastPosition;", "lastPosition"));
-        sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
+		sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName + "();");
+		sc.add(new StringComponent("private int lastPosition;", "lastPosition"));
+		sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
 		sc.add("private int stopIndex = -1;");
 		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
 		sc.add("private int lastTokenIndex = 0;");
+		sc.add("private boolean reachedIndex = false;");
+		sc.add("private " + I_EXPECTED_ELEMENT + " expectedElement;");
 	}
 
 	private void addParseToIndexMethod(StringComposite sc) {
-		sc.add("public " + I_EXPECTED_ELEMENT + " parseToIndex(int index, " + E_CLASS +  " type) {");
+		sc.add("public " + I_EXPECTED_ELEMENT + " parseToIndex(int index, " + E_CLASS + " type) {");
 		sc.add("stopIndex = index;");
 		sc.add("parseToIndexTypeObject = type;");
-		sc.add("try {");
 		sc.add("parse();");
-		sc.add("} catch (" + ReachedCursorIndexException.class.getName() + " pcie) {");
-		sc.add("final " + I_EXPECTED_ELEMENT + " expectedElement = pcie.getExpectedElement();");
-		sc.add("return expectedElement;");
-		sc.add("}");
-		sc.add("return null;");
+		sc.add("return this.expectedElement;");
 		sc.add("}");
 	}
 
@@ -534,8 +530,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("if (this.stopIndex < 0) {");
 		sc.add("return;");
 		sc.add("}");
+		sc.add("if (this.reachedIndex) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("if (lastTokenIndex >= input.size()) {");
-		sc.add("throw new " + ReachedCursorIndexException.class.getName() + "(expectedElement);");
+		sc.add("this.expectedElement = expectedElement;");
+		sc.add("this.reachedIndex = true;");
+		sc.add("return;");
 		sc.add("}");
 		sc.add("final " + COMMON_TOKEN + " lastToken = (" + COMMON_TOKEN + ") input.get(lastTokenIndex);");
 		sc.add(COMMON_TOKEN + " currentToken = null;");
@@ -553,11 +554,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("java.lang.System.out.println(\"At \" + start + \"-\" + end + \": \" + expectedElement);");
 		sc.add("boolean reachedStopIndex = end >= this.stopIndex;");
 		sc.add("if (reachedStopIndex) {");
-		sc.add("throw new " + ReachedCursorIndexException.class.getName() + "(expectedElement);");
+		sc.add("this.expectedElement = expectedElement;");
+		sc.add("this.reachedIndex = true;");
+		sc.add("return;");
 		sc.add("}");
 		sc.add("} else {");
 		sc.add("java.lang.System.out.println(\"At ?-?: \" + expectedElement);");
-		sc.add("throw new " + ReachedCursorIndexException.class.getName() + "(expectedElement);");
+		sc.add("this.expectedElement = expectedElement;");
+		sc.add("this.reachedIndex = true;");
+		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
 	}
@@ -1006,17 +1011,18 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			final String ident, final String proxyIdent,
 			String expressionToBeSet, StringComposite resolvements) {
 		sc.add("{");
-    	sc.add("terminateParsingIfCursorIndexReached(new " + ExpectedStructuralFeature.class.getName() + "(" + 
-    			genClass.getGenPackage().getReflectionPackageName() + "." +
-    			genClass.getGenPackage().getPackageInterfaceName() +
-    			".eINSTANCE.get" + genClass.getClassifierAccessorName() + "()" + 
-    			".getEStructuralFeature(" +
-					generatorUtil.getFeatureConstant(genClass, genFeature) +
-				")"+
-    			"));");
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
+		sc.add("terminateParsingIfCursorIndexReached(new "
+				+ ExpectedStructuralFeature.class.getName() + "("
+				+ genClass.getGenPackage().getReflectionPackageName() + "."
+				+ genClass.getGenPackage().getPackageInterfaceName()
+				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
+				+ "()" + ".getEStructuralFeature("
+				+ generatorUtil.getFeatureConstant(genClass, genFeature)
+				+ "), element" + "));");
+		sc.add("if (" + ident + " != null) {");
     	sc.add(resolvements);
 		sc.add("if (" + expressionToBeSet + " != null) {");
 		if (eFeature.getUpperBound() == 1) {
@@ -1057,6 +1063,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             }
         }
     	
+    	sc.add("}");
         sc.add("}");
 	}
     
