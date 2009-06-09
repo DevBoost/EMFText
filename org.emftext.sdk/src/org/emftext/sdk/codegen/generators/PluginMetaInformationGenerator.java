@@ -7,7 +7,7 @@ import java.util.Collection;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.resource.ITextParser;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
+import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -36,7 +36,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " implements " + ITextResourcePluginMetaInformation.class.getName() + " {");
+        sc.add("public class " + getResourceClassName()+ " extends " + AbstractTextResourcePluginMetaInformation.class.getName() + " {");
         sc.addLineBreak();
 		addCreateParserMethod(sc);
         sc.addLineBreak();
