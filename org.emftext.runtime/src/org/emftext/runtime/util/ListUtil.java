@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.runtime.util;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,7 +31,16 @@ import java.util.List;
 public class ListUtil {
 
 	@SuppressWarnings("unchecked")
-	public <T> List<T> castListUnchecked(Object list) {
+	public static <T> List<T> castListUnchecked(Object list) {
 		return (List<T>) list;
+	}
+
+	public static List<Object> copySafelyToObjectList(List<?> list) {
+		Iterator<?> it = list.iterator();
+		List<Object> castedCopy = new ArrayList<Object>();
+		while (it.hasNext()) {
+			castedCopy.add(it.next());
+		}
+		return castedCopy;
 	}
 }

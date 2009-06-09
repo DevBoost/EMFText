@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +51,8 @@ import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.IURIMapping;
+import org.emftext.runtime.util.ListUtil;
+import org.emftext.runtime.util.MapUtil;
 
 /**
  * Base implementation for all generated text resources. 
@@ -316,7 +317,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 	}
 	
 	protected Map<Object, Object> addDefaultLoadOptions(Map<?, ?> loadOptions) {
-		Map<Object, Object> loadOptionsCopy = copySafelyToObjectToObjectMap(loadOptions); 
+		Map<Object, Object> loadOptionsCopy = MapUtil.copySafelyToObjectToObjectMap(loadOptions); 
 		if (Platform.isRunning()) {
 			// find default load option providers
 			IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -364,7 +365,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 				// if the current value is a list, we add the new value to
 				// this list
 				List<?> currentValueAsList = (List<?>) currentValue;
-				List<Object> currentValueAsObjectList = copySafelyToObjectList(currentValueAsList);
+				List<Object> currentValueAsObjectList = ListUtil.copySafelyToObjectList(currentValueAsList);
 				if (value instanceof Collection<?>) {
 					currentValueAsObjectList.addAll((Collection<?>) value);
 				}
@@ -390,30 +391,6 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 		} else {
 			options.put(key, value);
 		}
-	}
-
-	protected Map<Object, Object> copySafelyToObjectToObjectMap(Map<?, ?> map) {
-		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
-		
-		if(map == null) {
-			return castedCopy;
-		}
-		
-		Iterator<?> it = map.keySet().iterator();
-		while (it.hasNext()) {
-			Object nextKey = it.next();
-			castedCopy.put(nextKey, map.get(nextKey));
-		}
-		return castedCopy;
-	}
-
-	private List<Object> copySafelyToObjectList(List<?> list) {
-		Iterator<?> it = list.iterator();
-		List<Object> castedCopy = new ArrayList<Object>();
-		while (it.hasNext()) {
-			castedCopy.add(it.next());
-		}
-		return castedCopy;
 	}
 
 	/**

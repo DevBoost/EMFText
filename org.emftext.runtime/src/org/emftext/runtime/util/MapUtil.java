@@ -1,5 +1,9 @@
 package org.emftext.runtime.util;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.eclipse.emf.common.util.EMap;
 
 public class MapUtil {
@@ -16,5 +20,20 @@ public class MapUtil {
 	@SuppressWarnings("unchecked")
 	public static EMap<Object, Object> castToMap(Object value) {
 		return (EMap<Object,Object>) value;
+	}
+
+	public static Map<Object, Object> copySafelyToObjectToObjectMap(Map<?, ?> map) {
+		Map<Object, Object> castedCopy = new HashMap<Object, Object>();
+		
+		if(map == null) {
+			return castedCopy;
+		}
+		
+		Iterator<?> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			Object nextKey = it.next();
+			castedCopy.put(nextKey, map.get(nextKey));
+		}
+		return castedCopy;
 	}
 }

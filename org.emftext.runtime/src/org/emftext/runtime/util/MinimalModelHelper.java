@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class MinimalModelHelper {
 
-	private final static ListUtil listUtil = new ListUtil();
 	private final static EClassUtil eClassUtil = new EClassUtil();
 
 	public EObject getMinimalModel(EClass eClass, Collection<EClass> allAvailableClasses) {
@@ -110,7 +109,7 @@ public class MinimalModelHelper {
 
 						Object value = root.eGet(reference);
 						if (value instanceof List<?>) {
-							List<EObject> list = listUtil.castListUnchecked(value);
+							List<EObject> list = ListUtil.castListUnchecked(value);
 							list.add(subModel);
 						} else {
 							root.eSet(reference, subModel);
@@ -129,7 +128,7 @@ public class MinimalModelHelper {
 					}
 					Object value = root.eGet(attribute);
 					if (value instanceof List<?>) {
-						List<String> list = listUtil.castListUnchecked(value);
+						List<String> list = ListUtil.castListUnchecked(value);
 						list.add(initialValue);
 					} else {
 						root.eSet(attribute, initialValue);
