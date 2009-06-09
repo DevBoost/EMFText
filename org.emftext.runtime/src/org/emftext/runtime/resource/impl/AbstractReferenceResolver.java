@@ -90,32 +90,47 @@ public abstract class AbstractReferenceResolver<ContainerType extends EObject, R
 
 		EClass type = reference.getEReferenceType();
 		EObject root = findRoot(container);
+		// first check whether the root element matches
+		boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, result);
+		if (!continueSearch) {
+			return;
+		}
+		// then check the contents
 		for (Iterator<EObject> iterator = root.eAllContents(); iterator.hasNext(); ) {
 			EObject element = iterator.next();
-			if (element.eIsProxy()) {
-				continue;
-			}
-			
-			EClass eClass = element.eClass();
-			boolean hasCorrectType = eClass.equals(type) || eClass.getEAllSuperTypes().contains(type);
-			if (!hasCorrectType) {
-				continue;
-			}
-			
-			final String match = matches(element, identifier, resolveFuzzy);
-			if (match == null) {
-				continue;
-			}
-			// we can safely cast 'element' to 'ReferenceType' here,
-			// because we've checked the type of 'element' against
-			// the type of the reference. unfortunately the compiler
-			// does not know that this is sufficient, so we must call
-			// cast(), which is not type safe by itself.
-			result.addMapping(match, cast(element));
-			if (!resolveFuzzy) {
+			continueSearch = checkElement(element, type, identifier, resolveFuzzy, result);
+			if (!continueSearch) {
 				return;
 			}
 		}
+	}
+	
+	private boolean checkElement(EObject element, EClass type, String identifier, 
+			boolean resolveFuzzy, IReferenceResolveResult<ReferenceType> result) {
+		if (element.eIsProxy()) {
+			return true;
+		}
+		
+		EClass eClass = element.eClass();
+		boolean hasCorrectType = eClass.equals(type) || eClass.getEAllSuperTypes().contains(type);
+		if (!hasCorrectType) {
+			return true;
+		}
+		
+		final String match = matches(element, identifier, resolveFuzzy);
+		if (match == null) {
+			return true;
+		}
+		// we can safely cast 'element' to 'ReferenceType' here,
+		// because we've checked the type of 'element' against
+		// the type of the reference. unfortunately the compiler
+		// does not know that this is sufficient, so we must call
+		// cast(), which is not type safe by itself.
+		result.addMapping(match, cast(element));
+		if (!resolveFuzzy) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
