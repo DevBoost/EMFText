@@ -57,11 +57,9 @@ public class CodeCompletionHelper {
 				EReference reference = (EReference) feature;
 				if (featureType instanceof EClass) {
 					if (reference.isContainment()) {
-						System.out.println("deriveProposals() CONTAINMENT");
 						EClass classType = (EClass) featureType;
 						return deriveProposals(classType, metaInformation, content, offset);
 					} else {
-						System.out.println("deriveProposals() NON-CONTAINMENT prefix =");
 						// handle non-containment references
 						IReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
 						EObject container = expectedFeature.getContainer();
@@ -77,8 +75,6 @@ public class CodeCompletionHelper {
 							for (IReferenceMapping<EObject> mapping : mappings) {
 								final String identifier = mapping.getIdentifier();
 								System.out.println("deriveProposals() " + identifier);
-								//String contentBefore = content.substring(0, offset);
-								//String insertString = StringUtil.getMissingTail(contentBefore, identifier);
 								resultSet.add(identifier);
 							}
 							return resultSet;
@@ -123,8 +119,6 @@ public class CodeCompletionHelper {
 		Collection<String> result = new HashSet<String>();
 		for (EEnumLiteral literal : enumLiterals) {
 			String proposal = literal.getLiteral();
-			//String contentBefore = content.substring(0, offset);
-			//String insertString = StringUtil.getMissingTail(contentBefore, proposal);
 			result.add(proposal);
 		}
 		return result;
@@ -133,8 +127,6 @@ public class CodeCompletionHelper {
 	private Collection<String> deriveProposal(ExpectedCsString csString,
 			String content, int offset) {
 		String proposal = csString.getValue();
-		//String contentBefore = content.substring(0, offset);
-		//String insertString = StringUtil.getMissingTail(contentBefore, proposal);
 		
 		Collection<String> result = new HashSet<String>(1);
 		result.add(proposal);
