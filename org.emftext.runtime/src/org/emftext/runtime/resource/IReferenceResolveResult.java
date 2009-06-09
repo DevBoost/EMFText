@@ -30,6 +30,8 @@ import org.eclipse.emf.common.util.URI;
  * or more objects) or failed (identifier was not resolved). In
  * the case of failure, the result provides an error message.
  * 
+ * This interface must not be implemented by clients.
+ * 
  * @param <ReferenceType> the type of the references that can be contained in this result
  */
 public interface IReferenceResolveResult<ReferenceType> {

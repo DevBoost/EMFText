@@ -27,6 +27,8 @@ package org.emftext.runtime.resource;
  * are used during the process of resolving references,
  * where identifiers need to be mapped to other object.
  * 
+ * This interface must not be implemented by clients.
+ * 
  * @param <ReferenceType> the type of the reference this mapping points to.
  */
 public interface IReferenceMapping<ReferenceType> {
