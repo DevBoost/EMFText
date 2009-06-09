@@ -55,6 +55,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class.*";
 	private static final String DUPLICATE_TOKENSTYLE_FOUND = "Style for .* is already defined.*.";
 	private static final String REFERENCE_TO_TYPE_WITHOUT_SYNTAX = "There is no syntax for the type (.*) of reference.*.";
+	private static final String GEN_CLASS_NOT_DECLARED = "GenClass .* not declared";
 
 	@Before
 	public void setUp() {
@@ -84,6 +85,12 @@ public class SyntaxAnalysisTest extends TestCase {
 	public void testDuplicateTokenStyleDetection() throws FileNotFoundException, IOException {
 		// this is a test for bug 740
 		assertProblems("duplicate_tokenstyle.cs", new String[] {DUPLICATE_TOKENSTYLE_FOUND}, NONE);
+	}
+	
+	@Test
+	public void testBug790() throws FileNotFoundException, IOException {
+		// this is a test for bug 790
+		assertProblems("bug790.cs", NONE, new String[] {GEN_CLASS_NOT_DECLARED});
 	}
 	
 	@Test
