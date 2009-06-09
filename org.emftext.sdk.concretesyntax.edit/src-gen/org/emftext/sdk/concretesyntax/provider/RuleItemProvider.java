@@ -13,7 +13,6 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -22,7 +21,6 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -35,7 +33,7 @@ import org.emftext.sdk.concretesyntax.Rule;
  * @generated
  */
 public class RuleItemProvider
-	extends ItemProviderAdapter
+	extends AnnotableItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -184,17 +182,6 @@ public class RuleItemProvider
 			(createChildParameter
 				(ConcretesyntaxPackage.Literals.RULE__DEFINITION,
 				 ConcretesyntaxFactory.eINSTANCE.createChoice()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return ConcretesyntaxEditPlugin.INSTANCE;
 	}
 
 }

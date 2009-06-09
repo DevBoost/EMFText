@@ -580,6 +580,52 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.Annotation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnnotationItemProvider annotationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.Annotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAnnotationAdapter() {
+		if (annotationItemProvider == null) {
+			annotationItemProvider = new AnnotationItemProvider(this);
+		}
+
+		return annotationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.emftext.sdk.concretesyntax.KeyValuePair} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected KeyValuePairItemProvider keyValuePairItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.emftext.sdk.concretesyntax.KeyValuePair}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createKeyValuePairAdapter() {
+		if (keyValuePairItemProvider == null) {
+			keyValuePairItemProvider = new KeyValuePairItemProvider(this);
+		}
+
+		return keyValuePairItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -700,6 +746,8 @@ public class ConcretesyntaxItemProviderAdapterFactory extends ConcretesyntaxAdap
 		if (optionItemProvider != null) optionItemProvider.dispose();
 		if (abstractItemProvider != null) abstractItemProvider.dispose();
 		if (tokenStyleItemProvider != null) tokenStyleItemProvider.dispose();
+		if (annotationItemProvider != null) annotationItemProvider.dispose();
+		if (keyValuePairItemProvider != null) keyValuePairItemProvider.dispose();
 	}
 
 }
