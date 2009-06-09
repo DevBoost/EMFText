@@ -40,7 +40,7 @@ public interface TokenStyle extends EObject {
 	 * @return the value of the '<em>Token Name</em>' attribute.
 	 * @see #setTokenName(String)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenStyle_TokenName()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getTokenName();
@@ -66,7 +66,7 @@ public interface TokenStyle extends EObject {
 	 * @return the value of the '<em>Rgb</em>' attribute.
 	 * @see #setRgb(String)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getTokenStyle_Rgb()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getRgb();

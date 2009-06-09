@@ -107,7 +107,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Start Symbols</em>' reference list.
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_StartSymbols()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	EList<GenClass> getStartSymbols();

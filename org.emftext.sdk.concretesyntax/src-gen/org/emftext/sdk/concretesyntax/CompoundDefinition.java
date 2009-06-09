@@ -49,7 +49,7 @@ public interface CompoundDefinition extends CardinalityDefinition {
 	 * @return the value of the '<em>Definitions</em>' containment reference.
 	 * @see #setDefinitions(Choice)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getCompoundDefinition_Definitions()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Choice getDefinitions();

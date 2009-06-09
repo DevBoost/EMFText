@@ -49,7 +49,7 @@ public interface LineBreak extends Definition {
 	 * @return the value of the '<em>Tab</em>' attribute.
 	 * @see #setTab(int)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getLineBreak_Tab()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getTab();

@@ -66,67 +66,73 @@ options {
 		} else if (typeObject instanceof org.eclipse.emf.ecore.EClass) {
 			org.eclipse.emf.ecore.EClass type = (org.eclipse.emf.ecore.EClass) typeObject;
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.ConcreteSyntax.class) {
-				return concretesyntax();
+				return parse_org_emftext_sdk_concretesyntax_ConcreteSyntax();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Import.class) {
-				return keywordimport();
+				return parse_org_emftext_sdk_concretesyntax_Import();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Option.class) {
-				return option();
+				return parse_org_emftext_sdk_concretesyntax_Option();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Rule.class) {
-				return rule();
+				return parse_org_emftext_sdk_concretesyntax_Rule();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Sequence.class) {
-				return sequence();
+				return parse_org_emftext_sdk_concretesyntax_Sequence();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Choice.class) {
-				return choice();
+				return parse_org_emftext_sdk_concretesyntax_Choice();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.CsString.class) {
-				return csstring();
+				return parse_org_emftext_sdk_concretesyntax_CsString();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken.class) {
-				return placeholderusingspecifiedtoken();
+				return parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken.class) {
-				return placeholderusingdefaulttoken();
+				return parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.PlaceholderInQuotes.class) {
-				return placeholderinquotes();
+				return parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Containment.class) {
-				return containment();
+				return parse_org_emftext_sdk_concretesyntax_Containment();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.CompoundDefinition.class) {
-				return compounddefinition();
+				return parse_org_emftext_sdk_concretesyntax_CompoundDefinition();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.WhiteSpaces.class) {
-				return whitespaces();
+				return parse_org_emftext_sdk_concretesyntax_WhiteSpaces();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.LineBreak.class) {
-				return linebreak();
+				return parse_org_emftext_sdk_concretesyntax_LineBreak();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.NormalToken.class) {
-				return normaltoken();
+				return parse_org_emftext_sdk_concretesyntax_NormalToken();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.TokenPriorityDirective.class) {
-				return tokenprioritydirective();
+				return parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.PLUS.class) {
-				return plus();
+				return parse_org_emftext_sdk_concretesyntax_PLUS();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.STAR.class) {
-				return star();
+				return parse_org_emftext_sdk_concretesyntax_STAR();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.QUESTIONMARK.class) {
-				return questionmark();
+				return parse_org_emftext_sdk_concretesyntax_QUESTIONMARK();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Abstract.class) {
-				return keywordabstract();
+				return parse_org_emftext_sdk_concretesyntax_Abstract();
 			}
 			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.TokenStyle.class) {
-				return tokenstyle();
+				return parse_org_emftext_sdk_concretesyntax_TokenStyle();
+			}
+			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.Annotation.class) {
+				return parse_org_emftext_sdk_concretesyntax_Annotation();
+			}
+			if (type.getInstanceClass() == org.emftext.sdk.concretesyntax.KeyValuePair.class) {
+				return parse_org_emftext_sdk_concretesyntax_KeyValuePair();
 			}
 		}
 		throw new org.emftext.runtime.resource.impl.UnexpectedContentTypeException(typeObject);
@@ -259,18 +265,18 @@ options {
 start returns [ org.eclipse.emf.ecore.EObject element = null]
 :
 	(
-		c0 = concretesyntax{ element = c0; }
+		c0 = parse_org_emftext_sdk_concretesyntax_ConcreteSyntax{ element = c0; }
 	)
 	EOF	
 ;
 
-concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null]
+parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null]
 @init{
 }
 :
 	(
 		(
-			a0_0 = keywordabstract			{
+			a0_0 = parse_org_emftext_sdk_concretesyntax_Abstract			{
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -495,7 +501,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			(
 				(
 					(
-						a12_0 = keywordimport						{
+						a12_0 = parse_org_emftext_sdk_concretesyntax_Import						{
 							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -545,7 +551,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			(
 				(
 					(
-						a16_0 = option						{
+						a16_0 = parse_org_emftext_sdk_concretesyntax_Option						{
 							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -604,7 +610,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			(
 				(
 					(
-						a21_0 = tokendirective						{
+						a21_0 = parse_org_emftext_sdk_concretesyntax_TokenDirective						{
 							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -663,7 +669,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 			(
 				(
 					(
-						a26_0 = tokenstyle						{
+						a26_0 = parse_org_emftext_sdk_concretesyntax_TokenStyle						{
 							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES)));
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -711,7 +717,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	(
 		(
 			(
-				a30_0 = rule				{
+				a30_0 = parse_org_emftext_sdk_concretesyntax_Rule				{
 					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -737,7 +743,7 @@ concretesyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = 
 	
 ;
 
-keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
+parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null]
 @init{
 }
 :
@@ -913,7 +919,7 @@ keywordimport returns [org.emftext.sdk.concretesyntax.Import element = null]
 	)?	
 ;
 
-option returns [org.emftext.sdk.concretesyntax.Option element = null]
+parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null]
 @init{
 }
 :
@@ -976,12 +982,30 @@ option returns [org.emftext.sdk.concretesyntax.Option element = null]
 	
 ;
 
-rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
+parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 @init{
 }
 :
 	(
-		a0 = QUALIFIED_NAME		
+		(
+			(
+				a0_0 = parse_org_emftext_sdk_concretesyntax_Annotation				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS)));
+					if (element == null) {
+						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
+					}
+					if (a0_0 != null) {
+						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS, a0_0);
+					}
+					collectHiddenTokens(element);
+					copyLocalizationInfos(a0_0, element); 				}
+			)
+			
+		)
+		
+	)*	
+	(
+		a1 = QUALIFIED_NAME		
 		{
 			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS)));
 			if (element == null) {
@@ -990,10 +1014,10 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), result);
+			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), result);
 			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a1).getLine(), ((org.antlr.runtime.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a1).getStartIndex(), ((org.antlr.runtime.CommonToken) a1).getStopIndex());
 			}
 			String resolved = (String) resolvedObject;
 			org.eclipse.emf.codegen.ecore.genmodel.GenClass proxy = org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory.eINSTANCE.createGenClass();
@@ -1003,51 +1027,51 @@ rule returns [org.emftext.sdk.concretesyntax.Rule element = null]
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), proxy);
 			}
 			collectHiddenTokens(element);
-			copyLocalizationInfos((CommonToken) a0, element);
-			copyLocalizationInfos((CommonToken) a0, proxy);
+			copyLocalizationInfos((CommonToken) a1, element);
+			copyLocalizationInfos((CommonToken) a1, proxy);
 		}
 	)
 	
-	a1 = '::=' {
+	a2 = '::=' {
 		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("::="));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 		}
 		collectHiddenTokens(element);
-		copyLocalizationInfos((CommonToken)a1, element);
+		copyLocalizationInfos((CommonToken)a2, element);
 	}
 	
 	(
-		a2_0 = choice		{
+		a3_0 = parse_org_emftext_sdk_concretesyntax_Choice		{
 			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 			}
-			if (a2_0 != null) {
-				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), a2_0);
+			if (a3_0 != null) {
+				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), a3_0);
 			}
 			collectHiddenTokens(element);
-			copyLocalizationInfos(a2_0, element); 		}
+			copyLocalizationInfos(a3_0, element); 		}
 	)
 	
-	a3 = ';' {
+	a4 = ';' {
 		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(";"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 		}
 		collectHiddenTokens(element);
-		copyLocalizationInfos((CommonToken)a3, element);
+		copyLocalizationInfos((CommonToken)a4, element);
 	}
 	
 ;
 
-sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null]
+parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null]
 @init{
 }
 :
 	(
 		(
-			a0_0 = definition			{
+			a0_0 = parse_org_emftext_sdk_concretesyntax_Definition			{
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createSequence();
@@ -1062,12 +1086,12 @@ sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null]
 	)+	
 ;
 
-choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
+parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
 @init{
 }
 :
 	(
-		a0_0 = sequence		{
+		a0_0 = parse_org_emftext_sdk_concretesyntax_Sequence		{
 			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
@@ -1091,7 +1115,7 @@ choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
 			}
 			
 			(
-				a2_0 = sequence				{
+				a2_0 = parse_org_emftext_sdk_concretesyntax_Sequence				{
 					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS)));
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
@@ -1108,7 +1132,7 @@ choice returns [org.emftext.sdk.concretesyntax.Choice element = null]
 	)*	
 ;
 
-csstring returns [org.emftext.sdk.concretesyntax.CsString element = null]
+parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null]
 @init{
 }
 :
@@ -1138,7 +1162,7 @@ csstring returns [org.emftext.sdk.concretesyntax.CsString element = null]
 	
 ;
 
-placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null]
+parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null]
 @init{
 }
 :
@@ -1218,7 +1242,7 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 	
 	(
 		(
-			a4_0 = cardinality			{
+			a4_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
@@ -1233,7 +1257,7 @@ placeholderusingspecifiedtoken returns [org.emftext.sdk.concretesyntax.Placehold
 	)?	
 ;
 
-placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null]
+parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null]
 @init{
 }
 :
@@ -1285,7 +1309,7 @@ placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.Placeholder
 	
 	(
 		(
-			a3_0 = cardinality			{
+			a3_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
@@ -1300,7 +1324,7 @@ placeholderusingdefaulttoken returns [org.emftext.sdk.concretesyntax.Placeholder
 	)?	
 ;
 
-placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null]
+parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null]
 @init{
 }
 :
@@ -1409,7 +1433,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	
 	(
 		(
-			a6_0 = cardinality			{
+			a6_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
@@ -1424,7 +1448,7 @@ placeholderinquotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes 
 	)?	
 ;
 
-containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
+parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 @init{
 }
 :
@@ -1542,7 +1566,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 	)?	
 	(
 		(
-			a5_0 = cardinality			{
+			a5_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
@@ -1557,7 +1581,7 @@ containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 	)?	
 ;
 
-compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null]
+parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null]
 @init{
 }
 :
@@ -1571,7 +1595,7 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 	}
 	
 	(
-		a1_0 = choice		{
+		a1_0 = parse_org_emftext_sdk_concretesyntax_Choice		{
 			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS)));
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
@@ -1594,7 +1618,7 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 	
 	(
 		(
-			a3_0 = cardinality			{
+			a3_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY)));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
@@ -1609,7 +1633,7 @@ compounddefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition el
 	)?	
 ;
 
-whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
+parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
 @init{
 }
 :
@@ -1639,7 +1663,7 @@ whitespaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
 	
 ;
 
-linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null]
+parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null]
 @init{
 }
 :
@@ -1678,21 +1702,39 @@ linebreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null]
 	
 ;
 
-normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
+parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 @init{
 }
 :
-	a0 = 'DEFINE' {
+	(
+		(
+			(
+				a0_0 = parse_org_emftext_sdk_concretesyntax_Annotation				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS)));
+					if (element == null) {
+						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
+					}
+					if (a0_0 != null) {
+						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS, a0_0);
+					}
+					collectHiddenTokens(element);
+					copyLocalizationInfos(a0_0, element); 				}
+			)
+			
+		)
+		
+	)*	
+	a1 = 'DEFINE' {
 		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("DEFINE"));
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 		}
 		collectHiddenTokens(element);
-		copyLocalizationInfos((CommonToken)a0, element);
+		copyLocalizationInfos((CommonToken)a1, element);
 	}
 	
 	(
-		a1 = QUALIFIED_NAME		
+		a2 = QUALIFIED_NAME		
 		{
 			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME)));
 			if (element == null) {
@@ -1701,22 +1743,22 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), result);
+			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), result);
 			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a1).getLine(), ((org.antlr.runtime.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a1).getStartIndex(), ((org.antlr.runtime.CommonToken) a1).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), resolved);
 			}
 			collectHiddenTokens(element);
-			copyLocalizationInfos((CommonToken) a1, element);
+			copyLocalizationInfos((CommonToken) a2, element);
 		}
 	)
 	
 	(
-		a2 = QUOTED_36_36		
+		a3 = QUOTED_36_36		
 		{
 			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX)));
 			if (element == null) {
@@ -1725,33 +1767,24 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
 			tokenResolver.setOptions(getOptions());
 			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-			tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), result);
+			tokenResolver.resolve(a3.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), result);
 			java.lang.Object resolvedObject = result.getResolvedToken();
 			if (resolvedObject == null) {
-				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a3).getLine(), ((org.antlr.runtime.CommonToken) a3).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a3).getStartIndex(), ((org.antlr.runtime.CommonToken) a3).getStopIndex());
 			}
 			java.lang.String resolved = (java.lang.String)resolvedObject;
 			if (resolved != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), resolved);
 			}
 			collectHiddenTokens(element);
-			copyLocalizationInfos((CommonToken) a2, element);
+			copyLocalizationInfos((CommonToken) a3, element);
 		}
 	)
 	
 	(
 		(
-			a3 = 'COLLECT' {
+			a4 = 'COLLECT' {
 				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("COLLECT"));
-				if (element == null) {
-					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
-				}
-				collectHiddenTokens(element);
-				copyLocalizationInfos((CommonToken)a3, element);
-			}
-			
-			a4 = 'IN' {
-				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("IN"));
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 				}
@@ -1759,8 +1792,17 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 				copyLocalizationInfos((CommonToken)a4, element);
 			}
 			
+			a5 = 'IN' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("IN"));
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a5, element);
+			}
+			
 			(
-				a5 = QUALIFIED_NAME				
+				a6 = QUALIFIED_NAME				
 				{
 					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME)));
 					if (element == null) {
@@ -1769,17 +1811,17 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 					tokenResolver.setOptions(getOptions());
 					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
-					tokenResolver.resolve(a5.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), result);
+					tokenResolver.resolve(a6.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), result);
 					java.lang.Object resolvedObject = result.getResolvedToken();
 					if (resolvedObject == null) {
-						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a5).getLine(), ((org.antlr.runtime.CommonToken) a5).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a5).getStartIndex(), ((org.antlr.runtime.CommonToken) a5).getStopIndex());
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a6).getLine(), ((org.antlr.runtime.CommonToken) a6).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a6).getStartIndex(), ((org.antlr.runtime.CommonToken) a6).getStopIndex());
 					}
 					java.lang.String resolved = (java.lang.String)resolvedObject;
 					if (resolved != null) {
 						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), resolved);
 					}
 					collectHiddenTokens(element);
-					copyLocalizationInfos((CommonToken) a5, element);
+					copyLocalizationInfos((CommonToken) a6, element);
 				}
 			)
 			
@@ -1788,7 +1830,7 @@ normaltoken returns [org.emftext.sdk.concretesyntax.NormalToken element = null]
 	)?	
 ;
 
-tokenprioritydirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null]
+parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null]
 @init{
 }
 :
@@ -1831,7 +1873,7 @@ tokenprioritydirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDire
 	
 ;
 
-plus returns [org.emftext.sdk.concretesyntax.PLUS element = null]
+parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesyntax.PLUS element = null]
 @init{
 }
 :
@@ -1846,7 +1888,7 @@ plus returns [org.emftext.sdk.concretesyntax.PLUS element = null]
 	
 ;
 
-star returns [org.emftext.sdk.concretesyntax.STAR element = null]
+parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesyntax.STAR element = null]
 @init{
 }
 :
@@ -1861,7 +1903,7 @@ star returns [org.emftext.sdk.concretesyntax.STAR element = null]
 	
 ;
 
-questionmark returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null]
+parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null]
 @init{
 }
 :
@@ -1876,7 +1918,7 @@ questionmark returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null
 	
 ;
 
-keywordabstract returns [org.emftext.sdk.concretesyntax.Abstract element = null]
+parse_org_emftext_sdk_concretesyntax_Abstract returns [org.emftext.sdk.concretesyntax.Abstract element = null]
 @init{
 }
 :
@@ -1891,7 +1933,7 @@ keywordabstract returns [org.emftext.sdk.concretesyntax.Abstract element = null]
 	
 ;
 
-tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
+parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 @init{
 }
 :
@@ -2001,31 +2043,201 @@ tokenstyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null]
 	
 ;
 
-tokendirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null]
+parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null]
+@init{
+}
 :
-	c0 = normaltoken{ element = c0; }
-	|	c1 = tokenprioritydirective{ element = c1; }
+	a0 = '@' {
+		terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("@"));
+		if (element == null) {
+			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
+		}
+		collectHiddenTokens(element);
+		copyLocalizationInfos((CommonToken)a0, element);
+	}
+	
+	(
+		a1 = QUALIFIED_NAME		
+		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE)));
+			if (element == null) {
+				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
+			}
+			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
+			tokenResolver.setOptions(getOptions());
+			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+			tokenResolver.resolve(a1.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), result);
+			java.lang.Object resolvedObject = result.getResolvedToken();
+			if (resolvedObject == null) {
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a1).getLine(), ((org.antlr.runtime.CommonToken) a1).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a1).getStartIndex(), ((org.antlr.runtime.CommonToken) a1).getStopIndex());
+			}
+			org.emftext.sdk.concretesyntax.AnnotationType resolved = (org.emftext.sdk.concretesyntax.AnnotationType)resolvedObject;
+			if (resolved != null) {
+				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), resolved);
+			}
+			collectHiddenTokens(element);
+			copyLocalizationInfos((CommonToken) a1, element);
+		}
+	)
+	
+	(
+		(
+			a2 = '(' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("("));
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a2, element);
+			}
+			
+			(
+				a3_0 = parse_org_emftext_sdk_concretesyntax_KeyValuePair				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS)));
+					if (element == null) {
+						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
+					}
+					if (a3_0 != null) {
+						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a3_0);
+					}
+					collectHiddenTokens(element);
+					copyLocalizationInfos(a3_0, element); 				}
+			)
+			
+			(
+				(
+					a4 = ',' {
+						terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(","));
+						if (element == null) {
+							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
+						}
+						collectHiddenTokens(element);
+						copyLocalizationInfos((CommonToken)a4, element);
+					}
+					
+					(
+						a5_0 = parse_org_emftext_sdk_concretesyntax_KeyValuePair						{
+							terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS)));
+							if (element == null) {
+								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
+							}
+							if (a5_0 != null) {
+								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a5_0);
+							}
+							collectHiddenTokens(element);
+							copyLocalizationInfos(a5_0, element); 						}
+					)
+					
+				)
+				
+			)*			
+			a6 = ')' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString(")"));
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a6, element);
+			}
+			
+		)
+		
+	)?	
+;
+
+parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null]
+@init{
+}
+:
+	(
+		a0 = QUALIFIED_NAME		
+		{
+			terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY)));
+			if (element == null) {
+				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
+			}
+			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
+			tokenResolver.setOptions(getOptions());
+			org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+			tokenResolver.resolve(a0.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), result);
+			java.lang.Object resolvedObject = result.getResolvedToken();
+			if (resolvedObject == null) {
+				addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a0).getLine(), ((org.antlr.runtime.CommonToken) a0).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a0).getStartIndex(), ((org.antlr.runtime.CommonToken) a0).getStopIndex());
+			}
+			java.lang.String resolved = (java.lang.String)resolvedObject;
+			if (resolved != null) {
+				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), resolved);
+			}
+			collectHiddenTokens(element);
+			copyLocalizationInfos((CommonToken) a0, element);
+		}
+	)
+	
+	(
+		(
+			a1 = '=' {
+				terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedCsString("="));
+				if (element == null) {
+					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
+				}
+				collectHiddenTokens(element);
+				copyLocalizationInfos((CommonToken)a1, element);
+			}
+			
+			(
+				a2 = QUOTED_34_34				
+				{
+					terminateParsingIfCursorIndexReached(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE)));
+					if (element == null) {
+						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
+					}
+					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
+					tokenResolver.setOptions(getOptions());
+					org.emftext.runtime.resource.ITokenResolveResult result = getFreshTokenResolveResult();
+					tokenResolver.resolve(a2.getText(), element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), result);
+					java.lang.Object resolvedObject = result.getResolvedToken();
+					if (resolvedObject == null) {
+						addErrorToResource(result.getErrorMessage(), ((org.antlr.runtime.CommonToken) a2).getLine(), ((org.antlr.runtime.CommonToken) a2).getCharPositionInLine(), ((org.antlr.runtime.CommonToken) a2).getStartIndex(), ((org.antlr.runtime.CommonToken) a2).getStopIndex());
+					}
+					java.lang.String resolved = (java.lang.String)resolvedObject;
+					if (resolved != null) {
+						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), resolved);
+					}
+					collectHiddenTokens(element);
+					copyLocalizationInfos((CommonToken) a2, element);
+				}
+			)
+			
+		)
+		
+	)?	
+;
+
+parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null]
+:
+	c0 = parse_org_emftext_sdk_concretesyntax_NormalToken{ element = c0; }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective{ element = c1; }
 	
 ;
 
-definition returns [org.emftext.sdk.concretesyntax.Definition element = null]
+parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null]
 :
-	c0 = csstring{ element = c0; }
-	|	c1 = placeholderusingspecifiedtoken{ element = c1; }
-	|	c2 = placeholderusingdefaulttoken{ element = c2; }
-	|	c3 = placeholderinquotes{ element = c3; }
-	|	c4 = containment{ element = c4; }
-	|	c5 = compounddefinition{ element = c5; }
-	|	c6 = whitespaces{ element = c6; }
-	|	c7 = linebreak{ element = c7; }
+	c0 = parse_org_emftext_sdk_concretesyntax_CsString{ element = c0; }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken{ element = c1; }
+	|	c2 = parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken{ element = c2; }
+	|	c3 = parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes{ element = c3; }
+	|	c4 = parse_org_emftext_sdk_concretesyntax_Containment{ element = c4; }
+	|	c5 = parse_org_emftext_sdk_concretesyntax_CompoundDefinition{ element = c5; }
+	|	c6 = parse_org_emftext_sdk_concretesyntax_WhiteSpaces{ element = c6; }
+	|	c7 = parse_org_emftext_sdk_concretesyntax_LineBreak{ element = c7; }
 	
 ;
 
-cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null]
+parse_org_emftext_sdk_concretesyntax_Cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null]
 :
-	c0 = plus{ element = c0; }
-	|	c1 = star{ element = c1; }
-	|	c2 = questionmark{ element = c2; }
+	c0 = parse_org_emftext_sdk_concretesyntax_PLUS{ element = c0; }
+	|	c1 = parse_org_emftext_sdk_concretesyntax_STAR{ element = c1; }
+	|	c2 = parse_org_emftext_sdk_concretesyntax_QUESTIONMARK{ element = c2; }
 	
 ;
 

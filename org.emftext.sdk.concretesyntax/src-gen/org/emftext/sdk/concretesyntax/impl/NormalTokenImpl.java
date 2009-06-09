@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.sdk.concretesyntax.Annotable;
+import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.NormalToken;
 
@@ -54,7 +55,7 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Annotable> annotations;
+	protected EList<Annotation> annotations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -80,9 +81,9 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Annotable> getAnnotations() {
+	public EList<Annotation> getAnnotations() {
 		if (annotations == null) {
-			annotations = new EObjectContainmentEList<Annotable>(Annotable.class, this, ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS);
+			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS);
 		}
 		return annotations;
 	}
@@ -126,7 +127,7 @@ public class NormalTokenImpl extends TokenDefinitionImpl implements NormalToken 
 		switch (featureID) {
 			case ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS:
 				getAnnotations().clear();
-				getAnnotations().addAll((Collection<? extends Annotable>)newValue);
+				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

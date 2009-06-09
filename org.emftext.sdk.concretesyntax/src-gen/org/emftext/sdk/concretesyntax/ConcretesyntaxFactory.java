@@ -247,15 +247,6 @@ public interface ConcretesyntaxFactory extends EFactory {
 	Annotation createAnnotation();
 
 	/**
-	 * Returns a new object of class '<em>Annotable</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Annotable</em>'.
-	 * @generated
-	 */
-	Annotable createAnnotable();
-
-	/**
 	 * Returns a new object of class '<em>Key Value Pair</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

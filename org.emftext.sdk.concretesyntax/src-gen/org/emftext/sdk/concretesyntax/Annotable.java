@@ -23,13 +23,13 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getAnnotable()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface Annotable extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
-	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Annotable}.
+	 * The list contents are of type {@link org.emftext.sdk.concretesyntax.Annotation}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Annotations</em>' containment reference list isn't clear,
@@ -41,6 +41,6 @@ public interface Annotable extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Annotable> getAnnotations();
+	EList<Annotation> getAnnotations();
 
 } // Annotable

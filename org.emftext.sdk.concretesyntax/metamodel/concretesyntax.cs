@@ -34,11 +34,11 @@ RULES {
     "SYNTAXDEF" #1 name[] !0 
     "FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 
     ("START" #1 (startSymbols[]) ("," (startSymbols[]))*)? 
-    (!0 !0 "IMPORTS" "{" ( !2 imports)* !0 "}")? 
-    (!0 !0 "OPTIONS" "{" (!2 options ";" )*  !0 "}")? 
-    (!0 !0 "TOKENS" "{" ( !2 tokens ";")* !0 "}")? 
-    (!0 !0 "TOKENSTYLES" "{" ( !2 tokenStyles)* !0 "}")? 
-    !0 !0 "RULES" "{" ( !2 rules+) !0"}"
+    (!0 !0 "IMPORTS" "{" ( !1 imports)* !0 "}")? 
+    (!0 !0 "OPTIONS" "{" (!1 options ";" )*  !0 "}")? 
+    (!0 !0 "TOKENS" "{" ( !1 tokens ";")* !0 "}")? 
+    (!0 !0 "TOKENSTYLES" "{" ( !1 tokenStyles)* !0 "}")? 
+    !0 !0 "RULES" "{" ( !1 rules+) !0"}"
     ;
 
   Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
@@ -47,7 +47,7 @@ RULES {
   
   Option 		 ::= type[] "=" value['"','"'];
  
-  Rule           ::= !0 metaclass[] "::=" definition ";" !0;
+  Rule           ::= (!0 annotations)* !0 metaclass[] "::=" definition ";" !0;
  
   Sequence       ::= parts+;
  
@@ -66,7 +66,7 @@ RULES {
   WhiteSpaces  ::= amount[HEXNUMBER] #1;
   LineBreak    ::= "!" tab[NUMBER] #1;
   
-  NormalToken     ::= "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
+  NormalToken     ::= (annotations !0)* "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
   TokenPriorityDirective ::= "PRIORITIZE" #1 token[];
 
   PLUS         ::= "+";
@@ -76,4 +76,8 @@ RULES {
   Abstract ::= "ABSTRACT";
   
   TokenStyle ::= tokenName['"','"'] "COLOR" rgb[HEXNUMBER] ("," fontStyles[])* ";";
+  
+  Annotation ::= "@" type[] ("(" parameters ("," parameters)* ")")?;
+  
+  KeyValuePair ::= key[] ("=" value['"','"'])?;
 }

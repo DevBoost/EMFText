@@ -122,7 +122,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 			case ConcretesyntaxPackage.ABSTRACT: return createAbstract();
 			case ConcretesyntaxPackage.TOKEN_STYLE: return createTokenStyle();
 			case ConcretesyntaxPackage.ANNOTATION: return createAnnotation();
-			case ConcretesyntaxPackage.ANNOTABLE: return createAnnotable();
 			case ConcretesyntaxPackage.KEY_VALUE_PAIR: return createKeyValuePair();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -395,16 +394,6 @@ public class ConcretesyntaxFactoryImpl extends EFactoryImpl implements Concretes
 	public Annotation createAnnotation() {
 		AnnotationImpl annotation = new AnnotationImpl();
 		return annotation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Annotable createAnnotable() {
-		AnnotableImpl annotable = new AnnotableImpl();
-		return annotable;
 	}
 
 	/**

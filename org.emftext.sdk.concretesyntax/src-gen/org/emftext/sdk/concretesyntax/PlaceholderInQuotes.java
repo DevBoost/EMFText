@@ -37,7 +37,7 @@ public interface PlaceholderInQuotes extends Placeholder {
 	 * @return the value of the '<em>Prefix</em>' attribute.
 	 * @see #setPrefix(String)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getPlaceholderInQuotes_Prefix()
-	 * @model default=""
+	 * @model default="" required="true"
 	 * @generated
 	 */
 	String getPrefix();
@@ -64,7 +64,7 @@ public interface PlaceholderInQuotes extends Placeholder {
 	 * @return the value of the '<em>Suffix</em>' attribute.
 	 * @see #setSuffix(String)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getPlaceholderInQuotes_Suffix()
-	 * @model default=""
+	 * @model default="" required="true"
 	 * @generated
 	 */
 	String getSuffix();

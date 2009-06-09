@@ -85,7 +85,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		if ("DEFINE".equals(tokenName)) {
 			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
 		}
-		if ("PREDEFINED".equals(tokenName)) {
+		if ("PRIORITIZE".equals(tokenName)) {
 			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
 		}
 		if ("COMMENTS".equals(tokenName)) {

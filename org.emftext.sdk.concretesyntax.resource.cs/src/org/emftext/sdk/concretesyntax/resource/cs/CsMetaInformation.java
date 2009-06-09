@@ -1,6 +1,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-public class CsMetaInformation implements org.emftext.runtime.resource.ITextResourcePluginMetaInformation {
+public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public org.emftext.runtime.resource.ITextParser createParser(java.io.InputStream inputStream, java.lang.String encoding) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.CsParser().createInstance(inputStream, encoding);
@@ -29,6 +29,8 @@ public class CsMetaInformation implements org.emftext.runtime.resource.ITextReso
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getQUESTIONMARK(),
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAbstract(),
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle(),
+			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation(),
+			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair(),
 		};
 	}
 }

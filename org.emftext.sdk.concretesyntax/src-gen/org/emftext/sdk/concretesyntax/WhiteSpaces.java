@@ -50,7 +50,7 @@ public interface WhiteSpaces extends Definition {
 	 * @return the value of the '<em>Amount</em>' attribute.
 	 * @see #setAmount(int)
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getWhiteSpaces_Amount()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getAmount();

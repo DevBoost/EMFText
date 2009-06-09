@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.emftext.sdk.concretesyntax.Annotable;
+import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 
 /**
@@ -36,7 +37,7 @@ import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
  *
  * @generated
  */
-public class AnnotableImpl extends EObjectImpl implements Annotable {
+public abstract class AnnotableImpl extends EObjectImpl implements Annotable {
 	/**
 	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -45,7 +46,7 @@ public class AnnotableImpl extends EObjectImpl implements Annotable {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Annotable> annotations;
+	protected EList<Annotation> annotations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -71,9 +72,9 @@ public class AnnotableImpl extends EObjectImpl implements Annotable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Annotable> getAnnotations() {
+	public EList<Annotation> getAnnotations() {
 		if (annotations == null) {
-			annotations = new EObjectContainmentEList<Annotable>(Annotable.class, this, ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS);
+			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS);
 		}
 		return annotations;
 	}
@@ -117,7 +118,7 @@ public class AnnotableImpl extends EObjectImpl implements Annotable {
 		switch (featureID) {
 			case ConcretesyntaxPackage.ANNOTABLE__ANNOTATIONS:
 				getAnnotations().clear();
-				getAnnotations().addAll((Collection<? extends Annotable>)newValue);
+				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
