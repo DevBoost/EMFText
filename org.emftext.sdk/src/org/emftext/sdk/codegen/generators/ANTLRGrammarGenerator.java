@@ -820,7 +820,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		String interfaceName = genClass.getQualifiedInterfaceName();
 		String ruleName = interfaceName.replace("_", "_005F");
 		ruleName = ruleName.replace(".", "_");
-		return "rule_" + ruleName;
+		return "parse_" + ruleName;
 	}
 
 	private int printChoice(Choice choice, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced) {
