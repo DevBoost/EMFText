@@ -80,7 +80,7 @@ import org.emftext.sdk.syntax_analysis.CollectInFeatureHelper;
 public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private static final String OBJECT_CLASS_NAME = Object.class.getName();
-	private static final String STRING_CLASS_NAME = String.class.getName();
+	private static final String STRING = String.class.getName();
 	private static final String INTEGER_CLASS_NAME = Integer.class.getName();
 
 	private static final String COLLECTION_CLASS_NAME = Collection.class.getName();
@@ -95,10 +95,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private static final String EOBJECT_CLASS_NAME = EObject.class.getName();
 	private static final String EREFERENCE_CLASS_NAME = EReference.class.getName();
 	
-	private static final String ITEXT_RESOURCE_CLASS_NAME = ITextResource.class.getName();
-	private static final String ITOKEN_RESOLVER_FACTORY_CLASS_NAME = ITokenResolverFactory.class.getName();
+	private static final String I_TEXT_RESOURCE = ITextResource.class.getName();
+	private static final String I_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getName();
 	
-	private static final String OUTPUT_STREAM_CLASS_NAME = OutputStream.class.getName();
+	private static final String OUTPUT_STREAM = OutputStream.class.getName();
 	private static final String PRINTER_WRITER_CLASS_NAME = PrintWriter.class.getName();
 	private static final String STRING_WRITER_CLASS_NAME = StringWriter.class.getName();
 	
@@ -212,26 +212,38 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				+ " extends " + AbstractEMFTextPrinter.class.getName() + " {");
 		sc.addLineBreak();
 		
-		generateMembers(sc);
+		addMembers(sc);
 		sc.addLineBreak();
 		
-		generateConstructor(sc);
+		addConstructor(sc);
 		sc.addLineBreak();
 		
 		printMatchRule(sc);
 		sc.addLineBreak();
 		
-		generateDoPrintMethod(sc, rules);
+		addDoPrintMethod(sc, rules);
 		sc.addLineBreak();
 		
-        generateGetReferenceResolverSwitchMethod(sc);
+        addGetReferenceResolverSwitchMethod(sc);
 		sc.addLineBreak();
 		
 		addAddWarningToResourceMethod(sc);
 		sc.addLineBreak();
 
+		addSetOptionsMethod(sc);
+		sc.addLineBreak();
+
+		addGetOptionsMethod(sc);
+		sc.addLineBreak();
+
+		addGetResourceMethod(sc);
+		sc.addLineBreak();
+
+		addPrintMethod(sc);
+		sc.addLineBreak();
+		
         for (Rule rule : rules) {
-			generatePrintRuleMethod(sc, rule);
+			addPrintRuleMethod(sc, rule);
 			sc.addLineBreak();
 		}
 
@@ -241,9 +253,37 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		return true;
 	}
 
-	private void generateGetReferenceResolverSwitchMethod(StringComposite sc) {
+	private void addPrintMethod(StringComposite sc) {
+		sc.add("/** Calls {@link #doPrint(EObject, String)} and writes the result to the underlying output stream. */");
+		sc.add("public void print(EObject element)  {");
+		sc.add("PrintWriter out = new PrintWriter(new BufferedOutputStream(outputStream));");
+		sc.add("doPrint(element,out,\"\");");
+		sc.add("out.flush();");
+		sc.add("out.close();");
+		sc.add("}");
+	}
+
+	private void addGetResourceMethod(StringComposite sc) {
+		sc.add("public ITextResource getResource() {");
+		sc.add("return resource;");
+		sc.add("}");
+	}
+
+	private void addGetOptionsMethod(StringComposite sc) {
+		sc.add("public Map<?,?> getOptions() {");
+		sc.add("return options;");
+		sc.add("}");
+	}
+
+	private void addSetOptionsMethod(StringComposite sc) {
+		sc.add("public void setOptions(Map<?,?> options) {");
+		sc.add("this.options = options;");
+		sc.add("}");
+	}
+
+	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("protected " + context.getQualifiedReferenceResolverSwitchClassName() + " getReferenceResolverSwitch() {");
-		sc.add(ITEXT_RESOURCE_CLASS_NAME + " resource = getResource();");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
         sc.add("if (resource == null) {");
         sc.add("return null;");
         sc.add("}");
@@ -251,8 +291,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
         sc.add("}");
 	}
 
-	private void generateDoPrintMethod(StringComposite sc, List<Rule> rules) {
-		sc.add("protected void doPrint(" + EOBJECT_CLASS_NAME + " element, " + PRINTER_WRITER_CLASS_NAME + " out, " + STRING_CLASS_NAME + " globaltab) {");
+	private void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
+		sc.add("protected void doPrint(" + EOBJECT_CLASS_NAME + " element, " + PRINTER_WRITER_CLASS_NAME + " out, " + STRING + " globaltab) {");
 		sc.add("if (element == null || out == null) throw new " + NULL_POINTER_CLASS_NAME + "(\"Nothing to write or to write on.\");");
 		sc.addLineBreak();
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
@@ -275,21 +315,28 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	private void generateConstructor(StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("public " + super.getResourceClassName()
-				+ "(" + OUTPUT_STREAM_CLASS_NAME + " outputStream, " + ITEXT_RESOURCE_CLASS_NAME + " resource) {");
-		sc.add("super(outputStream, resource);");
+				+ "(" + OUTPUT_STREAM + " outputStream, " + I_TEXT_RESOURCE + " resource) {");
+		sc.add("super();");
+		sc.add("this.outputStream = outputStream;");
+		sc.add("this.resource = resource;");
 		sc.add("}");
 	}
 
-	private void generateMembers(StringComposite sc) {
-		sc.add("protected " + ITOKEN_RESOLVER_FACTORY_CLASS_NAME + " tokenResolverFactory = new "
+	private void addMembers(StringComposite sc) {
+		sc.add("protected final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
+		sc.add("protected " + I_TOKEN_RESOLVER_FACTORY + " tokenResolverFactory = new "
 						+ tokenResolverFactoryClassName + "();");
+		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
+		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
+		sc.add("private ITextResource resource;");
+		sc.add("private Map<?, ?> options;");
 	}
 
 	private void addAddWarningToResourceMethod(StringComposite sc) {
 		sc.add("protected void addWarningToResource(java.lang.String errorMessage, " + EOBJECT_CLASS_NAME + " cause) {");
-		sc.add(ITEXT_RESOURCE_CLASS_NAME + " resource = getResource();");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the printer is used stand alone");
 		sc.add("return;");
@@ -298,19 +345,19 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	private void generatePrintRuleMethod(StringComposite sc, Rule rule) {
+	private void addPrintRuleMethod(StringComposite sc, Rule rule) {
 		
 		final GenClass genClass = rule.getMetaclass();
 		List<GenFeature> featureList = genClass.getAllGenFeatures();
 
 		sc.add("public void " + getMethodName(rule) + "("
 				+ getMetaClassName(rule)
-				+ " element, " + STRING_CLASS_NAME + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out) {");
+				+ " element, " + STRING + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out) {");
 
-		sc.add(new StringComponent(STRING_CLASS_NAME + " " + localtabName + " = outertab;", localtabName));
+		sc.add(new StringComponent(STRING + " " + localtabName + " = outertab;", localtabName));
 
 		String printCountingMapName = "printCountingMap";
-		sc.add(new StringComponent(MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> " + printCountingMapName + " = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">("
+		sc.add(new StringComponent(MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> " + printCountingMapName + " = new " + HASH_MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + ">("
 				+ featureList.size() + ");", printCountingMapName));
 		
 		if (featureList.size() > 0) {
@@ -318,7 +365,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		}
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
-			sc.add("temp = element." + generateAccessMethod(genClass, genFeature)
+			sc.add("temp = element." + getAccessMethod(genClass, genFeature)
 					+ ";");
 
 			boolean isMultiple = feature.getUpperBound() > 1 || feature.getUpperBound() == -1;
@@ -328,7 +375,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 					+ "\", temp == null ? 0 : " + featureSize + ");");
 			//mapDefinition.enable();
 		}
-		generatePrintCollectedTokensCode(sc, rule);
+		addPrintCollectedTokensCode(sc, rule);
 		
 		printChoice(rule.getDefinition(), sc, genClass);
 		sc.add("}");
@@ -342,9 +389,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							+ choice2Name.get(choice)
 							+ "("
 							+ getMetaClassName(rule)
-							+ " element, " + STRING_CLASS_NAME + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out, " + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> printCountingMap){");
+							+ " element, " + STRING + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out, " + MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> printCountingMap){");
 
-			sc.add(new StringComponent(STRING_CLASS_NAME + " " + localtabName + " = outertab;", localtabName));
+			sc.add(new StringComponent(STRING + " " + localtabName + " = outertab;", localtabName));
 			printChoice(choice, sc, rule.getMetaclass());
 			sc.add("}");
 		}
@@ -367,7 +414,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		return "print_" +  className;
 	}
 
-	private void generatePrintCollectedTokensCode(StringComposite sc, Rule rule) {
+	private void addPrintCollectedTokensCode(StringComposite sc, Rule rule) {
 
 		final GenClass genClass = rule.getMetaclass();
 		List<GenFeature> featureList = genClass.getAllGenFeatures();
@@ -458,7 +505,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		String out1Name = "out1";
 		sc.add(new StringComponent(PRINTER_WRITER_CLASS_NAME + " " + out1Name + " = null;", out1Name));
 		String printCountingMap1Name = "printCountingMap1";
-		sc.add(new StringComponent(HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> " + printCountingMap1Name + " = null;", printCountingMap1Name));
+		sc.add(new StringComponent(HASH_MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> " + printCountingMap1Name + " = null;", printCountingMap1Name));
 		
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
@@ -547,7 +594,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							}
 							sc.add("sWriter = new " + STRING_WRITER_CLASS_NAME + "();");
 							sc.add("out1 = new " + PRINTER_WRITER_CLASS_NAME + "(sWriter);");
-							sc.add("printCountingMap1 = new " + HASH_MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + ">(printCountingMap);");
+							sc.add("printCountingMap1 = new " + HASH_MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + ">(printCountingMap);");
 							//compoundDeclaration.enable();
 							
 							sc.add(choice2Name.get(compound
@@ -679,7 +726,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								|| (cardinality instanceof QUESTIONMARK && !neededFeatures
 										.contains(featureName))) {
 							sc.add("Object o = element."
-									+ generateAccessMethod(genClass, genFeature) + ";");
+									+ getAccessMethod(genClass, genFeature) + ";");
 							if (feature.getUpperBound() != 1) {
 								sc.add(LIST_CLASS_NAME +"<?> list = (" + LIST_CLASS_NAME + "<?>) o;");
 								sc.add("int index = list.size() - count;");
@@ -707,7 +754,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								|| cardinality instanceof STAR) {
 							if (feature.getUpperBound() != 1) {
 								sc.add(LIST_CLASS_NAME + "<?> list = (" + LIST_CLASS_NAME +"<?>)element."
-										+ generateAccessMethod(genClass, genFeature)
+										+ getAccessMethod(genClass, genFeature)
 										+ ";");
 								sc.add("int index  = list.size() - count;");
 								sc.add("if (index < 0) {");
@@ -727,7 +774,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ featureName + "\",0);");
 							} else if (cardinality instanceof PLUS) {
 								sc.add(OBJECT_CLASS_NAME + " o =element."
-										+ generateAccessMethod(genClass, genFeature) + ";");
+										+ getAccessMethod(genClass, genFeature) + ";");
 								sc.add(printStatements);
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\",count-1);");
@@ -763,11 +810,11 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 
 	private void printMatchRule(StringComposite sc) {
-		sc.add("protected static int matchCount(" + MAP_CLASS_NAME + "<" + STRING_CLASS_NAME + ", " + INTEGER_CLASS_NAME + "> featureCounter, " + COLLECTION_CLASS_NAME + "<" + STRING_CLASS_NAME+ "> needed){");
+		sc.add("protected static int matchCount(" + MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> featureCounter, " + COLLECTION_CLASS_NAME + "<" + STRING+ "> needed){");
 		sc.add("int pos = 0;");
 		sc.add("int neg = 0;");
 		sc.addLineBreak();
-		sc.add("for(" + STRING_CLASS_NAME + " featureName:featureCounter.keySet()){");
+		sc.add("for(" + STRING + " featureName:featureCounter.keySet()){");
 		sc.add("if(needed.contains(featureName)){");
 		sc.add("int value = featureCounter.get(featureName);");
 		sc.add("if (value == 0) {");
@@ -781,7 +828,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	protected String generateAccessMethod(GenClass genClass, GenFeature genFeature) {
+	protected String getAccessMethod(GenClass genClass, GenFeature genFeature) {
 		if (hasMapType(genClass)) {
 			return "get" + StringUtil.capitalize(genFeature.getName()) + "()";
 		}
