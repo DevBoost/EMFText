@@ -36,7 +36,7 @@ public class CodeCompletionHelper {
 		final Collection<String> result = deriveProposals(expectedElement, document, metaInformation, offset);
 		final List<String> sortedResult = new ArrayList<String>(result);
 		Collections.sort(sortedResult);
-		return result;
+		return sortedResult;
 	}
 
 	private Collection<String> deriveProposals(
