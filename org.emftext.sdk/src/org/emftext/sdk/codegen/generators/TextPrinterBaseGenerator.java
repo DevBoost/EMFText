@@ -20,6 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -79,28 +80,29 @@ import org.emftext.sdk.syntax_analysis.CollectInFeatureHelper;
  */
 public class TextPrinterBaseGenerator extends BaseGenerator {
 
-	private static final String OBJECT_CLASS_NAME = Object.class.getName();
+	private static final String BUFFERED_OUTPUT_STREAM = BufferedOutputStream.class.getName();
+	private static final String OBJECT = Object.class.getName();
 	private static final String STRING = String.class.getName();
-	private static final String INTEGER_CLASS_NAME = Integer.class.getName();
+	private static final String INTEGER = Integer.class.getName();
 
-	private static final String COLLECTION_CLASS_NAME = Collection.class.getName();
-	private static final String LIST_CLASS_NAME = List.class.getName();
-	private static final String MAP_CLASS_NAME = Map.class.getName();
-	private static final String HASH_MAP_CLASS_NAME = HashMap.class.getName();
-	private static final String ARRAYS_CLASS_NAME = java.util.Arrays.class.getName();
-	private static final String LIST_ITERATOR_CLASS_NAME = ListIterator.class.getName();
+	private static final String COLLECTION = Collection.class.getName();
+	private static final String LIST = List.class.getName();
+	private static final String MAP = Map.class.getName();
+	private static final String HASH_MAP = HashMap.class.getName();
+	private static final String ARRAYS = java.util.Arrays.class.getName();
+	private static final String LIST_ITERATOR = ListIterator.class.getName();
 	
-	private static final String NULL_POINTER_CLASS_NAME = NullPointerException.class.getName();
+	private static final String NULL_POINTER_EXCEPTION = NullPointerException.class.getName();
 	
-	private static final String EOBJECT_CLASS_NAME = EObject.class.getName();
-	private static final String EREFERENCE_CLASS_NAME = EReference.class.getName();
+	private static final String E_OBJECT = EObject.class.getName();
+	private static final String E_REFERENCE = EReference.class.getName();
 	
 	private static final String I_TEXT_RESOURCE = ITextResource.class.getName();
 	private static final String I_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getName();
 	
 	private static final String OUTPUT_STREAM = OutputStream.class.getName();
-	private static final String PRINTER_WRITER_CLASS_NAME = PrintWriter.class.getName();
-	private static final String STRING_WRITER_CLASS_NAME = StringWriter.class.getName();
+	private static final String PRINTER_WRITER = PrintWriter.class.getName();
+	private static final String STRING_WRITER = StringWriter.class.getName();
 	
 	private final static String localtabName = "localtab";
 
@@ -255,8 +257,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private void addPrintMethod(StringComposite sc) {
 		sc.add("/** Calls {@link #doPrint(EObject, String)} and writes the result to the underlying output stream. */");
-		sc.add("public void print(EObject element)  {");
-		sc.add("PrintWriter out = new PrintWriter(new BufferedOutputStream(outputStream));");
+		sc.add("public void print(" + E_OBJECT + " element)  {");
+		sc.add(PRINTER_WRITER + " out = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
 		sc.add("doPrint(element,out,\"\");");
 		sc.add("out.flush();");
 		sc.add("out.close();");
@@ -264,19 +266,19 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private void addGetResourceMethod(StringComposite sc) {
-		sc.add("public ITextResource getResource() {");
+		sc.add("public " + I_TEXT_RESOURCE + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 	}
 
 	private void addGetOptionsMethod(StringComposite sc) {
-		sc.add("public Map<?,?> getOptions() {");
+		sc.add("public " + MAP + "<?,?> getOptions() {");
 		sc.add("return options;");
 		sc.add("}");
 	}
 
 	private void addSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(Map<?,?> options) {");
+		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
 		sc.add("this.options = options;");
 		sc.add("}");
 	}
@@ -292,8 +294,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
-		sc.add("protected void doPrint(" + EOBJECT_CLASS_NAME + " element, " + PRINTER_WRITER_CLASS_NAME + " out, " + STRING + " globaltab) {");
-		sc.add("if (element == null || out == null) throw new " + NULL_POINTER_CLASS_NAME + "(\"Nothing to write or to write on.\");");
+		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, " + STRING + " globaltab) {");
+		sc.add("if (element == null || out == null) throw new " + NULL_POINTER_EXCEPTION + "(\"Nothing to write or to write on.\");");
 		sc.addLineBreak();
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
 		while (!ruleQueue.isEmpty()) {
@@ -330,12 +332,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						+ tokenResolverFactoryClassName + "();");
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
 		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
-		sc.add("private ITextResource resource;");
-		sc.add("private Map<?, ?> options;");
+		sc.add("private " + I_TEXT_RESOURCE + " resource;");
+		sc.add("private " + MAP + "<?, ?> options;");
 	}
 
 	private void addAddWarningToResourceMethod(StringComposite sc) {
-		sc.add("protected void addWarningToResource(java.lang.String errorMessage, " + EOBJECT_CLASS_NAME + " cause) {");
+		sc.add("protected void addWarningToResource(" + STRING + " errorMessage, " + E_OBJECT + " cause) {");
 		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the printer is used stand alone");
@@ -352,16 +354,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 		sc.add("public void " + getMethodName(rule) + "("
 				+ getMetaClassName(rule)
-				+ " element, " + STRING + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out) {");
+				+ " element, " + STRING + " outertab, " + PRINTER_WRITER + " out) {");
 
 		sc.add(new StringComponent(STRING + " " + localtabName + " = outertab;", localtabName));
 
 		String printCountingMapName = "printCountingMap";
-		sc.add(new StringComponent(MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> " + printCountingMapName + " = new " + HASH_MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + ">("
+		sc.add(new StringComponent(MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMapName + " = new " + HASH_MAP + "<" + STRING + ", " + INTEGER + ">("
 				+ featureList.size() + ");", printCountingMapName));
 		
 		if (featureList.size() > 0) {
-			sc.add(OBJECT_CLASS_NAME + " temp;");
+			sc.add(OBJECT + " temp;");
 		}
 		for (GenFeature genFeature : featureList) {
 			EStructuralFeature feature = genFeature.getEcoreFeature();
@@ -389,7 +391,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							+ choice2Name.get(choice)
 							+ "("
 							+ getMetaClassName(rule)
-							+ " element, " + STRING + " outertab, " + PRINTER_WRITER_CLASS_NAME + " out, " + MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> printCountingMap){");
+							+ " element, " + STRING + " outertab, " + PRINTER_WRITER + " out, " + MAP + "<" + STRING + ", " + INTEGER + "> printCountingMap){");
 
 			sc.add(new StringComponent(STRING + " " + localtabName + " = outertab;", localtabName));
 			printChoice(choice, sc, rule.getMetaclass());
@@ -425,9 +427,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			if (new CollectInFeatureHelper().isCollectInFeature(rule.getSyntax(), feature)) {
 				sc.add("{");
 				sc.add(EStructuralFeature.class.getName() + " feature = element.eClass()." + generatorUtil.createGetFeatureCall(genClass, genFeature) + ";");
-				sc.add(OBJECT_CLASS_NAME + " value = element.eGet(feature);");
-				sc.add("if (value instanceof " + LIST_CLASS_NAME + ") {");
-				sc.add("for (" + OBJECT_CLASS_NAME + " next : (" + LIST_CLASS_NAME + "<?>) value) {");
+				sc.add(OBJECT + " value = element.eGet(feature);");
+				sc.add("if (value instanceof " + LIST + ") {");
+				sc.add("for (" + OBJECT + " next : (" + LIST + "<?>) value) {");
 				sc.add("out.print(tokenResolverFactory.createCollectInTokenResolver(\"" + feature.getName() + "\").deResolve(next, feature, element));");
 				sc.add("}");
 				sc.add("}");
@@ -501,11 +503,11 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		String iterateName = "iterate";
 		sc.add(new StringComponent("boolean " + iterateName + " = true;", iterateName));
 		String sWriteName = "sWriter";
-		sc.add(new StringComponent(STRING_WRITER_CLASS_NAME + " " + sWriteName + " = null;", sWriteName));
+		sc.add(new StringComponent(STRING_WRITER + " " + sWriteName + " = null;", sWriteName));
 		String out1Name = "out1";
-		sc.add(new StringComponent(PRINTER_WRITER_CLASS_NAME + " " + out1Name + " = null;", out1Name));
+		sc.add(new StringComponent(PRINTER_WRITER + " " + out1Name + " = null;", out1Name));
 		String printCountingMap1Name = "printCountingMap1";
-		sc.add(new StringComponent(HASH_MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> " + printCountingMap1Name + " = null;", printCountingMap1Name));
+		sc.add(new StringComponent(HASH_MAP + "<" + STRING + ", " + INTEGER + "> " + printCountingMap1Name + " = null;", printCountingMap1Name));
 		
 		while (definitionIterator.hasNext()) {
 			Definition definition = definitionIterator.next();
@@ -592,9 +594,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								sc.add("while (iterate) {");
 								//iterateDeclaration.enable();
 							}
-							sc.add("sWriter = new " + STRING_WRITER_CLASS_NAME + "();");
-							sc.add("out1 = new " + PRINTER_WRITER_CLASS_NAME + "(sWriter);");
-							sc.add("printCountingMap1 = new " + HASH_MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + ">(printCountingMap);");
+							sc.add("sWriter = new " + STRING_WRITER + "();");
+							sc.add("out1 = new " + PRINTER_WRITER + "(sWriter);");
+							sc.add("printCountingMap1 = new " + HASH_MAP + "<" + STRING + ", " + INTEGER + ">(printCountingMap);");
 							//compoundDeclaration.enable();
 							
 							sc.add(choice2Name.get(compound
@@ -682,7 +684,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix + "resolver.deResolve(" 
 										+ context.getReferenceResolverAccessor(genFeature)
-										+ ".deResolve((" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ") o, element, (" + EREFERENCE_CLASS_NAME + ") element.eClass().getEStructuralFeature("
+										+ ".deResolve((" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ") o, element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
 										+ featureConstant
 										+ ")), element.eClass().getEStructuralFeature("
 										+ featureConstant
@@ -693,7 +695,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix
-										+ "resolver.deResolve((" + OBJECT_CLASS_NAME + ") o, element.eClass().getEStructuralFeature("
+										+ "resolver.deResolve((" + OBJECT + ") o, element.eClass().getEStructuralFeature("
 										+ featureConstant
 										+ "), element));");
 							}
@@ -716,7 +718,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							}
 						} else {
 							assert terminal instanceof Containment;
-							printStatements.add("doPrint((" + EOBJECT_CLASS_NAME + ") o, out, localtab);");
+							printStatements.add("doPrint((" + E_OBJECT + ") o, out, localtab);");
 							//localTabDefinition.enable();
 						}
 
@@ -728,7 +730,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 							sc.add("Object o = element."
 									+ getAccessMethod(genClass, genFeature) + ";");
 							if (feature.getUpperBound() != 1) {
-								sc.add(LIST_CLASS_NAME +"<?> list = (" + LIST_CLASS_NAME + "<?>) o;");
+								sc.add(LIST +"<?> list = (" + LIST + "<?>) o;");
 								sc.add("int index = list.size() - count;");
 								// we must check the index, because the list in the model
 								// may contain less elements than expected.
@@ -753,16 +755,16 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						} else if (cardinality instanceof PLUS
 								|| cardinality instanceof STAR) {
 							if (feature.getUpperBound() != 1) {
-								sc.add(LIST_CLASS_NAME + "<?> list = (" + LIST_CLASS_NAME +"<?>)element."
+								sc.add(LIST + "<?> list = (" + LIST +"<?>)element."
 										+ getAccessMethod(genClass, genFeature)
 										+ ";");
 								sc.add("int index  = list.size() - count;");
 								sc.add("if (index < 0) {");
 								sc.add("index = 0;");
 								sc.add("}");
-								sc.add(LIST_ITERATOR_CLASS_NAME + "<?> it  = list.listIterator(index);");
+								sc.add(LIST_ITERATOR + "<?> it  = list.listIterator(index);");
 								sc.add("while (it.hasNext()) {");
-								sc.add(OBJECT_CLASS_NAME + " o = it.next();");
+								sc.add(OBJECT + " o = it.next();");
 								if (cardinality instanceof STAR
 										&& neededFeatures.contains(featureName)) {
 									sc.add("if(!it.hasNext())");
@@ -773,7 +775,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								sc.add("printCountingMap.put(\""
 										+ featureName + "\",0);");
 							} else if (cardinality instanceof PLUS) {
-								sc.add(OBJECT_CLASS_NAME + " o =element."
+								sc.add(OBJECT + " o =element."
 										+ getAccessMethod(genClass, genFeature) + ";");
 								sc.add(printStatements);
 								sc.add("printCountingMap.put(\""
@@ -795,7 +797,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			sc.add("0;");
 			return;
 		}
-		sc.add("matchCount(printCountingMap, " + ARRAYS_CLASS_NAME + ".asList(");
+		sc.add("matchCount(printCountingMap, " + ARRAYS + ".asList(");
 		boolean notFirst = false;
 		for (String featureName : sequence2NecessaryFeatures.get(seq)) {
 			if (notFirst) {
@@ -810,7 +812,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 
 	private void printMatchRule(StringComposite sc) {
-		sc.add("protected static int matchCount(" + MAP_CLASS_NAME + "<" + STRING + ", " + INTEGER_CLASS_NAME + "> featureCounter, " + COLLECTION_CLASS_NAME + "<" + STRING+ "> needed){");
+		sc.add("protected static int matchCount(" + MAP + "<" + STRING + ", " + INTEGER + "> featureCounter, " + COLLECTION + "<" + STRING+ "> needed){");
 		sc.add("int pos = 0;");
 		sc.add("int neg = 0;");
 		sc.addLineBreak();
