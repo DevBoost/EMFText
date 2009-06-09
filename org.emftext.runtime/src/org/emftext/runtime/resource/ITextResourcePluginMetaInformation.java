@@ -29,4 +29,11 @@ public interface ITextResourcePluginMetaInformation {
 	 * completion.
 	 */
 	public EClass[] getClassesWithSyntax();
+
+	/**
+	 * Returns an instance of the reference resolver switch class.
+	 * 
+	 * @return
+	 */
+	public IReferenceResolverSwitch getReferenceResolverSwitch();
 }

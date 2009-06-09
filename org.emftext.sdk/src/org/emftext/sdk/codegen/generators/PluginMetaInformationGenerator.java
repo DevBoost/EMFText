@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
+import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -21,11 +22,13 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	
 	private String parserClassName;
+	private String resolverSwitchClassName;
 	private ConcreteSyntax syntax;
 
 	public PluginMetaInformationGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getMetaInformationClassName());
 		this.parserClassName = context.getQualifiedParserClassName();
+		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
 		this.syntax = context.getConcreteSyntax();
 	}
 	
@@ -41,6 +44,8 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		addCreateParserMethod(sc);
         sc.addLineBreak();
 		addGetClassesWithSyntaxMethod(sc);
+        sc.addLineBreak();
+        addGetReferenceResolverSwitchMethod(sc);
 		sc.add("}");
     	
 		out.print(sc.toString());
@@ -61,6 +66,12 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 			sc.add(genClassUtil.getAccessor(classWithSyntax) + ",");
 		}
 		sc.add("};");
+		sc.add("}");
+	}
+
+	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
+		sc.add("public " + IReferenceResolverSwitch.class.getName() + " getReferenceResolverSwitch() {");
+		sc.add("return new " + resolverSwitchClassName + "();");
 		sc.add("}");
 	}
 }
