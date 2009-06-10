@@ -68,8 +68,8 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		sc.add("public class " + getResourceClassName() + " extends " + AbstractTokenResolverFactory.class.getName() + " implements " + ITokenResolverFactory.class.getName() + " {");
 		sc.addLineBreak();
 		
-		addConstructor(sc);
 		addFields(sc);
+		addConstructor(sc);
 		addCreateTokenResolverMethod(sc);
 		addCreateCollectInTokenResolverMethod(sc);
 		addRegisterTokenResolverMethod(sc);
@@ -85,10 +85,8 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	}
 
 	private void addInternalRegisterTokenResolverMethod(StringComposite sc) {
-		sc.add("private boolean internalRegisterTokenResolver(" + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> resolverMap, ");
-		sc.add(STRING + " key,");
-		sc.add("" + I_TOKEN_RESOLVER + " resolver) {");
-		sc.add("if(!resolverMap.containsKey(key)){");
+		sc.add("private boolean internalRegisterTokenResolver(" + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> resolverMap, " + STRING + " key, " + I_TOKEN_RESOLVER + " resolver) {");
+		sc.add("if(!resolverMap.containsKey(key)) {");
 		sc.add("resolverMap.put(key,resolver);");
 		sc.add("return true;");
 		sc.add("}");
@@ -138,7 +136,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	}
 
 	private void addCreateTokenResolverMethod(StringComposite sc) {
-		sc.add("public " + I_TOKEN_RESOLVER + " createTokenResolver(" + STRING + " tokenName) {		");
+		sc.add("public " + I_TOKEN_RESOLVER + " createTokenResolver(" + STRING + " tokenName) {");
 		sc.add("return internalCreateResolver(tokenName2TokenResolver, tokenName);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -170,5 +168,6 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 			}
 		}
 		sc.add("}");
+		sc.addLineBreak();
 	}
 }
