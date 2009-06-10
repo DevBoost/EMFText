@@ -165,8 +165,8 @@ public class GenerateTextResourceTask extends Task {
 						URI.createURI(genModelURI)
 				);
 				
-				//register a mapping using for the usual "plugin:" URIs in case one genmodel imports
-				//one this genmodel itself using this URI
+				//register a mapping for "resource:/plugin/..." URIs in case 
+				//one genmodel imports another genmodel using this URI
 				String filesSystemURI = genModelURI;
 				int startIdx = filesSystemURI.indexOf("/plugins");
 				int versionStartIdx = filesSystemURI.indexOf("_",startIdx);
