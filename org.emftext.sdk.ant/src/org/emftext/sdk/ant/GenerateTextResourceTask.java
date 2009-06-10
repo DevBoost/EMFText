@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.sdk.SDKOptionProvider;
@@ -163,6 +164,32 @@ public class GenerateTextResourceTask extends Task {
 						namespaceURI,
 						URI.createURI(genModelURI)
 				);
+				
+				//register a mapping using for the usual "plugin:" URIs in case one genmodel imports
+				//one this genmodel itself using this URI
+				String filesSystemURI = genModelURI;
+				int startIdx = filesSystemURI.indexOf("/plugins");
+				int versionStartIdx = filesSystemURI.indexOf("_",startIdx);
+				int filePathStartIdx = filesSystemURI.lastIndexOf("!/") + 1;
+				if(startIdx > -1 && versionStartIdx > startIdx && filePathStartIdx > versionStartIdx) {
+					String platformPluginURI = "platform:"  + filesSystemURI.substring(startIdx, versionStartIdx);
+					platformPluginURI = platformPluginURI + filesSystemURI.substring(filePathStartIdx);
+					platformPluginURI = platformPluginURI.replace("/plugins/", "/plugin/");
+					
+					//gen model
+					log("adding mapping from " + platformPluginURI + " to " + filesSystemURI);
+					URIConverter.URI_MAP.put(
+							URI.createURI(platformPluginURI),
+							URI.createURI(filesSystemURI));
+					
+					//ecore model (this code assumes that both files are named equally)
+					filesSystemURI = filesSystemURI.replace(".genmodel", ".ecore");
+					platformPluginURI = platformPluginURI.replace(".genmodel", ".ecore");
+					log("adding mapping from " + platformPluginURI + " to " + filesSystemURI);
+					URIConverter.URI_MAP.put(
+							URI.createURI(platformPluginURI),
+							URI.createURI(filesSystemURI));
+				}
 			} catch (Exception e) {
 				throw new BuildException("Error while registering genmodel " + namespaceURI, e);
 			}
