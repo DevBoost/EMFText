@@ -20,7 +20,8 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.List;
+
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -34,7 +35,7 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
-		EList<TokenDefinition> activeTokens = syntax.getActiveTokens();
+		List<TokenDefinition> activeTokens = syntax.getActiveTokens();
 		for (TokenDefinition definition : activeTokens) {
 			if (!definition.isUsed()) {
 				resource.addWarning("Token " + definition.getName() + " is not used and will be discarded during parsing.", definition);
