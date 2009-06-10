@@ -36,8 +36,9 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
- * Generates a TokenResolverFactory which will contain a mapping from ANTLR token names to 
- * TokenResolver implementations. It will inherit from BasicTokenResolverFactory.
+ * Generates a TokenResolverFactory which will contain a mapping from 
+ * ANTLR token names to TokenResolver implementations. It will inherit 
+ * from AbstractTokenResolverFactory to allow adaptation to API changes.
  * 
  * @see org.emftext.runtime.resource.impl.AbstractTokenResolverFactory
  * 
@@ -86,7 +87,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 
 	private void addInternalRegisterTokenResolverMethod(StringComposite sc) {
 		sc.add("private boolean internalRegisterTokenResolver(" + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> resolverMap, " + STRING + " key, " + I_TOKEN_RESOLVER + " resolver) {");
-		sc.add("if(!resolverMap.containsKey(key)) {");
+		sc.add("if (!resolverMap.containsKey(key)) {");
 		sc.add("resolverMap.put(key,resolver);");
 		sc.add("return true;");
 		sc.add("}");
@@ -97,10 +98,9 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 
 	private void addInternalCreateResolverMethod(StringComposite sc) {
 		sc.add("private " + I_TOKEN_RESOLVER + " internalCreateResolver(" + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> resolverMap, String key) {");
-		sc.add("if(resolverMap.containsKey(key)){");
+		sc.add("if (resolverMap.containsKey(key)){");
 		sc.add("return resolverMap.get(key);");
-		sc.add("}");
-		sc.add("else{");
+		sc.add("} else {");
 		sc.add("return defaultResolver;");
 		sc.add("}");
 		sc.add("}");
