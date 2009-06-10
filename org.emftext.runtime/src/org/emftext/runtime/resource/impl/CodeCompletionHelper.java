@@ -115,6 +115,8 @@ public class CodeCompletionHelper {
 	}
 
 	private Collection<String> deriveProposals(EEnum enumType, String content, int offset) {
+		// TODO here we must also consider the prefix and return only the
+		// literals that start with the prefix
 		Collection<EEnumLiteral> enumLiterals = enumType.getELiterals();
 		Collection<String> result = new HashSet<String>();
 		for (EEnumLiteral literal : enumLiterals) {
