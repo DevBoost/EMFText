@@ -23,7 +23,6 @@ package org.emftext.sdk.syntax_analysis;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -45,7 +44,7 @@ public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 		List<TokenDefinition> duplicateTokens = new ArrayList<TokenDefinition>();
 		
 		List<String> foundTokenNames = new ArrayList<String>();
-		EList<TokenDefinition> tokens = syntax.getActiveTokens();
+		List<TokenDefinition> tokens = syntax.getActiveTokens();
 		for (int i = 0; i < tokens.size(); i++) {
 			TokenDefinition token_i = tokens.get(i);
 			String token_i_name = token_i.getName();
