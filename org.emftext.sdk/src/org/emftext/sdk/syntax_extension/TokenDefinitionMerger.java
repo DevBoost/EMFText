@@ -7,6 +7,7 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
@@ -39,7 +40,11 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     					allImportedTokens.add(importedToken);
     				} else {
 	    				if (isCompatible(previousToken, importedToken)) {
-	    					allImportedTokens.add(importedToken);
+	    					//allImportedTokens.add(importedToken);
+	    					
+	    					// we must redirect all placeholders that use the
+	    					// duplicate token to use the previousToken
+	    					redirect(importedToken, previousToken);
 	    				} else {
 	    					mustOverrideTokenNames.add(importedToken.getName());
 	    				}
@@ -66,10 +71,12 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 				// no token with the same name was found
 				mergeResult.add(importedToken);
 			} else {
-				// there is a token with this name which override the
+				// there is a token with this name which overrides the
 				// imported token
 				assert importedToken instanceof TokenDefinition;
-				overriddenTokens.add(((TokenDefinition) importedToken).getName());
+				TokenDefinition importedTokenDefinition = (TokenDefinition) importedToken;
+				overriddenTokens.add(importedTokenDefinition.getName());
+				redirect(importedTokenDefinition, previousToken);
 				continue;
 			}
 		}
@@ -108,10 +115,19 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 		}
 	}
 
+	private void redirect(TokenDefinition oldToken, TokenDefinition newToken) {
+		List<Placeholder> references = oldToken.getAttributeReferences();
+		List<Placeholder> referencesToRedirect = new ArrayList<Placeholder>();
+		referencesToRedirect.addAll(references);
+		for (Placeholder placeholder : referencesToRedirect) {
+			placeholder.setToken(newToken);
+		}
+	}
+
 	private void handleTokenDirective(List<TokenDirective> mergeResult,
 			TokenDirective tokenDirective) {
 		if (tokenDirective instanceof TokenDefinition) {
-			// only add definition that are not contained already
+			// only add definitions that are not contained already
 			// they may have been inserted before by a TokenPriorityDirective
 			if (!mergeResult.contains(tokenDirective)) {
 				mergeResult.add((TokenDefinition) tokenDirective);
