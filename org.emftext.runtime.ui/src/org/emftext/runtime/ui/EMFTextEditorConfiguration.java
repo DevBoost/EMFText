@@ -84,7 +84,12 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		String path = input.getFile().getFullPath().toString();
 		ITextResource thisResource = (ITextResource) theEditor.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
         
-        return new AntlrTokenScanner(thisResource, fileName.substring(fileName.lastIndexOf(".") + 1), colorManager);
+		//TODO this should be: 
+		//     String fileExtension = thisResource.getSyntaxName()
+		//        (or use some similar functionality through the MetaInformationProvider)
+		String fileExtension = fileName.substring(fileName.indexOf(".") + 1);
+		
+        return new AntlrTokenScanner(thisResource, fileExtension, colorManager);
     }
 
 	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
