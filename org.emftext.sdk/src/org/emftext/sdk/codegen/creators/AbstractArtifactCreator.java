@@ -92,12 +92,12 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	protected Collection<IArtifact> createArtifact(GenerationContext context,
 			IGenerator generator, File targetFile, String errorMessage) {
 
-		InputStream grammarStream = invokeGeneration(generator, context.getProblemCollector());
-	    if (grammarStream == null) {
+		InputStream stream = invokeGeneration(generator, context.getProblemCollector());
+	    if (stream == null) {
 			context.getProblemCollector().addProblem(new GenerationProblem(errorMessage, null, GenerationProblem.Severity.ERROR, null));
 	    	return new ArrayList<IArtifact>();
 	    }
-	    Artifact artifact = new Artifact(targetFile, grammarStream);
+	    Artifact artifact = new Artifact(targetFile, stream);
 	    return toList(artifact);
 	}
 

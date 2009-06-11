@@ -61,6 +61,7 @@ public abstract class GenerationContext {
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_META_INFORMATION = ITextResourcePluginMetaInformation.class.getSimpleName().substring("ITextResourcePlugin".length());
+	public static final String CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE = "DefaultResolverDelegate";
 
 	private static final String CLASS_SUFFIX_PRINTER = "Printer";
 	private static final String CLASS_SUFFIX_PRINTER_BASE = "PrinterBase";
@@ -316,5 +317,17 @@ public abstract class GenerationContext {
 
 	public File getMetaInformationClassFile() {
 		return new File(getPackagePath() + getMetaInformationClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public String getDefaultResolverDelegateName() {
+		return nameUtil.getDefaultResolverDelegateName(getConcreteSyntax());
+	}
+	
+	public String getQualifiedDefaultResolverDelegateName() {
+		return getResolverPackageName() + "." + getDefaultResolverDelegateName();
+	}
+	
+	public File getDefaultResolverDelegateFile() {
+		return new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + nameUtil.getDefaultResolverDelegateName(getConcreteSyntax()) + JAVA_FILE_EXTENSION);
 	}
 }

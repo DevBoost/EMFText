@@ -27,6 +27,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.codegen.util.PathUtil;
@@ -65,7 +66,8 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		for (File member : contents) {
 			if (!member.isDirectory()) {
 				String fileName = member.getName();
-				if (!resolverFileNames.contains(fileName)) {
+				boolean isDefaultResolver = (nameUtil.getDefaultResolverDelegateName(syntax) + GenerationContext.JAVA_FILE_EXTENSION).equals(fileName);
+				if (!resolverFileNames.contains(fileName) &&!isDefaultResolver) {
 					// issue warning about unused resolver
 					((ITextResource) syntax.eResource()).addWarning("Found unused class '" + fileName + "' in analysis package.", null);
 				}

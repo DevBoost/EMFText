@@ -65,6 +65,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new MetaInfFolderCreator());
 	    creators.add(new ManifestCreator());
 	    creators.add(new PluginMetaInformationCreator());
+	    creators.add(new DefaultResolverDelegateCreator());
 
 		for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");

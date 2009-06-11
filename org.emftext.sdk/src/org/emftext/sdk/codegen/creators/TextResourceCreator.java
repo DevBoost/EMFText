@@ -34,8 +34,10 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class TextResourceCreator extends AbstractArtifactCreator {
 
+	private static final String TEXT_RESOURCE = "text resource";
+
 	public TextResourceCreator() {
-		super("text resource");
+		super(TEXT_RESOURCE);
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class TextResourceCreator extends AbstractArtifactCreator {
 	    		context,
 	    		generator,
 	    		resourceFile,
-	    		"Exception while generating text resource class."
+	    		"Exception while generating " + TEXT_RESOURCE + " class."
 	    );
 	}
 

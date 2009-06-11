@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis; 
 
+import java.util.Map;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -138,8 +140,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		}
 	}
 
-	@Override
-	protected void doResolve(final String identifier, final Terminal container,
+	public void resolve(final String identifier, final Terminal container,
 			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<GenFeature> result) {
 		if (resolveFuzzy) {
 			doResolveFuzzy(identifier, container, result);
@@ -177,7 +178,6 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		}
 	}
 
-	@Override
 	public String deResolve(GenFeature feature, Terminal container, EReference reference){
 		return feature.getName();
 	}
@@ -230,5 +230,9 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 
 	private String createFeatureHasWrongContainmentTypeResult(String identifier, boolean expected) {
 		return "Feature \"" + identifier + "\" does exist, but has wrong containment type (expected was: " + expected + ").";
+	}
+
+	public void setOptions(Map<?, ?> options) {
+		// do nothing - we do not need the options
 	}
 }

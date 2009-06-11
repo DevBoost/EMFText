@@ -105,4 +105,8 @@ public class NameUtil {
 	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition definition) {
 		return getResolverPackageName(csUtil.getContainingSyntax(syntax, definition)) + "." + getTokenResolverClassName(syntax, definition);
 	}
+
+	public String getDefaultResolverDelegateName(ConcreteSyntax syntax) {
+		return getCapitalizedConcreteSyntaxName(syntax) + GenerationContext.CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE;
+	}
 }

@@ -20,10 +20,13 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
+import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Import;
@@ -31,8 +34,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver<Placeholder, TokenDefinition> {
 
-	@Override
-	protected void doResolve(String identifier, Placeholder container,
+	public void resolve(String identifier, Placeholder container,
 			EReference reference, int position, boolean resolveFuzzy,
 			IReferenceResolveResult<TokenDefinition> result) {
 		// first look in imported syntaxes for the token
@@ -42,7 +44,7 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 			return;
 		}
 		// then look in the resource itself
-		EObject root = findRoot(container);
+		EObject root = EObjectUtil.findRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return;
 		}
@@ -50,9 +52,15 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 		searchForToken(identifier, resolveFuzzy, result, syntax);
 	}
 
+	public String deResolve(TokenDefinition element, Placeholder container,
+			EReference reference) {
+		// TODO jjohannes: implement this method
+		return null;
+	}
+
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
 			Placeholder container, boolean resolveFuzzy, IReferenceResolveResult<TokenDefinition> result) {
-		EObject root = findRoot(container);
+		EObject root = EObjectUtil.findRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;
 		}
@@ -86,4 +94,7 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 		return true;
 	}
 
+	public void setOptions(Map<?, ?> options) {
+		// do nothing - we do not need the options
+	}
 }

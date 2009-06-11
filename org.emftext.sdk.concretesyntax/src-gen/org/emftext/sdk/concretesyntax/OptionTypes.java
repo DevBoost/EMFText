@@ -371,6 +371,8 @@ public enum OptionTypes implements Enumerator {
 	RESOURCE_PLUGIN_ID(28, "RESOURCE_PLUGIN_ID", "resourcePluginID"), /**
 	 * The '<em><b>OVERRIDE BUILD PROPERTIES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the build.properties file will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_BUILD_PROPERTIES_VALUE
 	 * @generated
@@ -379,12 +381,24 @@ public enum OptionTypes implements Enumerator {
 	OVERRIDE_BUILD_PROPERTIES(29, "OVERRIDE_BUILD_PROPERTIES", "overrideBuildProperties"), /**
 	 * The '<em><b>OVERRIDE PLUGIN META INFORMATION CLASS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
+	 * If this option is set to false, the meta information class will not be overridden 
+	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PLUGIN_META_INFORMATION_CLASS(30, "OVERRIDE_PLUGIN_META_INFORMATION_CLASS", "overridePluginMetaInformationClass");
+	OVERRIDE_PLUGIN_META_INFORMATION_CLASS(30, "OVERRIDE_PLUGIN_META_INFORMATION_CLASS", "overridePluginMetaInformationClass"), /**
+	 * The '<em><b>OVERRIDE DEFAULT RESOLVER DELEGATE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * If this option is set to true, the default resolver class will be overridden 
+	 * during code generation. The default value for this option is <code>false</code>. 
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEFAULT_RESOLVER_DELEGATE(31, "OVERRIDE_DEFAULT_RESOLVER_DELEGATE", "overrideDefaultResolverDelegate");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -852,6 +866,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE = 30;
 
 	/**
+	 * The '<em><b>OVERRIDE DEFAULT RESOLVER DELEGATE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEFAULT RESOLVER DELEGATE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_RESOLVER_DELEGATE
+	 * @model literal="overrideDefaultResolverDelegate"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE = 31;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -890,6 +919,7 @@ public enum OptionTypes implements Enumerator {
 			RESOURCE_PLUGIN_ID,
 			OVERRIDE_BUILD_PROPERTIES,
 			OVERRIDE_PLUGIN_META_INFORMATION_CLASS,
+			OVERRIDE_DEFAULT_RESOLVER_DELEGATE,
 		};
 
 	/**
@@ -971,6 +1001,7 @@ public enum OptionTypes implements Enumerator {
 			case RESOURCE_PLUGIN_ID_VALUE: return RESOURCE_PLUGIN_ID;
 			case OVERRIDE_BUILD_PROPERTIES_VALUE: return OVERRIDE_BUILD_PROPERTIES;
 			case OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE: return OVERRIDE_PLUGIN_META_INFORMATION_CLASS;
+			case OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE: return OVERRIDE_DEFAULT_RESOLVER_DELEGATE;
 		}
 		return null;
 	}

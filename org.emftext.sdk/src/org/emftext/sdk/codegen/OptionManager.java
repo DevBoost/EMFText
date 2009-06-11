@@ -78,6 +78,9 @@ public class OptionManager {
 	private boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
 		// documented in class OptionTypes!
+		if (option == OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE) {
+			return false;
+		}
 		if (option == OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS) {
 			return true;
 		}

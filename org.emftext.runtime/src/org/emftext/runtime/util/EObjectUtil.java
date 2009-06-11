@@ -20,11 +20,16 @@
  ******************************************************************************/
 package org.emftext.runtime.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 
 /**
  * A utility class that can be used to work with EObjects.
@@ -47,5 +52,36 @@ public class EObjectUtil {
 			}
 		}
 		return result;
+	}
+
+	public static EObject findRootContainer(EObject object) {
+		EObject container = object.eContainer();
+		if (container != null) {
+			return findRootContainer(container);
+		} else {
+			return object;
+		}
+	}
+
+	public static Object invokeOperation(EObject element, EOperation o) {
+		Method method;
+		try {
+			method = element.getClass().getMethod(o.getName(), new Class[]{});
+			if (method != null) {
+				Object result = method.invoke(element, new Object[]{});
+				return result;
+			}
+		} catch (SecurityException e) {
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
+		} catch (NoSuchMethodException e) {
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
+		} catch (IllegalArgumentException e) {
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
+		} catch (IllegalAccessException e) {
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
+		} catch (InvocationTargetException e) {
+			EMFTextRuntimePlugin.logError("Exception while matching proxy URI.", e);
+		}
+		return null;
 	}
 }
