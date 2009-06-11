@@ -24,17 +24,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.IReferenceResolver;
 
 /**
- * Base implementation for all generated reference resolvers. 
- * It implements the specifications from {@link IReferenceResolver}.
- * 
- * @param <ContainerType> the type of the container that contains
- * the reference that is resolved by this resolver
- * 
- * @param <ReferenceType> the type of the reference that is resolved 
- * by this resolver
- * 
- * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
+ * This class is used to adapt existing text resource plug-ins to API
+ * changes. For EMFText 1.2.0 is must be empty. Future version may add
+ * default implementations for new methods that are added to IReferenceResolver.
  */
 public abstract class AbstractReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> implements IReferenceResolver<ContainerType, ReferenceType> {
-
+	// Attention: Please do add only code that adapts existing implementations of
+	// old versions of IReferenceResolver here.
+	// Please document the date and version when the API was changed
 }
