@@ -82,7 +82,12 @@ public class NameUtil {
 	}
 
 	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
-		return capitalize(syntax.getName());
+		String csName = "";
+		String[] csNameParts = syntax.getName().split("\\.");
+		for(String part : csNameParts) {
+			csName = csName + capitalize(part);
+		}
+		return csName;
 	}
 	
 	public String getTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {

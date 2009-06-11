@@ -187,13 +187,9 @@ public class AbstractNewFileWizardPage extends WizardPage {
 			updateStatus("File name must be valid");
 			return;
 		}
-		int dotLoc = fileName.lastIndexOf('.');
-		if (dotLoc != -1) {
-			String ext = fileName.substring(dotLoc + 1);
-			if (ext.equalsIgnoreCase(fileExtension) == false) {
-				updateStatus("File extension must be \"" + fileExtension + "\"");
-				return;
-			}
+		if (!fileName.endsWith("." + fileExtension)) {
+			updateStatus("File extension must be \"" + fileExtension + "\"");
+			return;
 		}
 		updateStatus(null);
 	}
