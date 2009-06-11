@@ -91,6 +91,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 					String tokenName = tokenHelper.getTokenName(tokenNames, i);
 	        		ITokenStyle style = tr.getDefaultTokenStyle(tokenName);
 	        		
+	        		// TODO this magic derivation of default colors should be based on the
+	        		// token definition rather than on the token name
 	        		if (style != null) {
 	        			String color = getColorString(style.getColorAsRGB());
 	                    setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
