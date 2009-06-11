@@ -20,9 +20,7 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.preferences;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.emf.common.util.URI;
@@ -30,6 +28,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenStyle;
@@ -51,28 +50,14 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault()
 				.getPreferenceStore();
-
-		Map<String, Object> extensionToFactoryMap = 
-			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
 		
-		List<String> extensions = new ArrayList<String>(extensionToFactoryMap.keySet());
-		//TODO remove special handling of ecore here
-		extensions.add("ecore");
+		List<String> extensions = EMFTextRuntimePlugin.getConcreteSyntaxNamesList();
 
         for (String extension : extensions) {
         	Resource tempResource = null;
-        	
-        	if (extension.equals("ecore")) {
-        		Resource.Factory rf =  Resource.Factory.Registry.INSTANCE.getFactory(
-        				URI.createURI("temp.ecore"), "org.eclipse.emf.ecore.textual");
-        		if (rf != null) {
-        			tempResource = rf.createResource(URI.createURI("temp.ecore"));
-        		}
-        	}
-        	else {
-	        	ResourceSet rs = new ResourceSetImpl();
-	        	tempResource = rs.createResource(URI.createURI("temp." + extension));
-        	}
+	        ResourceSet rs = new ResourceSetImpl();
+	        tempResource = rs.createResource(URI.createURI("temp." + extension));
+
         	
         	if (tempResource instanceof ITextResource) {
         		ITextResource tr = (ITextResource) tempResource;

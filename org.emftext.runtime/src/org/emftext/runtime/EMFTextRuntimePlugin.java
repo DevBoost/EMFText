@@ -20,7 +20,9 @@
  ******************************************************************************/
 package org.emftext.runtime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -71,6 +73,7 @@ public class EMFTextRuntimePlugin extends Plugin {
 	}
 	
 	private static Map<String, URI> URIToConcreteSyntaxLocationMap = null;
+	private static List<String>     concreteSyntaxNamesList = null;
 	
 	/**
 	 * Returns the concrete syntax models that are registered through generated plugins. 
@@ -101,6 +104,23 @@ public class EMFTextRuntimePlugin extends Plugin {
 			
 		}
 		return URIToConcreteSyntaxLocationMap;
+	}
+	
+	public static List<String> getConcreteSyntaxNamesList() {
+		if (concreteSyntaxNamesList == null) {
+			concreteSyntaxNamesList = new ArrayList<String>();
+
+			if (Platform.isRunning()) {
+		        IExtensionPoint csExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(EP_CONCRETESYNTAX_ID);
+		        IConfigurationElement[] parserPoints = csExtensionPoint.getConfigurationElements();
+		        for(int i = 0;i < parserPoints.length;i++) {
+		            String csName    = parserPoints[i].getAttribute("csName");
+		            concreteSyntaxNamesList.add(csName);
+		        }
+			}
+			
+		}
+		return concreteSyntaxNamesList;
 	}
 	
 	/**

@@ -59,6 +59,7 @@ import org.eclipse.swt.widgets.Scrollable;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.TokenHelper;
@@ -68,8 +69,6 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
  * Preference page for configuring syntax coloring.
  * <p>
  * <i>Parts of the code were taken from the JDT Java Editor</i>
- * 
- * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public class SyntaxColoringPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
@@ -624,10 +623,8 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 	public SyntaxColoringPreferencePage() {
 		super();
 
-		Map<String, Object> extensionToFactoryMap = Resource.Factory.Registry.INSTANCE
-				.getExtensionToFactoryMap();
-
-		for (String extension : extensionToFactoryMap.keySet()) {
+		List<String> extensions = EMFTextRuntimePlugin.getConcreteSyntaxNamesList();
+		for (String extension : extensions) {
 			ResourceSet rs = new ResourceSetImpl();
 			Resource tempResource = rs.createResource(URI.createURI("temp."
 					+ extension));
@@ -654,8 +651,7 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 									+ ENABLE);
 					terminals.add(item);
 				}
-				content.put(languageId
-						.substring(languageId.lastIndexOf('.') + 1), terminals);
+				content.put(languageId, terminals);
 			}
 		}
 
