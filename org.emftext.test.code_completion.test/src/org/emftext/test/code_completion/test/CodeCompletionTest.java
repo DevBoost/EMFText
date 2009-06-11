@@ -25,7 +25,7 @@ import org.emftext.test.code_completion.Code_completionPackage;
 import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
 import org.emftext.test.code_completion.resource.cct.CctParser;
 
-public class ParseToCursorTest extends TestCase {
+public class CodeCompletionTest extends TestCase {
 
 	private static final Code_completionPackage CCT_PACKAGE = Code_completionPackage.eINSTANCE;
 	private static final String INPUT_DIR = "input";
@@ -58,7 +58,7 @@ public class ParseToCursorTest extends TestCase {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
-						new ParseToCursorTest().parseToCursor(file);
+						new CodeCompletionTest().parseToCursor(file);
 					}
 					catch (Exception e) {
 						e.printStackTrace();
@@ -87,7 +87,7 @@ public class ParseToCursorTest extends TestCase {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
-						new ParseToCursorTest().checkInsertStrings(file);
+						new CodeCompletionTest().checkInsertStrings(file);
 					}
 					catch (Exception e) {
 						e.printStackTrace();
@@ -102,7 +102,7 @@ public class ParseToCursorTest extends TestCase {
 	private Map<String, Object> expectedElementsMap;
 	private Map<String, String[]> expectedInsertStringsMap;
 
-	public ParseToCursorTest() {
+	public CodeCompletionTest() {
 		super();
 		setUpExpectedElementsMap();
 	}
