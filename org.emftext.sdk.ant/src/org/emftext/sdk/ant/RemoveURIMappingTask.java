@@ -23,45 +23,37 @@ package org.emftext.sdk.ant;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.URIConverter;
 
 /**
- * A custom ANT task that allows to assign the URI of a given
- * file to a build property. 
+ * A custom ANT task that allows to register a URI mapping in
+ * EMF's global URI map.
  */
-public class CreateURITask extends Task {
+public class RemoveURIMappingTask extends Task {
 	
-	private String propertyName;
-	private String fileName;
+	private String from;
 
 	@Override
 	public void execute() throws BuildException {
-		if (getPropertyName() == null) {
-			throw new BuildException("propertyName is not set.");
+		if (getFrom() == null) {
+			throw new BuildException("from is not set.");
 		}
-		if (getFileName() == null) {
-			throw new BuildException("fileName is not set.");
-		}
-		URI uri = URI.createFileURI(fileName);
-		if (uri.isRelative()) {
-			URI base = URI.createFileURI(getProject().getBaseDir().getPath() + "/");
-			uri = uri.resolve(base);
-		}
-		getProject().setProperty(getPropertyName(), uri.toString());
+		
+		URI fromURI = URI.createURI(from);
+		
+		log("removing mapping from " + from + " to " + URIConverter.URI_MAP.get(fromURI));
+		
+		URIConverter.URI_MAP.remove(fromURI);
 	}
 
-	public String getPropertyName() {
-		return propertyName;
+	public String getFrom() {
+		return from;
 	}
 
-	public void setPropertyName(String propertyName) {
-		this.propertyName = propertyName;
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
-	public String getFileName() {
-		return fileName;
-	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+
 }

@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.emf.common.util.URI;
@@ -46,29 +47,30 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class GenerateTextResourceTask extends Task {
 
+	private final static TextResourceUtil resourceUtil = new TextResourceUtil();
+
 	private File rootFolder;
 	private File syntaxFile;
 	private String syntaxProjectName;
 
 	private List<GenModelElement> genModels = new ArrayList<GenModelElement>();
 	private List<GenPackageElement> genPackages = new ArrayList<GenPackageElement>();
-
-	private static Resource.Factory alternativeEcoreEcoreFactory = null;
 	
 	@Override
 	public void execute() throws BuildException {
 		checkParameters();
+		
+		// Get the task class loader we used to load this tag.
+		AntClassLoader taskloader = 
+			(AntClassLoader)this.getClass().getClassLoader();
+		// Shove it into the Thread, replacing the thread's ClassLoader:
+		taskloader.setThreadContextLoader();
+
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
-			ITextResource csResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ITextResource csResource = resourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
-
-			EPackage ePackage = syntax.getPackage().getEcorePackage();
-			if (ePackage == null || ePackage.eIsProxy()) {
-				log("loading with alternative ecore format....");
-				syntax = tryAlternativeEcoreResourceFactory(syntax);
-			}
 			
 			Result result = new AntResourcePluginGenerator().run(
 					syntax, 
@@ -81,39 +83,23 @@ public class GenerateTextResourceTask extends Task {
 					for (EObject unresolvedProxy : result.getUnresolvedProxies()) {
 						log("Found unresolved proxy \"" + ((InternalEObject) unresolvedProxy).eProxyURI() + "\" in " + unresolvedProxy.eResource());
 					}
+					 // Reset the Thread's original ClassLoader.
+					taskloader.resetThreadContextLoader(); 
 					throw new BuildException("Generation failed " + result);
 				} else {
+					 // Reset the Thread's original ClassLoader.
+					taskloader.resetThreadContextLoader(); 
 					throw new BuildException("Generation failed " + result);
 				}
 			}
 		} catch (Exception e) {
+			 // Reset the Thread's original ClassLoader.
+			taskloader.resetThreadContextLoader(); 
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
-	}
-
-	private ConcreteSyntax tryAlternativeEcoreResourceFactory(ConcreteSyntax syntax) throws BuildException {
-		try {
-			if (alternativeEcoreEcoreFactory == null) {
-				String alternativeEcoreResourceFactoryName = "org.emftext.language.ecore.resource.ecore.EcoreResourceFactory";
-				alternativeEcoreEcoreFactory = (Resource.Factory) Class.forName(alternativeEcoreResourceFactoryName).newInstance();
-			}
-			registerFactory("ecore", alternativeEcoreEcoreFactory);
-			ITextResource alternativeCsResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
-			ConcreteSyntax alternativeSyntax = (ConcreteSyntax) alternativeCsResource.getContents().get(0);
-			EPackage alternativeEPackage = alternativeSyntax.getPackage().getEcorePackage();
-			if (alternativeEPackage != null && !alternativeEPackage.eIsProxy()) {
-				//ecore file is loaded; we can reset the resource factory
-				registerFactory("ecore", new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
-				return alternativeSyntax;
-			}
-			else {
-				return syntax;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new BuildException(e);
-		}
+		 // Reset the Thread's original ClassLoader.
+		taskloader.resetThreadContextLoader(); 
 	}
 	
 	private void checkParameters() {
@@ -127,6 +113,8 @@ public class GenerateTextResourceTask extends Task {
 			throw new BuildException("Parameter \"syntaxProjectName\" is missing.");
 		}
 	}
+	
+
 
 	public void setSyntax(File syntaxFile) {
 		this.syntaxFile = syntaxFile;
@@ -149,10 +137,11 @@ public class GenerateTextResourceTask extends Task {
 	}
 
 	public void registerResourceFactories() {
-		registerFactory("ecore", new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
-		registerFactory("genmodel", new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
+		//in case a old version from last run is registered here
+		EPackage.Registry.INSTANCE.remove("http://www.emftext.org/sdk/concretesyntax");
 		registerFactory("cs", new org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory());
 		
+		//TODO: the rest of this method is never used in our build scripts at the moment
 		for (GenModelElement genModelElement : genModels) {
 			String namespaceURI = genModelElement.getNamespaceURI();
 			String genModelURI = genModelElement.getGenModelURI();
@@ -209,8 +198,11 @@ public class GenerateTextResourceTask extends Task {
 	}
 
 	private void registerFactory(String extension, Object factory) {
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().remove(extension);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				extension,
 				factory);
+		
+
 	}
 }
