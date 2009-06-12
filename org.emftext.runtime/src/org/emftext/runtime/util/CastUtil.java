@@ -18,16 +18,16 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.runtime.resource.impl;
+package org.emftext.runtime.util;
 
 /**
  * Utility class that provides a method to cast objects to
  * type parameterized classes without a warning.
  */
-public class Util {
+public class CastUtil {
 
 	@SuppressWarnings("unchecked")
-	public static <T > T cast(Object temp) {
+	public static <T> T cast(Object temp) {
 		return (T) temp;
 	}
 }

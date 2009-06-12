@@ -51,6 +51,7 @@ import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.IURIMapping;
+import org.emftext.runtime.util.CastUtil;
 import org.emftext.runtime.util.ListUtil;
 import org.emftext.runtime.util.MapUtil;
 
@@ -159,7 +160,7 @@ public abstract class AbstractTextResource extends ResourceImpl implements IText
 			EReference oppositeReference = uriFragment.getReference().getEOpposite();
 			if (!uriFragment.getReference().isContainment() && oppositeReference != null) {
 				if (reference.isMany()) {
-					EObjectWithInverseResolvingEList.ManyInverse<EObject> list = Util.cast(element.eGet(oppositeReference, false));					
+					EObjectWithInverseResolvingEList.ManyInverse<EObject> list = CastUtil.cast(element.eGet(oppositeReference, false));					
 					//avoids duplicate entries in the reference caused by adding to the oppositeReference 
 					list.basicAdd(uriFragment.getContainer(),null);
 					

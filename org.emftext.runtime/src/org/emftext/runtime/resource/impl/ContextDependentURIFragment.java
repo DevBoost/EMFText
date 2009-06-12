@@ -33,6 +33,7 @@ import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IURIMapping;
+import org.emftext.runtime.util.CastUtil;
 
 /**
  * Standard implementation of <code>IContextDependentURIFragment</code>.
@@ -100,7 +101,7 @@ public abstract class ContextDependentURIFragment<ContainerType extends EObject,
 		EList<EObject> list = null;
 		Object temp = container.eGet(reference);
 		if (temp instanceof EList<?>) {
-			list = Util.cast(temp);
+			list = CastUtil.cast(temp);
 		}
 		
 		boolean first = true; 
