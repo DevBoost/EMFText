@@ -45,7 +45,7 @@ public abstract class AbstractPostProcessor implements IResourcePostProcessorPro
 			return;
 		}
 		if (doResolveProxiesBeforeAnalysis()) {
-			if (ResourceUtil.resolveAll(resource)) {
+			if (!ResourceUtil.resolveAll(resource)) {
 				return;
 			}
 		}
