@@ -157,7 +157,7 @@ public class SyntaxAnalysisTest extends TestCase {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_analysis" + File.separator;
 		File file = new File(path + filename);
 		
-		ITextResource resource = new TextResourceUtil().getResource(file, new SDKOptionProvider().getOptions());
+		ITextResource resource = TextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		
 		List<Diagnostic> warnings = resource.getWarnings();

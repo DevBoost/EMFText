@@ -48,7 +48,7 @@ public class Bug674Test extends TestCase {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "bug674" + File.separator;
 		File file = new File(path + filename);
 		
-		ITextResource resource = new TextResourceUtil().getResource(file, new SDKOptionProvider().getOptions());
+		ITextResource resource = TextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		assertEquals(1, resource.getErrors().size());
 		String errorMessage = resource.getErrors().get(0).getMessage();

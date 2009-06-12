@@ -68,7 +68,7 @@ public class SyntaxExtensionTest extends TestCase {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_extension" + File.separator;
 		File file = new File(path + filename);
 		
-		ITextResource resource = new TextResourceUtil().getResource(file, new SDKOptionProvider().getOptions());
+		ITextResource resource = TextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		EList<Diagnostic> errors = resource.getErrors();
 		for (Diagnostic error : errors) {

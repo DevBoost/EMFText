@@ -32,7 +32,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.util.TextResourceUtil;
+import org.emftext.runtime.util.ResourceUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.creators.ResourcePluginContentCreator;
@@ -68,8 +68,6 @@ public abstract class ResourcePluginGenerator {
 		}
 	}
 	
-	private final static TextResourceUtil resourceHelper = new TextResourceUtil();
-
 	// these must add up to 100
 	protected static final int TICKS_CREATE_PROJECT = 2;
 	protected static final int TICKS_OPEN_PROJECT = 2;
@@ -89,7 +87,7 @@ public abstract class ResourcePluginGenerator {
 		Resource csResource = concreteSyntax.eResource();
 		monitor.setTaskName("unmarking resource...");
 		marker.unmark(csResource);
-		if (resourceHelper.containsErrors(csResource)) {
+		if (ResourceUtil.containsErrors(csResource)) {
 			marker.mark(csResource);
 			return Result.ERROR_SYNTAX_HAS_ERRORS;
 		}
@@ -102,7 +100,7 @@ public abstract class ResourcePluginGenerator {
 		if (genPackage == null) {
 			return Result.ERROR_GEN_PACKAGE_NOT_FOUND;
 		}
-		List<EObject> unresolvedProxies = new TextResourceUtil().findUnresolvedProxies(csResource);
+		List<EObject> unresolvedProxies = ResourceUtil.findUnresolvedProxies(csResource);
 		if (unresolvedProxies.size() > 0) {
 			Result result = Result.ERROR_FOUND_UNRESOLVED_PROXIES;
 			result.setUnresolvedProxies(unresolvedProxies);
@@ -117,7 +115,7 @@ public abstract class ResourcePluginGenerator {
 		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE));
 
 		// errors from parser generator?
-		if (resourceHelper.containsProblems(csResource)) {
+		if (ResourceUtil.containsProblems(csResource)) {
 			marker.mark(csResource);
 		}
 

@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.TextResourceUtil;
+import org.emftext.runtime.util.ResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -75,7 +75,7 @@ public class ConcreteSyntaxTestHelper {
 		ResourceSet rs = new ResourceSetImpl();
 		rs.getLoadOptions().putAll(new SDKOptionProvider().getOptions());
 		ITextResource resource = (ITextResource) rs.getResource(fileURI, true);
-		final List<EObject> proxies = new TextResourceUtil().findUnresolvedProxies(resource);
+		final List<EObject> proxies = ResourceUtil.findUnresolvedProxies(resource);
 		for (EObject proxy : proxies) {
 			System.out.println("getConcreteSyntaxResource() unresolved proxy : " + proxy);
 		}

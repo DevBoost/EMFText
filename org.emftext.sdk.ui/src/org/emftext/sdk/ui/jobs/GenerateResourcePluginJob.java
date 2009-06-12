@@ -44,8 +44,6 @@ import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
  */
 public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 
-	private final static TextResourceUtil resourceHelper = new TextResourceUtil();
-
 	private final IFile csFile;
 
 	public GenerateResourcePluginJob(String name, IFile csFile) {
@@ -57,7 +55,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 	protected IStatus run(IProgressMonitor monitor) {
 
 		try {
-			final ITextResource csResource = resourceHelper.getResource(csFile);
+			final ITextResource csResource = TextResourceUtil.getResource(csFile);
 			IProblemCollector collector = new IProblemCollector() {
 				public void addProblem(GenerationProblem problem) {
 					addGenerationProblem(csResource, problem);

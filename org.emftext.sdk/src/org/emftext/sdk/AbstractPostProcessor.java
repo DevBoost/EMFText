@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.TextResourceUtil;
+import org.emftext.runtime.util.ResourceUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
@@ -35,8 +35,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public abstract class AbstractPostProcessor implements IResourcePostProcessorProvider, IResourcePostProcessor {
 
-	private static final TextResourceUtil resourceHelper = new TextResourceUtil();
-	
 	public IResourcePostProcessor getResourcePostProcessor() {
 		return this;
 	}
@@ -47,7 +45,7 @@ public abstract class AbstractPostProcessor implements IResourcePostProcessorPro
 			return;
 		}
 		if (doResolveProxiesBeforeAnalysis()) {
-			if (!resourceHelper.resolveAll(resource)) {
+			if (ResourceUtil.resolveAll(resource)) {
 				return;
 			}
 		}

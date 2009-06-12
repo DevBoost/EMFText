@@ -46,8 +46,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class GenerateTextResourceTask extends Task {
 
-	private final static TextResourceUtil resourceHelper = new TextResourceUtil();
-
 	private File rootFolder;
 	private File syntaxFile;
 	private String syntaxProjectName;
@@ -63,7 +61,7 @@ public class GenerateTextResourceTask extends Task {
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
-			ITextResource csResource = resourceHelper.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ITextResource csResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
 
 			EPackage ePackage = syntax.getPackage().getEcorePackage();
@@ -101,7 +99,7 @@ public class GenerateTextResourceTask extends Task {
 				alternativeEcoreEcoreFactory = (Resource.Factory) Class.forName(alternativeEcoreResourceFactoryName).newInstance();
 			}
 			registerFactory("ecore", alternativeEcoreEcoreFactory);
-			ITextResource alternativeCsResource = resourceHelper.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ITextResource alternativeCsResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			ConcreteSyntax alternativeSyntax = (ConcreteSyntax) alternativeCsResource.getContents().get(0);
 			EPackage alternativeEPackage = alternativeSyntax.getPackage().getEcorePackage();
 			if (alternativeEPackage != null && !alternativeEPackage.eIsProxy()) {
