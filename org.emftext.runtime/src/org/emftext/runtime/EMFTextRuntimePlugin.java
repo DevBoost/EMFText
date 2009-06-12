@@ -42,8 +42,8 @@ import org.osgi.framework.BundleContext;
 public class EMFTextRuntimePlugin extends Plugin {
 	
 	public static final String PLUGIN_ID = "org.emftext.runtime";
-	public static final String EP_CONCRETESYNTAX_ID = "org.emftext.runtime.concretesyntax";
-	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = "org.emftext.runtime.default_load_options";
+	public static final String EP_CONCRETESYNTAX_ID = PLUGIN_ID + ".concretesyntax";
+	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + ".default_load_options";
 	
 	private static EMFTextRuntimePlugin plugin;
 	
