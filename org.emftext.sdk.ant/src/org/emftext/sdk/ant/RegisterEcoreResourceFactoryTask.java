@@ -57,7 +57,7 @@ public class RegisterEcoreResourceFactoryTask extends Task {
 		
 		Resource.Factory newEcoreFactory = instantiateFactory(className);
 		String ecoreEcoreResourceFactoryDelegatorClassName = 
-			"org.emftext.language.ecore.resource.EcoreResourceFactoryDegator";
+			"org.emftext.language.ecore.resource.EcoreResourceFactoryDelegator";
 	
 		if (ecoreFactoryDelagator == null) {
 			ecoreFactoryDelagator = (Resource.Factory) instantiateFactory(ecoreEcoreResourceFactoryDelegatorClassName);
