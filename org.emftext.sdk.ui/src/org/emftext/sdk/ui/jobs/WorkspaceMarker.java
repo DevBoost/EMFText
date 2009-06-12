@@ -22,7 +22,7 @@ package org.emftext.sdk.ui.jobs;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.MarkerHelper;
+import org.emftext.runtime.ui.MarkerHelper;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
 
 /**

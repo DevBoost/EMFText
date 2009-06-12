@@ -18,7 +18,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.runtime;
+package org.emftext.runtime.ui;
 
 import java.util.Collection;
 
@@ -37,7 +37,6 @@ import org.emftext.runtime.resource.ITextDiagnostic;
  * 
  * @author Jendrik Johannes
  */
-// TODO move this to runtime.ui
 public class MarkerHelper {
     
     public static final String MARKER_TYPE = "org.emftext.runtime.ui.problem";
