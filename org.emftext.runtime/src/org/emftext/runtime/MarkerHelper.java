@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.runtime;
 
+import java.util.Collection;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -49,40 +51,36 @@ public class MarkerHelper {
     public static void mark(Resource resource) throws CoreException {
     	if (resource == null) return;
     	
-        IMarker marker;
         IFile file = (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));
         
         //URI might not point at a platform file
-        if (file != null) for(Resource.Diagnostic diagnostic : resource.getErrors()) {
-            marker = file.createMarker(MARKER_TYPE);
-            marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
-            marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
-        	if (diagnostic instanceof ITextDiagnostic) {
-        		marker.setAttribute(IMarker.LINE_NUMBER, ((ITextDiagnostic)diagnostic).getLine());
-                marker.setAttribute(IMarker.CHAR_START, ((ITextDiagnostic)diagnostic).getCharStart());
-                marker.setAttribute(IMarker.CHAR_END, ((ITextDiagnostic)diagnostic).getCharEnd() + 1);		
-        	}
-        	else {
-                marker.setAttribute(IMarker.CHAR_START, 0);
-                marker.setAttribute(IMarker.CHAR_END, 1);
-        	}
+        if (file == null) {
+        	return;
         }
-
-        for(Resource.Diagnostic diagnostic : resource.getWarnings()) {
-            marker = file.createMarker(MARKER_TYPE);
-            marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
-            marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
-        	if (diagnostic instanceof ITextDiagnostic) {
-        		marker.setAttribute(IMarker.LINE_NUMBER, ((ITextDiagnostic)diagnostic).getLine());
-                marker.setAttribute(IMarker.CHAR_START, ((ITextDiagnostic)diagnostic).getCharStart());
-                marker.setAttribute(IMarker.CHAR_END, ((ITextDiagnostic)diagnostic).getCharEnd() + 1);		
-        	}
-        	else {
-                marker.setAttribute(IMarker.CHAR_START, 0);
-                marker.setAttribute(IMarker.CHAR_END, 1);
-        	}
-        }
+        	
+        createMarkersFromDiagnostics(resource, file, resource.getErrors(), IMarker.SEVERITY_ERROR);
+        createMarkersFromDiagnostics(resource, file, resource.getWarnings(), IMarker.SEVERITY_WARNING);
     }
+
+	private static void createMarkersFromDiagnostics(Resource resource,
+			IFile file, Collection<Resource.Diagnostic> diagnostics, int markerSeverity) throws CoreException {
+
+		for (Resource.Diagnostic diagnostic : diagnostics) {
+			IMarker marker = file.createMarker(MARKER_TYPE);
+            marker.setAttribute(IMarker.SEVERITY, markerSeverity);
+            marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
+        	if (diagnostic instanceof ITextDiagnostic) {
+        		ITextDiagnostic textDiagnostic = (ITextDiagnostic) diagnostic;
+				marker.setAttribute(IMarker.LINE_NUMBER, textDiagnostic.getLine());
+                marker.setAttribute(IMarker.CHAR_START, textDiagnostic.getCharStart());
+                marker.setAttribute(IMarker.CHAR_END, textDiagnostic.getCharEnd() + 1);		
+        	}
+        	else {
+                marker.setAttribute(IMarker.CHAR_START, 0);
+                marker.setAttribute(IMarker.CHAR_END, 1);
+        	}
+        }
+	}
     
     /**
      * Removes all markers from a file.
@@ -94,5 +92,4 @@ public class MarkerHelper {
         IFile file = (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));
         file.deleteMarkers(MarkerHelper.MARKER_TYPE, false, IResource.DEPTH_ZERO);    
     }
-
 }
