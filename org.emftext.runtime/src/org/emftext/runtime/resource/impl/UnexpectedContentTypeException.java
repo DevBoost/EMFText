@@ -33,11 +33,11 @@ public class UnexpectedContentTypeException extends RecognitionException{
 	
 	private Object contentType = null;
 	
-	public UnexpectedContentTypeException(Object contentType){
+	public UnexpectedContentTypeException(Object contentType) {
 		this.contentType = contentType;
 	}
 	
-	public Object getContentType(){
+	public Object getContentType() {
 		return contentType;
 	}
 }
