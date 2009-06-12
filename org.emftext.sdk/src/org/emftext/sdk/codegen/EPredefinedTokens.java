@@ -25,7 +25,6 @@ package org.emftext.sdk.codegen;
  * specifications. The list contains both the names of the tokens and their
  * definition (i.e., a regular expression).
  */
-// TODO mseifert: move this class to the SDK
 public enum EPredefinedTokens {
 	
 	/**
