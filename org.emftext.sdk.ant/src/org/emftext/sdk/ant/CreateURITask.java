@@ -39,7 +39,7 @@ public class CreateURITask extends Task {
 			throw new BuildException("propertyName is not set.");
 		}
 		if (getFileName() == null) {
-			throw new BuildException("propertyName is not set.");
+			throw new BuildException("fileName is not set.");
 		}
 		URI uri = URI.createFileURI(fileName);
 		getProject().setProperty(getPropertyName(), uri.toString());
