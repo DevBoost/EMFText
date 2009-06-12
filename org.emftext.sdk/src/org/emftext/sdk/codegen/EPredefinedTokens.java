@@ -18,7 +18,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.runtime;
+package org.emftext.sdk.codegen;
 
 /**
  * A list of the tokens that are provided by default in all concrete syntax

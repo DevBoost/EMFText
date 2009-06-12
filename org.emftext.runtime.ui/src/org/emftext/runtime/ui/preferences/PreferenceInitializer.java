@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.EPredefinedTokens;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
@@ -60,46 +59,25 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
         	
         	if (tempResource instanceof ITextResource) {
-        		ITextResource tr = (ITextResource) tempResource;
+        		ITextResource textResource = (ITextResource) tempResource;
         		
         		String languageId = extension;
-	            int z = 0;
-	            
-	            String[] tokenNames = tr.getTokenNames();
+	            String[] tokenNames = textResource.getTokenNames();
 	            
 				for (int i = 0; i < tokenNames.length; i++) {
 					if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
 						continue;
 					}
 					
-	                String originalTokenName = tokenNames[i];
 					String tokenName = tokenHelper.getTokenName(tokenNames, i);
-	        		ITokenStyle style = tr.getDefaultTokenStyle(tokenName);
+					// TODO this information should be gathered from the meta information class
+					// to avoid creating the temporary resource
+	        		ITokenStyle style = textResource.getDefaultTokenStyle(tokenName);
 	        		
-	        		// TODO this magic derivation of default colors should be based on the
-	        		// token definition rather than on the token name
 	        		if (style != null) {
 	        			String color = getColorString(style.getColorAsRGB());
 	                    setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
-	        		} else if (originalTokenName.matches("[A-Z]+") && !originalTokenName.equals(EPredefinedTokens.STANDARD.getTokenName())) {
-	                    //a string like thing (most likely)
-	                    String color = "0,0,0";
-	                    if (z == 0) {
-	                        color = "42,0,255";
-	                        z++;
-	                    }
-	                    else if (z == 1) {
-	                        color = "63,127,95";
-	                        z++;
-	                    }
-	                    
-	                    setProperties(store, languageId, tokenName, color, false, true, false, false, false);
-	                }
-	                else if (originalTokenName.matches(".[a-zA-Z][a-zA-Z0-9:]+.")) { 
-	                    //a keyword (most likely)
-	                    setProperties(store, languageId, tokenName, "127,0,85", true, true, false, false, false);
-	                }
-	                else {
+	        		} else {
 	                    setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
 	                }
 	            }
