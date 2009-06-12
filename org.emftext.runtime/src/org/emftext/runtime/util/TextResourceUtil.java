@@ -18,7 +18,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.runtime.resource.impl;
+package org.emftext.runtime.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,7 +44,7 @@ import org.emftext.runtime.resource.ITextResource;
  * A TextResourceHelper can be used to perform common task on text resource,
  * such as loading and saving resources, as well as, checking them for errors.
  */
-public class TextResourceHelper {
+public class TextResourceUtil {
 
 	public ITextResource getResource(IFile file) {
 		ResourceSet rs = new ResourceSetImpl();

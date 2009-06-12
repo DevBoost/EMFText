@@ -27,7 +27,7 @@ import java.io.File;
 import junit.framework.TestCase;
 
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class Bug674Test extends TestCase {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "bug674" + File.separator;
 		File file = new File(path + filename);
 		
-		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
+		ITextResource resource = new TextResourceUtil().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		assertEquals(1, resource.getErrors().size());
 		String errorMessage = resource.getErrors().get(0).getMessage();

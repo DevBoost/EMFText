@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -46,7 +46,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class GenerateTextResourceTask extends Task {
 
-	private final static TextResourceHelper resourceHelper = new TextResourceHelper();
+	private final static TextResourceUtil resourceHelper = new TextResourceUtil();
 
 	private File rootFolder;
 	private File syntaxFile;

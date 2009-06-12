@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -157,7 +157,7 @@ public class SyntaxAnalysisTest extends TestCase {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_analysis" + File.separator;
 		File file = new File(path + filename);
 		
-		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
+		ITextResource resource = new TextResourceUtil().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		
 		List<Diagnostic> warnings = resource.getWarnings();

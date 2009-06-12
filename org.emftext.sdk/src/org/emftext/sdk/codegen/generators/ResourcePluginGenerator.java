@@ -32,7 +32,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.creators.ResourcePluginContentCreator;
@@ -68,7 +68,7 @@ public abstract class ResourcePluginGenerator {
 		}
 	}
 	
-	private final static TextResourceHelper resourceHelper = new TextResourceHelper();
+	private final static TextResourceUtil resourceHelper = new TextResourceUtil();
 
 	// these must add up to 100
 	protected static final int TICKS_CREATE_PROJECT = 2;
@@ -102,7 +102,7 @@ public abstract class ResourcePluginGenerator {
 		if (genPackage == null) {
 			return Result.ERROR_GEN_PACKAGE_NOT_FOUND;
 		}
-		List<EObject> unresolvedProxies = new TextResourceHelper().findUnresolvedProxies(csResource);
+		List<EObject> unresolvedProxies = new TextResourceUtil().findUnresolvedProxies(csResource);
 		if (unresolvedProxies.size() > 0) {
 			Result result = Result.ERROR_FOUND_UNRESOLVED_PROXIES;
 			result.setUnresolvedProxies(unresolvedProxies);

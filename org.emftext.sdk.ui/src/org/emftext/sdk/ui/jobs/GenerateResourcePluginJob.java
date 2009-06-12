@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.TextResourceHelper;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
+import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
@@ -44,7 +44,7 @@ import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
  */
 public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 
-	private final static TextResourceHelper resourceHelper = new TextResourceHelper();
+	private final static TextResourceUtil resourceHelper = new TextResourceUtil();
 
 	private final IFile csFile;
 

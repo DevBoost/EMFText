@@ -32,7 +32,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.TextResourceHelper;
+import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Definition;
@@ -68,7 +68,7 @@ public class SyntaxExtensionTest extends TestCase {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_extension" + File.separator;
 		File file = new File(path + filename);
 		
-		ITextResource resource = new TextResourceHelper().getResource(file, new SDKOptionProvider().getOptions());
+		ITextResource resource = new TextResourceUtil().getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		EList<Diagnostic> errors = resource.getErrors();
 		for (Diagnostic error : errors) {
