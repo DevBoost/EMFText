@@ -81,7 +81,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 
 				if (genModelResource != null) {
 					URI genmodelURI = genModelResource.getURI();
-					if (genmodelURI != null) {
+					if (genmodelURI != null && genModelURI.isPlatform()) {
 						IResource genmodelMember = ResourcesPlugin.getWorkspace().getRoot().findMember(genmodelURI.toPlatformString(true));
 						if (genmodelMember != null) {
 							genmodelFile = genmodelMember.getLocation().toFile();
@@ -99,9 +99,11 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 					if (ecoreURI == null) {
 						continue;
 					}
-					IResource ecoreMember = ResourcesPlugin.getWorkspace().getRoot().findMember(ecoreURI.toPlatformString(true));
-					if (ecoreMember != null) {
-						ecoreFile = ecoreMember.getLocation().toFile();
+					if(genModelURI.isPlatform()) {
+						IResource ecoreMember = ResourcesPlugin.getWorkspace().getRoot().findMember(ecoreURI.toPlatformString(true));
+						if (ecoreMember != null) {
+							ecoreFile = ecoreMember.getLocation().toFile();
+						}
 					}
 					break;
 				}
@@ -124,18 +126,21 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 		if (Platform.isRunning()) {
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			final URI genModelURI = genModel.eResource().getURI();
-			IResource member = workspace.getRoot().findMember(genModelURI.toPlatformString(true));
-			if (member instanceof IFile) {
-				IFile file = (IFile) member;
-				if (!file.isReadOnly()) {
-	            	try {
-	            		updateGenModel(genModel);
-	            		Resource genModelResource = rs.getResource(genModelURI, true);
-	        			return (GenModel) genModelResource.getContents().get(0);
-	            	} catch (Exception e) {
-	            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
-	            	}
-	        	}
+			//only reload when we are working on the platform
+			if(genModelURI.isPlatform()) {
+				IResource member = workspace.getRoot().findMember(genModelURI.toPlatformString(true));
+				if (member instanceof IFile) {
+					IFile file = (IFile) member;
+					if (!file.isReadOnly()) {
+		            	try {
+		            		updateGenModel(genModel);
+		            		Resource genModelResource = rs.getResource(genModelURI, true);
+		        			return (GenModel) genModelResource.getContents().get(0);
+		            	} catch (Exception e) {
+		            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
+		            	}
+		        	}
+				}
 			}
 		}
 		return genModel;
