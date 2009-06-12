@@ -47,6 +47,8 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	 * has been loaded.
 	 * 
 	 * @return the resolver switch
+	 * 
+	 * TODO move this to meta information class
 	 */
 	public IReferenceResolverSwitch getReferenceResolverSwitch();
 	
@@ -74,6 +76,8 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	 * Helper method to access the names of different tokens that may exist in the underlying text file.
 	 * 
 	 * @return All token names.
+	 * 
+	 * TODO move this to meta information class
 	 */
 	public String[] getTokenNames();
 	
@@ -81,6 +85,8 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	 * Return a scanner capable to split the underlying text file into tokens.
 	 * 
 	 * @return A scanner.
+	 * 
+	 * TODO move this to meta information class
 	 */
 	public Object getScanner();
 	
@@ -101,6 +107,8 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	 *  
 	 * @param tokenName the name of the token type
 	 * @return a style object or null if not default style is set
+	 * 
+	 * TODO move this to meta information class
 	 */
 	public ITokenStyle getDefaultTokenStyle(String tokenName);
 }

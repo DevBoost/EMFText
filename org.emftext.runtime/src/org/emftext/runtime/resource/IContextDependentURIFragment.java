@@ -42,6 +42,8 @@ import org.eclipse.emf.ecore.EReference;
  * @param <ReferenceType> the type of the reference that can be resolved by this fragment
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
+ * 
+ * TODO figure out whether this interface must really be exposed
  */
 public interface IContextDependentURIFragment<ReferenceType extends EObject> {
 

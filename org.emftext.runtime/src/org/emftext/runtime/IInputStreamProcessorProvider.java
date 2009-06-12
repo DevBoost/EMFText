@@ -27,6 +27,8 @@ import java.io.InputStream;
  * processors can be used to pre-process input stream before a text resource
  * is actually lexed and parsed. This can be for example useful to do an 
  * encoding conversion.
+ * 
+ * TODO use EMF's load option Resource.OPTION_CIPHER instead
  */
 public interface IInputStreamProcessorProvider {
 	

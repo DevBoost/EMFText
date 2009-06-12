@@ -30,7 +30,7 @@ public interface IConfigurable {
 	
 	/**
 	 * Passed the options given by the map to the configurable
-	 * objects. 
+	 * object. 
 	 */
 	public void setOptions(Map<?,?> options);
 }

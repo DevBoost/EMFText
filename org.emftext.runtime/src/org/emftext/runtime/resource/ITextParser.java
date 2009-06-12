@@ -55,13 +55,17 @@ public interface ITextParser extends IConfigurable {
 	public EObject parse();
 	
 	/**
-	 * Parses the input up to the given index in the stream
-	 * using 'type' as start symbol and returns the element
-	 * that is expected after index. If the parser implementation
+	 * Returns the element that is expected at index. 
+	 * 
+	 * If the parser implementation
 	 * can not determine the expected element null is returned.
 	 * This method is used by the code completion to figure out
 	 * which proposals can be shown to users for a given cursor
-	 * positiion.
+	 * position.
+	 * 
+	 * The class 'type' is used as start symbol.
+	 * 
+	 * TODO renamed this method to getElementExpectedAt
 	 */
 	public IExpectedElement parseToIndex(int index, EClass type);
 }

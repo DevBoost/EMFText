@@ -28,6 +28,8 @@ import org.eclipse.emf.ecore.EReference;
  *
  * @param <ContainerType> the type of the class containing the reference to be resolved
  * @param <ReferenceType> the type of the reference to be resolved
+ * 
+ * TODO figure out whether this interface must really be exposed
  */
 public interface IContextDependentURIFragmentFactory<ContainerType extends EObject, ReferenceType extends EObject> {
 

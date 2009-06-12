@@ -28,6 +28,8 @@ import org.eclipse.emf.common.util.URI;
  * on the resolution of others.
  * 
  * @param <ReferenceType> unused type parameter which is needed to implement IReferenceMapping.
+ * 
+ * TODO figure out whether this interface must really be exposed
  */
 public interface IURIMapping<ReferenceType> extends IReferenceMapping<ReferenceType> {
 	
