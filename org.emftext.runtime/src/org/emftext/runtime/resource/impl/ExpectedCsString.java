@@ -3,6 +3,8 @@
  */
 package org.emftext.runtime.resource.impl;
 
+import org.emftext.runtime.resource.IExpectedElement;
+
 public class ExpectedCsString implements IExpectedElement {
 	private String value;
 

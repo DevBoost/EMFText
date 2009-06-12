@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.emftext.runtime.resource.impl;
+package org.emftext.runtime.resource;
 
 public interface IExpectedElement {
 	

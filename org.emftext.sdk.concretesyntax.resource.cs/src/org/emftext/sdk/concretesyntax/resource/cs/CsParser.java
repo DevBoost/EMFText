@@ -89,7 +89,7 @@ public class CsParser extends AbstractEMFTextParser {
     	private java.lang.Object parseToIndexTypeObject;
     	private int lastTokenIndex = 0;
     	private boolean reachedIndex = false;
-    	private org.emftext.runtime.resource.impl.IExpectedElement expectedElement;
+    	private org.emftext.runtime.resource.IExpectedElement expectedElement;
     	
     	// This default constructor is only used to call createInstance() on it
     	public CsParser() {
@@ -223,7 +223,7 @@ public class CsParser extends AbstractEMFTextParser {
     		}
     	}
     	
-    	public org.emftext.runtime.resource.impl.IExpectedElement parseToIndex(int index, org.eclipse.emf.ecore.EClass type) {
+    	public org.emftext.runtime.resource.IExpectedElement parseToIndex(int index, org.eclipse.emf.ecore.EClass type) {
     		stopIndex = index;
     		parseToIndexTypeObject = type;
     		parse();
@@ -277,7 +277,7 @@ public class CsParser extends AbstractEMFTextParser {
     		locationsMap.setCharStart(target, source.getStartIndex()); 		locationsMap.setCharEnd(target, source.getStopIndex());			locationsMap.setColumn(target, source.getCharPositionInLine());			locationsMap.setLine(target, source.getLine());
     	}
     	
-    	public void terminateParsingIfCursorIndexReached(org.emftext.runtime.resource.impl.IExpectedElement expectedElement) {
+    	public void terminateParsingIfCursorIndexReached(org.emftext.runtime.resource.IExpectedElement expectedElement) {
     		if (this.stopIndex < 0) {
     			return;
     		}

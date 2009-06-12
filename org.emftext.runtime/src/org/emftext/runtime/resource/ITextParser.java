@@ -22,7 +22,6 @@ package org.emftext.runtime.resource;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.impl.IExpectedElement;
 
 /**
  * A text parser parses a text into a tree of <code>EObject</code>s.

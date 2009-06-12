@@ -5,6 +5,7 @@ package org.emftext.runtime.resource.impl;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.IExpectedElement;
 
 public class ExpectedStructuralFeature implements IExpectedElement {
 	private EStructuralFeature feature;

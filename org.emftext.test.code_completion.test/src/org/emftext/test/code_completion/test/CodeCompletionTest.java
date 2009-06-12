@@ -16,11 +16,11 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.IExpectedElement;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.CodeCompletionHelper;
 import org.emftext.runtime.resource.impl.ExpectedCsString;
 import org.emftext.runtime.resource.impl.ExpectedStructuralFeature;
-import org.emftext.runtime.resource.impl.IExpectedElement;
 import org.emftext.test.code_completion.Code_completionPackage;
 import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
 import org.emftext.test.code_completion.resource.cct.CctParser;
