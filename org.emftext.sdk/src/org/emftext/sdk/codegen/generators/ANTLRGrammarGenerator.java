@@ -443,7 +443,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private " + ITokenResolverFactory.class.getName() + " tokenResolverFactory = new " + tokenResolverFactoryName + "();");
 		sc.add(new StringComponent("private int lastPosition;", "lastPosition"));
 		sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
-		sc.add("private int stopIndex = -1;");
 		sc.add("private boolean rememberExpectedElements = false;");
 		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
 		sc.add("private int lastTokenIndex = 0;");
