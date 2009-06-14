@@ -125,6 +125,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private static final String LIST = List.class.getName();
 	private static final String OBJECT = Object.class.getName();
 	private static final String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
+	private static final String MATH = Math.class.getName();
 
 	/**
 	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
@@ -254,6 +255,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
   
         addAddObjectToListMethod(sc);
         sc.addLineBreak();
+        
+        addGetParseToIndexTypeObjectMethod(sc);
+        sc.addLineBreak();
 
         addGetFreshTokenResolveResultMethod(sc);
         sc.addLineBreak();
@@ -264,10 +268,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         addCreateInstanceMethod(lexerName, parserName, sc);
 		sc.addLineBreak();
 
-		addParseToIndexMethod(sc);
-		sc.addLineBreak();
-		
-		addGetParseToIndexTypeObjectMethod(sc);
+		addParseToExpectedElementsMethod(sc);
 		sc.addLineBreak();
 
 		addRegisterContextDependentProxyMethod(sc);
@@ -282,7 +283,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addCopyLocalizationInfosMethod2(sc);
 		sc.addLineBreak();
 
-		addTerminateParsingIfCursorReachedMethod(sc);
+		addAddExpectedElementMethod(sc);
 		sc.addLineBreak();
 
 		addRecoverFromMismatchedTokenMethod(sc);
@@ -443,24 +444,21 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(new StringComponent("private int lastPosition;", "lastPosition"));
 		sc.add("private " + TokenResolveResult.class.getName() + " tokenResolveResult = new " + TokenResolveResult.class.getName() + "();");
 		sc.add("private int stopIndex = -1;");
+		sc.add("private boolean rememberExpectedElements = false;");
 		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
 		sc.add("private int lastTokenIndex = 0;");
 		sc.add("private boolean reachedIndex = false;");
-		sc.add("private " + I_EXPECTED_ELEMENT + " expectedElement;");
+		sc.add("private " + LIST + "<" + I_EXPECTED_ELEMENT + "> expectedElements = new " + ARRAY_LIST + "<" + I_EXPECTED_ELEMENT + ">();");
+		sc.add("private int lastIndex = -1;");
 	}
 
-	private void addParseToIndexMethod(StringComposite sc) {
-		sc.add("public " + I_EXPECTED_ELEMENT + " parseToIndex(int index, " + E_CLASS + " type) {");
-		sc.add("stopIndex = index;");
+	private void addParseToExpectedElementsMethod(StringComposite sc) {
+		sc.add("public " + LIST + "<" + I_EXPECTED_ELEMENT + "> parseToExpectedElements("
+				+ E_CLASS + " type) {");
+		sc.add("rememberExpectedElements = true;");
 		sc.add("parseToIndexTypeObject = type;");
 		sc.add("parse();");
-		sc.add("return this.expectedElement;");
-		sc.add("}");
-	}
-
-	private void addGetParseToIndexTypeObjectMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + " getParseToIndexTypeObject() {");
-		sc.add("return parseToIndexTypeObject;");
+		sc.add("return this.expectedElements;");
 		sc.add("}");
 	}
 
@@ -501,11 +499,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("// code completion");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("final " + I_LOCATION_MAP + " locationsMap = resource.getLocationMap();");
-		sc.add("locationsMap.setCharStart(target, locationsMap.getCharStart(source)); ");
-		sc.add("locationsMap.setCharEnd(target, locationsMap.getCharEnd(source)); ");
-		sc.add("locationsMap.setColumn(target, locationsMap.getColumn(source)); ");
-		sc.add("locationsMap.setLine(target, locationsMap.getLine(source));");
+		sc.add("final " + I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
+		sc.add("locationMap.setCharStart(target, locationMap.getCharStart(source));");
+		sc.add("locationMap.setCharEnd(target, locationMap.getCharEnd(source));");
+		sc.add("locationMap.setColumn(target, locationMap.getColumn(source));");
+		sc.add("locationMap.setLine(target, locationMap.getLine(source));");
 		sc.add("}");
 	}
 
@@ -517,59 +515,62 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("// code completion");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("final " + I_LOCATION_MAP + " locationsMap = resource.getLocationMap();");
-		sc.add("locationsMap.setCharStart(target, source.getStartIndex()); ");
-		sc.add("locationsMap.setCharEnd(target, source.getStopIndex());	");
-		sc.add("locationsMap.setColumn(target, source.getCharPositionInLine());	");
-		sc.add("locationsMap.setLine(target, source.getLine());");
+		sc.add("final " + I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
+		sc.add("locationMap.setCharStart(target, source.getStartIndex());");
+		sc.add("locationMap.setCharEnd(target, source.getStopIndex());");
+		sc.add("locationMap.setColumn(target, source.getCharPositionInLine());");
+		sc.add("locationMap.setLine(target, source.getLine());");
 		sc.add("}");
 	}
 
-	private void addTerminateParsingIfCursorReachedMethod(StringComposite sc) {
-		sc.add("public void terminateParsingIfCursorIndexReached(" + I_EXPECTED_ELEMENT + " expectedElement) {");
-		sc.add("if (this.stopIndex < 0) {");
+	private void addAddExpectedElementMethod(StringComposite sc) {
+		sc.add("public void addExpectedElement(" + I_EXPECTED_ELEMENT + " expectedElement, " + OBJECT + " match) {");
+		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("if (this.reachedIndex) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("if (lastTokenIndex >= input.size()) {");
-		sc.add("this.expectedElement = expectedElement;");
-		sc.add("this.reachedIndex = true;");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("final " + COMMON_TOKEN + " lastToken = (" + COMMON_TOKEN + ") input.get(lastTokenIndex);");
-		sc.add(COMMON_TOKEN + " currentToken = null;");
-		sc.add("");
-		sc.add("final int currentTokenIndex = java.lang.Math.max(0, Math.min(input.size() - 1, input.index()));");
+		sc.add("int currentTokenIndex = " + MATH + ".max(0, input.index());");
+		sc.add("int currentIndex = lastIndex == " + INTEGER + ".MAX_VALUE ? " + INTEGER + ".MAX_VALUE : (lastIndex + 1);");
+		sc.add("int startIncludingHidden = -1;");
+		sc.add("int startExcludingHidden = -1;");
+		sc.add("int endIncludingHidden = " + INTEGER + ".MAX_VALUE;");
+		sc.add("int endExcludingHidden = " + INTEGER + ".MAX_VALUE;");
 		sc.add("for (int index = lastTokenIndex; index < currentTokenIndex; index++) {");
-		sc.add("final " + COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN + ") input.get(index);");
-		sc.add("currentToken = tokenAtIndex;");
-		sc.add("java.lang.System.out.println(\"TOKEN: \" + tokenAtIndex);");
-		sc.add("}");
-		sc.add("lastTokenIndex = java.lang.Math.max(0, currentTokenIndex);");
-		sc.add("if (currentToken != null) {");
-		sc.add("final int start = lastToken.getStartIndex();");
-		sc.add("final int end = currentToken.getStopIndex();");
-		sc.add("java.lang.System.out.println(\"At \" + start + \"-\" + end + \": \" + expectedElement);");
-		sc.add("boolean reachedStopIndex = end >= this.stopIndex;");
-		sc.add("if (reachedStopIndex) {");
-		sc.add("this.expectedElement = expectedElement;");
-		sc.add("this.reachedIndex = true;");
-		sc.add("return;");
-		sc.add("}");
+		sc.add(COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN + ") input.get(index);");
+		sc.add("if (tokenAtIndex.getChannel() == 99) {");
+		sc.add("startIncludingHidden = tokenAtIndex.getStartIndex();");
+		sc.add("endIncludingHidden = tokenAtIndex.getStopIndex();");
 		sc.add("} else {");
-		sc.add("java.lang.System.out.println(\"At ?-?: \" + expectedElement);");
-		sc.add("this.expectedElement = expectedElement;");
-		sc.add("this.reachedIndex = true;");
-		sc.add("return;");
+		sc.add("startExcludingHidden = tokenAtIndex.getStartIndex();");
+		sc.add("endExcludingHidden = tokenAtIndex.getStopIndex();");
 		sc.add("}");
+		sc.add("}");
+		sc.add("startIncludingHidden = " + MATH + ".max(startIncludingHidden, currentIndex);");
+		sc.add("startExcludingHidden = " + MATH + ".max(startExcludingHidden, currentIndex);");
+		sc.add("lastTokenIndex = " + MATH + ".max(0, currentTokenIndex);");
+		sc.add("expectedElement.setPosition(");
+		sc.add("startIncludingHidden,");
+		sc.add("startExcludingHidden,");
+		sc.add("endIncludingHidden,");
+		sc.add("endExcludingHidden");
+		sc.add(");");
+		sc.add("this.lastIndex = endIncludingHidden;");
+		sc.add("this.expectedElements.add(expectedElement);");
+		sc.add("}");
+		sc.add("");
+	}
+
+	private void addGetParseToIndexTypeObjectMethod(StringComposite sc) {
+		sc.add("public " + OBJECT + " getParseToIndexTypeObject() {");
+		sc.add("return parseToIndexTypeObject;");
 		sc.add("}");
 	}
 
 	private void addRecoverFromMismatchedTokenMethod(StringComposite sc) {
 		sc.add("public " + OBJECT + " recoverFromMismatchedToken(" + IntStream.class.getName() + " input, int ttype, " + BitSet.class.getName() + " follow) throws " + RECOGNITION_EXCEPTION + " {");
-		sc.add("if (stopIndex < 0) {");
+		sc.add("if (!rememberExpectedElements) {");
 		sc.add("return super.recoverFromMismatchedToken(input, ttype, follow);");
 		sc.add("} else {");
 		sc.add("return null;");
@@ -880,7 +881,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(identifier + " = '" + escapedCsString + "' {");
 		// we must use the unicode representation for the % character, because
 		// StringTemplate does treat % special
-    	sc.add("terminateParsingIfCursorIndexReached(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString.replace("%", "\\u0025") + "\"));");
+		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString.replace("%", "\\u0025") + "\"), " + identifier + ");");
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
@@ -1014,14 +1015,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
-		sc.add("terminateParsingIfCursorIndexReached(new "
+		sc.add("addExpectedElement(new "
 				+ ExpectedStructuralFeature.class.getName() + "("
 				+ genClass.getGenPackage().getReflectionPackageName() + "."
 				+ genClass.getGenPackage().getPackageInterfaceName()
 				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
 				+ "()" + ".getEStructuralFeature("
 				+ generatorUtil.getFeatureConstant(genClass, genFeature)
-				+ "), element" + "));");
+				+ "), element" + "), " + ident + ");");
 		sc.add("if (" + ident + " != null) {");
     	sc.add(resolvements);
 		sc.add("if (" + expressionToBeSet + " != null) {");

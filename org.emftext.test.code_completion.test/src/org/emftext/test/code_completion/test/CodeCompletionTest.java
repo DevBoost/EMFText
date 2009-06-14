@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.LineNumberReader;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import junit.framework.Test;
@@ -26,6 +27,13 @@ import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
 import org.emftext.test.code_completion.resource.cct.CctParser;
 
 public class CodeCompletionTest extends TestCase {
+
+	private boolean accept(String filename) {
+		return true ||
+			"BracketExpected3.cct".equals(filename) ||
+			"EnumVisibilityExpected1.cct".equals(filename)
+			;
+	}
 
 	private static final Code_completionPackage CCT_PACKAGE = Code_completionPackage.eINSTANCE;
 	private static final String INPUT_DIR = "input";
@@ -111,6 +119,15 @@ public class CodeCompletionTest extends TestCase {
 		expectedElementsMap = new HashMap<String, Object>();
 		expectedInsertStringsMap = new HashMap<String, String[]>();
 		
+		expectedElementsMap.put("BracketExpected2.cct", "}");
+		expectedInsertStringsMap.put("BracketExpected2.cct", new String[] {"}"});
+
+		expectedElementsMap.put("BracketExpected1.cct", "{");
+		expectedInsertStringsMap.put("BracketExpected1.cct", new String[] {"{"});
+
+		expectedElementsMap.put("BracketExpected3.cct", "}");
+		expectedInsertStringsMap.put("BracketExpected3.cct", new String[] {"}"});
+
 		expectedElementsMap.put("KeywordClassExpected1.cct", "class");
 		expectedInsertStringsMap.put("KeywordClassExpected1.cct", new String[] {"class"});
 		
@@ -125,9 +142,6 @@ public class CodeCompletionTest extends TestCase {
 
 		expectedElementsMap.put("NameExpected2.cct", CCT_PACKAGE.getNamedElement_Name());
 		expectedInsertStringsMap.put("NameExpected2.cct", new String[] {});
-
-		expectedElementsMap.put("BracketExpected.cct", "{");
-		expectedInsertStringsMap.put("BracketExpected.cct", new String[] {"{"});
 
 		expectedElementsMap.put("TypeExpected.cct", CCT_PACKAGE.getTypedElement_Type());
 		expectedInsertStringsMap.put("TypeExpected.cct", new String[] {"SomeName"});
@@ -154,6 +168,9 @@ public class CodeCompletionTest extends TestCase {
 	
 	private void checkInsertStrings(File file) {
 		String filename = file.getName();
+		if (!accept(filename)) {
+			return;
+		}
 		String[] expectedInsertStrings = expectedInsertStringsMap.get(filename);
 		assertNotNull("No expected insert strings given for file " + filename, expectedInsertStrings);
 		checkInsertStrings(file, expectedInsertStrings);
@@ -161,6 +178,9 @@ public class CodeCompletionTest extends TestCase {
 	
 	private void parseToCursor(File file) {
 		String filename = file.getName();
+		if (!accept(filename)) {
+			return;
+		}
 		Object expectedElement = expectedElementsMap.get(filename);
 		assertNotNull("No expected element given for file " + filename, expectedElement);
 		if (expectedElement instanceof String) {
@@ -173,10 +193,9 @@ public class CodeCompletionTest extends TestCase {
 	}
 	
 	private void checkInsertStrings(File file, String[] expectedInsertStrings) {
-		System.out.println("-------- " + file);
 		String fileContent = getFileContent(file);
 		int cursorIndex = getCursorMarkerIndex(fileContent);
-		System.out.println("-------- CURSOR AT " + cursorIndex);
+		System.out.println("-------- " + file + " - CURSOR AT " + cursorIndex);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		CodeCompletionHelper helper = new CodeCompletionHelper();
 		Collection<String> proposals = helper.computeCompletionProposals(new CctMetaInformation(), contentWithoutMarker, cursorIndex);
@@ -188,20 +207,23 @@ public class CodeCompletionTest extends TestCase {
 	}
 
 	private void parseToCursor(File file, IExpectedElement expectedCompletionElement) {
-		System.out.println("-------- " + file);
 		String fileContent = getFileContent(file);
 		int cursorIndex = getCursorMarkerIndex(fileContent);
-		System.out.println("-------- CURSOR AT " + cursorIndex);
+		System.out.println("-------- " + file + " - CURSOR AT " + cursorIndex);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		InputStream inputStream = new ByteArrayInputStream(contentWithoutMarker.getBytes());
 		CctParser factory = new CctParser();
 		AbstractEMFTextParser parser = (AbstractEMFTextParser) factory.createInstance(inputStream, null);
 
-		final IExpectedElement actualElement = parser.parseToIndex(cursorIndex, null);
-		if (actualElement == null) {
-			fail("Parser must return an expected elemet.");
+		final List<IExpectedElement> actualElements = parser.parseToExpectedElements(null);
+		if (actualElements == null) {
+			fail("Parser must return an expected elements list.");
 		}
-		assertEquals(expectedCompletionElement, actualElement);
+		if (actualElements.size() == 0) {
+			fail("Parser must return at least one expected element.");
+		}
+		IExpectedElement finalExpectedAtCursor = CodeCompletionHelper.getFinalExpectedElementAt(cursorIndex, actualElements);
+		assertEquals(expectedCompletionElement, finalExpectedAtCursor);
 	}
 
 	private int getCursorMarkerIndex(String fileContent) {

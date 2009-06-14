@@ -3,6 +3,7 @@
 	package org.emftext.sdk.concretesyntax.resource.cs;
 	
 	import java.util.HashMap;
+import java.util.List;
 
 import org.antlr.runtime.BaseRecognizer;
 import org.antlr.runtime.BitSet;
@@ -89,7 +90,6 @@ public class CsParser extends AbstractEMFTextParser {
     	private java.lang.Object parseToIndexTypeObject;
     	private int lastTokenIndex = 0;
     	private boolean reachedIndex = false;
-    	private org.emftext.runtime.resource.IExpectedElement expectedElement;
     	
     	// This default constructor is only used to call createInstance() on it
     	public CsParser() {
@@ -223,11 +223,11 @@ public class CsParser extends AbstractEMFTextParser {
     		}
     	}
     	
-    	public org.emftext.runtime.resource.IExpectedElement parseToIndex(int index, org.eclipse.emf.ecore.EClass type) {
-    		stopIndex = index;
+    	public List<org.emftext.runtime.resource.IExpectedElement> parseToExpectedElements(org.eclipse.emf.ecore.EClass type) {
+    		stopIndex = 0;
     		parseToIndexTypeObject = type;
     		parse();
-    		return this.expectedElement;
+    		return null;
     	}
     	
     	public java.lang.Object getParseToIndexTypeObject() {
@@ -285,7 +285,6 @@ public class CsParser extends AbstractEMFTextParser {
     			return;
     		}
     		if (lastTokenIndex >= input.size()) {
-    			this.expectedElement = expectedElement;
     			this.reachedIndex = true;
     			return;
     		}
@@ -304,13 +303,11 @@ public class CsParser extends AbstractEMFTextParser {
     			java.lang.System.out.println("At " + start + "-" + end + ": " + expectedElement);
     			boolean reachedStopIndex = end >= this.stopIndex;
     			if (reachedStopIndex) {
-    				this.expectedElement = expectedElement;
     				this.reachedIndex = true;
     				return;
     			}
     		} else {
     			java.lang.System.out.println("At ?-?: " + expectedElement);
-    			this.expectedElement = expectedElement;
     			this.reachedIndex = true;
     			return;
     		}

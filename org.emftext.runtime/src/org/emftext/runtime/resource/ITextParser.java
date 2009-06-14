@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.runtime.resource;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
@@ -55,17 +57,16 @@ public interface ITextParser extends IConfigurable {
 	public EObject parse();
 	
 	/**
-	 * Returns the element that is expected at index. 
+	 * Parses the document and returns a list of expected elements.
+	 * Each expected element covers a range in the input stream.
 	 * 
-	 * If the parser implementation
-	 * can not determine the expected element null is returned.
+	 * If the parser implementation can not determine expected 
+	 * elements null can be returned.
 	 * This method is used by the code completion to figure out
 	 * which proposals can be shown to users for a given cursor
 	 * position.
 	 * 
 	 * The class 'type' is used as start symbol.
-	 * 
-	 * TODO renamed this method to getElementExpectedAt
 	 */
-	public IExpectedElement parseToIndex(int index, EClass type);
+	public List<IExpectedElement> parseToExpectedElements(EClass type);
 }

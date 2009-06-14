@@ -5,9 +5,12 @@ package org.emftext.runtime.resource.impl;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.IExpectedElement;
 
-public class ExpectedStructuralFeature implements IExpectedElement {
+/**
+ * A representation for a range in a document where a structural feature (e.g.,
+ * a reference) is expected.
+ */
+public class ExpectedStructuralFeature extends AbstractExpectedElement {
 	private EStructuralFeature feature;
 	private EObject container;
 
@@ -25,7 +28,8 @@ public class ExpectedStructuralFeature implements IExpectedElement {
 	}
 	
 	public String toString() {
-		return "EFeature \"" + feature.getName() + "\" in " + container;
+		String simpleName = container == null ? "null" : container.getClass().getSimpleName();
+		return super.toString() + " EFeature \"" + feature.getName() + "\" in " + simpleName;
 	}
 
 	public boolean equals(Object o) {

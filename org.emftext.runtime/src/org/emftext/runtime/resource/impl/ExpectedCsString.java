@@ -1,11 +1,10 @@
-/**
- * 
- */
 package org.emftext.runtime.resource.impl;
 
-import org.emftext.runtime.resource.IExpectedElement;
-
-public class ExpectedCsString implements IExpectedElement {
+/**
+ * A representation for a range in a document where a CsString (e.g.,
+ * a keyword) is expected.
+ */
+public class ExpectedCsString extends AbstractExpectedElement {
 	private String value;
 
 	public ExpectedCsString(String value) {
@@ -17,7 +16,7 @@ public class ExpectedCsString implements IExpectedElement {
 	}
 
 	public String toString() {
-		return "CsString \"" + value + "\"";
+		return super.toString() + " CsString \"" + value + "\"";
 	}
 	
 	public boolean equals(Object o) {

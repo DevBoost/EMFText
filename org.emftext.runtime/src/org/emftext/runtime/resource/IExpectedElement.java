@@ -8,8 +8,21 @@ package org.emftext.runtime.resource;
  * stream.
  */
 public interface IExpectedElement {
+
 	// TODO figure out whether we really have to expose this interface
 	// it does not contain any methods because the implementing classes
 	// share no common functionality. They basically share the property
 	// to be potentially expected.
+
+	// TODO remove this
+	public void setPosition(
+			int startIncludingHiddenTokens, 
+			int startExcludingHiddenTokens, 
+			int endIncludingHiddenTokens,
+			int endExcludingHiddenTokens
+	);
+
+	public boolean isAt(int cursorIndex);
+
+	public boolean isUnknown(int cursorIndex);
 }
