@@ -6,6 +6,10 @@ OPTIONS {
 	reloadGeneratorModel = "true";
 }
 
+TOKENS {
+	DEFINE COMMENT $'//'(~('\n'|'\r'))*$;
+}
+
 RULES {
 	
 	Class  ::= visibility[] "class" name[] "{" members* "}";
