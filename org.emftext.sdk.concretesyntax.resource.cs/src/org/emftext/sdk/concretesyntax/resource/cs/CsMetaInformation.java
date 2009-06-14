@@ -37,4 +37,9 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 	public org.emftext.runtime.resource.IReferenceResolverSwitch getReferenceResolverSwitch() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch();
 	}
+	
+	public org.emftext.runtime.resource.ITokenResolverFactory getTokenResolverFactory() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolverFactory();
+	}
+	
 }

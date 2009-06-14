@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
@@ -20,7 +21,10 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
+import org.emftext.runtime.resource.ITokenResolver;
+import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.util.EClassUtil;
+import org.emftext.runtime.util.StringUtil;
 
 /**
  * A CodeCompletionHelper can be used to derive completion proposals for partial 
@@ -74,6 +78,7 @@ public class CodeCompletionHelper {
 				EEnum enumType = (EEnum) featureType;
 				return deriveProposals(enumType, content, offset);
 			}
+			EObject container = expectedFeature.getContainer();
 			if (feature instanceof EReference) {
 				EReference reference = (EReference) feature;
 				if (featureType instanceof EClass) {
@@ -83,7 +88,6 @@ public class CodeCompletionHelper {
 					} else {
 						// handle non-containment references
 						IReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
-						EObject container = expectedFeature.getContainer();
 						IReferenceResolveResult<EObject> result = new ReferenceResolveResult<EObject>(true);
 						String prefix = findPrefix(content, offset);
 						System.out.println("deriveProposals() NON-CONTAINMENT prefix = \"" + prefix + "\"");
@@ -100,13 +104,41 @@ public class CodeCompletionHelper {
 						}
 					}
 				}
-			} else {
+			}
+			if (feature instanceof EAttribute) {
+				EAttribute attribute = (EAttribute) feature;
 				// TODO mseifert: handle EAttributes (derive default value depending on
 				// the type of the attribute, figure out token resolver, and
 				// call deResolve())
+				Object defaultValue = getDefaultValue(attribute);
+				if (defaultValue != null) {
+					ITokenResolverFactory tokenResolverFactory = metaInformation.getTokenResolverFactory();
+					String tokenName = expectedFeature.getTokenName();
+					if (tokenName != null) {
+						ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
+						if (tokenResolver != null) {
+							// TODO respect prefix here
+							String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
+							Collection<String> resultSet = new HashSet<String>();
+							resultSet.add(defaultValueAsString);
+							return resultSet;
+						}
+					}
+				}
 			}
+			// TODO is there another case?
 		}
 		return Collections.emptyList();
+	}
+
+	private Object getDefaultValue(EAttribute attribute) {
+		String typeName = attribute.getEType().getName();
+		if ("EString".equals(typeName)) {
+			return "some" + StringUtil.capitalize(attribute.getName());
+		}
+		// TODO add more default values for other types
+		System.out.println("CodeCompletionHelper.getDefaultValue() unknown type " + typeName);
+		return attribute.getDefaultValue();
 	}
 
 	// TODO mseifert: this is a hack. we must rather use token information from

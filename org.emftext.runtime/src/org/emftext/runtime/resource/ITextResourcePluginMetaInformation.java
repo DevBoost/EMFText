@@ -32,8 +32,11 @@ public interface ITextResourcePluginMetaInformation {
 
 	/**
 	 * Returns an instance of the reference resolver switch class.
-	 * 
-	 * @return
 	 */
 	public IReferenceResolverSwitch getReferenceResolverSwitch();
+
+	/**
+	 * Returns an instance of the token resolver factory.
+	 */
+	public ITokenResolverFactory getTokenResolverFactory();
 }

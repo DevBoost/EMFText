@@ -8,6 +8,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -24,11 +25,13 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private String parserClassName;
 	private String resolverSwitchClassName;
 	private ConcreteSyntax syntax;
+	private String tokenResolverFactoryClassName;
 
 	public PluginMetaInformationGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getMetaInformationClassName());
 		this.parserClassName = context.getQualifiedParserClassName();
 		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
+		this.tokenResolverFactoryClassName = context.getQualifiedTokenResolverFactoryClassName();
 		this.syntax = context.getConcreteSyntax();
 	}
 	
@@ -42,10 +45,9 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.add("public class " + getResourceClassName()+ " extends " + AbstractTextResourcePluginMetaInformation.class.getName() + " {");
         sc.addLineBreak();
 		addCreateParserMethod(sc);
-        sc.addLineBreak();
 		addGetClassesWithSyntaxMethod(sc);
-        sc.addLineBreak();
         addGetReferenceResolverSwitchMethod(sc);
+        addGetTokenResolverFactoryMethod(sc);
 		sc.add("}");
     	
 		out.print(sc.toString());
@@ -56,6 +58,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		sc.add("public " + ITextParser.class.getName() + " createParser(" + InputStream.class.getName() + " inputStream, " + String.class.getName() + " encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");
 		sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addGetClassesWithSyntaxMethod(StringComposite sc) {
@@ -67,11 +70,20 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		}
 		sc.add("};");
 		sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("public " + IReferenceResolverSwitch.class.getName() + " getReferenceResolverSwitch() {");
 		sc.add("return new " + resolverSwitchClassName + "();");
 		sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetTokenResolverFactoryMethod(StringComposite sc) {
+		sc.add("public " + ITokenResolverFactory.class.getName() + " getTokenResolverFactory() {");
+		sc.add("return new " + tokenResolverFactoryClassName + "();");
+		sc.add("}");
+        sc.addLineBreak();
 	}
 }

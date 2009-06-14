@@ -929,7 +929,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
                 }
                 
             	printTerminalAction(terminal, rule, sc, genClass, genFeature,
-        				eFeature, internalIdent, proxyIdent, internalIdent, resolvements);
+        				eFeature, internalIdent, proxyIdent, internalIdent, resolvements, null);
             	
             	internalCount++;
     		}
@@ -992,8 +992,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         		expressionToBeSet = "resolved";
         	}
         	
-        	printTerminalAction(terminal, rule, sc, genClass, genFeature,
-    				eFeature, ident, proxyIdent, expressionToBeSet, resolvements);
+        	printTerminalAction(placeholder, rule, sc, genClass, genFeature,
+    				eFeature, ident, proxyIdent, expressionToBeSet, resolvements, tokenName);
         }
     	
 		sc.add(")");
@@ -1004,11 +1004,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			StringComposite sc, final GenClass genClass,
 			final GenFeature genFeature, final EStructuralFeature eFeature,
 			final String ident, final String proxyIdent,
-			String expressionToBeSet, StringComposite resolvements) {
+			String expressionToBeSet, StringComposite resolvements, String tokenName) {
 		sc.add("{");
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
+    	// TODO escape tokeName correctly
+    	sc.add("String tokenName = \"" + tokenName + "\";");
 		sc.add("addExpectedElement(new "
 				+ ExpectedStructuralFeature.class.getName() + "("
 				+ genClass.getGenPackage().getReflectionPackageName() + "."
@@ -1016,7 +1018,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
 				+ "()" + ".getEStructuralFeature("
 				+ generatorUtil.getFeatureConstant(genClass, genFeature)
-				+ "), element" + "), " + ident + ");");
+				+ "), element, tokenName), " + ident + ");");
 		sc.add("if (" + ident + " != null) {");
     	sc.add(resolvements);
 		sc.add("if (" + expressionToBeSet + " != null) {");

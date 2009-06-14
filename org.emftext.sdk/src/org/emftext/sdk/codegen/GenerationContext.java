@@ -177,6 +177,10 @@ public abstract class GenerationContext {
     	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
     }
 
+    public String getQualifiedTokenResolverFactoryClassName() {
+    	return getPackageName() + "." + getTokenResolverFactoryClassName();
+    }
+    
 	public void addNonContainmentReference(GenFeature proxyReference) {
 		nonContainmentReferences.add(proxyReference);
 	}

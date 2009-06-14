@@ -13,10 +13,18 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 public class ExpectedStructuralFeature extends AbstractExpectedElement {
 	private EStructuralFeature feature;
 	private EObject container;
+	private String tokenName;
 
+	// TODO mseifert: remove this constructor once the CS resource was regenerated
 	public ExpectedStructuralFeature(EStructuralFeature feature, EObject container) {
 		this.feature = feature;
 		this.container = container;
+	}
+
+	public ExpectedStructuralFeature(EStructuralFeature feature, EObject container, String tokenName) {
+		this.feature = feature;
+		this.container = container;
+		this.tokenName = tokenName;
 	}
 
 	public EStructuralFeature getFeature() {
@@ -27,6 +35,10 @@ public class ExpectedStructuralFeature extends AbstractExpectedElement {
 		return container;
 	}
 	
+	public String getTokenName() {
+		return tokenName;
+	}
+
 	public String toString() {
 		String simpleName = container == null ? "null" : container.getClass().getSimpleName();
 		return super.toString() + " EFeature \"" + feature.getName() + "\" in " + simpleName;
