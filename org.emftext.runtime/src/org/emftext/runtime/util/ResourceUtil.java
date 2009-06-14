@@ -46,6 +46,15 @@ public class ResourceUtil {
 		return unresolveProxies;
 	}
 
+	/**
+	 * Tries to resolve all unresolved proxy objects in the
+	 * given resource. If all proxies were resolved true is
+	 * returned. If some could not be resolved, false is 
+	 * returned.
+	 *  
+	 * @param resource the resource containing the proxy object
+	 * @return true on success
+	 */
 	public static boolean resolveAll(Resource resource) {
 		EcoreUtil.resolveAll(resource);
 		if (findUnresolvedProxies(resource).size() > 0) {
