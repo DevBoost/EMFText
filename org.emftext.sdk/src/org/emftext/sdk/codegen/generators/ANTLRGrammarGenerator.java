@@ -549,12 +549,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("startIncludingHidden = " + MATH + ".max(startIncludingHidden, currentIndex);");
 		sc.add("startExcludingHidden = " + MATH + ".max(startExcludingHidden, currentIndex);");
 		sc.add("lastTokenIndex = " + MATH + ".max(0, currentTokenIndex);");
-		sc.add("expectedElement.setPosition(");
-		sc.add("startIncludingHidden,");
-		sc.add("startExcludingHidden,");
-		sc.add("endIncludingHidden,");
-		sc.add("endExcludingHidden");
-		sc.add(");");
+		sc.add("expectedElement.setPosition(startIncludingHidden,  startExcludingHidden, endIncludingHidden, endExcludingHidden);");
 		sc.add("this.lastIndex = endIncludingHidden;");
 		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
