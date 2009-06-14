@@ -20,7 +20,8 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
@@ -49,7 +50,7 @@ public abstract class AbstractPostProcessor implements IResourcePostProcessorPro
 				return;
 			}
 		}
-		EList<EObject> objects = resource.getContents();
+		List<EObject> objects = resource.getContents();
 		for (EObject next : objects) {
 			if (next instanceof ConcreteSyntax) {
 				analyse(resource, (ConcreteSyntax) next);
