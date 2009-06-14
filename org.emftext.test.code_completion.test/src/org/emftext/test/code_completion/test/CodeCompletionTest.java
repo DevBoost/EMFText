@@ -138,10 +138,10 @@ public class CodeCompletionTest extends TestCase {
 		expectedInsertStringsMap.put("EnumVisibilityExpected1.cct", new String[] {"public", "private"});
 
 		expectedElementsMap.put("NameExpected1.cct", CCT_PACKAGE.getNamedElement_Name());
-		expectedInsertStringsMap.put("NameExpected1.cct", new String[] {});
+		expectedInsertStringsMap.put("NameExpected1.cct", new String[] {"someName"});
 
 		expectedElementsMap.put("NameExpected2.cct", CCT_PACKAGE.getNamedElement_Name());
-		expectedInsertStringsMap.put("NameExpected2.cct", new String[] {});
+		expectedInsertStringsMap.put("NameExpected2.cct", new String[] {"someName"});
 
 		expectedElementsMap.put("TypeExpected.cct", CCT_PACKAGE.getTypedElement_Type());
 		expectedInsertStringsMap.put("TypeExpected.cct", new String[] {"SomeName"});
@@ -153,7 +153,7 @@ public class CodeCompletionTest extends TestCase {
 		expectedInsertStringsMap.put("EnumVisibilityExpected3.cct", new String[] {"public", "private"});
 
 		expectedElementsMap.put("NameExpected3.cct", CCT_PACKAGE.getNamedElement_Name());
-		expectedInsertStringsMap.put("NameExpected3.cct", new String[] {});
+		expectedInsertStringsMap.put("NameExpected3.cct", new String[] {"someName"});
 
 		expectedElementsMap.put("EnumVisibilityExpected5.cct", CCT_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected5.cct", new String[] {"public", "private"});
