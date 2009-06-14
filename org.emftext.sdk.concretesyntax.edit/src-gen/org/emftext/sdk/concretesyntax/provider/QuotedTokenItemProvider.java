@@ -130,7 +130,7 @@ public class QuotedTokenItemProvider
 	public String getText(Object object) {
 		QuotedToken quotedToken = (QuotedToken) object;
 		if (quotedToken != null && !quotedToken.eIsProxy()) {
-			return quotedToken.getPrefix() + "..." + quotedToken.getSuffix();
+			return quotedToken.getPrefix() + "..." + quotedToken.getSuffix() + " (" + quotedToken.getName() + ")";
 		}
 		return "...";
 	}

@@ -85,11 +85,56 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		if ("DEFINE".equals(tokenName)) {
 			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
 		}
+		if ("COLLECT".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
+		}
+		if ("IN".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
+		}
+		if ("COLOR".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
+		}
 		if ("PRIORITIZE".equals(tokenName)) {
 			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x90, 0x00}, true, false, false, false);
 		}
 		if ("COMMENTS".equals(tokenName)) {
 			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x00, 0x80, 0x00}, false, false, false, false);
+		}
+		if ("ABSTRACT".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("SYNTAXDEF".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("FOR".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("START".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("IMPORTS".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("OPTIONS".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("TOKENS".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("TOKENSTYLES".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("RULES".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
+		}
+		if ("QUOTED_34_34".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x00, 0x2A}, false, false, false, false);
+		}
+		if ("QUOTED_60_62".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x00, 0x2A}, false, false, false, false);
+		}
+		if ("QUOTED_39_39".equals(tokenName)) {
+			return new org.emftext.runtime.resource.impl.BasicTokenStyle(new int[] {0xFF, 0x00, 0x2A}, false, false, false, false);
 		}
 		return null;
 	}
