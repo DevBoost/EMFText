@@ -663,18 +663,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						StringComposite printStatements = new JavaComposite();
 
 						if (terminal instanceof Placeholder) {
-							String tokenName;
-							tokenName = ((Placeholder) terminal).getToken().getName();
-							/*
-							if (terminal instanceof DefinedPlaceholder)
-								tokenName = ((DefinedPlaceholder) terminal)
-										.getToken().getName();
-							else {
-								assert terminal instanceof DerivedPlaceholder;
-								tokenName = placeholder2TokenName
-										.get(terminal);
-							}
-							*/
+							String tokenName = ((Placeholder) terminal).getToken().getName();
 
 							String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
 							if (feature instanceof EReference) {
@@ -719,11 +708,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 						} else {
 							assert terminal instanceof Containment;
 							printStatements.add("doPrint((" + E_OBJECT + ") o, out, localtab);");
-							//localTabDefinition.enable();
 						}
 
 						sc.add("if (count > 0) {");
-						//countDefintion.enable();
 						if (cardinality == null
 								|| (cardinality instanceof QUESTIONMARK && !neededFeatures
 										.contains(featureName))) {
