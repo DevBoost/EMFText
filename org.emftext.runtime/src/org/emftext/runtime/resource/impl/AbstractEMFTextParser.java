@@ -74,7 +74,7 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 		Object mapKey = dummy.getValueByName("key");
 		Object mapValue = dummy.getValueByName("value");
 		if (value instanceof EMap<?, ?>) {
-			EMap<Object, Object> valueMap = MapUtil.castToMap(value);
+			Map<Object, Object> valueMap = MapUtil.castToMap(value);
 			if (mapKey != null && mapValue != null) {
 				valueMap.put(mapKey, mapValue);
 			}
