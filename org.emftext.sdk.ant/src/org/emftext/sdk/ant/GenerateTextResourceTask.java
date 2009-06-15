@@ -47,8 +47,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class GenerateTextResourceTask extends Task {
 
-	private final static TextResourceUtil resourceUtil = new TextResourceUtil();
-
 	private File rootFolder;
 	private File syntaxFile;
 	private String syntaxProjectName;
@@ -69,7 +67,7 @@ public class GenerateTextResourceTask extends Task {
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
-			ITextResource csResource = resourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ITextResource csResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
 			
 			Result result = new AntResourcePluginGenerator().run(

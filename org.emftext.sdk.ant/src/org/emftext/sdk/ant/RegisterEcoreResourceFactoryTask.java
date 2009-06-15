@@ -69,7 +69,7 @@ public class RegisterEcoreResourceFactoryTask extends Task {
 		try {
 			Class<?> factoryClass = Class.forName(ecoreEcoreResourceFactoryDelegatorClassName);
 			Method m = factoryClass.getMethod("getEcoreResourceFactoriesMap");
-			Map ecoreFactoriesMap = (Map) m.invoke(ecoreFactoryDelagator, null);
+			Map<String, Object> ecoreFactoriesMap = (Map<String, Object>) m.invoke(ecoreFactoryDelagator, (Object[]) null);
 			if (!ecoreFactoriesMap.containsKey(getType())) {
 				ecoreFactoriesMap.put(getType(), newEcoreFactory);
 			}
