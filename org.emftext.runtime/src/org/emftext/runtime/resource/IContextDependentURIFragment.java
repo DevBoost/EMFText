@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.EReference;
  * 
  * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  * 
- * TODO figure out whether this interface must really be exposed
+ * TODO jjohannes: figure out whether this interface must really be exposed
  */
 public interface IContextDependentURIFragment<ReferenceType extends EObject> {
 

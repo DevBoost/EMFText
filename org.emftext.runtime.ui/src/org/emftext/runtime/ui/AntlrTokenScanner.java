@@ -58,10 +58,10 @@ public class AntlrTokenScanner implements ITokenScanner {
      * @param fileExtension The file extension for which this instance should be used for coloring
      * @param colorManager A manager to obtain color objects
      */
-    public AntlrTokenScanner(ITextResource resource, String fileExtension, ColorManager colorManager) {
+    public AntlrTokenScanner(ITextResource resource, ColorManager colorManager) {
         this.lexer      = (Lexer) resource.getScanner();
         this.tokenNames = resource.getMetaInformation().getTokenNames();
-        this.languageId = fileExtension;
+        this.languageId = resource.getMetaInformation().getSyntaxName();
         this.store      = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
         this.colorManager = colorManager;
     }

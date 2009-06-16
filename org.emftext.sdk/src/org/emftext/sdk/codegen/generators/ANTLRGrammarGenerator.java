@@ -1009,7 +1009,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	sc.add("if (element == null) {");
     	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
-    	// TODO escape tokeName correctly
+    	// TODO mseifert: escape tokeName correctly
     	sc.add("String tokenName = \"" + tokenName + "\";");
 		sc.add("addExpectedElement(new "
 				+ ExpectedStructuralFeature.class.getName() + "("

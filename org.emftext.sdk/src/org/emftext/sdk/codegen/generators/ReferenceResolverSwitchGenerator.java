@@ -98,7 +98,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			sc.add("if (" + accessorName+ ".isInstance(container)) {");
 			sc.add(FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + "> frr = new " + FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(result);");
 
-			// TODO Use the feature constant instead of the feature name, but NOT the way it is done
+			// TODO use the feature constant instead of the feature name, but NOT the way it is done
 			// in the next line, because this does not work when genClass is a super typer of  
 			// container.eClass(). Sub types do have different feature IDs for inherited features
 			// than the super types.

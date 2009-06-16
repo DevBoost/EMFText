@@ -9,12 +9,12 @@ package org.emftext.runtime.resource;
  */
 public interface IExpectedElement {
 
-	// TODO figure out whether we really have to expose this interface
+	// TODO mseifert: figure out whether we really have to expose this interface
 	// it does not contain any methods because the implementing classes
 	// share no common functionality. They basically share the property
 	// to be potentially expected.
 
-	// TODO remove this
+	// TODO mseifert: remove this
 	public void setPosition(
 			int startIncludingHiddenTokens, 
 			int startExcludingHiddenTokens, 

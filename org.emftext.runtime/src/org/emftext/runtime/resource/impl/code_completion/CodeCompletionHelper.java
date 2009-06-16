@@ -118,7 +118,7 @@ public class CodeCompletionHelper {
 					if (tokenName != null) {
 						ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);
 						if (tokenResolver != null) {
-							// TODO respect prefix here
+							// TODO mseifert: respect prefix here
 							String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);
 							Collection<String> resultSet = new HashSet<String>();
 							resultSet.add(defaultValueAsString);
@@ -127,7 +127,7 @@ public class CodeCompletionHelper {
 					}
 				}
 			}
-			// TODO is there another case?
+			// TODO mseifert: is there another case?
 		}
 		return Collections.emptyList();
 	}
@@ -137,7 +137,7 @@ public class CodeCompletionHelper {
 		if ("EString".equals(typeName)) {
 			return "some" + StringUtil.capitalize(attribute.getName());
 		}
-		// TODO add more default values for other types
+		// TODO mseifert: add more default values for other types
 		System.out.println("CodeCompletionHelper.getDefaultValue() unknown type " + typeName);
 		return attribute.getDefaultValue();
 	}

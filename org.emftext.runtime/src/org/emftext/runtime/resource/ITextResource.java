@@ -48,7 +48,7 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	 * 
 	 * @return the resolver switch
 	 * 
-	 * TODO move this to meta information class
+	 * TODO mseifert: move this to meta information class
 	 */
 	public IReferenceResolverSwitch getReferenceResolverSwitch();
 	
@@ -77,7 +77,7 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	 * 
 	 * @return A scanner.
 	 * 
-	 * TODO move this to meta information class
+	 * TODO mseifert: move this to meta information class
 	 */
 	public Object getScanner();
 	
