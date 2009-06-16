@@ -28,10 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.ColorSelector;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.preference.PreferencePage;
@@ -60,7 +56,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.TokenHelper;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
@@ -623,36 +619,32 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 	public SyntaxColoringPreferencePage() {
 		super();
 
-		List<String> extensions = EMFTextRuntimePlugin.getConcreteSyntaxNamesList();
-		for (String extension : extensions) {
-			ResourceSet rs = new ResourceSetImpl();
-			Resource tempResource = rs.createResource(URI.createURI("temp."
-					+ extension));
+		List<ITextResourcePluginMetaInformation> syntaxPlugins = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
+		for (ITextResourcePluginMetaInformation syntaxPlugin : syntaxPlugins) {
 
-			if (tempResource instanceof ITextResource) {
-				ITextResource tr = (ITextResource) tempResource;
+			String languageId = syntaxPlugin.getSyntaxName();
 
-				String languageId = extension;
+			List<HighlightingColorListItem> terminals = new ArrayList<HighlightingColorListItem>();
+			String[] tokenNames = syntaxPlugin.getTokenNames();
 
-				List<HighlightingColorListItem> terminals = new ArrayList<HighlightingColorListItem>();
-				String[] tokenNames = tr.getTokenNames();
-
-				for (int i = 0; i < tokenNames.length; i++) {
-					if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
-						continue;
-					}
-
-					String tokenName = tokenHelper.getTokenName(tokenNames, i);
-					String prefix = languageId + "_" + tokenName;
-					HighlightingColorListItem item = new HighlightingColorListItem(
-							languageId, tokenName, prefix + COLOR, prefix
-									+ BOLD, prefix + ITALIC, prefix
-									+ STRIKETHROUGH, prefix + UNDERLINE, prefix
-									+ ENABLE);
-					terminals.add(item);
+			for (int i = 0; i < tokenNames.length; i++) {
+				if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
+					continue;
 				}
-				content.put(languageId, terminals);
+
+				String tokenName = tokenHelper.getTokenName(tokenNames, i);
+				if (tokenName == null) {
+					continue;
+				}
+				String prefix = languageId + "_" + tokenName;
+				HighlightingColorListItem item = new HighlightingColorListItem(
+						languageId, tokenName, prefix + COLOR, prefix
+								+ BOLD, prefix + ITALIC, prefix
+								+ STRIKETHROUGH, prefix + UNDERLINE, prefix
+								+ ENABLE);
+				terminals.add(item);
 			}
+			content.put(languageId, terminals);
 		}
 
 		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault()
@@ -660,14 +652,7 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 		setDescription("Define the syntax coloring for registered textual syntaxes.");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
-	 */
 	public void init(IWorkbench workbench) {
-
 	}
 
 	@Override
@@ -696,5 +681,4 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 			emfTextEditor.invalidateTextRepresentation();
 		}
 	}
-
 }

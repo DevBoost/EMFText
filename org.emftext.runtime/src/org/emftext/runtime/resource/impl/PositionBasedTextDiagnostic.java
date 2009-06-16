@@ -39,7 +39,7 @@ public class PositionBasedTextDiagnostic implements ITextDiagnostic {
 	protected int charEnd;
 	protected String message;
 
-	protected PositionBasedTextDiagnostic(URI uri, String message,
+	public PositionBasedTextDiagnostic(URI uri, String message,
 			int column, int line, int charStart, int charEnd) {
 		
 		super();

@@ -52,8 +52,11 @@ public class TokenHelper {
 	}
 
 	public String getTokenName(String[] tokenNames, int index) {
+		if (tokenNames == null) {
+			return null;
+		}
         String tokenName = tokenNames[index];
-        if (tokenName.startsWith("'")) {
+        if (tokenName != null && tokenName.startsWith("'")) {
             tokenName = tokenName.substring(1, tokenName.length() - 1).trim();
         }
 		return tokenName;

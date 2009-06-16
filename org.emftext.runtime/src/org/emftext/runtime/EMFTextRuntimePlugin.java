@@ -25,13 +25,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -42,7 +41,7 @@ import org.osgi.framework.BundleContext;
 public class EMFTextRuntimePlugin extends Plugin {
 	
 	public static final String PLUGIN_ID = "org.emftext.runtime";
-	public static final String EP_CONCRETESYNTAX_ID = PLUGIN_ID + ".concretesyntax";
+	public static final String EP_SYNTAX_ID = PLUGIN_ID + ".syntax";
 	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + ".default_load_options";
 	
 	private static EMFTextRuntimePlugin plugin;
@@ -74,6 +73,8 @@ public class EMFTextRuntimePlugin extends Plugin {
 	
 	private static Map<String, URI> URIToConcreteSyntaxLocationMap = null;
 	private static List<String>     concreteSyntaxNamesList = null;
+	private static boolean concreteSyntaxRegistryIsInitialized = false;
+	private static List<ITextResourcePluginMetaInformation> concreteSyntaxRegistry;
 	
 	/**
 	 * Returns the concrete syntax models that are registered through generated plugins. 
@@ -89,19 +90,15 @@ public class EMFTextRuntimePlugin extends Plugin {
 		if (URIToConcreteSyntaxLocationMap == null) {
 			URIToConcreteSyntaxLocationMap = new HashMap<String, URI>();
 
-			if (Platform.isRunning()) {
-		        IExtensionPoint csExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(EP_CONCRETESYNTAX_ID);
-		        IConfigurationElement[] parserPoints = csExtensionPoint.getConfigurationElements();
-		        for(int i = 0;i < parserPoints.length;i++) {
-		        	String uri       = parserPoints[i].getAttribute("uri");
-		            String csName    = parserPoints[i].getAttribute("csName");
-		            String file      = parserPoints[i].getAttribute("csDefinition");
-		            URI fileURI = URI.createPlatformPluginURI("/" + file, true);
-		            
-		            URIToConcreteSyntaxLocationMap.put(uri + "%%" + csName, fileURI);
-		        }
-			}
-			
+	        List<ITextResourcePluginMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
+	        for (ITextResourcePluginMetaInformation syntaxPlugin : syntaxPlugins) {
+	        	String uri       = syntaxPlugin.getURI();
+	            String csName    = syntaxPlugin.getSyntaxName();
+	            String file      = syntaxPlugin.getPathToCSDefinition();
+	            URI fileURI = URI.createPlatformPluginURI("/" + file, true);
+	            
+	            URIToConcreteSyntaxLocationMap.put(uri + "%%" + csName, fileURI);
+	        }
 		}
 		return URIToConcreteSyntaxLocationMap;
 	}
@@ -110,19 +107,33 @@ public class EMFTextRuntimePlugin extends Plugin {
 		if (concreteSyntaxNamesList == null) {
 			concreteSyntaxNamesList = new ArrayList<String>();
 
-			if (Platform.isRunning()) {
-		        IExtensionPoint csExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(EP_CONCRETESYNTAX_ID);
-		        IConfigurationElement[] parserPoints = csExtensionPoint.getConfigurationElements();
-		        for(int i = 0;i < parserPoints.length;i++) {
-		            String csName    = parserPoints[i].getAttribute("csName");
-		            concreteSyntaxNamesList.add(csName);
-		        }
+	        List<ITextResourcePluginMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
+	        for (ITextResourcePluginMetaInformation syntaxPlugin : syntaxPlugins) {
+	            String csName = syntaxPlugin.getSyntaxName();
+	            concreteSyntaxNamesList.add(csName);
 			}
-			
 		}
 		return concreteSyntaxNamesList;
 	}
 	
+	public static List<ITextResourcePluginMetaInformation> getConcreteSyntaxRegistry() {
+		if (!concreteSyntaxRegistryIsInitialized) {
+			concreteSyntaxRegistry = new ArrayList<ITextResourcePluginMetaInformation>();
+			// check for syntax extensions
+			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
+			org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(org.emftext.runtime.EMFTextRuntimePlugin.EP_SYNTAX_ID);
+			for (org.eclipse.core.runtime.IConfigurationElement element : configurationElements) {
+				try {
+					ITextResourcePluginMetaInformation metaInformation = (ITextResourcePluginMetaInformation) element.createExecutableExtension("class");
+					concreteSyntaxRegistry.add(metaInformation);
+				} catch (CoreException ce) {
+					org.emftext.runtime.EMFTextRuntimePlugin.logError("Exception while registering syntax extension.", ce);
+				}
+			}
+		}
+		return concreteSyntaxRegistry;
+	}
+
 	/**
 	 * Helper method for error logging.
 	 * 
@@ -154,5 +165,4 @@ public class EMFTextRuntimePlugin extends Plugin {
 		}
 		return status;
 	}
-
 }

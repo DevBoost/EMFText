@@ -60,7 +60,7 @@ public class AntlrTokenScanner implements ITokenScanner {
      */
     public AntlrTokenScanner(ITextResource resource, String fileExtension, ColorManager colorManager) {
         this.lexer      = (Lexer) resource.getScanner();
-        this.tokenNames = resource.getTokenNames();
+        this.tokenNames = resource.getMetaInformation().getTokenNames();
         this.languageId = fileExtension;
         this.store      = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
         this.colorManager = colorManager;
@@ -81,31 +81,32 @@ public class AntlrTokenScanner implements ITokenScanner {
             return org.eclipse.jface.text.rules.Token.EOF;
         }
 
+        TextAttribute ta = null;
 
         String tokenName = tokenHelper.getTokenName(tokenNames, current.getType());
-        String prefix = languageId + "_" + tokenName;
-        
-        TextAttribute ta = null;
-        if (store.getBoolean(prefix + PreferenceConstants.EDITOR_ENABLE_SUFFIX)) {
-            String colorKey = prefix + PreferenceConstants.EDITOR_COLOR_SUFFIX;
-			Color color = colorManager.getColor(PreferenceConverter.getColor(store, colorKey));
-            int style = SWT.NORMAL;
-
-            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_BOLD_SUFFIX)) {
-                style = style | SWT.BOLD;
-            }
-            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_ITALIC_SUFFIX)) {
-                style = style | SWT.ITALIC;
-            }
-            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX)) {
-                style = style | TextAttribute.STRIKETHROUGH;
-            }
-            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX)) {
-                style = style | TextAttribute.UNDERLINE;
-            }
-            
-            ta = new TextAttribute(color, null, style);
-
+        if (tokenName != null) {
+	        String prefix = languageId + "_" + tokenName;
+	        if (store.getBoolean(prefix + PreferenceConstants.EDITOR_ENABLE_SUFFIX)) {
+	            String colorKey = prefix + PreferenceConstants.EDITOR_COLOR_SUFFIX;
+				Color color = colorManager.getColor(PreferenceConverter.getColor(store, colorKey));
+	            int style = SWT.NORMAL;
+	
+	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_BOLD_SUFFIX)) {
+	                style = style | SWT.BOLD;
+	            }
+	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_ITALIC_SUFFIX)) {
+	                style = style | SWT.ITALIC;
+	            }
+	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX)) {
+	                style = style | TextAttribute.STRIKETHROUGH;
+	            }
+	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX)) {
+	                style = style | TextAttribute.UNDERLINE;
+	            }
+	            
+	            ta = new TextAttribute(color, null, style);
+	
+	        }
         }
         
         //potential performance improvement for large files in the future:

@@ -80,10 +80,11 @@ public class PluginXMLGenerator implements IGenerator {
 		s.add("</extension>");
 		s.addLineBreak();
 
-		// register the cs file
-		s.add("<extension point=\"" + EMFTextRuntimePlugin.EP_CONCRETESYNTAX_ID + "\">");
-		s.add("<concretesyntax uri=\"" + concreteSyntax.getPackage().getNSURI() + "\" csName=\"" + concreteSyntaxName + "\" csDefinition=\"" + context.getSyntaxProjectName() + "/" + context.getProjectRelativePathToSyntaxFile() + "\">");
-		s.add("</concretesyntax>");
+		// register the syntax meta information
+		String metaInformationClass = context.getQualifiedMetaInformationClassName();
+		s.add("<extension point=\"" + EMFTextRuntimePlugin.EP_SYNTAX_ID + "\">");
+		s.add("<metaInformationProvider class=\"" + metaInformationClass + "\" id=\"" + metaInformationClass + "\">");
+		s.add("</metaInformationProvider>");
 		s.add("</extension>");
 		s.addLineBreak();
 

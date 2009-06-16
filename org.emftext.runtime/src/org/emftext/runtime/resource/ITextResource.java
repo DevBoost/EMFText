@@ -73,15 +73,6 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	public void addWarning(String message, int column, int line, int charStart, int charEnd);
 	
 	/**
-	 * Helper method to access the names of different tokens that may exist in the underlying text file.
-	 * 
-	 * @return All token names.
-	 * 
-	 * TODO move this to meta information class
-	 */
-	public String[] getTokenNames();
-	
-	/**
 	 * Return a scanner capable to split the underlying text file into tokens.
 	 * 
 	 * @return A scanner.
@@ -100,15 +91,4 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	 * @param proxyElement
 	 */
 	public <ContainerType extends EObject, ReferenceType extends EObject> void registerContextDependentProxy(org.emftext.runtime.resource.IContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, ContainerType container, org.eclipse.emf.ecore.EReference reference, java.lang.String id, org.eclipse.emf.ecore.EObject proxyElement);
-
-	/**
-	 * Return the default style that should be used to present tokens of the
-	 * given type.
-	 *  
-	 * @param tokenName the name of the token type
-	 * @return a style object or null if not default style is set
-	 * 
-	 * TODO move this to meta information class
-	 */
-	public ITokenStyle getDefaultTokenStyle(String tokenName);
 }

@@ -186,7 +186,7 @@ public class CodeCompletionTest extends TestCase {
 		if (expectedElement instanceof String) {
 			parseToCursor(file, new ExpectedCsString((String) expectedElement));
 		} else if (expectedElement instanceof EStructuralFeature) {
-			parseToCursor(file, new ExpectedStructuralFeature((EStructuralFeature) expectedElement, null));
+			parseToCursor(file, new ExpectedStructuralFeature((EStructuralFeature) expectedElement, null, null));
 		} else {
 			fail("Unknown type of expected element given for file " + filename);
 		}

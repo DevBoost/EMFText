@@ -10,6 +10,18 @@ import org.eclipse.emf.ecore.EClass;
  */
 public interface ITextResourcePluginMetaInformation {
 
+	public String getURI();
+	
+	/**
+	 * Returns the name of the conrete syntax. This name is used
+	 * as file extension.
+	 * 
+	 * @return
+	 */
+	public String getSyntaxName();
+	
+	public String getPathToCSDefinition();
+	
 	/**
 	 * Returns an instance of the parser. This factory method
 	 * is needed, because we can not create ANTLR parsers using
@@ -39,4 +51,20 @@ public interface ITextResourcePluginMetaInformation {
 	 * Returns an instance of the token resolver factory.
 	 */
 	public ITokenResolverFactory getTokenResolverFactory();
+
+	/**
+	 * Returns a list of all tokens defined in the syntax.
+	 * 
+	 * @return
+	 */
+	public String[] getTokenNames();
+	
+	/**
+	 * Return the default style that should be used to present tokens of the
+	 * given type.
+	 *  
+	 * @param tokenName the name of the token type
+	 * @return a style object or null if not default style is set
+	 */
+	public ITokenStyle getDefaultTokenStyle(String tokenName);
 }

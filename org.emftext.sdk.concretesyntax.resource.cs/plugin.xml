@@ -6,9 +6,9 @@
 		</parser>
 	</extension>
 	
-	<extension point="org.emftext.runtime.concretesyntax">
-		<concretesyntax uri="http://www.emftext.org/sdk/concretesyntax" csName="cs" csDefinition="org.emftext.sdk.concretesyntax/metamodel/concretesyntax.cs">
-		</concretesyntax>
+	<extension point="org.emftext.runtime.syntax">
+		<metaInformationProvider class="org.emftext.sdk.concretesyntax.resource.cs.CsMetaInformation" id="org.emftext.sdk.concretesyntax.resource.cs.CsMetaInformation">
+		</metaInformationProvider>
 	</extension>
 	
 	<extension point="org.eclipse.core.contenttype.contentTypes">

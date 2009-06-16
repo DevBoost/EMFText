@@ -23,13 +23,9 @@ package org.emftext.runtime.ui.preferences;
 import java.util.List;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.TokenHelper;
@@ -41,46 +37,35 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 	private final static TokenHelper tokenHelper = new TokenHelper();
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
-	 */
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault()
 				.getPreferenceStore();
 		
-		List<String> extensions = EMFTextRuntimePlugin.getConcreteSyntaxNamesList();
+		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
 
-        for (String extension : extensions) {
-        	Resource tempResource = null;
-	        ResourceSet rs = new ResourceSetImpl();
-	        tempResource = rs.createResource(URI.createURI("temp." + extension));
-
-        	
-        	if (tempResource instanceof ITextResource) {
-        		ITextResource textResource = (ITextResource) tempResource;
+        for (ITextResourcePluginMetaInformation extension : extensions) {
+    		String languageId = extension.getSyntaxName();
+            String[] tokenNames = extension.getTokenNames();
+            if (tokenNames == null) {
+            	continue;
+            }
+			for (int i = 0; i < tokenNames.length; i++) {
+				if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
+					continue;
+				}
+				
+				String tokenName = tokenHelper.getTokenName(tokenNames, i);
+				if (tokenName == null) {
+					continue;
+				}
+        		ITokenStyle style = extension.getDefaultTokenStyle(tokenName);
         		
-        		String languageId = extension;
-	            String[] tokenNames = textResource.getTokenNames();
-	            
-				for (int i = 0; i < tokenNames.length; i++) {
-					if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
-						continue;
-					}
-					
-					String tokenName = tokenHelper.getTokenName(tokenNames, i);
-					// TODO this information should be gathered from the meta information class
-					// to avoid creating the temporary resource
-	        		ITokenStyle style = textResource.getDefaultTokenStyle(tokenName);
-	        		
-	        		if (style != null) {
-	        			String color = getColorString(style.getColorAsRGB());
-	                    setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
-	        		} else {
-	                    setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
-	                }
-	            }
+        		if (style != null) {
+        			String color = getColorString(style.getColorAsRGB());
+                    setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
+        		} else {
+                    setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
+                }
             }
         }   
 	}

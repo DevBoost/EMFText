@@ -15,12 +15,6 @@ public class ExpectedStructuralFeature extends AbstractExpectedElement {
 	private EObject container;
 	private String tokenName;
 
-	// TODO mseifert: remove this constructor once the CS resource was regenerated
-	public ExpectedStructuralFeature(EStructuralFeature feature, EObject container) {
-		this.feature = feature;
-		this.container = container;
-	}
-
 	public ExpectedStructuralFeature(EStructuralFeature feature, EObject container, String tokenName) {
 		this.feature = feature;
 		this.container = container;

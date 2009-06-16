@@ -39,7 +39,7 @@ public class ElementBasedTextDiagnostic implements ITextDiagnostic {
 	private final EObject element;
 	private final String message;
 
-	protected ElementBasedTextDiagnostic(ILocationMap locationMap,
+	public ElementBasedTextDiagnostic(ILocationMap locationMap,
 			URI uri,
 			String message, EObject element) {
 		super();

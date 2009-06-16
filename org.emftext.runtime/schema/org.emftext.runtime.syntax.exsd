@@ -1,24 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.emftext" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.emftext.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
-      <appinfo>
-         <meta.schema plugin="org.emftext" id="concretesyntax" name="Concrete Syntax Definition Registry"/>
-      </appinfo>
+      <appInfo>
+         <meta.schema plugin="org.emftext.runtime" id="org.emftext.runtime.default_load_options" name="Syntax Plug-in Meta Information"/>
+      </appInfo>
       <documentation>
-         Concrete syntax definition files can be registered here to be reused in other concrete syntax definitions.
+         [Enter description of this extension point.]
       </documentation>
    </annotation>
 
    <element name="extension">
       <annotation>
-         <appinfo>
+         <appInfo>
             <meta.element />
-         </appinfo>
+         </appInfo>
       </annotation>
       <complexType>
          <sequence>
-            <element ref="concretesyntax" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="metaInformationProvider"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -39,76 +39,74 @@
                <documentation>
                   
                </documentation>
-               <appinfo>
+               <appInfo>
                   <meta.attribute translatable="true"/>
-               </appinfo>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
    </element>
 
-   <element name="concretesyntax">
-      <annotation>
-         <appinfo>
-            <meta.element labelAttribute="csDefinition"/>
-         </appinfo>
-      </annotation>
+   <element name="metaInformationProvider">
       <complexType>
-         <attribute name="uri" type="string" use="required">
+         <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="csName" type="string" use="required">
+         <attribute name="name" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="csDefinition" type="string" use="required">
+         <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.emftext.runtime.resource.ITextResourcePluginMetaInformation"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
    </element>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="since"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          [Enter the first release in which this extension point appears.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="examples"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          [Enter extension point usage example here.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appinfo>
-         <meta.section type="apiInfo"/>
-      </appinfo>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
       <documentation>
          [Enter API information here.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="implementation"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          [Enter information about supplied implementation of this extension point.]
       </documentation>
