@@ -22,9 +22,17 @@ package org.emftext.runtime.ui.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -196,6 +204,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,colorManager));
 		initializeEditingDomain();
 		
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, IResourceChangeEvent.POST_CHANGE);
 	}
 	
 	@Override
@@ -410,4 +419,50 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		editingDomain = new AdapterFactoryEditingDomain(adapterFactory,
 				commandStack, new HashMap<Resource, Boolean>());
 	}
+	
+	/**
+	 * The code pretty much corresponds to what EMF generates for a tree editor
+	 */
+	protected IResourceChangeListener resourceChangeListener =
+		new IResourceChangeListener() {
+			public void resourceChanged(IResourceChangeEvent event) {
+				IResourceDelta delta = event.getDelta();
+				try {
+					class ResourceDeltaVisitor implements IResourceDeltaVisitor {
+						protected ResourceSet resourceSet = editingDomain.getResourceSet();
+						protected Collection<Resource> changedResources = new ArrayList<Resource>();
+						protected Collection<Resource> removedResources = new ArrayList<Resource>();
+
+						public boolean visit(IResourceDelta delta) {
+							if (delta.getResource().getType() == IResource.FILE) {
+								if (delta.getKind() == IResourceDelta.REMOVED ||
+								    delta.getKind() == IResourceDelta.CHANGED && delta.getFlags() != IResourceDelta.MARKERS) {
+									//is this a resource we did load with our resource set?
+									Resource otherResource = resourceSet.getResource(URI.createURI(delta.getFullPath().toString()), false);
+									if (otherResource != null && !otherResource.equals(resource)) {
+										otherResource.unload();
+									}
+								}
+							}
+
+							return true;
+						}
+
+						public Collection<Resource> getChangedResources() {
+							return changedResources;
+						}
+
+						public Collection<Resource> getRemovedResources() {
+							return removedResources;
+						}
+					}
+
+					ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
+					delta.accept(visitor);
+				}
+				catch (CoreException exception) {
+					EMFTextRuntimePlugin.logError("Unexpected Error: ", exception);
+				}
+			}
+		};
 }
