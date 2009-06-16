@@ -42,17 +42,6 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	public ILocationMap getLocationMap();
 	
 	/**
-	 * Returns the reference resolver switch used by this resource. 
-	 * The switch can be used to resolve references after the resource 
-	 * has been loaded.
-	 * 
-	 * @return the resolver switch
-	 * 
-	 * TODO mseifert: move this to meta information class
-	 */
-	public IReferenceResolverSwitch getReferenceResolverSwitch();
-	
-	/**
 	 * Add an error that should be displayed at the position of the given element.
 	 */
 	public void addError(String message, EObject element);

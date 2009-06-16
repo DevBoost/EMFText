@@ -316,7 +316,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("if (resource == null) {");
         sc.add("return null;");
         sc.add("}");
-        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getReferenceResolverSwitch();");
+        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
 	}
 

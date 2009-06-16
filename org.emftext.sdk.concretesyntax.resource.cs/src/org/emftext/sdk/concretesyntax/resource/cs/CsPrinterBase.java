@@ -136,7 +136,7 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 		if (resource == null) {
 			return null;
 		}
-		return (org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch();
+		return (org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getMetaInformation().getReferenceResolverSwitch();
 	}
 	
 	protected void addWarningToResource(java.lang.String errorMessage, org.eclipse.emf.ecore.EObject cause) {

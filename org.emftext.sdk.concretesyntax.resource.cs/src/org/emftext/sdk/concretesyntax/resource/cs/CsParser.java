@@ -114,7 +114,7 @@ public class CsParser extends AbstractEMFTextParser {
     		if (resource == null) {
     			return null;
     		}
-    		return (org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getReferenceResolverSwitch();
+    		return (org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getMetaInformation().getReferenceResolverSwitch();
     	}
     	
     	protected org.eclipse.emf.ecore.EObject doParse() throws org.antlr.runtime.RecognitionException {
