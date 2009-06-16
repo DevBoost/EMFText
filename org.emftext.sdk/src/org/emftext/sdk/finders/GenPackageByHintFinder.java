@@ -57,10 +57,10 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	 * @return
 	 */
 	private IGenPackageFinderResult findGenPackageUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
-		// here we do NOT use the resource set of the resource because we want to load
-		// changed genmodels. if we reuse the resource set we get the old genmodels instead
-		// of loading the changed version.
-		ResourceSet rs = new ResourceSetImpl();
+		ResourceSet rs = resource.getResourceSet();
+		if (rs == null) {
+			return null;
+		}
 		try {
 			URI hintURI = new LocationHintResolver().getLocationHintURI(locationHint, container);
 			if ("genmodel".equals(hintURI.fileExtension())) {
