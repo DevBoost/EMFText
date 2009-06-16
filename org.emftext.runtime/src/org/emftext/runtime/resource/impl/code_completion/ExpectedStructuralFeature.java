@@ -1,10 +1,11 @@
 /**
  * 
  */
-package org.emftext.runtime.resource.impl;
+package org.emftext.runtime.resource.impl.code_completion;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.impl.AbstractExpectedElement;
 
 /**
  * A representation for a range in a document where a structural feature (e.g.,

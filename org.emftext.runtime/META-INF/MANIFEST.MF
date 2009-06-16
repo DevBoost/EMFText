@@ -7,8 +7,11 @@ Bundle-SymbolicName: org.emftext.runtime; singleton:=true
 Bundle-Activator: org.emftext.runtime.EMFTextRuntimePlugin
 Bundle-Version: 1.1.0.v200905291935
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.emftext.runtime,org.emftext.runtime.resource,org.e
- mftext.runtime.resource.impl,org.emftext.runtime.util
+Export-Package: org.emftext.runtime,
+ org.emftext.runtime.resource,
+ org.emftext.runtime.resource.impl,
+ org.emftext.runtime.resource.impl.code_completion,
+ org.emftext.runtime.util
 Require-Bundle: org.emftext.runtime.antlr;visibility:=reexport,org.ecl
  ipse.emf.workspace
 Bundle-Vendor: Software Technology Group - TU Dresden Germany

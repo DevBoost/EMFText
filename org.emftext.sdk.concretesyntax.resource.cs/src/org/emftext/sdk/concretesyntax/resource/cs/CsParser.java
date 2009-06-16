@@ -454,7 +454,7 @@ public class CsParser extends AbstractEMFTextParser {
             	      						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
             	      					}
             	      					String tokenName = "null";
-            	      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS), element, tokenName), a0_0);
+            	      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS), element, tokenName), a0_0);
             	      					if (a0_0 != null) {
             	      						if (a0_0 != null) {
             	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS, a0_0);
@@ -503,7 +503,7 @@ public class CsParser extends AbstractEMFTextParser {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
                       				String tokenName = "null";
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), element, tokenName), a1_0);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), element, tokenName), a1_0);
                       				if (a1_0 != null) {
                       					if (a1_0 != null) {
                       						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), a1_0);
@@ -524,7 +524,7 @@ public class CsParser extends AbstractEMFTextParser {
             a2=(Token)match(input,14,FOLLOW_14_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax189); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("SYNTAXDEF"), a2);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("SYNTAXDEF"), a2);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
               		}
@@ -542,7 +542,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), element, tokenName), a3);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME), element, tokenName), a3);
               			if (a3 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -567,7 +567,7 @@ public class CsParser extends AbstractEMFTextParser {
             a4=(Token)match(input,15,FOLLOW_15_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax222); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("FOR"), a4);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("FOR"), a4);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
               		}
@@ -585,7 +585,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
               			}
               			String tokenName = "QUOTED_60_62";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), element, tokenName), a5);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE), element, tokenName), a5);
               			if (a5 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
               				tokenResolver.setOptions(getOptions());
@@ -635,7 +635,7 @@ public class CsParser extends AbstractEMFTextParser {
                       						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       					}
                       					String tokenName = "QUOTED_60_62";
-                      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), element, tokenName), a6);
+                      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), element, tokenName), a6);
                       					if (a6 != null) {
                       						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
                       						tokenResolver.setOptions(getOptions());
@@ -683,7 +683,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a7=(Token)match(input,16,FOLLOW_16_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax317); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("START"), a7);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("START"), a7);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -704,7 +704,7 @@ public class CsParser extends AbstractEMFTextParser {
                       							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       						}
                       						String tokenName = "QUALIFIED_NAME";
-                      						addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), element, tokenName), a8);
+                      						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), element, tokenName), a8);
                       						if (a8 != null) {
                       							org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       							tokenResolver.setOptions(getOptions());
@@ -754,7 +754,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    a9=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax399); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
-                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(","), a9);
+                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), a9);
                     	      						if (element == null) {
                     	      							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      						}
@@ -775,7 +775,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	      									element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      								}
                     	      								String tokenName = "QUALIFIED_NAME";
-                    	      								addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), element, tokenName), a10);
+                    	      								addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), element, tokenName), a10);
                     	      								if (a10 != null) {
                     	      									org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                     	      									tokenResolver.setOptions(getOptions());
@@ -842,7 +842,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a11=(Token)match(input,18,FOLLOW_18_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax527); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("IMPORTS"), a11);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("IMPORTS"), a11);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -853,7 +853,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a12=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax542); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("{"), a12);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("{"), a12);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -893,7 +893,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	      								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      							}
                     	      							String tokenName = "null";
-                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), element, tokenName), a13_0);
+                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS), element, tokenName), a13_0);
                     	      							if (a13_0 != null) {
                     	      								if (a13_0 != null) {
                     	      									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS, a13_0);
@@ -920,7 +920,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a14=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax627); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("}"), a14);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a14);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -954,7 +954,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a15=(Token)match(input,21,FOLLOW_21_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax661); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("OPTIONS"), a15);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("OPTIONS"), a15);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -965,7 +965,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a16=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax676); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("{"), a16);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("{"), a16);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1005,7 +1005,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	      								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      							}
                     	      							String tokenName = "null";
-                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), element, tokenName), a17_0);
+                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS), element, tokenName), a17_0);
                     	      							if (a17_0 != null) {
                     	      								if (a17_0 != null) {
                     	      									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS, a17_0);
@@ -1020,7 +1020,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    a18=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax743); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
-                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(";"), a18);
+                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(";"), a18);
                     	      						if (element == null) {
                     	      							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      						}
@@ -1043,7 +1043,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a19=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax780); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("}"), a19);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a19);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1077,7 +1077,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a20=(Token)match(input,23,FOLLOW_23_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax814); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("TOKENS"), a20);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("TOKENS"), a20);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1088,7 +1088,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a21=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax829); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("{"), a21);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("{"), a21);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1128,7 +1128,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	      								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      							}
                     	      							String tokenName = "null";
-                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), element, tokenName), a22_0);
+                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS), element, tokenName), a22_0);
                     	      							if (a22_0 != null) {
                     	      								if (a22_0 != null) {
                     	      									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS, a22_0);
@@ -1143,7 +1143,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    a23=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax896); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
-                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(";"), a23);
+                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(";"), a23);
                     	      						if (element == null) {
                     	      							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      						}
@@ -1166,7 +1166,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a24=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax933); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("}"), a24);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a24);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1200,7 +1200,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a25=(Token)match(input,24,FOLLOW_24_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax967); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("TOKENSTYLES"), a25);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("TOKENSTYLES"), a25);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1211,7 +1211,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a26=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax982); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("{"), a26);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("{"), a26);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1251,7 +1251,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	      								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                     	      							}
                     	      							String tokenName = "null";
-                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), element, tokenName), a27_0);
+                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES), element, tokenName), a27_0);
                     	      							if (a27_0 != null) {
                     	      								if (a27_0 != null) {
                     	      									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES, a27_0);
@@ -1278,7 +1278,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a28=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1067); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("}"), a28);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a28);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
                       				}
@@ -1298,7 +1298,7 @@ public class CsParser extends AbstractEMFTextParser {
             a29=(Token)match(input,25,FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1092); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("RULES"), a29);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("RULES"), a29);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
               		}
@@ -1309,7 +1309,7 @@ public class CsParser extends AbstractEMFTextParser {
             a30=(Token)match(input,19,FOLLOW_19_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1103); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("{"), a30);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("{"), a30);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
               		}
@@ -1350,7 +1350,7 @@ public class CsParser extends AbstractEMFTextParser {
             	      						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
             	      					}
             	      					String tokenName = "null";
-            	      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), element, tokenName), a31_0);
+            	      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES), element, tokenName), a31_0);
             	      					if (a31_0 != null) {
             	      						if (a31_0 != null) {
             	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, a31_0);
@@ -1382,7 +1382,7 @@ public class CsParser extends AbstractEMFTextParser {
             a32=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1162); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("}"), a32);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a32);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
               		}
@@ -1437,7 +1437,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -1462,7 +1462,7 @@ public class CsParser extends AbstractEMFTextParser {
             a1=(Token)match(input,26,FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_Import1210); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(":"), a1);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(":"), a1);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
               		}
@@ -1480,7 +1480,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
               			}
               			String tokenName = "QUOTED_60_62";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), element, tokenName), a2);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), element, tokenName), a2);
               			if (a2 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
               				tokenResolver.setOptions(getOptions());
@@ -1530,7 +1530,7 @@ public class CsParser extends AbstractEMFTextParser {
                       						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
                       					}
                       					String tokenName = "QUOTED_60_62";
-                      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), element, tokenName), a3);
+                      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), element, tokenName), a3);
                       					if (a3 != null) {
                       						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
                       						tokenResolver.setOptions(getOptions());
@@ -1578,7 +1578,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a4=(Token)match(input,27,FOLLOW_27_in_parse_org_emftext_sdk_concretesyntax_Import1305); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("WITH"), a4);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("WITH"), a4);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
                       				}
@@ -1589,7 +1589,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a5=(Token)match(input,28,FOLLOW_28_in_parse_org_emftext_sdk_concretesyntax_Import1320); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("SYNTAX"), a5);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("SYNTAX"), a5);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
                       				}
@@ -1607,7 +1607,7 @@ public class CsParser extends AbstractEMFTextParser {
                       						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
                       					}
                       					String tokenName = "QUALIFIED_NAME";
-                      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), element, tokenName), a6);
+                      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CONCRETE_SYNTAX), element, tokenName), a6);
                       					if (a6 != null) {
                       						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       						tokenResolver.setOptions(getOptions());
@@ -1657,7 +1657,7 @@ public class CsParser extends AbstractEMFTextParser {
                               								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
                               							}
                               							String tokenName = "QUOTED_60_62";
-                              							addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), element, tokenName), a7);
+                              							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), element, tokenName), a7);
                               							if (a7 != null) {
                               								org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
                               								tokenResolver.setOptions(getOptions());
@@ -1739,7 +1739,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -1764,7 +1764,7 @@ public class CsParser extends AbstractEMFTextParser {
             a1=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_Option1493); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("="), a1);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("="), a1);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
               		}
@@ -1782,7 +1782,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
               			}
               			String tokenName = "QUOTED_34_34";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), element, tokenName), a2);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), element, tokenName), a2);
               			if (a2 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
               				tokenResolver.setOptions(getOptions());
@@ -1872,7 +1872,7 @@ public class CsParser extends AbstractEMFTextParser {
             	      						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
             	      					}
             	      					String tokenName = "null";
-            	      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS), element, tokenName), a0_0);
+            	      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS), element, tokenName), a0_0);
             	      					if (a0_0 != null) {
             	      						if (a0_0 != null) {
             	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS, a0_0);
@@ -1906,7 +1906,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), element, tokenName), a1);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), element, tokenName), a1);
               			if (a1 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -1935,7 +1935,7 @@ public class CsParser extends AbstractEMFTextParser {
             a2=(Token)match(input,30,FOLLOW_30_in_parse_org_emftext_sdk_concretesyntax_Rule1611); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("::="), a2);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("::="), a2);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
               		}
@@ -1957,7 +1957,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
               			}
               			String tokenName = "null";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), element, tokenName), a3_0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), element, tokenName), a3_0);
               			if (a3_0 != null) {
               				if (a3_0 != null) {
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), a3_0);
@@ -1972,7 +1972,7 @@ public class CsParser extends AbstractEMFTextParser {
             a4=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_Rule1641); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(";"), a4);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(";"), a4);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
               		}
@@ -2041,7 +2041,7 @@ public class CsParser extends AbstractEMFTextParser {
             	      					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createSequence();
             	      				}
             	      				String tokenName = "null";
-            	      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), element, tokenName), a0_0);
+            	      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getSequence().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS), element, tokenName), a0_0);
             	      				if (a0_0 != null) {
             	      					if (a0_0 != null) {
             	      						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS, a0_0);
@@ -2115,7 +2115,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
               			}
               			String tokenName = "null";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), element, tokenName), a0_0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), element, tokenName), a0_0);
               			if (a0_0 != null) {
               				if (a0_0 != null) {
               					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a0_0);
@@ -2148,7 +2148,7 @@ public class CsParser extends AbstractEMFTextParser {
             	    a1=(Token)match(input,31,FOLLOW_31_in_parse_org_emftext_sdk_concretesyntax_Choice1742); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
 
-            	      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("|"), a1);
+            	      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("|"), a1);
             	      				if (element == null) {
             	      					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
             	      				}
@@ -2170,7 +2170,7 @@ public class CsParser extends AbstractEMFTextParser {
             	      						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
             	      					}
             	      					String tokenName = "null";
-            	      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), element, tokenName), a2_0);
+            	      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getChoice().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS), element, tokenName), a2_0);
             	      					if (a2_0 != null) {
             	      						if (a2_0 != null) {
             	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a2_0);
@@ -2234,7 +2234,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCsString();
               			}
               			String tokenName = "QUOTED_34_34";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
               				tokenResolver.setOptions(getOptions());
@@ -2301,7 +2301,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -2330,7 +2330,7 @@ public class CsParser extends AbstractEMFTextParser {
             a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken1870); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("["), a1);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("["), a1);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
               		}
@@ -2348,7 +2348,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), element, tokenName), a2);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), element, tokenName), a2);
               			if (a2 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -2377,7 +2377,7 @@ public class CsParser extends AbstractEMFTextParser {
             a3=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken1903); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("]"), a3);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("]"), a3);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
               		}
@@ -2410,7 +2410,7 @@ public class CsParser extends AbstractEMFTextParser {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
                       				}
                       				String tokenName = "null";
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), element, tokenName), a4_0);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), element, tokenName), a4_0);
                       				if (a4_0 != null) {
                       					if (a4_0 != null) {
                       						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), a4_0);
@@ -2472,7 +2472,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -2501,7 +2501,7 @@ public class CsParser extends AbstractEMFTextParser {
             a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken1983); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("["), a1);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("["), a1);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
               		}
@@ -2512,7 +2512,7 @@ public class CsParser extends AbstractEMFTextParser {
             a2=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken1994); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("]"), a2);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("]"), a2);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
               		}
@@ -2545,7 +2545,7 @@ public class CsParser extends AbstractEMFTextParser {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
                       				}
                       				String tokenName = "null";
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), element, tokenName), a3_0);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), element, tokenName), a3_0);
                       				if (a3_0 != null) {
                       					if (a3_0 != null) {
                       						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), a3_0);
@@ -2610,7 +2610,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -2639,7 +2639,7 @@ public class CsParser extends AbstractEMFTextParser {
             a1=(Token)match(input,32,FOLLOW_32_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2074); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("["), a1);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("["), a1);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
               		}
@@ -2657,7 +2657,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
               			}
               			String tokenName = "QUOTED_39_39";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), element, tokenName), a2);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), element, tokenName), a2);
               			if (a2 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
               				tokenResolver.setOptions(getOptions());
@@ -2682,7 +2682,7 @@ public class CsParser extends AbstractEMFTextParser {
             a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2107); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(","), a3);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), a3);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
               		}
@@ -2700,7 +2700,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
               			}
               			String tokenName = "QUOTED_39_39";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), element, tokenName), a4);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), element, tokenName), a4);
               			if (a4 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39");
               				tokenResolver.setOptions(getOptions());
@@ -2725,7 +2725,7 @@ public class CsParser extends AbstractEMFTextParser {
             a5=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2140); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("]"), a5);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("]"), a5);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
               		}
@@ -2758,7 +2758,7 @@ public class CsParser extends AbstractEMFTextParser {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
                       				}
                       				String tokenName = "null";
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), element, tokenName), a6_0);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), element, tokenName), a6_0);
                       				if (a6_0 != null) {
                       					if (a6_0 != null) {
                       						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), a6_0);
@@ -2822,7 +2822,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -2865,7 +2865,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a1=(Token)match(input,26,FOLLOW_26_in_parse_org_emftext_sdk_concretesyntax_Containment2229); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(":"), a1);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(":"), a1);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
                       				}
@@ -2883,7 +2883,7 @@ public class CsParser extends AbstractEMFTextParser {
                       						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
                       					}
                       					String tokenName = "QUALIFIED_NAME";
-                      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), element, tokenName), a2);
+                      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), element, tokenName), a2);
                       					if (a2 != null) {
                       						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       						tokenResolver.setOptions(getOptions());
@@ -2930,7 +2930,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Containment2291); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
-                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(","), a3);
+                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), a3);
                     	      						if (element == null) {
                     	      							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
                     	      						}
@@ -2948,7 +2948,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	      								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
                     	      							}
                     	      							String tokenName = "QUALIFIED_NAME";
-                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), element, tokenName), a4);
+                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), element, tokenName), a4);
                     	      							if (a4 != null) {
                     	      								org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                     	      								tokenResolver.setOptions(getOptions());
@@ -3020,7 +3020,7 @@ public class CsParser extends AbstractEMFTextParser {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
                       				}
                       				String tokenName = "null";
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), element, tokenName), a5_0);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), element, tokenName), a5_0);
                       				if (a5_0 != null) {
                       					if (a5_0 != null) {
                       						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a5_0);
@@ -3076,7 +3076,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2431); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("("), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("("), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
               		}
@@ -3098,7 +3098,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
               			}
               			String tokenName = "null";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), element, tokenName), a1_0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), element, tokenName), a1_0);
               			if (a1_0 != null) {
               				if (a1_0 != null) {
               					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), a1_0);
@@ -3113,7 +3113,7 @@ public class CsParser extends AbstractEMFTextParser {
             a2=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2461); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(")"), a2);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(")"), a2);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
               		}
@@ -3146,7 +3146,7 @@ public class CsParser extends AbstractEMFTextParser {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
                       				}
                       				String tokenName = "null";
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), element, tokenName), a3_0);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), element, tokenName), a3_0);
                       				if (a3_0 != null) {
                       					if (a3_0 != null) {
                       						element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), a3_0);
@@ -3204,7 +3204,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
               			}
               			String tokenName = "HEXNUMBER";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("HEXNUMBER");
               				tokenResolver.setOptions(getOptions());
@@ -3260,7 +3260,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,36,FOLLOW_36_in_parse_org_emftext_sdk_concretesyntax_LineBreak2556); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("!"), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("!"), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createLineBreak();
               		}
@@ -3278,7 +3278,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createLineBreak();
               			}
               			String tokenName = "NUMBER";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), element, tokenName), a1);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), element, tokenName), a1);
               			if (a1 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("NUMBER");
               				tokenResolver.setOptions(getOptions());
@@ -3369,7 +3369,7 @@ public class CsParser extends AbstractEMFTextParser {
             	      						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
             	      					}
             	      					String tokenName = "null";
-            	      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS), element, tokenName), a0_0);
+            	      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS), element, tokenName), a0_0);
             	      					if (a0_0 != null) {
             	      						if (a0_0 != null) {
             	      							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS, a0_0);
@@ -3396,7 +3396,7 @@ public class CsParser extends AbstractEMFTextParser {
             a1=(Token)match(input,37,FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_NormalToken2652); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("DEFINE"), a1);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("DEFINE"), a1);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
               		}
@@ -3414,7 +3414,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), element, tokenName), a2);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__NAME), element, tokenName), a2);
               			if (a2 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -3446,7 +3446,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
               			}
               			String tokenName = "QUOTED_36_36";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), element, tokenName), a3);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), element, tokenName), a3);
               			if (a3 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
               				tokenResolver.setOptions(getOptions());
@@ -3485,7 +3485,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a4=(Token)match(input,38,FOLLOW_38_in_parse_org_emftext_sdk_concretesyntax_NormalToken2716); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("COLLECT"), a4);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("COLLECT"), a4);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
                       				}
@@ -3496,7 +3496,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a5=(Token)match(input,39,FOLLOW_39_in_parse_org_emftext_sdk_concretesyntax_NormalToken2731); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("IN"), a5);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("IN"), a5);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
                       				}
@@ -3514,7 +3514,7 @@ public class CsParser extends AbstractEMFTextParser {
                       						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
                       					}
                       					String tokenName = "QUALIFIED_NAME";
-                      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), element, tokenName), a6);
+                      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ATTRIBUTE_NAME), element, tokenName), a6);
                       					if (a6 != null) {
                       						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
                       						tokenResolver.setOptions(getOptions());
@@ -3579,7 +3579,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,40,FOLLOW_40_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective2805); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("PRIORITIZE"), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("PRIORITIZE"), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenPriorityDirective();
               		}
@@ -3597,7 +3597,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenPriorityDirective();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), element, tokenName), a1);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenPriorityDirective().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_PRIORITY_DIRECTIVE__TOKEN), element, tokenName), a1);
               			if (a1 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -3656,7 +3656,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,41,FOLLOW_41_in_parse_org_emftext_sdk_concretesyntax_PLUS2853); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("+"), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("+"), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPLUS();
               		}
@@ -3697,7 +3697,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,42,FOLLOW_42_in_parse_org_emftext_sdk_concretesyntax_STAR2879); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("*"), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("*"), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createSTAR();
               		}
@@ -3738,7 +3738,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,43,FOLLOW_43_in_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK2905); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("?"), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("?"), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createQUESTIONMARK();
               		}
@@ -3779,7 +3779,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,44,FOLLOW_44_in_parse_org_emftext_sdk_concretesyntax_Abstract2931); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("ABSTRACT"), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("ABSTRACT"), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAbstract();
               		}
@@ -3832,7 +3832,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
               			}
               			String tokenName = "QUOTED_34_34";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
               				tokenResolver.setOptions(getOptions());
@@ -3857,7 +3857,7 @@ public class CsParser extends AbstractEMFTextParser {
             a1=(Token)match(input,45,FOLLOW_45_in_parse_org_emftext_sdk_concretesyntax_TokenStyle2979); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("COLOR"), a1);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("COLOR"), a1);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
               		}
@@ -3875,7 +3875,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
               			}
               			String tokenName = "HEXNUMBER";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), element, tokenName), a2);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__RGB), element, tokenName), a2);
               			if (a2 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("HEXNUMBER");
               				tokenResolver.setOptions(getOptions());
@@ -3918,7 +3918,7 @@ public class CsParser extends AbstractEMFTextParser {
             	    a3=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3021); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
 
-            	      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(","), a3);
+            	      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), a3);
             	      				if (element == null) {
             	      					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
             	      				}
@@ -3936,7 +3936,7 @@ public class CsParser extends AbstractEMFTextParser {
             	      						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
             	      					}
             	      					String tokenName = "QUALIFIED_NAME";
-            	      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES), element, tokenName), a4);
+            	      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__FONT_STYLES), element, tokenName), a4);
             	      					if (a4 != null) {
             	      						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
             	      						tokenResolver.setOptions(getOptions());
@@ -3973,7 +3973,7 @@ public class CsParser extends AbstractEMFTextParser {
             a5=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3080); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(";"), a5);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(";"), a5);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
               		}
@@ -4022,7 +4022,7 @@ public class CsParser extends AbstractEMFTextParser {
             a0=(Token)match(input,46,FOLLOW_46_in_parse_org_emftext_sdk_concretesyntax_Annotation3106); if (state.failed) return element;
             if ( state.backtracking==0 ) {
 
-              		addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("@"), a0);
+              		addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("@"), a0);
               		if (element == null) {
               			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
               		}
@@ -4040,7 +4040,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), element, tokenName), a1);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), element, tokenName), a1);
               			if (a1 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -4079,7 +4079,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a2=(Token)match(input,34,FOLLOW_34_in_parse_org_emftext_sdk_concretesyntax_Annotation3148); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("("), a2);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("("), a2);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
                       				}
@@ -4101,7 +4101,7 @@ public class CsParser extends AbstractEMFTextParser {
                       						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
                       					}
                       					String tokenName = "null";
-                      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), element, tokenName), a3_0);
+                      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), element, tokenName), a3_0);
                       					if (a3_0 != null) {
                       						if (a3_0 != null) {
                       							addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a3_0);
@@ -4134,7 +4134,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	    a4=(Token)match(input,17,FOLLOW_17_in_parse_org_emftext_sdk_concretesyntax_Annotation3205); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
 
-                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(","), a4);
+                    	      						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), a4);
                     	      						if (element == null) {
                     	      							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
                     	      						}
@@ -4156,7 +4156,7 @@ public class CsParser extends AbstractEMFTextParser {
                     	      								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
                     	      							}
                     	      							String tokenName = "null";
-                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), element, tokenName), a5_0);
+                    	      							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS), element, tokenName), a5_0);
                     	      							if (a5_0 != null) {
                     	      								if (a5_0 != null) {
                     	      									addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a5_0);
@@ -4183,7 +4183,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a6=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_Annotation3281); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString(")"), a6);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(")"), a6);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
                       				}
@@ -4242,7 +4242,7 @@ public class CsParser extends AbstractEMFTextParser {
               				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
               			}
               			String tokenName = "QUALIFIED_NAME";
-              			addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), element, tokenName), a0);
+              			addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), element, tokenName), a0);
               			if (a0 != null) {
               				org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
               				tokenResolver.setOptions(getOptions());
@@ -4281,7 +4281,7 @@ public class CsParser extends AbstractEMFTextParser {
                     a1=(Token)match(input,29,FOLLOW_29_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair3352); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
 
-                      				addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedCsString("="), a1);
+                      				addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("="), a1);
                       				if (element == null) {
                       					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
                       				}
@@ -4299,7 +4299,7 @@ public class CsParser extends AbstractEMFTextParser {
                       						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
                       					}
                       					String tokenName = "QUOTED_34_34";
-                      					addExpectedElement(new org.emftext.runtime.resource.impl.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), element, tokenName), a2);
+                      					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), element, tokenName), a2);
                       					if (a2 != null) {
                       						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34");
                       						tokenResolver.setOptions(getOptions());

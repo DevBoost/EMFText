@@ -31,7 +31,7 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.CodeCompletionHelper;
+import org.emftext.runtime.resource.impl.code_completion.CodeCompletionHelper;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.util.StringUtil;
 

@@ -1,4 +1,4 @@
-package org.emftext.runtime.resource.impl;
+package org.emftext.runtime.resource.impl.code_completion;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
+import org.emftext.runtime.resource.impl.ReferenceResolveResult;
 import org.emftext.runtime.util.EClassUtil;
 import org.emftext.runtime.util.StringUtil;
 
