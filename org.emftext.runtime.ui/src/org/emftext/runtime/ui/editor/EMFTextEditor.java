@@ -22,8 +22,6 @@ package org.emftext.runtime.ui.editor;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -430,8 +428,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 				try {
 					class ResourceDeltaVisitor implements IResourceDeltaVisitor {
 						protected ResourceSet resourceSet = editingDomain.getResourceSet();
-						protected Collection<Resource> changedResources = new ArrayList<Resource>();
-						protected Collection<Resource> removedResources = new ArrayList<Resource>();
 
 						public boolean visit(IResourceDelta delta) {
 							if (delta.getResource().getType() == IResource.FILE) {
@@ -446,14 +442,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 							}
 
 							return true;
-						}
-
-						public Collection<Resource> getChangedResources() {
-							return changedResources;
-						}
-
-						public Collection<Resource> getRemovedResources() {
-							return removedResources;
 						}
 					}
 
