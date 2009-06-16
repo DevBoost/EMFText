@@ -29,8 +29,6 @@ import org.emftext.runtime.resource.ITextResource;
  * changes. For EMFText 1.2.0 is must be empty (except the two constructors). 
  * Future version may add default implementations for new methods that are 
  * added to ITextResource.
- * 
- * @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
  */
 public abstract class AbstractTextResource extends ResourceImpl implements ITextResource {
 	
