@@ -55,9 +55,7 @@ import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.IURIMapping;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
-import org.emftext.runtime.resource.impl.ElementBasedTextDiagnostic;
 import org.emftext.runtime.resource.impl.LocationMap;
-import org.emftext.runtime.resource.impl.PositionBasedTextDiagnostic;
 import org.emftext.runtime.util.CastUtil;
 import org.emftext.runtime.util.ListUtil;
 import org.emftext.runtime.util.MapUtil;
@@ -93,9 +91,9 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private static final String MAP_UTIL = MapUtil.class.getName();
 
-	private static final String POSITION_BASED_TEXT_DIAGNOSTIC = PositionBasedTextDiagnostic.class.getName();
+	private static final String POSITION_BASED_TEXT_DIAGNOSTIC = "PositionBasedTextDiagnostic";
 
-	private static final String ELEMENT_BASED_TEXT_DIAGNOSTIC = ElementBasedTextDiagnostic.class.getName();
+	private static final String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
 
 	private static final String ECORE_UTIL = EcoreUtil.class.getName();
 
@@ -219,11 +217,114 @@ public class TextResourceGenerator extends BaseGenerator {
 
     	addAddDefaultLoadOptionsMethod(sc);
     	addLoadOptionsMethod(sc);
+    	
+    	addElementBasedTextDiagnosticClass(sc);
+    	addPositionBasedTestDiagnosticClass(sc);
+    	
     	sc.add("}");
     	
     	out.print(sc.toString());
     	return true;
     }
+
+	private void addPositionBasedTestDiagnosticClass(StringComposite sc) {
+		sc.add("public class " + POSITION_BASED_TEXT_DIAGNOSTIC + " implements " + I_TEXT_DIAGNOSTIC + " {");
+    	sc.addLineBreak();
+    	sc.add("private final " + URI + " uri;");
+    	sc.addLineBreak();
+    	sc.add("protected int column;");
+    	sc.add("protected int line;");
+    	sc.add("protected int charStart;");
+    	sc.add("protected int charEnd;");
+    	sc.add("protected " + STRING + " message;");
+    	sc.addLineBreak();
+    	sc.add("public " + POSITION_BASED_TEXT_DIAGNOSTIC + "(" + URI + " uri, " + STRING + " message, int column, int line, int charStart, int charEnd) {");
+    	sc.addLineBreak();
+    	sc.add("super();");
+    	sc.add("this.uri = uri;");
+    	sc.add("this.column = column;");
+    	sc.add("this.line = line;");
+    	sc.add("this.charStart = charStart;");
+    	sc.add("this.charEnd = charEnd;");
+    	sc.add("this.message = message;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getCharStart() {");
+    	sc.add("return charStart;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getCharEnd() {");
+    	sc.add("return charEnd;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getColumn() {");
+    	sc.add("return column;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getLine() {");
+    	sc.add("return line;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public " + STRING + " getLocation() {");
+    	sc.add("return uri.toString();");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("return message;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
+    	sc.add("return false;");
+    	sc.add("}");
+    	sc.add("}");
+	}
+
+	private void addElementBasedTextDiagnosticClass(StringComposite sc) {
+		sc.add("public class " + ELEMENT_BASED_TEXT_DIAGNOSTIC + " implements " + I_TEXT_DIAGNOSTIC + " {");
+    	sc.addLineBreak();
+    	sc.add("private final " + I_LOCATION_MAP + " locationMap;");
+    	sc.add("private final " + URI + " uri;");
+    	sc.add("private final " + E_OBJECT + " element;");
+    	sc.add("private final " + STRING + " message;");
+    	sc.addLineBreak();
+    	sc.add("public " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(" + I_LOCATION_MAP + " locationMap, " + URI + " uri, " + STRING + " message, " + E_OBJECT + " element) {");
+    	sc.add("super();");
+    	sc.add("this.uri = uri;");
+    	sc.add("this.locationMap = locationMap;");
+    	sc.add("this.element = element;");
+    	sc.add("this.message = message;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("return message;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public " + STRING + " getLocation() {");
+    	sc.add("return uri.toString();");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getCharStart() {");
+    	sc.add("return Math.max(0, locationMap.getCharStart(element));");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getCharEnd() {");
+    	sc.add("return Math.max(0, locationMap.getCharEnd(element));");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getColumn() {");
+    	sc.add("return Math.max(0, locationMap.getColumn(element));");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public int getLine() {");
+    	sc.add("return Math.max(0, locationMap.getLine(element));");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
+    	sc.add("return this.element.equals(element);");
+    	sc.add("}");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
 
 	private void addLoadOptionsMethod(StringComposite sc) {
 		sc.add("// Adds a new key,value pair to the list of options. If there");

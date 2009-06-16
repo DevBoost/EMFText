@@ -249,21 +249,21 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	}
 	
 	public void addError(java.lang.String message, org.eclipse.emf.ecore.EObject element) {
-		getErrors().add(new org.emftext.runtime.resource.impl.ElementBasedTextDiagnostic(locationMap, getURI(), message, element));
+		getErrors().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element));
 	}
 	
 	public void addError(java.lang.String message, int column, int line, int charStart,
 	int charEnd) {
-		getErrors().add(new org.emftext.runtime.resource.impl.PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
+		getErrors().add(new  PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
 	}
 	
 	public void addWarning(java.lang.String message, org.eclipse.emf.ecore.EObject element) {
-		getWarnings().add(new org.emftext.runtime.resource.impl.ElementBasedTextDiagnostic(locationMap, getURI(), message, element));
+		getWarnings().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element));
 	}
 	
 	public void addWarning(java.lang.String message, int column, int line, int charStart,
 	int charEnd) {
-		getWarnings().add(new org.emftext.runtime.resource.impl.PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
+		getWarnings().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
 	}
 	
 	protected java.util.Map<java.lang.Object, java.lang.Object> addDefaultLoadOptions(java.util.Map<?, ?> loadOptions) {
@@ -327,4 +327,97 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		}
 	}
 	
+	public class ElementBasedTextDiagnostic implements org.emftext.runtime.resource.ITextDiagnostic {
+		
+		private final org.emftext.runtime.resource.ILocationMap locationMap;
+		private final org.eclipse.emf.common.util.URI uri;
+		private final org.eclipse.emf.ecore.EObject element;
+		private final java.lang.String message;
+		
+		public ElementBasedTextDiagnostic(org.emftext.runtime.resource.ILocationMap locationMap, org.eclipse.emf.common.util.URI uri, java.lang.String message, org.eclipse.emf.ecore.EObject element) {
+			super();
+			this.uri = uri;
+			this.locationMap = locationMap;
+			this.element = element;
+			this.message = message;
+		}
+		
+		public java.lang.String getMessage() {
+			return message;
+		}
+		
+		public java.lang.String getLocation() {
+			return uri.toString();
+		}
+		
+		public int getCharStart() {
+			return Math.max(0, locationMap.getCharStart(element));
+		}
+		
+		public int getCharEnd() {
+			return Math.max(0, locationMap.getCharEnd(element));
+		}
+		
+		public int getColumn() {
+			return Math.max(0, locationMap.getColumn(element));
+		}
+		
+		public int getLine() {
+			return Math.max(0, locationMap.getLine(element));
+		}
+		
+		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
+			return this.element.equals(element);
+		}
+	}
+	
+	public class PositionBasedTextDiagnostic implements org.emftext.runtime.resource.ITextDiagnostic {
+		
+		private final org.eclipse.emf.common.util.URI uri;
+		
+		protected int column;
+		protected int line;
+		protected int charStart;
+		protected int charEnd;
+		protected java.lang.String message;
+		
+		public PositionBasedTextDiagnostic(org.eclipse.emf.common.util.URI uri, java.lang.String message, int column, int line, int charStart, int charEnd) {
+			
+			super();
+			this.uri = uri;
+			this.column = column;
+			this.line = line;
+			this.charStart = charStart;
+			this.charEnd = charEnd;
+			this.message = message;
+		}
+		
+		public int getCharStart() {
+			return charStart;
+		}
+		
+		public int getCharEnd() {
+			return charEnd;
+		}
+		
+		public int getColumn() {
+			return column;
+		}
+		
+		public int getLine() {
+			return line;
+		}
+		
+		public java.lang.String getLocation() {
+			return uri.toString();
+		}
+		
+		public java.lang.String getMessage() {
+			return message;
+		}
+		
+		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
+			return false;
+		}
+	}
 }

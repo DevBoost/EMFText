@@ -12,7 +12,6 @@ import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
-import org.emftext.runtime.resource.impl.BasicTokenStyle;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -33,8 +32,6 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private static final String INPUT_STREAM = InputStream.class.getName();
 
 	private static final String I_TEXT_PARSER = ITextParser.class.getName();
-
-	private static final String BASIC_TOKEN_STYLE = BasicTokenStyle.class.getName();
 
 	private static final String ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION = AbstractTextResourcePluginMetaInformation.class.getName();
 
@@ -71,10 +68,45 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         addGetTokenNamesMethod(sc);
         addGetDefaultStyleMethod(sc);
     	
+        addTokenStyleImplClass(sc);
+
         sc.add("}");
     	
 		out.print(sc.toString());
     	return true;	
+	}
+
+	private void addTokenStyleImplClass(StringComposite sc) {
+		sc.add("public class TokenStyleImpl implements " + I_TOKEN_STYLE + " {");
+        sc.add("private int[] color;");
+        sc.add("private boolean bold;");
+        sc.add("private boolean italic;");
+        sc.add("private boolean strikethrough;");
+        sc.add("private boolean underline;");
+        sc.add("public TokenStyleImpl(int[] color, boolean bold, boolean italic, boolean striketrough, boolean underline) {");
+        sc.add("super();");
+        sc.add("this.color = color;");
+        sc.add("this.bold = bold;");
+        sc.add("this.italic = italic;");
+        sc.add("this.strikethrough = striketrough;");
+        sc.add("this.underline = underline;");
+        sc.add("}");
+        sc.add("public int[] getColorAsRGB() {");
+        sc.add("return color;");
+        sc.add("}");
+        sc.add("public boolean isBold() {");
+        sc.add("return bold;");
+        sc.add("}");
+        sc.add("public boolean isItalic() {");
+        sc.add("return italic;");
+        sc.add("}");
+        sc.add("public boolean isStrikethrough() {");
+        sc.add("return strikethrough;");
+        sc.add("}");
+        sc.add("public boolean isUnderline() {");
+        sc.add("return underline;");
+        sc.add("}");
+        sc.add("}");
 	}
 
 	private void addGetTokenNamesMethod(StringComposite sc) {
@@ -97,7 +129,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 			String italic = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.ITALIC));
 			String strikethrough = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.STRIKETHROUGH));
 			String underline = Boolean.toString(nextStyle.getFontStyles().contains(FontStyle.UNDERLINE));
-			sc.add("return new " + BASIC_TOKEN_STYLE + "(" + color + ", " + bold + ", " + italic + ", " + strikethrough + ", " + underline + ");");
+			sc.add("return new TokenStyleImpl(" + color + ", " + bold + ", " + italic + ", " + strikethrough + ", " + underline + ");");
 			sc.add("}");
 		}
 		sc.add("return null;");
