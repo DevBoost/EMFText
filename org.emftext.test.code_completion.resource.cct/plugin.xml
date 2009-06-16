@@ -6,9 +6,9 @@
 		</parser>
 	</extension>
 	
-	<extension point="org.emftext.runtime.concretesyntax">
-		<concretesyntax uri="http://www.emftext.org/test/code_completion" csName="cct" csDefinition="org.emftext.test.code_completion/metamodel/code_completion.cs">
-		</concretesyntax>
+	<extension point="org.emftext.runtime.syntax">
+		<metaInformationProvider class="org.emftext.test.code_completion.resource.cct.CctMetaInformation" id="org.emftext.test.code_completion.resource.cct.CctMetaInformation">
+		</metaInformationProvider>
 	</extension>
 	
 	<extension point="org.eclipse.core.contenttype.contentTypes">
