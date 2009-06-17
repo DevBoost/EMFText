@@ -25,11 +25,17 @@ package org.emftext.sdk.ui.jobs;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+
+import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -38,6 +44,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -87,10 +94,30 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			final GenModel genModel = (GenModel) genResource.getContents().get(0);
 			
 			concretesyntaxFactory = ConcretesyntaxPackage.eINSTANCE.getConcretesyntaxFactory();
-			Resource csResource = rs.createResource(URI.createPlatformResourceURI(file.getFullPath().removeFileExtension().addFileExtension("cs").toString(), true));
-			cSyntax = concretesyntaxFactory.createConcreteSyntax();		
-			csResource.getContents().clear();
-			csResource.getContents().add(cSyntax);
+			URI uri = URI.createPlatformResourceURI(file.getFullPath().removeFileExtension().addFileExtension("cs").toString(), true);
+			Resource csResource = null;
+			if (uri != null && uri.isPlatform()) {
+				IResource workspaceMember = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
+				if (workspaceMember != null) {
+					csResource = rs.getResource(uri, true);
+				}
+				else {
+					csResource = rs.createResource(uri);
+				}
+			}
+			
+			EObject currentSyntax = null;
+			if (csResource != null && csResource.getContents().size() > 0) {
+				 currentSyntax = csResource.getContents().get(0);
+			}
+			
+			if (currentSyntax instanceof ConcreteSyntax) {
+				cSyntax = (ConcreteSyntax) currentSyntax;
+			} else {
+				cSyntax = concretesyntaxFactory.createConcreteSyntax();	
+				csResource.getContents().add(cSyntax);
+			}
+			
 			
 			//String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
 	    	cSyntax.setPackage(genModel.getGenPackages().get(0));
@@ -114,12 +141,16 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 				}
 			}
 			
-			cSyntax.getRules().clear();
-			
-			for (GenClass genClass : genClasses) {
-				generateRule(genClass);
+			Map<String, Rule>  genClass2Rule = new HashMap<String, Rule>(); 
+			for (Rule rule : cSyntax.getRules()) {
+				genClass2Rule.put(rule.getMetaclass().getName(), rule);
 			}
 			
+			for (GenClass genClass : genClasses) {
+				if (genClass2Rule.get(genClass.getName()) == null) {
+					generateRule(genClass);
+				}
+			}
 			
 			try {
 				csResource.save(null);
