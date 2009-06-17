@@ -54,8 +54,7 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 
 	public String deResolve(TokenDefinition element, Placeholder container,
 			EReference reference) {
-		// TODO jjohannes: implement this method
-		return null;
+		return element.getName();
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,

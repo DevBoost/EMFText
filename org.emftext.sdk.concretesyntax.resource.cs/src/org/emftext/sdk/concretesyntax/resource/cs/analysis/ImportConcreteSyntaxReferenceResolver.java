@@ -51,8 +51,9 @@ public class ImportConcreteSyntaxReferenceResolver extends AbstractReferenceReso
 
 	public String deResolve(ConcreteSyntax element, Import container,
 			EReference reference) {
-		// TODO jendrik: implement this method
-		return null;
+		// A location hint is defined in the import if needed. 
+		// Here we only return the name of the syntax.
+		return element.getName();
 	}
 	
 	private String createErrorMessage(String identifier, String locationHint) {
