@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -82,21 +83,24 @@ public class ManifestGenerator implements IGenerator {
 		sc.add("Require-Bundle: org.eclipse.core.runtime,");
 		sc.add("  org.eclipse.emf.ecore,");
 		List<String> importedPlugins = new ArrayList<String>();
-		String modelPluginID = concreteSyntax.getPackage().getGenModel().getModelPluginID();
-		importedPlugins.add(modelPluginID);
-		sc.add("  " + modelPluginID + ",");
+		final GenPackage mainGenPackage = concreteSyntax.getPackage();
+		
+		addImports(sc, importedPlugins, mainGenPackage);
 		
 		boolean generateTestAction = context.isGenerateTestActionEnabled();
 
 		if (generateTestAction) {
 			sc.add("  org.emftext.sdk.ui,");
 		}
-		for (Import aImport : concreteSyntax.getImports()) {
-			GenModel genModel = aImport.getPackage().getGenModel();
+		for (Import importedSyntax : concreteSyntax.getImports()) {
+			final GenPackage importedPackage = importedSyntax.getPackage();
+			GenModel genModel = importedPackage.getGenModel();
 			String pluginID = genModel.getModelPluginID();
+			// TODO here we must also add syntaxes and packages that
+			// are imported by imported syntax
 			if (!importedPlugins.contains(pluginID)) {
 				sc.add("  " + pluginID + ",");
-				sc.add("  " + nameUtil.getPluginName(aImport.getConcreteSyntax()) + ",");
+				sc.add("  " + nameUtil.getPluginName(importedSyntax.getConcreteSyntax()) + ",");
 				importedPlugins.add(pluginID);
 			}
 		}
@@ -116,6 +120,19 @@ public class ManifestGenerator implements IGenerator {
 		}
 
 		return sc.toString();
+	}
+
+	private void addImports(StringComposite sc, List<String> importedPlugins,
+			final GenPackage genPackage) {
+		final GenModel genModel = genPackage.getGenModel();
+		String modelPluginID = genModel.getModelPluginID();
+		if (!importedPlugins.contains(modelPluginID)) {
+			sc.add("  " + modelPluginID + ",");
+		}
+		importedPlugins.add(modelPluginID);
+		for (GenPackage usedGenPackage : genModel.getUsedGenPackages()) {
+			addImports(sc, importedPlugins, usedGenPackage);
+		}
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {
