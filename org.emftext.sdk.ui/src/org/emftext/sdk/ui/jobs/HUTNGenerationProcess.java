@@ -40,6 +40,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -58,6 +59,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
@@ -118,46 +120,64 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 				csResource.getContents().add(cSyntax);
 			}
 			
+			Map<String, Rule>  genClass2RuleCache = new HashMap<String, Rule>(); 
+			for (Rule rule : cSyntax.getRules()) {
+				genClass2RuleCache.put(rule.getMetaclass().getQualifiedInterfaceName(), rule);
+			}
 			
 			//String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
-	    	cSyntax.setPackage(genModel.getGenPackages().get(0));
+			List<GenPackage> allGenPackagesWithClassifiers = genModel.getAllGenPackagesWithClassifiers();
+			
+			cSyntax.setPackage(allGenPackagesWithClassifiers.get(0));
 			cSyntax.setName(cSyntax.getPackage().getNSName());
+			generateRules(genClass2RuleCache, cSyntax.getPackage(), "");
 			
-			EList<GenClass> genClasses = cSyntax.getPackage().getGenClasses();
-			Set<EClassifier> containedClasses = new HashSet<EClassifier>();
-			for (GenClass genClass : genClasses) {
-				List<GenFeature> allChildrenFeatures = genClass.getAllChildrenFeatures();
-				for (GenFeature genFeature : allChildrenFeatures) {
-					EClassifier type = genFeature.getEcoreFeature().getEType();
-					if (!type.equals(genClass.getEcoreClass())) {
-						containedClasses.add(type);
-					}
-				}
+			for(int i = 1; i<allGenPackagesWithClassifiers.size(); i++) {
+				GenPackage currentPkg = allGenPackagesWithClassifiers.get(i);
+				
+				Import imp = concretesyntaxFactory.createImport();
+				cSyntax.getImports().add(imp);
+				imp.setPackage(currentPkg);
+				String prefix = currentPkg.getQualifiedPackageName();
+				imp.setPrefix(prefix);
+				
+				generateRules(genClass2RuleCache, currentPkg, prefix);
+				
+				
 			}
-			for (GenClass genClass : genClasses) {
-				if (genClassUtil.isConcrete(genClass) && 
-					!containsSelfOfSuper(containedClasses, genClass.getEcoreClass()) ) {
-					cSyntax.getStartSymbols().add(genClass);
-				}
-			}
-			
-			Map<String, Rule>  genClass2Rule = new HashMap<String, Rule>(); 
-			for (Rule rule : cSyntax.getRules()) {
-				genClass2Rule.put(rule.getMetaclass().getName(), rule);
-			}
-			
-			for (GenClass genClass : genClasses) {
-				if (genClass2Rule.get(genClass.getName()) == null) {
-					generateRule(genClass);
-				}
-			}
-			
 			try {
 				csResource.save(null);
 			} catch (IOException e) {
 	        	// TODO cwende: this exception should be shown to the user
 				EMFTextRuntimePlugin.logError("Exception while saving resource.", e);
 			}
+	}
+
+	private void generateRules(Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix) {
+		EList<GenClass> genClasses = pkg.getGenClasses();
+		Set<EClassifier> containedClasses = new HashSet<EClassifier>();
+		for (GenClass genClass : genClasses) {
+			List<GenFeature> allChildrenFeatures = genClass.getAllChildrenFeatures();
+			for (GenFeature genFeature : allChildrenFeatures) {
+				EClassifier type = genFeature.getEcoreFeature().getEType();
+				if (!type.equals(genClass.getEcoreClass())) {
+					containedClasses.add(type);
+				}
+			}
+		}
+		for (GenClass genClass : genClasses) {
+			if (genClassUtil.isConcrete(genClass) && 
+				!containsSelfOfSuper(containedClasses, genClass.getEcoreClass()) ) {
+				cSyntax.getStartSymbols().add(genClass);
+			}
+		}
+		
+		
+		for (GenClass genClass : genClasses) {
+			if (genClass2Rule.get(genClass.getQualifiedClassName()) == null) {
+				generateRule(genClass);
+			}
+		}
 	}
 
 	private void generateRule(GenClass genClass) {
