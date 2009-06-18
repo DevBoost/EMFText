@@ -69,7 +69,11 @@ public class MetaclassReferenceResolver {
 	private ConcreteSyntax getConcreteSyntax(EObject container) {
 		while(!(container instanceof ConcreteSyntax)) {
 			container = container.eContainer();
-			Assert.isNotNull(container);
+			//was before: Assert.isNotNull(container);
+			//container might be null during fuzzy resolving
+			if (container == null) {
+				return null;
+			}
 		}
 		return (ConcreteSyntax) container;
 	}
