@@ -7,7 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.LineNumberReader;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,13 +29,6 @@ import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
 import org.emftext.test.code_completion.resource.cct.CctParser;
 
 public class CodeCompletionTest extends TestCase {
-
-	private boolean accept(String filename) {
-		return true ||
-			"BracketExpected3.cct".equals(filename) ||
-			"EnumVisibilityExpected1.cct".equals(filename)
-			;
-	}
 
 	private static final Code_completionPackage CCT_PACKAGE = Code_completionPackage.eINSTANCE;
 	private static final String INPUT_DIR = "input";
@@ -158,9 +153,18 @@ public class CodeCompletionTest extends TestCase {
 		expectedElementsMap.put("EnumVisibilityExpected5.cct", CCT_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected5.cct", new String[] {"public", "private"});
 
+		expectedElementsMap.put("EnumVisibilityExpected6.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected6.cct", new String[] {"private"});
+
+		expectedElementsMap.put("EnumVisibilityExpected7.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected7.cct", new String[] {"public", "private"});
+
 		// this one has an additional space after the cursor
 		expectedElementsMap.put("KeywordClassExpected3.cct", "class");
 		expectedInsertStringsMap.put("KeywordClassExpected3.cct", new String[] {"class"});
+
+		expectedElementsMap.put("KeywordClassExpected4.cct", "class");
+		expectedInsertStringsMap.put("KeywordClassExpected4.cct", new String[] {"class"});
 
 		expectedElementsMap.put("MembersExpected1.cct", CCT_PACKAGE.getClass_Members());
 		expectedInsertStringsMap.put("MembersExpected1.cct", new String[] {"public", "private"});
@@ -183,13 +187,19 @@ public class CodeCompletionTest extends TestCase {
 		}
 		Object expectedElement = expectedElementsMap.get(filename);
 		assertNotNull("No expected element given for file " + filename, expectedElement);
+		List<IExpectedElement> expectedElements = new ArrayList<IExpectedElement>();
 		if (expectedElement instanceof String) {
-			parseToCursor(file, new ExpectedCsString((String) expectedElement));
+			final ExpectedCsString expectedCsString = new ExpectedCsString((String) expectedElement);
+			expectedElements.add(expectedCsString);
 		} else if (expectedElement instanceof EStructuralFeature) {
-			parseToCursor(file, new ExpectedStructuralFeature((EStructuralFeature) expectedElement, null, null));
+			final ExpectedStructuralFeature expectedStructuralFeature = new ExpectedStructuralFeature((EStructuralFeature) expectedElement, null, null);
+			expectedElements.add(expectedStructuralFeature);
+		} else if (expectedElement instanceof List<?>) {
+			expectedElements.addAll((List<? extends IExpectedElement>) expectedElement);
 		} else {
 			fail("Unknown type of expected element given for file " + filename);
 		}
+		parseToCursor(file, expectedElements);
 	}
 	
 	private void checkInsertStrings(File file, String[] expectedInsertStrings) {
@@ -206,7 +216,7 @@ public class CodeCompletionTest extends TestCase {
 		assertEquals("Same number of proposals expected.", expectedInsertStrings.length, proposals.size());
 	}
 
-	private void parseToCursor(File file, IExpectedElement expectedCompletionElement) {
+	private void parseToCursor(File file, List<IExpectedElement> expectedCompletionElement) {
 		String fileContent = getFileContent(file);
 		int cursorIndex = getCursorMarkerIndex(fileContent);
 		System.out.println("-------- " + file + " - CURSOR AT " + cursorIndex);
@@ -222,7 +232,7 @@ public class CodeCompletionTest extends TestCase {
 		if (actualElements.size() == 0) {
 			fail("Parser must return at least one expected element.");
 		}
-		IExpectedElement finalExpectedAtCursor = CodeCompletionHelper.getFinalExpectedElementAt(cursorIndex, actualElements);
+		List<IExpectedElement> finalExpectedAtCursor = new CodeCompletionHelper().getExpectedElementsAt(contentWithoutMarker, cursorIndex, actualElements);
 		assertEquals(expectedCompletionElement, finalExpectedAtCursor);
 	}
 
@@ -256,5 +266,9 @@ public class CodeCompletionTest extends TestCase {
 			fail(e.getMessage());
 			return null;
 		}
+	}
+
+	private boolean accept(String filename) {
+		return true;
 	}
 }

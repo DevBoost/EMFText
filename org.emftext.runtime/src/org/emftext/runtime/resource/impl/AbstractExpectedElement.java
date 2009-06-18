@@ -16,6 +16,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	private int startExcludingHiddenTokens;
 	private int endIncludingHiddenTokens;
 	private int endExcludingHiddenTokens;
+	private String prefix;
 
 	public void setPosition(
 			int startIncludingHiddenTokens, 
@@ -64,6 +65,14 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 		return endExcludingHiddenTokens;
 	}
 	
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+	
 	/**
 	 * Checks whether the cursor index is inside the range of
 	 * relevant characters, not considering hidden tokens
@@ -76,6 +85,10 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 		}
 		return false;
 	}
+	
+	public boolean isAfter(int cursorIndex) {
+		return startIncludingHiddenTokens > cursorIndex;
+	}
 
 	public boolean isUnknown(int cursorIndex) {
 		return 
@@ -86,7 +99,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	public String toString() {
 		return 
 		toString(startIncludingHiddenTokens) + "-" + toString(endIncludingHiddenTokens) +
-		" (" + toString(startExcludingHiddenTokens) + "-" + toString(endExcludingHiddenTokens) + ")" ;
+		" (" + toString(startExcludingHiddenTokens) + "-" + toString(endExcludingHiddenTokens) + ") prefix = '" + prefix + "'" ;
 	}
 	
 	private String toString(int index) {

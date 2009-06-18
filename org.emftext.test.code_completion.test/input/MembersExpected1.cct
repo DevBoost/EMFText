@@ -1,4 +1,4 @@
 public class SomeName {
-    private SomeName z;
-    p<CURSOR>
+    private SomeName x;
+    p<CURSOR>rivate SomeName y;
 }

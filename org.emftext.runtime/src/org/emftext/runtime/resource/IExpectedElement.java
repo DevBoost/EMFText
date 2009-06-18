@@ -21,8 +21,20 @@ public interface IExpectedElement {
 			int endIncludingHiddenTokens,
 			int endExcludingHiddenTokens
 	);
+	
+	public int getStartExcludingHiddenTokens();
+	
+	public int getEndExcludingHiddenTokens();
+
+	public int getEndIncludingHiddenTokens();
 
 	public boolean isAt(int cursorIndex);
 
 	public boolean isUnknown(int cursorIndex);
+	
+	public String getPrefix();
+	
+	public void setPrefix(String prefix);
+
+	public boolean isAfter(int cursorIndex);
 }
