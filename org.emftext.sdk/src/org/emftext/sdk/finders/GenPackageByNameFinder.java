@@ -35,6 +35,9 @@ public class GenPackageByNameFinder extends GenPackageInFileFinder {
 	public IGenPackageFinderResult findGenPackage(String nsURI,
 			String locationHint, GenPackageDependentElement container, ITextResource resource) {
 		
+		if (resource == null) {
+			return null;
+		}
 		ResourceSet rs = resource.getResourceSet();
 		if (rs == null) {
 			return null;
