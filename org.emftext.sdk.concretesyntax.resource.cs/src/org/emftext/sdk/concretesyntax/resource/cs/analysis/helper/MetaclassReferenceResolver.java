@@ -22,7 +22,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis.helper;
 
 import java.util.List;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
