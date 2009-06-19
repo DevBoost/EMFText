@@ -43,7 +43,10 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * A custom task for the ANT build tool that generates
- * a resource plug-in for a given syntax specification. 
+ * a resource plug-in for a given syntax specification.
+ * 
+ * TODO there should be a build exception when the syntax
+ * contains errors (e.g., issued by ANTLR)
  */
 public class GenerateTextResourceTask extends Task {
 
