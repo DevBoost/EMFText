@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
-import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
