@@ -25,7 +25,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * Basic Interface to directly manipulate parsed tokens and convert them into the attribute type in the meta model.
- * All generated TokenResolvers inherit from JavaBasedTokenResolver which does the standard conversion to Java Types.
+ * All generated TokenResolvers per default delegate requests to an instance of JavaBasedTokenResolver which performs 
+ * a standard conversion to Java Types based on the type of the attribute.
  * 
  * @see org.emftext.runtime.resource.impl.JavaBasedTokenResolver
  * @see org.emftext.sdk.codegen.TokenResolverGenerator
@@ -35,7 +36,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 public interface ITokenResolver extends IConfigurable {
 	
 	/**
-	 * Converts a token into an Object (might be a String again). 
+	 * Converts a token into an Object (the value of the attribute). 
 	 * 
 	 * @param lexem the parsed String
 	 * @param feature the corresponding feature in the meta model
@@ -44,11 +45,12 @@ public interface ITokenResolver extends IConfigurable {
 	public void resolve(String lexem, EStructuralFeature feature, ITokenResolveResult result);
 	
 	/**
-	 * Does the inverse mapping from Object to a lexem which can be printed.
+	 * Does the inverse mapping from an Object (attribute value) to a lexem which can be printed.
 	 * 
 	 * @param value the Object to be printed as String
-	 * @param feature the corresponding feature
+	 * @param feature the corresponding feature (attribute)
 	 * @param container the container of the object
+	 * 
 	 * @return the String representation or null if a problem occurred
 	 */
 	public String deResolve(Object value, EStructuralFeature feature, EObject container);
