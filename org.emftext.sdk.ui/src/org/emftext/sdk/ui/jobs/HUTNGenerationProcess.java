@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,6 +42,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -57,6 +60,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
+import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
@@ -64,6 +68,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.TokenStyle;
 
 
 /**
@@ -75,6 +80,8 @@ import org.emftext.sdk.concretesyntax.Terminal;
  */
 public class HUTNGenerationProcess implements IRunnableWithProgress {
 	
+	private static final String KEYWORD_VIOLETT = "7F0055";
+
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
 	
 	private final IFile file;
@@ -143,12 +150,41 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 				
 				
 			}
+			generateTokenstyles();
+			
 			try {
 				csResource.save(null);
 			} catch (IOException e) {
 	        	// TODO cwende: this exception should be shown to the user
 				EMFTextRuntimePlugin.logError("Exception while saving resource.", e);
 			}
+	}
+
+	private void generateTokenstyles() {
+		 List<String> keywords = new LinkedList<String>(); 
+		 TreeIterator<EObject> allContents = cSyntax.eAllContents();
+		 HashMap<String, TokenStyle> cachedStyles = new HashMap<String, TokenStyle>();
+		 for (TokenStyle style : cSyntax.getTokenStyles()) {
+			cachedStyles.put(style.getTokenName(), style);
+		}
+		 
+		 while (allContents.hasNext()) {
+			EObject object = (EObject) allContents.next();
+			if (object instanceof CsString) {
+				CsString s = (CsString) object;
+				if (cachedStyles.get(s.getValue()) != null) continue;
+				if(! s.getValue().matches("\\w*")) continue;
+				
+				TokenStyle tokenStyle = concretesyntaxFactory.createTokenStyle();
+				tokenStyle.setTokenName(s.getValue());
+				tokenStyle.setRgb(KEYWORD_VIOLETT);
+				tokenStyle.getFontStyles().add(FontStyle.BOLD);
+				
+				cSyntax.getTokenStyles().add(tokenStyle);
+				cachedStyles.put(s.getValue(), tokenStyle);
+					
+			}
+		}
 	}
 
 	private void generateRules(Map<String, Rule> genClass2Rule, GenPackage pkg, String prefix) {
@@ -172,7 +208,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		
 		
 		for (GenClass genClass : genClasses) {
-			if (genClass2Rule.get(genClass.getQualifiedClassName()) == null) {
+			if (genClass2Rule.get(genClass.getQualifiedInterfaceName()) == null) {
 				generateRule(genClass);
 			}
 		}
@@ -249,7 +285,9 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		Sequence innerSequence = concretesyntaxFactory.createSequence();
 											
 		CsString nameKeyword = concretesyntaxFactory.createCsString();
-		nameKeyword.setValue(genFeature.getEcoreFeature().getName());
+		String name = genFeature.getEcoreFeature().getName();
+		nameKeyword.setValue(name);
+		
 		innerSequence.getParts().add(nameKeyword);
 		CsString colon = concretesyntaxFactory.createCsString();
 		colon.setValue(":");

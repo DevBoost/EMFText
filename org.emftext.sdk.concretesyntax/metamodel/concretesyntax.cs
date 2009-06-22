@@ -93,7 +93,7 @@ RULES {
   
   Abstract ::= "ABSTRACT";
   
-  TokenStyle ::= tokenName['"','"'] "COLOR" rgb[HEXNUMBER] ("," fontStyles[])* ";";
+  TokenStyle ::= tokenName['"','"'] #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
   
   Annotation ::= "@" type[] ("(" parameters ("," parameters)* ")")?;
   

@@ -254,7 +254,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	
 	public void addError(java.lang.String message, int column, int line, int charStart,
 	int charEnd) {
-		getErrors().add(new  PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
+		getErrors().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
 	}
 	
 	public void addWarning(java.lang.String message, org.eclipse.emf.ecore.EObject element) {
