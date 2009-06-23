@@ -92,15 +92,18 @@ public class ManifestGenerator implements IGenerator {
 		if (generateTestAction) {
 			sc.add("  org.emftext.sdk.ui,");
 		}
-		for (Import importedSyntax : concreteSyntax.getImports()) {
-			final GenPackage importedPackage = importedSyntax.getPackage();
+		for (Import nextImport : concreteSyntax.getImports()) {
+			final GenPackage importedPackage = nextImport.getPackage();
 			GenModel genModel = importedPackage.getGenModel();
 			String pluginID = genModel.getModelPluginID();
 			// TODO here we must also add syntaxes and packages that
 			// are imported by imported syntax
 			if (!importedPlugins.contains(pluginID)) {
 				sc.add("  " + pluginID + ",");
-				sc.add("  " + nameUtil.getPluginName(importedSyntax.getConcreteSyntax()) + ",");
+				ConcreteSyntax importedSyntax = nextImport.getConcreteSyntax();
+				if (importedSyntax != null) {
+					sc.add("  " + nameUtil.getPluginName(importedSyntax) + ",");
+				}
 				importedPlugins.add(pluginID);
 			}
 		}
