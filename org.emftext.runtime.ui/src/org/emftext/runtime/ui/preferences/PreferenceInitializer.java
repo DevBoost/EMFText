@@ -29,6 +29,7 @@ import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.TokenHelper;
+import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 
 /**
  * Class used to initialize default preference values.
@@ -59,7 +60,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 					continue;
 				}
         		ITokenStyle style = extension.getDefaultTokenStyle(tokenName);
-        		
         		if (style != null) {
         			String color = getColorString(style.getColorAsRGB());
                     setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
@@ -77,12 +77,12 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 			boolean italic,
 			boolean strikethrough,
 			boolean underline) {
-		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_BOLD_SUFFIX, bold);
-		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_COLOR_SUFFIX, color);
-		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_ENABLE_SUFFIX, enable);
-		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_ITALIC_SUFFIX, italic);
-		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX, strikethrough);
-		store.setDefault(languageID + "_" + tokenName + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX, underline);
+		store.setDefault(SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.BOLD), bold);
+		store.setDefault(SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.COLOR), color);
+		store.setDefault(SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.ENABLE), enable);
+		store.setDefault(SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.ITALIC), italic);
+		store.setDefault(SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.STRIKETHROUGH), strikethrough);
+		store.setDefault(SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.UNDERLINE), underline);
 	}
 
 	private String getColorString(int[] colorAsRGB) {

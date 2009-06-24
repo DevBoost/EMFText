@@ -35,7 +35,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.ui.preferences.PreferenceConstants;
+import org.emftext.runtime.ui.preferences.SyntaxColoringHelper;
+import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 
 /**
  * An adapter from the Eclipse <code>ITokenScanner</code> interface
@@ -85,22 +86,22 @@ public class AntlrTokenScanner implements ITokenScanner {
 
         String tokenName = tokenHelper.getTokenName(tokenNames, current.getType());
         if (tokenName != null) {
-	        String prefix = languageId + "_" + tokenName;
-	        if (store.getBoolean(prefix + PreferenceConstants.EDITOR_ENABLE_SUFFIX)) {
-	            String colorKey = prefix + PreferenceConstants.EDITOR_COLOR_SUFFIX;
+	        String enableKey = SyntaxColoringHelper.getPreferenceKey(languageId, tokenName, StyleProperty.ENABLE);
+	        if (store.getBoolean(enableKey)) {
+	            String colorKey = SyntaxColoringHelper.getPreferenceKey(languageId, tokenName, StyleProperty.COLOR);
 				Color color = colorManager.getColor(PreferenceConverter.getColor(store, colorKey));
 	            int style = SWT.NORMAL;
 	
-	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_BOLD_SUFFIX)) {
+	            if (store.getBoolean(SyntaxColoringHelper.getPreferenceKey(languageId, tokenName, StyleProperty.BOLD))) {
 	                style = style | SWT.BOLD;
 	            }
-	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_ITALIC_SUFFIX)) {
+	            if (store.getBoolean(SyntaxColoringHelper.getPreferenceKey(languageId, tokenName, StyleProperty.ITALIC))) {
 	                style = style | SWT.ITALIC;
 	            }
-	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX)) {
+	            if (store.getBoolean(SyntaxColoringHelper.getPreferenceKey(languageId, tokenName, StyleProperty.STRIKETHROUGH))) {
 	                style = style | TextAttribute.STRIKETHROUGH;
 	            }
-	            if (store.getBoolean(prefix + PreferenceConstants.EDITOR_UNDERLINE_SUFFIX)) {
+	            if (store.getBoolean(SyntaxColoringHelper.getPreferenceKey(languageId, tokenName, StyleProperty.UNDERLINE))) {
 	                style = style | TextAttribute.UNDERLINE;
 	            }
 	            

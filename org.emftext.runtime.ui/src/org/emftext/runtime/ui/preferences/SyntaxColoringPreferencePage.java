@@ -60,6 +60,7 @@ import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.TokenHelper;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
+import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 
 /**
  * Preference page for configuring syntax coloring.
@@ -104,31 +105,17 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 		/**
 		 * Initialize the item with the given values.
-		 * 
-		 * @param displayName
-		 *            the display name
-		 * @param colorKey
-		 *            the color preference key
-		 * @param boldKey
-		 *            the bold preference key
-		 * @param italicKey
-		 *            the italic preference key
-		 * @param strikethroughKey
-		 *            the strikethrough preference key
-		 * @param underlineKey
-		 *            the underline preference key
 		 */
-		public HighlightingColorListItem(String parent, String displayName,
-				String colorKey, String boldKey, String italicKey,
-				String strikethroughKey, String underlineKey, String enableKey) {
-			fparent = parent;
-			fDisplayName = displayName;
-			fColorKey = colorKey;
-			fBoldKey = boldKey;
-			fItalicKey = italicKey;
-			fStrikethroughKey = strikethroughKey;
-			fUnderlineKey = underlineKey;
-			fEnableKey = enableKey;
+		public HighlightingColorListItem(String languageID, String tokenName) {
+			fparent = languageID;
+			fDisplayName = tokenName;
+			
+			fColorKey = SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.COLOR);
+			fBoldKey = SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.BOLD);
+			fItalicKey = SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.ITALIC);
+			fStrikethroughKey = SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.STRIKETHROUGH);
+			fUnderlineKey = SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.UNDERLINE);
+			fEnableKey = SyntaxColoringHelper.getPreferenceKey(languageID, tokenName, StyleProperty.ENABLE);
 		}
 
 		public String getParent() {
@@ -264,30 +251,6 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 			return content.containsKey(element);
 		}
 	}
-
-	private static final String COLOR = PreferenceConstants.EDITOR_COLOR_SUFFIX;
-
-	private static final String BOLD = PreferenceConstants.EDITOR_BOLD_SUFFIX;
-	/**
-	 * Preference key suffix for italic preferences.
-	 * 
-	 * @since 3.0
-	 */
-	private static final String ITALIC = PreferenceConstants.EDITOR_ITALIC_SUFFIX;
-	/**
-	 * Preference key suffix for strikethrough preferences.
-	 * 
-	 * @since 3.1
-	 */
-	private static final String STRIKETHROUGH = PreferenceConstants.EDITOR_STRIKETHROUGH_SUFFIX;
-	/**
-	 * Preference key suffix for underline preferences.
-	 * 
-	 * @since 3.1
-	 */
-	private static final String UNDERLINE = PreferenceConstants.EDITOR_UNDERLINE_SUFFIX;
-
-	private static final String ENABLE = PreferenceConstants.EDITOR_ENABLE_SUFFIX;
 
 	private ColorSelector fSyntaxForegroundColorEditor;
 	private Label fColorEditorLabel;
@@ -636,12 +599,7 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 				if (tokenName == null) {
 					continue;
 				}
-				String prefix = languageId + "_" + tokenName;
-				HighlightingColorListItem item = new HighlightingColorListItem(
-						languageId, tokenName, prefix + COLOR, prefix
-								+ BOLD, prefix + ITALIC, prefix
-								+ STRIKETHROUGH, prefix + UNDERLINE, prefix
-								+ ENABLE);
+				HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);
 				terminals.add(item);
 			}
 			content.put(languageId, terminals);
