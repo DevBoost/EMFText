@@ -1,5 +1,11 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import java.util.List;
+
+import org.emftext.runtime.resource.EProblemType;
+import org.emftext.runtime.resource.IProblem;
+import org.emftext.runtime.resource.impl.AbstractProblem;
+
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
@@ -123,7 +129,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		}
 	}
 	
-	private org.eclipse.emf.ecore.EObject getResultElement(org.emftext.runtime.resource.IContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment, org.emftext.runtime.resource.IReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping, org.eclipse.emf.ecore.EObject proxy, java.lang.String errorMessage) {
+	private org.eclipse.emf.ecore.EObject getResultElement(org.emftext.runtime.resource.IContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment, org.emftext.runtime.resource.IReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping, org.eclipse.emf.ecore.EObject proxy, final java.lang.String errorMessage) {
 		if (mapping instanceof org.emftext.runtime.resource.IURIMapping<?>) {
 			org.eclipse.emf.common.util.URI uri = ((org.emftext.runtime.resource.IURIMapping<? extends org.eclipse.emf.ecore.EObject>)mapping).getTargetIdentifier();
 			if (uri != null) {
@@ -138,7 +144,16 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 					if (errorMessage == null) {
 						assert(false);
 					} else {
-						addError(errorMessage, proxy);
+						addProblem(new AbstractProblem() {
+
+							public String getMessage() {
+								return errorMessage;
+							}
+
+							public EProblemType getType() {
+								return EProblemType.ERROR;
+							}
+						}, proxy);
 					}
 				}
 				return result;
@@ -177,11 +192,20 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	private void attachErrors(org.emftext.runtime.resource.IReferenceResolveResult<?> result, org.eclipse.emf.ecore.EObject proxy) {
 		// attach errors to resource
 		assert result != null;
-		java.lang.String errorMessage = result.getErrorMessage();
+		final java.lang.String errorMessage = result.getErrorMessage();
 		if (errorMessage == null) {
 			assert(false);
 		} else {
-			addError(errorMessage, proxy);
+			addProblem(new AbstractProblem() {
+
+				public String getMessage() {
+					return errorMessage;
+				}
+
+				public EProblemType getType() {
+					return EProblemType.ERROR;
+				}
+			}, proxy);
 		}
 	}
 	
@@ -190,11 +214,20 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		assert result.wasResolved();
 		if (result.wasResolved()) {
 			for (org.emftext.runtime.resource.IReferenceMapping<? extends org.eclipse.emf.ecore.EObject> mapping : result.getMappings()) {
-				java.lang.String warningMessage = mapping.getWarning();
+				final java.lang.String warningMessage = mapping.getWarning();
 				if (warningMessage == null) {
 					continue;
 				}
-				addWarning(warningMessage, proxy);
+				addProblem(new AbstractProblem() {
+
+					public String getMessage() {
+						return warningMessage;
+					}
+
+					public EProblemType getType() {
+						return EProblemType.WARNING;
+					}
+				}, proxy);
 			}
 		}
 	}
@@ -248,24 +281,22 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		return locationMap;
 	}
 	
-	public void addError(java.lang.String message, org.eclipse.emf.ecore.EObject element) {
-		getErrors().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element));
+	public void addProblem(IProblem problem, org.eclipse.emf.ecore.EObject element) {
+		getDiagnostics(problem.getType()).add(new ElementBasedTextDiagnostic(locationMap, getURI(), problem.getMessage(), element));
 	}
 	
-	public void addError(java.lang.String message, int column, int line, int charStart,
-	int charEnd) {
-		getErrors().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
+	public void addProblem(IProblem problem, int column, int line, int charStart, int charEnd) {
+		getDiagnostics(problem.getType()).add(new PositionBasedTextDiagnostic(getURI(), problem.getMessage(), column, line, charStart, charEnd));
 	}
 	
-	public void addWarning(java.lang.String message, org.eclipse.emf.ecore.EObject element) {
-		getWarnings().add(new ElementBasedTextDiagnostic(locationMap, getURI(), message, element));
+	private List<Diagnostic> getDiagnostics(EProblemType type) {
+		if (type == EProblemType.ERROR) {
+			return getErrors();
+		} else {
+			return getWarnings();
+		}
 	}
-	
-	public void addWarning(java.lang.String message, int column, int line, int charStart,
-	int charEnd) {
-		getWarnings().add(new PositionBasedTextDiagnostic(getURI(), message, column, line, charStart, charEnd));
-	}
-	
+
 	protected java.util.Map<java.lang.Object, java.lang.Object> addDefaultLoadOptions(java.util.Map<?, ?> loadOptions) {
 		java.util.Map<java.lang.Object, java.lang.Object> loadOptionsCopy = org.emftext.runtime.util.MapUtil.copySafelyToObjectToObjectMap(loadOptions); 		if (org.eclipse.core.runtime.Platform.isRunning()) {
 			// find default load option providers

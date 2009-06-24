@@ -62,7 +62,9 @@ public class DuplicateReferenceAnalyser extends AbstractPostProcessor {
 				for (Terminal terminal : terminals) {
 					final GenFeature feature = terminal.getFeature();
 					if (canCauseReprintProblem(rule.getDefinition(), feature)) {
-						resource.addWarning(
+						addProblem(
+								resource,
+								ECsProblemType.MULTIPLE_FEATURE_USE,
 								MULTIPLE_FEATURE_WARNING + feature.getName(),
 								terminal);
 					}

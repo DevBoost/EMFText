@@ -42,7 +42,7 @@ public class StartSymbolAnalyser extends AbstractPostProcessor {
 		for (GenClass nextStartSymbol : startSymbols) {
 			Rule rule = generatorUtil.getRule(syntax, nextStartSymbol);
 			if (rule == null) {
-				resource.addError("Meta class " + nextStartSymbol.getName() + " has no syntax and can therefore not be used as start element.", syntax);
+				addProblem(resource, ECsProblemType.START_SYMBOL_WITHOUT_SYNTAX, "Meta class " + nextStartSymbol.getName() + " has no syntax and can therefore not be used as start element.", syntax);
 			}
 		}
 	}

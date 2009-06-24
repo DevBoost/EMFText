@@ -52,6 +52,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.IOptions;
+import org.emftext.runtime.resource.EProblemType;
 import org.emftext.runtime.resource.IExpectedElement;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextParser;
@@ -60,6 +61,7 @@ import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
+import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
 import org.emftext.runtime.resource.impl.DummyEObject;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
@@ -110,6 +112,8 @@ import org.emftext.sdk.syntax_analysis.LeftRecursionDetector;
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
+	private static final String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
+	private static final String E_PROBLEM_TYPE = EProblemType.class.getName();
 	// constants for class names used in the generated code
 	private static final String ARRAY_LIST = ArrayList.class.getName();
 	private static final String COMMON_TOKEN = CommonToken.class.getName();
@@ -126,6 +130,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private static final String OBJECT = Object.class.getName();
 	private static final String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
 	private static final String MATH = Math.class.getName();
+	private static final String STRING = String.class.getName();
 
 	/**
 	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
@@ -478,7 +483,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addAddErrorToResourceMethod(StringComposite sc) {
-		sc.add("protected void addErrorToResource(java.lang.String errorMessage, int line,");
+		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, int line,");
 		sc.add("int charPositionInLine, int startIndex, int stopIndex) {");
 		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
 		sc.add("if (resource == null) {");
@@ -486,7 +491,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("// code completion");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("resource.addError(errorMessage, line, charPositionInLine, startIndex, stopIndex);");
+		sc.add("resource.addProblem(new " + ABSTRACT_PROBLEM + "() {");
+		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+		sc.add("}");
+		sc.add("public " + STRING + " getMessage() {");
+		sc.add("return errorMessage;");
+		sc.add("}");
+		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
 		sc.add("}");
 	}
 

@@ -11,6 +11,7 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.syntax_analysis.ECsProblemType;
 
 /**
  * The TokenDefinitionMerger is responsible to derive a list of all
@@ -85,7 +86,7 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
     	// mismatching regular expressions are overridden indeed
     	for (String mustOverrideTokenName : mustOverrideTokenNames) {
     		if (!overriddenTokens.contains(mustOverrideTokenName)) {
-    			resource.addError("The token " + mustOverrideTokenName + " must be overridden, because it has different definitions.", syntax);
+    			addProblem(resource, ECsProblemType.TOKEN_MUST_BE_OVERRIDDEN, "The token " + mustOverrideTokenName + " must be overridden, because it has different definitions.", syntax);
     		}
     	}
     	

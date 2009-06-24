@@ -94,14 +94,14 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		} else if (type == OptionTypes.DEFAULT_TOKEN_NAME) {
 			checkDefaultTokenNameValue(resource, option, value);
 		} else {
-			resource.addError("Unknown option (" + type + ").", option);
+			addProblem(resource, ECsProblemType.UNKNOWN_OPTION, "Unknown option (" + type + ").", option);
 		}
 	}
 
 	private void checkDefaultTokenNameValue(ITextResource resource,
 			Option option, String value) {
 		if (value == null || value.length() < 2) {
-			resource.addError("Please provide a String with at least two letters.", option);
+			addProblem(resource, ECsProblemType.INVALID_DEFAULT_TOKEN_NAME, "Please provide a String with at least two letters.", option);
 		}
 	}
 
@@ -110,10 +110,10 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		try {
 			int v = Integer.parseInt(value);
 			if (v < 0) {
-				resource.addError("Only positive integers are allowed.", option);
+				addProblem(resource, ECsProblemType.OPTION_VALUE_MUST_BE_POSITIVE_INTEGER, "Only positive integers are allowed.", option);
 			}
 		} catch (NumberFormatException e) {
-			resource.addError("Only integers are allowed.", option);
+			addProblem(resource, ECsProblemType.OPTION_VALUE_MUST_BE_INTEGER, "Only integers are allowed.", option);
 		}
 	}
 
@@ -122,7 +122,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		boolean isTrue = "true".equals(value);
 		boolean isFalse = "false".equals(value);
 		if (!isTrue && !isFalse) {
-			resource.addError("Only boolean values: 'true' or 'false' are supported.", option);
+			addProblem(resource, ECsProblemType.OPTION_VALUE_MUST_BE_BOOLEAN, "Only boolean values: 'true' or 'false' are supported.", option);
 		}
 	}
 }

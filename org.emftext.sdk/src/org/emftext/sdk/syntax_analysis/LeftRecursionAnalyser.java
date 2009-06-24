@@ -56,7 +56,7 @@ public class LeftRecursionAnalyser extends AbstractPostProcessor {
 		for (Rule rule : allRules) {
 			Rule recursionRule = lrd.findLeftRecursion(rule);
 			if (recursionRule != null) {
-				resource.addWarning(RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
+				addProblem(resource, ECsProblemType.LEFT_RECURSIVE_RULE, RULE_IS_LEFT_RECURSIVE_IN_RELATION_TO + recursionRule.getMetaclass().getName(), rule);
 			}
 		}
 	}

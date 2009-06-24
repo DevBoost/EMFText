@@ -65,9 +65,9 @@ public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 			}
 			if (duplicates.size() > 0) {
 				final String message = "Found duplicate rule for meta class \"" + genClass_i.getName() + "\" (may be imported).";
-				resource.addError(message, rule_i);
+				addProblem(resource, ECsProblemType.DUPLICATE_RULE, message, rule_i);
 				for (Rule duplicate : duplicates) {
-					resource.addError(message, duplicate);
+					addProblem(resource, ECsProblemType.DUPLICATE_RULE, message, duplicate);
 				}
 			}
 		}

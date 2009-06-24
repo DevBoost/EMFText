@@ -36,7 +36,7 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 		Collection<TokenStyle> styles = syntax.getAllTokenStyles();
 		for (TokenStyle tokenStyle : styles) {
 			if (!refersToExistingToken(syntax, csStrings, tokenStyle)) {
-				resource.addWarning("Token style refers to non-existing token.", tokenStyle);
+				addProblem(resource, ECsProblemType.STYLE_REFERENCE_TO_NON_EXISTING_TOKEN, "Token style refers to non-existing token.", tokenStyle);
 			}
 		}
 	}

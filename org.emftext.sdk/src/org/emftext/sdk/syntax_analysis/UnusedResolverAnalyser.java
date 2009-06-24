@@ -69,7 +69,8 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 				boolean isDefaultResolver = (nameUtil.getDefaultResolverDelegateName(syntax) + GenerationContext.JAVA_FILE_EXTENSION).equals(fileName);
 				if (!resolverFileNames.contains(fileName) &&!isDefaultResolver) {
 					// issue warning about unused resolver
-					((ITextResource) syntax.eResource()).addWarning("Found unused class '" + fileName + "' in analysis package.", null);
+					final ITextResource textResource = (ITextResource) syntax.eResource();
+					addProblem(textResource, ECsProblemType.UNUSED_RESOLVER_CLASS, "Found unused class '" + fileName + "' in analysis package.", null);
 				}
 			}
 		}

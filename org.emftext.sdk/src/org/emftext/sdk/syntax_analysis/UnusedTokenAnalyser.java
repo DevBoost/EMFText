@@ -38,7 +38,7 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 		List<TokenDefinition> activeTokens = syntax.getActiveTokens();
 		for (TokenDefinition definition : activeTokens) {
 			if (!definition.isUsed()) {
-				resource.addWarning("Token " + definition.getName() + " is not used and will be discarded during parsing.", definition);
+				addProblem(resource, ECsProblemType.UNUSED_TOKEN, "Token " + definition.getName() + " is not used and will be discarded during parsing.", definition);
 			}
 		}
 	}

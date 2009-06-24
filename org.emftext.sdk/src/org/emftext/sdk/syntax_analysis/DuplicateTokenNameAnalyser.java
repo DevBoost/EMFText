@@ -36,7 +36,7 @@ public class DuplicateTokenNameAnalyser extends AbstractPostProcessor {
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		List<TokenDefinition> duplicateDefinitions = getDuplicateTokenDefinitions(syntax);
 		for (TokenDefinition duplicate : duplicateDefinitions) {
-			resource.addError("Duplicate token name " + duplicate.getName() + " (names are not case sensitive).", duplicate);
+			addProblem(resource, ECsProblemType.DUPLICATE_TOKEN_NAME, "Duplicate token name " + duplicate.getName() + " (names are not case sensitive).", duplicate);
 		}
 	}
 

@@ -37,7 +37,7 @@ public class TokenNameAnalyser extends AbstractPostProcessor {
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		List<TokenDefinition> wrongDefinitions = getTokenDefinitionsWithInvalidNames(syntax);
 		for (TokenDefinition next : wrongDefinitions) {
-			resource.addError("Token names must start with a capital letter.", next);
+			addProblem(resource, ECsProblemType.INVALID_TOKEN_NAME, "Token names must start with a capital letter.", next);
 		}
 	}
 

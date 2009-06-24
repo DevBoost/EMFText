@@ -36,6 +36,8 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.syntax_analysis.CsProblem;
+import org.emftext.sdk.syntax_analysis.ECsProblemType;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**
@@ -104,9 +106,9 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 	private static void addGenerationProblem(ITextResource csResource,
 			GenerationProblem problem) {
 		if (problem.getSeverity() == GenerationProblem.Severity.WARNING) {
-			csResource.addWarning(problem.getMessage(), problem.getCause());
+			csResource.addProblem(new CsProblem(problem.getMessage(), ECsProblemType.GENERATION_WARNING), problem.getCause());
 		} else {
-			csResource.addError(problem.getMessage(), problem.getCause());
+			csResource.addProblem(new CsProblem(problem.getMessage(), ECsProblemType.GENERATION_ERROR), problem.getCause());
 		}
 	}
 }

@@ -1,5 +1,9 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.eclipse.emf.ecore.EObject;
+import org.emftext.runtime.resource.EProblemType;
+import org.emftext.runtime.resource.impl.AbstractProblem;
+
 public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.AbstractEMFTextPrinter {
 	
 	protected final static java.lang.String NEW_LINE = java.lang.System.getProperties().getProperty("line.separator");
@@ -139,13 +143,22 @@ public abstract class CsPrinterBase extends org.emftext.runtime.resource.impl.Ab
 		return (org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch) resource.getMetaInformation().getReferenceResolverSwitch();
 	}
 	
-	protected void addWarningToResource(java.lang.String errorMessage, org.eclipse.emf.ecore.EObject cause) {
+	protected void addWarningToResource(final java.lang.String errorMessage, org.eclipse.emf.ecore.EObject cause) {
 		org.emftext.runtime.resource.ITextResource resource = getResource();
 		if (resource == null) {
 			// the resource can be null if the printer is used stand alone
 			return;
 		}
-		resource.addWarning(errorMessage, cause);
+		resource.addProblem(new AbstractProblem() {
+			
+			public EProblemType getType() {
+				return EProblemType.WARNING;
+			}
+			
+			public String getMessage() {
+				return errorMessage;
+			}
+		}, cause);
 	}
 	
 	public void setOptions(java.util.Map<?,?> options) {

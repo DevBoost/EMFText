@@ -77,7 +77,7 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 					if (opposite != null) {
 						unusedReferencesWithOpposite.put(ecoreFeature, rule);
 					} else {
-						resource.addWarning("Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", rule);
+						addProblem(resource, ECsProblemType.FEATURE_WITHOUT_SYNTAX, "Feature " + genFeature.getGenClass().getName() + "." + genFeature.getName() + " has no syntax.", rule);
 					}
 				}
 			}
@@ -95,8 +95,8 @@ public class UnusedFeatureAnalyser extends AbstractPostProcessor {
 				Rule rule1 = unusedReferencesWithOpposite.get(feature);
 				Rule rule2 = unusedReferencesWithOpposite.get(opposite);
 
-				resource.addWarning("Feature " + getFeatureString(feature) + " (Opposite is " + getFeatureString(opposite) + ") has no syntax.", rule1);
-				resource.addWarning("Feature " + getFeatureString(opposite) + " (Opposite is " + getFeatureString(feature) + ") has no syntax.", rule2);
+				addProblem(resource, ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(feature) + " (Opposite is " + getFeatureString(opposite) + ") has no syntax.", rule1);
+				addProblem(resource, ECsProblemType.OPPOSITE_FEATURE_WITHOUT_SYNTAX, "Feature " + getFeatureString(opposite) + " (Opposite is " + getFeatureString(feature) + ") has no syntax.", rule2);
 			}
 		}
 	}

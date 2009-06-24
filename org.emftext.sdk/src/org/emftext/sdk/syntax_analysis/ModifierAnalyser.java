@@ -43,13 +43,13 @@ public class ModifierAnalyser extends AbstractPostProcessor {
 			// assert there is no start symbol (not a 
 			// declared one and not an imported one)
 			if (symbols.size() > 0) {
-				resource.addError("Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract.", modifier);
+				addProblem(resource, ECsProblemType.ABSTRACT_SYNTAX_HAS_START_SYMBOLS, "Syntax has start symbols (" + getListOfNames(symbols) + "), but is declared abstract.", modifier);
 			}
 		} else {
 			// assert the is at least one start symbol (either a 
 			// declared one or an imported one)
 			if (symbols.size() == 0) {
-				resource.addError("Syntax has no start symbols, but is not declared abstract.", syntax);
+				addProblem(resource, ECsProblemType.CONCRETE_SYNTAX_HAS_NO_START_SYMBOLS, "Syntax has no start symbols, but is not declared abstract.", syntax);
 			}
 		}
 	}

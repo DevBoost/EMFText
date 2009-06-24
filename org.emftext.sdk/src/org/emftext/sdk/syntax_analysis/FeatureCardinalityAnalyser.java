@@ -120,11 +120,11 @@ public class FeatureCardinalityAnalyser extends AbstractPostProcessor {
 			
 			int max = minMax.getMax();
 			if (!metaMinMax.enclosesMax(minMax)) {
-				resource.addWarning("Maximum occurences ("+max+") of feature \"" + feature.getName() + "\" do not match upper bound (" + metaMinMax.getMax() + ").", rule);
+				addProblem(resource, ECsProblemType.MAX_OCCURENCE_MISMATCH, "Maximum occurences ("+max+") of feature \"" + feature.getName() + "\" do not match upper bound (" + metaMinMax.getMax() + ").", rule);
 			}
 			int min = minMax.getMin();
 			if (metaMinMax.getMin() != minMax.getMin()) {
-				resource.addWarning("Minimum occurences ("+min+") of feature \"" + feature.getName() + "\" do not match lower bound (" + metaMinMax.getMin() + ").", rule);
+				addProblem(resource, ECsProblemType.MIN_OCCURENCE_MISMATCH, "Minimum occurences ("+min+") of feature \"" + feature.getName() + "\" do not match lower bound (" + metaMinMax.getMin() + ").", rule);
 			}
 		}
 	}

@@ -87,11 +87,11 @@ public class RegularExpressionAnalyser extends AbstractPostProcessor {
 		
 		for (String error : errors) {
 			if (tokenDefinition instanceof NewDefinedToken) {
-				resource.addError(error, tokenDefinition);
+				addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, tokenDefinition);
 			} else {
 				List<Placeholder> placeholders = tokenDefinition.getAttributeReferences();
 				for (Placeholder next : placeholders) {
-					resource.addError(error, next);
+					addProblem(resource, ECsProblemType.INVALID_REGULAR_EXPRESSION, error, next);
 				}
 			}
 		}

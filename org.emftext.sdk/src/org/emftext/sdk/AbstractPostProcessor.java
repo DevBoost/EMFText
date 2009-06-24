@@ -28,6 +28,8 @@ import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.util.ResourceUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.syntax_analysis.CsProblem;
+import org.emftext.sdk.syntax_analysis.ECsProblemType;
 
 /**
  * An abstract super class for all post processors. It tries to resolve all 
@@ -64,6 +66,16 @@ public abstract class AbstractPostProcessor implements IResourcePostProcessorPro
 
 	protected boolean doResolveProxiesBeforeAnalysis() {
 		return true;
+	}
+
+	protected void addProblem(ITextResource resource, ECsProblemType problemType,
+			final String message, EObject cause) {
+		resource.addProblem(new CsProblem(message, problemType), cause);
+	}
+
+	protected void addProblem(ITextResource resource, ECsProblemType problemType,
+			final String message, int i1, int i2, int i3, int i4) {
+		resource.addProblem(new CsProblem(message, problemType), i1, i2, i3 ,i4);
 	}
 
 	public abstract void analyse(ITextResource resource, ConcreteSyntax syntax);

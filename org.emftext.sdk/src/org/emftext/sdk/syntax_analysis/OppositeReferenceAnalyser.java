@@ -67,7 +67,9 @@ public class OppositeReferenceAnalyser extends AbstractPostProcessor {
 			EReference opposite = reference.getEOpposite();
 			//it is ok, if the opposite itself has syntax through which a proxy is produced during parsing
 			if(!referencesWithSyntaxAndNCOpposite.contains(opposite)) {
-				resource.addWarning(
+				addProblem(
+						resource,
+						ECsProblemType.NON_CONTAINMENT_OPPOSITE,
 						NON_CONTAINMENT_OPPOSITE_WARNING + 
 						opposite.getEContainingClass().getName() +
 						"." +

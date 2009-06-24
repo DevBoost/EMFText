@@ -54,7 +54,7 @@ public class DuplicateTokenStyleAnalyser extends AbstractPostProcessor {
 		
 		// add warnings
 		for (TokenStyle nextDuplicate : duplicates) {
-			resource.addWarning("Style for \"" + nextDuplicate.getTokenName() + "\" is already defined (potentially in imported syntax).", nextDuplicate);
+			addProblem(resource, ECsProblemType.DUPLICATE_TOKEN_STYLE, "Style for \"" + nextDuplicate.getTokenName() + "\" is already defined (potentially in imported syntax).", nextDuplicate);
 		}
 	}
 }

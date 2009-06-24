@@ -44,22 +44,12 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	/**
 	 * Add an error that should be displayed at the position of the given element.
 	 */
-	public void addError(String message, EObject element);
-	
-	/**
-	 * Add a warning that should be displayed at the position of the given element.
-	 */
-	public void addWarning(String message, EObject element);
+	public void addProblem(IProblem problem, EObject element);
 	
 	/**
 	 * Add an error to be displayed at the indicated position.
 	 */
-	public void addError(String message, int column, int line, int charStart, int charEnd);
-	
-	/**
-	 * Add a warning to be displayed at the indicated position.
-	 */
-	public void addWarning(String message, int column, int line, int charStart, int charEnd);
+	public void addProblem(IProblem problem, int column, int line, int charStart, int charEnd);
 	
 	/**
 	 * Return a scanner capable to split the underlying text file into tokens.

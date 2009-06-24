@@ -42,10 +42,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.EProblemType;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
+import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
@@ -103,6 +105,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private static final String OUTPUT_STREAM = OutputStream.class.getName();
 	private static final String PRINTER_WRITER = PrintWriter.class.getName();
 	private static final String STRING_WRITER = StringWriter.class.getName();
+	
+	private static final String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
+	private static final String E_PROBLEM_TYPE = EProblemType.class.getName();
 	
 	private final static String localtabName = "localtab";
 
@@ -337,13 +342,20 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private void addAddWarningToResourceMethod(StringComposite sc) {
-		sc.add("protected void addWarningToResource(" + STRING + " errorMessage, " + E_OBJECT + " cause) {");
+		sc.add("protected void addWarningToResource(final " + STRING + " errorMessage, " + E_OBJECT + " cause) {");
 		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the printer is used stand alone");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("resource.addWarning(errorMessage, cause);");
+    	sc.add("resource.addProblem(new " + ABSTRACT_PROBLEM + "() {");
+    	sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+    	sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+    	sc.add("}");
+    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("return errorMessage;");
+    	sc.add("}");
+    	sc.add("}, cause);");
 		sc.add("}");
 	}
 

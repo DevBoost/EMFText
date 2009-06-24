@@ -47,7 +47,9 @@ public class ChoiceAnalyser extends AbstractPostProcessor {
 			if (next instanceof Choice) {
 				Choice choice = (Choice) next;
 				if (choice.getOptions().size() > 1) {
-					resource.addWarning(
+					addProblem(
+							resource,
+							ECsProblemType.EXPLICIT_SYNTAX_CHOICE,
 							EXPLICIT_CHOICES_MAY_CAUSE_REPRINT_PROBLEMS,
 							choice);
 				}

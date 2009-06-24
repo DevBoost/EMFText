@@ -44,9 +44,11 @@ import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.InputStreamProcessor;
+import org.emftext.runtime.resource.EProblemType;
 import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.IProblem;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
@@ -54,6 +56,7 @@ import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.IURIMapping;
+import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.runtime.resource.impl.LocationMap;
 import org.emftext.runtime.util.CastUtil;
@@ -72,6 +75,12 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * @see org.emftext.runtime.resource.ITextResource
  */
 public class TextResourceGenerator extends BaseGenerator {
+
+	private static final String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
+
+	private static final String E_PROBLEM_TYPE = EProblemType.class.getName();
+
+	private static final String I_PROBLEM = IProblem.class.getName();
 
 	private static final String LOCATION_MAP = LocationMap.class.getName();
 
@@ -210,10 +219,9 @@ public class TextResourceGenerator extends BaseGenerator {
     	addSetURIMethod(sc);
     	addGetLocationMapMethod(sc);
 
-    	addAddErrorMethod1(sc);
-    	addAddErrorMethod2(sc);
-    	addAddWarningMethod1(sc);
-    	addAddWarningMethod2(sc);
+    	addAddProblemMethod1(sc);
+    	addAddProblemMethod2(sc);
+    	addGetDiagnosticsMethod(sc);
 
     	addAddDefaultLoadOptionsMethod(sc);
     	addLoadOptionsMethod(sc);
@@ -394,33 +402,29 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.addLineBreak();
 	}
 
-	private void addAddWarningMethod2(StringComposite sc) {
-		sc.add("public void addWarning(" + STRING + " message, int column, int line, int charStart,");
+	private void addAddProblemMethod1(StringComposite sc) {
+		sc.add("public void addProblem(" + I_PROBLEM + " problem, " + E_OBJECT + " element) {");
+    	sc.add("getDiagnostics(problem.getType()).add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem.getMessage(), element));");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addAddProblemMethod2(StringComposite sc) {
+		sc.add("public void addProblem(" + I_PROBLEM + " problem, int column, int line, int charStart,");
     	sc.add("int charEnd) {");
-    	sc.add("getWarnings().add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), message, column, line, charStart, charEnd));");
+    	sc.add("getDiagnostics(problem.getType()).add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem.getMessage(), column, line, charStart, charEnd));");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
-	private void addAddWarningMethod1(StringComposite sc) {
-		sc.add("public void addWarning(" + STRING + " message, " + E_OBJECT + " element) {");
-    	sc.add("getWarnings().add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), message, element));");
-    	sc.add("}");
-    	sc.addLineBreak();
-	}
-
-	private void addAddErrorMethod2(StringComposite sc) {
-		sc.add("public void addError(" + STRING + " message, int column, int line, int charStart,");
-    	sc.add("int charEnd) {");
-    	sc.add("getErrors().add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), message, column, line, charStart, charEnd));");
-    	sc.add("}");
-    	sc.addLineBreak();
-	}
-
-	private void addAddErrorMethod1(StringComposite sc) {
-		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " element) {");
-    	sc.add("getErrors().add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), message, element));");
-    	sc.add("}");
+	private void addGetDiagnosticsMethod(StringComposite sc) {
+		sc.add("private " + LIST + "<" + DIAGNOSTIC + "> getDiagnostics(" + E_PROBLEM_TYPE + " type) {");
+		sc.add("if (type == " + E_PROBLEM_TYPE + ".ERROR) {");
+		sc.add("return getErrors();");
+		sc.add("} else {");
+		sc.add("return getWarnings();");
+		sc.add("}");
+		sc.add("}");
     	sc.addLineBreak();
 	}
 
@@ -495,11 +499,18 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("assert result.wasResolved();");
     	sc.add("if (result.wasResolved()) {");
     	sc.add("for (" + I_REFERENCE_MAPPING + "<? extends " + E_OBJECT + "> mapping : result.getMappings()) {");
-    	sc.add(STRING + " warningMessage = mapping.getWarning();");
+    	sc.add("final " + STRING + " warningMessage = mapping.getWarning();");
     	sc.add("if (warningMessage == null) {");
     	sc.add("continue;");
     	sc.add("}");
-    	sc.add("addWarning(warningMessage, proxy);");
+    	sc.add("addProblem(new " + ABSTRACT_PROBLEM + "() {");
+    	sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+    	sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+    	sc.add("}");
+    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("return warningMessage;");
+    	sc.add("}");
+    	sc.add("}, proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
@@ -510,11 +521,18 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("private void attachErrors(" + I_REFERENCE_RESOLVE_RESULT + "<?> result, " + E_OBJECT + " proxy) {");
     	sc.add("// attach errors to resource");
     	sc.add("assert result != null;");
-    	sc.add(STRING + " errorMessage = result.getErrorMessage();");
+    	sc.add("final " + STRING + " errorMessage = result.getErrorMessage();");
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addError(errorMessage, proxy);");
+    	sc.add("addProblem(new " + ABSTRACT_PROBLEM + "() {");
+    	sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+    	sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+    	sc.add("}");
+    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("return errorMessage;");
+    	sc.add("}");
+    	sc.add("}, proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
@@ -535,7 +553,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addGetResultElementMethod(StringComposite sc) {
-		sc.add("private " + E_OBJECT + " getResultElement(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + "> uriFragment, " + I_REFERENCE_MAPPING + "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT + " proxy, " + STRING + " errorMessage) {");
+		sc.add("private " + E_OBJECT + " getResultElement(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + "> uriFragment, " + I_REFERENCE_MAPPING + "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT + " proxy, final " + STRING + " errorMessage) {");
     	sc.add("if (mapping instanceof " + I_URI_MAPPING + "<?>) {");
     	sc.add(URI + " uri = ((" + I_URI_MAPPING + "<? extends " + E_OBJECT + ">)mapping).getTargetIdentifier();");
     	sc.add("if (uri != null) {");
@@ -550,7 +568,14 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addError(errorMessage, proxy);");
+    	sc.add("addProblem(new " + ABSTRACT_PROBLEM + "() {");
+    	sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+    	sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+    	sc.add("}");
+    	sc.add("public " + STRING + " getMessage() {");
+    	sc.add("return errorMessage;");
+    	sc.add("}");
+    	sc.add("}, proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("return result;");

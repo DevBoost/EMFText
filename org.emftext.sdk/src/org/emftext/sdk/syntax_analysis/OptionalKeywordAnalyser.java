@@ -71,7 +71,8 @@ public class OptionalKeywordAnalyser extends AbstractPostProcessor {
 							for (Definition definition : sequence.getParts()) {
 								if (definition instanceof CsString) {
 									CsString csString = (CsString) definition;
-									resource.addWarning(
+									addProblem(resource,
+											ECsProblemType.OPTIONAL_KEYWORD,
 											OPTIONAL_KEYWORD_WARNING + csString.getValue(),
 											definition);
 								}

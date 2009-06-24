@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -161,7 +159,6 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 	}
 
 	private void generateTokenstyles() {
-		 List<String> keywords = new LinkedList<String>(); 
 		 TreeIterator<EObject> allContents = cSyntax.eAllContents();
 		 HashMap<String, TokenStyle> cachedStyles = new HashMap<String, TokenStyle>();
 		 for (TokenStyle style : cSyntax.getTokenStyles()) {

@@ -30,6 +30,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.syntax_analysis.ECsProblemType;
 
 /**
  * The DefaultTokenConnector looks for PlaceholderUsingDefaultToken. 
@@ -53,7 +54,7 @@ public class DefaultTokenConnector extends AbstractPostProcessor {
 				// this placeholder must use the standard token
 				TokenDefinition definition = findToken(syntax, standardTokenName);
 				if (definition == null) {
-					resource.addError("There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
+					addProblem(resource, ECsProblemType.DEFAULT_TOKEN_NOT_DEFINED, "There is no token definition for the default token \"" + standardTokenName + "\".", placeholder);
 				} else {
 					placeholder.setToken(definition);
 				}

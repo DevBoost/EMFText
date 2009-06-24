@@ -72,7 +72,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 				}
 			}
 			if (!foundRuleForClass) {
-				resource.addWarning(NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1);
+				addProblem(resource, ECsProblemType.NO_RULE_FOR_META_CLASS, NO_RULE_FOR_META_CLASS + genClass.getName(), 0, 0, 0, 1);
 			}
 		}
 	}

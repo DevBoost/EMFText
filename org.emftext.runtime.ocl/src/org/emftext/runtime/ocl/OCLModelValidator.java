@@ -44,6 +44,8 @@ import org.eclipse.ocl.ecore.OCLExpression;
 import org.eclipse.ocl.util.Tuple;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
+import org.emftext.runtime.resource.EProblemType;
+import org.emftext.runtime.resource.IProblem;
 import org.emftext.runtime.resource.ITextResource;
 
 /**
@@ -178,9 +180,19 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 	 * @param resourceFile
 	 * @param errorMesssage
 	 */
-	private void addErrorMessage(EObject targetObject, String errorMesssage) {
+	private void addErrorMessage(EObject targetObject, final String errorMesssage) {
 		if (textResource != null) {
-			textResource.addError(errorMesssage, targetObject);
+			textResource.addProblem(
+	    			new IProblem() {
+						
+						public EProblemType getType() {
+							return EProblemType.ERROR;
+						}
+						
+						public String getMessage() {
+							return errorMesssage;
+						}
+	    			}, targetObject);
 		}
 
 	}

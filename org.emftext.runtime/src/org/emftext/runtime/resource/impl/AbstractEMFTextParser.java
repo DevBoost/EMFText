@@ -46,6 +46,8 @@ import org.antlr.runtime.TokenStream;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.EProblemType;
+import org.emftext.runtime.resource.IProblem;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.util.MapUtil;
@@ -237,13 +239,34 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
         }
 
         // the resource may be null if the parse is used for code completion
+        final String finalMessage = message;
         if (resource != null) {
 	        if (e.token instanceof CommonToken) {
 	            CommonToken ct = (CommonToken) e.token;
-	            resource.addError(message, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
+	            resource.addProblem(
+	            		new IProblem() {
+							public EProblemType getType() {
+								return EProblemType.ERROR;
+							}
+							
+							public String getMessage() {
+								return finalMessage;
+							}
+						}, 
+	            		ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
 	        } 
 	        else {
-	            resource.addError(message, e.token.getCharPositionInLine(), e.token.getLine(),1,5);
+	            resource.addProblem(
+	            		new IProblem() {
+							public EProblemType getType() {
+								return EProblemType.ERROR;
+							}
+							
+							public String getMessage() {
+								return finalMessage;
+							}
+						}, 
+						e.token.getCharPositionInLine(), e.token.getLine(), 1, 5); // TODO what the heck is this 5?
 	        }
         }
     }
@@ -308,7 +331,18 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
                     + fpe.predicateText + "}?";
         }
 
-    	resource.addError(message, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
+        final String finalMessage = message;
+    	resource.addProblem(
+    			new IProblem() {
+					
+					public EProblemType getType() {
+						return EProblemType.ERROR;
+					}
+					
+					public String getMessage() {
+						return finalMessage;
+					}
+				}, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
     }
 
 	@Override
