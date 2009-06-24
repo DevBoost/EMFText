@@ -56,6 +56,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String DUPLICATE_TOKENSTYLE_FOUND = "Style for .* is already defined.*.";
 	private static final String REFERENCE_TO_TYPE_WITHOUT_SYNTAX = "There is no syntax for the type (.*) of reference.*.";
 	private static final String GEN_CLASS_NOT_DECLARED = "GenClass .* not declared";
+	private static final String UNCHANGEABLE_REFERENCE = "Reference .* is not changeable.";
 
 	@Before
 	public void setUp() {
@@ -118,6 +119,7 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("reference3.cs", NONE, new String[] {WRONG_CONTAINMENT_TYPE});
 		// this is a test for bug 729 (Add syntax analyser that checks that every reference used in the CS has a type with syntax)
 		assertProblems("referenceWithoutSyntax.cs", new String[] {NO_RULE_FOR_META_CLASS}, new String[] {REFERENCE_TO_TYPE_WITHOUT_SYNTAX});
+		assertProblems("unchangeable_reference.cs", NONE, new String[] {UNCHANGEABLE_REFERENCE});
 	}
 
 	@Test

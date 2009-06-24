@@ -68,6 +68,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 				cReferencesToClassesWithoutSyntax,
 				ncReferencesToAbstractClassesWithoutConcreteSubtypes
 		);
+		
 		addDiagnostics(
 				resource, 
 				syntax, 
@@ -86,6 +87,26 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 				ncReferencesToAbstractClassesWithoutConcreteSubtypes,
 				"The type (%s) of non-containment reference '%s' is abstract and has no concrete sub classes."
 		);
+		
+		Collection<Terminal> unchangeableReferences = findUnchangeableReferences(syntax);
+		addDiagnostics(
+				resource, 
+				syntax, 
+				unchangeableReferences,
+				"Reference %s is not changeable."
+		);
+	}
+
+	private Collection<Terminal> findUnchangeableReferences(
+			ConcreteSyntax syntax) {
+		Collection<Terminal> unchangeableReferences = new ArrayList<Terminal>(); 
+		Collection<Terminal> teminals = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
+		for (Terminal terminal : teminals) {
+			if (!terminal.getFeature().isChangeable()) {
+				unchangeableReferences.add(terminal);
+			}
+		}
+		return unchangeableReferences;
 	}
 
 	private void addDiagnostics(
