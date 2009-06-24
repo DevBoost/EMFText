@@ -48,6 +48,7 @@ import org.emftext.sdk.syntax_analysis.TokenStyleAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedFeatureAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedResolverAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedTokenAnalyser;
+import org.emftext.sdk.syntax_annotations.SuppressWarnings;
 import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
 import org.emftext.sdk.syntax_extension.PredefinedTokenAdder;
 import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
@@ -96,6 +97,8 @@ public class SDKOptionProvider implements IOptionProvider {
 		postProcessors.add(new OppositeReferenceAnalyser());
 		postProcessors.add(new UnusedResolverAnalyser());
 		postProcessors.add(new TokenStyleAnalyser());
+		
+		postProcessors.add(new SuppressWarnings());
 		
 		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
