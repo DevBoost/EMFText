@@ -73,7 +73,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
         			}
             	}
 	    	} catch (Exception e ) {
-	    		EMFTextRuntimePlugin.logError("Exception while looking up concrete syntaxes in the registry.", e);
+	    		EMFTextRuntimePlugin.logError("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
 	    	}
         }
 	}
