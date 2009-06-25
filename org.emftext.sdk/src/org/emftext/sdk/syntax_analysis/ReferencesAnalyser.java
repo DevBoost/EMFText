@@ -93,7 +93,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 				resource, 
 				syntax, 
 				unchangeableReferences,
-				"Reference %s is not changeable."
+				"Reference '%2$s' is not changeable."
 		);
 	}
 
