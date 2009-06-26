@@ -108,13 +108,13 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 			return new TokenStyleImpl(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
 		}
 		if ("QUOTED_34_34".equals(tokenName)) {
-			return new TokenStyleImpl(new int[] {0xFF, 0x00, 0x2A}, false, false, false, false);
+			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
 		if ("QUOTED_60_62".equals(tokenName)) {
-			return new TokenStyleImpl(new int[] {0xFF, 0x00, 0x2A}, false, false, false, false);
+			return new TokenStyleImpl(new int[] {0x00, 0x00, 0x00}, false, false, false, false);
 		}
 		if ("QUOTED_39_39".equals(tokenName)) {
-			return new TokenStyleImpl(new int[] {0xFF, 0x00, 0x2A}, false, false, false, false);
+			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
 		return null;
 	}

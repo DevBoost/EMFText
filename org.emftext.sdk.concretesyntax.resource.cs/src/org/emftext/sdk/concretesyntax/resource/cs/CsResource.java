@@ -1,11 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import java.util.List;
-
-import org.emftext.runtime.resource.EProblemType;
-import org.emftext.runtime.resource.IProblem;
-import org.emftext.runtime.resource.impl.AbstractProblem;
-
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	
 	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
@@ -144,14 +138,12 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 					if (errorMessage == null) {
 						assert(false);
 					} else {
-						addProblem(new AbstractProblem() {
-
-							public String getMessage() {
-								return errorMessage;
+						addProblem(new org.emftext.runtime.resource.impl.AbstractProblem() {
+							public org.emftext.runtime.resource.EProblemType getType() {
+								return org.emftext.runtime.resource.EProblemType.ERROR;
 							}
-
-							public EProblemType getType() {
-								return EProblemType.ERROR;
+							public java.lang.String getMessage() {
+								return errorMessage;
 							}
 						}, proxy);
 					}
@@ -196,14 +188,12 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		if (errorMessage == null) {
 			assert(false);
 		} else {
-			addProblem(new AbstractProblem() {
-
-				public String getMessage() {
-					return errorMessage;
+			addProblem(new org.emftext.runtime.resource.impl.AbstractProblem() {
+				public org.emftext.runtime.resource.EProblemType getType() {
+					return org.emftext.runtime.resource.EProblemType.ERROR;
 				}
-
-				public EProblemType getType() {
-					return EProblemType.ERROR;
+				public java.lang.String getMessage() {
+					return errorMessage;
 				}
 			}, proxy);
 		}
@@ -218,14 +208,12 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 				if (warningMessage == null) {
 					continue;
 				}
-				addProblem(new AbstractProblem() {
-
-					public String getMessage() {
-						return warningMessage;
+				addProblem(new org.emftext.runtime.resource.impl.AbstractProblem() {
+					public org.emftext.runtime.resource.EProblemType getType() {
+						return org.emftext.runtime.resource.EProblemType.ERROR;
 					}
-
-					public EProblemType getType() {
-						return EProblemType.WARNING;
+					public java.lang.String getMessage() {
+						return warningMessage;
 					}
 				}, proxy);
 			}
@@ -281,22 +269,23 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		return locationMap;
 	}
 	
-	public void addProblem(IProblem problem, org.eclipse.emf.ecore.EObject element) {
-		getDiagnostics(problem.getType()).add(new ElementBasedTextDiagnostic(locationMap, getURI(), problem.getMessage(), element));
+	public void addProblem(org.emftext.runtime.resource.IProblem problem, org.eclipse.emf.ecore.EObject element) {
+		getDiagnostics(problem.getType()).add(new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element));
 	}
 	
-	public void addProblem(IProblem problem, int column, int line, int charStart, int charEnd) {
-		getDiagnostics(problem.getType()).add(new PositionBasedTextDiagnostic(getURI(), problem.getMessage(), column, line, charStart, charEnd));
+	public void addProblem(org.emftext.runtime.resource.IProblem problem, int column, int line, int charStart,
+	int charEnd) {
+		getDiagnostics(problem.getType()).add(new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd));
 	}
 	
-	private List<Diagnostic> getDiagnostics(EProblemType type) {
-		if (type == EProblemType.ERROR) {
+	private java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getDiagnostics(org.emftext.runtime.resource.EProblemType type) {
+		if (type == org.emftext.runtime.resource.EProblemType.ERROR) {
 			return getErrors();
 		} else {
 			return getWarnings();
 		}
 	}
-
+	
 	protected java.util.Map<java.lang.Object, java.lang.Object> addDefaultLoadOptions(java.util.Map<?, ?> loadOptions) {
 		java.util.Map<java.lang.Object, java.lang.Object> loadOptionsCopy = org.emftext.runtime.util.MapUtil.copySafelyToObjectToObjectMap(loadOptions); 		if (org.eclipse.core.runtime.Platform.isRunning()) {
 			// find default load option providers
@@ -363,18 +352,22 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		private final org.emftext.runtime.resource.ILocationMap locationMap;
 		private final org.eclipse.emf.common.util.URI uri;
 		private final org.eclipse.emf.ecore.EObject element;
-		private final java.lang.String message;
+		private final org.emftext.runtime.resource.IProblem problem;
 		
-		public ElementBasedTextDiagnostic(org.emftext.runtime.resource.ILocationMap locationMap, org.eclipse.emf.common.util.URI uri, java.lang.String message, org.eclipse.emf.ecore.EObject element) {
+		public ElementBasedTextDiagnostic(org.emftext.runtime.resource.ILocationMap locationMap, org.eclipse.emf.common.util.URI uri, org.emftext.runtime.resource.IProblem problem, org.eclipse.emf.ecore.EObject element) {
 			super();
 			this.uri = uri;
 			this.locationMap = locationMap;
 			this.element = element;
-			this.message = message;
+			this.problem = problem;
 		}
 		
 		public java.lang.String getMessage() {
-			return message;
+			return problem.getMessage();
+		}
+		
+		public org.emftext.runtime.resource.IProblem getProblem() {
+			return problem;
 		}
 		
 		public java.lang.String getLocation() {
@@ -406,13 +399,13 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		
 		private final org.eclipse.emf.common.util.URI uri;
 		
-		protected int column;
-		protected int line;
-		protected int charStart;
-		protected int charEnd;
-		protected java.lang.String message;
+		private int column;
+		private int line;
+		private int charStart;
+		private int charEnd;
+		private org.emftext.runtime.resource.IProblem problem;
 		
-		public PositionBasedTextDiagnostic(org.eclipse.emf.common.util.URI uri, java.lang.String message, int column, int line, int charStart, int charEnd) {
+		public PositionBasedTextDiagnostic(org.eclipse.emf.common.util.URI uri, org.emftext.runtime.resource.IProblem problem, int column, int line, int charStart, int charEnd) {
 			
 			super();
 			this.uri = uri;
@@ -420,7 +413,11 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			this.line = line;
 			this.charStart = charStart;
 			this.charEnd = charEnd;
-			this.message = message;
+			this.problem = problem;
+		}
+		
+		public org.emftext.runtime.resource.IProblem getProblem() {
+			return problem;
 		}
 		
 		public int getCharStart() {
@@ -444,7 +441,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		}
 		
 		public java.lang.String getMessage() {
-			return message;
+			return problem.getMessage();
 		}
 		
 		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {

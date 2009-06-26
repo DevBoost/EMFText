@@ -1,6 +1,7 @@
 package org.emftext.sdk.syntax_analysis;
 
 import org.emftext.runtime.resource.EProblemType;
+import org.emftext.runtime.util.StringUtil;
 
 public enum ECsProblemType {
 	INVALID_GEN_MODEL(EProblemType.ERROR),
@@ -48,5 +49,10 @@ public enum ECsProblemType {
 	
 	public EProblemType getProblemType() {
 		return problemType;
+	}
+
+	public String getName() {
+		// convert all uppercase to camelcase
+		return StringUtil.convertAllCapsToLowerCamelCase(this.name());
 	}
 }

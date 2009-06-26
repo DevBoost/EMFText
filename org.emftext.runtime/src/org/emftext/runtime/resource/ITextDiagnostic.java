@@ -50,6 +50,13 @@ public interface ITextDiagnostic extends Resource.Diagnostic {
 	public int getLine();
 	
 	/**
+	 * Returns the problem that was found.
+	 * 
+	 * @return
+	 */
+	public IProblem getProblem();
+	
+	/**
 	 * Checks whether the problem was caused by the given element.
 	 */
 	public boolean wasCausedBy(EObject element);

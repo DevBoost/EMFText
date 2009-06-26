@@ -240,13 +240,13 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.addLineBreak();
     	sc.add("private final " + URI + " uri;");
     	sc.addLineBreak();
-    	sc.add("protected int column;");
-    	sc.add("protected int line;");
-    	sc.add("protected int charStart;");
-    	sc.add("protected int charEnd;");
-    	sc.add("protected " + STRING + " message;");
+    	sc.add("private int column;");
+    	sc.add("private int line;");
+    	sc.add("private int charStart;");
+    	sc.add("private int charEnd;");
+    	sc.add("private " + I_PROBLEM + " problem;");
     	sc.addLineBreak();
-    	sc.add("public " + POSITION_BASED_TEXT_DIAGNOSTIC + "(" + URI + " uri, " + STRING + " message, int column, int line, int charStart, int charEnd) {");
+    	sc.add("public " + POSITION_BASED_TEXT_DIAGNOSTIC + "(" + URI + " uri, " + I_PROBLEM + " problem, int column, int line, int charStart, int charEnd) {");
     	sc.addLineBreak();
     	sc.add("super();");
     	sc.add("this.uri = uri;");
@@ -254,7 +254,11 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("this.line = line;");
     	sc.add("this.charStart = charStart;");
     	sc.add("this.charEnd = charEnd;");
-    	sc.add("this.message = message;");
+    	sc.add("this.problem = problem;");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public " + I_PROBLEM + " getProblem() {");
+    	sc.add("return problem;");
     	sc.add("}");
     	sc.addLineBreak();
     	sc.add("public int getCharStart() {");
@@ -278,7 +282,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("}");
     	sc.addLineBreak();
     	sc.add("public " + STRING + " getMessage() {");
-    	sc.add("return message;");
+    	sc.add("return problem.getMessage();");
     	sc.add("}");
     	sc.addLineBreak();
     	sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
@@ -293,18 +297,22 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("private final " + I_LOCATION_MAP + " locationMap;");
     	sc.add("private final " + URI + " uri;");
     	sc.add("private final " + E_OBJECT + " element;");
-    	sc.add("private final " + STRING + " message;");
+    	sc.add("private final " + I_PROBLEM + " problem;");
     	sc.addLineBreak();
-    	sc.add("public " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(" + I_LOCATION_MAP + " locationMap, " + URI + " uri, " + STRING + " message, " + E_OBJECT + " element) {");
+    	sc.add("public " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(" + I_LOCATION_MAP + " locationMap, " + URI + " uri, " + I_PROBLEM + " problem, " + E_OBJECT + " element) {");
     	sc.add("super();");
     	sc.add("this.uri = uri;");
     	sc.add("this.locationMap = locationMap;");
     	sc.add("this.element = element;");
-    	sc.add("this.message = message;");
+    	sc.add("this.problem = problem;");
     	sc.add("}");
     	sc.addLineBreak();
     	sc.add("public " + STRING + " getMessage() {");
-    	sc.add("return message;");
+    	sc.add("return problem.getMessage();");
+    	sc.add("}");
+    	sc.addLineBreak();
+    	sc.add("public " + I_PROBLEM + " getProblem() {");
+    	sc.add("return problem;");
     	sc.add("}");
     	sc.addLineBreak();
     	sc.add("public " + STRING + " getLocation() {");
@@ -404,7 +412,7 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addAddProblemMethod1(StringComposite sc) {
 		sc.add("public void addProblem(" + I_PROBLEM + " problem, " + E_OBJECT + " element) {");
-    	sc.add("getDiagnostics(problem.getType()).add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem.getMessage(), element));");
+    	sc.add("getDiagnostics(problem.getType()).add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element));");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -412,7 +420,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void addAddProblemMethod2(StringComposite sc) {
 		sc.add("public void addProblem(" + I_PROBLEM + " problem, int column, int line, int charStart,");
     	sc.add("int charEnd) {");
-    	sc.add("getDiagnostics(problem.getType()).add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem.getMessage(), column, line, charStart, charEnd));");
+    	sc.add("getDiagnostics(problem.getType()).add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd));");
     	sc.add("}");
     	sc.addLineBreak();
 	}

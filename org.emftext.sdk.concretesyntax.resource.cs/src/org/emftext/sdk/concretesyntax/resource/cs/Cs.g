@@ -188,7 +188,7 @@ options {
 		resource.registerContextDependentProxy(factory, element, reference, id, proxy);
 	}
 	
-	protected void addErrorToResource(java.lang.String errorMessage, int line,
+	protected void addErrorToResource(final java.lang.String errorMessage, int line,
 	int charPositionInLine, int startIndex, int stopIndex) {
 		org.emftext.runtime.resource.ITextResource resource = getResource();
 		if (resource == null) {
@@ -196,7 +196,14 @@ options {
 			// code completion
 			return;
 		}
-		resource.addError(errorMessage, line, charPositionInLine, startIndex, stopIndex);
+		resource.addProblem(new org.emftext.runtime.resource.impl.AbstractProblem() {
+			public org.emftext.runtime.resource.EProblemType getType() {
+				return org.emftext.runtime.resource.EProblemType.ERROR;
+			}
+			public java.lang.String getMessage() {
+				return errorMessage;
+			}
+		}, line, charPositionInLine, startIndex, stopIndex);
 	}
 	
 	protected void copyLocalizationInfos(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject target) {

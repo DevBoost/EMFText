@@ -61,4 +61,31 @@ public class StringUtil {
 		}
 		return tail;
 	}
+
+
+	public static String convertAllCapsToLowerCamelCase(String text) {
+		String lowerCase = text.toLowerCase();
+		while (true) {
+			int i = lowerCase.indexOf('_');
+			if (i < 0) {
+				break;
+			}
+			String head = lowerCase.substring(0, i);
+			if (i + 1 == lowerCase.length()) {
+				lowerCase = head;
+				break;
+			} else {
+				char charAfterUnderscore = lowerCase.charAt(i + 1);
+				char upperCase = Character.toUpperCase(charAfterUnderscore);
+				if (i + 2 < lowerCase.length()) {
+					String tail = lowerCase.substring(i + 2, lowerCase.length());
+					lowerCase = head + upperCase + tail;
+				} else {
+					lowerCase = head + upperCase;
+					break;
+				}
+			}
+		}
+		return lowerCase;
+	}
 }

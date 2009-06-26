@@ -20,6 +20,10 @@ public class CsProblem implements IProblem {
 		return type.getProblemType();
 	}
 
+	public ECsProblemType getCsType() {
+		return type;
+	}
+
 	public String getMessage() {
 		return message;
 	}
