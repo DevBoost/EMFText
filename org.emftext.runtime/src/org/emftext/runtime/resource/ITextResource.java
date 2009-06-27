@@ -48,8 +48,6 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	
 	/**
 	 * Add an error to be displayed at the indicated position.
-	 * 
-	 * TODO mseifert: I think we should remove this method
 	 */
 	public void addProblem(IProblem problem, int column, int line, int charStart, int charEnd);
 	
