@@ -165,7 +165,6 @@ public class TextResourceGenerator extends BaseGenerator {
 	private static final String ARRAY_LIST = ArrayList.class.getName();
 	
 	private ConcreteSyntax concreteSyntax;
-	private String csClassName;
 	private String resolverSwitchClassName;
 	private String printerClassName;
 	private String parserClassName;
@@ -176,7 +175,6 @@ public class TextResourceGenerator extends BaseGenerator {
 		super(context.getPackageName(), context.getResourceClassName());
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
-		this.csClassName = context.getCapitalizedConcreteSyntaxName();
 		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
 		this.printerClassName = context.getQualifiedPrinterName();
 		this.parserClassName = context.getQualifiedParserClassName();
@@ -197,13 +195,12 @@ public class TextResourceGenerator extends BaseGenerator {
 		
     	addFields(sc);
     	
-		generateConstructors(sc);
-        generateDoLoadMethod(sc);
-        generateDoSaveMethod(sc);
-        generateGetSyntaxNameMethod(sc);
-        generateGetScannerMethod(sc);
-        generateGetReferenceResolverSwitchMethod(sc);
-    	generateGetMetaInformationMethod(sc);
+		addConstructors(sc);
+        addDoLoadMethod(sc);
+        addDoSaveMethod(sc);
+        addGetSyntaxNameMethod(sc);
+        addGetReferenceResolverSwitchMethod(sc);
+    	addGetMetaInformationMethod(sc);
 
     	addResetLocationMapMethod(sc);
     	addAddURIFragmentMethod(sc);
@@ -678,20 +675,20 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("private " + MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">>();");
 	}
 
-	private void generateGetMetaInformationMethod(StringComposite sc) {
+	private void addGetMetaInformationMethod(StringComposite sc) {
 		sc.add("public " + ITextResourcePluginMetaInformation.class.getName() + " getMetaInformation() {");
 		sc.add("return new " + qualifiedMetaInformationClassName + "();");
 		sc.add("}");
 	}
 
-	private void generateGetSyntaxNameMethod(StringComposite sc) {
+	private void addGetSyntaxNameMethod(StringComposite sc) {
 		sc.add("protected String getSyntaxName() {");
 		sc.add("return \"" + csSyntaxName + "\";");
 		sc.add("}");
         sc.addLineBreak();
 	}
 
-	private void generateGetReferenceResolverSwitchMethod(StringComposite sc) {
+	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("public " + IReferenceResolverSwitch.class.getName() + " getReferenceResolverSwitch() {");
         sc.add("if (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
         sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + resolverSwitchClassName + "();");
@@ -701,14 +698,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.addLineBreak();
 	}
 
-	private void generateGetScannerMethod(StringComposite sc) {
-		sc.add("public Object getScanner() {");
-        sc.add("return new " + csClassName + "Lexer();");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	private void generateDoSaveMethod(StringComposite sc) {
+	private void addDoSaveMethod(StringComposite sc) {
 		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
         sc.add(printerClassName + " printer = new " + printerClassName + "(outputStream, this);");
         sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
@@ -720,7 +710,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.addLineBreak();
 	}
 
-	private void generateConstructors(StringComposite sc) {
+	private void addConstructors(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
     	sc.add("resetLocationMap();");
@@ -734,7 +724,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.addLineBreak();
 	}
 
-	private void generateDoLoadMethod(StringComposite sc) {
+	private void addDoLoadMethod(StringComposite sc) {
 		sc.add("protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {");
         sc.add("resetLocationMap();");
         sc.add("java.lang.String encoding = null;");

@@ -41,6 +41,9 @@ import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 /**
  * An adapter from the Eclipse <code>ITokenScanner</code> interface
  * to the ANTLR <code>Lexer</code> interface.
+ * 
+ * TODO once this class is generated we might not need
+ * ITextResourcePluginMetaInformation.createLexer() anymore
  */
 public class AntlrTokenScanner implements ITokenScanner {
     
@@ -60,7 +63,7 @@ public class AntlrTokenScanner implements ITokenScanner {
      * @param colorManager A manager to obtain color objects
      */
     public AntlrTokenScanner(ITextResource resource, ColorManager colorManager) {
-        this.lexer      = (Lexer) resource.getScanner();
+        this.lexer      = resource.getMetaInformation().createLexer();
         this.tokenNames = resource.getMetaInformation().getTokenNames();
         this.languageId = resource.getMetaInformation().getSyntaxName();
         this.store      = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();

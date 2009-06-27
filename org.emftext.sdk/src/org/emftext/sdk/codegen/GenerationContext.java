@@ -247,6 +247,10 @@ public abstract class GenerationContext {
 		return getPackageName() + "." + getCapitalizedConcreteSyntaxName() + "Parser";
 	}
 
+	public String getQualifiedLexerClassName() {
+		return getPackageName() + "." + getCapitalizedConcreteSyntaxName() + "Lexer";
+	}
+
 	public String getQualifiedPrinterName() {
 		return getPackageName() + "." + getPrinterName();
 	}

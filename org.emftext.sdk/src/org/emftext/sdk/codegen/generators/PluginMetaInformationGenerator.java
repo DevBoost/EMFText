@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
 
+import org.antlr.runtime.Lexer;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
@@ -22,6 +23,8 @@ import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
 public class PluginMetaInformationGenerator extends BaseGenerator {
+
+	private static final String LEXER = Lexer.class.getName();
 
 	private static final String I_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getName();
 
@@ -67,13 +70,20 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         addGetPathTOCSDefinitionMethod(sc);
         addGetTokenNamesMethod(sc);
         addGetDefaultStyleMethod(sc);
-    	
+    	addCreateLexerMethod(sc);
         addTokenStyleImplClass(sc);
 
         sc.add("}");
     	
 		out.print(sc.toString());
     	return true;	
+	}
+
+	private void addCreateLexerMethod(StringComposite sc) {
+		sc.add("public " + LEXER+ " createLexer() {");
+        sc.add("return new " + context.getQualifiedLexerClassName() + "();");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addTokenStyleImplClass(StringComposite sc) {

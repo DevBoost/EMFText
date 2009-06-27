@@ -2,6 +2,7 @@ package org.emftext.runtime.resource;
 
 import java.io.InputStream;
 
+import org.antlr.runtime.Lexer;
 import org.eclipse.emf.ecore.EClass;
 
 /**
@@ -13,14 +14,22 @@ public interface ITextResourcePluginMetaInformation {
 	public String getURI();
 	
 	/**
-	 * Returns the name of the conrete syntax. This name is used
+	 * Returns the name of the concrete syntax. This name is used
 	 * as file extension.
 	 * 
 	 * @return
 	 */
 	public String getSyntaxName();
 	
+	// TODO add documentation
 	public String getPathToCSDefinition();
+	
+	/**
+	 * Return a lexer capable to split the underlying text file into tokens.
+	 * 
+	 * @return a lexer instance.
+	 */
+	public Lexer createLexer();
 	
 	/**
 	 * Returns an instance of the parser. This factory method

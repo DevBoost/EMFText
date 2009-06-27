@@ -54,15 +54,6 @@ public interface ITextResource extends Resource, ITextResourcePluginPart {
 	public void addProblem(IProblem problem, int column, int line, int charStart, int charEnd);
 	
 	/**
-	 * Return a scanner capable to split the underlying text file into tokens.
-	 * 
-	 * @return A scanner.
-	 * 
-	 * TODO mseifert: move this to meta information class
-	 */
-	public Object getScanner();
-	
-	/**
 	 * Internal method used by the parser to register a context dependent proxy object for later resolution.
 	 * 
 	 * @param container
