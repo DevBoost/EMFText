@@ -38,7 +38,8 @@ public enum ECsProblemType {
 	STYLE_REFERENCE_TO_NON_EXISTING_TOKEN(EProblemType.WARNING), 
 	UNUSED_TOKEN(EProblemType.WARNING), 
 	GENERATION_WARNING(EProblemType.WARNING),
-	GENERATION_ERROR(EProblemType.ERROR),
+	GENERATION_ERROR(EProblemType.ERROR), 
+	INVALID_WARNING_TYPE(EProblemType.ERROR),
 	;
 
 	private EProblemType problemType;

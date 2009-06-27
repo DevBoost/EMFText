@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.test/src"
+    modelPluginID="org.emftext.test" modelName="Suppress_warnings1" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>suppress_warnings1.ecore</foreignModel>
+  <genPackages prefix="Suppress_warnings1" disposableProviderFactory="true" ecorePackage="suppress_warnings1.ecore#/">
+    <genClasses ecoreClass="suppress_warnings1.ecore#//Root">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute suppress_warnings1.ecore#//Root/att"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

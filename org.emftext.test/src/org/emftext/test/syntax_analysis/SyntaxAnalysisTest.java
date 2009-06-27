@@ -57,6 +57,8 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String REFERENCE_TO_TYPE_WITHOUT_SYNTAX = "There is no syntax for the type (.*) of reference.*.";
 	private static final String GEN_CLASS_NOT_DECLARED = "GenClass .* not declared";
 	private static final String UNCHANGEABLE_REFERENCE = "Reference .* is not changeable.";
+	private static final String OPTIONAL_KEYWORD = "The keyword might be used stand alone .*";
+	private static final String INVALID_WARNING_TYPE = "Invalid warning type found: .*";
 
 	@Before
 	public void setUp() {
@@ -86,6 +88,13 @@ public class SyntaxAnalysisTest extends TestCase {
 	public void testDuplicateTokenStyleDetection() throws FileNotFoundException, IOException {
 		// this is a test for bug 740
 		assertProblems("duplicate_tokenstyle.cs", new String[] {DUPLICATE_TOKENSTYLE_FOUND}, NONE);
+	}
+	
+	@Test
+	public void testSuppressWarnings() throws FileNotFoundException, IOException {
+		assertProblems("suppress_warnings1a.cs", NONE, NONE);
+		assertProblems("suppress_warnings1b.cs", new String[] {OPTIONAL_KEYWORD}, NONE);
+		assertProblems("suppress_warnings1c.cs", NONE, new String[] {INVALID_WARNING_TYPE});
 	}
 	
 	@Test

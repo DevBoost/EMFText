@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.emftext.runtime.resource.EProblemType;
 import org.emftext.runtime.resource.IProblem;
 import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextResource;
@@ -29,7 +30,7 @@ public class SuppressWarnings extends AbstractPostProcessor {
 		Collection<Annotation> annotations = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getAnnotation());
 		for (Annotation annotation : annotations) {
 			AnnotationType type = annotation.getType();
-			Collection<String> warningsToSuppress = getWarningsToSuppress(annotation);
+			Collection<String> warningsToSuppress = getWarningsToSuppress(resource, annotation);
 			if (type == AnnotationType.SUPPRESS_WARNINGS) {
 				EObject annotatedElement = annotation.eContainer();
 				List<Diagnostic> warnings = resource.getWarnings();
@@ -64,13 +65,32 @@ public class SuppressWarnings extends AbstractPostProcessor {
 		}
 	}
 
-	private Collection<String> getWarningsToSuppress(Annotation annotation) {
+	private Collection<String> getWarningsToSuppress(ITextResource resource, Annotation annotation) {
 		Collection<String> warningsToSuppress = new LinkedHashSet<String>();
 		List<KeyValuePair> parameters = annotation.getParameters();
 		for (KeyValuePair parameter : parameters) {
-			warningsToSuppress.add(parameter.getKey());
+			final String key = parameter.getKey();
+			// check whether 'key' is a valid warning type
+			boolean isValid = isValidWarningType(key);
+			if (!isValid) {
+				resource.addProblem(new CsProblem("Invalid warning type found: " + key, ECsProblemType.INVALID_WARNING_TYPE), annotation);
+			}
+			warningsToSuppress.add(key);
 		}
 		return warningsToSuppress;
+	}
+
+	private boolean isValidWarningType(String key) {
+		for (ECsProblemType problemType : ECsProblemType.values()) {
+			// errors are not valid
+			if (problemType.getProblemType() == EProblemType.ERROR) {
+				continue;
+			}
+			if (problemType.getName().equals(key)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean wasCausedBy(ITextDiagnostic textWarning,
