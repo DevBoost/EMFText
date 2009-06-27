@@ -20,6 +20,9 @@
  ******************************************************************************/
 package org.emftext.runtime.util;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * A utility class that provides some common methods to work
  * with Strings.
@@ -87,5 +90,18 @@ public class StringUtil {
 			}
 		}
 		return lowerCase;
+	}
+
+	public static String explode(Collection<String> parts, String glue) {
+		StringBuilder sb = new StringBuilder();
+		Iterator<String> it = parts.iterator();
+		while (it.hasNext()) {
+			String next = it.next();
+			sb.append(next);
+			if (it.hasNext()) {
+				sb.append(glue);
+			}
+		}
+		return sb.toString();
 	}
 }
