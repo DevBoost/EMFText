@@ -135,7 +135,6 @@ import org.emftext.sdk.syntax_analysis.LeftRecursionDetector;
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
-	
 
 	/**
 	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
@@ -251,61 +250,33 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addMethods(String lexerName, String parserName,
 			StringComposite sc) {
-		addDefaultConstructor(parserName, sc);
-        sc.addLineBreak();
-
-        addGetTypeObjectMethod(sc);
-        sc.addLineBreak();
-        
-        addGetReferenceResolverSwitchMethod(sc);
-        sc.addLineBreak();
-        
-        addDoParseMethod(lexerName, sc);
-        sc.addLineBreak();
-  
-        addAddObjectToListMethod(sc);
-        sc.addLineBreak();
-        
-        addGetParseToIndexTypeObjectMethod(sc);
-        sc.addLineBreak();
-
-        addGetFreshTokenResolveResultMethod(sc);
-        sc.addLineBreak();
-        
-        addCollectHiddenTokensMethod(lexerName, sc);
-		sc.addLineBreak();
-        
-        addCreateInstanceMethod(lexerName, parserName, sc);
-		sc.addLineBreak();
-
-		addParseToExpectedElementsMethod(sc);
-		sc.addLineBreak();
-
-		addRegisterContextDependentProxyMethod(sc);
-		sc.addLineBreak();
-
 		addAddErrorToResourceMethod(sc);
-		sc.addLineBreak();
-
-		addCopyLocalizationInfosMethod1(sc);
-		sc.addLineBreak();
-
-		addCopyLocalizationInfosMethod2(sc);
-		sc.addLineBreak();
-
 		addAddExpectedElementMethod(sc);
-		addRecoverFromMismatchedTokenMethod(sc);
-		addSetOptionsMethod(sc);
-		addGetOptionsMethod(sc);
 		addAddMapEntryMethod(sc);
+		addAddObjectToListMethod(sc);
 		addApplyMethod(sc);
-		addSetTextResourceMethod(sc);
+		addCollectHiddenTokensMethod(lexerName, sc);
+		addCopyLocalizationInfosMethod1(sc);
+		addCopyLocalizationInfosMethod2(sc);
+		addCreateInstanceMethod(lexerName, parserName, sc);
+		addDefaultConstructor(parserName, sc);
+		addDoParseMethod(lexerName, sc);
+		addGetFreshTokenResolveResultMethod(sc);
+		addGetMismatchedTokenRecoveryTriesMethod(sc);
+		addGetMissingSymbolMethod(sc);
+		addGetOptionsMethod(sc);
+		addGetParseToIndexTypeObjectMethod(sc);
+		addGetReferenceResolverSwitchMethod(sc);
 		addGetTextResourceMethod(sc);
+		addGetTypeObjectMethod(sc);
 		addParseMethod(sc);
+		addParseToExpectedElementsMethod(sc);
+		addRecoverFromMismatchedTokenMethod(sc);
+		addRegisterContextDependentProxyMethod(sc);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
-		addGetMissingSymbolMethod(sc);
-		addGetMismatchedTokenRecoveryTriesMethod(sc);
+		addSetOptionsMethod(sc);
+		addSetTextResourceMethod(sc);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -531,6 +502,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("public " + parserName + "() {");
         sc.add("super(null);");
         sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addGetTypeObjectMethod(StringComposite sc) {
@@ -545,6 +517,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("return typeObject;");
         sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
@@ -555,6 +528,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addDoParseMethod(String lexerName, StringComposite sc) {
@@ -578,6 +552,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("throw new " + UnexpectedContentTypeException.class.getName() + "(typeObject);");
         sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addAddObjectToListMethod(StringComposite sc) {
@@ -585,6 +560,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("private boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
         sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
         sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addGetFreshTokenResolveResultMethod(StringComposite sc) {
@@ -592,6 +568,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.add("tokenResolveResult.clear();");
         sc.add("return tokenResolveResult;");
         sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addCollectHiddenTokensMethod(String lexerName,
@@ -658,6 +635,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             sc.add("lastPosition = (endPos < 0 ? 0 : endPos);");
         }   
         sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCreateInstanceMethod(String lexerName, String parserName,
@@ -674,6 +652,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addFields(StringComposite sc) {
@@ -702,6 +681,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("parse();");
 		sc.add("return this.expectedElements;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
@@ -718,6 +698,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("resource.registerContextDependentProxy(factory, element, reference, id, proxy);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addAddErrorToResourceMethod(StringComposite sc) {
@@ -738,6 +719,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCopyLocalizationInfosMethod1(StringComposite sc) {
@@ -754,6 +736,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("locationMap.setColumn(target, locationMap.getColumn(source));");
 		sc.add("locationMap.setLine(target, locationMap.getLine(source));");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCopyLocalizationInfosMethod2(StringComposite sc) {
@@ -770,6 +753,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("locationMap.setColumn(target, source.getCharPositionInLine());");
 		sc.add("locationMap.setLine(target, source.getLine());");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addAddExpectedElementMethod(StringComposite sc) {
@@ -810,6 +794,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("public " + OBJECT + " getParseToIndexTypeObject() {");
 		sc.add("return parseToIndexTypeObject;");
 		sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addRecoverFromMismatchedTokenMethod(StringComposite sc) {
