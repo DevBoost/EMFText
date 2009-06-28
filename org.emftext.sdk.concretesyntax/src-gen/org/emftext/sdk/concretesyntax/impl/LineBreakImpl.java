@@ -110,7 +110,7 @@ public class LineBreakImpl extends DefinitionImpl implements LineBreak {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.LINE_BREAK__TAB:
-				return new Integer(getTab());
+				return getTab();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -124,7 +124,7 @@ public class LineBreakImpl extends DefinitionImpl implements LineBreak {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.LINE_BREAK__TAB:
-				setTab(((Integer)newValue).intValue());
+				setTab((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

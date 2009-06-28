@@ -175,7 +175,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public ConcreteSyntax getSyntax() {
-		if (eContainerFeatureID != ConcretesyntaxPackage.RULE__SYNTAX) return null;
+		if (eContainerFeatureID() != ConcretesyntaxPackage.RULE__SYNTAX) return null;
 		return (ConcreteSyntax)eContainer();
 	}
 
@@ -195,7 +195,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 * @generated
 	 */
 	public void setSyntax(ConcreteSyntax newSyntax) {
-		if (newSyntax != eInternalContainer() || (eContainerFeatureID != ConcretesyntaxPackage.RULE__SYNTAX && newSyntax != null)) {
+		if (newSyntax != eInternalContainer() || (eContainerFeatureID() != ConcretesyntaxPackage.RULE__SYNTAX && newSyntax != null)) {
 			if (EcoreUtil.isAncestor(this, newSyntax))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -249,7 +249,7 @@ public class RuleImpl extends AnnotableImpl implements Rule {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case ConcretesyntaxPackage.RULE__SYNTAX:
 				return eInternalContainer().eInverseRemove(this, ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, ConcreteSyntax.class, msgs);
 		}

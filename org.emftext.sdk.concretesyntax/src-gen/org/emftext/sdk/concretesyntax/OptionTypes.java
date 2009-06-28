@@ -398,7 +398,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DEFAULT_RESOLVER_DELEGATE(31, "OVERRIDE_DEFAULT_RESOLVER_DELEGATE", "overrideDefaultResolverDelegate");
+	OVERRIDE_DEFAULT_RESOLVER_DELEGATE(31, "OVERRIDE_DEFAULT_RESOLVER_DELEGATE", "overrideDefaultResolverDelegate"), /**
+	 * The '<em><b>OVERRIDE PROBLEM CLASS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROBLEM_CLASS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PROBLEM_CLASS(32, "OVERRIDE_PROBLEM_CLASS", "overrideProblemClass");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -881,6 +889,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE = 31;
 
 	/**
+	 * The '<em><b>OVERRIDE PROBLEM CLASS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PROBLEM CLASS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROBLEM_CLASS
+	 * @model literal="overrideProblemClass"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PROBLEM_CLASS_VALUE = 32;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -920,6 +943,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_BUILD_PROPERTIES,
 			OVERRIDE_PLUGIN_META_INFORMATION_CLASS,
 			OVERRIDE_DEFAULT_RESOLVER_DELEGATE,
+			OVERRIDE_PROBLEM_CLASS,
 		};
 
 	/**
@@ -1002,6 +1026,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_BUILD_PROPERTIES_VALUE: return OVERRIDE_BUILD_PROPERTIES;
 			case OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE: return OVERRIDE_PLUGIN_META_INFORMATION_CLASS;
 			case OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE: return OVERRIDE_DEFAULT_RESOLVER_DELEGATE;
+			case OVERRIDE_PROBLEM_CLASS_VALUE: return OVERRIDE_PROBLEM_CLASS;
 		}
 		return null;
 	}

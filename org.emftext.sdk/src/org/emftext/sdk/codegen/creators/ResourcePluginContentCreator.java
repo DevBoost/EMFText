@@ -66,6 +66,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new ManifestCreator());
 	    creators.add(new PluginMetaInformationCreator());
 	    creators.add(new DefaultResolverDelegateCreator());
+	    creators.add(new ProblemClassCreator());
 
 		for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");

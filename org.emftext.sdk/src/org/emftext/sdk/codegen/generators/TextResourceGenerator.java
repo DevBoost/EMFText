@@ -56,7 +56,6 @@ import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.IURIMapping;
-import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.runtime.resource.impl.LocationMap;
 import org.emftext.runtime.util.CastUtil;
@@ -75,8 +74,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * @see org.emftext.runtime.resource.ITextResource
  */
 public class TextResourceGenerator extends BaseGenerator {
-
-	private static final String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
 
 	private static final String E_PROBLEM_TYPE = EProblemType.class.getName();
 
@@ -170,6 +167,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String parserClassName;
 	private String csSyntaxName;
 	private String qualifiedMetaInformationClassName;
+	private String problemClassName;
 
 	public TextResourceGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getResourceClassName());
@@ -178,6 +176,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
 		this.printerClassName = context.getQualifiedPrinterName();
 		this.parserClassName = context.getQualifiedParserClassName();
+		this.problemClassName = context.getQualifiedProblemClassName();
 		this.qualifiedMetaInformationClassName = context.getQualifiedMetaInformationClassName();
 	}
 
@@ -508,14 +507,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (warningMessage == null) {");
     	sc.add("continue;");
     	sc.add("}");
-    	sc.add("addProblem(new " + ABSTRACT_PROBLEM + "() {");
-    	sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-    	sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
-    	sc.add("}");
-    	sc.add("public " + STRING + " getMessage() {");
-    	sc.add("return warningMessage;");
-    	sc.add("}");
-    	sc.add("}, proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(warningMessage, " + E_PROBLEM_TYPE + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
@@ -530,14 +522,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + ABSTRACT_PROBLEM + "() {");
-    	sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-    	sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
-    	sc.add("}");
-    	sc.add("public " + STRING + " getMessage() {");
-    	sc.add("return errorMessage;");
-    	sc.add("}");
-    	sc.add("}, proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
@@ -573,14 +558,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + ABSTRACT_PROBLEM + "() {");
-    	sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-    	sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
-    	sc.add("}");
-    	sc.add("public " + STRING + " getMessage() {");
-    	sc.add("return errorMessage;");
-    	sc.add("}");
-    	sc.add("}, proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("return result;");

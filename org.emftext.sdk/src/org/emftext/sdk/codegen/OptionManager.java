@@ -81,6 +81,9 @@ public class OptionManager {
 		if (option == OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE) {
 			return false;
 		}
+		if (option == OptionTypes.OVERRIDE_PROBLEM_CLASS) {
+			return true;
+		}
 		if (option == OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS) {
 			return true;
 		}

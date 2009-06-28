@@ -306,9 +306,9 @@ public abstract class TokenDefinitionImpl extends TokenDirectiveImpl implements 
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__REGEX:
 				return getRegex();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__HIDDEN:
-				return isHidden() ? Boolean.TRUE : Boolean.FALSE;
+				return isHidden();
 			case ConcretesyntaxPackage.TOKEN_DEFINITION__USED:
-				return isUsed() ? Boolean.TRUE : Boolean.FALSE;
+				return isUsed();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

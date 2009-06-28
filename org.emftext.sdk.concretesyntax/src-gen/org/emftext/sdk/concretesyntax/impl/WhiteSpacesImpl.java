@@ -110,7 +110,7 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.WHITE_SPACES__AMOUNT:
-				return new Integer(getAmount());
+				return getAmount();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -124,7 +124,7 @@ public class WhiteSpacesImpl extends DefinitionImpl implements WhiteSpaces {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ConcretesyntaxPackage.WHITE_SPACES__AMOUNT:
-				setAmount(((Integer)newValue).intValue());
+				setAmount((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

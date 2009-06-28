@@ -338,4 +338,16 @@ public abstract class GenerationContext {
 	public File getDefaultResolverDelegateFile() {
 		return new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + nameUtil.getDefaultResolverDelegateName(getConcreteSyntax()) + JAVA_FILE_EXTENSION);
 	}
+
+	public String getProblemClassName() {
+		return getCapitalizedConcreteSyntaxName() + "Problem";
+	}
+
+	public String getQualifiedProblemClassName() {
+		return getPackageName() + "." + getCapitalizedConcreteSyntaxName() + "Problem";
+	}
+
+	public File getProblemClassFile() {
+		return new File(getPackagePath() + getProblemClassName() + JAVA_FILE_EXTENSION);
+	}
 }

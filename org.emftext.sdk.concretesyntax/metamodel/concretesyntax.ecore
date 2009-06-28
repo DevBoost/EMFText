@@ -171,6 +171,7 @@
     <eLiterals name="OVERRIDE_BUILD_PROPERTIES" value="29" literal="overrideBuildProperties"/>
     <eLiterals name="OVERRIDE_PLUGIN_META_INFORMATION_CLASS" value="30" literal="overridePluginMetaInformationClass"/>
     <eLiterals name="OVERRIDE_DEFAULT_RESOLVER_DELEGATE" value="31" literal="overrideDefaultResolverDelegate"/>
+    <eLiterals name="OVERRIDE_PROBLEM_CLASS" value="32" literal="overrideProblemClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
