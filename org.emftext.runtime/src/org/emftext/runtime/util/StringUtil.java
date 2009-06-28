@@ -65,7 +65,14 @@ public class StringUtil {
 		return tail;
 	}
 
-
+    /**
+     * Converts a string that contains upper-case letter and
+     * underscores (e.g., constant names) to a camel-case string.
+     * For example, MY_CONSTANT is converted to myConstant.
+     * 
+     * @param text the string to convert
+     * @return
+     */
 	public static String convertAllCapsToLowerCamelCase(String text) {
 		String lowerCase = text.toLowerCase();
 		while (true) {
@@ -92,6 +99,13 @@ public class StringUtil {
 		return lowerCase;
 	}
 
+	/**
+	 * Concatenates the given parts and puts 'glue' between them.
+	 * 
+	 * @param parts
+	 * @param glue
+	 * @return
+	 */
 	public static String explode(Collection<String> parts, String glue) {
 		StringBuilder sb = new StringBuilder();
 		Iterator<String> it = parts.iterator();
@@ -103,5 +117,21 @@ public class StringUtil {
 			}
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * Removes single quotes at the start and end of tokenName.
+	 * 
+	 * @param tokenName
+	 * @return
+	 */
+	public static String formatTokenName(String tokenName) {
+		if (tokenName.length() > 0 && tokenName.startsWith("'")) {
+			tokenName = tokenName.substring(1, tokenName.length());
+		}
+		if (tokenName.length() > 0 && tokenName.endsWith("'")) {
+			tokenName = tokenName.substring(0, tokenName.length() - 1);
+		}
+		return tokenName;
 	}
 }

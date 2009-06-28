@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -37,13 +38,22 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.BitSet;
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.FailedPredicateException;
 import org.antlr.runtime.IntStream;
+import org.antlr.runtime.MismatchedNotSetException;
+import org.antlr.runtime.MismatchedRangeException;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.MismatchedTokenException;
+import org.antlr.runtime.MismatchedTreeNodeException;
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -68,6 +78,8 @@ import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedCsString;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature;
+import org.emftext.runtime.util.MapUtil;
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.OptionManager;
@@ -112,9 +124,21 @@ import org.emftext.sdk.syntax_analysis.LeftRecursionDetector;
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
+	// constants for class names used in the generated code
+	private static final String STRING_UTIL = StringUtil.class.getName();
+	private static final String BIT_SET = BitSet.class.getName();
+	private static final String INT_STREAM = IntStream.class.getName();
+	private static final String MISMATCHED_RANGE_EXCEPTION = MismatchedRangeException.class.getName();
+	private static final String FAILED_PREDICATE_EXCEPTION = FailedPredicateException.class.getName();
+	private static final String MISMATCHED_NOT_SET_EXCEPTION = MismatchedNotSetException.class.getName();
+	private static final String MISMATCHED_SET_EXCEPTION = MismatchedSetException.class.getName();
+	private static final String EARLY_EXIT_EXCEPTION = EarlyExitException.class.getName();
+	private static final String NO_VIABLE_ALT_EXCEPTION = NoViableAltException.class.getName();
+	private static final String MISMATCHED_TREE_NODE_EXCEPTION = MismatchedTreeNodeException.class.getName();
+	private static final String MISMATCHED_TOKEN_EXCEPTION = MismatchedTokenException.class.getName();
+	private static final String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
 	private static final String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
 	private static final String E_PROBLEM_TYPE = EProblemType.class.getName();
-	// constants for class names used in the generated code
 	private static final String ARRAY_LIST = ArrayList.class.getName();
 	private static final String COMMON_TOKEN = CommonToken.class.getName();
 	private static final String DUMMY_E_OBJECT = DummyEObject.class.getName();
@@ -131,6 +155,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private static final String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
 	private static final String MATH = Math.class.getName();
 	private static final String STRING = String.class.getName();
+	private static final String MAP = Map.class.getName();
+	private static final String COLLECTIONS = Collections.class.getName();
+	private static final String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
 
 	/**
 	 * The name of the EOF token which can be printed to force end of file after a parse from the root. 
@@ -138,6 +165,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public static final String EOF_TOKEN_NAME = "EOF";
 	
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
+	private static final String E_MAP = EMap.class.getName();
+	private static final String MAP_UTIL = MapUtil.class.getName();
 
 	private ConcreteSyntax concreteSyntax;
 	private String tokenResolverFactoryName;
@@ -289,15 +318,242 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 
 		addAddExpectedElementMethod(sc);
-		sc.addLineBreak();
-
 		addRecoverFromMismatchedTokenMethod(sc);
+		addSetOptionsMethod(sc);
+		addGetOptionsMethod(sc);
+		addAddMapEntryMethod(sc);
+		addApplyMethod(sc);
+		addSetTextResourceMethod(sc);
+		addGetTextResourceMethod(sc);
+		addParseMethod(sc);
+		addReportErrorMethod(sc);
+		addReportLexicalErrorsMethod(sc);
+		addGetMissingSymbolMethod(sc);
+		addGetMismatchedTokenRecoveryTriesMethod(sc);
+	}
+
+	private void addGetMissingSymbolMethod(StringComposite sc) {
+		sc.add("public " + OBJECT + " getMissingSymbol(" + INT_STREAM + " arg0, " + RECOGNITION_EXCEPTION + " arg1, int arg2, " + BIT_SET + " arg3) {");
+		sc.add("mismatchedTokenRecoveryTries++;");
+		/*
+		sc.add("// redirect error stream to suppress 'BR.recoverFromMismatchedToken' message");
+		sc.add("PrintStream originalErr = System.err;");
+		sc.add("try{");
+		sc.add("System.setErr(new PrintStream(new ByteArrayOutputStream()));");
+		sc.add("return super.getMissingSymbol(arg0, arg1, arg2, arg3);			");
+		sc.add("}");
+		sc.add("finally{");
+		sc.add("System.setErr(originalErr);			");
+		sc.add("}");
+		*/
+		sc.add("return super.getMissingSymbol(arg0, arg1, arg2, arg3);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetMismatchedTokenRecoveryTriesMethod(StringComposite sc) {
+		sc.add("public int getMismatchedTokenRecoveryTries() {");
+		sc.add("return mismatchedTokenRecoveryTries;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addReportLexicalErrorsMethod(StringComposite sc) {
+		sc.add("// Translates errors thrown by the lexer into human readable messages.");
+		sc.add("public void reportLexicalError(" + RECOGNITION_EXCEPTION + " e)  {");
+		sc.add(STRING + " message = \"\";");
+		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
+		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
+		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", \\\"\" + (char) mte.expecting + \"\\\" expected\";");
+		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
+		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", delete this token\";");
+		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
+		sc.add(EARLY_EXIT_EXCEPTION + " eee = (" + EARLY_EXIT_EXCEPTION + ") e;");
+		sc.add("message =\"required (...)+ loop (decision=\" + eee.decisionNumber + \") did not match anything; on line \" + e.line + \":\" + e.charPositionInLine + \" char=\" + ((char) e.c) + \"'\";");
+		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
+		sc.add("" + MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
+		sc.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
+		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
+		sc.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + MISMATCHED_RANGE_EXCEPTION + ") {");
+		sc.add(MISMATCHED_RANGE_EXCEPTION + " mre = (" + MISMATCHED_RANGE_EXCEPTION + ") e;");
+		sc.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set '\" + (char) mre.a + \"'..'\" + (char) mre.b + \"'\";");
+		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
+		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
+		sc.add("message =\"rule \" + fpe.ruleName + \" failed predicate: {\" + fpe.predicateText + \"}?\";");
+		sc.add("}");
+		sc.add("final " + STRING + " finalMessage = message;");
+		sc.add("resource.addProblem(");
+		sc.add("new " + ABSTRACT_PROBLEM + "() {");
+		sc.add("");
+		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+		sc.add("}");
+		sc.add("");
+		sc.add("public " + STRING + " getMessage() {");
+		sc.add("return finalMessage;");
+		sc.add("}");
+		sc.add("}, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addReportErrorMethod(StringComposite sc) {
+		sc.add("// Translates errors thrown by the parser into human readable messages.");
+		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " e)  {");
+		sc.add(STRING + " message = e.getMessage();");
+		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
+		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
+		sc.add(STRING + " tokenName = \"<unknown>\";");
+		sc.add("if (mte.expecting == Token.EOF) {");
+		sc.add("tokenName = \"EOF\";");
+		sc.add("} else {");
+		sc.add("tokenName = getTokenNames()[mte.expecting];");
+		sc.add("tokenName = " + STRING_UTIL + ".formatTokenName(tokenName);");
+		sc.add("}");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", \\\"\" + tokenName + \"\\\" expected\";");
+		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
+		sc.add(MISMATCHED_TREE_NODE_EXCEPTION + " mtne = (" + MISMATCHED_TREE_NODE_EXCEPTION + ") e;");
+		sc.add(STRING + " tokenName = \"<unknown>\";");
+		sc.add("if (mtne.expecting == Token.EOF) {");
+		sc.add("tokenName = \"EOF\";");
+		sc.add("} else {");
+		sc.add("tokenName = getTokenNames()[mtne.expecting];");
+		sc.add("}");
+		sc.add("message = \"mismatched tree node: \"+\"xxx\" +\"; expecting \" + tokenName;");
+		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", check following tokens\";");
+		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", delete this token\";");
+		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
+		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
+		sc.add("message = \"mismatched token: \" + e.token + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
+		sc.add("" + MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
+		sc.add("message = \"mismatched token: \" +  e.token + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
+		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
+		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText+\"}?\";");
+		sc.add("}");
+		sc.add("// the resource may be null if the parse is used for code completion");
+		sc.add("final " + STRING + " finalMessage = message;");
+		sc.add("if (resource != null) {");
+		sc.add("if (e.token instanceof " + COMMON_TOKEN + ") {");
+		sc.add(COMMON_TOKEN + " ct = (" + COMMON_TOKEN + ") e.token;");
+		sc.add("resource.addProblem(");
+		sc.add("new " + ABSTRACT_PROBLEM + "() {");
+		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+		sc.add("}");
+		sc.add("public " + STRING + " getMessage() {");
+		sc.add("return finalMessage;");
+		sc.add("}");
+		sc.add("}, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());");
+		sc.add("} else {");
+		sc.add("resource.addProblem(");
+		sc.add("new " + ABSTRACT_PROBLEM + "() {");
+		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+		sc.add("}");
+		sc.add("public " + STRING + " getMessage() {");
+		sc.add("return finalMessage;");
+		sc.add("}");
+		sc.add("},");
+		sc.add("e.token.getCharPositionInLine(), e.token.getLine(), 1, 5); // TODO what the heck is this 5?");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addParseMethod(StringComposite sc) {
+		sc.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
+		sc.add("// RecognitionExceptions.");
+		sc.add("public " + E_OBJECT + " parse() {");
+		sc.add("try {");
+		sc.add(E_OBJECT + " result =  doParse();");
+		sc.add("if (lexerExceptions.isEmpty()) {");
+		sc.add("return result;");
+		sc.add("}");
+		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
+		sc.add("reportError(re);");
+		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
+		sc.add("if (\"The 'no null' constraint is violated\".equals(iae.getMessage())) {");
+		sc.add("//? can be caused if a null is set on EMF models where not allowed;");
+		sc.add("//? this will just happen if other errors occurred before");
+		sc.add("} else {");
+		sc.add("iae.printStackTrace();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("for (" + RECOGNITION_EXCEPTION + " re : lexerExceptions) {");
+		sc.add("reportLexicalError(re);");
+		sc.add("}");
+		sc.add("return null;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetTextResourceMethod(StringComposite sc) {
+		sc.add("public " + I_TEXT_RESOURCE + " getResource() {");
+		sc.add("return resource;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetTextResourceMethod(StringComposite sc) {
+		sc.add("public void setResource(" + I_TEXT_RESOURCE + " resource) {");
+		sc.add("this.resource = resource;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addApplyMethod(StringComposite sc) {
+		sc.add("protected " + E_OBJECT + " apply(" + E_OBJECT + " target, " + LIST + "<" + E_OBJECT + "> dummyEObjects) {");
+		sc.add(E_OBJECT + " currentTarget = target;");
+		sc.add("for (" + E_OBJECT + " object : dummyEObjects) {");
+		sc.add("assert(object instanceof " + DUMMY_E_OBJECT + ");");
+		sc.add(DUMMY_E_OBJECT + " dummy = (" + DUMMY_E_OBJECT + ") object;");
+		sc.add(E_OBJECT + " newEObject = dummy.applyTo(currentTarget);");
+		sc.add("currentTarget = newEObject;");
+		sc.add("}");
+		sc.add("return currentTarget;");
+		sc.add("}");
+	}
+
+	private void addAddMapEntryMethod(StringComposite sc) {
+		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + DUMMY_E_OBJECT + " dummy) {");
+		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
+		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
+		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
+		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
+		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + MAP_UTIL + ".castToEMap(value);");
+		sc.add("if (mapKey != null && mapValue != null) {");
+		sc.add("valueMap.put(mapKey, mapValue);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetOptionsMethod(StringComposite sc) {
+		sc.add("protected " + MAP + "<?,?> getOptions() {");
+		sc.add("return options;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetOptionsMethod(StringComposite sc) {
+		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
+		sc.add("this.options = options;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addDefaultConstructor(String parserName, StringComposite sc) {
 		sc.add("// This default constructor is only used to call createInstance() on it");
         sc.add("public " + parserName + "() {");
-        sc.add("super();");
+        sc.add("super(null);");
         sc.add("}");
 	}
 
@@ -454,6 +710,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private boolean reachedIndex = false;");
 		sc.add("private " + LIST + "<" + I_EXPECTED_ELEMENT + "> expectedElements = new " + ARRAY_LIST + "<" + I_EXPECTED_ELEMENT + ">();");
 		sc.add("private int lastIndex = -1;");
+		sc.add("private int mismatchedTokenRecoveryTries = 0;");
+		sc.add("private " + MAP + "<?, ?> options;");
+		sc.add("private " + I_TEXT_RESOURCE + " resource;");
+		sc.add("//helper lists to allow a lexer to pass errors to its parser");
+		sc.add("protected " + LIST + "<" + RECOGNITION_EXCEPTION + "> lexerExceptions = " + COLLECTIONS + ".synchronizedList(new " + ARRAY_LIST + "<" + RECOGNITION_EXCEPTION + ">());");
+		sc.add("protected " + LIST + "<" + INTEGER + "> lexerExceptionsPosition = " + COLLECTIONS + ".synchronizedList(new " + ARRAY_LIST + "<" + INTEGER + ">());");
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
@@ -575,7 +837,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addRecoverFromMismatchedTokenMethod(StringComposite sc) {
-		sc.add("public " + OBJECT + " recoverFromMismatchedToken(" + IntStream.class.getName() + " input, int ttype, " + BitSet.class.getName() + " follow) throws " + RECOGNITION_EXCEPTION + " {");
+		sc.add("public " + OBJECT + " recoverFromMismatchedToken(" + INT_STREAM + " input, int ttype, " + BIT_SET + " follow) throws " + RECOGNITION_EXCEPTION + " {");
 		sc.add("if (!rememberExpectedElements) {");
 		sc.add("return super.recoverFromMismatchedToken(input, ttype, follow);");
 		sc.add("} else {");

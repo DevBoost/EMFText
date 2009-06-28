@@ -18,4 +18,9 @@ public class StringUtilTest extends TestCase {
 		assertEquals("aB", StringUtil.convertAllCapsToLowerCamelCase("A_B"));
 		assertEquals("aBcd", StringUtil.convertAllCapsToLowerCamelCase("A_BCD"));
 	}
+
+	public void formatTokenName() {
+		assertEquals("a", StringUtil.formatTokenName("'a'"));
+		assertEquals("NUMBER", StringUtil.formatTokenName("NUMBER"));
+	}
 }
