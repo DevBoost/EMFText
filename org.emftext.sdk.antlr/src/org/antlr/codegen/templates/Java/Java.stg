@@ -58,11 +58,7 @@ import org.antlr.runtime.*;
 <if(TREE_PARSER)>
 import org.antlr.runtime.tree.*;
 <endif>
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
 <if(backtracking)>
-import java.util.Map;
 import java.util.HashMap;
 <endif>
 <@end>
