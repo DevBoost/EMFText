@@ -1,18 +1,20 @@
 package org.emftext.sdk.codegen.generators;
 
-import java.io.InputStream;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_STYLE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LEXER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
 
-import org.antlr.runtime.Lexer;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.ecore.EClass;
-import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.ITextParser;
-import org.emftext.runtime.resource.ITokenResolverFactory;
-import org.emftext.runtime.resource.ITokenStyle;
-import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -23,24 +25,6 @@ import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
 public class PluginMetaInformationGenerator extends BaseGenerator {
-
-	private static final String LEXER = Lexer.class.getName();
-
-	private static final String I_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getName();
-
-	private static final String I_REFERENCE_RESOLVER_SWITCH = IReferenceResolverSwitch.class.getName();
-
-	private static final String E_CLASS = EClass.class.getName();
-
-	private static final String INPUT_STREAM = InputStream.class.getName();
-
-	private static final String I_TEXT_PARSER = ITextParser.class.getName();
-
-	private static final String ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION = AbstractTextResourcePluginMetaInformation.class.getName();
-
-	private static final String I_TOKEN_STYLE = ITokenStyle.class.getName();
-
-	private static final String STRING = String.class.getName();
 
 	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final static GenClassUtil genClassUtil = new GenClassUtil();

@@ -28,6 +28,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EARLY_EXIT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
@@ -42,6 +43,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
@@ -74,7 +76,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -91,7 +92,6 @@ import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedCsString;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature;
-import org.emftext.runtime.util.MapUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.OptionManager;
@@ -143,8 +143,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	public static final String EOF_TOKEN_NAME = "EOF";
 	
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
-	private static final String E_MAP = EMap.class.getName();
-	private static final String MAP_UTIL = MapUtil.class.getName();
 
 	private ConcreteSyntax concreteSyntax;
 	private String tokenResolverFactoryName;

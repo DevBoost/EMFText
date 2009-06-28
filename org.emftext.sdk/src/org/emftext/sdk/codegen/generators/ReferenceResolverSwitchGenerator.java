@@ -49,12 +49,6 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 
 	private final GenerationContext context;
 
-	
-	/**
-	 * 
-	 * 
-	 * @param context
-	 */
 	public ReferenceResolverSwitchGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getReferenceResolverSwitchClassName());
 		this.context = context;

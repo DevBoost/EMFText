@@ -20,11 +20,13 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
-import org.emftext.runtime.resource.ITokenResolver;
+import java.io.PrintWriter;
+
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
@@ -46,11 +48,6 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  */
 public class TokenResolverFactoryGenerator extends BaseGenerator {
 	
-	private static final String MAP = Map.class.getName();
-	private static final String HASH_MAP = HashMap.class.getName();
-	private static final String STRING = String.class.getName();
-	private static final String I_TOKEN_RESOLVER = ITokenResolver.class.getName();
-
 	private final NameUtil nameUtil = new NameUtil();
 	
 	private GenerationContext context;

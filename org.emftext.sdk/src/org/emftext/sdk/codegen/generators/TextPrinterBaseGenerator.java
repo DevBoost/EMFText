@@ -20,10 +20,27 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import java.io.BufferedOutputStream;
-import java.io.OutputStream;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAYS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.NULL_POINTER_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRINTER_WRITER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_WRITER;
+
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,13 +56,9 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.EProblemType;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITokenResolver;
-import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -81,32 +94,6 @@ import org.emftext.sdk.syntax_analysis.CollectInFeatureHelper;
  */
 public class TextPrinterBaseGenerator extends BaseGenerator {
 
-	private static final String BUFFERED_OUTPUT_STREAM = BufferedOutputStream.class.getName();
-	private static final String OBJECT = Object.class.getName();
-	private static final String STRING = String.class.getName();
-	private static final String INTEGER = Integer.class.getName();
-
-	private static final String COLLECTION = Collection.class.getName();
-	private static final String LIST = List.class.getName();
-	private static final String MAP = Map.class.getName();
-	private static final String HASH_MAP = HashMap.class.getName();
-	private static final String ARRAYS = java.util.Arrays.class.getName();
-	private static final String LIST_ITERATOR = ListIterator.class.getName();
-	
-	private static final String NULL_POINTER_EXCEPTION = NullPointerException.class.getName();
-	
-	private static final String E_OBJECT = EObject.class.getName();
-	private static final String E_REFERENCE = EReference.class.getName();
-	
-	private static final String I_TEXT_RESOURCE = ITextResource.class.getName();
-	private static final String I_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getName();
-	
-	private static final String OUTPUT_STREAM = OutputStream.class.getName();
-	private static final String PRINTER_WRITER = PrintWriter.class.getName();
-	private static final String STRING_WRITER = StringWriter.class.getName();
-	
-	private static final String E_PROBLEM_TYPE = EProblemType.class.getName();
-	
 	private final static String localtabName = "localtab";
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();

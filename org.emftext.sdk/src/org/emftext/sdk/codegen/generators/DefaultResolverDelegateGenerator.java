@@ -1,41 +1,28 @@
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT_UTIL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OPERATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
 
-import java.util.Iterator;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.emftext.runtime.resource.IContextDependentURIFragment;
-import org.emftext.runtime.resource.IReferenceResolveResult;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class DefaultResolverDelegateGenerator extends BaseGenerator {
-
-	private static final String INTERNAL_E_OBJECT = InternalEObject.class.getName();
-	private static final String I_CONTEXT_DEPENDENT_URI_FRAGMENT = IContextDependentURIFragment.class.getName();
-	private static final String E_OPERATION = EOperation.class.getName();
-	private static final String E_ATTRIBUTE = EAttribute.class.getName();
-	private static final String E_STRUCTURAL_FEATURE = EStructuralFeature.class.getName();
-	private static final String RUNTIME_EXCEPTION = RuntimeException.class.getName();
-	private static final String ITERATOR = Iterator.class.getName();
-	private static final String E_OBJECT_UTIL = EObjectUtil.class.getName();
-	private static final String I_REFERENCE_RESOLVE_RESULT = IReferenceResolveResult.class.getName();
-	private static final String E_REFERENCE = EReference.class.getName();
-	private static final String STRING = String.class.getName();
-	private static final String E_OBJECT = EObject.class.getName();
-	private static final String E_CLASS = EClass.class.getName();
-	private static final String I_TEXT_RESOURCE = ITextResource.class.getName();
-	private static final String OBJECT = Object.class.getName();
 
 	public DefaultResolverDelegateGenerator(GenerationContext context) {
 		super(context.getResolverPackageName(), context.getDefaultResolverDelegateName());

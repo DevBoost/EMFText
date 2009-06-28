@@ -20,8 +20,10 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
-import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
@@ -37,8 +39,6 @@ import org.emftext.sdk.codegen.util.NameUtil;
  */
 public class ReferenceResolverGenerator extends BaseGenerator {
 	
-	private static final String STRING = String.class.getName();
-	private static final String MAP = Map.class.getName();
 	private static final NameUtil nameUtil = new NameUtil();
 	
 	private GenFeature proxyReference;

@@ -20,47 +20,58 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CAST_UTIL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUNTIME_PLUGIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDANT_URI_FRAGMENT_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ELEMENT_MAPPING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTION_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROBLEM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_MAPPING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_URI_MAPPING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_UTIL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LOCATION_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MANY_INVERSE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import java.io.PrintWriter;
+
 import org.emftext.runtime.IInputStreamProcessorProvider;
-import org.emftext.runtime.IOptionProvider;
-import org.emftext.runtime.IOptions;
-import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.InputStreamProcessor;
-import org.emftext.runtime.resource.EProblemType;
-import org.emftext.runtime.resource.IContextDependentURIFragment;
-import org.emftext.runtime.resource.IElementMapping;
-import org.emftext.runtime.resource.ILocationMap;
-import org.emftext.runtime.resource.IProblem;
-import org.emftext.runtime.resource.IReferenceMapping;
-import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
-import org.emftext.runtime.resource.IURIMapping;
 import org.emftext.runtime.resource.impl.AbstractTextResource;
-import org.emftext.runtime.resource.impl.LocationMap;
-import org.emftext.runtime.util.CastUtil;
-import org.emftext.runtime.util.ListUtil;
-import org.emftext.runtime.util.MapUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -75,92 +86,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class TextResourceGenerator extends BaseGenerator {
 
-	private static final String E_PROBLEM_TYPE = EProblemType.class.getName();
-
-	private static final String I_PROBLEM = IProblem.class.getName();
-
-	private static final String LOCATION_MAP = LocationMap.class.getName();
-
-	private static final String IO_EXCEPTION = IOException.class.getName();
-
-	private static final String CAST_UTIL = CastUtil.class.getName();
-
-	private static final String LIST_UTIL = ListUtil.class.getName();
-
-	private static final String CORE_EXCEPTION = CoreException.class.getName();
-
-	private static final String I_CONFIGURATION_ELEMENT = IConfigurationElement.class.getName();
-
-	private static final String I_EXTENSION_REGISTRY = IExtensionRegistry.class.getName();
-
-	private static final String PLATFORM = Platform.class.getName();
-
-	private static final String MAP_UTIL = MapUtil.class.getName();
-
-	private static final String POSITION_BASED_TEXT_DIAGNOSTIC = "PositionBasedTextDiagnostic";
-
-	private static final String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
-
-	private static final String ECORE_UTIL = EcoreUtil.class.getName();
-
-	private static final String EMFTEXT_RUNTIME_PLUGIN = EMFTextRuntimePlugin.class.getName();
-
-	private static final String I_RESOURCE_POST_PROCESSOR = IResourcePostProcessor.class.getName();
-
-	private static final String COLLECTION = Collection.class.getName();
-
-	private static final String I_RESOURCE_POST_PROCESSOR_PROVIDER = org.emftext.runtime.IResourcePostProcessorProvider.class.getName();
-
-	private static final String I_OPTIONS = IOptions.class.getName();
-
-	private static final String OBJECT = Object.class.getName();
-
-	private static final String I_TEXT_DIAGNOSTIC = ITextDiagnostic.class.getName();
-
-	private static final String BASIC_E_LIST = BasicEList.class.getName();
-
-	private static final String DIAGNOSTIC = Diagnostic.class.getName().replace("$", ".");
-
-	private static final String MANY_INVERSE = EObjectWithInverseResolvingEList.ManyInverse.class.getName().replace('$', '.');
-
-	private static final String I_ELEMENT_MAPPING = IElementMapping.class.getName();
-
-	private static final String EXCEPTION = Exception.class.getName();
-
-	private static final String URI = org.eclipse.emf.common.util.URI.class.getName();
-
-	private static final String I_URI_MAPPING = IURIMapping.class.getName();
-
-	private static final String I_REFERENCE_MAPPING = IReferenceMapping.class.getName();
-
-	private static final String I_REFERENCE_RESOLVE_RESULT = IReferenceResolveResult.class.getName();
-
-	private static final String E_REFERENCE = org.eclipse.emf.ecore.EReference.class.getName();
-
-	private static final String I_CONTEXT_DEPENDANT_URI_FRAGMENT_FACTORY = org.emftext.runtime.resource.IContextDependentURIFragmentFactory.class.getName();
-
-	private static final String E_OBJECT = EObject.class.getName();
-
-	private static final String HASH_MAP = HashMap.class.getName();
-
-	private static final String I_CONTEXT_DEPENDENT_URI_FRAGMENT = IContextDependentURIFragment.class.getName();
-
-	private static final String MAP = Map.class.getName();
-
-	private static final String I_LOCATION_MAP = ILocationMap.class.getName();
-
-	private static final String RESOLVER_SWITCH_FIELD_NAME = "resolverSwitch";
-
-	private static final String STRING = String.class.getName();
-
-	private static final String LIST = List.class.getName();
-
-	private static final String INTERNAL_E_OBJECT = InternalEObject.class.getName();
-
-	private static final String I_OPTION_PROVIDER = IOptionProvider.class.getName();
-	
-	private static final String ARRAY_LIST = ArrayList.class.getName();
-	
 	private ConcreteSyntax concreteSyntax;
 	private String resolverSwitchClassName;
 	private String printerClassName;
