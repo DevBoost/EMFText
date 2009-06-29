@@ -4,7 +4,7 @@ Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText SDK Eclipse UI
 Bundle-SymbolicName: org.emftext.sdk.ui; singleton:=true
-Bundle-Version: 1.1.0.v200905291935
+Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.emftext.sdk.ui.EMFTextSDKUIPlugin
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

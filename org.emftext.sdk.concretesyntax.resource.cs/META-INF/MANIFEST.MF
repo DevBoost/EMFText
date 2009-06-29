@@ -5,7 +5,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Concretesyntax Metamodel Text Syntax
 Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs; singl
  eton:=true
-Bundle-Version: 1.1.0.v200905291935
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.core.runtime, org.eclipse.emf.ecore, org.e
  mftext.sdk, org.emftext.sdk.concretesyntax, org.eclipse.jface, org.ec
