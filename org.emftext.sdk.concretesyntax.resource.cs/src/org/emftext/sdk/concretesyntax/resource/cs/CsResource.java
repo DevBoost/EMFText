@@ -61,10 +61,6 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		return "cs";
 	}
 	
-	public Object getScanner() {
-		return new CsLexer();
-	}
-	
 	public org.emftext.runtime.resource.IReferenceResolverSwitch getReferenceResolverSwitch() {
 		if (resolverSwitch == null) {
 			resolverSwitch = new org.emftext.sdk.concretesyntax.resource.cs.CsReferenceResolverSwitch();
@@ -138,14 +134,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 					if (errorMessage == null) {
 						assert(false);
 					} else {
-						addProblem(new org.emftext.runtime.resource.impl.AbstractProblem() {
-							public org.emftext.runtime.resource.EProblemType getType() {
-								return org.emftext.runtime.resource.EProblemType.ERROR;
-							}
-							public java.lang.String getMessage() {
-								return errorMessage;
-							}
-						}, proxy);
+						addProblem(new org.emftext.sdk.concretesyntax.resource.cs.CsProblem(errorMessage, org.emftext.runtime.resource.EProblemType.ERROR), proxy);
 					}
 				}
 				return result;
@@ -188,14 +177,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		if (errorMessage == null) {
 			assert(false);
 		} else {
-			addProblem(new org.emftext.runtime.resource.impl.AbstractProblem() {
-				public org.emftext.runtime.resource.EProblemType getType() {
-					return org.emftext.runtime.resource.EProblemType.ERROR;
-				}
-				public java.lang.String getMessage() {
-					return errorMessage;
-				}
-			}, proxy);
+			addProblem(new org.emftext.sdk.concretesyntax.resource.cs.CsProblem(errorMessage, org.emftext.runtime.resource.EProblemType.ERROR), proxy);
 		}
 	}
 	
@@ -208,14 +190,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 				if (warningMessage == null) {
 					continue;
 				}
-				addProblem(new org.emftext.runtime.resource.impl.AbstractProblem() {
-					public org.emftext.runtime.resource.EProblemType getType() {
-						return org.emftext.runtime.resource.EProblemType.ERROR;
-					}
-					public java.lang.String getMessage() {
-						return warningMessage;
-					}
-				}, proxy);
+				addProblem(new org.emftext.sdk.concretesyntax.resource.cs.CsProblem(warningMessage, org.emftext.runtime.resource.EProblemType.ERROR), proxy);
 			}
 		}
 	}

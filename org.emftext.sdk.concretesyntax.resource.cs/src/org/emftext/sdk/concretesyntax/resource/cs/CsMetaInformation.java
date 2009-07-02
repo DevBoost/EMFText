@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.antlr.runtime.Lexer;
-
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public java.lang.String getSyntaxName() {
@@ -121,6 +119,10 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		return null;
 	}
 	
+	public org.antlr.runtime.Lexer createLexer() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.CsLexer();
+	}
+	
 	public class TokenStyleImpl implements org.emftext.runtime.resource.ITokenStyle {
 		private int[] color;
 		private boolean bold;
@@ -150,9 +152,5 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		public boolean isUnderline() {
 			return underline;
 		}
-	}
-
-	public Lexer createLexer() {
-		return new CsLexer();
 	}
 }

@@ -56,7 +56,7 @@ RULES {
     (!0 !0 "OPTIONS" "{" (!1 options ";" )*  !0 "}")? 
     (!0 !0 "TOKENS" "{" ( !1 tokens ";")* !0 "}")? 
     (!0 !0 "TOKENSTYLES" "{" ( !1 tokenStyles)* !0 "}")? 
-    !0 !0 "RULES" "{" ( !1 rules+) !0"}"
+    !0 !0 "RULES" "{" ( !1 rules*) !0"}"
     ;
 
   Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
