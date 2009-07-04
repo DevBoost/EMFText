@@ -33,6 +33,8 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * An experimental implementation of a Packrat parser. Currently a 
  * basic scannerless recursive descendant parser is created. The 
  * memoization of the Packrat parsing method is not yet implemented.
+ * 
+ * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
 public class PackratParserGenerator extends BaseGenerator {
 	
