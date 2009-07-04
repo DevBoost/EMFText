@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Packrat Parser Test
+Bundle-SymbolicName: org.emftext.test.packrat_parser
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.emftext.runtime,
+ org.emftext.test.code_completion,
+ org.emftext.test.code_completion.resource.cct,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.emf,
+ org.junit4
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
