@@ -10,6 +10,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+/**
+ * A basic test for the packrat parser generator. It basically
+ * checks whether the input is parsed without checke the resulting
+ * model.
+ */
 public class PackratParserTest extends TestCase {
 
 	public static class ParseTest extends TestCase {
@@ -17,7 +22,7 @@ public class PackratParserTest extends TestCase {
 		private String content;
 
 		public ParseTest(String content) {
-			super("Parse " + content);
+			super("Parse " + content.replace("\n", "").replace("\r", ""));
 			this.content = content;
 		}
 		
@@ -32,6 +37,7 @@ public class PackratParserTest extends TestCase {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("All tests");
 		suite.addTest(new ParseTest("public class A {}"));
+		suite.addTest(new ParseTest("public class A {\n}"));
 		suite.addTest(new ParseTest("public class A {private A x;}"));
 		suite.addTest(new ParseTest("public class A {private A x;private A y;}"));
 		suite.addTest(new ParseTest("public class A {private void method() {}}"));
