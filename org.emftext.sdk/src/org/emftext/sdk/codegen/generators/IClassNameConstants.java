@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 import org.antlr.runtime.BitSet;
 import org.antlr.runtime.CommonToken;
@@ -64,6 +65,7 @@ import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.IURIMapping;
+import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.impl.DummyEObject;
@@ -82,6 +84,11 @@ import org.emftext.runtime.util.StringUtil;
  */
 public interface IClassNameConstants {
 
+	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
+	public String MATCHER = Matcher.class.getName();
+	public String PATTERN = java.util.regex.Pattern.class.getName();
+	public String INPUT_STREAM_READER = java.io.InputStreamReader.class.getName();
+	
 	public String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
 	public String ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION = AbstractTextResourcePluginMetaInformation.class.getName();
 	public String ARRAYS = java.util.Arrays.class.getName();

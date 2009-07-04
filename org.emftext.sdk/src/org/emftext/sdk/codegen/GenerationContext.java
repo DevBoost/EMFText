@@ -350,4 +350,12 @@ public abstract class GenerationContext {
 	public File getProblemClassFile() {
 		return new File(getPackagePath() + getProblemClassName() + JAVA_FILE_EXTENSION);
 	}
+
+	public String getPackratParserClassName() {
+		return getCapitalizedConcreteSyntaxName() + "PackratParser";
+	}
+
+	public File getPackratParserFile() {
+		return new File(getPackagePath() + getPackratParserClassName() + JAVA_FILE_EXTENSION);
+	}
 }
