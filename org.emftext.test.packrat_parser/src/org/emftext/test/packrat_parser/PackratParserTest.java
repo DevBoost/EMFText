@@ -12,7 +12,7 @@ import junit.framework.TestSuite;
 
 /**
  * A basic test for the packrat parser generator. It basically
- * checks whether the input is parsed without checke the resulting
+ * checks whether the input is parsed without checking the resulting
  * model.
  */
 public class PackratParserTest extends TestCase {
