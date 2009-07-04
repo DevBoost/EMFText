@@ -3,7 +3,7 @@
 <schema targetNamespace="org.emftext.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.emftext.runtime" id="org.emftext.runtime.default_load_options" name="Syntax Plug-in Meta Information"/>
+         <meta.schema plugin="org.emftext.runtime" id="org.emftext.runtime.syntax" name="Syntax Plug-in Meta Information"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
