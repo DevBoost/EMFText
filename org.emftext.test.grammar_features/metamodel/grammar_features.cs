@@ -8,7 +8,7 @@ OPTIONS {
 }
 
 TOKENS {
-	DEFINE NUMBER $('0'..'9')*$;
+	//DEFINE NUMBER $('0'..'9')*$;
 }
 
 RULES {
@@ -24,10 +24,10 @@ RULES {
 	PlusContainment      ::= "pc" reference+;
 	StarContainment      ::= "sc" reference*;
 	
-	MandatoryNonContainment ::= "mnc" reference[NUMBER];
-	OptionalNonContainment  ::= "onc" reference[NUMBER]?;
-	PlusNonContainment      ::= "pnc" reference[NUMBER]+;
-	StarNonContainment      ::= "snc" reference[NUMBER]*;
+	MandatoryNonContainment ::= "mnc" reference[];
+	OptionalNonContainment  ::= "onc" reference[]?;
+	PlusNonContainment      ::= "pnc" reference[]+;
+	StarNonContainment      ::= "snc" reference[]*;
 	
 	CompoundOptional ::= "co" ("a" "b")?;
 	CompoundStar     ::= "cs" ("a" "b")*;
