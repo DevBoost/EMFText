@@ -16,11 +16,13 @@ import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.PLUS;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
@@ -275,9 +277,19 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addMethodForChoice(StringComposite sc, ConcreteSyntax syntax,
 			Choice choice) {
-		List<Sequence> options = choice.getOptions();
 
 		sc.add("public boolean " + getMethodName(choice) + "() {");
+		List<Sequence> options = addCodeForChoice(sc, choice);
+		sc.add("}");
+		sc.addLineBreak();
+		
+		for (Sequence option : options) {
+			addMethodForSequence(sc, syntax, option);
+		}
+	}
+
+	private List<Sequence> addCodeForChoice(StringComposite sc, Choice choice) {
+		List<Sequence> options = choice.getOptions();
 		sc.add("// begin options");
 		for (Sequence option : options) {
 			sc.add("if (" + getMethodName(option) + "()) {");
@@ -286,12 +298,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		}
 		sc.add("// end options");
 		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		for (Sequence option : options) {
-			addMethodForSequence(sc, syntax, option);
-		}
+		return options;
 	}
 
 	private void addMethodForSequence(StringComposite sc, ConcreteSyntax syntax,
@@ -350,7 +357,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			sc.add("boolean matchedAtLeastOnce = false;");
 			sc.add("while (matched) {");
 			addCodeForElementWithCardinality(sc, syntax, definition);
-			sc.add("matchedAtLeastOnce |= match;");
+			sc.add("matchedAtLeastOnce |= matched;");
 			sc.add("}");
 			sc.add("// TODO backtrack");
 			sc.add("return matched;");
@@ -366,7 +373,26 @@ public class PackratParserGenerator extends BaseGenerator {
 
 		if (definition instanceof Containment) {
 			addMethodForContainment(sc, syntax, (Containment) definition);
+		} else if (definition instanceof CompoundDefinition) {
+			addMethodForCompound(sc, syntax, (CompoundDefinition) definition);
+		} else if (definition instanceof Terminal) {
+			// do nothing - we handle terminals in-line instead of generating
+			// a method for each terminal
+		} else {
+			throw new RuntimeException("Found unknown subclass " + definition.getClass().getName());
 		}
+	}
+
+	private void addMethodForCompound(StringComposite sc,
+			ConcreteSyntax syntax, CompoundDefinition compound) {
+
+		Choice choice = compound.getDefinitions();
+		//TODO mseifert: continue here
+		//sc.add("public boolean " +  getMethodName(definitions) + "() {");
+		//addCodeForChoice(sc, syntax, choice);
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addCardinalityCode(StringComposite sc, ConcreteSyntax syntax, CardinalityDefinition cd) {
@@ -376,9 +402,18 @@ public class PackratParserGenerator extends BaseGenerator {
 	private void addCodeForElementWithCardinality(StringComposite sc, ConcreteSyntax syntax, CardinalityDefinition cd) {
 		if (cd instanceof Terminal) {
 			addCodeForTerminal(sc, syntax, (Terminal) cd);
+		} else if (cd instanceof CompoundDefinition) {
+			addCodeForCompoundDefinition(sc, syntax, (CompoundDefinition) cd);
 		} else {
 			throw new RuntimeException("Found unknown subclass " + cd.getClass().getName());
 		}
+	}
+
+	private void addCodeForCompoundDefinition(StringComposite sc,
+			ConcreteSyntax syntax, CompoundDefinition cd) {
+		sc.add("// TODO handle compounds correctly");
+		Choice choice = cd.getDefinitions();
+		sc.add("matched = " + getMethodName(choice) + "();");
 	}
 
 	private void addMethodForContainment(StringComposite sc, ConcreteSyntax syntax, Containment containment) {
@@ -408,8 +443,8 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addCodeForTerminal(StringComposite sc, ConcreteSyntax syntax, Terminal terminal) {
-		if (terminal instanceof PlaceholderUsingDefaultToken) {
-			PlaceholderUsingDefaultToken defaultTokenTerminal = (PlaceholderUsingDefaultToken) terminal;
+		if (terminal instanceof Placeholder) {
+			Placeholder defaultTokenTerminal = (Placeholder) terminal;
 			TokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
 			String regexp = tokenDefinition.getRegex();
 			sc.add("// match regexp \"" + regexp + "\"");
@@ -447,10 +482,17 @@ public class PackratParserGenerator extends BaseGenerator {
 		int index = getIndex(cd, parent);
 		if (parent != null) {
 			Cardinality cardinality = cd.getCardinality();
-			// TODO do not use class name here
-			return getMethodName(parent) + "_" + getName(cardinality) + index;
+			// TODO do not use class names here
+			if (cd instanceof Terminal) {
+				return getMethodName(parent) + "_terminal_" + getName(cardinality) + index;
+			} else if (cd instanceof CompoundDefinition) {
+				return getMethodName(parent) + "_compound_" + getName(cardinality) + index;
+			} else {
+				throw new RuntimeException("Found unknown subclass " + cd.getClass().getName());
+			}
+		} else {
+			throw new RuntimeException("Parent is null.");
 		}
-		return null;
 	}
 
 	private String getName(Cardinality cardinality) {
@@ -467,13 +509,14 @@ public class PackratParserGenerator extends BaseGenerator {
 		}
 	}
 
-	private String getMethodName(Sequence option) {
-		Choice parent = (Choice) option.eContainer();
-		int index = getIndex(option, parent);
+	private String getMethodName(Sequence sequence) {
+		Choice parent = (Choice) sequence.eContainer();
+		int index = getIndex(sequence, parent);
 		if (parent != null) {
 			return getMethodName(parent) + "_sequence" + index;
+		} else {
+			throw new RuntimeException("Parent is null.");
 		}
-		return null;
 	}
 
 	private String getMethodName(Choice choice) {
@@ -484,8 +527,11 @@ public class PackratParserGenerator extends BaseGenerator {
 		} else if (parent instanceof Sequence) {
 			int index = getIndex(choice, parent);
 			return getMethodName((Sequence) parent) + "_choice" + index;
+		} else if (parent instanceof CompoundDefinition) {
+			return getMethodName((CompoundDefinition) parent) + "_compound";
+		} else {
+			throw new RuntimeException("Found unknown subclass " + parent.getClass().getName());
 		}
-		return null;
 	}
 
 	private int getIndex(EObject object, EObject parent) {
