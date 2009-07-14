@@ -1,9 +1,12 @@
 package org.emftext.test.packrat_parser;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.test.code_completion.resource.cct.CctPackratParser;
 import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresPackratParser;
 
@@ -39,11 +42,16 @@ public class PackratParserTest extends TestCase {
 		
 		private String content;
 		private boolean expectedResult;
+		private String expectedModel;
 
-		public GrammarFeatureParseTest(String content, boolean expectedResult) {
+		public GrammarFeatureParseTest(String content, String expectedModel) {
 			super("Parse " + content.replace("\n", "").replace("\r", ""));
 			this.content = content;
-			this.expectedResult = expectedResult;
+			this.expectedResult = expectedModel != null;
+			this.expectedModel = expectedModel;
+			if (this.expectedModel != null) {
+				this.expectedModel = "Root(" + this.expectedModel + ")";
+			}
 		}
 		
 		public void runTest() {
@@ -52,9 +60,30 @@ public class PackratParserTest extends TestCase {
 			EObject root = parser.parse();
 			if (expectedResult) {
 				assertNotNull("Parsing should be successful.", root);
+				checkModel(root);
 			} else {
 				assertNull("Parsing should be fail.", root);
 			}
+		}
+
+		private void checkModel(EObject root) {
+			if (expectedModel == null) {
+				return;
+			}
+			String modelString = convertToString(root);
+			System.out.println("checkModel() EXPECTED: " + expectedModel);
+			System.out.println("checkModel() ACTUAL:   " + modelString);
+			assertEquals(expectedModel, modelString);
+		}
+
+		private String convertToString(EObject root) {
+			final String name = root.eClass().getName();
+			List<EObject> contents = root.eContents();
+			List<String> contentStrings = new ArrayList<String>();
+			for (EObject eObject : contents) {
+				contentStrings.add(convertToString(eObject));
+			}
+			return name + "(" + StringUtil.explode(contentStrings, ",")+ ")";
 		}
 	}
 	
@@ -66,68 +95,68 @@ public class PackratParserTest extends TestCase {
 		suite.addTest(new CctParseTest("public class A {private A x;private A y;}"));
 		suite.addTest(new CctParseTest("public class A {private void method() {}}"));
 		
-		suite.addTest(new GrammarFeatureParseTest("co", true));
-		suite.addTest(new GrammarFeatureParseTest("co a b", true));
+		suite.addTest(new GrammarFeatureParseTest("co", "CompoundOptional()"));
+		suite.addTest(new GrammarFeatureParseTest("co a b", "CompoundOptional()"));
 
 		// this should not be parsable
-		suite.addTest(new GrammarFeatureParseTest("co a b a b", false));
-		suite.addTest(new GrammarFeatureParseTest("co a c", false));
-		suite.addTest(new GrammarFeatureParseTest("some thing stupid", false));
+		suite.addTest(new GrammarFeatureParseTest("co a b a b", null));
+		suite.addTest(new GrammarFeatureParseTest("co a c", null));
+		suite.addTest(new GrammarFeatureParseTest("some thing stupid", null));
 		
-		suite.addTest(new GrammarFeatureParseTest("cs", true));
-		suite.addTest(new GrammarFeatureParseTest("cs a b", true));
-		suite.addTest(new GrammarFeatureParseTest("cs a b a b", true));
-		suite.addTest(new GrammarFeatureParseTest("cs a b a b ab", true));
+		suite.addTest(new GrammarFeatureParseTest("cs", "CompoundStar()"));
+		suite.addTest(new GrammarFeatureParseTest("cs a b", "CompoundStar()"));
+		suite.addTest(new GrammarFeatureParseTest("cs a b a b", "CompoundStar()"));
+		suite.addTest(new GrammarFeatureParseTest("cs a b a b ab", "CompoundStar()"));
 
-		suite.addTest(new GrammarFeatureParseTest("cp", false));
-		suite.addTest(new GrammarFeatureParseTest("cp a b", true));
-		suite.addTest(new GrammarFeatureParseTest("cp a b a b", true));
-		suite.addTest(new GrammarFeatureParseTest("cp a b a b ab", true));
+		suite.addTest(new GrammarFeatureParseTest("cp", null));
+		suite.addTest(new GrammarFeatureParseTest("cp a b", "CompoundPlus()"));
+		suite.addTest(new GrammarFeatureParseTest("cp a b a b", "CompoundPlus()"));
+		suite.addTest(new GrammarFeatureParseTest("cp a b a b ab", "CompoundPlus()"));
 
-		suite.addTest(new GrammarFeatureParseTest("cs", true));
-		suite.addTest(new GrammarFeatureParseTest("cs a b", true));
-		suite.addTest(new GrammarFeatureParseTest("cs a b a b", true));
-		suite.addTest(new GrammarFeatureParseTest("cs a b a b ab", true));
+		suite.addTest(new GrammarFeatureParseTest("cs", "CompoundStar()"));
+		suite.addTest(new GrammarFeatureParseTest("cs a b", "CompoundStar()"));
+		suite.addTest(new GrammarFeatureParseTest("cs a b a b", "CompoundStar()"));
+		suite.addTest(new GrammarFeatureParseTest("cs a b a b ab", "CompoundStar()"));
 		
-		suite.addTest(new GrammarFeatureParseTest("mc", false));
-		suite.addTest(new GrammarFeatureParseTest("mc x", true));
-		suite.addTest(new GrammarFeatureParseTest("mc x x", false));
+		suite.addTest(new GrammarFeatureParseTest("mc", null));
+		suite.addTest(new GrammarFeatureParseTest("mc x", "MandatoryContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("mc x x", null));
 
-		suite.addTest(new GrammarFeatureParseTest("oc", true));
-		suite.addTest(new GrammarFeatureParseTest("oc x", true));
-		suite.addTest(new GrammarFeatureParseTest("oc x x", false));
+		suite.addTest(new GrammarFeatureParseTest("oc", "OptionalContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("oc x", "OptionalContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("oc x x", null));
 
-		suite.addTest(new GrammarFeatureParseTest("pc", false));
-		suite.addTest(new GrammarFeatureParseTest("pc x", true));
-		suite.addTest(new GrammarFeatureParseTest("pc x x", true));
+		suite.addTest(new GrammarFeatureParseTest("pc", null));
+		suite.addTest(new GrammarFeatureParseTest("pc x", "PlusContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("pc x x", "PlusContainment()"));
 
-		suite.addTest(new GrammarFeatureParseTest("sc", true));
-		suite.addTest(new GrammarFeatureParseTest("sc x", true));
-		suite.addTest(new GrammarFeatureParseTest("sc x x", true));
+		suite.addTest(new GrammarFeatureParseTest("sc", "StarContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("sc x", "StarContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("sc x x", "StarContainment()"));
 
-		suite.addTest(new GrammarFeatureParseTest("mnc", false));
-		suite.addTest(new GrammarFeatureParseTest("mnc xyz", true));
-		suite.addTest(new GrammarFeatureParseTest("mnc xyz xyz", false));
+		suite.addTest(new GrammarFeatureParseTest("mnc", null));
+		suite.addTest(new GrammarFeatureParseTest("mnc xyz", "StarContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("mnc xyz xyz", null));
 
-		suite.addTest(new GrammarFeatureParseTest("onc", true));
-		suite.addTest(new GrammarFeatureParseTest("onc xyz", true));
-		suite.addTest(new GrammarFeatureParseTest("onc xyz xyz", false));
+		suite.addTest(new GrammarFeatureParseTest("onc", "OptionalNonContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("onc xyz", "OptionalNonContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("onc xyz xyz", null));
 
-		suite.addTest(new GrammarFeatureParseTest("pnc", false));
-		suite.addTest(new GrammarFeatureParseTest("pnc xyz", true));
-		suite.addTest(new GrammarFeatureParseTest("pnc xyz xyz", true));
+		suite.addTest(new GrammarFeatureParseTest("pnc", null));
+		suite.addTest(new GrammarFeatureParseTest("pnc xyz", "PlusNonContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("pnc xyz xyz", "PlusNonContainment()"));
 
-		suite.addTest(new GrammarFeatureParseTest("snc", true));
-		suite.addTest(new GrammarFeatureParseTest("snc xyz", true));
-		suite.addTest(new GrammarFeatureParseTest("snc xyz xyz", true));
+		suite.addTest(new GrammarFeatureParseTest("snc", "StarNonContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("snc xyz", "StarNonContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("snc xyz xyz", "StarNonContainment()"));
 		
-		suite.addTest(new GrammarFeatureParseTest("alternativeA", true));
-		suite.addTest(new GrammarFeatureParseTest("alternativeB", true));
-		suite.addTest(new GrammarFeatureParseTest("alternativeA alternativeB", true));
+		suite.addTest(new GrammarFeatureParseTest("alternativeA", "AlternativeSyntax()"));
+		suite.addTest(new GrammarFeatureParseTest("alternativeB", "AlternativeSyntax()"));
+		suite.addTest(new GrammarFeatureParseTest("alternativeA alternativeB", "AlternativeSyntax(),AlternativeSyntax()"));
 		
-		suite.addTest(new GrammarFeatureParseTest("concreteA", true));
-		suite.addTest(new GrammarFeatureParseTest("concreteB", true));
-		suite.addTest(new GrammarFeatureParseTest("concreteA concreteB", true));
+		suite.addTest(new GrammarFeatureParseTest("concreteA", "ConcretSubclassA()"));
+		suite.addTest(new GrammarFeatureParseTest("concreteB", "ConcretSubclassB()"));
+		suite.addTest(new GrammarFeatureParseTest("concreteA concreteB", "ConcretSubclassA(),ConcretSubclassB()"));
 		
 		return suite;
 	}

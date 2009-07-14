@@ -28,11 +28,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EARLY_EXIT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
@@ -43,7 +41,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
@@ -73,7 +70,6 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
@@ -252,8 +248,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			StringComposite sc) {
 		addAddErrorToResourceMethod(sc);
 		addAddExpectedElementMethod(sc);
-		addAddMapEntryMethod(sc);
-		addAddObjectToListMethod(sc);
+		generatorUtil.addAddMapEntryMethod(sc);
+		generatorUtil.addAddObjectToListMethod(sc);
 		addApplyMethod(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
 		addCopyLocalizationInfosMethod1(sc);
@@ -468,21 +464,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	private void addAddMapEntryMethod(StringComposite sc) {
-		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + DUMMY_E_OBJECT + " dummy) {");
-		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
-		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
-		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
-		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
-		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + MAP_UTIL + ".castToEMap(value);");
-		sc.add("if (mapKey != null && mapValue != null) {");
-		sc.add("valueMap.put(mapKey, mapValue);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
 	private void addGetOptionsMethod(StringComposite sc) {
 		sc.add("protected " + MAP + "<?,?> getOptions() {");
 		sc.add("return options;");
@@ -551,14 +532,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
    			}
 		sc.add("}");
 		sc.add("throw new " + UnexpectedContentTypeException.class.getName() + "(typeObject);");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	private void addAddObjectToListMethod(StringComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")");
-        sc.add("private boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
-        sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -865,7 +838,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        sc.add(ruleName);
 	        sc.add(" returns [" + recursiveType.getQualifiedInterfaceName() + " element = null]");
 	        sc.add("@init{");
-			sc.add("element = " + getCreateObjectCall(recursiveType) + ";");
+			sc.add("element = " + genClassUtil.getCreateObjectCall(recursiveType) + ";");
 	        sc.add("collectHiddenTokens(element);");
 	        sc.add(LIST + "<" + E_OBJECT + "> dummyEObjects  = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 	        sc.add("}");
@@ -947,7 +920,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	    	sc.add(ruleName +  "_tail");
 	        sc.add(" returns [" + DUMMY_E_OBJECT + " element = null]");
 	        sc.add("@init{");
-	        sc.add("element = new " + DUMMY_E_OBJECT + "(" + getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
+	        sc.add("element = new " + DUMMY_E_OBJECT + "(" + genClassUtil.getCreateObjectCall(rule.getMetaclass()) + "()" +", \""+recurseName+"\");");
 	        sc.add("collectHiddenTokens(element);");
 	        sc.add("}");
 	        sc.add(":");
@@ -961,16 +934,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	        
 	}
 
-	private String getCreateObjectCall(GenClass genClass) {
-		GenPackage genPackage = genClass.getGenPackage();
-		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
-			return "new " + DUMMY_E_OBJECT + "("+ genPackage.getQualifiedPackageClassName() + ".eINSTANCE.get" + genClass.getName() 
-					+ "(),\"" + genClass.getName() + "\")";
-	    } else {
-	    	return genPackage.getQualifiedFactoryInterfaceName() + ".eINSTANCE.create" + genClass.getName() + "()";
-	    }
-	}
-	
 	private void printGrammarRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
         
 		for (Rule rule : concreteSyntax.getAllRules()) {
@@ -1112,7 +1075,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		// StringTemplate does treat % special
 		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString.replace("%", "\\u0025") + "\"), " + identifier + ");");
     	sc.add("if (element == null) {");
-    	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
+    	sc.add("element = " + genClassUtil.getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
     	sc.add("collectHiddenTokens(element);");
     	sc.add("copyLocalizationInfos((CommonToken)" + identifier + ", element);");
@@ -1214,7 +1177,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             		proxyType = instanceType;
             	}
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
-            	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + getCreateObjectCall(proxyType) + ";"); 
+            	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + genClassUtil.getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
             	resolvements.add("registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	// remember that we must resolve proxy objects for this feature
@@ -1242,7 +1205,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			String expressionToBeSet, StringComposite resolvements, String tokenName) {
 		sc.add("{");
     	sc.add("if (element == null) {");
-    	sc.add("element = " + getCreateObjectCall(rule.getMetaclass()) + ";");
+    	sc.add("element = " + genClassUtil.getCreateObjectCall(rule.getMetaclass()) + ";");
     	sc.add("}");
     	// TODO mseifert: escape tokeName correctly
     	sc.add("String tokenName = \"" + tokenName + "\";");
@@ -1257,32 +1220,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("if (" + ident + " != null) {");
     	sc.add(resolvements);
 		sc.add("if (" + expressionToBeSet + " != null) {");
-		if (eFeature.getUpperBound() == 1) {
-			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
-				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
-								+ generatorUtil.getFeatureConstant(genClass, genFeature)
-								+ "), "
-								+ expressionToBeSet
-								+ ");");
-			} else {
-				sc.add("element.eSet(element.eClass().getEStructuralFeature("
-						+ generatorUtil.getFeatureConstant(genClass, genFeature)
-						+ "), " + expressionToBeSet + ");");
-			}
-		} else {
-			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
-				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
-								+ generatorUtil.getFeatureConstant(genClass,
-										genFeature)
-								+ "), "
-								+ expressionToBeSet
-								+ ");");
-			} else {
-				sc.add("addObjectToList(element, "
-						+ generatorUtil.getFeatureConstant(genClass, genFeature)
-						+ ", " + expressionToBeSet + ");");
-			}
-		}
+		final String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
+		generatorUtil.addCodeToSetFeature(sc, genClass, featureConstant, eFeature,
+				expressionToBeSet);
 		sc.add("}");
         sc.add("collectHiddenTokens(element);");
         if (terminal instanceof Containment) {
@@ -1298,8 +1238,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	sc.add("}");
         sc.add("}");
 	}
-    
-    
+
 	private void printImplicitChoiceRules(StringComposite sc, EList<GenClass> eClassesWithSyntax, Map<GenClass,Collection<Terminal>> eClassesReferenced){
 
 		for(GenClass referencedClass : eClassesReferenced.keySet()) {

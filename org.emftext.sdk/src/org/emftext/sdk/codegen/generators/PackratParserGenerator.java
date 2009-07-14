@@ -1,8 +1,11 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_EMF_TEXT_PARSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
@@ -12,7 +15,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESO
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATCHER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STACK;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -20,9 +25,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -36,6 +41,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
+import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -44,6 +50,7 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
  * An experimental implementation of a Packrat parser. Currently a 
@@ -73,6 +80,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_EMF_TEXT_PARSER + " {");
 		sc.addLineBreak();
+		addInnerClasses(sc);
 		addFields(sc);
 		addConstructors(sc);
 		addMethods(sc);
@@ -81,6 +89,99 @@ public class PackratParserGenerator extends BaseGenerator {
 		
 		out.write(sc.toString());
 		return true;
+	}
+
+	private void addInnerClasses(StringComposite sc) {
+		sc.add("public interface ICommandContext {");
+		sc.add("public " + E_OBJECT + " getCurrentContainer();");
+		sc.add("public " + E_OBJECT + " getCurrentObject();");
+		sc.add("public void setCurrentObject(" + E_OBJECT + " newObject);");
+		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer);");
+		sc.add("public void popCurrentContainer();");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public static class CommandContext implements ICommandContext {");
+		sc.add("private " + STACK + "<" + E_OBJECT +"> containerStack = new " + STACK + "<" + E_OBJECT +">();");
+		sc.add("private " + E_OBJECT + " currentObject;");
+		sc.add("public " + E_OBJECT + " getCurrentContainer() {");
+		sc.add("if (containerStack.isEmpty()) {");
+		sc.add("return null;");
+		sc.add("} else {");
+		sc.add("return containerStack.peek();");
+		sc.add("}");
+		sc.add("}");
+		sc.add("public " + E_OBJECT + " getCurrentObject() {");
+		sc.add("return currentObject;");
+		sc.add("}");
+		sc.add("public void setCurrentObject(" + E_OBJECT + " newObject) {");
+		sc.add("System.out.println(\"current object is now \" + newObject);");
+		sc.add("this.currentObject = newObject;");
+		sc.add("}");
+		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer) {");
+		sc.add("containerStack.push(newContainer);");
+		sc.add("}");
+		sc.add("public void popCurrentContainer() {");
+		sc.add("containerStack.pop();");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public interface ICommand {");
+		sc.add("public void execute(ICommandContext context);");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public static class CreateObjectCommand implements ICommand {");
+		sc.addLineBreak();
+		sc.add("private " + E_OBJECT + " object;");
+		sc.addLineBreak();
+		sc.add("public CreateObjectCommand(" + E_OBJECT + " object) {");
+		sc.add("this.object = object;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void execute(ICommandContext context) {");
+		sc.add("System.out.println(\"CREATE \" + object);");
+		sc.add("context.setCurrentObject(object);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public static class AddObjectToFeatureCommand implements ICommand {");
+		sc.addLineBreak();
+		sc.add("private int featureID;");
+		sc.addLineBreak();
+		sc.add("public AddObjectToFeatureCommand(int featureID) {");
+		sc.add("this.featureID = featureID;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void execute(ICommandContext context) {");
+		sc.add(E_OBJECT + " container = context.getCurrentContainer();");
+		sc.add(E_OBJECT + " object = context.getCurrentObject();");
+		sc.add("System.out.println(\"ADD \" + object + \" TO \" + container);");
+		sc.add("addObjectToFeature(container, object, featureID);");
+		sc.add("}");
+		addAddObjectToFeatureMethod(sc);
+		generatorUtil.addAddMapEntryMethod(sc);
+		generatorUtil.addAddObjectToListMethod(sc);
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public static class PushContainerCommand implements ICommand {");
+		sc.add("public void execute(ICommandContext context) {");
+		sc.add("System.out.println(\"PUSH \" + context.getCurrentObject());");
+		sc.add("context.pushCurrentContainer(context.getCurrentObject());");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public static class PopContainerCommand implements ICommand {");
+		sc.add("public void execute(ICommandContext context) {");
+		sc.add("System.out.println(\"POP\");");
+		sc.add("context.popCurrentContainer();");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addMethods(StringComposite sc) {
@@ -97,6 +198,26 @@ public class PackratParserGenerator extends BaseGenerator {
 		addMatchesRegexpMethod(sc);
 	}
 
+	private void addAddObjectToFeatureMethod(StringComposite sc) {
+		sc.add("public void addObjectToFeature(" + E_OBJECT + " container, " + OBJECT + " object, int featureConstant) {");
+		sc.add(E_STRUCTURAL_FEATURE + " eFeature = container.eClass().getEStructuralFeature(featureConstant);");
+		sc.add("if (eFeature.getUpperBound() == 1) {");
+		sc.add("if (" + MAP + ".Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
+		sc.add("addMapEntry(container, eFeature, (" + DUMMY_E_OBJECT +") object);");
+		sc.add("} else {");
+		sc.add("container.eSet(eFeature, object);");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("if (" + MAP + ".Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {");
+		sc.add("addMapEntry(container, eFeature, (" + DUMMY_E_OBJECT +") object);");
+		sc.add("} else {");
+		sc.add("addObjectToList(container, featureConstant, object);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addConstructors(StringComposite sc) {
 		addConstructor1(sc);
 		addConstructor2(sc);
@@ -108,15 +229,15 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add(MATCHER + " matcher = pattern.matcher(tail);");
 		sc.add("boolean matches = matcher.find();");
 		sc.add("String found = null;");
-		sc.add("System.out.println(\"Remaining input : \\\"\" + tail + \"\\\"\");");
-		sc.add("System.out.print(\"Trying to match \" + name + \" at \" + offset + \" -> \" + matches);");
+		//sc.add("System.out.println(\"Remaining input : \\\"\" + tail + \"\\\"\");");
+		//sc.add("System.out.print(\"Trying to match \" + name + \" at \" + offset + \" -> \" + matches);");
 		sc.add("if (matches) {");
 		sc.add("int start = matcher.start();");
 		sc.add("int end = matcher.end();");
 		sc.add("found = tail.substring(start, end);");
 		sc.add("offset = offset + end;");
 		sc.add("}");
-		sc.add("System.out.println(matches ? (\" : \\\"\" + found + \"\\\"\") : \"\");");
+		//sc.add("System.out.println(matches ? (\" : \\\"\" + found + \"\\\"\") : \"\");");
 		sc.add("return matches;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -156,7 +277,7 @@ public class PackratParserGenerator extends BaseGenerator {
 	private void addMatchesMethod(StringComposite sc) {
 		sc.add("public boolean matches(" + STRING + " keyword) {");
 		sc.add("boolean matches = content.startsWith(keyword, offset);");
-		sc.add("System.out.println(\"Trying to match \" + keyword + \" at \" + offset + \" -> \" + matches + \"\");");
+		//sc.add("System.out.println(\"Trying to match \" + keyword + \" at \" + offset + \" -> \" + matches + \"\");");
 		sc.add("if (matches) {");
 		sc.add("offset += keyword.length();");
 		sc.add("matchUnusedTokens();");
@@ -189,11 +310,20 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public " + E_OBJECT + " parse() {");
 		for (GenClass startSymbol : context.getConcreteSyntax().getActiveStartSymbols()) {
 			sc.add("offset = 0;");
-			sc.add("if (" + getRuleName(startSymbol) + "()) {");
+			sc.add("commands = new " + ARRAY_LIST + "<ICommand>();");
+			sc.add("boolean success = " + getRuleName(startSymbol) + "();");
+			sc.add("if (success) {");
+			sc.add("// remove the last pop container command to obtain");
+			sc.add("// the root element");
+			//sc.add("commands.remove(commands.size() - 1);");
+			sc.add("ICommandContext context = new CommandContext();");
+			sc.add("for (ICommand command : commands) {");
+			sc.add("command.execute(context);");
+			sc.add("}");
 			sc.add("// TODO perform this check only only if FORCE_EOF is set");
 			sc.add("if (offset == content.length()) {");
-			sc.add("// TODO return real root element");
-			sc.add("return new " + DynamicEObjectImpl.class.getName() + "();");
+			sc.add("// return root element");
+			sc.add("return context.getCurrentContainer();");
 			sc.add("} else {");
 			sc.add("return null;");
 			sc.add("}");
@@ -245,6 +375,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("private " + INPUT_STREAM_READER + " inputStream;");
 		sc.add("private int offset;");
 		sc.add("private " + STRING + " content = \"\";");
+		sc.add("private " + ARRAY_LIST + "<ICommand> commands;");
 		sc.addLineBreak();
 		
 		addTokenPatterns(sc);
@@ -288,9 +419,19 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addMethodForRule(StringComposite sc, ConcreteSyntax syntax, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
+		final String interfaceName = metaclass.getQualifiedInterfaceName();
+
 		sc.add("public boolean " + getRuleName(metaclass) + "() {");
 		Choice choice = rule.getDefinition();
-		sc.add("return " + getMethodName(choice) + "();");
+		sc.add(interfaceName + " element = " + genClassUtil.getCreateObjectCall(metaclass) + ";");
+		sc.add("commands.add(new CreateObjectCommand(element));");
+		sc.add("boolean success = " + getMethodName(choice) + "();");
+		sc.add("if (success) {");
+		sc.add("return true;");
+		sc.add("} else {");
+		sc.add("commands.remove(commands.size() - 1);");
+		sc.add("return false;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -336,6 +477,10 @@ public class PackratParserGenerator extends BaseGenerator {
 				addCardinalityCode(sc, syntax, cd);
 			} else if (part instanceof CsString) {
 				addCodeForCsString(sc, (CsString) part);
+			} else if (part instanceof WhiteSpaces) {
+				// do nothing
+			} else if (part instanceof LineBreak) {
+				// do nothing
 			} else {
 				throw new RuntimeException("Found unknown subclass " + part.getClass().getName());
 			}
@@ -434,24 +579,40 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addMethodForContainment(StringComposite sc, ConcreteSyntax syntax, Containment containment) {
+		final GenFeature genFeature = containment.getFeature();
+		final GenClass featureType = genFeature.getTypeGenClass();
+		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
+
 		sc.add("public boolean " + getMethodName(containment) + "() {");
 		sc.add("int offsetCopy = this.offset;");
-		final GenClass featureType = containment.getFeature().getTypeGenClass();
+		
+		// TODO I'm not quite sure whether this is the expected behavior.
+		// Do we add all subclasses as alternative even if the type of the
+		// reference is not abstract?
 		Collection<GenClass> alternatives = generatorUtil.getSubClassesWithSyntax(featureType, syntax);
 		if (genClassUtil.isConcrete(featureType) && 
 			generatorUtil.hasSyntax(featureType, syntax)) {
 			alternatives.add(featureType);
 		}
+		sc.add("commands.add(new PushContainerCommand());");
 		for (GenClass genClass : alternatives) {
 			sc.add("// try subclass " + genClass.getName());
+			sc.add("{");
 			sc.add("// restore old offset");
 			sc.add("this.offset = offsetCopy;");
 			sc.add("// TODO backtrack");
-			sc.add("if (" + getRuleName(genClass) + "()) {");
+			sc.add("boolean success = " + getRuleName(genClass) + "();");
+			sc.add("if (success) {");
+			sc.add("// TODO add command to add element to the containment reference");
+			sc.add("commands.add(new AddObjectToFeatureCommand(" + eFeature.getFeatureID() + "));");
+			sc.add("commands.add(new PopContainerCommand());");
 			sc.add("return true;");
+			sc.add("} else {");
+			sc.add("}");
 			sc.add("}");
 		}
 		sc.add("// no subclass matched");
+		sc.add("commands.remove(commands.size() - 1);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -480,7 +641,7 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addCodeForContainment(StringComposite sc, ConcreteSyntax syntax, Containment containment) {
-		sc.add("// handle containment reference " + containment.getFeature().getName());
+		sc.add("// handle containment reference '" + containment.getFeature().getName() + "'");
 		sc.add("matched &= " + getMethodName(containment) + "();");
 	}
 
@@ -495,7 +656,7 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private String getRuleName(GenClass metaClass) {
 		// TODO use fully qualified name
-		return "rule_" + metaClass.getName();
+		return "parse_" + metaClass.getName();
 	}
 
 	private String getMethodName(CardinalityDefinition cd) {
@@ -503,7 +664,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		int index = getIndex(cd, parent);
 		if (parent != null) {
 			Cardinality cardinality = cd.getCardinality();
-			// TODO do not use class names here
 			if (cd instanceof Terminal) {
 				return getMethodName(parent) + "_terminal_" + getName(cardinality) + index;
 			} else if (cd instanceof CompoundDefinition) {

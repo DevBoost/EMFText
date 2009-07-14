@@ -20,17 +20,28 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.util;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.util.EClassUtil;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -230,5 +241,59 @@ public class GeneratorUtil {
 			resolverFileNames.add(nameUtil.getTokenResolverClassName(syntax, tokenDefinition) + GenerationContext.JAVA_FILE_EXTENSION);
 		}
 		return resolverFileNames;
+	}
+
+	public void addCodeToSetFeature(StringComposite sc,
+			final GenClass genClass, final String featureConstant,
+			final EStructuralFeature eFeature, String expressionToBeSet) {
+		
+		if (eFeature.getUpperBound() == 1) {
+			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
+				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
+								+ featureConstant
+								+ "), "
+								+ expressionToBeSet
+								+ ");");
+			} else {
+				sc.add("element.eSet(element.eClass().getEStructuralFeature("
+						+ featureConstant
+						+ "), " + expressionToBeSet + ");");
+			}
+		} else {
+			if (Map.Entry.class.getName().equals(eFeature.getEType().getInstanceClassName())) {
+				sc.add("addMapEntry(element, element.eClass().getEStructuralFeature("
+								+ featureConstant
+								+ "), "
+								+ expressionToBeSet
+								+ ");");
+			} else {
+				sc.add("addObjectToList(element, "
+						+ featureConstant
+						+ ", " + expressionToBeSet + ");");
+			}
+		}
+	}
+
+	public void addAddMapEntryMethod(StringComposite sc) {
+		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + DUMMY_E_OBJECT + " dummy) {");
+		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
+		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
+		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
+		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
+		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + MAP_UTIL + ".castToEMap(value);");
+		sc.add("if (mapKey != null && mapValue != null) {");
+		sc.add("valueMap.put(mapKey, mapValue);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	public void addAddObjectToListMethod(StringComposite sc) {
+		sc.add("@SuppressWarnings(\"unchecked\")");
+        sc.add("private boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
+        sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
+        sc.add("}");
+        sc.addLineBreak();
 	}
 }

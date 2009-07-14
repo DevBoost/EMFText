@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Stack;
 import java.util.regex.Matcher;
 
 import org.antlr.runtime.BitSet;
@@ -172,6 +173,7 @@ public interface IClassNameConstants {
 	public String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
 	public String RESOLVER_SWITCH_FIELD_NAME = "resolverSwitch";
 	public String RUNTIME_EXCEPTION = RuntimeException.class.getName();
+	public String STACK = Stack.class.getName();
 	public String STRING = String.class.getName();
 	public String STRING_UTIL = StringUtil.class.getName();
 	public String STRING_WRITER = StringWriter.class.getName();

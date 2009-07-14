@@ -50,10 +50,11 @@ public class ResourcePluginContentCreator {
 	    creators.add(new DotProjectCreator());
 	    creators.add(new BuildPropertiesCreator());
 	    creators.add(new PluginXMLCreator());
+	    creators.add(new PackratParserCreator());
 	    creators.add(new ANTLRGrammarCreator());
 	    creators.add(new TextResourceCreator());
 	    creators.add(new ResourceFactoryCreator());
-	    creators.add(new ANTLRParserCreator());
+	    //creators.add(new ANTLRParserCreator());
 	    creators.add(new PrinterBaseCreator());
 	    creators.add(new PrinterCreator());
 	    creators.add(new ReferenceResolversCreator());
