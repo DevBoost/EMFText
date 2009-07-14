@@ -1,6 +1,20 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_EMF_TEXT_PARSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATCHER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +37,6 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
@@ -173,8 +186,13 @@ public class PackratParserGenerator extends BaseGenerator {
 		for (GenClass startSymbol : context.getConcreteSyntax().getActiveStartSymbols()) {
 			sc.add("offset = 0;");
 			sc.add("if (" + getRuleName(startSymbol) + "()) {");
+			sc.add("// TODO perform this check only only if FORCE_EOF is set");
+			sc.add("if (offset == content.length()) {");
 			sc.add("// TODO return real root element");
 			sc.add("return new " + DynamicEObjectImpl.class.getName() + "();");
+			sc.add("} else {");
+			sc.add("return null;");
+			sc.add("}");
 			sc.add("}");
 		}
 		sc.add("return null;");
@@ -279,16 +297,16 @@ public class PackratParserGenerator extends BaseGenerator {
 			Choice choice) {
 
 		sc.add("public boolean " + getMethodName(choice) + "() {");
-		List<Sequence> options = addCodeForChoice(sc, choice);
+		addCodeForChoice(sc, choice);
 		sc.add("}");
 		sc.addLineBreak();
 		
-		for (Sequence option : options) {
+		for (Sequence option : choice.getOptions()) {
 			addMethodForSequence(sc, syntax, option);
 		}
 	}
 
-	private List<Sequence> addCodeForChoice(StringComposite sc, Choice choice) {
+	private void addCodeForChoice(StringComposite sc, Choice choice) {
 		List<Sequence> options = choice.getOptions();
 		sc.add("// begin options");
 		for (Sequence option : options) {
@@ -298,7 +316,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		}
 		sc.add("// end options");
 		sc.add("return false;");
-		return options;
 	}
 
 	private void addMethodForSequence(StringComposite sc, ConcreteSyntax syntax,
@@ -306,6 +323,7 @@ public class PackratParserGenerator extends BaseGenerator {
 
 		sc.add("public boolean " + getMethodName(sequence) + "() {");
 		sc.add("boolean matchedAll = true;");
+		sc.add("int offsetCopy = offset;");
 		List<Definition> parts = sequence.getParts();
 		for (Definition part : parts) {
 			sc.add("// begin part");
@@ -319,6 +337,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			}
 			sc.add("if (!matchedAll) {");
 			sc.add("// stop matching the sequence");
+			sc.add("offset = offsetCopy;");
 			sc.add("return false;");
 			sc.add("}");
 		}
@@ -360,7 +379,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			sc.add("matchedAtLeastOnce |= matched;");
 			sc.add("}");
 			sc.add("// TODO backtrack");
-			sc.add("return matched;");
+			sc.add("return matchedAtLeastOnce;");
 		} else if (cardinality  instanceof QUESTIONMARK) {
 			// cardinality == 0..1
 			addCodeForElementWithCardinality(sc, syntax, definition);
@@ -386,13 +405,7 @@ public class PackratParserGenerator extends BaseGenerator {
 	private void addMethodForCompound(StringComposite sc,
 			ConcreteSyntax syntax, CompoundDefinition compound) {
 
-		Choice choice = compound.getDefinitions();
-		//TODO mseifert: continue here
-		//sc.add("public boolean " +  getMethodName(definitions) + "() {");
-		//addCodeForChoice(sc, syntax, choice);
-		sc.add("return true;");
-		sc.add("}");
-		sc.addLineBreak();
+		addMethodForChoice(sc, syntax, compound.getDefinitions());
 	}
 
 	private void addCardinalityCode(StringComposite sc, ConcreteSyntax syntax, CardinalityDefinition cd) {
