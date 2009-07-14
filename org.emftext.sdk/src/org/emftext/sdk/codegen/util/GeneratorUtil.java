@@ -23,7 +23,6 @@ package org.emftext.sdk.codegen.util;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -86,6 +85,12 @@ public class GeneratorUtil {
 			}
 		}
 		return subClasses;
+	}
+
+	public boolean hasSyntax(GenClass genClass,
+			ConcreteSyntax syntax) {
+
+		return contains(getClassesWithSyntax(syntax), genClass);
 	}
 
 	/**
@@ -163,7 +168,7 @@ public class GeneratorUtil {
 		return null;
 	}
 
-	private boolean contains(List<GenClass> genClasses,
+	private boolean contains(Collection<GenClass> genClasses,
 			GenClass genClass) {
 		for (GenClass next : genClasses) {
 			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {

@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -52,6 +53,9 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
 public class PackratParserGenerator extends BaseGenerator {
+	
+	private final GenClassUtil genClassUtil = new GenClassUtil();
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	
 	private GenerationContext context;
 	
@@ -432,9 +436,13 @@ public class PackratParserGenerator extends BaseGenerator {
 	private void addMethodForContainment(StringComposite sc, ConcreteSyntax syntax, Containment containment) {
 		sc.add("public boolean " + getMethodName(containment) + "() {");
 		sc.add("int offsetCopy = this.offset;");
-		GeneratorUtil generatorUtil = new GeneratorUtil();
-		Collection<GenClass> subclasses = generatorUtil.getSubClassesWithSyntax(containment.getFeature().getTypeGenClass(), syntax);
-		for (GenClass genClass : subclasses) {
+		final GenClass featureType = containment.getFeature().getTypeGenClass();
+		Collection<GenClass> alternatives = generatorUtil.getSubClassesWithSyntax(featureType, syntax);
+		if (genClassUtil.isConcrete(featureType) && 
+			generatorUtil.hasSyntax(featureType, syntax)) {
+			alternatives.add(featureType);
+		}
+		for (GenClass genClass : alternatives) {
 			sc.add("// try subclass " + genClass.getName());
 			sc.add("// restore old offset");
 			sc.add("this.offset = offsetCopy;");
