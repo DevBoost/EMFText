@@ -103,7 +103,6 @@ public class PackratParserGenerator extends BaseGenerator {
 
 		sc.add("public static class CommandContext implements ICommandContext {");
 		sc.add("private " + STACK + "<" + E_OBJECT +"> containerStack = new " + STACK + "<" + E_OBJECT +">();");
-		// TODO currentObject must by a stack
 		sc.add("private " + E_OBJECT + " currentObject;");
 		sc.add("public " + E_OBJECT + " getCurrentContainer() {");
 		sc.add("if (containerStack.isEmpty()) {");
