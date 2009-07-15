@@ -76,6 +76,7 @@ public class PackratParserTest extends TestCase {
 	
 	public static Test suite() {
 		TestSuite suite = new TestSuite("All tests");
+
 		suite.addTest(new CctParseTest("public class A {}"));
 		suite.addTest(new CctParseTest("public class A {\n}"));
 		suite.addTest(new CctParseTest("public class A {private A x;}"));
@@ -106,23 +107,23 @@ public class PackratParserTest extends TestCase {
 		suite.addTest(new GrammarFeatureParseTest("cs a b a b ab", "CompoundStar()"));
 		
 		suite.addTest(new GrammarFeatureParseTest("mc", null));
-		suite.addTest(new GrammarFeatureParseTest("mc x", "MandatoryContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("mc x", "MandatoryContainment(X())"));
 		suite.addTest(new GrammarFeatureParseTest("mc x x", null));
 
 		suite.addTest(new GrammarFeatureParseTest("oc", "OptionalContainment()"));
-		suite.addTest(new GrammarFeatureParseTest("oc x", "OptionalContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("oc x", "OptionalContainment(X())"));
 		suite.addTest(new GrammarFeatureParseTest("oc x x", null));
 
 		suite.addTest(new GrammarFeatureParseTest("pc", null));
-		suite.addTest(new GrammarFeatureParseTest("pc x", "PlusContainment()"));
-		suite.addTest(new GrammarFeatureParseTest("pc x x", "PlusContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("pc x", "PlusContainment(X())"));
+		suite.addTest(new GrammarFeatureParseTest("pc x x", "PlusContainment(X(),X())"));
 
 		suite.addTest(new GrammarFeatureParseTest("sc", "StarContainment()"));
-		suite.addTest(new GrammarFeatureParseTest("sc x", "StarContainment()"));
-		suite.addTest(new GrammarFeatureParseTest("sc x x", "StarContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("sc x", "StarContainment(X())"));
+		suite.addTest(new GrammarFeatureParseTest("sc x x", "StarContainment(X(),X())"));
 
 		suite.addTest(new GrammarFeatureParseTest("mnc", null));
-		suite.addTest(new GrammarFeatureParseTest("mnc xyz", "StarContainment()"));
+		suite.addTest(new GrammarFeatureParseTest("mnc xyz", "MandatoryNonContainment()"));
 		suite.addTest(new GrammarFeatureParseTest("mnc xyz xyz", null));
 
 		suite.addTest(new GrammarFeatureParseTest("onc", "OptionalNonContainment()"));
@@ -141,9 +142,9 @@ public class PackratParserTest extends TestCase {
 		suite.addTest(new GrammarFeatureParseTest("alternativeB", "AlternativeSyntax()"));
 		suite.addTest(new GrammarFeatureParseTest("alternativeA alternativeB", "AlternativeSyntax(),AlternativeSyntax()"));
 		
-		suite.addTest(new GrammarFeatureParseTest("concreteA", "ConcretSubclassA()"));
-		suite.addTest(new GrammarFeatureParseTest("concreteB", "ConcretSubclassB()"));
-		suite.addTest(new GrammarFeatureParseTest("concreteA concreteB", "ConcretSubclassA(),ConcretSubclassB()"));
+		suite.addTest(new GrammarFeatureParseTest("concreteA", "ConcreteSubclassA()"));
+		suite.addTest(new GrammarFeatureParseTest("concreteB", "ConcreteSubclassB()"));
+		suite.addTest(new GrammarFeatureParseTest("concreteA concreteB", "ConcreteSubclassA(),ConcreteSubclassB()"));
 		
 		return suite;
 	}

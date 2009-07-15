@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -151,6 +152,7 @@ public interface IClassNameConstants {
 	public String I_URI_MAPPING = IURIMapping.class.getName();
 	public String LEXER = Lexer.class.getName();
 	public String LIST = List.class.getName();
+	public String LINKED_LIST = LinkedList.class.getName();
 	public String LIST_ITERATOR = ListIterator.class.getName();
 	public String LIST_UTIL = ListUtil.class.getName();
 	public String LOCATION_MAP = LocationMap.class.getName();
