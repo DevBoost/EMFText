@@ -11,5 +11,7 @@ Require-Bundle: org.emftext.runtime,
  org.eclipse.emf,
  org.junit4,
  org.emftext.test.grammar_features,
- org.emftext.test.grammar_features.resource.grammar_features
+ org.emftext.test.grammar_features.resource.grammar_features,
+ org.eclipse.emf.edit,
+ org.eclipse.emf.transaction
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

@@ -1,18 +1,15 @@
 package org.emftext.test.packrat_parser;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.ITextParser;
-import org.emftext.runtime.util.StringUtil;
-import org.emftext.test.code_completion.resource.cct.CctPackratParser;
-import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresPackratParser;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import org.eclipse.emf.ecore.EObject;
+import org.emftext.runtime.resource.ITextParser;
+import org.emftext.test.code_completion.resource.cct.CctPackratParser;
+import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresPackratParser;
 
 /**
  * A basic test for the packrat parser generator. It basically
@@ -70,20 +67,10 @@ public class PackratParserTest extends TestCase {
 			if (expectedModel == null) {
 				return;
 			}
-			String modelString = convertToString(root);
+			String modelString = EObjectTestUtil.convertToString(root);
 			System.out.println("checkModel() EXPECTED: " + expectedModel);
 			System.out.println("checkModel() ACTUAL:   " + modelString);
 			assertEquals(expectedModel, modelString);
-		}
-
-		private String convertToString(EObject root) {
-			final String name = root.eClass().getName();
-			List<EObject> contents = root.eContents();
-			List<String> contentStrings = new ArrayList<String>();
-			for (EObject eObject : contents) {
-				contentStrings.add(convertToString(eObject));
-			}
-			return name + "(" + StringUtil.explode(contentStrings, ",")+ ")";
 		}
 	}
 	
