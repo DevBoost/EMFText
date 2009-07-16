@@ -257,7 +257,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addCreateInstanceMethod(lexerName, parserName, sc);
 		addDefaultConstructor(parserName, sc);
 		addDoParseMethod(lexerName, sc);
-		addGetFreshTokenResolveResultMethod(sc);
+		generatorUtil.addGetFreshTokenResolveResultMethod(sc);
 		addGetMismatchedTokenRecoveryTriesMethod(sc);
 		addGetMissingSymbolMethod(sc);
 		addGetOptionsMethod(sc);
@@ -532,14 +532,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
    			}
 		sc.add("}");
 		sc.add("throw new " + UnexpectedContentTypeException.class.getName() + "(typeObject);");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
-	private void addGetFreshTokenResolveResultMethod(StringComposite sc) {
-		sc.add("private " + TokenResolveResult.class.getName() + " getFreshTokenResolveResult() {");
-        sc.add("tokenResolveResult.clear();");
-        sc.add("return tokenResolveResult;");
         sc.add("}");
         sc.addLineBreak();
 	}

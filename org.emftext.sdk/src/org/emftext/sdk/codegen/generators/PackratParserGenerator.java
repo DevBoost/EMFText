@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_EMF_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
@@ -11,6 +12,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTIO
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -19,6 +23,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STACK;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN_RESOLVE_RESULT;
 
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -26,6 +31,7 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -65,10 +71,12 @@ public class PackratParserGenerator extends BaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	
 	private GenerationContext context;
+	private String tokenResolverFactoryName;
 	
 	public PackratParserGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getPackratParserClassName());
 		this.context = context;
+		this.tokenResolverFactoryName = context.getQualifiedTokenResolverFactoryClassName();
 	}
 
 	@Override
@@ -138,13 +146,13 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
-		sc.add("System.out.println(\"CREATE \" + object);");
+		//sc.add("System.out.println(\"CREATE \" + object);");
 		sc.add("context.pushCurrentContainer(object);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public static class AddObjectToFeatureCommand implements ICommand {");
+		sc.add("public class AddObjectToFeatureCommand implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
 		sc.addLineBreak();
@@ -158,25 +166,49 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("System.out.println(\"ADD \" + object + \" TO \" + container);");
 		sc.add("addObjectToFeature(container, object, featureID);");
 		sc.add("}");
-		addAddObjectToFeatureMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc);
-		generatorUtil.addAddObjectToListMethod(sc);
 		sc.add("}");
 		sc.addLineBreak();
 
-		/*
-		sc.add("public static class PushContainerCommand implements ICommand {");
+		sc.add("public class AddMatchToFeatureCommand implements ICommand {");
+		sc.addLineBreak();
+		sc.add("private int featureID;");
+		sc.add("private " + STRING + " match;");
+		sc.add("private " + STRING + " tokenName;");
+		sc.addLineBreak();
+		sc.add("public AddMatchToFeatureCommand(String match, String tokenName, int featureID) {");
+		sc.add("this.match = match;");
+		sc.add("this.tokenName = tokenName;");
+		sc.add("this.featureID = featureID;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
-		sc.add("System.out.println(\"PUSH \" + context.getCurrentObject());");
-		sc.add("context.pushCurrentContainer(context.getCurrentObject());");
+		//sc.add("System.out.println(\"ADD MATCH \" + featureID);");
+		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
+		sc.add("// TODO call token resolver");
+		sc.add(I_TOKEN_RESOLVER + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("tokenResolver.setOptions(getOptions());");
+		sc.add(I_TOKEN_RESOLVE_RESULT + " result = getFreshTokenResolveResult();");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = currentObject.eClass().getEStructuralFeature(featureID);");
+		sc.add("tokenResolver.resolve(match, feature, result);");
+		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
+		sc.add("if (resolvedObject == null) {");
+		sc.add("// TODO add error to resource");
+		//sc.add("addErrorToResource(result.getErrorMessage(), ((" + COMMON_TOKEN + ") " + ident + ").getLine(), ((" + COMMON_TOKEN + ") " + ident + ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") " + ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") " + ident + ").getStopIndex());");
+		sc.add("} else {");
+		sc.add("// TODO call reference resolver (if feature is a non-containment reference)");
+		sc.add("// set feature value");
+		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
+		sc.add("System.out.println(\"ADD \" + resolvedObject + \" TO \" + currentObject + \".\" + featureID);");
+		sc.add("addObjectToFeature(currentObject, resolvedObject, featureID);");
+		sc.add("}");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		*/
 
 		sc.add("public static class PopContainerCommand implements ICommand {");
 		sc.add("public void execute(ICommandContext context) {");
-		sc.add("System.out.println(\"POP\");");
+		//sc.add("System.out.println(\"POP\");");
 		sc.add("context.popCurrentContainer();");
 		sc.add("}");
 		sc.add("}");
@@ -189,6 +221,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		addParseMethod(sc);
 		addParseToExpectedElementsMethod(sc);
 		addSetResourceMethod(sc);
+		addGetOptionsMethod(sc);
 		addSetOptionsMethod(sc);
 
 		addMatchesMethod(sc);
@@ -196,6 +229,10 @@ public class PackratParserGenerator extends BaseGenerator {
 		addMatchUnusedTokensMethod(sc);
 		addMatchesRegexpMethod(sc);
 		addDiscardCommandsMethod(sc);
+		addAddObjectToFeatureMethod(sc);
+		generatorUtil.addAddMapEntryMethod(sc);
+		generatorUtil.addAddObjectToListMethod(sc);
+		generatorUtil.addGetFreshTokenResolveResultMethod(sc);
 	}
 
 	private void addDiscardCommandsMethod(StringComposite sc) {
@@ -231,21 +268,23 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addMatchesRegexpMethod(StringComposite sc) {
-		sc.add("public boolean matchesRegexp(" + PATTERN + " pattern, String name) {");
-		sc.add("String tail = content.substring(offset);");
+		sc.add("public " + STRING + " matchesRegexp(" + PATTERN + " pattern, String name) {");
+		sc.add(STRING + " tail = content.substring(offset);");
 		sc.add(MATCHER + " matcher = pattern.matcher(tail);");
 		sc.add("boolean matches = matcher.find();");
 		//sc.add("String found = null;");
 		//sc.add("System.out.println(\"Remaining input : \\\"\" + tail + \"\\\"\");");
 		//sc.add("System.out.print(\"Trying to match \" + name + \" at \" + offset + \" -> \" + matches);");
 		sc.add("if (matches) {");
-		//sc.add("int start = matcher.start();");
+		sc.add("int start = matcher.start();");
 		sc.add("int end = matcher.end();");
-		//sc.add("found = tail.substring(start, end);");
+		sc.add(STRING + " match = tail.substring(start, end);");
 		sc.add("offset = offset + end;");
-		sc.add("}");
 		//sc.add("System.out.println(matches ? (\" : \\\"\" + found + \"\\\"\") : \"\");");
-		sc.add("return matches;");
+		sc.add("return match;");
+		sc.add("} else {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -258,7 +297,8 @@ public class PackratParserGenerator extends BaseGenerator {
 		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (tokenDefinition.isHidden()) {
 				String field = getFieldName(tokenDefinition);
-				sc.add("found |= matchesRegexp(" + field + ", \"unused " + field + "\");");
+				sc.add("// TODO add tokens to collect-in features");
+				sc.add("found |= null != matchesRegexp(" + field + ", \"unused " + field + "\");");
 			}
 		}
 		sc.add("if (!found) {");
@@ -271,12 +311,14 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addMatchesUsedTokenMethod(StringComposite sc) {
-		sc.add("public boolean matchesUsedToken(" + PATTERN + " pattern, String name) {");
-		sc.add("boolean matches = matchesRegexp(pattern, name);");
-		sc.add("if (matches) {");
+		sc.add("public " + STRING + " matchesUsedToken(" + PATTERN + " pattern, String name) {");
+		sc.add(STRING + " match = matchesRegexp(pattern, name);");
+		sc.add("if (match != null) {");
 		sc.add("matchUnusedTokens();");
+		sc.add("return match;");
+		sc.add("} else {");
+		sc.add("return null;");
 		sc.add("}");
-		sc.add("return matches;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -294,8 +336,16 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
+	private void addGetOptionsMethod(StringComposite sc) {
+		sc.add("public " + MAP + "<?, ?> getOptions() {");
+		sc.add("return options;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
 	private void addSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
+		sc.add("this.options = options;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -384,6 +434,9 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("private int offset;");
 		sc.add("private " + STRING + " content = \"\";");
 		sc.add("private " + LINKED_LIST + "<ICommand> commands;");
+		sc.add("private " + I_TOKEN_RESOLVER_FACTORY + " tokenResolverFactory = new " + tokenResolverFactoryName + "();");
+		sc.add("private " + TOKEN_RESOLVE_RESULT + " tokenResolveResult = new " + TOKEN_RESOLVE_RESULT + "();");
+		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
 		
 		addTokenPatterns(sc);
@@ -445,11 +498,11 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		addMethodForChoice(sc, syntax, choice);
+		addMethodForChoice(sc, syntax, metaclass, choice);
 	}
 
 	private void addMethodForChoice(StringComposite sc, ConcreteSyntax syntax,
-			Choice choice) {
+			GenClass ruleMetaClass, Choice choice) {
 
 		sc.add("public boolean " + getMethodName(choice) + "() {");
 		addCodeForChoice(sc, choice);
@@ -457,7 +510,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		
 		for (Sequence option : choice.getOptions()) {
-			addMethodForSequence(sc, syntax, option);
+			addMethodForSequence(sc, syntax, ruleMetaClass, option);
 		}
 	}
 
@@ -474,7 +527,7 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addMethodForSequence(StringComposite sc, ConcreteSyntax syntax,
-			Sequence sequence) {
+			GenClass ruleMetaClass, Sequence sequence) {
 
 		sc.add("public boolean " + getMethodName(sequence) + "() {");
 		sc.add("boolean matchedAll = true;");
@@ -507,13 +560,13 @@ public class PackratParserGenerator extends BaseGenerator {
 		
 		for (Definition definition : parts) {
 			if (definition instanceof CardinalityDefinition) {
-				addMethodForCardinality(sc, syntax, (CardinalityDefinition) definition);
+				addMethodForCardinality(sc, syntax, ruleMetaClass, (CardinalityDefinition) definition);
 			}
 		}
 	}
 
 	private void addMethodForCardinality(StringComposite sc, ConcreteSyntax syntax,
-			CardinalityDefinition definition) {
+			GenClass ruleMetaClass, CardinalityDefinition definition) {
 
 		Cardinality cardinality = definition.getCardinality();
 
@@ -521,12 +574,12 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("boolean matched = true;");
 		if (cardinality == null) {
 			// cardinality == 1
-			addCodeForElementWithCardinality(sc, syntax, definition);
+			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("return matched;");
 		} else if (cardinality instanceof STAR) {
 			// cardinality == 0..*
 			sc.add("while (matched) {");
-			addCodeForElementWithCardinality(sc, syntax, definition);
+			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("}");
 			sc.add("// TODO backtrack");
 			sc.add("return true;");
@@ -534,14 +587,14 @@ public class PackratParserGenerator extends BaseGenerator {
 			// cardinality == 1..*
 			sc.add("boolean matchedAtLeastOnce = false;");
 			sc.add("while (matched) {");
-			addCodeForElementWithCardinality(sc, syntax, definition);
+			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("matchedAtLeastOnce |= matched;");
 			sc.add("}");
 			sc.add("// TODO backtrack");
 			sc.add("return matchedAtLeastOnce;");
-		} else if (cardinality  instanceof QUESTIONMARK) {
+		} else if (cardinality instanceof QUESTIONMARK) {
 			// cardinality == 0..1
-			addCodeForElementWithCardinality(sc, syntax, definition);
+			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("return true;");
 		} else {
 			throw new RuntimeException("Found unknown cardinality " + cardinality.getClass().getName());
@@ -552,7 +605,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		if (definition instanceof Containment) {
 			addMethodForContainment(sc, syntax, (Containment) definition);
 		} else if (definition instanceof CompoundDefinition) {
-			addMethodForCompound(sc, syntax, (CompoundDefinition) definition);
+			addMethodForCompound(sc, syntax, ruleMetaClass, (CompoundDefinition) definition);
 		} else if (definition instanceof Terminal) {
 			// do nothing - we handle terminals in-line instead of generating
 			// a method for each terminal
@@ -562,18 +615,18 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addMethodForCompound(StringComposite sc,
-			ConcreteSyntax syntax, CompoundDefinition compound) {
+			ConcreteSyntax syntax, GenClass ruleMetaClass, CompoundDefinition compound) {
 
-		addMethodForChoice(sc, syntax, compound.getDefinitions());
+		addMethodForChoice(sc, syntax, ruleMetaClass, compound.getDefinitions());
 	}
 
 	private void addCardinalityCode(StringComposite sc, ConcreteSyntax syntax, CardinalityDefinition cd) {
 		sc.add("matchedAll = " + getMethodName(cd) + "();");
 	}
 
-	private void addCodeForElementWithCardinality(StringComposite sc, ConcreteSyntax syntax, CardinalityDefinition cd) {
+	private void addCodeForElementWithCardinality(StringComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, CardinalityDefinition cd) {
 		if (cd instanceof Terminal) {
-			addCodeForTerminal(sc, syntax, (Terminal) cd);
+			addCodeForTerminal(sc, syntax, ruleMetaClass, (Terminal) cd);
 		} else if (cd instanceof CompoundDefinition) {
 			addCodeForCompoundDefinition(sc, syntax, (CompoundDefinition) cd);
 		} else {
@@ -631,14 +684,21 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("matchedAll &= matches(\"" + value + "\");");
 	}
 
-	private void addCodeForTerminal(StringComposite sc, ConcreteSyntax syntax, Terminal terminal) {
+	private void addCodeForTerminal(StringComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Terminal terminal) {
 		if (terminal instanceof Placeholder) {
 			Placeholder defaultTokenTerminal = (Placeholder) terminal;
 			TokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
 			String regexp = tokenDefinition.getRegex();
 			sc.add("// match regexp \"" + regexp + "\"");
 			String fieldName = getFieldName(tokenDefinition);
-			sc.add("matched &= matchesUsedToken(" + fieldName + ", \"" + fieldName+ "\");");
+			sc.add("String match = matchesUsedToken(" + fieldName + ", \"" + fieldName+ "\");");
+			sc.add("matched &= (match != null);");
+			sc.add("if (matched) {");
+			GenFeature genFeature = terminal.getFeature();
+			// TODO use feature constant instead
+			final String featureConstant = generatorUtil.getFeatureConstant(ruleMetaClass, genFeature);
+			sc.add("commands.add(new AddMatchToFeatureCommand(match, \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
+			sc.add("}");
 		} else if (terminal instanceof Containment) {
 			Containment containment = (Containment) terminal;
 			addCodeForContainment(sc, syntax, containment);

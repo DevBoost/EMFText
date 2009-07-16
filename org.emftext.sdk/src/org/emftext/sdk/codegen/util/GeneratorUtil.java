@@ -38,6 +38,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.util.EClassUtil;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -290,9 +291,17 @@ public class GeneratorUtil {
 	}
 
 	public void addAddObjectToListMethod(StringComposite sc) {
-		sc.add("@SuppressWarnings(\"unchecked\")");
+		//sc.add("@SuppressWarnings(\"unchecked\")");
         sc.add("private boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
         sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	public void addGetFreshTokenResolveResultMethod(StringComposite sc) {
+		sc.add("private " + TokenResolveResult.class.getName() + " getFreshTokenResolveResult() {");
+        sc.add("tokenResolveResult.clear();");
+        sc.add("return tokenResolveResult;");
         sc.add("}");
         sc.addLineBreak();
 	}
