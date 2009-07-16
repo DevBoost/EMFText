@@ -89,7 +89,6 @@ public class TextResourceGenerator extends BaseGenerator {
 	private ConcreteSyntax concreteSyntax;
 	private String resolverSwitchClassName;
 	private String printerClassName;
-	private String parserClassName;
 	private String csSyntaxName;
 	private String qualifiedMetaInformationClassName;
 	private String problemClassName;
@@ -100,7 +99,6 @@ public class TextResourceGenerator extends BaseGenerator {
 		this.csSyntaxName = concreteSyntax.getName();
 		this.resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
 		this.printerClassName = context.getQualifiedPrinterName();
-		this.parserClassName = context.getQualifiedParserClassName();
 		this.problemClassName = context.getQualifiedProblemClassName();
 		this.qualifiedMetaInformationClassName = context.getQualifiedMetaInformationClassName();
 	}
@@ -646,7 +644,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("}");
         sc.addLineBreak();
         
-        sc.add(ITextParser.class.getName() + " parser = new " + parserClassName + "().createInstance(actualInputStream, encoding);");
+        sc.add(ITextParser.class.getName() + " parser = getMetaInformation().createParser(actualInputStream, encoding);");
         sc.add("parser.setResource(this);");
         sc.add("parser.setOptions(options);");
         sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
