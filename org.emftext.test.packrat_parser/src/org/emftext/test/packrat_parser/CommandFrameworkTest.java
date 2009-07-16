@@ -50,6 +50,6 @@ public class CommandFrameworkTest extends TestCase {
 		Command set = AddCommand.create(ed, root, featureID, classA);
 		set.execute();
 		
-		assertEquals("Root(ConcreteSubclassA())", EObjectTestUtil.convertToString(root));
+		assertEquals("Root{ConcreteSubclassA}", EObjectTestUtil.convertToString(root));
 	}
 }
