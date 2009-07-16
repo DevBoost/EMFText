@@ -95,7 +95,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public interface ICommandContext {");
 		sc.add("public " + E_OBJECT + " getCurrentContainer();");
 		sc.add("public " + E_OBJECT + " getCurrentObject();");
-		sc.add("public void setCurrentObject(" + E_OBJECT + " newObject);");
 		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer);");
 		sc.add("public void popCurrentContainer();");
 		sc.add("}");
@@ -114,12 +113,10 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public " + E_OBJECT + " getCurrentObject() {");
 		sc.add("return currentObject;");
 		sc.add("}");
-		sc.add("public void setCurrentObject(" + E_OBJECT + " newObject) {");
-		sc.add("System.out.println(\"current object is now \" + newObject);");
-		sc.add("this.currentObject = newObject;");
-		sc.add("}");
 		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer) {");
 		sc.add("containerStack.push(newContainer);");
+		sc.add("System.out.println(\"current object is now \" + newContainer);");
+		sc.add("currentObject = newContainer;");
 		sc.add("}");
 		sc.add("public void popCurrentContainer() {");
 		sc.add("currentObject = containerStack.pop();");
@@ -142,7 +139,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add("System.out.println(\"CREATE \" + object);");
-		sc.add("context.setCurrentObject(object);");
+		sc.add("context.pushCurrentContainer(object);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -167,6 +164,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 
+		/*
 		sc.add("public static class PushContainerCommand implements ICommand {");
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add("System.out.println(\"PUSH \" + context.getCurrentObject());");
@@ -174,6 +172,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+		*/
 
 		sc.add("public static class PopContainerCommand implements ICommand {");
 		sc.add("public void execute(ICommandContext context) {");
@@ -236,13 +235,13 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("String tail = content.substring(offset);");
 		sc.add(MATCHER + " matcher = pattern.matcher(tail);");
 		sc.add("boolean matches = matcher.find();");
-		sc.add("String found = null;");
+		//sc.add("String found = null;");
 		//sc.add("System.out.println(\"Remaining input : \\\"\" + tail + \"\\\"\");");
 		//sc.add("System.out.print(\"Trying to match \" + name + \" at \" + offset + \" -> \" + matches);");
 		sc.add("if (matches) {");
-		sc.add("int start = matcher.start();");
+		//sc.add("int start = matcher.start();");
 		sc.add("int end = matcher.end();");
-		sc.add("found = tail.substring(start, end);");
+		//sc.add("found = tail.substring(start, end);");
 		sc.add("offset = offset + end;");
 		sc.add("}");
 		//sc.add("System.out.println(matches ? (\" : \\\"\" + found + \"\\\"\") : \"\");");
@@ -435,7 +434,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add(interfaceName + " element = " + genClassUtil.getCreateObjectCall(metaclass) + ";");
 		sc.add("int commandIndexBackup = commands.size();");
 		sc.add("commands.add(new CreateObjectCommand(element));");
-		sc.add("commands.add(new PushContainerCommand());");
 		sc.add("boolean success = " + getMethodName(choice) + "();");
 		sc.add("if (success) {");
 		sc.add("commands.add(new PopContainerCommand());");
@@ -585,7 +583,7 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addCodeForCompoundDefinition(StringComposite sc,
 			ConcreteSyntax syntax, CompoundDefinition cd) {
-		sc.add("// TODO handle compounds correctly");
+		sc.add("// handle compound definition");
 		Choice choice = cd.getDefinitions();
 		sc.add("matched = " + getMethodName(choice) + "();");
 	}
