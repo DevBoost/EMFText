@@ -31,7 +31,6 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -123,7 +122,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer) {");
 		sc.add("containerStack.push(newContainer);");
-		sc.add("System.out.println(\"current object is now \" + newContainer);");
+		//sc.add("System.out.println(\"current object is now \" + newContainer);");
 		sc.add("currentObject = newContainer;");
 		sc.add("}");
 		sc.add("public void popCurrentContainer() {");
