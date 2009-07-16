@@ -47,5 +47,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="CompoundStar" eSuperTypes="#//Child"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompoundPlus" eSuperTypes="#//Child"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompoundOptional" eSuperTypes="#//Child"/>
-  <eClassifiers xsi:type="ecore:EClass" name="X"/>
+  <eClassifiers xsi:type="ecore:EClass" name="X">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassWithAttributes" eSuperTypes="#//Child">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a1" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a2" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
 </ecore:EPackage>

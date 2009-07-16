@@ -33,5 +33,7 @@ RULES {
 	CompoundStar     ::= "cs" ("a" "b")*;
 	CompoundPlus     ::= "cp" ("a" "b")+;
 	
-	X ::= "x";
+	X ::= "x" (name[])?;
+	
+	ClassWithAttributes ::= "cwa" a1[] a2[];
 }
