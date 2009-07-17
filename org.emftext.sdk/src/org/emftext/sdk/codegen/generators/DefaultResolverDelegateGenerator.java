@@ -45,6 +45,7 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		addMatchesMethod1(sc);
 		addMatchesMethod2(sc);
 		addGetNameMethod(sc);
+		addTypeCheckMethod(sc);
 		
 		sc.add("}");
 		out.print(sc.toString());
@@ -168,8 +169,7 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		sc.add("return true;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add(E_CLASS + " eClass = element.eClass();");
-		sc.add("boolean hasCorrectType = eClass.equals(type) || eClass.getEAllSuperTypes().contains(type);");
+		sc.add("boolean hasCorrectType = hasCorrectType(element, type.getInstanceClass());");
 		sc.add("if (!hasCorrectType) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -220,6 +220,12 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
+	private void addTypeCheckMethod(StringComposite sc) {
+		sc.add("private boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {");
+		sc.add("return expectedTypeClass.isInstance(element);");
+		sc.add("}");
+	}
+	
 	private void addFields(StringComposite sc) {
 		sc.add("public final static " + STRING + " NAME_FEATURE = \"name\";");
 		sc.addLineBreak();
