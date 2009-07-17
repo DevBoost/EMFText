@@ -138,13 +138,15 @@ public class PackratParserGenerator extends BaseGenerator {
 
 		sc.add("public static class CreateObjectCommand implements ICommand {");
 		sc.addLineBreak();
-		sc.add("private " + E_OBJECT + " object;");
+		sc.add("private " + E_CLASS + " eClass;");
 		sc.addLineBreak();
-		sc.add("public CreateObjectCommand(" + E_OBJECT + " object) {");
-		sc.add("this.object = object;");
+		sc.add("public CreateObjectCommand(" + E_CLASS + " eClass) {");
+		sc.add("this.eClass = eClass;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
+		sc.add(E_OBJECT + " object = eClass.getEPackage().getEFactoryInstance().create(eClass);");
+		//sc.add("System.out.println(\"CREATING \" + eClass.getName() + \" : \" + object);");
 		//sc.add("System.out.println(\"CREATE \" + object);");
 		sc.add("context.pushCurrentContainer(object);");
 		sc.add("}");
@@ -479,13 +481,12 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addMethodForRule(StringComposite sc, ConcreteSyntax syntax, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
-		final String interfaceName = metaclass.getQualifiedInterfaceName();
 
 		sc.add("public boolean " + getRuleName(metaclass) + "() {");
 		Choice choice = rule.getDefinition();
-		sc.add(interfaceName + " element = " + genClassUtil.getCreateObjectCall(metaclass) + ";");
+		sc.add(E_CLASS + " eClass = " + genClassUtil.getAccessor(metaclass) + ";");
 		sc.add("int commandIndexBackup = commands.size();");
-		sc.add("commands.add(new CreateObjectCommand(element));");
+		sc.add("commands.add(new CreateObjectCommand(eClass));");
 		sc.add("boolean success = " + getMethodName(choice) + "();");
 		sc.add("if (success) {");
 		sc.add("commands.add(new PopContainerCommand());");
