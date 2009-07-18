@@ -803,8 +803,6 @@ public class PackratParserGenerator extends BaseGenerator {
 			sc.add("matchedAtLeastOnce |= matched;");
 			sc.add("}");
 			sc.add("// TODO backtrack");
-			sc.add("if (matchedAtLeastOnce) {");
-			sc.add("}");
 			sc.add("return matchedAtLeastOnce;");
 		} else if (cardinality instanceof QUESTIONMARK) {
 			// cardinality == 0..1
