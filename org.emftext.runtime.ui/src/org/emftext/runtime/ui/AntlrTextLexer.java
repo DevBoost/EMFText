@@ -11,7 +11,7 @@ import org.emftext.runtime.resource.ITextToken;
 // TODO generate this class
 public class AntlrTextLexer implements ITextLexer {
 
-	private final static TokenHelper tokenHelper = new TokenHelper();
+	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
     private String[] tokenNames;
 	private Lexer antlrLexer;
 	

@@ -58,7 +58,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
-import org.emftext.runtime.ui.TokenHelper;
+import org.emftext.runtime.ui.AntlrTokenHelper;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 
@@ -70,7 +70,7 @@ import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 public class SyntaxColoringPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 
-	private final static TokenHelper tokenHelper = new TokenHelper();
+	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
 
 	private static final Map<String, List<HighlightingColorListItem>> content = new HashMap<String, List<HighlightingColorListItem>>();
 
