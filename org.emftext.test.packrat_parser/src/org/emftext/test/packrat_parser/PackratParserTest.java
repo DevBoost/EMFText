@@ -120,6 +120,13 @@ public class PackratParserTest extends TestCase {
 		}
 	}
 	
+	public static class GrammarFeatureParseErrorModelTest extends AbstractParseTest {
+		
+		public GrammarFeatureParseErrorModelTest(String content, String expectedModel) {
+			super(content, expectedModel, "", new Grammar_featuresMetaInformation(), new Grammar_featuresPackratParser(new ByteArrayInputStream(content.getBytes()), null));
+		}
+	}
+	
 	public static Test suite() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				new CctMetaInformation().getSyntaxName(),
@@ -213,6 +220,9 @@ public class PackratParserTest extends TestCase {
 		suite.addTest(new GrammarFeatureParseErrorTest("mc ", "Keyword x"));
 		suite.addTest(new GrammarFeatureParseErrorTest("mc x:", "token TEXT"));
 		suite.addTest(new GrammarFeatureParseErrorTest("mnc", "token TEXT"));
+
+		// this test does fail because no model is created for unparsable input
+		//suite.addTest(new GrammarFeatureParseErrorModelTest("mc ", "MandatoryContainment"));
 		return suite;
 	}
 }
