@@ -134,4 +134,45 @@ public class StringUtil {
 		}
 		return tokenName;
 	}
+	
+	public static int getLine(String text, int offset) {
+		return getLineAndCharPosition(text, offset)[0];
+	}
+	
+	public static int getCharPositionInLine(String text, int offset) {
+		return getLineAndCharPosition(text, offset)[1];
+	}
+	
+	public static Integer[] getLineAndCharPosition(String text, int offset) {
+		int index = 0;
+		int line = 0;
+		int positionInLine = 0;
+		while (true) {
+			line++;
+			positionInLine = offset - index + 1;
+			int nextN = text.indexOf("\n", index);
+			int nextR = text.indexOf("\r", index);
+			int nextNorR = Integer.MAX_VALUE;
+			if (nextN >= 0) {
+				nextNorR = nextN;
+			} else if (nextR >= 0 && nextR < nextNorR) {
+				nextNorR = nextR;
+			} else {
+				// found no EOL character
+				break;
+			}
+			
+			index = nextNorR + 1;
+			if (index == nextN) {
+				index++;
+			}
+			if (index == nextR) {
+				index++;
+			}
+			if (index > offset) {
+				break;
+			}
+		}
+		return new Integer[] {line, positionInLine};
+	}
 }

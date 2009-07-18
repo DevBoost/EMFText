@@ -8,9 +8,11 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
@@ -25,6 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STACK;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN_RESOLVE_RESULT;
 
 import java.io.PrintWriter;
@@ -115,6 +118,38 @@ public class PackratParserGenerator extends BaseGenerator {
 		addSetAttributeValueCommandClass(sc);
 		addAddProxyCommandClass(sc);
 		addPopContainerCommandClass(sc);
+		addSetLocationCommandClass(sc);
+	}
+
+	private void addSetLocationCommandClass(StringComposite sc) {
+		sc.add("public class SetLocationCommand implements ICommand {");
+		sc.add("public int start;");
+		sc.add("public int end;");
+		sc.addLineBreak();
+		sc.add("public SetLocationCommand(int start, int end) {");
+		sc.add("this.start = start;");
+		sc.add("this.end = end;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void execute(ICommandContext context) {");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return;");
+		sc.add("}");
+		sc.add(E_OBJECT + " currentContainer = context.getCurrentContainer();");
+		sc.add(INTEGER + "[] lineAndPosition = " + STRING_UTIL + ".getLineAndCharPosition(content, start);");
+		sc.add("int line = lineAndPosition[0];");
+		sc.add("int column = lineAndPosition[1];");
+		sc.add("final " + I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
+		sc.add("locationMap.setCharStart(currentContainer, start);");
+		sc.add("locationMap.setCharEnd(currentContainer, end);");
+		sc.add("locationMap.setColumn(currentContainer, column);");
+		sc.add("locationMap.setLine(currentContainer, line);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addPopContainerCommandClass(StringComposite sc) {
@@ -131,14 +166,16 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public class AddProxyCommand<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
-		sc.add("private " + STRING + " match;");
+		sc.add("private int start;");
+		sc.add("private int end;");
 		sc.add("private " + STRING + " tokenName;");
 		sc.add("private " + E_CLASS + " proxyClass;");
 		sc.add("private " + I_REFERENCE_RESOLVER + "<ContainerType, ReferenceType> referenceResolver;");
 		sc.addLineBreak();
 
-		sc.add("public AddProxyCommand(String match, String tokenName, int featureID, " + E_CLASS + " proxyClass, " + I_REFERENCE_RESOLVER + "<ContainerType, ReferenceType> referenceResolver) {");
-		sc.add("this.match = match;");
+		sc.add("public AddProxyCommand(int start, int end, String tokenName, int featureID, " + E_CLASS + " proxyClass, " + I_REFERENCE_RESOLVER + "<ContainerType, ReferenceType> referenceResolver) {");
+		sc.add("this.start = start;");
+		sc.add("this.end = end;");
 		sc.add("this.tokenName = tokenName;");
 		sc.add("this.featureID = featureID;");
 		sc.add("this.proxyClass = proxyClass;");
@@ -146,9 +183,9 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
-		//sc.add("System.out.println(\"ADD MATCH \" + featureID);");
+		sc.add(STRING + " match = content.substring(start, end);");
 		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
-		sc.add("// TODO call token resolver");
+		sc.add("// call token resolver");
 		sc.add(I_TOKEN_RESOLVER + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(I_TOKEN_RESOLVE_RESULT + " result = getFreshTokenResolveResult();");
@@ -156,11 +193,10 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("tokenResolver.resolve(match, feature, result);");
 		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
 		sc.add("if (resolvedObject == null) {");
-		sc.add("// TODO add error to resource");
-		//sc.add("addErrorToResource(result.getErrorMessage(), ((" + COMMON_TOKEN + ") " + ident + ").getLine(), ((" + COMMON_TOKEN + ") " + ident + ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") " + ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") " + ident + ").getStopIndex());");
+		sc.add("// add error to resource");
+		sc.add("addErrorToResource(result.getErrorMessage(), start, end);");
 		sc.add("} else {");
-		sc.add("// TODO call reference resolver (feature is a non-containment reference)");
-		//sc.add(STRING + "targetTypeName = " + STRING + ".class.getName()");
+		sc.add("// call reference resolver (feature is a non-containment reference)");
     	sc.add(STRING + " resolvedString = (" + STRING + ") resolvedObject;");
     	sc.add(E_OBJECT + " proxyObject = proxyClass.getEPackage().getEFactoryInstance().create(proxyClass);"); 
     	//sc.add("collectHiddenTokens(element);");
@@ -169,7 +205,7 @@ public class PackratParserGenerator extends BaseGenerator {
     			"<ContainerType, ReferenceType>(referenceResolver), (ContainerType) currentObject, (" + E_REFERENCE + ") feature, resolvedString, proxyObject);");
 		sc.add("// add proxy");
 		sc.add("assert feature instanceof " + E_REFERENCE + ";");
-		sc.add("System.out.println(\"ADD \" + proxyObject + \" TO \" + currentObject + \".\" + featureID);");
+		//sc.add("System.out.println(\"ADD \" + proxyObject + \" TO \" + currentObject + \".\" + featureID);");
 		sc.add("addObjectToFeature(currentObject, proxyObject, featureID);");
 		sc.add("}");
 		sc.add("}");
@@ -183,20 +219,22 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public class SetAttributeValueCommand implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
-		sc.add("private " + STRING + " match;");
+		sc.add("private int start;");
+		sc.add("private int end;");
 		sc.add("private " + STRING + " tokenName;");
 		sc.addLineBreak();
 
-		sc.add("public SetAttributeValueCommand(String match, String tokenName, int featureID) {");
-		sc.add("this.match = match;");
+		sc.add("public SetAttributeValueCommand(int start, int end, String tokenName, int featureID) {");
+		sc.add("this.start = start;");
+		sc.add("this.end = end;");
 		sc.add("this.tokenName = tokenName;");
 		sc.add("this.featureID = featureID;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
-		//sc.add("System.out.println(\"ADD MATCH \" + featureID);");
+		sc.add(STRING + " match = content.substring(start, end);");
 		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
-		sc.add("// TODO call token resolver");
+		sc.add("// call token resolver");
 		sc.add(I_TOKEN_RESOLVER + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("tokenResolver.setOptions(getOptions());");
 		sc.add(I_TOKEN_RESOLVE_RESULT + " result = getFreshTokenResolveResult();");
@@ -204,13 +242,12 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("tokenResolver.resolve(match, feature, result);");
 		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
 		sc.add("if (resolvedObject == null) {");
-		sc.add("// TODO add error to resource");
-		//sc.add("addErrorToResource(result.getErrorMessage(), ((" + COMMON_TOKEN + ") " + ident + ").getLine(), ((" + COMMON_TOKEN + ") " + ident + ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") " + ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") " + ident + ").getStopIndex());");
+		sc.add("// add error to resource");
+		sc.add("addErrorToResource(result.getErrorMessage(), start, end);");
 		sc.add("} else {");
-		sc.add("// TODO call reference resolver (if feature is a non-containment reference)");
-		sc.add("// set feature value");
+		sc.add("// add proxy (if feature is a non-containment reference)");
 		sc.add("assert feature instanceof " + E_ATTRIBUTE + ";");
-		sc.add("System.out.println(\"ADD \" + resolvedObject + \" TO \" + currentObject + \".\" + featureID);");
+		//sc.add("System.out.println(\"ADD \" + resolvedObject + \" TO \" + currentObject + \".\" + featureID);");
 		sc.add("addObjectToFeature(currentObject, resolvedObject, featureID);");
 		sc.add("}");
 		sc.add("}");
@@ -230,7 +267,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add(E_OBJECT + " container = context.getCurrentContainer();");
 		sc.add(E_OBJECT + " object = context.getCurrentObject();");
-		sc.add("System.out.println(\"ADD \" + object + \" TO \" + container);");
+		//sc.add("System.out.println(\"ADD \" + object + \" TO \" + container);");
 		sc.add("addObjectToFeature(container, object, featureID);");
 		sc.add("}");
 		sc.add("}");
@@ -327,6 +364,19 @@ public class PackratParserGenerator extends BaseGenerator {
 		generatorUtil.addAddObjectToListMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc);
 		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
+		// this is the two parameter version
+		addAddErrorToResourceMethod(sc);
+		// this is the four parameter version
+		generatorUtil.addAddErrorToResourceMethod(sc);
+	}
+
+	private void addAddErrorToResourceMethod(StringComposite sc) {
+		sc.add("public void addErrorToResource(" + STRING + " message, int start, int end) {");
+		sc.add("int line = " + STRING_UTIL + ".getLine(content, start);");
+		sc.add("int charPositionInLine  = " + STRING_UTIL + ".getCharPositionInLine(content, start);");
+		sc.add("addErrorToResource(message, line, charPositionInLine, start, end);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addDiscardCommandsMethod(StringComposite sc) {
@@ -362,7 +412,7 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addMatchesRegexpMethod(StringComposite sc) {
-		sc.add("public " + STRING + " matchesRegexp(" + PATTERN + " pattern, String name) {");
+		sc.add("public " + STRING + " matchesRegexp(" + PATTERN + " pattern, String name, boolean isUnusedToken) {");
 		sc.add(STRING + " tail = content.substring(offset);");
 		sc.add(MATCHER + " matcher = pattern.matcher(tail);");
 		sc.add("boolean matches = matcher.find();");
@@ -374,6 +424,9 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("int end = matcher.end();");
 		sc.add(STRING + " match = tail.substring(start, end);");
 		sc.add("offset = offset + end;");
+		sc.add("if (!isUnusedToken) {");
+		sc.add("offsetIgnoringUnusedTokens = offset;");
+		sc.add("}");
 		//sc.add("System.out.println(matches ? (\" : \\\"\" + found + \"\\\"\") : \"\");");
 		sc.add("return match;");
 		sc.add("} else {");
@@ -392,7 +445,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			if (tokenDefinition.isHidden()) {
 				String field = getFieldName(tokenDefinition);
 				sc.add("// TODO add tokens to collect-in features");
-				sc.add("found |= null != matchesRegexp(" + field + ", \"unused " + field + "\");");
+				sc.add("found |= null != matchesRegexp(" + field + ", \"unused " + field + "\", true);");
 			}
 		}
 		sc.add("if (!found) {");
@@ -406,7 +459,7 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addMatchesUsedTokenMethod(StringComposite sc) {
 		sc.add("public " + STRING + " matchesUsedToken(" + PATTERN + " pattern, String name) {");
-		sc.add(STRING + " match = matchesRegexp(pattern, name);");
+		sc.add(STRING + " match = matchesRegexp(pattern, name, false);");
 		sc.add("if (match != null) {");
 		sc.add("matchUnusedTokens();");
 		sc.add("return match;");
@@ -462,6 +515,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public " + E_OBJECT + " parse() {");
 		for (GenClass startSymbol : context.getConcreteSyntax().getActiveStartSymbols()) {
 			sc.add("offset = 0;");
+			sc.add("offsetIgnoringUnusedTokens = 0;");
 			sc.add("commands = new " + LINKED_LIST + "<ICommand>();");
 			sc.add("boolean success = " + getRuleName(startSymbol) + "();");
 			sc.add("if (success) {");
@@ -526,7 +580,10 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + INPUT_STREAM_READER + " inputStream;");
+		sc.add("// the current position in the content");
 		sc.add("private int offset;");
+		sc.add("// the current position in the content (ignoring trailing unused tokens (e.g., whitespaces)");
+		sc.add("private int offsetIgnoringUnusedTokens;");
 		sc.add("private " + STRING + " content = \"\";");
 		sc.add("private " + LINKED_LIST + "<ICommand> commands;");
 		sc.add("private " + I_TOKEN_RESOLVER_FACTORY + " tokenResolverFactory = new " + tokenResolverFactoryName + "();");
@@ -581,9 +638,11 @@ public class PackratParserGenerator extends BaseGenerator {
 		Choice choice = rule.getDefinition();
 		sc.add(E_CLASS + " eClass = " + genClassUtil.getAccessor(metaclass) + ";");
 		sc.add("int commandIndexBackup = commands.size();");
+		sc.add("int startOffset = offset;");
 		sc.add("commands.add(new CreateObjectCommand(eClass));");
 		sc.add("boolean success = " + getMethodName(choice) + "();");
 		sc.add("if (success) {");
+		sc.add("commands.add(new SetLocationCommand(startOffset, offsetIgnoringUnusedTokens));");
 		sc.add("commands.add(new PopContainerCommand());");
 		sc.add("return true;");
 		sc.add("} else {");
@@ -786,13 +845,14 @@ public class PackratParserGenerator extends BaseGenerator {
 			String regexp = tokenDefinition.getRegex();
 			sc.add("// match regexp \"" + regexp + "\"");
 			String fieldName = getFieldName(tokenDefinition);
+			sc.add("int offsetBeforeMatch = offset;");
 			sc.add("String match = matchesUsedToken(" + fieldName + ", \"" + fieldName+ "\");");
 			sc.add("matched &= (match != null);");
 			sc.add("if (matched) {");
 			GenFeature genFeature = terminal.getFeature();
 			final String featureConstant = generatorUtil.getFeatureConstant(ruleMetaClass, genFeature);
 			if (genFeature.getEcoreFeature() instanceof EAttribute) {
-				sc.add("commands.add(new SetAttributeValueCommand(match, \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
+				sc.add("commands.add(new SetAttributeValueCommand(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
 			} else if (genFeature.getEcoreFeature() instanceof EReference) {
 				// find a sub type that can be instantiated as a proxy
 				GenClass instanceType = genFeature.getTypeGenClass();
@@ -810,7 +870,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		    		proxyType = instanceType;
 		    	}
 				String proxyResolver = context.getReferenceResolverAccessor(genFeature);
-				sc.add("commands.add(new AddProxyCommand<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + instanceType.getQualifiedInterfaceName() + ">(match, \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
+				sc.add("commands.add(new AddProxyCommand<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + instanceType.getQualifiedInterfaceName() + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
 			} else {
 				throw new RuntimeException("Found unknown feature type for terminal.");
 			}

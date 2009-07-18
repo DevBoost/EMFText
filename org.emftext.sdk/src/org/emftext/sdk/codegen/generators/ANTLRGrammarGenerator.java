@@ -245,7 +245,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addMethods(String lexerName, String parserName,
 			StringComposite sc) {
-		addAddErrorToResourceMethod(sc);
+		generatorUtil.addAddErrorToResourceMethod(sc);
 		addAddExpectedElementMethod(sc);
 		generatorUtil.addAddMapEntryMethod(sc);
 		generatorUtil.addAddObjectToListMethod(sc);
@@ -267,7 +267,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addParseMethod(sc);
 		addParseToExpectedElementsMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
-		generatorUtil.addRegisterContextDependentProxyMethod(sc);
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, true);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
@@ -633,27 +633,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("parseToIndexTypeObject = type;");
 		sc.add("parse();");
 		sc.add("return this.expectedElements;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addAddErrorToResourceMethod(StringComposite sc) {
-		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, int line,");
-		sc.add("int charPositionInLine, int startIndex, int stopIndex) {");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
-		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the parser is used for");
-		sc.add("// code completion");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("resource.addProblem(new " + ABSTRACT_PROBLEM + "() {");
-		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
-		sc.add("}");
-		sc.add("public " + STRING + " getMessage() {");
-		sc.add("return errorMessage;");
-		sc.add("}");
-		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

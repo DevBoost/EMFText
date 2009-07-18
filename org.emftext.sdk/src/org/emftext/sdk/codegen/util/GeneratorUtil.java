@@ -20,15 +20,18 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.util;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PROBLEM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -309,11 +312,13 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addRegisterContextDependentProxyMethod(StringComposite sc) {
-		sc.add("protected <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" +
-				ContextDependentURIFragmentFactory.class.getName() + "<ContainerType, ReferenceType> factory," +
-				"ContainerType element, " + E_REFERENCE + " reference, String id," +
-				E_OBJECT + " proxy) {");
+	public void addRegisterContextDependentProxyMethod(StringComposite sc, boolean addTypeParameters) {
+		String typeParameters = "";
+		if (addTypeParameters) {
+			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
+		}
+		sc.add("protected " + typeParameters + "void registerContextDependentProxy(" + ContextDependentURIFragmentFactory.class.getName() + "<ContainerType, ReferenceType> factory," + "ContainerType element, " + E_REFERENCE + " reference, String id," + E_OBJECT
+				+ " proxy) {");
 		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
@@ -334,5 +339,25 @@ public class GeneratorUtil {
         sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
         sc.addLineBreak();
+	}
+
+	public void addAddErrorToResourceMethod(StringComposite sc) {
+		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, int line, int charPositionInLine, int startIndex, int stopIndex) {");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("resource.addProblem(new " + ABSTRACT_PROBLEM + "() {");
+		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
+		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+		sc.add("}");
+		sc.add("public " + STRING + " getMessage() {");
+		sc.add("return errorMessage;");
+		sc.add("}");
+		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 }
