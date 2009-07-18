@@ -105,114 +105,29 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addInnerClasses(StringComposite sc) {
-		sc.add("public interface ICommandContext {");
-		sc.add("public " + E_OBJECT + " getCurrentContainer();");
-		sc.add("public " + E_OBJECT + " getCurrentObject();");
-		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer);");
-		sc.add("public void popCurrentContainer();");
-		sc.add("}");
-		sc.addLineBreak();
+		// add context interface and implementation
+		addICommandContextClass(sc);
+		addCommandContextClass(sc);
+		// add command interface and implementations
+		addICommandClass(sc);
+		addCreateObjectCommandClass(sc);
+		addContainedObjectCommandClass(sc);
+		addSetAttributeValueCommandClass(sc);
+		addAddProxyCommandClass(sc);
+		addPopContainerCommandClass(sc);
+	}
 
-		sc.add("public static class CommandContext implements ICommandContext {");
-		sc.add("private " + STACK + "<" + E_OBJECT +"> containerStack = new " + STACK + "<" + E_OBJECT +">();");
-		sc.add("private " + E_OBJECT + " currentObject;");
-		sc.add("public " + E_OBJECT + " getCurrentContainer() {");
-		sc.add("if (containerStack.isEmpty()) {");
-		sc.add("return null;");
-		sc.add("} else {");
-		sc.add("return containerStack.peek();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("public " + E_OBJECT + " getCurrentObject() {");
-		sc.add("return currentObject;");
-		sc.add("}");
-		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer) {");
-		sc.add("containerStack.push(newContainer);");
-		//sc.add("System.out.println(\"current object is now \" + newContainer);");
-		sc.add("currentObject = newContainer;");
-		sc.add("}");
-		sc.add("public void popCurrentContainer() {");
-		sc.add("currentObject = containerStack.pop();");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-
-		sc.add("public interface ICommand {");
-		sc.add("public void execute(ICommandContext context);");
-		sc.add("}");
-		sc.addLineBreak();
-
-		sc.add("public static class CreateObjectCommand implements ICommand {");
-		sc.addLineBreak();
-		sc.add("private " + E_CLASS + " eClass;");
-		sc.addLineBreak();
-		sc.add("public CreateObjectCommand(" + E_CLASS + " eClass) {");
-		sc.add("this.eClass = eClass;");
-		sc.add("}");
-		sc.addLineBreak();
+	private void addPopContainerCommandClass(StringComposite sc) {
+		sc.add("public static class PopContainerCommand implements ICommand {");
 		sc.add("public void execute(ICommandContext context) {");
-		sc.add(E_OBJECT + " object = eClass.getEPackage().getEFactoryInstance().create(eClass);");
-		//sc.add("System.out.println(\"CREATING \" + eClass.getName() + \" : \" + object);");
-		//sc.add("System.out.println(\"CREATE \" + object);");
-		sc.add("context.pushCurrentContainer(object);");
+		//sc.add("System.out.println(\"POP\");");
+		sc.add("context.popCurrentContainer();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
 
-		sc.add("public class AddContainedObjectCommand implements ICommand {");
-		sc.addLineBreak();
-		sc.add("private int featureID;");
-		sc.addLineBreak();
-		sc.add("public AddContainedObjectCommand(int featureID) {");
-		sc.add("this.featureID = featureID;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void execute(ICommandContext context) {");
-		sc.add(E_OBJECT + " container = context.getCurrentContainer();");
-		sc.add(E_OBJECT + " object = context.getCurrentObject();");
-		sc.add("System.out.println(\"ADD \" + object + \" TO \" + container);");
-		sc.add("addObjectToFeature(container, object, featureID);");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-
-		sc.add("public class SetAttributeValueCommand implements ICommand {");
-		sc.addLineBreak();
-		sc.add("private int featureID;");
-		sc.add("private " + STRING + " match;");
-		sc.add("private " + STRING + " tokenName;");
-		sc.addLineBreak();
-
-		sc.add("public SetAttributeValueCommand(String match, String tokenName, int featureID) {");
-		sc.add("this.match = match;");
-		sc.add("this.tokenName = tokenName;");
-		sc.add("this.featureID = featureID;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void execute(ICommandContext context) {");
-		//sc.add("System.out.println(\"ADD MATCH \" + featureID);");
-		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
-		sc.add("// TODO call token resolver");
-		sc.add(I_TOKEN_RESOLVER + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
-		sc.add("tokenResolver.setOptions(getOptions());");
-		sc.add(I_TOKEN_RESOLVE_RESULT + " result = getFreshTokenResolveResult();");
-		sc.add(E_STRUCTURAL_FEATURE + " feature = currentObject.eClass().getEStructuralFeature(featureID);");
-		sc.add("tokenResolver.resolve(match, feature, result);");
-		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
-		sc.add("if (resolvedObject == null) {");
-		sc.add("// TODO add error to resource");
-		//sc.add("addErrorToResource(result.getErrorMessage(), ((" + COMMON_TOKEN + ") " + ident + ").getLine(), ((" + COMMON_TOKEN + ") " + ident + ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") " + ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") " + ident + ").getStopIndex());");
-		sc.add("} else {");
-		sc.add("// TODO call reference resolver (if feature is a non-containment reference)");
-		sc.add("// set feature value");
-		sc.add("assert feature instanceof " + E_ATTRIBUTE + ";");
-		sc.add("System.out.println(\"ADD \" + resolvedObject + \" TO \" + currentObject + \".\" + featureID);");
-		sc.add("addObjectToFeature(currentObject, resolvedObject, featureID);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-
+	private void addAddProxyCommandClass(StringComposite sc) {
 		sc.add("public class AddProxyCommand<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
@@ -259,15 +174,136 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		generatorUtil.addRegisterContextDependentProxyMethod(sc);
+		generatorUtil.addRegisterContextDependentProxyMethod(sc, false);
 		sc.add("}");
 		sc.addLineBreak();
+	}
 
-		sc.add("public static class PopContainerCommand implements ICommand {");
-		sc.add("public void execute(ICommandContext context) {");
-		//sc.add("System.out.println(\"POP\");");
-		sc.add("context.popCurrentContainer();");
+	private void addSetAttributeValueCommandClass(StringComposite sc) {
+		sc.add("public class SetAttributeValueCommand implements ICommand {");
+		sc.addLineBreak();
+		sc.add("private int featureID;");
+		sc.add("private " + STRING + " match;");
+		sc.add("private " + STRING + " tokenName;");
+		sc.addLineBreak();
+
+		sc.add("public SetAttributeValueCommand(String match, String tokenName, int featureID) {");
+		sc.add("this.match = match;");
+		sc.add("this.tokenName = tokenName;");
+		sc.add("this.featureID = featureID;");
 		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void execute(ICommandContext context) {");
+		//sc.add("System.out.println(\"ADD MATCH \" + featureID);");
+		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
+		sc.add("// TODO call token resolver");
+		sc.add(I_TOKEN_RESOLVER + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("tokenResolver.setOptions(getOptions());");
+		sc.add(I_TOKEN_RESOLVE_RESULT + " result = getFreshTokenResolveResult();");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = currentObject.eClass().getEStructuralFeature(featureID);");
+		sc.add("tokenResolver.resolve(match, feature, result);");
+		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
+		sc.add("if (resolvedObject == null) {");
+		sc.add("// TODO add error to resource");
+		//sc.add("addErrorToResource(result.getErrorMessage(), ((" + COMMON_TOKEN + ") " + ident + ").getLine(), ((" + COMMON_TOKEN + ") " + ident + ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") " + ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") " + ident + ").getStopIndex());");
+		sc.add("} else {");
+		sc.add("// TODO call reference resolver (if feature is a non-containment reference)");
+		sc.add("// set feature value");
+		sc.add("assert feature instanceof " + E_ATTRIBUTE + ";");
+		sc.add("System.out.println(\"ADD \" + resolvedObject + \" TO \" + currentObject + \".\" + featureID);");
+		sc.add("addObjectToFeature(currentObject, resolvedObject, featureID);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addContainedObjectCommandClass(StringComposite sc) {
+		sc.add("public class AddContainedObjectCommand implements ICommand {");
+		sc.addLineBreak();
+		sc.add("private int featureID;");
+		sc.addLineBreak();
+		sc.add("public AddContainedObjectCommand(int featureID) {");
+		sc.add("this.featureID = featureID;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void execute(ICommandContext context) {");
+		sc.add(E_OBJECT + " container = context.getCurrentContainer();");
+		sc.add(E_OBJECT + " object = context.getCurrentObject();");
+		sc.add("System.out.println(\"ADD \" + object + \" TO \" + container);");
+		sc.add("addObjectToFeature(container, object, featureID);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateObjectCommandClass(StringComposite sc) {
+		sc.add("public static class CreateObjectCommand implements ICommand {");
+		sc.addLineBreak();
+		sc.add("private " + E_CLASS + " eClass;");
+		sc.addLineBreak();
+		sc.add("public CreateObjectCommand(" + E_CLASS + " eClass) {");
+		sc.add("this.eClass = eClass;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void execute(ICommandContext context) {");
+		sc.add(E_OBJECT + " object = eClass.getEPackage().getEFactoryInstance().create(eClass);");
+		//sc.add("System.out.println(\"CREATING \" + eClass.getName() + \" : \" + object);");
+		//sc.add("System.out.println(\"CREATE \" + object);");
+		sc.add("context.pushCurrentContainer(object);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addICommandClass(StringComposite sc) {
+		sc.add("public interface ICommand {");
+		sc.add("public void execute(ICommandContext context);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCommandContextClass(StringComposite sc) {
+		sc.add("public static class CommandContext implements ICommandContext {");
+		sc.addLineBreak();
+		sc.add("private " + STACK + "<" + E_OBJECT +"> containerStack = new " + STACK + "<" + E_OBJECT +">();");
+		sc.add("private " + E_OBJECT + " currentObject;");
+		sc.addLineBreak();
+		sc.add("public " + E_OBJECT + " getCurrentContainer() {");
+		sc.add("if (containerStack.isEmpty()) {");
+		sc.add("return null;");
+		sc.add("} else {");
+		sc.add("return containerStack.peek();");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + E_OBJECT + " getCurrentObject() {");
+		sc.add("return currentObject;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer) {");
+		sc.add("containerStack.push(newContainer);");
+		//sc.add("System.out.println(\"current object is now \" + newContainer);");
+		sc.add("currentObject = newContainer;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void popCurrentContainer() {");
+		sc.add("currentObject = containerStack.pop();");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addICommandContextClass(StringComposite sc) {
+		sc.add("public interface ICommandContext {");
+		sc.add("public " + E_OBJECT + " getCurrentContainer();");
+		sc.addLineBreak();
+		sc.add("public " + E_OBJECT + " getCurrentObject();");
+		sc.addLineBreak();
+		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer);");
+		sc.addLineBreak();
+		sc.add("public void popCurrentContainer();");
+		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}
