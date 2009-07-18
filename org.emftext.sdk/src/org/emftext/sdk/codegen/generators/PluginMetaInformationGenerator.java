@@ -150,7 +150,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addCreateParserMethod(StringComposite sc) {
-		String parserClassName = context.getQualifiedPackratParserClassName();
+		String parserClassName = context.getQualifiedParserClassName();
 		
 		sc.add("public " + I_TEXT_PARSER + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");
