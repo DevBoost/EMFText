@@ -11,6 +11,11 @@ TOKENS {
 	//DEFINE NUMBER $('0'..'9')*$;
 }
 
+TOKENSTYLES {
+	"mc" COLOR #FF0000, BOLD;
+	"x" COLOR #FF0000, BOLD;
+}
+
 RULES {
 	Root ::= children*;
 	
