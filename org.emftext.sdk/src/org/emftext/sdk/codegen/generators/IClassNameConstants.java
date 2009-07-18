@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -89,6 +90,7 @@ import org.emftext.runtime.util.StringUtil;
  */
 public interface IClassNameConstants {
 
+	public String COMPARATOR = Comparator.class.getName();
 	public String I_REFERENCE_RESOLVER = IReferenceResolver.class.getName();
 	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
 	public String MATCHER = Matcher.class.getName();

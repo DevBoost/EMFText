@@ -8,8 +8,8 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GenClassUtil;
@@ -55,6 +56,7 @@ import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
@@ -119,6 +121,29 @@ public class PackratParserGenerator extends BaseGenerator {
 		addAddProxyCommandClass(sc);
 		addPopContainerCommandClass(sc);
 		addSetLocationCommandClass(sc);
+		addParseErrorClass(sc);
+	}
+
+	private void addParseErrorClass(StringComposite sc) {
+		sc.add("public static class ParseError {");
+		sc.add("private " + STRING + " message;");
+		sc.add("private int offset;");
+		sc.addLineBreak();
+		sc.add("public ParseError(" + STRING + " message, int offset) {");
+		sc.add("this.message = message;");
+		sc.add("this.offset = offset;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + STRING + " getMessage() {");
+		sc.add("return message;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public int getOffset() {");
+		sc.add("return offset;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addSetLocationCommandClass(StringComposite sc) {
@@ -155,7 +180,6 @@ public class PackratParserGenerator extends BaseGenerator {
 	private void addPopContainerCommandClass(StringComposite sc) {
 		sc.add("public static class PopContainerCommand implements ICommand {");
 		sc.add("public void execute(ICommandContext context) {");
-		//sc.add("System.out.println(\"POP\");");
 		sc.add("context.popCurrentContainer();");
 		sc.add("}");
 		sc.add("}");
@@ -205,7 +229,6 @@ public class PackratParserGenerator extends BaseGenerator {
     			"<ContainerType, ReferenceType>(referenceResolver), (ContainerType) currentObject, (" + E_REFERENCE + ") feature, resolvedString, proxyObject);");
 		sc.add("// add proxy");
 		sc.add("assert feature instanceof " + E_REFERENCE + ";");
-		//sc.add("System.out.println(\"ADD \" + proxyObject + \" TO \" + currentObject + \".\" + featureID);");
 		sc.add("addObjectToFeature(currentObject, proxyObject, featureID);");
 		sc.add("}");
 		sc.add("}");
@@ -247,7 +270,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("} else {");
 		sc.add("// add proxy (if feature is a non-containment reference)");
 		sc.add("assert feature instanceof " + E_ATTRIBUTE + ";");
-		//sc.add("System.out.println(\"ADD \" + resolvedObject + \" TO \" + currentObject + \".\" + featureID);");
 		sc.add("addObjectToFeature(currentObject, resolvedObject, featureID);");
 		sc.add("}");
 		sc.add("}");
@@ -267,7 +289,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add(E_OBJECT + " container = context.getCurrentContainer();");
 		sc.add(E_OBJECT + " object = context.getCurrentObject();");
-		//sc.add("System.out.println(\"ADD \" + object + \" TO \" + container);");
 		sc.add("addObjectToFeature(container, object, featureID);");
 		sc.add("}");
 		sc.add("}");
@@ -285,8 +306,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add(E_OBJECT + " object = eClass.getEPackage().getEFactoryInstance().create(eClass);");
-		//sc.add("System.out.println(\"CREATING \" + eClass.getName() + \" : \" + object);");
-		//sc.add("System.out.println(\"CREATE \" + object);");
 		sc.add("context.pushCurrentContainer(object);");
 		sc.add("}");
 		sc.add("}");
@@ -320,7 +339,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer) {");
 		sc.add("containerStack.push(newContainer);");
-		//sc.add("System.out.println(\"current object is now \" + newContainer);");
 		sc.add("currentObject = newContainer;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -359,6 +377,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		addMatchUnusedTokensMethod(sc);
 		addMatchesRegexpMethod(sc);
 		addDiscardCommandsMethod(sc);
+		addAddParseErrorMethod(sc);
 		addAddObjectToFeatureMethod(sc);
 		generatorUtil.addAddMapEntryMethod(sc);
 		generatorUtil.addAddObjectToListMethod(sc);
@@ -368,6 +387,18 @@ public class PackratParserGenerator extends BaseGenerator {
 		addAddErrorToResourceMethod(sc);
 		// this is the four parameter version
 		generatorUtil.addAddErrorToResourceMethod(sc);
+		addAddParseErrorToResourceMethod(sc);
+	}
+
+	private void addAddParseErrorToResourceMethod(StringComposite sc) {
+		sc.add("public void addParseErrorToResource() {");
+		sc.add("if (parseError == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("int offset = parseError.getOffset();");
+		sc.add("addErrorToResource(parseError.getMessage(), offset, offset);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addAddErrorToResourceMethod(StringComposite sc) {
@@ -382,6 +413,15 @@ public class PackratParserGenerator extends BaseGenerator {
 	private void addDiscardCommandsMethod(StringComposite sc) {
 		sc.add("public void discardCommands(int index) {");
 		sc.add("commands.subList(index, commands.size()).clear();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddParseErrorMethod(StringComposite sc) {
+		sc.add("public void addParseError(ParseError pe) {");
+		sc.add("if (parseError == null || pe.getOffset() >= parseError.getOffset()) {");
+		sc.add("parseError = pe;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -458,12 +498,13 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addMatchesUsedTokenMethod(StringComposite sc) {
-		sc.add("public " + STRING + " matchesUsedToken(" + PATTERN + " pattern, String name) {");
+		sc.add("public " + STRING + " matchesUsedToken(" + PATTERN + " pattern, " + STRING + " name, " + STRING + " tokenName) {");
 		sc.add(STRING + " match = matchesRegexp(pattern, name, false);");
 		sc.add("if (match != null) {");
 		sc.add("matchUnusedTokens();");
 		sc.add("return match;");
 		sc.add("} else {");
+		sc.add("addParseError(new ParseError(\"Parse error: Expected token \" + tokenName + \".\", offset));");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("}");
@@ -473,10 +514,11 @@ public class PackratParserGenerator extends BaseGenerator {
 	private void addMatchesMethod(StringComposite sc) {
 		sc.add("public boolean matches(" + STRING + " keyword) {");
 		sc.add("boolean matches = content.startsWith(keyword, offset);");
-		//sc.add("System.out.println(\"Trying to match \" + keyword + \" at \" + offset + \" -> \" + matches + \"\");");
 		sc.add("if (matches) {");
 		sc.add("offset += keyword.length();");
 		sc.add("matchUnusedTokens();");
+		sc.add("} else {");
+		sc.add("addParseError(new ParseError(\"Parse error: Keyword \" + keyword + \" expected.\", offset));");
 		sc.add("}");
 		sc.add("return matches;");
 		sc.add("}");
@@ -512,31 +554,46 @@ public class PackratParserGenerator extends BaseGenerator {
 	}
 
 	private void addParseMethod(StringComposite sc) {
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		boolean forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.FORCE_EOF);
+
 		sc.add("public " + E_OBJECT + " parse() {");
-		for (GenClass startSymbol : context.getConcreteSyntax().getActiveStartSymbols()) {
+		sc.add("parseError = null;");
+		sc.add("boolean tryOtherStartSymbols = true;");
+		for (GenClass startSymbol : syntax.getActiveStartSymbols()) {
+			sc.add("// try start symbol: " + startSymbol.getName());
+			sc.add("if (tryOtherStartSymbols) {");
 			sc.add("offset = 0;");
 			sc.add("offsetIgnoringUnusedTokens = 0;");
 			sc.add("commands = new " + LINKED_LIST + "<ICommand>();");
 			sc.add("boolean success = " + getRuleName(startSymbol) + "();");
 			sc.add("if (success) {");
-			sc.add("ICommandContext context = new CommandContext();");
-			sc.add("// do not execute the last pop container command to obtain");
-			sc.add("// the root element");
-			sc.add("for (int c = 0; c < commands.size() - 1; c++) {");
-			sc.add("ICommand command = commands.get(c);");
-			sc.add("command.execute(context);");
-			sc.add("}");
-			sc.add("commands = null;");
-			sc.add("// TODO perform this check only only if FORCE_EOF is set");
-			sc.add("if (offset == content.length()) {");
-			sc.add("// return root element");
-			sc.add("return context.getCurrentContainer();");
+			if (forceEOFToken) {
+				sc.add("if (offset != content.length()) {");
+				sc.add("addParseError(new ParseError(\"EOF (end of file) expected.\", offset));");
+				sc.add("} else {");
+				sc.add("tryOtherStartSymbols = false;");
+				sc.add("}");
+			}
 			sc.add("} else {");
-			sc.add("return null;");
 			sc.add("}");
 			sc.add("}");
 		}
-		sc.add("return null;");
+		sc.add("// build content tree by executing commands");
+		sc.add("ICommandContext context = new CommandContext();");
+		sc.add("// do not execute the last pop container command to obtain");
+		sc.add("// the root element");
+		sc.add("for (int c = 0; c < commands.size() - 1; c++) {");
+		sc.add("ICommand command = commands.get(c);");
+		sc.add("command.execute(context);");
+		sc.add("}");
+		sc.add("commands = null;");
+		sc.add("if (!tryOtherStartSymbols) {");
+		sc.add("parseError = null;");
+		sc.add("}");
+		sc.add("addParseErrorToResource();");
+		sc.add("// return root element");
+		sc.add("return context.getCurrentContainer();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -590,6 +647,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("private " + TOKEN_RESOLVE_RESULT + " tokenResolveResult = new " + TOKEN_RESOLVE_RESULT + "();");
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + I_TEXT_RESOURCE + " resource;");
+		sc.add("private ParseError parseError;");
 		sc.addLineBreak();
 		
 		addTokenPatterns(sc);
@@ -605,7 +663,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			if ("TEXT".equals(tokenDefinition.getName())) {
 				regex = "[a-zA-Z]+";
 			} else if ("WHITESPACE".equals(tokenDefinition.getName())) {
-				regex = "[ ]";
+				regex = "[ \\\\t]";
 			} else if ("COMMENT".equals(tokenDefinition.getName())) {
 				regex = "//.*[\\\\n\\\\r]";
 			} else if ("LINEBREAK".equals(tokenDefinition.getName())) {
@@ -642,7 +700,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("commands.add(new CreateObjectCommand(eClass));");
 		sc.add("boolean success = " + getMethodName(choice) + "();");
 		sc.add("if (success) {");
-		sc.add("commands.add(new SetLocationCommand(startOffset, offsetIgnoringUnusedTokens));");
+		sc.add("commands.add(new SetLocationCommand(startOffset, offsetIgnoringUnusedTokens - 1));");
 		sc.add("commands.add(new PopContainerCommand());");
 		sc.add("return true;");
 		sc.add("} else {");
@@ -745,6 +803,8 @@ public class PackratParserGenerator extends BaseGenerator {
 			sc.add("matchedAtLeastOnce |= matched;");
 			sc.add("}");
 			sc.add("// TODO backtrack");
+			sc.add("if (matchedAtLeastOnce) {");
+			sc.add("}");
 			sc.add("return matchedAtLeastOnce;");
 		} else if (cardinality instanceof QUESTIONMARK) {
 			// cardinality == 0..1
@@ -819,7 +879,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			sc.add("// TODO backtrack");
 			sc.add("boolean success = " + getRuleName(genClass) + "();");
 			sc.add("if (success) {");
-			sc.add("// TODO add command to add element to the containment reference");
+			sc.add("// add command to add element to the containment reference");
 			sc.add("commands.add(new AddContainedObjectCommand(" + eFeature.getFeatureID() + "));");
 			sc.add("return true;");
 			sc.add("} else {");
@@ -845,8 +905,9 @@ public class PackratParserGenerator extends BaseGenerator {
 			String regexp = tokenDefinition.getRegex();
 			sc.add("// match regexp \"" + regexp + "\"");
 			String fieldName = getFieldName(tokenDefinition);
+			String tokenName = tokenDefinition.getName();
 			sc.add("int offsetBeforeMatch = offset;");
-			sc.add("String match = matchesUsedToken(" + fieldName + ", \"" + fieldName+ "\");");
+			sc.add("String match = matchesUsedToken(" + fieldName + ", \"" + fieldName+ "\", \"" + tokenName + "\");");
 			sc.add("matched &= (match != null);");
 			sc.add("if (matched) {");
 			GenFeature genFeature = terminal.getFeature();

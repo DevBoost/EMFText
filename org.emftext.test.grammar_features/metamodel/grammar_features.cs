@@ -1,6 +1,6 @@
 SYNTAXDEF grammar_features
 FOR <http://www.emftext.org/test/grammar_features>
-START Root
+START Root, SecondRoot
 
 OPTIONS {
 	generateCodeFromGeneratorModel = "true";
@@ -36,4 +36,6 @@ RULES {
 	X ::= "x" (":" name[])?;
 	
 	ClassWithAttributes ::= "cwa" a1[] a2[];
+	
+	SecondRoot ::= "SecondRoot";
 }
