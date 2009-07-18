@@ -30,7 +30,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.EARLY_EXIT_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
@@ -262,13 +261,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addGetMissingSymbolMethod(sc);
 		addGetOptionsMethod(sc);
 		addGetParseToIndexTypeObjectMethod(sc);
-		addGetReferenceResolverSwitchMethod(sc);
+		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
 		addGetTextResourceMethod(sc);
 		addGetTypeObjectMethod(sc);
 		addParseMethod(sc);
 		addParseToExpectedElementsMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
-		addRegisterContextDependentProxyMethod(sc);
+		generatorUtil.addRegisterContextDependentProxyMethod(sc);
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
@@ -501,17 +500,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         sc.addLineBreak();
 	}
 
-	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		sc.add("protected " + context.getQualifiedReferenceResolverSwitchClassName() + " getReferenceResolverSwitch() {");
-        sc.add(I_TEXT_RESOURCE + " resource = getResource();");
-        sc.add("if (resource == null) {");
-        sc.add("return null;");
-        sc.add("}");
-        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getMetaInformation().getReferenceResolverSwitch();");
-        sc.add("}");
-        sc.addLineBreak();
-	}
-
 	private void addDoParseMethod(String lexerName, StringComposite sc) {
 		sc.add("protected " + E_OBJECT + " doParse() throws " + RECOGNITION_EXCEPTION + " {");
         sc.add(new StringComponent("lastPosition = 0;", "lastPosition"));
@@ -645,23 +633,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("parseToIndexTypeObject = type;");
 		sc.add("parse();");
 		sc.add("return this.expectedElements;");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
-		sc.add("protected <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" +
-				ContextDependentURIFragmentFactory.class.getName() + "<ContainerType, ReferenceType> factory," +
-				"ContainerType element, " + E_REFERENCE + " reference, String id," +
-				E_OBJECT + " proxy) {");
-		sc.add("");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
-		sc.add("if (resource == null) {");
-		sc.add("// the resource can be null if the parser is used for");
-		sc.add("// code completion");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("resource.registerContextDependentProxy(factory, element, reference, id, proxy);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

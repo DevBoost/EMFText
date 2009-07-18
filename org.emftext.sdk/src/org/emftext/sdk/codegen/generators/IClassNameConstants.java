@@ -59,6 +59,7 @@ import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.IProblem;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
+import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextDiagnostic;
 import org.emftext.runtime.resource.ITextParser;
@@ -88,6 +89,7 @@ import org.emftext.runtime.util.StringUtil;
  */
 public interface IClassNameConstants {
 
+	public String I_REFERENCE_RESOLVER = IReferenceResolver.class.getName();
 	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
 	public String MATCHER = Matcher.class.getName();
 	public String PATTERN = java.util.regex.Pattern.class.getName();

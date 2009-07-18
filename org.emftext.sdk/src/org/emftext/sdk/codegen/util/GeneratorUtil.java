@@ -23,7 +23,9 @@ package org.emftext.sdk.codegen.util;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
@@ -38,6 +40,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
 import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.util.EClassUtil;
 import org.emftext.runtime.util.EObjectUtil;
@@ -302,6 +305,33 @@ public class GeneratorUtil {
 		sc.add("private " + TokenResolveResult.class.getName() + " getFreshTokenResolveResult() {");
         sc.add("tokenResolveResult.clear();");
         sc.add("return tokenResolveResult;");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	public void addRegisterContextDependentProxyMethod(StringComposite sc) {
+		sc.add("protected <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" +
+				ContextDependentURIFragmentFactory.class.getName() + "<ContainerType, ReferenceType> factory," +
+				"ContainerType element, " + E_REFERENCE + " reference, String id," +
+				E_OBJECT + " proxy) {");
+		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("if (resource == null) {");
+		sc.add("// the resource can be null if the parser is used for");
+		sc.add("// code completion");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("resource.registerContextDependentProxy(factory, element, reference, id, proxy);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	public void addGetReferenceResolverSwitchMethod(GenerationContext context, StringComposite sc) {
+		sc.add("protected " + context.getQualifiedReferenceResolverSwitchClassName() + " getReferenceResolverSwitch() {");
+        sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+        sc.add("if (resource == null) {");
+        sc.add("return null;");
+        sc.add("}");
+        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
         sc.addLineBreak();
 	}

@@ -6,10 +6,21 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
+import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
 import org.emftext.test.code_completion.resource.cct.CctPackratParser;
+import org.emftext.test.code_completion.resource.cct.CctResourceFactory;
+import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresMetaInformation;
 import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresPackratParser;
+import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresResourceFactory;
 
 /**
  * A basic test for the packrat parser generator. It basically
@@ -18,52 +29,43 @@ import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featu
  */
 public class PackratParserTest extends TestCase {
 
-	public static class CctParseTest extends TestCase {
+	public static abstract class AbstractParseTest extends TestCase {
 		
-		private String content;
-
-		public CctParseTest(String content) {
-			super("Parse " + content.replace("\n", "").replace("\r", ""));
-			this.content = content;
-		}
-		
-		public void runTest() {
-			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes());
-			ITextParser parser = new CctPackratParser().createInstance(in, null);
-			EObject root = parser.parse();
-			assertNotNull("Parsing should be successful.", root);
-		}
-	}
-	
-	public static class GrammarFeatureParseTest extends TestCase {
-		
-		private String content;
 		private boolean expectedResult;
 		private String expectedModel;
+		private ITextResourcePluginMetaInformation metaInformation;
+		private ITextParser parser;
 
-		public GrammarFeatureParseTest(String content, String expectedModel) {
+		public AbstractParseTest(String content, String expectedModel, ITextResourcePluginMetaInformation metaInformation, ITextParser parser) {
 			super("Parse " + content.replace("\n", "").replace("\r", ""));
-			this.content = content;
+			this.metaInformation = metaInformation;
+			this.parser = parser;
 			this.expectedResult = expectedModel != null;
 			this.expectedModel = expectedModel;
 			if (this.expectedModel != null) {
 				this.expectedModel = "Root{" + this.expectedModel + "}";
 			}
 		}
-		
+
 		public void runTest() {
-			ByteArrayInputStream in = new ByteArrayInputStream(content.getBytes());
-			ITextParser parser = new Grammar_featuresPackratParser().createInstance(in, null);
+			//ITextParser parser = metaInformation.createParser(in, null);
+			ResourceSet rs = new ResourceSetImpl();
+			URI uri = URI.createURI("test." + metaInformation.getSyntaxName());
+			ITextResource resource = (ITextResource) rs.createResource(uri);
+			parser.setResource(resource);
+			//parser.setResource(new Grammar_featuresResource(uri));
 			EObject root = parser.parse();
 			if (expectedResult) {
+				resource.getContents().add(root);
 				assertNotNull("Parsing should be successful.", root);
+				EcoreUtil.resolveAll(root);
 				checkModel(root);
 			} else {
-				assertNull("Parsing should be fail.", root);
+				assertNull("Parsing should fail.", root);
 			}
 		}
 
-		private void checkModel(EObject root) {
+		protected void checkModel(EObject root) {
 			if (expectedModel == null) {
 				return;
 			}
@@ -74,7 +76,33 @@ public class PackratParserTest extends TestCase {
 		}
 	}
 	
+	public static class CctParseTest extends AbstractParseTest {
+		
+		public CctParseTest(String content) {
+			super(content, "", new CctMetaInformation(), new CctPackratParser(new ByteArrayInputStream(content.getBytes()), null));
+		}
+		
+		protected void checkModel(EObject root) {
+			// do nothing
+		}
+	}
+	
+	public static class GrammarFeatureParseTest extends AbstractParseTest {
+		
+		public GrammarFeatureParseTest(String content, String expectedModel) {
+			super(content, expectedModel, new Grammar_featuresMetaInformation(), new Grammar_featuresPackratParser(new ByteArrayInputStream(content.getBytes()), null));
+		}
+	}
+	
 	public static Test suite() {
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+				new CctMetaInformation().getSyntaxName(),
+				new CctResourceFactory());
+		
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+				new Grammar_featuresMetaInformation().getSyntaxName(),
+				new Grammar_featuresResourceFactory());
+		
 		TestSuite suite = new TestSuite("All tests");
 
 		suite.addTest(new CctParseTest("public class A {}"));
@@ -85,9 +113,9 @@ public class PackratParserTest extends TestCase {
 		
 		suite.addTest(new GrammarFeatureParseTest("co", "CompoundOptional"));
 		suite.addTest(new GrammarFeatureParseTest("co a b", "CompoundOptional"));
+		suite.addTest(new GrammarFeatureParseTest("co a b a b", null));
 
 		// this should not be parsable
-		suite.addTest(new GrammarFeatureParseTest("co a b a b", null));
 		suite.addTest(new GrammarFeatureParseTest("co a c", null));
 		suite.addTest(new GrammarFeatureParseTest("some thing stupid", null));
 		
@@ -123,20 +151,20 @@ public class PackratParserTest extends TestCase {
 		suite.addTest(new GrammarFeatureParseTest("sc x x", "StarContainment{X,X}"));
 
 		suite.addTest(new GrammarFeatureParseTest("mnc", null));
-		suite.addTest(new GrammarFeatureParseTest("mnc xyz", "MandatoryNonContainment"));
+		suite.addTest(new GrammarFeatureParseTest("mnc xyz", "MandatoryNonContainment[reference->X]"));
 		suite.addTest(new GrammarFeatureParseTest("mnc xyz xyz", null));
 
 		suite.addTest(new GrammarFeatureParseTest("onc", "OptionalNonContainment"));
-		suite.addTest(new GrammarFeatureParseTest("onc xyz", "OptionalNonContainment"));
+		suite.addTest(new GrammarFeatureParseTest("onc xyz", "OptionalNonContainment[reference->X]"));
 		suite.addTest(new GrammarFeatureParseTest("onc xyz xyz", null));
 
 		suite.addTest(new GrammarFeatureParseTest("pnc", null));
-		suite.addTest(new GrammarFeatureParseTest("pnc xyz", "PlusNonContainment"));
-		suite.addTest(new GrammarFeatureParseTest("pnc xyz xyz", "PlusNonContainment"));
+		suite.addTest(new GrammarFeatureParseTest("pnc xyz", "PlusNonContainment[reference->X]"));
+		suite.addTest(new GrammarFeatureParseTest("pnc xyz xyz", "PlusNonContainment[reference->X;X]"));
 
 		suite.addTest(new GrammarFeatureParseTest("snc", "StarNonContainment"));
-		suite.addTest(new GrammarFeatureParseTest("snc xyz", "StarNonContainment"));
-		suite.addTest(new GrammarFeatureParseTest("snc xyz xyz", "StarNonContainment"));
+		suite.addTest(new GrammarFeatureParseTest("snc xyz", "StarNonContainment[reference->X]"));
+		suite.addTest(new GrammarFeatureParseTest("snc xyz xyz", "StarNonContainment[reference->X;X]"));
 		
 		suite.addTest(new GrammarFeatureParseTest("alternativeA", "AlternativeSyntax"));
 		suite.addTest(new GrammarFeatureParseTest("alternativeB", "AlternativeSyntax"));
@@ -148,6 +176,7 @@ public class PackratParserTest extends TestCase {
 
 		suite.addTest(new GrammarFeatureParseTest("mc x:abc", "MandatoryContainment{X(name=abc)}"));
 
+		suite.addTest(new GrammarFeatureParseTest("mc x:abc mnc abc", "MandatoryContainment{X(name=abc)},MandatoryNonContainment[reference->X(name=abc)]"));
 		return suite;
 	}
 }

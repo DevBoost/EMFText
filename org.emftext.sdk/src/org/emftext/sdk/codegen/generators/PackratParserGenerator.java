@@ -5,11 +5,13 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJ
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER;
@@ -31,8 +33,11 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -56,6 +61,7 @@ import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
+import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * An experimental implementation of a Packrat parser. Currently a 
@@ -153,11 +159,11 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public class AddObjectToFeatureCommand implements ICommand {");
+		sc.add("public class AddContainedObjectCommand implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
 		sc.addLineBreak();
-		sc.add("public AddObjectToFeatureCommand(int featureID) {");
+		sc.add("public AddContainedObjectCommand(int featureID) {");
 		sc.add("this.featureID = featureID;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -170,13 +176,14 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public class AddMatchToFeatureCommand implements ICommand {");
+		sc.add("public class SetAttributeValueCommand implements ICommand {");
 		sc.addLineBreak();
 		sc.add("private int featureID;");
 		sc.add("private " + STRING + " match;");
 		sc.add("private " + STRING + " tokenName;");
 		sc.addLineBreak();
-		sc.add("public AddMatchToFeatureCommand(String match, String tokenName, int featureID) {");
+
+		sc.add("public SetAttributeValueCommand(String match, String tokenName, int featureID) {");
 		sc.add("this.match = match;");
 		sc.add("this.tokenName = tokenName;");
 		sc.add("this.featureID = featureID;");
@@ -198,12 +205,61 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("} else {");
 		sc.add("// TODO call reference resolver (if feature is a non-containment reference)");
 		sc.add("// set feature value");
-		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
+		sc.add("assert feature instanceof " + E_ATTRIBUTE + ";");
 		sc.add("System.out.println(\"ADD \" + resolvedObject + \" TO \" + currentObject + \".\" + featureID);");
 		sc.add("addObjectToFeature(currentObject, resolvedObject, featureID);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
+
+		sc.add("public class AddProxyCommand<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> implements ICommand {");
+		sc.addLineBreak();
+		sc.add("private int featureID;");
+		sc.add("private " + STRING + " match;");
+		sc.add("private " + STRING + " tokenName;");
+		sc.add("private " + E_CLASS + " proxyClass;");
+		sc.add("private " + I_REFERENCE_RESOLVER + "<ContainerType, ReferenceType> referenceResolver;");
+		sc.addLineBreak();
+
+		sc.add("public AddProxyCommand(String match, String tokenName, int featureID, " + E_CLASS + " proxyClass, " + I_REFERENCE_RESOLVER + "<ContainerType, ReferenceType> referenceResolver) {");
+		sc.add("this.match = match;");
+		sc.add("this.tokenName = tokenName;");
+		sc.add("this.featureID = featureID;");
+		sc.add("this.proxyClass = proxyClass;");
+		sc.add("this.referenceResolver = referenceResolver;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void execute(ICommandContext context) {");
+		//sc.add("System.out.println(\"ADD MATCH \" + featureID);");
+		sc.add(E_OBJECT + " currentObject = context.getCurrentObject();");
+		sc.add("// TODO call token resolver");
+		sc.add(I_TOKEN_RESOLVER + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
+		sc.add("tokenResolver.setOptions(getOptions());");
+		sc.add(I_TOKEN_RESOLVE_RESULT + " result = getFreshTokenResolveResult();");
+		sc.add(E_STRUCTURAL_FEATURE + " feature = currentObject.eClass().getEStructuralFeature(featureID);");
+		sc.add("tokenResolver.resolve(match, feature, result);");
+		sc.add(OBJECT + " resolvedObject = result.getResolvedToken();");
+		sc.add("if (resolvedObject == null) {");
+		sc.add("// TODO add error to resource");
+		//sc.add("addErrorToResource(result.getErrorMessage(), ((" + COMMON_TOKEN + ") " + ident + ").getLine(), ((" + COMMON_TOKEN + ") " + ident + ").getCharPositionInLine(), ((" + COMMON_TOKEN + ") " + ident + ").getStartIndex(), ((" + COMMON_TOKEN + ") " + ident + ").getStopIndex());");
+		sc.add("} else {");
+		sc.add("// TODO call reference resolver (feature is a non-containment reference)");
+		//sc.add(STRING + "targetTypeName = " + STRING + ".class.getName()");
+    	sc.add(STRING + " resolvedString = (" + STRING + ") resolvedObject;");
+    	sc.add(E_OBJECT + " proxyObject = proxyClass.getEPackage().getEFactoryInstance().create(proxyClass);"); 
+    	//sc.add("collectHiddenTokens(element);");
+    	sc.add("registerContextDependentProxy(new " + 
+    			ContextDependentURIFragmentFactory.class.getName() + 
+    			"<ContainerType, ReferenceType>(referenceResolver), (ContainerType) currentObject, (" + E_REFERENCE + ") feature, resolvedString, proxyObject);");
+		sc.add("// add proxy");
+		sc.add("assert feature instanceof " + E_REFERENCE + ";");
+		sc.add("System.out.println(\"ADD \" + proxyObject + \" TO \" + currentObject + \".\" + featureID);");
+		sc.add("addObjectToFeature(currentObject, proxyObject, featureID);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		generatorUtil.addRegisterContextDependentProxyMethod(sc);
 		sc.add("}");
 		sc.addLineBreak();
 
@@ -234,6 +290,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		generatorUtil.addAddMapEntryMethod(sc);
 		generatorUtil.addAddObjectToListMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc);
+		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
 	}
 
 	private void addDiscardCommandsMethod(StringComposite sc) {
@@ -353,6 +410,7 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addSetResourceMethod(StringComposite sc) {
 		sc.add("public void setResource(" + I_TEXT_RESOURCE + " resource) {");
+		sc.add("this.resource = resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -395,7 +453,7 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addGetResourceMethod(StringComposite sc) {
 		sc.add("public " + I_TEXT_RESOURCE + " getResource() {");
-		sc.add("return null;");
+		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -438,6 +496,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("private " + I_TOKEN_RESOLVER_FACTORY + " tokenResolverFactory = new " + tokenResolverFactoryName + "();");
 		sc.add("private " + TOKEN_RESOLVE_RESULT + " tokenResolveResult = new " + TOKEN_RESOLVE_RESULT + "();");
 		sc.add("private " + MAP + "<?, ?> options;");
+		sc.add("private " + I_TEXT_RESOURCE + " resource;");
 		sc.addLineBreak();
 		
 		addTokenPatterns(sc);
@@ -666,7 +725,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			sc.add("boolean success = " + getRuleName(genClass) + "();");
 			sc.add("if (success) {");
 			sc.add("// TODO add command to add element to the containment reference");
-			sc.add("commands.add(new AddObjectToFeatureCommand(" + eFeature.getFeatureID() + "));");
+			sc.add("commands.add(new AddContainedObjectCommand(" + eFeature.getFeatureID() + "));");
 			sc.add("return true;");
 			sc.add("} else {");
 			sc.add("}");
@@ -695,9 +754,30 @@ public class PackratParserGenerator extends BaseGenerator {
 			sc.add("matched &= (match != null);");
 			sc.add("if (matched) {");
 			GenFeature genFeature = terminal.getFeature();
-			// TODO use feature constant instead
 			final String featureConstant = generatorUtil.getFeatureConstant(ruleMetaClass, genFeature);
-			sc.add("commands.add(new AddMatchToFeatureCommand(match, \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
+			if (genFeature.getEcoreFeature() instanceof EAttribute) {
+				sc.add("commands.add(new SetAttributeValueCommand(match, \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
+			} else if (genFeature.getEcoreFeature() instanceof EReference) {
+				// find a sub type that can be instantiated as a proxy
+				GenClass instanceType = genFeature.getTypeGenClass();
+		    	GenClass proxyType = null;
+		    	
+		    	if (genClassUtil.isNotConcrete(instanceType)) {
+		    		Collection<GenClass> allSubclasses = new GenClassFinder().findAllSubclasses(syntax, instanceType);
+		    		for (GenClass subClass : allSubclasses) {
+		    			if (genClassUtil.isConcrete(subClass)) {
+			            	proxyType = subClass;
+			            	break;
+						}
+		    		}
+		    	} else {
+		    		proxyType = instanceType;
+		    	}
+				String proxyResolver = context.getReferenceResolverAccessor(genFeature);
+				sc.add("commands.add(new AddProxyCommand<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + instanceType.getQualifiedInterfaceName() + ">(match, \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
+			} else {
+				throw new RuntimeException("Found unknown feature type for terminal.");
+			}
 			sc.add("}");
 		} else if (terminal instanceof Containment) {
 			Containment containment = (Containment) terminal;

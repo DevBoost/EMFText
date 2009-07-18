@@ -344,7 +344,7 @@ public abstract class GenerationContext {
 	}
 
 	public String getQualifiedProblemClassName() {
-		return getPackageName() + "." + getCapitalizedConcreteSyntaxName() + "Problem";
+		return getPackageName() + "." + getProblemClassName();
 	}
 
 	public File getProblemClassFile() {
@@ -353,6 +353,10 @@ public abstract class GenerationContext {
 
 	public String getPackratParserClassName() {
 		return getCapitalizedConcreteSyntaxName() + "PackratParser";
+	}
+
+	public String getQualifiedPackratParserClassName() {
+		return getPackageName() + "." + getPackratParserClassName();
 	}
 
 	public File getPackratParserFile() {
