@@ -1,14 +1,14 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_TEXT_LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_STYLE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_LEXER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_TEXT_LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GenClassUtil;
@@ -136,22 +137,28 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		sc.add("public " + STRING +" getPathToCSDefinition() {");
         sc.add("return \"" + context.getSyntaxProjectName() + "/" + context.getProjectRelativePathToSyntaxFile() + "\";");
         sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addGetURIMethod(StringComposite sc) {
 		sc.add("public " + STRING +" getURI() {");
 		sc.add("return \"" + context.getConcreteSyntax().getPackage().getNSURI() + "\";");
 		sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addGetConcreteSyntaxName(StringComposite sc) {
 		sc.add("public " + STRING +" getSyntaxName() {");
     	sc.add("return \"" + context.getConcreteSyntax().getName() + "\";");
     	sc.add("}");
+        sc.addLineBreak();
 	}
 
 	private void addCreateParserMethod(StringComposite sc) {
 		String parserClassName = context.getQualifiedParserClassName();
+	    if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
+	    	parserClassName = context.getQualifiedPackratParserClassName();
+	    }
 		
 		sc.add("public " + I_TEXT_PARSER + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");

@@ -5,6 +5,7 @@ START Root, SecondRoot
 OPTIONS {
 	generateCodeFromGeneratorModel = "true";
 	reloadGeneratorModel = "true";
+	parserGenerator = "scales";
 }
 
 TOKENS {

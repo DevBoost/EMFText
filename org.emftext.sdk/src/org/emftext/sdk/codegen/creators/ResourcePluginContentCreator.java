@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * A creator that uses multiple other creators to create
@@ -41,7 +43,8 @@ public class ResourcePluginContentCreator {
 	public void generate(GenerationContext context, IProgressMonitor monitor)throws IOException{
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
 	    
-		ITextResource csResource = (ITextResource) context.getConcreteSyntax().eResource();
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ITextResource csResource = (ITextResource) syntax.eResource();
 		EcoreUtil.resolveAll(csResource);
 	    
 	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
@@ -49,8 +52,12 @@ public class ResourcePluginContentCreator {
 	    creators.add(new DotClasspathCreator());
 	    creators.add(new DotProjectCreator());
 	    creators.add(new BuildPropertiesCreator());
+	    // TODO once the scales parser is complete the ANTLR generation
+	    // should be deactivated
+	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
+	    	creators.add(new PackratParserCreator());
+	    }
 	    creators.add(new PluginXMLCreator());
-	    //creators.add(new PackratParserCreator());
 	    creators.add(new ANTLRGrammarCreator());
 	    creators.add(new TextResourceCreator());
 	    creators.add(new ResourceFactoryCreator());

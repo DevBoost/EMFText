@@ -39,7 +39,8 @@ public enum ECsProblemType {
 	UNUSED_TOKEN(EProblemType.WARNING), 
 	GENERATION_WARNING(EProblemType.WARNING),
 	GENERATION_ERROR(EProblemType.ERROR), 
-	INVALID_WARNING_TYPE(EProblemType.ERROR),
+	INVALID_WARNING_TYPE(EProblemType.ERROR), 
+	INVALID_PARSER_GENERATOR(EProblemType.ERROR),
 	;
 
 	private EProblemType problemType;

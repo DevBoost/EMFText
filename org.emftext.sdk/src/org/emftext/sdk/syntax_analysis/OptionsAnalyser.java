@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -68,6 +69,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		STRING_OPTIONS.add(OptionTypes.BASE_PACKAGE);
 		STRING_OPTIONS.add(OptionTypes.RESOURCE_PLUGIN_ID);
 		STRING_OPTIONS.add(OptionTypes.SOURCE_FOLDER);
+		STRING_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
 	}
 
 	@Override
@@ -91,10 +93,19 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 			// string values are accepted as they are
 		} else if (type == OptionTypes.TOKENSPACE) {
 			checkTokenspaceValue(resource, option, value);
+		} else if (type == OptionTypes.PARSER_GENERATOR) {
+			checkParserGeneratorValue(resource, option, value);
 		} else if (type == OptionTypes.DEFAULT_TOKEN_NAME) {
 			checkDefaultTokenNameValue(resource, option, value);
 		} else {
 			addProblem(resource, ECsProblemType.UNKNOWN_OPTION, "Unknown option (" + type + ").", option);
+		}
+	}
+
+	private void checkParserGeneratorValue(ITextResource resource,
+			Option option, String value) {
+		if (!OptionManager.ANTLR.equals(value) && !OptionManager.SCALES.equals(value)) {
+			addProblem(resource, ECsProblemType.INVALID_PARSER_GENERATOR, "Invalid parser generator (Valid generators are: " + OptionManager.ANTLR + ", " + OptionManager.SCALES + ").", option);
 		}
 	}
 

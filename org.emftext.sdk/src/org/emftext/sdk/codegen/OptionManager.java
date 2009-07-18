@@ -34,6 +34,9 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class OptionManager {
 
 	public final static OptionManager INSTANCE = new OptionManager();
+
+	public static final String ANTLR = "antlr";
+	public static final String SCALES = "scales";
 	
 	private OptionManager() {
 		super();
@@ -191,5 +194,16 @@ public class OptionManager {
 			}
 		}
 		return null;
+	}
+
+	public boolean useScalesParser(ConcreteSyntax syntax) {
+		String value = getStringOptionValue(syntax, OptionTypes.PARSER_GENERATOR);
+		if (value == null) {
+			return false;
+		}
+		if (SCALES.equals(value)) {
+			return true;
+		}
+		return false;
 	}
 }
