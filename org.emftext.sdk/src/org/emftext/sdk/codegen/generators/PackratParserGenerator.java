@@ -351,6 +351,7 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addICommandContextClass(StringComposite sc) {
 		sc.add("public interface ICommandContext {");
+		sc.addLineBreak();
 		sc.add("public " + E_OBJECT + " getCurrentContainer();");
 		sc.addLineBreak();
 		sc.add("public " + E_OBJECT + " getCurrentObject();");
@@ -358,7 +359,6 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("public void pushCurrentContainer(" + E_OBJECT + " newContainer);");
 		sc.addLineBreak();
 		sc.add("public void popCurrentContainer();");
-		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}
