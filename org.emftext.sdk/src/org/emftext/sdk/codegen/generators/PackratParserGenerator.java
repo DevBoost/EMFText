@@ -164,15 +164,22 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add(E_OBJECT + " currentContainer = context.getCurrentContainer();");
+		sc.add("setLocalizationInfo(currentContainer, start, end);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addSetLocalizationInfoMethod(StringComposite sc) {
+		sc.add("public void setLocalizationInfo(" + E_OBJECT + " object, int start, int end) {");
 		sc.add(INTEGER + "[] lineAndPosition = " + STRING_UTIL + ".getLineAndCharPosition(content, start);");
 		sc.add("int line = lineAndPosition[0];");
 		sc.add("int column = lineAndPosition[1];");
 		sc.add("final " + I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
-		sc.add("locationMap.setCharStart(currentContainer, start);");
-		sc.add("locationMap.setCharEnd(currentContainer, end);");
-		sc.add("locationMap.setColumn(currentContainer, column);");
-		sc.add("locationMap.setLine(currentContainer, line);");
-		sc.add("}");
+		sc.add("locationMap.setCharStart(object, start);");
+		sc.add("locationMap.setCharEnd(object, end);");
+		sc.add("locationMap.setLine(object, line);");
+		sc.add("locationMap.setColumn(object, column);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -230,6 +237,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("// add proxy");
 		sc.add("assert feature instanceof " + E_REFERENCE + ";");
 		sc.add("addObjectToFeature(currentObject, proxyObject, featureID);");
+		sc.add("setLocalizationInfo(proxyObject, start, end);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -388,6 +396,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		// this is the four parameter version
 		generatorUtil.addAddErrorToResourceMethod(sc);
 		addAddParseErrorToResourceMethod(sc);
+		addSetLocalizationInfoMethod(sc);
 	}
 
 	private void addAddParseErrorToResourceMethod(StringComposite sc) {
