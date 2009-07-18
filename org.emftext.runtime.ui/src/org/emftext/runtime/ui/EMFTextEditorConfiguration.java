@@ -84,7 +84,7 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		String path = input.getFile().getFullPath().toString();
 		ITextResource thisResource = (ITextResource) theEditor.getResourceSet().getResource(URI.createPlatformResourceURI(path, true), true);
 		
-        return new AntlrTokenScanner(thisResource, colorManager);
+        return new EMFTextTokenScanner(thisResource, colorManager);
     }
 
 	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {

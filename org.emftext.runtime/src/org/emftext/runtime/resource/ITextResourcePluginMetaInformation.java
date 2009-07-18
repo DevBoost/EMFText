@@ -2,7 +2,6 @@ package org.emftext.runtime.resource;
 
 import java.io.InputStream;
 
-import org.antlr.runtime.Lexer;
 import org.eclipse.emf.ecore.EClass;
 
 /**
@@ -29,7 +28,7 @@ public interface ITextResourcePluginMetaInformation {
 	 * 
 	 * @return a lexer instance.
 	 */
-	public Lexer createLexer();
+	public ITextLexer createLexer();
 	
 	/**
 	 * Returns an instance of the parser. This factory method

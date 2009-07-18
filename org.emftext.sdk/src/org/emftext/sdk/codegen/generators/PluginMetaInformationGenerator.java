@@ -7,7 +7,8 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_STYLE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.LEXER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_LEXER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_TEXT_LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -64,8 +65,8 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addCreateLexerMethod(StringComposite sc) {
-		sc.add("public " + LEXER+ " createLexer() {");
-        sc.add("return new " + context.getQualifiedLexerClassName() + "();");
+		sc.add("public " + I_TEXT_LEXER+ " createLexer() {");
+        sc.add("return new " + ANTLR_TEXT_LEXER + "(this, new " + context.getQualifiedLexerClassName() + "());");
         sc.add("}");
         sc.addLineBreak();
 	}

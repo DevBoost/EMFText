@@ -20,10 +20,6 @@
  ******************************************************************************/
 package org.emftext.runtime.ui;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.Token;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.BadLocationException;
@@ -34,60 +30,58 @@ import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.ITextLexer;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITextToken;
 import org.emftext.runtime.ui.preferences.SyntaxColoringHelper;
 import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 
 /**
  * An adapter from the Eclipse <code>ITokenScanner</code> interface
- * to the ANTLR <code>Lexer</code> interface.
+ * to the EMFText <code>ITextLexer</code> interface.
  * 
  * TODO once this class is generated we might not need
  * ITextResourcePluginMetaInformation.createLexer() anymore
  */
-public class AntlrTokenScanner implements ITokenScanner {
+public class EMFTextTokenScanner implements ITokenScanner {
     
-	private final static TokenHelper tokenHelper = new TokenHelper();
-	
-    private Lexer lexer;
-    private Token current;
-    private String[] tokenNames;
+    private ITextLexer lexer;
+    private ITextToken currentToken;
+    private int offset;
     private String languageId;
     private IPreferenceStore store;
     private ColorManager colorManager;
-    private int offset = 0;
-    
+
     /**
      * @param resource The <code>ITextResource</code> from which the <code>Lexer</code> can be determined.
      * @param fileExtension The file extension for which this instance should be used for coloring
      * @param colorManager A manager to obtain color objects
      */
-    public AntlrTokenScanner(ITextResource resource, ColorManager colorManager) {
+    public EMFTextTokenScanner(ITextResource resource, ColorManager colorManager) {
         this.lexer      = resource.getMetaInformation().createLexer();
-        this.tokenNames = resource.getMetaInformation().getTokenNames();
         this.languageId = resource.getMetaInformation().getSyntaxName();
         this.store      = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
         this.colorManager = colorManager;
     }
 
     public int getTokenLength() {
-        return ((CommonToken)current).getStopIndex() - ((CommonToken)current).getStartIndex() + 1;
+    	return currentToken.getLength();
     }
 
     public int getTokenOffset() {
-        return offset + ((CommonToken)current).getStartIndex();
+        return offset + currentToken.getOffset();
     }
 
     public IToken nextToken() {
-        current = lexer.nextToken();
-        
-        if (!tokenHelper.canBeUsedForSyntaxColoring(current)) {
+        currentToken = lexer.getNextToken();
+
+        if (!currentToken.canBeUsedForSyntaxHighlighting()) {
             return org.eclipse.jface.text.rules.Token.EOF;
         }
 
         TextAttribute ta = null;
 
-        String tokenName = tokenHelper.getTokenName(tokenNames, current.getType());
+        String tokenName = currentToken.getName();
         if (tokenName != null) {
 	        String enableKey = SyntaxColoringHelper.getPreferenceKey(languageId, tokenName, StyleProperty.ENABLE);
 	        if (store.getBoolean(enableKey)) {
@@ -121,10 +115,9 @@ public class AntlrTokenScanner implements ITokenScanner {
     public void setRange(IDocument document, int offset, int length) {
         this.offset = offset;
         try {
-            lexer.setCharStream(new ANTLRStringStream(document.get(offset, length)));
+        	lexer.setText(document.get(offset, length));
         } catch (BadLocationException e) {
             EMFTextRuntimePlugin.logError("Unexpected error:", e);
         }
     }
-
 }
