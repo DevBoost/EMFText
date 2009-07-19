@@ -95,29 +95,22 @@ import org.emftext.runtime.util.StringUtil;
  */
 public interface IClassNameConstants {
 
-	public String I_TEXT_LEXER = ITextScanner.class.getName();
-	public String I_TEXT_TOKEN = ITextToken.class.getName();
-	public String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
-	public String ANTLR_TEXT_LEXER = AntlrTextLexer.class.getName();
-	public String COMPARATOR = Comparator.class.getName();
-	public String I_REFERENCE_RESOLVER = IReferenceResolver.class.getName();
 	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
 	public String ABSTRACT_EMF_TEXT_SCANNER = AbstractEMFTextScanner.class.getName();
-	public String MATCHER = Matcher.class.getName();
-	public String PATTERN = java.util.regex.Pattern.class.getName();
-	public String INPUT_STREAM_READER = java.io.InputStreamReader.class.getName();
-	
 	public String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
 	public String ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION = AbstractTextResourcePluginMetaInformation.class.getName();
+	public String ANTLR_TEXT_LEXER = AntlrTextLexer.class.getName();
 	public String ARRAYS = java.util.Arrays.class.getName();
 	public String ARRAY_LIST = ArrayList.class.getName();
 	public String BASIC_E_LIST = BasicEList.class.getName();
 	public String BIT_SET = BitSet.class.getName();
 	public String BUFFERED_OUTPUT_STREAM = BufferedOutputStream.class.getName();
+	public String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public String CAST_UTIL = CastUtil.class.getName();
 	public String COLLECTION = Collection.class.getName();
 	public String COLLECTIONS = Collections.class.getName();
 	public String COMMON_TOKEN = CommonToken.class.getName();
+	public String COMPARATOR = Comparator.class.getName();
 	public String CORE_EXCEPTION = CoreException.class.getName();
 	public String DIAGNOSTIC = Diagnostic.class.getName().replace("$", ".");
 	public String DUMMY_E_OBJECT = DummyEObject.class.getName();
@@ -139,6 +132,7 @@ public interface IClassNameConstants {
 	public String HASH_MAP = HashMap.class.getName();
 	public String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
 	public String INPUT_STREAM = InputStream.class.getName();
+	public String INPUT_STREAM_READER = java.io.InputStreamReader.class.getName();
 	public String INTEGER = Integer.class.getName();
 	public String INTERNAL_E_OBJECT = InternalEObject.class.getName();
 	public String INT_STREAM = IntStream.class.getName();
@@ -155,28 +149,31 @@ public interface IClassNameConstants {
 	public String I_OPTION_PROVIDER = IOptionProvider.class.getName();
 	public String I_PROBLEM = IProblem.class.getName();
 	public String I_REFERENCE_MAPPING = IReferenceMapping.class.getName();
+	public String I_REFERENCE_RESOLVER = IReferenceResolver.class.getName();
 	public String I_REFERENCE_RESOLVER_SWITCH = IReferenceResolverSwitch.class.getName();
 	public String I_REFERENCE_RESOLVE_RESULT = IReferenceResolveResult.class.getName();
 	public String I_RESOURCE_POST_PROCESSOR = IResourcePostProcessor.class.getName();
 	public String I_RESOURCE_POST_PROCESSOR_PROVIDER = org.emftext.runtime.IResourcePostProcessorProvider.class.getName();
 	public String I_TEXT_DIAGNOSTIC = ITextDiagnostic.class.getName();
+	public String I_TEXT_LEXER = ITextScanner.class.getName();
 	public String I_TEXT_PARSER = ITextParser.class.getName();
 	public String I_TEXT_RESOURCE = ITextResource.class.getName();
+	public String I_TEXT_TOKEN = ITextToken.class.getName();
 	public String I_TOKEN_RESOLVER = ITokenResolver.class.getName();
 	public String I_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getName();
 	public String I_TOKEN_RESOLVE_RESULT = ITokenResolveResult.class.getName();
-	public String TOKEN_RESOLVE_RESULT = TokenResolveResult.class.getName();
 	public String I_TOKEN_STYLE = ITokenStyle.class.getName();
 	public String I_URI_MAPPING = IURIMapping.class.getName();
 	public String LEXER = Lexer.class.getName();
-	public String LIST = List.class.getName();
 	public String LINKED_LIST = LinkedList.class.getName();
+	public String LIST = List.class.getName();
 	public String LIST_ITERATOR = ListIterator.class.getName();
 	public String LIST_UTIL = ListUtil.class.getName();
 	public String LOCATION_MAP = LocationMap.class.getName();
 	public String MANY_INVERSE = EObjectWithInverseResolvingEList.ManyInverse.class.getName().replace('$', '.');
 	public String MAP = Map.class.getName();
 	public String MAP_UTIL = MapUtil.class.getName();
+	public String MATCHER = Matcher.class.getName();
 	public String MATH = Math.class.getName();
 	public String MISMATCHED_NOT_SET_EXCEPTION = MismatchedNotSetException.class.getName();
 	public String MISMATCHED_RANGE_EXCEPTION = MismatchedRangeException.class.getName();
@@ -187,6 +184,7 @@ public interface IClassNameConstants {
 	public String NULL_POINTER_EXCEPTION = NullPointerException.class.getName();
 	public String OBJECT = Object.class.getName();
 	public String OUTPUT_STREAM = OutputStream.class.getName();
+	public String PATTERN = java.util.regex.Pattern.class.getName();
 	public String PLATFORM = Platform.class.getName();
 	public String POSITION_BASED_TEXT_DIAGNOSTIC = "PositionBasedTextDiagnostic";
 	public String PRINTER_WRITER = PrintWriter.class.getName();
@@ -197,5 +195,6 @@ public interface IClassNameConstants {
 	public String STRING = String.class.getName();
 	public String STRING_UTIL = StringUtil.class.getName();
 	public String STRING_WRITER = StringWriter.class.getName();
+	public String TOKEN_RESOLVE_RESULT = TokenResolveResult.class.getName();
 	public String URI = org.eclipse.emf.common.util.URI.class.getName();
 }
