@@ -6,10 +6,10 @@ import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Token;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITextToken;
-import org.emftext.runtime.resource.impl.AbstractEMFTextLexer;
+import org.emftext.runtime.resource.impl.AbstractEMFTextScanner;
 
 // TODO generate this class
-public class AntlrTextLexer extends AbstractEMFTextLexer {
+public class AntlrTextLexer extends AbstractEMFTextScanner {
 
 	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
     private String[] tokenNames;

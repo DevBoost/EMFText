@@ -73,7 +73,7 @@ import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.resource.IURIMapping;
-import org.emftext.runtime.resource.impl.AbstractEMFTextLexer;
+import org.emftext.runtime.resource.impl.AbstractEMFTextScanner;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
@@ -102,7 +102,7 @@ public interface IClassNameConstants {
 	public String COMPARATOR = Comparator.class.getName();
 	public String I_REFERENCE_RESOLVER = IReferenceResolver.class.getName();
 	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
-	public String ABSTRACT_EMF_TEXT_SCANNER = AbstractEMFTextLexer.class.getName();
+	public String ABSTRACT_EMF_TEXT_SCANNER = AbstractEMFTextScanner.class.getName();
 	public String MATCHER = Matcher.class.getName();
 	public String PATTERN = java.util.regex.Pattern.class.getName();
 	public String INPUT_STREAM_READER = java.io.InputStreamReader.class.getName();
