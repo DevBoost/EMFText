@@ -41,8 +41,7 @@ options {
 	protected java.util.List<org.antlr.runtime.RecognitionException> lexerExceptions = java.util.Collections.synchronizedList(new java.util.ArrayList<org.antlr.runtime.RecognitionException>());
 	protected java.util.List<java.lang.Integer> lexerExceptionsPosition = java.util.Collections.synchronizedList(new java.util.ArrayList<java.lang.Integer>());
 	
-	protected void addErrorToResource(final java.lang.String errorMessage, int line,
-	int charPositionInLine, int startIndex, int stopIndex) {
+	protected void addErrorToResource(final java.lang.String errorMessage, int line, int charPositionInLine, int startIndex, int stopIndex) {
 		org.emftext.runtime.resource.ITextResource resource = getResource();
 		if (resource == null) {
 			// the resource can be null if the parser is used for
@@ -101,7 +100,6 @@ options {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private boolean addObjectToList(org.eclipse.emf.ecore.EObject element, int featureID, java.lang.Object proxy) {
 		return ((java.util.List<java.lang.Object>) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);
 	}
@@ -331,7 +329,7 @@ options {
 		}
 	}
 	protected <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory,ContainerType element, org.eclipse.emf.ecore.EReference reference, String id,org.eclipse.emf.ecore.EObject proxy) {
-				org.emftext.runtime.resource.ITextResource resource = getResource();
+		org.emftext.runtime.resource.ITextResource resource = getResource();
 		if (resource == null) {
 			// the resource can be null if the parser is used for
 			// code completion

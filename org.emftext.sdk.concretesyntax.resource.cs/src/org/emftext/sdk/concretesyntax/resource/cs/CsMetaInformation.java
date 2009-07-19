@@ -1,16 +1,19 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.emftext.runtime.resource.ITextScanner;
-import org.emftext.runtime.ui.AntlrTextLexer;
-
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public java.lang.String getSyntaxName() {
 		return "cs";
 	}
+	
 	public java.lang.String getURI() {
 		return "http://www.emftext.org/sdk/concretesyntax";
 	}
+	
+	public org.emftext.runtime.resource.ITextScanner createLexer() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.CsAntlrScanner(this, new org.emftext.sdk.concretesyntax.resource.cs.CsLexer());
+	}
+	
 	public org.emftext.runtime.resource.ITextParser createParser(java.io.InputStream inputStream, java.lang.String encoding) {
 		return new org.emftext.sdk.concretesyntax.resource.cs.CsParser().createInstance(inputStream, encoding);
 	}
@@ -54,6 +57,7 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 	public java.lang.String getPathToCSDefinition() {
 		return "org.emftext.sdk.concretesyntax/metamodel/concretesyntax.cs";
 	}
+	
 	public java.lang.String[] getTokenNames() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.CsParser(null).getTokenNames();
 	}
@@ -120,13 +124,6 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
 		return null;
-	}
-	
-	public ITextScanner createLexer() {
-		return new AntlrTextLexer(
-			this, 
-			new org.emftext.sdk.concretesyntax.resource.cs.CsLexer()
-			);
 	}
 	
 	public class TokenStyleImpl implements org.emftext.runtime.resource.ITokenStyle {

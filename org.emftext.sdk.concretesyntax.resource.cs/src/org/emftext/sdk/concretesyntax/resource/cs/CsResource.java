@@ -35,7 +35,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			}
 		}
 		
-		org.emftext.runtime.resource.ITextParser parser = new org.emftext.sdk.concretesyntax.resource.cs.CsParser().createInstance(actualInputStream, encoding);
+		org.emftext.runtime.resource.ITextParser parser = getMetaInformation().createParser(actualInputStream, encoding);
 		parser.setResource(this);
 		parser.setOptions(options);
 		org.emftext.runtime.resource.IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
