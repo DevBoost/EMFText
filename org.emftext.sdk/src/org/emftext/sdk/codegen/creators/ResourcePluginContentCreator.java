@@ -32,6 +32,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * A creator that uses multiple other creators to create
@@ -55,12 +56,12 @@ public class ResourcePluginContentCreator {
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new ScannerlessScannerCreator());
 	    	creators.add(new ScannerlessParserCreator());
-	    	creators.add(new EmptyClassCreator(context.getParserFile(), context.getParserClassName()));
+	    	creators.add(new EmptyClassCreator(context.getParserFile(), context.getParserClassName(), OptionTypes.OVERRIDE_PARSER));
 	    } else {
 		    creators.add(new ANTLRGrammarCreator());
 		    creators.add(new ANTLRParserCreator());
-	    	creators.add(new EmptyClassCreator(context.getScannerlessScannerFile(), context.getScannerlessScannerClassName()));
-	    	creators.add(new EmptyClassCreator(context.getScannerlessParserFile(), context.getScannerlessParserClassName()));
+	    	creators.add(new EmptyClassCreator(context.getScannerlessScannerFile(), context.getScannerlessScannerClassName(), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getScannerlessParserFile(), context.getScannerlessParserClassName(), OptionTypes.OVERRIDE_PARSER));
 	    }
 	    creators.add(new PluginXMLCreator());
 	    creators.add(new TextResourceCreator());

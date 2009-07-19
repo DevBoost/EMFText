@@ -12,11 +12,13 @@ public class EmptyClassCreator extends AbstractArtifactCreator {
 
 	private File file;
 	private String className;
+	private OptionTypes overrideOption;
 
-	public EmptyClassCreator(File file, String className) {
+	public EmptyClassCreator(File file, String className, OptionTypes overrideOption) {
 		super("empty " + className);
 		this.file = file;
 		this.className = className;
+		this.overrideOption = overrideOption;
 	}
 
 	@Override
@@ -33,7 +35,6 @@ public class EmptyClassCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		// TODO mseifert
-		return null;
+		return overrideOption;
 	}
 }
