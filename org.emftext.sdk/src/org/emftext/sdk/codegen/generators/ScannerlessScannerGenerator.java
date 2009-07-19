@@ -40,6 +40,7 @@ public class ScannerlessScannerGenerator extends BaseGenerator {
 		sc.add("return tokens.remove(0);");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 
 		sc.add("public void setText(" + STRING + " text) {");
 		String scannerlessParserName = context.getScannerlessParserClassName();

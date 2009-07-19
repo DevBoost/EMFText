@@ -34,7 +34,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN_RESOL
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -43,6 +45,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
+import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
@@ -55,6 +58,7 @@ import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
@@ -392,6 +396,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		addMatchUnusedTokensMethod(sc);
 		addMatchesRegexpMethod(sc);
 		addDiscardCommandsMethod(sc);
+		addDiscardTokensMethod(sc);
 		addAddParseErrorMethod(sc);
 		addAddObjectToFeatureMethod(sc);
 		generatorUtil.addAddMapEntryMethod(sc);
@@ -407,6 +412,43 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		addSetScanModeMethod(sc);
 		addGetTokenNamesMethod(sc);
 		addGetTokensMethod(sc);
+		addAddCommandMethod(sc);
+		addAddTokenMethod(sc);
+	}
+
+	private void addAddCommandMethod(StringComposite sc) {
+		sc.add("public void addCommand(ICommand command) {");
+		sc.add("// if the parser is in scan mode the command can be thrown away");
+		sc.add("if (!scanMode) {");
+		sc.add("commands.add(command);");
+		sc.add("}");
+		sc.add("}");
+	}
+
+	private void addAddTokenMethod(StringComposite sc) {
+		sc.add("public void addToken(final " + STRING + " tokenName, final int offset, final int length) {");
+		sc.add("// only if the parser is in scan mode the tokens are collected");
+		sc.add("if (scanMode) {");
+		sc.add("tokens.add(new " + I_TEXT_TOKEN + "() {");
+		sc.add("public boolean canBeUsedForSyntaxHighlighting() {");
+		sc.add("return true;");
+		sc.add("}");
+
+		sc.add("public int getLength() {");
+		sc.add("return length;");
+		sc.add("}");
+
+		sc.add("public " + STRING + " getName() {");
+		sc.add("return tokenName;");
+		sc.add("}");
+
+		sc.add("public int getOffset() {");
+		sc.add("return offset;");
+		sc.add("}");
+		
+		sc.add("});");
+		sc.add("}");
+		sc.add("}");
 	}
 
 	private void addGetTokenNamesMethod(StringComposite sc) {
@@ -450,6 +492,13 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private void addDiscardCommandsMethod(StringComposite sc) {
 		sc.add("public void discardCommands(int index) {");
 		sc.add("commands.subList(index, commands.size()).clear();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addDiscardTokensMethod(StringComposite sc) {
+		sc.add("public void discardTokens(int index) {");
+		sc.add("tokens.subList(index, tokens.size()).clear();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -500,6 +549,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("int start = matcher.start();");
 		sc.add("int end = matcher.end();");
 		sc.add(STRING + " match = tail.substring(start, end);");
+		sc.add("addToken(name, offset, end - start);");
 		sc.add("offset = offset + end;");
 		sc.add("if (!isUnusedToken) {");
 		sc.add("offsetIgnoringUnusedTokens = offset;");
@@ -552,6 +602,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("public boolean matches(" + STRING + " keyword) {");
 		sc.add("boolean matches = content.startsWith(keyword, offset);");
 		sc.add("if (matches) {");
+		sc.add("addToken(keyword, offset, keyword.length());");
 		sc.add("offset += keyword.length();");
 		sc.add("matchUnusedTokens();");
 		sc.add("} else {");
@@ -603,13 +654,15 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			sc.add("offset = 0;");
 			sc.add("offsetIgnoringUnusedTokens = 0;");
 			sc.add("commands = new " + LINKED_LIST + "<ICommand>();");
+			sc.add("tokens = new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">();");
 			sc.add("boolean success = " + getRuleName(startSymbol) + "();");
 			sc.add("if (success) {");
 			if (forceEOFToken) {
-				sc.add("if (offset != content.length()) {");
-				sc.add("addParseError(new ParseError(\"EOF (end of file) expected.\", offset));");
-				sc.add("} else {");
+				sc.add("if (offset == content.length()) {");
+				sc.add("// the content was successfully parse up to the last character, we do not need to try something else");
 				sc.add("tryOtherStartSymbols = false;");
+				sc.add("} else {");
+				sc.add("addParseError(new ParseError(\"EOF (end of file) expected.\", offset));");
 				sc.add("}");
 			}
 			sc.add("} else {");
@@ -676,7 +729,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("private " + INPUT_STREAM_READER + " inputStream;");
 		sc.add("// the current position in the content");
 		sc.add("private int offset;");
-		sc.add("private boolean scanMode;");
+		sc.add("private boolean scanMode = false;");
 		sc.add("// the current position in the content (ignoring trailing unused tokens (e.g., whitespaces)");
 		sc.add("private int offsetIgnoringUnusedTokens;");
 		sc.add("private " + STRING + " content = \"\";");
@@ -689,6 +742,8 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("private " + LIST + "<" + I_TEXT_TOKEN + "> tokens;");
 		sc.addLineBreak();
 		
+		addTokensField(sc);
+		sc.addLineBreak();
 		addTokenPatterns(sc);
 		sc.addLineBreak();
 	}
@@ -717,6 +772,23 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			regex = "\\\\A" + regex;
 			sc.add("private final static " + PATTERN + " " + fieldName + " = " + PATTERN + ".compile(\"" + regex + "\");");
 		}
+	}
+	
+	private void addTokensField(StringComposite sc) {
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		Set<String> tokenNames = new LinkedHashSet<String>();
+		List<TokenDefinition> tokens = syntax.getActiveTokens();
+		for (TokenDefinition tokenDefinition : tokens) {
+			String tokenName = tokenDefinition.getName();
+			tokenNames.add("\"" + tokenName + "\"");
+		}
+		List<Rule> allRules = syntax.getAllRules();
+		for (Rule rule : allRules) {
+			Collection<CsString> csStrings = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
+			for (CsString csString : csStrings) {
+				tokenNames.add("\"" + csString.getValue() + "\"");
+			}
+		}
 		sc.add("private final static " + STRING + "[] tokenNames = new " + STRING + "[] {" + StringUtil.explode(tokenNames, ",") + "};");
 	}
 
@@ -739,15 +811,17 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		Choice choice = rule.getDefinition();
 		sc.add(E_CLASS + " eClass = " + genClassUtil.getAccessor(metaclass) + ";");
 		sc.add("int commandIndexBackup = commands.size();");
+		sc.add("int tokenIndexBackup = tokens.size();");
 		sc.add("int startOffset = offset;");
-		sc.add("commands.add(new CreateObjectCommand(eClass));");
+		sc.add("addCommand(new CreateObjectCommand(eClass));");
 		sc.add("boolean success = " + getMethodName(choice) + "();");
 		sc.add("if (success) {");
-		sc.add("commands.add(new SetLocationCommand(startOffset, offsetIgnoringUnusedTokens - 1));");
-		sc.add("commands.add(new PopContainerCommand());");
+		sc.add("addCommand(new SetLocationCommand(startOffset, offsetIgnoringUnusedTokens - 1));");
+		sc.add("addCommand(new PopContainerCommand());");
 		sc.add("return true;");
 		sc.add("} else {");
 		sc.add("discardCommands(commandIndexBackup);");
+		sc.add("discardTokens(tokenIndexBackup);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
@@ -921,7 +995,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			sc.add("boolean success = " + getRuleName(genClass) + "();");
 			sc.add("if (success) {");
 			sc.add("// add command to add element to the containment reference");
-			sc.add("commands.add(new AddContainedObjectCommand(" + eFeature.getFeatureID() + "));");
+			sc.add("addCommand(new AddContainedObjectCommand(" + eFeature.getFeatureID() + "));");
 			sc.add("return true;");
 			sc.add("} else {");
 			sc.add("}");
@@ -954,7 +1028,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			GenFeature genFeature = terminal.getFeature();
 			final String featureConstant = generatorUtil.getFeatureConstant(ruleMetaClass, genFeature);
 			if (genFeature.getEcoreFeature() instanceof EAttribute) {
-				sc.add("commands.add(new SetAttributeValueCommand(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
+				sc.add("addCommand(new SetAttributeValueCommand(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + "));");
 			} else if (genFeature.getEcoreFeature() instanceof EReference) {
 				// find a sub type that can be instantiated as a proxy
 				GenClass instanceType = genFeature.getTypeGenClass();
@@ -972,7 +1046,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		    		proxyType = instanceType;
 		    	}
 				String proxyResolver = context.getReferenceResolverAccessor(genFeature);
-				sc.add("commands.add(new AddProxyCommand<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + instanceType.getQualifiedInterfaceName() + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
+				sc.add("addCommand(new AddProxyCommand<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + instanceType.getQualifiedInterfaceName() + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
             	context.addNonContainmentReference(genFeature);
 			} else {
 				throw new RuntimeException("Found unknown feature type for terminal.");
