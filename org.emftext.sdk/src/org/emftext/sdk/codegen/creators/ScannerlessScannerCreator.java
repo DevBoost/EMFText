@@ -4,22 +4,23 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.generators.PackratParserGenerator;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.generators.ScannerlessScannerGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class PackratParserCreator extends AbstractArtifactCreator {
+public class ScannerlessScannerCreator extends AbstractArtifactCreator {
 
-	private static final String NAME = "packrat parser";
+	private static final String NAME = "scannerless scanner";
 
-	public PackratParserCreator() {
+	public ScannerlessScannerCreator() {
 		super(NAME);
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
-		File file = context.getPackratParserFile();
-		PackratParserGenerator generator = new PackratParserGenerator(context);
+		File file = context.getScannerlessScannerFile();
+		IGenerator generator = new ScannerlessScannerGenerator(context);
 		
 	    return createArtifact(
 	    		context,
@@ -30,6 +31,6 @@ public class PackratParserCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		return OptionTypes.OVERRIDE_DOT_CLASSPATH;
+		return OptionTypes.OVERRIDE_SCANNER;
 	}
 }

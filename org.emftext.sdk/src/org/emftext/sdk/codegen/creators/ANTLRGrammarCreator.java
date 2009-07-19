@@ -49,6 +49,6 @@ public class ANTLRGrammarCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		return OptionTypes.OVERRIDE_PARSER_SPEC;
+		return OptionTypes.OVERRIDE_PARSER;
 	}
 }

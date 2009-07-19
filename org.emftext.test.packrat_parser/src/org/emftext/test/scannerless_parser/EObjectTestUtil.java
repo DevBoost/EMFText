@@ -1,4 +1,4 @@
-package org.emftext.test.packrat_parser;
+package org.emftext.test.scannerless_parser;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -75,7 +75,7 @@ public class EMFTextTokenScanner implements ITokenScanner {
     public IToken nextToken() {
         currentToken = lexer.getNextToken();
 
-        if (!currentToken.canBeUsedForSyntaxHighlighting()) {
+        if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {
             return org.eclipse.jface.text.rules.Token.EOF;
         }
 

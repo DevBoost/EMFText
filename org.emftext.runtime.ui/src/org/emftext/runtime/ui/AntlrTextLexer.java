@@ -4,12 +4,12 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Lexer;
 import org.antlr.runtime.Token;
-import org.emftext.runtime.resource.ITextLexer;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITextToken;
+import org.emftext.runtime.resource.impl.AbstractEMFTextLexer;
 
 // TODO generate this class
-public class AntlrTextLexer implements ITextLexer {
+public class AntlrTextLexer extends AbstractEMFTextLexer {
 
 	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
     private String[] tokenNames;

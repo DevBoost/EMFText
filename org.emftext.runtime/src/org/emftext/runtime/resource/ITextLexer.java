@@ -5,6 +5,7 @@ package org.emftext.runtime.resource;
  * A scanner is initialized with a text and delivers a 
  * sequence of tokens.
  */
+//TODO mseifert: rename this class to ITextScanner
 public interface ITextLexer {
 
 	/**

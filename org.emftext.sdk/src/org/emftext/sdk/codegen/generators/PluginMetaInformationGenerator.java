@@ -49,6 +49,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.addLineBreak();
     	addGetConcreteSyntaxName(sc);
     	addGetURIMethod(sc);
+    	addCreateLexerMethod(sc);
 		addCreateParserMethod(sc);
 		addGetClassesWithSyntaxMethod(sc);
         addGetReferenceResolverSwitchMethod(sc);
@@ -56,7 +57,6 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         addGetPathTOCSDefinitionMethod(sc);
         addGetTokenNamesMethod(sc);
         addGetDefaultStyleMethod(sc);
-    	addCreateLexerMethod(sc);
         addTokenStyleImplClass(sc);
 
         sc.add("}");
@@ -67,7 +67,11 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 
 	private void addCreateLexerMethod(StringComposite sc) {
 		sc.add("public " + I_TEXT_LEXER+ " createLexer() {");
-        sc.add("return new " + ANTLR_TEXT_LEXER + "(this, new " + context.getQualifiedLexerClassName() + "());");
+		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
+			sc.add("return new " + context.getQualifiedScannerlessScannerClassName() + "();");
+		} else {
+			sc.add("return new " + ANTLR_TEXT_LEXER + "(this, new " + context.getQualifiedLexerClassName() + "());");
+		}
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -107,7 +111,11 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 
 	private void addGetTokenNamesMethod(StringComposite sc) {
 		sc.add("public " + STRING +"[] getTokenNames() {");
-        sc.add("return new " + context.getQualifiedParserClassName() + "(null).getTokenNames();");
+		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
+			sc.add("return new " + context.getQualifiedScannerlessParserClassName() + "().getTokenNames();");
+		} else {
+			sc.add("return new " + context.getQualifiedParserClassName() + "(null).getTokenNames();");
+		}
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -157,7 +165,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void addCreateParserMethod(StringComposite sc) {
 		String parserClassName = context.getQualifiedParserClassName();
 	    if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
-	    	parserClassName = context.getQualifiedPackratParserClassName();
+	    	parserClassName = context.getQualifiedScannerlessParserClassName();
 	    }
 		
 		sc.add("public " + I_TEXT_PARSER + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");

@@ -144,7 +144,7 @@
     <eLiterals name="GENERATE_PRINTER_STUB_ONLY" value="2" literal="generatePrinterStubOnly"/>
     <eLiterals name="OVERRIDE_PLUGIN_XML" value="3" literal="overridePluginXML"/>
     <eLiterals name="OVERRIDE_MANIFEST" value="4" literal="overrideManifest"/>
-    <eLiterals name="OVERRIDE_PARSER_SPEC" value="5" literal="overrideParserSpecification"/>
+    <eLiterals name="OVERRIDE_PARSER" value="5" literal="overrideParser"/>
     <eLiterals name="OVERRIDE_TOKEN_RESOLVERS" value="6" literal="overrideTokenResolvers"/>
     <eLiterals name="OVERRIDE_REFERENCE_RESOLVERS" value="7" literal="overrideReferenceResolvers"/>
     <eLiterals name="OVERRIDE_REFERENCE_RESOLVER_SWITCH" value="8" literal="overrideReferenceResolverSwitch"/>
@@ -172,6 +172,7 @@
     <eLiterals name="OVERRIDE_PLUGIN_META_INFORMATION_CLASS" value="30" literal="overridePluginMetaInformationClass"/>
     <eLiterals name="OVERRIDE_DEFAULT_RESOLVER_DELEGATE" value="31" literal="overrideDefaultResolverDelegate"/>
     <eLiterals name="OVERRIDE_PROBLEM_CLASS" value="32" literal="overrideProblemClass"/>
+    <eLiterals name="OVERRIDE_SCANNER" value="33" literal="overrideScanner"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

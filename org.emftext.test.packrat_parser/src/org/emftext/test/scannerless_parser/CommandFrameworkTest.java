@@ -1,4 +1,4 @@
-package org.emftext.test.packrat_parser;
+package org.emftext.test.scannerless_parser;
 
 import junit.framework.TestCase;
 

@@ -181,6 +181,8 @@ public abstract class GenerationContext {
     	return getPackageName() + "." + getTokenResolverFactoryClassName();
     }
     
+    // TODO remove this method. the nc-references should not be added
+    // by the parser generators
 	public void addNonContainmentReference(GenFeature proxyReference) {
 		nonContainmentReferences.add(proxyReference);
 	}
@@ -243,8 +245,12 @@ public abstract class GenerationContext {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
+	public String getParserClassName() {
+		return getCapitalizedConcreteSyntaxName() + "Parser";
+	}
+
 	public String getQualifiedParserClassName() {
-		return getPackageName() + "." + getCapitalizedConcreteSyntaxName() + "Parser";
+		return getPackageName() + "." + getParserClassName();
 	}
 
 	public String getQualifiedLexerClassName() {
@@ -351,15 +357,31 @@ public abstract class GenerationContext {
 		return new File(getPackagePath() + getProblemClassName() + JAVA_FILE_EXTENSION);
 	}
 
-	public String getPackratParserClassName() {
-		return getCapitalizedConcreteSyntaxName() + "PackratParser";
+	public String getScannerlessParserClassName() {
+		return getCapitalizedConcreteSyntaxName() + "ScannerlessParser";
 	}
 
-	public String getQualifiedPackratParserClassName() {
-		return getPackageName() + "." + getPackratParserClassName();
+	public String getQualifiedScannerlessParserClassName() {
+		return getPackageName() + "." + getScannerlessParserClassName();
 	}
 
-	public File getPackratParserFile() {
-		return new File(getPackagePath() + getPackratParserClassName() + JAVA_FILE_EXTENSION);
+	public File getScannerlessParserFile() {
+		return new File(getPackagePath() + getScannerlessParserClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public String getScannerlessScannerClassName() {
+		return getCapitalizedConcreteSyntaxName() + "ScannerlessScanner";
+	}
+
+	public String getQualifiedScannerlessScannerClassName() {
+		return getPackageName() + "." + getScannerlessScannerClassName();
+	}
+
+	public File getScannerlessScannerFile() {
+		return new File(getPackagePath() + getScannerlessScannerClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public File getParserFile() {
+		return new File(getPackagePath() + getParserClassName() + JAVA_FILE_EXTENSION);
 	}
 }

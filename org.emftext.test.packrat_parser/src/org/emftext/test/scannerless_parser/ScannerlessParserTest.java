@@ -1,4 +1,4 @@
-package org.emftext.test.packrat_parser;
+package org.emftext.test.scannerless_parser;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
@@ -18,18 +18,17 @@ import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
-import org.emftext.test.code_completion.resource.cct.CctPackratParser;
 import org.emftext.test.code_completion.resource.cct.CctResourceFactory;
 import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresMetaInformation;
-import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresPackratParser;
 import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresResourceFactory;
+import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresScannerlessParser;
 
 /**
- * A basic test for the packrat parser generator. It basically
+ * A basic test for the scannerless parser generator. It basically
  * checks whether the input is parsed without checking the resulting
  * model.
  */
-public class PackratParserTest extends TestCase {
+public class ScannerlessParserTest extends TestCase {
 
 	public static abstract class AbstractParseTest extends TestCase {
 		
@@ -88,6 +87,7 @@ public class PackratParserTest extends TestCase {
 		}
 	}
 	
+	/*
 	public static class CctParseTest extends AbstractParseTest {
 		
 		public CctParseTest(String content) {
@@ -98,32 +98,33 @@ public class PackratParserTest extends TestCase {
 			// do nothing
 		}
 	}
+	*/
 	
 	public static class GrammarFeatureParseTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseTest(String content, String expectedModel) {
-			super(content, expectedModel == null ? null : expectedModel, null, new Grammar_featuresMetaInformation(), new Grammar_featuresPackratParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, expectedModel == null ? null : expectedModel, null, new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
 	public static class GrammarFeatureParseRootTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseRootTest(String content, String expectedModel) {
-			super(content, expectedModel == null ? null : "Root{" + expectedModel + "}", null, new Grammar_featuresMetaInformation(), new Grammar_featuresPackratParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, expectedModel == null ? null : "Root{" + expectedModel + "}", null, new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
 	public static class GrammarFeatureParseErrorTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseErrorTest(String content, String expectedError) {
-			super(content, null, expectedError, new Grammar_featuresMetaInformation(), new Grammar_featuresPackratParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, null, expectedError, new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
 	public static class GrammarFeatureParseErrorModelTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseErrorModelTest(String content, String expectedModel) {
-			super(content, expectedModel, "", new Grammar_featuresMetaInformation(), new Grammar_featuresPackratParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, expectedModel, "", new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
@@ -138,6 +139,7 @@ public class PackratParserTest extends TestCase {
 		
 		TestSuite suite = new TestSuite("All tests");
 
+		/*
 		suite.addTest(new CctParseTest("public class A {}"));
 		suite.addTest(new CctParseTest("public class A {\n}"));
 		suite.addTest(new CctParseTest("public class A {private A x;}"));
@@ -147,6 +149,7 @@ public class PackratParserTest extends TestCase {
 		suite.addTest(new CctParseTest("private class some {\n\rprivate some a;\n\r}"));
 		suite.addTest(new CctParseTest("private class some {\n\r\tprivate some a;\n\r}"));
 		suite.addTest(new CctParseTest("public class A {private void method() {}}"));
+		*/
 		
 		suite.addTest(new GrammarFeatureParseTest("SecondRoot", "SecondRoot"));
 

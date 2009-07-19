@@ -14,7 +14,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/GENERATE_PRINTER_STUB_ONLY"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PLUGIN_XML"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_MANIFEST"/>
-      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PARSER_SPEC"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PARSER"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_TOKEN_RESOLVERS"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_REFERENCE_RESOLVERS"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_REFERENCE_RESOLVER_SWITCH"/>
@@ -42,6 +42,7 @@
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PLUGIN_META_INFORMATION_CLASS"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_DEFAULT_RESOLVER_DELEGATE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_PROBLEM_CLASS"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//OptionTypes/OVERRIDE_SCANNER"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//FontStyle">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//FontStyle/BOLD"/>

@@ -20,6 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.creators;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,16 +53,19 @@ public class ResourcePluginContentCreator {
 	    creators.add(new DotClasspathCreator());
 	    creators.add(new DotProjectCreator());
 	    creators.add(new BuildPropertiesCreator());
-	    // TODO once the scales parser is complete the ANTLR generation
-	    // should be deactivated
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
-	    	creators.add(new PackratParserCreator());
+	    	creators.add(new ScannerlessScannerCreator());
+	    	creators.add(new ScannerlessParserCreator());
+	    	creators.add(new EmptyClassCreator(context.getParserFile(), context.getParserClassName()));
+	    } else {
+		    creators.add(new ANTLRGrammarCreator());
+		    creators.add(new ANTLRParserCreator());
+	    	creators.add(new EmptyClassCreator(context.getScannerlessScannerFile(), context.getScannerlessScannerClassName()));
+	    	creators.add(new EmptyClassCreator(context.getScannerlessParserFile(), context.getScannerlessParserClassName()));
 	    }
 	    creators.add(new PluginXMLCreator());
-	    creators.add(new ANTLRGrammarCreator());
 	    creators.add(new TextResourceCreator());
 	    creators.add(new ResourceFactoryCreator());
-	    creators.add(new ANTLRParserCreator());
 	    creators.add(new PrinterBaseCreator());
 	    creators.add(new PrinterCreator());
 	    creators.add(new ReferenceResolversCreator());

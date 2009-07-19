@@ -16,6 +16,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVE_RESULT;
@@ -31,6 +32,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_UTIL
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN_RESOLVE_RESULT;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,6 +43,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -75,7 +78,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * 
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
-public class PackratParserGenerator extends BaseGenerator {
+public class ScannerlessParserGenerator extends BaseGenerator {
 	
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -83,8 +86,8 @@ public class PackratParserGenerator extends BaseGenerator {
 	private GenerationContext context;
 	private String tokenResolverFactoryName;
 	
-	public PackratParserGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getPackratParserClassName());
+	public ScannerlessParserGenerator(GenerationContext context) {
+		super(context.getPackageName(), context.getScannerlessParserClassName());
 		this.context = context;
 		this.tokenResolverFactoryName = context.getQualifiedTokenResolverFactoryClassName();
 	}
@@ -172,6 +175,10 @@ public class PackratParserGenerator extends BaseGenerator {
 	
 	private void addSetLocalizationInfoMethod(StringComposite sc) {
 		sc.add("public void setLocalizationInfo(" + E_OBJECT + " object, int start, int end) {");
+		sc.add("// the resource may be null if the parse is used in standalone mode");
+		sc.add("if (resource == null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add(INTEGER + "[] lineAndPosition = " + STRING_UTIL + ".getLineAndCharPosition(content, start);");
 		sc.add("int line = lineAndPosition[0];");
 		sc.add("int column = lineAndPosition[1];");
@@ -397,6 +404,27 @@ public class PackratParserGenerator extends BaseGenerator {
 		generatorUtil.addAddErrorToResourceMethod(sc);
 		addAddParseErrorToResourceMethod(sc);
 		addSetLocalizationInfoMethod(sc);
+		addSetScanModeMethod(sc);
+		addGetTokenNamesMethod(sc);
+		addGetTokensMethod(sc);
+	}
+
+	private void addGetTokenNamesMethod(StringComposite sc) {
+		sc.add("public " + STRING + "[] getTokenNames() {");
+		sc.add("return tokenNames;");
+		sc.add("}");
+	}
+
+	private void addGetTokensMethod(StringComposite sc) {
+		sc.add("public " + LIST + "<" + I_TEXT_TOKEN + "> getTokens() {");
+		sc.add("return tokens;");
+		sc.add("}");
+	}
+
+	private void addSetScanModeMethod(StringComposite sc) {
+		sc.add("public void setScanMode() {");
+		sc.add("scanMode = true;");
+		sc.add("}");
 	}
 
 	private void addAddParseErrorToResourceMethod(StringComposite sc) {
@@ -648,6 +676,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("private " + INPUT_STREAM_READER + " inputStream;");
 		sc.add("// the current position in the content");
 		sc.add("private int offset;");
+		sc.add("private boolean scanMode;");
 		sc.add("// the current position in the content (ignoring trailing unused tokens (e.g., whitespaces)");
 		sc.add("private int offsetIgnoringUnusedTokens;");
 		sc.add("private " + STRING + " content = \"\";");
@@ -657,6 +686,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.add("private " + I_TEXT_RESOURCE + " resource;");
 		sc.add("private ParseError parseError;");
+		sc.add("private " + LIST + "<" + I_TEXT_TOKEN + "> tokens;");
 		sc.addLineBreak();
 		
 		addTokenPatterns(sc);
@@ -665,17 +695,20 @@ public class PackratParserGenerator extends BaseGenerator {
 
 	private void addTokenPatterns(StringComposite sc) {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
+		List<String> tokenNames = new ArrayList<String>();
 		List<TokenDefinition> tokens = syntax.getActiveTokens();
 		for (TokenDefinition tokenDefinition : tokens) {
 			String fieldName = getFieldName(tokenDefinition);
 			String regex = tokenDefinition.getRegex();
-			if ("TEXT".equals(tokenDefinition.getName())) {
+			String tokenName = tokenDefinition.getName();
+			tokenNames.add("\"" + tokenName + "\"");
+			if ("TEXT".equals(tokenName)) {
 				regex = "[a-zA-Z]+";
-			} else if ("WHITESPACE".equals(tokenDefinition.getName())) {
+			} else if ("WHITESPACE".equals(tokenName)) {
 				regex = "[ \\\\t]";
-			} else if ("COMMENT".equals(tokenDefinition.getName())) {
+			} else if ("COMMENT".equals(tokenName)) {
 				regex = "//.*[\\\\n\\\\r]";
-			} else if ("LINEBREAK".equals(tokenDefinition.getName())) {
+			} else if ("LINEBREAK".equals(tokenName)) {
 				regex = "[\\\\n\\\\r]";
 			} else {
 				continue;
@@ -684,6 +717,7 @@ public class PackratParserGenerator extends BaseGenerator {
 			regex = "\\\\A" + regex;
 			sc.add("private final static " + PATTERN + " " + fieldName + " = " + PATTERN + ".compile(\"" + regex + "\");");
 		}
+		sc.add("private final static " + STRING + "[] tokenNames = new " + STRING + "[] {" + StringUtil.explode(tokenNames, ",") + "};");
 	}
 
 	private String getFieldName(TokenDefinition tokenDefinition) {
@@ -939,6 +973,7 @@ public class PackratParserGenerator extends BaseGenerator {
 		    	}
 				String proxyResolver = context.getReferenceResolverAccessor(genFeature);
 				sc.add("commands.add(new AddProxyCommand<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + instanceType.getQualifiedInterfaceName() + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
+            	context.addNonContainmentReference(genFeature);
 			} else {
 				throw new RuntimeException("Found unknown feature type for terminal.");
 			}

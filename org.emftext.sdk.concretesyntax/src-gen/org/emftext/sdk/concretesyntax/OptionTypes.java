@@ -87,14 +87,14 @@ public enum OptionTypes implements Enumerator {
 	OVERRIDE_MANIFEST(4, "OVERRIDE_MANIFEST", "overrideManifest"),
 
 	/**
-	 * The '<em><b>OVERRIDE PARSER SPEC</b></em>' literal object.
+	 * The '<em><b>OVERRIDE PARSER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_PARSER_SPEC_VALUE
+	 * @see #OVERRIDE_PARSER_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PARSER_SPEC(5, "OVERRIDE_PARSER_SPEC", "overrideParserSpecification"), /**
+	OVERRIDE_PARSER(5, "OVERRIDE_PARSER", "overrideParser"), /**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVERS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * If this option is set to true, the token resolver classes will be overridden during code
@@ -406,7 +406,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PROBLEM_CLASS(32, "OVERRIDE_PROBLEM_CLASS", "overrideProblemClass");
+	OVERRIDE_PROBLEM_CLASS(32, "OVERRIDE_PROBLEM_CLASS", "overrideProblemClass"), /**
+	 * The '<em><b>OVERRIDE SCANNER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SCANNER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SCANNER(33, "OVERRIDE_SCANNER", "overrideScanner");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -484,19 +492,19 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_MANIFEST_VALUE = 4;
 
 	/**
-	 * The '<em><b>OVERRIDE PARSER SPEC</b></em>' literal value.
+	 * The '<em><b>OVERRIDE PARSER</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE PARSER SPEC</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>OVERRIDE PARSER</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_PARSER_SPEC
-	 * @model literal="overrideParserSpecification"
+	 * @see #OVERRIDE_PARSER
+	 * @model literal="overrideParser"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_PARSER_SPEC_VALUE = 5;
+	public static final int OVERRIDE_PARSER_VALUE = 5;
 
 	/**
 	 * The '<em><b>OVERRIDE TOKEN RESOLVERS</b></em>' literal value.
@@ -904,6 +912,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_PROBLEM_CLASS_VALUE = 32;
 
 	/**
+	 * The '<em><b>OVERRIDE SCANNER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SCANNER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SCANNER
+	 * @model literal="overrideScanner"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SCANNER_VALUE = 33;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -916,7 +939,7 @@ public enum OptionTypes implements Enumerator {
 			GENERATE_PRINTER_STUB_ONLY,
 			OVERRIDE_PLUGIN_XML,
 			OVERRIDE_MANIFEST,
-			OVERRIDE_PARSER_SPEC,
+			OVERRIDE_PARSER,
 			OVERRIDE_TOKEN_RESOLVERS,
 			OVERRIDE_REFERENCE_RESOLVERS,
 			OVERRIDE_REFERENCE_RESOLVER_SWITCH,
@@ -944,6 +967,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_PLUGIN_META_INFORMATION_CLASS,
 			OVERRIDE_DEFAULT_RESOLVER_DELEGATE,
 			OVERRIDE_PROBLEM_CLASS,
+			OVERRIDE_SCANNER,
 		};
 
 	/**
@@ -999,7 +1023,7 @@ public enum OptionTypes implements Enumerator {
 			case GENERATE_PRINTER_STUB_ONLY_VALUE: return GENERATE_PRINTER_STUB_ONLY;
 			case OVERRIDE_PLUGIN_XML_VALUE: return OVERRIDE_PLUGIN_XML;
 			case OVERRIDE_MANIFEST_VALUE: return OVERRIDE_MANIFEST;
-			case OVERRIDE_PARSER_SPEC_VALUE: return OVERRIDE_PARSER_SPEC;
+			case OVERRIDE_PARSER_VALUE: return OVERRIDE_PARSER;
 			case OVERRIDE_TOKEN_RESOLVERS_VALUE: return OVERRIDE_TOKEN_RESOLVERS;
 			case OVERRIDE_REFERENCE_RESOLVERS_VALUE: return OVERRIDE_REFERENCE_RESOLVERS;
 			case OVERRIDE_REFERENCE_RESOLVER_SWITCH_VALUE: return OVERRIDE_REFERENCE_RESOLVER_SWITCH;
@@ -1027,6 +1051,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE: return OVERRIDE_PLUGIN_META_INFORMATION_CLASS;
 			case OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE: return OVERRIDE_DEFAULT_RESOLVER_DELEGATE;
 			case OVERRIDE_PROBLEM_CLASS_VALUE: return OVERRIDE_PROBLEM_CLASS;
+			case OVERRIDE_SCANNER_VALUE: return OVERRIDE_SCANNER;
 		}
 		return null;
 	}
