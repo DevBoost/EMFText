@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.regex.Matcher;
 
+import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.BitSet;
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.EarlyExitException;
@@ -33,6 +34,7 @@ import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.MismatchedTreeNodeException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.Token;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -64,6 +66,7 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextDiagnostic;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITextScanner;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
@@ -197,4 +200,8 @@ public interface IClassNameConstants {
 	public String STRING_WRITER = StringWriter.class.getName();
 	public String TOKEN_RESOLVE_RESULT = TokenResolveResult.class.getName();
 	public String URI = org.eclipse.emf.common.util.URI.class.getName();
+
+	public String I_TEXT_RESOURCE_PLUGIN_META_INFORMATION = ITextResourcePluginMetaInformation.class.getName();
+	public String TOKEN = Token.class.getName();
+	public String ANTLR_STRING_STREAM = ANTLRStringStream.class.getName();
 }

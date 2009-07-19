@@ -56,8 +56,10 @@ public class ResourcePluginContentCreator {
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new ScannerlessScannerCreator());
 	    	creators.add(new ScannerlessParserCreator());
+	    	creators.add(new EmptyClassCreator(context.getAntlrScannerFile(), context.getAntlrScannerClassName(), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getParserFile(), context.getParserClassName(), OptionTypes.OVERRIDE_PARSER));
 	    } else {
+	    	creators.add(new ANTLRScannerCreator());
 		    creators.add(new ANTLRGrammarCreator());
 		    creators.add(new ANTLRParserCreator());
 	    	creators.add(new EmptyClassCreator(context.getScannerlessScannerFile(), context.getScannerlessScannerClassName(), OptionTypes.OVERRIDE_SCANNER));

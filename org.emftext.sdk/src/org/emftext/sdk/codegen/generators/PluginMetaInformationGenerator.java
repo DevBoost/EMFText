@@ -1,12 +1,11 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_TEXT_LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_SCANNER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_SCANNER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_STYLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -70,7 +69,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
 			sc.add("return new " + context.getQualifiedScannerlessScannerClassName() + "();");
 		} else {
-			sc.add("return new " + ANTLR_TEXT_LEXER + "(this, new " + context.getQualifiedLexerClassName() + "());");
+			sc.add("return new " + context.getQualifiedAntlrScannerClassName() + "(this, new " + context.getQualifiedLexerClassName() + "());");
 		}
         sc.add("}");
         sc.addLineBreak();

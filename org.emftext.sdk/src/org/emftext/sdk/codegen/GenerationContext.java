@@ -384,4 +384,16 @@ public abstract class GenerationContext {
 	public File getParserFile() {
 		return new File(getPackagePath() + getParserClassName() + JAVA_FILE_EXTENSION);
 	}
+
+	public String getAntlrScannerClassName() {
+		return getCapitalizedConcreteSyntaxName() + "AntlrScanner";
+	}
+
+	public String getQualifiedAntlrScannerClassName() {
+		return getPackageName() + "." + getAntlrScannerClassName();
+	}
+
+	public File getAntlrScannerFile() {
+		return new File(getPackagePath() + getAntlrScannerClassName() + JAVA_FILE_EXTENSION);
+	}
 }

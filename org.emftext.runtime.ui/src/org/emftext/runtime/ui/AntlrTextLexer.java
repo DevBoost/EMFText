@@ -8,7 +8,7 @@ import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITextToken;
 import org.emftext.runtime.resource.impl.AbstractEMFTextScanner;
 
-// TODO generate this class
+// TODO remove this class once the CS language was regenerated
 public class AntlrTextLexer extends AbstractEMFTextScanner {
 
 	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
