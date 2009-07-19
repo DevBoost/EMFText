@@ -155,7 +155,7 @@ public interface IClassNameConstants {
 	public String I_RESOURCE_POST_PROCESSOR = IResourcePostProcessor.class.getName();
 	public String I_RESOURCE_POST_PROCESSOR_PROVIDER = org.emftext.runtime.IResourcePostProcessorProvider.class.getName();
 	public String I_TEXT_DIAGNOSTIC = ITextDiagnostic.class.getName();
-	public String I_TEXT_LEXER = ITextScanner.class.getName();
+	public String I_TEXT_SCANNER = ITextScanner.class.getName();
 	public String I_TEXT_PARSER = ITextParser.class.getName();
 	public String I_TEXT_RESOURCE = ITextResource.class.getName();
 	public String I_TEXT_TOKEN = ITextToken.class.getName();
