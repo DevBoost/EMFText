@@ -1107,6 +1107,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             	
             	if (genClassUtil.isNotConcrete(instanceType)) {
             		// TODO mseifert: replace this code with a call to class GenClassFinder
+            		// a slightly more elegant version of this code can also be found in the ScannerlessParserGenerator
             		for(GenClass instanceCand : allGenClasses) {
             			Collection<String> supertypes = genClassNames2superClassNames.get(instanceCand.getQualifiedInterfaceName());		
             			if (genClassUtil.isConcrete(instanceCand) &&
