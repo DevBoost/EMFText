@@ -1,6 +1,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.emftext.runtime.resource.ITextLexer;
+import org.emftext.runtime.resource.ITextScanner;
 import org.emftext.runtime.ui.AntlrTextLexer;
 
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
@@ -122,7 +122,7 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		return null;
 	}
 	
-	public ITextLexer createLexer() {
+	public ITextScanner createLexer() {
 		return new AntlrTextLexer(
 			this, 
 			new org.emftext.sdk.concretesyntax.resource.cs.CsLexer()

@@ -30,7 +30,7 @@ import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextLexer;
+import org.emftext.runtime.resource.ITextScanner;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITextToken;
 import org.emftext.runtime.ui.preferences.SyntaxColoringHelper;
@@ -45,7 +45,7 @@ import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
  */
 public class EMFTextTokenScanner implements ITokenScanner {
     
-    private ITextLexer lexer;
+    private ITextScanner lexer;
     private ITextToken currentToken;
     private int offset;
     private String languageId;

@@ -1,6 +1,6 @@
 package org.emftext.runtime.resource.impl;
 
-import org.emftext.runtime.resource.ITextLexer;
+import org.emftext.runtime.resource.ITextScanner;
 
 /**
  * This class is used to adapt existing text resource plug-ins to API
@@ -8,7 +8,7 @@ import org.emftext.runtime.resource.ITextLexer;
  * default implementations for new methods that are added to ITextScanner.
  */
 // TODO mseifert: rename this class to AbstractTextScanner
-public abstract class AbstractEMFTextLexer implements ITextLexer {
+public abstract class AbstractEMFTextLexer implements ITextScanner {
 
 	// Attention: Please do add only code that adapts existing implementations of
 	// old versions of ITextScanner here.

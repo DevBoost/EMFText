@@ -64,7 +64,7 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.IReferenceResolver;
 import org.emftext.runtime.resource.IReferenceResolverSwitch;
 import org.emftext.runtime.resource.ITextDiagnostic;
-import org.emftext.runtime.resource.ITextLexer;
+import org.emftext.runtime.resource.ITextScanner;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITextToken;
@@ -95,7 +95,7 @@ import org.emftext.runtime.util.StringUtil;
  */
 public interface IClassNameConstants {
 
-	public String I_TEXT_LEXER = ITextLexer.class.getName();
+	public String I_TEXT_LEXER = ITextScanner.class.getName();
 	public String I_TEXT_TOKEN = ITextToken.class.getName();
 	public String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public String ANTLR_TEXT_LEXER = AntlrTextLexer.class.getName();

@@ -28,7 +28,7 @@ public interface ITextResourcePluginMetaInformation {
 	 * 
 	 * @return a lexer instance.
 	 */
-	public ITextLexer createLexer();
+	public ITextScanner createLexer();
 	
 	/**
 	 * Returns an instance of the parser. This factory method
