@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Packrat Parser Test
-Bundle-SymbolicName: org.emftext.test.packrat_parser
+Bundle-SymbolicName: org.emftext.test.scannerless_parser
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.emftext.runtime,
  org.emftext.test.code_completion,
