@@ -17,8 +17,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
-import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
-import org.emftext.test.code_completion.resource.cct.CctResourceFactory;
 import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresMetaInformation;
 import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresResourceFactory;
 import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresScannerlessParser;
@@ -129,10 +127,6 @@ public class ScannerlessParserTest extends TestCase {
 	}
 	
 	public static Test suite() {
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-				new CctMetaInformation().getSyntaxName(),
-				new CctResourceFactory());
-		
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				new Grammar_featuresMetaInformation().getSyntaxName(),
 				new Grammar_featuresResourceFactory());
