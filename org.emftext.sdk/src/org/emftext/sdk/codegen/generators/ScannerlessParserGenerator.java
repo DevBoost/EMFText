@@ -910,7 +910,6 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			sc.add("while (matched) {");
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("}");
-			sc.add("// TODO backtrack");
 			sc.add("return true;");
 		} else if (cardinality instanceof PLUS) {
 			// cardinality == 1..*
@@ -919,7 +918,6 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("matchedAtLeastOnce |= matched;");
 			sc.add("}");
-			sc.add("// TODO backtrack");
 			sc.add("return matchedAtLeastOnce;");
 		} else if (cardinality instanceof QUESTIONMARK) {
 			// cardinality == 0..1
@@ -932,7 +930,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 
 		if (definition instanceof Containment) {
-			addMethodForContainment(sc, syntax, (Containment) definition);
+			addMethodForContainment(sc, syntax, ruleMetaClass, (Containment) definition);
 		} else if (definition instanceof CompoundDefinition) {
 			addMethodForCompound(sc, syntax, ruleMetaClass, (CompoundDefinition) definition);
 		} else if (definition instanceof Terminal) {
@@ -970,10 +968,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("matched = " + getMethodName(choice) + "();");
 	}
 
-	private void addMethodForContainment(StringComposite sc, ConcreteSyntax syntax, Containment containment) {
+	private void addMethodForContainment(StringComposite sc, ConcreteSyntax syntax, GenClass ruleMetaClass, Containment containment) {
 		final GenFeature genFeature = containment.getFeature();
 		final GenClass featureType = genFeature.getTypeGenClass();
-		final EStructuralFeature eFeature = genFeature.getEcoreFeature();
 
 		sc.add("public boolean " + getMethodName(containment) + "() {");
 		sc.add("int offsetCopy = this.offset;");
@@ -991,13 +988,11 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			sc.add("{");
 			sc.add("// restore old offset");
 			sc.add("this.offset = offsetCopy;");
-			sc.add("// TODO backtrack");
 			sc.add("boolean success = " + getRuleName(genClass) + "();");
 			sc.add("if (success) {");
 			sc.add("// add command to add element to the containment reference");
-			sc.add("addCommand(new AddContainedObjectCommand(" + eFeature.getFeatureID() + "));");
+			sc.add("addCommand(new AddContainedObjectCommand(" + generatorUtil.getFeatureConstant(ruleMetaClass, genFeature) + "));");
 			sc.add("return true;");
-			sc.add("} else {");
 			sc.add("}");
 			sc.add("}");
 		}
