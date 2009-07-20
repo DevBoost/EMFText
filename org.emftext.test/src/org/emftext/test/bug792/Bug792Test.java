@@ -76,7 +76,6 @@ public class Bug792Test extends TestCase {
 		
 		//there should not be exactly one "start" rule
 		String grammar = writer.toString();
-		System.out.println("Bug792Test.testBug792() " + grammar);
 		String whitespaces = "[ \\\\t\\\\r\\\\n]*";
 		String startRulePattern = "start" + whitespaces + "returns";
 		String[] parts = grammar.split(startRulePattern);
