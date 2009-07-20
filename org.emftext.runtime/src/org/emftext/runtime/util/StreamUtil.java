@@ -14,5 +14,6 @@ public class StreamUtil {
 		while ((read = in.read(b)) != -1) {
 			out.write(b, 0, read);
 		}
+		out.flush();
 	}
 }

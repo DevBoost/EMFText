@@ -165,7 +165,9 @@ public class StringComposite {
 			}
 			if (component.isEnabled()) {
 				String text = component.toString(tabs);
-				builder = new StringBuilder();
+				if (builder == null) {
+					builder = new StringBuilder();
+				}
 				builder.append(text);
 				if (doLineBreaks && isLineBreaker(component)) {
 					builder.append(LINE_BREAK);
