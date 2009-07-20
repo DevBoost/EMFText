@@ -89,12 +89,12 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 	private void checkValue(ITextResource resource, Option option, OptionTypes type, String value) {
 		if (BOOLEAN_OPTIONS.contains(type)) {
 			checkBooleanValue(resource, option, type, value);
+		} else if (type == OptionTypes.PARSER_GENERATOR) {
+			checkParserGeneratorValue(resource, option, value);
 		} else if (STRING_OPTIONS.contains(type)) {
 			// string values are accepted as they are
 		} else if (type == OptionTypes.TOKENSPACE) {
 			checkTokenspaceValue(resource, option, value);
-		} else if (type == OptionTypes.PARSER_GENERATOR) {
-			checkParserGeneratorValue(resource, option, value);
 		} else if (type == OptionTypes.DEFAULT_TOKEN_NAME) {
 			checkDefaultTokenNameValue(resource, option, value);
 		} else {
