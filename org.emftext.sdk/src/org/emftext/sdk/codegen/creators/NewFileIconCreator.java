@@ -27,6 +27,7 @@ import java.io.InputStream;
 
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
+import org.emftext.runtime.util.StreamUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -46,10 +47,7 @@ public class NewFileIconCreator implements IArtifactCreator {
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(context.getNewIconFile());
-			int read;
-			while ((read = in.read()) >= 0) {
-				fos.write(read);
-			}
+			StreamUtil.copy(in, fos);
 			fos.close();
 		} catch (IOException e) {
 			context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying new file icon.", null, GenerationProblem.Severity.ERROR, e));

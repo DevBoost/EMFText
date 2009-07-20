@@ -61,7 +61,11 @@ public class StringComponent implements Component {
 	
 	public String toString(int tabs) {
 		String textValue = getText();
-		return StringComposite.getTabText(tabs) + textValue;
+		if (tabs == 0) {
+			return textValue;
+		} else {
+			return StringComposite.getTabText(tabs) + textValue;
+		}
 	}
 
 	public String getEnabler() {

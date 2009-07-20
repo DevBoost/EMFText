@@ -275,6 +275,9 @@ public class StringComposite {
 	}
 
 	public static String getTabText(int tabs) {
+		if (tabs == 0) {
+			return "";
+		}
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < tabs; i++) {
 			builder.append('\t');

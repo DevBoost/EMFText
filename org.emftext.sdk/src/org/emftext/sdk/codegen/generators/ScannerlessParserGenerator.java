@@ -713,6 +713,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
 		sc.add("super(null);");
 		sc.add("this.inputStream = new " + INPUT_STREAM_READER + "(inputStream);");
+		// TODO generate more efficient code
 		sc.add("try {");
 		sc.add("int next;");
 		sc.add("while ((next = this.inputStream.read()) >= 0) {");

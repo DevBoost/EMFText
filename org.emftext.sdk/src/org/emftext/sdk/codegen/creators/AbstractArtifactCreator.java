@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.util.StreamUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -130,10 +131,7 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 	private void setContents(File target, InputStream in) throws IOException {
 		target.getParentFile().mkdirs();
 		FileOutputStream fos = new FileOutputStream(target);
-		int next = -1;
-		while ((next = in.read()) >= 0) {
-			fos.write(next);
-		}
+		StreamUtil.copy(in, fos);
 		fos.close();
 	}
 
