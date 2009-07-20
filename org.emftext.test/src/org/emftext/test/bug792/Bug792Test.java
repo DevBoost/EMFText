@@ -76,12 +76,13 @@ public class Bug792Test extends TestCase {
 		
 		//there should not be exactly one "start" rule
 		String grammar = writer.toString();
-		String startRuleString = "start returns";
-		int idx1 = grammar.indexOf(startRuleString);
-		int idx2 = grammar.lastIndexOf(startRuleString);
+		System.out.println("Bug792Test.testBug792() " + grammar);
+		String whitespaces = "[ \\\\t\\\\r\\\\n]*";
+		String startRulePattern = "start" + whitespaces + "returns";
+		String[] parts = grammar.split(startRulePattern);
 		
-		assertTrue("Start rule missing.",idx1 > -1);
-		assertTrue("There are at least two start rules.",idx1 == idx2);
+		assertTrue("Start rule missing.", parts.length < 2);
+		assertTrue("There are at least two start rules.", parts.length < 2);
 
 	}
 }
