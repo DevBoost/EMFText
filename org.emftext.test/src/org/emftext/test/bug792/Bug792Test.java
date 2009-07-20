@@ -74,14 +74,19 @@ public class Bug792Test extends TestCase {
 		
 		assertTrue(success);
 		
-		//there should not be exactly one "start" rule
 		String grammar = writer.toString();
-		String whitespaces = "[ \\\\t\\\\r\\\\n]*";
-		String startRulePattern = "start" + whitespaces + "returns";
-		String[] parts = grammar.split(startRulePattern);
+		String whitespaces = "[ \\t]+";
+		String[] parts = "a b".split(whitespaces);
+		assertEquals(2, parts.length);
+		parts = "ab cd".split("b" + whitespaces + "c");
+		assertEquals(2, parts.length);
+		parts = "ab \t\t cd".split("b" + whitespaces + "c");
+		assertEquals(2, parts.length);
 		
-		assertTrue("Start rule missing.", parts.length < 2);
-		assertTrue("There are at least two start rules.", parts.length < 2);
-
+		String startRulePattern = "start" + whitespaces + "returns";
+		parts = grammar.split(startRulePattern);
+		
+		// there should be exactly one "start" rule
+		assertTrue("There should be exactly one start rule.", parts.length == 2);
 	}
 }
