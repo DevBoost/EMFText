@@ -35,6 +35,7 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.codegen.util.NameUtil;
+import org.emftext.sdk.finders.GenClassFinder;
 
 /**
  * A generator that creates a multiplexing reference resolver.
@@ -46,6 +47,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	
 	private final NameUtil nameUtil = new NameUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private final GenerationContext context;
 
@@ -90,7 +92,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			GenFeature genFeature = generatorUtil.findGenFeature(genClass, proxyReference.getName());
 			sc.add("if (" + accessorName+ ".isInstance(container)) {");
-			sc.add(FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + "> frr = new " + FuzzyResolveResult.class.getName() + "<" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(result);");
+			sc.add(FuzzyResolveResult.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + FuzzyResolveResult.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
 
 			// TODO use the feature constant instead of the feature name, but NOT the way it is done
 			// in the next line, because this does not work when genClass is a super typer of  
@@ -100,7 +102,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			sc.add(org.eclipse.emf.ecore.EStructuralFeature.class.getName() + " feature = container.eClass().getEStructuralFeature(\"" + genFeature.getName() + "\");");
 			
 			sc.add("if (feature instanceof " + org.eclipse.emf.ecore.EReference.class.getName() + ") {");
-			sc.add(low(generatedClassName) + ".resolve(identifier, (" + genClass.getQualifiedInterfaceName() + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, frr);");
+			sc.add(low(generatedClassName) + ".resolve(identifier, (" + genClassFinder.getQualifiedInterfaceName(genClass) + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, frr);");
 			sc.add("}");
 			sc.add("}");
 		}

@@ -33,6 +33,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
+import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -49,7 +50,8 @@ public class GenClassFinder {
 	public static final String DOT = ".";
 	
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
-	
+	private final GenClassCache genClassCache = new GenClassCache();
+
 	/**
 	 * Returns all generator classes in the given syntax.
 	 * 
@@ -119,7 +121,7 @@ public class GenClassFinder {
 	
 	public boolean contains(Collection<GenClass> genClasses, GenClass genClass) {
 		for (GenClass next : genClasses) {
-			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+			if (genClassCache.getQualifiedInterfaceName(next).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
 				return true;
 			}
 		}
@@ -137,7 +139,7 @@ public class GenClassFinder {
 
 	private List<Pair<String, GenClass>> findAllGenClassesAndPrefixes(String prefix, GenPackage genPackage) {
 		List<Pair<String, GenClass>> foundClasses = new ArrayList<Pair<String, GenClass>>();
-		if(genPackage == null) {
+		if (genPackage == null) {
 			return foundClasses;
 		}
 		// first add all generator classes in the package itself
@@ -159,9 +161,9 @@ public class GenClassFinder {
 	    for (GenClass genClass : allGenClasses) {
 			Collection<String> superClasses = new LinkedList<String>();
 			for (GenClass superClass : genClass.getAllBaseGenClasses()) {
-				superClasses.add(superClass.getQualifiedInterfaceName());
+				superClasses.add(genClassCache.getQualifiedInterfaceName(superClass));
 			}
-			genClassName2superNames.put(genClass.getQualifiedInterfaceName(), superClasses);
+			genClassName2superNames.put(genClassCache.getQualifiedInterfaceName(genClass), superClasses);
 		}
 	    return genClassName2superNames;
 	}
@@ -190,5 +192,9 @@ public class GenClassFinder {
 			}
 		}
 		return null;
+	}
+
+	public String getQualifiedInterfaceName(GenClass genClass) {
+		return genClassCache.getQualifiedInterfaceName(genClass);
 	}
 }

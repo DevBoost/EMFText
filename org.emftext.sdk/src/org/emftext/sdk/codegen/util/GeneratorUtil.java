@@ -68,6 +68,7 @@ public class GeneratorUtil {
 	private final EClassUtil eClassUtil = new EClassUtil();
 	private final NameUtil nameUtil = new NameUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private final GenClassCache genClassCache = new GenClassCache();
 
 	public boolean hasMinimalCardinalityOneOrHigher(Definition definition) {
 		if (definition instanceof CardinalityDefinition) {
@@ -176,7 +177,7 @@ public class GeneratorUtil {
 	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			GenClass metaclass = rule.getMetaclass();
-			if (metaclass.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+			if (genClassCache.getQualifiedInterfaceName(metaclass).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
 				return rule;
 			}
 			if (contains(metaclass.getAllBaseGenClasses(), genClass)) {
@@ -189,7 +190,7 @@ public class GeneratorUtil {
 	private boolean contains(Collection<GenClass> genClasses,
 			GenClass genClass) {
 		for (GenClass next : genClasses) {
-			if (next.getQualifiedInterfaceName().equals(genClass.getQualifiedInterfaceName())) {
+			if (genClassCache.getQualifiedInterfaceName(next).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
 				return true;
 			}
 		}

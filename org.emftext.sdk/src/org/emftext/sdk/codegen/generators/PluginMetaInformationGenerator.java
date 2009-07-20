@@ -27,8 +27,8 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
 
 public class PluginMetaInformationGenerator extends BaseGenerator {
 
-	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
-	private final static GenClassUtil genClassUtil = new GenClassUtil();
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final GenClassUtil genClassUtil = new GenClassUtil();
 	
 	private GenerationContext context;
 

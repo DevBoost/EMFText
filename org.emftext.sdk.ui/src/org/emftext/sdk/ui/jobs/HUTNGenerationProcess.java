@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -81,6 +82,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 	private static final String KEYWORD_VIOLETT = "7F0055";
 
 	private static final GenClassUtil genClassUtil = new GenClassUtil();
+	private final GenClassCache genClassCache = new GenClassCache();
 	
 	private final IFile file;
 	private ConcretesyntaxFactory concretesyntaxFactory;
@@ -125,7 +127,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			
 			Map<String, Rule>  genClass2RuleCache = new HashMap<String, Rule>(); 
 			for (Rule rule : cSyntax.getRules()) {
-				genClass2RuleCache.put(rule.getMetaclass().getQualifiedInterfaceName(), rule);
+				genClass2RuleCache.put(genClassCache.getQualifiedInterfaceName(rule.getMetaclass()), rule);
 			}
 			
 			//String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
@@ -205,7 +207,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		
 		
 		for (GenClass genClass : genClasses) {
-			if (genClass2Rule.get(genClass.getQualifiedInterfaceName()) == null) {
+			if (genClass2Rule.get(genClassCache.getQualifiedInterfaceName(genClass)) == null) {
 				generateRule(genClass);
 			}
 		}

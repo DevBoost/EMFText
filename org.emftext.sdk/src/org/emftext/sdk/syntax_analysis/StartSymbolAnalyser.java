@@ -34,7 +34,7 @@ import org.emftext.sdk.concretesyntax.Rule;
  */
 public class StartSymbolAnalyser extends AbstractPostProcessor {
 	
-	private final static GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {

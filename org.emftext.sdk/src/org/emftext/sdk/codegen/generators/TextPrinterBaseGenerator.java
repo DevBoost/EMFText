@@ -85,6 +85,7 @@ import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
+import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.syntax_analysis.CollectInFeatureHelper;
 
 /**
@@ -97,6 +98,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private final static String localtabName = "localtab";
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private ConcreteSyntax concretSyntax;
 	private String tokenResolverFactoryClassName;
@@ -393,7 +395,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		if (hasMapType(rule.getMetaclass()) ) {
 			return rule.getMetaclass().getQualifiedClassName();
 		}
-		return rule.getMetaclass().getQualifiedInterfaceName();
+		return genClassFinder.getQualifiedInterfaceName(rule.getMetaclass());
 	}
 
 	private String getMethodName(Rule rule) {
@@ -663,7 +665,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix + "resolver.deResolve(" 
 										+ context.getReferenceResolverAccessor(genFeature)
-										+ ".deResolve((" + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ") o, element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
+										+ ".deResolve((" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ") o, element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
 										+ featureConstant
 										+ ")), element.eClass().getEStructuralFeature("
 										+ featureConstant

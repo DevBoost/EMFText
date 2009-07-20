@@ -512,7 +512,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
    		sc.add("} else if (typeObject instanceof " + E_CLASS + ") {");
    			sc.add(E_CLASS + " type = (" + E_CLASS + ") typeObject;");
    			for (Rule rule : concreteSyntax.getAllRules()) {
-   				String qualifiedClassName = rule.getMetaclass().getQualifiedInterfaceName();
+   				String qualifiedClassName = genClassFinder.getQualifiedInterfaceName(rule.getMetaclass());
    				String ruleName = getRuleName(rule.getMetaclass());
    				sc.add("if (type.getInstanceClass() == " + qualifiedClassName +".class) {");
    				sc.add("return " + ruleName + "();");
@@ -778,7 +778,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	 
 	        
 	        sc.add(ruleName);
-	        sc.add(" returns [" + recursiveType.getQualifiedInterfaceName() + " element = null]");
+	        sc.add(" returns [" + genClassFinder.getQualifiedInterfaceName(recursiveType) + " element = null]");
 	        sc.add("@init{");
 			sc.add("element = " + genClassUtil.getCreateObjectCall(recursiveType) + ";");
 	        sc.add("collectHiddenTokens(element);");
@@ -837,8 +837,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						Containment c = (Containment) definition;
 						GenClass featureType = c.getFeature().getTypeGenClass();
 						if (recursiveType.equals(featureType) || 
-								genClassNames2superClassNames.get(featureType.getQualifiedInterfaceName()).contains(recursiveType.getQualifiedInterfaceName()) ||
-								genClassNames2superClassNames.get(recursiveType.getQualifiedInterfaceName()).contains(featureType.getQualifiedInterfaceName())) {
+								genClassNames2superClassNames.get(genClassFinder.getQualifiedInterfaceName(featureType)).contains(genClassFinder.getQualifiedInterfaceName(recursiveType)) ||
+								genClassNames2superClassNames.get(genClassFinder.getQualifiedInterfaceName(recursiveType)).contains(genClassFinder.getQualifiedInterfaceName(featureType))) {
 							indexRecurse = parts.indexOf(definition);	
 							recurseName = c.getFeature().getName();
 							break;	
@@ -927,7 +927,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		GenClass genClass = rule.getMetaclass();
 		
 	    String ruleName = getRuleName(genClass);
-		String qualifiedClassName = genClass.getQualifiedInterfaceName();
+		String qualifiedClassName = genClassFinder.getQualifiedInterfaceName(genClass);
         
         sc.add(ruleName);
 		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
@@ -957,7 +957,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private String getRuleName(GenClass genClass) {
-		String interfaceName = genClass.getQualifiedInterfaceName();
+		String interfaceName = genClassFinder.getQualifiedInterfaceName(genClass);
 		String ruleName = interfaceName.replace("_", "_005F");
 		ruleName = ruleName.replace(".", "_");
 		return "parse_" + ruleName;
@@ -1109,9 +1109,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             		// TODO mseifert: replace this code with a call to class GenClassFinder
             		// a slightly more elegant version of this code can also be found in the ScannerlessParserGenerator
             		for(GenClass instanceCand : allGenClasses) {
-            			Collection<String> supertypes = genClassNames2superClassNames.get(instanceCand.getQualifiedInterfaceName());		
+            			Collection<String> supertypes = genClassNames2superClassNames.get(genClassFinder.getQualifiedInterfaceName(instanceCand));		
             			if (genClassUtil.isConcrete(instanceCand) &&
-            				supertypes.contains(instanceType.getQualifiedInterfaceName())) {
+            				supertypes.contains(genClassFinder.getQualifiedInterfaceName(instanceType))) {
         	            	proxyType = instanceCand;
         	            	break;
         				}
@@ -1120,9 +1120,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
             		proxyType = instanceType;
             	}
             	resolvements.add(targetTypeName + " " + resolvedIdent + " = (" + targetTypeName + ") "+preResolved+";");
-            	resolvements.add(proxyType.getQualifiedInterfaceName() + " " + expressionToBeSet + " = " + genClassUtil.getCreateObjectCall(proxyType) + ";"); 
+            	resolvements.add(genClassFinder.getQualifiedInterfaceName(proxyType) + " " + expressionToBeSet + " = " + genClassUtil.getCreateObjectCall(proxyType) + ";"); 
             	resolvements.add("collectHiddenTokens(element);");
-            	resolvements.add("registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + genFeature.getTypeGenClass().getQualifiedInterfaceName() + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
+            	resolvements.add("registerContextDependentProxy(new "+ ContextDependentURIFragmentFactory.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(" + context.getReferenceResolverAccessor(genFeature) + "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature(" + generatorUtil.getFeatureConstant(genClass, genFeature) + "), " + resolvedIdent + ", "+ proxyIdent + ");");
 	           	// remember that we must resolve proxy objects for this feature
             	context.addNonContainmentReference(genFeature);
         	}
@@ -1191,7 +1191,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 				if (!subClasses.isEmpty()) {
 					sc.add(getRuleName(referencedClass));
-					sc.add(" returns [" + referencedClass.getQualifiedInterfaceName() + " element = null]");
+					sc.add(" returns [" + genClassFinder.getQualifiedInterfaceName(referencedClass) + " element = null]");
 					sc.add(":");
 					printSubClassChoices(sc, subClasses);
 					sc.addLineBreak();

@@ -27,6 +27,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 
@@ -35,6 +36,8 @@ import org.emftext.sdk.concretesyntax.Rule;
  * per meta class.
  */
 public class DuplicateRuleAnalyser extends AbstractPostProcessor {
+
+	private final GenClassCache genClassCache = new GenClassCache();
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
@@ -46,7 +49,7 @@ public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 			if (genClass_i == null || genClass_i.eIsProxy()) {
 				continue;
 			}
-			final String name_i = genClass_i.getQualifiedInterfaceName();
+			final String name_i = genClassCache.getQualifiedInterfaceName(genClass_i);
 			if (name_i == null) {
 				continue;
 			}
@@ -58,7 +61,7 @@ public class DuplicateRuleAnalyser extends AbstractPostProcessor {
 				if (genClass_j == null) {
 					continue;
 				}
-				final String name_j = genClass_j.getQualifiedInterfaceName();
+				final String name_j = genClassCache.getQualifiedInterfaceName(genClass_j);
 				if (name_i.equals(name_j)) {
 					duplicates.add(rule_j);
 				}

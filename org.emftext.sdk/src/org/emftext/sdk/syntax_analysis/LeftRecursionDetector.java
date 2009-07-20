@@ -27,6 +27,7 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.EList;
+import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
@@ -44,6 +45,7 @@ import org.emftext.sdk.concretesyntax.Sequence;
 public class LeftRecursionDetector {
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final GenClassCache genClassCache = new GenClassCache();
 	
 	private final Map<String, Collection<String>> genClassNames2superNames;
 	private final ConcreteSyntax grammar;
@@ -103,7 +105,7 @@ public class LeftRecursionDetector {
 						}
 					}
 					if (currentRule.equals(featureRule) ) {
-						if (genClassNames2superNames.get(metaclass.getQualifiedInterfaceName()).contains(currentRule.getMetaclass().getQualifiedInterfaceName())) {
+						if (genClassNames2superNames.get(genClassCache.getQualifiedInterfaceName(metaclass)).contains(genClassCache.getQualifiedInterfaceName(currentRule.getMetaclass()))) {
 							return featureRule;
 						}
 						else return null; // we have found a recursion, but not for the type we started from
@@ -130,9 +132,9 @@ public class LeftRecursionDetector {
 	}
 
 	private boolean isSubtypeofOneOf(GenClass metaclass, Collection<GenClass> featureTypes) {
-		Collection<String> superNames = genClassNames2superNames.get(metaclass.getQualifiedInterfaceName());
+		Collection<String> superNames = genClassNames2superNames.get(genClassCache.getQualifiedInterfaceName(metaclass));
 		for (GenClass featureType : featureTypes) {
-			if (superNames.contains(featureType.getQualifiedInterfaceName())) return true;
+			if (superNames.contains(genClassCache.getQualifiedInterfaceName(featureType))) return true;
 		}
 	
 		return false;
@@ -153,7 +155,7 @@ public class LeftRecursionDetector {
 				Containment c = (Containment) sequence.getParts().get(0);
 				GenClass featureType = c.getFeature().getTypeGenClass();
 				if (metaclass.equals(featureType) || 
-						genClassNames2superNames.get(metaclass.getQualifiedInterfaceName()).contains(featureType.getQualifiedInterfaceName())) {
+						genClassNames2superNames.get(genClassCache.getQualifiedInterfaceName(metaclass)).contains(genClassCache.getQualifiedInterfaceName(featureType))) {
 					isDirectLeftRecursive = true;
 					
 					if (recursiveFeature == null) {

@@ -86,6 +86,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
+	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
 	private GenerationContext context;
 	private String tokenResolverFactoryName;
@@ -1028,7 +1029,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		    	GenClass proxyType = null;
 		    	
 		    	if (genClassUtil.isNotConcrete(instanceType)) {
-		    		Collection<GenClass> allSubclasses = new GenClassFinder().findAllSubclasses(syntax, instanceType);
+		    		Collection<GenClass> allSubclasses = genClassFinder.findAllSubclasses(syntax, instanceType);
 		    		for (GenClass subClass : allSubclasses) {
 		    			if (genClassUtil.isConcrete(subClass)) {
 			            	proxyType = subClass;
@@ -1039,7 +1040,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		    		proxyType = instanceType;
 		    	}
 				String proxyResolver = context.getReferenceResolverAccessor(genFeature);
-				sc.add("addCommand(new AddProxyCommand<" + genFeature.getGenClass().getQualifiedInterfaceName() + ", " + instanceType.getQualifiedInterfaceName() + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
+				sc.add("addCommand(new AddProxyCommand<" + genClassFinder.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(instanceType) + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
             	context.addNonContainmentReference(genFeature);
 			} else {
 				throw new RuntimeException("Found unknown feature type for terminal.");

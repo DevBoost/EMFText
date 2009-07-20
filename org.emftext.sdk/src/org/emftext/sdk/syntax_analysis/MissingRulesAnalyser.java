@@ -58,7 +58,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 			if (eClassUtil.isNotConcrete(ecoreClass)) {
 				continue;
 			}
-			String qualifiedName = genClass.getQualifiedInterfaceName();
+			String qualifiedName = genClassFinder.getQualifiedInterfaceName(genClass);
 			if (namesOfCompletedGenClasses.contains(qualifiedName)) {
 				continue;
 			}
@@ -66,7 +66,7 @@ public class MissingRulesAnalyser extends AbstractPostProcessor {
 			boolean foundRuleForClass = false;
 			for (Rule rule : allRules) {
 				GenClass ruleClass = rule.getMetaclass();
-				if (ruleClass != null && !ruleClass.eIsProxy() && ruleClass.getQualifiedInterfaceName().equals(qualifiedName)) {
+				if (ruleClass != null && !ruleClass.eIsProxy() && genClassFinder.getQualifiedInterfaceName(ruleClass).equals(qualifiedName)) {
 					foundRuleForClass = true;
 					break;
 				}

@@ -13,6 +13,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
  */
 public class GenClassUtil {
 
+	private final GenClassCache genClassCache = new GenClassCache();
+
 	public boolean isConcrete(GenClass genClass) {
 		return !genClass.isAbstract() && !genClass.isInterface();
 	}
@@ -24,7 +26,7 @@ public class GenClassUtil {
 	public boolean isSuperClass(GenClass superClass, GenClass subClass) {
 		List<GenClass> superClasses = subClass.getAllBaseGenClasses();
 		for (GenClass nextSuperclass : superClasses) {
-			if (nextSuperclass.getQualifiedInterfaceName().equals(superClass.getQualifiedInterfaceName())) {
+			if (genClassCache.getQualifiedInterfaceName(nextSuperclass).equals(genClassCache.getQualifiedInterfaceName(superClass))) {
 				return true;
 			}
 		}
