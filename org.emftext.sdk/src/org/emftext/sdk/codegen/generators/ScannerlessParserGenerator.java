@@ -127,7 +127,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		addSetAttributeValueCommandClass(sc);
 		addAddProxyCommandClass(sc);
 		addPopContainerCommandClass(sc);
-		addSetLocationCommandClass(sc);
+		addObjectCompletedCommandClass(sc);
 		addParseErrorClass(sc);
 	}
 
@@ -153,25 +153,25 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetLocationCommandClass(StringComposite sc) {
-		sc.add("public class SetLocationCommand implements ICommand {");
+	private void addObjectCompletedCommandClass(StringComposite sc) {
+		sc.add("public class ObjectCompletedCommand implements ICommand {");
 		sc.add("public int start;");
 		sc.add("public int end;");
 		sc.addLineBreak();
-		sc.add("public SetLocationCommand(int start, int end) {");
+		sc.add("public ObjectCompletedCommand(int start, int end) {");
 		sc.add("this.start = start;");
 		sc.add("this.end = end;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void execute(ICommandContext context) {");
 		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
-		sc.add("if (resource == null) {");
+		sc.add("if (resource != null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
-		sc.add("return;");
-		sc.add("}");
 		sc.add(E_OBJECT + " currentContainer = context.getCurrentContainer();");
 		sc.add("setLocalizationInfo(currentContainer, start, end);");
+		sc.add("}");
+		sc.add("context.popCurrentContainer();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -198,7 +198,6 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private void addPopContainerCommandClass(StringComposite sc) {
 		sc.add("public static class PopContainerCommand implements ICommand {");
 		sc.add("public void execute(ICommandContext context) {");
-		sc.add("context.popCurrentContainer();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -816,8 +815,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("addCommand(new CreateObjectCommand(eClass));");
 		sc.add("boolean success = " + getMethodName(choice) + "();");
 		sc.add("if (success) {");
-		sc.add("addCommand(new SetLocationCommand(startOffset, offsetIgnoringUnusedTokens - 1));");
-		sc.add("addCommand(new PopContainerCommand());");
+		sc.add("addCommand(new ObjectCompletedCommand(startOffset, offsetIgnoringUnusedTokens - 1));");
 		sc.add("return true;");
 		sc.add("} else {");
 		sc.add("discardCommands(commandIndexBackup);");
