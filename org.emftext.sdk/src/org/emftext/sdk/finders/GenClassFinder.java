@@ -143,13 +143,14 @@ public class GenClassFinder {
 			return foundClasses;
 		}
 		// first add all generator classes in the package itself
-		EList<GenClass> genClasses = genPackage.getGenClasses();
+		List<GenClass> genClasses = genPackage.getGenClasses();
+		final String key = prefix == null ? "" : prefix + DOT;
 		for (GenClass genClass : genClasses) {
-			foundClasses.add(new Pair<String, GenClass>(prefix == null ? "" : prefix + DOT, genClass));
+			foundClasses.add(new Pair<String, GenClass>(key, genClass));
 		}
 		// then add all generator classes contained in sub packages
 		for (GenPackage subPackage : genPackage.getSubGenPackages()) {
-			List<Pair<String, GenClass>> classesInSubPackage = findAllGenClassesAndPrefixes((prefix == null ? "" : prefix + DOT) + subPackage.getPrefix(), subPackage);
+			List<Pair<String, GenClass>> classesInSubPackage = findAllGenClassesAndPrefixes(key + subPackage.getPrefix(), subPackage);
 			foundClasses.addAll(classesInSubPackage);
 		}
 		return foundClasses;

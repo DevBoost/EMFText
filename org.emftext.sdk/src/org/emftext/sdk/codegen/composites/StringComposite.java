@@ -154,7 +154,7 @@ public class StringComposite {
 	}
 	
 	public String toString(int tabs, boolean doLineBreaks) {
-		StringBuilder builder = new StringBuilder();
+		StringBuilder builder = null;
 		
 		enableComponents();
 		
@@ -165,6 +165,7 @@ public class StringComposite {
 			}
 			if (component.isEnabled()) {
 				String text = component.toString(tabs);
+				builder = new StringBuilder();
 				builder.append(text);
 				if (doLineBreaks && isLineBreaker(component)) {
 					builder.append(LINE_BREAK);
@@ -173,6 +174,9 @@ public class StringComposite {
 			if (isIndendationStarter(component)) {
 				tabs++;
 			}
+		}
+		if (builder == null) {
+			return "";
 		}
 		return builder.toString();
 	}
@@ -274,10 +278,21 @@ public class StringComposite {
 		return false;
 	}
 
+	private static final int MAX_TABS = 20;
+	private static final String[] TAB_STRINGS = new String[20];
+	
 	public static String getTabText(int tabs) {
-		if (tabs == 0) {
-			return "";
+		if (tabs >= MAX_TABS) {
+			return createTabString(tabs);
 		}
+		String tabString = TAB_STRINGS[tabs];
+		if (tabString == null) {
+			TAB_STRINGS[tabs] = createTabString(tabs);
+		}
+		return TAB_STRINGS[tabs];
+	}
+
+	private static String createTabString(int tabs) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < tabs; i++) {
 			builder.append('\t');
