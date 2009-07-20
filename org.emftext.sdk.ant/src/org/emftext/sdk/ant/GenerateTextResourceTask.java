@@ -56,22 +56,29 @@ public class GenerateTextResourceTask extends Task {
 
 	private List<GenModelElement> genModels = new ArrayList<GenModelElement>();
 	private List<GenPackageElement> genPackages = new ArrayList<GenPackageElement>();
+	private SyntaxProcessor preprocessor;
 	
 	@Override
 	public void execute() throws BuildException {
 		checkParameters();
 		
 		// Get the task class loader we used to load this tag.
-		AntClassLoader taskloader = 
-			(AntClassLoader)this.getClass().getClassLoader();
+		AntClassLoader taskloader = null;
+		ClassLoader loader = this.getClass().getClassLoader();
+		if (loader instanceof AntClassLoader) {
+			taskloader = (AntClassLoader) loader;
+		}
 		// Shove it into the Thread, replacing the thread's ClassLoader:
-		taskloader.setThreadContextLoader();
+		if (taskloader != null) {
+			taskloader.setThreadContextLoader();
+		}
 
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
 			ITextResource csResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
+			performPreprocessing(syntax);
 			
 			Result result = new AntResourcePluginGenerator().run(
 					syntax, 
@@ -85,24 +92,43 @@ public class GenerateTextResourceTask extends Task {
 						log("Found unresolved proxy \"" + ((InternalEObject) unresolvedProxy).eProxyURI() + "\" in " + unresolvedProxy.eResource());
 					}
 					 // Reset the Thread's original ClassLoader.
-					taskloader.resetThreadContextLoader(); 
+					if (taskloader != null) {
+						taskloader.resetThreadContextLoader();
+					}
 					throw new BuildException("Generation failed " + result);
 				} else {
 					 // Reset the Thread's original ClassLoader.
-					taskloader.resetThreadContextLoader(); 
+					if (taskloader != null) {
+						taskloader.resetThreadContextLoader();
+					}
 					throw new BuildException("Generation failed " + result);
 				}
 			}
 		} catch (Exception e) {
 			 // Reset the Thread's original ClassLoader.
-			taskloader.resetThreadContextLoader(); 
+			if (taskloader != null) {
+				taskloader.resetThreadContextLoader();
+			}
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
 		 // Reset the Thread's original ClassLoader.
-		taskloader.resetThreadContextLoader(); 
+		if (taskloader != null) {
+			taskloader.resetThreadContextLoader();
+		}
 	}
 	
+	private void performPreprocessing(ConcreteSyntax syntax) {
+		if (preprocessor == null) {
+			return;
+		}
+		preprocessor.process(syntax);
+	}
+	
+	public void setPreprocessor(SyntaxProcessor preprocessor) {
+		this.preprocessor = preprocessor;
+	}
+
 	private void checkParameters() {
 		if (syntaxFile == null) {
 			throw new BuildException("Parameter \"syntax\" is missing.");
