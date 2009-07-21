@@ -175,4 +175,11 @@ public class StringUtil {
 		}
 		return new Integer[] {line, positionInLine};
 	}
+	
+	public static String escapeQuotes(String s) {
+		s = s.replace("\\", "\\\\");
+		s = s.replace("\"", "\\\"");
+		
+		return s;
+	}
 }
