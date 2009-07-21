@@ -786,9 +786,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// the \a is needed to indicate the the begin of the input must be matched
+			// the \A is needed to indicate the the begin of the input must be matched
 			regex = "\\\\A" + regex;
-			sc.add("private final static " + PATTERN + " " + fieldName + " = " + PATTERN + ".compile(\"" + regex + "\");");
+			sc.add("public final static " + PATTERN + " " + fieldName + " = " + PATTERN + ".compile(\"" + regex + "\");");
 		}
 	}
 	
@@ -888,8 +888,12 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 				addCodeForCsString(sc, (CsString) part);
 			} else if (part instanceof WhiteSpaces) {
 				// do nothing
+				sc.add("// whitespace");
+				continue;
 			} else if (part instanceof LineBreak) {
 				// do nothing
+				sc.add("// linebreak");
+				continue;
 			} else {
 				throw new RuntimeException("Found unknown subclass " + part.getClass().getName());
 			}
