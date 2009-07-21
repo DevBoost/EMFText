@@ -57,8 +57,8 @@ public class ResourcePluginContentCreator {
 	    	creators.add(new ScannerlessScannerCreator());
 	    	creators.add(new ScannerlessParserCreator());
 	    	creators.add(new EmptyClassCreator(context.getAntlrScannerFile(), context.getAntlrScannerClassName(), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(context.getParserFile(), context.getParserClassName(), OptionTypes.OVERRIDE_PARSER));
-	    	// TODO add Empty ANTLRLexer
+	    	creators.add(new EmptyClassCreator(context.getAntlrLexerFile(), context.getAntlrLexerClassName(), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getAntlrParserFile(), context.getAntlrParserClassName(), OptionTypes.OVERRIDE_PARSER));
 	    } else {
 	    	creators.add(new ANTLRScannerCreator());
 		    creators.add(new ANTLRGrammarCreator());

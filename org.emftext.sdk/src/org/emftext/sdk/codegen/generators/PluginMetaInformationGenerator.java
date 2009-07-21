@@ -69,7 +69,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
 			sc.add("return new " + context.getQualifiedScannerlessScannerClassName() + "();");
 		} else {
-			sc.add("return new " + context.getQualifiedAntlrScannerClassName() + "(this, new " + context.getQualifiedLexerClassName() + "());");
+			sc.add("return new " + context.getQualifiedAntlrScannerClassName() + "(this, new " + context.getQualifiedAntlrLexerClassName() + "());");
 		}
         sc.add("}");
         sc.addLineBreak();
@@ -113,7 +113,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
 			sc.add("return new " + context.getQualifiedScannerlessParserClassName() + "().getTokenNames();");
 		} else {
-			sc.add("return new " + context.getQualifiedParserClassName() + "(null).getTokenNames();");
+			sc.add("return new " + context.getQualifiedAntlrParserClassName() + "(null).getTokenNames();");
 		}
         sc.add("}");
         sc.addLineBreak();
@@ -162,7 +162,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addCreateParserMethod(StringComposite sc) {
-		String parserClassName = context.getQualifiedParserClassName();
+		String parserClassName = context.getQualifiedAntlrParserClassName();
 	    if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
 	    	parserClassName = context.getQualifiedScannerlessParserClassName();
 	    }

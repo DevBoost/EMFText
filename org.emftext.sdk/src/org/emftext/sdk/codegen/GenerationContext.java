@@ -245,16 +245,12 @@ public abstract class GenerationContext {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
-	public String getParserClassName() {
+	public String getAntlrParserClassName() {
 		return getCapitalizedConcreteSyntaxName() + "Parser";
 	}
 
-	public String getQualifiedParserClassName() {
-		return getPackageName() + "." + getParserClassName();
-	}
-
-	public String getQualifiedLexerClassName() {
-		return getPackageName() + "." + getCapitalizedConcreteSyntaxName() + "Lexer";
+	public String getQualifiedAntlrParserClassName() {
+		return getPackageName() + "." + getAntlrParserClassName();
 	}
 
 	public String getQualifiedPrinterName() {
@@ -381,8 +377,8 @@ public abstract class GenerationContext {
 		return new File(getPackagePath() + getScannerlessScannerClassName() + JAVA_FILE_EXTENSION);
 	}
 
-	public File getParserFile() {
-		return new File(getPackagePath() + getParserClassName() + JAVA_FILE_EXTENSION);
+	public File getAntlrParserFile() {
+		return new File(getPackagePath() + getAntlrParserClassName() + JAVA_FILE_EXTENSION);
 	}
 
 	public String getAntlrScannerClassName() {
@@ -395,5 +391,17 @@ public abstract class GenerationContext {
 
 	public File getAntlrScannerFile() {
 		return new File(getPackagePath() + getAntlrScannerClassName() + JAVA_FILE_EXTENSION);
+	}
+
+	public String getAntlrLexerClassName() {
+		return getCapitalizedConcreteSyntaxName() + "Lexer";
+	}
+
+	public String getQualifiedAntlrLexerClassName() {
+		return getPackageName() + "." + getAntlrLexerClassName();
+	}
+
+	public File getAntlrLexerFile() {
+		return new File(getPackagePath() + getAntlrLexerClassName() + JAVA_FILE_EXTENSION);
 	}
 }
