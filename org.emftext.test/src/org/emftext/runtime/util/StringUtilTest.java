@@ -4,6 +4,13 @@ import junit.framework.TestCase;
 
 public class StringUtilTest extends TestCase {
 
+	public void testQuoteReplacement() {
+		assertEquals("\\\"", StringUtil.escapeQuotes("\""));
+		assertEquals("\\\"\\\"", StringUtil.escapeQuotes("\"\""));
+		assertEquals("\\\\", StringUtil.escapeQuotes("\\"));
+		assertEquals("\\\\ \\\\", StringUtil.escapeQuotes("\\ \\"));
+	}
+	
 	public void testGetMissingTail() {
 		assertEquals("d", StringUtil.getMissingTail("abc", "cd"));
 		assertEquals("cd", StringUtil.getMissingTail("a", "cd"));
