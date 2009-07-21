@@ -31,6 +31,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN_RESOLVE_RESULT;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,6 +41,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EAttribute;
@@ -51,6 +57,8 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.regex.ANTLRexpLexer;
+import org.emftext.sdk.codegen.regex.ANTLRexpParser;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.concretesyntax.Cardinality;
@@ -758,16 +766,25 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			String regex = tokenDefinition.getRegex();
 			String tokenName = tokenDefinition.getName();
 			tokenNames.add("\"" + tokenName + "\"");
-			if ("TEXT".equals(tokenName)) {
-				regex = "[a-zA-Z]+";
-			} else if ("WHITESPACE".equals(tokenName)) {
-				regex = "[ \\\\t]";
-			} else if ("COMMENT".equals(tokenName)) {
-				regex = "//.*[\\\\n\\\\r]";
-			} else if ("LINEBREAK".equals(tokenName)) {
-				regex = "[\\\\n\\\\r]";
-			} else {
-				continue;
+			
+			InputStream input = new ByteArrayInputStream(regex.getBytes());
+			ANTLRInputStream inputStream;
+			try {
+				inputStream = new ANTLRInputStream(input);
+			
+			
+				ANTLRexpLexer lexer = new ANTLRexpLexer(inputStream);
+				CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+				
+				ANTLRexpParser parser = new ANTLRexpParser(tokenStream);
+				regex = parser.root().toString();
+				regex = StringUtil.escapeQuotes(regex);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (RecognitionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			// the \a is needed to indicate the the begin of the input must be matched
 			regex = "\\\\A" + regex;
@@ -1013,7 +1030,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			Placeholder defaultTokenTerminal = (Placeholder) terminal;
 			TokenDefinition tokenDefinition = defaultTokenTerminal.getToken();
 			String regexp = tokenDefinition.getRegex();
-			sc.add("// match regexp \"" + regexp + "\"");
+			sc.add("// match regexp \"" + regexp.replaceAll("\n", "").replace("\r", "") + "\"");
 			String fieldName = getFieldName(tokenDefinition);
 			String tokenName = tokenDefinition.getName();
 			sc.add("int offsetBeforeMatch = offset;");

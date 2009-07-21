@@ -27,7 +27,7 @@
 */
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
-Needs to be further tested since antlr uses the same sublanguage for ebnf and regex!*/
+Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/
 
 
 grammar ANTLRexp;
@@ -53,32 +53,189 @@ package org.emftext.sdk.codegen.regex;
 }
 
 @members{
+ private StringBuffer regExpression = new StringBuffer();
+ 
+ public String getRegExpressionString() {
+ 		return regExpression.toString();
+ }
+ 
+ private String transformIntoRegExpQuotes(String st) {
+ 		String test = st;
+		String subString = test.substring(1, test.length()-1);
+		
+	
+		String resultString = subString;
+		resultString = resultString.replace("^", "\\^");
+		resultString = resultString.replace("+", "\\+");
+		resultString = resultString.replace("?", "\\?");
+		resultString = resultString.replace("*", "\\*");
+		resultString = resultString.replace("-", "\\-");
+		resultString = resultString.replace(".", "\\.");
+		resultString = resultString.replace("~", "^");
+		resultString = resultString.replace("(", "\\(");
+		resultString = resultString.replace(")", "\\)");
+		resultString = resultString.replace("{", "\\{");
+		resultString = resultString.replace("}", "\\}");
+		resultString = resultString.replace("[", "\\[");
+		resultString = resultString.replace("]", "\\]");
+		
+		
+		return resultString;
+ }
+ 
+ private String removeTicks(String st) {
+ 		String test = st;
+		String subString = test.substring(1, test.length()-1);
+		return subString;
+ }
+ 
  public java.util.List<RecognitionException> recExceptions = ((ANTLRexpLexer)getTokenStream().getTokenSource()).lexerExceptions;
+
+
 
 }
 
 /** Matches ENBF blocks (and token sets via block rule) */
-root : alternative ( '|' alternative )*;
+root returns [StringBuffer buf] 
+@init {
+	buf = new StringBuffer();
+}
 
-ebnf :	block  (	'?'  	|'*'	|	'+'  |   '^'	|   '!'  )?;
+: alternative1 = alternative {buf.append($alternative1.buf);} ( '|' alternative2 = alternative {buf.append("|" + $alternative2.buf);})*; 
 
-range	:	CHAR_LITERAL '..' CHAR_LITERAL;
 
-terminal    :   (	CHAR_LITERAL	|   STRING_LITERAL |   '.' )  ;
+ebnf returns [StringBuffer buf]  
+@init{
+	buf = new StringBuffer();
+}
 
-ebnfSuffix :	'?' | '*'	|'+';
+:	bl = block  {buf.append($bl.buf);} (	sign='?'  	| sign='*'	|	sign='+'  |   sign='^'	|   sign='!'  )?
+{
+if ($sign != null) {
+	buf.append($sign.text);
+}
+}
+;
 
-block  :   '(' alternative( '|' alternative )* ')' ;
+range returns [StringBuffer buf]
+@init{
+	buf = new StringBuffer();
+}
 
-alternative : element*  ;
 
-element : elementNoOptionSpec;
+	:	first=CHAR_LITERAL '..' second=CHAR_LITERAL
+{
+	buf.append("["); buf.append(removeTicks($first.text)); buf.append("-"); buf.append(removeTicks($second.text)); buf.append("]");
+}
 
-elementNoOptionSpec :	atom  (	ebnfSuffix )	? |	ebnf;
 
-atom:  (  range   |   terminal   |	notSet  )  ( '^' |  '!'  ) ? ;
+;
 
-notSet:	'~' 	( block) 	;
+terminal returns [StringBuffer buf]    
+@init {
+	buf = new StringBuffer();
+}
+
+
+:   (	signTerminal = CHAR_LITERAL	|   signTerminal = STRING_LITERAL |   signTerminalDot = '.' )  
+{
+	if ($signTerminal != null) {
+		String resultString = transformIntoRegExpQuotes($signTerminal.text);
+		buf.append(resultString);
+	} else if ($signTerminalDot != null) {
+		buf.append($signTerminalDot.text);
+	}
+}
+;
+
+ebnfSuffix returns [StringBuffer buf] 
+@init {
+	buf = new StringBuffer();
+}
+@after {
+	return buf;
+}
+
+
+:	sign='?' | sign='*'	|sign='+'
+{
+buf.append($sign.text);
+}
+;
+
+block returns [StringBuffer buf]  
+@init {
+	buf = new StringBuffer();
+}
+
+
+:   '(' alternative1=alternative   {buf.append("(" + $alternative1.buf);} ( '|'  alternative2=alternative  {buf.append("|" + $alternative2.buf);} )* ')'  {buf.append(")");};
+
+alternative returns [StringBuffer buf] 
+@init {
+	buf = new StringBuffer();
+}
+
+: ( ele = element {buf.append($ele.buf);})*  
+;
+
+element returns [StringBuffer buf]
+@init {
+	buf = new StringBuffer();
+}
+
+ : ele = elementNoOptionSpec
+{
+buf.append($ele.buf);
+}
+;
+
+elementNoOptionSpec returns [StringBuffer buf] 
+@init {
+	buf = new StringBuffer();
+}
+:	at = atom  (	suf = ebnfSuffix )	? 
+{
+buf.append($at.buf);
+if ($suf.buf != null) {
+buf.append($suf.buf);
+}
+}
+|	eb = ebnf
+{
+buf.append($eb.buf);
+}
+;
+
+atom returns [StringBuffer buf]
+@init {
+	buf = new StringBuffer();
+}
+
+: ( exp =  range   |  exp = terminal   |	exp = notSet  )  (sign= '^' | sign =  '!'  ) ? 
+{
+buf.append($exp.buf);
+if ($sign != null) {
+	buf.append($sign.text);
+}
+}
+;
+
+notSet returns [StringBuffer buf] 
+@init {
+	buf = new StringBuffer();
+}
+
+:	sign = '~' 	( bl = block) 	
+{
+buf.append("[");
+buf.append("^");
+buf.append($bl.buf);
+buf.append("]");
+return buf;
+}
+
+;
 
 
 // L E X I C A L   R U L E S
