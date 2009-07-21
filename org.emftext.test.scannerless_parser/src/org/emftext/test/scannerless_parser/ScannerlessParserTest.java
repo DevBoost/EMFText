@@ -217,6 +217,9 @@ public class ScannerlessParserTest extends TestCase {
 		suite.addTest(new GrammarFeatureParseErrorTest("mc ", "Keyword x"));
 		suite.addTest(new GrammarFeatureParseErrorTest("mc x:", "token TEXT"));
 		suite.addTest(new GrammarFeatureParseErrorTest("mnc", "token TEXT"));
+		
+		suite.addTest(new GrammarFeatureParseRootTest("op a b", "OptionalPrefix"));
+		suite.addTest(new GrammarFeatureParseRootTest("op a a b", "OptionalPrefix"));
 
 		// this test does fail because no model is created for unparsable input
 		//suite.addTest(new GrammarFeatureParseErrorModelTest("mc ", "MandatoryContainment"));

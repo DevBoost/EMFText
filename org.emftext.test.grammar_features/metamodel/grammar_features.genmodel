@@ -50,5 +50,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute grammar_features.ecore#//ClassWithAttributes/a2"/>
     </genClasses>
     <genClasses ecoreClass="grammar_features.ecore#//SecondRoot"/>
+    <genClasses ecoreClass="grammar_features.ecore#//OptionalPrefix"/>
   </genPackages>
 </genmodel:GenModel>
