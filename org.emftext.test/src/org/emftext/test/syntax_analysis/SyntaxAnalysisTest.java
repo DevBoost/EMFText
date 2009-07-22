@@ -59,6 +59,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String UNCHANGEABLE_REFERENCE = "Reference .* is not changeable.";
 	private static final String OPTIONAL_KEYWORD = "The keyword might be used stand alone .*";
 	private static final String INVALID_WARNING_TYPE = "Invalid warning type found: .*";
+	private static final String START_SYMBOL_IN_ABSTRACT_SYNTAX_FOUND = "Syntax has start symbols (.*), but is declared abstract. Note that these start symbols are thrown away during import.";
 
 	@Before
 	public void setUp() {
@@ -161,6 +162,11 @@ public class SyntaxAnalysisTest extends TestCase {
 	@Test
 	public void testIgnorePredefinedDirective() throws FileNotFoundException, IOException {
 		assertProblems("ignore_predefined_token_directive.cs", NONE, NONE);
+	}
+	
+	@Test
+	public void testStartSymbolsInAbstractCSs() throws FileNotFoundException, IOException {
+		assertProblems("abstractSyntaxWithStartsymbol.cs", new String[] {START_SYMBOL_IN_ABSTRACT_SYNTAX_FOUND, NO_SUB_CLASSES_FOUND_FOR_NC_REFERENCE}, NONE);
 	}
 
 	private void assertProblems(String filename, String[] expectedWarnings, String[] expectedErrors) {
