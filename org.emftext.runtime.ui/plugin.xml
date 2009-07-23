@@ -18,9 +18,19 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
+            class="org.emftext.runtime.ui.preferences.EMFTextPreferencePage"
+            id="org.emftext.runtime.ui.preferences.EMFTextPreferencePage"
+            name="EMFText"/>
+      <page
             class="org.emftext.runtime.ui.preferences.SyntaxColoringPreferencePage"
             id="org.emftext.runtime.ui.preferences.SyntaxColoringPreferencePage"
-            name="EMFText Syntax Coloring"/>
+            name="Syntax Coloring"
+            category="org.emftext.runtime.ui.preferences.EMFTextPreferencePage"/>
+      <page
+            class="org.emftext.runtime.ui.preferences.BracketPreferencePage"
+            id="org.emftext.runtime.ui.preferences.BracketPreferencePage"
+            name="Brackets"
+            category="org.emftext.runtime.ui.preferences.EMFTextPreferencePage"/>
     </extension>
 
    <extension

@@ -22,10 +22,13 @@ package org.emftext.runtime.ui;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextHover;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
+import org.eclipse.jface.text.reconciler.IReconciler;
+import org.eclipse.jface.text.reconciler.MonoReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.source.DefaultAnnotationHover;
@@ -35,7 +38,10 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.part.FileEditorInput;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
+import org.emftext.runtime.ui.extensions.EMFTextHover;
+import org.emftext.runtime.ui.extensions.EMFTextReconcilingStrategy;
 
+// TODO mseifert: align this class with the EMFText coding style
 /**
  * This class provides the configuration for all EMFText editors. It registers
  * content assistance and syntax highlighting.
@@ -99,9 +105,27 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 
 		return reconciler;
 	}
+	//Code Folding
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getReconciler(org.eclipse.jface.text.source.ISourceViewer)
+	 */
+	public IReconciler getReconciler(ISourceViewer sourceViewer)
+    {
+		EMFTextReconcilingStrategy strategy = new EMFTextReconcilingStrategy();
+        strategy.setEditor(theEditor);
+        
+        MonoReconciler reconciler = new MonoReconciler(strategy,false);
+        
+        return reconciler;
+    }
+	
 	
 	@Override
 	public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
 		return new DefaultAnnotationHover();
+	}
+	
+	public ITextHover getTextHover(ISourceViewer sourceViewer, String contentType) {
+		return new EMFTextHover(theEditor);
 	}
 }

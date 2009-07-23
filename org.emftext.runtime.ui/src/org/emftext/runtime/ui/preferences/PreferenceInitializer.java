@@ -34,6 +34,7 @@ import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 /**
  * Class used to initialize default preference values.
  */
+//TODO mseifert: align this class with the EMFText coding style
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
@@ -67,7 +68,22 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
                     setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
                 }
             }
+			//Set default brackets for ITextResource bracket set
+			store.setDefault(languageId+PreferenceConstants.EDITOR_BRACKETS_SUFFIX, "\"\"\'\'");
         }   
+			        
+        //Set default value for MatchingBrackets
+        store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR, "60,255,60");
+        store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, true);
+        
+        //Set default value for Occurrence
+        store.setDefault(PreferenceConstants.EDITOR_DEFINITION_COLOR, "240,216,168");
+        store.setDefault(PreferenceConstants.EDITOR_PROXY_COLOR, "212,212,212");
+        
+        //Set default value for Hyperlink 
+        store.setDefault(PreferenceConstants.EDITOR_HYPERLINK_COLOR, "42,0,255");
+        
+        //store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_RULER, true);
 	}
 
 	private void setProperties(IPreferenceStore store, String languageID,

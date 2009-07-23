@@ -16,4 +16,5 @@ Export-Package: org.emftext.runtime.ui,org.emftext.runtime.ui.editor,o
  rg.emftext.runtime.ui.editor.bg_parsing,org.emftext.runtime.ui.new_wi
  zard,org.emftext.runtime.ui.outline,org.emftext.runtime.ui.preference
  s
+Import-Package: org.eclipse.jdt.core
 
