@@ -34,17 +34,15 @@ import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 /**
  * Class used to initialize default preference values.
  */
-//TODO mseifert: align this class with the EMFText coding style
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
+	// TODO this should not be used here!
 	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
 	
 	public void initializeDefaultPreferences() {
-		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault()
-				.getPreferenceStore();
+		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
 		
 		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
-
         for (ITextResourcePluginMetaInformation extension : extensions) {
     		String languageId = extension.getSyntaxName();
             String[] tokenNames = extension.getTokenNames();
@@ -72,15 +70,15 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 			store.setDefault(languageId+PreferenceConstants.EDITOR_BRACKETS_SUFFIX, "\"\"\'\'");
         }   
 			        
-        //Set default value for MatchingBrackets
+        //Set default value for matching brackets
         store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR, "60,255,60");
         store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, true);
         
-        //Set default value for Occurrence
+        //Set default value for occurrences
         store.setDefault(PreferenceConstants.EDITOR_DEFINITION_COLOR, "240,216,168");
         store.setDefault(PreferenceConstants.EDITOR_PROXY_COLOR, "212,212,212");
         
-        //Set default value for Hyperlink 
+        //Set default value for hyper links
         store.setDefault(PreferenceConstants.EDITOR_HYPERLINK_COLOR, "42,0,255");
         
         //store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_RULER, true);
