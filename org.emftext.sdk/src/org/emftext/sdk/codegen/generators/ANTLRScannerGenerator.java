@@ -75,6 +75,9 @@ public class ANTLRScannerGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("return true;");
 		sc.add("}");
+		sc.add("public " + STRING + " getText() {");
+		sc.add("return current.getText();");
+		sc.add("}");
 		sc.add("};");
 		sc.add("return result;");
 		sc.add("}");

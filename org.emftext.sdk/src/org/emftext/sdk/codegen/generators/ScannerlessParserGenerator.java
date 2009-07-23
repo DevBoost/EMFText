@@ -434,7 +434,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 
 	private void addAddTokenMethod(StringComposite sc) {
-		sc.add("public void addToken(final " + STRING + " tokenName, final int offset, final int length) {");
+		sc.add("public void addToken(final " + STRING + " tokenName, final " + STRING + " text, final int offset, final int length) {");
 		sc.add("// only if the parser is in scan mode the tokens are collected");
 		sc.add("if (scanMode) {");
 		sc.add("tokens.add(new " + I_TEXT_TOKEN + "() {");
@@ -454,6 +454,10 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("return offset;");
 		sc.add("}");
 		
+		sc.add("public " + STRING + " getText() {");
+		sc.add("return text;");
+		sc.add("}");
+
 		sc.add("});");
 		sc.add("}");
 		sc.add("}");
@@ -557,7 +561,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("int start = matcher.start();");
 		sc.add("int end = matcher.end();");
 		sc.add(STRING + " match = tail.substring(start, end);");
-		sc.add("addToken(name, offset, end - start);");
+		sc.add("addToken(name, match, offset, end - start);");
 		sc.add("offset = offset + end;");
 		sc.add("if (!isUnusedToken) {");
 		sc.add("offsetIgnoringUnusedTokens = offset;");
@@ -610,7 +614,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("public boolean matches(" + STRING + " keyword) {");
 		sc.add("boolean matches = content.startsWith(keyword, offset);");
 		sc.add("if (matches) {");
-		sc.add("addToken(keyword, offset, keyword.length());");
+		sc.add("addToken(keyword, keyword, offset, keyword.length());");
 		sc.add("offset += keyword.length();");
 		sc.add("matchUnusedTokens();");
 		sc.add("} else {");

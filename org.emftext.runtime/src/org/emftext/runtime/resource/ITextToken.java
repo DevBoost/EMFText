@@ -29,4 +29,6 @@ public interface ITextToken {
 	 * Returns false if the token is not usable for syntax highlighting.
 	 */
 	public boolean canBeUsedForSyntaxHighlighting();
+
+	public String getText();
 }
