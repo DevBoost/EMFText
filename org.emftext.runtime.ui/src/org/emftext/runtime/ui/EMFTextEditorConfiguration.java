@@ -41,7 +41,6 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.ui.extensions.TextHover;
 import org.emftext.runtime.ui.extensions.ReconcilingStrategy;
 
-// TODO mseifert: align this class with the EMFText coding style
 /**
  * This class provides the configuration for all EMFText editors. It registers
  * content assistance and syntax highlighting.
@@ -98,19 +97,18 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		PresentationReconciler reconciler = new PresentationReconciler();
         String fileName = theEditor.getEditorInput().getName();
         
-		DefaultDamagerRepairer dr =
-			new DefaultDamagerRepairer(getScanner(fileName));
+		DefaultDamagerRepairer dr = new DefaultDamagerRepairer(getScanner(fileName));
         reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
         reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
 
 		return reconciler;
 	}
+	
 	//Code Folding
-	/* (non-Javadoc)
+	/*
 	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getReconciler(org.eclipse.jface.text.source.ISourceViewer)
 	 */
-	public IReconciler getReconciler(ISourceViewer sourceViewer)
-    {
+	public IReconciler getReconciler(ISourceViewer sourceViewer) {
 		ReconcilingStrategy strategy = new ReconcilingStrategy();
         strategy.setEditor(theEditor);
         
@@ -118,7 +116,6 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
         
         return reconciler;
     }
-	
 	
 	@Override
 	public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
