@@ -56,11 +56,9 @@ public class Hyperlink implements IHyperlink {
 			return;
 		IFile file = getIFileFromResource();
 		if (file != null) {
-			IWorkbenchPage page = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage();
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			try {
-				page.openEditor(new FileEditorInput(file), page
-						.getActiveEditor().getSite().getId());
+				page.openEditor(new FileEditorInput(file), page.getActiveEditor().getSite().getId());
 
 				IEditorPart ep = page.getActiveEditor();
 				if (ep instanceof EMFTextEditor) {
@@ -78,12 +76,11 @@ public class Hyperlink implements IHyperlink {
 		if (eUri.toString().startsWith("pathmap"))
 			;
 		eUri = URIConverter.URI_MAP.get(eUri);
-		//TODO what is a PlatformResource
+		// TODO what is a PlatformResource
 		if (eUri.isPlatformResource()) {
 			String platformString = eUri.toPlatformString(true);
 			if (platformString != null) {
-				return ResourcesPlugin.getWorkspace().getRoot().getFile(
-						new Path(platformString));
+				return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(platformString));
 			}
 		}
 		return null;

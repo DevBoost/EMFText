@@ -29,7 +29,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
-import org.emftext.runtime.ui.extensions.Brackets;
+import org.emftext.runtime.ui.extensions.BracketSet;
 
 //TODO mseifert: align this class with the EMFText coding style
 public class BracketPreferencePage extends PreferencePage implements
@@ -55,7 +55,7 @@ public class BracketPreferencePage extends PreferencePage implements
     private Map<String, String> bracketSetTemp=new HashMap<String, String>();
 	private String language;
 	
-	private Brackets bracketsTmp;
+	private BracketSet bracketsTmp;
 	
 	public BracketPreferencePage(){
 		super();
@@ -96,7 +96,7 @@ public class BracketPreferencePage extends PreferencePage implements
 		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
 		setDescription("Define the coloring of matching brackets.");
 		
-		bracketsTmp=new Brackets(null, null);
+		bracketsTmp=new BracketSet(null, null);
 		for (String languageID:content.keySet().toArray(new String[0])){
 			bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
 		}
@@ -285,7 +285,7 @@ public class BracketPreferencePage extends PreferencePage implements
 				if (bracketsTmp.isBracket(open)||bracketsTmp.isBracket(close))
 					setErrorMessage("One or both bracket parts are set!");
 				else{
-					bracketsTmp.add(open, close);
+					bracketsTmp.addBracketPair(open, close);
 					fBracketsList.setItems(bracketsTmp.getBracketStringArray());
 					setErrorMessage(null);
 					bracketSetTemp.put(language, bracketsTmp.getBracketString());
@@ -299,7 +299,7 @@ public class BracketPreferencePage extends PreferencePage implements
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				bracketsTmp.removeBrackets(fBracketsList.getSelection());
+				bracketsTmp.removeBracketPairs(fBracketsList.getSelection());
 				setErrorMessage(null);
 				fBracketsList.setItems(bracketsTmp.getBracketStringArray());
 				bracketSetTemp.put(language, bracketsTmp.getBracketString());

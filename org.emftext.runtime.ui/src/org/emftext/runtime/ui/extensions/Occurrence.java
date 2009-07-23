@@ -34,19 +34,18 @@ public class Occurrence {
 		return tText;
 	}
 
-	public Occurrence(ITextResource textresource, ISourceViewer sourceviewer,
-			ColorManager colorManager, EMFTextTokenScanner aTScanner) {
+	public Occurrence(ITextResource textresource, ISourceViewer sourceviewer, ColorManager colorManager,
+			EMFTextTokenScanner aTScanner) {
 		EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
 		tr = textresource;
 		viewer = sourceviewer;
 		text = sourceviewer.getTextWidget();
-		
+
 		quotedTokenArray = new ArrayList<String>();
 		String[] tokenNames = tr.getMetaInformation().getTokenNames();
 		for (String tokenName : tokenNames) {
 			if (tokenName.startsWith("'") && tokenName.endsWith("'")) {
-				quotedTokenArray.add(tokenName.substring(1,
-						tokenName.length() - 1).trim());
+				quotedTokenArray.add(tokenName.substring(1, tokenName.length() - 1).trim());
 			}
 		}
 
@@ -70,16 +69,17 @@ public class Occurrence {
 		return lm.getCharEnd(eobject) - lm.getCharStart(eobject) + 1;
 	}
 
-	public void handleOccurrenceHighlighting(Brackets brackets) {
-		//TODO because of the TextResource bug, only available if the editor is not dirty.
+	public void handleOccurrenceHighlighting(BracketSet brackets) {
+		// TODO because of the TextResource bug, only available if the editor is
+		// not dirty.
 		if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().isDirty())
 			return;
-		ProjectionViewer pviewer=null;
+		ProjectionViewer pviewer = null;
 		if (viewer instanceof ProjectionViewer) {
-			pviewer = (ProjectionViewer)viewer;
+			pviewer = (ProjectionViewer) viewer;
 		}
 		int caret = text.getCaretOffset();
-		if (pviewer!=null) {
+		if (pviewer != null) {
 			caret = pviewer.widgetOffset2ModelOffset(caret);
 			if (caret == -1)
 				return;
@@ -93,14 +93,13 @@ public class Occurrence {
 		EObject resolvedEO = tryToResolve(eList);
 		if (resolvedEO != null)
 			eList = lm.getElementsAt(lm.getCharStart(resolvedEO));
-		
-		scanner.setRange(viewer.getDocument(), lm.getCharStart(firstEO),
-				getEOLength(firstEO));
+
+		scanner.setRange(viewer.getDocument(), lm.getCharStart(firstEO), getEOLength(firstEO));
 		IToken t = scanner.nextToken();
 		while (!t.isEOF()) {
-			if (scanner.getTokenOffset() <= caret
-					&& scanner.getTokenLength() + scanner.getTokenOffset() > caret) {
-				if (scanner.getTokenText().trim().equals(""))//the rejected elements
+			if (scanner.getTokenOffset() <= caret && scanner.getTokenLength() + scanner.getTokenOffset() > caret) {
+				if (scanner.getTokenText().trim().equals(""))// the rejected
+																// elements
 					return;
 				tText = scanner.getTokenText();
 				break;
@@ -110,8 +109,9 @@ public class Occurrence {
 
 		if (tText == null || tText.equals(""))
 			return;
-		if ((resolvedEO == null&&quotedTokenArray.contains(tText))||(resolvedEO==null&&eList.get(0).eResource()==null)||brackets.isBracket(tText)) {
-			tText="";
+		if ((resolvedEO == null && quotedTokenArray.contains(tText))
+				|| (resolvedEO == null && eList.get(0).eResource() == null) || brackets.isBracket(tText)) {
+			tText = "";
 			return;
 		}
 		try {
@@ -126,53 +126,52 @@ public class Occurrence {
 		ILocationMap lm = tr.getLocationMap();
 		IToken t;
 		int defPosition = -1;
-			boolean isNull = eo == null;
-			if (isNull)
-				eo = eList.get(0);
-			if (eo.eResource().equals(tr)) {
-				scanner.setRange(viewer.getDocument(), lm.getCharStart(eo),
-						getEOLength(eo));
+		boolean isNull = eo == null;
+		if (isNull)
+			eo = eList.get(0);
+		if (eo.eResource().equals(tr)) {
+			scanner.setRange(viewer.getDocument(), lm.getCharStart(eo), getEOLength(eo));
+			t = scanner.nextToken();
+			while (!t.isEOF()) {
+				String tokenText = scanner.getTokenText();
+				if (tokenText.equals(tText)) {
+					doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
+					try {
+						defPosition = scanner.getTokenOffset();
+						doc.addPosition(ExtensionConstants.POSITION_CATEGORY_DEF, new Position(
+								scanner.getTokenOffset(), scanner.getTokenLength()));
+					} catch (BadLocationException e) {
+						e.printStackTrace();
+					} catch (BadPositionCategoryException e) {
+						e.printStackTrace();
+					}
+					break;
+				}
 				t = scanner.nextToken();
-				while (!t.isEOF()) {
-					String tokenText = scanner.getTokenText();
-					if (tokenText.equals(tText)) {
-						doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
+			}
+		}
+		scanner.setRange(viewer.getDocument(), 0, viewer.getDocument().getLength());
+		EObject occEO;
+		t = scanner.nextToken();
+		doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
+		while (!t.isEOF()) {
+			String tokenText = scanner.getTokenText();
+			if (tokenText != null && tokenText.equals(tText) && scanner.getTokenOffset() != defPosition) {
+				occEO = tryToResolve(lm.getElementsAt(scanner.getTokenOffset()));
+				if (occEO != null)
+					if ((isNull && eList.contains(occEO)) || !isNull && eo.equals(occEO)) {
 						try {
-							defPosition = scanner.getTokenOffset();
-							doc.addPosition(ExtensionConstants.POSITION_CATEGORY_DEF, new Position(scanner.getTokenOffset(), scanner.getTokenLength()));
+							doc.addPosition(ExtensionConstants.POSITION_CATEGORY_USE, new Position(scanner
+									.getTokenOffset(), scanner.getTokenLength()));
 						} catch (BadLocationException e) {
 							e.printStackTrace();
 						} catch (BadPositionCategoryException e) {
 							e.printStackTrace();
 						}
-						break;
 					}
-					t = scanner.nextToken();
-				}
 			}
-			scanner.setRange(viewer.getDocument(), 0, viewer.getDocument().getLength());
-			EObject occEO;
 			t = scanner.nextToken();
-			doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
-			while (!t.isEOF()) {
-				String tokenText = scanner.getTokenText();
-				if (tokenText != null && tokenText.equals(tText) && scanner.getTokenOffset()!=defPosition) {
-					occEO = tryToResolve(lm.getElementsAt(scanner
-							.getTokenOffset()));
-					if (occEO != null)
-						if ((isNull && eList.contains(occEO)) || !isNull
-								&& eo.equals(occEO)) {
-								try {
-									doc.addPosition(ExtensionConstants.POSITION_CATEGORY_USE, new Position(scanner.getTokenOffset(), scanner.getTokenLength()));
-								} catch (BadLocationException e) {
-									e.printStackTrace();
-								} catch (BadPositionCategoryException e) {
-									e.printStackTrace();
-								}
-						}
-				}
-				t = scanner.nextToken();
-			}
+		}
 	}
 
 	public boolean isQuotedToken(String tokenText) {

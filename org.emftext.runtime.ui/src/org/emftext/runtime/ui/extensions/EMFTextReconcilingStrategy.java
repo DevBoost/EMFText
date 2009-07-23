@@ -16,8 +16,7 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 //TODO mseifert: align this class with the EMFText coding style
-public class EMFTextReconcilingStrategy implements IReconcilingStrategy,
-		IReconcilingStrategyExtension {
+public class EMFTextReconcilingStrategy implements IReconcilingStrategy, IReconcilingStrategyExtension {
 
 	private EMFTextEditor editor;
 
@@ -53,34 +52,36 @@ public class EMFTextReconcilingStrategy implements IReconcilingStrategy,
 	}
 
 	public void initialReconcile() {
-		//TODO Because of the inconsistency between ITextResource and dirty editor, this Strategy can't work. 
-		//We need an ITextResource with ILocationMap of this "dirty" ITextResource. 
+		// TODO Because of the inconsistency between ITextResource and dirty
+		// editor, this Strategy can't work.
+		// We need an ITextResource with ILocationMap of this "dirty"
+		// ITextResource.
 		if (editor.isDirty())
 			return;
 		fPositions.clear();
-		if (tr==null)
-			tr=(ITextResource) editor.getResource();
+		if (tr == null)
+			tr = (ITextResource) editor.getResource();
 		calculatePositions();
-		
+
 	}
 
 	public void setProgressMonitor(IProgressMonitor monitor) {
 	}
-	
+
 	protected void calculatePositions() {
-		ILocationMap lm=tr.getLocationMap();
-		for ( TreeIterator<EObject> ti=tr.getAllContents(); ti.hasNext(); ) {
-			EObject eo=ti.next();
+		ILocationMap lm = tr.getLocationMap();
+		for (TreeIterator<EObject> ti = tr.getAllContents(); ti.hasNext();) {
+			EObject eo = ti.next();
 			int offset = lm.getCharStart(eo);
-			int length = lm.getCharEnd(eo)-lm.getCharStart(eo)+1;
-			if (offset>=0&&length >0)
-					fPositions.add(new Position(offset,length));
+			int length = lm.getCharEnd(eo) - lm.getCharStart(eo) + 1;
+			if (offset >= 0 && length > 0)
+				fPositions.add(new Position(offset, length));
 		}
 		Display.getDefault().asyncExec(new Runnable() {
-            public void run() {
-                    editor.updateFoldingStructure(fPositions);
-            }
+			public void run() {
+				editor.updateFoldingStructure(fPositions);
+			}
 
-    });
+		});
 	}
 }

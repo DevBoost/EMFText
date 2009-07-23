@@ -52,13 +52,12 @@ public class Highlighting {
 	private IPreferenceStore store;
 	private ProjectionViewer pviewer;
 	private ITextResource tr;
-	
+
 	private Occurrence occurrence;
-	private Brackets brackets;
+	private BracketSet brackets;
 	private Hyperlink hLink;
-	
-	private final class HighlightingListener implements KeyListener,
-			VerifyListener {
+
+	private final class HighlightingListener implements KeyListener, VerifyListener {
 
 		private boolean changed = false;
 
@@ -90,22 +89,21 @@ public class Highlighting {
 		pviewer = sourceviewer;
 		scanner = new EMFTextTokenScanner(textresource, colorManager);
 		occurrence = new Occurrence(tr, sourceviewer, colorManager, scanner);
-		brackets = new Brackets(sourceviewer, tr.getURI().fileExtension());
+		brackets = new BracketSet(sourceviewer, tr.getURI().fileExtension());
 
 		defColor = colorManager.getColor(PreferenceConverter.getColor(store,
 				PreferenceConstants.EDITOR_DEFINITION_COLOR));
-		proxyColor = colorManager.getColor(PreferenceConverter.getColor(store,
-				PreferenceConstants.EDITOR_PROXY_COLOR));
-		bracketColor = colorManager.getColor(PreferenceConverter.getColor(
-				store, PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
+		proxyColor = colorManager.getColor(PreferenceConverter.getColor(store, PreferenceConstants.EDITOR_PROXY_COLOR));
+		bracketColor = colorManager.getColor(PreferenceConverter.getColor(store,
+				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		black = colorManager.getColor(new RGB(0, 0, 0));
-		hyperlinkColor = colorManager.getColor(PreferenceConverter.getColor(
-				store, PreferenceConstants.EDITOR_HYPERLINK_COLOR));
+		hyperlinkColor = colorManager.getColor(PreferenceConverter.getColor(store,
+				PreferenceConstants.EDITOR_HYPERLINK_COLOR));
 
 		hLink = new Hyperlink();
 
 		addListeners();
-		
+
 	}
 
 	private void addListeners() {
@@ -114,8 +112,10 @@ public class Highlighting {
 			public void mouseMove(MouseEvent e) {
 
 				if (e.stateMask == SWT.CTRL) {
-					//TODO because of the TextResource bug, only available if the editor is not dirty.
-					if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().isDirty())
+					// TODO because of the TextResource bug, only available if
+					// the editor is not dirty.
+					if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
+							.isDirty())
 						return;
 					int offset;
 					try {
@@ -158,8 +158,7 @@ public class Highlighting {
 				IDocument doc = pviewer.getDocument();
 				Position[] hPos = null;
 				try {
-					hPos = doc
-							.getPositions(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
+					hPos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 				} catch (BadPositionCategoryException e1) {
 					e1.printStackTrace();
 				}
@@ -190,8 +189,7 @@ public class Highlighting {
 
 	private void setHighlighting() {
 		IDocument doc = pviewer.getDocument();
-		boolean isHighlightBrackets = store
-				.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
+		boolean isHighlightBrackets = store.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
 		boolean isHighlightOccurrence = true;
 		if (text.getCaretOffset() >= text.getCharCount())
 			isHighlightOccurrence = false;
@@ -203,8 +201,7 @@ public class Highlighting {
 		StyleRange sr = null;
 
 		try {
-			Position[] pos = doc
-					.getPositions(ExtensionConstants.POSITION_CATEGORY_BRACKET);
+			Position[] pos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 			for (Position p : pos) {
 				Position tmpPostion = convertToWidgedPosition(p);
 				if (tmpPostion != null) {
@@ -219,120 +216,109 @@ public class Highlighting {
 		} catch (BadPositionCategoryException e) {
 			e.printStackTrace();
 		}
-			try {
-				Position[] pos = doc
-						.getPositions(ExtensionConstants.POSITION_CATEGORY_DEF);
-				for (Position p : pos) {
-					Position tmpPostion = convertToWidgedPosition(p);
-					if (tmpPostion != null) {
-						sr = getStyleRangeAtPosition(tmpPostion);
-						if (sr.foreground == null)
-							sr.foreground = black;
-						lastSR = (StyleRange) sr.clone();
-						sr.background = defColor;
-						text.setStyleRange(sr);
-					}
-				}
-			} catch (BadPositionCategoryException e) {
-				e.printStackTrace();
-			}
-
-			try {
-				Position[] pos = doc
-						.getPositions(ExtensionConstants.POSITION_CATEGORY_USE);
-				if (lastSR == null && pos.length > 0) {
-					sr = getStyleRangeAtPosition(pos[0]);
+		try {
+			Position[] pos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_DEF);
+			for (Position p : pos) {
+				Position tmpPostion = convertToWidgedPosition(p);
+				if (tmpPostion != null) {
+					sr = getStyleRangeAtPosition(tmpPostion);
 					if (sr.foreground == null)
 						sr.foreground = black;
 					lastSR = (StyleRange) sr.clone();
+					sr.background = defColor;
+					text.setStyleRange(sr);
 				}
-				if (sr == null) {
-					sr = (StyleRange) lastSR.clone();
-				}
-				sr.background = proxyColor;
-				for (Position p : pos) {
-					Position tmpPostion = convertToWidgedPosition(p);
-					if (tmpPostion != null) {
-						sr.start = tmpPostion.offset;
-						text.setStyleRange(sr);
-					}
-				}
-			} catch (BadPositionCategoryException e) {
-				e.printStackTrace();
 			}
-		
+		} catch (BadPositionCategoryException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			Position[] pos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_USE);
+			if (lastSR == null && pos.length > 0) {
+				sr = getStyleRangeAtPosition(pos[0]);
+				if (sr.foreground == null)
+					sr.foreground = black;
+				lastSR = (StyleRange) sr.clone();
+			}
+			if (sr == null) {
+				sr = (StyleRange) lastSR.clone();
+			}
+			sr.background = proxyColor;
+			for (Position p : pos) {
+				Position tmpPostion = convertToWidgedPosition(p);
+				if (tmpPostion != null) {
+					sr.start = tmpPostion.offset;
+					text.setStyleRange(sr);
+				}
+			}
+		} catch (BadPositionCategoryException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void removeHighlighting() {
 		IDocument doc = pviewer.getDocument();
-		boolean isHighlightBrackets = store
-				.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
-		
+		boolean isHighlightBrackets = store.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
+
 		StyleRange sr;
 
 		if (isHighlightBrackets) {
 			try {
-				Position[] pos = doc
-						.getPositions(ExtensionConstants.POSITION_CATEGORY_BRACKET);
+				Position[] pos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 				for (Position p : pos) {
 					Position tmpPostion = convertToWidgedPosition(p);
 					if (tmpPostion != null) {
 						sr = getStyleRangeAtPosition(tmpPostion);
 						sr.borderStyle = SWT.NONE;
 						sr.borderColor = null;
-						sr.background=null;
+						sr.background = null;
 						text.setStyleRange(sr);
 					}
 				}
-				doc
-						.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
+				doc.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 			} catch (BadPositionCategoryException e) {
 				e.printStackTrace();
 			}
-			doc
-					.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
+			doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 		}
-			try {
-				Position[] pos = doc
-						.getPositions(ExtensionConstants.POSITION_CATEGORY_DEF);
-				for (Position p : pos) {
-					Position tmpPostion = convertToWidgedPosition(p);
-					if (tmpPostion != null) {
-						lastSR.start = tmpPostion.offset;
-						text.setStyleRange(lastSR);
-					}
+		try {
+			Position[] pos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_DEF);
+			for (Position p : pos) {
+				Position tmpPostion = convertToWidgedPosition(p);
+				if (tmpPostion != null) {
+					lastSR.start = tmpPostion.offset;
+					text.setStyleRange(lastSR);
 				}
-				doc
-						.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
-			} catch (BadPositionCategoryException e) {
-				e.printStackTrace();
 			}
-			doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
-			try {
-				Position[] pos = doc
-						.getPositions(ExtensionConstants.POSITION_CATEGORY_USE);
-				for (Position p : pos) {
-					Position tmpPostion = convertToWidgedPosition(p);
-					if (tmpPostion != null) {
-						lastSR.start = tmpPostion.offset;
-						text.setStyleRange(lastSR);
-					}
+			doc.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
+		} catch (BadPositionCategoryException e) {
+			e.printStackTrace();
+		}
+		doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
+		try {
+			Position[] pos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_USE);
+			for (Position p : pos) {
+				Position tmpPostion = convertToWidgedPosition(p);
+				if (tmpPostion != null) {
+					lastSR.start = tmpPostion.offset;
+					text.setStyleRange(lastSR);
 				}
-				doc
-						.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
-			} catch (BadPositionCategoryException e) {
-				e.printStackTrace();
 			}
-			doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
-			lastSR=null;
+			doc.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
+		} catch (BadPositionCategoryException e) {
+			e.printStackTrace();
+		}
+		doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
+		lastSR = null;
 	}
 
 	public void resetBrackets() {
 		brackets.resetBrackets();
 	}
 
-	private StyleRange getTokenStyle(IToken t, int length, String tokenName,
-			String tokenStyle) {
+	private StyleRange getTokenStyle(IToken t, int length, String tokenName, String tokenStyle) {
 		// TODO
 		int tokenType = 0;
 		StyleRange sr = srBuffer.get(tokenStyle + tokenType);
@@ -355,8 +341,7 @@ public class Highlighting {
 
 		int style = ta.getStyle();
 		int fontStyle = style & (SWT.ITALIC | SWT.BOLD | SWT.NORMAL);
-		sr = new StyleRange(-1, length, ta.getForeground(), ta.getBackground(),
-				fontStyle);
+		sr = new StyleRange(-1, length, ta.getForeground(), ta.getBackground(), fontStyle);
 		sr.strikeout = (style & TextAttribute.STRIKETHROUGH) != 0;
 		sr.underline = (style & TextAttribute.UNDERLINE) != 0;
 		setHighlightStyle(sr, tokenStyle);
@@ -430,8 +415,7 @@ public class Highlighting {
 		IToken t = scanner.nextToken();
 		while (!t.isEOF()) {
 			if (scanner.getTokenText().equals(hLink.getHyperlinkText())) {
-				StyleRange sr = getTokenStyle(t, scanner.getTokenLength(),
-						hLink.getHyperlinkText(), "");
+				StyleRange sr = getTokenStyle(t, scanner.getTokenLength(), hLink.getHyperlinkText(), "");
 				sr = (StyleRange) sr.clone();
 				sr.start = highlightPosition.offset;
 				if (defPos != null && defPos.length > 0) {
@@ -456,15 +440,13 @@ public class Highlighting {
 		}
 		hLink.resetValues();
 		try {
-			doc
-					.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+			doc.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 		} catch (BadPositionCategoryException e) {
 			e.printStackTrace();
 		}
 		doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 		try {
-			doc
-					.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
+			doc.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 		} catch (BadPositionCategoryException e) {
 			e.printStackTrace();
 		}
@@ -473,11 +455,10 @@ public class Highlighting {
 
 	private Position[] getPositions(IDocument doc) {
 		try {
-			Position[] hPos = doc
-					.getPositions(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+			Position[] hPos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 			return hPos;
 		} catch (BadPositionCategoryException e1) {
-			//e1.printStackTrace();
+			// e1.printStackTrace();
 			return null;
 		}
 	}
@@ -492,21 +473,17 @@ public class Highlighting {
 		IDocument doc = pviewer.getDocument();
 		Position oldPos = null;
 		try {
-			Position[] tmp = doc
-					.getPositions(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+			Position[] tmp = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 			if (tmp.length > 0)
 				oldPos = tmp[0];
 		} catch (BadPositionCategoryException e1) {
 			e1.printStackTrace();
 		}
 		ILocationMap lm = tr.getLocationMap();
-		scanner.setRange(pviewer.getDocument(), lm.getCharStart(eo), lm
-				.getCharEnd(eo)
-				- lm.getCharStart(eo) + 1);
+		scanner.setRange(pviewer.getDocument(), lm.getCharStart(eo), lm.getCharEnd(eo) - lm.getCharStart(eo) + 1);
 		IToken t = scanner.nextToken();
 		while (!t.isEOF()) {
-			if (scanner.getTokenOffset() <= offset
-					&& scanner.getTokenLength() + scanner.getTokenOffset() > offset) {
+			if (scanner.getTokenOffset() <= offset && scanner.getTokenLength() + scanner.getTokenOffset() > offset) {
 				if (oldPos != null)
 					if (oldPos.offset == scanner.getTokenOffset())
 						return false;
@@ -514,12 +491,9 @@ public class Highlighting {
 						resetHyperlinkHighlighting();
 				hLink.setHyperlinkText(scanner.getTokenText().trim());
 				try {
-					doc
-							.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-					doc.addPosition(
-							ExtensionConstants.POSITION_CATEGORY_HYPERLINK,
-							new Position(scanner.getTokenOffset(), scanner
-									.getTokenLength()));
+					doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+					doc.addPosition(ExtensionConstants.POSITION_CATEGORY_HYPERLINK, new Position(scanner
+							.getTokenOffset(), scanner.getTokenLength()));
 				} catch (BadLocationException e) {
 					e.printStackTrace();
 				} catch (BadPositionCategoryException e) {
@@ -551,10 +525,8 @@ public class Highlighting {
 		while (!t.isEOF()) {
 			if (hLink.getHyperlinkText().equals(scanner.getTokenText())) {
 				try {
-					doc.addPosition(
-							ExtensionConstants.POSITION_CATEGORY_DESTINATION,
-							new Position(scanner.getTokenOffset(), scanner
-									.getTokenLength()));
+					doc.addPosition(ExtensionConstants.POSITION_CATEGORY_DESTINATION, new Position(scanner
+							.getTokenOffset(), scanner.getTokenLength()));
 				} catch (BadLocationException e) {
 					e.printStackTrace();
 				} catch (BadPositionCategoryException e) {
@@ -565,8 +537,7 @@ public class Highlighting {
 			t = scanner.nextToken();
 		}
 		try {
-			doc.addPosition(ExtensionConstants.POSITION_CATEGORY_DESTINATION,
-					new Position(start, length));
+			doc.addPosition(ExtensionConstants.POSITION_CATEGORY_DESTINATION, new Position(start, length));
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		} catch (BadPositionCategoryException e) {
@@ -587,9 +558,7 @@ public class Highlighting {
 			return -1;
 		ITextResource rs = (ITextResource) eo.eResource();
 		ILocationMap lm = rs.getLocationMap();
-		scanner.setRange(pviewer.getDocument(), lm.getCharStart(eo), lm
-				.getCharEnd(eo)
-				- lm.getCharStart(eo) + 1);
+		scanner.setRange(pviewer.getDocument(), lm.getCharStart(eo), lm.getCharEnd(eo) - lm.getCharStart(eo) + 1);
 		IToken t = scanner.nextToken();
 		while (!t.isEOF()) {
 			if (text.equals(scanner.getTokenText())) {
