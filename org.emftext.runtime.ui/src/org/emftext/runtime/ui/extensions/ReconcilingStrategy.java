@@ -1,6 +1,8 @@
 package org.emftext.runtime.ui.extensions;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -15,32 +17,30 @@ import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
-//TODO mseifert: align this class with the EMFText coding style
-public class EMFTextReconcilingStrategy implements IReconcilingStrategy, IReconcilingStrategyExtension {
+//TODO hoang-kim add documentation
+public class ReconcilingStrategy implements IReconcilingStrategy, IReconcilingStrategyExtension {
 
 	private EMFTextEditor editor;
 
+	// TODO remove this field if it is really not used
 	@SuppressWarnings("unused")
-	private IDocument fDocument;
+	private IDocument document;
 
-	private ITextResource tr;
+	private ITextResource textResource;
 
 	/** holds the calculated positions */
-	protected final ArrayList<Position> fPositions = new ArrayList<Position>();
+	protected final List<Position> positions = new ArrayList<Position>();
 
 	public void reconcile(IRegion partition) {
 		initialReconcile();
-
 	}
 
 	public void reconcile(DirtyRegion dirtyRegion, IRegion subRegion) {
 		initialReconcile();
-
 	}
 
 	public void setDocument(IDocument document) {
-		fDocument = document;
-
+		this.document = document;
 	}
 
 	public EMFTextEditor getEditor() {
@@ -56,11 +56,14 @@ public class EMFTextReconcilingStrategy implements IReconcilingStrategy, IReconc
 		// editor, this Strategy can't work.
 		// We need an ITextResource with ILocationMap of this "dirty"
 		// ITextResource.
-		if (editor.isDirty())
+		// TODO remove this once the background parsing is activated
+		if (editor.isDirty()) {
 			return;
-		fPositions.clear();
-		if (tr == null)
-			tr = (ITextResource) editor.getResource();
+		}
+		positions.clear();
+		if (textResource == null) {
+			textResource = (ITextResource) editor.getResource();
+		}
 		calculatePositions();
 
 	}
@@ -69,17 +72,18 @@ public class EMFTextReconcilingStrategy implements IReconcilingStrategy, IReconc
 	}
 
 	protected void calculatePositions() {
-		ILocationMap lm = tr.getLocationMap();
-		for (TreeIterator<EObject> ti = tr.getAllContents(); ti.hasNext();) {
-			EObject eo = ti.next();
-			int offset = lm.getCharStart(eo);
-			int length = lm.getCharEnd(eo) - lm.getCharStart(eo) + 1;
-			if (offset >= 0 && length > 0)
-				fPositions.add(new Position(offset, length));
+		ILocationMap locationMap = textResource.getLocationMap();
+		for (TreeIterator<EObject> contentIterator = textResource.getAllContents(); contentIterator.hasNext();) {
+			EObject nextObject = contentIterator.next();
+			int offset = locationMap.getCharStart(nextObject);
+			int length = locationMap.getCharEnd(nextObject) - locationMap.getCharStart(nextObject) + 1;
+			if (offset >= 0 && length > 0) {
+				positions.add(new Position(offset, length));
+			}
 		}
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
-				editor.updateFoldingStructure(fPositions);
+				editor.updateFoldingStructure(positions);
 			}
 
 		});

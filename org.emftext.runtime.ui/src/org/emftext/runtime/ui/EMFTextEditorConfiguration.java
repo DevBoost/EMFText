@@ -39,7 +39,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.ui.extensions.TextHover;
-import org.emftext.runtime.ui.extensions.EMFTextReconcilingStrategy;
+import org.emftext.runtime.ui.extensions.ReconcilingStrategy;
 
 // TODO mseifert: align this class with the EMFText coding style
 /**
@@ -111,7 +111,7 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 	 */
 	public IReconciler getReconciler(ISourceViewer sourceViewer)
     {
-		EMFTextReconcilingStrategy strategy = new EMFTextReconcilingStrategy();
+		ReconcilingStrategy strategy = new ReconcilingStrategy();
         strategy.setEditor(theEditor);
         
         MonoReconciler reconciler = new MonoReconciler(strategy,false);

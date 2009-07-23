@@ -24,6 +24,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.IResource;
@@ -520,8 +521,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		return viewer;
 	}
 
-	public void updateFoldingStructure(ArrayList<Position> positions) {
-
+	public void updateFoldingStructure(List<Position> positions) {
 		cfm.updateCodefolding(positions);
 	}
 }
