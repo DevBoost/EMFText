@@ -15,22 +15,23 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
-//TODO mseifert: align this class with the EMFText coding style
+//TODO hoang-kim add documentation
 public class Hyperlink implements IHyperlink {
 
 	private String text = "";
-	private EObject eobject;
+	// TODO hoang-kim is this the source or the target of the link?
+	private EObject eObject;
 
 	public void setHyperlinkText(String hyperlinkText) {
 		this.text = hyperlinkText;
 	}
 
 	public void setEObject(EObject eo) {
-		this.eobject = eo;
+		this.eObject = eo;
 	}
 
 	public boolean containsEObject() {
-		return eobject != null;
+		return eObject != null;
 	}
 
 	public String getHyperlinkText() {
@@ -45,25 +46,26 @@ public class Hyperlink implements IHyperlink {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc) Open the given Resource with EMFTextEditor. Assume the
-	 * resource is openable with EMFTextEditor.
+	/**
+	 * Opens the given Resource with an EMFTextEditor. Assumes the
+	 * resource can be opened with EMFTextEditor.
 	 * 
 	 * @see org.eclipse.jface.text.hyperlink.IHyperlink#open()
 	 */
 	public void open() {
-		if (eobject == null)
+		if (eObject == null) {
 			return;
+		}
 		IFile file = getIFileFromResource();
 		if (file != null) {
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			try {
 				page.openEditor(new FileEditorInput(file), page.getActiveEditor().getSite().getId());
 
-				IEditorPart ep = page.getActiveEditor();
-				if (ep instanceof EMFTextEditor) {
-					EMFTextEditor emftEditor = (EMFTextEditor) ep;
-					emftEditor.setCaret(eobject);
+				IEditorPart editorPart = page.getActiveEditor();
+				if (editorPart instanceof EMFTextEditor) {
+					EMFTextEditor emftEditor = (EMFTextEditor) editorPart;
+					emftEditor.setCaret(eObject);
 				}
 			} catch (PartInitException e) {
 				e.printStackTrace();
@@ -72,13 +74,13 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	private IFile getIFileFromResource() {
-		URI eUri = eobject.eResource().getURI();
-		if (eUri.toString().startsWith("pathmap"))
-			;
-		eUri = URIConverter.URI_MAP.get(eUri);
+		URI resourceURI = eObject.eResource().getURI();
+		if (resourceURI.toString().startsWith("pathmap")) {
+			resourceURI = URIConverter.URI_MAP.get(resourceURI);
+		}
 		// TODO what is a PlatformResource
-		if (eUri.isPlatformResource()) {
-			String platformString = eUri.toPlatformString(true);
+		if (resourceURI.isPlatformResource()) {
+			String platformString = resourceURI.toPlatformString(true);
 			if (platformString != null) {
 				return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(platformString));
 			}
@@ -87,14 +89,14 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	public void resetValues() {
-		if (text.equals(""))
+		if (text.equals("")) {
 			return;
+		}
 		text = "";
-		eobject = null;
+		eObject = null;
 	}
 
 	public IRegion getHyperlinkRegion() {
 		return null;
 	}
-
 }
