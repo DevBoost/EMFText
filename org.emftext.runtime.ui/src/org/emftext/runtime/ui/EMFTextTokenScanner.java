@@ -120,4 +120,8 @@ public class EMFTextTokenScanner implements ITokenScanner {
             EMFTextRuntimePlugin.logError("Unexpected error:", e);
         }
     }
+
+	public String getTokenText() {
+		return currentToken.getText();
+	}
 }
