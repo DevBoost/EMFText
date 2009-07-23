@@ -1,18 +1,17 @@
 package org.emftext.runtime.ui.extensions;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.internal.text.html.BrowserInformationControlInput;
 
-//TODO mseifert: align this class with the EMFText coding style
+//TODO hoang-kim can we remove the warning by copying the code from BrowserInformationControlInput?
 @SuppressWarnings("restriction")
 public class DocBrowserInformationControlInput extends BrowserInformationControlInput {
 
-	private final EObject fElement;
-	private final String fHtml;
-	private final int fLeadingImageWidth;
-	private final Resource fResource;
+	private final EObject element;
+	private final String htmlContent;
+	private final int leadingImageWidth;
+	private final Resource resource;
 
 	/**
 	 * Creates a new browser information control input.
@@ -21,19 +20,19 @@ public class DocBrowserInformationControlInput extends BrowserInformationControl
 	 *            previous input, or <code>null</code> if none available
 	 * @param element
 	 *            the element, or <code>null</code> if none available
-	 * @param html
+	 * @param htmlContent
 	 *            HTML contents, must not be null
 	 * @param leadingImageWidth
 	 *            the indent required for the element image
 	 */
 	public DocBrowserInformationControlInput(DocBrowserInformationControlInput previous, EObject element,
-			Resource resource, String html, int leadingImageWidth) {
+			Resource resource, String htmlContent, int leadingImageWidth) {
 		super(previous);
-		Assert.isNotNull(html);
-		fElement = element;
-		fHtml = html;
-		fLeadingImageWidth = leadingImageWidth;
-		fResource = resource;
+		assert htmlContent != null;
+		this.element = element;
+		this.htmlContent = htmlContent;
+		this.leadingImageWidth = leadingImageWidth;
+		this.resource = resource;
 	}
 
 	/*
@@ -43,7 +42,7 @@ public class DocBrowserInformationControlInput extends BrowserInformationControl
 	 * @since 3.4
 	 */
 	public int getLeadingImageWidth() {
-		return fLeadingImageWidth;
+		return leadingImageWidth;
 	}
 
 	/**
@@ -52,32 +51,22 @@ public class DocBrowserInformationControlInput extends BrowserInformationControl
 	 * @return the element or <code>null</code> if none available
 	 */
 	public EObject getElement() {
-		return fElement;
+		return element;
 	}
 
 	public Resource getResource() {
-		return fResource;
+		return resource;
 	}
 
-	/*
-	 * @see org.eclipse.jface.internal.text.html.BrowserInput#getHtml()
-	 */
 	public String getHtml() {
-		return fHtml;
+		return htmlContent;
 	}
 
-	/*
-	 * @see org.eclipse.jdt.internal.ui.infoviews.BrowserInput#getInputElement()
-	 */
 	public Object getInputElement() {
-		return fElement == null ? (Object) fHtml : fElement;
+		return element == null ? (Object) htmlContent : element;
 	}
 
-	/*
-	 * @see org.eclipse.jdt.internal.ui.infoviews.BrowserInput#getInputName()
-	 */
 	public String getInputName() {
-		return fElement == null ? "" : fElement.toString(); //$NON-NLS-1$
+		return element == null ? "" : element.toString(); //$NON-NLS-1$
 	}
-
 }
