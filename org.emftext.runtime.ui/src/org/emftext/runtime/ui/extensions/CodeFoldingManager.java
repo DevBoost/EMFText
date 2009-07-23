@@ -2,6 +2,7 @@ package org.emftext.runtime.ui.extensions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.text.BadLocationException;
@@ -12,132 +13,147 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 
-//TODO mseifert: align this class with the EMFText coding style
+//TODO hoang-kim add documentation
 public class CodeFoldingManager {
 
-	protected ArrayList<Annotation> oldAnnotations = new ArrayList<Annotation>();
-	protected ArrayList<Annotation> deletions = new ArrayList<Annotation>();
+	protected List<Annotation> oldAnnotations = new ArrayList<Annotation>();
+	protected List<Annotation> deletions = new ArrayList<Annotation>();
 	protected Map<Annotation, Position> additions = new HashMap<Annotation, Position>();
 
-	protected ProjectionAnnotationModel pam;
-	protected ISourceViewer viewer;
+	protected ProjectionAnnotationModel projectionAnnotationModel;
+	protected ISourceViewer sourceViewer;
 
-	public CodeFoldingManager(ProjectionAnnotationModel annotationModel, ISourceViewer sourceviewer) {
-		pam = annotationModel;
-		viewer = sourceviewer;
+	public CodeFoldingManager(ProjectionAnnotationModel projectionAnnotationModel, ISourceViewer sourceViewer) {
+		this.projectionAnnotationModel = projectionAnnotationModel;
+		this.sourceViewer = sourceViewer;
 	}
 
-	public void updateCodefolding(ArrayList<Position> positions) {
-		IDocument doc = viewer.getDocument();
-		// Add new Position with unique line offset
-		for (Position p : positions) {
-			if (!isInModel(p) && !isInAdditions(p))
-				addPosition(p);
+	public void updateCodefolding(List<Position> positions) {
+		IDocument document = sourceViewer.getDocument();
+		// Add new Position with a unique line offset
+		for (Position position : positions) {
+			if (!isInModel(position) && !isInAdditions(position)) {
+				addPosition(position);
+			}
 		}
 		// Delete old Position with line count < 2.
-		for (Annotation a : oldAnnotations) {
-			Position pamPos = pam.getPosition(a);
+		for (Annotation oldAnnotation : oldAnnotations) {
+			Position modelPosition = projectionAnnotationModel.getPosition(oldAnnotation);
 			int lines = 0;
 			try {
-				lines = doc.getNumberOfLines(pamPos.offset, pamPos.length);
+				lines = document.getNumberOfLines(modelPosition.offset, modelPosition.length);
 			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
-			if (lines < 2)
-				deletions.add(a);
+			if (lines < 2) {
+				deletions.add(oldAnnotation);
+			}
 		}
-		pam.modifyAnnotations(deletions.toArray(new Annotation[0]), additions, null);
+		projectionAnnotationModel.modifyAnnotations(deletions.toArray(new Annotation[0]), additions, null);
 
-		for (Annotation a : deletions)
-			oldAnnotations.remove(a);
+		for (Annotation annotationToDelete : deletions) {
+			oldAnnotations.remove(annotationToDelete);
+		}
 		deletions.clear();
 
-		for (Annotation a : additions.keySet())
-			oldAnnotations.add(a);
+		for (Annotation newAnnotation : additions.keySet()) {
+			oldAnnotations.add(newAnnotation);
+		}
 		additions.clear();
 	}
 
 	/**
 	 * Just look after the offset.
 	 * 
-	 * @param p
+	 * @param position
 	 * @return
 	 */
-	private boolean isInModel(Position p) {
-		for (Annotation a : oldAnnotations)
-			if (pam.getPosition(a).offset == p.offset)
+	private boolean isInModel(Position position) {
+		for (Annotation oldAnnotation : oldAnnotations) {
+			if (projectionAnnotationModel.getPosition(oldAnnotation).offset == position.offset) {
 				return true;
+			}
+		}
 		return false;
 	}
 
 	/**
 	 * Just look after the offset.
 	 * 
-	 * @param p
+	 * @param position
 	 * @return
 	 */
-	private boolean isInAdditions(Position p) {
-		for (Annotation a : additions.keySet())
-			if (additions.get(a).offset == p.offset)
+	private boolean isInAdditions(Position position) {
+		for (Annotation addition : additions.keySet()) {
+			if (additions.get(addition).offset == position.offset) {
 				return true;
+			}
+		}
 		return false;
 	}
 
 	/**
-	 * Try to add this Position to the model. If a Position existed on the same
+	 * Try to add this Position to the model. If a Position exists on the same
 	 * line, the longer one will be chosen. The Position will be exchanged if it
 	 * is in the additions, when the to be deleted Annotation existed in
 	 * deletions. Else, just exchange the Position in additions, if there is a
-	 * shorter one. Should be tested in JUnit.
+	 * shorter one. 
 	 * 
-	 * @param p
+	 * TODO hoang-kim test with JUnit
+	 * 
+	 * @param position
 	 */
-	private void addPosition(Position p) {
-		IDocument doc = viewer.getDocument();
+	private void addPosition(Position position) {
+		IDocument document = sourceViewer.getDocument();
 		int lines = 0;
 		try {
-			lines = doc.getNumberOfLines(p.offset, p.length);
+			lines = document.getNumberOfLines(position.offset, position.length);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 			return;
 		}
-		if (lines < 2)
+		if (lines < 2) {
 			return;
-		for (Annotation a : oldAnnotations) {
-			Position modelPos = pam.getPosition(a);
+		}
+		for (Annotation oldAnnotation : oldAnnotations) {
+			Position modelPosition = projectionAnnotationModel.getPosition(oldAnnotation);
 			try {
-				if (doc.getLineOfOffset(p.offset) == doc.getLineOfOffset(modelPos.offset))
-					if (modelPos.length >= p.length)
+				if (document.getLineOfOffset(position.offset) == document.getLineOfOffset(modelPosition.offset)) {
+					if (modelPosition.length >= position.length) {
 						return;
-					else {
-						for (Annotation aDel : deletions) {
-							if (aDel.equals(a))
-								for (Annotation aAdd : additions.keySet().toArray(new Annotation[0])) {
-									Position addPos = additions.get(aAdd);
-									if (doc.getLineOfOffset(p.offset) == doc.getLineOfOffset(addPos.offset))
-										if (addPos.length < p.length) {
-											additions.remove(aAdd);
-											additions.put(new ProjectionAnnotation(), p);
+					} else {
+						for (Annotation annotationToDelete : deletions) {
+							if (annotationToDelete.equals(oldAnnotation)) {
+								for (Annotation annotationToAdd : additions.keySet().toArray(new Annotation[0])) {
+									Position addPosition = additions.get(annotationToAdd);
+									if (document.getLineOfOffset(position.offset) == document.getLineOfOffset(addPosition.offset)) {
+										if (addPosition.length < position.length) {
+											additions.remove(annotationToAdd);
+											additions.put(new ProjectionAnnotation(), position);
 											return;
 										}
+									}
 								}
+							}
 						}
-						for (Annotation aAdd : additions.keySet().toArray(new Annotation[0])) {
-							Position addPos = additions.get(aAdd);
-							if (doc.getLineOfOffset(p.offset) == doc.getLineOfOffset(addPos.offset))
-								if (addPos.length < p.length) {
-									additions.remove(aAdd);
-									additions.put(new ProjectionAnnotation(), p);
-									deletions.add(a);
+						for (Annotation annotationToAdd : additions.keySet().toArray(new Annotation[0])) {
+							Position addPosition = additions.get(annotationToAdd);
+							if (document.getLineOfOffset(position.offset) == document.getLineOfOffset(addPosition.offset)) {
+								if (addPosition.length < position.length) {
+									additions.remove(annotationToAdd);
+									additions.put(new ProjectionAnnotation(), position);
+									deletions.add(oldAnnotation);
 									return;
 								}
+							}
 						}
 					}
+				}
 			} catch (BadLocationException e) {
 				e.printStackTrace();
 				return;
 			}
 		}
-		additions.put(new ProjectionAnnotation(), p);
+		additions.put(new ProjectionAnnotation(), position);
 	}
 }

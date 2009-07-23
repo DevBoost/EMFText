@@ -112,8 +112,8 @@ public class BracketSet {
 	 * @param sourceViewer
 	 *            take the ISourceViewer to handle the TextWidget of the
 	 *            EMFTextEditor.
-	 * @param ps
-	 *            take the IPreferenceStore to get the stored values.
+	 * @param extension
+	 *            the language ID
 	 */
 	public BracketSet(ISourceViewer sourceViewer, String extension) {
 		bracketPairs = new ArrayList<BracketPair>();
