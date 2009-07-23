@@ -1,31 +1,28 @@
 package org.emftext.runtime.ui.preferences;
 
-//TODO mseifert: align this class with the EMFText coding style
+/**
+ * An interface that defines some constants used to create
+ * the keys for preferences. 
+ */
 public interface PreferenceConstants {
      
-	//Constant for Syntax highlighting
- 
-     /**
-      * Preference key suffix for bold text style preference keys.
+	//Constants for syntax highlighting
+	/**
+      * Preference key suffix to enable syntax highlighting for
+      * a token type.
       */
-     public static final String EDITOR_ENABLE_SUFFIX = "_enable";
- 
-     public static final String EDITOR_COLOR_SUFFIX = "_color";
+	public static final String EDITOR_ENABLE_SUFFIX = "_enable";
+    public static final String EDITOR_COLOR_SUFFIX = "_color";
     
-    //Constants for Brackets
-	public static final String EDITOR_MATCHING_BRACKETS_COLOR = "matchingBracketsColor"; //$NON-NLS-1$
-	
-	public static final String EDITOR_MATCHING_BRACKETS_CHECKBOX="matchingBracketsCheckbox";
-	
+    //Constants for brackets
+	public static final String EDITOR_MATCHING_BRACKETS_COLOR = "_matchingBracketsColor";
+	public static final String EDITOR_MATCHING_BRACKETS_CHECKBOX = "_matchingBracketsCheckbox";
 	public static final String EDITOR_BRACKETS_SUFFIX = "_brackets";
 	
-	//Constants for Occurrence
+	//Constants for occurrence highlighting
+	public static final String EDITOR_DEFINITION_COLOR = "_definition_color";
+	public static final String EDITOR_PROXY_COLOR = "_proxy_color";
 	
-	public static final String EDITOR_DEFINITION_COLOR = "definition_color";
-	
-	public static final String EDITOR_PROXY_COLOR = "proxy_color";
-	
-	//Constants for Hyperlink
-	
-	public static final String EDITOR_HYPERLINK_COLOR = "hyperlink_color";
+	//Constants for hyper links
+	public static final String EDITOR_HYPERLINK_COLOR = "_hyperlink_color";
 }
