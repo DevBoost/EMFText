@@ -6,18 +6,17 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-//TODO mseifert: align this class with the EMFText coding style
+// TODO add some meaningful content to this global preference page
+// maybe links to the preference pages below or a link to the web 
+// site
 public class EMFTextPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage{
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
-	 */
+
 	public void init(IWorkbench workbench) {
-		
 	}
+	
     @Override
     protected Control createContents(Composite parent) {
-    	
     	return null;
     }
 }
