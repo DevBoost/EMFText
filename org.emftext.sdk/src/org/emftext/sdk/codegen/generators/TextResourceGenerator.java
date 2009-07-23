@@ -255,6 +255,9 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("}");
     	sc.addLineBreak();
     	sc.add("public boolean wasCausedBy(" + E_OBJECT + " element) {");
+    	sc.add("if (this.element == null) {");
+    	sc.add("return false;");
+    	sc.add("}");
     	sc.add("return this.element.equals(element);");
     	sc.add("}");
     	sc.add("}");
@@ -457,7 +460,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("for (" + DIAGNOSTIC + " errorCand : new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(diagnostics)) {");
     	sc.add("if (errorCand instanceof " + I_TEXT_DIAGNOSTIC + ") {");
     	sc.add("if (((" + I_TEXT_DIAGNOSTIC + ") errorCand).wasCausedBy(proxy)) {");
-    	sc.add("getErrors().remove(errorCand);");
+    	sc.add("diagnostics.remove(errorCand);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");

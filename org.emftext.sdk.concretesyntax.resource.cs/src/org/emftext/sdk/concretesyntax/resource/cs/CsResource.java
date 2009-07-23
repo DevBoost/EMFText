@@ -164,7 +164,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		for (org.eclipse.emf.ecore.resource.Resource.Diagnostic errorCand : new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(diagnostics)) {
 			if (errorCand instanceof org.emftext.runtime.resource.ITextDiagnostic) {
 				if (((org.emftext.runtime.resource.ITextDiagnostic) errorCand).wasCausedBy(proxy)) {
-					getErrors().remove(errorCand);
+					diagnostics.remove(errorCand);
 				}
 			}
 		}
@@ -366,6 +366,9 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		}
 		
 		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
+			if (this.element == null) {
+				return false;
+			}
 			return this.element.equals(element);
 		}
 	}
