@@ -342,7 +342,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			viewer.invalidateTextPresentation();
 		}
 		highlighting.resetBrackets();
-		highlighting.clearSRBuffer();
+		highlighting.clearStyleRangeBuffer();
 	}
 
 	public void setFocus(){
