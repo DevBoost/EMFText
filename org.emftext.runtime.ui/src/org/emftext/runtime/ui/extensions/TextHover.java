@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -51,15 +52,16 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.osgi.framework.Bundle;
 
-//TODO mseifert: align this class with the EMFText coding style
+//TODO hoang-kim can we remove the warnings?
 @SuppressWarnings("restriction")
-public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHoverExtension2 {
+public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExtension2 {
 
 	private EMFTextEditor editor;
 
+	// TODO gather the collect-in features from the language specification
 	protected final static String COMMENTS = "comments";
 
-	public EMFTextHover(EMFTextEditor editor) {
+	public TextHover(EMFTextEditor editor) {
 		super();
 		this.editor = editor;
 	}
@@ -149,10 +151,10 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 	 * @since 3.4
 	 */
 	private static final class OpenDeclarationAction extends Action {
-		private final BrowserInformationControl fInfoControl;
+		private final BrowserInformationControl infoControl;
 
 		public OpenDeclarationAction(BrowserInformationControl infoControl) {
-			fInfoControl = infoControl;
+			this.infoControl = infoControl;
 			setText("Open Declaration");
 			ISharedImages images = PlatformUI.getWorkbench().getSharedImages();
 			setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_ETOOL_HOME_NAV)); // TODO:
@@ -167,11 +169,11 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 		public void run() {
 			// TODO goto declaration
 
-			DocBrowserInformationControlInput infoInput = (DocBrowserInformationControlInput) fInfoControl.getInput(); // TODO:
+			DocBrowserInformationControlInput infoInput = (DocBrowserInformationControlInput) infoControl.getInput(); // TODO:
 																														// check
 																														// cast
-			fInfoControl.notifyDelayedInputChange(null);
-			fInfoControl.dispose(); // FIXME: should have protocol to hide,
+			infoControl.notifyDelayedInputChange(null);
+			infoControl.dispose(); // FIXME: should have protocol to hide,
 									// rather than dispose
 			EObject decEO = infoInput.getElement();
 			if (decEO != null && decEO.eResource() != null) {
@@ -207,13 +209,13 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 			// }
 		}
 
-		private IFile getIFileFromResource(EObject eobject) {
-			URI eUri = eobject.eResource().getURI();
-			if (eUri.toString().startsWith("pathmap"))
-				;
-			eUri = URIConverter.URI_MAP.get(eUri);
-			if (eUri.isPlatformResource()) {
-				String platformString = eUri.toPlatformString(true);
+		private IFile getIFileFromResource(EObject object) {
+			URI resourceURI = object.eResource().getURI();
+			if (resourceURI.toString().startsWith("pathmap")) {
+				resourceURI = URIConverter.URI_MAP.get(resourceURI);
+			}
+			if (resourceURI.isPlatformResource()) {
+				String platformString = resourceURI.toPlatformString(true);
 				if (platformString != null) {
 					return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(platformString));
 				}
@@ -282,40 +284,34 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 
 	/**
 	 * Hover control creator.
-	 * 
-	 * @since 3.3
 	 */
 	public static final class HoverControlCreator extends AbstractReusableInformationControlCreator {
+
 		/**
 		 * The information presenter control creator.
-		 * 
-		 * @since 3.4
 		 */
 		private final IInformationControlCreator fInformationPresenterControlCreator;
 
 		/**
 		 * @param informationPresenterControlCreator
 		 *            control creator for enriched hover
-		 * @since 3.4
 		 */
 		public HoverControlCreator(IInformationControlCreator informationPresenterControlCreator) {
 			fInformationPresenterControlCreator = informationPresenterControlCreator;
 		}
 
 		/*
-		 * @seeorg.eclipse.jdt.internal.ui.text.java.hover.
-		 * AbstractReusableInformationControlCreator
-		 * #doCreateInformationControl(org.eclipse.swt.widgets.Shell)
+		 * @see org.eclipse.jdt.internal.ui.text.java.hover.AbstractReusableInformationControlCreator#doCreateInformationControl(org.eclipse.swt.widgets.Shell)
 		 */
 		public IInformationControl doCreateInformationControl(Shell parent) {
 			String tooltipAffordanceString = EditorsUI.getTooltipAffordanceString();
 			if (BrowserInformationControl.isAvailable(parent)) {
 				BrowserInformationControl iControl = new BrowserInformationControl(parent, JFaceResources.DEFAULT_FONT,
 						tooltipAffordanceString) {
+					
 					/*
 					 * @see
-					 * org.eclipse.jface.text.IInformationControlExtension5#
-					 * getInformationPresenterControlCreator()
+					 * org.eclipse.jface.text.IInformationControlExtension5#getInformationPresenterControlCreator()
 					 */
 					public IInformationControlCreator getInformationPresenterControlCreator() {
 						return fInformationPresenterControlCreator;
@@ -329,13 +325,12 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 		}
 
 		/*
-		 * @seeorg.eclipse.jdt.internal.ui.text.java.hover.
-		 * AbstractReusableInformationControlCreator
-		 * #canReuse(org.eclipse.jface.text.IInformationControl)
+		 * @see org.eclipse.jdt.internal.ui.text.java.hover.AbstractReusableInformationControlCreator#canReuse(org.eclipse.jface.text.IInformationControl)
 		 */
 		public boolean canReuse(IInformationControl control) {
-			if (!super.canReuse(control))
+			if (!super.canReuse(control)) {
 				return false;
+			}
 
 			if (control instanceof IInformationControlExtension4) {
 				String tooltipAffordanceString = EditorsUI.getTooltipAffordanceString();
@@ -425,87 +420,84 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 	}
 
 	public String getHoverInfo(ITextViewer textViewer, IRegion hoverRegion) {
-		ITextResource tr = (ITextResource) editor.getResource();
-		ILocationMap lm = tr.getLocationMap();
-		List<EObject> list = lm.getElementsAt(hoverRegion.getOffset());
-		EObject eo = getProxyEObject(list);
-		if (eo != null) {
-			eo = EcoreUtil.resolve(eo, tr);
-			if (eo.eResource() != null && !eo.eResource().equals(tr)) { // TODO
-																		// handle
-																		// extern
-																		// resource
-				eo = list.get(0);
+		ITextResource textResource = (ITextResource) editor.getResource();
+		ILocationMap locationMap = textResource.getLocationMap();
+		List<EObject> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());
+		EObject proxyAtOffset = getFirstProxy(elementsAtOffset);
+		if (proxyAtOffset != null) {
+			proxyAtOffset = EcoreUtil.resolve(proxyAtOffset, textResource);
+			if (proxyAtOffset.eResource() != null && !proxyAtOffset.eResource().equals(textResource)) {
+				// TODO handle external resources
+				proxyAtOffset = elementsAtOffset.get(0);
 			}
-		} else
-			eo = list.get(0);
-		if (eo.eResource() != null)
+		} else {
+			proxyAtOffset = elementsAtOffset.get(0);
+		}
+		if (proxyAtOffset.eResource() != null) {
 			try {
-				return textViewer.getDocument().get(lm.getCharStart(eo), lm.getCharEnd(eo) - lm.getCharStart(eo) + 1);// nothing
+				return textViewer.getDocument().get(locationMap.getCharStart(proxyAtOffset), locationMap.getCharEnd(proxyAtOffset) - locationMap.getCharStart(proxyAtOffset) + 1);// nothing
 			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
+		}
 		return ((DocBrowserInformationControlInput) getHoverInfo2(textViewer, hoverRegion)).getHtml();
 	}
 
 	public IRegion getHoverRegion(ITextViewer textViewer, int offset) {
 		Point selection = textViewer.getSelectedRange();
-		if (selection.x <= offset && offset < selection.x + selection.y)
+		if (selection.x <= offset && offset < selection.x + selection.y) {
 			return new Region(selection.x, selection.y);
+		}
 		return new Region(offset, 0);
 	}
 
 	/**
 	 * The style sheet (css).
-	 * 
-	 * @since 3.4
 	 */
-	private static String fgStyleSheet;
+	private static String styleSheet;
 
 	/**
 	 * The hover control creator.
-	 * 
-	 * @since 3.2
 	 */
-	private IInformationControlCreator fHoverControlCreator;
+	private IInformationControlCreator hoverControlCreator;
+	
 	/**
 	 * The presentation control creator.
-	 * 
-	 * @since 3.2
 	 */
-	private IInformationControlCreator fPresenterControlCreator;
+	private IInformationControlCreator presenterControlCreator;
 
 	public IInformationControlCreator getHoverControlCreator() {
-		if (fHoverControlCreator == null)
-			fHoverControlCreator = new HoverControlCreator(getInformationPresenterControlCreator());
-		return fHoverControlCreator;
+		if (hoverControlCreator == null) {
+			hoverControlCreator = new HoverControlCreator(getInformationPresenterControlCreator());
+		}
+		return hoverControlCreator;
 	}
 
 	/*
-	 * @seeorg.eclipse.jface.text.ITextHoverExtension2#
-	 * getInformationPresenterControlCreator()
-	 * 
-	 * @since 3.4
+	 * @see org.eclipse.jface.text.ITextHoverExtension2#getInformationPresenterControlCreator()
 	 */
 	public IInformationControlCreator getInformationPresenterControlCreator() {
-		if (fPresenterControlCreator == null)
-			fPresenterControlCreator = new PresenterControlCreator();
-		return fPresenterControlCreator;
+		if (presenterControlCreator == null) {
+			presenterControlCreator = new PresenterControlCreator();
+		}
+		return presenterControlCreator;
 	}
 
 	public Object getHoverInfo2(ITextViewer textViewer, IRegion hoverRegion) {
-		if (editor.isDirty())
+		// TODO remove this once the background parsing is active
+		if (editor.isDirty()) {
 			return null;
+		}
 		return internalGetHoverInfo(textViewer, hoverRegion);
 	}
 
 	private DocBrowserInformationControlInput internalGetHoverInfo(ITextViewer textViewer, IRegion hoverRegion) {
-		// IDocument doc = textViewer.getDocument();
-		ILocationMap lm = ((ITextResource) editor.getResource()).getLocationMap();
-		List<EObject> elements = lm.getElementsAt(hoverRegion.getOffset());
-		if (elements == null || elements.size() == 0)
+		ILocationMap locationMap = ((ITextResource) editor.getResource()).getLocationMap();
+		List<EObject> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());
+		if (elementsAtOffset == null || elementsAtOffset.size() == 0) {
 			return null;
-		return getHoverInfo(elements, null);
+		}
+		return getHoverInfo(elementsAtOffset, null);
 	}
 
 	/**
@@ -524,42 +516,46 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 	 */
 	private DocBrowserInformationControlInput getHoverInfo(List<EObject> elements,
 			DocBrowserInformationControlInput previousInput) {
+		
 		StringBuffer buffer = new StringBuffer();
 		int leadingImageWidth = 0;
-		EObject proxyEO = getProxyEObject(elements);
-		EObject decOE = null;
-		if (proxyEO != null) {
-			decOE = EcoreUtil.resolve(proxyEO, editor.getResource());
-			if (decOE != null) {
-				HTMLPrinter.addParagraph(buffer, getInfoText(decOE, false));
+		EObject proxyObject = getFirstProxy(elements);
+		EObject declarationObject = null;
+		if (proxyObject != null) {
+			declarationObject = EcoreUtil.resolve(proxyObject, editor.getResource());
+			if (declarationObject != null) {
+				HTMLPrinter.addParagraph(buffer, getInfoText(declarationObject, false));
 			}
-		} else
+		} else {
 			HTMLPrinter.addParagraph(buffer, getInfoText(elements.get(0), false));
+		}
 		if (buffer.length() > 0) {
-			HTMLPrinter.insertPageProlog(buffer, 0, EMFTextHover.getStyleSheet());
+			HTMLPrinter.insertPageProlog(buffer, 0, TextHover.getStyleSheet());
 			HTMLPrinter.addPageEpilog(buffer);
-			return new DocBrowserInformationControlInput(previousInput, decOE, editor.getResource(), buffer.toString(),
+			return new DocBrowserInformationControlInput(previousInput, declarationObject, editor.getResource(), buffer.toString(),
 					leadingImageWidth);
 		}
 		return null;
 	}
 
 	private static String getInfoText(EObject member, boolean allowImage) {
-		if (member == null)
+		if (member == null) {
 			return null;
-		StringBuffer label = new StringBuffer("<strong>" + member.getClass().getSimpleName().replace("Impl", "")
-				+ "</strong>");
-		for (EAttribute ea : member.eClass().getEAllAttributes())
-			if (member.eGet(ea) != null && !member.eGet(ea).toString().equals("[]")) {
-				if (ea.getName().equals(COMMENTS)) {
+		}
+		EClass eClass = member.eClass();
+		StringBuffer label = new StringBuffer("<strong>" + eClass.getName() + "</strong>");
+		for (EAttribute attribute : eClass.getEAllAttributes()) {
+			if (member.eGet(attribute) != null && !member.eGet(attribute).toString().equals("[]")) {
+				if (attribute.getName().equals(COMMENTS)) {
 					HTMLPrinter.addSmallHeader(label, COMMENTS + ":");
-					String comments = member.eGet(ea).toString();
+					String comments = member.eGet(attribute).toString();
 					comments = comments.substring(1, comments.length() - 1);
 					HTMLPrinter.addParagraph(label, replaceNewlineToHTMLBR(comments));
 					continue;
 				}
-				label.append("<br />" + ea.getName() + ": " + member.eGet(ea).toString());
+				label.append("<br />" + attribute.getName() + ": " + member.eGet(attribute).toString());
 			}
+		}
 		// String imageName= null;
 		// if (allowImage) {
 		// URL imageUrl=
@@ -577,39 +573,37 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 	}
 
 	/**
-	 * Returns the Javadoc hover style sheet with the current Javadoc font from
-	 * the preferences.
+	 * Returns the hover style sheet.
 	 * 
-	 * @return the updated style sheet
-	 * @since 3.4
+	 * @return the style sheet
 	 */
 	private static String getStyleSheet() {
-		if (fgStyleSheet == null)
-			fgStyleSheet = loadStyleSheet();
-		String css = fgStyleSheet;
+		if (styleSheet == null) {
+			styleSheet = loadStyleSheet();
+		}
+		String css = styleSheet;
 		if (css != null) {
 			FontData fontData = JFaceResources.getFontRegistry().getFontData(JFaceResources.DEFAULT_FONT)[0];
 			css = HTMLPrinter.convertTopLevelFont(css, fontData);
-
 		}
 
 		return css;
 	}
 
 	/**
-	 * Loads and returns the Javadoc hover style sheet.
+	 * Loads and returns the hover style sheet.
 	 * 
 	 * @return the style sheet, or <code>null</code> if unable to load
-	 * @since 3.4
 	 */
 	private static String loadStyleSheet() {
+		// TODO adjust this constant
 		Bundle bundle = Platform.getBundle("org.emftext.runtime.ui");
 		URL styleSheetURL = bundle.getEntry("/DocHoverStyleSheet.css"); //$NON-NLS-1$
 		if (styleSheetURL != null) {
 			BufferedReader reader = null;
 			try {
 				reader = new BufferedReader(new InputStreamReader(styleSheetURL.openStream()));
-				StringBuffer buffer = new StringBuffer(1500);
+				StringBuffer buffer = new StringBuffer();
 				String line = reader.readLine();
 				while (line != null) {
 					buffer.append(line);
@@ -632,7 +626,7 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 		return null;
 	}
 
-	public static void addImageAndLabel(StringBuffer buf, String imageName, int imageWidth, int imageHeight,
+	public static void addImageAndLabel(StringBuffer buffer, String imageName, int imageWidth, int imageHeight,
 			int imageLeft, int imageTop, String label, int labelLeft, int labelTop) {
 
 		if (imageName != null) {
@@ -642,44 +636,45 @@ public class EMFTextHover implements ITextHover, ITextHoverExtension, ITextHover
 			imageStyle.append("top: ").append(imageTop).append("px; "); //$NON-NLS-1$ //$NON-NLS-2$
 			imageStyle.append("left: ").append(imageLeft).append("px; "); //$NON-NLS-1$ //$NON-NLS-2$
 
-			buf.append("<!--[if lte IE 6]><![if gte IE 5.5]>\n"); //$NON-NLS-1$
-			buf
+			buffer.append("<!--[if lte IE 6]><![if gte IE 5.5]>\n"); //$NON-NLS-1$
+			buffer
 					.append("<span style=\"").append(imageStyle).append("filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='").append(imageName).append("')\"></span>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			buf.append("<![endif]><![endif]-->\n"); //$NON-NLS-1$
+			buffer.append("<![endif]><![endif]-->\n"); //$NON-NLS-1$
 
-			buf.append("<!--[if !IE]>-->\n"); //$NON-NLS-1$
-			buf.append("<img style='").append(imageStyle).append("' src='").append(imageName).append("'/>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			buf.append("<!--<![endif]-->\n"); //$NON-NLS-1$
-			buf.append("<!--[if gte IE 7]>\n"); //$NON-NLS-1$
-			buf.append("<img style='").append(imageStyle).append("' src='").append(imageName).append("'/>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			buf.append("<![endif]-->\n"); //$NON-NLS-1$
+			buffer.append("<!--[if !IE]>-->\n"); //$NON-NLS-1$
+			buffer.append("<img style='").append(imageStyle).append("' src='").append(imageName).append("'/>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			buffer.append("<!--<![endif]-->\n"); //$NON-NLS-1$
+			buffer.append("<!--[if gte IE 7]>\n"); //$NON-NLS-1$
+			buffer.append("<img style='").append(imageStyle).append("' src='").append(imageName).append("'/>\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			buffer.append("<![endif]-->\n"); //$NON-NLS-1$
 		}
 
-		buf.append("<div style='word-wrap:break-word;"); //$NON-NLS-1$
+		buffer.append("<div style='word-wrap:break-word;"); //$NON-NLS-1$
 		if (imageName != null) {
-			buf.append("margin-left: ").append(labelLeft).append("px; "); //$NON-NLS-1$ //$NON-NLS-2$
-			buf.append("margin-top: ").append(labelTop).append("px; "); //$NON-NLS-1$ //$NON-NLS-2$
+			buffer.append("margin-left: ").append(labelLeft).append("px; "); //$NON-NLS-1$ //$NON-NLS-2$
+			buffer.append("margin-top: ").append(labelTop).append("px; "); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-		buf.append("'>"); //$NON-NLS-1$
+		buffer.append("'>"); //$NON-NLS-1$
 
 		for (int i = 0; i < label.length(); i++) {
 			char ch = label.charAt(i);
 			if (ch == '<') {
-				buf.append("&lt;"); //$NON-NLS-1$
+				buffer.append("&lt;"); //$NON-NLS-1$
 			} else if (ch == '>') {
-				buf.append("&gt;"); //$NON-NLS-1$
+				buffer.append("&gt;"); //$NON-NLS-1$
 			} else {
-				buf.append(ch);
+				buffer.append(ch);
 			}
 		}
 
-		buf.append("</div>"); //$NON-NLS-1$
+		buffer.append("</div>"); //$NON-NLS-1$
 	}
 
-	private static EObject getProxyEObject(List<EObject> list) {
-		for (EObject eo : list) {
-			if (eo.eIsProxy())
-				return eo;
+	private static EObject getFirstProxy(List<EObject> objects) {
+		for (EObject object : objects) {
+			if (object.eIsProxy()) {
+				return object;
+			}
 		}
 		return null;
 	}

@@ -38,7 +38,7 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.part.FileEditorInput;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
-import org.emftext.runtime.ui.extensions.EMFTextHover;
+import org.emftext.runtime.ui.extensions.TextHover;
 import org.emftext.runtime.ui.extensions.EMFTextReconcilingStrategy;
 
 // TODO mseifert: align this class with the EMFText coding style
@@ -126,6 +126,6 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 	}
 	
 	public ITextHover getTextHover(ISourceViewer sourceViewer, String contentType) {
-		return new EMFTextHover(theEditor);
+		return new TextHover(theEditor);
 	}
 }
