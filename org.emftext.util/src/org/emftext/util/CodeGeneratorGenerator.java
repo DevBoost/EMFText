@@ -89,7 +89,12 @@ public class CodeGeneratorGenerator {
 			line = line.replace("\r", "");
 			line = line.replace("\"", "\\\"");
 			line = line.replace(ADD_QUOTES_HERE, "\"");
-			result.append("\t\tsc.add(\"" + line.trim() + "\");\n");
+			String trimmedLine = line.trim();
+			if ("".equals(trimmedLine)) {
+				result.append("\t\tsc.addLineBreak();\n");
+			} else {
+				result.append("\t\tsc.add(\"" + trimmedLine + "\");\n");
+			}
 			//System.out.println(lineCount + ": " + line);
 			lineCount++;
 		}
