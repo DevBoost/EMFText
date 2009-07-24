@@ -2,6 +2,7 @@ package org.emftext.runtime.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public class StreamUtil {
@@ -15,5 +16,15 @@ public class StreamUtil {
 			out.write(b, 0, read);
 		}
 		out.flush();
+	}
+
+	public static String getContent(InputStream inputStream) throws IOException {
+		StringBuffer content = new StringBuffer();
+		InputStreamReader reader = new InputStreamReader(inputStream);
+		int next = -1;
+		while ((next = reader.read()) >= 0) {
+			content.append((char) next);
+		}
+		return content.toString();
 	}
 }
