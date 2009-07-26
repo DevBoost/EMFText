@@ -182,4 +182,25 @@ public class StringUtil {
 		
 		return s;
 	}
+
+	public static String convertCamelCaseToAllCaps(String qualifiedClassName) {
+		StringBuffer sb = new StringBuffer();
+		final char[] charArray = qualifiedClassName.toCharArray();
+		for (int c = 0; c < charArray.length; c++) {
+			char character = charArray[c];
+			final boolean isEnd = c + 1 == charArray.length;
+			boolean nextIsUpper = !isEnd && Character.isUpperCase(charArray[c + 1]);
+			boolean nextNextIsLower = c + 2 < (charArray.length) && Character.isLowerCase(charArray[c + 2]);
+
+			sb.append(Character.toUpperCase(character));
+			if (Character.isLowerCase(character) && nextIsUpper) {
+				sb.append('_');
+			} else {
+				if (nextIsUpper && nextNextIsLower) {
+					sb.append('_');
+				}
+			}
+		}
+		return sb.toString();
+	}
 }
