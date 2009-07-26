@@ -34,13 +34,25 @@ import org.emftext.runtime.resource.IURIMapping;
 public class URIMapping<ReferenceType> extends AbstractReferenceMapping<ReferenceType> implements IURIMapping<ReferenceType> {
 	
 	private URI uri;
-
+	private String identifier;
+	private String warning;
+	
 	public URIMapping(String identifier, URI newIdentifier, String warning) {
-		super(identifier, warning);
+		super();
 		this.uri = newIdentifier;
+		this.identifier = identifier;
+		this.warning = warning;
 	}
 
 	public URI getTargetIdentifier() {
 		return uri;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public String getWarning() {
+		return warning;
 	}
 }

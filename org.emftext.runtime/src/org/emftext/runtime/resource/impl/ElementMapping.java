@@ -31,14 +31,26 @@ import org.emftext.runtime.resource.IElementMapping;
  */
 public class ElementMapping<ReferenceType> extends AbstractReferenceMapping<ReferenceType> implements IElementMapping<ReferenceType> {
 	
+	private String identifier;
+	private String warning;
 	private final ReferenceType target;
 	
 	public ElementMapping(String identifier, ReferenceType target, String warning) {
-		super(identifier, warning);
+		super();
 		this.target = target;
+		this.identifier = identifier;
+		this.warning = warning;
 	}
 
 	public ReferenceType getTargetElement() {
 		return target;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public String getWarning() {
+		return warning;
 	}
 }
