@@ -30,6 +30,8 @@ import org.emftext.runtime.resource.IReferenceResolver;
  * A factory for ContextDependentURIFragments. Given a feasible reference resolver,
  * the factory returns a matching fragment that used the resolver to resolver proxy
  * objects.
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  *
  * @param <ContainerType> the type of the class containing the reference to be resolved
  * @param <ReferenceType> the type of the reference to be resolved

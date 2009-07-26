@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * When the tail descent is finished this stack is reduced in reverse order. The
  * EObjects are created using the setting informations and a containment hierarchy 
  * is build using the left recursive EStructuralFeature.
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class DummyEObject extends EObjectImpl  {
 	private Map<EStructuralFeature, Object> keyValueMap;

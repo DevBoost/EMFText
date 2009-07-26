@@ -34,6 +34,8 @@ import org.emftext.runtime.resource.ITokenResolver;
  * A base implementation for token resolvers. It tries to resolve lexems using java methods.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class JavaBasedTokenResolver implements ITokenResolver {
 	

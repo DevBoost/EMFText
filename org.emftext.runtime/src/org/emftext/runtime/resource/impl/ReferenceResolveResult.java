@@ -32,6 +32,8 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
  * that collects mappings in a list.
  * 
  * @param <ReferenceType> the type of the references that can be contained in this result
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class ReferenceResolveResult<ReferenceType> implements IReferenceResolveResult<ReferenceType> {
 	

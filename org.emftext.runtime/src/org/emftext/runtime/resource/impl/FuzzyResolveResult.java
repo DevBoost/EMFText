@@ -34,6 +34,8 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
  * collect results from different reference resolvers in a type safe manner.
  *
  * @param <ReferenceType> the type of the reference that is resolved
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class FuzzyResolveResult<ReferenceType extends EObject> implements IReferenceResolveResult<ReferenceType> {
 	

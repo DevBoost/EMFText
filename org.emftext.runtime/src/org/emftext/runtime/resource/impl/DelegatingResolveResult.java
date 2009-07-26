@@ -31,6 +31,8 @@ import org.emftext.runtime.resource.IReferenceResolveResult;
  * all method calls to another ResolveResult. Client may subclass 
  * this class to easily create custom ResolveResults.
  * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
+ *
  * @param <ReferenceType> the type of the references that can be contained in this result
  */
 public class DelegatingResolveResult<ReferenceType> implements IReferenceResolveResult<ReferenceType> {

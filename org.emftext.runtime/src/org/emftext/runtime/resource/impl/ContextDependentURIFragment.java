@@ -38,6 +38,8 @@ import org.emftext.runtime.util.CastUtil;
 /**
  * Standard implementation of <code>IContextDependentURIFragment</code>.
  * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
+ * 
  * @param <ContainerType> the type of the object that contains the reference which shall be resolved by this fragment.
  * @param <ReferenceType> the type of the reference which shall be resolved by this fragment.
  */

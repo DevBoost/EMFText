@@ -26,6 +26,8 @@ import org.emftext.runtime.resource.IElementMapping;
  * A basic implementation of the IElementMapping interface.
  * 
  * @param <ReferenceType> the type of the reference that can be mapped to
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class ElementMapping<ReferenceType> extends AbstractReferenceMapping<ReferenceType> implements IElementMapping<ReferenceType> {
 	

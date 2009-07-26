@@ -28,6 +28,8 @@ import org.emftext.runtime.resource.IURIMapping;
  * map identifiers to URIs.
  * 
  * @param <ReferenceType> unused type parameter which is needed to implement IURIMapping.
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class URIMapping<ReferenceType> extends AbstractReferenceMapping<ReferenceType> implements IURIMapping<ReferenceType> {
 	

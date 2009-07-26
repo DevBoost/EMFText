@@ -24,6 +24,8 @@ import org.emftext.runtime.resource.ITokenResolveResult;
 
 /**
  * A basic implementation of the ITokenResolveResult interface.
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class TokenResolveResult implements ITokenResolveResult {
 

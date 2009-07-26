@@ -43,6 +43,8 @@ import org.emftext.runtime.resource.ILocationMap;
  * Column: The lowest of all sources is used for target<br>
  * Start:  The lowest of all sources is used for target<br>
  * End:    The highest of all sources is used for target<br>
+ * 
+ * @deprecated This class will be removed for release 1.3 of EMFText
  */
 public class LocationMap implements ILocationMap {
 
