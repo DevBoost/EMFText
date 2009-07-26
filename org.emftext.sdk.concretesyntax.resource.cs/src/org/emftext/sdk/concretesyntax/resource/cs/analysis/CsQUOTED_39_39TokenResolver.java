@@ -20,27 +20,34 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITokenResolveResult;
-import org.emftext.runtime.resource.ITokenResolver;
-import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
+import org.emftext.runtime.resource.impl.AbstractTokenResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.CsDefaultTokenResolver;
 
-public class CsQUOTED_39_39TokenResolver extends JavaBasedTokenResolver implements ITokenResolver{ 
-	@Override
+public class CsQUOTED_39_39TokenResolver extends AbstractTokenResolver {
+	
+	private CsDefaultTokenResolver defaultResolver = new CsDefaultTokenResolver();
+	
 	public String deResolve(Object value, EStructuralFeature feature, EObject container) {
-		String result = super.deResolve(value,feature,container);
+		String result = defaultResolver.deResolve(value,feature,container);
 		result = result.replaceAll(java.util.regex.Pattern.quote("'"),"\\\\'");
 		result += "'";
 		result = "'" + result;
 		return result;
 	}
 
-	@Override
 	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, ITokenResolveResult result) {
 		lexem = lexem.substring(1);
 		lexem = lexem.substring(0,lexem.length()-1);
 		lexem = lexem.replaceAll("\\\\"+java.util.regex.Pattern.quote("'"),"'");
-		super.resolve(lexem, feature, result);
+		defaultResolver.resolve(lexem, feature, result);
+	}
+
+	public void setOptions(Map<?, ?> options) {
+		defaultResolver.setOptions(options);
 	}
 }

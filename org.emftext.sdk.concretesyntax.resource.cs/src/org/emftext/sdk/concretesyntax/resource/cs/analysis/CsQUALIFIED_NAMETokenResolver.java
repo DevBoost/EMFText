@@ -20,17 +20,26 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
-import org.emftext.runtime.resource.ITokenResolveResult;
+import java.util.Map;
 
-public class CsQUALIFIED_NAMETokenResolver extends org.emftext.runtime.resource.impl.JavaBasedTokenResolver implements org.emftext.runtime.resource.ITokenResolver {
-	@Override
+import org.emftext.runtime.resource.ITokenResolveResult;
+import org.emftext.runtime.resource.impl.AbstractTokenResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.CsDefaultTokenResolver;
+
+public class CsQUALIFIED_NAMETokenResolver extends AbstractTokenResolver {
+	
+	private CsDefaultTokenResolver defaultResolver = new CsDefaultTokenResolver();
+	
 	public java.lang.String deResolve(java.lang.Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
-		java.lang.String result = super.deResolve(value, feature, container);
+		java.lang.String result = defaultResolver.deResolve(value, feature, container);
 		return result;
 	}
 
-	@Override
 	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, ITokenResolveResult result) {
-		super.resolve(lexem, feature, result);
+		defaultResolver.resolve(lexem, feature, result);
+	}
+
+	public void setOptions(Map<?, ?> options) {
+		defaultResolver.setOptions(options);
 	}
 }

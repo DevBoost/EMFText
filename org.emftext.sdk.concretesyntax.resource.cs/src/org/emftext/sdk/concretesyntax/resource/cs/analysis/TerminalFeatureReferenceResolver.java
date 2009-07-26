@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
-import org.emftext.runtime.resource.impl.DelegatingResolveResult;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.resource.cs.CsDelegatingResolveResult;
 
 public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<Terminal, GenFeature> {
 	
@@ -41,7 +41,7 @@ public class TerminalFeatureReferenceResolver extends AbstractReferenceResolver<
 		public void setFoundFeatureWithCorrectName();
 	}
 	
-	private class FeatureResolveResultImpl extends DelegatingResolveResult<GenFeature> implements FeatureResolveResult {
+	private class FeatureResolveResultImpl extends CsDelegatingResolveResult<GenFeature> implements FeatureResolveResult {
 		
 		private boolean foundFeatureWithCorrectName = false;
 
