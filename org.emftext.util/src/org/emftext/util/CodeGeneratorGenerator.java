@@ -6,19 +6,25 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.emftext.runtime.util.StreamUtil;
+import org.emftext.runtime.util.StringUtil;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.creators.AbstractArtifactCreator;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.IClassNameConstants;
 
 public class CodeGeneratorGenerator {
 
 	private static final String ADD_QUOTES_HERE = "ADD_QUOTES_HERE";
-	private String OLD_SRC_DIR = "org.emftext.runtime.ui" + File.separator + "src";
+	private String OLD_SRC_DIR = "org.emftext.runtime" + File.separator + "src";
 	private String NEW_SRC_DIR = "org.emftext.util" + File.separator + "src-output";
 
 	public static void main(String[] args) {
@@ -26,15 +32,19 @@ public class CodeGeneratorGenerator {
 	}
 
 	private void run() {
+		run(OLD_SRC_DIR, NEW_SRC_DIR);
+	}
+	
+	private void run(String oldDir, String newDir) {
 		String baseFolderPath = ".." + File.separator + OLD_SRC_DIR;
 		File baseFolder = new File(baseFolderPath);
 		List<File> allFiles = findAllFiles(baseFolder);
 		for (File file : allFiles) {
-			handle(file);
+			handle(oldDir, newDir, file);
 		}
 	}
 
-	private void handle(File file) {
+	private void handle(String oldDir, String newDir, File file) {
 		String path = file.getPath();
 		System.out.println("handle(" + path + ")");
 		try {
@@ -45,7 +55,9 @@ public class CodeGeneratorGenerator {
 			packageName = packageName.substring(0, packageName.lastIndexOf(File.separator));
 			packageName = packageName.replace(File.separator, ".");
 			String generatorContent = convertToGenerator(packageName, file.getName().replace(".java", ""), fileContent);
-			saveGenerator(file.getAbsolutePath(), generatorContent);
+			saveClass(oldDir, newDir, file.getAbsolutePath(), generatorContent, "Generator");
+			String creatorContent = convertToCreator(packageName, file.getName().replace(".java", ""), fileContent);
+			saveClass(oldDir, newDir, file.getAbsolutePath(), creatorContent, "Creator");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -53,8 +65,53 @@ public class CodeGeneratorGenerator {
 		}
 	}
 
-	private void saveGenerator(String originalFilePath, String generatorContent) throws IOException {
-		String newPath = originalFilePath.replace(OLD_SRC_DIR, NEW_SRC_DIR).replace(".java", "") + "Generator.java";
+	private String convertToCreator(String packageName, String replace,
+			String fileContent) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("package " + packageName + ";\n");
+		sb.append("\n");
+		sb.append("import java.io.File;\n");
+		sb.append("import java.util.Collection;\n");
+		sb.append("\n");
+		sb.append("import org.emftext.sdk.codegen.GenerationContext;\n");
+		sb.append("import org.emftext.sdk.codegen.IGenerator;\n");
+		sb.append("import " + AbstractArtifactCreator.class.getName() + ";\n");
+		sb.append("import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;\n");
+		sb.append("import org.emftext.sdk.concretesyntax.OptionTypes;\n");
+		sb.append("\n");
+		sb.append("public class " + replace + "Creator extends AbstractArtifactCreator {\n");
+		sb.append("\n");
+		sb.append("private static final String NAME = \"" + replace + "\";\n");
+		sb.append("\n");
+		sb.append("public " + replace + "Creator() {\n");
+		sb.append("super(NAME);\n");
+		sb.append("}\n");
+		sb.append("\n");
+		sb.append("@Override\n");
+		sb.append("public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {\n");
+		sb.append("\n");
+		sb.append("File file = context.getFile(EArtifact." + replace + ");\n");
+		sb.append("IGenerator generator = new " + replace + "Generator(context);\n");
+		sb.append("\n");
+		sb.append("return createArtifact(\n");
+		sb.append("context,\n");
+		sb.append("generator,\n");
+		sb.append("file,\n");
+		sb.append("\"Exception while generating \" + NAME + \".\"\n");
+		sb.append(");\n");
+		sb.append("}\n");
+		sb.append("\n");
+		sb.append("public OptionTypes getOverrideOption() {\n");
+		sb.append("return OptionTypes.OVERRIDE_" + replace + ";\n");
+		sb.append("}\n");
+		sb.append("}\n");
+		sb.append("\n");
+		return sb.toString();
+	}
+
+	private void saveClass(String oldDir, String newDir, String originalFilePath, String generatorContent, String suffix) throws IOException {
+		String newPath = originalFilePath.replace(oldDir, newDir).replace(".java", "") + suffix + ".java";
 		File targetFile = new File(newPath);
 		File parent = targetFile.getParentFile();
 		parent.mkdirs();
@@ -78,11 +135,21 @@ public class CodeGeneratorGenerator {
 		
 		String[] lines = fileContent.split("\\n\\r|\\r\\n|\\n|\\r");
 		int lineCount = 1;
+		String generatorName = className + "Generator";
 		result.append("package " + packageName + ";\n");
 		result.append("\n");
-		result.append("public class " + className + "Generator {\n");
+		result.append("import static " + IClassNameConstants.class.getName() + ".*;\n");
+		result.append("import " + BaseGenerator.class.getName() + ";\n");
+		result.append("import " + GenerationContext.class.getName() + ";\n");
+		result.append("import " + PrintWriter.class.getName() + ";\n");
 		result.append("\n");
-		result.append("\tpublic void generate() {\n");
+		result.append("public class " + generatorName + " extends BaseGenerator {\n");
+		result.append("\n");
+		result.append("\tpublic " + generatorName + "(GenerationContext context, boolean printerBaseExists) {\n");
+		result.append("\t\tsuper(context.getPackageName(), context.get" + className + "Name());\n");
+		result.append("\t}\n");
+		result.append("\n");
+		result.append("\tpublic boolean generate(PrintWriter out) {\n");
 		result.append("\t\t" + StringComposite.class.getName() + " sc = new " + JavaComposite.class.getName() + "();\n");
 		for (String line : lines) {
 			line = line.replace("\n", "");
@@ -90,6 +157,9 @@ public class CodeGeneratorGenerator {
 			line = line.replace("\"", "\\\"");
 			line = line.replace(ADD_QUOTES_HERE, "\"");
 			String trimmedLine = line.trim();
+			if (line.startsWith("import ")) {
+				continue;
+			}
 			if ("".equals(trimmedLine)) {
 				result.append("\t\tsc.addLineBreak();\n");
 			} else {
@@ -98,6 +168,8 @@ public class CodeGeneratorGenerator {
 			//System.out.println(lineCount + ": " + line);
 			lineCount++;
 		}
+		result.append("\t\tout.print(sc.toString());\n");
+		result.append("\t\treturn true;\n");
 		result.append("\t}\n");
 		result.append("}\n");
 		return result.toString();
@@ -122,8 +194,9 @@ public class CodeGeneratorGenerator {
 				String qualifiedClassName = isImported(fileContent, potentialClassName);
 				boolean isImported = qualifiedClassName != null;
 				if (isImported) {
+					String qualifiedClassConstant = StringUtil.convertCamelCaseToAllCaps(qualifiedClassName);
 					//System.out.println("Found class " + qualifiedClassName);
-					String newCode = ADD_QUOTES_HERE + " + " + qualifiedClassName + ".class.getName() + " + ADD_QUOTES_HERE;
+					String newCode = ADD_QUOTES_HERE + " + " + qualifiedClassConstant + " + " + ADD_QUOTES_HERE;
 					fileContent = fileContent.substring(0, start) + newCode + fileContent.substring(end, fileContent.length());
 					offset = start + newCode.length();
 				} else {
@@ -172,22 +245,15 @@ public class CodeGeneratorGenerator {
 	}
 
 	private String isImported(String fileContent, String potentialClassName) {
-		Pattern importPattern = Pattern.compile("import (.*" + potentialClassName + ");");
+		Pattern importPattern = Pattern.compile("import .*(" + potentialClassName + ");");
 		Matcher matcher = importPattern.matcher(fileContent);
 		boolean matches = matcher.find();
 		if (matches) {
-			String qualifiedClassName = matcher.group(1);
+			String className = matcher.group(1);
 			//System.out.println("Found import " + qualifiedClassName);
-			return qualifiedClassName;
+			return className;
 		}
 		return null;
-	}
-
-	private String replaceDeclaration(String className, String fileContent, String kind) {
-		fileContent = fileContent.replace(
-				"public " + kind + " " + className,
-				"public " + kind + " " + className + "Generator");
-		return fileContent;
 	}
 
 	private List<File> findAllFiles(File currentFile) {
@@ -202,8 +268,13 @@ public class CodeGeneratorGenerator {
 			File[] files = currentFile.listFiles(new FileFilter() {
 
 				public boolean accept(File pathname) {
-					return pathname.isDirectory() || 
-						(pathname.isFile() && pathname.getName().endsWith(".java"));
+					final String name = pathname.getName();
+					final boolean isJavaFile = name.endsWith(".java");
+					final boolean isAbstract = name.startsWith("Abstract");
+					final boolean isInterface = name.startsWith("I");
+					final boolean isDir = pathname.isDirectory();
+					final boolean isFile = pathname.isFile();
+					return isDir || (isFile && isJavaFile && !isAbstract && !isInterface);
 				}
 				
 			});
