@@ -72,7 +72,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		return new org.emftext.sdk.concretesyntax.resource.cs.CsMetaInformation();
 	}
 	protected void resetLocationMap() {
-		locationMap = new org.emftext.runtime.resource.impl.LocationMap();
+		locationMap = new CsLocationMap();
 	}
 	
 	public void addURIFragment(java.lang.String internalURIFragment, org.emftext.runtime.resource.IContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject> uriFragment) {

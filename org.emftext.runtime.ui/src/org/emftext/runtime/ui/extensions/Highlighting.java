@@ -254,6 +254,10 @@ public class Highlighting {
 				}
 				lastStyleRange = (StyleRange) styleRange.clone();
 			}
+			// TODO hoang-kim is this correct?
+			if (lastStyleRange == null) {
+				return;
+			}
 			if (styleRange == null) {
 				styleRange = (StyleRange) lastStyleRange.clone();
 			}

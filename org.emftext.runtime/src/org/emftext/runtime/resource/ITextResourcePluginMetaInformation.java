@@ -1,6 +1,7 @@
 package org.emftext.runtime.resource;
 
 import java.io.InputStream;
+import java.util.Collection;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -75,4 +76,7 @@ public interface ITextResourcePluginMetaInformation {
 	 * @return a style object or null if not default style is set
 	 */
 	public ITokenStyle getDefaultTokenStyle(String tokenName);
+	
+	// TODO add documentation
+	public Collection<IBracketPair> getBracketPairs();
 }

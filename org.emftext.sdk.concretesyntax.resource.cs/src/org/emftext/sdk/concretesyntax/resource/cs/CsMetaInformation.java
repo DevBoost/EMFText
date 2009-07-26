@@ -2,6 +2,64 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
+	public class TokenStyleImpl extends org.emftext.runtime.resource.impl.AbstractTokenStyle {
+		
+		private int[] color;
+		private boolean bold;
+		private boolean italic;
+		private boolean strikethrough;
+		private boolean underline;
+		
+		public TokenStyleImpl(int[] color, boolean bold, boolean italic, boolean striketrough, boolean underline) {
+			super();
+			this.color = color;
+			this.bold = bold;
+			this.italic = italic;
+			this.strikethrough = striketrough;
+			this.underline = underline;
+		}
+		
+		public int[] getColorAsRGB() {
+			return color;
+		}
+		
+		public boolean isBold() {
+			return bold;
+		}
+		
+		public boolean isItalic() {
+			return italic;
+		}
+		
+		public boolean isStrikethrough() {
+			return strikethrough;
+		}
+		
+		public boolean isUnderline() {
+			return underline;
+		}
+	}
+	
+	public class BracketPair extends org.emftext.runtime.resource.impl.AbstractBracketPair {
+		
+		private String opening;
+		private String closing;
+		
+		public BracketPair(String opening, String closing) {
+			super();
+			this.opening = opening;
+			this.closing = closing;
+		}
+		
+		public String getOpeningBracket() {
+			return opening;
+		}
+		
+		public String getClosingBracket() {
+			return closing;
+		}
+	}
+	
 	public java.lang.String getSyntaxName() {
 		return "cs";
 	}
@@ -126,34 +184,13 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		return null;
 	}
 	
-	public class TokenStyleImpl implements org.emftext.runtime.resource.ITokenStyle {
-		private int[] color;
-		private boolean bold;
-		private boolean italic;
-		private boolean strikethrough;
-		private boolean underline;
-		public TokenStyleImpl(int[] color, boolean bold, boolean italic, boolean striketrough, boolean underline) {
-			super();
-			this.color = color;
-			this.bold = bold;
-			this.italic = italic;
-			this.strikethrough = striketrough;
-			this.underline = underline;
-		}
-		public int[] getColorAsRGB() {
-			return color;
-		}
-		public boolean isBold() {
-			return bold;
-		}
-		public boolean isItalic() {
-			return italic;
-		}
-		public boolean isStrikethrough() {
-			return strikethrough;
-		}
-		public boolean isUnderline() {
-			return underline;
-		}
+	public java.util.Collection<org.emftext.runtime.resource.IBracketPair> getBracketPairs() {
+		java.util.Collection<org.emftext.runtime.resource.IBracketPair> result = new java.util.ArrayList<org.emftext.runtime.resource.IBracketPair>();
+		result.add(new BracketPair("{", "}"));
+		result.add(new BracketPair("[", "]"));
+		result.add(new BracketPair("(", ")"));
+		result.add(new BracketPair("<", ">"));
+		return result;
 	}
+	
 }

@@ -4,7 +4,7 @@ public class CsTokenResolverFactory extends org.emftext.runtime.resource.impl.Ab
 	
 	private java.util.Map<java.lang.String, org.emftext.runtime.resource.ITokenResolver> tokenName2TokenResolver;
 	private java.util.Map<java.lang.String, org.emftext.runtime.resource.ITokenResolver> featureName2CollectInTokenResolver;
-	private static org.emftext.runtime.resource.ITokenResolver defaultResolver = new org.emftext.runtime.resource.impl.JavaBasedTokenResolver();
+	private static org.emftext.runtime.resource.ITokenResolver defaultResolver = new org.emftext.sdk.concretesyntax.resource.cs.CsDefaultTokenResolver();
 	
 	public CsTokenResolverFactory() {
 		tokenName2TokenResolver = new java.util.HashMap<java.lang.String, org.emftext.runtime.resource.ITokenResolver>();

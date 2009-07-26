@@ -45,8 +45,7 @@ public class CsAntlrScanner extends org.emftext.runtime.resource.impl.AbstractEM
 				}
 				return true;
 			}
-
-			public String getText() {
+			public java.lang.String getText() {
 				return current.getText();
 			}
 		};

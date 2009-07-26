@@ -20,15 +20,18 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.preferences;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.IBracketPair;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenStyle;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.AntlrTokenHelper;
+import org.emftext.runtime.ui.extensions.BracketSet;
 import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
 
 /**
@@ -66,12 +69,20 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
                     setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
                 }
             }
-			//Set default brackets for ITextResource bracket set
-			store.setDefault(languageId+PreferenceConstants.EDITOR_BRACKETS_SUFFIX, "\"\"\'\'");
+			
+			// set default brackets for ITextResource bracket set
+			BracketSet bracketSet = new BracketSet(null, languageId);
+			final Collection<IBracketPair> bracketPairs = extension.getBracketPairs();
+			if (bracketPairs != null) {
+				for (IBracketPair bracketPair : bracketPairs) {
+					bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket());
+				}
+			}
+			store.setDefault(languageId + PreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSet.getBracketString());
         }   
-			        
+
         //Set default value for matching brackets
-        store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR, "60,255,60");
+        store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR, "192,192,192");
         store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, true);
         
         //Set default value for occurrences

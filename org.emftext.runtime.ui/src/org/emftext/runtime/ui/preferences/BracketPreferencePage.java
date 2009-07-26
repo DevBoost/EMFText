@@ -1,8 +1,9 @@
 package org.emftext.runtime.ui.preferences;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.jface.preference.ColorSelector;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -23,6 +24,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
@@ -32,8 +34,12 @@ import org.emftext.runtime.ui.extensions.BracketSet;
 public class BracketPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 
-    private static final String BRACKETS_COLOR = PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR;
-    private static final Map<String, java.util.List<String>> content = new HashMap<String, java.util.List<String>>();
+	private static final String[] ALL_LEFT_BRACKETS = new String[] {"{","(","[","<","\"","'",};
+	private static final String[] ALL_RIGHT_BRACKETS = new String[] {"}",")","]",">","\"","'",};
+
+	private String BRACKETS_COLOR = PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR;
+	
+    private Set<String> languageIDs = new LinkedHashSet<String>();
     
     private ColorSelector matchingBracketsColorEditor;
     private Label colorEditorLabel;
@@ -57,7 +63,7 @@ public class BracketPreferencePage extends PreferencePage implements
 
 		for (ITextResourcePluginMetaInformation metaInformation : EMFTextRuntimePlugin.getConcreteSyntaxRegistry()) {
             String languageId = metaInformation.getSyntaxName();
-            
+            /*
             java.util.List<String> terminals = new ArrayList<String>();
             String[] tokenNames = metaInformation.getTokenNames();
             String bracket;
@@ -70,7 +76,8 @@ public class BracketPreferencePage extends PreferencePage implements
             }
 			terminals.add("\"");
 			terminals.add("\'");
-            content.put(languageId.substring(languageId.lastIndexOf('.') + 1), terminals);
+			*/
+			languageIDs.add(languageId);
         }
     }
 	
@@ -82,8 +89,8 @@ public class BracketPreferencePage extends PreferencePage implements
 		setDescription("Define the coloring of matching brackets.");
 		
 		bracketsTmp = new BracketSet(null, null);
-		for (String languageID : content.keySet().toArray(new String[0])) {
-			bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
+		for (String languageID : languageIDs) {
+			bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
 		}
 	}
 	
@@ -192,29 +199,38 @@ public class BracketPreferencePage extends PreferencePage implements
     /**
      * Initialize and handle the values of this preference page
      */
-    private void handleMatchingBracketsSelection(){
+    private void handleMatchingBracketsSelection() {
     	// not for the case of none existing language
     	enableCheckbox.setSelection(getPreferenceStore().getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
     	matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
     	RGB rgb = PreferenceConverter.getColor(getPreferenceStore(), BRACKETS_COLOR);
     	matchingBracketsColorEditor.setColorValue(rgb);
     	
+    	String extension = null;
     	IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
-		String extension = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput().getName();
-		extension = extension.substring(extension.lastIndexOf(".") + 1);
-    	languagesCombo.setItems((content.keySet().toArray(new String[0])));
-    	int idx=languagesCombo.indexOf(extension);
-    	if (idx > -1) {
-    		languagesCombo.select(idx);
-    	} else {
-    		languagesCombo.select(0);
-    		idx=0;
-    	}
-        language=languagesCombo.getItem(idx);
-        String [] strA = content.get(language).toArray(new String[0]);
-        leftBracketTokensCombo.setItems(strA);
+		final IEditorPart activeEditor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if (activeEditor != null) {
+			if (activeEditor instanceof EMFTextEditor) {
+				EMFTextEditor emfTextEditor = (EMFTextEditor) activeEditor;
+				ITextResource resource = (ITextResource) emfTextEditor.getResource();
+				extension = resource.getMetaInformation().getSyntaxName();
+			}
+		}
+
+		languagesCombo.setItems(languageIDs.toArray(new String[0]));
+		languagesCombo.select(0);
+		if (extension != null) {
+	    	int idx = languagesCombo.indexOf(extension);
+	    	if (idx > -1) {
+	    		languagesCombo.select(idx);
+	    	} else {
+	    		idx=0;
+	    	}
+		}
+        language = languagesCombo.getItem(languagesCombo.getSelectionIndex());
+        leftBracketTokensCombo.setItems(ALL_LEFT_BRACKETS);
         leftBracketTokensCombo.select(0);
-        rightBracketTokensCombo.setItems(strA);
+        rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);
         rightBracketTokensCombo.select(0);
         bracketsTmp.setBrackets(getPreferenceStore().getString(language+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
         String[] brackets = bracketsTmp.getBracketStringArray();
@@ -248,11 +264,11 @@ public class BracketPreferencePage extends PreferencePage implements
 
 			public void widgetSelected(SelectionEvent e) {
 				bracketSetTemp.put(language, bracketsTmp.getBracketString());
-				language=languagesCombo.getText();
+				language = languagesCombo.getText();
 				bracketsTmp.setBrackets(bracketSetTemp.get(language));
-				leftBracketTokensCombo.setItems(content.get(language).toArray(new String[0]));
+				leftBracketTokensCombo.setItems(ALL_LEFT_BRACKETS);
 				leftBracketTokensCombo.select(0);
-				rightBracketTokensCombo.setItems(content.get(language).toArray(new String[0]));
+				rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);
 				rightBracketTokensCombo.select(0);
 				bracketsList.setItems(bracketsTmp.getBracketStringArray());
 			}
@@ -266,9 +282,9 @@ public class BracketPreferencePage extends PreferencePage implements
 			public void widgetSelected(SelectionEvent e) {
 				String open=leftBracketTokensCombo.getText();
 				String close=rightBracketTokensCombo.getText();
-				if (bracketsTmp.isBracket(open)||bracketsTmp.isBracket(close))
+				if (bracketsTmp.isBracket(open)||bracketsTmp.isBracket(close)) {
 					setErrorMessage("One or both bracket parts are set!");
-				else{
+				} else {
 					bracketsTmp.addBracketPair(open, close);
 					bracketsList.setItems(bracketsTmp.getBracketStringArray());
 					setErrorMessage(null);
@@ -316,7 +332,7 @@ public class BracketPreferencePage extends PreferencePage implements
     private void updateActiveEditor() {
     	//set the values after ok or apply 
         PreferenceConverter.setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());
-    	boolean b=enableCheckbox.getSelection();
+    	boolean b = enableCheckbox.getSelection();
         getPreferenceStore().setValue(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, b);
         matchingBracketsColorButton.setEnabled(b);
         
