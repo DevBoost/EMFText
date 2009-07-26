@@ -28,6 +28,7 @@ import org.emftext.runtime.resource.IReferenceMapping;
  * 
  * @param <ReferenceType> the type of the reference the identifier can be mapped to.
  */
+// TODO generate this class
 public abstract class AbstractReferenceMapping<ReferenceType> implements IReferenceMapping<ReferenceType> {
 
 	private String identifier;
