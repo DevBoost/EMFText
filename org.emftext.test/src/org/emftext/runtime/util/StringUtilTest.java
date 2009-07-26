@@ -17,6 +17,13 @@ public class StringUtilTest extends TestCase {
 		assertEquals("cdef", StringUtil.getMissingTail("a", "cdef"));
 	}
 	
+	public void testCamelCaseToAllCaps() {
+		assertEquals("", StringUtil.convertCamelCaseToAllCaps(""));
+		assertEquals("CLASS", StringUtil.convertCamelCaseToAllCaps("Class"));
+		assertEquals("I_SOME_INTERFACE", StringUtil.convertCamelCaseToAllCaps("ISomeInterface"));
+		assertEquals("SOME_CAPS_IN_THE_MIDDLE", StringUtil.convertCamelCaseToAllCaps("SomeCAPSInTheMiddle"));
+	}
+	
 	public void testAllCapsToLowerCamelCase() {
 		assertEquals("", StringUtil.convertAllCapsToLowerCamelCase(""));
 		assertEquals("a", StringUtil.convertAllCapsToLowerCamelCase("A"));
