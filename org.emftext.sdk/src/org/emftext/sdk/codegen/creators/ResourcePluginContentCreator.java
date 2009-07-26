@@ -89,7 +89,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new DummyEObjectCreator());
 	    creators.add(new ElementMappingCreator());
 	    creators.add(new FuzzyResolveResultCreator());
-	    creators.add(new JavaBasedTokenResolverCreator());
+	    creators.add(new DefaultTokenResolverCreator());
 	    creators.add(new LocationMapCreator());
 	    creators.add(new ReferenceResolveResultCreator());
 	    creators.add(new TokenResolveResultCreator());

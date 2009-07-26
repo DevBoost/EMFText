@@ -9,11 +9,11 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DefaultTokenResolverGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class JavaBasedTokenResolverCreator extends AbstractArtifactCreator {
+public class DefaultTokenResolverCreator extends AbstractArtifactCreator {
 
 	private static final String NAME = "DefaultTokenResolver";
 
-	public JavaBasedTokenResolverCreator() {
+	public DefaultTokenResolverCreator() {
 		super(NAME);
 	}
 
