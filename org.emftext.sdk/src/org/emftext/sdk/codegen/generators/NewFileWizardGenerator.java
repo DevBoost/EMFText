@@ -20,6 +20,11 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PRINTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -27,10 +32,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.ecore.EClass;
-import org.emftext.runtime.resource.ITextPrinter;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -55,10 +58,10 @@ public class NewFileWizardGenerator implements IGenerator {
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
 		sc.add("package " + context.getPackageName() + ";");
-		sc.add("public class " + context.getNewFileActionClassName() + " extends " + AbstractNewFileWizard.class.getName() + " {");
+		sc.add("public class " + context.getClassName(EArtifact.NEW_FILE_WIZARD) + " extends " + AbstractNewFileWizard.class.getName() + " {");
 		sc.addLineBreak();
 		
-		sc.add("public String getFileExtension() {");
+		sc.add("public " + STRING + " getFileExtension() {");
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		sc.add("return \"" + syntax.getName() + "\";");
 		sc.add("}");
@@ -66,13 +69,13 @@ public class NewFileWizardGenerator implements IGenerator {
 
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
 
-		sc.add("public " + ITextResourcePluginMetaInformation.class.getName() + " getMetaInformation() {");
-		sc.add("return new " + context.getQualifiedMetaInformationClassName() + "();");
+		sc.add("public " + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + " getMetaInformation() {");
+		sc.add("return new " + context.getQualifiedClassName(EArtifact.META_INFORMATION) + "();");
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public String getExampleContent() {");
-		sc.add("return getExampleContent(new " + EClass.class.getName() + "[] {");
+		sc.add("public " + STRING + " getExampleContent() {");
+		sc.add("return getExampleContent(new " + E_CLASS + "[] {");
 		for (GenClass startSymbol : startSymbols) {
 			sc.add(genClassUtil.getAccessor(startSymbol) + ",");
 		}
@@ -80,8 +83,8 @@ public class NewFileWizardGenerator implements IGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public " + ITextPrinter.class.getName() + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
-		sc.add("return new " + context.getQualifiedPrinterName() + "(outputStream, new " + context.getResourceClassName() + "());");
+		sc.add("public " + I_TEXT_PRINTER + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
+		sc.add("return new " + context.getQualifiedClassName(EArtifact.PRINTER) + "(outputStream, new " + context.getQualifiedClassName(EArtifact.RESOURCE) + "());");
 		sc.add("}");
 
 		sc.add("}");

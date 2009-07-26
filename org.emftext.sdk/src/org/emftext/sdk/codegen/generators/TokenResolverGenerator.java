@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITokenResolveResult;
 import org.emftext.runtime.resource.ITokenResolver;
-import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -39,11 +39,9 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * 
  * For a definition with prefix and suffix it generates code which removes these 
  * strings from the beginning and the end of a lexem and then passes the manipulated 
- * lexem to the JavaBasedTokenResolver as its base class. In the deresolvement it 
- * delegates the conversion form object to string to the base implementation. 
+ * lexem to the default token resolver. In the deresolvement the conversion from 
+ * object to string is also delegated to the default resolver. 
  * Finally the deresolved String will be decorated by pre- and suffixes again. 
- * 
- * @see org.emftext.runtime.resource.impl.JavaBasedTokenResolver
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
@@ -52,10 +50,12 @@ public class TokenResolverGenerator extends BaseGenerator {
 	private static NameUtil nameUtil = new NameUtil();
 	
 	private TokenDefinition definition;
+	private String qualifiedDefaultTokenResolverClassName;
 	
 	public TokenResolverGenerator(GenerationContext context, TokenDefinition definition) {
 		super(context.getResolverPackageName(), nameUtil.getTokenResolverClassName(context.getConcreteSyntax(), definition));
 		this.definition = definition;
+		this.qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
 	@Override
@@ -64,9 +64,10 @@ public class TokenResolverGenerator extends BaseGenerator {
 		
 		sc.add("package " + super.getResourcePackageName()+ ";");
 		sc.addLineBreak();
-		
-		sc.add("public class " + super.getResourceClassName() + " extends " + JavaBasedTokenResolver.class.getName() + " implements " + ITokenResolver.class.getName() + " {");
+
+		sc.add("public class " + super.getResourceClassName() + " implements " + ITokenResolver.class.getName() + " {");
 		sc.addLineBreak();
+		sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		generateDeResolveMethod(sc);
 		generateResolveMethod(sc);
 		sc.add("}");
@@ -79,7 +80,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		sc.add("@Override");
 		sc.addLineBreak();
 		sc.add("public " + String.class.getName() + " deResolve(" + Object.class.getName() + " value, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container) {");
-		sc.add(String.class.getName() + " result = super.deResolve(value, feature, container);");
+		sc.add(String.class.getName() + " result = defaultTokenResolver.deResolve(value, feature, container);");
 		String suffix = getSuffix();
 		String prefix = getPrefix();
 		
@@ -115,7 +116,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 			String replacement = escapeChars(suffix);
 			sc.add("lexem = lexem.replaceAll(\"\\\\\\\\\"+" + java.util.regex.Pattern.class.getName() + ".quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
 		}
-		sc.add("super.resolve(lexem, feature, result);");
+		sc.add("defaultTokenResolver.resolve(lexem, feature, result);");
 		sc.add("}");
 	}
 	

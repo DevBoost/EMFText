@@ -1,7 +1,5 @@
 package org.emftext.sdk.codegen.util;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
-
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +35,10 @@ public class GenClassUtil {
 		return genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get" + genClass.getClassifierAccessorName() + "()";
 	}
 
-	public String getCreateObjectCall(GenClass genClass) {
+	public String getCreateObjectCall(GenClass genClass, String qualifiedDummyEObjectClassName) {
 		GenPackage genPackage = genClass.getGenPackage();
 		if (Map.Entry.class.getName().equals(genClass.getEcoreClass().getInstanceClassName())) {
-			return "new " + DUMMY_E_OBJECT + "("+ genPackage.getQualifiedPackageClassName() + ".eINSTANCE.get" + genClass.getName() 
+			return "new " + qualifiedDummyEObjectClassName + "("+ genPackage.getQualifiedPackageClassName() + ".eINSTANCE.get" + genClass.getName() 
 					+ "(),\"" + genClass.getName() + "\")";
 	    } else {
 	    	return genPackage.getQualifiedFactoryInterfaceName() + ".eINSTANCE.create" + genClass.getName() + "()";

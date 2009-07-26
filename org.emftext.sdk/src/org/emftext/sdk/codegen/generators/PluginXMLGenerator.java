@@ -26,6 +26,7 @@ import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -54,63 +55,56 @@ public class PluginXMLGenerator implements IGenerator {
 	/**
 	 * Generate the XML file describing the plug-in.
 	 * 
-	 * @param cSyntax
-	 *            Concrete syntax model.
-	 * @param packageName
-	 *            Name of the Java package.
-	 * @param file
-	 *            File representation of the concrete syntax definition.
 	 * @return Generated code.
 	 */
 	private String getContentOfPluginXML() {
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
 		final String concreteSyntaxName = concreteSyntax.getName();
-		final String factoryClassName = context.getResourceFactoryClassName();
-		final String packageName = context.getPackageName();
+		final String qualifiedResourceFactoryClassName = context.getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
 
-		StringComposite s = new XMLComposite();
-		s.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-		s.add("<?eclipse version=\"3.2\"?>");
-		s.add("<plugin>");
+		StringComposite sc = new XMLComposite();
+		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		sc.add("<?eclipse version=\"3.2\"?>");
+		sc.add("<plugin>");
 
 		// register the generated resource factory
-		s.add("<extension point=\"org.eclipse.emf.ecore.extension_parser\">");
-		s.add("<parser class=\"" + packageName + "." + factoryClassName + "\" type=\"" + concreteSyntaxName + "\">");
-		s.add("</parser>");
-		s.add("</extension>");
-		s.addLineBreak();
+		sc.add("<extension point=\"org.eclipse.emf.ecore.extension_parser\">");
+		sc.add("<parser class=\"" + qualifiedResourceFactoryClassName + "\" type=\"" + concreteSyntaxName + "\">");
+		sc.add("</parser>");
+		sc.add("</extension>");
+		sc.addLineBreak();
 
 		// register the syntax meta information
-		String metaInformationClass = context.getQualifiedMetaInformationClassName();
-		s.add("<extension point=\"" + EMFTextRuntimePlugin.EP_SYNTAX_ID + "\">");
-		s.add("<metaInformationProvider class=\"" + metaInformationClass + "\" id=\"" + metaInformationClass + "\">");
-		s.add("</metaInformationProvider>");
-		s.add("</extension>");
-		s.addLineBreak();
+		String metaInformationClass = context.getQualifiedClassName(EArtifact.META_INFORMATION);
+		sc.add("<extension point=\"" + EMFTextRuntimePlugin.EP_SYNTAX_ID + "\">");
+		sc.add("<metaInformationProvider class=\"" + metaInformationClass + "\" id=\"" + metaInformationClass + "\">");
+		sc.add("</metaInformationProvider>");
+		sc.add("</extension>");
+		sc.addLineBreak();
 
 		// registers the file extension for the EMF Text Editor
-		s.add("<extension point=\"org.eclipse.core.contenttype.contentTypes\">");
-		s.add("<file-association content-type=\"org.emftext.filetype\" file-extensions=\"" + concreteSyntaxName + "\">");
-		s.add("</file-association>");
-		s.add("</extension>");
-		s.addLineBreak();
+		sc.add("<extension point=\"org.eclipse.core.contenttype.contentTypes\">");
+		sc.add("<file-association content-type=\"org.emftext.filetype\" file-extensions=\"" + concreteSyntaxName + "\">");
+		sc.add("</file-association>");
+		sc.add("</extension>");
+		sc.addLineBreak();
 		
-		s.add("<extension point=\"org.eclipse.ui.newWizards\">");
-		s.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");
-		s.add("</category>");
-		String newFileWizard = context.getQualifiedNewFileActionName();
-		s.add("<wizard category=\"org.emftext.runtime.ui.EMFTextFileCategory\" icon=\"" + context.getProjectRelativeNewIconPath() + "\" class=\"" + newFileWizard + "\" id=\"" + newFileWizard + "\" name=\"EMFText ." + context.getConcreteSyntax().getName() + " file\">");
-		s.add("</wizard>");
-		s.add("</extension>");
-		s.addLineBreak();
+		sc.add("<extension point=\"org.eclipse.ui.newWizards\">");
+		sc.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");
+		sc.add("</category>");
+		String newFileWizard = context.getQualifiedClassName(EArtifact.NEW_FILE_WIZARD);
+		sc.add("<wizard category=\"org.emftext.runtime.ui.EMFTextFileCategory\" icon=\"" + context.getProjectRelativeNewIconPath() + "\" class=\"" + newFileWizard + "\" id=\"" + newFileWizard + "\" name=\"EMFText ." + context.getConcreteSyntax().getName() + " file\">");
+		sc.add("</wizard>");
+		sc.add("</extension>");
+		sc.addLineBreak();
 
 		if (context.isGenerateTestActionEnabled()) {
-			s.add(generateTestActionExtension());
+			sc.add(generateTestActionExtension());
 		}
 
-		s.add("</plugin>");
+		sc.add("</plugin>");
 
-		return s.toString();
+		return sc.toString();
 	}
 
 	private StringComposite generateTestActionExtension() {

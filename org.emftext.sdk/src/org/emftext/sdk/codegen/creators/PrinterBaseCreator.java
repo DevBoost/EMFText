@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -47,7 +48,7 @@ public class PrinterBaseCreator extends AbstractArtifactCreator {
 		if (generatePrinterStubOnly) {
 			return new ArrayList<IArtifact>();
 		} else {
-		    File printerBaseFile = context.getPrinterBaseFile();
+		    File printerBaseFile = context.getFile(EArtifact.PRINTER_BASE);
 	        IGenerator printerBaseGenerator = new TextPrinterBaseGenerator(context);
 	        
 		    return createArtifact(

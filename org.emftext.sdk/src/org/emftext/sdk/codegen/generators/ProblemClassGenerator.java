@@ -6,6 +6,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -13,7 +14,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 public class ProblemClassGenerator extends BaseGenerator {
 
 	public ProblemClassGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getProblemClassName());
+		super(context.getPackageName(), context.getClassName(EArtifact.PROBLEM));
 	}
 
 	@Override

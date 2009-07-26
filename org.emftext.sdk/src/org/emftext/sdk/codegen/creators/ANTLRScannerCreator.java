@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRScannerGenerator;
@@ -19,7 +20,7 @@ public class ANTLRScannerCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
-		File file = context.getAntlrScannerFile();
+		File file = context.getFile(EArtifact.ANTLR_SCANNER);
 		IGenerator generator = new ANTLRScannerGenerator(context);
 		
 	    return createArtifact(

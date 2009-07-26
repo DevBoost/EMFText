@@ -30,9 +30,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.IReferenceResolver;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenResolver;
-import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.codegen.util.PathUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -58,17 +56,9 @@ import org.emftext.sdk.finders.GenClassFinder;
 public abstract class GenerationContext {
 	
 	public static final String CLASS_SUFFIX_TOKEN_RESOLVER = ITokenResolver.class.getSimpleName().substring(1);
-	public static final String CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY = ITokenResolverFactory.class.getSimpleName().substring(1);
 	public static final String CLASS_SUFFIX_REFERENCE_RESOLVER = IReferenceResolver.class.getSimpleName().substring(1);
-	public static final String CLASS_SUFFIX_META_INFORMATION = ITextResourcePluginMetaInformation.class.getSimpleName().substring("ITextResourcePlugin".length());
-	public static final String CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE = "DefaultResolverDelegate";
 
-	private static final String CLASS_SUFFIX_PRINTER = "Printer";
-	private static final String CLASS_SUFFIX_PRINTER_BASE = "PrinterBase";
-	private static final String CLASS_SUFFIX_RESOURCE = "Resource";
-	private static final String CLASS_SUFFIX_RESOURCE_FACTORY = "ResourceFactory";
-	private static final String CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH = "ReferenceResolverSwitch";
-	private static final String CLASS_SUFFIX_NEW_FILE_WIZARD = "NewFileWizard";
+	public static final String CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE = "DefaultResolverDelegate";
 	
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 	public static final String JAVA_FILE_EXTENSION = ".java";
@@ -140,46 +130,6 @@ public abstract class GenerationContext {
 	public String getCapitalizedConcreteSyntaxName() {
 		return nameUtil.getCapitalizedConcreteSyntaxName(getConcreteSyntax());
 	}
-	
-    public String getPrinterName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_PRINTER;
-    }
-    
-    public String getPrinterBaseClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_PRINTER_BASE;
-    }
-    
-    public String getResourceClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_RESOURCE;
-    }
-    
-    public String getResourceFactoryClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_RESOURCE_FACTORY;
-    }
-    
-    public String getNewFileActionClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_NEW_FILE_WIZARD;
-    }
-    
-	public String getQualifiedNewFileActionName() {
-		return getPackageName() + "." + getNewFileActionClassName();
-	}
-
-	public String getReferenceResolverSwitchClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_REFERENCE_RESOLVER_SWITCH;
-    }
-    
-    public String getQualifiedReferenceResolverSwitchClassName() {
-    	return getPackageName() + "." + getReferenceResolverSwitchClassName();
-    }
-    
-    public String getTokenResolverFactoryClassName() {
-    	return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_TOKEN_RESOLVER_FACTORY;
-    }
-
-    public String getQualifiedTokenResolverFactoryClassName() {
-    	return getPackageName() + "." + getTokenResolverFactoryClassName();
-    }
     
     // TODO remove this method. the nc-references should not be added
     // by the parser generators
@@ -199,8 +149,7 @@ public abstract class GenerationContext {
 		return true;
 	}
 
-	public String getQualifiedReferenceResolverClassName(
-			GenFeature proxyReference) {
+	public String getQualifiedReferenceResolverClassName(GenFeature proxyReference) {
 		return getResolverPackageName(proxyReference) + "." + nameUtil.getReferenceResolverClassName(proxyReference);
 	}
 
@@ -245,18 +194,6 @@ public abstract class GenerationContext {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
-	public String getAntlrParserClassName() {
-		return getCapitalizedConcreteSyntaxName() + "Parser";
-	}
-
-	public String getQualifiedAntlrParserClassName() {
-		return getPackageName() + "." + getAntlrParserClassName();
-	}
-
-	public String getQualifiedPrinterName() {
-		return getPackageName() + "." + getPrinterName();
-	}
-
 	public String getPackagePath() {
 		File targetFolder = getSourceFolder();
 		IPath csPackagePath = new Path(getPackageName().replaceAll("\\.","/"));
@@ -267,34 +204,6 @@ public abstract class GenerationContext {
 
 	public File getSourceFolder() {
 		return pathUtil.getSourceFolder(getConcreteSyntax(), getPluginProjectFolder().getAbsolutePath());
-	}
-
-	public File getPrinterFile() {
-		return new File(getPackagePath() + getPrinterName() + JAVA_FILE_EXTENSION);
-	}
-
-	public File getPrinterBaseFile() {
-		return new File(getPackagePath() + getPrinterBaseClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public File getTextResourceFile() {
-		return new File(getPackagePath() + getResourceClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public File getTokenResolverFactoryFile() {
-		return new File(getPackagePath() + getTokenResolverFactoryClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public File getNewFileWizardFile() {
-		return new File(getPackagePath() + getNewFileActionClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public File getReferenceResolverSwitchFile() {
-		return new File(getPackagePath() + getReferenceResolverSwitchClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public File getResourceFactoryFile() {
-		return new File(getPackagePath() + getResourceFactoryClassName() + JAVA_FILE_EXTENSION);
 	}
 
 	public File getResolverFile(GenFeature proxyReference) {
@@ -317,18 +226,6 @@ public abstract class GenerationContext {
 		return antlrFile;
 	}
 
-	public String getMetaInformationClassName() {
-		return getCapitalizedConcreteSyntaxName() + CLASS_SUFFIX_META_INFORMATION;
-	}
-
-	public String getQualifiedMetaInformationClassName() {
-		return getPackageName() + "." + getMetaInformationClassName();
-	}
-
-	public File getMetaInformationClassFile() {
-		return new File(getPackagePath() + getMetaInformationClassName() + JAVA_FILE_EXTENSION);
-	}
-
 	public String getDefaultResolverDelegateName() {
 		return nameUtil.getDefaultResolverDelegateName(getConcreteSyntax());
 	}
@@ -341,67 +238,15 @@ public abstract class GenerationContext {
 		return new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + nameUtil.getDefaultResolverDelegateName(getConcreteSyntax()) + JAVA_FILE_EXTENSION);
 	}
 
-	public String getProblemClassName() {
-		return getCapitalizedConcreteSyntaxName() + "Problem";
+	public String getClassName(EArtifact artifact) {
+		return getCapitalizedConcreteSyntaxName() + artifact.getClassNameSuffix();
 	}
 
-	public String getQualifiedProblemClassName() {
-		return getPackageName() + "." + getProblemClassName();
+	public String getQualifiedClassName(EArtifact artifact) {
+		return getPackageName() + "." + getClassName(artifact);
 	}
 
-	public File getProblemClassFile() {
-		return new File(getPackagePath() + getProblemClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public String getScannerlessParserClassName() {
-		return getCapitalizedConcreteSyntaxName() + "ScannerlessParser";
-	}
-
-	public String getQualifiedScannerlessParserClassName() {
-		return getPackageName() + "." + getScannerlessParserClassName();
-	}
-
-	public File getScannerlessParserFile() {
-		return new File(getPackagePath() + getScannerlessParserClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public String getScannerlessScannerClassName() {
-		return getCapitalizedConcreteSyntaxName() + "ScannerlessScanner";
-	}
-
-	public String getQualifiedScannerlessScannerClassName() {
-		return getPackageName() + "." + getScannerlessScannerClassName();
-	}
-
-	public File getScannerlessScannerFile() {
-		return new File(getPackagePath() + getScannerlessScannerClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public File getAntlrParserFile() {
-		return new File(getPackagePath() + getAntlrParserClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public String getAntlrScannerClassName() {
-		return getCapitalizedConcreteSyntaxName() + "AntlrScanner";
-	}
-
-	public String getQualifiedAntlrScannerClassName() {
-		return getPackageName() + "." + getAntlrScannerClassName();
-	}
-
-	public File getAntlrScannerFile() {
-		return new File(getPackagePath() + getAntlrScannerClassName() + JAVA_FILE_EXTENSION);
-	}
-
-	public String getAntlrLexerClassName() {
-		return getCapitalizedConcreteSyntaxName() + "Lexer";
-	}
-
-	public String getQualifiedAntlrLexerClassName() {
-		return getPackageName() + "." + getAntlrLexerClassName();
-	}
-
-	public File getAntlrLexerFile() {
-		return new File(getPackagePath() + getAntlrLexerClassName() + JAVA_FILE_EXTENSION);
+	public File getFile(EArtifact artifact) {
+		return new File(getPackagePath() + getClassName(artifact) + JAVA_FILE_EXTENSION);
 	}
 }

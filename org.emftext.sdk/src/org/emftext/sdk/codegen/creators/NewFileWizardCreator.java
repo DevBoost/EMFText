@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.NewFileWizardGenerator;
@@ -40,7 +41,7 @@ public class NewFileWizardCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-	    File newFileActionFile = context.getNewFileWizardFile();
+	    File newFileActionFile = context.getFile(EArtifact.NEW_FILE_WIZARD);
 		IGenerator generator = new NewFileWizardGenerator(context);
 		
 	    return createArtifact(

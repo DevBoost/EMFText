@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -33,7 +34,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private GenerationContext context;
 
 	public PluginMetaInformationGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getMetaInformationClassName());
+		super(context.getPackageName(), context.getClassName(EArtifact.META_INFORMATION));
 		this.context = context;
 	}
 	
@@ -67,9 +68,11 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void addCreateLexerMethod(StringComposite sc) {
 		sc.add("public " + I_TEXT_SCANNER+ " createLexer() {");
 		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
-			sc.add("return new " + context.getQualifiedScannerlessScannerClassName() + "();");
+			sc.add("return new " + context.getQualifiedClassName(EArtifact.SCANNERLESS_SCANNER) + "();");
 		} else {
-			sc.add("return new " + context.getQualifiedAntlrScannerClassName() + "(this, new " + context.getQualifiedAntlrLexerClassName() + "());");
+			final String qualifiedAntlrScannerClassName = context.getQualifiedClassName(EArtifact.ANTLR_SCANNER);
+			final String qualifiedAntlrLexerClassName = context.getQualifiedClassName(EArtifact.ANTLR_LEXER);
+			sc.add("return new " + qualifiedAntlrScannerClassName + "(this, new " + qualifiedAntlrLexerClassName + "());");
 		}
         sc.add("}");
         sc.addLineBreak();
@@ -111,9 +114,9 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void addGetTokenNamesMethod(StringComposite sc) {
 		sc.add("public " + STRING +"[] getTokenNames() {");
 		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
-			sc.add("return new " + context.getQualifiedScannerlessParserClassName() + "().getTokenNames();");
+			sc.add("return new " + context.getQualifiedClassName(EArtifact.SCANNERLESS_PARSER) + "().getTokenNames();");
 		} else {
-			sc.add("return new " + context.getQualifiedAntlrParserClassName() + "(null).getTokenNames();");
+			sc.add("return new " + context.getQualifiedClassName(EArtifact.ANTLR_PARSER) + "(null).getTokenNames();");
 		}
         sc.add("}");
         sc.addLineBreak();
@@ -162,9 +165,9 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addCreateParserMethod(StringComposite sc) {
-		String parserClassName = context.getQualifiedAntlrParserClassName();
+		String parserClassName = context.getQualifiedClassName(EArtifact.ANTLR_PARSER);
 	    if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
-	    	parserClassName = context.getQualifiedScannerlessParserClassName();
+	    	parserClassName = context.getQualifiedClassName(EArtifact.SCANNERLESS_PARSER);
 	    }
 		
 		sc.add("public " + I_TEXT_PARSER + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
@@ -188,7 +191,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		String resolverSwitchClassName = context.getQualifiedReferenceResolverSwitchClassName();
+		String resolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 
 		sc.add("public " + I_REFERENCE_RESOLVER_SWITCH + " getReferenceResolverSwitch() {");
 		sc.add("return new " + resolverSwitchClassName + "();");
@@ -197,7 +200,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addGetTokenResolverFactoryMethod(StringComposite sc) {
-		String tokenResolverFactoryClassName = context.getQualifiedTokenResolverFactoryClassName();
+		String tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 
 		sc.add("public " + I_TOKEN_RESOLVER_FACTORY + " getTokenResolverFactory() {");
 		sc.add("return new " + tokenResolverFactoryClassName + "();");

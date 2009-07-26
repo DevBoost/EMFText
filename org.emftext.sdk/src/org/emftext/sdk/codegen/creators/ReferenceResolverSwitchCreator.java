@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolverSwitchGenerator;
@@ -40,13 +41,13 @@ public class ReferenceResolverSwitchCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-	    File referenceResolverSwitchFile = context.getReferenceResolverSwitchFile();
+	    File file = context.getFile(EArtifact.REFERENCE_RESOLVER_SWITCH);
 
-		IGenerator referenceResolverSwitchGenerator = new ReferenceResolverSwitchGenerator(context);
+		IGenerator generator = new ReferenceResolverSwitchGenerator(context);
 		return createArtifact(
 	    		context,
-	    		referenceResolverSwitchGenerator,
-	    		referenceResolverSwitchFile,
+	    		generator,
+	    		file,
 	    		"Exception while generating reference resolver switch."
 	    );
 	}

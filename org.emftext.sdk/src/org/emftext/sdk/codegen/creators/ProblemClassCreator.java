@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ProblemClassGenerator;
@@ -18,7 +19,7 @@ public class ProblemClassCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-	    File file = context.getProblemClassFile();
+	    File file = context.getFile(EArtifact.PROBLEM);
 		IGenerator generator = new ProblemClassGenerator(context);
 		
 		return createArtifact(

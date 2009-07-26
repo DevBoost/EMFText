@@ -20,8 +20,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
+
 import java.io.PrintWriter;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -35,17 +39,17 @@ import org.emftext.sdk.codegen.composites.StringComposite;
  */
 public class ResourceFactoryGenerator extends BaseGenerator {
 	
-	private String textResourceClassName;
+	private String qualifiedTextResourceClassName;
 	
 	/**
 	 * @param className The name of the generated CompilationUnit
 	 * @param packageName The package name of the generated CompilationUnit
-	 * @param textResourceClassName The class name of the generated TextResource 
+	 * @param qualifiedTextResourceClassName The class name of the generated TextResource 
 	 * which is meant to be instantiated by the ResourceFactory.
 	 */
 	public ResourceFactoryGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getResourceFactoryClassName());
-		this.textResourceClassName = context.getResourceClassName();
+		super(context.getPackageName(), context.getClassName(EArtifact.RESOURCE_FACTORY));
+		this.qualifiedTextResourceClassName = context.getQualifiedClassName(EArtifact.RESOURCE);
 	}
 
 	@Override
@@ -55,11 +59,7 @@ public class ResourceFactoryGenerator extends BaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("import " + org.eclipse.emf.common.util.URI.class.getName() + ";");
-        sc.add("import " + org.eclipse.emf.ecore.resource.Resource.class.getName() + ";");
-		sc.addLineBreak();
-
-        sc.add("public class " + getResourceClassName()+ " implements Resource.Factory {");
+        sc.add("public class " + getResourceClassName()+ " implements " + RESOURCE + ".Factory {");
         sc.addLineBreak();
         
 		sc.add("public " + getResourceClassName() + "() {");
@@ -67,8 +67,8 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public Resource createResource(URI uri) {");
-		sc.add("return new " + textResourceClassName + "(uri);");
+		sc.add("public " + RESOURCE + " createResource(" + URI + " uri) {");
+		sc.add("return new " + qualifiedTextResourceClassName + "(uri);");
 		sc.add("}");
 		
 		sc.add("}");

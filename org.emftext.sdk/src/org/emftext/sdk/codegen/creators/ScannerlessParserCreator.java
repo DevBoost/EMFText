@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;
@@ -19,7 +20,7 @@ public class ScannerlessParserCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
-		File file = context.getScannerlessParserFile();
+		File file = context.getFile(EArtifact.SCANNERLESS_PARSER);
 		IGenerator generator = new ScannerlessParserGenerator(context);
 		
 	    return createArtifact(

@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ResourceFactoryGenerator;
@@ -40,12 +41,12 @@ public class ResourceFactoryCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		IGenerator resourceFactoryGenerator = new ResourceFactoryGenerator(context);
-        File resourceFactoryFile = context.getResourceFactoryFile();
+		IGenerator generator = new ResourceFactoryGenerator(context);
+        File file = context.getFile(EArtifact.RESOURCE_FACTORY);
 		return createArtifact(
 	    		context,
-	    		resourceFactoryGenerator,
-	    		resourceFactoryFile,
+	    		generator,
+	    		file,
 	    		"Exception while generating resource factory."
 	    );
 	}

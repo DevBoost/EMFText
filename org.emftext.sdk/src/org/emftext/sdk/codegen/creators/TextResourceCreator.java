@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.TextResourceGenerator;
@@ -42,13 +43,13 @@ public class TextResourceCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-	    File resourceFile = context.getTextResourceFile();
+	    File file = context.getFile(EArtifact.RESOURCE);
 		IGenerator generator = new TextResourceGenerator(context);
 		
 		return createArtifact(
 	    		context,
 	    		generator,
-	    		resourceFile,
+	    		file,
 	    		"Exception while generating " + TEXT_RESOURCE + " class."
 	    );
 	}

@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
@@ -40,13 +41,13 @@ public class TokenResolverFactoryCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-	    File tokenResolverFactoryFile = context.getTokenResolverFactoryFile();
+	    File file = context.getFile(EArtifact.TOKEN_RESOLVER_FACTORY);
 		IGenerator generator = new TokenResolverFactoryGenerator(context);
 		
 		return createArtifact(
 	    		context,
 	    		generator,
-	    		tokenResolverFactoryFile,
+	    		file,
 	    		"Exception while generating token resolver factory."
 	    );
 	}

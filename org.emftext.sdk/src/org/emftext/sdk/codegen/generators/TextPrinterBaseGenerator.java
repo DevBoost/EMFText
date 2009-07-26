@@ -61,6 +61,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
 import org.emftext.runtime.util.StringUtil;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -101,7 +102,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private ConcreteSyntax concretSyntax;
-	private String tokenResolverFactoryClassName;
+	private String qualifiedTokenResolverFactoryClassName;
+	private String qualifiedReferenceResolverSwitchClassName;
 	
 	private int tokenSpace;
 	/** maps all choices to a method name */
@@ -116,12 +118,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private GenerationContext context;
 
 	public TextPrinterBaseGenerator(GenerationContext context) {
-		
-		super(context.getPackageName(), context.getPrinterBaseClassName());
+		super(context.getPackageName(), context.getClassName(EArtifact.PRINTER_BASE));
 
 		this.context = context;
 		this.concretSyntax = context.getConcreteSyntax();
-		this.tokenResolverFactoryClassName = context.getTokenResolverFactoryClassName();
+		this.qualifiedTokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
+		this.qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 	}
 
 	private void extractChoices(List<Rule> rules,
@@ -276,12 +278,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		sc.add("protected " + context.getQualifiedReferenceResolverSwitchClassName() + " getReferenceResolverSwitch() {");
+		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
 		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
         sc.add("if (resource == null) {");
         sc.add("return null;");
         sc.add("}");
-        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getMetaInformation().getReferenceResolverSwitch();");
+        sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") resource.getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
 	}
 
@@ -321,7 +323,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private void addMembers(StringComposite sc) {
 		sc.add("protected final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.add("protected " + I_TOKEN_RESOLVER_FACTORY + " tokenResolverFactory = new "
-						+ tokenResolverFactoryClassName + "();");
+						+ qualifiedTokenResolverFactoryClassName + "();");
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
 		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
 		sc.add("private " + I_TEXT_RESOURCE + " resource;");
@@ -335,7 +337,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("// the resource can be null if the printer is used stand alone");
 		sc.add("return;");
 		sc.add("}");
-    	sc.add("resource.addProblem(new " + context.getQualifiedProblemClassName() + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), cause);");
+    	sc.add("resource.addProblem(new " + context.getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), cause);");
 		sc.add("}");
 	}
 

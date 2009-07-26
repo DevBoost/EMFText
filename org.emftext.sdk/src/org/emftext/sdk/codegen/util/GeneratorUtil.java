@@ -21,7 +21,6 @@
 package org.emftext.sdk.codegen.util;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PROBLEM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.DUMMY_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
@@ -43,10 +42,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.impl.ContextDependentURIFragmentFactory;
-import org.emftext.runtime.resource.impl.TokenResolveResult;
 import org.emftext.runtime.util.EClassUtil;
 import org.emftext.runtime.util.EObjectUtil;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -282,8 +280,8 @@ public class GeneratorUtil {
 		}
 	}
 
-	public void addAddMapEntryMethod(StringComposite sc) {
-		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + DUMMY_E_OBJECT + " dummy) {");
+	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName) {
+		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + qualifiedDummyEObjectClassName + " dummy) {");
 		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
 		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
 		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
@@ -305,20 +303,20 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addGetFreshTokenResolveResultMethod(StringComposite sc) {
-		sc.add("private " + TokenResolveResult.class.getName() + " getFreshTokenResolveResult() {");
+	public void addGetFreshTokenResolveResultMethod(StringComposite sc, String qualifiedTokenResolveResultClassName) {
+		sc.add("private " + qualifiedTokenResolveResultClassName + " getFreshTokenResolveResult() {");
         sc.add("tokenResolveResult.clear();");
         sc.add("return tokenResolveResult;");
         sc.add("}");
         sc.addLineBreak();
 	}
 
-	public void addRegisterContextDependentProxyMethod(StringComposite sc, boolean addTypeParameters) {
+	public void addRegisterContextDependentProxyMethod(StringComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters) {
 		String typeParameters = "";
 		if (addTypeParameters) {
 			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
 		}
-		sc.add("protected " + typeParameters + "void registerContextDependentProxy(" + ContextDependentURIFragmentFactory.class.getName() + "<ContainerType, ReferenceType> factory," + "ContainerType element, " + E_REFERENCE + " reference, String id," + E_OBJECT
+		sc.add("protected " + typeParameters + "void registerContextDependentProxy(" + qualifiedContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory," + "ContainerType element, " + E_REFERENCE + " reference, String id," + E_OBJECT
 				+ " proxy) {");
 		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
 		sc.add("if (resource == null) {");
@@ -332,12 +330,13 @@ public class GeneratorUtil {
 	}
 
 	public void addGetReferenceResolverSwitchMethod(GenerationContext context, StringComposite sc) {
-		sc.add("protected " + context.getQualifiedReferenceResolverSwitchClassName() + " getReferenceResolverSwitch() {");
+		final String qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
+		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
         sc.add(I_TEXT_RESOURCE + " resource = getResource();");
         sc.add("if (resource == null) {");
         sc.add("return null;");
         sc.add("}");
-        sc.add("return (" + context.getQualifiedReferenceResolverSwitchClassName() + ") resource.getMetaInformation().getReferenceResolverSwitch();");
+        sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") resource.getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
         sc.addLineBreak();
 	}

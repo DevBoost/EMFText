@@ -20,16 +20,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.IReferenceResolveResult;
-import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.impl.FuzzyResolveResult;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -52,7 +55,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private final GenerationContext context;
 
 	public ReferenceResolverSwitchGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getReferenceResolverSwitchClassName());
+		super(context.getPackageName(), context.getClassName(EArtifact.REFERENCE_RESOLVER_SWITCH));
 		this.context = context;
 	}
 	
@@ -70,8 +73,8 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     	StringComposite sc = new JavaComposite();
         sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
-        
-		sc.add("public class " + getResourceClassName() + " implements " + IReferenceResolverSwitch.class.getName() + " {");
+        // TODO extend AbstractReferenceResolverSwitch instead
+		sc.add("public class " + getResourceClassName() + " implements " + I_REFERENCE_RESOLVER_SWITCH + " {");
         sc.addLineBreak();
 		
 		generateFields(sc);
@@ -85,14 +88,16 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     }
 
 	private void generateResolveFuzzyMethod(StringComposite sc) {
-		sc.add("public void resolveFuzzy(" + String.class.getName() + " identifier, " + EObject.class.getName() + " container, int position, " + IReferenceResolveResult.class.getName() + "<" + EObject.class.getName() + "> result) {");
+		String qualifiedFuzzyResolveResultClassName = context.getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
+		
+		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, int position, " + I_REFERENCE_RESOLVE_RESULT + "<" + E_OBJECT + "> result) {");
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			GenFeature genFeature = generatorUtil.findGenFeature(genClass, proxyReference.getName());
 			sc.add("if (" + accessorName+ ".isInstance(container)) {");
-			sc.add(FuzzyResolveResult.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + FuzzyResolveResult.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
+			sc.add(qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + "> frr = new " + qualifiedFuzzyResolveResultClassName + "<" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ">(result);");
 
 			// TODO use the feature constant instead of the feature name, but NOT the way it is done
 			// in the next line, because this does not work when genClass is a super typer of  
@@ -110,7 +115,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	}
 
 	private void generateSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(" + java.util.Map.class.getName() + "<?, ?> options) {");
+		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			sc.add(low(generatedClassName) + ".setOptions(options);");			

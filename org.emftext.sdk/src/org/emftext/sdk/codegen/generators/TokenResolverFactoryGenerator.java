@@ -29,7 +29,7 @@ import java.io.PrintWriter;
 
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
-import org.emftext.runtime.resource.impl.JavaBasedTokenResolver;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -53,7 +53,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	private GenerationContext context;
 	
 	public TokenResolverFactoryGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getTokenResolverFactoryClassName());
+		super(context.getPackageName(), context.getClassName(EArtifact.TOKEN_RESOLVER_FACTORY));
 		this.context = context;
 	}
 	
@@ -142,7 +142,8 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	private void addFields(StringComposite sc) {
 		sc.add("private " + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> tokenName2TokenResolver;");
 		sc.add("private " + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> featureName2CollectInTokenResolver;");
-		sc.add("private static " + I_TOKEN_RESOLVER + " defaultResolver = new " + JavaBasedTokenResolver.class.getName() + "();");
+		String qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
+		sc.add("private static " + I_TOKEN_RESOLVER + " defaultResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		sc.addLineBreak();
 	}
 

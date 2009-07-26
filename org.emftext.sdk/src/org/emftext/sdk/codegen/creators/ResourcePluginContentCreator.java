@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -56,15 +57,15 @@ public class ResourcePluginContentCreator {
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new ScannerlessScannerCreator());
 	    	creators.add(new ScannerlessParserCreator());
-	    	creators.add(new EmptyClassCreator(context.getAntlrScannerFile(), context.getAntlrScannerClassName(), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(context.getAntlrLexerFile(), context.getAntlrLexerClassName(), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(context.getAntlrParserFile(), context.getAntlrParserClassName(), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_SCANNER), context.getClassName(EArtifact.ANTLR_SCANNER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_LEXER), context.getClassName(EArtifact.ANTLR_LEXER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_PARSER), context.getClassName(EArtifact.ANTLR_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    } else {
 	    	creators.add(new ANTLRScannerCreator());
 		    creators.add(new ANTLRGrammarCreator());
 		    creators.add(new ANTLRParserCreator());
-	    	creators.add(new EmptyClassCreator(context.getScannerlessScannerFile(), context.getScannerlessScannerClassName(), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(context.getScannerlessParserFile(), context.getScannerlessParserClassName(), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_SCANNER), context.getClassName(EArtifact.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_PARSER), context.getClassName(EArtifact.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    }
 	    creators.add(new PluginXMLCreator());
 	    creators.add(new TextResourceCreator());
@@ -82,6 +83,17 @@ public class ResourcePluginContentCreator {
 	    creators.add(new PluginMetaInformationCreator());
 	    creators.add(new DefaultResolverDelegateCreator());
 	    creators.add(new ProblemClassCreator());
+	    creators.add(new ContextDependentURIFragmentCreator());
+	    creators.add(new ContextDependentURIFragmentFactoryCreator());
+	    creators.add(new DelegatingResolveResultCreator());
+	    creators.add(new DummyEObjectCreator());
+	    creators.add(new ElementMappingCreator());
+	    creators.add(new FuzzyResolveResultCreator());
+	    creators.add(new JavaBasedTokenResolverCreator());
+	    creators.add(new LocationMapCreator());
+	    creators.add(new ReferenceResolveResultCreator());
+	    creators.add(new TokenResolveResultCreator());
+	    creators.add(new URIMappingCreator());
 
 		for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");

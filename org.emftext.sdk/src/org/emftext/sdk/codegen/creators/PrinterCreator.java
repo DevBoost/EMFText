@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -43,7 +44,7 @@ public class PrinterCreator extends AbstractArtifactCreator {
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.GENERATE_PRINTER_STUB_ONLY);
 		
-	    File printerFile = context.getPrinterFile();
+	    File printerFile = context.getFile(EArtifact.PRINTER);
 
 	    IGenerator printerGenerator;
 		if (generatePrinterStubOnly) {

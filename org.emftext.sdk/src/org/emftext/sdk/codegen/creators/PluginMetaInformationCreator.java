@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.PluginMetaInformationGenerator;
@@ -19,7 +20,7 @@ public class PluginMetaInformationCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		IGenerator generator = new PluginMetaInformationGenerator(context);
-        File file = context.getMetaInformationClassFile();
+        File file = context.getFile(EArtifact.META_INFORMATION);
 		return createArtifact(
 	    		context,
 	    		generator,

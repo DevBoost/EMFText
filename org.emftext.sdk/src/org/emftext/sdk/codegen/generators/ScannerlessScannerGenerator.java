@@ -8,6 +8,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -17,7 +18,7 @@ public class ScannerlessScannerGenerator extends BaseGenerator {
 	private GenerationContext context;
 
 	public ScannerlessScannerGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getScannerlessScannerClassName());
+		super(context.getPackageName(), context.getClassName(EArtifact.SCANNERLESS_SCANNER));
 		this.context = context;
 	}
 
@@ -43,7 +44,7 @@ public class ScannerlessScannerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 
 		sc.add("public void setText(" + STRING + " text) {");
-		String scannerlessParserName = context.getScannerlessParserClassName();
+		String scannerlessParserName = context.getClassName(EArtifact.SCANNERLESS_PARSER);
 		sc.add(scannerlessParserName + " parser = new " + scannerlessParserName + "(new " + BYTE_ARRAY_INPUT_STREAM + "(text.getBytes()), null);");
 		sc.add("parser.setScanMode();");
 		sc.add("parser.parse();");
