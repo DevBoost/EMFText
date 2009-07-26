@@ -20,12 +20,15 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TOKEN_RESOLVER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVE_RESULT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.ITokenResolveResult;
-import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -65,7 +68,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		sc.add("package " + super.getResourcePackageName()+ ";");
 		sc.addLineBreak();
 
-		sc.add("public class " + super.getResourceClassName() + " implements " + ITokenResolver.class.getName() + " {");
+		sc.add("public class " + super.getResourceClassName() + " extends " + ABSTRACT_TOKEN_RESOLVER + " {");
 		sc.addLineBreak();
 		sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		generateDeResolveMethod(sc);
@@ -77,10 +80,8 @@ public class TokenResolverGenerator extends BaseGenerator {
 	}
 
 	private void generateDeResolveMethod(StringComposite sc) {
-		sc.add("@Override");
-		sc.addLineBreak();
-		sc.add("public " + String.class.getName() + " deResolve(" + Object.class.getName() + " value, " + EStructuralFeature.class.getName() + " feature, " + EObject.class.getName() + " container) {");
-		sc.add(String.class.getName() + " result = defaultTokenResolver.deResolve(value, feature, container);");
+		sc.add("public " + STRING + " deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.add(STRING + " result = defaultTokenResolver.deResolve(value, feature, container);");
 		String suffix = getSuffix();
 		String prefix = getPrefix();
 		
@@ -99,9 +100,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 	}
 
 	private void generateResolveMethod(StringComposite sc) {
-		sc.add("@Override");
-		sc.addLineBreak();
-		sc.add("public void resolve(" + String.class.getName() + " lexem, " + EStructuralFeature.class.getName() + " feature, " + ITokenResolveResult.class.getName() + " result) {");
+		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, " + I_TOKEN_RESOLVE_RESULT + " result) {");
 
 		String suffix = getSuffix();
 		String prefix = getPrefix();

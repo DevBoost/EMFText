@@ -89,6 +89,7 @@ import org.emftext.runtime.resource.impl.AbstractEMFTextScanner;
 import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.AbstractReferenceMapping;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
+import org.emftext.runtime.resource.impl.AbstractTokenResolver;
 import org.emftext.runtime.resource.impl.AbstractTokenStyle;
 import org.emftext.runtime.util.CastUtil;
 import org.emftext.runtime.util.EObjectUtil;
@@ -106,6 +107,7 @@ public interface IClassNameConstants {
 
 	public String ABSTRACT_BRACKET_PAIR = AbstractBracketPair.class.getName();
 	public String ABSTRACT_TOKEN_STYLE = AbstractTokenStyle.class.getName();
+	public String ABSTRACT_TOKEN_RESOLVER = AbstractTokenResolver.class.getName();
 	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
 	public String ABSTRACT_EMF_TEXT_SCANNER = AbstractEMFTextScanner.class.getName();
 	public String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
