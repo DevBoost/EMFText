@@ -165,6 +165,36 @@ public class OptionManager {
 		if (option == OptionTypes.OVERRIDE_NEW_FILE_WIZARD) {
 			return true;
 		}
+		if (option == OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_DUMMY_EOBJECT) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_ELEMENT_MAPPING) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_LOCATION_MAP) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_TOKEN_RESOLVE_RESULT) {
+			return true;
+		}
+		if (option == OptionTypes.OVERRIDE_URI_MAPPING) {
+			return true;
+		}
 		return false;
 	}
 
