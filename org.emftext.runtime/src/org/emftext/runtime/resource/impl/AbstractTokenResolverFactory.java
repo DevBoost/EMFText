@@ -29,6 +29,7 @@ import org.emftext.runtime.resource.ITokenResolverFactory;
  * ITokenResolverFactory.
  */
 public abstract class AbstractTokenResolverFactory implements ITokenResolverFactory {
+	
 	// Attention: Please do add only code that adapts existing implementations of
 	// old versions of ITokenResolverFactory here.
 	// Please document the date and version when the API was changed

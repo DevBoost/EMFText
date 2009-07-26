@@ -9,6 +9,7 @@ import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
  * ITextResourcePluginMetaInformation.
  */
 public abstract class AbstractTextResourcePluginMetaInformation implements ITextResourcePluginMetaInformation {
+	
 	// Attention: Please do add only code that adapts existing implementations of
 	// old versions of ITextResourcePluginMetaInformation here
 	// Please document the date and version when the API was changed

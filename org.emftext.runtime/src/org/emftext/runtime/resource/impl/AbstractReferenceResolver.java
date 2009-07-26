@@ -29,6 +29,7 @@ import org.emftext.runtime.resource.IReferenceResolver;
  * default implementations for new methods that are added to IReferenceResolver.
  */
 public abstract class AbstractReferenceResolver<ContainerType extends EObject, ReferenceType extends EObject> implements IReferenceResolver<ContainerType, ReferenceType> {
+	
 	// Attention: Please do add only code that adapts existing implementations of
 	// old versions of IReferenceResolver here.
 	// Please document the date and version when the API was changed

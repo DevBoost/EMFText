@@ -36,6 +36,8 @@ public abstract class AbstractEMFTextParser extends Parser implements ITextParse
 	// old versions of ITextParser here.
 	// Please document the date and version when the API was changed
 
+	// TODO get rid of these constructors by delegating to the ANTLR parser instead
+	// of letting it subclass this class
 	public AbstractEMFTextParser(TokenStream input) {
     	super(input);
     }
