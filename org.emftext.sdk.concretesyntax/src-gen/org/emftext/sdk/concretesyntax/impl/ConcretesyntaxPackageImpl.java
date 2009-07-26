@@ -1572,6 +1572,17 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PROBLEM_CLASS);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_SCANNER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DUMMY_EOBJECT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ELEMENT_MAPPING);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_LOCATION_MAP);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_REFERENCE_RESOLVE_RESULT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_TOKEN_RESOLVE_RESULT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_URI_MAPPING);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);

@@ -414,7 +414,95 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SCANNER(33, "OVERRIDE_SCANNER", "overrideScanner");
+	OVERRIDE_SCANNER(33, "OVERRIDE_SCANNER", "overrideScanner"), /**
+	 * The '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT(34, "OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT", "overrideContextDependentURIFragment"), /**
+	 * The '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(35, "OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY", "overrideContextDependentURIFragmentFactory"), /**
+	 * The '<em><b>OVERRIDE DELEGATING RESOLVE RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DELEGATING_RESOLVE_RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DELEGATING_RESOLVE_RESULT(36, "OVERRIDE_DELEGATING_RESOLVE_RESULT", "overrideDelegatingResolveResult"), /**
+	 * The '<em><b>OVERRIDE DUMMY EOBJECT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DUMMY_EOBJECT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DUMMY_EOBJECT(37, "OVERRIDE_DUMMY_E_OBJECT", "overrideDummyEObject"), /**
+	 * The '<em><b>OVERRIDE ELEMENT MAPPING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ELEMENT_MAPPING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ELEMENT_MAPPING(38, "OVERRIDE_ELEMENT_MAPPING", "overrideElementMapping"), /**
+	 * The '<em><b>OVERRIDE FUZZY RESOLVE RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FUZZY_RESOLVE_RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_FUZZY_RESOLVE_RESULT(39, "OVERRIDE_FUZZY_RESOLVE_RESULT", "overrideFuzzyResolveResult"), /**
+	 * The '<em><b>OVERRIDE DEFAULT TOKEN RESOLVER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_TOKEN_RESOLVER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEFAULT_TOKEN_RESOLVER(40, "OVERRIDE_DEFAULT_TOKEN_RESOLVER", "overrideDefaultTokenResolver"), /**
+	 * The '<em><b>OVERRIDE LOCATION MAP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LOCATION_MAP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LOCATION_MAP(41, "OVERRIDE_LOCATION_MAP", "overrideLocationMap"), /**
+	 * The '<em><b>OVERRIDE REFERENCE RESOLVE RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_REFERENCE_RESOLVE_RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_REFERENCE_RESOLVE_RESULT(42, "OVERRIDE_REFERENCE_RESOLVE_RESULT", "overrideReferenceResolveResult"), /**
+	 * The '<em><b>OVERRIDE TOKEN RESOLVE RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_RESOLVE_RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TOKEN_RESOLVE_RESULT(43, "OVERRIDE_TOKEN_RESOLVE_RESULT", "overrideTokenResolveResult"), /**
+	 * The '<em><b>OVERRIDE URI MAPPING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_URI_MAPPING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_URI_MAPPING(45, "OVERRIDE_URI_MAPPING", "overrideURIMapping");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -927,6 +1015,171 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_SCANNER_VALUE = 33;
 
 	/**
+	 * The '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT
+	 * @model literal="overrideContextDependentURIFragment"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_VALUE = 34;
+
+	/**
+	 * The '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY
+	 * @model literal="overrideContextDependentURIFragmentFactory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY_VALUE = 35;
+
+	/**
+	 * The '<em><b>OVERRIDE DELEGATING RESOLVE RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DELEGATING RESOLVE RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DELEGATING_RESOLVE_RESULT
+	 * @model literal="overrideDelegatingResolveResult"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DELEGATING_RESOLVE_RESULT_VALUE = 36;
+
+	/**
+	 * The '<em><b>OVERRIDE DUMMY EOBJECT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DUMMY EOBJECT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DUMMY_EOBJECT
+	 * @model name="OVERRIDE_DUMMY_E_OBJECT" literal="overrideDummyEObject"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DUMMY_EOBJECT_VALUE = 37;
+
+	/**
+	 * The '<em><b>OVERRIDE ELEMENT MAPPING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ELEMENT MAPPING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ELEMENT_MAPPING
+	 * @model literal="overrideElementMapping"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ELEMENT_MAPPING_VALUE = 38;
+
+	/**
+	 * The '<em><b>OVERRIDE FUZZY RESOLVE RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE FUZZY RESOLVE RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FUZZY_RESOLVE_RESULT
+	 * @model literal="overrideFuzzyResolveResult"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_FUZZY_RESOLVE_RESULT_VALUE = 39;
+
+	/**
+	 * The '<em><b>OVERRIDE DEFAULT TOKEN RESOLVER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEFAULT TOKEN RESOLVER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_TOKEN_RESOLVER
+	 * @model literal="overrideDefaultTokenResolver"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEFAULT_TOKEN_RESOLVER_VALUE = 40;
+
+	/**
+	 * The '<em><b>OVERRIDE LOCATION MAP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LOCATION MAP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LOCATION_MAP
+	 * @model literal="overrideLocationMap"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LOCATION_MAP_VALUE = 41;
+
+	/**
+	 * The '<em><b>OVERRIDE REFERENCE RESOLVE RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE REFERENCE RESOLVE RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_REFERENCE_RESOLVE_RESULT
+	 * @model literal="overrideReferenceResolveResult"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_REFERENCE_RESOLVE_RESULT_VALUE = 42;
+
+	/**
+	 * The '<em><b>OVERRIDE TOKEN RESOLVE RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TOKEN RESOLVE RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_RESOLVE_RESULT
+	 * @model literal="overrideTokenResolveResult"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TOKEN_RESOLVE_RESULT_VALUE = 43;
+
+	/**
+	 * The '<em><b>OVERRIDE URI MAPPING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE URI MAPPING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_URI_MAPPING
+	 * @model literal="overrideURIMapping"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_URI_MAPPING_VALUE = 45;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -968,6 +1221,17 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_DEFAULT_RESOLVER_DELEGATE,
 			OVERRIDE_PROBLEM_CLASS,
 			OVERRIDE_SCANNER,
+			OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT,
+			OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY,
+			OVERRIDE_DELEGATING_RESOLVE_RESULT,
+			OVERRIDE_DUMMY_EOBJECT,
+			OVERRIDE_ELEMENT_MAPPING,
+			OVERRIDE_FUZZY_RESOLVE_RESULT,
+			OVERRIDE_DEFAULT_TOKEN_RESOLVER,
+			OVERRIDE_LOCATION_MAP,
+			OVERRIDE_REFERENCE_RESOLVE_RESULT,
+			OVERRIDE_TOKEN_RESOLVE_RESULT,
+			OVERRIDE_URI_MAPPING,
 		};
 
 	/**
@@ -1052,6 +1316,17 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE: return OVERRIDE_DEFAULT_RESOLVER_DELEGATE;
 			case OVERRIDE_PROBLEM_CLASS_VALUE: return OVERRIDE_PROBLEM_CLASS;
 			case OVERRIDE_SCANNER_VALUE: return OVERRIDE_SCANNER;
+			case OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_VALUE: return OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT;
+			case OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY_VALUE: return OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY;
+			case OVERRIDE_DELEGATING_RESOLVE_RESULT_VALUE: return OVERRIDE_DELEGATING_RESOLVE_RESULT;
+			case OVERRIDE_DUMMY_EOBJECT_VALUE: return OVERRIDE_DUMMY_EOBJECT;
+			case OVERRIDE_ELEMENT_MAPPING_VALUE: return OVERRIDE_ELEMENT_MAPPING;
+			case OVERRIDE_FUZZY_RESOLVE_RESULT_VALUE: return OVERRIDE_FUZZY_RESOLVE_RESULT;
+			case OVERRIDE_DEFAULT_TOKEN_RESOLVER_VALUE: return OVERRIDE_DEFAULT_TOKEN_RESOLVER;
+			case OVERRIDE_LOCATION_MAP_VALUE: return OVERRIDE_LOCATION_MAP;
+			case OVERRIDE_REFERENCE_RESOLVE_RESULT_VALUE: return OVERRIDE_REFERENCE_RESOLVE_RESULT;
+			case OVERRIDE_TOKEN_RESOLVE_RESULT_VALUE: return OVERRIDE_TOKEN_RESOLVE_RESULT;
+			case OVERRIDE_URI_MAPPING_VALUE: return OVERRIDE_URI_MAPPING;
 		}
 		return null;
 	}

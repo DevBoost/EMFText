@@ -173,6 +173,17 @@
     <eLiterals name="OVERRIDE_DEFAULT_RESOLVER_DELEGATE" value="31" literal="overrideDefaultResolverDelegate"/>
     <eLiterals name="OVERRIDE_PROBLEM_CLASS" value="32" literal="overrideProblemClass"/>
     <eLiterals name="OVERRIDE_SCANNER" value="33" literal="overrideScanner"/>
+    <eLiterals name="OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT" value="34" literal="overrideContextDependentURIFragment"/>
+    <eLiterals name="OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY" value="35" literal="overrideContextDependentURIFragmentFactory"/>
+    <eLiterals name="OVERRIDE_DELEGATING_RESOLVE_RESULT" value="36" literal="overrideDelegatingResolveResult"/>
+    <eLiterals name="OVERRIDE_DUMMY_E_OBJECT" value="37" literal="overrideDummyEObject"/>
+    <eLiterals name="OVERRIDE_ELEMENT_MAPPING" value="38" literal="overrideElementMapping"/>
+    <eLiterals name="OVERRIDE_FUZZY_RESOLVE_RESULT" value="39" literal="overrideFuzzyResolveResult"/>
+    <eLiterals name="OVERRIDE_DEFAULT_TOKEN_RESOLVER" value="40" literal="overrideDefaultTokenResolver"/>
+    <eLiterals name="OVERRIDE_LOCATION_MAP" value="41" literal="overrideLocationMap"/>
+    <eLiterals name="OVERRIDE_REFERENCE_RESOLVE_RESULT" value="42" literal="overrideReferenceResolveResult"/>
+    <eLiterals name="OVERRIDE_TOKEN_RESOLVE_RESULT" value="43" literal="overrideTokenResolveResult"/>
+    <eLiterals name="OVERRIDE_URI_MAPPING" value="45" literal="overrideURIMapping"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
