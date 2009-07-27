@@ -5,10 +5,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
@@ -22,6 +19,8 @@ import org.emftext.runtime.ui.EMFTextTokenScanner;
 
 //TODO hoang-kim add documentation
 public class Occurrence {
+	
+	private final static PositionHelper positionHelper = new PositionHelper();
 
 	private EMFTextTokenScanner tokenScanner;
 	private List<String> quotedTokenArray;
@@ -177,16 +176,9 @@ public class Occurrence {
 	}
 
 	private void addPosition(IDocument document, String positionCategory) {
-		try {
-			int tokenOffset = tokenScanner.getTokenOffset();
-			int tokenLength = tokenScanner.getTokenLength();
-			Position position = new Position(tokenOffset, tokenLength);
-			document.addPosition(positionCategory, position);
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
-		}
+		int tokenOffset = tokenScanner.getTokenOffset();
+		int tokenLength = tokenScanner.getTokenLength();
+		positionHelper.addPosition(document, positionCategory, tokenOffset, tokenLength);
 	}
 
 	public boolean isQuotedToken(String tokenText) {

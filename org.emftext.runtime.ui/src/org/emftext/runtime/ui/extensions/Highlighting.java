@@ -7,8 +7,6 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.TextAttribute;
@@ -41,6 +39,8 @@ public class Highlighting {
 	private final static String BRACKET_HIGHLIGHT = "bh_";
 	private final static String DEFINITION_HIGHLIGHT = "def_";
 	private final static String PROXY_HIGHLIGHT = "proxy_";
+
+	private final static PositionHelper positionHelper = new PositionHelper();
 
 	private EMFTextTokenScanner scanner;
 	private Color definitionColor;
@@ -161,13 +161,8 @@ public class Highlighting {
 			}
 
 			public void mouseDown(MouseEvent e) {// jump to declaration
-				IDocument doc = projectionViewer.getDocument();
-				Position[] hPos = null;
-				try {
-					hPos = doc.getPositions(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
-				} catch (BadPositionCategoryException e1) {
-					e1.printStackTrace();
-				}
+				IDocument document = projectionViewer.getDocument();
+				Position[] hPos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 				Position jumpPos = null;
 				if (hPos != null && hPos.length > 0) {
 					jumpPos = convertToWidgedPosition(hPos[0]);
@@ -211,68 +206,56 @@ public class Highlighting {
 
 		// TODO hoang-kim the code below seems quite similar. can we move it to a method
 		// and call it multiple times instead of duplicating the code here?
-		try {
-			Position[] positions = document.getPositions(ExtensionConstants.POSITION_CATEGORY_BRACKET);
-			for (Position position : positions) {
-				Position tmpPosition = convertToWidgedPosition(position);
-				if (tmpPosition != null) {
-					styleRange = getStyleRangeAtPosition(tmpPosition);
-					styleRange.borderStyle = SWT.BORDER_SOLID;
-					styleRange.borderColor = bracketColor;
-					if (styleRange.foreground == null)
-						styleRange.foreground = black;
-					textWidget.setStyleRange(styleRange);
-				}
+		Position[] positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_BRACKET);
+		for (Position position : positions) {
+			Position tmpPosition = convertToWidgedPosition(position);
+			if (tmpPosition != null) {
+				styleRange = getStyleRangeAtPosition(tmpPosition);
+				styleRange.borderStyle = SWT.BORDER_SOLID;
+				styleRange.borderColor = bracketColor;
+				if (styleRange.foreground == null)
+					styleRange.foreground = black;
+				textWidget.setStyleRange(styleRange);
 			}
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
 		}
-		try {
-			Position[] positions = document.getPositions(ExtensionConstants.POSITION_CATEGORY_DEF);
-			for (Position position : positions) {
-				Position tmpPosition = convertToWidgedPosition(position);
-				if (tmpPosition != null) {
-					styleRange = getStyleRangeAtPosition(tmpPosition);
-					if (styleRange.foreground == null) {
-						styleRange.foreground = black;
-					}
-					lastStyleRange = (StyleRange) styleRange.clone();
-					styleRange.background = definitionColor;
-					textWidget.setStyleRange(styleRange);
-				}
-			}
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			Position[] positions = document.getPositions(ExtensionConstants.POSITION_CATEGORY_USE);
-			if (lastStyleRange == null && positions.length > 0) {
-				styleRange = getStyleRangeAtPosition(positions[0]);
+		
+		positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
+		for (Position position : positions) {
+			Position tmpPosition = convertToWidgedPosition(position);
+			if (tmpPosition != null) {
+				styleRange = getStyleRangeAtPosition(tmpPosition);
 				if (styleRange.foreground == null) {
 					styleRange.foreground = black;
 				}
 				lastStyleRange = (StyleRange) styleRange.clone();
+				styleRange.background = definitionColor;
+				textWidget.setStyleRange(styleRange);
 			}
-			// TODO hoang-kim is this correct?
-			if (lastStyleRange == null) {
-				return;
-			}
-			if (styleRange == null) {
-				styleRange = (StyleRange) lastStyleRange.clone();
-			}
-			styleRange.background = proxyColor;
-			for (Position position : positions) {
-				Position tmpPostion = convertToWidgedPosition(position);
-				if (tmpPostion != null) {
-					styleRange.start = tmpPostion.offset;
-					textWidget.setStyleRange(styleRange);
-				}
-			}
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
 		}
 
+		positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
+		if (lastStyleRange == null && positions.length > 0) {
+			styleRange = getStyleRangeAtPosition(positions[0]);
+			if (styleRange.foreground == null) {
+				styleRange.foreground = black;
+			}
+			lastStyleRange = (StyleRange) styleRange.clone();
+		}
+		// TODO hoang-kim is this correct?
+		if (lastStyleRange == null) {
+			return;
+		}
+		if (styleRange == null) {
+			styleRange = (StyleRange) lastStyleRange.clone();
+		}
+		styleRange.background = proxyColor;
+		for (Position position : positions) {
+			Position tmpPostion = convertToWidgedPosition(position);
+			if (tmpPostion != null) {
+				styleRange.start = tmpPostion.offset;
+				textWidget.setStyleRange(styleRange);
+			}
+		}
 	}
 
 	private void removeHighlighting() {
@@ -282,51 +265,41 @@ public class Highlighting {
 		StyleRange styleRange;
 
 		if (isHighlightBrackets) {
-			try {
-				Position[] positions = document.getPositions(ExtensionConstants.POSITION_CATEGORY_BRACKET);
-				for (Position position : positions) {
-					Position tmpPosition = convertToWidgedPosition(position);
-					if (tmpPosition != null) {
-						styleRange = getStyleRangeAtPosition(tmpPosition);
-						styleRange.borderStyle = SWT.NONE;
-						styleRange.borderColor = null;
-						styleRange.background = null;
-						textWidget.setStyleRange(styleRange);
-					}
+			Position[] positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_BRACKET);
+			for (Position position : positions) {
+				Position tmpPosition = convertToWidgedPosition(position);
+				if (tmpPosition != null) {
+					styleRange = getStyleRangeAtPosition(tmpPosition);
+					styleRange.borderStyle = SWT.NONE;
+					styleRange.borderColor = null;
+					styleRange.background = null;
+					textWidget.setStyleRange(styleRange);
 				}
-				document.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
-			} catch (BadPositionCategoryException e) {
-				e.printStackTrace();
 			}
+			positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_BRACKET);
 			document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 		}
-		try {
-			Position[] positions = document.getPositions(ExtensionConstants.POSITION_CATEGORY_DEF);
-			for (Position position : positions) {
-				Position tmpPosition = convertToWidgedPosition(position);
-				if (tmpPosition != null) {
-					lastStyleRange.start = tmpPosition.offset;
-					textWidget.setStyleRange(lastStyleRange);
-				}
+
+		Position[] positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
+		for (Position position : positions) {
+			Position tmpPosition = convertToWidgedPosition(position);
+			if (tmpPosition != null) {
+				lastStyleRange.start = tmpPosition.offset;
+				textWidget.setStyleRange(lastStyleRange);
 			}
-			document.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
 		}
+		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
+
 		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
-		try {
-			Position[] positions = document.getPositions(ExtensionConstants.POSITION_CATEGORY_USE);
-			for (Position position : positions) {
-				Position tmpPosition = convertToWidgedPosition(position);
-				if (tmpPosition != null) {
-					lastStyleRange.start = tmpPosition.offset;
-					textWidget.setStyleRange(lastStyleRange);
-				}
+		positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
+		for (Position position : positions) {
+			Position tmpPosition = convertToWidgedPosition(position);
+			if (tmpPosition != null) {
+				lastStyleRange.start = tmpPosition.offset;
+				textWidget.setStyleRange(lastStyleRange);
 			}
-			document.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
 		}
+		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
 		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
 		lastStyleRange = null;
 	}
@@ -393,10 +366,7 @@ public class Highlighting {
 
 	private void setHyperlinkHighlighting() {
 		IDocument document = projectionViewer.getDocument();
-		Position[] tmpPositions = getPositions(document);
-		if (tmpPositions == null) {
-			return;
-		}
+		Position[] tmpPositions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 		if (tmpPositions.length < 1) {
 			return;
 		}
@@ -413,22 +383,9 @@ public class Highlighting {
 
 	private void resetHyperlinkHighlighting() {
 		IDocument document = projectionViewer.getDocument();
-		Position[] hPos = getPositions(document);
-		if (hPos == null) {
-			return;
-		}
-		Position[] defPos = null;
-		try {
-			defPos = document.getPositions(ExtensionConstants.POSITION_CATEGORY_DEF);
-		} catch (BadPositionCategoryException e1) {
-			e1.printStackTrace();
-		}
-		Position[] usePos = null;
-		try {
-			usePos = document.getPositions(ExtensionConstants.POSITION_CATEGORY_USE);
-		} catch (BadPositionCategoryException e1) {
-			e1.printStackTrace();
-		}
+		Position[] hPos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+		Position[] defPos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
+		Position[] usePos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
 		if (hPos.length < 1) {
 			return;
 		}
@@ -466,28 +423,10 @@ public class Highlighting {
 			token = scanner.nextToken();
 		}
 		hyperLink.resetValues();
-		try {
-			document.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
-		}
+		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-		try {
-			document.removePositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
-		}
+		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
-	}
-
-	private Position[] getPositions(IDocument document) {
-		try {
-			Position[] hPos = document.getPositions(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-			return hPos;
-		} catch (BadPositionCategoryException e1) {
-			// e1.printStackTrace();
-			return null;
-		}
 	}
 
 	/**
@@ -499,13 +438,9 @@ public class Highlighting {
 	private boolean setHyperlinkHighlightPosition(int offset, EObject eo) {
 		IDocument document = projectionViewer.getDocument();
 		Position oldPos = null;
-		try {
-			Position[] tmp = document.getPositions(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-			if (tmp.length > 0) {
-				oldPos = tmp[0];
-			}
-		} catch (BadPositionCategoryException e1) {
-			e1.printStackTrace();
+		Position[] tmp = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+		if (tmp.length > 0) {
+			oldPos = tmp[0];
 		}
 		ILocationMap locationMap = textResource.getLocationMap();
 		scanner.setRange(projectionViewer.getDocument(), locationMap.getCharStart(eo), locationMap.getCharEnd(eo) - locationMap.getCharStart(eo) + 1);
@@ -523,14 +458,8 @@ public class Highlighting {
 				}
 				String tokenText = scanner.getTokenText();
 				hyperLink.setHyperlinkText(tokenText.trim());
-				try {
-					document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-					document.addPosition(ExtensionConstants.POSITION_CATEGORY_HYPERLINK, new Position(tokenOffset, tokenLength));
-				} catch (BadLocationException e) {
-					e.printStackTrace();
-				} catch (BadPositionCategoryException e) {
-					e.printStackTrace();
-				}
+				document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+				positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK, tokenOffset, tokenLength);
 				return true;
 			}
 			token = scanner.nextToken();
@@ -558,26 +487,15 @@ public class Highlighting {
 		while (!token.isEOF()) {
 			String tokenText = scanner.getTokenText();
 			if (hyperLink.getHyperlinkText().equals(tokenText)) {
-				try {
-					int tokenLength = scanner.getTokenLength();
-					document.addPosition(ExtensionConstants.POSITION_CATEGORY_DESTINATION, new Position(scanner
-							.getTokenOffset(), tokenLength));
-				} catch (BadLocationException e) {
-					e.printStackTrace();
-				} catch (BadPositionCategoryException e) {
-					e.printStackTrace();
-				}
+				int tokenLength = scanner.getTokenLength();
+				int tokenOffset = scanner.getTokenOffset();
+				positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION, 
+						tokenOffset, tokenLength);
 				return;
 			}
 			token = scanner.nextToken();
 		}
-		try {
-			document.addPosition(ExtensionConstants.POSITION_CATEGORY_DESTINATION, new Position(start, length));
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		} catch (BadPositionCategoryException e) {
-			e.printStackTrace();
-		}
+		positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION, start, length);
 	}
 
 	/**

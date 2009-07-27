@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.SWT;
@@ -25,6 +23,8 @@ import org.emftext.runtime.ui.preferences.PreferenceConstants;
  * A container for all bracket pairs. This calls is used by the EMFTextEditor.
  */
 public class BracketSet {
+
+	private final static PositionHelper positionHelper = new PositionHelper();
 
 	/**
 	 * A single pair of brackets.
@@ -359,14 +359,8 @@ public class BracketSet {
 		}
 		if (position != -1 && position != doc.getLength()) {
 			doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
-			try {
-				doc.addPosition(ExtensionConstants.POSITION_CATEGORY_BRACKET, new Position(position, 1));
-				doc.addPosition(ExtensionConstants.POSITION_CATEGORY_BRACKET, new Position(caretOffset - 1, 1));
-			} catch (BadLocationException e) {
-				e.printStackTrace();
-			} catch (BadPositionCategoryException e) {
-				e.printStackTrace();
-			}
+			positionHelper.addPosition(doc, ExtensionConstants.POSITION_CATEGORY_BRACKET, position, 1);
+			positionHelper.addPosition(doc, ExtensionConstants.POSITION_CATEGORY_BRACKET, caretOffset - 1, 1);
 		}
 	}
 }
