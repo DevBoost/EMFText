@@ -20,7 +20,7 @@ import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
- * A container for all bracket pairs. This calls is used by the EMFTextEditor.
+ * A container for all bracket pairs. This class is used by the EMFTextEditor.
  */
 public class BracketSet {
 
