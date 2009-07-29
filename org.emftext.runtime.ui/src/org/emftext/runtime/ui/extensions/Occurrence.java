@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.rules.IToken;
@@ -143,7 +144,12 @@ public class Occurrence {
 		if (isNull) {
 			eo = eList.get(0);
 		}
-		if (eo.eResource().equals(textResource)) {
+		Resource resource = eo.eResource();
+		// TODO hoang-kim is this correct?
+		if (resource == null) {
+			return;
+		}
+		if (resource.equals(textResource)) {
 			tokenScanner.setRange(sourceViewer.getDocument(), locationMap.getCharStart(eo), getLength(eo));
 			token = tokenScanner.nextToken();
 			while (!token.isEOF()) {
