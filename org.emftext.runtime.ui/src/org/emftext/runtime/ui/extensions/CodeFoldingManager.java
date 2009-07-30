@@ -14,6 +14,12 @@ import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 
 //TODO hoang-kim add documentation
+/**
+ * @author Hoang-Kim, Tan-Ky
+ * This manager adds new ProjectionAnnotation for the code folding and deletes old ProjectionAnnotation with less than 2 lines.
+ * It is needed to hold the toggle state.
+ *
+ */
 public class CodeFoldingManager {
 
 	protected List<Annotation> oldAnnotations = new ArrayList<Annotation>();
@@ -28,6 +34,11 @@ public class CodeFoldingManager {
 		this.sourceViewer = sourceViewer;
 	}
 
+	/**
+	 * Check whether it is in the ProjectionAnnotationModel or in the addition set. If not it tries to add into additions.
+	 * Deletes old ProjectionAnnotation with line count < 2.
+	 * @param positions a whole list of available foldable positions
+	 */
 	public void updateCodefolding(List<Position> positions) {
 		IDocument document = sourceViewer.getDocument();
 		// Add new Position with a unique line offset
@@ -63,9 +74,9 @@ public class CodeFoldingManager {
 	}
 
 	/**
-	 * Just look after the offset.
+	 * Check the offset of this Position with the Positions in the model to determine the existence.
 	 * 
-	 * @param position
+	 * @param position the Position to check.
 	 * @return
 	 */
 	private boolean isInModel(Position position) {
@@ -78,7 +89,7 @@ public class CodeFoldingManager {
 	}
 
 	/**
-	 * Just look after the offset.
+	 * Check the offset of this Position with the Positions in additions to determine the existence.
 	 * 
 	 * @param position
 	 * @return
@@ -93,7 +104,7 @@ public class CodeFoldingManager {
 	}
 
 	/**
-	 * Try to add this Position to the model. If a Position exists on the same
+	 * Try to add this Position to the model. If more Positions exist on the same
 	 * line, the longer one will be chosen. The Position will be exchanged if it
 	 * is in the additions, when the to be deleted Annotation existed in
 	 * deletions. Else, just exchange the Position in additions, if there is a

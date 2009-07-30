@@ -21,7 +21,12 @@ public class Hyperlink implements IHyperlink {
 	private String text = "";
 	// TODO hoang-kim is this the source or the target of the link?
 	private EObject eObject;
+	private String languageID;
 
+	public Hyperlink(String languageID) {
+		this.languageID=languageID;
+	}
+	
 	public void setHyperlinkText(String hyperlinkText) {
 		this.text = hyperlinkText;
 	}
@@ -77,6 +82,8 @@ public class Hyperlink implements IHyperlink {
 		URI resourceURI = eObject.eResource().getURI();
 		if (resourceURI.toString().startsWith("pathmap")) {
 			resourceURI = URIConverter.URI_MAP.get(resourceURI);
+			if (!resourceURI.fileExtension().equals(languageID))
+				return null;
 		}
 		// TODO what is a PlatformResource
 		if (resourceURI.isPlatformResource()) {

@@ -1,9 +1,6 @@
 package org.emftext.runtime.ui.extensions;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -48,7 +45,6 @@ public class Highlighting {
 	private Color bracketColor;
 	private Color hyperlinkColor;
 	private Color black;
-	private Map<String, StyleRange> styleRangeBuffer = new HashMap<String, StyleRange>();
 	private StyleRange lastStyleRange;
 	private StyledText textWidget;
 	private IPreferenceStore preferenceStore;
@@ -102,7 +98,7 @@ public class Highlighting {
 		hyperlinkColor = colorManager.getColor(PreferenceConverter.getColor(preferenceStore,
 				PreferenceConstants.EDITOR_HYPERLINK_COLOR));
 
-		hyperLink = new Hyperlink();
+		hyperLink = new Hyperlink(textResource.getURI().fileExtension());
 
 		addListeners();
 	}
@@ -135,18 +131,17 @@ public class Highlighting {
 						return;
 					}
 					EObject firstElementAtOffset = elementsAtOffset.get(0);
-					// TODO hoang-kim rename 'eo' to something meaningful
-					EObject eo = occurrence.tryToResolve(elementsAtOffset);
+					EObject resolvedEObject = occurrence.tryToResolve(elementsAtOffset);
 
-					if (eo != null) {// is proxy
+					if (resolvedEObject != null) {// is proxy
 						if (!setHyperlinkHighlightPosition(offset, firstElementAtOffset)) {
 							return;
 						}
 						setHyperlinkHighlighting();
-						if (!textResource.equals(eo.eResource())) {
-							hyperLink.setEObject(eo);
+						if (resolvedEObject.eResource()!=null&&!textResource.equals(resolvedEObject.eResource())) {
+							hyperLink.setEObject(resolvedEObject);
 						}
-						setHyperLinkJumpPosition(eo);
+						setHyperLinkJumpPosition(resolvedEObject);
 					} else {
 						resetHyperlinkHighlighting();
 					}
@@ -162,10 +157,10 @@ public class Highlighting {
 
 			public void mouseDown(MouseEvent e) {// jump to declaration
 				IDocument document = projectionViewer.getDocument();
-				Position[] hPos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION);
+				Position hPos = positionHelper.getFirstPosition(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 				Position jumpPos = null;
-				if (hPos != null && hPos.length > 0) {
-					jumpPos = convertToWidgedPosition(hPos[0]);
+				if (hPos != null) {
+					jumpPos = convertToWidgedPosition(hPos);
 				}
 				if (e.stateMask == SWT.CTRL && jumpPos != null) {
 					textWidget.setSelection(jumpPos.offset);
@@ -242,6 +237,9 @@ public class Highlighting {
 			lastStyleRange = (StyleRange) styleRange.clone();
 		}
 		// TODO hoang-kim is this correct?
+		//If there is no definition, lastStyleRange is null.
+		//If there is no uses, lastStyleRange stays null.
+		//We can return if both of them do not exist.
 		if (lastStyleRange == null) {
 			return;
 		}
@@ -308,27 +306,26 @@ public class Highlighting {
 		bracketSet.resetBrackets();
 	}
 
-	private StyleRange getTokenStyle(IToken token, int length, String tokenName, String tokenStyle) {
-		// TODO hoang-kim specify what is to do here (there was an empty TODO here before)
-		int tokenType = 0;
-		StyleRange styleRange = styleRangeBuffer.get(tokenStyle + tokenType);
-		if (styleRange != null) {
-			if (!occurrence.isQuotedToken(tokenName)) {
-				styleRange.length = length;
-			}
-			return styleRange;
-		}
+	/**
+	 * Take a token style out of a styleRangeBuffer. 
+	 * If it isn't exist, create one, put it in the buffer and return it.
+	 * 
+	 * @param token 
+	 * @param length the length of the token text
+	 * @param tokenName 
+	 * @param tokenStyle
+	 * @return
+	 */
+	private StyleRange getTokenStyle(IToken token, int length, String tokenStyle) {
+		
+		StyleRange styleRange = null;
 		TextAttribute tokenAttribute = null;
 		if (token.getData() instanceof TextAttribute) {
 			tokenAttribute = (TextAttribute) token.getData();
 		}
 		if (tokenAttribute == null) {
-			styleRange = new StyleRange(0, length, null, null);
+			styleRange = new StyleRange(-1, length, black, null);
 			setHighlightStyle(styleRange, tokenStyle);
-			if (!occurrence.isQuotedToken(tokenName)) {
-				styleRange.length = length;
-			}
-			styleRangeBuffer.put(tokenStyle + tokenType, styleRange);
 			return styleRange;
 		}
 
@@ -338,14 +335,12 @@ public class Highlighting {
 		styleRange.strikeout = (style & TextAttribute.STRIKETHROUGH) != 0;
 		styleRange.underline = (style & TextAttribute.UNDERLINE) != 0;
 		setHighlightStyle(styleRange, tokenStyle);
-		if (!occurrence.isQuotedToken(tokenName)) {
-			styleRange.length = length;
-		}
-		styleRangeBuffer.put(tokenStyle + tokenType, styleRange);
 		return styleRange;
 	}
 
 	private void setHighlightStyle(StyleRange styleRange, String tokenStyle) {
+		if (styleRange == null)
+			return;
 		if (tokenStyle.equals(BRACKET_HIGHLIGHT)) {
 			styleRange.borderStyle = SWT.BORDER_SOLID;
 			styleRange.borderColor = bracketColor;
@@ -358,10 +353,6 @@ public class Highlighting {
 		if (tokenStyle.equals(PROXY_HIGHLIGHT)) {
 			styleRange.background = proxyColor;
 		}
-	}
-
-	public void clearStyleRangeBuffer() {
-		styleRangeBuffer.clear();
 	}
 
 	private void setHyperlinkHighlighting() {
@@ -398,7 +389,7 @@ public class Highlighting {
 		IToken token = scanner.nextToken();
 		while (!token.isEOF()) {
 			if (scanner.getTokenText().equals(hyperLink.getHyperlinkText())) {
-				StyleRange styleRange = getTokenStyle(token, scanner.getTokenLength(), hyperLink.getHyperlinkText(), "");
+				StyleRange styleRange = getTokenStyle(token, scanner.getTokenLength(), "");
 				styleRange = (StyleRange) styleRange.clone();
 				styleRange.start = highlightPosition.offset;
 				// TODO hoang-kim duplicate code, please refactor to method
@@ -457,8 +448,8 @@ public class Highlighting {
 					}
 				}
 				String tokenText = scanner.getTokenText();
-				hyperLink.setHyperlinkText(tokenText.trim());
-				document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+				if (tokenText!=null)
+					hyperLink.setHyperlinkText(tokenText.trim());
 				positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK, tokenOffset, tokenLength);
 				return true;
 			}
@@ -471,19 +462,18 @@ public class Highlighting {
 	/**
 	 * Set the hyperlinkJumpPos
 	 * 
-	 * @param eo TODO hoang-kim choose meaningful name
+	 * @param jumpElement 
 	 */
-	private void setHyperLinkJumpPosition(EObject eo) {
+	private void setHyperLinkJumpPosition(EObject jumpElement) {
 		IDocument document = projectionViewer.getDocument();
 		if (hyperLink.getHyperlinkText().equals("")) {
 			return;
 		}
 		ILocationMap locationMap = textResource.getLocationMap();
-		int start = locationMap.getCharStart(eo);
-		int length = locationMap.getCharEnd(eo) - locationMap.getCharStart(eo) + 1;
+		int start = locationMap.getCharStart(jumpElement);
+		int length = locationMap.getCharEnd(jumpElement) - locationMap.getCharStart(jumpElement) + 1;
 		scanner.setRange(projectionViewer.getDocument(), start, length);
 		IToken token = scanner.nextToken();
-		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 		while (!token.isEOF()) {
 			String tokenText = scanner.getTokenText();
 			if (hyperLink.getHyperlinkText().equals(tokenText)) {
@@ -496,31 +486,6 @@ public class Highlighting {
 			token = scanner.nextToken();
 		}
 		positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION, start, length);
-	}
-
-	/**
-	 * Get the token position of the given text in the range of the given
-	 * EObject.
-	 * 
-	 * @param eo TODO hoang-kim choose meaningful name
-	 * @param text
-	 * @return
-	 */
-	public int getTokenPosition(EObject eo, String text) {
-		if (eo == null || text == null || text.equals("")) {
-			return -1;
-		}
-		ITextResource textResource = (ITextResource) eo.eResource();
-		ILocationMap locationMap = textResource.getLocationMap();
-		scanner.setRange(projectionViewer.getDocument(), locationMap.getCharStart(eo), locationMap.getCharEnd(eo) - locationMap.getCharStart(eo) + 1);
-		IToken token = scanner.nextToken();
-		while (!token.isEOF()) {
-			if (text.equals(scanner.getTokenText())) {
-				return scanner.getTokenOffset();
-			}
-			token = scanner.nextToken();
-		}
-		return -1;
 	}
 
 	private Position convertToWidgedPosition(Position position) {

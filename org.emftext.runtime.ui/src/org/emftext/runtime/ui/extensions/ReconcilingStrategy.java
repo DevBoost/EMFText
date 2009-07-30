@@ -22,10 +22,6 @@ public class ReconcilingStrategy implements IReconcilingStrategy, IReconcilingSt
 
 	private EMFTextEditor editor;
 
-	// TODO remove this field if it is really not used
-	@SuppressWarnings("unused")
-	private IDocument document;
-
 	private ITextResource textResource;
 
 	/** holds the calculated positions */
@@ -40,7 +36,6 @@ public class ReconcilingStrategy implements IReconcilingStrategy, IReconcilingSt
 	}
 
 	public void setDocument(IDocument document) {
-		this.document = document;
 	}
 
 	public EMFTextEditor getEditor() {

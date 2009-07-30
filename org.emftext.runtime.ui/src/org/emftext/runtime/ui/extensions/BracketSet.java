@@ -15,7 +15,6 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
-import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
@@ -117,8 +116,6 @@ public class BracketSet {
 	 */
 	public BracketSet(ISourceViewer sourceViewer, String extension) {
 		bracketPairs = new ArrayList<BracketPair>();
-		// TODO hoang-kim is this call really necessary?
-		new ColorManager();
 		if (sourceViewer != null) {
 			viewer = sourceViewer;
 			textWidget = viewer.getTextWidget();

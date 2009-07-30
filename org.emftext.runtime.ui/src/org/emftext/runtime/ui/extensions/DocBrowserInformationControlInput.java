@@ -5,6 +5,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.internal.text.html.BrowserInformationControlInput;
 
 //TODO hoang-kim can we remove the warning by copying the code from BrowserInformationControlInput?
+//I can't some how. The warning is from BrowserInformationControlInput and it is needed by BrowserInformationControl in 
+//TextHover, inner class OpenDeclarationAction
 @SuppressWarnings("restriction")
 public class DocBrowserInformationControlInput extends BrowserInformationControlInput {
 

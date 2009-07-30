@@ -9,6 +9,7 @@ public class PositionHelper {
 
 	public void addPosition(IDocument document, String category, int offset, int length) {
 		try {
+			document.addPositionCategory(category);
 			Position position = new Position(offset, length);
 			document.addPosition(category, position);
 		} catch (BadLocationException e) {
@@ -25,6 +26,17 @@ public class PositionHelper {
 			//e.printStackTrace();
 		}
 		return new Position[0];
+	}
+	
+	public Position getFirstPosition(IDocument document, String category) {
+		try {
+			Position[] positions = document.getPositions(category);
+			if (positions.length>0)
+				return positions[0];
+		} catch (BadPositionCategoryException e) {
+			//e.printStackTrace();
+		}
+		return null;
 	}
 
 	public void removePositions(IDocument document, String category) {

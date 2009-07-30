@@ -545,10 +545,17 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 		EClass eClass = member.eClass();
 		StringBuffer label = new StringBuffer("<strong>" + eClass.getName() + "</strong>");
 		for (EAttribute attribute : eClass.getEAllAttributes()) {
-			if (member.eGet(attribute) != null && !member.eGet(attribute).toString().equals("[]")) {
+			Object value=null;
+			try {
+				value = member.eGet(attribute);
+			} catch (Exception e) {
+				// Exception in eGet, do nothing
+				//e.printStackTrace();
+			}
+			if (value != null && value.toString()!=null&&!value.toString().equals("[]")) {
 				if (attribute.getName().equals(COMMENTS)) {
 					HTMLPrinter.addSmallHeader(label, COMMENTS + ":");
-					String comments = member.eGet(attribute).toString();
+					String comments = value.toString();
 					comments = comments.substring(1, comments.length() - 1);
 					HTMLPrinter.addParagraph(label, replaceNewlineToHTMLBR(comments));
 					continue;

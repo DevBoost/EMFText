@@ -333,7 +333,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			viewer.invalidateTextPresentation();
 		}
 		highlighting.resetBrackets();
-		highlighting.clearStyleRangeBuffer();
 	}
 
 	public void setFocus() {
@@ -473,14 +472,17 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			}
 		};
 
-	// TODO hoang-kim give meaningful name to 'eo'
-	public void setCaret(EObject eo) {
-		if (eo == null) {
+	/**
+	 * Set the caret to the offset of the given element.
+	 * @param element has to be contained in the ITextResource of this editor.
+	 */
+	public void setCaret(EObject element) {
+		if (element == null) {
 			return;
 		}
 		ISourceViewer viewer= getSourceViewer();
-		ILocationMap locationMap = ((ITextResource) eo.eResource()).getLocationMap();
-		viewer.getTextWidget().setSelection(locationMap.getCharStart(eo));
+		ILocationMap locationMap = ((ITextResource) element.eResource()).getLocationMap();
+		viewer.getTextWidget().setSelection(locationMap.getCharStart(element));
 	}
 
 	/*
