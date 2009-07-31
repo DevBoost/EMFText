@@ -300,8 +300,6 @@ public class Highlighting {
 			}
 			positionHelper.removePositions(document,
 					ExtensionConstants.POSITION_CATEGORY_BRACKET);
-			document
-					.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 		}
 
 		Position[] positions = positionHelper.getPositions(document,
@@ -316,7 +314,6 @@ public class Highlighting {
 		positionHelper.removePositions(document,
 				ExtensionConstants.POSITION_CATEGORY_DEF);
 
-		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
 		positions = positionHelper.getPositions(document,
 				ExtensionConstants.POSITION_CATEGORY_USE);
 		for (Position position : positions) {
@@ -328,7 +325,6 @@ public class Highlighting {
 		}
 		positionHelper.removePositions(document,
 				ExtensionConstants.POSITION_CATEGORY_USE);
-		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
 		lastStyleRange = null;
 	}
 
@@ -442,12 +438,8 @@ public class Highlighting {
 		hyperLink.resetValues();
 		positionHelper.removePositions(document,
 				ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-		document
-				.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 		positionHelper.removePositions(document,
 				ExtensionConstants.POSITION_CATEGORY_DESTINATION);
-		document
-				.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 	}
 
 	private void setHyperlinkBackgroundColor(Position hyperlinkPosition,

@@ -155,7 +155,6 @@ public class Occurrence {
 			while (!token.isEOF()) {
 				String text = tokenScanner.getTokenText();
 				if (text.equals(tokenText)) {
-					document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
 					defPosition = tokenScanner.getTokenOffset();
 					addPosition(document, ExtensionConstants.POSITION_CATEGORY_DEF);
 					break;
@@ -166,7 +165,6 @@ public class Occurrence {
 		tokenScanner.setRange(sourceViewer.getDocument(), 0, sourceViewer.getDocument().getLength());
 		EObject occEO;
 		token = tokenScanner.nextToken();
-		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
 		while (!token.isEOF()) {
 			String text = tokenScanner.getTokenText();
 			if (text != null && text.equals(tokenText) && tokenScanner.getTokenOffset() != defPosition) {

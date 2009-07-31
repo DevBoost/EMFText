@@ -357,7 +357,6 @@ public class BracketSet {
 			return;
 		}
 		if (position != -1 && position != doc.getLength()) {
-			doc.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 			positionHelper.addPosition(doc, ExtensionConstants.POSITION_CATEGORY_BRACKET, position, 1);
 			positionHelper.addPosition(doc, ExtensionConstants.POSITION_CATEGORY_BRACKET, caretOffset - 1, 1);
 		}
