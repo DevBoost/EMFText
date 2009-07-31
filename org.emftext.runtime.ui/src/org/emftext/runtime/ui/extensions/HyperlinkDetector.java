@@ -24,22 +24,29 @@ public class HyperlinkDetector implements IHyperlinkDetector {
 	public IHyperlink[] detectHyperlinks(ITextViewer textViewer,
 			IRegion region, boolean canShowMultipleHyperlinks) {
 		ILocationMap lm = textResource.getLocationMap();
+		String resourceFileExtension = textResource.getURI().fileExtension();
 		List<EObject> elementsAtOffset = lm.getElementsAt(region.getOffset());
 		EObject resolvedEObject = null;
 		for (EObject eObject : elementsAtOffset) {
 			if (eObject.eIsProxy()) {
-				resolvedEObject = EcoreUtil.resolve(eObject, eObject
-						.eResource());
+				resolvedEObject = EcoreUtil.resolve(eObject, textResource);
+//				try {
+//					System.out.println(resolvedEObject.eResource().getURI()
+//							.fileExtension());
+//				} catch (Exception e) {
+//					System.out.println("no fileExtension");
+//				}
+				
 				if (resolvedEObject == eObject
 						|| (resolvedEObject.eResource() != null
-						&& !textResource.getURI().fileExtension().equals(
+						&& !resourceFileExtension.equals(
 								resolvedEObject.eResource().getURI()
-										.fileExtension())))
+										.fileExtension()))) {
 					continue;
+				}
 				int offset = lm.getCharStart(eObject);
 				int length = lm.getCharEnd(eObject) - offset + 1;
-				Hyperlink hyperlink = new Hyperlink(textResource.getURI()
-						.fileExtension(), new Region(offset, length));
+				Hyperlink hyperlink = new Hyperlink(resourceFileExtension, new Region(offset, length));
 				hyperlink.setEObject(resolvedEObject);
 				return new IHyperlink[] { hyperlink };
 			}

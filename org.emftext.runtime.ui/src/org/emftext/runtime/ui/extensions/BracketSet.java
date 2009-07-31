@@ -312,12 +312,12 @@ public class BracketSet {
 	}
 
 	public void matchingBrackets() {
-		IDocument doc = viewer.getDocument();
+		IDocument document = viewer.getDocument();
 		ProjectionViewer projectionViewer = null;
 		if (viewer instanceof ProjectionViewer) {
 			projectionViewer = (ProjectionViewer) viewer;
 		}
-		if (doc == null) {
+		if (document == null) {
 			return;
 		}
 		int caretOffset = textWidget.getCaretOffset();
@@ -325,8 +325,10 @@ public class BracketSet {
 			caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
 		}
 		final String prevStr;
+		if (caretOffset==0)
+			return;
 		try {
-			prevStr = "" + doc.getChar(caretOffset - 1);
+			prevStr = "" + document.getChar(caretOffset - 1);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 			return;
@@ -336,13 +338,13 @@ public class BracketSet {
 		}
 		boolean isForward = isOpen(prevStr);
 		final String toFindStr = getCounterpart(prevStr);
-		int boundary = isForward ? doc.getLength() : -1;
+		int boundary = isForward ? document.getLength() : -1;
 		int position = isForward ? caretOffset : caretOffset - 2;
 		String currentStr;
 		int count = 0;
 		try {
 			while (position != boundary) {
-				currentStr = "" + doc.getChar(position);
+				currentStr = "" + document.getChar(position);
 				if (toFindStr.equals(currentStr) && count == 0) {
 					break;
 				} else if (prevStr.equals(currentStr)) {
@@ -356,9 +358,9 @@ public class BracketSet {
 			e.printStackTrace();
 			return;
 		}
-		if (position != -1 && position != doc.getLength()) {
-			positionHelper.addPosition(doc, ExtensionConstants.POSITION_CATEGORY_BRACKET, position, 1);
-			positionHelper.addPosition(doc, ExtensionConstants.POSITION_CATEGORY_BRACKET, caretOffset - 1, 1);
+		if (position != -1 && position != document.getLength()) {
+			positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_BRACKET, position, 1);
+			positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_BRACKET, caretOffset - 1, 1);
 		}
 	}
 }
