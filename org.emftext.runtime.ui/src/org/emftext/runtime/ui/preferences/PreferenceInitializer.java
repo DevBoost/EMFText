@@ -71,7 +71,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
             }
 			
 			// set default brackets for ITextResource bracket set
-			BracketSet bracketSet = new BracketSet(null, null, languageId);
+			BracketSet bracketSet = new BracketSet(null, languageId);
 			final Collection<IBracketPair> bracketPairs = extension.getBracketPairs();
 			if (bracketPairs != null) {
 				for (IBracketPair bracketPair : bracketPairs) {

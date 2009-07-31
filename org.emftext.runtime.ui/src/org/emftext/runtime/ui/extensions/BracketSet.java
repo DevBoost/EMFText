@@ -1,9 +1,6 @@
 package org.emftext.runtime.ui.extensions;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -16,10 +13,9 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
-import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.IBracketPair;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
+import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
  * A container for all bracket pairs. This class is used by the EMFTextEditor.
@@ -106,6 +102,7 @@ public class BracketSet {
 
 	private ArrayList<IBracketPair> bracketPairs;
 	private ISourceViewer viewer;
+	private String languageID;
 	private StyledText textWidget;
 	private IPreferenceStore preferenceStore;
 	
@@ -117,10 +114,9 @@ public class BracketSet {
 	 * @param extension
 	 *            the language ID
 	 */
-	public BracketSet(ISourceViewer sourceViewer, Collection<IBracketPair> bracketPairs, String extension) {
-		this.bracketPairs = (ArrayList<IBracketPair>)bracketPairs;
-		if (this.bracketPairs==null)
-			this.bracketPairs = new ArrayList<IBracketPair>();
+	public BracketSet(ISourceViewer sourceViewer, String extension) {
+		languageID = extension;
+		this.bracketPairs = new ArrayList<IBracketPair>();
 		if (sourceViewer != null) {
 			viewer = sourceViewer;
 			textWidget = viewer.getTextWidget();
@@ -130,12 +126,7 @@ public class BracketSet {
 			resetBrackets();
 			addListeners();
 		}
-		
-		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
-		for (ITextResourcePluginMetaInformation metaInformation : extensions) {
-			if (metaInformation.getSyntaxName().equals(extension))
-				this.bracketPairs = (ArrayList<IBracketPair>) metaInformation.getBracketPairs();
-		}
+
 	}
 
 
@@ -192,11 +183,11 @@ public class BracketSet {
 	 * @return <code>true</code> if successful.
 	 */
 	public boolean resetBrackets() {
-//		String bStore = preferenceStore.getString(language + PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
-//		if (bStore == null || bStore.equals("")) {
-//			return false;
-//		}
-//		setBrackets(bStore);
+		String bStore = preferenceStore.getString(languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
+		if (bStore == null) {
+			return false;
+		}
+		setBrackets(bStore);
 		return true;
 	}
 
@@ -273,7 +264,7 @@ public class BracketSet {
 	 * @return <code>true</code> if successful
 	 */
 	public boolean setBrackets(String bracketsString) {
-		if (bracketsString.length() % 2 != 0 || bracketsString.equals("")) {
+		if (bracketsString.length() % 2 != 0) {
 			return false;
 		}
 		bracketPairs = new ArrayList<IBracketPair>();

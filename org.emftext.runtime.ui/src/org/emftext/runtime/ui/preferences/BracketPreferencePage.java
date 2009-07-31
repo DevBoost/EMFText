@@ -88,7 +88,7 @@ public class BracketPreferencePage extends PreferencePage implements
 		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
 		setDescription("Define the coloring of matching brackets.");
 		
-		bracketsTmp = new BracketSet(null, null, null);
+		bracketsTmp = new BracketSet(null, null);
 		for (String languageID : languageIDs) {
 			bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
 		}
@@ -314,7 +314,9 @@ public class BracketPreferencePage extends PreferencePage implements
     	enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
     	matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());
     	matchingBracketsColorEditor.setColorValue(PreferenceConverter.getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));
-    	//no reset for bracket set
+    	bracketSetTemp.put(language, getPreferenceStore().getDefaultString(language+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
+    	bracketsTmp.setBrackets(bracketSetTemp.get(language));
+    	bracketsList.setItems(bracketsTmp.getBracketStringArray());
     }
     
     public boolean performOk() {

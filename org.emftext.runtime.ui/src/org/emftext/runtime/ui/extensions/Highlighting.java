@@ -40,6 +40,7 @@ public class Highlighting {
 	private final static PositionHelper positionHelper = new PositionHelper();
 
 	private EMFTextTokenScanner scanner;
+	private ColorManager colorManager;
 	private Color definitionColor;
 	private Color proxyColor;
 	private Color bracketColor;
@@ -91,10 +92,9 @@ public class Highlighting {
 		scanner = new EMFTextTokenScanner(textresource, colorManager);
 		occurrence = new Occurrence(textResource, sourceviewer, colorManager,
 				scanner);
-		bracketSet = new BracketSet(sourceviewer, textResource
-				.getMetaInformation().getBracketPairs(), textResource.getURI()
+		bracketSet = new BracketSet(sourceviewer, textResource.getURI()
 				.fileExtension());
-
+		this.colorManager = colorManager;
 		definitionColor = colorManager.getColor(PreferenceConverter.getColor(
 				preferenceStore, PreferenceConstants.EDITOR_DEFINITION_COLOR));
 		proxyColor = colorManager.getColor(PreferenceConverter.getColor(
@@ -333,6 +333,9 @@ public class Highlighting {
 	}
 
 	public void resetBrackets() {
+		bracketColor = colorManager.getColor(PreferenceConverter.getColor(
+				preferenceStore,
+				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		bracketSet.resetBrackets();
 	}
 
