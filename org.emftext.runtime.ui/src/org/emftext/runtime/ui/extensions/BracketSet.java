@@ -1,6 +1,7 @@
 package org.emftext.runtime.ui.extensions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -15,8 +16,10 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
+import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.IBracketPair;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
-import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
  * A container for all bracket pairs. This class is used by the EMFTextEditor.
@@ -28,20 +31,20 @@ public class BracketSet {
 	/**
 	 * A single pair of brackets.
 	 */
-	private class BracketPair {
+	private class BracketPair implements IBracketPair{
 
 		private String[] brackets;
 
 		public BracketPair(String open, String close) {
 			brackets = new String[] { open, close };
 		}
-
-		public String open() {
-			return brackets[0];
+		
+		public String getClosingBracket() {
+			return brackets[1];
 		}
 
-		public String close() {
-			return brackets[1];
+		public String getOpeningBracket() {
+			return brackets[0];
 		}
 	}
 
@@ -101,32 +104,40 @@ public class BracketSet {
 		}
 	}
 
-	private List<BracketPair> bracketPairs;
+	private ArrayList<IBracketPair> bracketPairs;
 	private ISourceViewer viewer;
 	private StyledText textWidget;
 	private IPreferenceStore preferenceStore;
-	private String language;
-
+	
 	/**
 	 * @param sourceViewer
 	 *            take the ISourceViewer to handle the TextWidget of the
 	 *            EMFTextEditor.
+	 * @param bracketPairs 
 	 * @param extension
 	 *            the language ID
 	 */
-	public BracketSet(ISourceViewer sourceViewer, String extension) {
-		bracketPairs = new ArrayList<BracketPair>();
+	public BracketSet(ISourceViewer sourceViewer, Collection<IBracketPair> bracketPairs, String extension) {
+		this.bracketPairs = (ArrayList<IBracketPair>)bracketPairs;
+		if (this.bracketPairs==null)
+			this.bracketPairs = new ArrayList<IBracketPair>();
 		if (sourceViewer != null) {
 			viewer = sourceViewer;
 			textWidget = viewer.getTextWidget();
 		}
 		preferenceStore = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
-		language = extension;
 		if (sourceViewer != null && preferenceStore != null) {
 			resetBrackets();
 			addListeners();
 		}
+		
+		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
+		for (ITextResourcePluginMetaInformation metaInformation : extensions) {
+			if (metaInformation.getSyntaxName().equals(extension))
+				this.bracketPairs = (ArrayList<IBracketPair>) metaInformation.getBracketPairs();
+		}
 	}
+
 
 	/**
 	 * Check whether the string is the open bracket.
@@ -136,8 +147,8 @@ public class BracketSet {
 	 *         search forward or backward.
 	 */
 	public boolean isOpen(String text) {
-		for (BracketPair bracketPair : bracketPairs) {
-			if (text.equals(bracketPair.open())) {
+		for (IBracketPair bracketPair : bracketPairs) {
+			if (text.equals(bracketPair.getOpeningBracket())) {
 				return true;
 			}
 		}
@@ -151,8 +162,8 @@ public class BracketSet {
 	 * @return <code>true</code> if it exists in the bracket set.
 	 */
 	public boolean isBracket(String text) {
-		for (BracketPair bracketPair : bracketPairs) {
-			if (text.equals(bracketPair.open()) || text.equals(bracketPair.close())) {
+		for (IBracketPair bracketPair : bracketPairs) {
+			if (text.equals(bracketPair.getOpeningBracket()) || text.equals(bracketPair.getClosingBracket())) {
 				return true;
 			}
 		}
@@ -181,11 +192,11 @@ public class BracketSet {
 	 * @return <code>true</code> if successful.
 	 */
 	public boolean resetBrackets() {
-		String bStore = preferenceStore.getString(language + PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
-		if (bStore == null || bStore.equals("")) {
-			return false;
-		}
-		setBrackets(bStore);
+//		String bStore = preferenceStore.getString(language + PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
+//		if (bStore == null || bStore.equals("")) {
+//			return false;
+//		}
+//		setBrackets(bStore);
 		return true;
 	}
 
@@ -195,12 +206,12 @@ public class BracketSet {
 	 * @return the other part
 	 */
 	public String getCounterpart(String bracket) {
-		for (BracketPair bracketPair : bracketPairs) {
-			if (bracket.equals(bracketPair.open())) {
-				return bracketPair.close();
+		for (IBracketPair bracketPair : bracketPairs) {
+			if (bracket.equals(bracketPair.getOpeningBracket())) {
+				return bracketPair.getClosingBracket();
 			}
-			if (bracket.equals(bracketPair.close())) {
-				return bracketPair.open();
+			if (bracket.equals(bracketPair.getClosingBracket())) {
+				return bracketPair.getOpeningBracket();
 			}
 		}
 		return null;
@@ -217,9 +228,9 @@ public class BracketSet {
 	 * @return a String array of the bracket pair
 	 */
 	public String[] removeAt(int index) {
-		BracketPair b = bracketPairs.remove(index);
+		IBracketPair b = bracketPairs.remove(index);
 		if (b != null) {
-			return new String[] { b.open(), b.close() };
+			return new String[] { b.getOpeningBracket(), b.getClosingBracket() };
 		}
 		return null;
 	}
@@ -232,8 +243,8 @@ public class BracketSet {
 	 * @return <code>true</code> if removed successfully
 	 */
 	public boolean remove(String open, String close) {
-		for (BracketPair bracketPair : bracketPairs) {
-			if (bracketPair.open().equals(open) && bracketPair.close().equals(close)) {
+		for (IBracketPair bracketPair : bracketPairs) {
+			if (bracketPair.getOpeningBracket().equals(open) && bracketPair.getClosingBracket().equals(close)) {
 				bracketPairs.remove(bracketPair);
 				return true;
 			}
@@ -265,7 +276,7 @@ public class BracketSet {
 		if (bracketsString.length() % 2 != 0 || bracketsString.equals("")) {
 			return false;
 		}
-		bracketPairs = new ArrayList<BracketPair>();
+		bracketPairs = new ArrayList<IBracketPair>();
 		for (int i = 0; i < bracketsString.length() / 2; i++) {
 			addBracketPair("" + bracketsString.charAt(i * 2), "" + bracketsString.charAt(i * 2 + 1));
 		}
@@ -280,9 +291,9 @@ public class BracketSet {
 	public String[] getBracketStringArray() {
 		String[] ret = new String[bracketPairs.size()];
 		int i = 0;
-		for (BracketPair bracketPair : bracketPairs) {
+		for (IBracketPair bracketPair : bracketPairs) {
 			// TODO introduce constant for " and "
-			ret[i] = bracketPair.open() + " and " + bracketPair.close();
+			ret[i] = bracketPair.getOpeningBracket() + " and " + bracketPair.getClosingBracket();
 			i++;
 		}
 		return ret;
@@ -296,8 +307,8 @@ public class BracketSet {
 			return "";
 		}
 		String result = "";
-		for (BracketPair bracketPair : bracketPairs) {
-			result += bracketPair.open() + bracketPair.close();
+		for (IBracketPair bracketPair : bracketPairs) {
+			result += bracketPair.getOpeningBracket() + bracketPair.getClosingBracket();
 		}
 		return result;
 	}

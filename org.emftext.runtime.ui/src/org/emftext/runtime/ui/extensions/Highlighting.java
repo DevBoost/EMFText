@@ -55,7 +55,8 @@ public class Highlighting {
 	private BracketSet bracketSet;
 	private Hyperlink hyperLink;
 
-	private final class HighlightingListener implements KeyListener, VerifyListener {
+	private final class HighlightingListener implements KeyListener,
+			VerifyListener {
 
 		private boolean changed = false;
 
@@ -80,25 +81,32 @@ public class Highlighting {
 		}
 	}
 
-	public Highlighting(ITextResource textresource, ProjectionViewer sourceviewer, ColorManager colorManager) {
-		preferenceStore = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
+	public Highlighting(ITextResource textresource,
+			ProjectionViewer sourceviewer, ColorManager colorManager) {
+		preferenceStore = EMFTextRuntimeUIPlugin.getDefault()
+				.getPreferenceStore();
 		textResource = textresource;
 		textWidget = sourceviewer.getTextWidget();
 		projectionViewer = sourceviewer;
 		scanner = new EMFTextTokenScanner(textresource, colorManager);
-		occurrence = new Occurrence(textResource, sourceviewer, colorManager, scanner);
-		bracketSet = new BracketSet(sourceviewer, textResource.getURI().fileExtension());
+		occurrence = new Occurrence(textResource, sourceviewer, colorManager,
+				scanner);
+		bracketSet = new BracketSet(sourceviewer, textResource
+				.getMetaInformation().getBracketPairs(), textResource.getURI()
+				.fileExtension());
 
-		definitionColor = colorManager.getColor(PreferenceConverter.getColor(preferenceStore,
-				PreferenceConstants.EDITOR_DEFINITION_COLOR));
-		proxyColor = colorManager.getColor(PreferenceConverter.getColor(preferenceStore, PreferenceConstants.EDITOR_PROXY_COLOR));
-		bracketColor = colorManager.getColor(PreferenceConverter.getColor(preferenceStore,
+		definitionColor = colorManager.getColor(PreferenceConverter.getColor(
+				preferenceStore, PreferenceConstants.EDITOR_DEFINITION_COLOR));
+		proxyColor = colorManager.getColor(PreferenceConverter.getColor(
+				preferenceStore, PreferenceConstants.EDITOR_PROXY_COLOR));
+		bracketColor = colorManager.getColor(PreferenceConverter.getColor(
+				preferenceStore,
 				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		black = colorManager.getColor(new RGB(0, 0, 0));
-		hyperlinkColor = colorManager.getColor(PreferenceConverter.getColor(preferenceStore,
-				PreferenceConstants.EDITOR_HYPERLINK_COLOR));
+		hyperlinkColor = colorManager.getColor(PreferenceConverter.getColor(
+				preferenceStore, PreferenceConstants.EDITOR_HYPERLINK_COLOR));
 
-		hyperLink = new Hyperlink(textResource.getURI().fileExtension());
+		hyperLink = new Hyperlink(textResource.getURI().fileExtension(), null);
 
 		addListeners();
 	}
@@ -108,37 +116,45 @@ public class Highlighting {
 
 			public void mouseMove(MouseEvent e) {
 
-				if (e.stateMask == SWT.CTRL) {
+				if (e.stateMask == SWT.ALT) {
+
 					// TODO because of the TextResource bug, only available if
 					// the editor is not dirty.
 					// TODO remove this once the background parsing is active
-					if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
-							.isDirty()) {
+					if (PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+							.getActivePage().getActiveEditor().isDirty()) {
 						return;
 					}
-					int offset;
+					int offset = -1;
 					try {
-						offset = textWidget.getOffsetAtLocation(new Point(e.x, e.y));
+						offset = textWidget.getOffsetAtLocation(new Point(e.x,
+								e.y));
 					} catch (Exception e1) {
 						resetHyperlinkHighlighting();
 						return;
 					}
 					ILocationMap locationMap = textResource.getLocationMap();
 					offset = projectionViewer.widgetOffset2ModelOffset(offset);
-					List<EObject> elementsAtOffset = locationMap.getElementsAt(offset);
-					if (elementsAtOffset == null) {
+					List<EObject> elementsAtOffset = locationMap
+							.getElementsAt(offset);
+					if (elementsAtOffset == null
+							|| elementsAtOffset.size() == 0) {
 						resetHyperlinkHighlighting();
 						return;
 					}
 					EObject firstElementAtOffset = elementsAtOffset.get(0);
-					EObject resolvedEObject = occurrence.tryToResolve(elementsAtOffset);
+					EObject resolvedEObject = occurrence
+							.tryToResolve(elementsAtOffset);
 
 					if (resolvedEObject != null) {// is proxy
-						if (!setHyperlinkHighlightPosition(offset, firstElementAtOffset)) {
+						if (!setHyperlinkHighlightPosition(offset,
+								firstElementAtOffset)) {
 							return;
 						}
 						setHyperlinkHighlighting();
-						if (resolvedEObject.eResource()!=null&&!textResource.equals(resolvedEObject.eResource())) {
+						if (resolvedEObject.eResource() != null
+								&& !textResource.equals(resolvedEObject
+										.eResource())) {
 							hyperLink.setEObject(resolvedEObject);
 						}
 						setHyperLinkJumpPosition(resolvedEObject);
@@ -157,7 +173,8 @@ public class Highlighting {
 
 			public void mouseDown(MouseEvent e) {// jump to declaration
 				IDocument document = projectionViewer.getDocument();
-				Position hPos = positionHelper.getFirstPosition(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION);
+				Position hPos = positionHelper.getFirstPosition(document,
+						ExtensionConstants.POSITION_CATEGORY_DESTINATION);
 				Position jumpPos = null;
 				if (hPos != null) {
 					jumpPos = convertToWidgedPosition(hPos);
@@ -186,7 +203,8 @@ public class Highlighting {
 
 	private void setHighlighting() {
 		IDocument document = projectionViewer.getDocument();
-		boolean isHighlightBrackets = preferenceStore.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
+		boolean isHighlightBrackets = preferenceStore
+				.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
 		boolean isHighlightOccurrence = true;
 		if (textWidget.getCaretOffset() >= textWidget.getCharCount()) {
 			isHighlightOccurrence = false;
@@ -197,73 +215,79 @@ public class Highlighting {
 		if (isHighlightOccurrence) {
 			occurrence.handleOccurrenceHighlighting(bracketSet);
 		}
-		StyleRange styleRange = null;
 
-		// TODO hoang-kim the code below seems quite similar. can we move it to a method
-		// and call it multiple times instead of duplicating the code here?
-		Position[] positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_BRACKET);
-		for (Position position : positions) {
-			Position tmpPosition = convertToWidgedPosition(position);
-			if (tmpPosition != null) {
-				styleRange = getStyleRangeAtPosition(tmpPosition);
-				styleRange.borderStyle = SWT.BORDER_SOLID;
-				styleRange.borderColor = bracketColor;
-				if (styleRange.foreground == null)
-					styleRange.foreground = black;
-				textWidget.setStyleRange(styleRange);
-			}
-		}
-		
-		positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
-		for (Position position : positions) {
-			Position tmpPosition = convertToWidgedPosition(position);
-			if (tmpPosition != null) {
-				styleRange = getStyleRangeAtPosition(tmpPosition);
+		setCategoryHighlighting(document,
+				ExtensionConstants.POSITION_CATEGORY_DEF);
+		setCategoryHighlighting(document,
+				ExtensionConstants.POSITION_CATEGORY_USE);
+		setCategoryHighlighting(document,
+				ExtensionConstants.POSITION_CATEGORY_BRACKET);
+
+	}
+
+	private void setCategoryHighlighting(IDocument document, String category) {
+		StyleRange styleRange = null;
+		Position[] positions = positionHelper.getPositions(document, category);
+
+		if (category.equals(ExtensionConstants.POSITION_CATEGORY_USE)) {
+
+			if (lastStyleRange == null && positions.length > 0) {
+				styleRange = getStyleRangeAtPosition(positions[0]);
 				if (styleRange.foreground == null) {
 					styleRange.foreground = black;
 				}
 				lastStyleRange = (StyleRange) styleRange.clone();
-				styleRange.background = definitionColor;
-				textWidget.setStyleRange(styleRange);
+			}
+
+			if (lastStyleRange != null) {
+				if (styleRange == null) {
+					styleRange = (StyleRange) lastStyleRange.clone();
+				}
+				styleRange.background = proxyColor;
 			}
 		}
 
-		positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
-		if (lastStyleRange == null && positions.length > 0) {
-			styleRange = getStyleRangeAtPosition(positions[0]);
-			if (styleRange.foreground == null) {
-				styleRange.foreground = black;
-			}
-			lastStyleRange = (StyleRange) styleRange.clone();
-		}
-		// TODO hoang-kim is this correct?
-		//If there is no definition, lastStyleRange is null.
-		//If there is no uses, lastStyleRange stays null.
-		//We can return if both of them do not exist.
-		if (lastStyleRange == null) {
-			return;
-		}
-		if (styleRange == null) {
-			styleRange = (StyleRange) lastStyleRange.clone();
-		}
-		styleRange.background = proxyColor;
 		for (Position position : positions) {
-			Position tmpPostion = convertToWidgedPosition(position);
-			if (tmpPostion != null) {
-				styleRange.start = tmpPostion.offset;
-				textWidget.setStyleRange(styleRange);
+			Position tmpPosition = convertToWidgedPosition(position);
+			if (tmpPosition != null) {
+				if (category.equals(ExtensionConstants.POSITION_CATEGORY_DEF)) {
+					styleRange = getStyleRangeAtPosition(tmpPosition);
+					if (styleRange.foreground == null) {
+						styleRange.foreground = black;
+					}
+					lastStyleRange = (StyleRange) styleRange.clone();
+					styleRange.background = definitionColor;
+					textWidget.setStyleRange(styleRange);
+				}
+				if (category.equals(ExtensionConstants.POSITION_CATEGORY_USE)) {
+					if (styleRange == null)
+						return;
+					styleRange.start = tmpPosition.offset;
+					textWidget.setStyleRange(styleRange);
+				}
+				if (category
+						.equals(ExtensionConstants.POSITION_CATEGORY_BRACKET)) {
+					styleRange = getStyleRangeAtPosition(tmpPosition);
+					styleRange.borderStyle = SWT.BORDER_SOLID;
+					styleRange.borderColor = bracketColor;
+					if (styleRange.foreground == null)
+						styleRange.foreground = black;
+					textWidget.setStyleRange(styleRange);
+				}
 			}
 		}
 	}
 
 	private void removeHighlighting() {
 		IDocument document = projectionViewer.getDocument();
-		boolean isHighlightBrackets = preferenceStore.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
+		boolean isHighlightBrackets = preferenceStore
+				.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
 
 		StyleRange styleRange;
 
 		if (isHighlightBrackets) {
-			Position[] positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_BRACKET);
+			Position[] positions = positionHelper.getPositions(document,
+					ExtensionConstants.POSITION_CATEGORY_BRACKET);
 			for (Position position : positions) {
 				Position tmpPosition = convertToWidgedPosition(position);
 				if (tmpPosition != null) {
@@ -274,11 +298,14 @@ public class Highlighting {
 					textWidget.setStyleRange(styleRange);
 				}
 			}
-			positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_BRACKET);
-			document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
+			positionHelper.removePositions(document,
+					ExtensionConstants.POSITION_CATEGORY_BRACKET);
+			document
+					.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_BRACKET);
 		}
 
-		Position[] positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
+		Position[] positions = positionHelper.getPositions(document,
+				ExtensionConstants.POSITION_CATEGORY_DEF);
 		for (Position position : positions) {
 			Position tmpPosition = convertToWidgedPosition(position);
 			if (tmpPosition != null) {
@@ -286,10 +313,12 @@ public class Highlighting {
 				textWidget.setStyleRange(lastStyleRange);
 			}
 		}
-		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
+		positionHelper.removePositions(document,
+				ExtensionConstants.POSITION_CATEGORY_DEF);
 
 		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DEF);
-		positions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
+		positions = positionHelper.getPositions(document,
+				ExtensionConstants.POSITION_CATEGORY_USE);
 		for (Position position : positions) {
 			Position tmpPosition = convertToWidgedPosition(position);
 			if (tmpPosition != null) {
@@ -297,7 +326,8 @@ public class Highlighting {
 				textWidget.setStyleRange(lastStyleRange);
 			}
 		}
-		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
+		positionHelper.removePositions(document,
+				ExtensionConstants.POSITION_CATEGORY_USE);
 		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_USE);
 		lastStyleRange = null;
 	}
@@ -307,17 +337,18 @@ public class Highlighting {
 	}
 
 	/**
-	 * Take a token style out of a styleRangeBuffer. 
-	 * If it isn't exist, create one, put it in the buffer and return it.
+	 * Take a token style out of a styleRangeBuffer. If it isn't exist, create
+	 * one, put it in the buffer and return it.
 	 * 
-	 * @param token 
-	 * @param length the length of the token text
-	 * @param tokenName 
+	 * @param token
+	 * @param length
+	 *            the length of the token text
+	 * @param tokenName
 	 * @param tokenStyle
 	 * @return
 	 */
 	private StyleRange getTokenStyle(IToken token, int length, String tokenStyle) {
-		
+
 		StyleRange styleRange = null;
 		TextAttribute tokenAttribute = null;
 		if (token.getData() instanceof TextAttribute) {
@@ -331,7 +362,8 @@ public class Highlighting {
 
 		int style = tokenAttribute.getStyle();
 		int fontStyle = style & (SWT.ITALIC | SWT.BOLD | SWT.NORMAL);
-		styleRange = new StyleRange(-1, length, tokenAttribute.getForeground(), tokenAttribute.getBackground(), fontStyle);
+		styleRange = new StyleRange(-1, length, tokenAttribute.getForeground(),
+				tokenAttribute.getBackground(), fontStyle);
 		styleRange.strikeout = (style & TextAttribute.STRIKETHROUGH) != 0;
 		styleRange.underline = (style & TextAttribute.UNDERLINE) != 0;
 		setHighlightStyle(styleRange, tokenStyle);
@@ -357,7 +389,8 @@ public class Highlighting {
 
 	private void setHyperlinkHighlighting() {
 		IDocument document = projectionViewer.getDocument();
-		Position[] tmpPositions = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+		Position[] tmpPositions = positionHelper.getPositions(document,
+				ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 		if (tmpPositions.length < 1) {
 			return;
 		}
@@ -374,9 +407,12 @@ public class Highlighting {
 
 	private void resetHyperlinkHighlighting() {
 		IDocument document = projectionViewer.getDocument();
-		Position[] hPos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-		Position[] defPos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_DEF);
-		Position[] usePos = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_USE);
+		Position[] hPos = positionHelper.getPositions(document,
+				ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+		Position[] defPos = positionHelper.getPositions(document,
+				ExtensionConstants.POSITION_CATEGORY_DEF);
+		Position[] usePos = positionHelper.getPositions(document,
+				ExtensionConstants.POSITION_CATEGORY_USE);
 		if (hPos.length < 1) {
 			return;
 		}
@@ -385,56 +421,62 @@ public class Highlighting {
 			hyperLink.resetValues();
 			return;
 		}
-		scanner.setRange(projectionViewer.getDocument(), hPos[0].offset, hPos[0].length);
+		scanner.setRange(projectionViewer.getDocument(), hPos[0].offset,
+				hPos[0].length);
 		IToken token = scanner.nextToken();
 		while (!token.isEOF()) {
 			if (scanner.getTokenText().equals(hyperLink.getHyperlinkText())) {
-				StyleRange styleRange = getTokenStyle(token, scanner.getTokenLength(), "");
+				StyleRange styleRange = getTokenStyle(token, scanner
+						.getTokenLength(), "");
 				styleRange = (StyleRange) styleRange.clone();
 				styleRange.start = highlightPosition.offset;
-				// TODO hoang-kim duplicate code, please refactor to method
-				if (defPos != null && defPos.length > 0) {
-					for (Position p : defPos) {
-						if (p.offset == hPos[0].offset) {
-							styleRange.background = definitionColor;
-							break;
-						}
-					}
-				}
-				if (usePos != null && usePos.length > 0) {
-					for (Position p : usePos) {
-						if (p.offset == hPos[0].offset) {
-							styleRange.background = proxyColor;
-							break;
-						}
-					}
-				}
+				setHyperlinkBackgroundColor(hPos[0], defPos, styleRange, definitionColor);
+				setHyperlinkBackgroundColor(hPos[0], usePos, styleRange, proxyColor);
 				textWidget.setStyleRange(styleRange);
 			}
 			token = scanner.nextToken();
 		}
 		hyperLink.resetValues();
-		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
-		positionHelper.removePositions(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION);
-		document.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
+		positionHelper.removePositions(document,
+				ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+		document
+				.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+		positionHelper.removePositions(document,
+				ExtensionConstants.POSITION_CATEGORY_DESTINATION);
+		document
+				.addPositionCategory(ExtensionConstants.POSITION_CATEGORY_DESTINATION);
+	}
+
+	private void setHyperlinkBackgroundColor(Position hyperlinkPosition,
+			Position[] positions, StyleRange styleRange, Color color) {
+		if (positions != null && positions.length > 0) {
+			for (Position p : positions) {
+				if (p.offset == hyperlinkPosition.offset) {
+					styleRange.background = color;
+					return;
+				}
+			}
+		}
 	}
 
 	/**
-	 * Set the hyperlinkText and hyperlinkPos.
+	 * Set the hyperlinkText and hyperlinkPosition.
 	 * 
 	 * @param offset
-	 * @param eo TODO hoang-kim choose meaningful name
+	 * @param offsetElement
 	 */
-	private boolean setHyperlinkHighlightPosition(int offset, EObject eo) {
+	private boolean setHyperlinkHighlightPosition(int offset, EObject offsetElement) {
 		IDocument document = projectionViewer.getDocument();
 		Position oldPos = null;
-		Position[] tmp = positionHelper.getPositions(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
+		Position[] tmp = positionHelper.getPositions(document,
+				ExtensionConstants.POSITION_CATEGORY_HYPERLINK);
 		if (tmp.length > 0) {
 			oldPos = tmp[0];
 		}
 		ILocationMap locationMap = textResource.getLocationMap();
-		scanner.setRange(projectionViewer.getDocument(), locationMap.getCharStart(eo), locationMap.getCharEnd(eo) - locationMap.getCharStart(eo) + 1);
+		scanner.setRange(projectionViewer.getDocument(), locationMap
+				.getCharStart(offsetElement), locationMap.getCharEnd(offsetElement)
+				- locationMap.getCharStart(offsetElement) + 1);
 		IToken token = scanner.nextToken();
 		while (!token.isEOF()) {
 			int tokenOffset = scanner.getTokenOffset();
@@ -448,9 +490,11 @@ public class Highlighting {
 					}
 				}
 				String tokenText = scanner.getTokenText();
-				if (tokenText!=null)
+				if (tokenText != null)
 					hyperLink.setHyperlinkText(tokenText.trim());
-				positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_HYPERLINK, tokenOffset, tokenLength);
+				positionHelper.addPosition(document,
+						ExtensionConstants.POSITION_CATEGORY_HYPERLINK,
+						tokenOffset, tokenLength);
 				return true;
 			}
 			token = scanner.nextToken();
@@ -462,7 +506,7 @@ public class Highlighting {
 	/**
 	 * Set the hyperlinkJumpPos
 	 * 
-	 * @param jumpElement 
+	 * @param jumpElement
 	 */
 	private void setHyperLinkJumpPosition(EObject jumpElement) {
 		IDocument document = projectionViewer.getDocument();
@@ -471,7 +515,8 @@ public class Highlighting {
 		}
 		ILocationMap locationMap = textResource.getLocationMap();
 		int start = locationMap.getCharStart(jumpElement);
-		int length = locationMap.getCharEnd(jumpElement) - locationMap.getCharStart(jumpElement) + 1;
+		int length = locationMap.getCharEnd(jumpElement)
+				- locationMap.getCharStart(jumpElement) + 1;
 		scanner.setRange(projectionViewer.getDocument(), start, length);
 		IToken token = scanner.nextToken();
 		while (!token.isEOF()) {
@@ -479,21 +524,27 @@ public class Highlighting {
 			if (hyperLink.getHyperlinkText().equals(tokenText)) {
 				int tokenLength = scanner.getTokenLength();
 				int tokenOffset = scanner.getTokenOffset();
-				positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION, 
+				positionHelper.addPosition(document,
+						ExtensionConstants.POSITION_CATEGORY_DESTINATION,
 						tokenOffset, tokenLength);
 				return;
 			}
 			token = scanner.nextToken();
 		}
-		positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_DESTINATION, start, length);
+		positionHelper
+				.addPosition(document,
+						ExtensionConstants.POSITION_CATEGORY_DESTINATION,
+						start, length);
 	}
 
 	private Position convertToWidgedPosition(Position position) {
 		if (position == null) {
 			return null;
 		}
-		int startOffset = projectionViewer.modelOffset2WidgetOffset(position.offset);
-		int endOffset = projectionViewer.modelOffset2WidgetOffset(position.offset + position.length);
+		int startOffset = projectionViewer
+				.modelOffset2WidgetOffset(position.offset);
+		int endOffset = projectionViewer
+				.modelOffset2WidgetOffset(position.offset + position.length);
 		if (endOffset - startOffset != position.length || startOffset == -1) {
 			return null;
 		}
@@ -501,9 +552,11 @@ public class Highlighting {
 	}
 
 	private StyleRange getStyleRangeAtPosition(Position position) {
-		StyleRange styleRange = textWidget.getStyleRangeAtOffset(position.offset);
+		StyleRange styleRange = textWidget
+				.getStyleRangeAtOffset(position.offset);
 		if (styleRange == null) {
-			styleRange = new StyleRange(position.offset, position.length, black, null);
+			styleRange = new StyleRange(position.offset, position.length,
+					black, null);
 		} else {
 			styleRange.length = position.length;
 		}

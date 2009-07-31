@@ -88,7 +88,7 @@ public class BracketPreferencePage extends PreferencePage implements
 		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
 		setDescription("Define the coloring of matching brackets.");
 		
-		bracketsTmp = new BracketSet(null, null);
+		bracketsTmp = new BracketSet(null, null, null);
 		for (String languageID : languageIDs) {
 			bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
 		}

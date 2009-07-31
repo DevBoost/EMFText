@@ -25,6 +25,8 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextHover;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
+import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
+import org.eclipse.jface.text.hyperlink.URLHyperlinkDetector;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.reconciler.IReconciler;
@@ -38,6 +40,7 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.part.FileEditorInput;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
+import org.emftext.runtime.ui.extensions.HyperlinkDetector;
 import org.emftext.runtime.ui.extensions.TextHover;
 import org.emftext.runtime.ui.extensions.ReconcilingStrategy;
 
@@ -122,7 +125,20 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		return new DefaultAnnotationHover();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getTextHover(org.eclipse.jface.text.source.ISourceViewer, java.lang.String)
+	 */
 	public ITextHover getTextHover(ISourceViewer sourceViewer, String contentType) {
 		return new TextHover(theEditor);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getHyperlinkDetectors(org.eclipse.jface.text.source.ISourceViewer)
+	 */
+	public IHyperlinkDetector[] getHyperlinkDetectors(ISourceViewer sourceViewer) {
+		if (sourceViewer == null)
+			return null;
+
+		return new IHyperlinkDetector[] { new HyperlinkDetector(theEditor.getResource()) };
 	}
 }
