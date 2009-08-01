@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.Position;
@@ -18,8 +19,10 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 //TODO hoang-kim add documentation
-public class ReconcilingStrategy implements IReconcilingStrategy, IReconcilingStrategyExtension {
+public class ReconcilingStrategy implements IReconcilingStrategy,
+		IReconcilingStrategyExtension {
 
+	private IDocument document;
 	private EMFTextEditor editor;
 
 	private ITextResource textResource;
@@ -36,6 +39,7 @@ public class ReconcilingStrategy implements IReconcilingStrategy, IReconcilingSt
 	}
 
 	public void setDocument(IDocument document) {
+		this.document = document;
 	}
 
 	public EMFTextEditor getEditor() {
@@ -68,10 +72,19 @@ public class ReconcilingStrategy implements IReconcilingStrategy, IReconcilingSt
 
 	protected void calculatePositions() {
 		ILocationMap locationMap = textResource.getLocationMap();
-		for (TreeIterator<EObject> contentIterator = textResource.getAllContents(); contentIterator.hasNext();) {
+		for (TreeIterator<EObject> contentIterator = textResource
+				.getAllContents(); contentIterator.hasNext();) {
 			EObject nextObject = contentIterator.next();
 			int offset = locationMap.getCharStart(nextObject);
-			int length = locationMap.getCharEnd(nextObject) - locationMap.getCharStart(nextObject) + 1;
+			int length = locationMap.getCharEnd(nextObject) + 1 - offset;
+			try {
+				int lines = document.getNumberOfLines(offset, length);
+				if (lines<2)
+					continue;
+			} catch (BadLocationException e) {
+				continue;
+			}
+			length = getOffsetOfNextLine(length + offset) - offset;
 			if (offset >= 0 && length > 0) {
 				positions.add(new Position(offset, length));
 			}
@@ -80,7 +93,25 @@ public class ReconcilingStrategy implements IReconcilingStrategy, IReconcilingSt
 			public void run() {
 				editor.updateFoldingStructure(positions);
 			}
-
 		});
+	}
+
+	private int getOffsetOfNextLine(int offset) {
+		int end = document.getLength();
+		int nextLineOffset = offset;
+		if (offset < 0 || offset > end) 
+			return -1;
+		while (nextLineOffset < end) {
+			String charAtOffset = "";
+			try {
+				charAtOffset += document.getChar(nextLineOffset);
+			} catch (BadLocationException e) {
+				return -1;
+			}
+			if (charAtOffset.equals("\n"))
+				return nextLineOffset + 1;
+			nextLineOffset++;
+		}
+		return offset;
 	}
 }
