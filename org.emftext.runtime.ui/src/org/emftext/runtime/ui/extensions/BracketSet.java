@@ -19,20 +19,24 @@ import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
  * A container for all bracket pairs. This class is used by the EMFTextEditor.
+ * TODO hoang-kim documentation
  */
 public class BracketSet {
 
+	//the separator between a bracket pair, should not contain escape needed character
+	//uses as regex
+	private final static String BRACKET_SEPARATOR = " and ";
 	private final static PositionHelper positionHelper = new PositionHelper();
 
 	/**
 	 * A single pair of brackets.
 	 */
 	private class BracketPair implements IBracketPair{
-
+		
 		private String[] brackets;
 
-		public BracketPair(String open, String close) {
-			brackets = new String[] { open, close };
+		public BracketPair(String opening, String closing) {
+			brackets = new String[] { opening, closing };
 		}
 		
 		public String getClosingBracket() {
@@ -251,7 +255,7 @@ public class BracketSet {
 	 */
 	public void removeBracketPairs(String bracketsAsArray[]) {
 		for (String bracket : bracketsAsArray) {
-			String[] tmp = bracket.split(" and ");
+			String[] tmp = bracket.split(BRACKET_SEPARATOR);
 			remove(tmp[0], tmp[1]);
 		}
 	}
@@ -283,8 +287,7 @@ public class BracketSet {
 		String[] ret = new String[bracketPairs.size()];
 		int i = 0;
 		for (IBracketPair bracketPair : bracketPairs) {
-			// TODO introduce constant for " and "
-			ret[i] = bracketPair.getOpeningBracket() + " and " + bracketPair.getClosingBracket();
+			ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR + bracketPair.getClosingBracket();
 			i++;
 		}
 		return ret;
