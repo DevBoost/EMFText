@@ -20,7 +20,7 @@ public class Hyperlink implements IHyperlink {
 
 	private String text = "";
 	// TODO hoang-kim is this the source or the target of the link?
-	private EObject eObject;
+	private EObject linkTarget;
 	private String languageID;
 	private IRegion region;
 
@@ -33,12 +33,8 @@ public class Hyperlink implements IHyperlink {
 		this.text = hyperlinkText;
 	}
 
-	public void setEObject(EObject eo) {
-		this.eObject = eo;
-	}
-
-	public boolean containsEObject() {
-		return eObject != null;
+	public void setLinkTarget(EObject linkTarget) {
+		this.linkTarget = linkTarget;
 	}
 
 	public String getHyperlinkText() {
@@ -60,7 +56,7 @@ public class Hyperlink implements IHyperlink {
 	 * @see org.eclipse.jface.text.hyperlink.IHyperlink#open()
 	 */
 	public void open() {
-		if (eObject == null) {
+		if (linkTarget == null) {
 			return;
 		}
 		IFile file = getIFileFromResource();
@@ -72,7 +68,7 @@ public class Hyperlink implements IHyperlink {
 				IEditorPart editorPart = page.getActiveEditor();
 				if (editorPart instanceof EMFTextEditor) {
 					EMFTextEditor emftEditor = (EMFTextEditor) editorPart;
-					emftEditor.setCaret(eObject);
+					emftEditor.setCaret(linkTarget, text);
 				}
 			} catch (PartInitException e) {
 				e.printStackTrace();
@@ -81,7 +77,7 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	private IFile getIFileFromResource() {
-		URI resourceURI = eObject.eResource().getURI();
+		URI resourceURI = linkTarget.eResource().getURI();
 		if (resourceURI.toString().startsWith("pathmap")) {
 			resourceURI = URIConverter.URI_MAP.get(resourceURI);
 			if (!resourceURI.fileExtension().equals(languageID))
@@ -95,14 +91,6 @@ public class Hyperlink implements IHyperlink {
 			}
 		}
 		return null;
-	}
-
-	public void resetValues() {
-		if (text.equals("")) {
-			return;
-		}
-		text = "";
-		eObject = null;
 	}
 
 	public IRegion getHyperlinkRegion() {

@@ -108,6 +108,8 @@ public class ReconcilingStrategy implements IReconcilingStrategy,
 			} catch (BadLocationException e) {
 				return -1;
 			}
+			if (charAtOffset.matches("\\S"))
+				return nextLineOffset;
 			if (charAtOffset.equals("\n"))
 				return nextLineOffset + 1;
 			nextLineOffset++;

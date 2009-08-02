@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.Region;
 import org.emftext.runtime.resource.ILocationMap;
@@ -30,13 +31,6 @@ public class HyperlinkDetector implements IHyperlinkDetector {
 		for (EObject eObject : elementsAtOffset) {
 			if (eObject.eIsProxy()) {
 				resolvedEObject = EcoreUtil.resolve(eObject, textResource);
-//				try {
-//					System.out.println(resolvedEObject.eResource().getURI()
-//							.fileExtension());
-//				} catch (Exception e) {
-//					System.out.println("no fileExtension");
-//				}
-				
 				if (resolvedEObject == eObject
 						|| (resolvedEObject.eResource() != null
 						&& !resourceFileExtension.equals(
@@ -47,7 +41,11 @@ public class HyperlinkDetector implements IHyperlinkDetector {
 				int offset = lm.getCharStart(eObject);
 				int length = lm.getCharEnd(eObject) - offset + 1;
 				Hyperlink hyperlink = new Hyperlink(resourceFileExtension, new Region(offset, length));
-				hyperlink.setEObject(resolvedEObject);
+				try {
+					hyperlink.setHyperlinkText(textViewer.getDocument().get(offset, length));
+				} catch (BadLocationException e) {
+				}
+				hyperlink.setLinkTarget(resolvedEObject);
 				return new IHyperlink[] { hyperlink };
 			}
 		}

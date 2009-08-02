@@ -12,6 +12,7 @@ public class DocBrowserInformationControlInput extends BrowserInformationControl
 
 	private final EObject element;
 	private final String htmlContent;
+	private final String tokenText;
 	private final int leadingImageWidth;
 	private final Resource resource;
 
@@ -28,11 +29,12 @@ public class DocBrowserInformationControlInput extends BrowserInformationControl
 	 *            the indent required for the element image
 	 */
 	public DocBrowserInformationControlInput(DocBrowserInformationControlInput previous, EObject element,
-			Resource resource, String htmlContent, int leadingImageWidth) {
+			Resource resource, String htmlContent, String tokenText, int leadingImageWidth) {
 		super(previous);
 		assert htmlContent != null;
 		this.element = element;
 		this.htmlContent = htmlContent;
+		this.tokenText = tokenText;
 		this.leadingImageWidth = leadingImageWidth;
 		this.resource = resource;
 	}
@@ -62,6 +64,10 @@ public class DocBrowserInformationControlInput extends BrowserInformationControl
 
 	public String getHtml() {
 		return htmlContent;
+	}
+	
+	public String getTokenText() {
+		return tokenText;
 	}
 
 	public Object getInputElement() {

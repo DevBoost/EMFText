@@ -6,15 +6,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
@@ -40,13 +35,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.EditorsUI;
-import org.eclipse.ui.part.FileEditorInput;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
@@ -177,26 +168,10 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 									// rather than dispose
 			EObject decEO = infoInput.getElement();
 			if (decEO != null && decEO.eResource() != null) {
-				if (decEO.eResource().equals(infoInput.getResource())) {
-					((EMFTextEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-							.getActiveEditor()).setCaret(decEO);
-				} else {
-					IFile file = getIFileFromResource(decEO);
-					if (file != null) {
-						IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-						try {
-							page.openEditor(new FileEditorInput(file), page.getActiveEditor().getSite().getId());
-
-							IEditorPart ep = page.getActiveEditor();
-							if (ep instanceof EMFTextEditor) {
-								EMFTextEditor emftEditor = (EMFTextEditor) ep;
-								emftEditor.setCaret(decEO);
-							}
-						} catch (PartInitException e) {
-							e.printStackTrace();
-						}
-					}
-				}
+				Hyperlink hyperlink = new Hyperlink(infoInput.getResource().getURI().fileExtension(),null);
+				hyperlink.setHyperlinkText(infoInput.getTokenText());
+				hyperlink.setLinkTarget(decEO);
+				hyperlink.open();
 			}
 
 			// try {
@@ -209,19 +184,6 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 			// }
 		}
 
-		private IFile getIFileFromResource(EObject object) {
-			URI resourceURI = object.eResource().getURI();
-			if (resourceURI.toString().startsWith("pathmap")) {
-				resourceURI = URIConverter.URI_MAP.get(resourceURI);
-			}
-			if (resourceURI.isPlatformResource()) {
-				String platformString = resourceURI.toPlatformString(true);
-				if (platformString != null) {
-					return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(platformString));
-				}
-			}
-			return null;
-		}
 	}
 
 	/**
@@ -497,7 +459,7 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 		if (elementsAtOffset == null || elementsAtOffset.size() == 0) {
 			return null;
 		}
-		return getHoverInfo(elementsAtOffset, null);
+		return getHoverInfo(elementsAtOffset, textViewer, null);
 	}
 
 	/**
@@ -514,14 +476,22 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 	 *         if no information is available
 	 * @since 3.4
 	 */
-	private DocBrowserInformationControlInput getHoverInfo(List<EObject> elements,
+	private DocBrowserInformationControlInput getHoverInfo(List<EObject> elements, ITextViewer textViewer,
 			DocBrowserInformationControlInput previousInput) {
 		
 		StringBuffer buffer = new StringBuffer();
 		int leadingImageWidth = 0;
 		EObject proxyObject = getFirstProxy(elements);
 		EObject declarationObject = null;
+		String tokenText = "";
 		if (proxyObject != null) {
+			ILocationMap locationMap= ((ITextResource)editor.getResource()).getLocationMap();
+			int offset = locationMap.getCharStart(proxyObject);
+			int length = locationMap.getCharEnd(proxyObject) + 1 - offset;
+			try {
+				tokenText = textViewer.getDocument().get(offset, length);
+			} catch (BadLocationException e) {
+			}
 			declarationObject = EcoreUtil.resolve(proxyObject, editor.getResource());
 			if (declarationObject != null) {
 				HTMLPrinter.addParagraph(buffer, getInfoText(declarationObject, false));
@@ -533,7 +503,7 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 			HTMLPrinter.insertPageProlog(buffer, 0, TextHover.getStyleSheet());
 			HTMLPrinter.addPageEpilog(buffer);
 			return new DocBrowserInformationControlInput(previousInput, declarationObject, editor.getResource(), buffer.toString(),
-					leadingImageWidth);
+					tokenText, leadingImageWidth);
 		}
 		return null;
 	}

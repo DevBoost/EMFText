@@ -52,6 +52,7 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
@@ -61,7 +62,6 @@ import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
-import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.viewers.ISelection;
@@ -81,6 +81,8 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.resource.ITextScanner;
+import org.emftext.runtime.resource.ITextToken;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
@@ -103,7 +105,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	private Highlighting highlighting;
 
 	private ProjectionSupport projectionSupport;
-	private ProjectionAnnotationModel annotationModel;
 	private CodeFoldingManager codeFoldingManager;
 
 	private IBackgroundParsingStrategy bgParsingStrategy = new NoBackgroundParsingStrategy();
@@ -227,8 +228,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 		// turn projection mode on
 		viewer.doOperation(ProjectionViewer.TOGGLE);
-		annotationModel = viewer.getProjectionAnnotationModel();
-		codeFoldingManager=new CodeFoldingManager(annotationModel,viewer);
+		codeFoldingManager=new CodeFoldingManager(viewer);
 	}
 	
 	@Override
@@ -317,6 +317,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			e.printStackTrace();
 		}
 		//TODO perform update code folding on save to test because of the TextResource bug
+		//To remove after activating background parsing
 		getSourceViewerConfiguration().getReconciler(getSourceViewer()).install(getSourceViewer());
 	}
 
@@ -477,13 +478,34 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	 * Set the caret to the offset of the given element.
 	 * @param element has to be contained in the ITextResource of this editor.
 	 */
-	public void setCaret(EObject element) {
-		if (element == null) {
+	public void setCaret(EObject element, String text) {
+		if (element == null|| text == null || text.equals("")) {
 			return;
 		}
 		ISourceViewer viewer= getSourceViewer();
 		ILocationMap locationMap = ((ITextResource) element.eResource()).getLocationMap();
-		viewer.getTextWidget().setSelection(locationMap.getCharStart(element));
+		int destination = locationMap.getCharStart(element);
+		int length = locationMap.getCharEnd(element) + 1 -destination;
+		
+		ITextScanner lexer = resource.getMetaInformation().createLexer();
+		try {
+			lexer.setText(viewer.getDocument().get(destination, length));
+			ITextToken token = lexer.getNextToken();
+			String tokenText = token.getText();
+			while (tokenText != null) {
+				if (token.getText().equals(text)) {
+					destination += token.getOffset();
+					break;
+				}
+				token=lexer.getNextToken();
+				tokenText = token.getText();
+			}
+		} catch (BadLocationException e) {
+		}
+		destination = ((ProjectionViewer)viewer).modelOffset2WidgetOffset(destination);
+		if (destination < 0)
+			destination = 0;
+		viewer.getTextWidget().setSelection(destination);
 	}
 
 	/*

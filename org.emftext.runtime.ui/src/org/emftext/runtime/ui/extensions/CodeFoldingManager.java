@@ -9,9 +9,9 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.Annotation;
-import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
 
 //TODO hoang-kim add documentation
 /**
@@ -27,10 +27,10 @@ public class CodeFoldingManager {
 	protected Map<Annotation, Position> additions = new HashMap<Annotation, Position>();
 
 	protected ProjectionAnnotationModel projectionAnnotationModel;
-	protected ISourceViewer sourceViewer;
+	protected ProjectionViewer sourceViewer;
 
-	public CodeFoldingManager(ProjectionAnnotationModel projectionAnnotationModel, ISourceViewer sourceViewer) {
-		this.projectionAnnotationModel = projectionAnnotationModel;
+	public CodeFoldingManager(ProjectionViewer sourceViewer) {
+		this.projectionAnnotationModel = sourceViewer.getProjectionAnnotationModel();
 		this.sourceViewer = sourceViewer;
 	}
 
@@ -126,6 +126,7 @@ public class CodeFoldingManager {
 		if (lines < 2) {
 			return;
 		}
+		
 		for (Annotation oldAnnotation : oldAnnotations) {
 			Position modelPosition = projectionAnnotationModel.getPosition(oldAnnotation);
 			try {
