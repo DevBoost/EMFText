@@ -333,7 +333,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		if (viewer != null) {
 			viewer.invalidateTextPresentation();
 		}
-		highlighting.resetBrackets();
+		highlighting.resetValues();
 		
 	}
 

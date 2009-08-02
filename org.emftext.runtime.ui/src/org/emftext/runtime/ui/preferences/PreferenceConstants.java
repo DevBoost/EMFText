@@ -20,9 +20,8 @@ public interface PreferenceConstants {
 	public static final String EDITOR_BRACKETS_SUFFIX = "_brackets";
 	
 	//Constants for occurrence highlighting
+	public static final String EDITOR_OCCURRENCE_CHECKBOX = "_occurrenceHighlightingCheckbox";
 	public static final String EDITOR_DEFINITION_COLOR = "_definition_color";
 	public static final String EDITOR_PROXY_COLOR = "_proxy_color";
-	
-	//Constants for hyper links
-	public static final String EDITOR_HYPERLINK_COLOR = "_hyperlink_color";
+
 }

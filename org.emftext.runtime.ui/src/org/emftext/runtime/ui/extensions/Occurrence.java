@@ -156,7 +156,7 @@ public class Occurrence {
 				String text = tokenScanner.getTokenText();
 				if (text.equals(tokenText)) {
 					defPosition = tokenScanner.getTokenOffset();
-					addPosition(document, ExtensionConstants.POSITION_CATEGORY_DEF);
+					addPosition(document, ExtensionConstants.PositionCategory.DEFINTION.toString());
 					break;
 				}
 				token = tokenScanner.nextToken();
@@ -171,7 +171,7 @@ public class Occurrence {
 				occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));
 				if (occEO != null) {
 					if ((isNull && eList.contains(occEO)) || !isNull && eo.equals(occEO)) {
-						addPosition(document, ExtensionConstants.POSITION_CATEGORY_USE);
+						addPosition(document, ExtensionConstants.PositionCategory.PROXY.toString());
 					}
 				}
 			}

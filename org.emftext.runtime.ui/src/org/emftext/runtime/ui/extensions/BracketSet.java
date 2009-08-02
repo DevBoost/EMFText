@@ -362,8 +362,8 @@ public class BracketSet {
 			return;
 		}
 		if (position != -1 && position != document.getLength()) {
-			positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_BRACKET, position, 1);
-			positionHelper.addPosition(document, ExtensionConstants.POSITION_CATEGORY_BRACKET, caretOffset - 1, 1);
+			positionHelper.addPosition(document, ExtensionConstants.PositionCategory.BRACKET.toString(), position, 1);
+			positionHelper.addPosition(document, ExtensionConstants.PositionCategory.BRACKET.toString(), caretOffset - 1, 1);
 		}
 	}
 }

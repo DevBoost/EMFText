@@ -86,11 +86,9 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, true);
         
         //Set default value for occurrences
+        store.setDefault(PreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX, true);
         store.setDefault(PreferenceConstants.EDITOR_DEFINITION_COLOR, "240,216,168");
         store.setDefault(PreferenceConstants.EDITOR_PROXY_COLOR, "212,212,212");
-        
-        //Set default value for hyper links
-        store.setDefault(PreferenceConstants.EDITOR_HYPERLINK_COLOR, "42,0,255");
         
         //store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_RULER, true);
 	}

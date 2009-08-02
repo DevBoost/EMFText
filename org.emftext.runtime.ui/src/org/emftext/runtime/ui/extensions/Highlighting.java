@@ -28,6 +28,8 @@ public class Highlighting {
 
 	private final static PositionHelper positionHelper = new PositionHelper();
 
+	private boolean isHighlightBrackets = true;
+	private boolean isHighlightOccurrences = true;
 	private EMFTextTokenScanner scanner;
 	private ColorManager colorManager;
 	private Color definitionColor;
@@ -79,6 +81,9 @@ public class Highlighting {
 		bracketSet = new BracketSet(sourceviewer, textResource.getURI()
 				.fileExtension());
 		this.colorManager = colorManager;
+		
+		isHighlightBrackets = preferenceStore.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
+		isHighlightOccurrences = preferenceStore.getBoolean(PreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX);
 		definitionColor = colorManager.getColor(PreferenceConverter.getColor(
 				preferenceStore, PreferenceConstants.EDITOR_DEFINITION_COLOR));
 		proxyColor = colorManager.getColor(PreferenceConverter.getColor(
@@ -87,9 +92,7 @@ public class Highlighting {
 				preferenceStore,
 				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		black = colorManager.getColor(new RGB(0, 0, 0));
-		colorManager.getColor(PreferenceConverter.getColor(
-				preferenceStore, PreferenceConstants.EDITOR_HYPERLINK_COLOR));
-
+		
 		addListeners();
 	}
 
@@ -115,33 +118,34 @@ public class Highlighting {
 
 	private void setHighlighting() {
 		IDocument document = projectionViewer.getDocument();
-		boolean isHighlightBrackets = preferenceStore
-				.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
-		boolean isHighlightOccurrence = true;
-		if (textWidget.getCaretOffset() >= textWidget.getCharCount()) {
-			isHighlightOccurrence = false;
-		}
+
 		if (isHighlightBrackets) {
 			bracketSet.matchingBrackets();
 		}
-		if (isHighlightOccurrence) {
+		if (isHighlightOccurrences) {
 			occurrence.handleOccurrenceHighlighting(bracketSet);
 		}
 
+//		setCategoryHighlighting(document,
+//				ExtensionConstants.POSITION_CATEGORY_DEF);
+//		setCategoryHighlighting(document,
+//				ExtensionConstants.POSITION_CATEGORY_USE);
+//		setCategoryHighlighting(document,
+//				ExtensionConstants.POSITION_CATEGORY_BRACKET);
 		setCategoryHighlighting(document,
-				ExtensionConstants.POSITION_CATEGORY_DEF);
+				ExtensionConstants.PositionCategory.DEFINTION.toString());
 		setCategoryHighlighting(document,
-				ExtensionConstants.POSITION_CATEGORY_USE);
+				ExtensionConstants.PositionCategory.PROXY.toString());
 		setCategoryHighlighting(document,
-				ExtensionConstants.POSITION_CATEGORY_BRACKET);
+				ExtensionConstants.PositionCategory.BRACKET.toString());
 
 	}
 
 	private void setCategoryHighlighting(IDocument document, String category) {
 		StyleRange styleRange = null;
 		Position[] positions = positionHelper.getPositions(document, category);
-
-		if (category.equals(ExtensionConstants.POSITION_CATEGORY_USE)) {
+		//document.addPositionCategory(ExtensionConstants.PositionCategory.BRACKET.);
+		if (category.equals(ExtensionConstants.PositionCategory.PROXY.toString())) {
 
 			if (lastStyleRange == null && positions.length > 0) {
 				styleRange = getStyleRangeAtPosition(positions[0]);
@@ -162,7 +166,7 @@ public class Highlighting {
 		for (Position position : positions) {
 			Position tmpPosition = convertToWidgedPosition(position);
 			if (tmpPosition != null) {
-				if (category.equals(ExtensionConstants.POSITION_CATEGORY_DEF)) {
+				if (category.equals(ExtensionConstants.PositionCategory.DEFINTION.toString())) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
 					if (styleRange.foreground == null) {
 						styleRange.foreground = black;
@@ -171,14 +175,14 @@ public class Highlighting {
 					styleRange.background = definitionColor;
 					textWidget.setStyleRange(styleRange);
 				}
-				if (category.equals(ExtensionConstants.POSITION_CATEGORY_USE)) {
+				if (category.equals(ExtensionConstants.PositionCategory.PROXY.toString())) {
 					if (styleRange == null)
 						return;
 					styleRange.start = tmpPosition.offset;
 					textWidget.setStyleRange(styleRange);
 				}
 				if (category
-						.equals(ExtensionConstants.POSITION_CATEGORY_BRACKET)) {
+						.equals(ExtensionConstants.PositionCategory.BRACKET.toString())) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
 					styleRange.borderStyle = SWT.BORDER_SOLID;
 					styleRange.borderColor = bracketColor;
@@ -199,7 +203,7 @@ public class Highlighting {
 
 		if (isHighlightBrackets) {
 			Position[] positions = positionHelper.getPositions(document,
-					ExtensionConstants.POSITION_CATEGORY_BRACKET);
+					ExtensionConstants.PositionCategory.BRACKET.toString());
 			for (Position position : positions) {
 				Position tmpPosition = convertToWidgedPosition(position);
 				if (tmpPosition != null) {
@@ -211,11 +215,11 @@ public class Highlighting {
 				}
 			}
 			positionHelper.removePositions(document,
-					ExtensionConstants.POSITION_CATEGORY_BRACKET);
+					ExtensionConstants.PositionCategory.BRACKET.toString());
 		}
 
 		Position[] positions = positionHelper.getPositions(document,
-				ExtensionConstants.POSITION_CATEGORY_DEF);
+				ExtensionConstants.PositionCategory.DEFINTION.toString());
 		for (Position position : positions) {
 			Position tmpPosition = convertToWidgedPosition(position);
 			if (tmpPosition != null) {
@@ -224,10 +228,10 @@ public class Highlighting {
 			}
 		}
 		positionHelper.removePositions(document,
-				ExtensionConstants.POSITION_CATEGORY_DEF);
+				ExtensionConstants.PositionCategory.DEFINTION.toString());
 
 		positions = positionHelper.getPositions(document,
-				ExtensionConstants.POSITION_CATEGORY_USE);
+				ExtensionConstants.PositionCategory.PROXY.toString());
 		for (Position position : positions) {
 			Position tmpPosition = convertToWidgedPosition(position);
 			if (tmpPosition != null) {
@@ -236,14 +240,22 @@ public class Highlighting {
 			}
 		}
 		positionHelper.removePositions(document,
-				ExtensionConstants.POSITION_CATEGORY_USE);
+				ExtensionConstants.PositionCategory.PROXY.toString());
 		lastStyleRange = null;
 	}
 
-	public void resetBrackets() {
+	public void resetValues() {
+		isHighlightBrackets = preferenceStore.getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX);
+		isHighlightOccurrences = preferenceStore.getBoolean(PreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX);
 		bracketColor = colorManager.getColor(PreferenceConverter.getColor(
 				preferenceStore,
 				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
+		definitionColor = colorManager.getColor(PreferenceConverter.getColor(
+				preferenceStore,
+				PreferenceConstants.EDITOR_DEFINITION_COLOR));
+		proxyColor = colorManager.getColor(PreferenceConverter.getColor(
+				preferenceStore,
+				PreferenceConstants.EDITOR_PROXY_COLOR));
 		bracketSet.resetBrackets();
 	}
 

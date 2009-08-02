@@ -158,8 +158,6 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 		 * @see org.eclipse.jface.action.Action#run()
 		 */
 		public void run() {
-			// TODO goto declaration
-
 			DocBrowserInformationControlInput infoInput = (DocBrowserInformationControlInput) infoControl.getInput(); // TODO:
 																														// check
 																														// cast
@@ -173,17 +171,7 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 				hyperlink.setLinkTarget(decEO);
 				hyperlink.open();
 			}
-
-			// try {
-			// //FIXME: add hover location to editor navigation history?
-			// JavaUI.openInEditor(infoInput.getElement());
-			// } catch (PartInitException e) {
-			// JavaPlugin.log(e);
-			// } catch (JavaModelException e) {
-			// JavaPlugin.log(e);
-			// }
 		}
-
 	}
 
 	/**
@@ -527,7 +515,7 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 					HTMLPrinter.addSmallHeader(label, COMMENTS + ":");
 					String comments = value.toString();
 					comments = comments.substring(1, comments.length() - 1);
-					HTMLPrinter.addParagraph(label, replaceNewlineToHTMLBR(comments));
+					HTMLPrinter.addParagraph(label, comments.replaceAll("\\n", "<br />"));
 					continue;
 				}
 				label.append("<br />" + attribute.getName() + ": " + member.eGet(attribute).toString());
@@ -647,20 +635,12 @@ public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExt
 		buffer.append("</div>"); //$NON-NLS-1$
 	}
 
-	private static EObject getFirstProxy(List<EObject> objects) {
-		for (EObject object : objects) {
+	private static EObject getFirstProxy(List<EObject> elements) {
+		for (EObject object : elements) {
 			if (object.eIsProxy()) {
 				return object;
 			}
 		}
 		return null;
 	}
-
-	private static String replaceNewlineToHTMLBR(String str) {
-		if (str != null) {
-			return str.replaceAll("\\n", "<br />");
-		}
-		return null;
-	}
-
 }

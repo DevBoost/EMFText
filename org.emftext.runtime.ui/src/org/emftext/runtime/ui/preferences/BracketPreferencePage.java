@@ -240,15 +240,6 @@ public class BracketPreferencePage extends PreferencePage implements
     }
     
     private void addListenersToStyleButtons() {
-    	
-    	matchingBracketsColorButton.addSelectionListener(new SelectionListener(){
-    		public void widgetDefaultSelected(SelectionEvent e){
-    		}
-    		
-    		public void widgetSelected(SelectionEvent e) {
-            }
-    	});
-    	
     	enableCheckbox.addSelectionListener(new SelectionListener(){
     		public void widgetDefaultSelected(SelectionEvent e){
     		}
@@ -334,9 +325,7 @@ public class BracketPreferencePage extends PreferencePage implements
     private void updateActiveEditor() {
     	//set the values after ok or apply 
         PreferenceConverter.setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());
-    	boolean b = enableCheckbox.getSelection();
-        getPreferenceStore().setValue(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, b);
-        matchingBracketsColorButton.setEnabled(b);
+    	getPreferenceStore().setValue(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());
         
         for (String languageID : languagesCombo.getItems()) {
         	getPreferenceStore().setValue(languageID+PreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(languageID));
