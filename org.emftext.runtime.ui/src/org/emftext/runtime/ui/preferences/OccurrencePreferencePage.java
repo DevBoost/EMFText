@@ -1,3 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2009 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU Lesser General Public License for more details. You should have
+ * received a copy of the GNU Lesser General Public License along with this
+ * program; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA  02111-1307 USA
+ * 
+ * Contributors:
+ *   Software Technology Group - TU Dresden, Germany 
+ *   - initial API and implementation
+ ******************************************************************************/
 package org.emftext.runtime.ui.preferences;
 
 import org.eclipse.jface.preference.ColorSelector;
@@ -19,6 +39,16 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
+/**
+ * The preference page to set the occurrence highlighting with folling features:
+ * <ul>
+ * <li>enables the occurrence highlighting</li>
+ * <li>chooses the highlight color for definition</li>
+ * <li>chooses the highlight color for the proxy elements</li>
+ * </ul>
+ * @author Tan-Ky Hoang-Kim
+ *
+ */
 public class OccurrencePreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 	
@@ -129,7 +159,9 @@ public class OccurrencePreferencePage extends PreferencePage implements
     protected void performApply() {
     	updateActiveEditor();
     }
-    
+    /**
+    * Sets the chosen options to the preference store and refreshs it in the <code>EMFTextEditor</code>.
+    */
     private void updateActiveEditor() {
     	getPreferenceStore().setValue(PreferenceConstants.EDITOR_OCCURRENCE_CHECKBOX, enableCheckbox.getSelection());
     	PreferenceConverter.setValue(getPreferenceStore(), PreferenceConstants.EDITOR_DEFINITION_COLOR, defColorSelector.getColorValue());

@@ -1,3 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2009 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU Lesser General Public License for more details. You should have
+ * received a copy of the GNU Lesser General Public License along with this
+ * program; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA  02111-1307 USA
+ * 
+ * Contributors:
+ *   Software Technology Group - TU Dresden, Germany 
+ *   - initial API and implementation
+ ******************************************************************************/
 package org.emftext.runtime.ui.extensions;
 
 import java.util.ArrayList;
@@ -18,27 +38,28 @@ import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
- * A container for all bracket pairs. This class is used by the EMFTextEditor.
- * TODO hoang-kim documentation
+ * A container for all bracket pairs.
+ * 
+ * @author Tan-Ky Hoang-Kim
  */
 public class BracketSet {
 
-	//the separator between a bracket pair, should not contain escape needed character
-	//uses as regex
+	// the separator between a bracket pair, should not contain escape needed
+	// character, it will be used as regex
 	private final static String BRACKET_SEPARATOR = " and ";
 	private final static PositionHelper positionHelper = new PositionHelper();
 
 	/**
 	 * A single pair of brackets.
 	 */
-	private class BracketPair implements IBracketPair{
-		
+	private class BracketPair implements IBracketPair {
+
 		private String[] brackets;
 
 		public BracketPair(String opening, String closing) {
 			brackets = new String[] { opening, closing };
 		}
-		
+
 		public String getClosingBracket() {
 			return brackets[1];
 		}
@@ -48,24 +69,28 @@ public class BracketSet {
 		}
 	}
 
-	private final class ClosingListener implements VerifyListener, ModifyListener, VerifyKeyListener {
+	/**
+	 * @author Tan-Ky Hoang-Kim A listener for the automatical closing.
+	 */
+	private final class ClosingListener implements VerifyListener,
+			ModifyListener, VerifyKeyListener {
 		private int closingLength = -1;
 		private boolean closingAdded = false;
 		private boolean isEmbraced = false;
 
 		/**
-		 * Automatic closing will be activated if the text about
-		 * to insert is a bracket, and the next character in 
-		 * TextWidget is not a double quote.
+		 * Automatic closing will be activated if the text about to insert is a
+		 * bracket, and the next character in TextWidget is not a double quote.
 		 * 
 		 * TODO the double quote is just one special case!
 		 * 
 		 * @see org.eclipse.swt.events.VerifyListener#verifyText(org.eclipse.swt.events.VerifyEvent)
 		 */
 		public void verifyText(VerifyEvent e) {
-			if (isOpen(e.text)
-					&& (textWidget.getCaretOffset() == textWidget.getCharCount() || !textWidget.getTextRange(textWidget.getCaretOffset(), 1)
-							.matches("[\"\']"))) {
+			if (isOpeningBracket(e.text)
+					&& (textWidget.getCaretOffset() == textWidget
+							.getCharCount() || !textWidget.getTextRange(
+							textWidget.getCaretOffset(), 1).matches("[\"\']"))) {
 				closingAdded = true;
 				String close = getCounterpart(e.text);
 				e.text += close;
@@ -73,10 +98,21 @@ public class BracketSet {
 			}
 		}
 
+		/**
+		 * After a change there are two cases which have to be considered:
+		 * <ul>
+		 * <li>if an automatical closing happened the caret will be set between
+		 * the bracket pair</li>
+		 * <li>if a bracket opening is deleted on the left side of the caret the
+		 * bracket closing on the right side of this caret is deleted as well</li>
+		 * </ul>
+		 * 
+		 */
 		public void modifyText(ModifyEvent e) {
 			if (closingAdded) {
 				closingAdded = false;
-				textWidget.setCaretOffset(textWidget.getCaretOffset() - closingLength);
+				textWidget.setCaretOffset(textWidget.getCaretOffset()
+						- closingLength);
 				closingLength = -1;
 			}
 			if (isEmbraced) {
@@ -86,19 +122,23 @@ public class BracketSet {
 		}
 
 		/**
-		 * This is for the Backspace key, if you want to delete a
-		 * previous character.
+		 * This is for the Backspace key, if you want to delete a previous
+		 * character.
 		 * 
 		 * @see org.eclipse.swt.custom.VerifyKeyListener#verifyKey(org.eclipse.swt.events.VerifyEvent)
 		 */
 		public void verifyKey(VerifyEvent e) {
 			int caret = textWidget.getCaretOffset();
-			if (caret == 0 || e.keyCode != SWT.BS || caret == textWidget.getCharCount()) {
+			if (caret == 0 || e.keyCode != SWT.BS
+					|| caret == textWidget.getCharCount()) {
 				return;
 			}
-			String prevStr = textWidget.getTextRange(textWidget.getCaretOffset() - 1, 1);
-			String nextStr = textWidget.getTextRange(textWidget.getCaretOffset(), 1);
-			if (e.keyCode == SWT.BS && isOpen(prevStr) && getCounterpart(prevStr).equals(nextStr)) {
+			String prevStr = textWidget.getTextRange(textWidget
+					.getCaretOffset() - 1, 1);
+			String nextStr = textWidget.getTextRange(textWidget
+					.getCaretOffset(), 1);
+			if (e.keyCode == SWT.BS && isOpeningBracket(prevStr)
+					&& getCounterpart(prevStr).equals(nextStr)) {
 				isEmbraced = true;
 			}
 		}
@@ -109,14 +149,14 @@ public class BracketSet {
 	private String languageID;
 	private StyledText textWidget;
 	private IPreferenceStore preferenceStore;
-	
+
 	/**
+	 * Creates a bracket set to manage the bracket pairs.
+	 * 
 	 * @param sourceViewer
-	 *            take the ISourceViewer to handle the TextWidget of the
-	 *            EMFTextEditor.
-	 * @param bracketPairs 
+	 *            the source viewer for matching brackets
 	 * @param extension
-	 *            the language ID
+	 *            the file extension of the DSL
 	 */
 	public BracketSet(ISourceViewer sourceViewer, String extension) {
 		languageID = extension;
@@ -125,7 +165,8 @@ public class BracketSet {
 			viewer = sourceViewer;
 			textWidget = viewer.getTextWidget();
 		}
-		preferenceStore = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
+		preferenceStore = EMFTextRuntimeUIPlugin.getDefault()
+				.getPreferenceStore();
 		if (sourceViewer != null && preferenceStore != null) {
 			resetBrackets();
 			addListeners();
@@ -133,17 +174,17 @@ public class BracketSet {
 
 	}
 
-
 	/**
-	 * Check whether the string is the open bracket.
+	 * Checks whether the given string is an open bracket.
 	 * 
-	 * @param text the text to check
-	 * @return <code>true</code> if text is an opening bracket. E.g. to decide to
-	 *         search forward or backward.
+	 * @param bracket
+	 *            the bracket part to check
+	 * @return <code>true</code> if text is an opening bracket. E.g. to decide
+	 *         to search forward or backward
 	 */
-	public boolean isOpen(String text) {
+	public boolean isOpeningBracket(String bracket) {
 		for (IBracketPair bracketPair : bracketPairs) {
-			if (text.equals(bracketPair.getOpeningBracket())) {
+			if (bracket.equals(bracketPair.getOpeningBracket())) {
 				return true;
 			}
 		}
@@ -151,14 +192,16 @@ public class BracketSet {
 	}
 
 	/**
-	 * Check whether the string is a bracket.
+	 * Checks whether the string is a bracket.
 	 * 
-	 * @param text the text to check
+	 * @param bracket
+	 *            the text to check
 	 * @return <code>true</code> if it exists in the bracket set.
 	 */
-	public boolean isBracket(String text) {
+	public boolean isBracket(String bracket) {
 		for (IBracketPair bracketPair : bracketPairs) {
-			if (text.equals(bracketPair.getOpeningBracket()) || text.equals(bracketPair.getClosingBracket())) {
+			if (bracket.equals(bracketPair.getOpeningBracket())
+					|| bracket.equals(bracketPair.getClosingBracket())) {
 				return true;
 			}
 		}
@@ -168,37 +211,44 @@ public class BracketSet {
 	/**
 	 * Adds the bracket pair to this bracket set.
 	 * 
-	 * @param open the open bracket
-	 * @param close the close bracket
+	 * @param opening
+	 *            the opening bracket
+	 * @param closing
+	 *            the closing bracket
 	 * @return <code>true</code> if successful
 	 */
-	public boolean addBracketPair(String open, String close) {
-		if (isBracket(open) || isBracket(close)) {
+	public boolean addBracketPair(String opening, String closing) {
+		if (isBracket(opening) || isBracket(closing)) {
 			return false;
 		}
-		bracketPairs.add(new BracketPair(open, close));
+		bracketPairs.add(new BracketPair(opening, closing));
 		return true;
 	}
 
 	/**
-	 * Removes all bracket pairs from this bracket set, reloading 
-	 * the default bracket set.
+	 * Removes all bracket pairs from this bracket set, reload the bracket set
+	 * from the preference store.
 	 * 
-	 * @return <code>true</code> if successful.
+	 * @return <code>true</code> if successful
+	 * @see IPreferenceStore
 	 */
 	public boolean resetBrackets() {
-		String bStore = preferenceStore.getString(languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
-		if (bStore == null) {
+		String bracketPairs = preferenceStore.getString(languageID
+				+ PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
+		if (bracketPairs == null) {
 			return false;
 		}
-		setBrackets(bStore);
+		setBrackets(bracketPairs);
 		return true;
 	}
 
 	/**
+	 * Gets the counter part of a bracket.
+	 * 
 	 * @param bracket
 	 *            one part of a bracket pair
-	 * @return the other part
+	 * @return the other part. If the given <code>String</code> is not a bracket
+	 *         return <code>null</code>
 	 */
 	public String getCounterpart(String bracket) {
 		for (IBracketPair bracketPair : bracketPairs) {
@@ -212,46 +262,40 @@ public class BracketSet {
 		return null;
 	}
 
+	/**
+	 * @return the count of bracket pairs in this bracket set
+	 */
 	public int size() {
 		return bracketPairs.size();
 	}
 
 	/**
-	 * Removes the bracket pair at the given index.
+	 * Removes the given bracket pair.
 	 * 
-	 * @param index the index of a bracket pair
-	 * @return a String array of the bracket pair
+	 * @param opening
+	 *            the opening bracket
+	 * @param closing
+	 *            the closing bracket
+	 * @return the removed bracket pair. If there is none return
+	 *         <code>null</code>.
 	 */
-	public String[] removeAt(int index) {
-		IBracketPair b = bracketPairs.remove(index);
-		if (b != null) {
-			return new String[] { b.getOpeningBracket(), b.getClosingBracket() };
+	public IBracketPair remove(String opening, String closing) {
+		for (IBracketPair bracketPair : bracketPairs) {
+			if (bracketPair.getOpeningBracket().equals(opening)
+					&& bracketPair.getClosingBracket().equals(closing)) {
+				bracketPairs.remove(bracketPair);
+				return bracketPair;
+			}
 		}
 		return null;
 	}
 
 	/**
-	 * Removes the given bracket pair.
-	 * 
-	 * @param open the opening bracket
-	 * @param close the closing bracket
-	 * @return <code>true</code> if removed successfully
-	 */
-	public boolean remove(String open, String close) {
-		for (IBracketPair bracketPair : bracketPairs) {
-			if (bracketPair.getOpeningBracket().equals(open) && bracketPair.getClosingBracket().equals(close)) {
-				bracketPairs.remove(bracketPair);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Take a String array in the form {"{ and }",...}
+	 * Removes brackets.
 	 * 
 	 * @param bracketsAsArray
-	 *            brackets
+	 *            a list of bracket pairs in the form
+	 *            <code>String[]{"{BRACKET_SEPARATOR",...}</code> .
 	 */
 	public void removeBracketPairs(String bracketsAsArray[]) {
 		for (String bracket : bracketsAsArray) {
@@ -261,40 +305,50 @@ public class BracketSet {
 	}
 
 	/**
-	 * Remove the old bracket set and set the given bracket set.
+	 * Removes the old bracket set and set the given bracket set. It is useful
+	 * to take a stored <code>String</code> in a preference store.
 	 * 
-	 * @param bracketsString
-	 *            bracket set
+	 * @param bracketSet
+	 *            the bracket set as a <code>String</code> in the form "()<>[]",
+	 *            it has to have an even length
 	 * @return <code>true</code> if successful
 	 */
-	public boolean setBrackets(String bracketsString) {
-		if (bracketsString.length() % 2 != 0) {
+	public boolean setBrackets(String bracketSet) {
+		if (bracketSet.length() % 2 != 0) {
 			return false;
 		}
 		bracketPairs = new ArrayList<IBracketPair>();
-		for (int i = 0; i < bracketsString.length() / 2; i++) {
-			addBracketPair("" + bracketsString.charAt(i * 2), "" + bracketsString.charAt(i * 2 + 1));
+		for (int i = 0; i < bracketSet.length() / 2; i++) {
+			addBracketPair("" + bracketSet.charAt(i * 2), ""
+					+ bracketSet.charAt(i * 2 + 1));
 		}
 		return true;
 	}
 
 	/**
-	 * Get a String[] of brackets.
+	 * Gets a list of bracket pairs.
 	 * 
-	 * @return String[] of brackets like {"{ and }","( )"}.
+	 * @return a list of bracket pairs in the form
+	 *         <code>String[]{"{BRACKET_SEPARATOR}","(BRACKET_SEPARATOR)"}</code>
+	 *         .
 	 */
-	public String[] getBracketStringArray() {
+	public String[] getBracketArray() {
 		String[] ret = new String[bracketPairs.size()];
 		int i = 0;
 		for (IBracketPair bracketPair : bracketPairs) {
-			ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR + bracketPair.getClosingBracket();
+			ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR
+					+ bracketPair.getClosingBracket();
 			i++;
 		}
 		return ret;
 	}
 
 	/**
-	 * @return String
+	 * Gets this bracket set as <code>String</code>. It is useful to store in
+	 * the <code>IPreferenceStore</code>.
+	 * 
+	 * @return String the bracket set in the form "()<>[]"
+	 * @see IPreferenceStore
 	 */
 	public String getBracketString() {
 		if (bracketPairs.size() < 1) {
@@ -302,11 +356,16 @@ public class BracketSet {
 		}
 		String result = "";
 		for (IBracketPair bracketPair : bracketPairs) {
-			result += bracketPair.getOpeningBracket() + bracketPair.getClosingBracket();
+			result += bracketPair.getOpeningBracket()
+					+ bracketPair.getClosingBracket();
 		}
 		return result;
 	}
 
+	/**
+	 * Adds listeners to a {@link StyledText} to handle bracket automatical
+	 * closing.
+	 */
 	private void addListeners() {
 		ClosingListener fClosingListener = new ClosingListener();
 		textWidget.addVerifyListener(fClosingListener);
@@ -314,6 +373,14 @@ public class BracketSet {
 		textWidget.addModifyListener(fClosingListener);
 	}
 
+	/**
+	 * Searchs the matching bracket at the left side of the caret. The position
+	 * information will be stored in the <code>IDocument</code> in the category
+	 * <code>ExtensionConstants.PositionCategory.BRACKET</code>.
+	 * 
+	 * @see IDocument
+	 * @see Position
+	 */
 	public void matchingBrackets() {
 		IDocument document = viewer.getDocument();
 		ProjectionViewer projectionViewer = null;
@@ -325,10 +392,11 @@ public class BracketSet {
 		}
 		int caretOffset = textWidget.getCaretOffset();
 		if (projectionViewer != null) {
-			caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
+			caretOffset = projectionViewer
+					.widgetOffset2ModelOffset(caretOffset);
 		}
 		final String prevStr;
-		if (caretOffset==0)
+		if (caretOffset == 0)
 			return;
 		try {
 			prevStr = "" + document.getChar(caretOffset - 1);
@@ -339,7 +407,7 @@ public class BracketSet {
 		if (!isBracket(prevStr) || prevStr.equals(getCounterpart(prevStr))) {
 			return;
 		}
-		boolean isForward = isOpen(prevStr);
+		boolean isForward = isOpeningBracket(prevStr);
 		final String toFindStr = getCounterpart(prevStr);
 		int boundary = isForward ? document.getLength() : -1;
 		int position = isForward ? caretOffset : caretOffset - 2;
@@ -362,8 +430,12 @@ public class BracketSet {
 			return;
 		}
 		if (position != -1 && position != document.getLength()) {
-			positionHelper.addPosition(document, ExtensionConstants.PositionCategory.BRACKET.toString(), position, 1);
-			positionHelper.addPosition(document, ExtensionConstants.PositionCategory.BRACKET.toString(), caretOffset - 1, 1);
+			positionHelper.addPosition(document,
+					ExtensionConstants.PositionCategory.BRACKET.toString(),
+					position, 1);
+			positionHelper.addPosition(document,
+					ExtensionConstants.PositionCategory.BRACKET.toString(),
+					caretOffset - 1, 1);
 		}
 	}
 }

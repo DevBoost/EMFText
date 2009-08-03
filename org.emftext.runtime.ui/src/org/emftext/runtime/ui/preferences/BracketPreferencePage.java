@@ -1,3 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2009 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU Lesser General Public License for more details. You should have
+ * received a copy of the GNU Lesser General Public License along with this
+ * program; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA  02111-1307 USA
+ * 
+ * Contributors:
+ *   Software Technology Group - TU Dresden, Germany 
+ *   - initial API and implementation
+ ******************************************************************************/
 package org.emftext.runtime.ui.preferences;
 
 import java.util.HashMap;
@@ -31,6 +51,16 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.ui.extensions.BracketSet;
 
 //TODO hoang-kim add documentation
+/**
+ * The preference page for the bracket setting with following features:
+ * <ul>
+ * <li>enables bracket matching</li>
+ * <li>chooses matching highlight color</li>
+ * <li>customizes bracket set</li>
+ * </ul>
+ * @author Tan-Ky Hoang-Kim
+ *
+ */
 public class BracketPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 
@@ -58,6 +88,9 @@ public class BracketPreferencePage extends PreferencePage implements
 	
 	private BracketSet bracketsTmp;
 	
+	/**
+	 * Creates a preference page for bracket setting.
+	 */
 	public BracketPreferencePage() {
 		super();
 
@@ -233,7 +266,7 @@ public class BracketPreferencePage extends PreferencePage implements
         rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);
         rightBracketTokensCombo.select(0);
         bracketsTmp.setBrackets(getPreferenceStore().getString(language+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
-        String[] brackets = bracketsTmp.getBracketStringArray();
+        String[] brackets = bracketsTmp.getBracketArray();
         if (brackets != null) {
         	bracketsList.setItems(brackets);
         }
@@ -261,7 +294,7 @@ public class BracketPreferencePage extends PreferencePage implements
 				leftBracketTokensCombo.select(0);
 				rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);
 				rightBracketTokensCombo.select(0);
-				bracketsList.setItems(bracketsTmp.getBracketStringArray());
+				bracketsList.setItems(bracketsTmp.getBracketArray());
 			}
     		
     	});
@@ -277,7 +310,7 @@ public class BracketPreferencePage extends PreferencePage implements
 					setErrorMessage("One or both bracket parts are set!");
 				} else {
 					bracketsTmp.addBracketPair(open, close);
-					bracketsList.setItems(bracketsTmp.getBracketStringArray());
+					bracketsList.setItems(bracketsTmp.getBracketArray());
 					setErrorMessage(null);
 					bracketSetTemp.put(language, bracketsTmp.getBracketString());
 				}
@@ -292,7 +325,7 @@ public class BracketPreferencePage extends PreferencePage implements
 			public void widgetSelected(SelectionEvent e) {
 				bracketsTmp.removeBracketPairs(bracketsList.getSelection());
 				setErrorMessage(null);
-				bracketsList.setItems(bracketsTmp.getBracketStringArray());
+				bracketsList.setItems(bracketsTmp.getBracketArray());
 				bracketSetTemp.put(language, bracketsTmp.getBracketString());
 			}
     	});
@@ -307,7 +340,7 @@ public class BracketPreferencePage extends PreferencePage implements
     	matchingBracketsColorEditor.setColorValue(PreferenceConverter.getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));
     	bracketSetTemp.put(language, getPreferenceStore().getDefaultString(language+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
     	bracketsTmp.setBrackets(bracketSetTemp.get(language));
-    	bracketsList.setItems(bracketsTmp.getBracketStringArray());
+    	bracketsList.setItems(bracketsTmp.getBracketArray());
     }
     
     public boolean performOk() {
@@ -322,6 +355,9 @@ public class BracketPreferencePage extends PreferencePage implements
     	updateActiveEditor();
     }
     
+    /**
+     * Sets the chosen options to the preference store and refreshs it in the <code>EMFTextEditor</code>.
+     */
     private void updateActiveEditor() {
     	//set the values after ok or apply 
         PreferenceConverter.setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());

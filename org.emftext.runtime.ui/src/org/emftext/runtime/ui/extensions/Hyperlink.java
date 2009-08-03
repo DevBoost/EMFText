@@ -1,3 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2009 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU Lesser General Public License for more details. You should have
+ * received a copy of the GNU Lesser General Public License along with this
+ * program; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA  02111-1307 USA
+ * 
+ * Contributors:
+ *   Software Technology Group - TU Dresden, Germany 
+ *   - initial API and implementation
+ ******************************************************************************/
 package org.emftext.runtime.ui.extensions;
 
 import org.eclipse.core.resources.IFile;
@@ -15,24 +35,40 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
-//TODO hoang-kim add documentation
+/**
+ * Provides the hyperlink for the proxy elements in source code.
+ * @author Tan-Ky Hoang-Kim
+ *
+ */
 public class Hyperlink implements IHyperlink {
 
 	private String text = "";
-	// TODO hoang-kim is this the source or the target of the link?
 	private EObject linkTarget;
 	private String languageID;
 	private IRegion region;
 
+	/**
+	 * Creates the hyperlink.
+	 * @param languageID the file extension of the DSL
+	 * @param region the region of the hyperlink to highlight
+	 */
 	public Hyperlink(String languageID, IRegion region) {
 		this.languageID=languageID;
 		this.region = region;
 	}
 	
+	/**
+	 * Sets the token text to locate the position to jump.
+	 * @param hyperlinkText the hyperlink text where the mouse cursor hovers
+	 */
 	public void setHyperlinkText(String hyperlinkText) {
 		this.text = hyperlinkText;
 	}
 
+	/**
+	 * Sets the resolved <code>EObject</code>.
+	 * @param linkTarget the link target where it will jump to
+	 */
 	public void setLinkTarget(EObject linkTarget) {
 		this.linkTarget = linkTarget;
 	}
@@ -41,6 +77,9 @@ public class Hyperlink implements IHyperlink {
 		return text;
 	}
 
+	/**
+	 * @return the length of the hyperlink text 
+	 */
 	public int length() {
 		return text.length();
 	}
@@ -50,8 +89,8 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	/**
-	 * Opens the given Resource with an EMFTextEditor. Assumes the
-	 * resource can be opened with EMFTextEditor.
+	 * Opens the resource in <code>linkTarget</code> with an EMFTextEditor. Assumes the
+	 * resource can be opened with EMFTextEditor. Tries to jump to the definition.
 	 * 
 	 * @see org.eclipse.jface.text.hyperlink.IHyperlink#open()
 	 */
@@ -94,7 +133,6 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	public IRegion getHyperlinkRegion() {
-		
 		return region;
 	}
 }

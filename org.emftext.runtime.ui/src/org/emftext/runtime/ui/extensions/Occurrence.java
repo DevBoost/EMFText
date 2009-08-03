@@ -1,3 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2006-2009 
+ * Software Technology Group, Dresden University of Technology
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU Lesser General Public License for more details. You should have
+ * received a copy of the GNU Lesser General Public License along with this
+ * program; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA  02111-1307 USA
+ * 
+ * Contributors:
+ *   Software Technology Group - TU Dresden, Germany 
+ *   - initial API and implementation
+ ******************************************************************************/
 package org.emftext.runtime.ui.extensions;
 
 import java.util.ArrayList;
@@ -14,11 +34,15 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.ui.PlatformUI;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.ui.ColorManager;
-import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.EMFTextTokenScanner;
 
-//TODO hoang-kim add documentation
+/**
+ * This class finds the positions to highlight and adds them to the document.
+ * @see Position
+ * @see IDocument
+ * @author Tan-Ky Hoang-Kim
+ *
+ */
 public class Occurrence {
 	
 	private final static PositionHelper positionHelper = new PositionHelper();
@@ -28,20 +52,17 @@ public class Occurrence {
 	private ISourceViewer sourceViewer;
 	private ITextResource textResource;
 	private String tokenText = "";
-	private StyledText textWidget;
-
-	public String getTokenText() {
-		return tokenText;
-	}
-
-	public Occurrence(ITextResource textResource, ISourceViewer sourceViewer, ColorManager colorManager,
-			EMFTextTokenScanner tokenScanner) {
-		// TODO hoang-kim is this call needed?
-		EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
+	
+	/**
+	 * Creates the Occurrence class to find position to highlight.
+	 * @param textResource the text resource for location.
+	 * @param sourceViewer the source viewer for the text
+	 * @param tokenScanner the token scanner helps to find the searched tokens
+	 */
+	public Occurrence(ITextResource textResource, ISourceViewer sourceViewer, EMFTextTokenScanner tokenScanner) {
 		this.textResource = textResource;
 		this.sourceViewer = sourceViewer;
-		this.textWidget = sourceViewer.getTextWidget();
-
+		
 		quotedTokenArray = new ArrayList<String>();
 		String[] tokenNames = textResource.getMetaInformation().getTokenNames();
 		for (String tokenName : tokenNames) {
@@ -50,7 +71,6 @@ public class Occurrence {
 				quotedTokenArray.add(tokenName.substring(1, tokenName.length() - 1).trim());
 			}
 		}
-
 		this.tokenScanner = tokenScanner;
 	}
 
@@ -58,6 +78,11 @@ public class Occurrence {
 		return eObject.eIsProxy() ? EcoreUtil.resolve(eObject, textResource) : eObject;
 	}
 
+	/**
+	 * Tries to resolve the first proxy object in a list.
+	 * @param objects the <code>EObject</code>s at the text caret
+	 * @return the resolved <code>EObject</code> of the first proxy <code>EObject</code> in a list. If there are none returns <code>null</code>
+	 */
 	public EObject tryToResolve(List<EObject> objects) {
 		for (EObject object : objects) {
 			if (object.eIsProxy()) {
@@ -67,11 +92,23 @@ public class Occurrence {
 		return null;
 	}
 
+	/**
+	 * Gets the token text at the caret.
+	 * @return the token text
+	 */
+	public String getTokenText() {
+		return tokenText;
+	}
+
 	private int getLength(EObject eObject) {
 		ILocationMap locationMap = textResource.getLocationMap();
 		return locationMap.getCharEnd(eObject) - locationMap.getCharStart(eObject) + 1;
 	}
 
+	/**
+	 * Finds the positions of the occurrences which will be highlighted. The brackets and the key words should not be highlighted.
+	 * @param bracketSet the set of brackets which have to be ignored.
+	 */
 	public void handleOccurrenceHighlighting(BracketSet bracketSet) {
 		// TODO because of the TextResource bug, only available if the editor is
 		// not dirty.
@@ -83,6 +120,7 @@ public class Occurrence {
 		if (sourceViewer instanceof ProjectionViewer) {
 			projectionViewer = (ProjectionViewer) sourceViewer;
 		}
+		StyledText textWidget = sourceViewer.getTextWidget();
 		int caretOffset = textWidget.getCaretOffset();
 		if (projectionViewer != null) {
 			caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
@@ -134,23 +172,26 @@ public class Occurrence {
 		}
 	}
 
-	// TODO hoang-kim given meaningful names to the parameters
-	private void setHighlightingPositions(EObject eo, List<EObject> eList) {
+	private void setHighlightingPositions(EObject definitionElement, List<EObject> elementsAtDefinition) {
 		IDocument document = sourceViewer.getDocument();
 		ILocationMap locationMap = textResource.getLocationMap();
 		IToken token;
 		int defPosition = -1;
-		boolean isNull = eo == null;
+		boolean isNull = definitionElement == null;
 		if (isNull) {
-			eo = eList.get(0);
+			definitionElement = elementsAtDefinition.get(0);
 		}
-		Resource resource = eo.eResource();
-		// TODO hoang-kim is this correct?
+		Resource resource = definitionElement.eResource();
+		/*TODO hoang-kim is this correct?
+		 * If it is an EClass with syntax, it should have a resource.
+		 * However, the first element in the list is not always an EClass with syntax.
+		 * Have to test with Java.
+		 */
 		if (resource == null) {
 			return;
 		}
 		if (resource.equals(textResource)) {
-			tokenScanner.setRange(sourceViewer.getDocument(), locationMap.getCharStart(eo), getLength(eo));
+			tokenScanner.setRange(sourceViewer.getDocument(), locationMap.getCharStart(definitionElement), getLength(definitionElement));
 			token = tokenScanner.nextToken();
 			while (!token.isEOF()) {
 				String text = tokenScanner.getTokenText();
@@ -170,7 +211,7 @@ public class Occurrence {
 			if (text != null && text.equals(tokenText) && tokenScanner.getTokenOffset() != defPosition) {
 				occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));
 				if (occEO != null) {
-					if ((isNull && eList.contains(occEO)) || !isNull && eo.equals(occEO)) {
+					if ((isNull && elementsAtDefinition.contains(occEO)) || !isNull && definitionElement.equals(occEO)) {
 						addPosition(document, ExtensionConstants.PositionCategory.PROXY.toString());
 					}
 				}
@@ -185,7 +226,4 @@ public class Occurrence {
 		positionHelper.addPosition(document, positionCategory, tokenOffset, tokenLength);
 	}
 
-	public boolean isQuotedToken(String tokenText) {
-		return quotedTokenArray.contains(tokenText);
-	}
 }

@@ -111,11 +111,8 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getReconciler(org.eclipse.jface.text.source.ISourceViewer)
 	 */
 	public IReconciler getReconciler(ISourceViewer sourceViewer) {
-		ReconcilingStrategy strategy = new ReconcilingStrategy();
-        strategy.setEditor(theEditor);
-        
+		ReconcilingStrategy strategy = new ReconcilingStrategy(theEditor);
         MonoReconciler reconciler = new MonoReconciler(strategy,false);
-        
         return reconciler;
     }
 	
