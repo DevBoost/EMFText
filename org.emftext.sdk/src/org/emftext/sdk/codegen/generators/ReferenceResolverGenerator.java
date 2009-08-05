@@ -20,7 +20,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -32,6 +31,7 @@ import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.finders.GenClassFinder;
 
@@ -41,7 +41,8 @@ import org.emftext.sdk.finders.GenClassFinder;
 public class ReferenceResolverGenerator extends BaseGenerator {
 	
 	private static final NameUtil nameUtil = new NameUtil();
-	
+
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private GenFeature proxyReference;
@@ -63,7 +64,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 		addFields(sc);
 		addResolveMethod(sc);
 	    addDeResolveMethod(sc);
-	    addSetOptionsMethod(sc);
+	    generatorUtil.addSetOptionsMethod(sc);
 		sc.add("}");
 		
 		out.print(sc.toString());
@@ -86,13 +87,6 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	private void addResolveMethod(StringComposite sc) {
 		sc.add("public void resolve(" + STRING + " identifier, " + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> result) {");
 		sc.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);");
-		sc.add("}");
-	    sc.addLineBreak();
-	}
-
-	private void addSetOptionsMethod(StringComposite sc) {
-		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
-		sc.add("// TODO save options in a field or leave method empty if this resolver does not depend on any option");
 		sc.add("}");
 	    sc.addLineBreak();
 	}

@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
@@ -51,6 +52,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
 public class TokenResolverGenerator extends BaseGenerator {
 	
 	private static NameUtil nameUtil = new NameUtil();
+	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	
 	private TokenDefinition definition;
 	private String qualifiedDefaultTokenResolverClassName;
@@ -73,6 +75,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		generateDeResolveMethod(sc);
 		generateResolveMethod(sc);
+	    generatorUtil.addSetOptionsMethod(sc);
 		sc.add("}");
 		
 		out.print(sc.toString());

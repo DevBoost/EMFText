@@ -28,6 +28,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -359,5 +360,12 @@ public class GeneratorUtil {
 		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public void addSetOptionsMethod(StringComposite sc) {
+		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
+		sc.add("// TODO save options in a field or leave method empty if this resolver does not depend on any option");
+		sc.add("}");
+	    sc.addLineBreak();
 	}
 }

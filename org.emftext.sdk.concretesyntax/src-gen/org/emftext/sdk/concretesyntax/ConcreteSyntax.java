@@ -263,7 +263,7 @@ public interface ConcreteSyntax extends GenPackageDependentElement, Annotable {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>All Token Styles</em>' reference list.
 	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getConcreteSyntax_AllTokenStyles()
-	 * @model transient="true" volatile="true" derived="true"
+	 * @model transient="true"
 	 * @generated
 	 */
 	EList<TokenStyle> getAllTokenStyles();

@@ -285,12 +285,13 @@ public class ConcreteSyntaxItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__MODIFIER);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__IMPORTS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__OPTIONS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS);
-			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKEN_STYLES);
+			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
 			childrenFeatures.add(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__RULES);
 		}
 		return childrenFeatures;
@@ -352,14 +353,16 @@ public class ConcreteSyntaxItemProvider
 
 		switch (notification.getFeatureID(ConcreteSyntax.class)) {
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__NAME:
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__SYNTHETIC_TOKENS:
-			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
+			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -377,6 +380,11 @@ public class ConcreteSyntaxItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ConcretesyntaxPackage.Literals.ANNOTABLE__ANNOTATIONS,
+				 ConcretesyntaxFactory.eINSTANCE.createAnnotation()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -425,6 +433,11 @@ public class ConcreteSyntaxItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES,
+				 ConcretesyntaxFactory.eINSTANCE.createTokenStyle()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__RULES,
 				 ConcretesyntaxFactory.eINSTANCE.createRule()));
 	}
@@ -442,7 +455,9 @@ public class ConcreteSyntaxItemProvider
 
 		boolean qualify =
 			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKENS ||
-			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS;
+			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__SYNTHETIC_TOKENS ||
+			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__TOKEN_STYLES ||
+			childFeature == ConcretesyntaxPackage.Literals.CONCRETE_SYNTAX__ALL_TOKEN_STYLES;
 
 		if (qualify) {
 			return getString

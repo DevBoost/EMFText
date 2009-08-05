@@ -1015,7 +1015,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     
     private int printCsString(CsString csString, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced){
     	final String identifier = "a" + count;
-    	final String escapedCsString = csString.getValue().replaceAll("'", "\\\\'");
+    	String escapedCsString = csString.getValue().replaceAll("'", "\\\\'");
+    	escapedCsString = escapedCsString.replaceAll("\"", "\\\\\"");
 		sc.add(identifier + " = '" + escapedCsString + "' {");
 		// we must use the unicode representation for the % character, because
 		// StringTemplate does treat % special

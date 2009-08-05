@@ -188,6 +188,16 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	protected EList<TokenStyle> tokenStyles;
 
 	/**
+	 * The cached value of the '{@link #getAllTokenStyles() <em>All Token Styles</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAllTokenStyles()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TokenStyle> allTokenStyles;
+
+	/**
 	 * The cached value of the '{@link #getAllTokenDirectives() <em>All Token Directives</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -443,31 +453,13 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public EList<TokenStyle> getAllTokenStyles() {
-		EList<TokenStyle> styles = new BasicEList<TokenStyle>();
-		styles.addAll(getTokenStyles());
-		
-		EList<Import> imports = getImports();
-		for (Import importedElement : imports) {
-			final ConcreteSyntax importedSyntax = importedElement.getConcreteSyntax();
-			if (importedSyntax != null) {
-				EList<TokenStyle> importedStyles = importedSyntax.getAllTokenStyles();
-				for (TokenStyle importedStyle : importedStyles) {
-					boolean exists = false;
-					for (TokenStyle existingStyle : styles) {
-						if (existingStyle.getTokenName().equals(importedStyle.getTokenName())) {
-							exists = true;
-						}
-					}
-					if (!exists){
-						styles.add(importedStyle);
-					}
-				}
-			}
+		if (allTokenStyles == null) {
+			allTokenStyles = new EObjectResolvingEList<TokenStyle>(TokenStyle.class, this, ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES);
 		}
-		return styles;
+		return allTokenStyles;
 	}
 
 	/**
@@ -740,7 +732,7 @@ public class ConcreteSyntaxImpl extends GenPackageDependentElementImpl implement
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES:
 				return tokenStyles != null && !tokenStyles.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_STYLES:
-				return !getAllTokenStyles().isEmpty();
+				return allTokenStyles != null && !allTokenStyles.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__ALL_TOKEN_DIRECTIVES:
 				return allTokenDirectives != null && !allTokenDirectives.isEmpty();
 			case ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES:

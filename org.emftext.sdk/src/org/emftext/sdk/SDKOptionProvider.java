@@ -53,6 +53,7 @@ import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
 import org.emftext.sdk.syntax_extension.PredefinedTokenAdder;
 import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
 import org.emftext.sdk.syntax_extension.TokenDefinitionMerger;
+import org.emftext.sdk.syntax_extension.TokenStyleMerger;
 
 /**
  * The SDKOptionProvider adds post-processors to the default 
@@ -75,6 +76,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		postProcessors.add(new DerivedTokenCreator());
 		postProcessors.add(new TokenDefinitionMerger());
 		postProcessors.add(new DefaultTokenConnector());
+		postProcessors.add(new TokenStyleMerger());
 		
 		// then analyse it
 		postProcessors.add(new FeatureCardinalityAnalyser());
