@@ -362,9 +362,9 @@ public class GeneratorUtil {
 		sc.addLineBreak();
 	}
 
-	public void addSetOptionsMethod(StringComposite sc) {
+	public void addSetOptionsMethod(StringComposite sc, String body) {
 		sc.add("public void setOptions(" + MAP + "<?,?> options) {");
-		sc.add("// TODO save options in a field or leave method empty if this resolver does not depend on any option");
+		sc.add(body);
 		sc.add("}");
 	    sc.addLineBreak();
 	}

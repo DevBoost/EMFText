@@ -86,11 +86,19 @@ public class AntlrTokenDerivator {
 		assert prefixIsSet;
 		assert suffixIsSet;
 
+		// this derived regular expression has the following meaning:
+		// start with prefix
+		//   arbitrary many characters except the suffix and the backslash OR
+		//   the suffix prepended by a backslash (escaped suffix) OR
+		//   two backslashes (escaped escape character
+		// end with suffix
+		String notSuffixNotBackslash = "~('" + escapeLiteralChars(suffix) + "'|'\\\\')";
+
+		String backslashSuffix = "('\\\\''" + escapeLiteralChars(suffix) + "')";
+		String backslashBackslash = "('\\\\''\\\\')";
+
 		String derivedExpression = "('" + escapeLiteralChars(prefix) + "')";
-		
-		derivedExpression += "(~('" + escapeLiteralChars(suffix)
-				+ "')|('\\\\''" + escapeLiteralChars(suffix) + "'))*";
-		
+		derivedExpression += "(" + backslashSuffix + "|" + backslashBackslash + "|" + notSuffixNotBackslash + ")*";
 		derivedExpression += "('" + escapeLiteralChars(suffix) + "')";
 
 		return derivedExpression;

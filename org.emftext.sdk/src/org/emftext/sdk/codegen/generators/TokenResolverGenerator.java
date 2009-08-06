@@ -25,6 +25,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -67,15 +68,16 @@ public class TokenResolverGenerator extends BaseGenerator {
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
 		
-		sc.add("package " + super.getResourcePackageName()+ ";");
+		sc.add("package " + getResourcePackageName()+ ";");
 		sc.addLineBreak();
 
-		sc.add("public class " + super.getResourceClassName() + " extends " + ABSTRACT_TOKEN_RESOLVER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_TOKEN_RESOLVER + " {");
 		sc.addLineBreak();
 		sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
+		sc.addLineBreak();
 		generateDeResolveMethod(sc);
 		generateResolveMethod(sc);
-	    generatorUtil.addSetOptionsMethod(sc);
+	    generatorUtil.addSetOptionsMethod(sc, "defaultTokenResolver.setOptions(options);");
 		sc.add("}");
 		
 		out.print(sc.toString());
@@ -90,7 +92,8 @@ public class TokenResolverGenerator extends BaseGenerator {
 		
 		if (suffix != null) {
 			String escapedSuffix = escapeChars(suffix);
-			sc.add("result = result.replaceAll(" + java.util.regex.Pattern.class.getName() + ".quote(\""+escapedSuffix+"\"),\"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
+			sc.add("result = result.replaceAll(" + PATTERN + ".quote(\"\\\\\"), \"\\\\\\\\\\\\\\\\\");");
+			sc.add("result = result.replaceAll(" + PATTERN + ".quote(\""+escapedSuffix+"\"), \"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
 			sc.add("result += \"" + escapedSuffix + "\";");
 		}	
 		
@@ -116,10 +119,12 @@ public class TokenResolverGenerator extends BaseGenerator {
 			int count = suffix.length();
 			sc.add("lexem = lexem.substring(0, lexem.length() - " + count + ");");
 			String replacement = escapeChars(suffix);
-			sc.add("lexem = lexem.replaceAll(\"\\\\\\\\\"+" + java.util.regex.Pattern.class.getName() + ".quote(\""+replacement+"\"),\""+escapeDollar(replacement)+"\");");
+			sc.add("lexem = lexem.replaceAll(" + PATTERN + ".quote(\"\\\\" + replacement + "\"), \"" + escapeDollar(replacement) + "\");");
+			sc.add("lexem = lexem.replace(\"\\\\\\\\\", \"\\\\\");");
 		}
 		sc.add("defaultTokenResolver.resolve(lexem, feature, result);");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 	
 	private String escapeChars(String candidate) {
