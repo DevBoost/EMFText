@@ -1,8 +1,8 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_BRACKET_PAIR;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TOKEN_STYLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TOKEN_STYLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
@@ -22,7 +22,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
