@@ -1593,6 +1593,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEEnum(annotationTypeEEnum, AnnotationType.class, "AnnotationType");
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.OVERRIDE);
 		addEEnumLiteral(annotationTypeEEnum, AnnotationType.SUPPRESS_WARNINGS);
+		addEEnumLiteral(annotationTypeEEnum, AnnotationType.FOLDABLE);
 
 		// Create resource
 		createResource(eNS_URI);

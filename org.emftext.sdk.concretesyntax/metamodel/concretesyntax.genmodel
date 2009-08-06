@@ -64,6 +64,7 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="concretesyntax.ecore#//AnnotationType">
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/OVERRIDE"/>
       <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/SUPPRESS_WARNINGS"/>
+      <genEnumLiterals ecoreEnumLiteral="concretesyntax.ecore#//AnnotationType/FOLDABLE"/>
     </genEnums>
     <genClasses image="false" ecoreClass="concretesyntax.ecore#//GenPackageDependentElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference concretesyntax.ecore#//GenPackageDependentElement/package"/>

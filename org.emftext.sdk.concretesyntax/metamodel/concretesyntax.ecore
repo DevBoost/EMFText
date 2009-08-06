@@ -211,6 +211,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="AnnotationType">
     <eLiterals name="OVERRIDE" literal="Override"/>
     <eLiterals name="SUPPRESS_WARNINGS" value="1" literal="SuppressWarnings"/>
+    <eLiterals name="FOLDABLE" value="2" literal="Foldable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KeyValuePair">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

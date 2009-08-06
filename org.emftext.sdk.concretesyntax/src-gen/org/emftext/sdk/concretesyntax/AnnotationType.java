@@ -40,7 +40,15 @@ public enum AnnotationType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SUPPRESS_WARNINGS(1, "SUPPRESS_WARNINGS", "SuppressWarnings");
+	SUPPRESS_WARNINGS(1, "SUPPRESS_WARNINGS", "SuppressWarnings"), /**
+	 * The '<em><b>FOLDABLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FOLDABLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FOLDABLE(2, "FOLDABLE", "Foldable");
 
 	/**
 	 * The '<em><b>OVERRIDE</b></em>' literal value.
@@ -73,6 +81,21 @@ public enum AnnotationType implements Enumerator {
 	public static final int SUPPRESS_WARNINGS_VALUE = 1;
 
 	/**
+	 * The '<em><b>FOLDABLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>FOLDABLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FOLDABLE
+	 * @model literal="Foldable"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FOLDABLE_VALUE = 2;
+
+	/**
 	 * An array of all the '<em><b>Annotation Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,6 +105,7 @@ public enum AnnotationType implements Enumerator {
 		new AnnotationType[] {
 			OVERRIDE,
 			SUPPRESS_WARNINGS,
+			FOLDABLE,
 		};
 
 	/**
@@ -134,6 +158,7 @@ public enum AnnotationType implements Enumerator {
 		switch (value) {
 			case OVERRIDE_VALUE: return OVERRIDE;
 			case SUPPRESS_WARNINGS_VALUE: return SUPPRESS_WARNINGS;
+			case FOLDABLE_VALUE: return FOLDABLE;
 		}
 		return null;
 	}
