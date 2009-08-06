@@ -11,12 +11,12 @@ OPTIONS {
 }
 
 TOKENS {
-	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$;
+	DEFINE COMMENTS $'//'(~('\\n'|'\\r'))*$;
 	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
 	DEFINE NUMBER $('0'..'9')+$;
 	DEFINE HEXNUMBER $'#'('0'..'9'|'A'..'F'|'a'..'f')+$;
-	DEFINE WHITESPACE $(' '|'\t'|'\f')$;
-	DEFINE LINEBREAK $('\r\n'|'\r'|'\n')$;
+	DEFINE WHITESPACE $(' '|'\\t'|'\\f')$;
+	DEFINE LINEBREAK $('\\r\\n'|'\\r'|'\\n')$;
 }
 
 TOKENSTYLES {
