@@ -155,8 +155,10 @@
     <genClasses ecoreClass="concretesyntax.ecore#//PlaceholderInQuotes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//PlaceholderInQuotes/prefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//PlaceholderInQuotes/suffix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//PlaceholderInQuotes/escapeCharacter"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedPrefix"/>
       <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedSuffix"/>
+      <genOperations ecoreOperation="concretesyntax.ecore#//PlaceholderInQuotes/getNormalizedEscapeCharacter"/>
     </genClasses>
     <genClasses ecoreClass="concretesyntax.ecore#//Option">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute concretesyntax.ecore#//Option/type"/>

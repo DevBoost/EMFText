@@ -25,6 +25,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.PlaceholderInQuotesImpl#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.PlaceholderInQuotesImpl#getSuffix <em>Suffix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.PlaceholderInQuotesImpl#getEscapeCharacter <em>Escape Character</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +71,26 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 	 * @ordered
 	 */
 	protected String suffix = SUFFIX_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEscapeCharacter() <em>Escape Character</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEscapeCharacter()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ESCAPE_CHARACTER_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEscapeCharacter() <em>Escape Character</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEscapeCharacter()
+	 * @generated
+	 * @ordered
+	 */
+	protected String escapeCharacter = ESCAPE_CHARACTER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -135,6 +156,27 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEscapeCharacter() {
+		return escapeCharacter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEscapeCharacter(String newEscapeCharacter) {
+		String oldEscapeCharacter = escapeCharacter;
+		escapeCharacter = newEscapeCharacter;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER, oldEscapeCharacter, escapeCharacter));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getNormalizedPrefix() {
@@ -159,6 +201,18 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getNormalizedEscapeCharacter() {
+		String escapeCharacter = getEscapeCharacter();
+		if (escapeCharacter == null) return escapeCharacter;
+		if (escapeCharacter.length() == 0) return null;
+		return escapeCharacter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -168,6 +222,8 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 				return getPrefix();
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				return getSuffix();
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER:
+				return getEscapeCharacter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -185,6 +241,9 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 				return;
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				setSuffix((String)newValue);
+				return;
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER:
+				setEscapeCharacter((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -204,6 +263,9 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				setSuffix(SUFFIX_EDEFAULT);
 				return;
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER:
+				setEscapeCharacter(ESCAPE_CHARACTER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -220,6 +282,8 @@ public class PlaceholderInQuotesImpl extends PlaceholderImpl implements Placehol
 				return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
 				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER:
+				return ESCAPE_CHARACTER_EDEFAULT == null ? escapeCharacter != null : !ESCAPE_CHARACTER_EDEFAULT.equals(escapeCharacter);
 		}
 		return super.eIsSet(featureID);
 	}

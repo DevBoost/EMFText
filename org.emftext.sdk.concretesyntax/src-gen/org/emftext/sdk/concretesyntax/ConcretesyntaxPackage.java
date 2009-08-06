@@ -1309,13 +1309,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int PLACEHOLDER_IN_QUOTES__SUFFIX = PLACEHOLDER_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Escape Character</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER = PLACEHOLDER_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Placeholder In Quotes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PLACEHOLDER_IN_QUOTES_FEATURE_COUNT = PLACEHOLDER_FEATURE_COUNT + 2;
+	int PLACEHOLDER_IN_QUOTES_FEATURE_COUNT = PLACEHOLDER_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.OptionImpl <em>Option</em>}' class.
@@ -2282,6 +2291,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getPlaceholderInQuotes_Suffix();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.PlaceholderInQuotes#getEscapeCharacter <em>Escape Character</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Escape Character</em>'.
+	 * @see org.emftext.sdk.concretesyntax.PlaceholderInQuotes#getEscapeCharacter()
+	 * @see #getPlaceholderInQuotes()
+	 * @generated
+	 */
+	EAttribute getPlaceholderInQuotes_EscapeCharacter();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.Option <em>Option</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3124,6 +3144,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PLACEHOLDER_IN_QUOTES__SUFFIX = eINSTANCE.getPlaceholderInQuotes_Suffix();
+
+		/**
+		 * The meta object literal for the '<em><b>Escape Character</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER = eINSTANCE.getPlaceholderInQuotes_EscapeCharacter();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.OptionImpl <em>Option</em>}' class.

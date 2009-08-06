@@ -1035,6 +1035,15 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPlaceholderInQuotes_EscapeCharacter() {
+		return (EAttribute)placeholderInQuotesEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOption() {
 		return optionEClass;
 	}
@@ -1326,6 +1335,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		placeholderInQuotesEClass = createEClass(PLACEHOLDER_IN_QUOTES);
 		createEAttribute(placeholderInQuotesEClass, PLACEHOLDER_IN_QUOTES__PREFIX);
 		createEAttribute(placeholderInQuotesEClass, PLACEHOLDER_IN_QUOTES__SUFFIX);
+		createEAttribute(placeholderInQuotesEClass, PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER);
 
 		optionEClass = createEClass(OPTION);
 		createEAttribute(optionEClass, OPTION__TYPE);
@@ -1509,10 +1519,13 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEClass(placeholderInQuotesEClass, PlaceholderInQuotes.class, "PlaceholderInQuotes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPlaceholderInQuotes_Prefix(), theEcorePackage.getEString(), "prefix", "", 1, 1, PlaceholderInQuotes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPlaceholderInQuotes_Suffix(), theEcorePackage.getEString(), "suffix", "", 1, 1, PlaceholderInQuotes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPlaceholderInQuotes_EscapeCharacter(), theEcorePackage.getEString(), "escapeCharacter", null, 0, 1, PlaceholderInQuotes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(placeholderInQuotesEClass, theEcorePackage.getEString(), "getNormalizedPrefix", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		addEOperation(placeholderInQuotesEClass, theEcorePackage.getEString(), "getNormalizedSuffix", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(placeholderInQuotesEClass, theEcorePackage.getEString(), "getNormalizedEscapeCharacter", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(optionEClass, Option.class, "Option", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOption_Type(), this.getOptionTypes(), "type", null, 1, 1, Option.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
