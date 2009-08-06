@@ -79,4 +79,12 @@ public interface ITextResourcePluginMetaInformation {
 	
 	// TODO add documentation
 	public Collection<IBracketPair> getBracketPairs();
+
+	/**
+	 * Returns all classes for which folding should be enabled
+	 * in the editor.
+	 */
+	public EClass[] getFoldableClasses();
+	
+	// TODO hoang-kim add IHoverTextProvider getHoverTextProvider()
 }

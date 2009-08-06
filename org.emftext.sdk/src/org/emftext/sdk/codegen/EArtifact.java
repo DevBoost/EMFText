@@ -1,5 +1,6 @@
 package org.emftext.sdk.codegen;
 
+import org.emftext.runtime.resource.IHoverTextProvider;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 
@@ -29,7 +30,8 @@ public enum EArtifact {
 	NEW_FILE_WIZARD("NewFileWizard"),
 	TOKEN_RESOLVER_FACTORY(ITokenResolverFactory.class.getSimpleName().substring(1)),
 	REFERENCE_RESOLVER_SWITCH("ReferenceResolverSwitch"),
-	META_INFORMATION(ITextResourcePluginMetaInformation.class.getSimpleName().substring("ITextResourcePlugin".length())),
+	META_INFORMATION(ITextResourcePluginMetaInformation.class.getSimpleName().substring("ITextResourcePlugin".length())), 
+	HOVER_TEXT_PROVIDER(IHoverTextProvider.class.getSimpleName().substring(1)),
 	;
 	
 	private String classNameSuffix;

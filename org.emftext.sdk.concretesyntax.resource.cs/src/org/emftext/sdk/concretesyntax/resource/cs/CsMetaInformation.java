@@ -1,5 +1,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.eclipse.emf.ecore.EClass;
+
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public class TokenStyleImpl extends org.emftext.runtime.resource.impl.AbstractTokenStyle {
@@ -203,6 +205,11 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		result.add(new BracketPair("(", ")"));
 		result.add(new BracketPair("<", ">"));
 		return result;
+	}
+
+	public EClass[] getFoldableClasses() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

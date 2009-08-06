@@ -502,7 +502,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_URI_MAPPING(45, "OVERRIDE_URI_MAPPING", "overrideURIMapping");
+	OVERRIDE_URI_MAPPING(45, "OVERRIDE_URI_MAPPING", "overrideURIMapping"), /**
+	 * The '<em><b>OVERRIDE HOVER TEXT PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HOVER_TEXT_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_HOVER_TEXT_PROVIDER(46, "OVERRIDE_HOVER_TEXT_PROVIDER", "overrideHoverTextProvider");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -1180,6 +1188,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_URI_MAPPING_VALUE = 45;
 
 	/**
+	 * The '<em><b>OVERRIDE HOVER TEXT PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE HOVER TEXT PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HOVER_TEXT_PROVIDER
+	 * @model literal="overrideHoverTextProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_HOVER_TEXT_PROVIDER_VALUE = 46;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1232,6 +1255,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_REFERENCE_RESOLVE_RESULT,
 			OVERRIDE_TOKEN_RESOLVE_RESULT,
 			OVERRIDE_URI_MAPPING,
+			OVERRIDE_HOVER_TEXT_PROVIDER,
 		};
 
 	/**
@@ -1327,6 +1351,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_REFERENCE_RESOLVE_RESULT_VALUE: return OVERRIDE_REFERENCE_RESOLVE_RESULT;
 			case OVERRIDE_TOKEN_RESOLVE_RESULT_VALUE: return OVERRIDE_TOKEN_RESOLVE_RESULT;
 			case OVERRIDE_URI_MAPPING_VALUE: return OVERRIDE_URI_MAPPING;
+			case OVERRIDE_HOVER_TEXT_PROVIDER_VALUE: return OVERRIDE_HOVER_TEXT_PROVIDER;
 		}
 		return null;
 	}

@@ -96,6 +96,9 @@ public class OptionManager {
 		if (option == OptionTypes.GENERATE_PRINTER_STUB_ONLY) {
 			return false;
 		}
+		if (option == OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER) {
+			return true;
+		}
 		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVERS) {
 			return false;
 		}

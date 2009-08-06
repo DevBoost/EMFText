@@ -7,7 +7,7 @@ OPTIONS {
 }
 
 TOKENS {
-	DEFINE COMMENT $'//'(~('\n'|'\r'))*$;
+	DEFINE COMMENT $'//'(~('\\n'|'\\r'))*$;
 }
 
 TOKENSTYLES {
@@ -20,6 +20,7 @@ RULES {
 	Class  ::= visibility[] "class" name[] "{" members* "}";
 		
 	Field  ::= visibility[] type[] name[] ";";
-		
+	
+	@Foldable	
 	Method ::= visibility[] "void" name[] "(" ")" "{" "}";	
 }

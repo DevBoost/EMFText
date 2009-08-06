@@ -22,6 +22,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.ecore.EClass;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -31,6 +32,8 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
 import org.emftext.sdk.codegen.util.Pair;
+import org.emftext.sdk.concretesyntax.Annotation;
+import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.CsString;
@@ -75,11 +78,34 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         addGetTokenNamesMethod(sc);
         addGetDefaultStyleMethod(sc);
         addGetBracketPairsMethod(sc);
+        addGetFoldableClassesMethod(sc);
+    	// TODO hoang-kim generate IHoverTextProvider getHoverTextProvider()
 
         sc.add("}");
     	
 		out.print(sc.toString());
     	return true;	
+	}
+
+	private void addGetFoldableClassesMethod(StringComposite sc) {
+		sc.add("public " + E_CLASS + "[] getFoldableClasses() {");
+		
+		List<GenClass> foldableClasses = new ArrayList<GenClass>();
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+		for (Rule rule : syntax.getAllRules()) {
+			for (Annotation annotation : rule.getAnnotations()) {
+				if (AnnotationType.FOLDABLE == annotation.getType()) {
+					// found rule for foldable class
+					foldableClasses.add(rule.getMetaclass());
+				}
+			}
+		}
+		sc.add("return new " + E_CLASS + "[] {");
+		for (GenClass foldableClass : foldableClasses) {
+			sc.add(genClassUtil.getAccessor(foldableClass) + ",");
+		}
+		sc.add("};");
+		sc.add("}");
 	}
 
 	private void addBracketPairClass(StringComposite sc) {
