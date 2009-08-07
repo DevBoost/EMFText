@@ -209,7 +209,11 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	public EMFTextEditor() {
 		super();
 		colorManager = new ColorManager();
-		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
+		// TODO hoang-kim what was the reason to add the next line?
+		// If the preference store from the UIPlugin is used, the editor can not
+		// find its default preferences and warnings and errors are not underlined
+		// as expected
+		//setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
         setDocumentProvider(new FileDocumentProvider());
 		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,colorManager));
 		initializeEditingDomain();
