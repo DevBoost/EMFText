@@ -25,7 +25,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATTERN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -91,14 +90,19 @@ public class TokenResolverGenerator extends BaseGenerator {
 		String prefix = getPrefix();
 		
 		if (suffix != null) {
-			String escapedSuffix = escapeChars(suffix);
-			sc.add("result = result.replaceAll(" + PATTERN + ".quote(\"\\\\\"), \"\\\\\\\\\\\\\\\\\");");
-			sc.add("result = result.replaceAll(" + PATTERN + ".quote(\""+escapedSuffix+"\"), \"\\\\\\\\"+escapeDollar(escapedSuffix)+"\");");
-			sc.add("result += \"" + escapedSuffix + "\";");
+			String javaSourceSuffix = escapeToJavaString(suffix);
+			// take care of the escape character (may be null)
+			String escapeCharacter = getEscapeCharacter();
+			if (escapeCharacter != null) {
+				String javaSourceEscapeCharacter = escapeToJavaString(escapeCharacter);
+				sc.add("result = result.replace(\"" + javaSourceEscapeCharacter + "\", \"" + javaSourceEscapeCharacter + javaSourceEscapeCharacter + "\");");
+				sc.add("result = result.replace(\"" + javaSourceSuffix + "\", \"" + javaSourceEscapeCharacter + javaSourceSuffix + "\");");
+			}
+			sc.add("result += \"" + javaSourceSuffix + "\";");
 		}	
 		
 		if (prefix != null) {
-			sc.add("result = \"" + escapeChars(prefix) + "\" + result;");
+			sc.add("result = \"" + escapeToJavaString(prefix) + "\" + result;");
 		}
 		sc.add("return result;");
 		sc.add("}");
@@ -118,25 +122,25 @@ public class TokenResolverGenerator extends BaseGenerator {
 		if (suffix != null) {
 			int count = suffix.length();
 			sc.add("lexem = lexem.substring(0, lexem.length() - " + count + ");");
-			String replacement = escapeChars(suffix);
-			sc.add("lexem = lexem.replaceAll(" + PATTERN + ".quote(\"\\\\" + replacement + "\"), \"" + escapeDollar(replacement) + "\");");
-			sc.add("lexem = lexem.replace(\"\\\\\\\\\", \"\\\\\");");
+			String javaSourceSuffix = escapeToJavaString(suffix);
+			// take care of the escape character (may be null)
+			String escapeCharacter = getEscapeCharacter();
+			if (escapeCharacter != null) {
+				String javaSourceEscapeCharacter = escapeToJavaString(escapeCharacter);
+				sc.add("lexem = lexem.replace(\"" + javaSourceEscapeCharacter + javaSourceSuffix + "\", \"" + javaSourceSuffix + "\");");
+				sc.add("lexem = lexem.replace(\"" + javaSourceEscapeCharacter + javaSourceEscapeCharacter + "\", \"" + javaSourceEscapeCharacter + "\");");
+			}
 		}
 		sc.add("defaultTokenResolver.resolve(lexem, feature, result);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
-	private String escapeChars(String candidate) {
+	private String escapeToJavaString(String candidate) {
 		//for javac: replace one backslash by two and escape double quotes
 		return candidate.replaceAll("\\\\","\\\\\\\\").replaceAll("\"","\\\\\"");
 	}
 	
-	private String escapeDollar(String candidate) {
-		//for java regex: $ is meta char in java regex patterns and has semantics in replacement (back references)
-		return candidate.replaceAll(java.util.regex.Pattern.quote("$"),"\\\\\\\\\\$");
-	}
-
 	private String getPrefix() {
 		String prefix = null;
 		if (definition instanceof QuotedToken) {
@@ -149,6 +153,14 @@ public class TokenResolverGenerator extends BaseGenerator {
 		String suffix = null;
 		if (definition instanceof QuotedToken) {
 			suffix = ((QuotedToken) definition).getSuffix();
+		}
+		return suffix;
+	}
+
+	private String getEscapeCharacter() {
+		String suffix = null;
+		if (definition instanceof QuotedToken) {
+			suffix = ((QuotedToken) definition).getEscapeCharacter();
 		}
 		return suffix;
 	}

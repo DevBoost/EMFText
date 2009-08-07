@@ -64,6 +64,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		BOOLEAN_OPTIONS.add(OptionTypes.OVERRIDE_TEXT_RESOURCE);
 		BOOLEAN_OPTIONS.add(OptionTypes.OVERRIDE_RESOURCE_FACTORY);
 		BOOLEAN_OPTIONS.add(OptionTypes.OVERRIDE_NEW_FILE_WIZARD);
+		BOOLEAN_OPTIONS.add(OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER);
 
 		STRING_OPTIONS = new ArrayList<OptionTypes>();
 		STRING_OPTIONS.add(OptionTypes.BASE_PACKAGE);

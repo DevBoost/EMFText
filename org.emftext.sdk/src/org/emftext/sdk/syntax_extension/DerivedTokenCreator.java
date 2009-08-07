@@ -87,8 +87,9 @@ public class DerivedTokenCreator extends AbstractPostProcessor {
 		String expression = tokenDerivator.deriveTokenExpression(placeholder);
 		newToken.setRegex(expression);
 		
-		newToken.setPrefix(placeholder.getPrefix());
-		newToken.setSuffix(placeholder.getSuffix());
+		newToken.setPrefix(placeholder.getNormalizedPrefix());
+		newToken.setSuffix(placeholder.getNormalizedSuffix());
+		newToken.setEscapeCharacter(placeholder.getNormalizedEscapeCharacter());
 		
 		syntax.getSyntheticTokens().add(newToken);
 		return newToken;

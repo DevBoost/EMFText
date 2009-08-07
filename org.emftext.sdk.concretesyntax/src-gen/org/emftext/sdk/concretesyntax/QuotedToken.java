@@ -17,6 +17,7 @@ package org.emftext.sdk.concretesyntax;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.QuotedToken#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.QuotedToken#getSuffix <em>Suffix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter <em>Escape Character</em>}</li>
  * </ul>
  * </p>
  *
@@ -78,5 +79,31 @@ public interface QuotedToken extends TokenDefinition {
 	 * @generated
 	 */
 	void setSuffix(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Escape Character</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Escape Character</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Escape Character</em>' attribute.
+	 * @see #setEscapeCharacter(String)
+	 * @see org.emftext.sdk.concretesyntax.ConcretesyntaxPackage#getQuotedToken_EscapeCharacter()
+	 * @model
+	 * @generated
+	 */
+	String getEscapeCharacter();
+
+	/**
+	 * Sets the value of the '{@link org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter <em>Escape Character</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Escape Character</em>' attribute.
+	 * @see #getEscapeCharacter()
+	 * @generated
+	 */
+	void setEscapeCharacter(String value);
 
 } // QuotedToken

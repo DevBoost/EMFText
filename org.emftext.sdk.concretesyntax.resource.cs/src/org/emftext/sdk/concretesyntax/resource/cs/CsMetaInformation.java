@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.eclipse.emf.ecore.EClass;
-
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public class TokenStyleImpl extends org.emftext.runtime.resource.impl.AbstractTokenStyle {
@@ -174,13 +172,13 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		if ("RULES".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x80, 0x00, 0x40}, true, false, false, false);
 		}
-		if ("QUOTED_34_34".equals(tokenName)) {
+		if ("QUOTED_34_34_92".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
 		if ("QUOTED_60_62".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x00, 0x00, 0x00}, false, false, false, false);
 		}
-		if ("QUOTED_39_39".equals(tokenName)) {
+		if ("QUOTED_39_39_92".equals(tokenName)) {
 			return new TokenStyleImpl(new int[] {0x2A, 0x00, 0xFF}, false, false, false, false);
 		}
 		if (":".equals(tokenName)) {
@@ -206,10 +204,10 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		result.add(new BracketPair("<", ">"));
 		return result;
 	}
-
-	public EClass[] getFoldableClasses() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+	public org.eclipse.emf.ecore.EClass[] getFoldableClasses() {
+		return new org.eclipse.emf.ecore.EClass[] {
+			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(),
+		};
+	}
 }

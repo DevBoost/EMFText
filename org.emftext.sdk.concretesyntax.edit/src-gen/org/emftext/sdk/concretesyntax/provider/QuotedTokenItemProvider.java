@@ -61,6 +61,7 @@ public class QuotedTokenItemProvider
 
 			addPrefixPropertyDescriptor(object);
 			addSuffixPropertyDescriptor(object);
+			addEscapeCharacterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -110,6 +111,28 @@ public class QuotedTokenItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Escape Character feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEscapeCharacterPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_QuotedToken_escapeCharacter_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_QuotedToken_escapeCharacter_feature", "_UI_QuotedToken_type"),
+				 ConcretesyntaxPackage.Literals.QUOTED_TOKEN__ESCAPE_CHARACTER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns QuotedToken.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -149,6 +172,7 @@ public class QuotedTokenItemProvider
 		switch (notification.getFeatureID(QuotedToken.class)) {
 			case ConcretesyntaxPackage.QUOTED_TOKEN__PREFIX:
 			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
+			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

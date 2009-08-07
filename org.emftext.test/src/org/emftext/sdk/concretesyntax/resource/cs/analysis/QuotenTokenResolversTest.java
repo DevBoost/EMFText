@@ -32,7 +32,7 @@ public class QuotenTokenResolversTest extends TestCase {
 	
 	@Test
 	public void testResolvers() {
-		CsQUOTED_34_34TokenResolver doubleQuoteResolver = new CsQUOTED_34_34TokenResolver();
+		ITokenResolver doubleQuoteResolver = new CsQUOTED_34_34_92TokenResolver();
 		
 		for (Pair<String,String> pair : testData) {
 			assertResolveTo(doubleQuoteResolver, pair.getLeft(), pair.getRight());
@@ -43,11 +43,16 @@ public class QuotenTokenResolversTest extends TestCase {
 	public void assertResolveTo(ITokenResolver resolver, String lexem, String expectedResult) {
 		ITokenResolveResult result = new CsTokenResolveResult();
 		resolver.resolve(lexem, null, result);
-		assertEquals(expectedResult, result.getResolvedToken());
+		Object actualResult = result.getResolvedToken();
+		System.out.println("RESOLVE EXP: [" + expectedResult + "]");
+		System.out.println("RESOLVE ACT: [" + actualResult + "]");
+		assertEquals(expectedResult, actualResult);
 	}
 
 	public void assertDeResolveTo(ITokenResolver resolver, String value, String expectedResult) {
-		String result = resolver.deResolve(value, null, null);
-		assertEquals(expectedResult, result);
+		String actualResult = resolver.deResolve(value, null, null);
+		System.out.println("DE-RESOLVE EXP: [" + expectedResult + "]");
+		System.out.println("DE-RESOLVE ACT: [" + actualResult + "]");
+		assertEquals(expectedResult, actualResult);
 	}
 }

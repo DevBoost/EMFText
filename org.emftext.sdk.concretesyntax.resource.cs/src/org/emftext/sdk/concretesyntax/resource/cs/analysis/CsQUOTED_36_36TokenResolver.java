@@ -6,8 +6,6 @@ public class CsQUOTED_36_36TokenResolver extends org.emftext.runtime.resource.im
 	
 	public java.lang.String deResolve(java.lang.Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
 		java.lang.String result = defaultTokenResolver.deResolve(value, feature, container);
-		result = result.replaceAll(java.util.regex.Pattern.quote("\\"), "\\\\\\\\");
-		result = result.replaceAll(java.util.regex.Pattern.quote("$"), "\\\\\\$");
 		result += "$";
 		result = "$" + result;
 		return result;
@@ -16,8 +14,6 @@ public class CsQUOTED_36_36TokenResolver extends org.emftext.runtime.resource.im
 	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.runtime.resource.ITokenResolveResult result) {
 		lexem = lexem.substring(1);
 		lexem = lexem.substring(0, lexem.length() - 1);
-		lexem = lexem.replaceAll(java.util.regex.Pattern.quote("\\$"), "\\$");
-		lexem = lexem.replace("\\\\", "\\");
 		defaultTokenResolver.resolve(lexem, feature, result);
 	}
 	

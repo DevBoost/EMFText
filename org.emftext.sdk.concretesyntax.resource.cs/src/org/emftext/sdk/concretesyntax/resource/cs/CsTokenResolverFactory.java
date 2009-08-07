@@ -13,8 +13,8 @@ public class CsTokenResolverFactory extends org.emftext.runtime.resource.impl.Ab
 		registerTokenResolver("NUMBER", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsNUMBERTokenResolver());
 		registerTokenResolver("HEXNUMBER", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsHEXNUMBERTokenResolver());
 		registerTokenResolver("QUOTED_60_62", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_60_62TokenResolver());
-		registerTokenResolver("QUOTED_34_34", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_34_34TokenResolver());
-		registerTokenResolver("QUOTED_39_39", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_39_39TokenResolver());
+		registerTokenResolver("QUOTED_34_34_92", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_34_34_92TokenResolver());
+		registerTokenResolver("QUOTED_39_39_92", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_39_39_92TokenResolver());
 		registerTokenResolver("QUOTED_36_36", new org.emftext.sdk.concretesyntax.resource.cs.analysis.CsQUOTED_36_36TokenResolver());
 	}
 	

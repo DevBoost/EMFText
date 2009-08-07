@@ -1033,13 +1033,22 @@ public interface ConcretesyntaxPackage extends EPackage {
 	int QUOTED_TOKEN__SUFFIX = TOKEN_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Escape Character</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUOTED_TOKEN__ESCAPE_CHARACTER = TOKEN_DEFINITION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Quoted Token</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_TOKEN_FEATURE_COUNT = TOKEN_DEFINITION_FEATURE_COUNT + 2;
+	int QUOTED_TOKEN_FEATURE_COUNT = TOKEN_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl <em>Token Priority Directive</em>}' class.
@@ -2176,6 +2185,17 @@ public interface ConcretesyntaxPackage extends EPackage {
 	EAttribute getQuotedToken_Suffix();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter <em>Escape Character</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Escape Character</em>'.
+	 * @see org.emftext.sdk.concretesyntax.QuotedToken#getEscapeCharacter()
+	 * @see #getQuotedToken()
+	 * @generated
+	 */
+	EAttribute getQuotedToken_EscapeCharacter();
+
+	/**
 	 * Returns the meta object for class '{@link org.emftext.sdk.concretesyntax.TokenPriorityDirective <em>Token Priority Directive</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3044,6 +3064,14 @@ public interface ConcretesyntaxPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute QUOTED_TOKEN__SUFFIX = eINSTANCE.getQuotedToken_Suffix();
+
+		/**
+		 * The meta object literal for the '<em><b>Escape Character</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUOTED_TOKEN__ESCAPE_CHARACTER = eINSTANCE.getQuotedToken_EscapeCharacter();
 
 		/**
 		 * The meta object literal for the '{@link org.emftext.sdk.concretesyntax.impl.TokenPriorityDirectiveImpl <em>Token Priority Directive</em>}' class.

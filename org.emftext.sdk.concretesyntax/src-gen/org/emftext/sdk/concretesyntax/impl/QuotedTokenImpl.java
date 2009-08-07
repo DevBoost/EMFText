@@ -24,6 +24,7 @@ import org.emftext.sdk.concretesyntax.QuotedToken;
  * <ul>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getSuffix <em>Suffix</em>}</li>
+ *   <li>{@link org.emftext.sdk.concretesyntax.impl.QuotedTokenImpl#getEscapeCharacter <em>Escape Character</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +70,26 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 	 * @ordered
 	 */
 	protected String suffix = SUFFIX_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEscapeCharacter() <em>Escape Character</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEscapeCharacter()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ESCAPE_CHARACTER_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEscapeCharacter() <em>Escape Character</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEscapeCharacter()
+	 * @generated
+	 * @ordered
+	 */
+	protected String escapeCharacter = ESCAPE_CHARACTER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,6 +157,27 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEscapeCharacter() {
+		return escapeCharacter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEscapeCharacter(String newEscapeCharacter) {
+		String oldEscapeCharacter = escapeCharacter;
+		escapeCharacter = newEscapeCharacter;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER, oldEscapeCharacter, escapeCharacter));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -143,6 +185,8 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 				return getPrefix();
 			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
 				return getSuffix();
+			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+				return getEscapeCharacter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -160,6 +204,9 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 				return;
 			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
 				setSuffix((String)newValue);
+				return;
+			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+				setEscapeCharacter((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -179,6 +226,9 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
 				setSuffix(SUFFIX_EDEFAULT);
 				return;
+			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+				setEscapeCharacter(ESCAPE_CHARACTER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -195,6 +245,8 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 				return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
 			case ConcretesyntaxPackage.QUOTED_TOKEN__SUFFIX:
 				return SUFFIX_EDEFAULT == null ? suffix != null : !SUFFIX_EDEFAULT.equals(suffix);
+			case ConcretesyntaxPackage.QUOTED_TOKEN__ESCAPE_CHARACTER:
+				return ESCAPE_CHARACTER_EDEFAULT == null ? escapeCharacter != null : !ESCAPE_CHARACTER_EDEFAULT.equals(escapeCharacter);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -213,6 +265,8 @@ public class QuotedTokenImpl extends TokenDefinitionImpl implements QuotedToken 
 		result.append(prefix);
 		result.append(", suffix: ");
 		result.append(suffix);
+		result.append(", escapeCharacter: ");
+		result.append(escapeCharacter);
 		result.append(')');
 		return result.toString();
 	}

@@ -61,6 +61,7 @@ public class PlaceholderInQuotesItemProvider
 
 			addPrefixPropertyDescriptor(object);
 			addSuffixPropertyDescriptor(object);
+			addEscapeCharacterPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -110,6 +111,28 @@ public class PlaceholderInQuotesItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Escape Character feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEscapeCharacterPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PlaceholderInQuotes_escapeCharacter_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PlaceholderInQuotes_escapeCharacter_feature", "_UI_PlaceholderInQuotes_type"),
+				 ConcretesyntaxPackage.Literals.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns PlaceholderInQuotes.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -145,6 +168,7 @@ public class PlaceholderInQuotesItemProvider
 		switch (notification.getFeatureID(PlaceholderInQuotes.class)) {
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX:
 			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX:
+			case ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

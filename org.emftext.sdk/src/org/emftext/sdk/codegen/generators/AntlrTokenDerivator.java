@@ -79,6 +79,7 @@ public class AntlrTokenDerivator {
 	public String deriveTokenExpression(PlaceholderInQuotes placeholder) {
 		String prefix = placeholder.getNormalizedPrefix();
 		String suffix = placeholder.getNormalizedSuffix();
+		String escapeCharacter = placeholder.getNormalizedEscapeCharacter();
 
 		boolean prefixIsSet = prefix != null && prefix.length() > 0;
 		boolean suffixIsSet = suffix != null && suffix.length() > 0;
@@ -86,20 +87,41 @@ public class AntlrTokenDerivator {
 		assert prefixIsSet;
 		assert suffixIsSet;
 
-		// this derived regular expression has the following meaning:
-		// start with prefix
-		//   arbitrary many characters except the suffix and the backslash OR
-		//   the suffix prepended by a backslash (escaped suffix) OR
-		//   two backslashes (escaped escape character
-		// end with suffix
-		String notSuffixNotBackslash = "~('" + escapeLiteralChars(suffix) + "'|'\\\\')";
+		String escapedSuffix = escapeLiteralChars(suffix);
+		String escapedPrefix = escapeLiteralChars(prefix);
+		
+		String derivedExpression = "('" + escapedPrefix + "')";
+		if (escapeCharacter != null) {
+			String escapedEscapeCharacter = escapeLiteralChars(escapeCharacter);
+			// this derived regular expression with escaping has the following meaning:
+			// start with prefix
+			//   arbitrary many characters except the suffix and the escape character OR
+			//   the suffix prepended by the escape character (escaped suffix) OR
+			//   two escape characters (escaped escape character)
+			// end with suffix
 
-		String backslashSuffix = "('\\\\''" + escapeLiteralChars(suffix) + "')";
-		String backslashBackslash = "('\\\\''\\\\')";
+			String notSuffixNotEscapeCharacter = 
+				"~('" + escapedSuffix + "'|'" + escapedEscapeCharacter + "')";
 
-		String derivedExpression = "('" + escapeLiteralChars(prefix) + "')";
-		derivedExpression += "(" + backslashSuffix + "|" + backslashBackslash + "|" + notSuffixNotBackslash + ")*";
-		derivedExpression += "('" + escapeLiteralChars(suffix) + "')";
+			String escapeCharacterAndSuffix = 
+				"('" + escapedEscapeCharacter + "''" + escapedSuffix + "')";
+			
+			String escapeCharacterTwice = 
+				"('" + escapedEscapeCharacter + "''" + escapedEscapeCharacter + "')";
+
+			derivedExpression += "(" + escapeCharacterAndSuffix + "|" + escapeCharacterTwice + "|" + notSuffixNotEscapeCharacter + ")*";
+		} else {
+			// this derived regular expression without escaping has the following meaning:
+			// start with prefix
+			//   arbitrary many characters except the suffix
+			// end with suffix
+
+			String notSuffix = 
+				"~('" + escapedSuffix + "')";
+
+			derivedExpression += "(" + notSuffix + ")*";
+		}
+		derivedExpression += "('" + escapedSuffix + "')";
 
 		return derivedExpression;
 	}
@@ -107,6 +129,7 @@ public class AntlrTokenDerivator {
     public String deriveTokenName(PlaceholderInQuotes placeholder) {
 		String prefix = placeholder.getNormalizedPrefix();
 		String suffix = placeholder.getNormalizedSuffix();
+		String escapeCharacter = placeholder.getNormalizedEscapeCharacter();
 
     	boolean suffixIsSet = suffix!=null && suffix.length() > 0;
 		boolean prefixIsSet = prefix!=null && prefix.length() > 0;
@@ -114,7 +137,11 @@ public class AntlrTokenDerivator {
 		assert prefixIsSet;
 		assert suffixIsSet;
 
- 		return DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(prefix) + "_" + deriveCodeSequence(suffix);
+ 		String name = DERIVED_TOKEN_NAME + "_" + deriveCodeSequence(prefix) + "_" + deriveCodeSequence(suffix);
+ 		if (escapeCharacter != null) {
+ 			name += "_" + deriveCodeSequence(escapeCharacter);
+ 		}
+		return name;
 	}
 
     private String deriveCodeSequence(String original) {

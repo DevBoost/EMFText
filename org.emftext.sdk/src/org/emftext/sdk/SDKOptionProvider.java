@@ -40,6 +40,7 @@ import org.emftext.sdk.syntax_analysis.ModifierAnalyser;
 import org.emftext.sdk.syntax_analysis.OppositeReferenceAnalyser;
 import org.emftext.sdk.syntax_analysis.OptionalKeywordAnalyser;
 import org.emftext.sdk.syntax_analysis.OptionsAnalyser;
+import org.emftext.sdk.syntax_analysis.QuotenTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.ReferencesAnalyser;
 import org.emftext.sdk.syntax_analysis.RegularExpressionAnalyser;
 import org.emftext.sdk.syntax_analysis.StartSymbolAnalyser;
@@ -99,6 +100,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		postProcessors.add(new OppositeReferenceAnalyser());
 		postProcessors.add(new UnusedResolverAnalyser());
 		postProcessors.add(new TokenStyleAnalyser());
+		postProcessors.add(new QuotenTokenAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		
