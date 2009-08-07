@@ -28,6 +28,7 @@ import java.util.List;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -77,7 +78,11 @@ public class GenerateTextResourceTask extends Task {
 		try {
 			log("loading syntax file...");
 			ITextResource csResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
-			ConcreteSyntax syntax = (ConcreteSyntax) csResource.getContents().get(0);
+			EList<EObject> contents = csResource.getContents();
+			if (contents.size() < 1) {
+				throw new BuildException("Generation failed, because the syntax file could not be loaded. Probably it contains syntactical errors.");
+			}
+			ConcreteSyntax syntax = (ConcreteSyntax) contents.get(0);
 			performPreprocessing(syntax);
 			
 			Result result = new AntResourcePluginGenerator().run(
