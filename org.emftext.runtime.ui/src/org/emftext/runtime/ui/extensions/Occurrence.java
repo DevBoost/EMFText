@@ -134,6 +134,9 @@ public class Occurrence {
 		ILocationMap locationMap = textResource.getLocationMap();
 		List<EObject> elementsAtOffset = locationMap.getElementsAt(caretOffset);
 
+		if (elementsAtOffset.size() < 1) {
+			return;
+		}
 		EObject firstElementAtOffset = elementsAtOffset.get(0);
 		EObject resolvedEO = tryToResolve(elementsAtOffset);
 		if (resolvedEO != null) {

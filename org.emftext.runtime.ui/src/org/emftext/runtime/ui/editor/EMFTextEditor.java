@@ -479,33 +479,37 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	 * @param element has to be contained in the ITextResource of this editor.
 	 */
 	public void setCaret(EObject element, String text) {
-		if (element == null|| text == null || text.equals("")) {
-			return;
-		}
-		ISourceViewer viewer= getSourceViewer();
-		ILocationMap locationMap = ((ITextResource) element.eResource()).getLocationMap();
-		int destination = locationMap.getCharStart(element);
-		int length = locationMap.getCharEnd(element) + 1 -destination;
-		
-		ITextScanner lexer = resource.getMetaInformation().createLexer();
 		try {
-			lexer.setText(viewer.getDocument().get(destination, length));
-			ITextToken token = lexer.getNextToken();
-			String tokenText = token.getText();
-			while (tokenText != null) {
-				if (token.getText().equals(text)) {
-					destination += token.getOffset();
-					break;
-				}
-				token=lexer.getNextToken();
-				tokenText = token.getText();
+			if (element == null|| text == null || text.equals("")) {
+				return;
 			}
-		} catch (BadLocationException e) {
+			ISourceViewer viewer= getSourceViewer();
+			ILocationMap locationMap = ((ITextResource) element.eResource()).getLocationMap();
+			int destination = locationMap.getCharStart(element);
+			int length = locationMap.getCharEnd(element) + 1 -destination;
+			
+			ITextScanner lexer = resource.getMetaInformation().createLexer();
+			try {
+				lexer.setText(viewer.getDocument().get(destination, length));
+				ITextToken token = lexer.getNextToken();
+				String tokenText = token.getText();
+				while (tokenText != null) {
+					if (token.getText().equals(text)) {
+						destination += token.getOffset();
+						break;
+					}
+					token=lexer.getNextToken();
+					tokenText = token.getText();
+				}
+			} catch (BadLocationException e) {
+			}
+			destination = ((ProjectionViewer)viewer).modelOffset2WidgetOffset(destination);
+			if (destination < 0)
+				destination = 0;
+			viewer.getTextWidget().setSelection(destination);
+		} catch (Exception e) {
+			EMFTextRuntimePlugin.logError("Exception in setCaret()", e);
 		}
-		destination = ((ProjectionViewer)viewer).modelOffset2WidgetOffset(destination);
-		if (destination < 0)
-			destination = 0;
-		viewer.getTextWidget().setSelection(destination);
 	}
 
 	/*

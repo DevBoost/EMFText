@@ -37,6 +37,7 @@ import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.ui.PlatformUI;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
@@ -143,14 +144,17 @@ public class Highlighting {
 		textWidget.addCaretListener(new CaretListener() {
 
 			public void caretMoved(CaretEvent event) {
-				// TODO Maybe this line can be removed after activating
-				// the background parsing
-				if (!PlatformUI.getWorkbench().isStarting()) {
-					int offset = event.caretOffset;
-					if (offset >= 0 && offset <= textWidget.getCharCount()) {
-						removeHighlighting();
-						setHighlighting();
+				try {
+					//TODO Maybe this line can be removed after activating backgroundparsing
+					if (!PlatformUI.getWorkbench().isStarting()) {
+						int offset = event.caretOffset;
+						if (offset >= 0 && offset <= textWidget.getCharCount()) {
+							removeHighlighting();
+							setHighlighting();
+						}
 					}
+				} catch (Exception e) {
+					EMFTextRuntimePlugin.logError("Exception in caretMoved()", e);
 				}
 			}
 		});
