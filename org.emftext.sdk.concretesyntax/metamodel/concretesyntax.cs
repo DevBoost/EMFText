@@ -11,12 +11,12 @@ OPTIONS {
 }
 
 TOKENS {
-	DEFINE COMMENTS $'//'(~('\\n'|'\\r'))*$;
+	DEFINE COMMENTS $'//'(~('\n'|'\r'))*$;
 	DEFINE QUALIFIED_NAME $('A'..'Z'|'a'..'z'|'_')('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')*('.'('A'..'Z'|'a'..'z'|'_'|'-'|'0'..'9')+)*$;
 	DEFINE NUMBER $('0'..'9')+$;
 	DEFINE HEXNUMBER $'#'('0'..'9'|'A'..'F'|'a'..'f')+$;
-	DEFINE WHITESPACE $(' '|'\\t'|'\\f')$;
-	DEFINE LINEBREAK $('\\r\\n'|'\\r'|'\\n')$;
+	DEFINE WHITESPACE $(' '|'\t'|'\f')$;
+	DEFINE LINEBREAK $('\r\n'|'\r'|'\n')$;
 }
 
 TOKENSTYLES {
@@ -39,63 +39,62 @@ TOKENSTYLES {
 	"TOKENSTYLES" COLOR #800040, BOLD;
 	"RULES" COLOR #800040, BOLD;
 	
-	"QUOTED_34_34" COLOR #2A00FF;
+	"QUOTED_34_34_92" COLOR #2A00FF;
 	"QUOTED_60_62" COLOR #000000;
-	"QUOTED_39_39" COLOR #2A00FF;
+	"QUOTED_39_39_92" COLOR #2A00FF;
 }
 
 RULES {
 
-  ConcreteSyntax ::= 
-    (annotations !0)* 
-    modifier? #1
-    "SYNTAXDEF" #1 name[] !0 
-    "FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 
-    ("START" #1 (startSymbols[]) ("," (startSymbols[]))*)? 
-    (!0 !0 "IMPORTS" "{" ( !1 imports)* !0 "}")? 
-    (!0 !0 "OPTIONS" "{" (!1 options ";" )*  !0 "}")? 
-    (!0 !0 "TOKENS" "{" ( !1 tokens ";")* !0 "}")? 
-    (!0 !0 "TOKENSTYLES" "{" ( !1 tokenStyles)* !0 "}")? 
-    !0 !0 "RULES" "{" ( !1 rules*) !0"}"
-    ;
+	ConcreteSyntax ::= 
+		(annotations !0)* 
+		modifier? #1
+		"SYNTAXDEF" #1 name[] !0 
+		"FOR" #1 package['<','>'] (#1 packageLocationHint['<','>'])? !0 
+		("START" #1 (startSymbols[]) ("," (startSymbols[]))*)? 
+		(!0 !0 "IMPORTS" "{" ( !1 imports)* !0 "}")? 
+		(!0 !0 "OPTIONS" "{" (!1 options ";" )*  !0 "}")? 
+		(!0 !0 "TOKENS" "{" ( !1 tokens ";")* !0 "}")? 
+		(!0 !0 "TOKENSTYLES" "{" ( !1 tokenStyles)* !0 "}")? 
+		!0 !0 "RULES" "{" ( !1 rules*) !0"}"
+		;
 
-  Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
+	Import         ::= prefix[] ":" package['<','>'] (#1 packageLocationHint['<','>'])? ( #1 "WITH" #1 "SYNTAX" #1 concreteSyntax[] (#1 csLocationHint['<','>'])?)?;
  
-  //Note: There are additional OCL expressions in the model which check whether an option is allowed
-  
-  Option 		 ::= type[] "=" value['"','"'];
+	Option 	       ::= type[] "=" value['"','"','\\'];
  
-  Rule           ::= (!0 annotations)* !0 metaclass[] "::=" definition ";" !0;
+	@Foldable
+	Rule           ::= (!0 annotations)* !0 metaclass[] "::=" definition ";" !0;
  
-  Sequence       ::= parts+;
+	Sequence       ::= parts+;
  
-  Choice         ::= options ("|" options)* #1;	
+	Choice         ::= options ("|" options)* #1;	
 
-  CsString       ::= #1 value['"','"'] #1 ;
-  
-  PlaceholderUsingSpecifiedToken ::= feature[] "[" token[] "]" cardinality?;
-  PlaceholderUsingDefaultToken ::= feature[] "[" "]" cardinality?;
-  PlaceholderInQuotes ::= feature[] "[" prefix['\'','\''] "," suffix['\'','\''] "]" #1 cardinality?;
-  
-  Containment        ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
-  
-  CompoundDefinition ::= "(" definitions ")" cardinality?;
+	CsString       ::= #1 value['"','"','\\'] #1 ;
+	
+	PlaceholderUsingSpecifiedToken ::= feature[] "[" token[] "]" cardinality?;
+	PlaceholderUsingDefaultToken   ::= feature[] "[" "]" cardinality?;
+	PlaceholderInQuotes            ::= feature[] "[" prefix['\'','\'','\\'] "," suffix['\'','\'','\\'] ("," escapeCharacter['\'','\'','\\'])? "]" #1 cardinality?;
+	
+	Containment        ::=  feature[] (":" types[] ("," types[])*)? cardinality? #1 ;
+	
+	CompoundDefinition ::= "(" definitions ")" cardinality?;
 
-  WhiteSpaces  ::= amount[HEXNUMBER] #1;
-  LineBreak    ::= "!" tab[NUMBER] #1;
-  
-  NormalToken     ::= (annotations !0)* "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
-  TokenPriorityDirective ::= "PRIORITIZE" #1 token[];
+	WhiteSpaces  ::= amount[HEXNUMBER] #1;
+	LineBreak    ::= "!" tab[NUMBER] #1;
+	
+	NormalToken            ::= (annotations !0)* "DEFINE" #1 name[] regex['$','$'] ("COLLECT" "IN" attributeName[])?;
+	TokenPriorityDirective ::= "PRIORITIZE" #1 token[];
 
-  PLUS         ::= "+";
-  STAR         ::= "*";   
-  QUESTIONMARK ::= "?";
-  
-  Abstract ::= "ABSTRACT";
-  
-  TokenStyle ::= tokenName['"','"'] #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
-  
-  Annotation ::= "@" type[] ("(" parameters ("," parameters)* ")")?;
-  
-  KeyValuePair ::= key[] ("=" value['"','"'])?;
+	PLUS         ::= "+";
+	STAR         ::= "*";   
+	QUESTIONMARK ::= "?";
+	
+	Abstract ::= "ABSTRACT";
+	
+	TokenStyle ::= tokenName['"','"','\\'] #1 "COLOR" #1 rgb[HEXNUMBER] ("," #1 fontStyles[])* ";";
+	
+	Annotation ::= "@" type[] ("(" parameters ("," parameters)* ")")?;
+	
+	KeyValuePair ::= key[] ("=" value['"','"','\\'])?;
 }
