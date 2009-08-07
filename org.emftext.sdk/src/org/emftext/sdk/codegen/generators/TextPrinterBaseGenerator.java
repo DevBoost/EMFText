@@ -529,7 +529,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 				} else if (definition instanceof CsString) {
 					CsString terminal = (CsString) definition;
 					sc.add(printPrefix + "\""
-							+ terminal.getValue().replaceAll("\"", "\\\\\"")
+							+ StringUtil.escapeToJavaString(terminal.getValue())
 							+ "\");");
 
 					// the given tokenSpace (>0) causes an additional

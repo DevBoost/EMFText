@@ -203,4 +203,27 @@ public class StringUtil {
 		}
 		return sb.toString();
 	}
+
+	/**
+	 * Escapes the given text such that it can be safely embedded in a string
+	 * literal in Java source code.
+	 * 
+	 * @param text the text to escape
+	 * @return the escaped text
+	 */
+	public static String escapeToJavaString(String text) {
+		//for javac: replace one backslash by two and escape double quotes
+		return text.replaceAll("\\\\","\\\\\\\\").replaceAll("\"","\\\\\"");
+	}
+
+	/**
+	 * Escapes the given text such that it can be safely embedded in an
+	 * ANTLR grammar.
+	 * 
+	 * @param text the text to escape
+	 * @return the escaped text
+	 */
+	public static String escapeToANTLRString(String value) {
+		return value.replaceAll("\\\\","\\\\\\\\").replaceAll("'", "\\\\'").replaceAll("\"", "\\\\\"");
+	}
 }

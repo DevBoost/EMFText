@@ -29,6 +29,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
 
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -90,11 +91,11 @@ public class TokenResolverGenerator extends BaseGenerator {
 		String prefix = getPrefix();
 		
 		if (suffix != null) {
-			String javaSourceSuffix = escapeToJavaString(suffix);
+			String javaSourceSuffix = StringUtil.escapeToJavaString(suffix);
 			// take care of the escape character (may be null)
 			String escapeCharacter = getEscapeCharacter();
 			if (escapeCharacter != null) {
-				String javaSourceEscapeCharacter = escapeToJavaString(escapeCharacter);
+				String javaSourceEscapeCharacter = StringUtil.escapeToJavaString(escapeCharacter);
 				sc.add("result = result.replace(\"" + javaSourceEscapeCharacter + "\", \"" + javaSourceEscapeCharacter + javaSourceEscapeCharacter + "\");");
 				sc.add("result = result.replace(\"" + javaSourceSuffix + "\", \"" + javaSourceEscapeCharacter + javaSourceSuffix + "\");");
 			}
@@ -102,7 +103,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		}	
 		
 		if (prefix != null) {
-			sc.add("result = \"" + escapeToJavaString(prefix) + "\" + result;");
+			sc.add("result = \"" + StringUtil.escapeToJavaString(prefix) + "\" + result;");
 		}
 		sc.add("return result;");
 		sc.add("}");
@@ -122,11 +123,11 @@ public class TokenResolverGenerator extends BaseGenerator {
 		if (suffix != null) {
 			int count = suffix.length();
 			sc.add("lexem = lexem.substring(0, lexem.length() - " + count + ");");
-			String javaSourceSuffix = escapeToJavaString(suffix);
+			String javaSourceSuffix = StringUtil.escapeToJavaString(suffix);
 			// take care of the escape character (may be null)
 			String escapeCharacter = getEscapeCharacter();
 			if (escapeCharacter != null) {
-				String javaSourceEscapeCharacter = escapeToJavaString(escapeCharacter);
+				String javaSourceEscapeCharacter = StringUtil.escapeToJavaString(escapeCharacter);
 				sc.add("lexem = lexem.replace(\"" + javaSourceEscapeCharacter + javaSourceSuffix + "\", \"" + javaSourceSuffix + "\");");
 				sc.add("lexem = lexem.replace(\"" + javaSourceEscapeCharacter + javaSourceEscapeCharacter + "\", \"" + javaSourceEscapeCharacter + "\");");
 			}
@@ -134,11 +135,6 @@ public class TokenResolverGenerator extends BaseGenerator {
 		sc.add("defaultTokenResolver.resolve(lexem, feature, result);");
 		sc.add("}");
 		sc.addLineBreak();
-	}
-	
-	private String escapeToJavaString(String candidate) {
-		//for javac: replace one backslash by two and escape double quotes
-		return candidate.replaceAll("\\\\","\\\\\\\\").replaceAll("\"","\\\\\"");
 	}
 	
 	private String getPrefix() {

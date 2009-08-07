@@ -84,6 +84,7 @@ import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedCsString;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature;
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -1015,8 +1016,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     
     private int printCsString(CsString csString, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced){
     	final String identifier = "a" + count;
-    	String escapedCsString = csString.getValue().replaceAll("'", "\\\\'");
-    	escapedCsString = escapedCsString.replaceAll("\"", "\\\\\"");
+    	String escapedCsString = StringUtil.escapeToANTLRString(csString.getValue());
 		sc.add(identifier + " = '" + escapedCsString + "' {");
 		// we must use the unicode representation for the % character, because
 		// StringTemplate does treat % special
