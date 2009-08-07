@@ -342,8 +342,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addAddProblemMethod2(StringComposite sc) {
-		sc.add("public void addProblem(" + I_PROBLEM + " problem, int column, int line, int charStart,");
-    	sc.add("int charEnd) {");
+		sc.add("public void addProblem(" + I_PROBLEM + " problem, int column, int line, int charStart, int charEnd) {");
     	sc.add("getDiagnostics(problem.getType()).add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd));");
     	sc.add("}");
     	sc.addLineBreak();
