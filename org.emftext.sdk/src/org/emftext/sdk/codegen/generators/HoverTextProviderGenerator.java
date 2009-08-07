@@ -2,7 +2,6 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
-import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.impl.AbstractHoverTextProvider;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
