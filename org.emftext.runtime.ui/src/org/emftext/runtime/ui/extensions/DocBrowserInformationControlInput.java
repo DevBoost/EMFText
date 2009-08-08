@@ -22,11 +22,7 @@ package org.emftext.runtime.ui.extensions;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.internal.text.html.BrowserInformationControlInput;
 
-//TODO hoang-kim can we remove the warning by copying the code from BrowserInformationControlInput?
-//I can't some how. The warning is from BrowserInformationControlInput and it is needed by BrowserInformationControl in 
-//TextHover, inner class OpenDeclarationAction
 /**
  * Provides input for the <code>TextHover</code>. The most is copied from
  * 
@@ -35,9 +31,10 @@ import org.eclipse.jface.internal.text.html.BrowserInformationControlInput;
  * @author Tan-Ky Hoang-Kim
  * 
  */
-@SuppressWarnings("restriction")
-public class DocBrowserInformationControlInput extends
-		BrowserInformationControlInput {
+public class DocBrowserInformationControlInput {
+	
+	private final DocBrowserInformationControlInput fPrevious;
+	private DocBrowserInformationControlInput fNext;
 
 	private final EObject element;
 	private final String htmlContent;
@@ -59,12 +56,35 @@ public class DocBrowserInformationControlInput extends
 	public DocBrowserInformationControlInput(
 			DocBrowserInformationControlInput previous, EObject element,
 			Resource resource, String htmlContent, String tokenText) {
-		super(previous);
+		fPrevious= previous;
+		if (previous != null)
+			previous.fNext= this;
+		//super(previous);
 		assert htmlContent != null;
 		this.element = element;
 		this.htmlContent = htmlContent;
 		this.tokenText = tokenText;
 		this.resource = resource;
+	}
+	
+	/**
+	 * The previous input or <code>null</code> if this
+	 * is the first.
+	 *
+	 * @return the previous input or <code>null</code>
+	 */
+	public DocBrowserInformationControlInput getPrevious() {
+		return fPrevious;
+	}
+
+	/**
+	 * The next input or <code>null</code> if this
+	 * is the last.
+	 *
+	 * @return the next input or <code>null</code>
+	 */
+	public DocBrowserInformationControlInput getNext() {
+		return fNext;
 	}
 
 	/**
@@ -76,6 +96,10 @@ public class DocBrowserInformationControlInput extends
 
 	public String getHtml() {
 		return htmlContent;
+	}
+	
+	public String toString() {
+		return getHtml();
 	}
 
 	/**
@@ -93,5 +117,9 @@ public class DocBrowserInformationControlInput extends
 
 	public String getInputName() {
 		return element == null ? "" : element.toString(); //$NON-NLS-1$
+	}
+
+	public int getLeadingImageWidth() {
+		return 0;
 	}
 }

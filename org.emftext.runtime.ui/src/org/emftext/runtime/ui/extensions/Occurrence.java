@@ -134,7 +134,7 @@ public class Occurrence {
 		ILocationMap locationMap = textResource.getLocationMap();
 		List<EObject> elementsAtOffset = locationMap.getElementsAt(caretOffset);
 
-		if (elementsAtOffset.size() < 1) {
+		if (elementsAtOffset == null || elementsAtOffset.size() < 1) {
 			return;
 		}
 		EObject firstElementAtOffset = elementsAtOffset.get(0);
@@ -185,11 +185,6 @@ public class Occurrence {
 			definitionElement = elementsAtDefinition.get(0);
 		}
 		Resource resource = definitionElement.eResource();
-		/*TODO hoang-kim is this correct?
-		 * If it is an EClass with syntax, it should have a resource.
-		 * However, the first element in the list is not always an EClass with syntax.
-		 * Have to test with Java.
-		 */
 		if (resource == null) {
 			return;
 		}

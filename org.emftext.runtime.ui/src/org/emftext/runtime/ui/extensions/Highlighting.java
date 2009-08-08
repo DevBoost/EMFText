@@ -136,7 +136,7 @@ public class Highlighting {
 				preferenceStore,
 				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		black = colorManager.getColor(new RGB(0, 0, 0));
-
+		
 		addListeners();
 	}
 
@@ -155,6 +155,7 @@ public class Highlighting {
 					}
 				} catch (Exception e) {
 					EMFTextRuntimePlugin.logError("Exception in caretMoved()", e);
+					e.printStackTrace();
 				}
 			}
 		});

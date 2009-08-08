@@ -33,9 +33,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.internal.text.html.BrowserInformationControl;
-import org.eclipse.jface.internal.text.html.BrowserInformationControlInput;
-import org.eclipse.jface.internal.text.html.HTMLPrinter;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.AbstractReusableInformationControlCreator;
 import org.eclipse.jface.text.BadLocationException;
@@ -63,7 +60,6 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.osgi.framework.Bundle;
 
-//TODO hoang-kim can we remove the warnings?
 /**
  * A <code>TextHover</code> class to display the information of an element. The
  * most of the code is taken from
@@ -72,7 +68,6 @@ import org.osgi.framework.Bundle;
  * @author Tan-Ky Hoang-Kim
  * 
  */
-@SuppressWarnings("restriction")
 public class TextHover implements ITextHover, ITextHoverExtension,
 		ITextHoverExtension2 {
 
@@ -166,8 +161,8 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 						if (newInput == null) {
 							selectionProvider
 									.setSelection(new StructuredSelection());
-						} else if (newInput instanceof BrowserInformationControlInput) {
-							BrowserInformationControlInput input = (BrowserInformationControlInput) newInput;
+						} else if (newInput instanceof DocBrowserInformationControlInput) {
+							DocBrowserInformationControlInput input = (DocBrowserInformationControlInput) newInput;
 							Object inputElement = input.getInputElement();
 							selectionProvider
 									.setSelection(new StructuredSelection(
