@@ -428,15 +428,18 @@ options {
 					message ="rule " + fpe.ruleName + " failed predicate: {" + fpe.predicateText + "}?";
 				}
 				final java.lang.String finalMessage = message;
-				resource.addProblem(
-					new org.emftext.runtime.resource.impl.AbstractProblem() {
-												public org.emftext.runtime.resource.EProblemType getType() {
-							return org.emftext.runtime.resource.EProblemType.ERROR;
-						}
-												public java.lang.String getMessage() {
-							return finalMessage;
-						}
-					}, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
+				// the resource may be null if the parse is used for code completion
+				if (resource != null) {
+					resource.addProblem(
+						new org.emftext.runtime.resource.impl.AbstractProblem() {
+														public org.emftext.runtime.resource.EProblemType getType() {
+								return org.emftext.runtime.resource.EProblemType.ERROR;
+							}
+														public java.lang.String getMessage() {
+								return finalMessage;
+							}
+						}, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));
+					}
 				}
 				
 				public void setOptions(java.util.Map<?,?> options) {
@@ -479,9 +482,11 @@ options {
 							}
 						)
 						
-					)
+					) {
+					}
 					
-				)*				
+				)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a1_0 = parse_org_emftext_sdk_concretesyntax_Abstract						{
@@ -499,7 +504,8 @@ options {
 						}
 					)
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR ContainmentImpl");}
+				
 				a2 = 'SYNTAXDEF' {
 					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("SYNTAXDEF"), a2);
 					if (element == null) {
@@ -605,9 +611,11 @@ options {
 							}
 						)
 						
-					)
+					) {
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a7 = 'START' {
@@ -651,7 +659,8 @@ options {
 								}
 							)
 							
-						)
+						) {
+						}
 						
 						(
 							(
@@ -696,14 +705,21 @@ options {
 										}
 									)
 									
-								)
+								) {
+								}
 								
-							)
+							) {
+								addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), null);
+							}
 							
-						)*						
-					)
+						)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("START"), null);
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a11 = 'IMPORTS' {
@@ -742,9 +758,11 @@ options {
 									}
 								)
 								
-							)
+							) {
+							}
 							
-						)*						
+						)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
 						a14 = '}' {
 							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a14);
 							if (element == null) {
@@ -754,9 +772,11 @@ options {
 							copyLocalizationInfos((CommonToken)a14, element);
 						}
 						
-					)
+					) {
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a15 = 'OPTIONS' {
@@ -804,9 +824,11 @@ options {
 									copyLocalizationInfos((CommonToken)a18, element);
 								}
 								
-							)
+							) {
+							}
 							
-						)*						
+						)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
 						a19 = '}' {
 							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a19);
 							if (element == null) {
@@ -816,9 +838,11 @@ options {
 							copyLocalizationInfos((CommonToken)a19, element);
 						}
 						
-					)
+					) {
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a20 = 'TOKENS' {
@@ -866,9 +890,11 @@ options {
 									copyLocalizationInfos((CommonToken)a23, element);
 								}
 								
-							)
+							) {
+							}
 							
-						)*						
+						)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
 						a24 = '}' {
 							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a24);
 							if (element == null) {
@@ -878,9 +904,11 @@ options {
 							copyLocalizationInfos((CommonToken)a24, element);
 						}
 						
-					)
+					) {
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a25 = 'TOKENSTYLES' {
@@ -919,9 +947,11 @@ options {
 									}
 								)
 								
-							)
+							) {
+							}
 							
-						)*						
+						)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
 						a28 = '}' {
 							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a28);
 							if (element == null) {
@@ -931,9 +961,11 @@ options {
 							copyLocalizationInfos((CommonToken)a28, element);
 						}
 						
-					)
+					) {
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				a29 = 'RULES' {
 					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("RULES"), a29);
 					if (element == null) {
@@ -970,8 +1002,10 @@ options {
 							}
 						)
 						
-					)*					
-				)
+					)*{System.out.println("CARDINALITY FOR ContainmentImpl");}
+					
+				) {
+				}
 				
 				a32 = '}' {
 					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("}"), a32);
@@ -1084,9 +1118,11 @@ options {
 							}
 						)
 						
-					)
+					) {
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a4 = 'WITH' {
@@ -1167,12 +1203,16 @@ options {
 									}
 								)
 								
-							)
+							) {
+							}
 							
-						)?						
-					)
+						)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
+					) {
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_Option			 returns [org.emftext.sdk.concretesyntax.Option element = null]
@@ -1266,9 +1306,11 @@ options {
 							}
 						)
 						
-					)
+					) {
+					}
 					
-				)*				
+				)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					a1 = QUALIFIED_NAME					
 					{
@@ -1357,7 +1399,8 @@ options {
 						}
 					)
 					
-				)+				
+				)+{System.out.println("CARDINALITY FOR ContainmentImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_Choice			 returns [org.emftext.sdk.concretesyntax.Choice element = null]
@@ -1407,9 +1450,12 @@ options {
 							}
 						)
 						
-					)
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("|"), null);
+					}
 					
-				)*				
+				)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_CsString			 returns [org.emftext.sdk.concretesyntax.CsString element = null]
@@ -1546,7 +1592,8 @@ options {
 						}
 					)
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR ContainmentImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken			 returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null]
@@ -1619,7 +1666,8 @@ options {
 						}
 					)
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR ContainmentImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes			 returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null]
@@ -1767,9 +1815,12 @@ options {
 							}
 						)
 						
-					)
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), null);
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				a7 = ']' {
 					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("]"), a7);
 					if (element == null) {
@@ -1796,7 +1847,8 @@ options {
 						}
 					)
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR ContainmentImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_Containment			 returns [org.emftext.sdk.concretesyntax.Containment element = null]
@@ -1918,12 +1970,18 @@ options {
 									}
 								)
 								
-							)
+							) {
+								addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), null);
+							}
 							
-						)*						
-					)
+						)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(":"), null);
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				(
 					(
 						a5_0 = parse_org_emftext_sdk_concretesyntax_Cardinality						{
@@ -1941,7 +1999,8 @@ options {
 						}
 					)
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR ContainmentImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_CompoundDefinition			 returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null]
@@ -1999,7 +2058,8 @@ options {
 						}
 					)
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR ContainmentImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_WhiteSpaces			 returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
@@ -2099,9 +2159,11 @@ options {
 							}
 						)
 						
-					)
+					) {
+					}
 					
-				)*				
+				)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				a1 = 'DEFINE' {
 					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("DEFINE"), a1);
 					if (element == null) {
@@ -2212,9 +2274,12 @@ options {
 							}
 						)
 						
-					)
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("COLLECT"), null);
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective			 returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null]
@@ -2428,9 +2493,12 @@ options {
 							}
 						)
 						
-					)
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), null);
+					}
 					
-				)*				
+				)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 				a5 = ';' {
 					addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(";"), a5);
 					if (element == null) {
@@ -2536,9 +2604,12 @@ options {
 									}
 								)
 								
-							)
+							) {
+								addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(","), null);
+							}
 							
-						)*						
+						)*{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+						
 						a6 = ')' {
 							addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString(")"), a6);
 							if (element == null) {
@@ -2548,9 +2619,12 @@ options {
 							copyLocalizationInfos((CommonToken)a6, element);
 						}
 						
-					)
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("("), null);
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_KeyValuePair			 returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null]
@@ -2622,9 +2696,12 @@ options {
 							}
 						)
 						
-					)
+					) {
+						addExpectedElement(new org.emftext.runtime.resource.impl.code_completion.ExpectedCsString("="), null);
+					}
 					
-				)?				
+				)?{System.out.println("CARDINALITY FOR CompoundDefinitionImpl");}
+				
 			;
 			
 			parse_org_emftext_sdk_concretesyntax_TokenDirective			 returns [org.emftext.sdk.concretesyntax.TokenDirective element = null]

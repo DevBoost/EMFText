@@ -50,6 +50,7 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 			super();
 			this.opening = opening;
 			this.closing = closing;
+			this.closingEnabledInside = closingEnabledInside;
 		}
 		
 		public String getOpeningBracket() {
@@ -59,7 +60,7 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		public String getClosingBracket() {
 			return closing;
 		}
-
+		
 		public boolean isClosingEnabledInside() {
 			return closingEnabledInside;
 		}
@@ -206,7 +207,9 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		result.add(new BracketPair("{", "}", true));
 		result.add(new BracketPair("[", "]", true));
 		result.add(new BracketPair("(", ")", true));
-		result.add(new BracketPair("<", ">", true));
+		result.add(new BracketPair("<", ">", false));
+		result.add(new BracketPair("\"", "\"", false));
+		result.add(new BracketPair("'", "'", false));
 		return result;
 	}
 	

@@ -248,8 +248,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		getDiagnostics(problem.getType()).add(new ElementBasedTextDiagnostic(locationMap, getURI(), problem, element));
 	}
 	
-	public void addProblem(org.emftext.runtime.resource.IProblem problem, int column, int line, int charStart,
-	int charEnd) {
+	public void addProblem(org.emftext.runtime.resource.IProblem problem, int column, int line, int charStart, int charEnd) {
 		getDiagnostics(problem.getType()).add(new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd));
 	}
 	
