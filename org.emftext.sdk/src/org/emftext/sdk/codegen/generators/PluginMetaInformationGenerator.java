@@ -22,6 +22,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.emftext.runtime.resource.IHoverTextProvider;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
@@ -139,12 +140,18 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         addGetDefaultStyleMethod(sc);
         addGetBracketPairsMethod(sc);
         addGetFoldableClassesMethod(sc);
-    	// TODO hoang-kim generate IHoverTextProvider getHoverTextProvider()
-
+    	addGetHoverTextProviderMethod(sc);
         sc.add("}");
     	
 		out.print(sc.toString());
     	return true;	
+	}
+
+	private void addGetHoverTextProviderMethod(StringComposite sc) {
+		sc.add("public " + IHoverTextProvider.class.getName() + " getHoverTextProvider() {");
+		sc.add("return new "+context.getQualifiedClassName(EArtifact.HOVER_TEXT_PROVIDER)+"();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetFoldableClassesMethod(StringComposite sc) {
@@ -166,6 +173,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		}
 		sc.add("};");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addBracketPairClass(StringComposite sc) {

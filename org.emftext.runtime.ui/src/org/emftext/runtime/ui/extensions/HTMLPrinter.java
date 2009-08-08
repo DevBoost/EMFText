@@ -36,7 +36,7 @@ import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.FontData;
 
 /**
- * This class is copied from org.eclipse.jface.internal.text.html.
+ * This class is copied from org.eclipse.jface.internal.text.html.HTMLPrinter.
  * @author Tan-Ky Hoang-Kim
  *
  */

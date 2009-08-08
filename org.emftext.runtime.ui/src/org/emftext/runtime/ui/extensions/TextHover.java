@@ -27,8 +27,6 @@ import java.net.URL;
 import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
@@ -55,6 +53,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.editors.text.EditorsUI;
+import org.emftext.runtime.resource.IHoverTextProvider;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
@@ -73,9 +72,8 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 
 	private EMFTextEditor editor;
 	private static final String FONT = JFaceResources.DIALOG_FONT;
-	// TODO gather the collect-in features from the language specification
-	protected final static String COMMENTS = "comments";
-
+	private static IHoverTextProvider hoverTextProvider;
+	
 	/**
 	 * Creates a new TextHover to collect the information about the hovered
 	 * element.
@@ -86,6 +84,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	public TextHover(EMFTextEditor editor) {
 		super();
 		this.editor = editor;
+		hoverTextProvider = ((ITextResource) editor.getResource()).getMetaInformation().getHoverTextProvider();
 	}
 
 	/**
@@ -342,7 +341,6 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	private DocBrowserInformationControlInput getHoverInfo(
 			List<EObject> elements, ITextViewer textViewer,
 			DocBrowserInformationControlInput previousInput) {
-
 		StringBuffer buffer = new StringBuffer();
 		EObject proxyObject = getFirstProxy(elements);
 		EObject declarationObject = null;
@@ -360,11 +358,11 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			declarationObject = EcoreUtil.resolve(proxyObject, editor
 					.getResource());
 			if (declarationObject != null) {
-				HTMLPrinter.addParagraph(buffer, getInfoText(declarationObject));
+				HTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(declarationObject));
 			}
 		} else {
 			HTMLPrinter.addParagraph(buffer,
-					getInfoText(elements.get(0)));
+					hoverTextProvider.getHoverText(elements.get(0)));
 		}
 		if (buffer.length() > 0) {
 			HTMLPrinter.insertPageProlog(buffer, 0, TextHover.getStyleSheet());
@@ -374,43 +372,6 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 					tokenText);
 		}
 		return null;
-	}
-
-	/**
-	 * Gets all attributes of this given element.
-	 * @param member the element 
-	 * @return attributes of this element in a html document
-	 */
-	private static String getInfoText(EObject member) {
-		if (member == null) {
-			return null;
-		}
-		EClass eClass = member.eClass();
-		StringBuffer label = new StringBuffer("<strong>" + eClass.getName()
-				+ "</strong>");
-		for (EAttribute attribute : eClass.getEAllAttributes()) {
-			Object value = null;
-			try {
-				value = member.eGet(attribute);
-			} catch (Exception e) {
-				// Exception in eGet, do nothing
-				// e.printStackTrace();
-			}
-			if (value != null && value.toString() != null
-					&& !value.toString().equals("[]")) {
-				if (attribute.getName().equals(COMMENTS)) {
-					HTMLPrinter.addSmallHeader(label, COMMENTS + ":");
-					String comments = value.toString();
-					comments = comments.substring(1, comments.length() - 1);
-					HTMLPrinter.addParagraph(label, comments.replaceAll("\\n",
-							"<br />"));
-					continue;
-				}
-				label.append("<br />" + attribute.getName() + ": "
-						+ member.eGet(attribute).toString());
-			}
-		}
-		return label.toString();
 	}
 
 	/**

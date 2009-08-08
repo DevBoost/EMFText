@@ -1,5 +1,8 @@
 package org.emftext.runtime.resource;
 
+import org.eclipse.emf.ecore.EObject;
+
 public interface IHoverTextProvider {
-	// TODO hoang-kim add getHoverText(EObject object)
+	
+	public String getHoverText(EObject object);
 }

@@ -86,5 +86,8 @@ public interface ITextResourcePluginMetaInformation {
 	 */
 	public EClass[] getFoldableClasses();
 	
-	// TODO hoang-kim add IHoverTextProvider getHoverTextProvider()
+	/**
+	 * @return a hover text provider which provides the hover text of an <code>EObject</code>
+	 */
+	public IHoverTextProvider getHoverTextProvider();
 }

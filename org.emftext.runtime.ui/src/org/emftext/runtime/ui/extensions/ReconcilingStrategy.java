@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -98,9 +99,21 @@ public class ReconcilingStrategy implements IReconcilingStrategy,
 
 	protected void calculatePositions() {
 		ILocationMap locationMap = textResource.getLocationMap();
+		EClass[] eClasses = textResource.getMetaInformation().getFoldableClasses();
+		if (eClasses.length<1)
+			return;
 		for (TreeIterator<EObject> contentIterator = textResource
 				.getAllContents(); contentIterator.hasNext();) {
+			boolean isFoldable =false;
 			EObject nextObject = contentIterator.next();
+			for (EClass eClass : eClasses) {
+				if (nextObject.eClass().equals(eClass)){
+					isFoldable = true;
+					break;
+				}
+			}
+			if (!isFoldable)
+				continue;
 			int offset = locationMap.getCharStart(nextObject);
 			int length = locationMap.getCharEnd(nextObject) + 1 - offset;
 			try {

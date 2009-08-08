@@ -50,7 +50,6 @@ import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.ui.extensions.BracketSet;
 
-//TODO hoang-kim add documentation
 /**
  * The preference page for the bracket setting with following features:
  * <ul>
