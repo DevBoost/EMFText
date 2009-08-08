@@ -1,5 +1,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
+import org.emftext.runtime.resource.IHoverTextProvider;
+
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public class TokenStyleImpl extends org.emftext.runtime.resource.impl.AbstractTokenStyle {
@@ -217,5 +219,10 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		return new org.eclipse.emf.ecore.EClass[] {
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(),
 		};
+	}
+
+	public IHoverTextProvider getHoverTextProvider() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -99,15 +99,19 @@ public class ReconcilingStrategy implements IReconcilingStrategy,
 
 	protected void calculatePositions() {
 		ILocationMap locationMap = textResource.getLocationMap();
-		EClass[] eClasses = textResource.getMetaInformation().getFoldableClasses();
-		if (eClasses.length<1)
+		EClass[] foldableClasses = textResource.getMetaInformation().getFoldableClasses();
+		if (foldableClasses == null) {
 			return;
+		}
+		if (foldableClasses.length < 1) {
+			return;
+		}
 		for (TreeIterator<EObject> contentIterator = textResource
 				.getAllContents(); contentIterator.hasNext();) {
 			boolean isFoldable =false;
 			EObject nextObject = contentIterator.next();
-			for (EClass eClass : eClasses) {
-				if (nextObject.eClass().equals(eClass)){
+			for (EClass eClass : foldableClasses) {
+				if (nextObject.eClass().equals(eClass)) {
 					isFoldable = true;
 					break;
 				}
