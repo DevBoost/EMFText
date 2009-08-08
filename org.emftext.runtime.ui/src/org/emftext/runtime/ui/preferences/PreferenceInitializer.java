@@ -75,7 +75,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 			final Collection<IBracketPair> bracketPairs = extension.getBracketPairs();
 			if (bracketPairs != null) {
 				for (IBracketPair bracketPair : bracketPairs) {
-					bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket());
+					bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside());
 				}
 			}
 			store.setDefault(languageId + PreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSet.getBracketString());

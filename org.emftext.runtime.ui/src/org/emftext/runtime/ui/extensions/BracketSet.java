@@ -54,10 +54,12 @@ public class BracketSet {
 	 */
 	private class BracketPair implements IBracketPair {
 
-		private String[] brackets;
+		private final String[] brackets;
+		private final boolean closingEnabledInside;
 
-		public BracketPair(String opening, String closing) {
+		public BracketPair(String opening, String closing, boolean closingEnabledInside) {
 			brackets = new String[] { opening, closing };
+			this.closingEnabledInside = closingEnabledInside;
 		}
 
 		public String getClosingBracket() {
@@ -66,6 +68,10 @@ public class BracketSet {
 
 		public String getOpeningBracket() {
 			return brackets[0];
+		}
+
+		public boolean isClosingEnabledInside() {
+			return closingEnabledInside;
 		}
 	}
 
@@ -217,11 +223,11 @@ public class BracketSet {
 	 *            the closing bracket
 	 * @return <code>true</code> if successful
 	 */
-	public boolean addBracketPair(String opening, String closing) {
+	public boolean addBracketPair(String opening, String closing, boolean closingEnabledInside) {
 		if (isBracket(opening) || isBracket(closing)) {
 			return false;
 		}
-		bracketPairs.add(new BracketPair(opening, closing));
+		bracketPairs.add(new BracketPair(opening, closing, closingEnabledInside));
 		return true;
 	}
 
@@ -320,7 +326,7 @@ public class BracketSet {
 		bracketPairs = new ArrayList<IBracketPair>();
 		for (int i = 0; i < bracketSet.length() / 2; i++) {
 			addBracketPair("" + bracketSet.charAt(i * 2), ""
-					+ bracketSet.charAt(i * 2 + 1));
+					+ bracketSet.charAt(i * 2 + 1), true);
 		}
 		return true;
 	}

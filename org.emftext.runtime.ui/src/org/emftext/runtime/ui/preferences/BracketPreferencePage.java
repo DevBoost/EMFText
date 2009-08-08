@@ -309,7 +309,7 @@ public class BracketPreferencePage extends PreferencePage implements
 				if (bracketsTmp.isBracket(open)||bracketsTmp.isBracket(close)) {
 					setErrorMessage("One or both bracket parts are set!");
 				} else {
-					bracketsTmp.addBracketPair(open, close);
+					bracketsTmp.addBracketPair(open, close, true);
 					bracketsList.setItems(bracketsTmp.getBracketArray());
 					setErrorMessage(null);
 					bracketSetTemp.put(language, bracketsTmp.getBracketString());

@@ -44,8 +44,9 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		
 		private String opening;
 		private String closing;
+		private boolean closingEnabledInside;
 		
-		public BracketPair(String opening, String closing) {
+		public BracketPair(String opening, String closing, boolean closingEnabledInside) {
 			super();
 			this.opening = opening;
 			this.closing = closing;
@@ -57,6 +58,10 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		
 		public String getClosingBracket() {
 			return closing;
+		}
+
+		public boolean isClosingEnabledInside() {
+			return closingEnabledInside;
 		}
 	}
 	
@@ -198,10 +203,10 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 	
 	public java.util.Collection<org.emftext.runtime.resource.IBracketPair> getBracketPairs() {
 		java.util.Collection<org.emftext.runtime.resource.IBracketPair> result = new java.util.ArrayList<org.emftext.runtime.resource.IBracketPair>();
-		result.add(new BracketPair("{", "}"));
-		result.add(new BracketPair("[", "]"));
-		result.add(new BracketPair("(", ")"));
-		result.add(new BracketPair("<", ">"));
+		result.add(new BracketPair("{", "}", true));
+		result.add(new BracketPair("[", "]", true));
+		result.add(new BracketPair("(", ")", true));
+		result.add(new BracketPair("<", ">", true));
 		return result;
 	}
 	

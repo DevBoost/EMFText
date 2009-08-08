@@ -30,7 +30,6 @@ import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
-import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -45,6 +44,67 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
 // separate classes
 public class PluginMetaInformationGenerator extends BaseGenerator {
 
+	private static class BracketPair {
+		private final String openingBracket;
+		private final String closingBracket;
+		private final boolean closeInsideEnabled;
+		
+		public BracketPair(String openingBracket, String closingBracket,
+				boolean closeInsideEnabled) {
+			super();
+			this.openingBracket = openingBracket;
+			this.closingBracket = closingBracket;
+			this.closeInsideEnabled = closeInsideEnabled;
+		}
+		
+		public String getOpeningBracket() {
+			return openingBracket;
+		}
+
+		public String getClosingBracket() {
+			return closingBracket;
+		}
+
+		public boolean isCloseInsideEnabled() {
+			return closeInsideEnabled;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime
+					* result
+					+ ((closingBracket == null) ? 0 : closingBracket.hashCode());
+			result = prime
+					* result
+					+ ((openingBracket == null) ? 0 : openingBracket.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BracketPair other = (BracketPair) obj;
+			if (closingBracket == null) {
+				if (other.closingBracket != null)
+					return false;
+			} else if (!closingBracket.equals(other.closingBracket))
+				return false;
+			if (openingBracket == null) {
+				if (other.openingBracket != null)
+					return false;
+			} else if (!openingBracket.equals(other.openingBracket))
+				return false;
+			return true;
+		}
+	}
+	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	
@@ -112,11 +172,13 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.addLineBreak();
         sc.add("private String opening;");
         sc.add("private String closing;");
+        sc.add("private boolean closingEnabledInside;");
         sc.addLineBreak();
-        sc.add("public BracketPair(String opening, String closing) {");
+        sc.add("public BracketPair(String opening, String closing, boolean closingEnabledInside) {");
         sc.add("super();");
         sc.add("this.opening = opening;");
         sc.add("this.closing = closing;");
+        sc.add("this.closingEnabledInside = closingEnabledInside;");
         sc.add("}");
         sc.addLineBreak();
         sc.add("public String getOpeningBracket() {");
@@ -125,6 +187,10 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.addLineBreak();
         sc.add("public String getClosingBracket() {");
         sc.add("return closing;");
+        sc.add("}");
+        sc.addLineBreak();
+        sc.add("public boolean isClosingEnabledInside() {");
+        sc.add("return closingEnabledInside;");
         sc.add("}");
         sc.add("}");
         sc.addLineBreak();
@@ -283,22 +349,25 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 
 	private void addGetBracketPairsMethod(StringComposite sc) {
 		
-		Collection<Pair<String, String>> defaultPairs = new ArrayList<Pair<String, String>>();
-		defaultPairs.add(new Pair<String, String>("{", "}"));
-		defaultPairs.add(new Pair<String, String>("(", ")"));
-		defaultPairs.add(new Pair<String, String>("[", "]"));
-		defaultPairs.add(new Pair<String, String>("<", ">"));
+		Collection<BracketPair> defaultPairs = new ArrayList<BracketPair>();
+		defaultPairs.add(new BracketPair("{", "}", false));
+		defaultPairs.add(new BracketPair("(", ")", false));
+		defaultPairs.add(new BracketPair("[", "]", false));
+		defaultPairs.add(new BracketPair("<", ">", false));
+		defaultPairs.add(new BracketPair("\"", "\"", false));
+		defaultPairs.add(new BracketPair("'", "'", false));
 		
-		Collection<Pair<String, String>> foundPairs = new LinkedHashSet<Pair<String, String>>();
+		Collection<BracketPair> foundPairs = new LinkedHashSet<BracketPair>();
 		findBracketPairsInCsStrings(defaultPairs, foundPairs);
 		findBracketPairsInQuotedPlaceholders(defaultPairs, foundPairs);
 
 		sc.add("public " + COLLECTION + "<" + I_BRACKET_PAIR + "> getBracketPairs() {");
 		sc.add(COLLECTION + "<" + I_BRACKET_PAIR + "> result = new " + ARRAY_LIST + "<" + I_BRACKET_PAIR + ">();");
-		for (Pair<String, String> foundPair : foundPairs) {
-			final String left = foundPair.getLeft();
-			final String right = foundPair.getRight();
-			sc.add("result.add(new BracketPair(\"" + left + "\", \"" + right + "\"));");
+		for (BracketPair foundPair : foundPairs) {
+			final String left = foundPair.getOpeningBracket();
+			final String right = foundPair.getClosingBracket();
+			final boolean isClosingInsideEnabled = foundPair.isCloseInsideEnabled();
+			sc.add("result.add(new BracketPair(\"" + left + "\", \"" + right + "\", " + isClosingInsideEnabled + "));");
 		}
 		sc.add("return result;");
 		sc.add("}");
@@ -306,8 +375,8 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void findBracketPairsInCsStrings(
-			Collection<Pair<String, String>> defaultPairs,
-			Collection<Pair<String, String>> foundPairs) {
+			Collection<BracketPair> defaultPairs,
+			Collection<BracketPair> foundPairs) {
 		List<Rule> rules = context.getConcreteSyntax().getAllRules();
 		for (Rule rule : rules) {
 			Collection<CsString> csStrings = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
@@ -315,30 +384,30 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 			for (CsString csString : csStrings) {
 				csStringValues.add(csString.getValue());
 			}
-			for (Pair<String, String> defaultPair : defaultPairs) {
-				final String left = defaultPair.getLeft();
-				final String right = defaultPair.getRight();
+			for (BracketPair defaultPair : defaultPairs) {
+				final String left = defaultPair.getOpeningBracket();
+				final String right = defaultPair.getClosingBracket();
 				if (csStringValues.contains(left) && csStringValues.contains(right)) {
-					foundPairs.add(new Pair<String, String>(left, right));
+					foundPairs.add(new BracketPair(left, right, true));
 				}
 			}
 		}
 	}
 
 	private void findBracketPairsInQuotedPlaceholders(
-			Collection<Pair<String, String>> defaultPairs,
-			Collection<Pair<String, String>> foundPairs) {
+			Collection<BracketPair> defaultPairs,
+			Collection<BracketPair> foundPairs) {
 		List<Rule> rules = context.getConcreteSyntax().getAllRules();
 		for (Rule rule : rules) {
 			Collection<PlaceholderInQuotes> placeholdersInQuotes = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
 			for (PlaceholderInQuotes placeholder : placeholdersInQuotes) {
 				final String left = placeholder.getNormalizedPrefix();
 				final String right = placeholder.getNormalizedSuffix();
-				for (Pair<String, String> defaultPair : defaultPairs) {
-					String defaultLeft = defaultPair.getLeft();
-					String defaultRight = defaultPair.getRight();
+				for (BracketPair defaultPair : defaultPairs) {
+					String defaultLeft = defaultPair.getOpeningBracket();
+					String defaultRight = defaultPair.getClosingBracket();
 					if (defaultLeft.equals(left) && defaultRight.equals(right)) {
-						foundPairs.add(new Pair<String, String>(left, right));
+						foundPairs.add(new BracketPair(left, right, false));
 					}
 				}
 			}
