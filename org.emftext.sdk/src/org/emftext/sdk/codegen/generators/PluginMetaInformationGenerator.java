@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.runtime.util.EObjectUtil;
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
@@ -364,8 +365,8 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		sc.add("public " + COLLECTION + "<" + I_BRACKET_PAIR + "> getBracketPairs() {");
 		sc.add(COLLECTION + "<" + I_BRACKET_PAIR + "> result = new " + ARRAY_LIST + "<" + I_BRACKET_PAIR + ">();");
 		for (BracketPair foundPair : foundPairs) {
-			final String left = foundPair.getOpeningBracket();
-			final String right = foundPair.getClosingBracket();
+			final String left = StringUtil.escapeToJavaString(foundPair.getOpeningBracket());
+			final String right = StringUtil.escapeToJavaString(foundPair.getClosingBracket());
 			final boolean isClosingInsideEnabled = foundPair.isCloseInsideEnabled();
 			sc.add("result.add(new BracketPair(\"" + left + "\", \"" + right + "\", " + isClosingInsideEnabled + "));");
 		}
