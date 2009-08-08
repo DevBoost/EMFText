@@ -27,6 +27,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
@@ -120,16 +121,19 @@ public class EMFTextRuntimePlugin extends Plugin {
 		if (!concreteSyntaxRegistryIsInitialized) {
 			concreteSyntaxRegistry = new ArrayList<ITextResourcePluginMetaInformation>();
 			// check for syntax extensions
-			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
-			org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(org.emftext.runtime.EMFTextRuntimePlugin.EP_SYNTAX_ID);
-			for (org.eclipse.core.runtime.IConfigurationElement element : configurationElements) {
-				try {
-					ITextResourcePluginMetaInformation metaInformation = (ITextResourcePluginMetaInformation) element.createExecutableExtension("class");
-					concreteSyntaxRegistry.add(metaInformation);
-				} catch (CoreException ce) {
-					org.emftext.runtime.EMFTextRuntimePlugin.logError("Exception while registering syntax extension.", ce);
+			if (Platform.isRunning()) {
+				org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
+				org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(org.emftext.runtime.EMFTextRuntimePlugin.EP_SYNTAX_ID);
+				for (org.eclipse.core.runtime.IConfigurationElement element : configurationElements) {
+					try {
+						ITextResourcePluginMetaInformation metaInformation = (ITextResourcePluginMetaInformation) element.createExecutableExtension("class");
+						concreteSyntaxRegistry.add(metaInformation);
+					} catch (CoreException ce) {
+						org.emftext.runtime.EMFTextRuntimePlugin.logError("Exception while registering syntax extension.", ce);
+					}
 				}
 			}
+			concreteSyntaxRegistryIsInitialized = true;
 		}
 		return concreteSyntaxRegistry;
 	}
