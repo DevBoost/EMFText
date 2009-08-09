@@ -25,9 +25,10 @@ public class HoverTextProviderGenerator extends BaseGenerator {
 		sc.add("public class " + getResourceClassName() + " extends " + AbstractHoverTextProvider.class.getName() + " {");
 		sc.addLineBreak();
 		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
-		sc.add("if (object == null)");
+		sc.add("if (object == null) {");
 		sc.add("return null;");
-		sc.add("" + E_CLASS + " eClass = object.eClass();");
+		sc.add("}");
+		sc.add(E_CLASS + " eClass = object.eClass();");
 		sc.add("String label = \"<strong>\" + eClass.getName() + \"</strong>\";");
 		sc.add("for (" + E_ATTRIBUTE + " attribute : eClass.getEAllAttributes()) {");
 		sc.add("" + OBJECT + " value = null;");
