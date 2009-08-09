@@ -218,15 +218,15 @@ public class BracketPreferencePage extends PreferencePage implements
         enableClosingInside = new Button(tokenSelectionComposite, SWT.CHECK);
         enableClosingInside.setText("Enable closing inside");
         enableClosingInside.setToolTipText("If this option is enabled, other bracket pair can close inside this pair automatically.");
-        enableClosingInside.setLayoutData(new GridData(GridData.CENTER,GridData.BEGINNING,false, false));
+        enableClosingInside.setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false, false));
         
         addBracketButton = new Button(tokenSelectionComposite,SWT.PUSH);
         addBracketButton.setText("Add");
-        addBracketButton.setLayoutData(new GridData(GridData.CENTER,GridData.BEGINNING,false, false));
+        addBracketButton.setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false, false));
         
         removeBracketButton = new Button(tokenSelectionComposite,SWT.PUSH);
         removeBracketButton.setText("Remove");
-        removeBracketButton.setLayoutData(new GridData(GridData.CENTER,GridData.BEGINNING,false, false));
+        removeBracketButton.setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false, false));
         
         addListenersToStyleButtons();
         
