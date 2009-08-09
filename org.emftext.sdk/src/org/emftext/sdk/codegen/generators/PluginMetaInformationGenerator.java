@@ -201,10 +201,6 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.add("public boolean isClosingEnabledInside() {");
         sc.add("return closingEnabledInside;");
         sc.add("}");
-        sc.addLineBreak();
-        sc.add("public void setClosingEnabledInside(boolean closingEnabledInside) {");
-        sc.add("this.closingEnabledInside = closingEnabledInside;");
-        sc.add("}");
         sc.add("}");
         sc.addLineBreak();
     }

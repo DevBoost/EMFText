@@ -28,12 +28,4 @@ public interface IBracketPair {
 	 * @return
 	 */
 	public boolean isClosingEnabledInside();
-	
-	/**
-	 * Sets whether other bracket pairs shall be
-	 * automatically closed, when used inside of this
-	 * bracket pair.
-	 * @param closingInside
-	 */
-	public void setClosingEnabledInside(boolean closingEnabledInside);
 }

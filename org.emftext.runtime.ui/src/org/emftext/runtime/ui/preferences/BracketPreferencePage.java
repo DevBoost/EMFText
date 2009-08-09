@@ -58,201 +58,217 @@ import org.emftext.runtime.ui.extensions.BracketSet;
  * <li>chooses matching highlight color</li>
  * <li>customizes bracket set</li>
  * </ul>
+ * 
  * @author Tan-Ky Hoang-Kim
- *
+ * 
  */
 public class BracketPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
 
-	private static final String[] ALL_LEFT_BRACKETS = new String[] {"{","(","[","<","\"","'",};
-	private static final String[] ALL_RIGHT_BRACKETS = new String[] {"}",")","]",">","\"","'",};
+	private static final String[] ALL_LEFT_BRACKETS = new String[] { "{", "(",
+			"[", "<", "\"", "'", };
+	private static final String[] ALL_RIGHT_BRACKETS = new String[] { "}", ")",
+			"]", ">", "\"", "'", };
 
 	private String BRACKETS_COLOR = PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR;
-	
-    private Set<String> languageIDs = new LinkedHashSet<String>();
-    
-    private ColorSelector matchingBracketsColorEditor;
-    private Label colorEditorLabel;
-    private Button enableCheckbox;
-    private Button enableClosingInside;
-    private Button matchingBracketsColorButton;
-    private Label languagesLabel;
-    private Combo languagesCombo;
-    private Label bracketTokensLabel;
-    private Combo leftBracketTokensCombo;
-    private Combo rightBracketTokensCombo;
-    private List bracketsList;
-    private Button addBracketButton;
-    private Button removeBracketButton;
-    private Map<String, String> bracketSetTemp = new HashMap<String, String>();
+
+	private Set<String> languageIDs = new LinkedHashSet<String>();
+
+	private ColorSelector matchingBracketsColorEditor;
+	private Label colorEditorLabel;
+	private Button enableCheckbox;
+	private Button enableClosingInside;
+	private Button matchingBracketsColorButton;
+	private Label languagesLabel;
+	private Combo languagesCombo;
+	private Label bracketTokensLabel;
+	private Combo leftBracketTokensCombo;
+	private Combo rightBracketTokensCombo;
+	private List bracketsList;
+	private Button addBracketButton;
+	private Button removeBracketButton;
+	private Map<String, String> bracketSetTemp = new HashMap<String, String>();
 	private String language;
-	
+
 	private BracketSet bracketsTmp;
-	
+
 	/**
 	 * Creates a preference page for bracket setting.
 	 */
 	public BracketPreferencePage() {
 		super();
 
-		for (ITextResourcePluginMetaInformation metaInformation : EMFTextRuntimePlugin.getConcreteSyntaxRegistry()) {
-            String languageId = metaInformation.getSyntaxName();
-            /*
-            java.util.List<String> terminals = new ArrayList<String>();
-            String[] tokenNames = metaInformation.getTokenNames();
-            String bracket;
-			for (String tokenName : tokenNames) {
-				// TODO this is ANTLR specific
-				if (tokenName.length() == 3 && tokenName.startsWith("'") && tokenName.endsWith("'")) {
-					bracket = tokenName.substring(1, tokenName.length() - 1).trim();
-					terminals.add(bracket);
-				}
-            }
-			terminals.add("\"");
-			terminals.add("\'");
-			*/
+		for (ITextResourcePluginMetaInformation metaInformation : EMFTextRuntimePlugin
+				.getConcreteSyntaxRegistry()) {
+			String languageId = metaInformation.getSyntaxName();
+			/*
+			 * java.util.List<String> terminals = new ArrayList<String>();
+			 * String[] tokenNames = metaInformation.getTokenNames(); String
+			 * bracket; for (String tokenName : tokenNames) { // TODO this is
+			 * ANTLR specific if (tokenName.length() == 3 &&
+			 * tokenName.startsWith("'") && tokenName.endsWith("'")) { bracket =
+			 * tokenName.substring(1, tokenName.length() - 1).trim();
+			 * terminals.add(bracket); } } terminals.add("\"");
+			 * terminals.add("\'");
+			 */
 			languageIDs.add(languageId);
-        }
-    }
-	
-	/*
-	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
-	 */
-	public void init(IWorkbench workbench) {
-		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore());
-		setDescription("Define the coloring of matching brackets.");
-		
-		bracketsTmp = new BracketSet(null, null);
-		for (String languageID : languageIDs) {
-			bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
 		}
 	}
-	
-    @Override
-    protected Control createContents(Composite parent) {
-    	
-    	//outer Composite
-        Composite settingComposite = new Composite(parent, SWT.NONE);
-        GridLayout layout = new GridLayout();
-        GridData gd;
-        layout.numColumns= 2;
-        layout.marginHeight= 0;
-        layout.marginWidth= 0;
-        gd = new GridData(GridData.BEGINNING);
-        settingComposite.setLayout(layout);
-        settingComposite.setLayoutData(gd);
-    
-        enableCheckbox = new Button(settingComposite, SWT.CHECK);
-        enableCheckbox.setText("Enable");
-        gd = new GridData(GridData.BEGINNING);
-        gd.horizontalAlignment= GridData.BEGINNING;
-        gd.horizontalSpan= 2;
-        enableCheckbox.setLayoutData(gd);
-        
-        colorEditorLabel = new Label(settingComposite, SWT.LEFT);
-        colorEditorLabel.setText("Color:"); 
-        gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-        gd.horizontalIndent= 20;
-        colorEditorLabel.setLayoutData(gd);
-        
-        matchingBracketsColorEditor = new ColorSelector(settingComposite);
-        matchingBracketsColorButton = matchingBracketsColorEditor.getButton();
-        gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-        matchingBracketsColorButton.setLayoutData(gd);
-        
-        Composite languageComposite = new Composite(settingComposite, SWT.NONE);
-        layout = new GridLayout();
-        layout.marginHeight= 0;
-        layout.marginWidth= 0;
-        layout.numColumns=2;
-        gd = new GridData(GridData.BEGINNING);
-        gd.horizontalSpan=2;
-        gd.verticalIndent=30;
-        languageComposite.setLayout(layout);
-        languageComposite.setLayoutData(gd);
-        
-        languagesLabel = new Label(languageComposite,SWT.LEFT);
-        gd = new GridData(GridData.BEGINNING);
-        gd.horizontalAlignment=GridData.BEGINNING;
-        languagesLabel.setLayoutData(gd);
-        languagesLabel.setText("The available languages");
-        
-        languagesCombo = new Combo(languageComposite,SWT.DROP_DOWN | SWT.READ_ONLY|SWT.LEFT);
-        gd = new GridData(GridData.BEGINNING);
-        languagesCombo.setLayoutData(gd);
-        
-		Composite tokenSelectionComposite = new Composite(settingComposite, SWT.NONE);
-        layout = new GridLayout();
-        layout.numColumns= 3;
-        layout.marginHeight= 0;
-        layout.marginWidth= 0;
-        gd = new GridData(GridData.FILL_HORIZONTAL);
-        gd.horizontalSpan=2;
-        gd.verticalIndent=20;
-        tokenSelectionComposite.setLayout(layout);
-        tokenSelectionComposite.setLayoutData(gd);
-        
-        bracketTokensLabel = new Label(tokenSelectionComposite,SWT.LEFT);
-        gd = new GridData(GridData.BEGINNING);
-        gd.horizontalSpan=3;
-        bracketTokensLabel.setText("Select the desired bracket pair");
-        bracketTokensLabel.setLayoutData(gd);
-        
-        leftBracketTokensCombo = new Combo(tokenSelectionComposite,SWT.DROP_DOWN | SWT.READ_ONLY);
-        gd = new GridData(GridData.BEGINNING);
-        leftBracketTokensCombo.setLayoutData(gd);
-        
-        rightBracketTokensCombo = new Combo(tokenSelectionComposite,SWT.DROP_DOWN | SWT.READ_ONLY);
-        gd = new GridData(GridData.FILL);
-        gd.horizontalSpan=2;
-        rightBracketTokensCombo.setLayoutData(gd);
-        
-        bracketsList = new List(tokenSelectionComposite, SWT.MULTI);
-        gd = new GridData(GridData.CENTER,GridData.FILL,false, true);
-        gd.horizontalSpan=2;
-        gd.verticalSpan=4;
-        gd.widthHint=100;
-        gd.heightHint=300;
-        bracketsList.setLayoutData(gd);
-        
-        enableClosingInside = new Button(tokenSelectionComposite, SWT.CHECK);
-        enableClosingInside.setText("Enable closing inside");
-        enableClosingInside.setToolTipText("If this option is enabled, other bracket pair can close inside this pair automatically.");
-        enableClosingInside.setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false, false));
-        
-        addBracketButton = new Button(tokenSelectionComposite,SWT.PUSH);
-        addBracketButton.setText("Add");
-        addBracketButton.setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false, false));
-        
-        removeBracketButton = new Button(tokenSelectionComposite,SWT.PUSH);
-        removeBracketButton.setText("Remove");
-        removeBracketButton.setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false, false));
-        
-        addListenersToStyleButtons();
-        
-        settingComposite.layout(false);
-        handleMatchingBracketsSelection();
-        return settingComposite;
-    }
-    
-    /**
-     * Initialize and handle the values of this preference page
-     */
-    private void handleMatchingBracketsSelection() {
-    	// not for the case of none existing language
-    	enableCheckbox.setSelection(getPreferenceStore().getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
-    	enableClosingInside.setSelection(false);
-    	matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
-    	RGB rgb = PreferenceConverter.getColor(getPreferenceStore(), BRACKETS_COLOR);
-    	matchingBracketsColorEditor.setColorValue(rgb);
-    	
-    	String extension = null;
-    	IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
-		final IEditorPart activeEditor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+
+	/*
+	 * @see
+	 * org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
+	 */
+	public void init(IWorkbench workbench) {
+		setPreferenceStore(EMFTextRuntimeUIPlugin.getDefault()
+				.getPreferenceStore());
+		setDescription("Define the coloring of matching brackets.");
+
+		bracketsTmp = new BracketSet(null, null);
+		for (String languageID : languageIDs) {
+			bracketSetTemp.put(languageID, getPreferenceStore().getString(
+					languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
+		}
+	}
+
+	@Override
+	protected Control createContents(Composite parent) {
+
+		// outer Composite
+		Composite settingComposite = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		GridData gd;
+		layout.numColumns = 2;
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		gd = new GridData(GridData.BEGINNING);
+		settingComposite.setLayout(layout);
+		settingComposite.setLayoutData(gd);
+
+		enableCheckbox = new Button(settingComposite, SWT.CHECK);
+		enableCheckbox.setText("Enable");
+		gd = new GridData(GridData.BEGINNING);
+		gd.horizontalAlignment = GridData.BEGINNING;
+		gd.horizontalSpan = 2;
+		enableCheckbox.setLayoutData(gd);
+
+		colorEditorLabel = new Label(settingComposite, SWT.LEFT);
+		colorEditorLabel.setText("Color:");
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+		gd.horizontalIndent = 20;
+		colorEditorLabel.setLayoutData(gd);
+
+		matchingBracketsColorEditor = new ColorSelector(settingComposite);
+		matchingBracketsColorButton = matchingBracketsColorEditor.getButton();
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
+		matchingBracketsColorButton.setLayoutData(gd);
+
+		Composite languageComposite = new Composite(settingComposite, SWT.NONE);
+		layout = new GridLayout();
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		layout.numColumns = 2;
+		gd = new GridData(GridData.BEGINNING);
+		gd.horizontalSpan = 2;
+		gd.verticalIndent = 30;
+		languageComposite.setLayout(layout);
+		languageComposite.setLayoutData(gd);
+
+		languagesLabel = new Label(languageComposite, SWT.LEFT);
+		gd = new GridData(GridData.BEGINNING);
+		gd.horizontalAlignment = GridData.BEGINNING;
+		languagesLabel.setLayoutData(gd);
+		languagesLabel.setText("The available languages");
+
+		languagesCombo = new Combo(languageComposite, SWT.DROP_DOWN
+				| SWT.READ_ONLY | SWT.LEFT);
+		gd = new GridData(GridData.BEGINNING);
+		languagesCombo.setLayoutData(gd);
+
+		Composite tokenSelectionComposite = new Composite(settingComposite,
+				SWT.NONE);
+		layout = new GridLayout();
+		layout.numColumns = 3;
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 2;
+		gd.verticalIndent = 20;
+		tokenSelectionComposite.setLayout(layout);
+		tokenSelectionComposite.setLayoutData(gd);
+
+		bracketTokensLabel = new Label(tokenSelectionComposite, SWT.LEFT);
+		gd = new GridData(GridData.BEGINNING);
+		gd.horizontalSpan = 3;
+		bracketTokensLabel.setText("Select the desired bracket pair");
+		bracketTokensLabel.setLayoutData(gd);
+
+		leftBracketTokensCombo = new Combo(tokenSelectionComposite,
+				SWT.DROP_DOWN | SWT.READ_ONLY);
+		gd = new GridData(GridData.BEGINNING);
+		leftBracketTokensCombo.setLayoutData(gd);
+
+		rightBracketTokensCombo = new Combo(tokenSelectionComposite,
+				SWT.DROP_DOWN | SWT.READ_ONLY);
+		gd = new GridData(GridData.FILL);
+		gd.horizontalSpan = 2;
+		rightBracketTokensCombo.setLayoutData(gd);
+
+		bracketsList = new List(tokenSelectionComposite, SWT.MULTI);
+		gd = new GridData(GridData.CENTER, GridData.FILL, false, true);
+		gd.horizontalSpan = 2;
+		gd.verticalSpan = 4;
+		gd.widthHint = 100;
+		gd.heightHint = 300;
+		bracketsList.setLayoutData(gd);
+
+		enableClosingInside = new Button(tokenSelectionComposite, SWT.CHECK);
+		enableClosingInside.setText("Enable closing inside");
+		enableClosingInside
+				.setToolTipText("If this option is enabled, other bracket pair can close inside this pair automatically.");
+		enableClosingInside.setLayoutData(new GridData(GridData.BEGINNING,
+				GridData.BEGINNING, false, false));
+
+		addBracketButton = new Button(tokenSelectionComposite, SWT.PUSH);
+		addBracketButton.setText("Add");
+		addBracketButton.setLayoutData(new GridData(GridData.BEGINNING,
+				GridData.BEGINNING, false, false));
+
+		removeBracketButton = new Button(tokenSelectionComposite, SWT.PUSH);
+		removeBracketButton.setText("Remove");
+		removeBracketButton.setLayoutData(new GridData(GridData.BEGINNING,
+				GridData.BEGINNING, false, false));
+
+		addListenersToStyleButtons();
+
+		settingComposite.layout(false);
+		handleMatchingBracketsSelection();
+		return settingComposite;
+	}
+
+	/**
+	 * Initialize and handle the values of this preference page
+	 */
+	private void handleMatchingBracketsSelection() {
+		// not for the case of none existing language
+		enableCheckbox.setSelection(getPreferenceStore().getBoolean(
+				PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
+		enableClosingInside.setSelection(false);
+		matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(
+				PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
+		RGB rgb = PreferenceConverter.getColor(getPreferenceStore(),
+				BRACKETS_COLOR);
+		matchingBracketsColorEditor.setColorValue(rgb);
+
+		String extension = null;
+		IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
+		final IEditorPart activeEditor = workbench.getActiveWorkbenchWindow()
+				.getActivePage().getActiveEditor();
 		if (activeEditor != null) {
 			if (activeEditor instanceof EMFTextEditor) {
 				EMFTextEditor emfTextEditor = (EMFTextEditor) activeEditor;
-				ITextResource resource = (ITextResource) emfTextEditor.getResource();
+				ITextResource resource = (ITextResource) emfTextEditor
+						.getResource();
 				extension = resource.getMetaInformation().getSyntaxName();
 			}
 		}
@@ -260,35 +276,37 @@ public class BracketPreferencePage extends PreferencePage implements
 		languagesCombo.setItems(languageIDs.toArray(new String[0]));
 		languagesCombo.select(0);
 		if (extension != null) {
-	    	int idx = languagesCombo.indexOf(extension);
-	    	if (idx > -1) {
-	    		languagesCombo.select(idx);
-	    	} else {
-	    		idx=0;
-	    	}
+			int idx = languagesCombo.indexOf(extension);
+			if (idx > -1) {
+				languagesCombo.select(idx);
+			} else {
+				idx = 0;
+			}
 		}
-        language = languagesCombo.getItem(languagesCombo.getSelectionIndex());
-        leftBracketTokensCombo.setItems(ALL_LEFT_BRACKETS);
-        leftBracketTokensCombo.select(0);
-        rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);
-        rightBracketTokensCombo.select(0);
-        bracketsTmp.setBrackets(getPreferenceStore().getString(language+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
-        String[] brackets = bracketsTmp.getBracketArray();
-        if (brackets != null) {
-        	bracketsList.setItems(brackets);
-        }
-    }
-    
-    private void addListenersToStyleButtons() {
-    	enableCheckbox.addSelectionListener(new SelectionListener(){
-    		public void widgetDefaultSelected(SelectionEvent e){
-    		}
-    		
-    		public void widgetSelected(SelectionEvent e) {
-    			matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());
-            }
-    	});
-    	languagesCombo.addSelectionListener(new SelectionListener(){
+		language = languagesCombo.getItem(languagesCombo.getSelectionIndex());
+		leftBracketTokensCombo.setItems(ALL_LEFT_BRACKETS);
+		leftBracketTokensCombo.select(0);
+		rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);
+		rightBracketTokensCombo.select(0);
+		bracketsTmp.setBrackets(getPreferenceStore().getString(
+				language + PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
+		String[] brackets = bracketsTmp.getBracketArray();
+		if (brackets != null) {
+			bracketsList.setItems(brackets);
+		}
+	}
+
+	private void addListenersToStyleButtons() {
+		enableCheckbox.addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				matchingBracketsColorButton.setEnabled(enableCheckbox
+						.getSelection());
+			}
+		});
+		languagesCombo.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
@@ -303,28 +321,29 @@ public class BracketPreferencePage extends PreferencePage implements
 				rightBracketTokensCombo.select(0);
 				bracketsList.setItems(bracketsTmp.getBracketArray());
 			}
-    		
-    	});
-    	addBracketButton.addSelectionListener(new SelectionListener(){
+
+		});
+		addBracketButton.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-				String open=leftBracketTokensCombo.getText();
-				String close=rightBracketTokensCombo.getText();
-				if (bracketsTmp.isBracket(open)||bracketsTmp.isBracket(close)) {
+				String open = leftBracketTokensCombo.getText();
+				String close = rightBracketTokensCombo.getText();
+				if (bracketsTmp.isBracket(open) || bracketsTmp.isBracket(close)) {
 					setErrorMessage("One or both bracket parts are set!");
 				} else {
 					bracketsTmp.addBracketPair(open, close, true);
 					bracketsList.setItems(bracketsTmp.getBracketArray());
 					setErrorMessage(null);
-					bracketSetTemp.put(language, bracketsTmp.getBracketString());
+					bracketSetTemp
+							.put(language, bracketsTmp.getBracketString());
 				}
 			}
-    	});
-    	
-    	removeBracketButton.addSelectionListener(new SelectionListener(){
+		});
+
+		removeBracketButton.addSelectionListener(new SelectionListener() {
 
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
@@ -335,86 +354,98 @@ public class BracketPreferencePage extends PreferencePage implements
 				bracketsList.setItems(bracketsTmp.getBracketArray());
 				bracketSetTemp.put(language, bracketsTmp.getBracketString());
 			}
-    	});
-    	
-    	bracketsList.addSelectionListener(new SelectionListener() {
-			
+		});
+
+		bracketsList.addSelectionListener(new SelectionListener() {
+
 			public void widgetSelected(SelectionEvent e) {
 				boolean isClosingInside = true;
 				int[] itemIndices = bracketsList.getSelectionIndices();
 				for (int index : itemIndices) {
-					IBracketPair bracketPair = bracketsTmp.getBracketPair(index);
-					if (bracketPair!=null&&!bracketPair.isClosingEnabledInside()) {
-						isClosingInside=false;
+					IBracketPair bracketPair = bracketsTmp
+							.getBracketPair(index);
+					if (bracketPair != null
+							&& !bracketPair.isClosingEnabledInside()) {
+						isClosingInside = false;
 						break;
 					}
 				}
 				enableClosingInside.setSelection(isClosingInside);
 			}
-			
+
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-    	
-    	enableClosingInside.addSelectionListener(new SelectionListener() {
-			
+
+		enableClosingInside.addSelectionListener(new SelectionListener() {
+
 			public void widgetSelected(SelectionEvent e) {
 				boolean isClosingInside = enableClosingInside.getSelection();
 				int[] itemIndices = bracketsList.getSelectionIndices();
 				for (int idx : itemIndices) {
 					IBracketPair bracketPair = bracketsTmp.getBracketPair(idx);
-					if (bracketPair!=null)
-						bracketPair.setClosingEnabledInside(isClosingInside);
+					if (bracketPair != null)
+						bracketsTmp.setClosingEnabledInside(bracketPair, isClosingInside);
 				}
 				bracketSetTemp.put(language, bracketsTmp.getBracketString());
 			}
-			
+
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
 		});
-    }
-    
-    /**
-     * Set the default values for this preference page.
-     */
-    protected void performDefaults() {
-    	enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
-    	matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());
-    	matchingBracketsColorEditor.setColorValue(PreferenceConverter.getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));
-    	bracketSetTemp.put(language, getPreferenceStore().getDefaultString(language+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
-    	bracketsTmp.setBrackets(bracketSetTemp.get(language));
-    	bracketsList.setItems(bracketsTmp.getBracketArray());
-    	enableClosingInside.setSelection(false);
-    }
-    
-    public boolean performOk() {
-    	if(!super.performOk()) {
-    		return false;
-    	}
-    	updateActiveEditor();
+	}
+
+	/**
+	 * Set the default values for this preference page.
+	 */
+	protected void performDefaults() {
+		enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(
+				PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
+		matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());
+		matchingBracketsColorEditor.setColorValue(PreferenceConverter
+				.getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));
+		bracketSetTemp.put(language, getPreferenceStore().getDefaultString(
+				language + PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
+		bracketsTmp.setBrackets(bracketSetTemp.get(language));
+		bracketsList.setItems(bracketsTmp.getBracketArray());
+		enableClosingInside.setSelection(false);
+	}
+
+	public boolean performOk() {
+		if (!super.performOk()) {
+			return false;
+		}
+		updateActiveEditor();
 		return true;
-    }
-    
-    protected void performApply() {
-    	updateActiveEditor();
-    }
-    
-    /**
-     * Sets the chosen options to the preference store and refreshs it in the <code>EMFTextEditor</code>.
-     */
-    private void updateActiveEditor() {
-    	//set the values after ok or apply 
-        PreferenceConverter.setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());
-    	getPreferenceStore().setValue(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());
-        
-        for (String languageID : languagesCombo.getItems()) {
-        	getPreferenceStore().setValue(languageID+PreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(languageID));
-        }
-        
-        IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
-        IEditorPart editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+	}
+
+	protected void performApply() {
+		updateActiveEditor();
+	}
+
+	/**
+	 * Sets the chosen options to the preference store and refreshs it in the
+	 * <code>EMFTextEditor</code>.
+	 */
+	private void updateActiveEditor() {
+		// set the values after ok or apply
+		PreferenceConverter.setValue(getPreferenceStore(), BRACKETS_COLOR,
+				matchingBracketsColorEditor.getColorValue());
+		getPreferenceStore().setValue(
+				PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX,
+				enableCheckbox.getSelection());
+
+		for (String languageID : languagesCombo.getItems()) {
+			getPreferenceStore().setValue(
+					languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX,
+					bracketSetTemp.get(languageID));
+		}
+
+		IWorkbench workbench = org.eclipse.ui.PlatformUI.getWorkbench();
+		IEditorPart editor = workbench.getActiveWorkbenchWindow()
+				.getActivePage().getActiveEditor();
 		if (editor != null && editor instanceof EMFTextEditor) {
 			((EMFTextEditor) editor).invalidateTextRepresentation();
 		}
-    }
+	}
 }

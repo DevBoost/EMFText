@@ -74,10 +74,11 @@ public class BracketSet {
 		public boolean isClosingEnabledInside() {// false to test
 			return closingEnabledInside;
 		}
-
+		
 		public void setClosingEnabledInside(boolean closingEnabledInside) {
-			this.closingEnabledInside = closingEnabledInside;
+			this.closingEnabledInside=closingEnabledInside;
 		}
+		
 	}
 
 	/**
@@ -263,6 +264,19 @@ public class BracketSet {
 		bracketPairs
 				.add(new BracketPair(opening, closing, closingEnabledInside));
 		return true;
+	}
+	
+	/**
+	 * Sets whether other bracket pairs shall be automatically closed, when used inside of this bracket pair.
+	 * @param bracketPair the bracket pair to change
+	 * @return <code>true</code> if successful
+	 */
+	public boolean setClosingEnabledInside(IBracketPair bracketPair, boolean closingEnabledInside) {
+		if (bracketPair instanceof BracketPair) {
+			((BracketPair)bracketPair).setClosingEnabledInside(closingEnabledInside);
+			return true;
+		}
+		return false;
 	}
 
 	/**
