@@ -471,10 +471,7 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 		// Ensure minimal size
 		int width= Math.max(MIN_WIDTH, minWidth);
 		height= Math.max(MIN_HEIGHT, height);
-		//TODO hoang-kim computes size
 		Point windowSize = new Point(width, height);
-		windowSize.x=300;
-		windowSize.y=200;
 		return windowSize;
 	}
 

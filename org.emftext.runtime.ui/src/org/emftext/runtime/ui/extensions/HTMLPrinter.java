@@ -99,6 +99,7 @@ public class HTMLPrinter {
 			fgTags.add("b"); //$NON-NLS-1$
 			fgTags.add("br"); //$NON-NLS-1$
 			fgTags.add("br/"); //$NON-NLS-1$
+			fgTags.add("br /"); //$NON-NLS-1$
 			fgTags.add("div"); //$NON-NLS-1$
 			fgTags.add("h1"); //$NON-NLS-1$
 			fgTags.add("h2"); //$NON-NLS-1$
@@ -248,7 +249,7 @@ public class HTMLPrinter {
 				return LINE_DELIM;
 			}
 
-			if ("br".equals(html) || "br/".equals(html) || "div".equals(html)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if ("br".equals(html) || "br/".equals(html)|| "br /".equals(html)  || "div".equals(html)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				return LINE_DELIM;
 
 			if ("/p".equals(html))  { //$NON-NLS-1$

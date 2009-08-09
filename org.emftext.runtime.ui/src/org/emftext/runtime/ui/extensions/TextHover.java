@@ -358,9 +358,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			declarationObject = EcoreUtil.resolve(proxyObject, editor
 					.getResource());
 			if (declarationObject != null) {
-				if (hoverTextProvider != null) {
-					HTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(declarationObject));
-				}
+				HTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(declarationObject));
 			}
 		} else {
 			HTMLPrinter.addParagraph(buffer,
