@@ -72,9 +72,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 
 	private EMFTextEditor editor;
 	private static final String FONT = JFaceResources.DIALOG_FONT;
-	// TODO hoang-kim check whether the provider can really be static
-	// the provide differs from language to language
-	private static IHoverTextProvider hoverTextProvider;
+	private IHoverTextProvider hoverTextProvider;
 	
 	/**
 	 * Creates a new TextHover to collect the information about the hovered
