@@ -73,19 +73,20 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	private EMFTextEditor editor;
 	private static final String FONT = JFaceResources.DIALOG_FONT;
 	private IHoverTextProvider hoverTextProvider;
-	
+
 	/**
 	 * Creates a new TextHover to collect the information about the hovered
 	 * element.
 	 * 
 	 * @param editor
 	 *            the <code>EMFTextEditor</code>
-	 * @param colorManager 
+	 * @param colorManager
 	 */
 	public TextHover(EMFTextEditor editor) {
 		super();
 		this.editor = editor;
-		hoverTextProvider = ((ITextResource) editor.getResource()).getMetaInformation().getHoverTextProvider();
+		hoverTextProvider = ((ITextResource) editor.getResource())
+				.getMetaInformation().getHoverTextProvider();
 	}
 
 	/**
@@ -214,8 +215,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 					.getTooltipAffordanceString();
 			if (BrowserInformationControl.isAvailable(parent)) {
 				BrowserInformationControl iControl = new BrowserInformationControl(
-						parent, FONT,
-						tooltipAffordanceString) {
+						parent, FONT, tooltipAffordanceString) {
 
 					/*
 					 * @see
@@ -282,7 +282,9 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	 */
 	private IInformationControlCreator presenterControlCreator;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.text.ITextHoverExtension#getHoverControlCreator()
 	 */
 	public IInformationControlCreator getHoverControlCreator() {
@@ -309,7 +311,8 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 		if (editor.isDirty()) {
 			return null;
 		}
-		return hoverTextProvider == null ? null : internalGetHoverInfo(textViewer, hoverRegion);
+		return hoverTextProvider == null ? null : internalGetHoverInfo(
+				textViewer, hoverRegion);
 	}
 
 	private DocBrowserInformationControlInput internalGetHoverInfo(
@@ -344,7 +347,8 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 		StringBuffer buffer = new StringBuffer();
 		EObject proxyObject = getFirstProxy(elements);
 		EObject declarationObject = null;
-		//get the token text, which is hovered. It is needed to jump to the declaration.
+		// get the token text, which is hovered. It is needed to jump to the
+		// declaration.
 		String tokenText = "";
 		if (proxyObject != null) {
 			ILocationMap locationMap = ((ITextResource) editor.getResource())
@@ -358,11 +362,12 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			declarationObject = EcoreUtil.resolve(proxyObject, editor
 					.getResource());
 			if (declarationObject != null) {
-				HTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(declarationObject));
+				HTMLPrinter.addParagraph(buffer, hoverTextProvider
+						.getHoverText(declarationObject));
 			}
 		} else {
-			HTMLPrinter.addParagraph(buffer,
-					hoverTextProvider.getHoverText(elements.get(0)));
+			HTMLPrinter.addParagraph(buffer, hoverTextProvider
+					.getHoverText(elements.get(0)));
 		}
 		if (buffer.length() > 0) {
 			HTMLPrinter.insertPageProlog(buffer, 0, TextHover.getStyleSheet());
@@ -384,7 +389,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			styleSheet = loadStyleSheet();
 		}
 		String css = styleSheet;
-		//Sets background color for the hover text window
+		// Sets background color for the hover text window
 		css += "body {background-color:#FFFFE1;}\n";
 		if (css != null) {
 			FontData fontData = JFaceResources.getFontRegistry().getFontData(
