@@ -39,7 +39,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_SET_EXCEPTION;
@@ -783,6 +782,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "> lexerExceptionsPosition = " + COLLECTIONS
 				+ ".synchronizedList(new " + ARRAY_LIST + "<" + INTEGER
 				+ ">());");
+		sc.add("private int lastNonHiddenTokenIndex;");
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
@@ -846,34 +846,23 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("if (this.reachedIndex) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("int currentTokenIndex = " + MATH + ".max(0, input.index());");
-		/*sc.add("int currentIndex = lastIndex == " + INTEGER + ".MAX_VALUE ? "
-				+ INTEGER + ".MAX_VALUE : (lastIndex + 1);");*/
-		sc.add("int currentIndex = " + MATH + ".max(0, input.index());");
-		sc.add("int startIncludingHidden = -1;");
-		sc.add("int startExcludingHidden = -1;");
-		sc.add("int endIncludingHidden = " + INTEGER + ".MAX_VALUE;");
-		sc.add("int endExcludingHidden = " + INTEGER + ".MAX_VALUE;");
-		sc
-				.add("for (int index = lastTokenIndex; index < currentTokenIndex; index++) {");
-		sc.add(COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN
-				+ ") input.get(index);");
-		sc.add("if (tokenAtIndex.getChannel() == 99) {");
-		sc.add("startIncludingHidden = tokenAtIndex.getStartIndex();");
-		sc.add("endIncludingHidden = tokenAtIndex.getStopIndex();");
-		sc.add("} else {");
-		sc.add("startExcludingHidden = tokenAtIndex.getStartIndex();");
-		sc.add("endExcludingHidden = tokenAtIndex.getStopIndex();");
+		sc.add("int currentIndex = java.lang.Math.max(0, input.index());");
+		sc.add("//System.out.println(\"addExpectedElement() currentIndex = \" + currentIndex);");
+		sc.add("int startExcludingHidden = currentIndex;");
+		sc.add("for (int index = lastTokenIndex; index < currentIndex; index++) {");
+		sc.add("//System.out.println(\"addExpectedElement() index = \" + index);");
+		sc.add("if (index >= input.size()) {");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("org.antlr.runtime.CommonToken tokenAtIndex = (org.antlr.runtime.CommonToken) input.get(index);");
+		sc.add("//System.out.println(\"addExpectedElement() tokenAtIndex = \" + tokenAtIndex);");
+		sc.add("if (tokenAtIndex.getChannel() != 99) {");
+		sc.add("lastNonHiddenTokenIndex = tokenAtIndex.getStopIndex() + 1;");
+		sc.add("//System.out.println(\"addExpectedElement() lastNonHiddenTokenIndex = \" + lastNonHiddenTokenIndex);");
 		sc.add("}");
 		sc.add("}");
-		sc.add("startIncludingHidden = " + MATH
-				+ ".max(startIncludingHidden, currentIndex);");
-		sc.add("startExcludingHidden = " + MATH
-				+ ".max(startExcludingHidden, currentIndex);");
-		sc.add("lastTokenIndex = " + MATH + ".max(0, currentTokenIndex);");
-		sc
-				.add("expectedElement.setPosition(startIncludingHidden, startExcludingHidden/*, endIncludingHidden, endExcludingHidden*/);");
-		sc.add("this.lastIndex = endIncludingHidden;");
+		sc.add("lastTokenIndex = java.lang.Math.max(0, currentIndex);");
+		sc.add("expectedElement.setPosition(lastNonHiddenTokenIndex, startExcludingHidden);");
 		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
 		sc.addLineBreak();

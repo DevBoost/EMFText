@@ -260,8 +260,8 @@ public class CodeCompletionTest extends TestCase {
 		} else if (expectedElement instanceof EStructuralFeature) {
 			final ExpectedStructuralFeature expectedStructuralFeature = new ExpectedStructuralFeature((EStructuralFeature) expectedElement, null, null);
 			expectedElements.add(expectedStructuralFeature);
-		} else if (expectedElement instanceof List<?>) {
-			expectedElements.addAll((List<? extends IExpectedElement>) expectedElement);
+		//} else if (expectedElement instanceof List<?>) {
+			//expectedElements.addAll((List<? extends IExpectedElement>) expectedElement);
 		} else {
 			fail("Unknown type of expected element given for file " + filename);
 		}
@@ -269,13 +269,13 @@ public class CodeCompletionTest extends TestCase {
 	}
 	
 	private void checkExpectations(File file) {
-		System.out.println("-- checkExpectations(" + file.getName() + ")");
+		//System.out.println("-- checkExpectations(" + file.getName() + ")");
 		String filename = file.getName();
 		if (!accept(filename)) {
 			return;
 		}
 		List<IExpectedElement> expectedElements = getExpectations(file);
-		System.out.println("- Actual       from " + file.getName() + "");
+		//System.out.println("- Actual       from " + file.getName() + "");
 		for (IExpectedElement expectedElement : expectedElements) {
 			System.out.println("EXPECTED ELEMENT: " + expectedElement);
 		}
@@ -293,12 +293,12 @@ public class CodeCompletionTest extends TestCase {
 		String[] lines = expectationsContent.split("\\r?\\n");
 		for (String line : lines) {
 			String[] parts = line.split("\\t");
-			assertEquals("Invalid number of parts in line \"" + line + "\"", 5, parts.length);
+			assertEquals("Invalid number of parts in line \"" + line + "\"", 3, parts.length);
 			int beginIncl = Integer.parseInt(parts[0]);
 			int beginExcl = Integer.parseInt(parts[1]);
-			int endExcl = Integer.parseInt(parts[2]);
-			int endIncl = Integer.parseInt(parts[3]);
-			String expected = parts[4];
+			//int endExcl = Integer.parseInt(parts[2]);
+			//int endIncl = Integer.parseInt(parts[3]);
+			String expected = parts[2];
 			if (expected.contains(":")) {
 				// is EStructuralFeature
 				String[] namespaceAndFeature = expected.split(":");

@@ -15,8 +15,8 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 
 	private int startIncludingHiddenTokens;
 	private int startExcludingHiddenTokens;
-	private int endIncludingHiddenTokens;
-	private int endExcludingHiddenTokens;
+	//private int endIncludingHiddenTokens;
+	//private int endExcludingHiddenTokens;
 	private String prefix;
 
 	public void setPosition(
@@ -26,8 +26,8 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 			//int endExcludingHiddenTokens
 	) {
 		startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, startExcludingHiddenTokens);
-		startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, endIncludingHiddenTokens);
-		endIncludingHiddenTokens = Math.min(endIncludingHiddenTokens, endExcludingHiddenTokens);
+		//startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, endIncludingHiddenTokens);
+		//endIncludingHiddenTokens = Math.min(endIncludingHiddenTokens, endExcludingHiddenTokens);
 
 		/*System.out.println("setPosition: " +
 				toString(startIncludingHiddenTokens) + "(" +
@@ -39,13 +39,13 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 				toString(endExcludingHiddenTokens) + 
 				") in " + this);*/
 		
-		assert startIncludingHiddenTokens <= endIncludingHiddenTokens;
-		assert endIncludingHiddenTokens <= endIncludingHiddenTokens;
+		//assert startIncludingHiddenTokens <= endIncludingHiddenTokens;
+		//assert endIncludingHiddenTokens <= endIncludingHiddenTokens;
 		assert startExcludingHiddenTokens <= startExcludingHiddenTokens;
-		assert endExcludingHiddenTokens <= endExcludingHiddenTokens;
+		//assert endExcludingHiddenTokens <= endExcludingHiddenTokens;
 		
 		assert startIncludingHiddenTokens <= startExcludingHiddenTokens;
-		assert endExcludingHiddenTokens <= endIncludingHiddenTokens;
+		//assert endExcludingHiddenTokens <= endIncludingHiddenTokens;
 
 		this.startIncludingHiddenTokens = startIncludingHiddenTokens;
 		this.startExcludingHiddenTokens = startExcludingHiddenTokens;
@@ -84,7 +84,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	 */
 	public boolean isAt(int cursorIndex) {
 		if (startExcludingHiddenTokens <= cursorIndex &&
-			endExcludingHiddenTokens >= cursorIndex) {
+			true) {//endExcludingHiddenTokens >= cursorIndex) {
 			return true;
 		}
 		return false;
@@ -97,7 +97,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	public boolean isUnknown(int cursorIndex) {
 		return 
 			startIncludingHiddenTokens > cursorIndex &&
-			endIncludingHiddenTokens == Integer.MAX_VALUE;
+			true; //endIncludingHiddenTokens == Integer.MAX_VALUE;
 	}
 	
 	public String toString() {
