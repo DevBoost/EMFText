@@ -80,6 +80,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	 * 
 	 * @param editor
 	 *            the <code>EMFTextEditor</code>
+	 * @param colorManager 
 	 */
 	public TextHover(EMFTextEditor editor) {
 		super();
@@ -149,7 +150,6 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 				ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
 				BrowserInformationControl iControl = new BrowserInformationControl(
 						parent, FONT, tbm);
-
 				final OpenDeclarationAction openDeclarationAction = new OpenDeclarationAction(
 						iControl);
 				tbm.add(openDeclarationAction);
@@ -384,6 +384,8 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			styleSheet = loadStyleSheet();
 		}
 		String css = styleSheet;
+		//Sets background color for the hover text window
+		css += "body {background-color:#FFFFE1;}\n";
 		if (css != null) {
 			FontData fontData = JFaceResources.getFontRegistry().getFontData(
 					FONT)[0];
