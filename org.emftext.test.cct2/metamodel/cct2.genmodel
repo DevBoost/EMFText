@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.test.cct2/src-gen"
+    modelPluginID="org.emftext.test.cct2" modelName="Cct2" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>cct2.ecore</foreignModel>
+  <genPackages prefix="Cct2" basePackage="org.emftext.test" disposableProviderFactory="true"
+      ecorePackage="cct2.ecore#/">
+    <genClasses ecoreClass="cct2.ecore#//StarSequence"/>
+  </genPackages>
+</genmodel:GenModel>
