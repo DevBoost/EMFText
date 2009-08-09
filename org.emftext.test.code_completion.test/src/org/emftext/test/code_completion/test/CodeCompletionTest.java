@@ -269,15 +269,21 @@ public class CodeCompletionTest extends TestCase {
 	}
 	
 	private void checkExpectations(File file) {
+		System.out.println("-- checkExpectations(" + file.getName() + ")");
 		String filename = file.getName();
 		if (!accept(filename)) {
 			return;
 		}
 		List<IExpectedElement> expectedElements = getExpectations(file);
+		System.out.println("- Actual       from " + file.getName() + "");
+		for (IExpectedElement expectedElement : expectedElements) {
+			System.out.println("EXPECTED ELEMENT: " + expectedElement);
+		}
 		assertExpectedElementsList(file, expectedElements);
 	}
 	
 	private List<IExpectedElement> getExpectations(File file) {
+		System.out.println("- Expectations from " + file.getName() + "");
 		List<IExpectedElement> expectations = new ArrayList<IExpectedElement>();
 		
 		final String expectationFilePath = file.getPath() + ".expectations";
@@ -304,12 +310,12 @@ public class CodeCompletionTest extends TestCase {
 				EStructuralFeature feature = findFeature(namespace, classname, featurename);
 				assertNotNull("Can't find feature " +namespace + ":" + classname + "." + featurename, feature);
 				ExpectedStructuralFeature expectedElement = new ExpectedStructuralFeature(feature, null, null);
-				expectedElement.setPosition(beginIncl, beginExcl, endIncl, endExcl);
+				expectedElement.setPosition(beginIncl, beginExcl/*, endIncl, endExcl*/);
 				expectations.add(expectedElement);
 			} else {
 				// is CsString
 				ExpectedCsString expectedElement = new ExpectedCsString(expected.trim());
-				expectedElement.setPosition(beginIncl, beginExcl, endIncl, endExcl);
+				expectedElement.setPosition(beginIncl, beginExcl/*, endIncl, endExcl*/);
 				expectations.add(expectedElement);
 			}
 		}
@@ -382,7 +388,10 @@ public class CodeCompletionTest extends TestCase {
 		String fileContent = getFileContent(file);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		final List<IExpectedElement> actualElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
-		
+		removeDuplicateEntries(actualElements);
+		for (IExpectedElement actualElement : actualElements) {
+			System.out.println("ACTUAL ELEMENT:   " + actualElement);
+		}
 		// compare lists
 		final int actualSize = actualElements.size();
 		final int expectedSize = expectedElementsList.size();
@@ -395,6 +404,19 @@ public class CodeCompletionTest extends TestCase {
 			//assertEquals("Expected end (excluding hidden) does not match.", expectedElementAtIndex.getEndExcludingHiddenTokens(), actualElementAtIndex.getEndExcludingHiddenTokens());
 		}
 		assertEquals("List sizes should match.", expectedSize, actualSize);
+	}
+
+	private void removeDuplicateEntries(List<IExpectedElement> actualElements) {
+		for (int i = 0; i < actualElements.size() - 1;) {
+			IExpectedElement elementAtIndex = actualElements.get(i);
+			IExpectedElement elementAtNext = actualElements.get(i + 1);
+			if (elementAtIndex.equals(elementAtNext) &&
+				elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
+				actualElements.remove(i + 1);
+			} else {
+				i++;
+			}
+		}
 	}
 
 	private List<IExpectedElement> getExpectedElementsList(String fileExtension,
