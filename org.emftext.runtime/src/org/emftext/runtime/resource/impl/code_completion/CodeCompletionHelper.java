@@ -102,10 +102,13 @@ public class CodeCompletionHelper {
 				}
 				break;
 			}
+			// TODO fix calculation of 'end'
+			/*
 			final int endIncludingHiddenTokens = expectedElement.getEndIncludingHiddenTokens();
 			if (endIncludingHiddenTokens >= 0 && endIncludingHiddenTokens < Integer.MAX_VALUE) {
 				end = endIncludingHiddenTokens;
 			}
+			*/
 			// TODO trim?
 			/*
 			int endExcludingHidden = expectedElement.getEndExcludingHiddenTokens();

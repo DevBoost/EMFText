@@ -17,17 +17,17 @@ public interface IExpectedElement {
 	// TODO mseifert: remove this
 	public void setPosition(
 			int startIncludingHiddenTokens, 
-			int startExcludingHiddenTokens, 
-			int endIncludingHiddenTokens,
-			int endExcludingHiddenTokens
+			int startExcludingHiddenTokens 
+			//int endIncludingHiddenTokens,
+			//int endExcludingHiddenTokens
 	);
 	
 	public int getStartExcludingHiddenTokens();
-	
+	/*
 	public int getEndExcludingHiddenTokens();
 
 	public int getEndIncludingHiddenTokens();
-
+*/
 	public boolean isAt(int cursorIndex);
 
 	public boolean isUnknown(int cursorIndex);
