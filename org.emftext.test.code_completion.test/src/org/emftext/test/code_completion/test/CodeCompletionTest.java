@@ -17,6 +17,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.IExpectedElement;
@@ -52,9 +55,11 @@ public class CodeCompletionTest extends TestCase {
 		TestSuite suite = new TestSuite("All tests");
 		TestSuite suite1 = createExpectedElementsSuite();
 		TestSuite suite2 = createExpectedInsertStringsSuite();
+		TestSuite suite3 = createExpectationsSuite();
 		
-		suite.addTest(suite1);
-		suite.addTest(suite2);
+		//suite.addTest(suite1);
+		//suite.addTest(suite2);
+		suite.addTest(suite3);
 		return suite;
 	}
 
@@ -71,13 +76,32 @@ public class CodeCompletionTest extends TestCase {
 	 * @return
 	 */
 	private static TestSuite createExpectedElementsSuite() {
-		TestSuite suite = new TestSuite("Test expected elements");
+		TestSuite suite = new TestSuite("Test expected element at cursor position");
 		File inputFolder = new File(INPUT_DIR);
 		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter())) {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
 						new CodeCompletionTest().parseToCursor(file);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+						fail(e.getClass() +  ": " + e.getMessage());
+					}
+				}
+			});
+		}
+		return suite;
+	}
+
+	private static TestSuite createExpectationsSuite() {
+		TestSuite suite = new TestSuite("Test list of expected elements");
+		File inputFolder = new File(INPUT_DIR);
+		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter())) {
+			suite.addTest(new TestCase("Parse " + file.getName()) {
+				public void runTest() {
+					try {
+						new CodeCompletionTest().checkExpectations(file);
 					}
 					catch (Exception e) {
 						e.printStackTrace();
@@ -241,9 +265,70 @@ public class CodeCompletionTest extends TestCase {
 		} else {
 			fail("Unknown type of expected element given for file " + filename);
 		}
-		parseToCursor(file, expectedElements);
+		assertExpectedElementAtCursor(file, expectedElements);
 	}
 	
+	private void checkExpectations(File file) {
+		String filename = file.getName();
+		if (!accept(filename)) {
+			return;
+		}
+		List<IExpectedElement> expectedElements = getExpectations(file);
+		assertExpectedElementsList(file, expectedElements);
+	}
+	
+	private List<IExpectedElement> getExpectations(File file) {
+		List<IExpectedElement> expectations = new ArrayList<IExpectedElement>();
+		
+		final String expectationFilePath = file.getPath() + ".expectations";
+		File expectationFile = new File(expectationFilePath);
+		assertTrue("Expectations file " + expectationFilePath + " not found.", expectationFile.exists());
+		String expectationsContent = getFileContent(expectationFile);
+		String[] lines = expectationsContent.split("\\r?\\n");
+		for (String line : lines) {
+			String[] parts = line.split("\\t");
+			assertEquals("Invalid number of parts in line \"" + line + "\"", 5, parts.length);
+			int beginIncl = Integer.parseInt(parts[0]);
+			int beginExcl = Integer.parseInt(parts[1]);
+			int endExcl = Integer.parseInt(parts[2]);
+			int endIncl = Integer.parseInt(parts[3]);
+			String expected = parts[4];
+			if (expected.contains(":")) {
+				// is EStructuralFeature
+				String[] namespaceAndFeature = expected.split(":");
+				String namespace = namespaceAndFeature[0];
+				String featurePath = namespaceAndFeature[1];
+				String[] classAndFeature = featurePath.split("\\.");
+				String classname = classAndFeature[0];
+				String featurename = classAndFeature[1];
+				EStructuralFeature feature = findFeature(namespace, classname, featurename);
+				assertNotNull("Can't find feature " +namespace + ":" + classname + "." + featurename, feature);
+				ExpectedStructuralFeature expectedElement = new ExpectedStructuralFeature(feature, null, null);
+				expectedElement.setPosition(beginIncl, beginExcl, endIncl, endExcl);
+				expectations.add(expectedElement);
+			} else {
+				// is CsString
+				ExpectedCsString expectedElement = new ExpectedCsString(expected.trim());
+				expectedElement.setPosition(beginIncl, beginExcl, endIncl, endExcl);
+				expectations.add(expectedElement);
+			}
+		}
+		return expectations;
+	}
+
+	private EStructuralFeature findFeature(String namespace, String classname,
+			String featureName) {
+		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(namespace);
+		assertNotNull("Can't find EPackage for namespace " + namespace, ePackage);
+		EClassifier eClassifier = ePackage.getEClassifier(classname);
+		assertNotNull("Can't find EClassifier for class " + classname, eClassifier);
+		assertTrue("Class " + classname + " is not an EClass.", eClassifier instanceof EClass);
+		EClass eClass = (EClass) eClassifier;
+		EStructuralFeature feature = eClass.getEStructuralFeature(featureName);
+		assertNotNull("Can't find EStructuralFeature " + featureName, feature);
+		return feature;
+	}
+
 	private void checkInsertStrings(File file, String[] expectedInsertStrings) {
 		String fileContent = getFileContent(file);
 		int cursorIndex = getCursorMarkerIndex(fileContent);
@@ -266,14 +351,56 @@ public class CodeCompletionTest extends TestCase {
 		return getMetaInformation(fileExtension);
 	}
 
-	private void parseToCursor(File file, List<IExpectedElement> expectedCompletionElement) {
+	/**
+	 * Asserts that the given list of expected elements is returned by the parser.
+	 * This list covers only the expectations at the cursor position.
+	 * 
+	 * @param file the test input file
+	 * @param expectedElementsList the list of expected elements that should be returned by the parser
+	 *        for the given cursor position
+	 */
+	private void assertExpectedElementAtCursor(File file, List<IExpectedElement> expectedCompletionElement) {
+		String fileExtension = getFileExtension(file);
 		String fileContent = getFileContent(file);
 		int cursorIndex = getCursorMarkerIndex(fileContent);
-		System.out.println("-------- " + file + " - CURSOR AT " + cursorIndex);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
+		final List<IExpectedElement> actualElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
+		List<IExpectedElement> finalExpectedAtCursor = new CodeCompletionHelper().getExpectedElementsAt(contentWithoutMarker, cursorIndex, actualElements);
+		assertEquals(expectedCompletionElement, finalExpectedAtCursor);
+	}
+
+	/**
+	 * Asserts that the given list of expected elements is returned by the parser.
+	 * This list covers the whole file content and NOT only the expectations at the
+	 * cursor position.
+	 * 
+	 * @param file the test input file
+	 * @param expectedElementsList the list of expected elements that should be returned by the parser
+	 */
+	private void assertExpectedElementsList(File file, List<IExpectedElement> expectedElementsList) {
+		String fileExtension = getFileExtension(file);
+		String fileContent = getFileContent(file);
+		String contentWithoutMarker = removeCursorMarker(fileContent);
+		final List<IExpectedElement> actualElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
+		
+		// compare lists
+		final int actualSize = actualElements.size();
+		final int expectedSize = expectedElementsList.size();
+		int maxSize = Math.min(actualSize, expectedSize);
+		for (int i = 0; i < maxSize; i++) {
+			IExpectedElement actualElementAtIndex = actualElements.get(i);
+			IExpectedElement expectedElementAtIndex = expectedElementsList.get(i);
+			assertEquals("Types do not match.", expectedElementAtIndex, actualElementAtIndex);
+			assertEquals("Expected start (excluding hidden) does not match.", expectedElementAtIndex.getStartExcludingHiddenTokens(), actualElementAtIndex.getStartExcludingHiddenTokens());
+			//assertEquals("Expected end (excluding hidden) does not match.", expectedElementAtIndex.getEndExcludingHiddenTokens(), actualElementAtIndex.getEndExcludingHiddenTokens());
+		}
+		assertEquals("List sizes should match.", expectedSize, actualSize);
+	}
+
+	private List<IExpectedElement> getExpectedElementsList(String fileExtension,
+			String contentWithoutMarker) {
 		InputStream inputStream = new ByteArrayInputStream(contentWithoutMarker.getBytes());
 		
-		String fileExtension = getFileExtension(file);
 		ITextParser parser = createParser(fileExtension, inputStream);
 		assertNotNull("Parser should be created.", parser);
 		
@@ -284,8 +411,7 @@ public class CodeCompletionTest extends TestCase {
 		if (actualElements.size() == 0) {
 			fail("Parser must return at least one expected element.");
 		}
-		List<IExpectedElement> finalExpectedAtCursor = new CodeCompletionHelper().getExpectedElementsAt(contentWithoutMarker, cursorIndex, actualElements);
-		assertEquals(expectedCompletionElement, finalExpectedAtCursor);
+		return actualElements;
 	}
 
 	private String getFileExtension(File file) {
@@ -311,7 +437,7 @@ public class CodeCompletionTest extends TestCase {
 	private int getCursorMarkerIndex(String fileContent) {
 		int cursorPosition = fileContent.indexOf(CURSOR_MARKER);
 		assertTrue("Cursor position marker (" + CURSOR_MARKER + ") not found in input file.", cursorPosition >= 0);
-		
+		System.out.println("-------- CURSOR AT " + cursorPosition);
 		return cursorPosition;
 	}
 

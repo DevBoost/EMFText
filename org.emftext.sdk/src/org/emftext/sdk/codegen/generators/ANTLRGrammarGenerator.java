@@ -331,6 +331,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("message =\"rule \" + fpe.ruleName + \" failed predicate: {\" + fpe.predicateText + \"}?\";");
 		sc.add("}");
 		sc.add("final " + STRING + " finalMessage = message;");
+		sc.add("// the resource may be null if the parse is used for code completion");
+		sc.add("if (resource != null) {");
 		sc.add("resource.addProblem(");
 		sc.add("new " + ABSTRACT_PROBLEM + "() {");
 		sc.add("");
@@ -342,6 +344,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("return finalMessage;");
 		sc.add("}");
 		sc.add("}, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -707,7 +710,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("this.lastIndex = endIncludingHidden;");
 		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
-		sc.add("");
+		sc.addLineBreak();
 	}
 
 	private void addGetParseToIndexTypeObjectMethod(StringComposite sc) {
@@ -981,30 +984,37 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
         return count;
     }
 	
-    private int printSequence(Sequence sequence, Rule rule, StringComposite sc, int count,Map<GenClass,Collection<Terminal>> eClassesReferenced) {
+    private int printSequence(Sequence sequence, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
     	Iterator<Definition> it = sequence.getParts().iterator();
-    	while(it.hasNext()){
+    	while (it.hasNext()) {
     		Definition def = it.next();
-    		if(def instanceof LineBreak || def instanceof WhiteSpaces)
+    		if (def instanceof LineBreak || def instanceof WhiteSpaces) {
     			continue;
+    		}
     		String cardinality = computeCardinalityString(def);
-    		if(cardinality!=null){
+    		if (cardinality != null) {
+    			sc.add("{");
+    			sc.add("// TODO add code for expected elements");
+    			addExpectationCode(sc, def, "null");
+    			sc.add("}");
     			sc.add("(");
     		}
-    		if(def instanceof CompoundDefinition){
+    		if (def instanceof CompoundDefinition) {
             	CompoundDefinition compoundDef = (CompoundDefinition) def;
                 sc.add("(");
                 count = printChoice(compoundDef.getDefinitions(), rule,sc, count, eClassesReferenced);
-                sc.add(")");
+                sc.add(") {");
+                addExpectationCode(sc, compoundDef, null);
+                sc.add("}");
     		}
-    		else if(def instanceof CsString){
+    		else if (def instanceof CsString) {
     			count = printCsString((CsString) def, rule, sc, count, eClassesReferenced);
     		}
-    		else{
+    		else {
     			assert def instanceof Terminal;
     			count = printTerminal((Terminal) def, rule, sc, count, eClassesReferenced);
     		}
-    		if(cardinality!=null){
+    		if (cardinality != null) {
     			sc.addLineBreak();
     			sc.add(")" + cardinality);
     		}
@@ -1014,13 +1024,56 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	return count;
     }
     
-    private int printCsString(CsString csString, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced){
+    private void addExpectationCode(StringComposite sc, Definition definition,
+			String identifier) {
+
+    	if (definition instanceof CompoundDefinition) {
+			addExpectationCode(sc, (CompoundDefinition) definition, identifier);
+		} else if (definition instanceof CsString) {
+			addExpectationCode(sc, (CsString) definition, identifier);
+		} else if (definition instanceof Terminal) {
+			addExpectationCode(sc, (Terminal) definition, identifier);
+		} else {
+			System.out.println("ANTLRGrammarGenerator.addExpectationCode() unknown definition type " + definition.getClass().getName());
+			assert false;
+		}
+	}
+
+	private void addExpectationCode(StringComposite sc,
+			CompoundDefinition compoundDef, String identifier) {
+		Choice choice = compoundDef.getDefinitions();
+		addExpectationCode(sc, choice, identifier);
+	}
+
+	private void addExpectationCode(StringComposite sc, Choice choice,
+			String identifier) {
+		List<Sequence> options = choice.getOptions();
+		for (Sequence sequence : options) {
+			addExpectationCode(sc, sequence, identifier);
+		}
+	}
+
+	private void addExpectationCode(StringComposite sc, Sequence sequence,
+			String identifier) {
+		List<Definition> parts = sequence.getParts();
+		for (Definition definition : parts) {
+			if (definition instanceof CsString) {
+				CsString csString = (CsString) definition;
+				addExpectationCode(sc, csString, identifier);
+			}
+			if (definition instanceof CardinalityDefinition) {
+				CardinalityDefinition cd = (CardinalityDefinition) definition;
+				cd.getCardinality();
+			}
+			break;
+		}
+	}
+
+	private int printCsString(CsString csString, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced){
     	final String identifier = "a" + count;
     	String escapedCsString = StringUtil.escapeToANTLRString(csString.getValue());
 		sc.add(identifier + " = '" + escapedCsString + "' {");
-		// we must use the unicode representation for the % character, because
-		// StringTemplate does treat % special
-		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString.replace("%", "\\u0025") + "\"), " + identifier + ");");
+		addExpectationCode(sc, csString, identifier);
     	sc.add("if (element == null) {");
     	sc.add("element = " + genClassUtil.getCreateObjectCall(rule.getMetaclass(), qualifiedDummyEObjectClassName) + ";");
     	sc.add("}");
@@ -1028,6 +1081,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	sc.add("copyLocalizationInfos((CommonToken)" + identifier + ", element);");
     	sc.add("}"); 
     	return ++count;
+    }
+
+	private String getEscapedValue(CsString csString) {
+		return csString.getValue().replaceAll("'", "\\\\'");
+	}
+    
+    private void addExpectationCode(StringComposite sc, CsString csString, String identifier) {
+		String escapedCsString = getEscapedValue(csString);
+		// we must use the unicode representation for the % character, because
+		// StringTemplate does treat % special
+		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName() + "(\"" + escapedCsString.replace("%", "\\u0025") + "\"), " + identifier + ");");
     }
     
     private int printTerminal(Terminal terminal, Rule rule, StringComposite sc, int count, Map<GenClass,Collection<Terminal>> eClassesReferenced) {
@@ -1263,13 +1327,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
     	if (definition instanceof CardinalityDefinition) {
     		cardinality = ((CardinalityDefinition) definition).getCardinality();
     	}
-    	if(cardinality==null)
+    	if (cardinality == null) {
     		return null;
-    	else if(cardinality instanceof PLUS)
+    	} else if(cardinality instanceof PLUS) {
     		return "+";
-    	else if(cardinality instanceof QUESTIONMARK)
+    	} else if(cardinality instanceof QUESTIONMARK) {
     		return "?";
-    	else
+    	} else {
     		return "*";
+    	}
     }
 }

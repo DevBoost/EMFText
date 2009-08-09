@@ -120,7 +120,9 @@ public class CodeCompletionHelper {
 		}
 		end = Math.min(end, offset);
 		//System.out.println("substring("+end+","+offset+")");
-		return document.substring(end, Math.min(document.length(), offset + 1));
+		final String prefix = document.substring(end, Math.min(document.length(), offset + 1));
+		System.out.println("Found prefix '" + prefix + "'");
+		return prefix;
 	}
 
 	private Collection<String> deriveProposals(
@@ -313,23 +315,23 @@ public class CodeCompletionHelper {
 			boolean isAfter = expectedElement.isAfter(cursorIndex);
 			boolean isUnknown = expectedElement.isUnknown(cursorIndex);
 			if (isAtIndex) {
-				System.out.println("EXPECTED (AT CURSOR) " + expectedElement);
+				System.out.println("\tEXPECTED (AT CURSOR) " + expectedElement);
 				expectedAtCursor = expectedElement;
 				break;
 			} else {
 				// pick first element after cursor index
 				if (isAfter) {
 					expectedAtCursor = expectedElement;
-					System.out.println("EXPECTED (AFTER) " + expectedElement);
+					System.out.println("\tEXPECTED (AFTER) " + expectedElement);
 					break;
 				}
 				// pick first element with unknown location
 				if (isUnknown && expectedAtCursor == null) {
 					expectedAtCursor = expectedElement;
-					System.out.println("EXPECTED (UNKNOWN) " + expectedElement);
+					System.out.println("\tEXPECTED (UNKNOWN) " + expectedElement);
 					break;
 				} else {
-					System.out.println("EXPECTED " + expectedElement);
+					System.out.println("\tEXPECTED " + expectedElement);
 				}
 			}
 		}

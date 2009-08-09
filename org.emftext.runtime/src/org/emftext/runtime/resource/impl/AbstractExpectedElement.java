@@ -3,7 +3,7 @@ package org.emftext.runtime.resource.impl;
 import org.emftext.runtime.resource.IExpectedElement;
 
 /**
- * Abstract super class for all expected elements. Provides method to
+ * Abstract super class for all expected elements. Provides methods to
  * set and retrieve the document range, where the element is expected.
  * This range is expressed using four integers - two denoting the range
  * including hidden tokens (e.g., whitespace) and two denoting the range
@@ -27,14 +27,14 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	) {
 		startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, startExcludingHiddenTokens);
 		startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, endIncludingHiddenTokens);
-		endIncludingHiddenTokens = Math.max(endIncludingHiddenTokens, endExcludingHiddenTokens);
-/*
+		endIncludingHiddenTokens = Math.min(endIncludingHiddenTokens, endExcludingHiddenTokens);
+
 		System.out.println("setPosition: " +
-				startIncludingHiddenTokens + "-" +
-				endIncludingHiddenTokens + " (" +
-				startExcludingHiddenTokens + "-" +
-				endExcludingHiddenTokens + 
-				")");*/
+				toString(startIncludingHiddenTokens) + "-" +
+				toString(endIncludingHiddenTokens) + " (" +
+				toString(startExcludingHiddenTokens) + "-" +
+				toString(endExcludingHiddenTokens) + 
+				") in " + this);
 		
 		assert startIncludingHiddenTokens <= endIncludingHiddenTokens;
 		assert endIncludingHiddenTokens <= endIncludingHiddenTokens;
@@ -107,7 +107,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 		if (index == -1) {
 			return "MIN";
 		} else if (index == Integer.MAX_VALUE) {
-			return "?";
+			return "*";
 		} else {
 			return "" + index;
 		}
