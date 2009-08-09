@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import org.emftext.runtime.resource.IHoverTextProvider;
-
 public class CsMetaInformation extends org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation {
 	
 	public class TokenStyleImpl extends org.emftext.runtime.resource.impl.AbstractTokenStyle {
@@ -66,10 +64,9 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		public boolean isClosingEnabledInside() {
 			return closingEnabledInside;
 		}
-
+		
 		public void setClosingEnabledInside(boolean closingEnabledInside) {
-			// TODO Auto-generated method stub
-			
+			this.closingEnabledInside = closingEnabledInside;
 		}
 	}
 	
@@ -225,9 +222,9 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule(),
 		};
 	}
-
-	public IHoverTextProvider getHoverTextProvider() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public org.emftext.runtime.resource.IHoverTextProvider getHoverTextProvider() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.CsHoverTextProvider();
 	}
+	
 }
