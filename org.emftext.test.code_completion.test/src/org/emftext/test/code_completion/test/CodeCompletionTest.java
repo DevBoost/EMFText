@@ -18,22 +18,37 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.IExpectedElement;
-import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
+import org.emftext.runtime.resource.ITextParser;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.impl.code_completion.CodeCompletionHelper;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedCsString;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.resource.cs.CsMetaInformation;
+import org.emftext.test.cct2.Cct2Package;
+import org.emftext.test.cct2.resource.cct2.Cct2MetaInformation;
 import org.emftext.test.code_completion.Code_completionPackage;
 import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
-import org.emftext.test.code_completion.resource.cct.CctParser;
 
 public class CodeCompletionTest extends TestCase {
 
+	private static final class TestFileFilter implements FileFilter {
+		public boolean accept(File file) {
+			return file.isDirectory() || file.getName().endsWith(".cct2");
+		}
+	}
+
 	private static final Code_completionPackage CCT_PACKAGE = Code_completionPackage.eINSTANCE;
+	private static final Cct2Package CCT2_PACKAGE = Cct2Package.eINSTANCE;
+	private static final ConcretesyntaxPackage CS_PACKAGE = ConcretesyntaxPackage.eINSTANCE;
 	private static final String INPUT_DIR = "input";
 	private static final String CURSOR_MARKER = "<CURSOR>";
 
 	public static Test suite() {
+		registerSyntaxes();
+		
 		TestSuite suite = new TestSuite("All tests");
 		TestSuite suite1 = createExpectedElementsSuite();
 		TestSuite suite2 = createExpectedInsertStringsSuite();
@@ -41,6 +56,12 @@ public class CodeCompletionTest extends TestCase {
 		suite.addTest(suite1);
 		suite.addTest(suite2);
 		return suite;
+	}
+
+	private static void registerSyntaxes() {
+		EMFTextRuntimePlugin.getConcreteSyntaxRegistry().add(new CsMetaInformation());
+		EMFTextRuntimePlugin.getConcreteSyntaxRegistry().add(new CctMetaInformation());
+		EMFTextRuntimePlugin.getConcreteSyntaxRegistry().add(new Cct2MetaInformation());
 	}
 
 	/**
@@ -52,11 +73,7 @@ public class CodeCompletionTest extends TestCase {
 	private static TestSuite createExpectedElementsSuite() {
 		TestSuite suite = new TestSuite("Test expected elements");
 		File inputFolder = new File(INPUT_DIR);
-		for (final File file : inputFolder.listFiles(new FileFilter() {
-			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".cct");
-			}
-		})) {
+		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter())) {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
@@ -72,6 +89,19 @@ public class CodeCompletionTest extends TestCase {
 		return suite;
 	}
 
+	private static List<File> listFilesRecursivly(File inputFolder,
+			FileFilter filter) {
+		List<File> result = new ArrayList<File>();
+		for (File file : inputFolder.listFiles(filter)) {
+			if (file.isDirectory()) {
+				result.addAll(listFilesRecursivly(file, filter));
+			} else {
+				result.add(file);
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * Creates a test suite that checks whether the CodeCompletionHelper 
 	 * returns the correct string to insert at the cursor position.
@@ -81,11 +111,7 @@ public class CodeCompletionTest extends TestCase {
 	private static TestSuite createExpectedInsertStringsSuite() {
 		TestSuite suite = new TestSuite("Test insert strings");
 		File inputFolder = new File(INPUT_DIR);
-		for (final File file : inputFolder.listFiles(new FileFilter() {
-			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".cct");
-			}
-		})) {
+		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter())) {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
@@ -167,6 +193,23 @@ public class CodeCompletionTest extends TestCase {
 
 		expectedElementsMap.put("MembersExpected1.cct", CCT_PACKAGE.getClass_Members());
 		expectedInsertStringsMap.put("MembersExpected1.cct", new String[] {"public", "private"});
+
+		// cs examples
+		expectedElementsMap.put("OptionExpected1.cs", CS_PACKAGE.getConcreteSyntax_Options());
+		expectedInsertStringsMap.put("OptionExpected1.cs", new String[] {"override"});
+
+		// cct2 examples
+		expectedElementsMap.put("ExpectedA1.cct2", CCT2_PACKAGE.getStarSequence());
+		expectedInsertStringsMap.put("ExpectedA1.cct2", new String[] {"a"});
+
+		expectedElementsMap.put("ExpectedA2.cct2", CCT2_PACKAGE.getStarSequence());
+		expectedInsertStringsMap.put("ExpectedA2.cct2", new String[] {"a"});
+
+		expectedElementsMap.put("ExpectedB1.cct2", CCT2_PACKAGE.getStarSequence());
+		expectedInsertStringsMap.put("ExpectedB1.cct2", new String[] {"b"});
+
+		expectedElementsMap.put("ExpectedB2.cct2", CCT2_PACKAGE.getStarSequence());
+		expectedInsertStringsMap.put("ExpectedB2.cct2", new String[] {"b"});
 	}
 	
 	private void checkInsertStrings(File file) {
@@ -207,12 +250,20 @@ public class CodeCompletionTest extends TestCase {
 		System.out.println("-------- " + file + " - CURSOR AT " + cursorIndex);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		CodeCompletionHelper helper = new CodeCompletionHelper();
-		Collection<String> proposals = helper.computeCompletionProposals(new CctMetaInformation(), contentWithoutMarker, cursorIndex);
+		Collection<String> proposals = helper.computeCompletionProposals(getMetaInformation(file), contentWithoutMarker, cursorIndex);
 		assertNotNull("Proposal list should not be null", proposals);
+		for (String proposal : proposals) {
+			System.out.println("Found proposal \"" + proposal + "\"");
+		}
 		for (String expectedInsertString : expectedInsertStrings) {
 			assertTrue("Proposal " + expectedInsertString + " expected.", proposals.contains(expectedInsertString));
 		}
 		assertEquals("Same number of proposals expected.", expectedInsertStrings.length, proposals.size());
+	}
+
+	private ITextResourcePluginMetaInformation getMetaInformation(File file) {
+		String fileExtension = getFileExtension(file);
+		return getMetaInformation(fileExtension);
 	}
 
 	private void parseToCursor(File file, List<IExpectedElement> expectedCompletionElement) {
@@ -221,9 +272,11 @@ public class CodeCompletionTest extends TestCase {
 		System.out.println("-------- " + file + " - CURSOR AT " + cursorIndex);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		InputStream inputStream = new ByteArrayInputStream(contentWithoutMarker.getBytes());
-		CctParser factory = new CctParser();
-		AbstractEMFTextParser parser = (AbstractEMFTextParser) factory.createInstance(inputStream, null);
-
+		
+		String fileExtension = getFileExtension(file);
+		ITextParser parser = createParser(fileExtension, inputStream);
+		assertNotNull("Parser should be created.", parser);
+		
 		final List<IExpectedElement> actualElements = parser.parseToExpectedElements(null);
 		if (actualElements == null) {
 			fail("Parser must return an expected elements list.");
@@ -233,6 +286,26 @@ public class CodeCompletionTest extends TestCase {
 		}
 		List<IExpectedElement> finalExpectedAtCursor = new CodeCompletionHelper().getExpectedElementsAt(contentWithoutMarker, cursorIndex, actualElements);
 		assertEquals(expectedCompletionElement, finalExpectedAtCursor);
+	}
+
+	private String getFileExtension(File file) {
+		final String filename = file.getName();
+		String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
+		return fileExtension;
+	}
+
+	private ITextResourcePluginMetaInformation getMetaInformation(String fileExtension) {
+		for (ITextResourcePluginMetaInformation metaInformation : EMFTextRuntimePlugin.getConcreteSyntaxRegistry()) {
+			if (metaInformation.getSyntaxName().equals(fileExtension)) {
+				return metaInformation;
+			}
+		}
+		fail("Could not find meta information for extension " + fileExtension);
+		return null;
+	}
+
+	private ITextParser createParser(String fileExtension, InputStream inputStream) {
+		return getMetaInformation(fileExtension).createParser(inputStream, null);
 	}
 
 	private int getCursorMarkerIndex(String fileContent) {
