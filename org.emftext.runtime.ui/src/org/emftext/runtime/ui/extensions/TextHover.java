@@ -309,7 +309,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 		if (editor.isDirty()) {
 			return null;
 		}
-		return internalGetHoverInfo(textViewer, hoverRegion);
+		return hoverTextProvider == null ? null : internalGetHoverInfo(textViewer, hoverRegion);
 	}
 
 	private DocBrowserInformationControlInput internalGetHoverInfo(
