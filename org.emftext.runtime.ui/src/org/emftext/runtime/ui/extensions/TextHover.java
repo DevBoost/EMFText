@@ -73,7 +73,6 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	private EMFTextEditor editor;
 	private static final String FONT = JFaceResources.DIALOG_FONT;
 	private IHoverTextProvider hoverTextProvider;
-
 	/**
 	 * Creates a new TextHover to collect the information about the hovered
 	 * element.
@@ -124,13 +123,16 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			infoControl.notifyDelayedInputChange(null);
 			infoControl.dispose(); // FIXME: should have protocol to hide,
 			// rather than dispose
+			if (infoInput.getInputElement() instanceof EObject) {
 			EObject decEO = (EObject) infoInput.getInputElement();
 			if (decEO != null && decEO.eResource() != null) {
+				//file extension to open with its default editor.
 				Hyperlink hyperlink = new Hyperlink(infoInput.getResource()
 						.getURI().fileExtension(), null);
 				hyperlink.setHyperlinkText(infoInput.getTokenText());
 				hyperlink.setLinkTarget(decEO);
 				hyperlink.open();
+			}
 			}
 		}
 	}

@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -44,16 +45,17 @@ public class Hyperlink implements IHyperlink {
 
 	private String text = "";
 	private EObject linkTarget;
-	private String languageID;
+	private String fileExtension;
 	private IRegion region;
 
 	/**
 	 * Creates the hyperlink.
-	 * @param languageID the file extension of the DSL
+	 * @param fileExtension the file extension in order to open with its default editor.
+	 * Sets EMFTextEditor as default editor if you want to open this file extension with EMFTextEditor
 	 * @param region the region of the hyperlink to highlight
 	 */
-	public Hyperlink(String languageID, IRegion region) {
-		this.languageID=languageID;
+	public Hyperlink(String fileExtension, IRegion region) {
+		this.fileExtension=fileExtension;
 		this.region = region;
 	}
 	
@@ -89,8 +91,8 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	/**
-	 * Opens the resource in <code>linkTarget</code> with an EMFTextEditor. Assumes the
-	 * resource can be opened with EMFTextEditor. Tries to jump to the definition.
+	 * Opens the resource in <code>linkTarget</code> with an default editor. 
+	 * If the editor is an EMFTextEditor it tries to jump to the definition.
 	 * 
 	 * @see org.eclipse.jface.text.hyperlink.IHyperlink#open()
 	 */
@@ -102,8 +104,11 @@ public class Hyperlink implements IHyperlink {
 		if (file != null) {
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			try {
-				page.openEditor(new FileEditorInput(file), page.getActiveEditor().getSite().getId());
-
+				//page.openEditor(new FileEditorInput(file), page.getActiveEditor().getSite().getId());
+				IEditorDescriptor desc = PlatformUI.getWorkbench().
+		        getEditorRegistry().getDefaultEditor(file.getName());
+				page.openEditor(new FileEditorInput(file), desc.getId());
+				
 				IEditorPart editorPart = page.getActiveEditor();
 				if (editorPart instanceof EMFTextEditor) {
 					EMFTextEditor emftEditor = (EMFTextEditor) editorPart;
@@ -119,10 +124,9 @@ public class Hyperlink implements IHyperlink {
 		URI resourceURI = linkTarget.eResource().getURI();
 		if (resourceURI.toString().startsWith("pathmap")) {
 			resourceURI = URIConverter.URI_MAP.get(resourceURI);
-			if (!resourceURI.fileExtension().equals(languageID))
+			if (!resourceURI.fileExtension().equals(fileExtension))
 				return null;
 		}
-		// TODO what is a PlatformResource
 		if (resourceURI.isPlatformResource()) {
 			String platformString = resourceURI.toPlatformString(true);
 			if (platformString != null) {
