@@ -133,7 +133,7 @@ public class CsParser extends AbstractEMFTextParser {
     		startIncludingHidden = java.lang.Math.max(startIncludingHidden, currentIndex);
     		startExcludingHidden = java.lang.Math.max(startExcludingHidden, currentIndex);
     		lastTokenIndex = java.lang.Math.max(0, currentTokenIndex);
-    		expectedElement.setPosition(startIncludingHidden,  startExcludingHidden, endIncludingHidden, endExcludingHidden);
+    		expectedElement.setPosition(startIncludingHidden,  startExcludingHidden/*, endIncludingHidden, endExcludingHidden*/);
     		this.lastIndex = endIncludingHidden;
     		this.expectedElements.add(expectedElement);
     	}
@@ -660,7 +660,7 @@ public class CsParser extends AbstractEMFTextParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:490:5: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )?
             int alt2=2;
@@ -706,7 +706,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
             a2=(Token)match(input,14,FOLLOW_14_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax300); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -858,7 +858,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:619:5: ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )?
             int alt5=2;
@@ -1024,7 +1024,7 @@ public class CsParser extends AbstractEMFTextParser {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
 
                     }
@@ -1041,7 +1041,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:723:5: ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )?
             int alt7=2;
@@ -1140,7 +1140,7 @@ public class CsParser extends AbstractEMFTextParser {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
                     a14=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax995); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1167,7 +1167,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:780:5: ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )?
             int alt9=2;
@@ -1277,7 +1277,7 @@ public class CsParser extends AbstractEMFTextParser {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
                     a19=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1231); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1304,7 +1304,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:846:5: ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )?
             int alt11=2;
@@ -1414,7 +1414,7 @@ public class CsParser extends AbstractEMFTextParser {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
                     a24=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1467); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1441,7 +1441,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:912:5: ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )?
             int alt13=2;
@@ -1540,7 +1540,7 @@ public class CsParser extends AbstractEMFTextParser {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
                     a28=(Token)match(input,20,FOLLOW_20_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1678); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1567,7 +1567,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             a29=(Token)match(input,25,FOLLOW_25_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1725); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -1645,7 +1645,7 @@ public class CsParser extends AbstractEMFTextParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
 
             }
@@ -1841,7 +1841,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1126:5: ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
             int alt17=2;
@@ -1975,7 +1975,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
 
                     }
@@ -1991,7 +1991,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
 
             }
@@ -2197,7 +2197,7 @@ public class CsParser extends AbstractEMFTextParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1314:5: (a1= QUALIFIED_NAME )
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1315:6: a1= QUALIFIED_NAME
@@ -2371,7 +2371,7 @@ public class CsParser extends AbstractEMFTextParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
 
             }
@@ -2506,7 +2506,7 @@ public class CsParser extends AbstractEMFTextParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
 
             }
@@ -2743,7 +2743,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
 
             }
@@ -2881,7 +2881,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
 
             }
@@ -3116,7 +3116,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             a7=(Token)match(input,33,FOLLOW_33_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes3700); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3173,7 +3173,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
 
             }
@@ -3391,7 +3391,7 @@ public class CsParser extends AbstractEMFTextParser {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
 
                     }
@@ -3408,7 +3408,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             // D:\\Projekte\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1985:5: ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt27=2;
@@ -3454,7 +3454,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
 
             }
@@ -3583,7 +3583,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR ContainmentImpl");
+              
             }
 
             }
@@ -3819,7 +3819,7 @@ public class CsParser extends AbstractEMFTextParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             a1=(Token)match(input,37,FOLLOW_37_in_parse_org_emftext_sdk_concretesyntax_NormalToken4602); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3979,7 +3979,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
 
             }
@@ -4412,7 +4412,7 @@ public class CsParser extends AbstractEMFTextParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
             a5=(Token)match(input,22,FOLLOW_22_in_parse_org_emftext_sdk_concretesyntax_TokenStyle5368); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4630,7 +4630,7 @@ public class CsParser extends AbstractEMFTextParser {
                     } while (true);
 
                     if ( state.backtracking==0 ) {
-                      System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+                      
                     }
                     a6=(Token)match(input,35,FOLLOW_35_in_parse_org_emftext_sdk_concretesyntax_Annotation5687); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -4658,7 +4658,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
 
             }
@@ -4796,7 +4796,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
 
             if ( state.backtracking==0 ) {
-              System.out.println("CARDINALITY FOR CompoundDefinitionImpl");
+              
             }
 
             }
