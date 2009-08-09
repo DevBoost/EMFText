@@ -46,7 +46,7 @@ public class BracketSet {
 
 	// the separator between a bracket pair, should not contain escape needed
 	// character, it will be used as regex
-	private final static String BRACKET_SEPARATOR = " and ";
+	public final static String BRACKET_SEPARATOR = " and ";
 	private final static PositionHelper positionHelper = new PositionHelper();
 
 	/**
@@ -55,9 +55,10 @@ public class BracketSet {
 	private class BracketPair implements IBracketPair {
 
 		private final String[] brackets;
-		private final boolean closingEnabledInside;
+		private boolean closingEnabledInside;
 
-		public BracketPair(String opening, String closing, boolean closingEnabledInside) {
+		public BracketPair(String opening, String closing,
+				boolean closingEnabledInside) {
 			brackets = new String[] { opening, closing };
 			this.closingEnabledInside = closingEnabledInside;
 		}
@@ -70,8 +71,12 @@ public class BracketSet {
 			return brackets[0];
 		}
 
-		public boolean isClosingEnabledInside() {
+		public boolean isClosingEnabledInside() {// false to test
 			return closingEnabledInside;
+		}
+
+		public void setClosingEnabledInside(boolean closingEnabledInside) {
+			this.closingEnabledInside = closingEnabledInside;
 		}
 	}
 
@@ -88,20 +93,24 @@ public class BracketSet {
 		 * Automatic closing will be activated if the text about to insert is a
 		 * bracket, and the next character in TextWidget is not a double quote.
 		 * 
-		 * TODO the double quote is just one special case!
-		 * 
 		 * @see org.eclipse.swt.events.VerifyListener#verifyText(org.eclipse.swt.events.VerifyEvent)
 		 */
 		public void verifyText(VerifyEvent e) {
-			if (isOpeningBracket(e.text)
-					&& (textWidget.getCaretOffset() == textWidget
-							.getCharCount() || !textWidget.getTextRange(
-							textWidget.getCaretOffset(), 1).matches("[\"\']"))) {
-				closingAdded = true;
-				String close = getCounterpart(e.text);
-				e.text += close;
-				closingLength = close.length();
+			int caret = textWidget.getCaretOffset();
+			if (!isOpeningBracket(e.text))
+				return;
+			if (caret > 0 && caret < textWidget.getCharCount()) {
+				IBracketPair bracketPair = getBracketPair(
+						textWidget.getTextRange(caret - 1, 1), 
+						textWidget.getTextRange(caret, 1));
+				if (bracketPair != null
+						&& !bracketPair.isClosingEnabledInside())
+					return;
 			}
+			closingAdded = true;
+			String close = getCounterpart(e.text);
+			e.text += close;
+			closingLength = close.length();
 		}
 
 		/**
@@ -215,6 +224,29 @@ public class BracketSet {
 	}
 
 	/**
+	 * Returns the bracket pair with the given opening and closing. 
+	 * @param opening the opening string
+	 * @param closing the closing string
+	 * @return a bracket pair
+	 */
+	public IBracketPair getBracketPair(String opening, String closing) {
+		for (IBracketPair bracketPair : bracketPairs) {
+			if (bracketPair.getOpeningBracket().equals(opening)
+					&& bracketPair.getClosingBracket().equals(closing))
+				return bracketPair;
+		}
+		return null;
+	}
+	
+	public IBracketPair getBracketPair(int index) {
+		try {
+			return bracketPairs.get(index);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	/**
 	 * Adds the bracket pair to this bracket set.
 	 * 
 	 * @param opening
@@ -223,11 +255,13 @@ public class BracketSet {
 	 *            the closing bracket
 	 * @return <code>true</code> if successful
 	 */
-	public boolean addBracketPair(String opening, String closing, boolean closingEnabledInside) {
+	public boolean addBracketPair(String opening, String closing,
+			boolean closingEnabledInside) {
 		if (isBracket(opening) || isBracket(closing)) {
 			return false;
 		}
-		bracketPairs.add(new BracketPair(opening, closing, closingEnabledInside));
+		bracketPairs
+				.add(new BracketPair(opening, closing, closingEnabledInside));
 		return true;
 	}
 
@@ -312,27 +346,28 @@ public class BracketSet {
 
 	/**
 	 * Removes the old bracket set and set the given bracket set. It is useful
-	 * to take a stored <code>String</code> in a preference store.
+	 * to take a stored <code>String</code> in a preference store. A bracket pair
+	 * contains of opening, closing and isClosingEnabledInside = {'1','0')
 	 * 
 	 * @param bracketSet
-	 *            the bracket set as a <code>String</code> in the form "()<>[]",
-	 *            it has to have an even length
+	 *            the bracket set as a <code>String</code> in the form "()0<>0[]1",
+	 *            it has to have a length == 3*n
 	 * @return <code>true</code> if successful
 	 */
 	public boolean setBrackets(String bracketSet) {
-		if (bracketSet.length() % 2 != 0) {
+		if (bracketSet.length() % 3 != 0) {
 			return false;
 		}
 		bracketPairs = new ArrayList<IBracketPair>();
-		for (int i = 0; i < bracketSet.length() / 2; i++) {
-			addBracketPair("" + bracketSet.charAt(i * 2), ""
-					+ bracketSet.charAt(i * 2 + 1), true);
+		for (int i = 0; i < bracketSet.length() / 3; i++) {
+			addBracketPair("" + bracketSet.charAt(i * 3), ""
+					+ bracketSet.charAt(i * 3 + 1), bracketSet.charAt(i * 3 + 2)!='0');
 		}
 		return true;
 	}
 
 	/**
-	 * Gets a list of bracket pairs.
+	 * Gets a list of bracket pairs. This call is for the list in the preference page.
 	 * 
 	 * @return a list of bracket pairs in the form
 	 *         <code>String[]{"{BRACKET_SEPARATOR}","(BRACKET_SEPARATOR)"}</code>
@@ -362,8 +397,12 @@ public class BracketSet {
 		}
 		String result = "";
 		for (IBracketPair bracketPair : bracketPairs) {
+			String isClosingStr = "0";
+			if (bracketPair.isClosingEnabledInside())
+				isClosingStr = "1";
 			result += bracketPair.getOpeningBracket()
-					+ bracketPair.getClosingBracket();
+					+ bracketPair.getClosingBracket()
+					+ isClosingStr;
 		}
 		return result;
 	}

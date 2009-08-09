@@ -44,6 +44,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.IBracketPair;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
@@ -73,6 +74,7 @@ public class BracketPreferencePage extends PreferencePage implements
     private ColorSelector matchingBracketsColorEditor;
     private Label colorEditorLabel;
     private Button enableCheckbox;
+    private Button enableClosingInside;
     private Button matchingBracketsColorButton;
     private Label languagesLabel;
     private Combo languagesCombo;
@@ -213,6 +215,11 @@ public class BracketPreferencePage extends PreferencePage implements
         gd.heightHint=300;
         bracketsList.setLayoutData(gd);
         
+        enableClosingInside = new Button(tokenSelectionComposite, SWT.CHECK);
+        enableClosingInside.setText("Enable closing inside");
+        enableClosingInside.setToolTipText("If this option is enabled, other bracket pair can close inside this pair automatically.");
+        enableClosingInside.setLayoutData(new GridData(GridData.CENTER,GridData.BEGINNING,false, false));
+        
         addBracketButton = new Button(tokenSelectionComposite,SWT.PUSH);
         addBracketButton.setText("Add");
         addBracketButton.setLayoutData(new GridData(GridData.CENTER,GridData.BEGINNING,false, false));
@@ -234,6 +241,7 @@ public class BracketPreferencePage extends PreferencePage implements
     private void handleMatchingBracketsSelection() {
     	// not for the case of none existing language
     	enableCheckbox.setSelection(getPreferenceStore().getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
+    	enableClosingInside.setSelection(false);
     	matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX));
     	RGB rgb = PreferenceConverter.getColor(getPreferenceStore(), BRACKETS_COLOR);
     	matchingBracketsColorEditor.setColorValue(rgb);
@@ -328,6 +336,42 @@ public class BracketPreferencePage extends PreferencePage implements
 				bracketSetTemp.put(language, bracketsTmp.getBracketString());
 			}
     	});
+    	
+    	bracketsList.addSelectionListener(new SelectionListener() {
+			
+			public void widgetSelected(SelectionEvent e) {
+				boolean isClosingInside = true;
+				int[] itemIndices = bracketsList.getSelectionIndices();
+				for (int index : itemIndices) {
+					IBracketPair bracketPair = bracketsTmp.getBracketPair(index);
+					if (bracketPair!=null&&!bracketPair.isClosingEnabledInside()) {
+						isClosingInside=false;
+						break;
+					}
+				}
+				enableClosingInside.setSelection(isClosingInside);
+			}
+			
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
+    	
+    	enableClosingInside.addSelectionListener(new SelectionListener() {
+			
+			public void widgetSelected(SelectionEvent e) {
+				boolean isClosingInside = enableClosingInside.getSelection();
+				int[] itemIndices = bracketsList.getSelectionIndices();
+				for (int idx : itemIndices) {
+					IBracketPair bracketPair = bracketsTmp.getBracketPair(idx);
+					if (bracketPair!=null)
+						bracketPair.setClosingEnabledInside(isClosingInside);
+				}
+				bracketSetTemp.put(language, bracketsTmp.getBracketString());
+			}
+			
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
     }
     
     /**
@@ -340,6 +384,7 @@ public class BracketPreferencePage extends PreferencePage implements
     	bracketSetTemp.put(language, getPreferenceStore().getDefaultString(language+PreferenceConstants.EDITOR_BRACKETS_SUFFIX));
     	bracketsTmp.setBrackets(bracketSetTemp.get(language));
     	bracketsList.setItems(bracketsTmp.getBracketArray());
+    	enableClosingInside.setSelection(false);
     }
     
     public boolean performOk() {
