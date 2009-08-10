@@ -131,7 +131,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	// this is a temporary flag used to develop the code
 	// completion feature
-	private static boolean ADD_EXPECTATION_ELEMEMT_CALLS = false;
+	public static boolean ADD_EXPECTATION_ELEMEMT_CALLS = false;
 
 	/**
 	 * The name of the EOF token which can be printed to force end of file after
