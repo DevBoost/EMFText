@@ -389,6 +389,7 @@ public class CodeCompletionTest extends TestCase {
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		final List<IExpectedElement> actualElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
 		removeDuplicateEntries(actualElements);
+		removeInvalidEntriesAtEnd(actualElements);
 		for (IExpectedElement actualElement : actualElements) {
 			System.out.println("ACTUAL ELEMENT:   " + actualElement);
 		}
@@ -401,6 +402,7 @@ public class CodeCompletionTest extends TestCase {
 			IExpectedElement expectedElementAtIndex = expectedElementsList.get(i);
 			assertEquals("Types do not match.", expectedElementAtIndex, actualElementAtIndex);
 			assertEquals("Expected start (excluding hidden) does not match.", expectedElementAtIndex.getStartExcludingHiddenTokens(), actualElementAtIndex.getStartExcludingHiddenTokens());
+			assertEquals("Expected start (including hidden) does not match.", expectedElementAtIndex.getStartIncludingHiddenTokens(), actualElementAtIndex.getStartIncludingHiddenTokens());
 			//assertEquals("Expected end (excluding hidden) does not match.", expectedElementAtIndex.getEndExcludingHiddenTokens(), actualElementAtIndex.getEndExcludingHiddenTokens());
 		}
 		assertEquals("List sizes should match.", expectedSize, actualSize);
@@ -412,6 +414,19 @@ public class CodeCompletionTest extends TestCase {
 			IExpectedElement elementAtNext = actualElements.get(i + 1);
 			if (elementAtIndex.equals(elementAtNext) &&
 				elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
+				actualElements.remove(i + 1);
+			} else {
+				i++;
+			}
+		}
+	}
+
+	private void removeInvalidEntriesAtEnd(List<IExpectedElement> actualElements) {
+		for (int i = 0; i < actualElements.size() - 1;) {
+			IExpectedElement elementAtIndex = actualElements.get(i);
+			IExpectedElement elementAtNext = actualElements.get(i + 1);
+			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&
+				elementAtIndex.getNestingLevel() > elementAtNext.getNestingLevel()) {
 				actualElements.remove(i + 1);
 			} else {
 				i++;

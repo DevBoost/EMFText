@@ -23,6 +23,7 @@ public interface IExpectedElement {
 	);
 	
 	public int getStartExcludingHiddenTokens();
+	public int getStartIncludingHiddenTokens();
 	/*
 	public int getEndExcludingHiddenTokens();
 
@@ -37,4 +38,6 @@ public interface IExpectedElement {
 	public void setPrefix(String prefix);
 
 	public boolean isAfter(int cursorIndex);
+
+	public int getNestingLevel();
 }

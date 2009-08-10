@@ -9,7 +9,13 @@ import org.emftext.runtime.resource.impl.AbstractExpectedElement;
 public class ExpectedCsString extends AbstractExpectedElement {
 	private String value;
 
+	@Deprecated
 	public ExpectedCsString(String value) {
+		this(0, value);
+	}
+	
+	public ExpectedCsString(int nestingLevel, String value) {
+		super(nestingLevel);
 		this.value = value;
 	}
 	

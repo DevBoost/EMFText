@@ -7,5 +7,8 @@
   <genPackages prefix="Cct2" basePackage="org.emftext.test" disposableProviderFactory="true"
       ecorePackage="cct2.ecore#/">
     <genClasses ecoreClass="cct2.ecore#//StarSequence"/>
+    <genClasses ecoreClass="cct2.ecore#//OptionalSequence"/>
+    <genClasses ecoreClass="cct2.ecore#//Sequence"/>
+    <genClasses ecoreClass="cct2.ecore#//PlusSequence"/>
   </genPackages>
 </genmodel:GenModel>

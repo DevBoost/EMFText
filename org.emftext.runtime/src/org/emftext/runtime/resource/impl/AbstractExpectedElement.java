@@ -18,6 +18,11 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	//private int endIncludingHiddenTokens;
 	//private int endExcludingHiddenTokens;
 	private String prefix;
+	private int nestingLevel;
+	
+	public AbstractExpectedElement(int nestingLevel) {
+		this.nestingLevel = nestingLevel;
+	}
 
 	public void setPosition(
 			int startIncludingHiddenTokens, 
@@ -25,7 +30,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 			//int endIncludingHiddenTokens,
 			//int endExcludingHiddenTokens
 	) {
-		startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, startExcludingHiddenTokens);
+		//startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, startExcludingHiddenTokens);
 		//startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, endIncludingHiddenTokens);
 		//endIncludingHiddenTokens = Math.min(endIncludingHiddenTokens, endExcludingHiddenTokens);
 
@@ -60,7 +65,12 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	public int getStartExcludingHiddenTokens() {
 		return startExcludingHiddenTokens;
 	}
-/*
+	
+	public int getNestingLevel() {
+		return nestingLevel;
+	}
+
+	/*
 	public int getEndIncludingHiddenTokens() {
 		return endIncludingHiddenTokens;
 	}
