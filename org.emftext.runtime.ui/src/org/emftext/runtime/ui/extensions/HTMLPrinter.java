@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jface.text.TextPresentation;
-import org.eclipse.jface.util.Util;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.FontData;
@@ -47,7 +46,7 @@ public class HTMLPrinter {
 	 * Reads the text contents from a reader of HTML contents and translates
 	 * the tags or cut them out.
 	 * <p>
-	 * Moved into this package from <code>org.eclipse.jface.internal.text.html</code>.</p>
+	 * Moved into HTMLPrinter as inner class from <code>org.eclipse.jface.internal.text.html</code>.</p>
 	 */
 	private static final class HTML2TextReader extends Reader {
 
@@ -491,9 +490,11 @@ public class HTMLPrinter {
 
 	
 
-	private static final String UNIT; // See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993
-	static {
-		UNIT= Util.isMac() ? "px" : "pt";   //$NON-NLS-1$//$NON-NLS-2$
+	private static final String UNIT; 
+	// See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=155993
+	static {//if the platform is a mac the UNIT is set to "px"
+		String platform = SWT.getPlatform();
+		UNIT= (platform.equals("carbon")||platform.equals("cocoa")) ? "px" : "pt";   //$NON-NLS-1$//$NON-NLS-2$
 	}
 	
 	public static void addParagraph(StringBuffer buffer, String paragraph) {

@@ -26,18 +26,16 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CaretEvent;
-import org.eclipse.swt.custom.CaretListener;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.ui.PlatformUI;
-import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
@@ -45,7 +43,7 @@ import org.emftext.runtime.ui.EMFTextTokenScanner;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
- * This class manages the highlighting of occurrences and brackets.
+ * A manager class for the highlighting of occurrences and brackets.
  * 
  * @author Tan-Ky Hoang-Kim
  * 
@@ -71,17 +69,19 @@ public class Highlighting {
 	private BracketSet bracketSet;
 
 	/**
-	 * A key <code>Listener</code> for the highlighting. Removes the
+	 * A key and mouse <code>Listener</code> for the highlighting. Removes the
 	 * highlighting before document change. No highlighting is set after
-	 * document change to increase the performance.
+	 * document change to increase the performance. No finding new occurrences
+	 * if the caret is still in the same token to increase the performance.
 	 * 
 	 * @author Tan-Ky Hoang-Kim
 	 * 
 	 */
 	private final class HighlightingListener implements KeyListener,
-			VerifyListener {
+			VerifyListener, MouseListener {
 
 		private boolean changed = false;
+		private int caret = -1;
 
 		public void keyPressed(KeyEvent e) {
 		}
@@ -91,13 +91,40 @@ public class Highlighting {
 				changed = false;
 				return;
 			}
-			removeHighlighting();
-			setHighlighting();
+			int textCaret = textWidget.getCaretOffset();
+			if (textCaret < 0 || textCaret > textWidget.getCharCount())
+				return;
+			if (textCaret != caret) {
+				caret = textCaret;
+				removeHighlighting();
+				setHighlighting();
+			}
 		}
 
 		public void verifyText(VerifyEvent e) {
+			occurrence.resetTokenRegion();
 			removeHighlighting();
 			changed = true;
+		}
+
+		public void mouseDoubleClick(MouseEvent e) {
+		}
+
+		public void mouseDown(MouseEvent e) {
+		}
+
+		public void mouseUp(MouseEvent e) {// 1-left click, 2-middle click,
+			// 3-right click
+			if (e.button != 1)
+				return;
+			int textCaret = textWidget.getCaretOffset();
+			if (textCaret < 0 || textCaret > textWidget.getCharCount())
+				return;
+			if (textCaret != caret) {
+				caret = textCaret;
+				removeHighlighting();
+				setHighlighting();
+			}
 		}
 	}
 
@@ -136,33 +163,15 @@ public class Highlighting {
 				preferenceStore,
 				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		black = colorManager.getColor(new RGB(0, 0, 0));
-		
+
 		addListeners();
 	}
 
 	private void addListeners() {
-		textWidget.addCaretListener(new CaretListener() {
-
-			public void caretMoved(CaretEvent event) {
-				try {
-					//TODO Maybe this line can be removed after activating backgroundparsing
-					if (!PlatformUI.getWorkbench().isStarting()) {
-						int offset = event.caretOffset;
-						if (offset >= 0 && offset <= textWidget.getCharCount()) {
-							removeHighlighting();
-							setHighlighting();
-						}
-					}
-				} catch (Exception e) {
-					EMFTextRuntimePlugin.logError("Exception in caretMoved()", e);
-					e.printStackTrace();
-				}
-			}
-		});
-
 		HighlightingListener hl = new HighlightingListener();
 		textWidget.addKeyListener(hl);
 		textWidget.addVerifyListener(hl);
+		textWidget.addMouseListener(hl);
 	}
 
 	private void setHighlighting() {
@@ -174,11 +183,12 @@ public class Highlighting {
 		if (isHighlightOccurrences) {
 			occurrence.handleOccurrenceHighlighting(bracketSet);
 		}
-
-		setCategoryHighlighting(document,
-				ExtensionConstants.PositionCategory.DEFINTION.toString());
-		setCategoryHighlighting(document,
-				ExtensionConstants.PositionCategory.PROXY.toString());
+		if (occurrence.isPositionsChanged()) {
+			setCategoryHighlighting(document,
+					ExtensionConstants.PositionCategory.DEFINTION.toString());
+			setCategoryHighlighting(document,
+					ExtensionConstants.PositionCategory.PROXY.toString());
+		}
 		setCategoryHighlighting(document,
 				ExtensionConstants.PositionCategory.BRACKET.toString());
 
@@ -244,11 +254,13 @@ public class Highlighting {
 		IDocument document = projectionViewer.getDocument();
 		removeHighlightingCategory(document,
 				ExtensionConstants.PositionCategory.BRACKET.toString());
-		removeHighlightingCategory(document,
-				ExtensionConstants.PositionCategory.DEFINTION.toString());
-		removeHighlightingCategory(document,
-				ExtensionConstants.PositionCategory.PROXY.toString());
-		lastStyleRange = null;
+		if (occurrence.isToRemoveHighlighting()) {
+			removeHighlightingCategory(document,
+					ExtensionConstants.PositionCategory.DEFINTION.toString());
+			removeHighlightingCategory(document,
+					ExtensionConstants.PositionCategory.PROXY.toString());
+			lastStyleRange = null;
+		}
 	}
 
 	private void removeHighlightingCategory(IDocument document, String category) {

@@ -221,13 +221,10 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	 */
 	protected void createContent(Composite parent) {
 		fBrowser= new Browser(parent, SWT.NONE);
-		fBrowser.setJavascriptEnabled(false);
-		
 		Display display= getShell().getDisplay();
 		fBrowser.setForeground(display.getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 		fBrowser.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
 		fBrowser.addKeyListener(new KeyListener() {
-
 			public void keyPressed(KeyEvent e)  {
 				if (e.character == 0x1B) // ESC
 					dispose(); // XXX: Just hide? Would avoid constant recreations.
