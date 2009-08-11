@@ -20,6 +20,10 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.extensions;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
@@ -34,45 +38,43 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
  * Provides the hyperlink for the proxy elements in source code.
+ * 
  * @author Tan-Ky Hoang-Kim
- *
+ * 
  */
 public class Hyperlink implements IHyperlink {
 
-	private String text = "";
+	private String text;
 	private EObject linkTarget;
-	private String fileExtension;
 	private IRegion region;
+	private static final Collection<String> fileExtensions;
+	static {
+		fileExtensions = new ArrayList<String>();
+		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin
+				.getConcreteSyntaxRegistry();
+		for (ITextResourcePluginMetaInformation extension : extensions) {
+			fileExtensions.add(extension.getSyntaxName());
+		}
+	}
 
 	/**
 	 * Creates the hyperlink.
-	 * @param fileExtension the file extension in order to open with its default editor.
-	 * Sets EMFTextEditor as default editor if you want to open this file extension with EMFTextEditor
-	 * @param region the region of the hyperlink to highlight
+	 * 
+	 * @param region
+	 *            the region of the hyperlink to highlight
+	 * @param linkTarget the link target where this hyperlink should go to
+	 * @param text the text to specify the target position in the <code>linkTarget</code>
 	 */
-	public Hyperlink(String fileExtension, IRegion region) {
-		this.fileExtension=fileExtension;
+	public Hyperlink(IRegion region, EObject linkTarget, String text) {
 		this.region = region;
-	}
-	
-	/**
-	 * Sets the token text to locate the position to jump.
-	 * @param hyperlinkText the hyperlink text where the mouse cursor hovers
-	 */
-	public void setHyperlinkText(String hyperlinkText) {
-		this.text = hyperlinkText;
-	}
-
-	/**
-	 * Sets the resolved <code>EObject</code>.
-	 * @param linkTarget the link target where it will jump to
-	 */
-	public void setLinkTarget(EObject linkTarget) {
 		this.linkTarget = linkTarget;
+		this.text = text;
 	}
 
 	public String getHyperlinkText() {
@@ -80,7 +82,7 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	/**
-	 * @return the length of the hyperlink text 
+	 * @return the length of the hyperlink text
 	 */
 	public int length() {
 		return text.length();
@@ -91,8 +93,10 @@ public class Hyperlink implements IHyperlink {
 	}
 
 	/**
-	 * Opens the resource in <code>linkTarget</code> with an default editor. 
-	 * If the editor is an EMFTextEditor it tries to jump to the definition.
+	 * Opens the resource in <code>linkTarget</code> with
+	 * <code>EMFTextEditor</code>, if it supports the file extension of this
+	 * resource, and tries to jump to the definition. Else it tries to open with
+	 * a default editor.
 	 * 
 	 * @see org.eclipse.jface.text.hyperlink.IHyperlink#open()
 	 */
@@ -102,13 +106,19 @@ public class Hyperlink implements IHyperlink {
 		}
 		IFile file = getIFileFromResource();
 		if (file != null) {
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			IWorkbenchPage page = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage();
 			try {
-				//page.openEditor(new FileEditorInput(file), page.getActiveEditor().getSite().getId());
-				IEditorDescriptor desc = PlatformUI.getWorkbench().
-		        getEditorRegistry().getDefaultEditor(file.getName());
-				page.openEditor(new FileEditorInput(file), desc.getId());
-				
+				//FIXME the EditorID has to be of EMFTextEditor
+				if (fileExtensions.contains(file.getFileExtension()))
+					page.openEditor(new FileEditorInput(file), page
+							.getActiveEditor().getSite().getId());
+				else {
+					IEditorDescriptor desc = PlatformUI.getWorkbench()
+							.getEditorRegistry().getDefaultEditor(
+									file.getName());
+					page.openEditor(new FileEditorInput(file), desc.getId());
+				}
 				IEditorPart editorPart = page.getActiveEditor();
 				if (editorPart instanceof EMFTextEditor) {
 					EMFTextEditor emftEditor = (EMFTextEditor) editorPart;
@@ -124,13 +134,12 @@ public class Hyperlink implements IHyperlink {
 		URI resourceURI = linkTarget.eResource().getURI();
 		if (resourceURI.toString().startsWith("pathmap")) {
 			resourceURI = URIConverter.URI_MAP.get(resourceURI);
-			if (!resourceURI.fileExtension().equals(fileExtension))
-				return null;
 		}
 		if (resourceURI.isPlatformResource()) {
 			String platformString = resourceURI.toPlatformString(true);
 			if (platformString != null) {
-				return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(platformString));
+				return ResourcesPlugin.getWorkspace().getRoot().getFile(
+						new Path(platformString));
 			}
 		}
 		return null;

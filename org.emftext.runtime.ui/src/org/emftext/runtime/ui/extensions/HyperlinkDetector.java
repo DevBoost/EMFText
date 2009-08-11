@@ -62,19 +62,19 @@ public class HyperlinkDetector implements IHyperlinkDetector {
 				resolvedEObject = EcoreUtil.resolve(eObject, textResource);
 				if (resolvedEObject == eObject
 						|| (resolvedEObject.eResource() != null
-						&& !resourceFileExtension.equals(
+						&& !resourceFileExtension.equals(//FIXME if the hyperlink should be activate for other resource as well
 								resolvedEObject.eResource().getURI()
 										.fileExtension()))) {
 					continue;
 				}
 				int offset = lm.getCharStart(eObject);
 				int length = lm.getCharEnd(eObject) - offset + 1;
-				Hyperlink hyperlink = new Hyperlink(resourceFileExtension, new Region(offset, length));
+				String text=null;
 				try {
-					hyperlink.setHyperlinkText(textViewer.getDocument().get(offset, length));
+					text = textViewer.getDocument().get(offset, length);
 				} catch (BadLocationException e) {
 				}
-				hyperlink.setLinkTarget(resolvedEObject);
+				Hyperlink hyperlink = new Hyperlink(new Region(offset, length), resolvedEObject, text);
 				return new IHyperlink[] { hyperlink };
 			}
 		}

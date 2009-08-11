@@ -126,11 +126,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			if (infoInput.getInputElement() instanceof EObject) {
 			EObject decEO = (EObject) infoInput.getInputElement();
 			if (decEO != null && decEO.eResource() != null) {
-				//file extension to open with its default editor.
-				Hyperlink hyperlink = new Hyperlink(infoInput.getResource()
-						.getURI().fileExtension(), null);
-				hyperlink.setHyperlinkText(infoInput.getTokenText());
-				hyperlink.setLinkTarget(decEO);
+				Hyperlink hyperlink = new Hyperlink(null, decEO,infoInput.getTokenText());
 				hyperlink.open();
 			}
 			}
@@ -174,6 +170,13 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 							// will be set enable
 							boolean isEObjectInput = inputElement instanceof EObject;
 							openDeclarationAction.setEnabled(isEObjectInput);
+							if (isEObjectInput) {
+								String simpleName = inputElement.getClass().getSimpleName();
+								simpleName = simpleName.substring(0, simpleName.length()-4);
+								openDeclarationAction.setText("Open "+simpleName);
+							}
+							else
+								openDeclarationAction.setText("Open Declaration");
 						}
 					}
 				};
