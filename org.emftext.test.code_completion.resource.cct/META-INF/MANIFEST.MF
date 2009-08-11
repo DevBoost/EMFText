@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFText Parser Plugin: cct
-Bundle-SymbolicName: org.emftext.test.code_completion.resource.cct;singleton:=true
+Bundle-Name: EMFText Parser Plugin: cct1
+Bundle-SymbolicName: org.emftext.test.cct1.resource.cct1;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 Require-Bundle: org.eclipse.core.runtime,
@@ -10,8 +10,8 @@ Require-Bundle: org.eclipse.core.runtime,
   org.eclipse.ui,
   org.emftext.runtime,
   org.emftext.runtime.ui,
-  org.emftext.test.code_completion
+  org.emftext.test.cct1
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.emftext.test.code_completion.resource.cct,
-  org.emftext.test.code_completion.resource.cct.analysis
+Export-Package: org.emftext.test.cct1.resource.cct1,
+  org.emftext.test.cct1.resource.cct1.analysis

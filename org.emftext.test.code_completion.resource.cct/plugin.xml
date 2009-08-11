@@ -2,24 +2,24 @@
 <?eclipse version="3.2"?>
 <plugin>
 	<extension point="org.eclipse.emf.ecore.extension_parser">
-		<parser class="org.emftext.test.code_completion.resource.cct.CctResourceFactory" type="cct">
+		<parser class="org.emftext.test.cct1.resource.cct1.Cct1ResourceFactory" type="cct1">
 		</parser>
 	</extension>
 	
 	<extension point="org.emftext.runtime.syntax">
-		<metaInformationProvider class="org.emftext.test.code_completion.resource.cct.CctMetaInformation" id="org.emftext.test.code_completion.resource.cct.CctMetaInformation">
+		<metaInformationProvider class="org.emftext.test.cct1.resource.cct1.Cct1MetaInformation" id="org.emftext.test.cct1.resource.cct1.Cct1MetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
 	<extension point="org.eclipse.core.contenttype.contentTypes">
-		<file-association content-type="org.emftext.filetype" file-extensions="cct">
+		<file-association content-type="org.emftext.filetype" file-extensions="cct1">
 		</file-association>
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
-		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.code_completion.resource.cct.CctNewFileWizard" id="org.emftext.test.code_completion.resource.cct.CctNewFileWizard" name="EMFText .cct file">
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct1.resource.cct1.Cct1NewFileWizard" id="org.emftext.test.cct1.resource.cct1.Cct1NewFileWizard" name="EMFText .cct1 file">
 		</wizard>
 	</extension>
 	

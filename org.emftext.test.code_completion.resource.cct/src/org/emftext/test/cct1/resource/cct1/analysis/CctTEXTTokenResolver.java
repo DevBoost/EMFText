@@ -1,4 +1,4 @@
-package org.emftext.test.code_completion.resource.cct.analysis;
+package org.emftext.test.cct1.resource.cct1.analysis;
 
 public class CctTEXTTokenResolver extends org.emftext.runtime.resource.impl.JavaBasedTokenResolver implements org.emftext.runtime.resource.ITokenResolver {
 	

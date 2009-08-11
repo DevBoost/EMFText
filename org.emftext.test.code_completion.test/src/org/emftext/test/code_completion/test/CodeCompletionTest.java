@@ -30,10 +30,10 @@ import org.emftext.runtime.resource.impl.code_completion.ExpectedCsString;
 import org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.resource.cs.CsMetaInformation;
+import org.emftext.test.cct1.Cct1Package;
+import org.emftext.test.cct1.resource.cct1.Cct1MetaInformation;
 import org.emftext.test.cct2.Cct2Package;
 import org.emftext.test.cct2.resource.cct2.Cct2MetaInformation;
-import org.emftext.test.code_completion.Code_completionPackage;
-import org.emftext.test.code_completion.resource.cct.CctMetaInformation;
 
 public class CodeCompletionTest extends TestCase {
 
@@ -43,7 +43,7 @@ public class CodeCompletionTest extends TestCase {
 		}
 	}
 
-	private static final Code_completionPackage CCT_PACKAGE = Code_completionPackage.eINSTANCE;
+	private static final Cct1Package CCT1_PACKAGE = Cct1Package.eINSTANCE;
 	private static final Cct2Package CCT2_PACKAGE = Cct2Package.eINSTANCE;
 	private static final ConcretesyntaxPackage CS_PACKAGE = ConcretesyntaxPackage.eINSTANCE;
 	private static final String INPUT_DIR = "input";
@@ -65,7 +65,7 @@ public class CodeCompletionTest extends TestCase {
 
 	private static void registerSyntaxes() {
 		EMFTextRuntimePlugin.getConcreteSyntaxRegistry().add(new CsMetaInformation());
-		EMFTextRuntimePlugin.getConcreteSyntaxRegistry().add(new CctMetaInformation());
+		EMFTextRuntimePlugin.getConcreteSyntaxRegistry().add(new Cct1MetaInformation());
 		EMFTextRuntimePlugin.getConcreteSyntaxRegistry().add(new Cct2MetaInformation());
 	}
 
@@ -178,34 +178,34 @@ public class CodeCompletionTest extends TestCase {
 		expectedElementsMap.put("KeywordClassExpected2.cct", "class");
 		expectedInsertStringsMap.put("KeywordClassExpected2.cct", new String[] {"class"});
 
-		expectedElementsMap.put("EnumVisibilityExpected1.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedElementsMap.put("EnumVisibilityExpected1.cct", CCT1_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected1.cct", new String[] {"public", "private"});
 
-		expectedElementsMap.put("NameExpected1.cct", CCT_PACKAGE.getNamedElement_Name());
+		expectedElementsMap.put("NameExpected1.cct", CCT1_PACKAGE.getNamedElement_Name());
 		expectedInsertStringsMap.put("NameExpected1.cct", new String[] {"someName"});
 
-		expectedElementsMap.put("NameExpected2.cct", CCT_PACKAGE.getNamedElement_Name());
+		expectedElementsMap.put("NameExpected2.cct", CCT1_PACKAGE.getNamedElement_Name());
 		expectedInsertStringsMap.put("NameExpected2.cct", new String[] {"someName"});
 
-		expectedElementsMap.put("TypeExpected.cct", CCT_PACKAGE.getTypedElement_Type());
+		expectedElementsMap.put("TypeExpected.cct", CCT1_PACKAGE.getTypedElement_Type());
 		expectedInsertStringsMap.put("TypeExpected.cct", new String[] {"SomeName"});
 
-		expectedElementsMap.put("EnumVisibilityExpected2.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedElementsMap.put("EnumVisibilityExpected2.cct", CCT1_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected2.cct", new String[] {"public", "private"});
 
-		expectedElementsMap.put("EnumVisibilityExpected3.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedElementsMap.put("EnumVisibilityExpected3.cct", CCT1_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected3.cct", new String[] {"public", "private"});
 
-		expectedElementsMap.put("NameExpected3.cct", CCT_PACKAGE.getNamedElement_Name());
+		expectedElementsMap.put("NameExpected3.cct", CCT1_PACKAGE.getNamedElement_Name());
 		expectedInsertStringsMap.put("NameExpected3.cct", new String[] {"someName"});
 
-		expectedElementsMap.put("EnumVisibilityExpected5.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedElementsMap.put("EnumVisibilityExpected5.cct", CCT1_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected5.cct", new String[] {"public", "private"});
 
-		expectedElementsMap.put("EnumVisibilityExpected6.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedElementsMap.put("EnumVisibilityExpected6.cct", CCT1_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected6.cct", new String[] {"private"});
 
-		expectedElementsMap.put("EnumVisibilityExpected7.cct", CCT_PACKAGE.getModifiable_Visibility());
+		expectedElementsMap.put("EnumVisibilityExpected7.cct", CCT1_PACKAGE.getModifiable_Visibility());
 		expectedInsertStringsMap.put("EnumVisibilityExpected7.cct", new String[] {"public", "private"});
 
 		// this one has an additional space after the cursor
@@ -215,7 +215,7 @@ public class CodeCompletionTest extends TestCase {
 		expectedElementsMap.put("KeywordClassExpected4.cct", "class");
 		expectedInsertStringsMap.put("KeywordClassExpected4.cct", new String[] {"class"});
 
-		expectedElementsMap.put("MembersExpected1.cct", CCT_PACKAGE.getClass_Members());
+		expectedElementsMap.put("MembersExpected1.cct", CCT1_PACKAGE.getClass_Members());
 		expectedInsertStringsMap.put("MembersExpected1.cct", new String[] {"public", "private"});
 
 		// cs examples

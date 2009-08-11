@@ -4,8 +4,8 @@ Bundle-Name: Packrat Parser Test
 Bundle-SymbolicName: org.emftext.test.scannerless_parser
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.emftext.runtime,
- org.emftext.test.code_completion,
- org.emftext.test.code_completion.resource.cct,
+ org.emftext.test.cct1,
+ org.emftext.test.cct1.resource.cct1,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.emf,

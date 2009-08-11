@@ -12,9 +12,9 @@
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://www.emftext.org/test/code_completion"
-            class="org.emftext.test.code_completion.Code_completionPackage"
-            genModel="metamodel/code_completion.genmodel"/>
+            uri="http://www.emftext.org/test/cct1"
+            class="org.emftext.test.cct1.Cct1Package"
+            genModel="metamodel/cct1.genmodel"/>
    </extension>
 
 </plugin>

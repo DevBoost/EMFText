@@ -1,5 +1,5 @@
-SYNTAXDEF cct // == code completion test
-FOR <http://www.emftext.org/test/code_completion>
+SYNTAXDEF cct1 // == code completion test 1
+FOR <http://www.emftext.org/test/cct1>
 START Class
 
 OPTIONS {

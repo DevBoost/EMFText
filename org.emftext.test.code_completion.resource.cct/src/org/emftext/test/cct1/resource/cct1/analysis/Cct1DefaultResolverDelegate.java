@@ -1,6 +1,6 @@
-package org.emftext.test.code_completion.resource.cct.analysis;
+package org.emftext.test.cct1.resource.cct1.analysis;
 
-public class CctDefaultResolverDelegate<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
+public class Cct1DefaultResolverDelegate<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
 	public final static java.lang.String NAME_FEATURE = "name";
 	
 	// This standard implementation searches the tree for objects of the 
@@ -33,8 +33,7 @@ public class CctDefaultResolverDelegate<ContainerType extends org.eclipse.emf.ec
 			return true;
 		}
 		
-		org.eclipse.emf.ecore.EClass eClass = element.eClass();
-		boolean hasCorrectType = eClass.equals(type) || eClass.getEAllSuperTypes().contains(type);
+		boolean hasCorrectType = hasCorrectType(element, type.getInstanceClass());
 		if (!hasCorrectType) {
 			return true;
 		}
@@ -145,4 +144,7 @@ public class CctDefaultResolverDelegate<ContainerType extends org.eclipse.emf.ec
 		return null;
 	}
 	
+	private boolean hasCorrectType(org.eclipse.emf.ecore.EObject element, Class<?> expectedTypeClass) {
+		return expectedTypeClass.isInstance(element);
+	}
 }

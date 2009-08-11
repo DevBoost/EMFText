@@ -16,12 +16,12 @@
 	</taskdef>
 
 	<target name="generate-text-resource" depends="generate-metamodel-code" description="Generate the EMF text resource plug-in">
-		<emftext-generate-text-resource syntax="../org.emftext.test.code_completion/metamodel/code_completion.cs" rootFolder=".." syntaxProjectName="org.emftext.test.code_completion" />
+		<emftext-generate-text-resource syntax="../org.emftext.test.cct1/metamodel/cct1.cs" rootFolder=".." syntaxProjectName="org.emftext.test.cct1" />
 		<eclipse.refreshLocal depth="infinite" resource="/"/>
 	</target>
 	
 	<target name="generate-metamodel-code">
-		<generate-metamodel-code plugin="org.emftext.test.code_completion" model="code_completion" generateEditProject="false" />
+		<generate-metamodel-code plugin="org.emftext.test.cct1" model="cct1" generateEditProject="false" />
 	</target>
 	
 	<macrodef name="generate-metamodel-code">
