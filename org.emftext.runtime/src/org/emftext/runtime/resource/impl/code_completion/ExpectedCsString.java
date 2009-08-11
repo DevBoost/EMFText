@@ -14,8 +14,14 @@ public class ExpectedCsString extends AbstractExpectedElement {
 		this(0, value);
 	}
 	
+	@Deprecated
 	public ExpectedCsString(int nestingLevel, String value) {
-		super(nestingLevel);
+		super(nestingLevel, false);
+		this.value = value;
+	}
+	
+	public ExpectedCsString(int nestingLevel, boolean discardFollowingExpectations, String value) {
+		super(nestingLevel, discardFollowingExpectations);
 		this.value = value;
 	}
 	

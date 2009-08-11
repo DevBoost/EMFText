@@ -8,9 +8,9 @@ OPTIONS {
 }
 
 TOKENS {
-	DEFINE COMMENT $'//'(~('\n'|'\r'))*$;
+	DEFINE COMMENT    $'//'(~('\n'|'\r'))*$;
 	DEFINE WHITESPACE $(' '|'\t'|'\f')$;
-	DEFINE LINEBREAK $('\r\n'|'\r'|'\n')$;
+	DEFINE LINEBREAK  $('\r\n'|'\r'|'\n')$;
 }
 
 RULES {

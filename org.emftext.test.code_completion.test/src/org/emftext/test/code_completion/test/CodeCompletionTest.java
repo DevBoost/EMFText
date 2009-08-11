@@ -53,8 +53,8 @@ public class CodeCompletionTest extends TestCase {
 		registerSyntaxes();
 		
 		TestSuite suite = new TestSuite("All tests");
-		TestSuite suite1 = createExpectedElementsSuite();
-		TestSuite suite2 = createExpectedInsertStringsSuite();
+		//TestSuite suite1 = createExpectedElementsSuite();
+		//TestSuite suite2 = createExpectedInsertStringsSuite();
 		TestSuite suite3 = createExpectationsSuite();
 		
 		//suite.addTest(suite1);
@@ -255,10 +255,10 @@ public class CodeCompletionTest extends TestCase {
 		assertNotNull("No expected element given for file " + filename, expectedElement);
 		List<IExpectedElement> expectedElements = new ArrayList<IExpectedElement>();
 		if (expectedElement instanceof String) {
-			final ExpectedCsString expectedCsString = new ExpectedCsString((String) expectedElement);
+			final ExpectedCsString expectedCsString = new ExpectedCsString(0, false, (String) expectedElement);
 			expectedElements.add(expectedCsString);
 		} else if (expectedElement instanceof EStructuralFeature) {
-			final ExpectedStructuralFeature expectedStructuralFeature = new ExpectedStructuralFeature((EStructuralFeature) expectedElement, null, null);
+			final ExpectedStructuralFeature expectedStructuralFeature = new ExpectedStructuralFeature(0, false, (EStructuralFeature) expectedElement, null, null);
 			expectedElements.add(expectedStructuralFeature);
 		//} else if (expectedElement instanceof List<?>) {
 			//expectedElements.addAll((List<? extends IExpectedElement>) expectedElement);
@@ -309,12 +309,12 @@ public class CodeCompletionTest extends TestCase {
 				String featurename = classAndFeature[1];
 				EStructuralFeature feature = findFeature(namespace, classname, featurename);
 				assertNotNull("Can't find feature " +namespace + ":" + classname + "." + featurename, feature);
-				ExpectedStructuralFeature expectedElement = new ExpectedStructuralFeature(feature, null, null);
+				ExpectedStructuralFeature expectedElement = new ExpectedStructuralFeature(0, false, feature, null, null);
 				expectedElement.setPosition(beginIncl, beginExcl/*, endIncl, endExcl*/);
 				expectations.add(expectedElement);
 			} else {
 				// is CsString
-				ExpectedCsString expectedElement = new ExpectedCsString(expected.trim());
+				ExpectedCsString expectedElement = new ExpectedCsString(0, false, expected.trim());
 				expectedElement.setPosition(beginIncl, beginExcl/*, endIncl, endExcl*/);
 				expectations.add(expectedElement);
 			}
@@ -388,11 +388,11 @@ public class CodeCompletionTest extends TestCase {
 		String fileContent = getFileContent(file);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		final List<IExpectedElement> actualElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
-		removeDuplicateEntries(actualElements);
-		removeInvalidEntriesAtEnd(actualElements);
 		for (IExpectedElement actualElement : actualElements) {
 			System.out.println("ACTUAL ELEMENT:   " + actualElement);
 		}
+		removeDuplicateEntries(actualElements);
+		removeInvalidEntriesAtEnd(actualElements);
 		// compare lists
 		final int actualSize = actualElements.size();
 		final int expectedSize = expectedElementsList.size();
@@ -409,14 +409,16 @@ public class CodeCompletionTest extends TestCase {
 	}
 
 	private void removeDuplicateEntries(List<IExpectedElement> actualElements) {
-		for (int i = 0; i < actualElements.size() - 1;) {
+		for (int i = 0; i < actualElements.size() - 1; i++) {
 			IExpectedElement elementAtIndex = actualElements.get(i);
-			IExpectedElement elementAtNext = actualElements.get(i + 1);
-			if (elementAtIndex.equals(elementAtNext) &&
-				elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
-				actualElements.remove(i + 1);
-			} else {
-				i++;
+			for (int j = i + 1; j < actualElements.size();) {
+				IExpectedElement elementAtNext = actualElements.get(j);
+				if (elementAtIndex.equals(elementAtNext) &&
+					elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
+					actualElements.remove(j);
+				} else {
+					j++;
+				}
 			}
 		}
 	}
@@ -426,7 +428,8 @@ public class CodeCompletionTest extends TestCase {
 			IExpectedElement elementAtIndex = actualElements.get(i);
 			IExpectedElement elementAtNext = actualElements.get(i + 1);
 			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&
-				elementAtIndex.getNestingLevel() > elementAtNext.getNestingLevel()) {
+				elementAtIndex.discardFollowingExpectations() &&
+				elementAtIndex.getNestingLevel() >= elementAtNext.getNestingLevel()) {
 				actualElements.remove(i + 1);
 			} else {
 				i++;

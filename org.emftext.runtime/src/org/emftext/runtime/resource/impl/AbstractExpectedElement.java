@@ -19,9 +19,11 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	//private int endExcludingHiddenTokens;
 	private String prefix;
 	private int nestingLevel;
+	private boolean discardFollowingExpectations;
 	
-	public AbstractExpectedElement(int nestingLevel) {
+	public AbstractExpectedElement(int nestingLevel, boolean discardFollowingExpectations) {
 		this.nestingLevel = nestingLevel;
+		this.discardFollowingExpectations = discardFollowingExpectations;
 	}
 
 	public void setPosition(
@@ -110,10 +112,17 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 			true; //endIncludingHiddenTokens == Integer.MAX_VALUE;
 	}
 	
+	public boolean discardFollowingExpectations() {
+		return discardFollowingExpectations;
+	}
+
 	public String toString() {
 		return 
 		toString(startIncludingHiddenTokens) + "(" + toString(startExcludingHiddenTokens) + ")" +
-		/*" (" + toString(startExcludingHiddenTokens) + "-" + toString(endExcludingHiddenTokens) + ")"*/ " prefix = '" + prefix + "'" ;
+		/*" (" + toString(startExcludingHiddenTokens) + "-" + toString(endExcludingHiddenTokens) + ")"*/ 
+		//" prefix = '" + prefix + "'" + 
+		" level = " + nestingLevel + "" + 
+		" discardFollowing = " + discardFollowingExpectations;
 	}
 	
 	private String toString(int index) {

@@ -919,16 +919,24 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("start ");
 		sc.add("returns [ " + E_OBJECT + " element = null]");
 		sc.add(":");
+		sc.add("{");
+		for (GenClass aStart : concreteSyntax.getActiveStartSymbols()) {
+			Rule nextStartRule = generatorUtil.getRule(concreteSyntax, aStart);
+			addExpectationCodeForChoice(sc, nextStartRule.getDefinition(), "start", -1, false);
+		}
+		sc.add("}");
 		sc.add("(");
 		int count = 0;
-		for (Iterator<GenClass> i = concreteSyntax.getActiveStartSymbols()
-				.iterator(); i.hasNext();) {
-			GenClass aStart = i.next();
-			sc.add("c" + count + " = " + getRuleName(aStart) + "{ element = c"
-					+ count + "; }");
-			if (i.hasNext()) {
+		for (GenClass aStart : concreteSyntax.getActiveStartSymbols()) {
+			if (count > 0) {
 				sc.add("|  ");
 			}
+			Rule nextStartRule = generatorUtil.getRule(concreteSyntax, aStart);
+			sc.add("{");
+			addExpectationCodeForChoice(sc, nextStartRule.getDefinition(), "start", -1, false);
+			sc.add("}");
+			sc.add("c" + count + " = " + getRuleName(aStart) + "{ element = c"
+					+ count + "; }");
 			count++;
 		}
 		sc.add(")");
@@ -1225,7 +1233,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
 					sc.add("{");
 					sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
-					addExpectationCodeForDefinition(sc, def, level + ": Before * or + or ?", level);
+					// TODO maybe in case of PLUS discardFollowingExpectations must be true?
+					addExpectationCodeForDefinition(sc, def, level + ": Before * or + or ?", level, false);
 					sc.add("}");
 				}
 				sc.add("(");
@@ -1234,7 +1243,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				CompoundDefinition compoundDef = (CompoundDefinition) def;
 				sc.add("{");
 				sc.add("// expected element is a Compound");
-				addExpectationCodeForCompound(sc, compoundDef, level + ": Compound", level);
+				addExpectationCodeForCompound(sc, compoundDef, level + ": Compound", level + 1, true);
 				sc.add("}");
 
 				sc.add("(");
@@ -1245,7 +1254,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				final CsString csString = (CsString) def;
 				sc.add("{");
 				sc.add("// expected element is a CsString");
-				addExpectationCodeForCsString(sc, csString, level + ": CsString", level);
+				addExpectationCodeForCsString(sc, csString, level + ": CsString", level, true);
 				sc.add("}");
 				count = printCsString(csString, rule, sc, count,
 						eClassesReferenced);
@@ -1253,7 +1262,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				assert def instanceof Terminal;
 				final Terminal terminal = (Terminal) def;
 				sc.add("// expected element is a Terminal");
-				addExpectationCodeForTerminal(sc, rule, terminal, level);
+				addExpectationCodeForTerminal(sc, rule, terminal, level, true);
 				count = printTerminal(terminal, rule, sc, count,
 						eClassesReferenced);
 			}
@@ -1263,7 +1272,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				if ("*".equals(cardinality) || "+".equals(cardinality)) {
 					sc.add("{");
 					sc.add("// expected element after STAR or PLUS");
-					addExpectationCodeForDefinition(sc, def, level + ": After * or +", level);
+					addExpectationCodeForDefinition(sc, def, level + ": After * or +", level, false);
 					sc.add("}");
 				}
 			}
@@ -1274,17 +1283,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addExpectationCodeForDefinition(StringComposite sc, Definition definition,
-			String message, int level) {
+			String message, int level, boolean discardFollowingExpectations) {
 
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
 		if (definition instanceof CompoundDefinition) {
-			addExpectationCodeForCompound(sc, (CompoundDefinition) definition, message, level);
+			addExpectationCodeForCompound(sc, (CompoundDefinition) definition, message, level, discardFollowingExpectations);
 		} else if (definition instanceof CsString) {
-			addExpectationCodeForCsString(sc, (CsString) definition, message, level);
+			addExpectationCodeForCsString(sc, (CsString) definition, message, level, discardFollowingExpectations);
 		} else if (definition instanceof Terminal) {
-			addExpectationCodeForTerminal(sc, (Terminal) definition, message);
+			addExpectationCodeForTerminal(sc, (Terminal) definition, message, discardFollowingExpectations);
 		} else {
 			System.out
 					.println("ANTLRGrammarGenerator.addExpectationCode() unknown definition type "
@@ -1294,7 +1303,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addExpectationCodeForTerminal(StringComposite sc,
-			Terminal terminal, String identifier) {
+			Terminal terminal, String identifier, boolean discardFollowingExpectations) {
 		if (terminal instanceof Containment) {
 			// TODO Auto-generated method stub
 		} else if (terminal instanceof Placeholder) {
@@ -1307,27 +1316,27 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addExpectationCodeForCompound(StringComposite sc,
-			CompoundDefinition compoundDef, String message, int level) {
+			CompoundDefinition compoundDef, String message, int level, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
 		Choice choice = compoundDef.getDefinitions();
-		addExpectationCodeForChoice(sc, choice, message, level);
+		addExpectationCodeForChoice(sc, choice, message, level, discardFollowingExpectations);
 	}
 
 	private void addExpectationCodeForChoice(StringComposite sc, Choice choice,
-			String message, int level) {
+			String message, int level, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
 		List<Sequence> options = choice.getOptions();
 		for (Sequence sequence : options) {
-			addExpectationCodeForSequence(sc, sequence, message, level);
+			addExpectationCodeForSequence(sc, sequence, message, level, discardFollowingExpectations);
 		}
 	}
 
 	private void addExpectationCodeForSequence(StringComposite sc, Sequence sequence,
-			String message, int level) {
+			String message, int level, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
@@ -1335,7 +1344,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		for (Definition definition : parts) {
 			if (definition instanceof CsString) {
 				CsString csString = (CsString) definition;
-				addExpectationCodeForCsString(sc, csString, message, level);
+				addExpectationCodeForCsString(sc, csString, message, level, discardFollowingExpectations);
 			}
 			if (definition instanceof CardinalityDefinition) {
 				CardinalityDefinition cd = (CardinalityDefinition) definition;
@@ -1369,7 +1378,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addExpectationCodeForCsString(StringComposite sc, CsString csString,
-			String message, int level) {
+			String message, int level, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
@@ -1377,10 +1386,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		// we must use the unicode representation for the % character, because
 		// StringTemplate does treat % special
 		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName()
-				+ "(" + level + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
+				+ "(" + level + ", "+ discardFollowingExpectations + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
 	}
 
-	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, int level) {
+	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, int level, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
@@ -1388,7 +1397,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		final GenFeature genFeature = terminal.getFeature();
 		sc.add("addExpectedElement(new "
 				+ ExpectedStructuralFeature.class.getName() + "("
-				+ level + ", "
+				+ level + ", " 
+				+ discardFollowingExpectations + ", "
 				+ genClass.getGenPackage().getReflectionPackageName() + "."
 				+ genClass.getGenPackage().getPackageInterfaceName()
 				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()

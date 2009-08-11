@@ -40,4 +40,5 @@ public interface IExpectedElement {
 	public boolean isAfter(int cursorIndex);
 
 	public int getNestingLevel();
+	public boolean discardFollowingExpectations();
 }
