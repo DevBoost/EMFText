@@ -35,23 +35,22 @@ import org.emftext.runtime.util.StringUtil;
  */
 // TODO mseifert: calculate and consider the prefix and return only the proposals
 // that start with the prefix
-// TODO mseifert: rename parameter 'document' to 'content'
 public class CodeCompletionHelper {
 
 	private final static EClassUtil eClassUtil = new EClassUtil();
 
 	/**
 	 * Computes a set of proposals for the given document assuming the cursor is 
-	 * at 'offset'. The proposals are derived using the meta information, i.e.,
+	 * at 'cursorOffset'. The proposals are derived using the meta information, i.e.,
 	 * the generated language plug-in.
 	 * 
 	 * @param metaInformation
-	 * @param document
-	 * @param offset
+	 * @param content the documents content
+	 * @param cursorOffset
 	 * @return
 	 */
-	public Collection<String> computeCompletionProposals(ITextResourcePluginMetaInformation metaInformation, String document, int offset) {
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(document.getBytes());
+	public Collection<String> computeCompletionProposals(ITextResourcePluginMetaInformation metaInformation, String content, int cursorOffset) {
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes());
 		ITextParser parser = metaInformation.createParser(inputStream, null);
 		final List<IExpectedElement> expectedElements = parseToExpectedElements(parser);
 		if (expectedElements == null) {
@@ -60,12 +59,12 @@ public class CodeCompletionHelper {
 		if (expectedElements.size() == 0) {
 			return Collections.emptyList();
 		}
-		List<IExpectedElement> expectedElementsAt = getElementsExpectedAt(expectedElements, offset);
-		setPrefix(expectedElementsAt, document, offset);
+		List<IExpectedElement> expectedElementsAt = getElementsExpectedAt(expectedElements, cursorOffset);
+		setPrefix(expectedElementsAt, content, cursorOffset);
 		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
 		//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);
-		System.out.println("Parser returned expectation: " + expectedElementsAt + " for offset " + offset);
-		Collection<String> proposals = deriveProposals(expectedElementsAt, document, metaInformation, offset);
+		System.out.println("Parser returned expectation: " + expectedElementsAt + " for offset " + cursorOffset);
+		Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
 		
 		/*Collection<String> filteredProposals = filter(document, offset,
 				expectedElementsAt, expectedAtCursor, proposals);*/
@@ -133,8 +132,8 @@ public class CodeCompletionHelper {
 		return filteredProposals;
 	}
 */
-	private String findPrefix(List<IExpectedElement> expectedElements, IExpectedElement expectedAtCursor, String document, int offset) {
-		if (offset < 0) {
+	private String findPrefix(List<IExpectedElement> expectedElements, IExpectedElement expectedAtCursor, String content, int cursorOffset) {
+		if (cursorOffset < 0) {
 			return "";
 		}
 		int end = 0;
@@ -165,27 +164,27 @@ public class CodeCompletionHelper {
 			}
 			*/
 		}
-		end = Math.min(end, offset);
+		end = Math.min(end, cursorOffset);
 		//System.out.println("substring("+end+","+offset+")");
-		final String prefix = document.substring(end, Math.min(document.length(), offset + 1));
+		final String prefix = content.substring(end, Math.min(content.length(), cursorOffset + 1));
 		System.out.println("Found prefix '" + prefix + "'");
 		return prefix;
 	}
 
 	private Collection<String> deriveProposals(
-			List<IExpectedElement> expectedElements, String content, ITextResourcePluginMetaInformation metaInformation, int offset) {
+			List<IExpectedElement> expectedElements, String content, ITextResourcePluginMetaInformation metaInformation, int cursorOffset) {
 		Collection<String> resultSet = new HashSet<String>();
 		for (IExpectedElement expectedElement : expectedElements) {
-			resultSet.addAll(deriveProposals(expectedElement, content, metaInformation, offset));
+			resultSet.addAll(deriveProposals(expectedElement, content, metaInformation, cursorOffset));
 		}
 		return resultSet;
 	}
 
 	private Collection<String> deriveProposals(
-			IExpectedElement expectedElement, String content, ITextResourcePluginMetaInformation metaInformation, int offset) {
+			IExpectedElement expectedElement, String content, ITextResourcePluginMetaInformation metaInformation, int cursorOffset) {
 		if (expectedElement instanceof ExpectedCsString) {
 			ExpectedCsString csString = (ExpectedCsString) expectedElement;
-			return deriveProposal(csString, content, offset);
+			return deriveProposal(csString, content, cursorOffset);
 		} else if (expectedElement instanceof ExpectedStructuralFeature) {
 			ExpectedStructuralFeature expectedFeature = (ExpectedStructuralFeature) expectedElement;
 			EStructuralFeature feature = expectedFeature.getFeature();
@@ -196,16 +195,16 @@ public class CodeCompletionHelper {
 				if (featureType instanceof EClass) {
 					if (reference.isContainment()) {
 						EClass classType = (EClass) featureType;
-						return deriveProposals(classType, metaInformation, content, offset);
+						return deriveProposals(classType, metaInformation, content, cursorOffset);
 					} else {
-						return handleNCReference(content, metaInformation, offset, container);
+						return handleNCReference(content, metaInformation, cursorOffset, container);
 					}
 				}
 			} else if (feature instanceof EAttribute) {
 				EAttribute attribute = (EAttribute) feature;
 				if (featureType instanceof EEnum) {
 					EEnum enumType = (EEnum) featureType;
-					return deriveProposals(expectedElement, enumType, content, offset);
+					return deriveProposals(expectedElement, enumType, content, cursorOffset);
 				} else {
 					// handle EAttributes (derive default value depending on
 					// the type of the attribute, figure out token resolver, and
@@ -224,7 +223,7 @@ public class CodeCompletionHelper {
 	}
 
 	private Collection<String> handleNCReference(String content,
-			ITextResourcePluginMetaInformation metaInformation, int offset,
+			ITextResourcePluginMetaInformation metaInformation, int cursorOffset,
 			EObject container) {
 		// handle non-containment references
 		IReferenceResolverSwitch resolverSwitch = metaInformation.getReferenceResolverSwitch();
@@ -277,7 +276,7 @@ public class CodeCompletionHelper {
 	private Collection<String> deriveProposals(
 			EClass type,
 			ITextResourcePluginMetaInformation metaInformation, 
-			String content, int offset) {
+			String content, int cursorOffset) {
 		Collection<String> allProposals = new HashSet<String>();
 		// find all sub classes and call parseToExpectedElements() for each
 		// of them
@@ -294,14 +293,14 @@ public class CodeCompletionHelper {
 			}
 			List<IExpectedElement> expectedElementsAt = getElementsExpectedAt(expectedElements, 0);
 			setPrefix(expectedElementsAt, content, 0);
-			System.out.println("computeCompletionProposals() " + expectedElementsAt + " for offset " + offset);
-			Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, offset);
+			System.out.println("computeCompletionProposals() " + expectedElementsAt + " for offset " + cursorOffset);
+			Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
 			allProposals.addAll(proposals);
 		}
 		return allProposals;
 	}
 
-	private Collection<String> deriveProposals(IExpectedElement expectedElement, EEnum enumType, String content, int offset) {
+	private Collection<String> deriveProposals(IExpectedElement expectedElement, EEnum enumType, String content, int cursorOffset) {
 		Collection<EEnumLiteral> enumLiterals = enumType.getELiterals();
 		Collection<String> result = new HashSet<String>();
 		for (EEnumLiteral literal : enumLiterals) {
@@ -314,7 +313,7 @@ public class CodeCompletionHelper {
 	}
 
 	private Collection<String> deriveProposal(ExpectedCsString csString,
-			String content, int offset) {
+			String content, int cursorOffset) {
 		String proposal = csString.getValue();
 		
 		Collection<String> result = new HashSet<String>(1);
@@ -326,7 +325,7 @@ public class CodeCompletionHelper {
 	 * Returns the element(s) that is most suitable at the given cursor
 	 * index based on the list of expected elements.
 	 * 
-	 * @param cursorIndex
+	 * @param cursorOffset
 	 * @param allExpectedElements
 	 * @return
 	 */
@@ -335,12 +334,12 @@ public class CodeCompletionHelper {
 	// For example, when a StructuralFeature is expected right before the
 	// cursor and a CsString right after, we should return both elements.
 	public List<IExpectedElement> getElementsExpectedAt(final List<IExpectedElement> allExpectedElements,
-			int cursorIndex) {
+			int cursorOffset) {
 
-		List<IExpectedElement> expectedAfterCursor = getElementsExpectedAfter(allExpectedElements, cursorIndex);
-		List<IExpectedElement> expectedBeforeCursor = getElementsExpectedAfter(allExpectedElements, cursorIndex - 1);
-		System.out.println("parseToCursor(" + cursorIndex + ") BEFORE CURSOR " + expectedBeforeCursor);
-		System.out.println("parseToCursor(" + cursorIndex + ") AFTER CURSOR  " + expectedAfterCursor);
+		List<IExpectedElement> expectedAfterCursor = getElementsExpectedAfter(allExpectedElements, cursorOffset);
+		List<IExpectedElement> expectedBeforeCursor = getElementsExpectedAfter(allExpectedElements, cursorOffset - 1);
+		System.out.println("parseToCursor(" + cursorOffset + ") BEFORE CURSOR " + expectedBeforeCursor);
+		System.out.println("parseToCursor(" + cursorOffset + ") AFTER CURSOR  " + expectedAfterCursor);
 		List<IExpectedElement> allExpectedAtCursor = new ArrayList<IExpectedElement>();
 		allExpectedAtCursor.addAll(expectedAfterCursor);
 		if (expectedBeforeCursor != null) {
@@ -356,18 +355,16 @@ public class CodeCompletionHelper {
 		return allExpectedAtCursor;
 	}
 
-	private void setPrefix(List<IExpectedElement> allExpectedElements, String document, int cursorIndex) {
-		if (cursorIndex < 0) {
+	private void setPrefix(List<IExpectedElement> allExpectedElements, String content, int cursorOffset) {
+		if (cursorOffset < 0) {
 			return;
 		}
-		//List<IExpectedElement> expectedElementsAtCursor = getElementsExpectedAtCursor(allExpectedElements, cursorIndex);
 		for (IExpectedElement expectedElementAtCursor : allExpectedElements) {
-			expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, document, cursorIndex));
+			expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, content, cursorOffset));
 		}
-		//return expectedElementsAtCursor;
 	}
 
-	private List<IExpectedElement> getElementsExpectedAfter(List<IExpectedElement> allExpectedElements, int cursorIndex) {
+	private List<IExpectedElement> getElementsExpectedAfter(List<IExpectedElement> allExpectedElements, int cursorOffset) {
 		List<IExpectedElement> expectedAtCursor = new ArrayList<IExpectedElement>();
 		int currentEnd = Integer.MAX_VALUE;
 		for (int i = allExpectedElements.size() - 1; i >= 0; i--) {
@@ -375,8 +372,8 @@ public class CodeCompletionHelper {
 			
 			int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();
 			int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();
-			if (cursorIndex >= startIncludingHidden &&
-				currentEnd > cursorIndex) {
+			if (cursorOffset >= startIncludingHidden &&
+				currentEnd > cursorOffset) {
 				expectedAtCursor.add(expectedElement);
 			}
 			currentEnd = startExcludingHidden - 1;
