@@ -20,8 +20,6 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.extensions;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -53,28 +51,19 @@ public class Hyperlink implements IHyperlink {
 	private String text;
 	private EObject linkTarget;
 	private IRegion region;
-	private static final Collection<String> fileExtensions;
-	static {
-		fileExtensions = new ArrayList<String>();
-		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin
-				.getConcreteSyntaxRegistry();
-		for (ITextResourcePluginMetaInformation extension : extensions) {
-			fileExtensions.add(extension.getSyntaxName());
-		}
-	}
-
+	
 	/**
 	 * Creates the hyperlink.
 	 * 
 	 * @param region
 	 *            the region of the hyperlink to highlight
 	 * @param linkTarget the link target where this hyperlink should go to
-	 * @param text the text to specify the target position in the <code>linkTarget</code>
+	 * @param targetText the text to specify the target position in the <code>linkTarget</code>
 	 */
-	public Hyperlink(IRegion region, EObject linkTarget, String text) {
+	public Hyperlink(IRegion region, EObject linkTarget, String targetText) {
 		this.region = region;
 		this.linkTarget = linkTarget;
-		this.text = text;
+		this.text = targetText;
 	}
 
 	public String getHyperlinkText() {
@@ -110,7 +99,7 @@ public class Hyperlink implements IHyperlink {
 					.getActiveWorkbenchWindow().getActivePage();
 			try {
 				//FIXME the EditorID has to be of EMFTextEditor
-				if (fileExtensions.contains(file.getFileExtension()))
+				if (isSupport(file.getFileExtension()))
 					page.openEditor(new FileEditorInput(file), page
 							.getActiveEditor().getSite().getId());
 				else {
@@ -128,6 +117,16 @@ public class Hyperlink implements IHyperlink {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private boolean isSupport(String fileExtension) {
+		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin
+				.getConcreteSyntaxRegistry();
+		for (ITextResourcePluginMetaInformation extension : extensions) {
+			if (extension.getSyntaxName().equals(fileExtension))
+				return true;
+		}
+		return false;
 	}
 
 	private IFile getIFileFromResource() {
