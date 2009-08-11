@@ -16,7 +16,7 @@
 	</taskdef>
 
 	<target name="generate-text-resource" depends="generate-metamodel-code" description="Generate the EMF text resource plug-in">
-		<emftext-generate-text-resource syntax="../org.emftext.test.cct1/metamodel/cct1.cs" rootFolder=".." syntaxProjectName="org.emftext.test.cct1" />
+		<emftext-generate-text-resource syntax="../org.emftext.test.cct1/metamodel/cct1.cs" rootFolder=".." syntaxProjectName="org.emftext.test.cct1" generateExpectationsCode="true"/>
 		<eclipse.refreshLocal depth="infinite" resource="/"/>
 	</target>
 	

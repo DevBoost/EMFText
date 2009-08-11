@@ -38,8 +38,19 @@ import org.emftext.test.cct2.resource.cct2.Cct2MetaInformation;
 public class CodeCompletionTest extends TestCase {
 
 	private static final class TestFileFilter implements FileFilter {
+		
+		private String[] validExtensions;
+
+		public TestFileFilter(String... validExtensions) {
+			this.validExtensions = validExtensions;
+		}
+		
 		public boolean accept(File file) {
-			return file.isDirectory() || file.getName().endsWith(".cct2");
+			boolean hasValidExtension = false;
+			for (String validExtension : validExtensions) {
+				hasValidExtension |= file.getName().endsWith(validExtension);
+			}
+			return file.isDirectory() || hasValidExtension;
 		}
 	}
 
@@ -53,11 +64,11 @@ public class CodeCompletionTest extends TestCase {
 		registerSyntaxes();
 		
 		TestSuite suite = new TestSuite("All tests");
-		//TestSuite suite1 = createExpectedElementsSuite();
+		TestSuite suite1 = createExpectedElementsSuite();
 		//TestSuite suite2 = createExpectedInsertStringsSuite();
 		TestSuite suite3 = createExpectationsSuite();
 		
-		//suite.addTest(suite1);
+		suite.addTest(suite1);
 		//suite.addTest(suite2);
 		suite.addTest(suite3);
 		return suite;
@@ -78,7 +89,7 @@ public class CodeCompletionTest extends TestCase {
 	private static TestSuite createExpectedElementsSuite() {
 		TestSuite suite = new TestSuite("Test expected element at cursor position");
 		File inputFolder = new File(INPUT_DIR);
-		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter())) {
+		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter(".cct1"))) {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
@@ -97,7 +108,7 @@ public class CodeCompletionTest extends TestCase {
 	private static TestSuite createExpectationsSuite() {
 		TestSuite suite = new TestSuite("Test list of expected elements");
 		File inputFolder = new File(INPUT_DIR);
-		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter())) {
+		for (final File file : listFilesRecursivly(inputFolder, new TestFileFilter(".cct2"))) {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
@@ -163,60 +174,60 @@ public class CodeCompletionTest extends TestCase {
 		expectedElementsMap = new HashMap<String, Object>();
 		expectedInsertStringsMap = new HashMap<String, String[]>();
 		
-		expectedElementsMap.put("BracketExpected2.cct", "}");
-		expectedInsertStringsMap.put("BracketExpected2.cct", new String[] {"}"});
+		expectedElementsMap.put("BracketExpected2.cct1", "}");
+		expectedInsertStringsMap.put("BracketExpected2.cct1", new String[] {"}"});
 
-		expectedElementsMap.put("BracketExpected1.cct", "{");
-		expectedInsertStringsMap.put("BracketExpected1.cct", new String[] {"{"});
+		expectedElementsMap.put("BracketExpected1.cct1", "{");
+		expectedInsertStringsMap.put("BracketExpected1.cct1", new String[] {"{"});
 
-		expectedElementsMap.put("BracketExpected3.cct", "}");
-		expectedInsertStringsMap.put("BracketExpected3.cct", new String[] {"}"});
+		expectedElementsMap.put("BracketExpected3.cct1", "}");
+		expectedInsertStringsMap.put("BracketExpected3.cct1", new String[] {"}"});
 
-		expectedElementsMap.put("KeywordClassExpected1.cct", "class");
-		expectedInsertStringsMap.put("KeywordClassExpected1.cct", new String[] {"class"});
+		expectedElementsMap.put("KeywordClassExpected1.cct1", "class");
+		expectedInsertStringsMap.put("KeywordClassExpected1.cct1", new String[] {"class"});
 		
-		expectedElementsMap.put("KeywordClassExpected2.cct", "class");
-		expectedInsertStringsMap.put("KeywordClassExpected2.cct", new String[] {"class"});
+		expectedElementsMap.put("KeywordClassExpected2.cct1", "class");
+		expectedInsertStringsMap.put("KeywordClassExpected2.cct1", new String[] {"class"});
 
-		expectedElementsMap.put("EnumVisibilityExpected1.cct", CCT1_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected1.cct", new String[] {"public", "private"});
+		expectedElementsMap.put("EnumVisibilityExpected1.cct1", CCT1_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected1.cct1", new String[] {"public", "private"});
 
-		expectedElementsMap.put("NameExpected1.cct", CCT1_PACKAGE.getNamedElement_Name());
-		expectedInsertStringsMap.put("NameExpected1.cct", new String[] {"someName"});
+		expectedElementsMap.put("NameExpected1.cct1", CCT1_PACKAGE.getNamedElement_Name());
+		expectedInsertStringsMap.put("NameExpected1.cct1", new String[] {"someName"});
 
-		expectedElementsMap.put("NameExpected2.cct", CCT1_PACKAGE.getNamedElement_Name());
-		expectedInsertStringsMap.put("NameExpected2.cct", new String[] {"someName"});
+		expectedElementsMap.put("NameExpected2.cct1", CCT1_PACKAGE.getNamedElement_Name());
+		expectedInsertStringsMap.put("NameExpected2.cct1", new String[] {"someName"});
 
-		expectedElementsMap.put("TypeExpected.cct", CCT1_PACKAGE.getTypedElement_Type());
-		expectedInsertStringsMap.put("TypeExpected.cct", new String[] {"SomeName"});
+		expectedElementsMap.put("TypeExpected.cct1", CCT1_PACKAGE.getTypedElement_Type());
+		expectedInsertStringsMap.put("TypeExpected.cct1", new String[] {"SomeName"});
 
-		expectedElementsMap.put("EnumVisibilityExpected2.cct", CCT1_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected2.cct", new String[] {"public", "private"});
+		expectedElementsMap.put("EnumVisibilityExpected2.cct1", CCT1_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected2.cct1", new String[] {"public", "private"});
 
-		expectedElementsMap.put("EnumVisibilityExpected3.cct", CCT1_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected3.cct", new String[] {"public", "private"});
+		expectedElementsMap.put("EnumVisibilityExpected3.cct1", CCT1_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected3.cct1", new String[] {"public", "private"});
 
-		expectedElementsMap.put("NameExpected3.cct", CCT1_PACKAGE.getNamedElement_Name());
-		expectedInsertStringsMap.put("NameExpected3.cct", new String[] {"someName"});
+		expectedElementsMap.put("NameExpected3.cct1", CCT1_PACKAGE.getNamedElement_Name());
+		expectedInsertStringsMap.put("NameExpected3.cct1", new String[] {"someName"});
 
-		expectedElementsMap.put("EnumVisibilityExpected5.cct", CCT1_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected5.cct", new String[] {"public", "private"});
+		expectedElementsMap.put("EnumVisibilityExpected5.cct1", CCT1_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected5.cct1", new String[] {"public", "private"});
 
-		expectedElementsMap.put("EnumVisibilityExpected6.cct", CCT1_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected6.cct", new String[] {"private"});
+		expectedElementsMap.put("EnumVisibilityExpected6.cct1", CCT1_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected6.cct1", new String[] {"private"});
 
-		expectedElementsMap.put("EnumVisibilityExpected7.cct", CCT1_PACKAGE.getModifiable_Visibility());
-		expectedInsertStringsMap.put("EnumVisibilityExpected7.cct", new String[] {"public", "private"});
+		expectedElementsMap.put("EnumVisibilityExpected7.cct1", CCT1_PACKAGE.getModifiable_Visibility());
+		expectedInsertStringsMap.put("EnumVisibilityExpected7.cct1", new String[] {"public", "private"});
 
 		// this one has an additional space after the cursor
-		expectedElementsMap.put("KeywordClassExpected3.cct", "class");
-		expectedInsertStringsMap.put("KeywordClassExpected3.cct", new String[] {"class"});
+		expectedElementsMap.put("KeywordClassExpected3.cct1", "class");
+		expectedInsertStringsMap.put("KeywordClassExpected3.cct1", new String[] {"class"});
 
-		expectedElementsMap.put("KeywordClassExpected4.cct", "class");
-		expectedInsertStringsMap.put("KeywordClassExpected4.cct", new String[] {"class"});
+		expectedElementsMap.put("KeywordClassExpected4.cct1", "class");
+		expectedInsertStringsMap.put("KeywordClassExpected4.cct1", new String[] {"class"});
 
-		expectedElementsMap.put("MembersExpected1.cct", CCT1_PACKAGE.getClass_Members());
-		expectedInsertStringsMap.put("MembersExpected1.cct", new String[] {"public", "private"});
+		expectedElementsMap.put("MembersExpected1.cct1", CCT1_PACKAGE.getClass_Members());
+		expectedInsertStringsMap.put("MembersExpected1.cct1", new String[] {"public", "private"});
 
 		// cs examples
 		expectedElementsMap.put("OptionExpected1.cs", CS_PACKAGE.getConcreteSyntax_Options());
@@ -265,7 +276,7 @@ public class CodeCompletionTest extends TestCase {
 		} else {
 			fail("Unknown type of expected element given for file " + filename);
 		}
-		assertExpectedElementAtCursor(file, expectedElements);
+		assertExpectedElementsAtCursor(file, expectedElements);
 	}
 	
 	private void checkExpectations(File file) {
@@ -365,13 +376,17 @@ public class CodeCompletionTest extends TestCase {
 	 * @param expectedElementsList the list of expected elements that should be returned by the parser
 	 *        for the given cursor position
 	 */
-	private void assertExpectedElementAtCursor(File file, List<IExpectedElement> expectedCompletionElement) {
+	private void assertExpectedElementsAtCursor(File file, List<IExpectedElement> expectedCompletionElement) {
 		String fileExtension = getFileExtension(file);
 		String fileContent = getFileContent(file);
 		int cursorIndex = getCursorMarkerIndex(fileContent);
+		System.out.println("\n--- Testing expected elements at cursor using " + file.getName() + " (" + cursorIndex + ")");
 		String contentWithoutMarker = removeCursorMarker(fileContent);
-		final List<IExpectedElement> actualElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
-		List<IExpectedElement> finalExpectedAtCursor = new CodeCompletionHelper().getExpectedElementsAt(contentWithoutMarker, cursorIndex, actualElements);
+		final List<IExpectedElement> allExpectedElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
+		List<IExpectedElement> finalExpectedAtCursor = new CodeCompletionHelper().getElementsExpectedAt(allExpectedElements, cursorIndex);
+		for (IExpectedElement expectedAtCursor : finalExpectedAtCursor) {
+			System.out.println("PARSER EXPECTED AT CURSOR (" + cursorIndex + "): " + expectedAtCursor);
+		}
 		assertEquals(expectedCompletionElement, finalExpectedAtCursor);
 	}
 
@@ -388,11 +403,6 @@ public class CodeCompletionTest extends TestCase {
 		String fileContent = getFileContent(file);
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		final List<IExpectedElement> actualElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
-		for (IExpectedElement actualElement : actualElements) {
-			System.out.println("ACTUAL ELEMENT:   " + actualElement);
-		}
-		removeDuplicateEntries(actualElements);
-		removeInvalidEntriesAtEnd(actualElements);
 		// compare lists
 		final int actualSize = actualElements.size();
 		final int expectedSize = expectedElementsList.size();
@@ -408,35 +418,6 @@ public class CodeCompletionTest extends TestCase {
 		assertEquals("List sizes should match.", expectedSize, actualSize);
 	}
 
-	private void removeDuplicateEntries(List<IExpectedElement> actualElements) {
-		for (int i = 0; i < actualElements.size() - 1; i++) {
-			IExpectedElement elementAtIndex = actualElements.get(i);
-			for (int j = i + 1; j < actualElements.size();) {
-				IExpectedElement elementAtNext = actualElements.get(j);
-				if (elementAtIndex.equals(elementAtNext) &&
-					elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
-					actualElements.remove(j);
-				} else {
-					j++;
-				}
-			}
-		}
-	}
-
-	private void removeInvalidEntriesAtEnd(List<IExpectedElement> actualElements) {
-		for (int i = 0; i < actualElements.size() - 1;) {
-			IExpectedElement elementAtIndex = actualElements.get(i);
-			IExpectedElement elementAtNext = actualElements.get(i + 1);
-			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&
-				elementAtIndex.discardFollowingExpectations() &&
-				elementAtIndex.getNestingLevel() >= elementAtNext.getNestingLevel()) {
-				actualElements.remove(i + 1);
-			} else {
-				i++;
-			}
-		}
-	}
-
 	private List<IExpectedElement> getExpectedElementsList(String fileExtension,
 			String contentWithoutMarker) {
 		InputStream inputStream = new ByteArrayInputStream(contentWithoutMarker.getBytes());
@@ -444,7 +425,7 @@ public class CodeCompletionTest extends TestCase {
 		ITextParser parser = createParser(fileExtension, inputStream);
 		assertNotNull("Parser should be created.", parser);
 		
-		final List<IExpectedElement> actualElements = parser.parseToExpectedElements(null);
+		final List<IExpectedElement> actualElements = new CodeCompletionHelper().parseToExpectedElements(parser);
 		if (actualElements == null) {
 			fail("Parser must return an expected elements list.");
 		}
@@ -477,7 +458,7 @@ public class CodeCompletionTest extends TestCase {
 	private int getCursorMarkerIndex(String fileContent) {
 		int cursorPosition = fileContent.indexOf(CURSOR_MARKER);
 		assertTrue("Cursor position marker (" + CURSOR_MARKER + ") not found in input file.", cursorPosition >= 0);
-		System.out.println("-------- CURSOR AT " + cursorPosition);
+		//System.out.println("-------- CURSOR AT " + cursorPosition);
 		return cursorPosition;
 	}
 

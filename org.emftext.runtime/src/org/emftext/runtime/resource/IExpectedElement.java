@@ -26,18 +26,16 @@ public interface IExpectedElement {
 	public int getStartIncludingHiddenTokens();
 	/*
 	public int getEndExcludingHiddenTokens();
-
 	public int getEndIncludingHiddenTokens();
-*/
 	public boolean isAt(int cursorIndex);
-
+	public boolean isAfter(int cursorIndex);
 	public boolean isUnknown(int cursorIndex);
+	*/
 	
 	public String getPrefix();
 	
 	public void setPrefix(String prefix);
 
-	public boolean isAfter(int cursorIndex);
 
 	public int getNestingLevel();
 	public boolean discardFollowingExpectations();

@@ -53,14 +53,15 @@ public class CodeCompletionHelper {
 	public Collection<String> computeCompletionProposals(ITextResourcePluginMetaInformation metaInformation, String document, int offset) {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream(document.getBytes());
 		ITextParser parser = metaInformation.createParser(inputStream, null);
-		final List<IExpectedElement> expectedElements = parser.parseToExpectedElements(null);
+		final List<IExpectedElement> expectedElements = parseToExpectedElements(parser);
 		if (expectedElements == null) {
 			return Collections.emptyList();
 		}
 		if (expectedElements.size() == 0) {
 			return Collections.emptyList();
 		}
-		List<IExpectedElement> expectedElementsAt = getExpectedElementsAt(document, offset, expectedElements);
+		List<IExpectedElement> expectedElementsAt = getElementsExpectedAt(expectedElements, offset);
+		setPrefix(expectedElementsAt, document, offset);
 		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
 		//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);
 		System.out.println("Parser returned expectation: " + expectedElementsAt + " for offset " + offset);
@@ -73,6 +74,49 @@ public class CodeCompletionHelper {
 		Collections.sort(sortedProposals);
 		return sortedProposals;
 	}
+	
+	public List<IExpectedElement> parseToExpectedElements(ITextParser parser) {
+		final List<IExpectedElement> expectedElements = parser.parseToExpectedElements(null);
+		if (expectedElements == null) {
+			return Collections.emptyList();
+		}
+		removeDuplicateEntries(expectedElements);
+		removeInvalidEntriesAtEnd(expectedElements);
+		for (IExpectedElement expectedElement : expectedElements) {
+			System.out.println("PARSER EXPECTS:   " + expectedElement);
+		}
+		return expectedElements;
+	}
+
+	private void removeDuplicateEntries(List<IExpectedElement> expectedElements) {
+		for (int i = 0; i < expectedElements.size() - 1; i++) {
+			IExpectedElement elementAtIndex = expectedElements.get(i);
+			for (int j = i + 1; j < expectedElements.size();) {
+				IExpectedElement elementAtNext = expectedElements.get(j);
+				if (elementAtIndex.equals(elementAtNext) &&
+					elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {
+					expectedElements.remove(j);
+				} else {
+					j++;
+				}
+			}
+		}
+	}
+
+	private void removeInvalidEntriesAtEnd(List<IExpectedElement> expectedElements) {
+		for (int i = 0; i < expectedElements.size() - 1;) {
+			IExpectedElement elementAtIndex = expectedElements.get(i);
+			IExpectedElement elementAtNext = expectedElements.get(i + 1);
+			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&
+				elementAtIndex.discardFollowingExpectations() &&
+				elementAtIndex.getNestingLevel() >= elementAtNext.getNestingLevel()) {
+				expectedElements.remove(i + 1);
+			} else {
+				i++;
+			}
+		}
+	}
+
 /*
 	private Collection<String> filter(String document, int offset,
 			final List<IExpectedElement> expectedElements,
@@ -248,7 +292,8 @@ public class CodeCompletionHelper {
 			if (expectedElements.size() == 0) {
 				continue;
 			}
-			List<IExpectedElement> expectedElementsAt = getExpectedElementsAt(content, 0, expectedElements);
+			List<IExpectedElement> expectedElementsAt = getElementsExpectedAt(expectedElements, 0);
+			setPrefix(expectedElementsAt, content, 0);
 			System.out.println("computeCompletionProposals() " + expectedElementsAt + " for offset " + offset);
 			Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, offset);
 			allProposals.addAll(proposals);
@@ -289,31 +334,53 @@ public class CodeCompletionHelper {
 	// and after the cursor position exists and which action should be taken.
 	// For example, when a StructuralFeature is expected right before the
 	// cursor and a CsString right after, we should return both elements.
-	public List<IExpectedElement> getExpectedElementsAt(String document, int cursorIndex,
-			final List<IExpectedElement> allExpectedElements) {
+	public List<IExpectedElement> getElementsExpectedAt(final List<IExpectedElement> allExpectedElements,
+			int cursorIndex) {
 
-		IExpectedElement expectedAtCursor = getElementExpectedAfter(document, cursorIndex, allExpectedElements);
-		IExpectedElement expectedBeforeCursor = getElementExpectedAfter(document, cursorIndex - 1, allExpectedElements);
+		List<IExpectedElement> expectedAfterCursor = getElementsExpectedAfter(allExpectedElements, cursorIndex);
+		List<IExpectedElement> expectedBeforeCursor = getElementsExpectedAfter(allExpectedElements, cursorIndex - 1);
 		System.out.println("parseToCursor(" + cursorIndex + ") BEFORE CURSOR " + expectedBeforeCursor);
-		System.out.println("parseToCursor(" + cursorIndex + ") AT CURSOR     " + expectedAtCursor);
+		System.out.println("parseToCursor(" + cursorIndex + ") AFTER CURSOR  " + expectedAfterCursor);
 		List<IExpectedElement> allExpectedAtCursor = new ArrayList<IExpectedElement>();
-		allExpectedAtCursor.add(expectedAtCursor);
-		// if the thing right before the cursor is something that could
-		// be long we add it to the list of proposals
-		if (expectedBeforeCursor != null && expectedBeforeCursor instanceof ExpectedStructuralFeature) {
-			allExpectedAtCursor.clear();
-			allExpectedAtCursor.add(expectedBeforeCursor);
+		allExpectedAtCursor.addAll(expectedAfterCursor);
+		if (expectedBeforeCursor != null) {
+			for (IExpectedElement expectedBefore : expectedBeforeCursor) {
+				// if the thing right before the cursor is something that could
+				// be long we add it to the list of proposals
+				if (expectedBefore instanceof ExpectedStructuralFeature) {
+					//allExpectedAtCursor.clear();
+					allExpectedAtCursor.add(expectedBefore);
+				}
+			}
 		}
 		return allExpectedAtCursor;
 	}
 
-	private IExpectedElement getElementExpectedAfter(String document, int cursorIndex,
-			List<IExpectedElement> allExpectedElements) {
+	private void setPrefix(List<IExpectedElement> allExpectedElements, String document, int cursorIndex) {
 		if (cursorIndex < 0) {
-			return null;
+			return;
 		}
-		IExpectedElement expectedAtCursor = null;
-		for (IExpectedElement expectedElement : allExpectedElements) {
+		//List<IExpectedElement> expectedElementsAtCursor = getElementsExpectedAtCursor(allExpectedElements, cursorIndex);
+		for (IExpectedElement expectedElementAtCursor : allExpectedElements) {
+			expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, document, cursorIndex));
+		}
+		//return expectedElementsAtCursor;
+	}
+
+	private List<IExpectedElement> getElementsExpectedAfter(List<IExpectedElement> allExpectedElements, int cursorIndex) {
+		List<IExpectedElement> expectedAtCursor = new ArrayList<IExpectedElement>();
+		int currentEnd = Integer.MAX_VALUE;
+		for (int i = allExpectedElements.size() - 1; i >= 0; i--) {
+			IExpectedElement expectedElement = allExpectedElements.get(i);
+			
+			int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();
+			int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();
+			if (cursorIndex >= startIncludingHidden &&
+				currentEnd > cursorIndex) {
+				expectedAtCursor.add(expectedElement);
+			}
+			currentEnd = startExcludingHidden - 1;
+			/*
 			boolean isAtIndex = expectedElement.isAt(cursorIndex);
 			boolean isAfter = expectedElement.isAfter(cursorIndex);
 			boolean isUnknown = expectedElement.isUnknown(cursorIndex);
@@ -337,8 +404,8 @@ public class CodeCompletionHelper {
 					System.out.println("\tEXPECTED " + expectedElement);
 				}
 			}
+			*/
 		}
-		expectedAtCursor.setPrefix(findPrefix(allExpectedElements, expectedAtCursor, document, cursorIndex));
 		return expectedAtCursor;
 	}
 }

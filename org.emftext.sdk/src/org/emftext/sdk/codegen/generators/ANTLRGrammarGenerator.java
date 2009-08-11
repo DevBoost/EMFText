@@ -1261,8 +1261,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			} else {
 				assert def instanceof Terminal;
 				final Terminal terminal = (Terminal) def;
+				sc.add("{");
 				sc.add("// expected element is a Terminal");
 				addExpectationCodeForTerminal(sc, rule, terminal, level, true);
+				sc.add("}");
 				count = printTerminal(terminal, rule, sc, count,
 						eClassesReferenced);
 			}
@@ -1404,7 +1406,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
 				+ "()" + ".getEStructuralFeature("
 				+ generatorUtil.getFeatureConstant(genClass, genFeature)
-				+ "), element, tokenName), " + level + ": \"Terminal\");");
+				// TODO do we really have to pass the token name here?
+				+ "), element, \"TODOtokenname\"), \"" + level + ": Terminal\");");
 	}
 
 	private int printTerminal(Terminal terminal, Rule rule, StringComposite sc,
