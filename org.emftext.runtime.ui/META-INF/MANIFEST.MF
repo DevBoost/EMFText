@@ -1,6 +1,4 @@
 Manifest-Version: 1.0
-Ant-Version: Apache Ant 1.7.0
-Created-By: 1.5.0_16-133 (Apple Inc.)
 Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Eclipse UI
 Bundle-SymbolicName: org.emftext.runtime.ui; singleton:=true
@@ -19,5 +17,3 @@ Export-Package: org.emftext.runtime.ui,
  org.emftext.runtime.ui.new_wizard,
  org.emftext.runtime.ui.outline,
  org.emftext.runtime.ui.preferences
-Import-Package: org.eclipse.jdt.core
-

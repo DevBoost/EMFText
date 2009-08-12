@@ -3,21 +3,6 @@
 	<name>org.emftext.runtime.ui</name>
 	<comment></comment>
 	<projects>
-		<project>org.emftext.language.office</project>
-		<project>org.emftext.language.office.resource.office</project>
-		<project>org.emftext.runtime</project>
-		<project>org.emftext.runtime.antlr</project>
-		<project>org.emftext.runtime.ocl</project>
-		<project>org.emftext.sdk</project>
-		<project>org.emftext.sdk.ant</project>
-		<project>org.emftext.sdk.antlr</project>
-		<project>org.emftext.sdk.concretesyntax</project>
-		<project>org.emftext.sdk.concretesyntax.edit</project>
-		<project>org.emftext.sdk.concretesyntax.resource.cs</project>
-		<project>org.emftext.sdk.ui</project>
-		<project>org.emftext.test</project>
-		<project>org.emftext.test.ant</project>
-		<project>org.emftext.util</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
