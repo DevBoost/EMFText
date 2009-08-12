@@ -164,12 +164,12 @@ public class GeneratorUtil {
 	}
 
 	/**
-	 * Checks whether the given syntax contains a rules for the given
-	 * GenClass or a sub type of it. If such a rule is found, the first
-	 * one found is returned.
+	 * Checks whether the given syntax contains rules for the given
+	 * GenClass or a sub type of it. If such rules are found, the first
+	 * one found is returned. If not, null is returned.
 	 * 
 	 * This method is deprecated because callers should use getRules()
-	 * instead and handle all found rule instead of the first one only.
+	 * instead and handle all found rules instead of the first one only.
 	 */
 	@Deprecated
 	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
@@ -182,15 +182,14 @@ public class GeneratorUtil {
 	}
 	
 	/**
-	 * Checks whether the given syntax contains a rules for the given
-	 * GenClass or a sub type of it. If such a rule is found, it is 
-	 * returned.
+	 * Checks whether the given syntax contains rules for the given
+	 * GenClass or a sub type of it. If such rules are found, all
+	 * of them are returned.
 	 * 
 	 * @param concreteSyntax the syntax to search for rules in
 	 * @param genClass the class to search for
 	 * 
-	 * @return a rule that references 'genClass' or a sub type, null if 
-	 *         no rule is found.
+	 * @return a set of rules that reference 'genClass' or a sub type
 	 */
 	public Collection<Rule> getRules(ConcreteSyntax concreteSyntax, GenClass genClass) {
 		Collection<Rule> foundRules = new ArrayList<Rule>();
