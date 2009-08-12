@@ -49,7 +49,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.swt.widgets.Shell;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GenClassUtil;
@@ -95,7 +97,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		this.file = file;
 	}
 
-	public void run(IProgressMonitor monitor)throws InvocationTargetException, InterruptedException {
+	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 			ResourceSet rs = new ResourceSetImpl();
 			Resource genResource = rs.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(),true), true);
 			final GenModel genModel = (GenModel) genResource.getContents().get(0);

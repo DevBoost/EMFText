@@ -24,14 +24,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.ui.jobs.HUTNGenerationProcess;
 
 /**
@@ -65,16 +72,33 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
     public void process(final IFile file) {
         try {                 
         	
+			URI uri = URI.createPlatformResourceURI(file.getFullPath().removeFileExtension().addFileExtension("cs").toString(), true);
+			
+			if (uri != null && uri.isPlatform()) {
+				IResource workspaceMember = ResourcesPlugin.getWorkspace().getRoot().findMember(uri.toPlatformString(true));
+				if (workspaceMember != null) {
+					Shell shell = new Shell();
+					boolean confirmed = MessageDialog.openConfirm(shell, "Generate HUTN Syntax", 
+							"A syntax specification for the selected metamodel already exists. This will only generate a syntax rule for " +
+							"meta-classes that have no syntax defined yet.\n\nIf you want to generate a HUTN syntax for the whole metamodel, please " +
+							"delete the syntax specification first.");
+					if(!confirmed) return;
+				}					
+			}
         	IRunnableWithProgress runnable = new HUTNGenerationProcess(file);
         	
         	PlatformUI.getWorkbench().getProgressService().busyCursorWhile(runnable);
          } 
         catch (InvocationTargetException e) {
-        	// TODO cwende: this exception should be shown to the user
+        	Shell shell = new Shell();
+			MessageDialog.openInformation(shell, e.getClass().getName(), e
+					.getMessage());
         	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
         }
         catch (InterruptedException e) {
-        	// TODO cwende: this exception should be shown to the user
+        	Shell shell = new Shell();
+			MessageDialog.openInformation(shell, e.getClass().getName(), e
+					.getMessage());
         	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
         }
      }
