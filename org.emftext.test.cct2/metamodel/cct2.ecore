@@ -7,4 +7,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="OptionalSequence"/>
   <eClassifiers xsi:type="ecore:EClass" name="Sequence"/>
   <eClassifiers xsi:type="ecore:EClass" name="PlusSequence"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Containment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="#//AbstractContainmentType" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractContainmentType" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContainmentA" eSuperTypes="#//AbstractContainmentType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContainmentB" eSuperTypes="#//AbstractContainmentType"/>
 </ecore:EPackage>

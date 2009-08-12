@@ -10,6 +10,7 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +94,7 @@ public class CodeCompletionTest extends TestCase {
 			suite.addTest(new TestCase("Parse " + file.getName()) {
 				public void runTest() {
 					try {
-						new CodeCompletionTest().parseToCursor(file);
+						new CodeCompletionTest().checkExpectedBeforeAndAfter(file);
 					}
 					catch (Exception e) {
 						e.printStackTrace();
@@ -257,35 +258,23 @@ public class CodeCompletionTest extends TestCase {
 		checkInsertStrings(file, expectedInsertStrings);
 	}
 	
-	private void parseToCursor(File file) {
+	private void checkExpectedBeforeAndAfter(File file) {
 		String filename = file.getName();
 		if (!accept(filename)) {
 			return;
 		}
-		Object expectedElement = expectedElementsMap.get(filename);
-		assertNotNull("No expected element given for file " + filename, expectedElement);
-		List<IExpectedElement> expectedElements = new ArrayList<IExpectedElement>();
-		if (expectedElement instanceof String) {
-			final ExpectedCsString expectedCsString = new ExpectedCsString(0, false, (String) expectedElement);
-			expectedElements.add(expectedCsString);
-		} else if (expectedElement instanceof EStructuralFeature) {
-			final ExpectedStructuralFeature expectedStructuralFeature = new ExpectedStructuralFeature(0, false, (EStructuralFeature) expectedElement, null, null);
-			expectedElements.add(expectedStructuralFeature);
-		//} else if (expectedElement instanceof List<?>) {
-			//expectedElements.addAll((List<? extends IExpectedElement>) expectedElement);
-		} else {
-			fail("Unknown type of expected element given for file " + filename);
-		}
-		assertExpectedElementsAtCursor(file, expectedElements);
+		List<IExpectedElement> expectedBefore = getExpectations(file, ".expected_before");
+		List<IExpectedElement> expectedAfter = getExpectations(file, ".expected_after");
+		assertExpectedElementsAtCursor(file, expectedBefore, expectedAfter);
 	}
 	
 	private void checkExpectations(File file) {
-		//System.out.println("-- checkExpectations(" + file.getName() + ")");
+		System.out.println("-- checkExpectations(" + file.getName() + ")");
 		String filename = file.getName();
 		if (!accept(filename)) {
 			return;
 		}
-		List<IExpectedElement> expectedElements = getExpectations(file);
+		List<IExpectedElement> expectedElements = getExpectations(file, ".expectations");
 		//System.out.println("- Actual       from " + file.getName() + "");
 		for (IExpectedElement expectedElement : expectedElements) {
 			System.out.println("EXPECTED ELEMENT: " + expectedElement);
@@ -293,16 +282,19 @@ public class CodeCompletionTest extends TestCase {
 		assertExpectedElementsList(file, expectedElements);
 	}
 	
-	private List<IExpectedElement> getExpectations(File file) {
-		System.out.println("- Expectations from " + file.getName() + "");
+	private List<IExpectedElement> getExpectations(File file, String fileExtension) {
+		//System.out.println("- Expectations from " + file.getName() + "");
 		List<IExpectedElement> expectations = new ArrayList<IExpectedElement>();
 		
-		final String expectationFilePath = file.getPath() + ".expectations";
+		final String expectationFilePath = file.getPath() + fileExtension;
 		File expectationFile = new File(expectationFilePath);
 		assertTrue("Expectations file " + expectationFilePath + " not found.", expectationFile.exists());
 		String expectationsContent = getFileContent(expectationFile);
 		String[] lines = expectationsContent.split("\\r?\\n");
 		for (String line : lines) {
+			if ("".equals(line)) {
+				continue;
+			}
 			String[] parts = line.split("\\t");
 			assertEquals("Invalid number of parts in line \"" + line + "\"", 3, parts.length);
 			int beginIncl = Integer.parseInt(parts[0]);
@@ -333,10 +325,10 @@ public class CodeCompletionTest extends TestCase {
 		return expectations;
 	}
 
-	private EStructuralFeature findFeature(String namespace, String classname,
+	private EStructuralFeature findFeature(String namespacePrefix, String classname,
 			String featureName) {
-		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(namespace);
-		assertNotNull("Can't find EPackage for namespace " + namespace, ePackage);
+		EPackage ePackage = findEPackage(namespacePrefix);
+		assertNotNull("Can't find EPackage for namespacePrefix " + namespacePrefix, ePackage);
 		EClassifier eClassifier = ePackage.getEClassifier(classname);
 		assertNotNull("Can't find EClassifier for class " + classname, eClassifier);
 		assertTrue("Class " + classname + " is not an EClass.", eClassifier instanceof EClass);
@@ -344,6 +336,21 @@ public class CodeCompletionTest extends TestCase {
 		EStructuralFeature feature = eClass.getEStructuralFeature(featureName);
 		assertNotNull("Can't find EStructuralFeature " + featureName, feature);
 		return feature;
+	}
+
+	private EPackage findEPackage(String namespacePrefix) {
+		Iterator<Map.Entry<String, Object>> it = EPackage.Registry.INSTANCE.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<String, Object> next = it.next();
+			Object value = next.getValue();
+			if (value instanceof EPackage) {
+				EPackage ePackage = (EPackage) value;
+				if (namespacePrefix.equals(ePackage.getNsPrefix())) {
+					return ePackage;
+				}
+			}
+		}
+		return null;
 	}
 
 	private void checkInsertStrings(File file, String[] expectedInsertStrings) {
@@ -376,18 +383,33 @@ public class CodeCompletionTest extends TestCase {
 	 * @param expectedElementsList the list of expected elements that should be returned by the parser
 	 *        for the given cursor position
 	 */
-	private void assertExpectedElementsAtCursor(File file, List<IExpectedElement> expectedCompletionElement) {
+	private void assertExpectedElementsAtCursor(File file, List<IExpectedElement> expectedBefore, List<IExpectedElement> expectedAfter) {
 		String fileExtension = getFileExtension(file);
 		String fileContent = getFileContent(file);
-		int cursorIndex = getCursorMarkerIndex(fileContent);
-		System.out.println("\n--- Testing expected elements at cursor using " + file.getName() + " (" + cursorIndex + ")");
+		int cursorOffset = getCursorMarkerIndex(fileContent);
+		System.out.println("\n--- Testing expected elements at cursor using " + file.getName() + " (" + cursorOffset + ")");
 		String contentWithoutMarker = removeCursorMarker(fileContent);
 		final List<IExpectedElement> allExpectedElements = getExpectedElementsList(fileExtension, contentWithoutMarker);
-		List<IExpectedElement> finalExpectedAtCursor = new CodeCompletionHelper().getElementsExpectedAt(allExpectedElements, cursorIndex);
-		for (IExpectedElement expectedAtCursor : finalExpectedAtCursor) {
-			System.out.println("PARSER EXPECTED AT CURSOR (" + cursorIndex + "): " + expectedAtCursor);
+
+		CodeCompletionHelper helper = new CodeCompletionHelper();
+		
+		List<IExpectedElement> expectedBeforeCursor = helper.getElementsExpectedAt(allExpectedElements, cursorOffset - 1);
+		List<IExpectedElement> expectedAfterCursor = helper.getElementsExpectedAt(allExpectedElements, cursorOffset);
+		if (!expectedBefore.equals(expectedAfterCursor)) {
+			print(cursorOffset - 1, "BEFORE", expectedBeforeCursor);
 		}
-		assertEquals(expectedCompletionElement, finalExpectedAtCursor);
+		if (!expectedAfter.equals(expectedAfterCursor)) {
+			print(cursorOffset, "AFTER", expectedAfterCursor);
+		}
+		
+		assertEquals(expectedBefore, expectedBeforeCursor);
+		assertEquals(expectedAfter, expectedAfterCursor);
+	}
+
+	private void print(int cursorOffset, String message, List<IExpectedElement> expectedBeforeCursor) {
+		for (IExpectedElement next : expectedBeforeCursor) {
+			System.out.println("PARSER EXPECTED " + message + " CURSOR (" + cursorOffset + "): " + next);
+		}
 	}
 
 	/**

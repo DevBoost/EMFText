@@ -1234,7 +1234,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 					sc.add("{");
 					sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
 					// TODO maybe in case of PLUS discardFollowingExpectations must be true?
-					addExpectationCodeForDefinition(sc, def, level + ": Before * or + or ?", level, false);
+					addExpectationCodeForDefinition(sc, rule, def, level + ": Before * or + or ?", level, false);
 					sc.add("}");
 				}
 				sc.add("(");
@@ -1263,7 +1263,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				final Terminal terminal = (Terminal) def;
 				sc.add("{");
 				sc.add("// expected element is a Terminal");
-				addExpectationCodeForTerminal(sc, rule, terminal, level, true);
+				addExpectationCodeForTerminal(sc, rule, terminal, "Terminal", level, true);
 				sc.add("}");
 				count = printTerminal(terminal, rule, sc, count,
 						eClassesReferenced);
@@ -1274,7 +1274,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				if ("*".equals(cardinality) || "+".equals(cardinality)) {
 					sc.add("{");
 					sc.add("// expected element after STAR or PLUS");
-					addExpectationCodeForDefinition(sc, def, level + ": After * or +", level, false);
+					addExpectationCodeForDefinition(sc, rule, def, level + ": After * or +", level, false);
 					sc.add("}");
 				}
 			}
@@ -1284,7 +1284,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return count;
 	}
 
-	private void addExpectationCodeForDefinition(StringComposite sc, Definition definition,
+	private void addExpectationCodeForDefinition(StringComposite sc, Rule rule, Definition definition,
 			String message, int level, boolean discardFollowingExpectations) {
 
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
@@ -1295,24 +1295,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		} else if (definition instanceof CsString) {
 			addExpectationCodeForCsString(sc, (CsString) definition, message, level, discardFollowingExpectations);
 		} else if (definition instanceof Terminal) {
-			addExpectationCodeForTerminal(sc, (Terminal) definition, message, discardFollowingExpectations);
+			addExpectationCodeForTerminal(sc, rule, (Terminal) definition, message, level, discardFollowingExpectations);
 		} else {
 			System.out
 					.println("ANTLRGrammarGenerator.addExpectationCode() unknown definition type "
 							+ definition.getClass().getName());
-			assert false;
-		}
-	}
-
-	private void addExpectationCodeForTerminal(StringComposite sc,
-			Terminal terminal, String identifier, boolean discardFollowingExpectations) {
-		if (terminal instanceof Containment) {
-			// TODO Auto-generated method stub
-		} else if (terminal instanceof Placeholder) {
-			// TODO Auto-generated method stub
-		} else {
-			System.out.println("ANTLRGrammarGenerator.addExpectationCode() unknown terminal type "
-					+ terminal.getClass().getName());
 			assert false;
 		}
 	}
@@ -1391,7 +1378,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "(" + level + ", "+ discardFollowingExpectations + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
 	}
 
-	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, int level, boolean discardFollowingExpectations) {
+	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, String message, int level, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
@@ -1406,8 +1393,28 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
 				+ "()" + ".getEStructuralFeature("
 				+ generatorUtil.getFeatureConstant(genClass, genFeature)
-				// TODO do we really have to pass the token name here?
-				+ "), element, \"TODOtokenname\"), \"" + level + ": Terminal\");");
+				+ "), element, \"" + message + "\"), \"" + level + ": Terminal\");");
+
+		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
+		if (!(ecoreFeature instanceof EReference)) {
+			return;
+		}
+		EReference ecoreReference = (EReference) ecoreFeature;
+		GenClass featureType = genFeature.getTypeGenClass();
+		if (featureType == null) {
+			System.out.println("addExpectationCodeForTerminal() feature " + genFeature.getName() + " has type null!");
+			return;
+		}
+		if (!ecoreReference.isContainment()) {
+			return;
+		}
+		Collection<Rule> featureTypeRules = generatorUtil.getRules(concreteSyntax, featureType);
+		for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
+			Rule nextFeatureTypeRule = (Rule) iterator.next();
+			System.out.println("Handling subrule " + nextFeatureTypeRule.getMetaclass().getName());
+			Choice choice = nextFeatureTypeRule.getDefinition();
+			addExpectationCodeForChoice(sc, choice, "containment for " + genFeature.getName() + ":" + nextFeatureTypeRule.getMetaclass().getName(), level + 1, false);
+		}
 	}
 
 	private int printTerminal(Terminal terminal, Rule rule, StringComposite sc,
@@ -1647,8 +1654,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		int count = 0;
 		for (Iterator<GenClass> i = subClasses.iterator(); i.hasNext();) {
 			GenClass subRef = i.next();
+			/*
+			Rule nextStartRule = generatorUtil.getRule(concreteSyntax, subRef);
+			sc.add("{");
+			addExpectationCodeForChoice(sc, nextStartRule.getDefinition(), "subclass choice", 15, false);
+			sc.add("}");
+			*/
+
 			sc.add("c" + count + " = " + getRuleName(subRef) + "{ element = c"
-					+ count + "; }");
+					+ count + "; /* this is a subclass choice */ }");
 			if (i.hasNext()) {
 				sc.add("|");
 			}

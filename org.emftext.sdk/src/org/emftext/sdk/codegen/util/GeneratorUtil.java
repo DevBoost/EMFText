@@ -33,6 +33,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -163,7 +164,25 @@ public class GeneratorUtil {
 	}
 
 	/**
-	 * Checks whether the given syntax contains a rule for the given
+	 * Checks whether the given syntax contains a rules for the given
+	 * GenClass or a sub type of it. If such a rule is found, the first
+	 * one found is returned.
+	 * 
+	 * This method is deprecated because callers should use getRules()
+	 * instead and handle all found rule instead of the first one only.
+	 */
+	@Deprecated
+	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
+		Collection<Rule> foundRules = getRules(concreteSyntax, genClass);
+		if (foundRules.isEmpty()) {
+			return null;
+		} else {
+			return foundRules.iterator().next();
+		}
+	}
+	
+	/**
+	 * Checks whether the given syntax contains a rules for the given
 	 * GenClass or a sub type of it. If such a rule is found, it is 
 	 * returned.
 	 * 
@@ -173,17 +192,18 @@ public class GeneratorUtil {
 	 * @return a rule that references 'genClass' or a sub type, null if 
 	 *         no rule is found.
 	 */
-	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
+	public Collection<Rule> getRules(ConcreteSyntax concreteSyntax, GenClass genClass) {
+		Collection<Rule> foundRules = new ArrayList<Rule>();
 		for (Rule rule : concreteSyntax.getAllRules()) {
 			GenClass metaclass = rule.getMetaclass();
 			if (genClassCache.getQualifiedInterfaceName(metaclass).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
-				return rule;
+				foundRules.add(rule);
 			}
 			if (contains(metaclass.getAllBaseGenClasses(), genClass)) {
-				return rule;
+				foundRules.add(rule);
 			}
 		}
-		return null;
+		return foundRules;
 	}
 
 	private boolean contains(Collection<GenClass> genClasses,

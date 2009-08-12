@@ -59,7 +59,7 @@ public class CodeCompletionHelper {
 		if (expectedElements.size() == 0) {
 			return Collections.emptyList();
 		}
-		List<IExpectedElement> expectedElementsAt = getElementsExpectedAt(expectedElements, cursorOffset);
+		List<IExpectedElement> expectedElementsAt = getExpectedElements(expectedElements, cursorOffset);
 		setPrefix(expectedElementsAt, content, cursorOffset);
 		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
 		//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);
@@ -291,7 +291,7 @@ public class CodeCompletionHelper {
 			if (expectedElements.size() == 0) {
 				continue;
 			}
-			List<IExpectedElement> expectedElementsAt = getElementsExpectedAt(expectedElements, 0);
+			List<IExpectedElement> expectedElementsAt = getExpectedElements(expectedElements, 0);
 			setPrefix(expectedElementsAt, content, 0);
 			System.out.println("computeCompletionProposals() " + expectedElementsAt + " for offset " + cursorOffset);
 			Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
@@ -330,14 +330,14 @@ public class CodeCompletionHelper {
 	 * @return
 	 */
 	// TODO mseifert: figure out what other combinations of elements before
-	// and after the cursor position exists and which action should be taken.
+	// and after the cursor position exist and which action should be taken.
 	// For example, when a StructuralFeature is expected right before the
 	// cursor and a CsString right after, we should return both elements.
-	public List<IExpectedElement> getElementsExpectedAt(final List<IExpectedElement> allExpectedElements,
+	public List<IExpectedElement> getExpectedElements(final List<IExpectedElement> allExpectedElements,
 			int cursorOffset) {
 
-		List<IExpectedElement> expectedAfterCursor = getElementsExpectedAfter(allExpectedElements, cursorOffset);
-		List<IExpectedElement> expectedBeforeCursor = getElementsExpectedAfter(allExpectedElements, cursorOffset - 1);
+		List<IExpectedElement> expectedAfterCursor = getElementsExpectedAt(allExpectedElements, cursorOffset);
+		List<IExpectedElement> expectedBeforeCursor = getElementsExpectedAt(allExpectedElements, cursorOffset - 1);
 		System.out.println("parseToCursor(" + cursorOffset + ") BEFORE CURSOR " + expectedBeforeCursor);
 		System.out.println("parseToCursor(" + cursorOffset + ") AFTER CURSOR  " + expectedAfterCursor);
 		List<IExpectedElement> allExpectedAtCursor = new ArrayList<IExpectedElement>();
@@ -364,45 +364,36 @@ public class CodeCompletionHelper {
 		}
 	}
 
-	private List<IExpectedElement> getElementsExpectedAfter(List<IExpectedElement> allExpectedElements, int cursorOffset) {
+	public List<IExpectedElement> getElementsExpectedAt(List<IExpectedElement> allExpectedElements, int cursorOffset) {
 		List<IExpectedElement> expectedAtCursor = new ArrayList<IExpectedElement>();
-		int currentEnd = Integer.MAX_VALUE;
-		for (int i = allExpectedElements.size() - 1; i >= 0; i--) {
+		for (int i = 0; i < allExpectedElements.size(); i++) {
 			IExpectedElement expectedElement = allExpectedElements.get(i);
 			
 			int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();
-			int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();
+			//int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();
+			int end = getEnd(allExpectedElements, i);
+			//System.out.println("END = " + end + " for " + expectedElement);
 			if (cursorOffset >= startIncludingHidden &&
-				currentEnd > cursorOffset) {
+				cursorOffset <= end) {
 				expectedAtCursor.add(expectedElement);
 			}
-			currentEnd = startExcludingHidden - 1;
-			/*
-			boolean isAtIndex = expectedElement.isAt(cursorIndex);
-			boolean isAfter = expectedElement.isAfter(cursorIndex);
-			boolean isUnknown = expectedElement.isUnknown(cursorIndex);
-			if (isAtIndex) {
-				System.out.println("\tEXPECTED (AT CURSOR) " + expectedElement);
-				expectedAtCursor = expectedElement;
-				break;
-			} else {
-				// pick first element after cursor index
-				if (isAfter) {
-					expectedAtCursor = expectedElement;
-					System.out.println("\tEXPECTED (AFTER) " + expectedElement);
-					break;
-				}
-				// pick first element with unknown location
-				if (isUnknown && expectedAtCursor == null) {
-					expectedAtCursor = expectedElement;
-					System.out.println("\tEXPECTED (UNKNOWN) " + expectedElement);
-					break;
-				} else {
-					System.out.println("\tEXPECTED " + expectedElement);
-				}
-			}
-			*/
 		}
 		return expectedAtCursor;
+	}
+
+	private int getEnd(List<IExpectedElement> allExpectedElements, int indexInList) {
+		IExpectedElement elementAtIndex = allExpectedElements.get(indexInList);
+		int startIncludingHidden = elementAtIndex.getStartIncludingHiddenTokens();
+		int startExcludingHidden = elementAtIndex.getStartExcludingHiddenTokens();
+		
+		for (int i = indexInList + 1; i < allExpectedElements.size(); i++) {
+			IExpectedElement elementAtI = allExpectedElements.get(i);
+			int startIncludingHiddenForI = elementAtI.getStartIncludingHiddenTokens();
+			int startExcludingHiddenForI = elementAtI.getStartExcludingHiddenTokens();
+			if (startIncludingHidden != startIncludingHiddenForI || startExcludingHidden != startExcludingHiddenForI) {
+				return startIncludingHiddenForI - 1;
+			}
+		}
+		return Integer.MAX_VALUE;
 	}
 }
