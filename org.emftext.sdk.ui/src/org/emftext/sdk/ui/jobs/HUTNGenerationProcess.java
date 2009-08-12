@@ -25,6 +25,7 @@ package org.emftext.sdk.ui.jobs;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -69,6 +70,8 @@ import org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 
 
@@ -207,11 +210,15 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			}
 		}
 		
-		
+		boolean newRuleGenerated = false;
 		for (GenClass genClass : genClasses) {
 			if (genClass2Rule.get(genClassCache.getQualifiedInterfaceName(genClass)) == null) {
 				generateRule(genClass);
+				newRuleGenerated = true;
 			}
+		}
+		if (newRuleGenerated) {
+			generateStandardTokens();
 		}
 	}
 
@@ -227,22 +234,6 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		newRule.setDefinition(newChoice);
 		Sequence ruleSequence = concretesyntaxFactory.createSequence();
 		newChoice.getOptions().add(ruleSequence);
-		
-		intToken = concretesyntaxFactory.createNormalToken();
-		intToken.setName("INTEGER");
-		intToken.setRegex("('-')?('1'..'9')('0'..'9')*|'0'");
-		floatToken = concretesyntaxFactory.createNormalToken();
-		floatToken.setName("FLOAT");
-		floatToken.setRegex("('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
-		comment = concretesyntaxFactory.createNormalToken();
-		comment.setName("COMMENT");
-		comment.setRegex("'//'(~('\\n'|'\\r'))*");
-		
-		cSyntax.getTokens().clear();
-		cSyntax.getTokens().add(comment);
-		cSyntax.getTokens().add(intToken);
-		cSyntax.getTokens().add(floatToken);
-		
 		
 		List<GenFeature> allGenFeatures = genClass.getAllGenFeatures();
 		
@@ -264,7 +255,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		Choice featureSyntaxChoice = concretesyntaxFactory.createChoice();
 		for (GenFeature genFeature : allGenFeatures) {
 			if (!genFeature.isBooleanType() || genFeature.getEcoreFeature().getUpperBound() == -1) {
-				createFeatureSyntax(featureSyntaxChoice, genFeature);
+				generateFeatureSyntax(featureSyntaxChoice, genFeature);
 			}
 		}
 		
@@ -281,7 +272,37 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 		
 	}
 
-	private void createFeatureSyntax(Choice featureSyntaxChoice,
+	private void generateStandardTokens() {
+		List<TokenDefinition> toRemove = new ArrayList<TokenDefinition>();
+		EList<TokenDirective> existing = cSyntax.getTokens();
+		for (TokenDirective tokenDirective : existing) {
+			if (tokenDirective instanceof TokenDefinition) {
+				TokenDefinition def = (TokenDefinition) tokenDirective;
+				if (def.getName().equals("INTEGER") ||
+						def.getName().equals("FLOAT") ||
+						def.getName().equals("COMMENT")) {
+					toRemove.add(def);
+				}
+			}
+		}
+		
+		cSyntax.getTokens().removeAll(toRemove);
+		intToken = concretesyntaxFactory.createNormalToken();
+		intToken.setName("INTEGER");
+		intToken.setRegex("('-')?('1'..'9')('0'..'9')*|'0'");
+		floatToken = concretesyntaxFactory.createNormalToken();
+		floatToken.setName("FLOAT");
+		floatToken.setRegex("('-')?(('1'..'9') ('0'..'9')* | '0') '.' ('0'..'9')+ ");
+		comment = concretesyntaxFactory.createNormalToken();
+		comment.setName("COMMENT");
+		comment.setRegex("'//'(~('\\n'|'\\r'|'\\uffff'))*");
+		
+		cSyntax.getTokens().add(comment);
+		cSyntax.getTokens().add(intToken);
+		cSyntax.getTokens().add(floatToken);
+	}
+
+	private void generateFeatureSyntax(Choice featureSyntaxChoice,
 			GenFeature genFeature) {
 		Sequence innerSequence = concretesyntaxFactory.createSequence();
 											
