@@ -107,9 +107,9 @@ public class CodeCompletionHelper {
 			IExpectedElement elementAtIndex = expectedElements.get(i);
 			IExpectedElement elementAtNext = expectedElements.get(i + 1);
 			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&
-				elementAtIndex.discardFollowingExpectations() &&
+				//elementAtIndex.discardFollowingExpectations() &&
 				// TODO mseifert: this is wrong. we must compare the scopeIDs based on their parts!
-				elementAtIndex.getScopeID().startsWith(elementAtNext.getScopeID())) {
+				shouldRemove(elementAtIndex.getScopeID(), elementAtNext.getScopeID())) {
 				expectedElements.remove(i + 1);
 			} else {
 				i++;
@@ -117,7 +117,24 @@ public class CodeCompletionHelper {
 		}
 	}
 
-/*
+	private boolean shouldRemove(String scopeID1, String scopeID2) {
+		String[] parts1 = scopeID1.split("\\.");
+		String[] parts2 = scopeID2.split("\\.");
+		for (int p1 = 0; p1 < parts1.length; p1++) {
+			String segment1 = parts1[p1];
+			if (p1 >= parts2.length) {
+				return true;
+			}
+			String segment2 = parts2[p1];
+			int compareTo = segment1.compareTo(segment2);
+			if (compareTo == 0) {
+				continue;
+			}
+		}
+		return false;
+	}
+
+	/*
 	private Collection<String> filter(String document, int offset,
 			final List<IExpectedElement> expectedElements,
 			IExpectedElement expectedAtCursor, Collection<String> proposals) {

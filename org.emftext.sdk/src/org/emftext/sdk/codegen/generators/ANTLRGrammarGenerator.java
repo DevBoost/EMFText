@@ -71,6 +71,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
@@ -1414,7 +1415,46 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		// we must use the unicode representation for the % character, because
 		// StringTemplate does treat % special
 		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName()
-				+ "(\"" + scopeID + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
+				+ "(\"" + getScopeID(csString) + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
+	}
+
+	private String getScopeID(EObject object) {
+		String scopeID = null;
+		
+		EObject container = object.eContainer();
+		while (container != null) {
+			EReference reference = object.eContainmentFeature();
+			final Object referenceValue = container.eGet(reference);
+			int index = 1;
+			if (referenceValue instanceof List<?>) {
+				List<?> referenceList = (List<?>) referenceValue;
+				index = referenceList.indexOf(object) + 1;
+			}
+			String prefix = "_";
+			if (object instanceof Sequence) {
+				prefix = "s";
+			}
+			if (object instanceof Choice) {
+				prefix = "c";
+			}
+			if (object instanceof Rule) {
+				prefix = "r";
+			}
+			if (object instanceof CsString) {
+				prefix = "C";
+			}
+			if (object instanceof Terminal) {
+				prefix = "T";
+			}
+			if (scopeID == null) {
+				scopeID = index + prefix;
+			} else {
+				scopeID = index + prefix + "." + scopeID;
+			}
+			object = container;
+			container = object.eContainer();
+		}
+		return scopeID;
 	}
 
 	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, String message, String scopeID, boolean discardFollowingExpectations) {
@@ -1425,7 +1465,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		final GenFeature genFeature = terminal.getFeature();
 		sc.add("addExpectedElement(new "
 				+ ExpectedStructuralFeature.class.getName() + "(\""
-				+ scopeID + "\", " 
+				+ getScopeID(terminal) + "\", " 
 				+ discardFollowingExpectations + ", "
 				+ genClass.getGenPackage().getReflectionPackageName() + "."
 				+ genClass.getGenPackage().getPackageInterfaceName()
