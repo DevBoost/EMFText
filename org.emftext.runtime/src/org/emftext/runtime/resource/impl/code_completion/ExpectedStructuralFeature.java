@@ -18,19 +18,19 @@ public class ExpectedStructuralFeature extends AbstractExpectedElement {
 
 	@Deprecated
 	public ExpectedStructuralFeature(EStructuralFeature feature, EObject container, String tokenName) {
-		this(0, feature, container, tokenName);
+		this("0", feature, container, tokenName);
 	}
 	
 	@Deprecated
-	public ExpectedStructuralFeature(int nestingLevel, EStructuralFeature feature, EObject container, String tokenName) {
-		super(nestingLevel, false);
+	public ExpectedStructuralFeature(String scopeID, EStructuralFeature feature, EObject container, String tokenName) {
+		super(scopeID, false);
 		this.feature = feature;
 		this.container = container;
 		this.tokenName = tokenName;
 	}
 	
-	public ExpectedStructuralFeature(int nestingLevel, boolean discardFollowingExpectations, EStructuralFeature feature, EObject container, String tokenName) {
-		super(nestingLevel, discardFollowingExpectations);
+	public ExpectedStructuralFeature(String scopeID, boolean discardFollowingExpectations, EStructuralFeature feature, EObject container, String tokenName) {
+		super(scopeID, discardFollowingExpectations);
 		this.feature = feature;
 		this.container = container;
 		this.tokenName = tokenName;

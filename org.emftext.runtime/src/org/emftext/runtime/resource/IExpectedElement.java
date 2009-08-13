@@ -37,6 +37,6 @@ public interface IExpectedElement {
 	public void setPrefix(String prefix);
 
 
-	public int getNestingLevel();
+	public String getScopeID();
 	public boolean discardFollowingExpectations();
 }

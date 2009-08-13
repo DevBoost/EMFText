@@ -108,7 +108,8 @@ public class CodeCompletionHelper {
 			IExpectedElement elementAtNext = expectedElements.get(i + 1);
 			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&
 				elementAtIndex.discardFollowingExpectations() &&
-				elementAtIndex.getNestingLevel() >= elementAtNext.getNestingLevel()) {
+				// TODO mseifert: this is wrong. we must compare the scopeIDs based on their parts!
+				elementAtIndex.getScopeID().startsWith(elementAtNext.getScopeID())) {
 				expectedElements.remove(i + 1);
 			} else {
 				i++;

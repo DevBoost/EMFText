@@ -18,11 +18,11 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	//private int endIncludingHiddenTokens;
 	//private int endExcludingHiddenTokens;
 	private String prefix;
-	private int nestingLevel;
+	private String scopeID;
 	private boolean discardFollowingExpectations;
 	
-	public AbstractExpectedElement(int nestingLevel, boolean discardFollowingExpectations) {
-		this.nestingLevel = nestingLevel;
+	public AbstractExpectedElement(String scopeID, boolean discardFollowingExpectations) {
+		this.scopeID = scopeID;
 		this.discardFollowingExpectations = discardFollowingExpectations;
 	}
 
@@ -68,8 +68,8 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 		return startExcludingHiddenTokens;
 	}
 	
-	public int getNestingLevel() {
-		return nestingLevel;
+	public String getScopeID() {
+		return scopeID;
 	}
 
 	/*
@@ -121,7 +121,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 		toString(startIncludingHiddenTokens) + "(" + toString(startExcludingHiddenTokens) + ")" +
 		/*" (" + toString(startExcludingHiddenTokens) + "-" + toString(endExcludingHiddenTokens) + ")"*/ 
 		//" prefix = '" + prefix + "'" + 
-		" level = " + nestingLevel + "" + 
+		" scope = " + scopeID + "" + 
 		" discardFollowing = " + discardFollowingExpectations;
 	}
 	

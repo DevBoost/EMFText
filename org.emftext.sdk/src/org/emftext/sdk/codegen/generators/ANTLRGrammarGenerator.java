@@ -126,6 +126,8 @@ import org.emftext.sdk.syntax_analysis.LeftRecursionDetector;
  * allows to create model instances from plain text files.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
+ * 
+ * TODO rename parameter 'level' to 'scopeID'
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
@@ -842,9 +844,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addAddExpectedElementMethod(StringComposite sc) {
 		sc.add("public void addExpectedElement(" + I_EXPECTED_ELEMENT
 				+ " expectedElement, " + STRING + " message) {");
-		sc.add("if (this.state.failed) {");
-		sc.add("return;");
-		sc.add("}");
+		// TODO mseifert: use constants for class names
+		//sc.add("if (this.state.failed) {");
+		//sc.add("return;");
+		//sc.add("}");
 		sc.add("if (!this.rememberExpectedElements) {");
 		sc.add("return;");
 		sc.add("}");
@@ -868,7 +871,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("lastTokenIndex = java.lang.Math.max(0, currentIndex);");
 		sc.add("expectedElement.setPosition(stopExcludingHiddenTokens, stopIncludingHiddenTokens);");
-		sc.add("//System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
+		sc.add("System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
 		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -920,20 +923,26 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("returns [ " + E_OBJECT + " element = null]");
 		sc.add(":");
 		sc.add("{");
+		int i = 0;
 		for (GenClass aStart : concreteSyntax.getActiveStartSymbols()) {
 			Rule nextStartRule = generatorUtil.getRule(concreteSyntax, aStart);
-			addExpectationCodeForChoice(sc, nextStartRule.getDefinition(), "start", -1, false);
+			// TODO mseifert: create new nested scope
+			addExpectationCodeForChoice(sc, nextStartRule, nextStartRule.getDefinition(), "start", "" + i, false);
+			i++;
 		}
 		sc.add("}");
 		sc.add("(");
 		int count = 0;
+		i = 0;
 		for (GenClass aStart : concreteSyntax.getActiveStartSymbols()) {
 			if (count > 0) {
 				sc.add("|  ");
 			}
 			Rule nextStartRule = generatorUtil.getRule(concreteSyntax, aStart);
 			sc.add("{");
-			addExpectationCodeForChoice(sc, nextStartRule.getDefinition(), "start", -1, false);
+			// TODO mseifert: create new nested scope
+			addExpectationCodeForChoice(sc, nextStartRule, nextStartRule.getDefinition(), "start", "" + i, false);
+			i++;
 			sc.add("}");
 			sc.add("c" + count + " = " + getRuleName(aStart) + "{ element = c"
 					+ count + "; }");
@@ -1005,7 +1014,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			ruleCopy.setDefinition(choice);
 
 			printChoice(ruleCopy.getDefinition(), ruleCopy, sc, 0,
-					classesReferenced, 0);
+					classesReferenced, "0");
 
 			sc.add(" ( dummyEObject = " + ruleName
 					+ "_tail { dummyEObjects.add(dummyEObject);} )*");
@@ -1083,7 +1092,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add(":");
 
 			printChoice(tailCopy.getDefinition(), tailCopy, sc, 0,
-					classesReferenced, 0);
+					classesReferenced, "0");
 
 			sc.add(";");
 			sc.addLineBreak();
@@ -1181,7 +1190,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add(":");
 
-		printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced, 0);
+		printChoice(rule.getDefinition(), rule, sc, 0, eClassesReferenced, "0");
 
 		Collection<GenClass> subClasses = generatorUtil
 				.getSubClassesWithSyntax(genClass, concreteSyntax);
@@ -1207,11 +1216,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private int printChoice(Choice choice, Rule rule, StringComposite sc,
-			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, int level) {
+			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
 		Iterator<Sequence> it = choice.getOptions().iterator();
 		while (it.hasNext()) {
 			Sequence seq = it.next();
-			count = printSequence(seq, rule, sc, count, eClassesReferenced, level);
+			count = printSequence(seq, rule, sc, count, eClassesReferenced, scopeID);
 			if (it.hasNext()) {
 				sc.addLineBreak();
 				sc.add("|");
@@ -1221,62 +1230,65 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private int printSequence(Sequence sequence, Rule rule, StringComposite sc,
-			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, int level) {
-		Iterator<Definition> it = sequence.getParts().iterator();
-		while (it.hasNext()) {
-			Definition def = it.next();
-			if (def instanceof LineBreak || def instanceof WhiteSpaces) {
+			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced, String scopeID) {
+
+		int i = 0;
+		for (Definition definition : sequence.getParts()) {
+			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}
-			String cardinality = computeCardinalityString(def);
-			if (cardinality != null) {
-				if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
-					sc.add("{");
-					sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
-					// TODO maybe in case of PLUS discardFollowingExpectations must be true?
-					addExpectationCodeForDefinition(sc, rule, def, level + ": Before * or + or ?", level, false);
-					sc.add("}");
-				}
+			String cardinality = computeCardinalityString(definition);
+			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
+				sc.add("{");
+				sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
+				// TODO maybe in case of PLUS discardFollowingExpectations must be true?
+				addExpectationCodeForDefinition(sc, rule, definition, scopeID + ": Before * or + or ?", scopeID, false);
+				sc.add("}");
+			}
+			if (!"".equals(cardinality)) {
 				sc.add("(");
 			}
-			if (def instanceof CompoundDefinition) {
-				CompoundDefinition compoundDef = (CompoundDefinition) def;
+			if (definition instanceof CompoundDefinition) {
+				String subScopeID = scopeID + "." + i;
+
+				CompoundDefinition compoundDef = (CompoundDefinition) definition;
 				sc.add("{");
 				sc.add("// expected element is a Compound");
-				addExpectationCodeForCompound(sc, compoundDef, level + ": Compound", level + 1, true);
+				addExpectationCodeForCompound(sc, rule, compoundDef, scopeID + ": Compound", subScopeID, true);
 				sc.add("}");
 
 				sc.add("(");
 				count = printChoice(compoundDef.getDefinitions(), rule, sc,
-						count, eClassesReferenced, level + 1);
+						count, eClassesReferenced, subScopeID);
 				sc.add(")");
-			} else if (def instanceof CsString) {
-				final CsString csString = (CsString) def;
+				i++;
+			} else if (definition instanceof CsString) {
+				final CsString csString = (CsString) definition;
 				sc.add("{");
 				sc.add("// expected element is a CsString");
-				addExpectationCodeForCsString(sc, csString, level + ": CsString", level, true);
+				addExpectationCodeForCsString(sc, csString, scopeID + ": CsString", scopeID, true);
 				sc.add("}");
 				count = printCsString(csString, rule, sc, count,
 						eClassesReferenced);
 			} else {
-				assert def instanceof Terminal;
-				final Terminal terminal = (Terminal) def;
+				assert definition instanceof Terminal;
+				final Terminal terminal = (Terminal) definition;
 				sc.add("{");
 				sc.add("// expected element is a Terminal");
-				addExpectationCodeForTerminal(sc, rule, terminal, "Terminal", level, true);
+				addExpectationCodeForTerminal(sc, rule, terminal, "Terminal", scopeID, true);
 				sc.add("}");
 				count = printTerminal(terminal, rule, sc, count,
 						eClassesReferenced);
 			}
-			if (cardinality != null) {
+			if (!"".equals(cardinality)) {
 				sc.addLineBreak();
 				sc.add(")" + cardinality);
-				if ("*".equals(cardinality) || "+".equals(cardinality)) {
-					sc.add("{");
-					sc.add("// expected element after STAR or PLUS");
-					addExpectationCodeForDefinition(sc, rule, def, level + ": After * or +", level, false);
-					sc.add("}");
-				}
+			}
+			if ("*".equals(cardinality) || "+".equals(cardinality)) {
+				sc.add("{");
+				sc.add("// expected element after STAR or PLUS");
+				addExpectationCodeForDefinition(sc, rule, definition, scopeID + ": After * or +", scopeID, false);
+				sc.add("}");
 			}
 
 			sc.addLineBreak();
@@ -1285,60 +1297,86 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addExpectationCodeForDefinition(StringComposite sc, Rule rule, Definition definition,
-			String message, int level, boolean discardFollowingExpectations) {
+			String message, String scopeID, boolean discardFollowingExpectations) {
 
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
 		if (definition instanceof CompoundDefinition) {
-			addExpectationCodeForCompound(sc, (CompoundDefinition) definition, message, level, discardFollowingExpectations);
+			addExpectationCodeForCompound(sc, rule, (CompoundDefinition) definition, message, scopeID, discardFollowingExpectations);
 		} else if (definition instanceof CsString) {
-			addExpectationCodeForCsString(sc, (CsString) definition, message, level, discardFollowingExpectations);
+			addExpectationCodeForCsString(sc, (CsString) definition, message, scopeID, discardFollowingExpectations);
 		} else if (definition instanceof Terminal) {
-			addExpectationCodeForTerminal(sc, rule, (Terminal) definition, message, level, discardFollowingExpectations);
+			addExpectationCodeForTerminal(sc, rule, (Terminal) definition, message, scopeID, discardFollowingExpectations);
 		} else {
-			System.out
-					.println("ANTLRGrammarGenerator.addExpectationCode() unknown definition type "
+			System.out.println("ANTLRGrammarGenerator.addExpectationCode() unknown definition type "
 							+ definition.getClass().getName());
 			assert false;
 		}
 	}
 
-	private void addExpectationCodeForCompound(StringComposite sc,
-			CompoundDefinition compoundDef, String message, int level, boolean discardFollowingExpectations) {
+	private void addExpectationCodeForCompound(StringComposite sc, Rule rule,
+			CompoundDefinition compoundDef, String message, String scopeID, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
 		Choice choice = compoundDef.getDefinitions();
-		addExpectationCodeForChoice(sc, choice, message, level, discardFollowingExpectations);
+		addExpectationCodeForChoice(sc, rule, choice, message, scopeID, discardFollowingExpectations);
 	}
 
-	private void addExpectationCodeForChoice(StringComposite sc, Choice choice,
-			String message, int level, boolean discardFollowingExpectations) {
+	private void addExpectationCodeForChoice(StringComposite sc, Rule rule, Choice choice,
+			String message, String scopeID, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
+		System.out.println("addExpectationCodeForChoice(" + message + ")");
 		List<Sequence> options = choice.getOptions();
+		int i = 0;
 		for (Sequence sequence : options) {
-			addExpectationCodeForSequence(sc, sequence, message, level, discardFollowingExpectations);
+			// TODO mseifert: create new nested scope
+			addExpectationCodeForSequence(sc, rule, sequence, message, scopeID + "." + i, discardFollowingExpectations);
+			i++;
 		}
 	}
 
-	private void addExpectationCodeForSequence(StringComposite sc, Sequence sequence,
-			String message, int level, boolean discardFollowingExpectations) {
+	private void addExpectationCodeForSequence(StringComposite sc, Rule rule, Sequence sequence,
+			String message, String scopeID, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
-		List<Definition> parts = sequence.getParts();
-		for (Definition definition : parts) {
-			if (definition instanceof CsString) {
-				CsString csString = (CsString) definition;
-				addExpectationCodeForCsString(sc, csString, message, level, discardFollowingExpectations);
+		System.out.println("addExpectationCodeForSequence(" + message + ")");
+		int i = 0;
+		for (Definition definition : sequence.getParts()) {
+			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
+				continue;
 			}
-			if (definition instanceof CardinalityDefinition) {
-				CardinalityDefinition cd = (CardinalityDefinition) definition;
-				cd.getCardinality();
+			String cardinality = computeCardinalityString(definition);
+			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
+				sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
+				// TODO maybe in case of PLUS discardFollowingExpectations must be true?
+				addExpectationCodeForDefinition(sc, rule, definition, scopeID + ": Before * or + or ?", scopeID, false);
 			}
+			if (definition instanceof CompoundDefinition) {
+				CompoundDefinition compoundDef = (CompoundDefinition) definition;
+				sc.add("// expected element is a Compound");
+				addExpectationCodeForCompound(sc, rule, compoundDef, scopeID + ": Compound", scopeID + "." + i, true);
+				i++;
+			} else if (definition instanceof CsString) {
+				final CsString csString = (CsString) definition;
+				sc.add("// expected element is a CsString");
+				addExpectationCodeForCsString(sc, csString, scopeID + ": CsString", scopeID, true);
+			} else {
+				assert definition instanceof Terminal;
+				final Terminal terminal = (Terminal) definition;
+				sc.add("// expected element is a Terminal");
+				addExpectationCodeForTerminal(sc, rule, terminal, "Terminal", scopeID, true);
+			}
+			if ("*".equals(cardinality) || "+".equals(cardinality)) {
+				sc.add("// expected element after STAR or PLUS");
+				addExpectationCodeForDefinition(sc, rule, definition, scopeID + ": After * or +", scopeID, false);
+			}
+
+			sc.addLineBreak();
 			break;
 		}
 	}
@@ -1367,33 +1405,34 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addExpectationCodeForCsString(StringComposite sc, CsString csString,
-			String message, int level, boolean discardFollowingExpectations) {
+			String message, String scopeID, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
+		System.out.println("addExpectationCodeForCsString(" + message + ")");
 		String escapedCsString = getEscapedValue(csString);
 		// we must use the unicode representation for the % character, because
 		// StringTemplate does treat % special
 		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName()
-				+ "(" + level + ", "+ discardFollowingExpectations + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
+				+ "(\"" + scopeID + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
 	}
 
-	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, String message, int level, boolean discardFollowingExpectations) {
+	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, String message, String scopeID, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
 		final GenClass genClass = rule.getMetaclass();
 		final GenFeature genFeature = terminal.getFeature();
 		sc.add("addExpectedElement(new "
-				+ ExpectedStructuralFeature.class.getName() + "("
-				+ level + ", " 
+				+ ExpectedStructuralFeature.class.getName() + "(\""
+				+ scopeID + "\", " 
 				+ discardFollowingExpectations + ", "
 				+ genClass.getGenPackage().getReflectionPackageName() + "."
 				+ genClass.getGenPackage().getPackageInterfaceName()
 				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
 				+ "()" + ".getEStructuralFeature("
 				+ generatorUtil.getFeatureConstant(genClass, genFeature)
-				+ "), element, \"" + message + "\"), \"" + level + ": Terminal\");");
+				+ "), element, \"" + message + "\"), \"" + scopeID + ": Terminal\");");
 
 		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
 		if (!(ecoreFeature instanceof EReference)) {
@@ -1409,11 +1448,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			return;
 		}
 		Collection<Rule> featureTypeRules = generatorUtil.getRules(concreteSyntax, featureType);
+		int i = 0;
 		for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
 			Rule nextFeatureTypeRule = (Rule) iterator.next();
-			System.out.println("Handling subrule " + nextFeatureTypeRule.getMetaclass().getName());
+			String featurePath = genFeature.getName() + "->" + nextFeatureTypeRule.getMetaclass().getName();
+			System.out.println("Handling subrule " + featurePath);
 			Choice choice = nextFeatureTypeRule.getDefinition();
-			addExpectationCodeForChoice(sc, choice, "containment for " + genFeature.getName() + ":" + nextFeatureTypeRule.getMetaclass().getName(), level + 1, false);
+			addExpectationCodeForChoice(sc, nextFeatureTypeRule, choice, "containment for " + featurePath, scopeID + "." + i, false);
+			i++;
 		}
 	}
 
@@ -1714,7 +1756,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			cardinality = ((CardinalityDefinition) definition).getCardinality();
 		}
 		if (cardinality == null) {
-			return null;
+			return "";
 		} else if (cardinality instanceof PLUS) {
 			return "+";
 		} else if (cardinality instanceof QUESTIONMARK) {

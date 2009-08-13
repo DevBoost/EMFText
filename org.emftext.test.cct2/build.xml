@@ -21,7 +21,7 @@
 	</target>
 	
 	<target name="generate-metamodel-code">
-		<generate-metamodel-code plugin="org.emftext.test.cct2" model="cct2" generateEditProject="false" />
+		<!-- <generate-metamodel-code plugin="org.emftext.test.cct2" model="cct2" generateEditProject="false" /> -->
 	</target>
 	
 	<macrodef name="generate-metamodel-code">

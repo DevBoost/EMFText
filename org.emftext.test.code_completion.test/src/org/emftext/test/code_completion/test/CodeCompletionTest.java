@@ -51,7 +51,7 @@ public class CodeCompletionTest extends TestCase {
 			for (String validExtension : validExtensions) {
 				hasValidExtension |= file.getName().endsWith(validExtension);
 			}
-			return file.isDirectory() || hasValidExtension;
+			return file.isDirectory() || hasValidExtension;// && file.getName().startsWith("EnumVisibilityExpected7");
 		}
 	}
 
@@ -312,12 +312,12 @@ public class CodeCompletionTest extends TestCase {
 				String featurename = classAndFeature[1];
 				EStructuralFeature feature = findFeature(namespace, classname, featurename);
 				assertNotNull("Can't find feature " +namespace + ":" + classname + "." + featurename, feature);
-				ExpectedStructuralFeature expectedElement = new ExpectedStructuralFeature(0, false, feature, null, null);
+				ExpectedStructuralFeature expectedElement = new ExpectedStructuralFeature("0", false, feature, null, null);
 				expectedElement.setPosition(beginIncl, beginExcl/*, endIncl, endExcl*/);
 				expectations.add(expectedElement);
 			} else {
 				// is CsString
-				ExpectedCsString expectedElement = new ExpectedCsString(0, false, expected.trim());
+				ExpectedCsString expectedElement = new ExpectedCsString("0", false, expected.trim());
 				expectedElement.setPosition(beginIncl, beginExcl/*, endIncl, endExcl*/);
 				expectations.add(expectedElement);
 			}
