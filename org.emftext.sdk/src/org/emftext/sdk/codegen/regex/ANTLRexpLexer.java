@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g 2009-08-14 10:44:27
+// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g 2009-08-14 17:39:32
 
 package org.emftext.sdk.codegen.regex; 
 

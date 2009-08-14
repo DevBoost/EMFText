@@ -157,7 +157,7 @@ ebnfSuffix returns [StringBuffer buf]
 }
 
 
-:	sign='?' | sign='*'	|sign='+'
+:	(sign='?' | sign='*'	|sign='+')
 {
 buf.append($sign.text);
 }
