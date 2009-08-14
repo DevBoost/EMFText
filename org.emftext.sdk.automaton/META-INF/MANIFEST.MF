@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Automaton Library
+Bundle-SymbolicName: org.emftext.sdk.automaton;singleton:=true
+Bundle-Version: 1.1.0.qualifier
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: dk.brics.automaton
+Bundle-Vendor: Software Technology Group - TU Dresden Germany
