@@ -16,7 +16,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		TokenSorter ts = new TokenSorter();
 		//List<TokenDirective> conflicting = Collections.EMPTY_LIST;
-		List<TokenDirective> unreachable = Collections.EMPTY_LIST;
+		List<TokenDirective> unreachable = Collections.emptyList();
 		try {
 			//conflicting = ts.getConflicting(syntax.getAllTokenDirectives());
 			unreachable = ts.getNonReachables(syntax.getAllTokenDirectives());

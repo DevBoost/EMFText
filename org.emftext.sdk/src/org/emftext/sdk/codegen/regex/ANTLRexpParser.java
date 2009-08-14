@@ -855,7 +855,6 @@ public class ANTLRexpParser extends Parser {
     public final StringBuffer notSet() throws RecognitionException {
         StringBuffer buf = null;
 
-        Token sign=null;
         StringBuffer bl = null;
 
 
@@ -866,7 +865,7 @@ public class ANTLRexpParser extends Parser {
             // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:229:1: (sign= '~' (bl= block ) )
             // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:229:3: sign= '~' (bl= block )
             {
-            sign=(Token)match(input,20,FOLLOW_20_in_notSet543); 
+            match(input,20,FOLLOW_20_in_notSet543); 
             // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:229:15: (bl= block )
             // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:229:17: bl= block
             {
