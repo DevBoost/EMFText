@@ -1,25 +1,17 @@
 package org.emftext.sdk.codegen.regex;
 
 import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactories;
+import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.util.TextResourceUtil;
@@ -32,8 +24,9 @@ import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AntlrTranslationTest extends TestCase {
-
+public class TokenOverlapsTests extends TestCase {
+	
+	
 	@Before
 	public void setUp() {
 		registerResourceFactories();
@@ -88,41 +81,143 @@ public class AntlrTranslationTest extends TestCase {
 	
 
 	
+	
 	@Test
-	public void testWhitespaceTranslation() {
-		 Pattern pattern = java.util.regex.Pattern.compile("\\A( |\\t|\"\\f\")");
-		 Matcher matcher = pattern.matcher(" ");
-		 assertTrue(matcher.matches());
-		 matcher = pattern.matcher("\t");
-		 assertTrue(matcher.matches());
-		 
-		 pattern = Pattern.compile("unsettable");
-		 matcher = pattern.matcher("unsettable");
-		 assertTrue(matcher.matches()); 
-		 
-		 pattern = Pattern.compile("((<)([^(>)]|(\\\\>))*(>))|(([A-Z]|:|[a-z]|[0-9]|_|\\-)+)");
-		 matcher = pattern.matcher("<http://www.test.de>");
-		 assertTrue(matcher.matches());
+	public void testSortNoConflict() throws SorterException  {
+		
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs("'a'", "'b'", "'c'");
+		
+		assertEquals(0, ts.getNonReachables(conflicting).size());
+	
+		
+		ts.sortTokens(conflicting, false);
+		// no exception expected.
+		
+	}
+	
+	
+	@Test
+	public void testSortSameRegexConflict() throws SorterException  {
+		
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs("'a'", "'a'", "'b'");
+		
+		assertEquals(1, ts.getNonReachables(conflicting).size());
+		assertEquals("'a'", ((NormalToken)ts.getNonReachables(conflicting).get(0)).getRegex());
+		
+		try {
+			ts.sortTokens(conflicting, false);
+			fail("Expected SorterException when sorting conflicting tokens.");
+		} catch (SorterException s) { 
+			// expected exception 	
+		}
+		
 	}
 	
 	@Test
-	public void testExpsFromGrammars() throws IOException, RecognitionException {
+	public void testSortIntersectionConflict() throws SorterException {
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs("'a'*", "'a'+", "'b'");
 		
+		assertEquals(1, ts.getNonReachables(conflicting).size());
+		assertEquals(1, ts.getConflicting(conflicting).size());
+		
+		// non-reachables can be removed by clever sorting
+		assertEquals(0, ts.getNonReachables(ts.sortTokens(conflicting, true)).size());
+		// conflicting can not be removed
+		assertEquals(1, ts.getConflicting(conflicting).size());
+	}
+	
+	@Test
+	public void testSortIntersectionConflict3() throws SorterException {
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs("'a'*", "", "'b'");
+		
+		assertEquals(1, ts.getConflicting(conflicting).size());
+		assertEquals(1, ts.getNonReachables(conflicting).size());
+		
+		// non-reachables can be removed by clever sorting
+		assertEquals(0, ts.getNonReachables(ts.sortTokens(conflicting, true)).size());
+		// conflicting can not be removed
+		assertEquals(1, ts.getConflicting(conflicting).size());
+	}
+	
+	@Test
+	public void testBadConflict() throws SorterException {
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs( 
+				"('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+",
+				"('\\r\\n' | '\\r' | '\\n')");
+		
+		assertEquals(0, ts.getNonReachables(conflicting).size());
+	}
+	
+	
+	@Test
+	public void testBadConflict2() throws SorterException {
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs( 
+				"'\u0040'|('\u0040'..'\u0042')",
+				"'7'");
+		
+		assertEquals(0, ts.getNonReachables(conflicting).size());
+	}
+	
+	
+	@Test
+	public void testSortIntersectionConflict2() throws SorterException {
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs("'1'|'2'", "'2'|'3'", "'b'");
+		
+		assertEquals(0, ts.getNonReachables(conflicting).size());
+		assertEquals(1, ts.getConflicting(conflicting).size());
+			
+		ts.sortTokens(conflicting, false);
+		
+	}
+	
+	
+	@Test
+	public void testSublanguageConflict() throws SorterException {
+		TokenSorter ts = new TokenSorter();
+		List<TokenDirective> conflicting = createTokenDefs("'a'?", "'a'");
+		
+		assertEquals(1, ts.getNonReachables(conflicting).size());
+		assertEquals(1, ts.getConflicting(conflicting).size());
+			
+		ts.sortTokens(conflicting, false);
+		
+	}
+	
+	private List<TokenDirective> createTokenDefs(String... regex) {
+		List<TokenDirective> list = new ArrayList<TokenDirective>();
+		ConcretesyntaxFactory factory = ConcretesyntaxFactory.eINSTANCE;
+		
+		for (int i = 0; i < regex.length; i++) {
+			TokenDefinition def = factory.createNormalToken();
+			def.setRegex(regex[i]);
+			list.add(def);
+		}
+		return list;
+	}
+	
+	@Test
+	public void testSorts() throws IOException, SorterException {
+		TokenSorter ts = new TokenSorter();
 		for (String grammar : grammars) {
 			Resource resource = loadResource(grammar);
-
-			TreeIterator<EObject> contents = resource.getAllContents();
-			while (contents.hasNext()) {
-				EObject object = (EObject) contents.next();
-				if (object instanceof TokenDefinition) {
-					TokenDefinition td = (TokenDefinition) object;
-					testExp(td.getRegex());
-				}
+			if (resource.getContents().size() > 0) {
+				EList<TokenDirective> allTokenDirectives = ((ConcreteSyntax) resource.getContents().get(0)).getAllTokenDirectives();
+				//assertTrue("Grammar " + resource.getURI() + " should contain some tokens. " , allTokenDirectives.size() > 0);
+				assertEquals("Grammar " + resource.getURI() + " should contain no non-reachabels.", Collections.EMPTY_LIST, ts.getNonReachables(allTokenDirectives));
+				
+				ts.sortTokens(allTokenDirectives, false);
+				
 			}
 		}
-
 	}
-
+	
 	private Resource loadResource(String grammar) throws IOException {
 
 
@@ -135,26 +230,9 @@ public class AntlrTranslationTest extends TestCase {
 	}
 	
 	
-
-	private void testExp(String exp) throws IOException, RecognitionException {
-		InputStream input = new ByteArrayInputStream(exp.getBytes());
-		ANTLRInputStream inputStream = new ANTLRInputStream(input);
-
-		ANTLRexpLexer lexer = new ANTLRexpLexer(inputStream);
-		CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-
-		ANTLRexpParser parser = new ANTLRexpParser(tokenStream);
-		String arhusStyle = parser.root().toString();
-		System.out.println("\tLoaded: " + exp);
-		System.out.println("\tTranslated: " + arhusStyle);
-		Pattern p = Pattern.compile(arhusStyle);
-		System.out.println("\tCompiled: " + p);
-		Matcher matcher = p.matcher("bla");
-		System.out.println("\t\tMatches 'matcherWorks' " + matcher.matches());
-		
-	}
-	
-	
 	
 
+
+	
+	
 }

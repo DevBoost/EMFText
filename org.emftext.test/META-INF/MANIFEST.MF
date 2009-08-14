@@ -18,7 +18,8 @@ Require-Bundle: org.junit4,
  org.eclipse.emf.ecore.xmi,
  org.emftext.runtime,
  org.emftext.sdk,
- org.emftext.sdk.ui
+ org.emftext.sdk.ui,
+ org.emftext.sdk.automaton
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.sdk.codegen.composites,
  org.emftext.test,

@@ -39,6 +39,12 @@ public class RunAntlr {
 				new File(".").getAbsolutePath(),
 				"./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" });
 		antlrTool.process();
+		
+		antlrTool = new Tool(new String[] { "-o",
+				new File(".").getAbsolutePath(),
+				"./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g" });
+		antlrTool.process();
+
 
 	
 	}

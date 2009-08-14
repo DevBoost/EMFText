@@ -42,6 +42,9 @@ public enum ECsProblemType {
 	INVALID_WARNING_TYPE(EProblemType.ERROR), 
 	INVALID_PARSER_GENERATOR(EProblemType.ERROR), 
 	QUOTED_TOKEN_CONFLICT(EProblemType.ERROR),
+	
+	TOKEN_CONFLICT(EProblemType.WARNING),
+	
 	;
 
 	private EProblemType problemType;

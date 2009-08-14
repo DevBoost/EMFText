@@ -44,6 +44,7 @@ import org.emftext.sdk.syntax_analysis.QuotenTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.ReferencesAnalyser;
 import org.emftext.sdk.syntax_analysis.RegularExpressionAnalyser;
 import org.emftext.sdk.syntax_analysis.StartSymbolAnalyser;
+import org.emftext.sdk.syntax_analysis.TokenConflictsAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenNameAnalyser;
 import org.emftext.sdk.syntax_analysis.TokenStyleAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedFeatureAnalyser;
@@ -101,6 +102,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		postProcessors.add(new UnusedResolverAnalyser());
 		postProcessors.add(new TokenStyleAnalyser());
 		postProcessors.add(new QuotenTokenAnalyser());
+		postProcessors.add(new TokenConflictsAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		
