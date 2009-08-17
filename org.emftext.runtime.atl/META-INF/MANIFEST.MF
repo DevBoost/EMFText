@@ -9,7 +9,10 @@ Require-Bundle: org.emftext.sdk,
  org.emftext.test,
  org.junit4,
  org.eclipse.m2m.atl.core,
- org.eclipse.m2m.atl.engine.emfvm;bundle-version="3.0.0",
- org.emftext.language.ecore.resource.text;bundle-version="1.0.0",
- org.emftext.sdk.concretesyntax.resource.cs;bundle-version="1.1.0",
- org.eclipse.m2m.atl.drivers.emf4atl;bundle-version="3.0.0"
+ org.eclipse.m2m.atl.engine.emfvm,
+ org.eclipse.m2m.atl.drivers.emf4atl,
+ org.emftext.sdk.concretesyntax.resource.cs,
+ org.emftext.language.ecore.resource.text
+
+
+
