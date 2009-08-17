@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+ <!--<extension
+         point="org.emftext.runtime.default_load_options">
+      <provider
+            class="org.emftext.runtime.atl.ATLTransformationPostProcessor"
+            id="org.emftext.sdk.default_option_provider"
+            csName="cs">
+      </provider>
+   </extension>-->
+
+</plugin>
