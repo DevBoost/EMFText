@@ -59,6 +59,7 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		sc.add(STRING + " fragment = ((" + INTERNAL_E_OBJECT + ") element).eProxyURI().fragment();");
 		sc.add("if (fragment != null && fragment.startsWith(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
 		sc.add("fragment = fragment.substring(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
+		sc.add("fragment = fragment.substring(fragment.indexOf(\"_\") + 1);");
 		sc.add("}");
 		sc.add("return fragment;");
 		sc.add("}");
