@@ -1,7 +1,0 @@
- SYNTAXDEF wasHere
-FOR 
-
-
-RULES{
-	
-}
