@@ -20,11 +20,23 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.extensions;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
@@ -32,16 +44,26 @@ import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.jface.util.SafeRunnable;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IMemento;
+import org.eclipse.ui.XMLMemento;
+import org.osgi.framework.Bundle;
 
 /**
  * 
  * This manager adds new ProjectionAnnotation for the code folding and deletes
- * old ProjectionAnnotation with lines < 2. It is needed to hold the toggle
- * states.
+ * old ProjectionAnnotation with lines < 3. It is needed to hold the toggle
+ * states. It provides the ability to restore the toggle states between Eclipse sessions
+ * and after closing, opening as well. 
  * 
  * @author Hoang-Kim, Tan-Ky
  */
 public class CodeFoldingManager {
+
+	static final String CODE_FOLDING_STATE_FILENAME = "_foldingState.xml";
+	static final String PLUGIN_ID = "org.emftext.runtime.ui";
+	static final String TIME_STAMP = "time_stamp";
 
 	protected List<Annotation> oldAnnotations = new ArrayList<Annotation>();
 	protected List<Annotation> deletions = new ArrayList<Annotation>();
@@ -74,12 +96,18 @@ public class CodeFoldingManager {
 	public void updateCodefolding(List<Position> positions) {
 		IDocument document = sourceViewer.getDocument();
 		// Add new Position with a unique line offset
+		oldAnnotations = new ArrayList<Annotation>();
+		for (Iterator<?> annotationsIterator = projectionAnnotationModel
+				.getAnnotationIterator(); annotationsIterator.hasNext();) {
+			oldAnnotations.add((ProjectionAnnotation) annotationsIterator
+					.next());
+		}
 		for (Position position : positions) {
 			if (!isInModel(position) && !isInAdditions(position)) {
 				addPosition(position);
 			}
 		}
-		// Delete old Position with line count < 2.
+		// Delete old Position with line count < 3. 
 		for (Annotation oldAnnotation : oldAnnotations) {
 			Position modelPosition = projectionAnnotationModel
 					.getPosition(oldAnnotation);
@@ -90,22 +118,12 @@ public class CodeFoldingManager {
 			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
-			if (lines < 2) {
+			if (lines < 3) {
 				deletions.add(oldAnnotation);
 			}
 		}
 		projectionAnnotationModel.modifyAnnotations(deletions
 				.toArray(new Annotation[0]), additions, null);
-
-		for (Annotation annotationToDelete : deletions) {
-			oldAnnotations.remove(annotationToDelete);
-		}
-		deletions.clear();
-
-		for (Annotation newAnnotation : additions.keySet()) {
-			oldAnnotations.add(newAnnotation);
-		}
-		additions.clear();
 	}
 
 	/**
@@ -166,7 +184,7 @@ public class CodeFoldingManager {
 			e.printStackTrace();
 			return;
 		}
-		if (lines < 2) {
+		if (lines < 3) {
 			return;
 		}
 
@@ -222,5 +240,135 @@ public class CodeFoldingManager {
 			}
 		}
 		additions.put(new ProjectionAnnotation(), position);
+	}
+
+	/**
+	 * Saves the code folding state into the given memento.
+	 * 
+	 * @param memento
+	 */
+	public void saveCodeFolding(IMemento memento) {
+		for (Iterator<?> annotationIterator = projectionAnnotationModel
+				.getAnnotationIterator(); annotationIterator.hasNext();) {
+			ProjectionAnnotation annotation = (ProjectionAnnotation) annotationIterator
+					.next();
+			IMemento annotationMemento = memento
+					.createChild(ExtensionConstants.CodeFolding.ANNOTATION
+							.toString());
+			Position position = projectionAnnotationModel
+					.getPosition(annotation);
+			annotationMemento.putBoolean(
+					ExtensionConstants.CodeFolding.IS_COLLAPSED.toString(),
+					annotation.isCollapsed());
+			annotationMemento.putInteger(ExtensionConstants.CodeFolding.OFFSET
+					.toString(), position.offset);
+			annotationMemento.putInteger(ExtensionConstants.CodeFolding.LENGTH
+					.toString(), position.length);
+		}
+	}
+
+	/**
+	 * Restore the code folding state information which is in the given memento.
+	 * 
+	 * @param memento
+	 */
+	public void restoreCodeFolding(IMemento memento) {
+		if (memento == null)
+			return;
+		IMemento[] annotationMementos = memento
+				.getChildren(ExtensionConstants.CodeFolding.ANNOTATION
+						.toString());
+		if (annotationMementos == null)
+			return;
+		for (IMemento annotationMemento : annotationMementos) {
+			boolean isCollapsed = annotationMemento
+					.getBoolean(ExtensionConstants.CodeFolding.IS_COLLAPSED
+							.toString());
+			ProjectionAnnotation annotation = new ProjectionAnnotation(
+					isCollapsed);
+			int offset = annotationMemento
+					.getInteger(ExtensionConstants.CodeFolding.OFFSET
+							.toString());
+			int length = annotationMemento
+					.getInteger(ExtensionConstants.CodeFolding.LENGTH
+							.toString());
+			Position position = new Position(offset, length);
+			projectionAnnotationModel.addAnnotation(annotation, position);
+		}
+	}
+
+	/**
+	 * Restores the code folding state from a XML file in the state location.
+	 * 
+	 * @param mementoToRestoreCodeFolding
+	 *            the memento to restore the code folding state
+	 * @param key
+	 *            the key to determine the file
+	 * @param timeStamp
+	 *            the time stamp of the last saving
+	 * @return <code>true</code> if restore successful
+	 */
+	public boolean restoreCodeFoldingStateFromFile(
+			final IMemento mementoToRestoreCodeFolding, String key,
+			long timeStamp) {
+		final File stateFile = getCodeFoldingStateFile(key);
+		if (stateFile == null || !stateFile.exists())
+			return false;
+		SafeRunner.run(new SafeRunnable(
+				"Unable to read code folding state. The state will be reset.") {
+			public void run() throws Exception {
+				FileInputStream input = new FileInputStream(stateFile);
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(input, "utf-8")); //$NON-NLS-1$
+				IMemento memento = XMLMemento.createReadRoot(reader);
+				mementoToRestoreCodeFolding.putMemento(memento);
+				reader.close();
+			}
+		});
+		String timeString = "" + timeStamp;
+		if (!mementoToRestoreCodeFolding.getString(TIME_STAMP).equals(timeString))
+			return false;
+		return true;
+	}
+
+	/**
+	 * Saves the code folding state to a XML file in the state location.
+	 * 
+	 * @param key
+	 *            the key to determine the file
+	 * @param timeStamp
+	 *            the time stamp of the last saving
+	 */
+	public void saveCodeFoldingStateFile(String key, long timeStamp) {
+		XMLMemento codeFoldingMemento = XMLMemento
+				.createWriteRoot(ExtensionConstants.CodeFolding.MODEL
+						.toString());
+		String timeString = "" + timeStamp;
+		codeFoldingMemento.putString(TIME_STAMP, timeString);
+		saveCodeFolding(codeFoldingMemento);
+		File stateFile = getCodeFoldingStateFile(key);
+		if (stateFile == null)
+			return;
+		try {
+			FileOutputStream stream = new FileOutputStream(stateFile);
+			OutputStreamWriter writer = new OutputStreamWriter(stream, "utf-8"); //$NON-NLS-1$
+			codeFoldingMemento.save(writer);
+			writer.close();
+		} catch (IOException e) {
+			stateFile.delete();
+			MessageDialog.openError((Shell) null, "Saving Problems",
+					"Unable to save code folding state.");
+			return;
+		}
+	}
+
+	private File getCodeFoldingStateFile(String key) {
+		key = key.replaceAll("/", "%");
+		Bundle bundle = Platform.getBundle(PLUGIN_ID);
+		IPath path = Platform.getStateLocation(bundle);
+		if (path == null)
+			return null;
+		path = path.append(key + CODE_FOLDING_STATE_FILENAME);
+		return path.toFile();
 	}
 }
