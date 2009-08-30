@@ -8,6 +8,7 @@
 		<classpath path="../org.emftext.sdk/bin" />
 		<classpath path="../org.emftext.sdk.ant/bin" />
 		<classpath path="../org.emftext.sdk.antlr/bin" />
+		<classpath path="../org.emftext.sdk.automaton/bin" />
 		<classpath path="../org.emftext.sdk.concretesyntax/bin" />
 		<classpath path="../org.emftext.sdk.concretesyntax.resource.cs/bin" />	
 		<!-- for ecore text resource support -->
