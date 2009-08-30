@@ -99,6 +99,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private String qualifiedDummyEObjectClassName;
 	private String qualifiedTokenResolveResultClassName;
 	private String qualifiedContextDependentURIFragmentFactoryClassName;
+	private Set<String> parseMethods = new LinkedHashSet<String>();
 	
 	public ScannerlessParserGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getClassName(EArtifact.SCANNERLESS_PARSER));
@@ -142,6 +143,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		addPopContainerCommandClass(sc);
 		addObjectCompletedCommandClass(sc);
 		addParseErrorClass(sc);
+		addParsePositionClass(sc);
 	}
 
 	private void addParseErrorClass(StringComposite sc) {
@@ -186,6 +188,11 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("context.popCurrentContainer();");
 		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String toString() {");
+		sc.add("return \"END\";");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -322,6 +329,11 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add(E_OBJECT + " object = context.getCurrentObject();");
 		sc.add("addObjectToFeature(container, object, featureID);");
 		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String toString() {");
+		sc.add("return \"ADD TO PARENT\";");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -339,6 +351,46 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add(E_OBJECT + " object = eClass.getEPackage().getEFactoryInstance().create(eClass);");
 		sc.add("context.pushCurrentContainer(object);");
 		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String toString() {");
+		sc.add("return \"CREATE \" + eClass.getName();");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addParsePositionClass(StringComposite sc) {
+		sc.add("public static class ParsePosition {");
+		sc.addLineBreak();
+		sc.add("private final int offset;");
+		sc.add("private final " + LINKED_LIST + "<ICommand> commands;");
+		sc.add("private final " + LINKED_LIST + "<" + I_TEXT_TOKEN + "> tokens;");
+		sc.add("private final String methodName;");
+		sc.addLineBreak();
+		sc.add("public ParsePosition(int offset, " + LINKED_LIST + "<ICommand> commands, " + LINKED_LIST + "<" + I_TEXT_TOKEN + "> tokens, String methodName) {");
+		sc.add("this.offset = offset;");
+		sc.add("this.commands = commands;");
+		sc.add("this.tokens = tokens;");
+		sc.add("this.methodName = methodName;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public int getOffset() {");
+		sc.add("return offset;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + LINKED_LIST + "<ICommand> getCommands() {");
+		sc.add("return commands;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">  getTokens() {");
+		sc.add("return tokens;");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public String getMethodName() {");
+		sc.add("return methodName;");
+		sc.add("}");
+		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -398,6 +450,8 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		addCreateInstanceMethod(sc);
 		addGetResourceMethod(sc);
 		addParseMethod(sc);
+		addParseStartSymbolsMethod(sc);
+		addIsStackReadyMethod(sc);
 		addParseToExpectedElementsMethod(sc);
 		addSetResourceMethod(sc);
 		addGetOptionsMethod(sc);
@@ -426,10 +480,14 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		addGetTokensMethod(sc);
 		addAddCommandMethod(sc);
 		addAddTokenMethod(sc);
+		addProcessParseTrialStackMethod(sc);
 	}
 
 	private void addAddCommandMethod(StringComposite sc) {
 		sc.add("public void addCommand(ICommand command) {");
+		sc.add("if (restoreStackMode) {");
+		sc.add("throw new RuntimeException(\"Can't add commands in restoreStackMode.\");");
+		sc.add("}");
 		sc.add("// if the parser is in scan mode the command can be thrown away");
 		sc.add("if (!scanMode) {");
 		sc.add("commands.add(command);");
@@ -465,6 +523,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("});");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetTokenNamesMethod(StringComposite sc) {
@@ -507,6 +566,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 
 	private void addDiscardCommandsMethod(StringComposite sc) {
 		sc.add("public void discardCommands(int index) {");
+		sc.add("if (restoreStackMode) {");
+		sc.add("throw new RuntimeException(\"Can't discard commands in restoreStackMode.\");");
+		sc.add("}");
 		sc.add("commands.subList(index, commands.size()).clear();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -602,6 +664,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 
 	private void addMatchesUsedTokenMethod(StringComposite sc) {
 		sc.add("public " + STRING + " matchesUsedToken(" + PATTERN + " pattern, " + STRING + " name, " + STRING + " tokenName) {");
+		sc.add("if (restoreStackMode) {");
+		sc.add("throw new RuntimeException(\"Can't match used token in restoreStackMode.\");");
+		sc.add("}");
 		sc.add(STRING + " match = matchesRegexp(pattern, name, false);");
 		sc.add("if (match != null) {");
 		sc.add("matchUnusedTokens();");
@@ -616,6 +681,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 
 	private void addMatchesMethod(StringComposite sc) {
 		sc.add("public boolean matches(" + STRING + " keyword) {");
+		sc.add("if (restoreStackMode) {");
+		sc.add("throw new RuntimeException(\"Can't match in restoreStackMode.\");");
+		sc.add("}");
 		sc.add("boolean matches = content.startsWith(keyword, offset);");
 		sc.add("if (matches) {");
 		sc.add("addToken(keyword, keyword, offset, keyword.length());");
@@ -657,49 +725,161 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addParseMethod(StringComposite sc) {
+	private void addParseStartSymbolsMethod(StringComposite sc) {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
-		boolean forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.FORCE_EOF);
-
-		sc.add("public " + E_OBJECT + " parse() {");
-		sc.add("parseError = null;");
-		sc.add("boolean tryOtherStartSymbols = true;");
+		sc.add("public boolean parseStartSymbols() {");
+		sc.add("boolean matches;");
 		for (GenClass startSymbol : syntax.getActiveStartSymbols()) {
 			sc.add("// try start symbol: " + startSymbol.getName());
-			sc.add("if (tryOtherStartSymbols) {");
-			sc.add("offset = 0;");
-			sc.add("offsetIgnoringUnusedTokens = 0;");
-			sc.add("commands = new " + LINKED_LIST + "<ICommand>();");
-			sc.add("tokens = new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">();");
-			sc.add("boolean success = " + getRuleName(startSymbol) + "();");
-			sc.add("if (success) {");
-			if (forceEOFToken) {
-				sc.add("if (offset == content.length()) {");
-				sc.add("// the content was successfully parse up to the last character, we do not need to try something else");
-				sc.add("tryOtherStartSymbols = false;");
-				sc.add("} else {");
-				sc.add("addParseError(new ParseError(\"EOF (end of file) expected.\", offset));");
-				sc.add("}");
-			}
-			sc.add("} else {");
+			sc.add("restoreStackMode = true;");
+			sc.add("matches = " + getMethodName(startSymbol) + "();");
+			sc.add("if (isStackReady(\"" + getMethodName(startSymbol) + "\")) {");
+			sc.add("if (matches) {");
+			sc.add("return true;");
 			sc.add("}");
+			sc.add("} else {");
+			sc.add("// continue searching for stack ID");
 			sc.add("}");
 		}
-		sc.add("// build content tree by executing commands");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addIsStackReadyMethod(StringComposite sc) {
+		sc.add("public boolean isStackReady(String stackID) {");
+		sc.add("if (!restoreStackMode) {");
+		sc.add("// ready (stack was restored before");
+		sc.add("return true;");
+		sc.add("} else if (stackID.equals(restoreStackID)) {");
+		sc.add("restoreStackMode = false;");
+		sc.add("restoreStackID = null;");
+		sc.add("// ready (stack is now restored)");
+		sc.add("return true;");
+		sc.add("} else {");
+		sc.add("// not ready (stack has not reached stackID)");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+	
+	private void addParseMethod(StringComposite sc) {
+		ConcreteSyntax syntax = context.getConcreteSyntax();
+
+		sc.add("public " + E_OBJECT + " parse() {");
+		sc.add("restoreStackMode = false;");
+		sc.add("parseError = null;");
+		sc.add("parseTrials = new " + STACK + "<ParsePosition>();");
+		sc.add("offsetIgnoringUnusedTokens = 0;");
+		//sc.add("commands = new " + LINKED_LIST + "<ICommand>();");
+		//sc.add("tokens = new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">();");
+		//sc.add("boolean tryOtherStartSymbols = true;");
+		List<GenClass> activeStartSymbols = syntax.getActiveStartSymbols();
+		for (int i = activeStartSymbols.size() - 1; i >= 0; i--) {
+			GenClass startSymbol = activeStartSymbols.get(i);
+			sc.add("// try start symbol: " + startSymbol.getName());
+			//sc.add("if (tryOtherStartSymbols) {");
+			//sc.add("offset = 0;");
+			sc.add("parseTrials.push(new ParsePosition(0, new " + LINKED_LIST + "<ICommand>(), new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">(), \"" + getMethodName(startSymbol) + "\"));");
+			//sc.add("}");
+		}
+		sc.add("boolean success = processParseTrialStack();");
+		sc.add("if (success) {");
+		//sc.add("tryOtherStartSymbols = false;");
+		sc.add("} else {");
+		sc.add("addParseError(new ParseError(\"EOF (end of file) expected.\", offset));");
+		sc.add("}");
+		
 		sc.add("ICommandContext context = new CommandContext();");
+		sc.add("if (success) {");
+		sc.add("// build content tree by executing commands");
 		sc.add("// do not execute the last pop container command to obtain");
 		sc.add("// the root element");
+		//sc.add("for (int c = 0; c < commands.size() - 1; c++) {");
+		//sc.add("ICommand command = commands.get(c);");
+		//sc.add("System.out.println(c + \": \" + command);");
+		//sc.add("}");
 		sc.add("for (int c = 0; c < commands.size() - 1; c++) {");
 		sc.add("ICommand command = commands.get(c);");
 		sc.add("command.execute(context);");
 		sc.add("}");
 		sc.add("commands = null;");
-		sc.add("if (!tryOtherStartSymbols) {");
+		sc.add("}");
+		
+		sc.add("if (success) {");
 		sc.add("parseError = null;");
 		sc.add("}");
 		sc.add("addParseErrorToResource();");
 		sc.add("// return root element");
 		sc.add("return context.getCurrentContainer();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private String getMethodName(GenClass metaClass) {
+		String name = getMethodName_(metaClass);
+		parseMethods.add(name);
+		return name;
+	}
+
+	private String getMethodName(Choice choice) {
+		String name = getMethodName_(choice);
+		parseMethods.add(name);
+		return name;
+	}
+
+	private String getMethodName(Definition part) {
+		String name = getMethodName_(part);
+		parseMethods.add(name);
+		return name;
+	}
+
+	private String getMethodName(CardinalityDefinition definition) {
+		String name = getMethodName_(definition);
+		parseMethods.add(name);
+		return name;
+	}
+
+	private String getMethodName(Containment containment) {
+		String name = getMethodName_(containment);
+		parseMethods.add(name);
+		return name;
+	}
+
+	private String getMethodName(Sequence sequence) {
+		String name = getMethodName_(sequence);
+		parseMethods.add(name);
+		return name;
+	}
+
+	private void addProcessParseTrialStackMethod(StringComposite sc) {
+		boolean forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.FORCE_EOF);
+
+		sc.add("public boolean processParseTrialStack() {");
+		sc.add("while (!parseTrials.empty()) {");
+		sc.add("ParsePosition nextTrial = parseTrials.pop();");
+		sc.add("// restore parse position");
+		sc.add("restoreStackMode = false;");
+		sc.add("offset = nextTrial.getOffset();");
+		sc.add("commands = nextTrial.getCommands();");
+		sc.add("tokens = nextTrial.getTokens();");
+		sc.add("// restore parse stack");
+		sc.add("restoreStackMode = true;");
+		sc.add("restoreStackID = nextTrial.getMethodName();");
+		sc.add("boolean success = parseStartSymbols();");
+		sc.add("if (success) {");
+		if (forceEOFToken) {
+			sc.add("if (offset == content.length()) {");
+			sc.add("// the content was successfully parsed up to the last character, we do not need to try something else");
+			sc.add("return true;");
+			sc.add("}");
+		} else {
+			sc.add("return true;");
+		}
+		sc.add("}");
+		sc.add("}");
+		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -746,7 +926,11 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("private " + INPUT_STREAM_READER + " inputStream;");
 		sc.add("// the current position in the content");
 		sc.add("private int offset;");
+		sc.add("private " + STACK + "<ParsePosition> parseTrials;");
+		
 		sc.add("private boolean scanMode = false;");
+		sc.add("private boolean restoreStackMode = false;");
+		sc.add("private String restoreStackID;");
 		sc.add("// the current position in the content (ignoring trailing unused tokens (e.g., whitespaces)");
 		sc.add("private int offsetIgnoringUnusedTokens;");
 		sc.add("private " + STRING + " content = \"\";");
@@ -833,20 +1017,29 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private void addMethodForRule(StringComposite sc, ConcreteSyntax syntax, Rule rule) {
 		GenClass metaclass = rule.getMetaclass();
 
-		sc.add("public boolean " + getRuleName(metaclass) + "() {");
+		sc.add("public boolean " + getMethodName(metaclass) + "() {");
 		Choice choice = rule.getDefinition();
-		sc.add(E_CLASS + " eClass = " + genClassUtil.getAccessor(metaclass) + ";");
 		sc.add("int commandIndexBackup = commands.size();");
 		sc.add("int tokenIndexBackup = tokens.size();");
 		sc.add("int startOffset = offset;");
+
+		sc.add("if (isStackReady(\"" + getMethodName(metaclass) + "\")) {");
+		sc.add(E_CLASS + " eClass = " + genClassUtil.getAccessor(metaclass) + ";");
 		sc.add("addCommand(new CreateObjectCommand(eClass));");
+		sc.add("}");
+		
 		sc.add("boolean success = " + getMethodName(choice) + "();");
+		
+		sc.add("if (isStackReady(\"" + getMethodName(metaclass) + "\")) {");
 		sc.add("if (success) {");
 		sc.add("addCommand(new ObjectCompletedCommand(startOffset, offsetIgnoringUnusedTokens - 1));");
 		sc.add("return true;");
 		sc.add("} else {");
 		sc.add("discardCommands(commandIndexBackup);");
 		sc.add("discardTokens(tokenIndexBackup);");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("} else {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
@@ -872,29 +1065,52 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		List<Sequence> options = choice.getOptions();
 		sc.add("// begin options");
 		for (Sequence option : options) {
-			sc.add("if (" + getMethodName(option) + "()) {");
+			sc.add("{");
+			sc.add("boolean success = " + getMethodName(option) + "();");
+			sc.add("if (isStackReady(\"" + getMethodName(option) + "\")) {");
+			sc.add("if (success) {");
 			sc.add("return true;");
+			sc.add("}");
+			sc.add("}");
 			sc.add("}");
 		}
 		sc.add("// end options");
 		sc.add("return false;");
 	}
 
+	private void addMethodForDefinition(StringComposite sc, ConcreteSyntax syntax,
+			GenClass ruleMetaClass, Definition part) {
+		sc.add("public boolean " + getMethodName(part) + "() {");
+		sc.add("boolean matchedAll = true;");
+		if (part instanceof CardinalityDefinition) {
+			CardinalityDefinition cd = (CardinalityDefinition) part;
+			addCardinalityCode(sc, syntax, cd);
+		} else if (part instanceof CsString) {
+			sc.add("if (isStackReady(\"" + getMethodName(part) + "\")) {");
+			addCodeForCsString(sc, (CsString) part);
+			sc.add("}");
+		} else {
+			throw new RuntimeException("Found unknown subclass " + part.getClass().getName());
+		}
+		sc.add("return matchedAll;");
+		sc.add("}");
+		sc.addLineBreak();
+		if (part instanceof CardinalityDefinition) {
+			addMethodForCardinality(sc, syntax, ruleMetaClass, (CardinalityDefinition) part);
+		}
+	}
+	
 	private void addMethodForSequence(StringComposite sc, ConcreteSyntax syntax,
 			GenClass ruleMetaClass, Sequence sequence) {
 
 		sc.add("public boolean " + getMethodName(sequence) + "() {");
 		sc.add("boolean matchedAll = true;");
+		sc.add("boolean matchedPart;");
+		sc.add("boolean isStackReady;");
 		sc.add("int offsetCopy = offset;");
 		List<Definition> parts = sequence.getParts();
 		for (Definition part : parts) {
-			sc.add("// begin part");
-			if (part instanceof CardinalityDefinition) {
-				CardinalityDefinition cd = (CardinalityDefinition) part;
-				addCardinalityCode(sc, syntax, cd);
-			} else if (part instanceof CsString) {
-				addCodeForCsString(sc, (CsString) part);
-			} else if (part instanceof WhiteSpaces) {
+			if (part instanceof WhiteSpaces) {
 				// do nothing
 				sc.add("// whitespace");
 				continue;
@@ -902,26 +1118,47 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 				// do nothing
 				sc.add("// linebreak");
 				continue;
-			} else {
-				throw new RuntimeException("Found unknown subclass " + part.getClass().getName());
 			}
+
+			sc.add("matchedPart = " + getMethodName(part) + "();");
+			sc.add("isStackReady = isStackReady(\"" + getMethodName(part) + "\");");
+			sc.add("if (isStackReady) {");
+			sc.add("matchedAll &= matchedPart;");
 			sc.add("if (!matchedAll) {");
 			sc.add("// stop matching the sequence");
 			sc.add("offset = offsetCopy;");
 			sc.add("return false;");
 			sc.add("}");
+			sc.add("}");
 		}
+		sc.add("if (isStackReady(\"" + getMethodName(sequence) + "\")) {");
 		sc.add("// this sequence is valid");
 		sc.add("return true;");
+		sc.add("} else {");
+		sc.add("return false;");
+		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		
 		for (Definition definition : parts) {
-			if (definition instanceof CardinalityDefinition) {
-				addMethodForCardinality(sc, syntax, ruleMetaClass, (CardinalityDefinition) definition);
+			if (definition instanceof WhiteSpaces) {
+				// do nothing
+				continue;
+			} else if (definition instanceof LineBreak) {
+				// do nothing
+				continue;
+			} else {
+				addMethodForDefinition(sc, syntax, ruleMetaClass, definition);
 			}
 		}
 	}
+
+	/*
+	private void addCodeForDefinition(StringComposite sc,
+			ConcreteSyntax syntax, GenClass ruleMetaClass, Definition part) {
+		sc.add("matchedAll &= " + getMethodName(part) + "();");
+	}
+	*/
 
 	private void addMethodForCardinality(StringComposite sc, ConcreteSyntax syntax,
 			GenClass ruleMetaClass, CardinalityDefinition definition) {
@@ -937,6 +1174,13 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		} else if (cardinality instanceof STAR) {
 			// cardinality == 0..*
 			sc.add("while (matched) {");
+			sc.add("// put trial on stack (try parsing without matching THING*)");
+			String methodName = getNext(definition);
+			if (methodName != null) {
+				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
+				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">(tokens), \"" + methodName + "\"));");
+				sc.add("}");
+			}
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("}");
 			sc.add("return true;");
@@ -944,12 +1188,28 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			// cardinality == 1..*
 			sc.add("boolean matchedAtLeastOnce = false;");
 			sc.add("while (matched) {");
+			sc.add("// TODO put trial on stack (try parsing without matching THING+)");
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("matchedAtLeastOnce |= matched;");
+			sc.add("if (matchedAtLeastOnce) {");
+			String methodName = getNext(definition);
+			if (methodName != null) {
+				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
+				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">(tokens), \"" + methodName + "\"));");
+				sc.add("}");
+			}
+			sc.add("}");
 			sc.add("}");
 			sc.add("return matchedAtLeastOnce;");
 		} else if (cardinality instanceof QUESTIONMARK) {
 			// cardinality == 0..1
+			sc.add("// put trial on stack (try parsing without matching THING)");
+			String methodName = getNext(definition);
+			if (methodName != null) {
+				sc.add("if (isStackReady(\"" + getMethodName(definition) + "\")) {");
+				sc.add("parseTrials.push(new ParsePosition(offset, new " + LINKED_LIST + "<ICommand>(commands), new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">(tokens), \"" + methodName + "\"));");
+				sc.add("}");
+			}
 			addCodeForElementWithCardinality(sc, syntax, ruleMetaClass, definition);
 			sc.add("return true;");
 		} else {
@@ -967,6 +1227,39 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			// a method for each terminal
 		} else {
 			throw new RuntimeException("Found unknown subclass " + definition.getClass().getName());
+		}
+	}
+
+	private String getNext(CardinalityDefinition definition) {
+		Sequence sequence = (Sequence) definition.eContainer();
+		int index = getIndex(definition, sequence);
+		System.out.println("getNext() index = " + index);
+		System.out.println("getNext() sequence = " + sequence);
+		System.out.println("getNext() sequence parts = " + sequence.getParts());
+		if (sequence.getParts().size() > index + 1) {
+			return getMethodName(sequence.getParts().get(index + 1));
+		}
+		return getNext(sequence);
+	}
+
+	private String getNext(Sequence sequence) {
+		Choice choice = (Choice) sequence.eContainer();
+		int index = getIndex(sequence, choice);
+		if (choice.getOptions().size() > index + 1) {
+			return getMethodName(choice.getOptions().get(index + 1));
+		}
+		return getNext(choice);
+	}
+
+	private String getNext(Choice choice) {
+		EObject parent = choice.eContainer();
+		if (parent instanceof Rule) {
+			return null;
+		} else if (parent instanceof CompoundDefinition) {
+			CompoundDefinition compound = (CompoundDefinition) parent;
+			return getNext(compound);
+		} else {
+			throw new RuntimeException("Unknown parent class: " + parent.eClass().getName());
 		}
 	}
 
@@ -1017,7 +1310,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			sc.add("{");
 			sc.add("// restore old offset");
 			sc.add("this.offset = offsetCopy;");
-			sc.add("boolean success = " + getRuleName(genClass) + "();");
+			sc.add("boolean success = " + getMethodName(genClass) + "();");
 			sc.add("if (success) {");
 			sc.add("// add command to add element to the containment reference");
 			sc.add("addCommand(new AddContainedObjectCommand(" + generatorUtil.getFeatureConstant(ruleMetaClass, genFeature) + "));");
@@ -1046,6 +1339,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 			String fieldName = getFieldName(tokenDefinition);
 			String tokenName = tokenDefinition.getName();
 			sc.add("int offsetBeforeMatch = offset;");
+			sc.add("if (isStackReady(\"" + getMethodName(terminal) + "\")) {");
 			sc.add("String match = matchesUsedToken(" + fieldName + ", \"" + fieldName+ "\", \"" + tokenName + "\");");
 			sc.add("matched &= (match != null);");
 			sc.add("if (matched) {");
@@ -1076,6 +1370,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 				throw new RuntimeException("Found unknown feature type for terminal.");
 			}
 			sc.add("}");
+			sc.add("} else {");
+			sc.add("return false;");
+			sc.add("}");
 		} else if (terminal instanceof Containment) {
 			Containment containment = (Containment) terminal;
 			addCodeForContainment(sc, syntax, containment);
@@ -1089,29 +1386,29 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("matched &= " + getMethodName(containment) + "();");
 	}
 
-	private String getMethodName(Containment containment) {
+	private String getMethodName_(Containment containment) {
 		Sequence parent = (Sequence) containment.eContainer();
 		int index = getIndex(containment, parent);
 		if (parent != null) {
-			return getMethodName(parent) + "_containment" + index;
+			return getMethodName_(parent) + "_containment" + index;
 		}
 		return null;
 	}
 
-	private String getRuleName(GenClass metaClass) {
+	private String getMethodName_(GenClass metaClass) {
 		// TODO use fully qualified name
 		return "parse_" + metaClass.getName();
 	}
 
-	private String getMethodName(CardinalityDefinition cd) {
+	private String getMethodName_(CardinalityDefinition cd) {
 		Sequence parent = (Sequence) cd.eContainer();
 		int index = getIndex(cd, parent);
 		if (parent != null) {
 			Cardinality cardinality = cd.getCardinality();
 			if (cd instanceof Terminal) {
-				return getMethodName(parent) + "_terminal_" + getName(cardinality) + index;
+				return getMethodName_(parent) + "_terminal_" + getName(cardinality) + index;
 			} else if (cd instanceof CompoundDefinition) {
-				return getMethodName(parent) + "_compound_" + getName(cardinality) + index;
+				return getMethodName_(parent) + "_compound_" + getName(cardinality) + index;
 			} else {
 				throw new RuntimeException("Found unknown subclass " + cd.getClass().getName());
 			}
@@ -1134,26 +1431,36 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		}
 	}
 
-	private String getMethodName(Sequence sequence) {
+	private String getMethodName_(Sequence sequence) {
 		Choice parent = (Choice) sequence.eContainer();
 		int index = getIndex(sequence, parent);
 		if (parent != null) {
-			return getMethodName(parent) + "_sequence" + index;
+			return getMethodName_(parent) + "_sequence" + index;
 		} else {
 			throw new RuntimeException("Parent is null.");
 		}
 	}
 
-	private String getMethodName(Choice choice) {
+	private String getMethodName_(Definition definition) {
+		Sequence parent = (Sequence) definition.eContainer();
+		int index = getIndex(definition, parent);
+		if (parent != null) {
+			return getMethodName_(parent) + "_part" + index;
+		} else {
+			throw new RuntimeException("Parent is null.");
+		}
+	}
+
+	private String getMethodName_(Choice choice) {
 		EObject parent = (EObject) choice.eContainer();
 		if (parent instanceof Rule) {
 			Rule rule = (Rule) parent;
-			return getRuleName(rule.getMetaclass()) + "_choice";
+			return getMethodName_(rule.getMetaclass()) + "_choice";
 		} else if (parent instanceof Sequence) {
 			int index = getIndex(choice, parent);
-			return getMethodName((Sequence) parent) + "_choice" + index;
+			return getMethodName_((Sequence) parent) + "_choice" + index;
 		} else if (parent instanceof CompoundDefinition) {
-			return getMethodName((CompoundDefinition) parent) + "_compound";
+			return getMethodName_((CompoundDefinition) parent) + "_compound";
 		} else {
 			throw new RuntimeException("Found unknown subclass " + parent.getClass().getName());
 		}

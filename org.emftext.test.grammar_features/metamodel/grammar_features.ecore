@@ -56,4 +56,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SecondRoot"/>
   <eClassifiers xsi:type="ecore:EClass" name="OptionalPrefix" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StarPrefix" eSuperTypes="#//Child"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PlusPrefix" eSuperTypes="#//Child"/>
 </ecore:EPackage>

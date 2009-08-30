@@ -40,6 +40,8 @@ RULES {
 	CompoundPlus     ::= "cp" ("a" "b")+;
 	
 	OptionalPrefix ::= "op" ("a")? "a" "b";
+	StarPrefix     ::= "sp" ("a")* "a" "b";
+	PlusPrefix     ::= "pp" ("a")+ "a" "b";
 	
 	X ::= "x" (":" name[])?;
 	

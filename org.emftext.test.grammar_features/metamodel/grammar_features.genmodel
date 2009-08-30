@@ -51,5 +51,7 @@
     </genClasses>
     <genClasses ecoreClass="grammar_features.ecore#//SecondRoot"/>
     <genClasses ecoreClass="grammar_features.ecore#//OptionalPrefix"/>
+    <genClasses ecoreClass="grammar_features.ecore#//StarPrefix"/>
+    <genClasses ecoreClass="grammar_features.ecore#//PlusPrefix"/>
   </genPackages>
 </genmodel:GenModel>

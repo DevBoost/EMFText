@@ -144,7 +144,7 @@ public class ScannerlessParserTest extends TestCase {
 		suite.addTest(new CctParseTest("private class some {\n\r\tprivate some a;\n\r}"));
 		suite.addTest(new CctParseTest("public class A {private void method() {}}"));
 		*/
-		
+
 		suite.addTest(new GrammarFeatureParseTest("SecondRoot", "SecondRoot"));
 
 		suite.addTest(new GrammarFeatureParseRootTest("co", "CompoundOptional"));
@@ -220,7 +220,17 @@ public class ScannerlessParserTest extends TestCase {
 		
 		suite.addTest(new GrammarFeatureParseRootTest("op a b", "OptionalPrefix"));
 		suite.addTest(new GrammarFeatureParseRootTest("op a a b", "OptionalPrefix"));
+		suite.addTest(new GrammarFeatureParseRootTest("op a a a b", null));
 
+		suite.addTest(new GrammarFeatureParseRootTest("sp a b", "StarPrefix"));
+		suite.addTest(new GrammarFeatureParseRootTest("sp a a b", "StarPrefix"));
+		suite.addTest(new GrammarFeatureParseRootTest("sp a a a b", "StarPrefix"));
+		suite.addTest(new GrammarFeatureParseRootTest("sp a a a a b", "StarPrefix"));
+
+		suite.addTest(new GrammarFeatureParseRootTest("pp a b", null));
+		suite.addTest(new GrammarFeatureParseRootTest("pp a a b", "PlusPrefix"));
+		suite.addTest(new GrammarFeatureParseRootTest("pp a a a b", "PlusPrefix"));
+		suite.addTest(new GrammarFeatureParseRootTest("pp a a a a b", "PlusPrefix"));
 		// this test does fail because no model is created for unparsable input
 		//suite.addTest(new GrammarFeatureParseErrorModelTest("mc ", "MandatoryContainment"));
 		return suite;
