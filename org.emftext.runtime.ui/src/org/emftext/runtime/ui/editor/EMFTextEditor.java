@@ -48,9 +48,13 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.PropertyDescriptor;
+import org.eclipse.emf.edit.ui.provider.PropertySource;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentEvent;
@@ -63,6 +67,7 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IMemento;
@@ -73,7 +78,9 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.IPropertySource;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
@@ -448,8 +455,22 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
 			propertySheetPage = new EMFTextPropertySheetPage();
-			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(
-					adapterFactory));
+			//add a slightly modified adapter factory that does not return any editors for properties
+			//this way, a model can never be modified through the properties view 
+			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory) {
+				protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
+					return new PropertySource(object, itemPropertySource) {
+						protected IPropertyDescriptor createPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
+							return new PropertyDescriptor(object, itemPropertyDescriptor) {
+								  public CellEditor createPropertyEditor(Composite composite) {
+									  return null;
+								  }
+							};
+						}
+					};
+				}
+				
+			});
 			highlighting.addSelectionChangedListener(propertySheetPage);
 		}
 		return propertySheetPage;
