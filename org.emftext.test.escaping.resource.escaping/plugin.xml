@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.test.escaping.resource.escaping.EscapingResourceFactory" type="escaping">
+		</parser>
+	</extension>
+	
+	<extension point="org.emftext.runtime.syntax">
+		<metaInformationProvider class="org.emftext.test.escaping.resource.escaping.EscapingMetaInformation" id="org.emftext.test.escaping.resource.escaping.EscapingMetaInformation">
+		</metaInformationProvider>
+	</extension>
+	
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<file-association content-type="org.emftext.filetype" file-extensions="escaping">
+		</file-association>
+	</extension>
+	
+	<extension point="org.eclipse.ui.newWizards">
+		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
+		</category>
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.escaping.resource.escaping.EscapingNewFileWizard" id="org.emftext.test.escaping.resource.escaping.EscapingNewFileWizard" name="EMFText .escaping file">
+		</wizard>
+	</extension>
+	
+</plugin>
