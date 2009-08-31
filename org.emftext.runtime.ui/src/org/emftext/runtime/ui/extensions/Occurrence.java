@@ -151,6 +151,7 @@ public class Occurrence {
 			return;
 		}
 		tokenRegion = new Region(-1,0);
+		// TODO jjohannes use this code to determine the EObject at the cursor position
 		ILocationMap locationMap = textResource.getLocationMap();
 		List<EObject> elementsAtOffset = locationMap.getElementsAt(caretOffset);
 

@@ -98,6 +98,7 @@ public class Highlighting {
 				caret = textCaret;
 				removeHighlighting();
 				setHighlighting();
+				// TODO jjohannes fire selection event
 			}
 		}
 
