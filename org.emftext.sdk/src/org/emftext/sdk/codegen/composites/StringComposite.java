@@ -284,6 +284,9 @@ public class StringComposite {
 	private static final String[] TAB_STRINGS = new String[20];
 	
 	public static String getTabText(int tabs) {
+		if (tabs < 0) {
+			return "";
+		}
 		if (tabs >= MAX_TABS) {
 			return createTabString(tabs);
 		}
