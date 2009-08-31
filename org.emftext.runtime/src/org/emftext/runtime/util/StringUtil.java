@@ -224,6 +224,9 @@ public class StringUtil {
 	 * @return the escaped text
 	 */
 	public static String escapeToANTLRString(String value) {
-		return value.replaceAll("\\\\","\\\\\\\\").replaceAll("'", "\\\\'").replaceAll("\"", "\\\\\"");
+	
+		// quotes should not be escaped for AntLR
+		// TODO Mirko and Christian: Check if this adaption was correct
+		return value.replaceAll("\\\\","\\\\\\\\").replaceAll("'", "\\\\'")/*.replaceAll("\"", "\\\\\"")*/;
 	}
 }

@@ -69,6 +69,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -164,6 +165,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
+	private ArrayList<String> keywordTokens;
+
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context.getPackageName(), context
 				.getCapitalizedConcreteSyntaxName());
@@ -189,6 +192,17 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				true);
 		genClassNames2superClassNames = genClassFinder
 				.findAllSuperclasses(allGenClasses);
+		
+		TreeIterator<EObject> allContents = this.concreteSyntax.eAllContents();
+		keywordTokens = new ArrayList<String>();
+		while (allContents.hasNext()) {
+			EObject object = (EObject) allContents.next();
+			if (object instanceof CsString) {
+				CsString s = (CsString) object;
+				keywordTokens.add(s.getValue());
+			}
+		}
+		
 	}
 
 	public boolean generate(PrintWriter writer) {
@@ -1777,10 +1791,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 		sc.add(definition.getRegex());
 
-		if (definition.isHidden()) {
+		if (definition.isHidden() && !isKeyword(definition)) {
 			sc.add("{ _channel = 99; }");
 		}
 		sc.add(";");
+	}
+
+	private boolean isKeyword(TokenDefinition definition) {
+		String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length()-1);
+		return this.keywordTokens.contains(assumeKeyword);
 	}
 
 	private void printDefaultImports(StringComposite sc) {

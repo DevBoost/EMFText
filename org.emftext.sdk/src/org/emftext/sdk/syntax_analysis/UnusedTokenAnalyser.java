@@ -20,11 +20,16 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 /**
@@ -36,8 +41,19 @@ public class UnusedTokenAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		List<TokenDefinition> activeTokens = syntax.getActiveTokens();
+		TreeIterator<EObject> allContents = syntax.eAllContents();
+		List<String> keywordTokens = new ArrayList<String>();
+		while (allContents.hasNext()) {
+			EObject object = (EObject) allContents.next();
+			if (object instanceof CsString) {
+				CsString s = (CsString) object;
+				keywordTokens.add(s.getValue());
+			}
+		}
 		for (TokenDefinition definition : activeTokens) {
-			if (!definition.isUsed()) {
+			String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length()-1);
+			
+			if (!definition.isUsed() && !keywordTokens.contains(assumeKeyword)) {
 				addProblem(resource, ECsProblemType.UNUSED_TOKEN, "Token " + definition.getName() + " is not used and will be discarded during parsing.", definition);
 			}
 		}
