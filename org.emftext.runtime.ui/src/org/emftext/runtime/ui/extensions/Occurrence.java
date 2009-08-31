@@ -108,6 +108,32 @@ public class Occurrence {
 		}
 		return null;
 	}
+	
+	/**
+	 * @return the eObject at the current cursor position.
+	 */
+	public EObject getEObjectAtCurrentPosition() {
+		StyledText textWidget = projectionViewer.getTextWidget();
+		int caretOffset = textWidget.getCaretOffset();
+		caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
+		ILocationMap locationMap = textResource.getLocationMap();
+		List<EObject> elementsAtOffset = locationMap.getElementsAt(caretOffset);
+
+		if (elementsAtOffset == null || elementsAtOffset.isEmpty()) {
+			return null;
+		}
+		for(EObject cand : elementsAtOffset) {
+			if(cand.eIsProxy()) {
+				cand = getResolvedEObject(cand);
+			}
+			//take an element that is actually contained in a resource
+			//the location map might reference elements that were removed by a post processor
+			if (cand.eResource() != null) {
+				return cand;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Gets the token text at the caret.
@@ -137,6 +163,7 @@ public class Occurrence {
 				.getActivePage().getActiveEditor().isDirty()) {
 			return;
 		}
+
 		StyledText textWidget = projectionViewer.getTextWidget();
 		int caretOffset = textWidget.getCaretOffset();
 		caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
@@ -151,7 +178,6 @@ public class Occurrence {
 			return;
 		}
 		tokenRegion = new Region(-1,0);
-		// TODO jjohannes use this code to determine the EObject at the cursor position
 		ILocationMap locationMap = textResource.getLocationMap();
 		List<EObject> elementsAtOffset = locationMap.getElementsAt(caretOffset);
 

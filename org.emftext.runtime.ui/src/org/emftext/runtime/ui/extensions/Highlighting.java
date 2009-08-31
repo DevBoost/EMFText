@@ -20,11 +20,23 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.extensions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -36,6 +48,7 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
+import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
@@ -48,7 +61,7 @@ import org.emftext.runtime.ui.preferences.PreferenceConstants;
  * @author Tan-Ky Hoang-Kim
  * 
  */
-public class Highlighting {
+public class Highlighting implements ISelectionProvider, ISelectionChangedListener {
 
 	private final static PositionHelper positionHelper = new PositionHelper();
 
@@ -98,7 +111,7 @@ public class Highlighting {
 				caret = textCaret;
 				removeHighlighting();
 				setHighlighting();
-				// TODO jjohannes fire selection event
+				setEObjectSelection();
 			}
 		}
 
@@ -125,8 +138,10 @@ public class Highlighting {
 				caret = textCaret;
 				removeHighlighting();
 				setHighlighting();
+				setEObjectSelection();
 			}
 		}
+
 	}
 
 	/**
@@ -139,9 +154,11 @@ public class Highlighting {
 	 *            documents
 	 * @param colorManager
 	 *            the color manager provides highlighting colors
+	 * @param iPropertySheetPage 
 	 */
 	public Highlighting(ITextResource textResource,
 			ProjectionViewer sourceviewer, ColorManager colorManager) {
+		sourceviewer.getSelectionProvider();
 		preferenceStore = EMFTextRuntimeUIPlugin.getDefault()
 				.getPreferenceStore();
 		textWidget = sourceviewer.getTextWidget();
@@ -298,6 +315,15 @@ public class Highlighting {
 
 		positionHelper.removePositions(document, category);
 	}
+	
+	public void setEObjectSelection() {
+		EObject selectedEObject = occurrence.getEObjectAtCurrentPosition();
+
+		if (selectedEObject != null) {
+			setSelection(new StructuredSelection(selectedEObject));
+		}
+		
+	}
 
 	/**
 	 * Resets the changed values after setting the preference pages.
@@ -342,4 +368,76 @@ public class Highlighting {
 		}
 		return styleRange;
 	}
+	
+	private List<ISelectionChangedListener> selectionChangedListeners = 
+		new ArrayList<ISelectionChangedListener>();
+	
+	private ISelection selection = null;
+
+	public void addSelectionChangedListener(
+			ISelectionChangedListener listener) {
+		selectionChangedListeners.add(listener);
+	}
+
+	public void removeSelectionChangedListener(
+			ISelectionChangedListener listener) {
+		selectionChangedListeners.remove(listener);
+	}
+
+	public void setSelection(ISelection selection) {
+		this.selection = selection;
+		for(ISelectionChangedListener listener : selectionChangedListeners) {
+			listener.selectionChanged(new SelectionChangedEvent(this, selection));
+		}
+	}
+
+	public ISelection getSelection() {
+		return selection;
+	}
+	
+	public void selectionChanged(
+			SelectionChangedEvent event) {
+		
+		Object oldSelection = null;
+		Object newSelection = null;
+		if (getSelection() instanceof IStructuredSelection) {
+			oldSelection = ((IStructuredSelection)getSelection()).getFirstElement();
+		}
+		if (event.getSelection() instanceof IStructuredSelection) {
+			newSelection = ((IStructuredSelection)event.getSelection()).getFirstElement();
+		}	
+		if(newSelection != null && !newSelection.equals(oldSelection)) {
+			selection = event.getSelection();
+			handleContentOutlineSelection(event
+					.getSelection());
+		}
+	}	
+
+	private void handleContentOutlineSelection(ISelection selection) {
+		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
+			Object selectedElement = ((IStructuredSelection) selection)
+					.getFirstElement();
+			if (selectedElement instanceof EObject) {
+				EObject selectedEObject = (EObject) selectedElement;
+				Resource resource = selectedEObject.eResource();
+				if (resource instanceof ITextResource) {
+					ITextResource textResource = (ITextResource) resource;
+					ILocationMap locationMap = textResource.getLocationMap();
+					int elementCharStart = locationMap
+							.getCharStart(selectedEObject);
+					int elementCharEnd = locationMap
+							.getCharEnd(selectedEObject);
+					// selectAndReveal(elementCharStart, elementCharEnd -
+					// elementCharStart + 1);
+					// this.getSelectionProvider().setSelection(selection);
+					TextSelection textEditorSelection = new TextSelection(
+							elementCharStart, elementCharEnd - elementCharStart
+									+ 1);
+					projectionViewer.getSelectionProvider().setSelection(
+							textEditorSelection);
+				}
+			}
+		}
+	}
+
 }
