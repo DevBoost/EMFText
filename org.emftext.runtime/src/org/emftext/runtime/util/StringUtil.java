@@ -213,20 +213,37 @@ public class StringUtil {
 	 */
 	public static String escapeToJavaString(String text) {
 		//for javac: replace one backslash by two and escape double quotes
-		return text.replaceAll("\\\\","\\\\\\\\").replaceAll("\"","\\\\\"");
+		return text.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"");
 	}
 
 	/**
-	 * Escapes the given text such that it can be safely embedded in an
-	 * ANTLR grammar.
+	 * Escapes the given text such that it can be safely embedded in a string
+	 * literal in the Java source code contained in an ANTLR grammar. This 
+	 * method is similar to escapeToJavaString(), but does also convert the 
+	 * percent character to its Unicode representation, because the percent
+	 * character has special meaning in ANTLR grammars.
+	 * 
+	 * Also, single quotes are escaped. God knows why.
 	 * 
 	 * @param text the text to escape
 	 * @return the escaped text
 	 */
-	public static String escapeToANTLRString(String value) {
-	
-		// quotes should not be escaped for AntLR
-		// TODO Mirko and Christian: Check if this adaption was correct
-		return value.replaceAll("\\\\","\\\\\\\\").replaceAll("'", "\\\\'")/*.replaceAll("\"", "\\\\\"")*/;
+	public static String escapeToJavaStringInANTLRGrammar(String text) {
+		// we must use the Unicode representation for the % character, because
+		// StringTemplate does treat % special
+		return StringUtil.escapeToJavaString(text.replaceAll("'", "\\\\'")).replace("%", "\\u0025");
+	}
+
+	/**
+	 * Escapes the given text such that it can be safely embedded in an
+	 * ANTLR grammar as keyword (i.e., an in-line token). Single quotes
+	 * are escaped using a backslash. Backslashes are escaped using a 
+	 * backslash.
+	 * 
+	 * @param text the text to escape
+	 * @return the escaped text
+	 */
+	public static String escapeToANTLRKeyword(String value) {
+		return value.replaceAll("\\\\", "\\\\\\\\").replaceAll("'", "\\\\'");
 	}
 }

@@ -1399,8 +1399,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private int printCsString(CsString csString, Rule rule, StringComposite sc,
 			int count, Map<GenClass, Collection<Terminal>> eClassesReferenced) {
 		final String identifier = "a" + count;
-		String escapedCsString = StringUtil.escapeToANTLRString(csString
-				.getValue());
+		String escapedCsString = StringUtil.escapeToANTLRKeyword(csString.getValue());
 		sc.add(identifier + " = '" + escapedCsString + "' {");
 		// addExpectationCode(sc, csString, identifier);
 		sc.add("if (element == null) {");
@@ -1415,21 +1414,15 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		return ++count;
 	}
 
-	private String getEscapedValue(CsString csString) {
-		return csString.getValue().replaceAll("'", "\\\\'");
-	}
-
 	private void addExpectationCodeForCsString(StringComposite sc, CsString csString,
 			String message, String scopeID, boolean discardFollowingExpectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
 		System.out.println("addExpectationCodeForCsString(" + message + ")");
-		String escapedCsString = getEscapedValue(csString);
-		// we must use the unicode representation for the % character, because
-		// StringTemplate does treat % special
+		String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(csString.getValue());
 		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName()
-				+ "(\"" + getScopeID(csString) + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString.replace("%", "\\u0025") + "\"), \"" + StringUtil.escapeToJavaString(message)+ "\");");
+				+ "(\"" + getScopeID(csString) + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString + "\"), \"" + StringUtil.escapeToJavaStringInANTLRGrammar(message) + "\");");
 	}
 
 	private String getScopeID(EObject object) {
