@@ -60,7 +60,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String OPTIONAL_KEYWORD = "The keyword might be used stand alone .*";
 	private static final String INVALID_WARNING_TYPE = "Invalid warning type found: .*";
 	private static final String START_SYMBOL_IN_ABSTRACT_SYNTAX_FOUND = "Syntax has start symbols (.*), but is declared abstract. Note that these start symbols are thrown away during import.";
-	private static final String COLLECTIN_TOKEN_USED_IN_RULE = "Token.*will not be matched here, since it is a collect-in token.";
+	private static final String COLLECTIN_TOKEN_USED_IN_RULE = "Token.*will never be matched here, since it is a collect-in token.";
 
 	@Before
 	public void setUp() {
