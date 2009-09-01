@@ -15,7 +15,6 @@ import org.emftext.runtime.util.UnicodeConverter;
 import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.QuotedToken;
-import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
 
 import dk.brics.automaton.Automaton;
@@ -24,39 +23,21 @@ import dk.brics.automaton.RegExp;
 public class TokenSorter {
 	private class ComparableTokenDirective implements
 			Comparable<ComparableTokenDirective> {
-		private String regExp;
 		private Automaton automaton;
 		private TokenDirective def;
 
 		public ComparableTokenDirective(String regString, Automaton aut,
 				TokenDirective definition) {
-			regExp = regString;
 			automaton = aut;
 			def = definition;
-		}
-
-		public String getRegExp() {
-			return regExp;
-		}
-
-		public void setRegExp(String regExp) {
-			this.regExp = regExp;
 		}
 
 		public Automaton getAutomaton() {
 			return automaton;
 		}
 
-		public void setAutomaton(Automaton automaton) {
-			this.automaton = automaton;
-		}
-
 		public TokenDirective getDef() {
 			return def;
-		}
-
-		public void setDef(TokenDefinition def) {
-			this.def = def;
 		}
 
 		public int compareTo(ComparableTokenDirective arg0) {
@@ -112,7 +93,6 @@ public class TokenSorter {
 		List<ComparableTokenDirective> compareables = translateToComparables(ds);
 		for (int i = 0; i < compareables.size(); i++) {
 			for (int j = 0; j < i; j++) {
-
 				ComparableTokenDirective ci = compareables.get(i);
 				ComparableTokenDirective cj = compareables.get(j);
 				if (isSubLanguage(ci.getAutomaton(), cj.getAutomaton())) {
