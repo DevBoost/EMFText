@@ -87,6 +87,12 @@ public class SyntaxAnalysisTest extends TestCase {
 	}
 
 	@Test
+	public void testTokenImport() throws FileNotFoundException, IOException {
+		// this is a test for bug 795: Unused token analyser does not handle imported syntax correctly 
+		assertProblems("token_import1.cs", NONE, NONE);
+	}
+	
+	@Test
 	public void testDuplicateTokenStyleDetection() throws FileNotFoundException, IOException {
 		// this is a test for bug 740
 		assertProblems("duplicate_tokenstyle.cs", new String[] {DUPLICATE_TOKENSTYLE_FOUND}, NONE);
