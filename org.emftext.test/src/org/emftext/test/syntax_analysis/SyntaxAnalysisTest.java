@@ -60,6 +60,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String OPTIONAL_KEYWORD = "The keyword might be used stand alone .*";
 	private static final String INVALID_WARNING_TYPE = "Invalid warning type found: .*";
 	private static final String START_SYMBOL_IN_ABSTRACT_SYNTAX_FOUND = "Syntax has start symbols (.*), but is declared abstract. Note that these start symbols are thrown away during import.";
+	private static final String COLLECTIN_TOKEN_USED_IN_RULE = "Token.*will not be matched here, since it is a collect-in token.";
 
 	@Before
 	public void setUp() {
@@ -154,6 +155,12 @@ public class SyntaxAnalysisTest extends TestCase {
 		assertProblems("cardinality5b.cs", new String[] {MIN_OCCURENCES_DO_NOT_MATCH, EXPLICIT_SYNTAX_CHOICE, EXPLICIT_SYNTAX_CHOICE}, NONE);
 	}
 
+	@Test
+	public void testCollectinTokenAnalysis() throws FileNotFoundException, IOException {
+		// this is a test for bug 829: Collect-In tokens should raise a warning if used in CS rules
+		assertProblems("collectin_token1.cs", new String[] {COLLECTIN_TOKEN_USED_IN_RULE}, NONE);
+	}
+	
 	@Test
 	public void testStartSymbolWithoutSyntax() throws FileNotFoundException, IOException {
 		assertProblems("startWithoutSyntax.cs", new String[] {NO_RULE_FOR_META_CLASS}, new String[] {START_SYMBOL_WITHOUT_SYNTAX_FOUND});
