@@ -19,7 +19,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -85,7 +84,7 @@ public class TokenOverlapsTests extends TestCase {
 	public void testSortNoConflict() throws SorterException  {
 		
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs("'a'", "'b'", "'c'");
+		List<TokenDefinition> conflicting = createTokenDefs("'a'", "'b'", "'c'");
 		
 		assertEquals(0, ts.getNonReachables(conflicting).size());
 	
@@ -100,7 +99,7 @@ public class TokenOverlapsTests extends TestCase {
 	public void testSortSameRegexConflict() throws SorterException  {
 		
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs("'a'", "'a'", "'b'");
+		List<TokenDefinition> conflicting = createTokenDefs("'a'", "'a'", "'b'");
 		
 		assertEquals(1, ts.getNonReachables(conflicting).size());
 		assertEquals("'a'", ((NormalToken)ts.getNonReachables(conflicting).get(0)).getRegex());
@@ -117,7 +116,7 @@ public class TokenOverlapsTests extends TestCase {
 	@Test
 	public void testSortIntersectionConflict() throws SorterException {
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs("'a'*", "'a'+", "'b'");
+		List<TokenDefinition> conflicting = createTokenDefs("'a'*", "'a'+", "'b'");
 		
 		assertEquals(1, ts.getNonReachables(conflicting).size());
 		assertEquals(1, ts.getConflicting(conflicting).size());
@@ -131,7 +130,7 @@ public class TokenOverlapsTests extends TestCase {
 	@Test
 	public void testSortIntersectionConflict3() throws SorterException {
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs("'a'*", "", "'b'");
+		List<TokenDefinition> conflicting = createTokenDefs("'a'*", "", "'b'");
 		
 		assertEquals(1, ts.getConflicting(conflicting).size());
 		assertEquals(1, ts.getNonReachables(conflicting).size());
@@ -145,7 +144,7 @@ public class TokenOverlapsTests extends TestCase {
 	@Test
 	public void testBadConflict() throws SorterException {
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs( 
+		List<TokenDefinition> conflicting = createTokenDefs( 
 				"('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' )+",
 				"('\\r\\n' | '\\r' | '\\n')");
 		
@@ -156,7 +155,7 @@ public class TokenOverlapsTests extends TestCase {
 	@Test
 	public void testBadConflict2() throws SorterException {
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs( 
+		List<TokenDefinition> conflicting = createTokenDefs( 
 				"'\u0040'|('\u0040'..'\u0042')",
 				"'7'");
 		
@@ -167,7 +166,7 @@ public class TokenOverlapsTests extends TestCase {
 	@Test
 	public void testSortIntersectionConflict2() throws SorterException {
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs("'1'|'2'", "'2'|'3'", "'b'");
+		List<TokenDefinition> conflicting = createTokenDefs("'1'|'2'", "'2'|'3'", "'b'");
 		
 		assertEquals(0, ts.getNonReachables(conflicting).size());
 		assertEquals(1, ts.getConflicting(conflicting).size());
@@ -180,7 +179,7 @@ public class TokenOverlapsTests extends TestCase {
 	@Test
 	public void testSublanguageConflict() throws SorterException {
 		TokenSorter ts = new TokenSorter();
-		List<TokenDirective> conflicting = createTokenDefs("'a'?", "'a'");
+		List<TokenDefinition> conflicting = createTokenDefs("'a'?", "'a'");
 		
 		assertEquals(1, ts.getNonReachables(conflicting).size());
 		assertEquals(1, ts.getConflicting(conflicting).size());
@@ -189,8 +188,8 @@ public class TokenOverlapsTests extends TestCase {
 		
 	}
 	
-	private List<TokenDirective> createTokenDefs(String... regex) {
-		List<TokenDirective> list = new ArrayList<TokenDirective>();
+	private List<TokenDefinition> createTokenDefs(String... regex) {
+		List<TokenDefinition> list = new ArrayList<TokenDefinition>();
 		ConcretesyntaxFactory factory = ConcretesyntaxFactory.eINSTANCE;
 		
 		for (int i = 0; i < regex.length; i++) {
@@ -207,7 +206,7 @@ public class TokenOverlapsTests extends TestCase {
 		for (String grammar : grammars) {
 			Resource resource = loadResource(grammar);
 			if (resource.getContents().size() > 0) {
-				EList<TokenDirective> allTokenDirectives = ((ConcreteSyntax) resource.getContents().get(0)).getAllTokenDirectives();
+				EList<TokenDefinition> allTokenDirectives = ((ConcreteSyntax) resource.getContents().get(0)).getActiveTokens();
 				//assertTrue("Grammar " + resource.getURI() + " should contain some tokens. " , allTokenDirectives.size() > 0);
 				assertEquals("Grammar " + resource.getURI() + " should contain no non-reachabels.", Collections.EMPTY_LIST, ts.getNonReachables(allTokenDirectives));
 				
