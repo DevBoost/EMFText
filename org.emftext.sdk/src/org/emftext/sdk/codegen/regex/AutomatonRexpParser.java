@@ -3,7 +3,13 @@
 package org.emftext.sdk.codegen.regex; 
 
 
-import org.antlr.runtime.*;
+import org.antlr.runtime.BitSet;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.Parser;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenStream;
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
 Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/

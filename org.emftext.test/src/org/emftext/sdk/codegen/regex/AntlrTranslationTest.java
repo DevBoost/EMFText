@@ -2,17 +2,13 @@ package org.emftext.sdk.codegen.regex;
 
 import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactories;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -75,7 +71,7 @@ public class AntlrTranslationTest extends TestCase {
 				"../../EMFText Languages/org.emftext.language.uml_class/metamodel/uml_class.cs",
 				"../../EMFText Languages/org.emftext.language.usecaseinvariant/metamodel/UseCaseInvariant.cs",
 				"../../EMFText Languages/org.emftext.language.valueflow/metamodel/valueflow.cs",
-				"../../EMFText Languages/org.emftext.language.emfxml/metamodel/xml.cs"};
+				"../../EMFText Languages/org.emftext.language.xml/metamodel/xml.cs"};
 
 	
 
@@ -129,22 +125,17 @@ public class AntlrTranslationTest extends TestCase {
 	
 
 	private void testExp(String exp) throws IOException, RecognitionException {
-		InputStream input = new ByteArrayInputStream(exp.getBytes());
-		ANTLRInputStream inputStream = new ANTLRInputStream(input);
-
-		ANTLRexpLexer lexer = new ANTLRexpLexer(inputStream);
-		CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-
-		ANTLRexpParser parser = new ANTLRexpParser(tokenStream);
-		String arhusStyle = parser.root().toString();
+		String javaStyle = RegexpTranslationHelper.translateAntLRToJavaStyle(exp);
 		System.out.println("\tLoaded: " + exp);
-		System.out.println("\tTranslated: " + arhusStyle);
-		Pattern p = Pattern.compile(arhusStyle);
+		System.out.println("\tTranslated: " + javaStyle);
+		Pattern p = Pattern.compile(javaStyle);
 		System.out.println("\tCompiled: " + p);
 		Matcher matcher = p.matcher("bla");
 		System.out.println("\t\tMatches 'matcherWorks' " + matcher.matches());
 		
 	}
+
+
 	
 	
 	

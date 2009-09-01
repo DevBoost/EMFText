@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.antlr.runtime.ANTLRInputStream;
-import org.antlr.runtime.CommonTokenStream;
 import org.emftext.runtime.util.UnicodeConverter;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 
@@ -183,15 +181,7 @@ public class TokenSorter {
 	 *             occurs if a parser error occurs
 	 */
 	private String parseRegExp(String exp) throws Exception {
-		InputStream input = new ByteArrayInputStream(exp.getBytes());
-		ANTLRInputStream inputStream = new ANTLRInputStream(input);
-
-		AutomatonRexpLexer lexer = new AutomatonRexpLexer(inputStream);
-		CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-
-		AutomatonRexpParser parser = new AutomatonRexpParser(tokenStream);
-		String regex = parser.root().toString();
-
+		String regex = RegexpTranslationHelper.translateAntLRToAutomatonStyle(exp);
 		regex = convertUnicode(regex);
 
 		return regex;

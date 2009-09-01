@@ -4,7 +4,16 @@ package org.emftext.sdk.codegen.regex;
 
 
 
-import org.antlr.runtime.*;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.Lexer;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 
 public class ANTLRexpLexer extends Lexer {
     public static final int T__12=12;

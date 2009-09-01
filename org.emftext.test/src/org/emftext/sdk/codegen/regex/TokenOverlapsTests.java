@@ -74,7 +74,7 @@ public class TokenOverlapsTests extends TestCase {
 				"../../EMFText Languages/org.emftext.language.uml_class/metamodel/uml_class.cs",
 				"../../EMFText Languages/org.emftext.language.usecaseinvariant/metamodel/UseCaseInvariant.cs",
 				"../../EMFText Languages/org.emftext.language.valueflow/metamodel/valueflow.cs",
-				"../../EMFText Languages/org.emftext.language.emfxml/metamodel/xml.cs"};
+				"../../EMFText Languages/org.emftext.language.xml/metamodel/xml.cs"};
 
 	
 

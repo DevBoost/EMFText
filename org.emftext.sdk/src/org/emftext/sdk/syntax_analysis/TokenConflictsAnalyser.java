@@ -1,12 +1,15 @@
 package org.emftext.sdk.syntax_analysis;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.common.util.EList;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.codegen.regex.RegexpTranslationHelper;
 import org.emftext.sdk.codegen.regex.SorterException;
 import org.emftext.sdk.codegen.regex.TokenSorter;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -35,7 +38,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 								+ "' matches the empty string.", tokenDirective);
 			}
 			unreachable = ts.getNonReachables(allTokenDirectives);
-		} catch (SorterException e) {
+		} catch (Exception e) {
 			addProblem(resource, ECsProblemType.TOKEN_CONFLICT,
 					"Error during token conflict analysis. " + e.getMessage(),
 					syntax);
@@ -56,7 +59,7 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 	}
 
 	private List<TokenDefinition> getDirectivesMatchingEmptyString(
-			EList<TokenDefinition> allTokenDirectives) throws SorterException {
+			EList<TokenDefinition> allTokenDirectives) throws SorterException, IOException, RecognitionException {
 		List<TokenDefinition> emptyMatchers = new ArrayList<TokenDefinition>();
 		for (TokenDefinition def : allTokenDirectives) {
 			String regex = null;
@@ -80,6 +83,8 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 						"An undefined token class was found. The unkown type was: "
 								+ def.getClass().getName());
 			}
+			
+			regex = RegexpTranslationHelper.translateAntLRToJavaStyle(regex);
 			if ("".matches(regex)) {
 				emptyMatchers.add(def);
 			}
