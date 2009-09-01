@@ -14,7 +14,6 @@ import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.concretesyntax.TokenDirective;
 import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 
 public class TokenConflictsAnalyser extends AbstractPostProcessor {
@@ -23,17 +22,16 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		TokenSorter ts = new TokenSorter();
 		// List<TokenDirective> conflicting = Collections.EMPTY_LIST;
-		EList<TokenDirective> allTokenDirectives = syntax
-				.getAllTokenDirectives();
+		EList<TokenDefinition> allTokenDirectives = syntax.getActiveTokens();
 
-		List<TokenDirective> unreachable = Collections.emptyList();
+		List<TokenDefinition> unreachable = Collections.emptyList();
 		try {
 			// conflicting = ts.getConflicting(syntax.getAllTokenDirectives());
-			List<TokenDirective> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDirectives);
-			for (TokenDirective tokenDirective : directivesMatchingEmptyString) {
+			List<TokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDirectives);
+			for (TokenDefinition tokenDirective : directivesMatchingEmptyString) {
 				addProblem(resource, ECsProblemType.TOKEN_MATCHES_EMPTY_STRING,
 						"The token definition'"
-								+ printDirective(tokenDirective)
+								+ tokenDirective.getRegex()
 								+ "' matches the empty string.", tokenDirective);
 			}
 			unreachable = ts.getNonReachables(allTokenDirectives);
@@ -42,11 +40,11 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 					"Error during token conflict analysis. " + e.getMessage(),
 					syntax);
 		}
-		for (TokenDirective tokenDirective : unreachable) {
+		for (TokenDefinition tokenDirective : unreachable) {
 			// conflicting.remove(tokenDirective);
 
 			addProblem(resource, ECsProblemType.TOKEN_CONFLICT,
-					"The token definition '" + printDirective(tokenDirective)
+					"The token definition '" + tokenDirective.getRegex()
 							+ "' is not reachable", tokenDirective);
 
 		}
@@ -57,21 +55,10 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 
 	}
 
-	private String printDirective(TokenDirective tokenDirective) {
-		if (tokenDirective instanceof TokenDefinition) {
-			return ((TokenDefinition) tokenDirective).getRegex();
-		} else if (tokenDirective instanceof TokenPriorityDirective) {
-			return ((TokenPriorityDirective) tokenDirective).getToken()
-					.getRegex();
-		} else {
-			return tokenDirective.toString();
-		}
-	}
-
-	private List<TokenDirective> getDirectivesMatchingEmptyString(
-			EList<TokenDirective> allTokenDirectives) throws SorterException {
-		List<TokenDirective> emptyMatchers = new ArrayList<TokenDirective>();
-		for (TokenDirective def : allTokenDirectives) {
+	private List<TokenDefinition> getDirectivesMatchingEmptyString(
+			EList<TokenDefinition> allTokenDirectives) throws SorterException {
+		List<TokenDefinition> emptyMatchers = new ArrayList<TokenDefinition>();
+		for (TokenDefinition def : allTokenDirectives) {
 			String regex = null;
 			if (def instanceof NewDefinedToken) {
 				NewDefinedToken newToken = (NewDefinedToken) def;
@@ -85,6 +72,9 @@ public class TokenConflictsAnalyser extends AbstractPostProcessor {
 				QuotedToken newToken = (QuotedToken) def;
 				regex = newToken.getRegex();
 
+			} else if (def instanceof TokenPriorityDirective) {
+				// ignore priority directives
+				continue;
 			} else {
 				throw new SorterException(
 						"An undefined token class was found. The unkown type was: "

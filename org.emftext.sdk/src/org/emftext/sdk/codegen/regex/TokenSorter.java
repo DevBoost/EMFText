@@ -12,23 +12,19 @@ import java.util.List;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.emftext.runtime.util.UnicodeConverter;
-import org.emftext.sdk.concretesyntax.NewDefinedToken;
-import org.emftext.sdk.concretesyntax.NormalToken;
-import org.emftext.sdk.concretesyntax.QuotedToken;
-import org.emftext.sdk.concretesyntax.TokenDirective;
-import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
+import org.emftext.sdk.concretesyntax.TokenDefinition;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
 
 public class TokenSorter {
-	private class ComparableTokenDirective implements
-			Comparable<ComparableTokenDirective> {
+	private class ComparableTokenDefinition implements
+			Comparable<ComparableTokenDefinition> {
 		private Automaton automaton;
-		private TokenDirective def;
+		private TokenDefinition def;
 
-		public ComparableTokenDirective(String regString, Automaton aut,
-				TokenDirective definition) {
+		public ComparableTokenDefinition(String regString, Automaton aut,
+				TokenDefinition definition) {
 			automaton = aut;
 			def = definition;
 		}
@@ -37,11 +33,11 @@ public class TokenSorter {
 			return automaton;
 		}
 
-		public TokenDirective getDef() {
+		public TokenDefinition getDef() {
 			return def;
 		}
 
-		public int compareTo(ComparableTokenDirective arg0) {
+		public int compareTo(ComparableTokenDefinition arg0) {
 			boolean firstComparison = isSubLanguage(automaton, arg0
 					.getAutomaton());
 			boolean secondComparison = isSubLanguage(arg0.getAutomaton(),
@@ -88,14 +84,14 @@ public class TokenSorter {
 		// return firstLanguage.subsetOf(secondLanguage);
 	}
 
-	public List<TokenDirective> getNonReachables(List<TokenDirective> ds)
+	public List<TokenDefinition> getNonReachables(List<TokenDefinition> ds)
 			throws SorterException {
-		List<TokenDirective> nonReachables = new ArrayList<TokenDirective>();
-		List<ComparableTokenDirective> compareables = translateToComparables(ds);
+		List<TokenDefinition> nonReachables = new ArrayList<TokenDefinition>();
+		List<ComparableTokenDefinition> compareables = translateToComparables(ds);
 		for (int i = 0; i < compareables.size(); i++) {
 			for (int j = 0; j < i; j++) {
-				ComparableTokenDirective ci = compareables.get(i);
-				ComparableTokenDirective cj = compareables.get(j);
+				ComparableTokenDefinition ci = compareables.get(i);
+				ComparableTokenDefinition cj = compareables.get(j);
 				if (isSubLanguage(ci.getAutomaton(), cj.getAutomaton())) {
 					nonReachables.add(ci.getDef());
 				}
@@ -105,15 +101,15 @@ public class TokenSorter {
 		return nonReachables;
 	}
 
-	public List<TokenDirective> getConflicting(List<TokenDirective> ds)
+	public List<TokenDefinition> getConflicting(List<TokenDefinition> ds)
 			throws SorterException {
-		List<TokenDirective> conflicting = new ArrayList<TokenDirective>();
-		List<ComparableTokenDirective> compareables = translateToComparables(ds);
+		List<TokenDefinition> conflicting = new ArrayList<TokenDefinition>();
+		List<ComparableTokenDefinition> compareables = translateToComparables(ds);
 		for (int i = 0; i < compareables.size(); i++) {
 			for (int j = 0; j < i; j++) {
 
-				ComparableTokenDirective ci = compareables.get(i);
-				ComparableTokenDirective cj = compareables.get(j);
+				ComparableTokenDefinition ci = compareables.get(i);
+				ComparableTokenDefinition cj = compareables.get(j);
 				if (doIntersect(ci.getAutomaton(), cj.getAutomaton())) {
 					conflicting.add(ci.getDef());
 				}
@@ -123,19 +119,19 @@ public class TokenSorter {
 		return conflicting;
 	}
 
-	public List<TokenDirective> sortTokens(List<TokenDirective> toSort,
+	public List<TokenDefinition> sortTokens(List<TokenDefinition> toSort,
 			boolean ignoreUnreachables) throws SorterException {
-		List<ComparableTokenDirective> compareables = translateToComparables(toSort);
+		List<ComparableTokenDefinition> compareables = translateToComparables(toSort);
 
 		Collections.sort(compareables);
 		// doSort(compareables);
 
-		List<TokenDirective> resultList = new ArrayList<TokenDirective>();
-		for (ComparableTokenDirective directive : compareables) {
+		List<TokenDefinition> resultList = new ArrayList<TokenDefinition>();
+		for (ComparableTokenDefinition directive : compareables) {
 			resultList.add(directive.getDef());
 		}
 		if (!ignoreUnreachables) {
-			List<TokenDirective> conflicting = getNonReachables(resultList);
+			List<TokenDefinition> conflicting = getNonReachables(resultList);
 			if (conflicting.size() > 0) {
 				throw new SorterException(
 						"Sorting Tokens failed. Grammar contains unreachable tokens",
@@ -145,47 +141,26 @@ public class TokenSorter {
 		return resultList;
 	}
 
-	private List<ComparableTokenDirective> translateToComparables(
-			List<TokenDirective> toSort) throws SorterException {
-		List<ComparableTokenDirective> compareables = new ArrayList<ComparableTokenDirective>();
+	private List<ComparableTokenDefinition> translateToComparables(
+			List<TokenDefinition> toSort) throws SorterException {
+		List<ComparableTokenDefinition> compareables = new ArrayList<ComparableTokenDefinition>();
 
-		for (TokenDirective def : toSort) {
-
-			if (def instanceof NewDefinedToken) {
-				NewDefinedToken newToken = (NewDefinedToken) def;
-				String original = newToken.getRegex();
-				compareables.add(createComparableTokenDirective(original, def));
-			} else if (def instanceof NormalToken) {
-				NormalToken newToken = (NormalToken) def;
-				String original = newToken.getRegex();
-				compareables.add(createComparableTokenDirective(original, def));
-			} else if (def instanceof QuotedToken) {
-				QuotedToken newToken = (QuotedToken) def;
-				String original = newToken.getRegex();
-				compareables.add(createComparableTokenDirective(original, def));
-			} else if (def instanceof TokenPriorityDirective) {
-				TokenPriorityDirective directive = (TokenPriorityDirective) def;
-				String original = directive.getToken().getRegex();
-				compareables.add(createComparableTokenDirective(original, def));
-			} else {
-				throw new SorterException(
-						"An undefined token class was found. Maybe you should adapt the sorter code. The unkown type was: "
-								+ def.getClass().getName());
-			}
-
+		for (TokenDefinition def : toSort) {
+			String original = def.getRegex();
+			compareables.add(createComparableTokenDirective(original, def));
 		}
 		return compareables;
 	}
 
-	private ComparableTokenDirective createComparableTokenDirective(
-			String original, TokenDirective def) throws SorterException {
+	private ComparableTokenDefinition createComparableTokenDirective(
+			String original, TokenDefinition def) throws SorterException {
 		String transformedRegExp = null;
 		try {
 			transformedRegExp = parseRegExp(original);
 			RegExp regExp = new RegExp(transformedRegExp);
 			Automaton automaton = regExp.toAutomaton();
 
-			return new ComparableTokenDirective(transformedRegExp, automaton,
+			return new ComparableTokenDefinition(transformedRegExp, automaton,
 					def);
 		} catch (Exception ex) {
 			ex.printStackTrace();
