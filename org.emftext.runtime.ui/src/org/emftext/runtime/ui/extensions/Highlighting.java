@@ -358,8 +358,13 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	}
 
 	private StyleRange getStyleRangeAtPosition(Position position) {
-		StyleRange styleRange = textWidget
-				.getStyleRangeAtOffset(position.offset);
+		StyleRange styleRange = null;
+		try {
+			styleRange = textWidget
+			.getStyleRangeAtOffset(position.offset);
+		} catch (IllegalArgumentException iae) {
+			// TODO: handle exception
+		}
 		if (styleRange == null) {
 			styleRange = new StyleRange(position.offset, position.length,
 					black, null);
