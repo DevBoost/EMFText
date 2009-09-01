@@ -16,6 +16,7 @@ import org.emftext.sdk.concretesyntax.NewDefinedToken;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDirective;
+import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;
@@ -162,7 +163,10 @@ public class TokenSorter {
 				QuotedToken newToken = (QuotedToken) def;
 				String original = newToken.getRegex();
 				compareables.add(createComparableTokenDirective(original, def));
-
+			} else if (def instanceof TokenPriorityDirective) {
+				TokenPriorityDirective directive = (TokenPriorityDirective) def;
+				String original = directive.getToken().getRegex();
+				compareables.add(createComparableTokenDirective(original, def));
 			} else {
 				throw new SorterException(
 						"An undefined token class was found. Maybe you should adapt the sorter code. The unkown type was: "
@@ -180,7 +184,7 @@ public class TokenSorter {
 			transformedRegExp = parseRegExp(original);
 			RegExp regExp = new RegExp(transformedRegExp);
 			Automaton automaton = regExp.toAutomaton();
-			
+
 			return new ComparableTokenDirective(transformedRegExp, automaton,
 					def);
 		} catch (Exception ex) {
@@ -194,9 +198,8 @@ public class TokenSorter {
 
 	/**
 	 * This method makes a transformation of the regular expression of the
-	 * EMFText to the format of the University of Aarhus automaton
-	 * package. For exmaple: the range operator in EMFText is '..' but in the
-	 * automaton '-'.
+	 * EMFText to the format of the University of Aarhus automaton package. For
+	 * exmaple: the range operator in EMFText is '..' but in the automaton '-'.
 	 * 
 	 * @param exp
 	 *            regular expression to be transformed
@@ -215,7 +218,7 @@ public class TokenSorter {
 		String regex = parser.root().toString();
 
 		regex = convertUnicode(regex);
-		
+
 		return regex;
 	}
 
@@ -244,27 +247,27 @@ public class TokenSorter {
 		return regex;
 	}
 
-//	private List<ComparableTokenDirective> doSort(
-//			List<ComparableTokenDirective> toSorted) {
-//		for (int i = 0; i < toSorted.size(); i++) {
-//			ComparableTokenDirective runHolder = toSorted.get(i);
-//
-//			for (int j = i + 1; j < toSorted.size(); j++) {
-//				ComparableTokenDirective compareHolder = toSorted.get(j);
-//				int compare = runHolder.compareTo(compareHolder);
-//
-//				if (compare > 0) {
-//					ComparableTokenDirective dummy = runHolder;
-//					toSorted.set(i, compareHolder);
-//					toSorted.set(j, dummy);
-//
-//					runHolder = compareHolder;
-//				}
-//
-//			}
-//		}
-//
-//		return toSorted;
-//	}
+	// private List<ComparableTokenDirective> doSort(
+	// List<ComparableTokenDirective> toSorted) {
+	// for (int i = 0; i < toSorted.size(); i++) {
+	// ComparableTokenDirective runHolder = toSorted.get(i);
+	//
+	// for (int j = i + 1; j < toSorted.size(); j++) {
+	// ComparableTokenDirective compareHolder = toSorted.get(j);
+	// int compare = runHolder.compareTo(compareHolder);
+	//
+	// if (compare > 0) {
+	// ComparableTokenDirective dummy = runHolder;
+	// toSorted.set(i, compareHolder);
+	// toSorted.set(j, dummy);
+	//
+	// runHolder = compareHolder;
+	// }
+	//
+	// }
+	// }
+	//
+	// return toSorted;
+	// }
 
 }
