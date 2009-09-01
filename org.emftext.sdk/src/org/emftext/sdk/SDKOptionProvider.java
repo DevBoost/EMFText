@@ -28,6 +28,7 @@ import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.sdk.syntax_analysis.ChoiceAnalyser;
+import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateReferenceAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateRuleAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateTokenNameAnalyser;
@@ -103,6 +104,7 @@ public class SDKOptionProvider implements IOptionProvider {
 		postProcessors.add(new TokenStyleAnalyser());
 		postProcessors.add(new QuotenTokenAnalyser());
 		postProcessors.add(new TokenConflictsAnalyser());
+		postProcessors.add(new CollectInTokenAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		
