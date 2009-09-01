@@ -124,6 +124,8 @@ public class CodeFoldingManager {
 		}
 		projectionAnnotationModel.modifyAnnotations(deletions
 				.toArray(new Annotation[0]), additions, null);
+		deletions.clear();
+		additions.clear();
 	}
 
 	/**
