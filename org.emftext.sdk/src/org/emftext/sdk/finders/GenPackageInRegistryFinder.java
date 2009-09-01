@@ -73,7 +73,13 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
         			}
             	}
 	    	} catch (Exception e ) {
-	    		EMFTextRuntimePlugin.logError("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
+	    		// ignore FileNotFoundException caused by the org.eclipse.m2m.qvt.oml plug-in
+	    		// this plug-in does not contain the generator models it registers
+	    		// this is a workaround for Eclipse Bug 288208
+	    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=288208
+	    		if (!genModelURI.toString().startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml")) {
+		    		EMFTextRuntimePlugin.logError("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
+	    		}
 	    	}
         }
 	}
