@@ -43,44 +43,11 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
 	
 	public void initializeDefaultPreferences() {
-		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
 		
-		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
-        for (ITextResourcePluginMetaInformation extension : extensions) {
-    		String languageId = extension.getSyntaxName();
-            String[] tokenNames = extension.getTokenNames();
-            if (tokenNames == null) {
-            	continue;
-            }
-			for (int i = 0; i < tokenNames.length; i++) {
-				if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
-					continue;
-				}
-				
-				String tokenName = tokenHelper.getTokenName(tokenNames, i);
-				if (tokenName == null) {
-					continue;
-				}
-        		ITokenStyle style = extension.getDefaultTokenStyle(tokenName);
-        		if (style != null) {
-        			String color = getColorString(style.getColorAsRGB());
-                    setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
-        		} else {
-                    setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
-                }
-            }
-			
-			// set default brackets for ITextResource bracket set
-			BracketSet bracketSet = new BracketSet(null, languageId);
-			final Collection<IBracketPair> bracketPairs = extension.getBracketPairs();
-			if (bracketPairs != null) {
-				for (IBracketPair bracketPair : bracketPairs) {
-					bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside());
-				}
-			}
-			store.setDefault(languageId + PreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSet.getBracketString());
-        }   
+		initializeDefaultSyntaxHighlighting();   
+		initializeDefaultBrackets();   
 
+		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
         //Set default value for matching brackets
         store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR, "192,192,192");
         store.setDefault(PreferenceConstants.EDITOR_MATCHING_BRACKETS_CHECKBOX, true);
@@ -91,6 +58,63 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         store.setDefault(PreferenceConstants.EDITOR_PROXY_COLOR, "212,212,212");
         
         //store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_OVERVIEW_RULER, true);
+	}
+
+	private void initializeDefaultBrackets() {
+		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
+
+		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
+        for (ITextResourcePluginMetaInformation extension : extensions) {
+    		initializeDefaultBrackets(store, extension);
+        }
+	}
+
+	public void initializeDefaultSyntaxHighlighting() {
+		IPreferenceStore store = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
+
+		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
+        for (ITextResourcePluginMetaInformation extension : extensions) {
+    		initializeDefaultSyntaxHighlighting(store, extension);
+        }
+	}
+
+	private void initializeDefaultBrackets(IPreferenceStore store,
+			ITextResourcePluginMetaInformation metaInformation) {
+		String languageId = metaInformation.getSyntaxName();
+		// set default brackets for ITextResource bracket set
+		BracketSet bracketSet = new BracketSet(null, languageId);
+		final Collection<IBracketPair> bracketPairs = metaInformation.getBracketPairs();
+		if (bracketPairs != null) {
+			for (IBracketPair bracketPair : bracketPairs) {
+				bracketSet.addBracketPair(bracketPair.getOpeningBracket(), bracketPair.getClosingBracket(), bracketPair.isClosingEnabledInside());
+			}
+		}
+		store.setDefault(languageId + PreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSet.getBracketString());
+	}
+
+	private void initializeDefaultSyntaxHighlighting(IPreferenceStore store, ITextResourcePluginMetaInformation metaInformation) {
+		String languageId = metaInformation.getSyntaxName();
+        String[] tokenNames = metaInformation.getTokenNames();
+        if (tokenNames == null) {
+        	return;
+        }
+		for (int i = 0; i < tokenNames.length; i++) {
+			if (!tokenHelper.canBeUsedForSyntaxColoring(i)) {
+				continue;
+			}
+			
+			String tokenName = tokenHelper.getTokenName(tokenNames, i);
+			if (tokenName == null) {
+				continue;
+			}
+    		ITokenStyle style = metaInformation.getDefaultTokenStyle(tokenName);
+    		if (style != null) {
+    			String color = getColorString(style.getColorAsRGB());
+                setProperties(store, languageId, tokenName, color, style.isBold(), true, style.isItalic(), style.isStrikethrough(), style.isUnderline());
+    		} else {
+                setProperties(store, languageId, tokenName, "0,0,0", false, false, false, false, false);
+            }
+        }
 	}
 
 	private void setProperties(IPreferenceStore store, String languageID,

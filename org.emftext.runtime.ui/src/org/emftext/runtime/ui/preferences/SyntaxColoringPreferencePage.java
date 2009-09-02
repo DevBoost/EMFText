@@ -21,6 +21,7 @@
 package org.emftext.runtime.ui.preferences;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jface.preference.ColorSelector;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -73,7 +75,54 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 	private final static AntlrTokenHelper tokenHelper = new AntlrTokenHelper();
 
 	private static final Map<String, List<HighlightingColorListItem>> content = new HashMap<String, List<HighlightingColorListItem>>();
+	private static final Collection<IChangedPreference> changedPreferences = new ArrayList<IChangedPreference>();
 
+	private interface IChangedPreference {
+		public void apply(IPreferenceStore store);
+	}
+	
+	private abstract static class AbstractChangedPreference implements IChangedPreference {
+		
+		private String key;
+		
+		public AbstractChangedPreference(String key) {
+			super();
+			this.key = key;
+		}
+		
+		public String getKey() {
+			return key;
+		}
+	}
+	
+	private static class ChangedBooleanPreference extends AbstractChangedPreference {
+
+		private boolean newValue;
+		
+		public ChangedBooleanPreference(String key, boolean newValue) {
+			super(key);
+			this.newValue = newValue;
+		}
+
+		public void apply(IPreferenceStore store) {
+			store.setValue(getKey(), newValue);
+		}
+	}
+	
+	private static class ChangedRGBPreference extends AbstractChangedPreference {
+
+		private RGB newValue;
+
+		public ChangedRGBPreference(String key, RGB newValue) {
+			super(key);
+			this.newValue = newValue;
+		}
+
+		public void apply(IPreferenceStore store) {
+			PreferenceConverter.setValue(store, getKey(), newValue);
+		}
+	}
+	
 	/**
 	 * Item in the highlighting color list.
 	 */
@@ -86,17 +135,9 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 		private String fBoldKey;
 		/** Italic preference key */
 		private String fItalicKey;
-		/**
-		 * Strikethrough preference key.
-		 * 
-		 * @since 3.1
-		 */
+		/** Strikethrough preference key. */
 		private String fStrikethroughKey;
-		/**
-		 * Underline preference key.
-		 * 
-		 * @since 3.1
-		 */
+		/** Underline preference key. */
 		private String fUnderlineKey;
 
 		private String fEnableKey;
@@ -138,7 +179,6 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 		/**
 		 * @return the strikethrough preference key
-		 * @since 3.1
 		 */
 		public String getStrikethroughKey() {
 			return fStrikethroughKey;
@@ -146,7 +186,6 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 		/**
 		 * @return the underline preference key
-		 * @since 3.1
 		 */
 		public String getUnderlineKey() {
 			return fUnderlineKey;
@@ -412,9 +451,10 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 			public void widgetSelected(SelectionEvent e) {
 				HighlightingColorListItem item = getHighlightingColorListItem();
-				PreferenceConverter.setValue(getPreferenceStore(), item
+				
+				changedPreferences.add(new ChangedRGBPreference(item
 						.getColorKey(), fSyntaxForegroundColorEditor
-						.getColorValue());
+						.getColorValue()));
 			}
 		});
 
@@ -425,8 +465,8 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 			public void widgetSelected(SelectionEvent e) {
 				HighlightingColorListItem item = getHighlightingColorListItem();
-				getPreferenceStore().setValue(item.getBoldKey(),
-						fBoldCheckBox.getSelection());
+				changedPreferences.add(new ChangedBooleanPreference(item.getBoldKey(),
+						fBoldCheckBox.getSelection()));
 			}
 		});
 
@@ -437,8 +477,8 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 			public void widgetSelected(SelectionEvent e) {
 				HighlightingColorListItem item = getHighlightingColorListItem();
-				getPreferenceStore().setValue(item.getItalicKey(),
-						fItalicCheckBox.getSelection());
+				changedPreferences.add(new ChangedBooleanPreference(item.getItalicKey(),
+						fItalicCheckBox.getSelection()));
 			}
 		});
 		fStrikethroughCheckBox.addSelectionListener(new SelectionListener() {
@@ -448,8 +488,8 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 			public void widgetSelected(SelectionEvent e) {
 				HighlightingColorListItem item = getHighlightingColorListItem();
-				getPreferenceStore().setValue(item.getStrikethroughKey(),
-						fStrikethroughCheckBox.getSelection());
+				changedPreferences.add(new ChangedBooleanPreference(item.getStrikethroughKey(),
+						fStrikethroughCheckBox.getSelection()));
 			}
 		});
 
@@ -460,8 +500,8 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 
 			public void widgetSelected(SelectionEvent e) {
 				HighlightingColorListItem item = getHighlightingColorListItem();
-				getPreferenceStore().setValue(item.getUnderlineKey(),
-						fUnderlineCheckBox.getSelection());
+				changedPreferences.add(new ChangedBooleanPreference(item.getUnderlineKey(),
+						fUnderlineCheckBox.getSelection()));
 			}
 		});
 
@@ -474,7 +514,7 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 				HighlightingColorListItem item = getHighlightingColorListItem();
 
 				boolean enable = fEnableCheckbox.getSelection();
-				getPreferenceStore().setValue(item.getEnableKey(), enable);
+				changedPreferences.add(new ChangedBooleanPreference(item.getEnableKey(), enable));
 				fEnableCheckbox.setSelection(enable);
 				fSyntaxForegroundColorEditor.getButton().setEnabled(enable);
 				fColorEditorLabel.setEnabled(enable);
@@ -615,7 +655,7 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 		if (!super.performOk()) {
 			return false;
 		}
-		updateActiveEditor();
+		performApply();
 		return true;
 	}
 
@@ -623,21 +663,48 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 		if (!super.performCancel()) {
 			return false;
 		}
-		// TODO reset all preferences to the ones that were present when this
-		// preference page was opened
+		// discard all changes that were made
+		changedPreferences.clear();
 		return true;
 	}
 	
 	protected void performApply() {
+		for (IChangedPreference changedPreference : changedPreferences) {
+			changedPreference.apply(getPreferenceStore());
+		}
+		changedPreferences.clear();
 		updateActiveEditor();
 	}
 
 	public void performDefaults() {
 		super.performDefaults();
-		// TODO reset all preferences to their default values using
+
+		IPreferenceStore preferenceStore = getPreferenceStore();
+		// reset all preferences to their default values using
 		// the PreferenceInitializer class
+		for (String languageID : content.keySet()) {
+			List<HighlightingColorListItem> items = content.get(languageID);
+			for (HighlightingColorListItem item : items) {
+				restoreDefaultBooleanValue(preferenceStore, item.getBoldKey());
+				restoreDefaultBooleanValue(preferenceStore, item.getEnableKey());
+				restoreDefaultBooleanValue(preferenceStore, item.getItalicKey());
+				restoreDefaultBooleanValue(preferenceStore, item.getStrikethroughKey());
+				restoreDefaultBooleanValue(preferenceStore, item.getUnderlineKey());
+				restoreDefaultStringValue(preferenceStore, item.getColorKey());
+			}
+		}
 		handleSyntaxColorListSelection();
 		updateActiveEditor();
+	}
+
+	private void restoreDefaultBooleanValue(IPreferenceStore preferenceStore,
+			String key) {
+		preferenceStore.setValue(key, preferenceStore.getDefaultBoolean(key));
+	}
+
+	private void restoreDefaultStringValue(IPreferenceStore preferenceStore,
+			String key) {
+		preferenceStore.setValue(key, preferenceStore.getDefaultString(key));
 	}
 
 	private void updateActiveEditor() {
