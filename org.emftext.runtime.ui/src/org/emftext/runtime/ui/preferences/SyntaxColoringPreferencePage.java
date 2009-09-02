@@ -283,14 +283,6 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 	 */
 	private StructuredViewer fListViewer;
 
-	public void performDefaults() {
-		super.performDefaults();
-
-		handleSyntaxColorListSelection();
-
-		// fPreviewViewer.invalidateTextPresentation();
-	}
-
 	/*
 	 * @see
 	 * org.eclipse.jdt.internal.ui.preferences.IPreferenceConfigurationBlock
@@ -620,13 +612,31 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 	}
 
 	public boolean performOk() {
-		if (!super.performOk())
+		if (!super.performOk()) {
 			return false;
+		}
 		updateActiveEditor();
 		return true;
 	}
 
+	public boolean performCancel() {
+		if (!super.performCancel()) {
+			return false;
+		}
+		// TODO reset all preferences to the ones that were present when this
+		// preference page was opened
+		return true;
+	}
+	
 	protected void performApply() {
+		updateActiveEditor();
+	}
+
+	public void performDefaults() {
+		super.performDefaults();
+		// TODO reset all preferences to their default values using
+		// the PreferenceInitializer class
+		handleSyntaxColorListSelection();
 		updateActiveEditor();
 	}
 
