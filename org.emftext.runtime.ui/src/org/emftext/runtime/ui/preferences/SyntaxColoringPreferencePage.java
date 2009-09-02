@@ -680,8 +680,7 @@ public class SyntaxColoringPreferencePage extends PreferencePage implements
 		super.performDefaults();
 
 		IPreferenceStore preferenceStore = getPreferenceStore();
-		// reset all preferences to their default values using
-		// the PreferenceInitializer class
+		// reset all preferences to their default values
 		for (String languageID : content.keySet()) {
 			List<HighlightingColorListItem> items = content.get(languageID);
 			for (HighlightingColorListItem item : items) {
