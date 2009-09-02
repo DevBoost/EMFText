@@ -8,7 +8,7 @@ OPTIONS {
 }
 
 TOKENS {
-	DEFINE TEXT $('a'..'z')*$;
+	DEFINE TEXT $('a'..'z')+$;
 }
 
 RULES {
