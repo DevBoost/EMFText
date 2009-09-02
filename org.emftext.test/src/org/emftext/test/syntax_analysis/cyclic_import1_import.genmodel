@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.emftext.test/src"
+    modelPluginID="org.emftext.test" modelName="Cyclic_import1_import" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>cyclic_import1_import.ecore</foreignModel>
+  <genPackages prefix="Cyclic_import1_import" disposableProviderFactory="true" ecorePackage="cyclic_import1_import.ecore#/">
+    <genClasses ecoreClass="cyclic_import1_import.ecore#//ClassInImportedPackage"/>
+  </genPackages>
+</genmodel:GenModel>
