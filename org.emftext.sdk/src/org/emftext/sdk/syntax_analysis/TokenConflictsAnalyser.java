@@ -13,78 +13,56 @@ import org.emftext.sdk.codegen.regex.RegexpTranslationHelper;
 import org.emftext.sdk.codegen.regex.SorterException;
 import org.emftext.sdk.codegen.regex.TokenSorter;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.NewDefinedToken;
-import org.emftext.sdk.concretesyntax.NormalToken;
-import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.concretesyntax.TokenPriorityDirective;
 
 public class TokenConflictsAnalyser extends AbstractPostProcessor {
 
 	@Override
 	public void analyse(ITextResource resource, ConcreteSyntax syntax) {
 		TokenSorter ts = new TokenSorter();
-		// List<TokenDirective> conflicting = Collections.EMPTY_LIST;
-		EList<TokenDefinition> allTokenDirectives = syntax.getActiveTokens();
+		List<TokenDefinition> conflicting = Collections.emptyList();
+		EList<TokenDefinition> allTokenDefinitions = syntax.getActiveTokens();
 
 		List<TokenDefinition> unreachable = Collections.emptyList();
 		try {
-			// conflicting = ts.getConflicting(syntax.getAllTokenDirectives());
-			List<TokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDirectives);
+			conflicting = ts.getConflicting(allTokenDefinitions);
+			List<TokenDefinition> directivesMatchingEmptyString = getDirectivesMatchingEmptyString(allTokenDefinitions);
 			for (TokenDefinition tokenDirective : directivesMatchingEmptyString) {
 				addProblem(resource, ECsProblemType.TOKEN_MATCHES_EMPTY_STRING,
-						"The token definition'"
-								+ tokenDirective.getRegex()
+						"The token definition '" + tokenDirective.getRegex()
 								+ "' matches the empty string.", tokenDirective);
 			}
-			unreachable = ts.getNonReachables(allTokenDirectives);
+			unreachable = ts.getNonReachables(allTokenDefinitions);
 		} catch (Exception e) {
-			addProblem(resource, ECsProblemType.TOKEN_CONFLICT,
+			addProblem(resource, ECsProblemType.TOKEN_UNREACHABLE,
 					"Error during token conflict analysis. " + e.getMessage(),
 					syntax);
 		}
 		for (TokenDefinition tokenDirective : unreachable) {
-			// conflicting.remove(tokenDirective);
+			conflicting.remove(tokenDirective);
 
-			addProblem(resource, ECsProblemType.TOKEN_CONFLICT,
+			addProblem(resource, ECsProblemType.TOKEN_UNREACHABLE,
 					"The token definition '" + tokenDirective.getRegex()
 							+ "' is not reachable", tokenDirective);
 
 		}
-		// for (TokenDirective d : conflicting) {
-		// addProblem(resource, ECsProblemType.TOKEN_CONFLICT,
-		// "This token conflicts with a previous token definition.", d);
-		// }
+		for (TokenDefinition tokenDirective : conflicting) {
+			addProblem(resource, ECsProblemType.TOKEN_OVERLAPPING,
+					"The token definition '" + tokenDirective.getRegex()
+							+ "' overlaps with a previous token definition.",
+					tokenDirective);
+		}
 
 	}
 
 	private List<TokenDefinition> getDirectivesMatchingEmptyString(
-			EList<TokenDefinition> allTokenDirectives) throws SorterException, IOException, RecognitionException {
+			EList<TokenDefinition> allTokenDirectives) throws SorterException,
+			IOException, RecognitionException {
 		List<TokenDefinition> emptyMatchers = new ArrayList<TokenDefinition>();
 		for (TokenDefinition def : allTokenDirectives) {
-			String regex = null;
-			if (def instanceof NewDefinedToken) {
-				NewDefinedToken newToken = (NewDefinedToken) def;
-				regex = newToken.getRegex();
 
-			} else if (def instanceof NormalToken) {
-				NormalToken newToken = (NormalToken) def;
-				regex = newToken.getRegex();
-
-			} else if (def instanceof QuotedToken) {
-				QuotedToken newToken = (QuotedToken) def;
-				regex = newToken.getRegex();
-
-			} else if (def instanceof TokenPriorityDirective) {
-				// ignore priority directives
-				continue;
-			} else {
-				throw new SorterException(
-						"An undefined token class was found. The unkown type was: "
-								+ def.getClass().getName());
-			}
-			
-			regex = RegexpTranslationHelper.translateAntLRToJavaStyle(regex);
+			String regex = RegexpTranslationHelper
+					.translateAntLRToJavaStyle(def.getRegex());
 			if ("".matches(regex)) {
 				emptyMatchers.add(def);
 			}

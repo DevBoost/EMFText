@@ -47,6 +47,10 @@ public enum ECsProblemType {
 	UNKNOWN_OPTION(EProblemType.ERROR), 
 	UNUSED_RESOLVER_CLASS(EProblemType.WARNING), 
 	UNUSED_TOKEN(EProblemType.WARNING), 
+	TOKEN_UNREACHABLE(EProblemType.ERROR), 
+	TOKEN_OVERLAPPING(EProblemType.WARNING), 
+	
+
 	;
 
 	private EProblemType problemType;
