@@ -49,6 +49,7 @@ public enum ECsProblemType {
 	UNUSED_TOKEN(EProblemType.WARNING), 
 	TOKEN_UNREACHABLE(EProblemType.ERROR), 
 	TOKEN_OVERLAPPING(EProblemType.WARNING), 
+	CYCLIC_SYNTAX_IMPORT(EProblemType.ERROR), 
 	
 
 	;

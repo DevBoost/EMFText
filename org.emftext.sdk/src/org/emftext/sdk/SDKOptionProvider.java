@@ -29,6 +29,7 @@ import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.sdk.syntax_analysis.ChoiceAnalyser;
 import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
+import org.emftext.sdk.syntax_analysis.CyclicImportAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateReferenceAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateRuleAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateTokenNameAnalyser;
@@ -71,8 +72,10 @@ public class SDKOptionProvider implements IOptionProvider {
 		Map<String, Object> options = new HashMap<String, Object>();
 
 		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
-		// first: check the generator model
+		// first: check the generator model and make sure that there
+		// are not cycles in the imports
 		postProcessors.add(new GenModelAnalyser());
+		postProcessors.add(new CyclicImportAnalyser());
 
 		// second: add implicit information to the resource
 		postProcessors.add(new PredefinedTokenAdder());
