@@ -65,6 +65,7 @@ public class SyntaxExtensionTest extends TestCase {
 	}
 
 	private void checkTokenReference(String filename, int expectedPartsInRuleOne, int expectedNumberOfTokenDefinitions) {
+		System.out.println("checkTokenReference(" + filename + ")");
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_extension" + File.separator;
 		File file = new File(path + filename);
 		

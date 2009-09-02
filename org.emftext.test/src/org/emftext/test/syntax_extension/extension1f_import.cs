@@ -1,4 +1,4 @@
-SYNTAXDEF extension1f
+SYNTAXDEF extension1f_import
 FOR <http://www.emftext.org/test/extension1> <extension1.genmodel>
 START Root
 
