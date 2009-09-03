@@ -134,7 +134,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 			}
 			
 			//String csPackageName = (cSyntax.getPackage().getBasePackage()==null?"":cSyntax.getPackage().getBasePackage()+".")+cSyntax.getPackage().getEcorePackage().getName()+".resource."+cSyntax.getName();
-			List<GenPackage> allGenPackagesWithClassifiers = genModel.getAllGenPackagesWithClassifiers();
+			List<GenPackage> allGenPackagesWithClassifiers = genModel.getAllGenAndUsedGenPackagesWithClassifiers();
 			
 			cSyntax.setPackage(allGenPackagesWithClassifiers.get(0));
 			cSyntax.setName(cSyntax.getPackage().getNSName());
