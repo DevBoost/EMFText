@@ -29,7 +29,10 @@ import java.util.Iterator;
  */
 public class StringUtil {
 
-	 /**
+	public final static String HEX_DIGIT_REGEXP = "[0-9a-fA-F]";
+	public final static String UNICODE_SEQUENCE_REGEXP = "\\A\\\\u" + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP;
+
+	/**
      * Capitalizes the first letter of the given string.
      * 
      * @param text a string.
@@ -244,6 +247,25 @@ public class StringUtil {
 	 * @return the escaped text
 	 */
 	public static String escapeToANTLRKeyword(String value) {
-		return value.replaceAll("\\\\", "\\\\\\\\").replaceAll("'", "\\\\'");
+		String result = value;
+		int index = result.indexOf("\\");
+		while (index >= 0) {
+			String tail = result.substring(index);
+			if (!tail.matches(UNICODE_SEQUENCE_REGEXP)) {
+				// not Unicode - do escape backslash
+				String head = "";
+				if (index > 0) {
+					head = result.substring(0, index - 1);
+				}
+				result = head + "\\" + tail;
+			}
+			index = result.indexOf("\\", index + 2);
+		}
+		result.replaceAll("'", "\\\\'");
+		return result;
+	}
+	
+	public static boolean isUnicodeSequence(String text) {
+		return text.matches(UNICODE_SEQUENCE_REGEXP);
 	}
 }

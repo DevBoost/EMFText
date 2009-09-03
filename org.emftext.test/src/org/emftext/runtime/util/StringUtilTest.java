@@ -3,6 +3,26 @@ package org.emftext.runtime.util;
 import junit.framework.TestCase;
 
 public class StringUtilTest extends TestCase {
+	
+	public void testIsUnicodeSequence() {
+		assertEquals(true, "0".matches(StringUtil.HEX_DIGIT_REGEXP));
+		// check that Unicode sequences are not escaped
+		assertEquals(true, StringUtil.isUnicodeSequence("\\u001a"));
+		assertEquals(false, StringUtil.isUnicodeSequence("\\unknown"));
+		assertEquals(false, StringUtil.isUnicodeSequence("\\u"));
+		assertEquals(false, StringUtil.isUnicodeSequence("prefix\\u001a"));
+	}
+	
+	public void testEscapeToANTLRKeyword() {
+		// check that normal string are not escaped
+		assertEquals("abc", StringUtil.escapeToANTLRKeyword("abc"));
+		// check that Unicode sequences are not escaped
+		assertEquals("\\u001a", StringUtil.escapeToANTLRKeyword("\\u001a"));
+		// check that normal backslashes are escaped
+		assertEquals("\\\\abc", StringUtil.escapeToANTLRKeyword("\\abc"));
+		// check that normal backslashes are escaped
+		assertEquals("\\\\unknown", StringUtil.escapeToANTLRKeyword("\\unknown"));
+	}
 
 	public void testQuoteReplacement() {
 		assertEquals("\\\"", StringUtil.escapeQuotes("\""));
