@@ -114,6 +114,9 @@ public class Occurrence {
 	 */
 	public EObject getEObjectAtCurrentPosition() {
 		StyledText textWidget = projectionViewer.getTextWidget();
+		if (textWidget == null) {
+			return null;
+		}
 		int caretOffset = textWidget.getCaretOffset();
 		caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
 		ILocationMap locationMap = textResource.getLocationMap();
