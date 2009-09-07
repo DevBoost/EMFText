@@ -87,12 +87,14 @@ public class BracketSet {
 	private final class ClosingListener implements VerifyListener,
 			ModifyListener, VerifyKeyListener {
 		private int closingLength = -1;
+		private int addedPosition = -1;
 		private boolean closingAdded = false;
 		private boolean isEmbraced = false;
+		private String closing;
 
 		/**
-		 * Automatic closing will be activated if the text about to insert is a
-		 * bracket, and the next character in TextWidget is not a double quote.
+		 * Automatical closing will be activated if the text about to insert is a
+		 * bracket.
 		 * 
 		 * @see org.eclipse.swt.events.VerifyListener#verifyText(org.eclipse.swt.events.VerifyEvent)
 		 */
@@ -109,9 +111,9 @@ public class BracketSet {
 					return;
 			}
 			closingAdded = true;
-			String close = getCounterpart(e.text);
-			e.text += close;
-			closingLength = close.length();
+			closing = getCounterpart(e.text);
+			e.text += closing;
+			closingLength = closing.length();
 		}
 
 		/**
@@ -127,8 +129,9 @@ public class BracketSet {
 		public void modifyText(ModifyEvent e) {
 			if (closingAdded) {
 				closingAdded = false;
-				textWidget.setCaretOffset(textWidget.getCaretOffset()
-						- closingLength);
+				addedPosition = textWidget.getCaretOffset()
+					- closingLength;
+				textWidget.setCaretOffset(addedPosition);
 				closingLength = -1;
 			}
 			if (isEmbraced) {
@@ -145,6 +148,14 @@ public class BracketSet {
 		 */
 		public void verifyKey(VerifyEvent e) {
 			int caret = textWidget.getCaretOffset();
+			// Discard the closing bracket if there is one
+			if (closing != null && closing.equals("" + e.character) && addedPosition == caret) {
+				e.doit=false;
+				textWidget.setCaretOffset(caret + 1);
+			}
+			closing = null;
+			addedPosition = -1;
+			
 			if (caret == 0 || e.keyCode != SWT.BS
 					|| caret == textWidget.getCharCount()) {
 				return;
