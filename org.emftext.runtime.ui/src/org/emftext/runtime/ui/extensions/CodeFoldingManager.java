@@ -27,6 +27,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,23 +49,26 @@ import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.XMLMemento;
+import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.osgi.framework.Bundle;
 
 /**
  * 
  * This manager adds new ProjectionAnnotation for the code folding and deletes
  * old ProjectionAnnotation with lines < 3. It is needed to hold the toggle
- * states. It provides the ability to restore the toggle states between Eclipse sessions
- * and after closing, opening as well. 
+ * states. It provides the ability to restore the toggle states between Eclipse
+ * sessions and after closing, opening as well.
  * 
  * @author Hoang-Kim, Tan-Ky
  */
 public class CodeFoldingManager {
 
-	static final String CODE_FOLDING_STATE_FILENAME = "_foldingState.xml";
 	static final String PLUGIN_ID = "org.emftext.runtime.ui";
-	static final String TIME_STAMP = "time_stamp";
+	static final String VERIFY_KEY = "verify_key";
 
 	protected List<Annotation> oldAnnotations = new ArrayList<Annotation>();
 	protected List<Annotation> deletions = new ArrayList<Annotation>();
@@ -71,6 +76,7 @@ public class CodeFoldingManager {
 
 	protected ProjectionAnnotationModel projectionAnnotationModel;
 	protected ProjectionViewer sourceViewer;
+	protected EMFTextEditor emfTextEditor;
 
 	/**
 	 * Creates a code folding manager to handle the
@@ -78,11 +84,76 @@ public class CodeFoldingManager {
 	 * 
 	 * @param sourceViewer
 	 *            the source viewer to calculate the element lines
+	 * @param emfTextEditor
 	 */
-	public CodeFoldingManager(ProjectionViewer sourceViewer) {
+	public CodeFoldingManager(ProjectionViewer sourceViewer,
+			EMFTextEditor emfTextEditor) {
 		this.projectionAnnotationModel = sourceViewer
 				.getProjectionAnnotationModel();
 		this.sourceViewer = sourceViewer;
+		this.emfTextEditor = emfTextEditor;
+		addCloseListener(emfTextEditor);
+	}
+
+	private class EditorOnCloseListener implements IPartListener2 {
+
+		private String uri;
+
+		public EditorOnCloseListener(String uri) {
+			this.uri = uri;
+		}
+
+		@Override
+		public void partActivated(IWorkbenchPartReference partRef) {
+		}
+
+		@Override
+		public void partBroughtToTop(IWorkbenchPartReference partRef) {
+		}
+
+		@Override
+		public void partClosed(IWorkbenchPartReference partRef) {
+			if (partRef.isDirty())
+				return;
+			IWorkbenchPart workbenchPart = partRef.getPart(false);
+			if (workbenchPart instanceof EMFTextEditor) {
+
+				EMFTextEditor editor = (EMFTextEditor) workbenchPart;
+				String uri = editor.getResource().getURI().toString();
+				if (uri.equals(this.uri)) {
+					saveCodeFoldingStateFile(uri);
+					editor.getSite().getPage().removePartListener(this);
+				}
+			}
+
+		}
+
+		@Override
+		public void partDeactivated(IWorkbenchPartReference partRef) {
+		}
+
+		@Override
+		public void partHidden(IWorkbenchPartReference partRef) {
+		}
+
+		@Override
+		public void partInputChanged(IWorkbenchPartReference partRef) {
+		}
+
+		@Override
+		public void partOpened(IWorkbenchPartReference partRef) {
+		}
+
+		@Override
+		public void partVisible(IWorkbenchPartReference partRef) {
+		}
+
+	}
+
+	private void addCloseListener(final EMFTextEditor emfTextEditor) {
+		String uri = emfTextEditor.getResource().getURI().toString();
+		emfTextEditor.getSite().getPage().addPartListener(
+				new EditorOnCloseListener(uri));
 	}
 
 	/**
@@ -95,6 +166,8 @@ public class CodeFoldingManager {
 	 */
 	public void updateCodefolding(List<Position> positions) {
 		IDocument document = sourceViewer.getDocument();
+		if (document == null)
+			return;
 		// Add new Position with a unique line offset
 		oldAnnotations = new ArrayList<Annotation>();
 		for (Iterator<?> annotationsIterator = projectionAnnotationModel
@@ -107,7 +180,7 @@ public class CodeFoldingManager {
 				addPosition(position);
 			}
 		}
-		// Delete old Position with line count < 3. 
+		// Delete old Position with line count < 3.
 		for (Annotation oldAnnotation : oldAnnotations) {
 			Position modelPosition = projectionAnnotationModel
 					.getPosition(oldAnnotation);
@@ -311,9 +384,8 @@ public class CodeFoldingManager {
 	 * @return <code>true</code> if restore successful
 	 */
 	public boolean restoreCodeFoldingStateFromFile(
-			final IMemento mementoToRestoreCodeFolding, String key,
-			long timeStamp) {
-		final File stateFile = getCodeFoldingStateFile(key);
+			final IMemento mementoToRestoreCodeFolding, String uriString) {
+		final File stateFile = getCodeFoldingStateFile(uriString);
 		if (stateFile == null || !stateFile.exists())
 			return false;
 		SafeRunner.run(new SafeRunnable(
@@ -327,8 +399,9 @@ public class CodeFoldingManager {
 				reader.close();
 			}
 		});
-		String timeString = "" + timeStamp;
-		if (!mementoToRestoreCodeFolding.getString(TIME_STAMP).equals(timeString))
+		String sourceText = sourceViewer.getDocument().get();
+		if (!mementoToRestoreCodeFolding.getString(VERIFY_KEY).equals(
+				makeMD5(sourceText)))
 			return false;
 		return true;
 	}
@@ -341,14 +414,14 @@ public class CodeFoldingManager {
 	 * @param timeStamp
 	 *            the time stamp of the last saving
 	 */
-	public void saveCodeFoldingStateFile(String key, long timeStamp) {
+	public void saveCodeFoldingStateFile(String uriString) {
 		XMLMemento codeFoldingMemento = XMLMemento
 				.createWriteRoot(ExtensionConstants.CodeFolding.MODEL
 						.toString());
-		String timeString = "" + timeStamp;
-		codeFoldingMemento.putString(TIME_STAMP, timeString);
+		String sourceText = sourceViewer.getDocument().get();
+		codeFoldingMemento.putString(VERIFY_KEY, makeMD5(sourceText));
 		saveCodeFolding(codeFoldingMemento);
-		File stateFile = getCodeFoldingStateFile(key);
+		File stateFile = getCodeFoldingStateFile(uriString);
 		if (stateFile == null)
 			return;
 		try {
@@ -364,13 +437,46 @@ public class CodeFoldingManager {
 		}
 	}
 
-	private File getCodeFoldingStateFile(String key) {
-		key = key.replaceAll("/", "%");
+	private File getCodeFoldingStateFile(String uriString) {
 		Bundle bundle = Platform.getBundle(PLUGIN_ID);
 		IPath path = Platform.getStateLocation(bundle);
 		if (path == null)
 			return null;
-		path = path.append(key + CODE_FOLDING_STATE_FILENAME);
+		path = path.append(makeMD5(uriString) + ".xml");
 		return path.toFile();
+	}
+
+	private String makeMD5(String text) {
+		MessageDigest md = null;
+		byte[] encryptMsg = null;
+		try {
+			md = MessageDigest.getInstance("MD5");
+			encryptMsg = md.digest(text.getBytes());
+		} catch (NoSuchAlgorithmException e) {
+			System.out.println("No Such Algorithm Exception!");
+		}
+		String swap = "";
+		String byteStr = "";
+		StringBuffer strBuf = new StringBuffer();
+		for (int i = 0; i <= encryptMsg.length - 1; i++) {
+			byteStr = Integer.toHexString(encryptMsg[i]);
+			switch (byteStr.length()) {
+			case 1:
+				// if hex-number length is 1, add a '0' before
+				swap = "0" + Integer.toHexString(encryptMsg[i]);
+				break;
+			case 2:
+				// correct hex-letter
+				swap = Integer.toHexString(encryptMsg[i]);
+				break;
+			case 8:
+				// get the correct substring
+				swap = (Integer.toHexString(encryptMsg[i])).substring(6, 8);
+				break;
+			}
+			strBuf.append(swap);
+			// appending swap to get complete hash-key
+		}
+		return strBuf.toString();
 	}
 }

@@ -172,15 +172,17 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			this.enabled = enabled;
 		}
 	}
-	
+
 	/**
-	 * Reacts to changes of the text resource displayed in the editor and resources cross-referenced
-	 * by it. Cross-referenced resources are unloaded, the displayed resource is reloaded. An attempt 
-	 * to resolve all proxies in the displayed resource is made after each change.
+	 * Reacts to changes of the text resource displayed in the editor and
+	 * resources cross-referenced by it. Cross-referenced resources are
+	 * unloaded, the displayed resource is reloaded. An attempt to resolve all
+	 * proxies in the displayed resource is made after each change.
 	 * <p>
 	 * The code pretty much corresponds to what EMF generates for a tree editor
 	 */
-	private final class ModelResourceChangeListener implements IResourceChangeListener {
+	private final class ModelResourceChangeListener implements
+			IResourceChangeListener {
 		public void resourceChanged(IResourceChangeEvent event) {
 			IResourceDelta delta = event.getDelta();
 			try {
@@ -200,13 +202,16 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 								if (changedResource != null) {
 									markerAdapter.setEnabled(false);
 									changedResource.unload();
-									if (changedResource.equals(resource)) {	
-										//reload the resource displayed in the editor									
-										resourceSet.getResource(resource.getURI(),true);
+									if (changedResource.equals(resource)) {
+										// reload the resource displayed in the
+										// editor
+										resourceSet.getResource(resource
+												.getURI(), true);
 									}
 									EcoreUtil.resolveAll(resource);
 									markerAdapter.setEnabled(true);
-									//reset the selected element in outline and properties by text position
+									// reset the selected element in outline and
+									// properties by text position
 									highlighting.setEObjectSelection();
 								}
 							}
@@ -233,7 +238,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	private ITextResource resourceCopy;
 
 	private MarkerAdapter markerAdapter = new MarkerAdapter();
-	
+
 	private IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
 
 	private EMFTextPropertySheetPage propertySheetPage;
@@ -266,27 +271,26 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-		
+
 		// Code Folding
 		ProjectionViewer viewer = (ProjectionViewer) getSourceViewer();
 		// Occurrence initiation, need ITextResource and ISourceViewer.
 		highlighting = new Highlighting(resource, viewer, colorManager);
-		
+
 		projectionSupport = new ProjectionSupport(viewer,
 				getAnnotationAccess(), getSharedColors());
 		projectionSupport.install();
 
 		// turn projection mode on
 		viewer.doOperation(ProjectionViewer.TOGGLE);
-		codeFoldingManager = new CodeFoldingManager(viewer);
+		codeFoldingManager = new CodeFoldingManager(viewer, this);
 		// restore folding state from last session or last saving
 		if (mementoToRestoreCodeFolding == null) {
 			mementoToRestoreCodeFolding = XMLMemento
 					.createWriteRoot(ExtensionConstants.CodeFolding.MODEL
 							.toString());
 			if (!codeFoldingManager.restoreCodeFoldingStateFromFile(
-					mementoToRestoreCodeFolding, this.getEditorInput()
-							.getToolTipText(), resource.getTimeStamp()))
+					mementoToRestoreCodeFolding, resource.getURI().toString()))
 				mementoToRestoreCodeFolding = null;
 		}
 		codeFoldingManager.restoreCodeFolding(mementoToRestoreCodeFolding);
@@ -352,22 +356,23 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			IProgressMonitor progressMonitor) {
 
 		super.performSave(overwrite, progressMonitor);
-		//update markers after the resource has been reloaded
+		// update markers after the resource has been reloaded
 		try {
 			MarkerHelper.unmark(resource);
 			MarkerHelper.mark(resource);
 		} catch (CoreException e) {
-			EMFTextRuntimePlugin.logError("Exception while updating markers on resource", e);
+			EMFTextRuntimePlugin.logError(
+					"Exception while updating markers on resource", e);
 		}
-		
+
 		// TODO perform update code folding on save to test because of the
 		// TextResource bug
 		// To remove after activating background parsing
 		getSourceViewerConfiguration().getReconciler(getSourceViewer())
 				.install(getSourceViewer());
 		// Save code folding state
-		codeFoldingManager.saveCodeFoldingStateFile(this.getEditorInput()
-				.getToolTipText(), resource.getTimeStamp());
+		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI()
+				.toString());
 
 	}
 
@@ -418,8 +423,8 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			e.printStackTrace();
 		}
 		// Save code folding state, is it possible with a new name
-		codeFoldingManager.saveCodeFoldingStateFile(this.getEditorInput()
-				.getToolTipText(), resource.getTimeStamp());
+		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI()
+				.toString());
 	}
 
 	public ResourceSet getResourceSet() {
@@ -451,26 +456,36 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		}
 		return emfTextEditorOutlinePage;
 	}
-	
+
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
 			propertySheetPage = new EMFTextPropertySheetPage();
-			//add a slightly modified adapter factory that does not return any editors for properties
-			//this way, a model can never be modified through the properties view 
-			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory) {
-				protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
-					return new PropertySource(object, itemPropertySource) {
-						protected IPropertyDescriptor createPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
-							return new PropertyDescriptor(object, itemPropertyDescriptor) {
-								  public CellEditor createPropertyEditor(Composite composite) {
-									  return null;
-								  }
+			// add a slightly modified adapter factory that does not return any
+			// editors for properties
+			// this way, a model can never be modified through the properties
+			// view
+			propertySheetPage
+					.setPropertySourceProvider(new AdapterFactoryContentProvider(
+							adapterFactory) {
+						protected IPropertySource createPropertySource(
+								Object object,
+								IItemPropertySource itemPropertySource) {
+							return new PropertySource(object,
+									itemPropertySource) {
+								protected IPropertyDescriptor createPropertyDescriptor(
+										IItemPropertyDescriptor itemPropertyDescriptor) {
+									return new PropertyDescriptor(object,
+											itemPropertyDescriptor) {
+										public CellEditor createPropertyEditor(
+												Composite composite) {
+											return null;
+										}
+									};
+								}
 							};
 						}
-					};
-				}
-				
-			});
+
+					});
 			highlighting.addSelectionChangedListener(propertySheetPage);
 		}
 		return propertySheetPage;
