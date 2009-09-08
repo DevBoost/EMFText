@@ -353,6 +353,8 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		// TODO hoang-kim: Remove after activating background parsing
 		// The background parsing is active now, but I'm not sure what to
 		// remove here
+		// TODO mseifert: just the next line, this method should be called automatically
+		// from the reconciler and not in Save
 		getSourceViewerConfiguration().getReconciler(getSourceViewer())
 				.install(getSourceViewer());
 		// Save code folding state
