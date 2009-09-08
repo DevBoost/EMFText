@@ -36,7 +36,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -304,7 +303,7 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 			}
 		}
 
-		if (isOccurrence)
+		if (isOccurrence) {
 			for (Position position : positions) {
 				Position tmpPosition = convertToWidgedPosition(position);
 				if (tmpPosition != null) {
@@ -312,6 +311,7 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 					textWidget.setStyleRange(lastStyleRange);
 				}
 			}
+		}
 
 		positionHelper.removePositions(document, category);
 	}
@@ -320,9 +320,8 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 		EObject selectedEObject = occurrence.getEObjectAtCurrentPosition();
 
 		if (selectedEObject != null) {
-			setSelection(new StructuredSelection(selectedEObject));
+			setSelection(new EObjectSelection(selectedEObject, false));
 		}
-		
 	}
 
 	/**
@@ -411,12 +410,11 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 		if (event.getSelection() instanceof IStructuredSelection) {
 			newSelection = ((IStructuredSelection)event.getSelection()).getFirstElement();
 		}	
-		if(newSelection != null && !newSelection.equals(oldSelection)) {
+		if (newSelection != null && !newSelection.equals(oldSelection)) {
 			selection = event.getSelection();
-			handleContentOutlineSelection(event
-					.getSelection());
+			handleContentOutlineSelection(event.getSelection());
 		}
-	}	
+	}
 
 	private void handleContentOutlineSelection(ISelection selection) {
 		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {

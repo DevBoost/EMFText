@@ -21,6 +21,7 @@
 package org.emftext.runtime.ui.editor.bg_parsing;
 
 import org.eclipse.jface.text.DocumentEvent;
+import org.emftext.runtime.resource.ITextResource;
 
 /**
  * A simple parsing strategy that never triggers background parsing.
@@ -31,4 +32,7 @@ public class NoBackgroundParsingStrategy implements IBackgroundParsingStrategy {
 		return false;
 	}
 
+	public void parse(DocumentEvent event, ITextResource resourceCopy) {
+		// do nothing
+	}
 }

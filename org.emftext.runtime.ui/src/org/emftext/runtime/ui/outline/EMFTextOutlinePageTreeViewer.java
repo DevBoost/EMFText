@@ -26,6 +26,7 @@ package org.emftext.runtime.ui.outline;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
+import org.emftext.runtime.ui.extensions.EObjectSelection;
 
 /**
  * This custom implementation of a TreeViewer expands the tree
@@ -39,7 +40,9 @@ final class EMFTextOutlinePageTreeViewer extends TreeViewer {
 
 	@Override
 	public void setSelection(ISelection selection, boolean reveal) {
-		super.setSelection(selection, reveal);
+		if (selection instanceof EObjectSelection) {
+			super.setSelection(selection, reveal);
+		}
 	}
 
 	@Override

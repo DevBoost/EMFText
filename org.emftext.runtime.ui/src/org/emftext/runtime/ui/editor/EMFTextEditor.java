@@ -20,8 +20,6 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.editor;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -42,7 +40,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -90,10 +87,10 @@ import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.MarkerHelper;
+import org.emftext.runtime.ui.editor.bg_parsing.DelayedBackgroundParsingListener;
+import org.emftext.runtime.ui.editor.bg_parsing.DelayedBackgroundParsingStrategy;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
-import org.emftext.runtime.ui.editor.bg_parsing.NoBackgroundParsingListener;
-import org.emftext.runtime.ui.editor.bg_parsing.NoBackgroundParsingStrategy;
 import org.emftext.runtime.ui.extensions.CodeFoldingManager;
 import org.emftext.runtime.ui.extensions.ExtensionConstants;
 import org.emftext.runtime.ui.extensions.Highlighting;
@@ -111,8 +108,8 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	private CodeFoldingManager codeFoldingManager;
 	private IMemento mementoToRestoreCodeFolding;
 
-	private IBackgroundParsingStrategy bgParsingStrategy = new NoBackgroundParsingStrategy();
-	private IBackgroundParsingListener bgParsingListener = new NoBackgroundParsingListener();
+	private IBackgroundParsingStrategy bgParsingStrategy = new DelayedBackgroundParsingStrategy();
+	private IBackgroundParsingListener bgParsingListener = new DelayedBackgroundParsingListener();
 
 	/**
 	 * A custom document listener that triggers background parsing if needed.
@@ -126,19 +123,8 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			if (!bgParsingStrategy.isParsingRequired(event)) {
 				return;
 			}
-			parseNewContents(event);
-			bgParsingListener.parsingCompleted(resourceCopy);
-		}
-
-		private void parseNewContents(DocumentEvent event) {
-			String contents = event.getDocument().get();
-			try {
-				resourceCopy.unload();
-				resourceCopy.load(
-						new ByteArrayInputStream(contents.getBytes()), null);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			bgParsingStrategy.parse(event, resource);
+			bgParsingListener.parsingCompleted(resource);
 		}
 	}
 
@@ -235,8 +221,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 	private ITextResource resource;
 
-	private ITextResource resourceCopy;
-
 	private MarkerAdapter markerAdapter = new MarkerAdapter();
 
 	private IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
@@ -319,16 +303,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 				Resource loadedResource = editingDomain.getResourceSet()
 						.getResource(uri, true);
 				if (loadedResource instanceof ITextResource) {
-					resource = (ITextResource) loadedResource;
-					EcoreUtil.resolveAll(resource);
-					Resource newResource = new ResourceSetImpl()
-							.createResource(uri);
-					if (newResource instanceof ITextResource) {
-						resourceCopy = (ITextResource) newResource;
-					}
-					MarkerHelper.unmark(resource);
-					MarkerHelper.mark(resource);
-					resource.eAdapters().add(markerAdapter);
+					setResource(loadedResource);
 				} else {
 					// the resource was not loaded by an EMFText resource, but
 					// some other EMF resource
@@ -343,6 +318,14 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 								+ EMFTextEditor.class.getSimpleName() + ".", e);
 			}
 		}
+	}
+
+	public void setResource(Resource loadedResource) throws CoreException {
+		resource = (ITextResource) loadedResource;
+		EcoreUtil.resolveAll(resource);
+		MarkerHelper.unmark(resource);
+		MarkerHelper.mark(resource);
+		resource.eAdapters().add(markerAdapter);
 	}
 
 	@Override

@@ -165,7 +165,7 @@ public class EMFTextOutlinePage extends Page implements ISelectionProvider,
 	 * notification that the tree selection has changed.
 	 */
 	public void selectionChanged(SelectionChangedEvent event) {
-		if(getTreeViewer() != null) {
+		if (getTreeViewer() != null) {
 			getTreeViewer().setSelection(event.getSelection(), true);
 		}
 	}
