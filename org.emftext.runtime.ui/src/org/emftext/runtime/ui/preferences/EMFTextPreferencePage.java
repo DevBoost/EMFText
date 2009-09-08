@@ -39,8 +39,8 @@ import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 // site
 /**
  * The root preference page for EMFText.
+ * 
  * @author Tan-Ky Hoang-Kim
- *
  */
 public class EMFTextPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage{

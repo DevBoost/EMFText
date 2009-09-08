@@ -101,16 +101,6 @@ public class BracketPreferencePage extends PreferencePage implements
 		for (ITextResourcePluginMetaInformation metaInformation : EMFTextRuntimePlugin
 				.getConcreteSyntaxRegistry()) {
 			String languageId = metaInformation.getSyntaxName();
-			/*
-			 * java.util.List<String> terminals = new ArrayList<String>();
-			 * String[] tokenNames = metaInformation.getTokenNames(); String
-			 * bracket; for (String tokenName : tokenNames) { // TODO this is
-			 * ANTLR specific if (tokenName.length() == 3 &&
-			 * tokenName.startsWith("'") && tokenName.endsWith("'")) { bracket =
-			 * tokenName.substring(1, tokenName.length() - 1).trim();
-			 * terminals.add(bracket); } } terminals.add("\"");
-			 * terminals.add("\'");
-			 */
 			languageIDs.add(languageId);
 		}
 	}

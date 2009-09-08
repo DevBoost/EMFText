@@ -25,7 +25,6 @@ public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrat
 		}
 	}
 
-	// TODO interface instead of class EMFTextEditor
 	public void parse(DocumentEvent event, final ITextResource resource) {
 		final String contents = event.getDocument().get();
 

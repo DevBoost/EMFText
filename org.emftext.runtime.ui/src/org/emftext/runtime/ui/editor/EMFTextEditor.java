@@ -350,7 +350,9 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 		// TODO perform update code folding on save to test because of the
 		// TextResource bug
-		// To remove after activating background parsing
+		// TODO hoang-kim: Remove after activating background parsing
+		// The background parsing is active now, but I'm not sure what to
+		// remove here
 		getSourceViewerConfiguration().getReconciler(getSourceViewer())
 				.install(getSourceViewer());
 		// Save code folding state
