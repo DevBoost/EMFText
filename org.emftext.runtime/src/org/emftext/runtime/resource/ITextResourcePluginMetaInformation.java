@@ -21,7 +21,10 @@ public interface ITextResourcePluginMetaInformation {
 	 */
 	public String getSyntaxName();
 	
-	// TODO add documentation
+	/**
+	 * Returns the relative path to the .cs file within the plug-in.
+	 * @return
+	 */
 	public String getPathToCSDefinition();
 	
 	/**
@@ -77,7 +80,11 @@ public interface ITextResourcePluginMetaInformation {
 	 */
 	public ITokenStyle getDefaultTokenStyle(String tokenName);
 	
-	// TODO add documentation
+	/**
+	 * Returns the default bracket pairs.
+	 * 
+	 * @return
+	 */
 	public Collection<IBracketPair> getBracketPairs();
 
 	/**
