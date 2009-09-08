@@ -401,17 +401,17 @@ public class CodeFoldingManager {
 	/**
 	 * Saves the code folding state to a XML file in the state location.
 	 * 
-	 * @param key
-	 *            the key to determine the file
-	 * @param timeStamp
-	 *            the time stamp of the last saving
+	 * @param uriString
+	 *            the key to determine the file name to save
 	 */
 	public void saveCodeFoldingStateFile(String uriString) {
+		IDocument document = sourceViewer.getDocument();
+		if (document == null)
+			return;
 		XMLMemento codeFoldingMemento = XMLMemento
 				.createWriteRoot(ExtensionConstants.CodeFolding.MODEL
 						.toString());
-		String sourceText = sourceViewer.getDocument().get();
-		codeFoldingMemento.putString(VERIFY_KEY, makeMD5(sourceText));
+		codeFoldingMemento.putString(VERIFY_KEY, makeMD5(document.get()));
 		saveCodeFolding(codeFoldingMemento);
 		File stateFile = getCodeFoldingStateFile(uriString);
 		if (stateFile == null)
