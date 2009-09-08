@@ -78,14 +78,6 @@ public class ReconcilingStrategy implements IReconcilingStrategy,
 	}
 
 	public void initialReconcile() {
-		// TODO Because of the inconsistency between ITextResource and dirty
-		// editor, this Strategy can't work.
-		// We need an ITextResource with ILocationMap of this "dirty"
-		// ITextResource.
-		// TODO remove this once the background parsing is activated
-		if (editor.isDirty()) {
-			return;
-		}
 		positions.clear();
 		if (textResource == null) {
 			textResource = (ITextResource) editor.getResource();

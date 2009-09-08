@@ -31,7 +31,6 @@ import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.ui.PlatformUI;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextTokenScanner;
@@ -39,10 +38,9 @@ import org.emftext.runtime.ui.EMFTextTokenScanner;
 /**
  * This class finds the positions to highlight and adds them to the document.
  * 
- * @see Position
  * @see IDocument
- * @author Tan-Ky Hoang-Kim
  * 
+ * @author Tan-Ky Hoang-Kim
  */
 public class Occurrence {
 
@@ -161,12 +159,6 @@ public class Occurrence {
 	 *            the set of brackets which have to be ignored.
 	 */
 	public void handleOccurrenceHighlighting(BracketSet bracketSet) {
-		// TODO remove this once the background parsing is active
-		if (PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage().getActiveEditor().isDirty()) {
-			return;
-		}
-
 		StyledText textWidget = projectionViewer.getTextWidget();
 		int caretOffset = textWidget.getCaretOffset();
 		caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);

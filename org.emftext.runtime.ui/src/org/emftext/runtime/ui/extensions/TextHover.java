@@ -312,10 +312,6 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	}
 
 	public Object getHoverInfo2(ITextViewer textViewer, IRegion hoverRegion) {
-		// TODO remove this once the background parsing is active
-		if (editor.isDirty()) {
-			return null;
-		}
 		return hoverTextProvider == null ? null : internalGetHoverInfo(
 				textViewer, hoverRegion);
 	}
