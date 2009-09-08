@@ -32,7 +32,7 @@ import org.emftext.runtime.InputStreamProcessor;
  * is replaced by the respective UTF-8 byte sequence (1 to 4 
  * bytes).
  * 
- * TODO @mseifert: information about replaced sequences must be 
+ * TODO mseifert: information about replaced sequences must be 
  * passed to the LocationMap or parser to make sure that the 
  * positions of elements found in the stream are correct.
  */
