@@ -73,7 +73,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     	StringComposite sc = new JavaComposite();
         sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
-        // TODO extend AbstractReferenceResolverSwitch instead
+        // TODO EMFTEXT_1.2.0 extend AbstractReferenceResolverSwitch instead
 		sc.add("public class " + getResourceClassName() + " implements " + I_REFERENCE_RESOLVER_SWITCH + " {");
         sc.addLineBreak();
 		

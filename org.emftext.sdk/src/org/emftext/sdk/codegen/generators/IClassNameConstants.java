@@ -100,7 +100,7 @@ import org.emftext.runtime.util.StringUtil;
 /**
  * Constants for class names used in the generated code.
  * 
- * TODO find all other occurrences of class name in the generator package
+ * TODO find all other occurrences of class names in the generator package
  * and use constants instead. 
  */
 public interface IClassNameConstants {

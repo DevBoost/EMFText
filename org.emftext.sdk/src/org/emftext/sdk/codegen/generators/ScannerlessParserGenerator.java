@@ -972,10 +972,10 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 				regex = parser.root().toString();
 				regex = StringUtil.escapeQuotes(regex);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// TODO handle exception
 				e.printStackTrace();
 			} catch (RecognitionException e) {
-				// TODO Auto-generated catch block
+				// TODO handle exception
 				e.printStackTrace();
 			}
 			// the \A is needed to indicate the the begin of the input must be matched
