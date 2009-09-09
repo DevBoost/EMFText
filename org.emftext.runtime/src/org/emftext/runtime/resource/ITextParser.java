@@ -23,7 +23,6 @@ package org.emftext.runtime.resource;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * A text parser parses a text into a tree of <code>EObject</code>s.
@@ -39,6 +38,7 @@ public interface ITextParser extends IConfigurable {
 	 * 
 	 * @param resource The text resource.
 	 */
+	// TODO mseifert: remove this method
     public void setResource(ITextResource resource);
     
     /**
@@ -46,6 +46,7 @@ public interface ITextParser extends IConfigurable {
      * 
      * @return The text resource.
      */
+	// TODO mseifert: remove this method
     public ITextResource getResource();
     
     /**
@@ -54,7 +55,7 @@ public interface ITextParser extends IConfigurable {
      * 
      * @return The root object.
      */
-	public EObject parse();
+	public IParseResult parse();
 	
 	/**
 	 * Parses the document and returns a list of expected elements.

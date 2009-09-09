@@ -95,6 +95,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new TokenResolveResultCreator());
 	    creators.add(new URIMappingCreator());
 	    creators.add(new HoverTextProviderCreator());
+	    creators.add(new ParseResultCreator());
 
 		for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");

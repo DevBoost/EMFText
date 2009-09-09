@@ -40,7 +40,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		parser.setOptions(options);
 		org.emftext.runtime.resource.IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
-		org.eclipse.emf.ecore.EObject root = parser.parse();
+		org.eclipse.emf.ecore.EObject root = parser.parse().getRoot();
 		if (root != null) {
 			getContents().add(root);
 		}

@@ -36,6 +36,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PARSE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -496,11 +497,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc
 				.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
 		sc.add("// RecognitionExceptions.");
-		sc.add("public " + E_OBJECT + " parse() {");
+		sc.add("public " + I_PARSE_RESULT + " parse() {");
 		sc.add("try {");
+		String parseResultClassName = context.getQualifiedClassName(EArtifact.PARSE_RESULT);
+		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
 		sc.add(E_OBJECT + " result =  doParse();");
 		sc.add("if (lexerExceptions.isEmpty()) {");
-		sc.add("return result;");
+		sc.add("parseResult.setRoot(result);");
+		sc.add("return parseResult;");
 		sc.add("}");
 		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
 		sc.add("reportError(re);");

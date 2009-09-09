@@ -62,10 +62,12 @@ import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.resource.EProblemType;
 import org.emftext.runtime.resource.IBracketPair;
+import org.emftext.runtime.resource.ICommand;
 import org.emftext.runtime.resource.IContextDependentURIFragment;
 import org.emftext.runtime.resource.IElementMapping;
 import org.emftext.runtime.resource.IExpectedElement;
 import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.IParseResult;
 import org.emftext.runtime.resource.IProblem;
 import org.emftext.runtime.resource.IReferenceMapping;
 import org.emftext.runtime.resource.IReferenceResolveResult;
@@ -86,6 +88,7 @@ import org.emftext.runtime.resource.IURIMapping;
 import org.emftext.runtime.resource.impl.AbstractBracketPair;
 import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.AbstractEMFTextScanner;
+import org.emftext.runtime.resource.impl.AbstractParseResult;
 import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.AbstractReferenceMapping;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
@@ -106,6 +109,7 @@ import org.emftext.runtime.util.StringUtil;
 public interface IClassNameConstants {
 
 	public String ABSTRACT_BRACKET_PAIR = AbstractBracketPair.class.getName();
+	public String ABSTRACT_PARSE_RESULT = AbstractParseResult.class.getName();
 	public String ABSTRACT_TOKEN_STYLE = AbstractTokenStyle.class.getName();
 	public String ABSTRACT_TOKEN_RESOLVER = AbstractTokenResolver.class.getName();
 	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
@@ -158,6 +162,7 @@ public interface IClassNameConstants {
 	public String IO_EXCEPTION = IOException.class.getName();
 	public String ITERATOR = Iterator.class.getName();
 	public String I_BRACKET_PAIR = IBracketPair.class.getName();
+	public String I_COMMAND = ICommand.class.getName();
 	public String I_CONFIGURATION_ELEMENT = IConfigurationElement.class.getName();
 	public String I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = org.emftext.runtime.resource.IContextDependentURIFragmentFactory.class.getName();
 	public String I_CONTEXT_DEPENDENT_URI_FRAGMENT = IContextDependentURIFragment.class.getName();
@@ -167,6 +172,7 @@ public interface IClassNameConstants {
 	public String I_LOCATION_MAP = ILocationMap.class.getName();
 	public String I_OPTIONS = IOptions.class.getName();
 	public String I_OPTION_PROVIDER = IOptionProvider.class.getName();
+	public String I_PARSE_RESULT = IParseResult.class.getName();
 	public String I_PROBLEM = IProblem.class.getName();
 	public String I_REFERENCE_MAPPING = IReferenceMapping.class.getName();
 	public String I_REFERENCE_RESOLVER = IReferenceResolver.class.getName();

@@ -2,7 +2,8 @@
 
 	package org.emftext.sdk.concretesyntax.resource.cs;
 	
-	import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
+	import org.emftext.runtime.resource.IParseResult;
+import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 
 
 import org.antlr.runtime.*;
@@ -341,11 +342,11 @@ public class CsParser extends AbstractEMFTextParser {
     	
     	// Implementation that calls {@link #doParse()}  and handles the thrown
     	// RecognitionExceptions.
-    	public org.eclipse.emf.ecore.EObject parse() {
+    	public IParseResult parse() {
     		try {
     			org.eclipse.emf.ecore.EObject result =  doParse();
     			if (lexerExceptions.isEmpty()) {
-    				return result;
+    				return new CsParseResult(result);
     			}
     		} catch (org.antlr.runtime.RecognitionException re) {
     			reportError(re);

@@ -188,6 +188,7 @@
     <eLiterals name="OVERRIDE_TOKEN_RESOLVE_RESULT" value="43" literal="overrideTokenResolveResult"/>
     <eLiterals name="OVERRIDE_URI_MAPPING" value="45" literal="overrideURIMapping"/>
     <eLiterals name="OVERRIDE_HOVER_TEXT_PROVIDER" value="46" literal="overrideHoverTextProvider"/>
+    <eLiterals name="OVERRIDE_PARSE_RESULT" value="47" literal="overrideParseResult"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

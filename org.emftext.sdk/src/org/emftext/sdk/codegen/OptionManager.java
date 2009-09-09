@@ -84,6 +84,9 @@ public class OptionManager {
 		if (option == OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE) {
 			return false;
 		}
+		if (option == OptionTypes.OVERRIDE_PARSE_RESULT) {
+			return true;
+		}
 		if (option == OptionTypes.OVERRIDE_PROBLEM_CLASS) {
 			return true;
 		}
