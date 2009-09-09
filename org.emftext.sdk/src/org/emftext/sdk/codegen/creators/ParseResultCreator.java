@@ -6,9 +6,7 @@ import java.util.Collection;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.ParseResultGenerator;
-import org.emftext.sdk.codegen.generators.TextPrinterGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ParseResultCreator extends AbstractArtifactCreator {
