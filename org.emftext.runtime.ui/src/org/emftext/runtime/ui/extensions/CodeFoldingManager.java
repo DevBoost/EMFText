@@ -38,6 +38,10 @@ import java.util.Map;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SafeRunner;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -47,13 +51,17 @@ import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.SafeRunnable;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.XMLMemento;
+import org.emftext.runtime.resource.ILocationMap;
+import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
+import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.osgi.framework.Bundle;
 
 /**
@@ -69,14 +77,18 @@ public class CodeFoldingManager {
 
 	static final String PLUGIN_ID = "org.emftext.runtime.ui";
 	static final String VERIFY_KEY = "verify_key";
+	private static final String ANNOTATION = "ANNOTATION";
+	private static final String IS_COLLAPSED = "IS_COLLAPED";
+	private static final String OFFSET = "OFFSET";
+	private static final String LENGTH = "LENGTH";
+	private static final String MODEL = "MODEL";
 
-	protected List<Annotation> oldAnnotations = new ArrayList<Annotation>();
-	protected List<Annotation> deletions = new ArrayList<Annotation>();
-	protected Map<Annotation, Position> additions = new HashMap<Annotation, Position>();
+	protected List<ProjectionAnnotation> oldAnnotations = new ArrayList<ProjectionAnnotation>();
+	protected Map<ProjectionAnnotation, Position> additions = new HashMap<ProjectionAnnotation, Position>();
 
 	protected ProjectionAnnotationModel projectionAnnotationModel;
 	protected ProjectionViewer sourceViewer;
-	protected EMFTextEditor emfTextEditor;
+	protected EMFTextEditor editor;
 
 	/**
 	 * Creates a code folding manager to handle the
@@ -91,8 +103,14 @@ public class CodeFoldingManager {
 		this.projectionAnnotationModel = sourceViewer
 				.getProjectionAnnotationModel();
 		this.sourceViewer = sourceViewer;
-		this.emfTextEditor = emfTextEditor;
+		this.editor = emfTextEditor;
 		addCloseListener(emfTextEditor);
+		try {
+			restoreCodeFoldingStateFromFile(editor.getResource().getURI()
+					.toString());
+		} catch (Exception e) {
+			calculatePositions();
+		}
 	}
 
 	private class EditorOnCloseListener implements IPartListener2 {
@@ -114,7 +132,6 @@ public class CodeFoldingManager {
 				return;
 			IWorkbenchPart workbenchPart = partRef.getPart(false);
 			if (workbenchPart instanceof EMFTextEditor) {
-
 				EMFTextEditor editor = (EMFTextEditor) workbenchPart;
 				String uri = editor.getResource().getURI().toString();
 				if (uri.equals(this.uri)) {
@@ -146,6 +163,13 @@ public class CodeFoldingManager {
 		String uri = emfTextEditor.getResource().getURI().toString();
 		emfTextEditor.getSite().getPage().addPartListener(
 				new EditorOnCloseListener(uri));
+		emfTextEditor
+				.addBackgroundParsingListener(new IBackgroundParsingListener() {
+
+					public void parsingCompleted(Resource resource) {
+						calculatePositions();
+					}
+				});
 	}
 
 	/**
@@ -160,56 +184,22 @@ public class CodeFoldingManager {
 		IDocument document = sourceViewer.getDocument();
 		if (document == null)
 			return;
-		// Add new Position with a unique line offset
-		oldAnnotations = new ArrayList<Annotation>();
-		for (Iterator<?> annotationsIterator = projectionAnnotationModel
-				.getAnnotationIterator(); annotationsIterator.hasNext();) {
-			oldAnnotations.add((ProjectionAnnotation) annotationsIterator
-					.next());
+		oldAnnotations.clear();
+		for (Iterator<?> annotationIterator = projectionAnnotationModel
+				.getAnnotationIterator(); annotationIterator.hasNext();) {
+			oldAnnotations
+					.add((ProjectionAnnotation) annotationIterator.next());
 		}
+		// Add new Position with a unique line offset
 		for (Position position : positions) {
-			if (!isInModel(position) && !isInAdditions(position)) {
+			if (!isInAdditions(position)) {
 				addPosition(position);
 			}
 		}
-		// Delete old Position with line count < 3.
-		for (Annotation oldAnnotation : oldAnnotations) {
-			Position modelPosition = projectionAnnotationModel
-					.getPosition(oldAnnotation);
-			int lines = 0;
-			try {
-				lines = document.getNumberOfLines(modelPosition.offset,
-						modelPosition.length);
-			} catch (BadLocationException e) {
-				e.printStackTrace();
-			}
-			if (lines < 3) {
-				deletions.add(oldAnnotation);
-			}
-		}
-		projectionAnnotationModel.modifyAnnotations(deletions
+		projectionAnnotationModel.modifyAnnotations(oldAnnotations
 				.toArray(new Annotation[0]), additions, null);
-		deletions.clear();
 		additions.clear();
-	}
 
-	/**
-	 * Checks the offset of this <code>Position</code> with the
-	 * <code>Position</code>s in the <code>ProjectionAnnotationModel</code> to
-	 * determine the existence.
-	 * 
-	 * @param position
-	 *            the position to check
-	 * @return <code>true</code> if it is in the
-	 *         <code>ProjectionAnnotationModel</code>
-	 */
-	private boolean isInModel(Position position) {
-		for (Annotation oldAnnotation : oldAnnotations) {
-			if (projectionAnnotationModel.getPosition(oldAnnotation).offset == position.offset) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
@@ -223,21 +213,18 @@ public class CodeFoldingManager {
 	 */
 	private boolean isInAdditions(Position position) {
 		for (Annotation addition : additions.keySet()) {
-			if (additions.get(addition).offset == position.offset) {
+			Position additionPosition = additions.get(addition);
+			if (position.offset == additionPosition.offset
+					&& position.length == additionPosition.length)
 				return true;
-			}
 		}
 		return false;
 	}
 
 	/**
-	 * Tries to add this position into the model. If more positions exist on the
-	 * same line, the longer one will be chosen. The position will be exchanged
-	 * if it is in the additions, when the to be deleted <code>Annotation</code>
-	 * existed in deletions. Else, just exchange the Position in additions, if
-	 * there is a shorter one.
-	 * 
-	 * TODO hoang-kim test with JUnit
+	 * Tries to add this position into the model. Only positions with more than
+	 * 3 lines can be taken in. If more positions exist on the same line, the
+	 * longer one will be chosen. The shorter one in additions will be deleted.
 	 * 
 	 * @param position
 	 *            the position to be added.
@@ -255,57 +242,32 @@ public class CodeFoldingManager {
 			return;
 		}
 
-		for (Annotation oldAnnotation : oldAnnotations) {
-			Position modelPosition = projectionAnnotationModel
-					.getPosition(oldAnnotation);
-			try {
+		// if a position to add existed on the same line, the longer one will be
+		// chosen
+		try {
+			for (ProjectionAnnotation annotationToAdd : additions.keySet()) {
+				Position positionToAdd = additions.get(annotationToAdd);
 				if (document.getLineOfOffset(position.offset) == document
-						.getLineOfOffset(modelPosition.offset)) {
-					if (modelPosition.length >= position.length) {
+						.getLineOfOffset(positionToAdd.offset)) {
+					if (positionToAdd.length < position.length) {
+						additions.remove(annotationToAdd);
+					} else
 						return;
-					} else {
-						for (Annotation annotationToDelete : deletions) {
-							if (annotationToDelete.equals(oldAnnotation)) {
-								for (Annotation annotationToAdd : additions
-										.keySet().toArray(new Annotation[0])) {
-									Position addPosition = additions
-											.get(annotationToAdd);
-									if (document
-											.getLineOfOffset(position.offset) == document
-											.getLineOfOffset(addPosition.offset)) {
-										if (addPosition.length < position.length) {
-											additions.remove(annotationToAdd);
-											additions.put(
-													new ProjectionAnnotation(),
-													position);
-											return;
-										}
-									}
-								}
-							}
-						}
-						for (Annotation annotationToAdd : additions.keySet()
-								.toArray(new Annotation[0])) {
-							Position addPosition = additions
-									.get(annotationToAdd);
-							if (document.getLineOfOffset(position.offset) == document
-									.getLineOfOffset(addPosition.offset)) {
-								if (addPosition.length < position.length) {
-									additions.remove(annotationToAdd);
-									additions.put(new ProjectionAnnotation(),
-											position);
-									deletions.add(oldAnnotation);
-									return;
-								}
-							}
-						}
-					}
 				}
-			} catch (BadLocationException e) {
-				e.printStackTrace();
+			}
+		} catch (BadLocationException e) {
+			return;
+		}
+		for (ProjectionAnnotation annotationInModel : oldAnnotations) {
+			Position positionInModel = projectionAnnotationModel
+					.getPosition(annotationInModel);
+			if (position.offset == positionInModel.offset
+					&& position.length == positionInModel.length) {
+				oldAnnotations.remove(annotationInModel);
 				return;
 			}
 		}
+
 		additions.put(new ProjectionAnnotation(), position);
 	}
 
@@ -315,22 +277,17 @@ public class CodeFoldingManager {
 	 * @param memento
 	 */
 	public void saveCodeFolding(IMemento memento) {
-		for (Iterator<?> annotationIterator = projectionAnnotationModel
-				.getAnnotationIterator(); annotationIterator.hasNext();) {
-			ProjectionAnnotation annotation = (ProjectionAnnotation) annotationIterator
+		for (Iterator<?> annotationIt = projectionAnnotationModel
+				.getAnnotationIterator(); annotationIt.hasNext();) {
+			ProjectionAnnotation annotation = (ProjectionAnnotation) annotationIt
 					.next();
-			IMemento annotationMemento = memento
-					.createChild(ExtensionConstants.CodeFolding.ANNOTATION
-							.toString());
+			IMemento annotationMemento = memento.createChild(ANNOTATION);
 			Position position = projectionAnnotationModel
 					.getPosition(annotation);
-			annotationMemento.putBoolean(
-					ExtensionConstants.CodeFolding.IS_COLLAPSED.toString(),
-					annotation.isCollapsed());
-			annotationMemento.putInteger(ExtensionConstants.CodeFolding.OFFSET
-					.toString(), position.offset);
-			annotationMemento.putInteger(ExtensionConstants.CodeFolding.LENGTH
-					.toString(), position.length);
+			annotationMemento
+					.putBoolean(IS_COLLAPSED, annotation.isCollapsed());
+			annotationMemento.putInteger(OFFSET, position.offset);
+			annotationMemento.putInteger(LENGTH, position.length);
 		}
 	}
 
@@ -342,44 +299,38 @@ public class CodeFoldingManager {
 	public void restoreCodeFolding(IMemento memento) {
 		if (memento == null)
 			return;
-		IMemento[] annotationMementos = memento
-				.getChildren(ExtensionConstants.CodeFolding.ANNOTATION
-						.toString());
+		IMemento[] annotationMementos = memento.getChildren(ANNOTATION);
 		if (annotationMementos == null)
 			return;
+		HashMap<ProjectionAnnotation, Boolean> collapsedStates = new HashMap<ProjectionAnnotation, Boolean>();
 		for (IMemento annotationMemento : annotationMementos) {
-			boolean isCollapsed = annotationMemento
-					.getBoolean(ExtensionConstants.CodeFolding.IS_COLLAPSED
-							.toString());
-			ProjectionAnnotation annotation = new ProjectionAnnotation(
-					isCollapsed);
-			int offset = annotationMemento
-					.getInteger(ExtensionConstants.CodeFolding.OFFSET
-							.toString());
-			int length = annotationMemento
-					.getInteger(ExtensionConstants.CodeFolding.LENGTH
-							.toString());
+			ProjectionAnnotation annotation = new ProjectionAnnotation();
+			collapsedStates.put(annotation, annotationMemento
+					.getBoolean(IS_COLLAPSED));
+			int offset = annotationMemento.getInteger(OFFSET);
+			int length = annotationMemento.getInteger(LENGTH);
 			Position position = new Position(offset, length);
 			projectionAnnotationModel.addAnnotation(annotation, position);
+		}
+		// postset collapse state to prevent wrong displaying folding code.
+		for (ProjectionAnnotation annotation : collapsedStates.keySet()) {
+			if (collapsedStates.get(annotation))
+				projectionAnnotationModel.collapse(annotation);
 		}
 	}
 
 	/**
 	 * Restores the code folding state from a XML file in the state location.
 	 * 
-	 * @param mementoToRestoreCodeFolding
-	 *            the memento to restore the code folding state
-	 * @param key
-	 *            the key to determine the file
-	 * @param timeStamp
-	 *            the time stamp of the last saving
-	 * @return <code>true</code> if restore successful
+	 * @param uriString
+	 *            the key to determine the file name
 	 */
-	public boolean restoreCodeFoldingStateFromFile(
-			final IMemento mementoToRestoreCodeFolding, String uriString) {
+	public void restoreCodeFoldingStateFromFile(String uriString) {
 		final File stateFile = getCodeFoldingStateFile(uriString);
-		if (stateFile == null || !stateFile.exists())
-			return false;
+		if (stateFile == null || !stateFile.exists()) {
+			calculatePositions();
+			return;
+		}
 		SafeRunner.run(new SafeRunnable(
 				"Unable to read code folding state. The state will be reset.") {
 			public void run() throws Exception {
@@ -387,15 +338,14 @@ public class CodeFoldingManager {
 				BufferedReader reader = new BufferedReader(
 						new InputStreamReader(input, "utf-8")); //$NON-NLS-1$
 				IMemento memento = XMLMemento.createReadRoot(reader);
-				mementoToRestoreCodeFolding.putMemento(memento);
 				reader.close();
+				String sourceText = sourceViewer.getDocument().get();
+				if (memento.getString(VERIFY_KEY).equals(makeMD5(sourceText)))
+					restoreCodeFolding(memento);
+				else
+					calculatePositions();
 			}
 		});
-		String sourceText = sourceViewer.getDocument().get();
-		if (!mementoToRestoreCodeFolding.getString(VERIFY_KEY).equals(
-				makeMD5(sourceText)))
-			return false;
-		return true;
 	}
 
 	/**
@@ -408,9 +358,7 @@ public class CodeFoldingManager {
 		IDocument document = sourceViewer.getDocument();
 		if (document == null)
 			return;
-		XMLMemento codeFoldingMemento = XMLMemento
-				.createWriteRoot(ExtensionConstants.CodeFolding.MODEL
-						.toString());
+		XMLMemento codeFoldingMemento = XMLMemento.createWriteRoot(MODEL);
 		codeFoldingMemento.putString(VERIFY_KEY, makeMD5(document.get()));
 		saveCodeFolding(codeFoldingMemento);
 		File stateFile = getCodeFoldingStateFile(uriString);
@@ -471,4 +419,89 @@ public class CodeFoldingManager {
 		}
 		return strBuf.toString();
 	}
+
+	protected void calculatePositions() {
+		ITextResource textResource = (ITextResource) editor.getResource();
+		IDocument document = sourceViewer.getDocument();
+		if (textResource == null || document == null)
+			return;
+		EList<?> errorList = textResource.getErrors();
+		if (errorList != null && errorList.size() > 0)
+			return;
+		final List<Position> positions = new ArrayList<Position>();
+		ILocationMap locationMap = textResource.getLocationMap();
+		EClass[] foldableClasses = textResource.getMetaInformation()
+				.getFoldableClasses();
+		if (foldableClasses == null) {
+			return;
+		}
+		if (foldableClasses.length < 1) {
+			return;
+		}
+		List<EObject> contents = textResource.getContents();
+		EObject[] contentArray = contents.toArray(new EObject[0]);
+		List<EObject> allContents = getAllContents(contentArray);
+		for (EObject nextObject : allContents) {
+			boolean isFoldable = false;
+			for (EClass eClass : foldableClasses) {
+				if (nextObject.eClass().equals(eClass)) {
+					isFoldable = true;
+					break;
+				}
+			}
+			if (!isFoldable) {
+				continue;
+			}
+			int offset = locationMap.getCharStart(nextObject);
+			int length = locationMap.getCharEnd(nextObject) + 1 - offset;
+			try {
+				int lines = document.getNumberOfLines(offset, length);
+				if (lines < 2)
+					continue;
+			} catch (BadLocationException e) {
+				continue;
+			}
+			length = getOffsetOfNextLine(document, length + offset) - offset;
+			if (offset >= 0 && length > 0) {
+				positions.add(new Position(offset, length));
+			}
+		}
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				updateCodefolding(positions);
+			}
+		});
+	}
+
+	private List<EObject> getAllContents(EObject[] contentArray) {
+		List<EObject> result = new ArrayList<EObject>();
+		for (EObject eObject : contentArray) {
+			result.add(eObject);
+			result.addAll(getAllContents(eObject.eContents().toArray(
+					new EObject[0])));
+		}
+		return result;
+	}
+
+	private int getOffsetOfNextLine(IDocument document, int offset) {
+		int end = document.getLength();
+		int nextLineOffset = offset;
+		if (offset < 0 || offset > end)
+			return -1;
+		while (nextLineOffset < end) {
+			String charAtOffset = "";
+			try {
+				charAtOffset += document.getChar(nextLineOffset);
+			} catch (BadLocationException e) {
+				return -1;
+			}
+			if (charAtOffset.matches("\\S"))
+				return nextLineOffset;
+			if (charAtOffset.equals("\n"))
+				return nextLineOffset + 1;
+			nextLineOffset++;
+		}
+		return offset;
+	}
+
 }

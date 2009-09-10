@@ -27,8 +27,4 @@ public interface ExtensionConstants {
 	public static enum PositionCategory {
 		BRACKET, DEFINTION, PROXY
 	};
-
-	public static enum CodeFolding {
-		MODEL, ANNOTATION, IS_COLLAPSED, OFFSET, LENGTH
-	};
 }

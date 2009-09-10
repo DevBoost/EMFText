@@ -23,7 +23,6 @@ package org.emftext.runtime.ui.editor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.IResource;
@@ -60,7 +59,6 @@ import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.ITextPresentationListener;
-import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
@@ -69,8 +67,6 @@ import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IMemento;
-import org.eclipse.ui.XMLMemento;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
@@ -93,7 +89,6 @@ import org.emftext.runtime.ui.editor.bg_parsing.DelayedBackgroundParsingStrategy
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
 import org.emftext.runtime.ui.extensions.CodeFoldingManager;
-import org.emftext.runtime.ui.extensions.ExtensionConstants;
 import org.emftext.runtime.ui.extensions.Highlighting;
 import org.emftext.runtime.ui.outline.EMFTextOutlinePage;
 import org.emftext.runtime.ui.outline.EMFTextPropertySheetPage;
@@ -107,8 +102,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 	private ProjectionSupport projectionSupport;
 	private CodeFoldingManager codeFoldingManager;
-	private IMemento mementoToRestoreCodeFolding;
-
+	
 	private IBackgroundParsingStrategy bgParsingStrategy = new DelayedBackgroundParsingStrategy();
 	private Collection<IBackgroundParsingListener> bgParsingListener = new ArrayList<IBackgroundParsingListener>();
 
@@ -268,17 +262,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		// turn projection mode on
 		viewer.doOperation(ProjectionViewer.TOGGLE);
 		codeFoldingManager = new CodeFoldingManager(viewer, this);
-		// restore folding state from last session or last saving
-		if (mementoToRestoreCodeFolding == null) {
-			mementoToRestoreCodeFolding = XMLMemento
-					.createWriteRoot(ExtensionConstants.CodeFolding.MODEL
-							.toString());
-			if (!codeFoldingManager.restoreCodeFoldingStateFromFile(
-					mementoToRestoreCodeFolding, resource.getURI().toString()))
-				mementoToRestoreCodeFolding = null;
-		}
-		codeFoldingManager.restoreCodeFolding(mementoToRestoreCodeFolding);
-		mementoToRestoreCodeFolding = null;
 	}
 
 	@Override
@@ -347,16 +330,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			EMFTextRuntimePlugin.logError(
 					"Exception while updating markers on resource", e);
 		}
-
-		// TODO perform update code folding on save to test because of the
-		// TextResource bug
-		// TODO hoang-kim: Remove after activating background parsing
-		// The background parsing is active now, but I'm not sure what to
-		// remove here
-		// TODO mseifert: just the next line, this method should be called automatically
-		// from the reconciler and not in Save
-		getSourceViewerConfiguration().getReconciler(getSourceViewer())
-				.install(getSourceViewer());
 		// Save code folding state
 		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI()
 				.toString());
@@ -576,23 +549,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		// ensure decoration support has been created and configured.
 		getSourceViewerDecorationSupport(viewer);
 		return viewer;
-	}
-
-	public void updateFoldingStructure(List<Position> positions) {
-		codeFoldingManager.updateCodefolding(positions);
-	}
-
-	public void restoreState(IMemento memento) {
-		super.restoreState(memento);
-		mementoToRestoreCodeFolding = memento
-				.getChild(ExtensionConstants.CodeFolding.MODEL.toString());
-	}
-
-	public void saveState(IMemento memento) {
-		super.saveState(memento);
-		mementoToRestoreCodeFolding = memento
-				.createChild(ExtensionConstants.CodeFolding.MODEL.toString());
-		codeFoldingManager.saveCodeFolding(mementoToRestoreCodeFolding);
 	}
 
 	public void addBackgroundParsingListener(

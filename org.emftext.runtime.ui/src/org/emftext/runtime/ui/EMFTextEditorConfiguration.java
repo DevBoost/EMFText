@@ -28,8 +28,6 @@ import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
-import org.eclipse.jface.text.reconciler.IReconciler;
-import org.eclipse.jface.text.reconciler.MonoReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.ITokenScanner;
 import org.eclipse.jface.text.source.DefaultAnnotationHover;
@@ -41,7 +39,6 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.ui.extensions.HyperlinkDetector;
 import org.emftext.runtime.ui.extensions.TextHover;
-import org.emftext.runtime.ui.extensions.ReconcilingStrategy;
 
 /**
  * This class provides the configuration for all EMFText editors. It registers
@@ -105,16 +102,6 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 
 		return reconciler;
 	}
-	
-	//Code Folding
-	/*
-	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getReconciler(org.eclipse.jface.text.source.ISourceViewer)
-	 */
-	public IReconciler getReconciler(ISourceViewer sourceViewer) {
-		ReconcilingStrategy strategy = new ReconcilingStrategy(theEditor);
-        MonoReconciler reconciler = new MonoReconciler(strategy,false);
-        return reconciler;
-    }
 	
 	@Override
 	public IAnnotationHover getAnnotationHover(ISourceViewer sourceViewer) {
