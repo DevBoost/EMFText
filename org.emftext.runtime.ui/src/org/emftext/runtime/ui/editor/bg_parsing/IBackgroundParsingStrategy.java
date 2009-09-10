@@ -22,6 +22,7 @@ package org.emftext.runtime.ui.editor.bg_parsing;
 
 import org.eclipse.jface.text.DocumentEvent;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
  * Implementation of this interface can be used to determine whether
@@ -40,5 +41,5 @@ public interface IBackgroundParsingStrategy {
 	 */
 	public boolean isParsingRequired(DocumentEvent event);
 	
-	public void parse(DocumentEvent event, ITextResource resourceCopy);
+	public void parse(DocumentEvent event, ITextResource resource, EMFTextEditor editor);
 }

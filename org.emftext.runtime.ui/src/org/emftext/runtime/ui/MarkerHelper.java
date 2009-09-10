@@ -22,6 +22,7 @@ package org.emftext.runtime.ui;
 
 import java.util.Collection;
 
+import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -68,16 +69,24 @@ public class MarkerHelper {
 			IMarker marker = file.createMarker(MARKER_TYPE);
             marker.setAttribute(IMarker.SEVERITY, markerSeverity);
             marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
-        	if (diagnostic instanceof ITextDiagnostic) {
-        		ITextDiagnostic textDiagnostic = (ITextDiagnostic) diagnostic;
-				marker.setAttribute(IMarker.LINE_NUMBER, textDiagnostic.getLine());
-                marker.setAttribute(IMarker.CHAR_START, textDiagnostic.getCharStart());
-                marker.setAttribute(IMarker.CHAR_END, textDiagnostic.getCharEnd() + 1);		
-        	}
-        	else {
-                marker.setAttribute(IMarker.CHAR_START, 0);
-                marker.setAttribute(IMarker.CHAR_END, 1);
-        	}
+            try {
+            	if (diagnostic instanceof ITextDiagnostic) {
+            		ITextDiagnostic textDiagnostic = (ITextDiagnostic) diagnostic;
+    				marker.setAttribute(IMarker.LINE_NUMBER, textDiagnostic.getLine());
+                    marker.setAttribute(IMarker.CHAR_START, textDiagnostic.getCharStart());
+                    marker.setAttribute(IMarker.CHAR_END, textDiagnostic.getCharEnd() + 1);		
+            	}
+            	else {
+                    marker.setAttribute(IMarker.CHAR_START, 0);
+                    marker.setAttribute(IMarker.CHAR_END, 1);
+            	}
+			} catch (CoreException ce) {
+				if (ce.getMessage().matches("Marke.*not found.")) {
+					// ignore
+				} else {
+					ce.printStackTrace();
+				}
+			}
         }
 	}
     

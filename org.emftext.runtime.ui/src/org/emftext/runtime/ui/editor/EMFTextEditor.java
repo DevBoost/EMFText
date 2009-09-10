@@ -20,6 +20,8 @@
  ******************************************************************************/
 package org.emftext.runtime.ui.editor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -87,7 +89,6 @@ import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.MarkerHelper;
-import org.emftext.runtime.ui.editor.bg_parsing.DelayedBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.DelayedBackgroundParsingStrategy;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
@@ -109,7 +110,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	private IMemento mementoToRestoreCodeFolding;
 
 	private IBackgroundParsingStrategy bgParsingStrategy = new DelayedBackgroundParsingStrategy();
-	private IBackgroundParsingListener bgParsingListener = new DelayedBackgroundParsingListener();
+	private Collection<IBackgroundParsingListener> bgParsingListener = new ArrayList<IBackgroundParsingListener>();
 
 	/**
 	 * A custom document listener that triggers background parsing if needed.
@@ -123,8 +124,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			if (!bgParsingStrategy.isParsingRequired(event)) {
 				return;
 			}
-			bgParsingStrategy.parse(event, resource);
-			bgParsingListener.parsingCompleted(resource);
+			bgParsingStrategy.parse(event, resource, EMFTextEditor.this);
 		}
 	}
 
@@ -259,7 +259,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		// Code Folding
 		ProjectionViewer viewer = (ProjectionViewer) getSourceViewer();
 		// Occurrence initiation, need ITextResource and ISourceViewer.
-		highlighting = new Highlighting(resource, viewer, colorManager);
+		highlighting = new Highlighting(resource, viewer, colorManager, this);
 
 		projectionSupport = new ProjectionSupport(viewer,
 				getAnnotationAccess(), getSharedColors());
@@ -595,4 +595,14 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		codeFoldingManager.saveCodeFolding(mementoToRestoreCodeFolding);
 	}
 
+	public void addBackgroundParsingListener(
+			IBackgroundParsingListener listener) {
+		bgParsingListener.add(listener);
+	}
+
+	public void notifyBackgroundParsingFinished() {
+		for (IBackgroundParsingListener listener : bgParsingListener) {
+			listener.parsingCompleted(resource);
+		}
+	}
 }

@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import org.eclipse.jface.text.DocumentEvent;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrategy {
 	
@@ -17,15 +18,15 @@ public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrat
 	private TimerTask task;
 
 	public boolean isParsingRequired(DocumentEvent event) {
-		synchronized (parseLock) {
+		//synchronized (parseLock) {
 			// TODO stop current parser (if there is one)
 			
 			// parsing is always required
 			return true;
-		}
+		//}
 	}
 
-	public void parse(DocumentEvent event, final ITextResource resource) {
+	public void parse(DocumentEvent event, final ITextResource resource, final EMFTextEditor editor) {
 		final String contents = event.getDocument().get();
 
 		// cancel old task
@@ -47,6 +48,7 @@ public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrat
 						e.printStackTrace();
 					}
 					System.out.println("finished background parsing.");
+					editor.notifyBackgroundParsingFinished();
 				}
 			}
 		};

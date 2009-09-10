@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Display;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
+import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 
 /**
  * This ReconcilingStrategy finds all foldable elements and sends their positions to the editor for further handling. 
@@ -60,6 +61,12 @@ public class ReconcilingStrategy implements IReconcilingStrategy,
 	public ReconcilingStrategy(EMFTextEditor editor) {
 		super();
 		this.editor = editor;
+		this.editor.addBackgroundParsingListener(new IBackgroundParsingListener() {
+			
+			public void parsingCompleted(Resource resource) {
+				initialReconcile();
+			}
+		});
 	}
 
 	/** holds the calculated positions */
@@ -98,18 +105,20 @@ public class ReconcilingStrategy implements IReconcilingStrategy,
 		if (foldableClasses.length < 1) {
 			return;
 		}
-		for (TreeIterator<EObject> contentIterator = textResource
-				.getAllContents(); contentIterator.hasNext();) {
+		List<EObject> contents = textResource.getContents();
+		EObject[] contentArray = contents.toArray(new EObject[0]);
+		List<EObject> allContents = getAllContents(contentArray);
+		for (EObject nextObject : allContents) {
 			boolean isFoldable =false;
-			EObject nextObject = contentIterator.next();
 			for (EClass eClass : foldableClasses) {
 				if (nextObject.eClass().equals(eClass)) {
 					isFoldable = true;
 					break;
 				}
 			}
-			if (!isFoldable)
+			if (!isFoldable) {
 				continue;
+			}
 			int offset = locationMap.getCharStart(nextObject);
 			int length = locationMap.getCharEnd(nextObject) + 1 - offset;
 			try {
@@ -129,6 +138,15 @@ public class ReconcilingStrategy implements IReconcilingStrategy,
 				editor.updateFoldingStructure(positions);
 			}
 		});
+	}
+
+	private List<EObject> getAllContents(EObject[] contentArray) {
+		List<EObject> result = new ArrayList<EObject>();
+		for (EObject eObject : contentArray) {
+			result.add(eObject);
+			result.addAll(getAllContents(eObject.eContents().toArray(new EObject[0])));
+		}
+		return result;
 	}
 
 	private int getOffsetOfNextLine(int offset) {

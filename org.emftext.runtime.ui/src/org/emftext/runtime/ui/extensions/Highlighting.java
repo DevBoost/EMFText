@@ -47,11 +47,14 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 import org.emftext.runtime.resource.ILocationMap;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.EMFTextTokenScanner;
+import org.emftext.runtime.ui.editor.EMFTextEditor;
+import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
@@ -80,6 +83,8 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	private Occurrence occurrence;
 	private BracketSet bracketSet;
 
+	private Display display;
+
 	/**
 	 * A key and mouse <code>Listener</code> for the highlighting. Removes the
 	 * highlighting before document change. No highlighting is set after
@@ -90,7 +95,7 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	 * 
 	 */
 	private final class HighlightingListener implements KeyListener,
-			VerifyListener, MouseListener {
+			VerifyListener, MouseListener, IBackgroundParsingListener {
 
 		private boolean changed = false;
 		private int caret = -1;
@@ -103,9 +108,14 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 				changed = false;
 				return;
 			}
+			refreshHighlighting();
+		}
+
+		private void refreshHighlighting() {
 			int textCaret = textWidget.getCaretOffset();
-			if (textCaret < 0 || textCaret > textWidget.getCharCount())
+			if (textCaret < 0 || textCaret > textWidget.getCharCount()) {
 				return;
+			}
 			if (textCaret != caret) {
 				caret = textCaret;
 				removeHighlighting();
@@ -128,19 +138,20 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 
 		public void mouseUp(MouseEvent e) {// 1-left click, 2-middle click,
 			// 3-right click
-			if (e.button != 1)
+			if (e.button != 1) {
 				return;
-			int textCaret = textWidget.getCaretOffset();
-			if (textCaret < 0 || textCaret > textWidget.getCharCount())
-				return;
-			if (textCaret != caret) {
-				caret = textCaret;
-				removeHighlighting();
-				setHighlighting();
-				setEObjectSelection();
 			}
+			refreshHighlighting();
 		}
 
+		public void parsingCompleted(Resource resource) {
+			display.syncExec(new Runnable() {
+				
+				public void run() {
+					refreshHighlighting();
+				}
+			});
+		}
 	}
 
 	/**
@@ -153,10 +164,12 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	 *            documents
 	 * @param colorManager
 	 *            the color manager provides highlighting colors
+	 * @param emfTextEditor 
 	 * @param iPropertySheetPage 
 	 */
 	public Highlighting(ITextResource textResource,
-			ProjectionViewer sourceviewer, ColorManager colorManager) {
+			ProjectionViewer sourceviewer, ColorManager colorManager, EMFTextEditor editor) {
+		this.display = Display.getCurrent();
 		sourceviewer.getSelectionProvider();
 		preferenceStore = EMFTextRuntimeUIPlugin.getDefault()
 				.getPreferenceStore();
@@ -181,14 +194,15 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 				PreferenceConstants.EDITOR_MATCHING_BRACKETS_COLOR));
 		black = colorManager.getColor(new RGB(0, 0, 0));
 
-		addListeners();
+		addListeners(editor);
 	}
 
-	private void addListeners() {
+	private void addListeners(EMFTextEditor editor) {
 		HighlightingListener hl = new HighlightingListener();
 		textWidget.addKeyListener(hl);
 		textWidget.addVerifyListener(hl);
 		textWidget.addMouseListener(hl);
+		editor.addBackgroundParsingListener(hl);
 	}
 
 	private void setHighlighting() {
