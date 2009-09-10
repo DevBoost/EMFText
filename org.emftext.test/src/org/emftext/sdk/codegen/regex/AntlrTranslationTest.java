@@ -32,6 +32,17 @@ public class AntlrTranslationTest extends TestCase {
 	}
 	
 	@Test
+	public void testLineTerminatorTranslation() throws IOException, RecognitionException {
+		String regex = "'$'(~('$'))*'$'";
+		regex = RegexpTranslationHelper
+		.translateAntLRToJavaStyle(regex);
+		assertTrue("Should match example string.","$ test $".matches(regex));
+		
+		assertFalse("Should not match empty string.","".matches(regex));
+		
+	}
+	
+	@Test
 	public void testWhitespaceTranslation() {
 		 Pattern pattern = java.util.regex.Pattern.compile("\\A( |\\t|\"\\f\")");
 		 Matcher matcher = pattern.matcher(" ");
