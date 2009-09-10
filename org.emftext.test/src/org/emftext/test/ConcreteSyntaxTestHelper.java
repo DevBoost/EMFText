@@ -25,11 +25,13 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -117,5 +119,31 @@ public class ConcreteSyntaxTestHelper {
 		}
 		assertTrue(success);
 		return tempGrammarFile;
+	}
+	
+	
+	public static Collection<String> findAllGrammars(File directory) {
+		Collection<String> grammarPaths = new LinkedHashSet<String>();
+		File[] subDirs = directory.listFiles(new FileFilter() {
+
+			public boolean accept(File file) {
+				return file.isDirectory() && !file.getName().startsWith(".");
+			}
+			
+		});
+		File[] grammarFiles = directory.listFiles(new FileFilter() {
+
+			public boolean accept(File file) {
+				return !file.isDirectory() && file.getName().endsWith(".cs");
+			}
+			
+		});
+		for (File file : grammarFiles) {
+			grammarPaths.add(file.getAbsolutePath());
+		}
+		for (File subDir : subDirs) {
+			grammarPaths.addAll(findAllGrammars(subDir));
+		}
+		return grammarPaths;
 	}
 }

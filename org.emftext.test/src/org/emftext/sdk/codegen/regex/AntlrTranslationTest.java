@@ -1,6 +1,7 @@
 package org.emftext.sdk.codegen.regex;
 
 import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactories;
+import static org.emftext.test.ConcreteSyntaxTestHelper.findAllGrammars;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -71,30 +72,7 @@ public class AntlrTranslationTest extends TestCase {
 
 	}
 
-	private Collection<String> findAllGrammars(File directory) {
-		Collection<String> grammarPaths = new LinkedHashSet<String>();
-		File[] subDirs = directory.listFiles(new FileFilter() {
-
-			public boolean accept(File file) {
-				return file.isDirectory() && !file.getName().startsWith(".");
-			}
-			
-		});
-		File[] grammarFiles = directory.listFiles(new FileFilter() {
-
-			public boolean accept(File file) {
-				return !file.isDirectory() && file.getName().endsWith(".cs");
-			}
-			
-		});
-		for (File file : grammarFiles) {
-			grammarPaths.add(file.getAbsolutePath());
-		}
-		for (File subDir : subDirs) {
-			grammarPaths.addAll(findAllGrammars(subDir));
-		}
-		return grammarPaths;
-	}
+	
 
 
 	private Resource loadResource(String grammar) throws IOException {
