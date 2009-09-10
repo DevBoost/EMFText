@@ -70,6 +70,7 @@ package org.emftext.sdk.codegen.regex;
 		resultString = resultString.replace("?", "\\?");
 		resultString = resultString.replace("*", "\\*");
 		resultString = resultString.replace("-", "\\-");
+		resultString = resultString.replace("$", "\\$");
 		resultString = resultString.replace(".", "\\.");
 		resultString = resultString.replace("~", "^");
 		resultString = resultString.replace("(", "\\(");

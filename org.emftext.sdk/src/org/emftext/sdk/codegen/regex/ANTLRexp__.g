@@ -26,20 +26,20 @@ T__18 : '(' ;
 T__19 : ')' ;
 T__20 : '~' ;
 
-// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 243
+// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 244
 CHAR_LITERAL	:	'\'' LITERAL_CHAR '\'' ;
 
-// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 245
+// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 246
 STRING_LITERAL :	'\'' LITERAL_CHAR LITERAL_CHAR* '\'';
 
-// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 247
+// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 248
 fragment LITERAL_CHAR :	ESC  |	~( '\'' | '\\' );
 
-// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 249
+// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 250
 fragment ESC	:	'\\' (	'n' 	|	'r'  |	't'   |	'b' |	'f' |	'"'|	'\''	|	'\\' |	'>' |	'u' XDIGIT XDIGIT XDIGIT XDIGIT |	. );
 
-// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 251
+// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 252
 fragment XDIGIT : '0' .. '9' |	'a' .. 'f' 	|	'A' .. 'F';
 
-// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 253
+// $ANTLR src "./src/org/emftext/sdk/codegen/regex/ANTLRexp.g" 254
 WS	:	(	' ' | '\t'|	'\r'? '\n' )+ {$channel=HIDDEN;};

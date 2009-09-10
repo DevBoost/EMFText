@@ -1,19 +1,10 @@
-// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g 2009-08-14 17:39:32
+// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g 2009-09-10 15:01:22
 
 package org.emftext.sdk.codegen.regex; 
 
 
 
-import org.antlr.runtime.BaseRecognizer;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.DFA;
-import org.antlr.runtime.EarlyExitException;
-import org.antlr.runtime.IntStream;
-import org.antlr.runtime.Lexer;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.*;
 
 public class ANTLRexpLexer extends Lexer {
     public static final int T__12=12;
@@ -283,8 +274,8 @@ public class ANTLRexpLexer extends Lexer {
         try {
             int _type = CHAR_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:243:14: ( '\\'' LITERAL_CHAR '\\'' )
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:243:16: '\\'' LITERAL_CHAR '\\''
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:244:14: ( '\\'' LITERAL_CHAR '\\'' )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:244:16: '\\'' LITERAL_CHAR '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
@@ -305,12 +296,12 @@ public class ANTLRexpLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:245:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:245:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:246:16: ( '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\'' )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:246:18: '\\'' LITERAL_CHAR ( LITERAL_CHAR )* '\\''
             {
             match('\''); 
             mLITERAL_CHAR(); 
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:245:36: ( LITERAL_CHAR )*
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:246:36: ( LITERAL_CHAR )*
             loop1:
             do {
                 int alt1=2;
@@ -323,7 +314,7 @@ public class ANTLRexpLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:245:36: LITERAL_CHAR
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:246:36: LITERAL_CHAR
             	    {
             	    mLITERAL_CHAR(); 
 
@@ -350,7 +341,7 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start "LITERAL_CHAR"
     public final void mLITERAL_CHAR() throws RecognitionException {
         try {
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:247:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:248:23: ( ESC | ~ ( '\\'' | '\\\\' ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -368,14 +359,14 @@ public class ANTLRexpLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:247:25: ESC
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:248:25: ESC
                     {
                     mESC(); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:247:32: ~ ( '\\'' | '\\\\' )
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:248:32: ~ ( '\\'' | '\\\\' )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -400,79 +391,79 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start "ESC"
     public final void mESC() throws RecognitionException {
         try {
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:14: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . ) )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:16: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             {
             match('\\'); 
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )
             int alt3=11;
             alt3 = dfa3.predict(input);
             switch (alt3) {
                 case 1 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:23: 'n'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:23: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 2 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:30: 'r'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:30: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 3 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:37: 't'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:37: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 4 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:45: 'b'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:45: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:51: 'f'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:51: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:57: '\"'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:57: '\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 7 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:62: '\\''
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:62: '\\''
                     {
                     match('\''); 
 
                     }
                     break;
                 case 8 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:69: '\\\\'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:69: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 9 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:76: '>'
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:76: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 10 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:82: 'u' XDIGIT XDIGIT XDIGIT XDIGIT
                     {
                     match('u'); 
                     mXDIGIT(); 
@@ -483,7 +474,7 @@ public class ANTLRexpLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:249:116: .
+                    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:250:116: .
                     {
                     matchAny(); 
 
@@ -504,7 +495,7 @@ public class ANTLRexpLexer extends Lexer {
     // $ANTLR start "XDIGIT"
     public final void mXDIGIT() throws RecognitionException {
         try {
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:251:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:252:17: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -530,10 +521,10 @@ public class ANTLRexpLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:4: ( ( ' ' | '\\t' | ( '\\r' )? '\\n' )+ )
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             {
-            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
+            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:6: ( ' ' | '\\t' | ( '\\r' )? '\\n' )+
             int cnt5=0;
             loop5:
             do {
@@ -560,23 +551,23 @@ public class ANTLRexpLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:8: ' '
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:8: ' '
             	    {
             	    match(' '); 
 
             	    }
             	    break;
             	case 2 :
-            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:14: '\\t'
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:14: '\\t'
             	    {
             	    match('\t'); 
 
             	    }
             	    break;
             	case 3 :
-            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:20: ( '\\r' )? '\\n'
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:20: ( '\\r' )? '\\n'
             	    {
-            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:20: ( '\\r' )?
+            	    // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:20: ( '\\r' )?
             	    int alt4=2;
             	    int LA4_0 = input.LA(1);
 
@@ -585,7 +576,7 @@ public class ANTLRexpLexer extends Lexer {
             	    }
             	    switch (alt4) {
             	        case 1 :
-            	            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:253:20: '\\r'
+            	            // ./src/org/emftext/sdk/codegen/regex/ANTLRexp.g:254:20: '\\r'
             	            {
             	            match('\r'); 
 
@@ -790,7 +781,7 @@ public class ANTLRexpLexer extends Lexer {
             this.transition = DFA3_transition;
         }
         public String getDescription() {
-            return "249:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )";
+            return "250:21: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | '>' | 'u' XDIGIT XDIGIT XDIGIT XDIGIT | . )";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;

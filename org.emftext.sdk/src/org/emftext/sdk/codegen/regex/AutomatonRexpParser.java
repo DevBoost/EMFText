@@ -1,15 +1,9 @@
-// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g 2009-08-14 17:39:33
+// $ANTLR 3.1.1 ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g 2009-09-10 15:01:23
 
 package org.emftext.sdk.codegen.regex; 
 
 
-import org.antlr.runtime.BitSet;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.Parser;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.TokenStream;
+import org.antlr.runtime.*;
 
 /** ANTLR pure ebnf/regex grammar extracted from ANTLRv3 grammar.
 Needs to be further testing since antlr uses the same sublanguage for ebnf and regex!*/
@@ -857,6 +851,7 @@ public class AutomatonRexpParser extends Parser {
     public final StringBuffer notSet() throws RecognitionException {
         StringBuffer buf = null;
 
+        Token sign=null;
         StringBuffer bl = null;
 
 
@@ -867,7 +862,7 @@ public class AutomatonRexpParser extends Parser {
             // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:1: (sign= '~' (bl= block ) )
             // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:3: sign= '~' (bl= block )
             {
-            match(input,20,FOLLOW_20_in_notSet543); 
+            sign=(Token)match(input,20,FOLLOW_20_in_notSet543); 
             // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:15: (bl= block )
             // ./src/org/emftext/sdk/codegen/regex/AutomatonRexp.g:225:17: bl= block
             {
