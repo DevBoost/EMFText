@@ -445,7 +445,6 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("internalURIFragmentMap.clear();");
     	sc.add("getErrors().clear();");
     	sc.add("getWarnings().clear();");
-    	sc.add("getContents().clear();");
     	sc.add("proxyCounter = 0;");
     	sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
     	sc.add("}");
@@ -676,6 +675,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add(I_PARSE_RESULT + " result = parser.parse();");
         sc.add("clearState();");
+    	sc.add("getContents().clear();");
         sc.add("if (result != null) {");
         sc.add(E_OBJECT + " root = result.getRoot();");
         sc.add("if (root != null) {");
