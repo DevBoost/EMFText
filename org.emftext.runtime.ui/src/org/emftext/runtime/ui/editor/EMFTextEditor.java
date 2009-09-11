@@ -243,6 +243,17 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,
 				colorManager));
 		initializeEditingDomain();
+		addBackgroundParsingListener(new IBackgroundParsingListener() {
+			
+			public void parsingCompleted(Resource resource) {
+				try {
+					MarkerHelper.unmark(resource);
+					MarkerHelper.mark(resource);
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
+			}
+		}, "MarkerUpdate");
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(
 				resourceChangeListener, IResourceChangeEvent.POST_CHANGE);
 	}
