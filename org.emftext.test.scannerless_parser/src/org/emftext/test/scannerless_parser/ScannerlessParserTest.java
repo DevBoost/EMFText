@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftext.runtime.resource.IParseResult;
 import org.emftext.runtime.resource.ITextParser;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
@@ -50,9 +51,9 @@ public class ScannerlessParserTest extends TestCase {
 			ResourceSet rs = new ResourceSetImpl();
 			URI uri = URI.createURI("test." + metaInformation.getSyntaxName());
 			ITextResource resource = (ITextResource) rs.createResource(uri);
-			parser.setResource(resource);
 			//parser.setResource(new Grammar_featuresResource(uri));
-			EObject root = parser.parse();
+			IParseResult result = parser.parse();
+			EObject root = result.getRoot();
 			List<Diagnostic> errors = resource.getErrors();
 			if (expectedResult) {
 				assertNotNull("The root object should not be null.", root);
