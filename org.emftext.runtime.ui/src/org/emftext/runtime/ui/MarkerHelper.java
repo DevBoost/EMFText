@@ -48,7 +48,9 @@ public class MarkerHelper {
      * @throws CoreException 
      */
     public static void mark(Resource resource) throws CoreException {
-    	if (resource == null) return;
+    	if (resource == null) {
+    		return;
+    	}
     	
         IFile file = (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));
         
@@ -71,7 +73,7 @@ public class MarkerHelper {
 			Resource.Diagnostic diagnostic = copy[i];
 			IMarker marker = file.createMarker(MARKER_TYPE);
             marker.setAttribute(IMarker.SEVERITY, markerSeverity);
-            marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
+			marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
             try {
             	if (diagnostic instanceof ITextDiagnostic) {
             		ITextDiagnostic textDiagnostic = (ITextDiagnostic) diagnostic;
