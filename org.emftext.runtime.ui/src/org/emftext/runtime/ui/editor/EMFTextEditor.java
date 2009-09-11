@@ -552,7 +552,8 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	}
 
 	public void addBackgroundParsingListener(
-			IBackgroundParsingListener listener) {
+			IBackgroundParsingListener listener, String who) {
+		System.out.println("addBackgroundParsingListener(" + who + ") - " + bgParsingListener.size() + " listening...");
 		bgParsingListener.add(listener);
 	}
 
