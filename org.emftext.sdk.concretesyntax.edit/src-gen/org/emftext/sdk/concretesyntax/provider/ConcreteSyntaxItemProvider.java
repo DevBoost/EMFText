@@ -333,7 +333,7 @@ public class ConcreteSyntaxItemProvider
 		String label = concreteSyntax.getName() + " : ";
 		if (!concreteSyntax.eIsProxy()) {
 			GenPackage genPackage = concreteSyntax.getPackage();
-			if(genPackage != null && !genPackage.eIsProxy()) {
+			if (genPackage != null && !genPackage.eIsProxy() && genPackage.getEcorePackage() != null) {
 				label = label + genPackage.getNSURI();
 			}
 		}
