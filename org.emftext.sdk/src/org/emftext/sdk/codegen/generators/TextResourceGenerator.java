@@ -668,12 +668,12 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add(I_REFERENCE_RESOLVER_SWITCH + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add(I_PARSE_RESULT + " result = parser.parse();");
+        sc.add("clearState();");
         sc.add("if (result != null) {");
         sc.add(E_OBJECT + " root = result.getRoot();");
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");
         sc.add("}");
-        sc.add("clearState();");
         sc.add(COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands = result.getPostParseCommands();");
         sc.add("if (commands != null) {");
         sc.add("for (" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">  command : commands) {");
