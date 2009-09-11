@@ -80,7 +80,7 @@ public class MarkerHelper {
                     marker.setAttribute(IMarker.CHAR_END, 1);
             	}
 			} catch (CoreException ce) {
-				if (ce.getMessage().matches("Marke.*not found.")) {
+				if (ce.getMessage().matches("Marker.*not found.")) {
 					// ignore
 				} else {
 					ce.printStackTrace();
