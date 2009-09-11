@@ -40,12 +40,12 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		org.emftext.runtime.resource.IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
 		org.emftext.runtime.resource.IParseResult result = parser.parse();
+		clearState();
 		if (result != null) {
 			org.eclipse.emf.ecore.EObject root = result.getRoot();
 			if (root != null) {
 				getContents().add(root);
 			}
-			clearState();
 			java.util.Collection<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>> commands = result.getPostParseCommands();
 			if (commands != null) {
 				for (org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>  command : commands) {
@@ -452,8 +452,21 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		internalURIFragmentMap.clear();
 		getErrors().clear();
 		getWarnings().clear();
+		getContents().clear();
 		proxyCounter = 0;
 		resolverSwitch = null;
+	}
+	
+	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContents() {
+		return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.EObject>(super.getContents());
+	}
+	
+	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getWarnings() {
+		return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getWarnings());
+	}
+	
+	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getErrors() {
+		return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getErrors());
 	}
 	
 }

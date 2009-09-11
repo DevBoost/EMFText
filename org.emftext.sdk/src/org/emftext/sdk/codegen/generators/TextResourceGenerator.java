@@ -20,8 +20,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CAST_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
@@ -31,11 +31,13 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUNTIME_PLUGIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
@@ -44,6 +46,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_D
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ELEMENT_MAPPING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INPUT_STREAM_PROCESSOR_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTION_PROVIDER;
@@ -56,8 +59,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INPUT_STREAM_PROCESSOR_PROVIDER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_URI_MAPPING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -164,6 +165,9 @@ public class TextResourceGenerator extends BaseGenerator {
     	addElementBasedTextDiagnosticClass(sc);
     	addPositionBasedTestDiagnosticClass(sc);
     	addClearStateMethod(sc);
+    	addGetContentsMethod(sc);
+    	addGetWarningsMethod(sc);
+    	addGetErrorsMethod(sc);
 	}
 
 	private void addPositionBasedTestDiagnosticClass(StringComposite sc) {
@@ -704,6 +708,27 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("public void cancelReload() {");
         sc.add(I_TEXT_PARSER + " parserCopy = parser;");
         sc.add("parserCopy.terminate();");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetContentsMethod(StringComposite sc) {
+		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
+        sc.add("return new " + BASIC_E_LIST + "<" + E_OBJECT + ">(super.getContents());");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetWarningsMethod(StringComposite sc) {
+		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getWarnings() {");
+        sc.add("return new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(super.getWarnings());");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetErrorsMethod(StringComposite sc) {
+		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getErrors() {");
+        sc.add("return new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(super.getErrors());");
         sc.add("}");
         sc.addLineBreak();
 	}

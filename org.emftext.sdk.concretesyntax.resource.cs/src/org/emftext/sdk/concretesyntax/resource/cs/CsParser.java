@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-09-11 10:23:58
+// $ANTLR 3.1.1 C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-09-11 13:44:10
 
 	package org.emftext.sdk.concretesyntax.resource.cs;
 	
@@ -76,12 +76,14 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     	private org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolverFactory();
+    	private int lastPosition;
     	private org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolveResult tokenResolveResult = new org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolveResult();
     	private boolean rememberExpectedElements = false;
     	private java.lang.Object parseToIndexTypeObject;
     	private int lastTokenIndex = 0;
     	private boolean reachedIndex = false;
     	private java.util.List<org.emftext.runtime.resource.IExpectedElement> expectedElements = new java.util.ArrayList<org.emftext.runtime.resource.IExpectedElement>();
+    	private int lastIndex = -1;
     	private int mismatchedTokenRecoveryTries = 0;
     	private java.util.Map<?, ?> options;
     	//helper lists to allow a lexer to pass errors to its parser
@@ -225,6 +227,7 @@ public class CsParser extends AbstractEMFTextParser {
     }
 
     protected org.eclipse.emf.ecore.EObject doParse() throws org.antlr.runtime.RecognitionException {
+    	lastPosition = 0;
     	((CsLexer) getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
     	((CsLexer) getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;
     	java.lang.Object typeObject = getTypeObject();
@@ -487,7 +490,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "start"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:439:1: start returns [ org.eclipse.emf.ecore.EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:442:1: start returns [ org.eclipse.emf.ecore.EObject element = null] : (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF ;
     public final org.eclipse.emf.ecore.EObject start() throws RecognitionException {
         org.eclipse.emf.ecore.EObject element =  null;
         int start_StartIndex = input.index();
@@ -496,15 +499,15 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:440:1: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:441:1: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:443:1: ( (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:444:1: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax ) EOF
             {
             if ( state.backtracking==0 ) {
 
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:443:1: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:444:2: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:446:1: (c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:447:2: c0= parse_org_emftext_sdk_concretesyntax_ConcreteSyntax
             {
             if ( state.backtracking==0 ) {
 
@@ -539,7 +542,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_ConcreteSyntax"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:451:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:454:1: parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.concretesyntax.ConcreteSyntax element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' ;
     public final org.emftext.sdk.concretesyntax.ConcreteSyntax parse_org_emftext_sdk_concretesyntax_ConcreteSyntax() throws RecognitionException {
         org.emftext.sdk.concretesyntax.ConcreteSyntax element =  null;
         int parse_org_emftext_sdk_concretesyntax_ConcreteSyntax_StartIndex = input.index();
@@ -588,15 +591,15 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:454:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:455:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}'
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:457:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}' )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:458:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )? a2= 'SYNTAXDEF' (a3= QUALIFIED_NAME ) a4= 'FOR' (a5= QUOTED_60_62 ) ( ( (a6= QUOTED_60_62 ) ) )? ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )? ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )? ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )? ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )? ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )? a29= 'RULES' a30= '{' ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* ) a32= '}'
             {
             if ( state.backtracking==0 ) {
 
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:458:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:461:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -609,23 +612,23 @@ public class CsParser extends AbstractEMFTextParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:459:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:462:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      		// expected element is a Compound
             	      	
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:462:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:463:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:465:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:466:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      			// expected element is a Terminal
             	      		
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:466:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:467:4: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:469:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:470:4: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax129);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -674,7 +677,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:493:1: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:496:1: ( (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract ) )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -683,15 +686,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt2) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:494:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:497:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Terminal
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:497:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:498:3: a1_0= parse_org_emftext_sdk_concretesyntax_Abstract
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:500:2: (a1_0= parse_org_emftext_sdk_concretesyntax_Abstract )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:501:3: a1_0= parse_org_emftext_sdk_concretesyntax_Abstract
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Abstract_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax168);
                     a1_0=parse_org_emftext_sdk_concretesyntax_Abstract();
@@ -744,8 +747,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:530:1: (a3= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:531:2: a3= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:533:1: (a3= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:534:2: a3= QUALIFIED_NAME
             {
             a3=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax201); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -798,8 +801,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:573:1: (a5= QUOTED_60_62 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:574:2: a5= QUOTED_60_62
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:576:1: (a5= QUOTED_60_62 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:577:2: a5= QUOTED_60_62
             {
             a5=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax230); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -841,7 +844,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:609:1: ( ( (a6= QUOTED_60_62 ) ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:612:1: ( ( (a6= QUOTED_60_62 ) ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -850,23 +853,23 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt3) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:610:2: ( (a6= QUOTED_60_62 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:613:2: ( (a6= QUOTED_60_62 ) )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:613:2: ( (a6= QUOTED_60_62 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:614:3: (a6= QUOTED_60_62 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:616:2: ( (a6= QUOTED_60_62 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:617:3: (a6= QUOTED_60_62 )
                     {
                     if ( state.backtracking==0 ) {
 
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:617:3: (a6= QUOTED_60_62 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:618:4: a6= QUOTED_60_62
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:620:3: (a6= QUOTED_60_62 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:621:4: a6= QUOTED_60_62
                     {
                     a6=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax264); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -913,7 +916,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:652:1: ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:655:1: ( (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -922,15 +925,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt5) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:653:2: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:656:2: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:656:2: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:657:3: a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:659:2: (a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )* )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:660:3: a7= 'START' ( (a8= QUALIFIED_NAME ) ) ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
                     {
                     if ( state.backtracking==0 ) {
 
@@ -952,16 +955,16 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element is a Compound
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:671:3: ( (a8= QUALIFIED_NAME ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:672:4: (a8= QUALIFIED_NAME )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:674:3: ( (a8= QUALIFIED_NAME ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:675:4: (a8= QUALIFIED_NAME )
                     {
                     if ( state.backtracking==0 ) {
 
                       				// expected element is a Terminal
                       			
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:675:4: (a8= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:676:5: a8= QUALIFIED_NAME
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:678:4: (a8= QUALIFIED_NAME )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:679:5: a8= QUALIFIED_NAME
                     {
                     a8=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax342); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -1006,7 +1009,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:713:3: ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:716:3: ( (a9= ',' ( (a10= QUALIFIED_NAME ) ) ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -1019,15 +1022,15 @@ public class CsParser extends AbstractEMFTextParser {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:714:4: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:717:4: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      				// expected element is a Compound
                     	      			
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:717:4: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:718:5: a9= ',' ( (a10= QUALIFIED_NAME ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:720:4: (a9= ',' ( (a10= QUALIFIED_NAME ) ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:721:5: a9= ',' ( (a10= QUALIFIED_NAME ) )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
@@ -1049,16 +1052,16 @@ public class CsParser extends AbstractEMFTextParser {
                     	      					// expected element is a Compound
                     	      				
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:732:5: ( (a10= QUALIFIED_NAME ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:733:6: (a10= QUALIFIED_NAME )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:735:5: ( (a10= QUALIFIED_NAME ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:736:6: (a10= QUALIFIED_NAME )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      						// expected element is a Terminal
                     	      					
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:736:6: (a10= QUALIFIED_NAME )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:737:7: a10= QUALIFIED_NAME
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:739:6: (a10= QUALIFIED_NAME )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:740:7: a10= QUALIFIED_NAME
                     	    {
                     	    a10=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax447); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -1129,7 +1132,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:783:1: ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:786:1: ( (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' ) )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1138,15 +1141,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt7) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:784:2: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:787:2: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:787:2: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:788:3: a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}'
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:790:2: (a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:791:3: a11= 'IMPORTS' a12= '{' ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )* a14= '}'
                     {
                     if ( state.backtracking==0 ) {
 
@@ -1183,7 +1186,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:813:3: ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:816:3: ( ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) ) )*
                     loop6:
                     do {
                         int alt6=2;
@@ -1196,23 +1199,23 @@ public class CsParser extends AbstractEMFTextParser {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:814:4: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:817:4: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      				// expected element is a Compound
                     	      			
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:817:4: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:818:5: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:820:4: ( (a13_0= parse_org_emftext_sdk_concretesyntax_Import ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:821:5: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      					// expected element is a Terminal
                     	      				
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:821:5: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:822:6: a13_0= parse_org_emftext_sdk_concretesyntax_Import
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:824:5: (a13_0= parse_org_emftext_sdk_concretesyntax_Import )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:825:6: a13_0= parse_org_emftext_sdk_concretesyntax_Import
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Import_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax598);
                     	    a13_0=parse_org_emftext_sdk_concretesyntax_Import();
@@ -1285,7 +1288,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:862:1: ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:865:1: ( (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' ) )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1294,15 +1297,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt9) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:863:2: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:866:2: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:866:2: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:867:3: a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}'
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:869:2: (a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:870:3: a15= 'OPTIONS' a16= '{' ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )* a19= '}'
                     {
                     if ( state.backtracking==0 ) {
 
@@ -1339,7 +1342,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:892:3: ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:895:3: ( ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' ) )*
                     loop8:
                     do {
                         int alt8=2;
@@ -1352,23 +1355,23 @@ public class CsParser extends AbstractEMFTextParser {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:893:4: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:896:4: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      				// expected element is a Compound
                     	      			
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:896:4: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:897:5: (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';'
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:899:4: ( (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';' )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:900:5: (a17_0= parse_org_emftext_sdk_concretesyntax_Option ) a18= ';'
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      					// expected element is a Terminal
                     	      				
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:900:5: (a17_0= parse_org_emftext_sdk_concretesyntax_Option )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:901:6: a17_0= parse_org_emftext_sdk_concretesyntax_Option
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:903:5: (a17_0= parse_org_emftext_sdk_concretesyntax_Option )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:904:6: a17_0= parse_org_emftext_sdk_concretesyntax_Option
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Option_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax745);
                     	    a17_0=parse_org_emftext_sdk_concretesyntax_Option();
@@ -1456,7 +1459,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:952:1: ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:955:1: ( (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1465,15 +1468,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt11) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:953:2: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:956:2: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:956:2: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:957:3: a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}'
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:959:2: (a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:960:3: a20= 'TOKENS' a21= '{' ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )* a24= '}'
                     {
                     if ( state.backtracking==0 ) {
 
@@ -1510,7 +1513,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:982:3: ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:985:3: ( ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' ) )*
                     loop10:
                     do {
                         int alt10=2;
@@ -1523,23 +1526,23 @@ public class CsParser extends AbstractEMFTextParser {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:983:4: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:986:4: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      				// expected element is a Compound
                     	      			
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:986:4: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:987:5: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';'
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:989:4: ( (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';' )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:990:5: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective ) a23= ';'
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      					// expected element is a Terminal
                     	      				
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:990:5: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:991:6: a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:993:5: (a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:994:6: a22_0= parse_org_emftext_sdk_concretesyntax_TokenDirective
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenDirective_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax915);
                     	    a22_0=parse_org_emftext_sdk_concretesyntax_TokenDirective();
@@ -1627,7 +1630,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1042:1: ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1045:1: ( (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' ) )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1636,15 +1639,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt13) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1043:2: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1046:2: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1046:2: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1047:3: a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}'
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1049:2: (a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1050:3: a25= 'TOKENSTYLES' a26= '{' ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )* a28= '}'
                     {
                     if ( state.backtracking==0 ) {
 
@@ -1681,7 +1684,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1072:3: ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1075:3: ( ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) ) )*
                     loop12:
                     do {
                         int alt12=2;
@@ -1694,23 +1697,23 @@ public class CsParser extends AbstractEMFTextParser {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1073:4: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1076:4: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      				// expected element is a Compound
                     	      			
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1076:4: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1077:5: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1079:4: ( (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1080:5: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      					// expected element is a Terminal
                     	      				
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1080:5: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1081:6: a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1083:5: (a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1084:6: a27_0= parse_org_emftext_sdk_concretesyntax_TokenStyle
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenStyle_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1085);
                     	    a27_0=parse_org_emftext_sdk_concretesyntax_TokenStyle();
@@ -1813,15 +1816,15 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Compound
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1143:1: ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1144:2: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1146:1: ( ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )* )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1147:2: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
             {
             if ( state.backtracking==0 ) {
 
               		// expected element before STAR or QUESTIONMARK or PLUS
               	
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1147:2: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1150:2: ( (a31_0= parse_org_emftext_sdk_concretesyntax_Rule ) )*
             loop14:
             do {
                 int alt14=2;
@@ -1834,15 +1837,15 @@ public class CsParser extends AbstractEMFTextParser {
 
                 switch (alt14) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1148:3: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1151:3: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      			// expected element is a Terminal
             	      		
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1151:3: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1152:4: a31_0= parse_org_emftext_sdk_concretesyntax_Rule
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1154:3: (a31_0= parse_org_emftext_sdk_concretesyntax_Rule )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1155:4: a31_0= parse_org_emftext_sdk_concretesyntax_Rule
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Rule_in_parse_org_emftext_sdk_concretesyntax_ConcreteSyntax1196);
             	    a31_0=parse_org_emftext_sdk_concretesyntax_Rule();
@@ -1918,7 +1921,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Import"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1188:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1191:1: parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyntax.Import element = null] : (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? ;
     public final org.emftext.sdk.concretesyntax.Import parse_org_emftext_sdk_concretesyntax_Import() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Import element =  null;
         int parse_org_emftext_sdk_concretesyntax_Import_StartIndex = input.index();
@@ -1935,16 +1938,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1191:1: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1192:1: (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1194:1: ( (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1195:1: (a0= QUALIFIED_NAME ) a1= ':' (a2= QUOTED_60_62 ) ( ( (a3= QUOTED_60_62 ) ) )? ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1195:1: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1196:2: a0= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1198:1: (a0= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1199:2: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1255); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -1997,8 +2000,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1238:1: (a2= QUOTED_60_62 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1239:2: a2= QUOTED_60_62
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1241:1: (a2= QUOTED_60_62 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1242:2: a2= QUOTED_60_62
             {
             a2=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1284); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2040,7 +2043,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1274:1: ( ( (a3= QUOTED_60_62 ) ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1277:1: ( ( (a3= QUOTED_60_62 ) ) )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2049,23 +2052,23 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt15) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1275:2: ( (a3= QUOTED_60_62 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1278:2: ( (a3= QUOTED_60_62 ) )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1278:2: ( (a3= QUOTED_60_62 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1279:3: (a3= QUOTED_60_62 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1281:2: ( (a3= QUOTED_60_62 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1282:3: (a3= QUOTED_60_62 )
                     {
                     if ( state.backtracking==0 ) {
 
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1282:3: (a3= QUOTED_60_62 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1283:4: a3= QUOTED_60_62
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1285:3: (a3= QUOTED_60_62 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1286:4: a3= QUOTED_60_62
                     {
                     a3=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1318); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -2112,7 +2115,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1317:1: ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1320:1: ( (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? ) )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2121,15 +2124,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt17) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1318:2: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1321:2: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1321:2: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1322:3: a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )?
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1324:2: (a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )? )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1325:3: a4= 'WITH' a5= 'SYNTAX' (a6= QUALIFIED_NAME ) ( ( (a7= QUOTED_60_62 ) ) )?
                     {
                     if ( state.backtracking==0 ) {
 
@@ -2166,8 +2169,8 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1347:3: (a6= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1348:4: a6= QUALIFIED_NAME
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1350:3: (a6= QUALIFIED_NAME )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1351:4: a6= QUALIFIED_NAME
                     {
                     a6=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Import1402); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -2209,7 +2212,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1383:3: ( ( (a7= QUOTED_60_62 ) ) )?
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1386:3: ( ( (a7= QUOTED_60_62 ) ) )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -2218,23 +2221,23 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     switch (alt16) {
                         case 1 :
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1384:4: ( (a7= QUOTED_60_62 ) )
+                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1387:4: ( (a7= QUOTED_60_62 ) )
                             {
                             if ( state.backtracking==0 ) {
 
                               				// expected element is a Compound
                               			
                             }
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1387:4: ( (a7= QUOTED_60_62 ) )
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1388:5: (a7= QUOTED_60_62 )
+                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1390:4: ( (a7= QUOTED_60_62 ) )
+                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1391:5: (a7= QUOTED_60_62 )
                             {
                             if ( state.backtracking==0 ) {
 
                               					// expected element is a Terminal
                               				
                             }
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1391:5: (a7= QUOTED_60_62 )
-                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1392:6: a7= QUOTED_60_62
+                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1394:5: (a7= QUOTED_60_62 )
+                            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1395:6: a7= QUOTED_60_62
                             {
                             a7=(Token)match(input,QUOTED_60_62,FOLLOW_QUOTED_60_62_in_parse_org_emftext_sdk_concretesyntax_Import1458); if (state.failed) return element;
                             if ( state.backtracking==0 ) {
@@ -2302,7 +2305,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Option"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1428:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1431:1: parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null] : (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) ;
     public final org.emftext.sdk.concretesyntax.Option parse_org_emftext_sdk_concretesyntax_Option() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Option element =  null;
         int parse_org_emftext_sdk_concretesyntax_Option_StartIndex = input.index();
@@ -2314,16 +2317,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1431:1: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1432:1: (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1434:1: ( (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 ) )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1435:1: (a0= QUALIFIED_NAME ) a1= '=' (a2= QUOTED_34_34_92 )
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1435:1: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1436:2: a0= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1438:1: (a0= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1439:2: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Option1531); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2376,8 +2379,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1478:1: (a2= QUOTED_34_34_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1479:2: a2= QUOTED_34_34_92
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1481:1: (a2= QUOTED_34_34_92 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1482:2: a2= QUOTED_34_34_92
             {
             a2=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_Option1560); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2427,7 +2430,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Rule"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1509:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1512:1: parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesyntax.Rule element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' ;
     public final org.emftext.sdk.concretesyntax.Rule parse_org_emftext_sdk_concretesyntax_Rule() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Rule element =  null;
         int parse_org_emftext_sdk_concretesyntax_Rule_StartIndex = input.index();
@@ -2443,15 +2446,15 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1512:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1513:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1515:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';' )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1516:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* (a1= QUALIFIED_NAME ) a2= '::=' (a3_0= parse_org_emftext_sdk_concretesyntax_Choice ) a4= ';'
             {
             if ( state.backtracking==0 ) {
 
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1516:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1519:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop18:
             do {
                 int alt18=2;
@@ -2464,23 +2467,23 @@ public class CsParser extends AbstractEMFTextParser {
 
                 switch (alt18) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1517:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1520:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      		// expected element is a Compound
             	      	
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1520:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1521:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1523:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1524:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      			// expected element is a Terminal
             	      		
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1524:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1525:4: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1527:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1528:4: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_Rule1609);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -2529,8 +2532,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1551:1: (a1= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1552:2: a1= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1554:1: (a1= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1555:2: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Rule1641); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2587,8 +2590,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1598:1: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1599:2: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1601:1: (a3_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1602:2: a3_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_Rule1670);
             a3_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -2647,7 +2650,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Sequence"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1629:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1632:1: parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretesyntax.Sequence element = null] : ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ ;
     public final org.emftext.sdk.concretesyntax.Sequence parse_org_emftext_sdk_concretesyntax_Sequence() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Sequence element =  null;
         int parse_org_emftext_sdk_concretesyntax_Sequence_StartIndex = input.index();
@@ -2658,15 +2661,15 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1632:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1633:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1635:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+ )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1636:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
             {
             if ( state.backtracking==0 ) {
 
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1636:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1639:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Definition ) )+
             int cnt19=0;
             loop19:
             do {
@@ -2680,15 +2683,15 @@ public class CsParser extends AbstractEMFTextParser {
 
                 switch (alt19) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1637:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1640:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      		// expected element is a Terminal
             	      	
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1640:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1641:3: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1643:2: (a0_0= parse_org_emftext_sdk_concretesyntax_Definition )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1644:3: a0_0= parse_org_emftext_sdk_concretesyntax_Definition
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Definition_in_parse_org_emftext_sdk_concretesyntax_Sequence1719);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Definition();
@@ -2751,7 +2754,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Choice"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1664:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1667:1: parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyntax.Choice element = null] : (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* ;
     public final org.emftext.sdk.concretesyntax.Choice parse_org_emftext_sdk_concretesyntax_Choice() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Choice element =  null;
         int parse_org_emftext_sdk_concretesyntax_Choice_StartIndex = input.index();
@@ -2765,16 +2768,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1667:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1668:1: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1670:1: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )* )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1671:1: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1671:1: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1672:2: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1674:1: (a0_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1675:2: a0_0= parse_org_emftext_sdk_concretesyntax_Sequence
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice1758);
             a0_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -2806,7 +2809,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1692:1: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1695:1: ( (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) ) )*
             loop20:
             do {
                 int alt20=2;
@@ -2819,15 +2822,15 @@ public class CsParser extends AbstractEMFTextParser {
 
                 switch (alt20) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1693:2: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1696:2: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      		// expected element is a Compound
             	      	
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1696:2: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1697:3: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1699:2: (a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1700:3: a1= '|' (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -2849,8 +2852,8 @@ public class CsParser extends AbstractEMFTextParser {
             	      			// expected element is a Terminal
             	      		
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1711:3: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1712:4: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1714:3: (a2_0= parse_org_emftext_sdk_concretesyntax_Sequence )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1715:4: a2_0= parse_org_emftext_sdk_concretesyntax_Sequence
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Sequence_in_parse_org_emftext_sdk_concretesyntax_Choice1807);
             	    a2_0=parse_org_emftext_sdk_concretesyntax_Sequence();
@@ -2911,7 +2914,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CsString"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1737:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= QUOTED_34_34_92 ) ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1740:1: parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretesyntax.CsString element = null] : (a0= QUOTED_34_34_92 ) ;
     public final org.emftext.sdk.concretesyntax.CsString parse_org_emftext_sdk_concretesyntax_CsString() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CsString element =  null;
         int parse_org_emftext_sdk_concretesyntax_CsString_StartIndex = input.index();
@@ -2921,16 +2924,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1740:1: ( (a0= QUOTED_34_34_92 ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1741:1: (a0= QUOTED_34_34_92 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1743:1: ( (a0= QUOTED_34_34_92 ) )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1744:1: (a0= QUOTED_34_34_92 )
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1744:1: (a0= QUOTED_34_34_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1745:2: a0= QUOTED_34_34_92
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1747:1: (a0= QUOTED_34_34_92 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1748:2: a0= QUOTED_34_34_92
             {
             a0=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_CsString1854); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -2980,7 +2983,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1775:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1778:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingSpecifiedToken element =  null;
         int parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken_StartIndex = input.index();
@@ -2995,16 +2998,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1778:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1779:1: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1781:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1782:1: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUALIFIED_NAME ) a3= ']' ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1782:1: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1783:2: a0= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1785:1: (a0= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1786:2: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken1887); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3061,8 +3064,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1829:1: (a2= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1830:2: a2= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1832:1: (a2= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1833:2: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken1916); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3119,7 +3122,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1876:1: ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1879:1: ( (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -3128,15 +3131,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt21) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1877:2: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1880:2: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Terminal
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1880:2: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1881:3: a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1883:2: (a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1884:3: a4_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken1952);
                     a4_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -3186,7 +3189,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1901:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1904:1: parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null] : (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element =  null;
         int parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken_StartIndex = input.index();
@@ -3200,16 +3203,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1904:1: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1905:1: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1907:1: ( (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1908:1: (a0= QUALIFIED_NAME ) a1= '[' a2= ']' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1908:1: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1909:2: a0= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1911:1: (a0= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1912:2: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken1989); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3281,7 +3284,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1966:1: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1969:1: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -3290,15 +3293,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt22) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1967:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1970:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Terminal
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1970:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1971:3: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1973:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1974:3: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken2036);
                     a3_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -3348,7 +3351,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1991:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1994:1: parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null] : (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.PlaceholderInQuotes parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PlaceholderInQuotes element =  null;
         int parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes_StartIndex = input.index();
@@ -3367,16 +3370,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1994:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1995:1: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1997:1: ( (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1998:1: (a0= QUALIFIED_NAME ) a1= '[' (a2= QUOTED_39_39_92 ) a3= ',' (a4= QUOTED_39_39_92 ) ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )? a7= ']' ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1998:1: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:1999:2: a0= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2001:1: (a0= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2002:2: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2073); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3433,8 +3436,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2045:1: (a2= QUOTED_39_39_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2046:2: a2= QUOTED_39_39_92
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2048:1: (a2= QUOTED_39_39_92 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2049:2: a2= QUOTED_39_39_92
             {
             a2=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2102); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3487,8 +3490,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2088:1: (a4= QUOTED_39_39_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2089:2: a4= QUOTED_39_39_92
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2091:1: (a4= QUOTED_39_39_92 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2092:2: a4= QUOTED_39_39_92
             {
             a4=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2131); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3526,7 +3529,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2120:1: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2123:1: ( (a5= ',' (a6= QUOTED_39_39_92 ) ) )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -3535,15 +3538,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt23) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2121:2: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2124:2: (a5= ',' (a6= QUOTED_39_39_92 ) )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2124:2: (a5= ',' (a6= QUOTED_39_39_92 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2125:3: a5= ',' (a6= QUOTED_39_39_92 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2127:2: (a5= ',' (a6= QUOTED_39_39_92 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2128:3: a5= ',' (a6= QUOTED_39_39_92 )
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3565,8 +3568,8 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2139:3: (a6= QUOTED_39_39_92 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2140:4: a6= QUOTED_39_39_92
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2142:3: (a6= QUOTED_39_39_92 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2143:4: a6= QUOTED_39_39_92
                     {
                     a6=(Token)match(input,QUOTED_39_39_92,FOLLOW_QUOTED_39_39_92_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2182); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -3628,7 +3631,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2185:1: ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2188:1: ( (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -3637,15 +3640,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt24) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2186:2: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2189:2: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Terminal
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2189:2: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2190:3: a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2192:2: (a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2193:3: a8_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes2234);
                     a8_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -3695,7 +3698,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Containment"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2210:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2213:1: parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null] : (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.Containment parse_org_emftext_sdk_concretesyntax_Containment() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Containment element =  null;
         int parse_org_emftext_sdk_concretesyntax_Containment_StartIndex = input.index();
@@ -3711,16 +3714,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2213:1: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2214:1: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2216:1: ( (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2217:1: (a0= QUALIFIED_NAME ) ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )? ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2217:1: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2218:2: a0= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2220:1: (a0= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2221:2: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2271); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -3762,7 +3765,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2253:1: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2256:1: ( (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* ) )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3771,15 +3774,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt26) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2254:2: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2257:2: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2257:2: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2258:3: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2260:2: (a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2261:3: a1= ':' (a2= QUALIFIED_NAME ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3801,8 +3804,8 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2272:3: (a2= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2273:4: a2= QUALIFIED_NAME
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2275:3: (a2= QUALIFIED_NAME )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2276:4: a2= QUALIFIED_NAME
                     {
                     a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2322); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -3844,7 +3847,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2308:3: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2311:3: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
                     loop25:
                     do {
                         int alt25=2;
@@ -3857,15 +3860,15 @@ public class CsParser extends AbstractEMFTextParser {
 
                         switch (alt25) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2309:4: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2312:4: (a3= ',' (a4= QUALIFIED_NAME ) )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      				// expected element is a Compound
                     	      			
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2312:4: (a3= ',' (a4= QUALIFIED_NAME ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2313:5: a3= ',' (a4= QUALIFIED_NAME )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2315:4: (a3= ',' (a4= QUALIFIED_NAME ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2316:5: a3= ',' (a4= QUALIFIED_NAME )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
@@ -3887,8 +3890,8 @@ public class CsParser extends AbstractEMFTextParser {
                     	      					// expected element is a Terminal
                     	      				
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2327:5: (a4= QUALIFIED_NAME )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2328:6: a4= QUALIFIED_NAME
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2330:5: (a4= QUALIFIED_NAME )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2331:6: a4= QUALIFIED_NAME
                     	    {
                     	    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Containment2401); if (state.failed) return element;
                     	    if ( state.backtracking==0 ) {
@@ -3956,7 +3959,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2372:1: ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2375:1: ( (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -3965,15 +3968,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt27) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2373:2: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2376:2: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Terminal
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2376:2: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2377:3: a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2379:2: (a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2380:3: a5_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_Containment2470);
                     a5_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -4023,7 +4026,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_CompoundDefinition"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2397:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2400:1: parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null] : a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? ;
     public final org.emftext.sdk.concretesyntax.CompoundDefinition parse_org_emftext_sdk_concretesyntax_CompoundDefinition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.CompoundDefinition element =  null;
         int parse_org_emftext_sdk_concretesyntax_CompoundDefinition_StartIndex = input.index();
@@ -4038,8 +4041,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2400:1: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2401:1: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2403:1: (a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2404:1: a0= '(' (a1_0= parse_org_emftext_sdk_concretesyntax_Choice ) a2= ')' ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             {
             if ( state.backtracking==0 ) {
 
@@ -4061,8 +4064,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2415:1: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2416:2: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2418:1: (a1_0= parse_org_emftext_sdk_concretesyntax_Choice )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2419:2: a1_0= parse_org_emftext_sdk_concretesyntax_Choice
             {
             pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Choice_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2518);
             a1_0=parse_org_emftext_sdk_concretesyntax_Choice();
@@ -4109,7 +4112,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2447:1: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2450:1: ( (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality ) )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -4118,15 +4121,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt28) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2448:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2451:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Terminal
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2451:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2452:3: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2454:2: (a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2455:3: a3_0= parse_org_emftext_sdk_concretesyntax_Cardinality
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Cardinality_in_parse_org_emftext_sdk_concretesyntax_CompoundDefinition2552);
                     a3_0=parse_org_emftext_sdk_concretesyntax_Cardinality();
@@ -4176,7 +4179,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_WhiteSpaces"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2472:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2475:1: parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null] : (a0= HEXNUMBER ) ;
     public final org.emftext.sdk.concretesyntax.WhiteSpaces parse_org_emftext_sdk_concretesyntax_WhiteSpaces() throws RecognitionException {
         org.emftext.sdk.concretesyntax.WhiteSpaces element =  null;
         int parse_org_emftext_sdk_concretesyntax_WhiteSpaces_StartIndex = input.index();
@@ -4186,16 +4189,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2475:1: ( (a0= HEXNUMBER ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2476:1: (a0= HEXNUMBER )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2478:1: ( (a0= HEXNUMBER ) )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2479:1: (a0= HEXNUMBER )
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2479:1: (a0= HEXNUMBER )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2480:2: a0= HEXNUMBER
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2482:1: (a0= HEXNUMBER )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2483:2: a0= HEXNUMBER
             {
             a0=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_WhiteSpaces2589); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4245,7 +4248,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_LineBreak"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2510:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : a0= '!' (a1= NUMBER ) ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2513:1: parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concretesyntax.LineBreak element = null] : a0= '!' (a1= NUMBER ) ;
     public final org.emftext.sdk.concretesyntax.LineBreak parse_org_emftext_sdk_concretesyntax_LineBreak() throws RecognitionException {
         org.emftext.sdk.concretesyntax.LineBreak element =  null;
         int parse_org_emftext_sdk_concretesyntax_LineBreak_StartIndex = input.index();
@@ -4256,8 +4259,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2513:1: (a0= '!' (a1= NUMBER ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2514:1: a0= '!' (a1= NUMBER )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2516:1: (a0= '!' (a1= NUMBER ) )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2517:1: a0= '!' (a1= NUMBER )
             {
             if ( state.backtracking==0 ) {
 
@@ -4279,8 +4282,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2528:1: (a1= NUMBER )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2529:2: a1= NUMBER
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2531:1: (a1= NUMBER )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2532:2: a1= NUMBER
             {
             a1=(Token)match(input,NUMBER,FOLLOW_NUMBER_in_parse_org_emftext_sdk_concretesyntax_LineBreak2633); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4330,7 +4333,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_NormalToken"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2559:1: parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concretesyntax.NormalToken element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3= QUOTED_36_36 ) ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2562:1: parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concretesyntax.NormalToken element = null] : ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3= QUOTED_36_36 ) ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )? ;
     public final org.emftext.sdk.concretesyntax.NormalToken parse_org_emftext_sdk_concretesyntax_NormalToken() throws RecognitionException {
         org.emftext.sdk.concretesyntax.NormalToken element =  null;
         int parse_org_emftext_sdk_concretesyntax_NormalToken_StartIndex = input.index();
@@ -4347,15 +4350,15 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2562:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3= QUOTED_36_36 ) ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2563:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3= QUOTED_36_36 ) ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2565:1: ( ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3= QUOTED_36_36 ) ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2566:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )* a1= 'DEFINE' (a2= QUALIFIED_NAME ) (a3= QUOTED_36_36 ) ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )?
             {
             if ( state.backtracking==0 ) {
 
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2566:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2569:1: ( ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) ) )*
             loop29:
             do {
                 int alt29=2;
@@ -4368,23 +4371,23 @@ public class CsParser extends AbstractEMFTextParser {
 
                 switch (alt29) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2567:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2570:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      		// expected element is a Compound
             	      	
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2570:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2571:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2573:2: ( (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2574:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      			// expected element is a Terminal
             	      		
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2574:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2575:4: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2577:3: (a0_0= parse_org_emftext_sdk_concretesyntax_Annotation )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2578:4: a0_0= parse_org_emftext_sdk_concretesyntax_Annotation
             	    {
             	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Annotation_in_parse_org_emftext_sdk_concretesyntax_NormalToken2682);
             	    a0_0=parse_org_emftext_sdk_concretesyntax_Annotation();
@@ -4448,8 +4451,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2612:1: (a2= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2613:2: a2= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2615:1: (a2= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2616:2: a2= QUALIFIED_NAME
             {
             a2=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalToken2725); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4487,8 +4490,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2644:1: (a3= QUOTED_36_36 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2645:2: a3= QUOTED_36_36
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2647:1: (a3= QUOTED_36_36 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2648:2: a3= QUOTED_36_36
             {
             a3=(Token)match(input,QUOTED_36_36,FOLLOW_QUOTED_36_36_in_parse_org_emftext_sdk_concretesyntax_NormalToken2743); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4526,7 +4529,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2676:1: ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2679:1: ( (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) ) )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -4535,15 +4538,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt30) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2677:2: (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2680:2: (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2680:2: (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2681:3: a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2683:2: (a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2684:3: a4= 'COLLECT' a5= 'IN' (a6= QUALIFIED_NAME )
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4580,8 +4583,8 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2706:3: (a6= QUALIFIED_NAME )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2707:4: a6= QUALIFIED_NAME
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2709:3: (a6= QUALIFIED_NAME )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2710:4: a6= QUALIFIED_NAME
                     {
                     a6=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_NormalToken2811); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -4640,7 +4643,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2740:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2743:1: parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null] : a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) ;
     public final org.emftext.sdk.concretesyntax.TokenPriorityDirective parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenPriorityDirective element =  null;
         int parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective_StartIndex = input.index();
@@ -4651,8 +4654,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2743:1: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2744:1: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2746:1: (a0= 'PRIORITIZE' (a1= QUALIFIED_NAME ) )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2747:1: a0= 'PRIORITIZE' (a1= QUALIFIED_NAME )
             {
             if ( state.backtracking==0 ) {
 
@@ -4674,8 +4677,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2758:1: (a1= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2759:2: a1= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2761:1: (a1= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2762:2: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective2871); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4729,7 +4732,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_PLUS"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2793:1: parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesyntax.PLUS element = null] : a0= '+' ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2796:1: parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesyntax.PLUS element = null] : a0= '+' ;
     public final org.emftext.sdk.concretesyntax.PLUS parse_org_emftext_sdk_concretesyntax_PLUS() throws RecognitionException {
         org.emftext.sdk.concretesyntax.PLUS element =  null;
         int parse_org_emftext_sdk_concretesyntax_PLUS_StartIndex = input.index();
@@ -4739,8 +4742,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2796:1: (a0= '+' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2797:1: a0= '+'
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2799:1: (a0= '+' )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2800:1: a0= '+'
             {
             if ( state.backtracking==0 ) {
 
@@ -4774,7 +4777,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_STAR"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2810:1: parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesyntax.STAR element = null] : a0= '*' ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2813:1: parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesyntax.STAR element = null] : a0= '*' ;
     public final org.emftext.sdk.concretesyntax.STAR parse_org_emftext_sdk_concretesyntax_STAR() throws RecognitionException {
         org.emftext.sdk.concretesyntax.STAR element =  null;
         int parse_org_emftext_sdk_concretesyntax_STAR_StartIndex = input.index();
@@ -4784,8 +4787,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2813:1: (a0= '*' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2814:1: a0= '*'
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2816:1: (a0= '*' )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2817:1: a0= '*'
             {
             if ( state.backtracking==0 ) {
 
@@ -4819,7 +4822,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_QUESTIONMARK"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2827:1: parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null] : a0= '?' ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2830:1: parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concretesyntax.QUESTIONMARK element = null] : a0= '?' ;
     public final org.emftext.sdk.concretesyntax.QUESTIONMARK parse_org_emftext_sdk_concretesyntax_QUESTIONMARK() throws RecognitionException {
         org.emftext.sdk.concretesyntax.QUESTIONMARK element =  null;
         int parse_org_emftext_sdk_concretesyntax_QUESTIONMARK_StartIndex = input.index();
@@ -4829,8 +4832,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2830:1: (a0= '?' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2831:1: a0= '?'
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2833:1: (a0= '?' )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2834:1: a0= '?'
             {
             if ( state.backtracking==0 ) {
 
@@ -4864,7 +4867,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Abstract"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2844:1: parse_org_emftext_sdk_concretesyntax_Abstract returns [org.emftext.sdk.concretesyntax.Abstract element = null] : a0= 'ABSTRACT' ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2847:1: parse_org_emftext_sdk_concretesyntax_Abstract returns [org.emftext.sdk.concretesyntax.Abstract element = null] : a0= 'ABSTRACT' ;
     public final org.emftext.sdk.concretesyntax.Abstract parse_org_emftext_sdk_concretesyntax_Abstract() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Abstract element =  null;
         int parse_org_emftext_sdk_concretesyntax_Abstract_StartIndex = input.index();
@@ -4874,8 +4877,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2847:1: (a0= 'ABSTRACT' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2848:1: a0= 'ABSTRACT'
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2850:1: (a0= 'ABSTRACT' )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2851:1: a0= 'ABSTRACT'
             {
             if ( state.backtracking==0 ) {
 
@@ -4909,7 +4912,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenStyle"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2861:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2864:1: parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concretesyntax.TokenStyle element = null] : (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' ;
     public final org.emftext.sdk.concretesyntax.TokenStyle parse_org_emftext_sdk_concretesyntax_TokenStyle() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenStyle element =  null;
         int parse_org_emftext_sdk_concretesyntax_TokenStyle_StartIndex = input.index();
@@ -4924,16 +4927,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2864:1: ( (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2865:1: (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';'
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2867:1: ( (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';' )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2868:1: (a0= QUOTED_34_34_92 ) a1= 'COLOR' (a2= HEXNUMBER ) ( (a3= ',' (a4= QUALIFIED_NAME ) ) )* a5= ';'
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2868:1: (a0= QUOTED_34_34_92 )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2869:2: a0= QUOTED_34_34_92
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2871:1: (a0= QUOTED_34_34_92 )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2872:2: a0= QUOTED_34_34_92
             {
             a0=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3008); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -4986,8 +4989,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2911:1: (a2= HEXNUMBER )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2912:2: a2= HEXNUMBER
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2914:1: (a2= HEXNUMBER )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2915:2: a2= HEXNUMBER
             {
             a2=(Token)match(input,HEXNUMBER,FOLLOW_HEXNUMBER_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3037); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5025,7 +5028,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2943:1: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2946:1: ( (a3= ',' (a4= QUALIFIED_NAME ) ) )*
             loop31:
             do {
                 int alt31=2;
@@ -5038,15 +5041,15 @@ public class CsParser extends AbstractEMFTextParser {
 
                 switch (alt31) {
             	case 1 :
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2944:2: (a3= ',' (a4= QUALIFIED_NAME ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2947:2: (a3= ',' (a4= QUALIFIED_NAME ) )
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      		// expected element is a Compound
             	      	
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2947:2: (a3= ',' (a4= QUALIFIED_NAME ) )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2948:3: a3= ',' (a4= QUALIFIED_NAME )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2950:2: (a3= ',' (a4= QUALIFIED_NAME ) )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2951:3: a3= ',' (a4= QUALIFIED_NAME )
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -5068,8 +5071,8 @@ public class CsParser extends AbstractEMFTextParser {
             	      			// expected element is a Terminal
             	      		
             	    }
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2962:3: (a4= QUALIFIED_NAME )
-            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2963:4: a4= QUALIFIED_NAME
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2965:3: (a4= QUALIFIED_NAME )
+            	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:2966:4: a4= QUALIFIED_NAME
             	    {
             	    a4=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_TokenStyle3088); if (state.failed) return element;
             	    if ( state.backtracking==0 ) {
@@ -5151,7 +5154,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Annotation"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3010:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3013:1: parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concretesyntax.Annotation element = null] : a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? ;
     public final org.emftext.sdk.concretesyntax.Annotation parse_org_emftext_sdk_concretesyntax_Annotation() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Annotation element =  null;
         int parse_org_emftext_sdk_concretesyntax_Annotation_StartIndex = input.index();
@@ -5169,8 +5172,8 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3013:1: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3014:1: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3016:1: (a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3017:1: a0= '@' (a1= QUALIFIED_NAME ) ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             {
             if ( state.backtracking==0 ) {
 
@@ -5192,8 +5195,8 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3028:1: (a1= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3029:2: a1= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3031:1: (a1= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3032:2: a1= QUALIFIED_NAME
             {
             a1=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_Annotation3161); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5231,7 +5234,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3060:1: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3063:1: ( (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' ) )?
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -5240,15 +5243,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt33) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3061:2: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3064:2: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3064:2: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3065:3: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3067:2: (a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')' )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3068:3: a2= '(' (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )* a6= ')'
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5270,8 +5273,8 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3079:3: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3080:4: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3082:3: (a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3083:4: a3_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation3212);
                     a3_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -5303,7 +5306,7 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element before STAR or QUESTIONMARK or PLUS
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3100:3: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3103:3: ( (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) ) )*
                     loop32:
                     do {
                         int alt32=2;
@@ -5316,15 +5319,15 @@ public class CsParser extends AbstractEMFTextParser {
 
                         switch (alt32) {
                     	case 1 :
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3101:4: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3104:4: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
                     	      				// expected element is a Compound
                     	      			
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3104:4: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3105:5: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3107:4: (a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair ) )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3108:5: a4= ',' (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
                     	    {
                     	    if ( state.backtracking==0 ) {
 
@@ -5346,8 +5349,8 @@ public class CsParser extends AbstractEMFTextParser {
                     	      					// expected element is a Terminal
                     	      				
                     	    }
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3119:5: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
-                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3120:6: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3122:5: (a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair )
+                    	    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3123:6: a5_0= parse_org_emftext_sdk_concretesyntax_KeyValuePair
                     	    {
                     	    pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_KeyValuePair_in_parse_org_emftext_sdk_concretesyntax_Annotation3287);
                     	    a5_0=parse_org_emftext_sdk_concretesyntax_KeyValuePair();
@@ -5432,7 +5435,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_KeyValuePair"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3159:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? ;
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3162:1: parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null] : (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? ;
     public final org.emftext.sdk.concretesyntax.KeyValuePair parse_org_emftext_sdk_concretesyntax_KeyValuePair() throws RecognitionException {
         org.emftext.sdk.concretesyntax.KeyValuePair element =  null;
         int parse_org_emftext_sdk_concretesyntax_KeyValuePair_StartIndex = input.index();
@@ -5444,16 +5447,16 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3162:1: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3163:1: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3165:1: ( (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )? )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3166:1: (a0= QUALIFIED_NAME ) ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
             {
             if ( state.backtracking==0 ) {
 
               	// expected element is a Terminal
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3166:1: (a0= QUALIFIED_NAME )
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3167:2: a0= QUALIFIED_NAME
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3169:1: (a0= QUALIFIED_NAME )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3170:2: a0= QUALIFIED_NAME
             {
             a0=(Token)match(input,QUALIFIED_NAME,FOLLOW_QUALIFIED_NAME_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair3375); if (state.failed) return element;
             if ( state.backtracking==0 ) {
@@ -5491,7 +5494,7 @@ public class CsParser extends AbstractEMFTextParser {
               	// expected element before STAR or QUESTIONMARK or PLUS
 
             }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3198:1: ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3201:1: ( (a1= '=' (a2= QUOTED_34_34_92 ) ) )?
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -5500,15 +5503,15 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt34) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3199:2: (a1= '=' (a2= QUOTED_34_34_92 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3202:2: (a1= '=' (a2= QUOTED_34_34_92 ) )
                     {
                     if ( state.backtracking==0 ) {
 
                       		// expected element is a Compound
                       	
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3202:2: (a1= '=' (a2= QUOTED_34_34_92 ) )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3203:3: a1= '=' (a2= QUOTED_34_34_92 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3205:2: (a1= '=' (a2= QUOTED_34_34_92 ) )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3206:3: a1= '=' (a2= QUOTED_34_34_92 )
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5530,8 +5533,8 @@ public class CsParser extends AbstractEMFTextParser {
                       			// expected element is a Terminal
                       		
                     }
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3217:3: (a2= QUOTED_34_34_92 )
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3218:4: a2= QUOTED_34_34_92
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3220:3: (a2= QUOTED_34_34_92 )
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3221:4: a2= QUOTED_34_34_92
                     {
                     a2=(Token)match(input,QUOTED_34_34_92,FOLLOW_QUOTED_34_34_92_in_parse_org_emftext_sdk_concretesyntax_KeyValuePair3426); if (state.failed) return element;
                     if ( state.backtracking==0 ) {
@@ -5590,7 +5593,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_TokenDirective"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3251:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_NormalToken | c1= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3254:1: parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null] : (c0= parse_org_emftext_sdk_concretesyntax_NormalToken | c1= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective );
     public final org.emftext.sdk.concretesyntax.TokenDirective parse_org_emftext_sdk_concretesyntax_TokenDirective() throws RecognitionException {
         org.emftext.sdk.concretesyntax.TokenDirective element =  null;
         int parse_org_emftext_sdk_concretesyntax_TokenDirective_StartIndex = input.index();
@@ -5601,7 +5604,7 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 25) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3252:1: (c0= parse_org_emftext_sdk_concretesyntax_NormalToken | c1= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3255:1: (c0= parse_org_emftext_sdk_concretesyntax_NormalToken | c1= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective )
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -5620,7 +5623,7 @@ public class CsParser extends AbstractEMFTextParser {
             }
             switch (alt35) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3253:1: c0= parse_org_emftext_sdk_concretesyntax_NormalToken
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3256:1: c0= parse_org_emftext_sdk_concretesyntax_NormalToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_NormalToken_in_parse_org_emftext_sdk_concretesyntax_TokenDirective3466);
                     c0=parse_org_emftext_sdk_concretesyntax_NormalToken();
@@ -5634,7 +5637,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3254:2: c1= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3257:2: c1= parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective_in_parse_org_emftext_sdk_concretesyntax_TokenDirective3474);
                     c1=parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective();
@@ -5663,7 +5666,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Definition"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3258:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3261:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );
     public final org.emftext.sdk.concretesyntax.Definition parse_org_emftext_sdk_concretesyntax_Definition() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Definition element =  null;
         int parse_org_emftext_sdk_concretesyntax_Definition_StartIndex = input.index();
@@ -5686,12 +5689,12 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 26) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3259:1: (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3262:1: (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak )
             int alt36=8;
             alt36 = dfa36.predict(input);
             switch (alt36) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3260:1: c0= parse_org_emftext_sdk_concretesyntax_CsString
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3263:1: c0= parse_org_emftext_sdk_concretesyntax_CsString
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CsString_in_parse_org_emftext_sdk_concretesyntax_Definition3493);
                     c0=parse_org_emftext_sdk_concretesyntax_CsString();
@@ -5705,7 +5708,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3261:2: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3264:2: c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken_in_parse_org_emftext_sdk_concretesyntax_Definition3501);
                     c1=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken();
@@ -5719,7 +5722,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3262:2: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3265:2: c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken_in_parse_org_emftext_sdk_concretesyntax_Definition3509);
                     c2=parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken();
@@ -5733,7 +5736,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 4 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3263:2: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3266:2: c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes_in_parse_org_emftext_sdk_concretesyntax_Definition3517);
                     c3=parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes();
@@ -5747,7 +5750,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 5 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3264:2: c4= parse_org_emftext_sdk_concretesyntax_Containment
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3267:2: c4= parse_org_emftext_sdk_concretesyntax_Containment
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_Containment_in_parse_org_emftext_sdk_concretesyntax_Definition3525);
                     c4=parse_org_emftext_sdk_concretesyntax_Containment();
@@ -5761,7 +5764,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 6 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3265:2: c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3268:2: c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_CompoundDefinition_in_parse_org_emftext_sdk_concretesyntax_Definition3533);
                     c5=parse_org_emftext_sdk_concretesyntax_CompoundDefinition();
@@ -5775,7 +5778,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 7 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3266:2: c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3269:2: c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_WhiteSpaces_in_parse_org_emftext_sdk_concretesyntax_Definition3541);
                     c6=parse_org_emftext_sdk_concretesyntax_WhiteSpaces();
@@ -5789,7 +5792,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 8 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3267:2: c7= parse_org_emftext_sdk_concretesyntax_LineBreak
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3270:2: c7= parse_org_emftext_sdk_concretesyntax_LineBreak
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_LineBreak_in_parse_org_emftext_sdk_concretesyntax_Definition3549);
                     c7=parse_org_emftext_sdk_concretesyntax_LineBreak();
@@ -5818,7 +5821,7 @@ public class CsParser extends AbstractEMFTextParser {
 
 
     // $ANTLR start "parse_org_emftext_sdk_concretesyntax_Cardinality"
-    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3271:1: parse_org_emftext_sdk_concretesyntax_Cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null] : (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK );
+    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3274:1: parse_org_emftext_sdk_concretesyntax_Cardinality returns [org.emftext.sdk.concretesyntax.Cardinality element = null] : (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK );
     public final org.emftext.sdk.concretesyntax.Cardinality parse_org_emftext_sdk_concretesyntax_Cardinality() throws RecognitionException {
         org.emftext.sdk.concretesyntax.Cardinality element =  null;
         int parse_org_emftext_sdk_concretesyntax_Cardinality_StartIndex = input.index();
@@ -5831,7 +5834,7 @@ public class CsParser extends AbstractEMFTextParser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 27) ) { return element; }
-            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3272:1: (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK )
+            // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3275:1: (c0= parse_org_emftext_sdk_concretesyntax_PLUS | c1= parse_org_emftext_sdk_concretesyntax_STAR | c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK )
             int alt37=3;
             switch ( input.LA(1) ) {
             case 41:
@@ -5859,7 +5862,7 @@ public class CsParser extends AbstractEMFTextParser {
 
             switch (alt37) {
                 case 1 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3273:1: c0= parse_org_emftext_sdk_concretesyntax_PLUS
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3276:1: c0= parse_org_emftext_sdk_concretesyntax_PLUS
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_PLUS_in_parse_org_emftext_sdk_concretesyntax_Cardinality3568);
                     c0=parse_org_emftext_sdk_concretesyntax_PLUS();
@@ -5873,7 +5876,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3274:2: c1= parse_org_emftext_sdk_concretesyntax_STAR
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3277:2: c1= parse_org_emftext_sdk_concretesyntax_STAR
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_STAR_in_parse_org_emftext_sdk_concretesyntax_Cardinality3576);
                     c1=parse_org_emftext_sdk_concretesyntax_STAR();
@@ -5887,7 +5890,7 @@ public class CsParser extends AbstractEMFTextParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3275:2: c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK
+                    // C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g:3278:2: c2= parse_org_emftext_sdk_concretesyntax_QUESTIONMARK
                     {
                     pushFollow(FOLLOW_parse_org_emftext_sdk_concretesyntax_QUESTIONMARK_in_parse_org_emftext_sdk_concretesyntax_Cardinality3584);
                     c2=parse_org_emftext_sdk_concretesyntax_QUESTIONMARK();
@@ -5975,7 +5978,7 @@ public class CsParser extends AbstractEMFTextParser {
             this.transition = DFA36_transition;
         }
         public String getDescription() {
-            return "3258:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );";
+            return "3261:1: parse_org_emftext_sdk_concretesyntax_Definition returns [org.emftext.sdk.concretesyntax.Definition element = null] : (c0= parse_org_emftext_sdk_concretesyntax_CsString | c1= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken | c2= parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken | c3= parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes | c4= parse_org_emftext_sdk_concretesyntax_Containment | c5= parse_org_emftext_sdk_concretesyntax_CompoundDefinition | c6= parse_org_emftext_sdk_concretesyntax_WhiteSpaces | c7= parse_org_emftext_sdk_concretesyntax_LineBreak );";
         }
     }
  

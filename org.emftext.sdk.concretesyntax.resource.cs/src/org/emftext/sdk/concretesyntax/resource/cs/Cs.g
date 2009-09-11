@@ -27,12 +27,14 @@ options {
 
 @members{
 	private org.emftext.runtime.resource.ITokenResolverFactory tokenResolverFactory = new org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolverFactory();
+	private int lastPosition;
 	private org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolveResult tokenResolveResult = new org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolveResult();
 	private boolean rememberExpectedElements = false;
 	private java.lang.Object parseToIndexTypeObject;
 	private int lastTokenIndex = 0;
 	private boolean reachedIndex = false;
 	private java.util.List<org.emftext.runtime.resource.IExpectedElement> expectedElements = new java.util.ArrayList<org.emftext.runtime.resource.IExpectedElement>();
+	private int lastIndex = -1;
 	private int mismatchedTokenRecoveryTries = 0;
 	private java.util.Map<?, ?> options;
 	//helper lists to allow a lexer to pass errors to its parser
@@ -176,6 +178,7 @@ public CsParser() {
 }
 
 protected org.eclipse.emf.ecore.EObject doParse() throws org.antlr.runtime.RecognitionException {
+	lastPosition = 0;
 	((CsLexer) getTokenStream().getTokenSource()).lexerExceptions = lexerExceptions;
 	((CsLexer) getTokenStream().getTokenSource()).lexerExceptionsPosition = lexerExceptionsPosition;
 	java.lang.Object typeObject = getTypeObject();
