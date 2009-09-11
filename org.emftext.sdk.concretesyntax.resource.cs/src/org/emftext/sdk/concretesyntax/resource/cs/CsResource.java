@@ -45,7 +45,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			if (root != null) {
 				getContents().add(root);
 			}
-			resetLocationMap();
+			clearState();
 			java.util.Collection<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>> commands = result.getPostParseCommands();
 			if (commands != null) {
 				for (org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>  command : commands) {
@@ -220,11 +220,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	// Extends the super implementation by clearing all information about element positions.
 	protected void doUnload() {
 		super.doUnload();
-		//clear concrete syntax information
-		resetLocationMap();
-		internalURIFragmentMap.clear();
-		proxyCounter = 0;
-		resolverSwitch = null;
+		clearState();
 	}
 	
 	protected void runPostProcessors(java.util.Map<?, ?> loadOptions) {
@@ -447,4 +443,15 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			return false;
 		}
 	}
+	// Extends the super implementation by clearing all information about element positions.
+	protected void clearState() {
+		//clear concrete syntax information
+		resetLocationMap();
+		internalURIFragmentMap.clear();
+		getErrors().clear();
+		getWarnings().clear();
+		proxyCounter = 0;
+		resolverSwitch = null;
+	}
+	
 }

@@ -163,6 +163,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	
     	addElementBasedTextDiagnosticClass(sc);
     	addPositionBasedTestDiagnosticClass(sc);
+    	addClearStateMethod(sc);
 	}
 
 	private void addPositionBasedTestDiagnosticClass(StringComposite sc) {
@@ -424,9 +425,20 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("// Extends the super implementation by clearing all information about element positions.");
     	sc.add("protected void doUnload() {");
     	sc.add("super.doUnload();");
+    	sc.add("clearState();");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addClearStateMethod(StringComposite sc) {
+		sc.add("// Extends the super implementation by clearing all information about element positions.");
+    	sc.add("protected void clearState() {");
     	sc.add("//clear concrete syntax information");
     	sc.add("resetLocationMap();");
     	sc.add("internalURIFragmentMap.clear();");
+    	sc.add("getErrors().clear();");
+    	sc.add("getWarnings().clear();");
+    	sc.add("getContents().clear();");
     	sc.add("proxyCounter = 0;");
     	sc.add(RESOLVER_SWITCH_FIELD_NAME + " = null;");
     	sc.add("}");
@@ -661,7 +673,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");
         sc.add("}");
-        sc.add("resetLocationMap();");
+        sc.add("clearState();");
         sc.add(COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands = result.getPostParseCommands();");
         sc.add("if (commands != null) {");
         sc.add("for (" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">  command : commands) {");
