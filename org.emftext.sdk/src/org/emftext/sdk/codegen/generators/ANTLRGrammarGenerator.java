@@ -545,7 +545,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addDoParseMethod(String lexerName, StringComposite sc) {
 		sc.add("protected " + E_OBJECT + " doParse() throws "
 				+ RECOGNITION_EXCEPTION + " {");
-		sc.add(new StringComponent("lastIndex = 0;", "lastIndex"));
+		sc.add("lastPosition = 0;");
 		sc
 				.add("(("
 						+ lexerName
@@ -606,7 +606,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("return;");
 			sc.add("}");
 			sc.add("int endPos = currentPos - 1;");
-			sc.add("for (; endPos >= lastIndex; endPos--) {");
+			sc.add("for (; endPos >= lastPosition; endPos--) {");
 			sc.add(org.antlr.runtime.Token.class.getName()
 					+ " token = getTokenStream().get(endPos);");
 			sc.add("int _channel = token.getChannel();");
@@ -614,7 +614,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("break;");
 			sc.add("}");
 			sc.add("}");
-			sc.add("for (int pos = lastIndex; pos < endPos; pos++) {");
+			sc.add("for (int pos = lastPosition; pos < endPos; pos++) {");
 			sc.add(org.antlr.runtime.Token.class.getName()
 					+ " token = getTokenStream().get(pos);");
 			sc.add("int _channel = token.getChannel();");
@@ -724,9 +724,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private " + ITokenResolverFactory.class.getName()
 				+ " tokenResolverFactory = new "
 				+ qualifiedTokenResolverFactoryClassName + "();");
-		sc
-				.add(new StringComponent("private int lastIndex;",
-						"lastIndex"));
+		sc.add("private int lastPosition;");
 		sc.add("private " + qualifiedTokenResolveResultClassName
 				+ " tokenResolveResult = new "
 				+ qualifiedTokenResolveResultClassName + "();");
