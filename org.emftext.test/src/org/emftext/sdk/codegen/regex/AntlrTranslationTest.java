@@ -1,13 +1,11 @@
 package org.emftext.sdk.codegen.regex;
 
-import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactories;
 import static org.emftext.test.ConcreteSyntaxTestHelper.findAllGrammars;
+import static org.emftext.test.ConcreteSyntaxTestHelper.registerResourceFactories;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
