@@ -15,7 +15,6 @@ public class CopiedEList<E> implements EList<E> {
 	private EList<E> original;
 	private EList<E> copy;
 
-	@SuppressWarnings("unchecked")
 	public CopiedEList(EList<E> original) {
 		super();
 		this.original = original;
