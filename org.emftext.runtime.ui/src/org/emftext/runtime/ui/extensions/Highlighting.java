@@ -331,11 +331,15 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	}
 	
 	public void setEObjectSelection() {
-		EObject selectedEObject = occurrence.getEObjectAtCurrentPosition();
-
-		if (selectedEObject != null) {
-			setSelection(new EObjectSelection(selectedEObject, false));
-		}
+		display.syncExec(new Runnable() {
+			
+			public void run() {
+				EObject selectedEObject = occurrence.getEObjectAtCurrentPosition();
+				if (selectedEObject != null) {
+					setSelection(new EObjectSelection(selectedEObject, false));
+				}
+			}
+		});
 	}
 
 	/**
