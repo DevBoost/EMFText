@@ -64,10 +64,6 @@ public class CsMetaInformation extends org.emftext.runtime.resource.impl.Abstrac
 		public boolean isClosingEnabledInside() {
 			return closingEnabledInside;
 		}
-		
-		public void setClosingEnabledInside(boolean closingEnabledInside) {
-			this.closingEnabledInside = closingEnabledInside;
-		}
 	}
 	
 	public java.lang.String getSyntaxName() {

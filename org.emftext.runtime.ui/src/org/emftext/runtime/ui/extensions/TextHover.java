@@ -84,8 +84,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	public TextHover(EMFTextEditor editor) {
 		super();
 		this.editor = editor;
-		hoverTextProvider = ((ITextResource) editor.getResource())
-				.getMetaInformation().getHoverTextProvider();
+		hoverTextProvider = ((ITextResource) editor.getResource()).getMetaInformation().getHoverTextProvider();
 	}
 
 	/**

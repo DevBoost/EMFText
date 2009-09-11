@@ -39,7 +39,7 @@ public interface ITextParser extends IConfigurable {
 	 * @param resource The text resource.
 	 */
 	// TODO mseifert: remove this method
-    public void setResource(ITextResource resource);
+    //public void setResource(ITextResource resource);
     
     /**
      * Get the associated text resource.
@@ -47,7 +47,7 @@ public interface ITextParser extends IConfigurable {
      * @return The text resource.
      */
 	// TODO mseifert: remove this method
-    public ITextResource getResource();
+    //public ITextResource getResource();
     
     /**
      * Return the root element of the <code>EObject</code>-Tree. 
@@ -70,4 +70,7 @@ public interface ITextParser extends IConfigurable {
 	 * The class 'type' is used as start symbol.
 	 */
 	public List<IExpectedElement> parseToExpectedElements(EClass type);
+
+	// TODO add documentation
+	public void terminate();
 }

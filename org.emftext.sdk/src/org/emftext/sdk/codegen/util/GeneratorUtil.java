@@ -26,6 +26,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -336,15 +337,20 @@ public class GeneratorUtil {
 		if (addTypeParameters) {
 			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
 		}
-		sc.add("protected " + typeParameters + "void registerContextDependentProxy(" + qualifiedContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory," + "ContainerType element, " + E_REFERENCE + " reference, String id," + E_OBJECT
+		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + qualifiedContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final " + "ContainerType element, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT
 				+ " proxy) {");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+
+		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
-		sc.add("return;");
+		sc.add("return true;");
 		sc.add("}");
 		sc.add("resource.registerContextDependentProxy(factory, element, reference, id, proxy);");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -352,22 +358,20 @@ public class GeneratorUtil {
 	public void addGetReferenceResolverSwitchMethod(GenerationContext context, StringComposite sc) {
 		final String qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
-        sc.add(I_TEXT_RESOURCE + " resource = getResource();");
-        sc.add("if (resource == null) {");
-        sc.add("return null;");
-        sc.add("}");
-        sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") resource.getMetaInformation().getReferenceResolverSwitch();");
+        sc.add("return (" + qualifiedReferenceResolverSwitchClassName + ") getMetaInformation().getReferenceResolverSwitch();");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	public void addAddErrorToResourceMethod(StringComposite sc) {
-		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, int line, int charPositionInLine, int startIndex, int stopIndex) {");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
+
+		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
-		sc.add("return;");
+		sc.add("return true;");
 		sc.add("}");
 		sc.add("resource.addProblem(new " + ABSTRACT_PROBLEM + "() {");
 		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
@@ -377,6 +381,10 @@ public class GeneratorUtil {
 		sc.add("return errorMessage;");
 		sc.add("}");
 		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("}");
+		sc.add(");");
 		sc.add("}");
 		sc.addLineBreak();
 	}

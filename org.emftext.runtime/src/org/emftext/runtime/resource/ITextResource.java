@@ -20,6 +20,10 @@
  ******************************************************************************/
 package org.emftext.runtime.resource;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
@@ -32,6 +36,10 @@ import org.eclipse.emf.ecore.resource.Resource;
  *
  */
 public interface ITextResource extends Resource, ITextResourcePluginPart {
+	
+	// TODO add documentation
+	public void reload(InputStream stream, Map<?,?> options) throws IOException;
+	public void cancelReload();
 	
 	/**
 	 * Returns a map containing information about the location of model

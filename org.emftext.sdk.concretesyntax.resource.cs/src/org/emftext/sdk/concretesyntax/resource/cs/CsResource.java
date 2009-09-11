@@ -7,6 +7,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	private static final java.lang.String ARBITRARY_SYNTAX_NAME = "*";
 	private org.emftext.runtime.resource.ILocationMap locationMap;
 	private int proxyCounter = 0;
+	private org.emftext.runtime.resource.ITextParser parser;
 	private java.util.Map<java.lang.String, org.emftext.runtime.resource.IContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.HashMap<java.lang.String, org.emftext.runtime.resource.IContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
 	public CsResource() {
 		super();
@@ -19,7 +20,6 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	}
 	
 	protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
-		resetLocationMap();
 		java.lang.String encoding = null;
 		java.io.InputStream actualInputStream = inputStream;
 		java.lang.Object inputStreamPreProcessorProvider = null;
@@ -35,17 +35,39 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 			}
 		}
 		
-		org.emftext.runtime.resource.ITextParser parser = getMetaInformation().createParser(actualInputStream, encoding);
-		parser.setResource(this);
+		parser = getMetaInformation().createParser(actualInputStream, encoding);
 		parser.setOptions(options);
 		org.emftext.runtime.resource.IReferenceResolverSwitch referenceResolverSwitch = getReferenceResolverSwitch();
 		referenceResolverSwitch.setOptions(options);
-		org.eclipse.emf.ecore.EObject root = parser.parse().getRoot();
-		if (root != null) {
-			getContents().add(root);
+		org.emftext.runtime.resource.IParseResult result = parser.parse();
+		if (result != null) {
+			org.eclipse.emf.ecore.EObject root = result.getRoot();
+			if (root != null) {
+				getContents().add(root);
+			}
+			resetLocationMap();
+			java.util.Collection<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>> commands = result.getPostParseCommands();
+			if (commands != null) {
+				for (org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>  command : commands) {
+					command.execute(this);
+				}
+			}
 		}
 		getReferenceResolverSwitch().setOptions(options);
 		runPostProcessors(options);
+	}
+	
+	public void reload(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
+		try {
+			doLoad(inputStream, options);
+		} catch (org.emftext.runtime.resource.impl.TerminateParsingException tpe) {
+			// do nothing - the resource is left unchanged if this exception is thrown
+		}
+	}
+	
+	public void cancelReload() {
+		org.emftext.runtime.resource.ITextParser parserCopy = parser;
+		parserCopy.terminate();
 	}
 	
 	protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {

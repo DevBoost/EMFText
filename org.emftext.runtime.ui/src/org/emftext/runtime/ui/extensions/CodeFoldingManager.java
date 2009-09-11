@@ -169,7 +169,7 @@ public class CodeFoldingManager {
 					public void parsingCompleted(Resource resource) {
 						calculatePositions();
 					}
-				});
+				}, "Calculate Positions");
 	}
 
 	/**

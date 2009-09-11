@@ -1,26 +1,24 @@
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-import java.util.Collection;
-
-import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.ICommand;
-import org.emftext.runtime.resource.IParseResult;
-import org.emftext.runtime.resource.ITextResource;
-
-public class CsParseResult implements IParseResult {
+public class CsParseResult extends org.emftext.runtime.resource.impl.AbstractParseResult {
 	
-	private EObject root;
+	private org.eclipse.emf.ecore.EObject root;
+	private java.util.Collection<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>> commands = new java.util.ArrayList<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>>();
 	
-	public CsParseResult(EObject root) {
+	public CsParseResult() {
 		super();
+	}
+	
+	public void setRoot(org.eclipse.emf.ecore.EObject root) {
 		this.root = root;
 	}
-
-	public Collection<ICommand<ITextResource>> getPostParseCommands() {
-		return null;
-	}
-
-	public EObject getRoot() {
+	
+	public org.eclipse.emf.ecore.EObject getRoot() {
 		return root;
 	}
+	
+	public java.util.Collection<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>> getPostParseCommands() {
+		return commands;
+	}
+	
 }

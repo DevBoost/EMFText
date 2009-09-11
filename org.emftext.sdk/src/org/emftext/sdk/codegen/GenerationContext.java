@@ -30,7 +30,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.runtime.resource.IReferenceResolver;
+import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenResolver;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.NameUtil;
 import org.emftext.sdk.codegen.util.PathUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -160,6 +162,12 @@ public abstract class GenerationContext {
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
 		String prefix = "getReferenceResolverSwitch() == null ? null : ";
 		return prefix + "getReferenceResolverSwitch().get" + nameUtil.getReferenceResolverClassName(genFeature) + "()";
+	}
+
+	public void addGetMetaInformationMethod(StringComposite sc) {
+		sc.add("public " + ITextResourcePluginMetaInformation.class.getName() + " getMetaInformation() {");
+		sc.add("return new " + getQualifiedClassName(EArtifact.META_INFORMATION) + "();");
+		sc.add("}");
 	}
 
 	/**

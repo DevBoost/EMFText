@@ -55,6 +55,7 @@ public class CsAntlrScanner extends org.emftext.runtime.resource.impl.AbstractEM
 	public void setText(java.lang.String text) {
 		antlrLexer.setCharStream(new org.antlr.runtime.ANTLRStringStream(text));
 	}
+	
 	public java.lang.String getTokenName(java.lang.String[] tokenNames, int index) {
 		if (tokenNames == null) {
 			return null;

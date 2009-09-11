@@ -21,6 +21,7 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CAST_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
@@ -34,12 +35,13 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ELEMENT_MAPPING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
@@ -48,10 +50,14 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTION_PR
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PARSE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROBLEM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_MAPPING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INPUT_STREAM_PROCESSOR_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_URI_MAPPING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -64,16 +70,11 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TERMINATE_PARSING_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import java.io.PrintWriter;
 
-import org.emftext.runtime.IInputStreamProcessorProvider;
-import org.emftext.runtime.InputStreamProcessor;
-import org.emftext.runtime.resource.IReferenceResolverSwitch;
-import org.emftext.runtime.resource.ITextParser;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
-import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
@@ -93,9 +94,9 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String qualifiedResolverSwitchClassName;
 	private String qualifiedPrinterClassName;
 	private String csSyntaxName;
-	private String qualifiedMetaInformationClassName;
 	private String qualifiedProblemClassName;
 	private String qualifiedLocationMapClassName;
+	private GenerationContext context;
 
 	public TextResourceGenerator(GenerationContext context) {
 		super(context.getPackageName(), context.getClassName(EArtifact.RESOURCE));
@@ -104,8 +105,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		this.qualifiedResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 		this.qualifiedPrinterClassName = context.getQualifiedClassName(EArtifact.PRINTER);
 		this.qualifiedProblemClassName = context.getQualifiedClassName(EArtifact.PROBLEM);
-		this.qualifiedMetaInformationClassName = context.getQualifiedClassName(EArtifact.META_INFORMATION);
 		this.qualifiedLocationMapClassName = context.getClassName(EArtifact.LOCATION_MAP);
+		this.context = context;
 	}
 
 	@Override
@@ -114,20 +115,30 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
         
-		sc.add("public class " + getResourceClassName() + " extends " + AbstractTextResource.class.getName() + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_TEXT_RESOURCE + " {");
 
 		sc.addLineBreak();
-		sc.add("private " + IReferenceResolverSwitch.class.getName() + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
+		sc.add("private " + I_REFERENCE_RESOLVER_SWITCH + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
 		sc.addLineBreak();
 		
     	addFields(sc);
+		addMethods(sc);
     	
+    	sc.add("}");
+    	
+    	out.print(sc.toString());
+    	return true;
+    }
+
+	private void addMethods(StringComposite sc) {
 		addConstructors(sc);
         addDoLoadMethod(sc);
+        addReloadMethod(sc);
+        addCancelReloadMethod(sc);
         addDoSaveMethod(sc);
         addGetSyntaxNameMethod(sc);
         addGetReferenceResolverSwitchMethod(sc);
-    	addGetMetaInformationMethod(sc);
+    	context.addGetMetaInformationMethod(sc);
 
     	addResetLocationMapMethod(sc);
     	addAddURIFragmentMethod(sc);
@@ -152,12 +163,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	
     	addElementBasedTextDiagnosticClass(sc);
     	addPositionBasedTestDiagnosticClass(sc);
-    	
-    	sc.add("}");
-    	
-    	out.print(sc.toString());
-    	return true;
-    }
+	}
 
 	private void addPositionBasedTestDiagnosticClass(StringComposite sc) {
 		sc.add("public class " + POSITION_BASED_TEXT_DIAGNOSTIC + " implements " + I_TEXT_DIAGNOSTIC + " {");
@@ -580,13 +586,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("private static final " + STRING + " ARBITRARY_SYNTAX_NAME = \"*\";");
     	sc.add("private "+ I_LOCATION_MAP + " locationMap;");
     	sc.add("private int proxyCounter = 0;");
+    	sc.add("private " + I_TEXT_PARSER + " parser;");
     	sc.add("private " + MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">>();");
-	}
-
-	private void addGetMetaInformationMethod(StringComposite sc) {
-		sc.add("public " + ITextResourcePluginMetaInformation.class.getName() + " getMetaInformation() {");
-		sc.add("return new " + qualifiedMetaInformationClassName + "();");
-		sc.add("}");
 	}
 
 	private void addGetSyntaxNameMethod(StringComposite sc) {
@@ -597,7 +598,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		sc.add("public " + IReferenceResolverSwitch.class.getName() + " getReferenceResolverSwitch() {");
+		sc.add("public " + I_REFERENCE_RESOLVER_SWITCH + " getReferenceResolverSwitch() {");
         sc.add("if (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
         sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + qualifiedResolverSwitchClassName + "();");
         sc.add("}");
@@ -609,7 +610,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void addDoSaveMethod(StringComposite sc) {
 		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
         sc.add(qualifiedPrinterClassName + " printer = new " + qualifiedPrinterClassName + "(outputStream, this);");
-        sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
+        sc.add(I_REFERENCE_RESOLVER_SWITCH + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add("for(" + E_OBJECT + " root : getContents()) {");
         sc.add("printer.print(root);");
@@ -633,28 +634,26 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addDoLoadMethod(StringComposite sc) {
-		sc.add("protected void doLoad(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        sc.add("resetLocationMap();");
-        sc.add("java.lang.String encoding = null;");
-        sc.add("java.io.InputStream actualInputStream = inputStream;");
-        sc.add("java.lang.Object inputStreamPreProcessorProvider = null;");
+		sc.add("protected void doLoad(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
+        sc.add(STRING + " encoding = null;");
+        sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
+        sc.add(OBJECT + " inputStreamPreProcessorProvider = null;");
         sc.add("if (options!=null) {");
 		sc.add("inputStreamPreProcessorProvider = options.get(" + I_OPTIONS + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
 		sc.add("}");
 		sc.add("if (inputStreamPreProcessorProvider != null) {");
-		sc.add("if (inputStreamPreProcessorProvider instanceof " + IInputStreamProcessorProvider.class.getName() + ") {");
-		sc.add(IInputStreamProcessorProvider.class.getName() + " provider = (" + IInputStreamProcessorProvider.class.getName() + ") inputStreamPreProcessorProvider;");
-		sc.add(InputStreamProcessor.class.getName() + " processor = provider.getInputStreamProcessor(inputStream);");
+		sc.add("if (inputStreamPreProcessorProvider instanceof " + I_INPUT_STREAM_PROCESSOR_PROVIDER + ") {");
+		sc.add(I_INPUT_STREAM_PROCESSOR_PROVIDER + " provider = (" + I_INPUT_STREAM_PROCESSOR_PROVIDER + ") inputStreamPreProcessorProvider;");
+		sc.add(INPUT_STREAM_PROCESSOR + " processor = provider.getInputStreamProcessor(inputStream);");
 		sc.add("actualInputStream = processor;");
 		sc.add("encoding = processor.getOutputEncoding();");
 		sc.add("}");
 		sc.add("}");
         sc.addLineBreak();
         
-        sc.add(ITextParser.class.getName() + " parser = getMetaInformation().createParser(actualInputStream, encoding);");
-        sc.add("parser.setResource(this);");
+        sc.add("parser = getMetaInformation().createParser(actualInputStream, encoding);");
         sc.add("parser.setOptions(options);");
-        sc.add(IReferenceResolverSwitch.class.getName() + " referenceResolverSwitch = getReferenceResolverSwitch();");
+        sc.add(I_REFERENCE_RESOLVER_SWITCH + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add(I_PARSE_RESULT + " result = parser.parse();");
         sc.add("if (result != null) {");
@@ -662,6 +661,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");
         sc.add("}");
+        sc.add("resetLocationMap();");
         sc.add(COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands = result.getPostParseCommands();");
         sc.add("if (commands != null) {");
         sc.add("for (" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">  command : commands) {");
@@ -671,6 +671,25 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("getReferenceResolverSwitch().setOptions(options);");
         sc.add("runPostProcessors(options);");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addReloadMethod(StringComposite sc) {
+		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
+        sc.add("try {");
+        sc.add("doLoad(inputStream, options);");
+        sc.add("} catch (" + TERMINATE_PARSING_EXCEPTION + " tpe) {");
+        sc.add("// do nothing - the resource is left unchanged if this exception is thrown");
+        sc.add("}");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addCancelReloadMethod(StringComposite sc) {
+		sc.add("public void cancelReload() {");
+        sc.add(I_TEXT_PARSER + " parserCopy = parser;");
+        sc.add("parserCopy.terminate();");
         sc.add("}");
         sc.addLineBreak();
 	}

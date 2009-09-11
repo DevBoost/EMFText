@@ -20,19 +20,20 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PROBLEM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BIT_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TERMINATE_PARSING_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EARLY_EXIT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FAILED_PREDICATE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
@@ -304,9 +305,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addGetMismatchedTokenRecoveryTriesMethod(sc);
 		addGetMissingSymbolMethod(sc);
 		addGetOptionsMethod(sc);
+    	context.addGetMetaInformationMethod(sc);
 		addGetParseToIndexTypeObjectMethod(sc);
 		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
-		addGetTextResourceMethod(sc);
+		//addGetResourceMethod(sc);
+		//addSetTextResourceMethod(sc);
 		addGetTypeObjectMethod(sc);
 		addParseMethod(sc);
 		addParseToExpectedElementsMethod(sc);
@@ -316,7 +319,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
-		addSetTextResourceMethod(sc);
+		addTerminateMethod(sc);
 	}
 
 	private void addGetMissingSymbolMethod(StringComposite sc) {
@@ -346,75 +349,41 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addReportLexicalErrorsMethod(StringComposite sc) {
-		sc
-				.add("// Translates errors thrown by the lexer into human readable messages.");
-		sc.add("public void reportLexicalError(" + RECOGNITION_EXCEPTION
-				+ " e)  {");
+		sc.add("// Translates errors thrown by the lexer into human readable messages.");
+		sc.add("public void reportLexicalError(final " + RECOGNITION_EXCEPTION + " e)  {");
 		sc.add(STRING + " message = \"\";");
 		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = ("
-				+ MISMATCHED_TOKEN_EXCEPTION + ") e;");
-		sc
-				.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", \\\"\" + (char) mte.expecting + \"\\\" expected\";");
+		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
+		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", \\\"\" + (char) mte.expecting + \"\\\" expected\";");
 		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
-		sc
-				.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", delete this token\";");
+		sc.add("message = \"Syntax error on token \\\"\" + ((char) e.c) + \"\\\", delete this token\";");
 		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
-		sc.add(EARLY_EXIT_EXCEPTION + " eee = (" + EARLY_EXIT_EXCEPTION
-				+ ") e;");
-		sc
-				.add("message =\"required (...)+ loop (decision=\" + eee.decisionNumber + \") did not match anything; on line \" + e.line + \":\" + e.charPositionInLine + \" char=\" + ((char) e.c) + \"'\";");
+		sc.add(EARLY_EXIT_EXCEPTION + " eee = (" + EARLY_EXIT_EXCEPTION + ") e;");
+		sc.add("message =\"required (...)+ loop (decision=\" + eee.decisionNumber + \") did not match anything; on line \" + e.line + \":\" + e.charPositionInLine + \" char=\" + ((char) e.c) + \"'\";");
 		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
-		sc.add("" + MISMATCHED_SET_EXCEPTION + " mse = ("
-				+ MISMATCHED_SET_EXCEPTION + ") e;");
-		sc
-				.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION
-				+ ") {");
-		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = ("
-				+ MISMATCHED_NOT_SET_EXCEPTION + ") e;");
-		sc
-				.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
+		sc.add("" + MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
+		sc.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
+		sc.add(MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
+		sc.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set \" + mse.expecting;");
 		sc.add("} else if (e instanceof " + MISMATCHED_RANGE_EXCEPTION + ") {");
-		sc.add(MISMATCHED_RANGE_EXCEPTION + " mre = ("
-				+ MISMATCHED_RANGE_EXCEPTION + ") e;");
-		sc
-				.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set '\" + (char) mre.a + \"'..'\" + (char) mre.b + \"'\";");
+		sc.add(MISMATCHED_RANGE_EXCEPTION + " mre = (" + MISMATCHED_RANGE_EXCEPTION + ") e;");
+		sc.add("message =\"mismatched char: '\" + ((char) e.c) + \"' on line \" + e.line + \":\" + e.charPositionInLine + \"; expecting set '\" + (char) mre.a + \"'..'\" + (char) mre.b + \"'\";");
 		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
-		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = ("
-				+ FAILED_PREDICATE_EXCEPTION + ") e;");
-		sc
-				.add("message =\"rule \" + fpe.ruleName + \" failed predicate: {\" + fpe.predicateText + \"}?\";");
+		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
+		sc.add("message =\"rule \" + fpe.ruleName + \" failed predicate: {\" + fpe.predicateText + \"}?\";");
 		sc.add("}");
-		sc.add("final " + STRING + " finalMessage = message;");
-		sc
-				.add("// the resource may be null if the parse is used for code completion");
-		sc.add("if (resource != null) {");
-		sc.add("resource.addProblem(");
-		sc.add("new " + ABSTRACT_PROBLEM + "() {");
-		sc.add("");
-		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
-		sc.add("}");
-		sc.add("");
-		sc.add("public " + STRING + " getMessage() {");
-		sc.add("return finalMessage;");
-		sc.add("}");
-		sc
-				.add("}, e.index,e.line,lexerExceptionsPosition.get(lexerExceptions.indexOf(e)),lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));");
-		sc.add("}");
+		sc.add("addErrorToResource(message, e.index, e.line, lexerExceptionsPosition.get(lexerExceptions.indexOf(e)), lexerExceptionsPosition.get(lexerExceptions.indexOf(e)));");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addReportErrorMethod(StringComposite sc) {
-		sc
-				.add("// Translates errors thrown by the parser into human readable messages.");
-		sc.add("public void reportError(" + RECOGNITION_EXCEPTION + " e)  {");
+		sc.add("// Translates errors thrown by the parser into human readable messages.");
+		sc.add("public void reportError(final " + RECOGNITION_EXCEPTION + " e)  {");
 		sc.add(STRING + " message = e.getMessage();");
 		sc.add("if (e instanceof " + MISMATCHED_TOKEN_EXCEPTION + ") {");
-		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = ("
-				+ MISMATCHED_TOKEN_EXCEPTION + ") e;");
+		sc.add(MISMATCHED_TOKEN_EXCEPTION + " mte = (" + MISMATCHED_TOKEN_EXCEPTION + ") e;");
 		sc.add(STRING + " tokenName = \"<unknown>\";");
 		sc.add("if (mte.expecting == Token.EOF) {");
 		sc.add("tokenName = \"EOF\";");
@@ -422,97 +391,71 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("tokenName = getTokenNames()[mte.expecting];");
 		sc.add("tokenName = " + STRING_UTIL + ".formatTokenName(tokenName);");
 		sc.add("}");
-		sc
-				.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", \\\"\" + tokenName + \"\\\" expected\";");
-		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION
-				+ ") {");
-		sc.add(MISMATCHED_TREE_NODE_EXCEPTION + " mtne = ("
-				+ MISMATCHED_TREE_NODE_EXCEPTION + ") e;");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", \\\"\" + tokenName + \"\\\" expected\";");
+		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
+		sc.add(MISMATCHED_TREE_NODE_EXCEPTION + " mtne = (" + MISMATCHED_TREE_NODE_EXCEPTION + ") e;");
 		sc.add(STRING + " tokenName = \"<unknown>\";");
 		sc.add("if (mtne.expecting == Token.EOF) {");
 		sc.add("tokenName = \"EOF\";");
 		sc.add("} else {");
 		sc.add("tokenName = getTokenNames()[mtne.expecting];");
 		sc.add("}");
-		sc
-				.add("message = \"mismatched tree node: \"+\"xxx\" +\"; expecting \" + tokenName;");
+		sc.add("message = \"mismatched tree node: \"+\"xxx\" +\"; expecting \" + tokenName;");
 		sc.add("} else if (e instanceof " + NO_VIABLE_ALT_EXCEPTION + ") {");
-		sc
-				.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", check following tokens\";");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", check following tokens\";");
 		sc.add("} else if (e instanceof " + EARLY_EXIT_EXCEPTION + ") {");
-		sc
-				.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", delete this token\";");
+		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", delete this token\";");
 		sc.add("} else if (e instanceof " + MISMATCHED_SET_EXCEPTION + ") {");
-		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION
-				+ ") e;");
-		sc
-				.add("message = \"mismatched token: \" + e.token + \"; expecting set \" + mse.expecting;");
-		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION
-				+ ") {");
-		sc.add("" + MISMATCHED_NOT_SET_EXCEPTION + " mse = ("
-				+ MISMATCHED_NOT_SET_EXCEPTION + ") e;");
-		sc
-				.add("message = \"mismatched token: \" +  e.token + \"; expecting set \" + mse.expecting;");
+		sc.add(MISMATCHED_SET_EXCEPTION + " mse = (" + MISMATCHED_SET_EXCEPTION + ") e;");
+		sc.add("message = \"mismatched token: \" + e.token + \"; expecting set \" + mse.expecting;");
+		sc.add("} else if (e instanceof " + MISMATCHED_NOT_SET_EXCEPTION + ") {");
+		sc.add("" + MISMATCHED_NOT_SET_EXCEPTION + " mse = (" + MISMATCHED_NOT_SET_EXCEPTION + ") e;");
+		sc.add("message = \"mismatched token: \" +  e.token + \"; expecting set \" + mse.expecting;");
 		sc.add("} else if (e instanceof " + FAILED_PREDICATE_EXCEPTION + ") {");
-		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = ("
-				+ FAILED_PREDICATE_EXCEPTION + ") e;");
-		sc
-				.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText+\"}?\";");
+		sc.add(FAILED_PREDICATE_EXCEPTION + " fpe = (" + FAILED_PREDICATE_EXCEPTION + ") e;");
+		sc.add("message = \"rule \" + fpe.ruleName + \" failed predicate: {\" +  fpe.predicateText+\"}?\";");
 		sc.add("}");
-		sc
-				.add("// the resource may be null if the parse is used for code completion");
+		
+		sc.add("// the resource may be null if the parse is used for code completion");
 		sc.add("final " + STRING + " finalMessage = message;");
-		sc.add("if (resource != null) {");
+		
 		sc.add("if (e.token instanceof " + COMMON_TOKEN + ") {");
-		sc.add(COMMON_TOKEN + " ct = (" + COMMON_TOKEN + ") e.token;");
-		sc.add("resource.addProblem(");
-		sc.add("new " + ABSTRACT_PROBLEM + "() {");
-		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
-		sc.add("}");
-		sc.add("public " + STRING + " getMessage() {");
-		sc.add("return finalMessage;");
-		sc.add("}");
-		sc
-				.add("}, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());");
+		sc.add("final " + COMMON_TOKEN + " ct = (" + COMMON_TOKEN + ") e.token;");
+		sc.add("addErrorToResource(finalMessage, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());");
 		sc.add("} else {");
-		sc.add("resource.addProblem(");
-		sc.add("new " + ABSTRACT_PROBLEM + "() {");
-		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
-		sc.add("}");
-		sc.add("public " + STRING + " getMessage() {");
-		sc.add("return finalMessage;");
-		sc.add("}");
-		sc.add("},");
-		sc
-				.add("e.token.getCharPositionInLine(), e.token.getLine(), 1, 5); // TODO what the heck is this 5?");
-		sc.add("}");
+		sc.add("addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5); // TODO what the heck is this 5?");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
+	private void addTerminateMethod(StringComposite sc) {
+		sc.add("public void terminate() {");
+		sc.add("terminateParsing = true;");
+		sc.add("}");
+	}
+
 	private void addParseMethod(StringComposite sc) {
-		sc
-				.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
+		String parseResultClassName = context.getQualifiedClassName(EArtifact.PARSE_RESULT);
+
+		sc.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
 		sc.add("// RecognitionExceptions.");
 		sc.add("public " + I_PARSE_RESULT + " parse() {");
+		sc.add("terminateParsing = false;");
+		sc.add("commands = new " + ARRAY_LIST + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">>();");
 		sc.add("try {");
-		String parseResultClassName = context.getQualifiedClassName(EArtifact.PARSE_RESULT);
 		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
 		sc.add(E_OBJECT + " result =  doParse();");
 		sc.add("if (lexerExceptions.isEmpty()) {");
 		sc.add("parseResult.setRoot(result);");
+		sc.add("parseResult.getPostParseCommands().addAll(commands);");
 		sc.add("return parseResult;");
 		sc.add("}");
 		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
 		sc.add("reportError(re);");
 		sc.add("} catch (" + ILLEGAL_ARGUMENT_EXCEPTION + " iae) {");
-		sc
-				.add("if (\"The 'no null' constraint is violated\".equals(iae.getMessage())) {");
-		sc
-				.add("//? can be caused if a null is set on EMF models where not allowed;");
+		sc.add("if (\"The 'no null' constraint is violated\".equals(iae.getMessage())) {");
+		sc.add("//? can be caused if a null is set on EMF models where not allowed;");
 		sc.add("//? this will just happen if other errors occurred before");
 		sc.add("} else {");
 		sc.add("iae.printStackTrace();");
@@ -526,19 +469,23 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetTextResourceMethod(StringComposite sc) {
+	/*
+	private void addGetResourceMethod(StringComposite sc) {
 		sc.add("public " + I_TEXT_RESOURCE + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	*/
 
+	/*
 	private void addSetTextResourceMethod(StringComposite sc) {
 		sc.add("public void setResource(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("this.resource = resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
+	*/
 
 	private void addApplyMethod(StringComposite sc) {
 		sc.add("protected " + E_OBJECT + " apply(" + E_OBJECT + " target, "
@@ -793,7 +740,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private int lastIndex = -1;");
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
 		sc.add("private " + MAP + "<?, ?> options;");
-		sc.add("private " + I_TEXT_RESOURCE + " resource;");
+		//sc.add("private " + I_TEXT_RESOURCE + " resource;");
 		sc.add("//helper lists to allow a lexer to pass errors to its parser");
 		sc.add("protected " + LIST + "<" + RECOGNITION_EXCEPTION
 				+ "> lexerExceptions = " + COLLECTIONS
@@ -806,6 +753,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		//sc.add("private int lastNonHiddenTokenIndex;");
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
+		sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands;");
+		sc.add("private boolean terminateParsing;");
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
@@ -820,42 +769,45 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addCopyLocalizationInfosMethod1(StringComposite sc) {
-		sc.add("protected void copyLocalizationInfos(" + E_OBJECT + " source, "
+		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT + " source, final "
 				+ E_OBJECT + " target) {");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
-		sc.add("return;");
+		sc.add("return true;");
 		sc.add("}");
-		sc.add("final " + I_LOCATION_MAP
-				+ " locationMap = resource.getLocationMap();");
-		sc
-				.add("locationMap.setCharStart(target, locationMap.getCharStart(source));");
-		sc
-				.add("locationMap.setCharEnd(target, locationMap.getCharEnd(source));");
+		sc.add(I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
+		sc.add("locationMap.setCharStart(target, locationMap.getCharStart(source));");
+		sc.add("locationMap.setCharEnd(target, locationMap.getCharEnd(source));");
 		sc.add("locationMap.setColumn(target, locationMap.getColumn(source));");
 		sc.add("locationMap.setLine(target, locationMap.getLine(source));");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
 	private void addCopyLocalizationInfosMethod2(StringComposite sc) {
-		sc.add("protected void copyLocalizationInfos(" + COMMON_TOKEN
-				+ " source, " + E_OBJECT + " target) {");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN
+				+ " source, final " + E_OBJECT + " target) {");
+		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
-		sc.add("return;");
+		sc.add("return true;");
 		sc.add("}");
-		sc.add("final " + I_LOCATION_MAP
-				+ " locationMap = resource.getLocationMap();");
+		sc.add(I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
 		sc.add("locationMap.setCharStart(target, source.getStartIndex());");
 		sc.add("locationMap.setCharEnd(target, source.getStopIndex());");
-		sc
-				.add("locationMap.setColumn(target, source.getCharPositionInLine());");
+		sc.add("locationMap.setColumn(target, source.getCharPositionInLine());");
 		sc.add("locationMap.setLine(target, source.getLine());");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -1680,6 +1632,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			String expressionToBeSet, StringComposite resolvements,
 			String tokenName) {
 		sc.add("{");
+		sc.add("if (terminateParsing) {");
+		sc.add("throw new " + TERMINATE_PARSING_EXCEPTION + "();");
+		sc.add("}");
 		sc.add("if (element == null) {");
 		sc.add("element = "
 				+ genClassUtil.getCreateObjectCall(rule.getMetaclass(),

@@ -57,9 +57,11 @@ import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.runtime.IInputStreamProcessorProvider;
 import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessor;
+import org.emftext.runtime.InputStreamProcessor;
 import org.emftext.runtime.resource.EProblemType;
 import org.emftext.runtime.resource.IBracketPair;
 import org.emftext.runtime.resource.ICommand;
@@ -91,9 +93,11 @@ import org.emftext.runtime.resource.impl.AbstractEMFTextScanner;
 import org.emftext.runtime.resource.impl.AbstractParseResult;
 import org.emftext.runtime.resource.impl.AbstractProblem;
 import org.emftext.runtime.resource.impl.AbstractReferenceMapping;
+import org.emftext.runtime.resource.impl.AbstractTextResource;
 import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.impl.AbstractTokenResolver;
 import org.emftext.runtime.resource.impl.AbstractTokenStyle;
+import org.emftext.runtime.resource.impl.TerminateParsingException;
 import org.emftext.runtime.util.CastUtil;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.ListUtil;
@@ -112,6 +116,7 @@ public interface IClassNameConstants {
 	public String ABSTRACT_PARSE_RESULT = AbstractParseResult.class.getName();
 	public String ABSTRACT_TOKEN_STYLE = AbstractTokenStyle.class.getName();
 	public String ABSTRACT_TOKEN_RESOLVER = AbstractTokenResolver.class.getName();
+	public String ABSTRACT_TEXT_RESOURCE = AbstractTextResource.class.getName();
 	public String ABSTRACT_EMF_TEXT_PARSER = AbstractEMFTextParser.class.getName();
 	public String ABSTRACT_EMF_TEXT_SCANNER = AbstractEMFTextScanner.class.getName();
 	public String ABSTRACT_PROBLEM = AbstractProblem.class.getName();
@@ -169,6 +174,7 @@ public interface IClassNameConstants {
 	public String I_ELEMENT_MAPPING = IElementMapping.class.getName();
 	public String I_EXPECTED_ELEMENT = IExpectedElement.class.getName();
 	public String I_EXTENSION_REGISTRY = IExtensionRegistry.class.getName();
+	
 	public String I_LOCATION_MAP = ILocationMap.class.getName();
 	public String I_OPTIONS = IOptions.class.getName();
 	public String I_OPTION_PROVIDER = IOptionProvider.class.getName();
@@ -226,4 +232,9 @@ public interface IClassNameConstants {
 	public String I_TEXT_PRINTER = ITextPrinter.class.getName();
 	public String TOKEN = Token.class.getName();
 	public String ANTLR_STRING_STREAM = ANTLRStringStream.class.getName();
+	public String TERMINATE_PARSING_EXCEPTION = TerminateParsingException.class.getName();
+	
+	public String I_INPUT_STREAM_PROCESSOR_PROVIDER = IInputStreamProcessorProvider.class.getName();
+	public String INPUT_STREAM_PROCESSOR = InputStreamProcessor.class.getName();
+
 }

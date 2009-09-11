@@ -1,6 +1,7 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PARSE_RESULT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
@@ -30,7 +31,7 @@ public class ParseResultGenerator extends BaseGenerator {
         sc.addLineBreak();
 
         sc.add("private " + E_OBJECT + " root;");
-        sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands;");
+        sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands = new " + ARRAY_LIST + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">>();");
         sc.addLineBreak();
         
 		sc.add("public " + getResourceClassName() + "() {");
@@ -45,11 +46,6 @@ public class ParseResultGenerator extends BaseGenerator {
 		
 		sc.add("public " + E_OBJECT + " getRoot() {");
 		sc.add("return root;");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		sc.add("public void addPostParseCommand(" + I_COMMAND + "<" + I_TEXT_RESOURCE + "> command) {");
-		sc.add("commands.add(command);");
 		sc.add("}");
 		sc.addLineBreak();
 		

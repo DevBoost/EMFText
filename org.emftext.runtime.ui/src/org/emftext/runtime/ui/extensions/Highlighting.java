@@ -202,7 +202,7 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 		textWidget.addKeyListener(hl);
 		textWidget.addVerifyListener(hl);
 		textWidget.addMouseListener(hl);
-		editor.addBackgroundParsingListener(hl);
+		editor.addBackgroundParsingListener(hl, "Highlighting");
 	}
 
 	private void setHighlighting() {
