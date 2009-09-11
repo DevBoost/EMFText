@@ -21,6 +21,7 @@
 package org.emftext.runtime.ui;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -62,9 +63,13 @@ public class MarkerHelper {
     }
 
 	private static void createMarkersFromDiagnostics(Resource resource,
-			IFile file, Collection<Resource.Diagnostic> diagnostics, int markerSeverity) throws CoreException {
+			IFile file, List<Resource.Diagnostic> diagnostics, int markerSeverity) throws CoreException {
 
-		for (Resource.Diagnostic diagnostic : diagnostics) {
+		// create a copy because the diagnostics list is modified concurrently
+		// by the background parsing strategy
+		Resource.Diagnostic[] copy = diagnostics.toArray(new Resource.Diagnostic[diagnostics.size()]);
+		for (int i = 0; i < copy.length; i++) {
+			Resource.Diagnostic diagnostic = copy[i];
 			IMarker marker = file.createMarker(MARKER_TYPE);
             marker.setAttribute(IMarker.SEVERITY, markerSeverity);
             marker.setAttribute(IMarker.MESSAGE, diagnostic.getMessage());
