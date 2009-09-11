@@ -25,6 +25,8 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CAST_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COPIED_E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COPIED_E_OBJECT_INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
@@ -33,12 +35,12 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUN
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.COPIED_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_PROCESSOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
@@ -715,7 +717,7 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addGetContentsMethod(StringComposite sc) {
 		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
-        sc.add("return new " + COPIED_E_LIST + "<" + E_OBJECT + ">(super.getContents());");
+        sc.add("return new " + COPIED_E_OBJECT_INTERNAL_E_LIST + "((" + INTERNAL_E_LIST + "<" + E_OBJECT + ">) super.getContents());");
         sc.add("}");
         sc.addLineBreak();
 	}

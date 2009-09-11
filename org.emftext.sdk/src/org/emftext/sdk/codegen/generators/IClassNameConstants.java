@@ -56,6 +56,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.IInputStreamProcessorProvider;
 import org.emftext.runtime.IOptionProvider;
@@ -100,6 +101,7 @@ import org.emftext.runtime.resource.impl.AbstractTokenStyle;
 import org.emftext.runtime.resource.impl.TerminateParsingException;
 import org.emftext.runtime.util.CastUtil;
 import org.emftext.runtime.util.CopiedEList;
+import org.emftext.runtime.util.CopiedEObjectInternalEList;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.ListUtil;
 import org.emftext.runtime.util.MapUtil;
@@ -113,6 +115,8 @@ import org.emftext.runtime.util.StringUtil;
  */
 public interface IClassNameConstants {
 
+	public String COPIED_E_OBJECT_INTERNAL_E_LIST = CopiedEObjectInternalEList.class.getName();
+	public String INTERNAL_E_LIST = InternalEList.class.getName();
 	public String ABSTRACT_BRACKET_PAIR = AbstractBracketPair.class.getName();
 	public String ABSTRACT_PARSE_RESULT = AbstractParseResult.class.getName();
 	public String ABSTRACT_TOKEN_STYLE = AbstractTokenStyle.class.getName();

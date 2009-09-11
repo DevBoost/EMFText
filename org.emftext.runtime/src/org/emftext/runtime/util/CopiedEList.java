@@ -15,6 +15,7 @@ public class CopiedEList<E> implements EList<E> {
 	private EList<E> original;
 	private EList<E> copy;
 
+	@SuppressWarnings("unchecked")
 	public CopiedEList(EList<E> original) {
 		super();
 		this.original = original;
@@ -130,6 +131,7 @@ public class CopiedEList<E> implements EList<E> {
 	}
 
 	public <T> T[] toArray(T[] a) {
-		return toArray(a);
+		return copy.toArray(a);
 	}
+
 }
