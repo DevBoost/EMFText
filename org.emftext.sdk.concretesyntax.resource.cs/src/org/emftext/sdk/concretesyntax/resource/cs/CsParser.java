@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-09-11 13:44:10
+// $ANTLR 3.1.1 C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-Runtime\\org.emftext.sdk.concretesyntax.resource.cs\\src\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\Cs.g 2009-09-11 14:30:08
 
 	package org.emftext.sdk.concretesyntax.resource.cs;
 	

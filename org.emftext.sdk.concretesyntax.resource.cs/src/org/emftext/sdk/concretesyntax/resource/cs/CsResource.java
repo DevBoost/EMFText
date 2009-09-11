@@ -458,15 +458,15 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	}
 	
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.EObject> getContents() {
-		return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.EObject>(super.getContents());
+		return new org.emftext.runtime.util.CopiedEList<org.eclipse.emf.ecore.EObject>(super.getContents());
 	}
 	
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getWarnings() {
-		return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getWarnings());
+		return new org.emftext.runtime.util.CopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getWarnings());
 	}
 	
 	public org.eclipse.emf.common.util.EList<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getErrors() {
-		return new org.eclipse.emf.common.util.BasicEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getErrors());
+		return new org.emftext.runtime.util.CopiedEList<org.eclipse.emf.ecore.resource.Resource.Diagnostic>(super.getErrors());
 	}
 	
 }

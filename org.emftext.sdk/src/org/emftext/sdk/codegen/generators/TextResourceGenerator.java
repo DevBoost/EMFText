@@ -33,6 +33,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUN
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COPIED_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
@@ -714,21 +715,21 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addGetContentsMethod(StringComposite sc) {
 		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
-        sc.add("return new " + BASIC_E_LIST + "<" + E_OBJECT + ">(super.getContents());");
+        sc.add("return new " + COPIED_E_LIST + "<" + E_OBJECT + ">(super.getContents());");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetWarningsMethod(StringComposite sc) {
 		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getWarnings() {");
-        sc.add("return new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(super.getWarnings());");
+        sc.add("return new " + COPIED_E_LIST + "<" + DIAGNOSTIC + ">(super.getWarnings());");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetErrorsMethod(StringComposite sc) {
 		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getErrors() {");
-        sc.add("return new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(super.getErrors());");
+        sc.add("return new " + COPIED_E_LIST + "<" + DIAGNOSTIC + ">(super.getErrors());");
         sc.add("}");
         sc.addLineBreak();
 	}

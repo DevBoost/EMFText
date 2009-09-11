@@ -99,6 +99,7 @@ import org.emftext.runtime.resource.impl.AbstractTokenResolver;
 import org.emftext.runtime.resource.impl.AbstractTokenStyle;
 import org.emftext.runtime.resource.impl.TerminateParsingException;
 import org.emftext.runtime.util.CastUtil;
+import org.emftext.runtime.util.CopiedEList;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.ListUtil;
 import org.emftext.runtime.util.MapUtil;
@@ -127,6 +128,7 @@ public interface IClassNameConstants {
 	public String RESOURCE = org.eclipse.emf.ecore.resource.Resource.class.getName();
 	public String BASIC_E_LIST = BasicEList.class.getName();
 	public String BASIC_E_MAP = BasicEMap.class.getName();
+	public String COPIED_E_LIST = CopiedEList.class.getName();
 	public String BIT_SET = BitSet.class.getName();
 	public String BUFFERED_OUTPUT_STREAM = BufferedOutputStream.class.getName();
 	public String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
