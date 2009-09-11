@@ -441,13 +441,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("// RecognitionExceptions.");
 		sc.add("public " + I_PARSE_RESULT + " parse() {");
 		sc.add("terminateParsing = false;");
-		sc.add("commands = new " + ARRAY_LIST + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">>();");
+		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">>();");
 		sc.add("try {");
 		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
 		sc.add(E_OBJECT + " result =  doParse();");
 		sc.add("if (lexerExceptions.isEmpty()) {");
 		sc.add("parseResult.setRoot(result);");
-		sc.add("parseResult.getPostParseCommands().addAll(commands);");
+		sc.add("parseResult.getPostParseCommands().addAll(postParseCommands);");
 		sc.add("return parseResult;");
 		sc.add("}");
 		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
@@ -750,7 +750,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		//sc.add("private int lastNonHiddenTokenIndex;");
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
-		sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands;");
+		sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> postParseCommands;");
 		sc.add("private boolean terminateParsing;");
 	}
 
@@ -768,7 +768,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addCopyLocalizationInfosMethod1(StringComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT + " source, final "
 				+ E_OBJECT + " target) {");
-		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
 		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
@@ -790,7 +790,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addCopyLocalizationInfosMethod2(StringComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN
 				+ " source, final " + E_OBJECT + " target) {");
-		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
 		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");

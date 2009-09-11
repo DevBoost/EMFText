@@ -340,7 +340,7 @@ public class GeneratorUtil {
 		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + qualifiedContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final " + "ContainerType element, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT
 				+ " proxy) {");
 
-		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
 		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
@@ -366,7 +366,7 @@ public class GeneratorUtil {
 	public void addAddErrorToResourceMethod(StringComposite sc) {
 		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
 
-		sc.add("commands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
+		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
 		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");

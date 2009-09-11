@@ -1,6 +1,8 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_EMF_TEXT_PARSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
@@ -10,8 +12,10 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREA
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PARSE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
@@ -88,6 +92,7 @@ import org.emftext.sdk.finders.GenClassFinder;
  * 
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
+// TODO enabled backtracking for the postParseCommands lists
 public class ScannerlessParserGenerator extends BaseGenerator {
 	
 	private final GenClassUtil genClassUtil = new GenClassUtil();
@@ -469,6 +474,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		generatorUtil.addAddObjectToListMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, qualifiedTokenResolveResultClassName);
 		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
+    	context.addGetMetaInformationMethod(sc);
 		// this is the two parameter version
 		addAddErrorToResourceMethod(sc);
 		// this is the four parameter version
@@ -481,6 +487,13 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		addAddCommandMethod(sc);
 		addAddTokenMethod(sc);
 		addProcessParseTrialStackMethod(sc);
+		addTerminateMethod(sc);
+	}
+
+	private void addTerminateMethod(StringComposite sc) {
+		sc.add("public void terminate() {");
+		sc.add("// TODO implement this");
+		sc.add("}");
 	}
 
 	private void addAddCommandMethod(StringComposite sc) {
@@ -767,11 +780,12 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private void addParseMethod(StringComposite sc) {
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 
-		sc.add("public " + E_OBJECT + " parse() {");
+		sc.add("public " + I_PARSE_RESULT + " parse() {");
 		sc.add("restoreStackMode = false;");
 		sc.add("parseError = null;");
 		sc.add("parseTrials = new " + STACK + "<ParsePosition>();");
 		sc.add("offsetIgnoringUnusedTokens = 0;");
+		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">>();");
 		//sc.add("commands = new " + LINKED_LIST + "<ICommand>();");
 		//sc.add("tokens = new " + LINKED_LIST + "<" + I_TEXT_TOKEN + ">();");
 		//sc.add("boolean tryOtherStartSymbols = true;");
@@ -812,7 +826,11 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("addParseErrorToResource();");
 		sc.add("// return root element");
-		sc.add("return context.getCurrentContainer();");
+		String parseResultClassName = context.getQualifiedClassName(EArtifact.PARSE_RESULT);
+		sc.add(parseResultClassName + " result = new " + parseResultClassName + "();");
+		sc.add("result.setRoot(context.getCurrentContainer());");
+		sc.add("result.getPostParseCommands().addAll(postParseCommands);");
+		sc.add("return result;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -941,6 +959,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("private " + I_TEXT_RESOURCE + " resource;");
 		sc.add("private ParseError parseError;");
 		sc.add("private " + LIST + "<" + I_TEXT_TOKEN + "> tokens;");
+		sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> postParseCommands;");
 		sc.addLineBreak();
 		
 		addTokensField(sc);
