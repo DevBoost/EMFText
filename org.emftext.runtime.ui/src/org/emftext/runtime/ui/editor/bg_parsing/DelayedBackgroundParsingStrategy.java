@@ -28,8 +28,8 @@ public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrat
 		synchronized (timer) {
 			// cancel old task
 			if (task != null) {
+				// stop current parser (if there is one)
 				task.cancel();
-				// TODO stop current parser (if there is one)
 			}
 			timer.purge();
 	
@@ -52,6 +52,7 @@ public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrat
 
 				@Override
 				public boolean cancel() {
+					super.cancel();
 					resource.cancelReload();
 					return true;
 				}
