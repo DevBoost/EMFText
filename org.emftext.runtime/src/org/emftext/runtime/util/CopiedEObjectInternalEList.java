@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+//TODO generate this class
+//TODO override remove() method of iterators
 public class CopiedEObjectInternalEList extends CopiedEList<EObject> implements InternalEList<EObject> {
 
 	private InternalEList<EObject> original;

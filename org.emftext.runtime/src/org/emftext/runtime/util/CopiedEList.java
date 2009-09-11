@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
+// TODO generate this class
 // TODO override remove() method of iterators
 public class CopiedEList<E> implements EList<E> {
 
