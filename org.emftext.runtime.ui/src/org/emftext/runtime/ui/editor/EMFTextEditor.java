@@ -140,11 +140,18 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			if (!enabled) {
 				return;
 			}
-			try {
-				MarkerHelper.unmark((Resource) getTarget());
-				MarkerHelper.mark((Resource) getTarget());
-			} catch (Exception e) {
-				e.printStackTrace();
+			Object notifier = notification.getNotifier();
+			if (notifier != null && notifier instanceof ITextResource) {
+				ITextResource resource = (ITextResource) notifier;
+				if (!resource.isLoaded()) {
+					return;
+				}
+				try {
+					MarkerHelper.unmark(resource);
+					MarkerHelper.mark(resource);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 

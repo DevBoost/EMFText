@@ -59,10 +59,12 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 	
 	public void reload(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		try {
+			isLoaded = false;
 			doLoad(inputStream, options);
 		} catch (org.emftext.runtime.resource.impl.TerminateParsingException tpe) {
 			// do nothing - the resource is left unchanged if this exception is thrown
 		}
+		isLoaded = true;
 	}
 	
 	public void cancelReload() {

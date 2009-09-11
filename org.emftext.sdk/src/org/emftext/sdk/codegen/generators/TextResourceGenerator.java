@@ -690,10 +690,12 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void addReloadMethod(StringComposite sc) {
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
         sc.add("try {");
+        sc.add("isLoaded = false;");
         sc.add("doLoad(inputStream, options);");
         sc.add("} catch (" + TERMINATE_PARSING_EXCEPTION + " tpe) {");
         sc.add("// do nothing - the resource is left unchanged if this exception is thrown");
         sc.add("}");
+        sc.add("isLoaded = true;");
         sc.add("}");
         sc.addLineBreak();
 	}
