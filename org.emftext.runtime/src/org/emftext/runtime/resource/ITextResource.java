@@ -37,8 +37,25 @@ import org.eclipse.emf.ecore.resource.Resource;
  */
 public interface ITextResource extends Resource, ITextResourcePluginPart {
 	
-	// TODO add documentation
+	/**
+	 * Try to load the content of this resource from the given stream. If
+	 * loading fails, the state of this resource is kept. If loading is 
+	 * successful, the content of this resource is replaced with the new
+	 * content.
+	 * This method can be used to try loading erroneous files, as e.g., 
+	 * needed during background parsing in the editor.
+	 * 
+	 * @param stream the stream to read from
+	 * @param options the load options to use
+	 * @throws IOException thrown if the stream can not be read
+	 */
 	public void reload(InputStream stream, Map<?,?> options) throws IOException;
+	
+	/**
+	 * Try to cancel a current reload of this resource. It is not guaranteed
+	 * that canceling is successful. If this resource has already finished
+	 * parsing the new content, it will replace its content unconditionally.
+	 */
 	public void cancelReload();
 	
 	/**
