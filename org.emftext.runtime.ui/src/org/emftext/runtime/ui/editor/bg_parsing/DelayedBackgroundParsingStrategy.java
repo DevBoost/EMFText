@@ -18,40 +18,45 @@ public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrat
 	private TimerTask task;
 
 	public boolean isParsingRequired(DocumentEvent event) {
-		//synchronized (parseLock) {
-			// TODO stop current parser (if there is one)
-			
-			// parsing is always required
-			return true;
-		//}
+		// parsing is always required
+		return true;
 	}
 
 	public void parse(DocumentEvent event, final ITextResource resource, final EMFTextEditor editor) {
 		final String contents = event.getDocument().get();
 
-		// cancel old task
-		if (task != null) {
-			task.cancel();
-		}
-		timer.purge();
-
-		// schedule new task
-		task = new TimerTask() {
-
-			@Override
-			public void run() {
-				synchronized (parseLock) {
-					try {
-						resource.unload();
-						resource.load(new ByteArrayInputStream(contents.getBytes()), null);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					System.out.println("finished background parsing.");
-					editor.notifyBackgroundParsingFinished();
-				}
+		synchronized (timer) {
+			// cancel old task
+			if (task != null) {
+				task.cancel();
+				// TODO stop current parser (if there is one)
 			}
-		};
-		timer.schedule(task, DELAY);
+			timer.purge();
+	
+			// schedule new task
+			task = new TimerTask() {
+				
+				@Override
+				public void run() {
+					synchronized (parseLock) {
+						System.out.print("starting background parsing...");
+						try {
+							resource.reload(new ByteArrayInputStream(contents.getBytes()), null);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						System.out.println("finished.");
+						editor.notifyBackgroundParsingFinished();
+					}
+				}
+
+				@Override
+				public boolean cancel() {
+					resource.cancelReload();
+					return true;
+				}
+			};
+			timer.schedule(task, DELAY);
+		}
 	}
 }
