@@ -8,6 +8,7 @@ OPTIONS {
 	usePredefinedTokens = "false";
 	overrideManifest = "false";
 	overrideNewFileWizard = "false";
+	overrideHoverTextProvider = "false";
 }
 
 TOKENS {
