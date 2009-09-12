@@ -115,9 +115,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		}
 
 		public void documentChanged(DocumentEvent event) {
-			if (!bgParsingStrategy.isParsingRequired(event)) {
-				return;
-			}
 			bgParsingStrategy.parse(event, resource, EMFTextEditor.this);
 		}
 	}
