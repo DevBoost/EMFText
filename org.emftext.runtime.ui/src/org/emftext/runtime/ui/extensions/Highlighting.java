@@ -53,8 +53,8 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.ui.EMFTextTokenScanner;
+import org.emftext.runtime.ui.IBackgroundParsingListener;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
-import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
 import org.emftext.runtime.ui.preferences.PreferenceConstants;
 
 /**
@@ -94,7 +94,7 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	 * @author Tan-Ky Hoang-Kim
 	 * 
 	 */
-	private final class HighlightingListener implements KeyListener,
+	private final class UpdateHighlightingListener implements KeyListener,
 			VerifyListener, MouseListener, IBackgroundParsingListener {
 
 		private boolean changed = false;
@@ -198,11 +198,11 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	}
 
 	private void addListeners(EMFTextEditor editor) {
-		HighlightingListener hl = new HighlightingListener();
+		UpdateHighlightingListener hl = new UpdateHighlightingListener();
 		textWidget.addKeyListener(hl);
 		textWidget.addVerifyListener(hl);
 		textWidget.addMouseListener(hl);
-		editor.addBackgroundParsingListener(hl, "Highlighting");
+		editor.addBackgroundParsingListener(hl);
 	}
 
 	private void setHighlighting() {
@@ -216,12 +216,12 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 		}
 		if (occurrence.isPositionsChanged()) {
 			setCategoryHighlighting(document,
-					ExtensionConstants.PositionCategory.DEFINTION.toString());
+					PositionCategory.DEFINTION.toString());
 			setCategoryHighlighting(document,
-					ExtensionConstants.PositionCategory.PROXY.toString());
+					PositionCategory.PROXY.toString());
 		}
 		setCategoryHighlighting(document,
-				ExtensionConstants.PositionCategory.BRACKET.toString());
+				PositionCategory.BRACKET.toString());
 
 	}
 
@@ -229,7 +229,7 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 		StyleRange styleRange = null;
 		Position[] positions = positionHelper.getPositions(document, category);
 
-		if (category.equals(ExtensionConstants.PositionCategory.PROXY
+		if (category.equals(PositionCategory.PROXY
 				.toString())) {
 			if (lastStyleRange == null && positions.length > 0) {
 				styleRange = getStyleRangeAtPosition(positions[0]);
@@ -251,7 +251,7 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 			Position tmpPosition = convertToWidgedPosition(position);
 			if (tmpPosition != null) {
 				if (category
-						.equals(ExtensionConstants.PositionCategory.DEFINTION
+						.equals(PositionCategory.DEFINTION
 								.toString())) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
 					if (styleRange.foreground == null) {
@@ -261,14 +261,14 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 					styleRange.background = definitionColor;
 					textWidget.setStyleRange(styleRange);
 				}
-				if (category.equals(ExtensionConstants.PositionCategory.PROXY
+				if (category.equals(PositionCategory.PROXY
 						.toString())) {
 					if (styleRange == null)
 						return;
 					styleRange.start = tmpPosition.offset;
 					textWidget.setStyleRange(styleRange);
 				}
-				if (category.equals(ExtensionConstants.PositionCategory.BRACKET
+				if (category.equals(PositionCategory.BRACKET
 						.toString())) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
 					styleRange.borderStyle = SWT.BORDER_SOLID;
@@ -284,12 +284,12 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	private void removeHighlighting() {
 		IDocument document = projectionViewer.getDocument();
 		removeHighlightingCategory(document,
-				ExtensionConstants.PositionCategory.BRACKET.toString());
+				PositionCategory.BRACKET.toString());
 		if (occurrence.isToRemoveHighlighting()) {
 			removeHighlightingCategory(document,
-					ExtensionConstants.PositionCategory.DEFINTION.toString());
+					PositionCategory.DEFINTION.toString());
 			removeHighlightingCategory(document,
-					ExtensionConstants.PositionCategory.PROXY.toString());
+					PositionCategory.PROXY.toString());
 			lastStyleRange = null;
 		}
 	}
@@ -297,12 +297,12 @@ public class Highlighting implements ISelectionProvider, ISelectionChangedListen
 	private void removeHighlightingCategory(IDocument document, String category) {
 		Position[] positions = positionHelper.getPositions(document, category);
 		boolean isOccurrence = (category
-				.equals(ExtensionConstants.PositionCategory.DEFINTION
+				.equals(PositionCategory.DEFINTION
 						.toString()) || category
-				.equals(ExtensionConstants.PositionCategory.PROXY.toString()))
+				.equals(PositionCategory.PROXY.toString()))
 				&& lastStyleRange != null;
 
-		if (category.equals(ExtensionConstants.PositionCategory.BRACKET
+		if (category.equals(PositionCategory.BRACKET
 				.toString())) {
 			StyleRange styleRange;
 			for (Position position : positions) {

@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.List;
 
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -45,6 +46,10 @@ import org.eclipse.jface.text.ITextHoverExtension;
 import org.eclipse.jface.text.ITextHoverExtension2;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
@@ -67,12 +72,48 @@ import org.osgi.framework.Bundle;
  * @author Tan-Ky Hoang-Kim
  * 
  */
-public class TextHover implements ITextHover, ITextHoverExtension,
-		ITextHoverExtension2 {
+public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExtension2 {
 
 	private EMFTextEditor editor;
 	private static final String FONT = JFaceResources.DIALOG_FONT;
 	private IHoverTextProvider hoverTextProvider;
+	
+	/**
+	 * A simple default implementation of a {@link ISelectionProvider}. It stores
+	 * the selection and notifies all selection change listeners when the selection
+	 * is set.
+	 */
+	public static class SimpleSelectionProvider implements ISelectionProvider {
+
+		private final ListenerList selectionChangedListeners;
+		private ISelection selection;
+
+		public SimpleSelectionProvider() {
+			selectionChangedListeners = new ListenerList();
+		}
+
+		public ISelection getSelection() {
+			return selection;
+		}
+
+		public void setSelection(ISelection selection) {
+			this.selection = selection;
+
+			Object[] listeners = selectionChangedListeners.getListeners();
+			for (int i = 0; i < listeners.length; i++) {
+				((ISelectionChangedListener) listeners[i]).selectionChanged(new SelectionChangedEvent(this, selection));
+			}
+		}
+
+		public void removeSelectionChangedListener(ISelectionChangedListener listener) {
+			selectionChangedListeners.remove(listener);
+		}
+
+		public void addSelectionChangedListener(ISelectionChangedListener listener) {
+			selectionChangedListeners.add(listener);
+		}
+	}
+	
 	/**
 	 * Creates a new TextHover to collect the information about the hovered
 	 * element.
@@ -84,7 +125,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	public TextHover(EMFTextEditor editor) {
 		super();
 		this.editor = editor;
-		hoverTextProvider = ((ITextResource) editor.getResource()).getMetaInformation().getHoverTextProvider();
+		hoverTextProvider = editor.getResource().getMetaInformation().getHoverTextProvider();
 	}
 
 	/**
@@ -94,7 +135,8 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	 * @author Tan-Ky Hoang-Kim
 	 * 
 	 */
-	private static final class OpenDeclarationAction extends Action {
+	public static class OpenDeclarationAction extends Action {
+		
 		private final BrowserInformationControl infoControl;
 
 		/**
@@ -109,25 +151,23 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 			setText("Open Declaration");
 			ISharedImages images = PlatformUI.getWorkbench().getSharedImages();
 			// TODO: better image
-			setImageDescriptor(images
-					.getImageDescriptor(ISharedImages.IMG_ETOOL_HOME_NAV));
+			setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_ETOOL_HOME_NAV));
 		}
 
 		/**
 		 * Creates, sets, activates a hyperlink.
 		 */
 		public void run() {
-			DocBrowserInformationControlInput infoInput = (DocBrowserInformationControlInput) infoControl
-					.getInput();
+			DocBrowserInformationControlInput infoInput = (DocBrowserInformationControlInput) infoControl.getInput();
 			infoControl.notifyDelayedInputChange(null);
 			infoControl.dispose(); // FIXME: should have protocol to hide,
 			// rather than dispose
 			if (infoInput.getInputElement() instanceof EObject) {
-			EObject decEO = (EObject) infoInput.getInputElement();
-			if (decEO != null && decEO.eResource() != null) {
-				Hyperlink hyperlink = new Hyperlink(null, decEO,infoInput.getTokenText());
-				hyperlink.open();
-			}
+				EObject decEO = (EObject) infoInput.getInputElement();
+				if (decEO != null && decEO.eResource() != null) {
+					Hyperlink hyperlink = new Hyperlink(null, decEO,infoInput.getTokenText());
+					hyperlink.open();
+				}
 			}
 		}
 	}
@@ -135,21 +175,13 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	/**
 	 * Presenter control creator. Creates a hover control after focus.
 	 */
-	public static final class PresenterControlCreator extends
-			AbstractReusableInformationControlCreator {
+	public static final class PresenterControlCreator extends AbstractReusableInformationControlCreator {
 
-		/*
-		 * @seeorg.eclipse.jdt.internal.ui.text.java.hover.
-		 * AbstractReusableInformationControlCreator
-		 * #doCreateInformationControl(org.eclipse.swt.widgets.Shell)
-		 */
 		public IInformationControl doCreateInformationControl(Shell parent) {
 			if (BrowserInformationControl.isAvailable(parent)) {
 				ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
-				BrowserInformationControl iControl = new BrowserInformationControl(
-						parent, FONT, tbm);
-				final OpenDeclarationAction openDeclarationAction = new OpenDeclarationAction(
-						iControl);
+				BrowserInformationControl iControl = new BrowserInformationControl(parent, FONT, tbm);
+				final OpenDeclarationAction openDeclarationAction = new OpenDeclarationAction(iControl);
 				tbm.add(openDeclarationAction);
 				final SimpleSelectionProvider selectionProvider = new SimpleSelectionProvider();
 
@@ -192,8 +224,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	/**
 	 * Hover control creator. Creates a hover control before focus.
 	 */
-	public static final class HoverControlCreator extends
-			AbstractReusableInformationControlCreator {
+	public static final class HoverControlCreator extends AbstractReusableInformationControlCreator {
 
 		/**
 		 * The information presenter control creator.
@@ -311,16 +342,14 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	}
 
 	public Object getHoverInfo2(ITextViewer textViewer, IRegion hoverRegion) {
-		return hoverTextProvider == null ? null : internalGetHoverInfo(
-				textViewer, hoverRegion);
+		return hoverTextProvider == null ? null : internalGetHoverInfo(textViewer, hoverRegion);
 	}
 
-	private DocBrowserInformationControlInput internalGetHoverInfo(
-			ITextViewer textViewer, IRegion hoverRegion) {
-		ILocationMap locationMap = ((ITextResource) editor.getResource())
-				.getLocationMap();
-		List<EObject> elementsAtOffset = locationMap.getElementsAt(hoverRegion
-				.getOffset());
+	private DocBrowserInformationControlInput internalGetHoverInfo(ITextViewer textViewer, IRegion hoverRegion) {
+		
+		ITextResource textResource = editor.getResource();
+		ILocationMap locationMap = textResource.getLocationMap();
+		List<EObject> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());
 		if (elementsAtOffset == null || elementsAtOffset.size() == 0) {
 			return null;
 		}
@@ -341,9 +370,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 	 *         if no information is available
 	 * @since 3.4
 	 */
-	private DocBrowserInformationControlInput getHoverInfo(
-			List<EObject> elements, ITextViewer textViewer,
-			DocBrowserInformationControlInput previousInput) {
+	private DocBrowserInformationControlInput getHoverInfo(List<EObject> elements, ITextViewer textViewer, DocBrowserInformationControlInput previousInput) {
 		StringBuffer buffer = new StringBuffer();
 		EObject proxyObject = getFirstProxy(elements);
 		EObject declarationObject = null;
@@ -351,30 +378,25 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 		// declaration.
 		String tokenText = "";
 		if (proxyObject != null) {
-			ILocationMap locationMap = ((ITextResource) editor.getResource())
-					.getLocationMap();
+			ITextResource textResource = editor.getResource();
+			ILocationMap locationMap = textResource.getLocationMap();
 			int offset = locationMap.getCharStart(proxyObject);
 			int length = locationMap.getCharEnd(proxyObject) + 1 - offset;
 			try {
 				tokenText = textViewer.getDocument().get(offset, length);
 			} catch (BadLocationException e) {
 			}
-			declarationObject = EcoreUtil.resolve(proxyObject, editor
-					.getResource());
+			declarationObject = EcoreUtil.resolve(proxyObject, editor.getResource());
 			if (declarationObject != null) {
-				HTMLPrinter.addParagraph(buffer, hoverTextProvider
-						.getHoverText(declarationObject));
+				HTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(declarationObject));
 			}
 		} else {
-			HTMLPrinter.addParagraph(buffer, hoverTextProvider
-					.getHoverText(elements.get(0)));
+			HTMLPrinter.addParagraph(buffer, hoverTextProvider.getHoverText(elements.get(0)));
 		}
 		if (buffer.length() > 0) {
 			HTMLPrinter.insertPageProlog(buffer, 0, TextHover.getStyleSheet());
 			HTMLPrinter.addPageEpilog(buffer);
-			return new DocBrowserInformationControlInput(previousInput,
-					declarationObject, editor.getResource(), buffer.toString(),
-					tokenText);
+			return new DocBrowserInformationControlInput(previousInput, declarationObject, editor.getResource(), buffer.toString(), tokenText);
 		}
 		return null;
 	}
@@ -392,8 +414,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 		// Sets background color for the hover text window
 		css += "body {background-color:#FFFFE1;}\n";
 		if (css != null) {
-			FontData fontData = JFaceResources.getFontRegistry().getFontData(
-					FONT)[0];
+			FontData fontData = JFaceResources.getFontRegistry().getFontData(FONT)[0];
 			css = HTMLPrinter.convertTopLevelFont(css, fontData);
 		}
 
@@ -412,8 +433,7 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 		if (styleSheetURL != null) {
 			BufferedReader reader = null;
 			try {
-				reader = new BufferedReader(new InputStreamReader(styleSheetURL
-						.openStream()));
+				reader = new BufferedReader(new InputStreamReader(styleSheetURL.openStream()));
 				StringBuffer buffer = new StringBuffer();
 				String line = reader.readLine();
 				while (line != null) {
@@ -427,8 +447,9 @@ public class TextHover implements ITextHover, ITextHoverExtension,
 				return ""; //$NON-NLS-1$
 			} finally {
 				try {
-					if (reader != null)
+					if (reader != null) {
 						reader.close();
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

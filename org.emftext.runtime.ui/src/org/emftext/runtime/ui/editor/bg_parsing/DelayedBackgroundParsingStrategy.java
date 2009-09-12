@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import org.eclipse.jface.text.DocumentEvent;
 import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.ui.IBackgroundParsingStrategy;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**

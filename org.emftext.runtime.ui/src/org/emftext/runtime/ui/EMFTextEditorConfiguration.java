@@ -50,6 +50,7 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
     private EMFTextEditor theEditor; 
     
     /**
+     * Create a new editor configuration.
      * 
      * @param editor
      * @param colorManager
@@ -67,7 +68,6 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		assistant.setAutoActivationDelay(500);
 		assistant.setProposalPopupOrientation(IContentAssistant.PROPOSAL_OVERLAY);
 		assistant.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
-		//assistant.setContextInformationPopupBackground(new Color(new RGB(255, 0, 0)));
 
 		return assistant;
 	}
@@ -96,9 +96,9 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		PresentationReconciler reconciler = new PresentationReconciler();
         String fileName = theEditor.getEditorInput().getName();
         
-		DefaultDamagerRepairer dr = new DefaultDamagerRepairer(getScanner(fileName));
-        reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
-        reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
+		DefaultDamagerRepairer repairer = new DefaultDamagerRepairer(getScanner(fileName));
+        reconciler.setDamager(repairer, IDocument.DEFAULT_CONTENT_TYPE);
+        reconciler.setRepairer(repairer, IDocument.DEFAULT_CONTENT_TYPE);
 
 		return reconciler;
 	}
@@ -108,20 +108,14 @@ public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 		return new DefaultAnnotationHover();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getTextHover(org.eclipse.jface.text.source.ISourceViewer, java.lang.String)
-	 */
 	public ITextHover getTextHover(ISourceViewer sourceViewer, String contentType) {
 		return new TextHover(theEditor);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getHyperlinkDetectors(org.eclipse.jface.text.source.ISourceViewer)
-	 */
 	public IHyperlinkDetector[] getHyperlinkDetectors(ISourceViewer sourceViewer) {
-		if (sourceViewer == null)
+		if (sourceViewer == null) {
 			return null;
-
+		}
 		return new IHyperlinkDetector[] { new HyperlinkDetector(theEditor.getResource()) };
 	}
 }

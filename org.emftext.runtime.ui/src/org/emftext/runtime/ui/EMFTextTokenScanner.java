@@ -54,13 +54,12 @@ public class EMFTextTokenScanner implements ITokenScanner {
 
     /**
      * @param resource The <code>ITextResource</code> from which the <code>Lexer</code> can be determined.
-     * @param fileExtension The file extension for which this instance should be used for coloring
      * @param colorManager A manager to obtain color objects
      */
     public EMFTextTokenScanner(ITextResource resource, ColorManager colorManager) {
-        this.lexer      = resource.getMetaInformation().createLexer();
+        this.lexer = resource.getMetaInformation().createLexer();
         this.languageId = resource.getMetaInformation().getSyntaxName();
-        this.store      = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
+        this.store = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
         this.colorManager = colorManager;
     }
 
@@ -103,7 +102,6 @@ public class EMFTextTokenScanner implements ITokenScanner {
 	            }
 	            
 	            ta = new TextAttribute(color, null, style);
-	
 	        }
         }
         

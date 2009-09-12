@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.resource.Resource;
  * <code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocBrowserInformationControlInput</code>
  * 
  * @author Tan-Ky Hoang-Kim
- * 
  */
 public class DocBrowserInformationControlInput {
 	
@@ -53,12 +52,11 @@ public class DocBrowserInformationControlInput {
 	 * @param leadingImageWidth
 	 *            the indent required for the element image
 	 */
-	public DocBrowserInformationControlInput(
-			DocBrowserInformationControlInput previous, EObject element,
-			Resource resource, String htmlContent, String tokenText) {
+	public DocBrowserInformationControlInput(DocBrowserInformationControlInput previous, EObject element, Resource resource, String htmlContent, String tokenText) {
 		fPrevious= previous;
-		if (previous != null)
+		if (previous != null) {
 			previous.fNext= this;
+		}
 		//super(previous);
 		assert htmlContent != null;
 		this.element = element;

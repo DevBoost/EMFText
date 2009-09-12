@@ -84,10 +84,10 @@ import org.emftext.runtime.resource.ITextToken;
 import org.emftext.runtime.ui.ColorManager;
 import org.emftext.runtime.ui.EMFTextEditorConfiguration;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
+import org.emftext.runtime.ui.IBackgroundParsingListener;
+import org.emftext.runtime.ui.IBackgroundParsingStrategy;
 import org.emftext.runtime.ui.MarkerHelper;
 import org.emftext.runtime.ui.editor.bg_parsing.DelayedBackgroundParsingStrategy;
-import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingListener;
-import org.emftext.runtime.ui.editor.bg_parsing.IBackgroundParsingStrategy;
 import org.emftext.runtime.ui.extensions.CodeFoldingManager;
 import org.emftext.runtime.ui.extensions.Highlighting;
 import org.emftext.runtime.ui.outline.EMFTextOutlinePage;
@@ -99,12 +99,30 @@ import org.emftext.runtime.ui.outline.EMFTextPropertySheetPage;
 public class EMFTextEditor extends TextEditor implements IEditingDomainProvider {
 
 	private Highlighting highlighting;
-
 	private ProjectionSupport projectionSupport;
 	private CodeFoldingManager codeFoldingManager;
-	
 	private IBackgroundParsingStrategy bgParsingStrategy = new DelayedBackgroundParsingStrategy();
-	private Collection<IBackgroundParsingListener> bgParsingListener = new ArrayList<IBackgroundParsingListener>();
+	private Collection<IBackgroundParsingListener> bgParsingListeners = new ArrayList<IBackgroundParsingListener>();
+	private ColorManager colorManager = new ColorManager();
+	private EMFTextOutlinePage emfTextEditorOutlinePage;
+	private ITextResource resource;
+	private MarkerAdapter markerAdapter = new MarkerAdapter();
+	private IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
+	private EMFTextPropertySheetPage propertySheetPage;
+	private EditingDomain editingDomain;
+	private ComposedAdapterFactory adapterFactory;
+
+	private final class MarkerUpdateListener implements
+			IBackgroundParsingListener {
+		public void parsingCompleted(Resource resource) {
+			try {
+				MarkerHelper.unmark(resource);
+				MarkerHelper.mark(resource);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * A custom document listener that triggers background parsing if needed.
@@ -165,39 +183,32 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	 * <p>
 	 * The code pretty much corresponds to what EMF generates for a tree editor
 	 */
-	private final class ModelResourceChangeListener implements
-			IResourceChangeListener {
+	private final class ModelResourceChangeListener implements IResourceChangeListener {
 		public void resourceChanged(IResourceChangeEvent event) {
 			IResourceDelta delta = event.getDelta();
 			try {
 				class ResourceDeltaVisitor implements IResourceDeltaVisitor {
-					protected ResourceSet resourceSet = editingDomain
-							.getResourceSet();
+					protected ResourceSet resourceSet = editingDomain.getResourceSet();
 
 					public boolean visit(IResourceDelta delta) {
-						if (delta.getResource().getType() == IResource.FILE) {
-							if (delta.getKind() == IResourceDelta.REMOVED
-									|| delta.getKind() == IResourceDelta.CHANGED
-									&& delta.getFlags() != IResourceDelta.MARKERS) {
-								Resource changedResource = resourceSet
-										.getResource(URI.createURI(delta
-												.getFullPath().toString()),
-												false);
-								if (changedResource != null) {
-									markerAdapter.setEnabled(false);
-									changedResource.unload();
-									if (changedResource.equals(resource)) {
-										// reload the resource displayed in the
-										// editor
-										resourceSet.getResource(resource
-												.getURI(), true);
-									}
-									EcoreUtil.resolveAll(resource);
-									markerAdapter.setEnabled(true);
-									// reset the selected element in outline and
-									// properties by text position
-									highlighting.setEObjectSelection();
+						if (delta.getResource().getType() != IResource.FILE) {
+							return true;
+						}
+						int deltaKind = delta.getKind();
+						if (deltaKind == IResourceDelta.REMOVED || deltaKind == IResourceDelta.CHANGED && delta.getFlags() != IResourceDelta.MARKERS) {
+							Resource changedResource = resourceSet.getResource(URI.createURI(delta.getFullPath().toString()), false);
+							if (changedResource != null) {
+								markerAdapter.setEnabled(false);
+								changedResource.unload();
+								if (changedResource.equals(resource)) {
+									// reload the resource displayed in the editor
+									resourceSet.getResource(resource.getURI(), true);
 								}
+								EcoreUtil.resolveAll(resource);
+								markerAdapter.setEnabled(true);
+								// reset the selected element in outline and
+								// properties by text position
+								highlighting.setEObjectSelection();
 							}
 						}
 
@@ -213,22 +224,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		}
 	}
 
-	private ColorManager colorManager;
-
-	private EMFTextOutlinePage emfTextEditorOutlinePage;
-
-	private ITextResource resource;
-
-	private MarkerAdapter markerAdapter = new MarkerAdapter();
-
-	private IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
-
-	private EMFTextPropertySheetPage propertySheetPage;
-
-	private EditingDomain editingDomain;
-
-	private ComposedAdapterFactory adapterFactory;
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Class required) {
@@ -242,24 +237,11 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 	public EMFTextEditor() {
 		super();
-		colorManager = new ColorManager();
 		setDocumentProvider(new FileDocumentProvider());
-		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this,
-				colorManager));
+		setSourceViewerConfiguration(new EMFTextEditorConfiguration(this, colorManager));
 		initializeEditingDomain();
-		addBackgroundParsingListener(new IBackgroundParsingListener() {
-			
-			public void parsingCompleted(Resource resource) {
-				try {
-					MarkerHelper.unmark(resource);
-					MarkerHelper.mark(resource);
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
-			}
-		}, "MarkerUpdate");
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(
-				resourceChangeListener, IResourceChangeEvent.POST_CHANGE);
+		addBackgroundParsingListener(new MarkerUpdateListener());
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener, IResourceChangeEvent.POST_CHANGE);
 	}
 
 	public void createPartControl(Composite parent) {
@@ -270,8 +252,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		// Occurrence initiation, need ITextResource and ISourceViewer.
 		highlighting = new Highlighting(resource, viewer, colorManager, this);
 
-		projectionSupport = new ProjectionSupport(viewer,
-				getAnnotationAccess(), getSharedColors());
+		projectionSupport = new ProjectionSupport(viewer, getAnnotationAccess(), getSharedColors());
 		projectionSupport.install();
 
 		// turn projection mode on
@@ -285,8 +266,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 
 		initializeResourceObject(editorInput);
 
-		IDocument document = getDocumentProvider()
-				.getDocument(getEditorInput());
+		IDocument document = getDocumentProvider().getDocument(getEditorInput());
 		document.addDocumentListener(new DocumentListener());
 	}
 
@@ -294,21 +274,17 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		FileEditorInput input = (FileEditorInput) editorInput;
 		String path = input.getFile().getFullPath().toString();
 		URI uri = URI.createPlatformResourceURI(path, true);
-		resource = (ITextResource) editingDomain.getResourceSet().getResource(
-				uri, false);
+		ResourceSet resourceSet = editingDomain.getResourceSet();
+		resource = (ITextResource) resourceSet.getResource(uri, false);
 		if (resource == null) {
 			try {
-				Resource loadedResource = editingDomain.getResourceSet()
-						.getResource(uri, true);
+				Resource loadedResource = resourceSet.getResource(uri, true);
 				if (loadedResource instanceof ITextResource) {
 					setResource(loadedResource);
 				} else {
 					// the resource was not loaded by an EMFText resource, but
 					// some other EMF resource
-					EMFTextRuntimeUIPlugin
-							.getDefault()
-							.showErrorDialog("No EMFText resource.",
-									"Sorry, no registered EMFText resource can handle this file type.");
+					EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("No EMFText resource.", "Sorry, no registered EMFText resource can handle this file type.");
 				}
 			} catch (Exception e) {
 				EMFTextRuntimePlugin.logError(
@@ -318,7 +294,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 		}
 	}
 
-	public void setResource(Resource loadedResource) throws CoreException {
+	protected void setResource(Resource loadedResource) throws CoreException {
 		resource = (ITextResource) loadedResource;
 		EcoreUtil.resolveAll(resource);
 		MarkerHelper.unmark(resource);
@@ -333,8 +309,7 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	}
 
 	@Override
-	protected void performSave(boolean overwrite,
-			IProgressMonitor progressMonitor) {
+	protected void performSave(boolean overwrite, IProgressMonitor progressMonitor) {
 
 		super.performSave(overwrite, progressMonitor);
 		// update markers after the resource has been reloaded
@@ -342,17 +317,14 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			MarkerHelper.unmark(resource);
 			MarkerHelper.mark(resource);
 		} catch (CoreException e) {
-			EMFTextRuntimePlugin.logError(
-					"Exception while updating markers on resource", e);
+			EMFTextRuntimePlugin.logError("Exception while updating markers on resource", e);
 		}
+		
 		// Save code folding state
-		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI()
-				.toString());
-
+		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());
 	}
 
-	public void registerTextPresentationListener(
-			ITextPresentationListener listener) {
+	public void registerTextPresentationListener(ITextPresentationListener listener) {
 		ISourceViewer viewer = getSourceViewer();
 		if (viewer instanceof TextViewer) {
 			((TextViewer) viewer).addTextPresentationListener(listener);
@@ -365,7 +337,6 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			viewer.invalidateTextPresentation();
 		}
 		highlighting.resetValues();
-
 	}
 
 	public void setFocus() {
@@ -377,16 +348,16 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	protected void performSaveAs(IProgressMonitor progressMonitor) {
 		FileEditorInput input = (FileEditorInput) getEditorInput();
 		String path = input.getFile().getFullPath().toString();
-		Resource oldFile = editingDomain.getResourceSet().getResource(
-				URI.createPlatformResourceURI(path, true), true);
+		ResourceSet resourceSet = editingDomain.getResourceSet();
+		URI platformURI = URI.createPlatformResourceURI(path, true);
+		Resource oldFile = resourceSet.getResource(platformURI, true);
 
 		super.performSaveAs(progressMonitor);
 
 		// load and resave
 		input = (FileEditorInput) getEditorInput();
 		path = input.getFile().getFullPath().toString();
-		Resource newFile = editingDomain.getResourceSet().createResource(
-				URI.createPlatformResourceURI(path, true));
+		Resource newFile = resourceSet.createResource(platformURI);
 		newFile.getContents().clear();
 		newFile.getContents().addAll(oldFile.getContents());
 		try {
@@ -398,28 +369,18 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			e.printStackTrace();
 		}
 		// Save code folding state, is it possible with a new name
-		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI()
-				.toString());
+		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());
 	}
 
 	public ResourceSet getResourceSet() {
 		return editingDomain.getResourceSet();
 	}
 
-	public void markResource() {
-		try {
-			MarkerHelper.unmark(resource);
-			MarkerHelper.mark(resource);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Resource getResource() {
+	public ITextResource getResource() {
 		return resource;
 	}
 
-	public void setResource(ITextResource resource) {
+	protected void setResource(ITextResource resource) {
 		this.resource = resource;
 	}
 
@@ -439,28 +400,19 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 			// editors for properties
 			// this way, a model can never be modified through the properties
 			// view
-			propertySheetPage
-					.setPropertySourceProvider(new AdapterFactoryContentProvider(
-							adapterFactory) {
-						protected IPropertySource createPropertySource(
-								Object object,
-								IItemPropertySource itemPropertySource) {
-							return new PropertySource(object,
-									itemPropertySource) {
-								protected IPropertyDescriptor createPropertyDescriptor(
-										IItemPropertyDescriptor itemPropertyDescriptor) {
-									return new PropertyDescriptor(object,
-											itemPropertyDescriptor) {
-										public CellEditor createPropertyEditor(
-												Composite composite) {
-											return null;
-										}
-									};
+			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory) {
+				protected IPropertySource createPropertySource(Object object, IItemPropertySource itemPropertySource) {
+					return new PropertySource(object, itemPropertySource) {
+						protected IPropertyDescriptor createPropertyDescriptor(IItemPropertyDescriptor itemPropertyDescriptor) {
+							return new PropertyDescriptor(object, itemPropertyDescriptor) {
+								public CellEditor createPropertyEditor(Composite composite) {
+									return null;
 								}
 							};
 						}
-
-					});
+					};
+				}
+			});
 			highlighting.addSelectionChangedListener(propertySheetPage);
 		}
 		return propertySheetPage;
@@ -470,18 +422,13 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	protected void createActions() {
 		super.createActions();
 
-		ResourceBundle aResourceBundle = ResourceBundle
-				.getBundle("org.emftext.runtime.ui.EMFTextEditorMessages");
+		ResourceBundle aResourceBundle = ResourceBundle.getBundle("org.emftext.runtime.ui.EMFTextEditorMessages");
 		String actionId = "ConAssActionId";
 
-		IAction action = new ContentAssistAction(aResourceBundle,
-				"ContentAssistProposal.", this); //$NON-NLS-1$
-		action
-				.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
-		setAction(actionId, action); //$NON-NLS-1$
-		markAsStateDependentAction(actionId, true); //$NON-NLS-1$
-		// PlatformUI.getWorkbench().getHelpSystem().setHelp(action,
-		// helpContextId);
+		IAction action = new ContentAssistAction(aResourceBundle, "ContentAssistProposal.", this);
+		action.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
+		setAction(actionId, action);
+		markAsStateDependentAction(actionId, true);
 	}
 
 	public EditingDomain getEditingDomain() {
@@ -489,20 +436,16 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 	}
 
 	private void initializeEditingDomain() {
-		adapterFactory = new ComposedAdapterFactory(
-				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		adapterFactory
-				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
-		adapterFactory
-				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		BasicCommandStack commandStack = new BasicCommandStack();
 		// CommandStackListeners can listen for changes. Not sure whether this
 		// is needed.
 
-		editingDomain = new AdapterFactoryEditingDomain(adapterFactory,
-				commandStack, new HashMap<Resource, Boolean>());
+		editingDomain = new AdapterFactoryEditingDomain(adapterFactory,commandStack, new HashMap<Resource, Boolean>());
 	}
 
 	/**
@@ -517,8 +460,8 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 				return;
 			}
 			ISourceViewer viewer = getSourceViewer();
-			ILocationMap locationMap = ((ITextResource) element.eResource())
-					.getLocationMap();
+			ITextResource textResource = (ITextResource) element.eResource();
+			ILocationMap locationMap = textResource.getLocationMap();
 			int destination = locationMap.getCharStart(element);
 			int length = locationMap.getCharEnd(element) + 1 - destination;
 
@@ -537,43 +480,31 @@ public class EMFTextEditor extends TextEditor implements IEditingDomainProvider 
 				}
 			} catch (BadLocationException e) {
 			}
-			destination = ((ProjectionViewer) viewer)
-					.modelOffset2WidgetOffset(destination);
-			if (destination < 0)
+			destination = ((ProjectionViewer) viewer).modelOffset2WidgetOffset(destination);
+			if (destination < 0) {
 				destination = 0;
+			}
 			viewer.getTextWidget().setSelection(destination);
 		} catch (Exception e) {
 			EMFTextRuntimePlugin.logError("Exception in setCaret()", e);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.texteditor.AbstractDecoratedTextEditor#createSourceViewer
-	 * (org.eclipse.swt.widgets.Composite,
-	 * org.eclipse.jface.text.source.IVerticalRuler, int)
-	 */
-	protected ISourceViewer createSourceViewer(Composite parent,
-			IVerticalRuler ruler, int styles) {
+	protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles) {
 
-		ISourceViewer viewer = new ProjectionViewer(parent, ruler,
-				getOverviewRuler(), isOverviewRulerVisible(), styles);
+		ISourceViewer viewer = new ProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);
 
 		// ensure decoration support has been created and configured.
 		getSourceViewerDecorationSupport(viewer);
 		return viewer;
 	}
 
-	public void addBackgroundParsingListener(
-			IBackgroundParsingListener listener, String who) {
-		System.out.println("addBackgroundParsingListener(" + who + ") - " + bgParsingListener.size() + " listening...");
-		bgParsingListener.add(listener);
+	public void addBackgroundParsingListener(IBackgroundParsingListener listener) {
+		bgParsingListeners.add(listener);
 	}
 
 	public void notifyBackgroundParsingFinished() {
-		for (IBackgroundParsingListener listener : bgParsingListener) {
+		for (IBackgroundParsingListener listener : bgParsingListeners) {
 			listener.parsingCompleted(resource);
 		}
 	}

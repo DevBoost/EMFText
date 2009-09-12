@@ -21,7 +21,10 @@
 package org.emftext.runtime.ui.outline;
 
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
@@ -44,8 +47,7 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
 /**
  * Simple Outline Page using the ReflectiveItemAdapters provided by EMF
  */
-public class EMFTextOutlinePage extends Page implements ISelectionProvider,
-		ISelectionChangedListener, IContentOutlinePage {
+public class EMFTextOutlinePage extends Page implements ISelectionProvider, ISelectionChangedListener, IContentOutlinePage {
 
 	private EMFTextEditor editor;
 	private TreeViewer treeViewer;
@@ -58,8 +60,7 @@ public class EMFTextOutlinePage extends Page implements ISelectionProvider,
 
 	@Override
 	public void createControl(Composite parent) {
-		treeViewer = new EMFTextOutlinePageTreeViewer(parent, SWT.MULTI | SWT.H_SCROLL
-				| SWT.V_SCROLL);
+		treeViewer = new EMFTextOutlinePageTreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		Object[] listeners = selectionChangedListeners.getListeners();
 		for (int i = 0; i < listeners.length; ++i) {
 			ISelectionChangedListener l = (ISelectionChangedListener) listeners[i];
@@ -70,46 +71,36 @@ public class EMFTextOutlinePage extends Page implements ISelectionProvider,
 		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
 				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
-		adapterFactory
-				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
-		adapterFactory
-				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
-		AdapterFactoryContentProvider contentProvider = new AdapterFactoryContentProvider(
-				adapterFactory);
+		AdapterFactoryContentProvider contentProvider = new AdapterFactoryContentProvider(adapterFactory);
 
 		treeViewer.setAutoExpandLevel(3);
 		treeViewer.setContentProvider(contentProvider);
-		treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(
-				adapterFactory));
-		treeViewer.setInput(editor.getResourceSet().getResources().get(0));
+		treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+		ResourceSet resourceSet = editor.getResourceSet();
+		EList<Resource> resources = resourceSet.getResources();
+		treeViewer.setInput(resources.get(0));
 
-		if (!editor.getResourceSet().getResources().isEmpty()) {
+		if (!resources.isEmpty()) {
 			// Select the root object in the view.
 			//
-			treeViewer.setSelection(new StructuredSelection(editor
-					.getResourceSet().getResources().get(0)), true);
+			treeViewer.setSelection(new StructuredSelection(resources.get(0)), true);
 		}
 
 	}
 
-	/*
-	 * (non-Javadoc) Method declared on ISelectionProvider.
-	 */
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 		if (getTreeViewer() == null) {
 			selectionChangedListeners.add(listener);
-		}
-		else {
+		} else {
 			getTreeViewer().addSelectionChangedListener(listener);
 		}
 	}
 
 
-	/*
-	 * (non-Javadoc) Method declared on IPage (and Page).
-	 */
 	public Control getControl() {
 		if (treeViewer == null) {
 			return null;
@@ -117,9 +108,6 @@ public class EMFTextOutlinePage extends Page implements ISelectionProvider,
 		return treeViewer.getControl();
 	}
 
-	/*
-	 * (non-Javadoc) Method declared on ISelectionProvider.
-	 */
 	public ISelection getSelection() {
 		if (treeViewer == null) {
 			return StructuredSelection.EMPTY;
@@ -137,33 +125,18 @@ public class EMFTextOutlinePage extends Page implements ISelectionProvider,
 		return treeViewer;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.part.IPageBookViewPage#init(org.eclipse.ui.part.IPageSite)
-	 */
 	public void init(IPageSite pageSite) {
 		super.init(pageSite);
 	}
 
-	/*
-	 * (non-Javadoc) Method declared on ISelectionProvider.
-	 */
-	public void removeSelectionChangedListener(
-			ISelectionChangedListener listener) {
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 		if (getTreeViewer() == null) {
 			selectionChangedListeners.remove(listener);
-		}
-		else {
+		} else {
 			getTreeViewer().removeSelectionChangedListener(listener);
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Method declared on ISelectionChangeListener. Gives
-	 * notification that the tree selection has changed.
-	 */
 	public void selectionChanged(SelectionChangedEvent event) {
 		if (getTreeViewer() != null) {
 			getTreeViewer().setSelection(event.getSelection(), true);
@@ -177,9 +150,6 @@ public class EMFTextOutlinePage extends Page implements ISelectionProvider,
 		treeViewer.getControl().setFocus();
 	}
 
-	/*
-	 * (non-Javadoc) Method declared on ISelectionProvider.
-	 */
 	public void setSelection(ISelection selection) {
 		if (treeViewer != null) {
 			treeViewer.setSelection(selection);

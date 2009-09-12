@@ -27,19 +27,22 @@ import org.eclipse.jface.text.Position;
 
 /**
  * A helper class to add, get or remove positions with a specific category in a document.
+ * 
  * @see Position
  * @see IDocument
+ * 
  * @author Tan-Ky Hoang-Kim
- *
  */
 public class PositionHelper {
 
 	/**
 	 * Adds a position with the given offset and length into a document.
+	 * 
 	 * @param document the document to add a position into
 	 * @param category the category of this position
 	 * @param offset the offset of the position
 	 * @param length the length of the position
+	 * 
 	 * @see Position
 	 */
 	public void addPosition(IDocument document, String category, int offset, int length) {
@@ -78,8 +81,9 @@ public class PositionHelper {
 	public Position getFirstPosition(IDocument document, String category) {
 		try {
 			Position[] positions = document.getPositions(category);
-			if (positions.length>0)
+			if (positions.length > 0) {
 				return positions[0];
+			}
 		} catch (BadPositionCategoryException e) {
 			//e.printStackTrace();
 		}
@@ -87,7 +91,9 @@ public class PositionHelper {
 	}
 
 	/**
-	 * Deletes the position category from the document. All positions in this category are thus deleted as well.
+	 * Deletes the position category from the document. 
+	 * All positions in this category are thus deleted as well.
+	 * 
 	 * @param document the document contains the category 
 	 * @param category the category to be removed
 	 */

@@ -51,9 +51,7 @@ public class Occurrence {
 	private ProjectionViewer projectionViewer;
 	private ITextResource textResource;
 	private String tokenText = "";
-
 	private Region tokenRegion;
-
 	private boolean isPositionsChanged = true;
 
 	/**
@@ -66,18 +64,16 @@ public class Occurrence {
 	 * @param tokenScanner
 	 *            the token scanner helps to find the searched tokens
 	 */
-	public Occurrence(ITextResource textResource,
-			ProjectionViewer sourceViewer, EMFTextTokenScanner tokenScanner) {
+	public Occurrence(ITextResource textResource, ProjectionViewer sourceViewer, EMFTextTokenScanner tokenScanner) {
 		this.textResource = textResource;
 		this.projectionViewer = sourceViewer;
 
 		quotedTokenArray = new ArrayList<String>();
 		String[] tokenNames = textResource.getMetaInformation().getTokenNames();
 		for (String tokenName : tokenNames) {
-			// TODO this is ANTLR specific
+			// TODO this is ANTLR specific maybe use ANTLRTokenHelper here
 			if (tokenName.startsWith("'") && tokenName.endsWith("'")) {
-				quotedTokenArray.add(tokenName.substring(1,
-						tokenName.length() - 1).trim());
+				quotedTokenArray.add(tokenName.substring(1, tokenName.length() - 1).trim());
 			}
 		}
 		this.tokenScanner = tokenScanner;
@@ -85,8 +81,7 @@ public class Occurrence {
 	}
 
 	private EObject getResolvedEObject(EObject eObject) {
-		return eObject.eIsProxy() ? EcoreUtil.resolve(eObject, textResource)
-				: eObject;
+		return eObject.eIsProxy() ? EcoreUtil.resolve(eObject, textResource) : eObject;
 	}
 
 	/**
@@ -123,14 +118,14 @@ public class Occurrence {
 		if (elementsAtOffset == null || elementsAtOffset.isEmpty()) {
 			return null;
 		}
-		for(EObject cand : elementsAtOffset) {
-			if(cand.eIsProxy()) {
-				cand = getResolvedEObject(cand);
+		for (EObject candidate : elementsAtOffset) {
+			if (candidate.eIsProxy()) {
+				candidate = getResolvedEObject(candidate);
 			}
 			//take an element that is actually contained in a resource
 			//the location map might reference elements that were removed by a post processor
-			if (cand.eResource() != null) {
-				return cand;
+			if (candidate.eResource() != null) {
+				return candidate;
 			}
 		}
 		return null;
@@ -147,8 +142,7 @@ public class Occurrence {
 
 	private int getLength(EObject eObject) {
 		ILocationMap locationMap = textResource.getLocationMap();
-		return locationMap.getCharEnd(eObject)
-				- locationMap.getCharStart(eObject) + 1;
+		return locationMap.getCharEnd(eObject) - locationMap.getCharStart(eObject) + 1;
 	}
 
 	/**
@@ -162,13 +156,13 @@ public class Occurrence {
 		StyledText textWidget = projectionViewer.getTextWidget();
 		int caretOffset = textWidget.getCaretOffset();
 		caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
-		if (caretOffset < 0
-				|| caretOffset >= projectionViewer.getDocument().getLength()) {
+		IDocument document = projectionViewer.getDocument();
+		
+		if (caretOffset < 0 || caretOffset >= document.getLength()) {
 			return;
 		}
-		if (caretOffset >= tokenRegion.getOffset()
-				&& caretOffset <= tokenRegion.getOffset()
-						+ tokenRegion.getLength()) {
+		int tokenRegionOffset = tokenRegion.getOffset();
+		if (caretOffset >= tokenRegionOffset && caretOffset <= tokenRegionOffset + tokenRegion.getLength()) {
 			isPositionsChanged = false;
 			return;
 		}
@@ -182,20 +176,16 @@ public class Occurrence {
 		EObject firstElementAtOffset = elementsAtOffset.get(0);
 		EObject resolvedEO = tryToResolve(elementsAtOffset);
 		if (resolvedEO != null) {
-			elementsAtOffset = locationMap.getElementsAt(locationMap
-					.getCharStart(resolvedEO));
+			elementsAtOffset = locationMap.getElementsAt(locationMap.getCharStart(resolvedEO));
 		}
 
-		tokenScanner.setRange(projectionViewer.getDocument(), locationMap
-				.getCharStart(firstElementAtOffset),
-				getLength(firstElementAtOffset));
+		tokenScanner.setRange(document, locationMap.getCharStart(firstElementAtOffset), getLength(firstElementAtOffset));
 		IToken token = tokenScanner.nextToken();
 		while (!token.isEOF()) {
 			int tokenOffset = tokenScanner.getTokenOffset();
 			int tokenLength = tokenScanner.getTokenLength();
 			String text = tokenScanner.getTokenText();
-			if (tokenOffset <= caretOffset
-					&& tokenLength + tokenOffset > caretOffset) {
+			if (tokenOffset <= caretOffset && tokenLength + tokenOffset > caretOffset) {
 				if (text.trim().equals("")) {
 					// the rejected elements
 					return;
@@ -224,8 +214,7 @@ public class Occurrence {
 		}
 	}
 
-	private void setHighlightingPositions(EObject definitionElement,
-			List<EObject> elementsAtDefinition) {
+	private void setHighlightingPositions(EObject definitionElement, List<EObject> elementsAtDefinition) {
 		IDocument document = projectionViewer.getDocument();
 		ILocationMap locationMap = textResource.getLocationMap();
 		IToken token;
@@ -239,38 +228,29 @@ public class Occurrence {
 			return;
 		}
 		if (resource.equals(textResource)) {
-			tokenScanner.setRange(projectionViewer.getDocument(), locationMap
-					.getCharStart(definitionElement),
-					getLength(definitionElement));
+			tokenScanner.setRange(projectionViewer.getDocument(), locationMap.getCharStart(definitionElement), getLength(definitionElement));
 			token = tokenScanner.nextToken();
 			while (!token.isEOF()) {
 				String text = tokenScanner.getTokenText();
 				if (text.equals(tokenText)) {
 					defPosition = tokenScanner.getTokenOffset();
-					addPosition(document,
-							ExtensionConstants.PositionCategory.DEFINTION
-									.toString());
+					addPosition(document, PositionCategory.DEFINTION.toString());
 					break;
 				}
 				token = tokenScanner.nextToken();
 			}
 		}
-		tokenScanner.setRange(projectionViewer.getDocument(), 0,
-				projectionViewer.getDocument().getLength());
+		tokenScanner.setRange(projectionViewer.getDocument(), 0, projectionViewer.getDocument().getLength());
 		EObject occEO;
 		token = tokenScanner.nextToken();
 		while (!token.isEOF()) {
 			String text = tokenScanner.getTokenText();
-			if (text != null && text.equals(tokenText)
-					&& tokenScanner.getTokenOffset() != defPosition) {
-				occEO = tryToResolve(locationMap.getElementsAt(tokenScanner
-						.getTokenOffset()));
+			if (text != null && text.equals(tokenText) && tokenScanner.getTokenOffset() != defPosition) {
+				occEO = tryToResolve(locationMap.getElementsAt(tokenScanner.getTokenOffset()));
 				if (occEO != null) {
 					if ((isNull && elementsAtDefinition.contains(occEO))
 							|| !isNull && definitionElement.equals(occEO)) {
-						addPosition(document,
-								ExtensionConstants.PositionCategory.PROXY
-										.toString());
+						addPosition(document, PositionCategory.PROXY.toString());
 					}
 				}
 			}
@@ -281,11 +261,9 @@ public class Occurrence {
 	private void addPosition(IDocument document, String positionCategory) {
 		int tokenOffset = tokenScanner.getTokenOffset();
 		int tokenLength = tokenScanner.getTokenLength();
-		positionHelper.addPosition(document, positionCategory, tokenOffset,
-				tokenLength);
+		positionHelper.addPosition(document, positionCategory, tokenOffset, tokenLength);
 	}
 
-	
 	/**
 	 * Check whether it is time to remove the occurrence highlighting.
 	 * 
@@ -295,9 +273,7 @@ public class Occurrence {
 		StyledText textWidget = projectionViewer.getTextWidget();
 		int caretOffset = textWidget.getCaretOffset();
 		caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
-		if (caretOffset >= tokenRegion.getOffset()
-				&& caretOffset <= tokenRegion.getOffset()
-						+ tokenRegion.getLength()) {
+		if (caretOffset >= tokenRegion.getOffset() && caretOffset <= tokenRegion.getOffset() + tokenRegion.getLength()) {
 			return false;
 		}
 		return true;
@@ -305,17 +281,18 @@ public class Occurrence {
 
 	/**
 	 * Check whether the token region changed to decide to highlight or not.
+	 * 
 	 * @return <code>true</code> if the occurrences should be highlighted
 	 */
 	public boolean isPositionsChanged() {
-		return isPositionsChanged ;
+		return isPositionsChanged;
 	}
 	
 	/**
 	 * Resets the token region to enable remove highlighting if the text is changing.
 	 */
 	public void resetTokenRegion(){
-		tokenRegion = new Region(-1,0);
+		tokenRegion = new Region(-1, 0);
 	}
 
 }

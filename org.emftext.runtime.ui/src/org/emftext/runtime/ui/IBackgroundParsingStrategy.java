@@ -18,13 +18,27 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.runtime.ui.extensions;
+package org.emftext.runtime.ui;
+
+import org.eclipse.jface.text.DocumentEvent;
+import org.emftext.runtime.resource.ITextResource;
+import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
- * An enumeration of all position categories.
+ * Implementation of this interface can be used to determine whether
+ * background parsing is required depending of the change made to a 
+ * text document.
  */
-public interface ExtensionConstants {
-	public static enum PositionCategory {
-		BRACKET, DEFINTION, PROXY
-	};
+public interface IBackgroundParsingStrategy {
+	
+	/**
+	 * Implementations of this method must decide whether the
+	 * given event should trigger a complete parse of the 
+	 * text resource.
+	 * 
+	 * @param event the event that changed the document
+	 * @param resource the resource the is associated with the document
+	 * @param editor the editor that shows the document
+	 */
+	public void parse(DocumentEvent event, ITextResource resource, EMFTextEditor editor);
 }

@@ -23,6 +23,8 @@ package org.emftext.runtime.ui.extensions;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -33,6 +35,7 @@ import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -41,7 +44,7 @@ import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 
 /**
- * Provides the hyperlink for the proxy elements in source code.
+ * A hyperlink for the proxy elements in source code.
  * 
  * @author Tan-Ky Hoang-Kim
  * 
@@ -95,20 +98,18 @@ public class Hyperlink implements IHyperlink {
 		}
 		IFile file = getIFileFromResource();
 		if (file != null) {
-			IWorkbenchPage page = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage();
+			IWorkbench workbench = PlatformUI.getWorkbench();
+			IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
 			try {
 				//FIXME the EditorID has to be of EMFTextEditor
-				if (isSupport(file.getFileExtension()))
-					page.openEditor(new FileEditorInput(file), page
-							.getActiveEditor().getSite().getId());
-				else {
-					IEditorDescriptor desc = PlatformUI.getWorkbench()
-							.getEditorRegistry().getDefaultEditor(
-									file.getName());
+				IEditorPart activeEditor = page.getActiveEditor();
+				if (isSupported(file.getFileExtension())) {
+					page.openEditor(new FileEditorInput(file), activeEditor.getSite().getId());
+				} else {
+					IEditorDescriptor desc = workbench.getEditorRegistry().getDefaultEditor(file.getName());
 					page.openEditor(new FileEditorInput(file), desc.getId());
 				}
-				IEditorPart editorPart = page.getActiveEditor();
+				IEditorPart editorPart = activeEditor;
 				if (editorPart instanceof EMFTextEditor) {
 					EMFTextEditor emftEditor = (EMFTextEditor) editorPart;
 					emftEditor.setCaret(linkTarget, text);
@@ -119,12 +120,12 @@ public class Hyperlink implements IHyperlink {
 		}
 	}
 
-	private boolean isSupport(String fileExtension) {
-		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin
-				.getConcreteSyntaxRegistry();
+	private boolean isSupported(String fileExtension) {
+		List<ITextResourcePluginMetaInformation> extensions = EMFTextRuntimePlugin.getConcreteSyntaxRegistry();
 		for (ITextResourcePluginMetaInformation extension : extensions) {
-			if (extension.getSyntaxName().equals(fileExtension))
+			if (extension.getSyntaxName().equals(fileExtension)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -137,8 +138,9 @@ public class Hyperlink implements IHyperlink {
 		if (resourceURI.isPlatformResource()) {
 			String platformString = resourceURI.toPlatformString(true);
 			if (platformString != null) {
-				return ResourcesPlugin.getWorkspace().getRoot().getFile(
-						new Path(platformString));
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				IWorkspaceRoot root = workspace.getRoot();
+				return root.getFile(new Path(platformString));
 			}
 		}
 		return null;

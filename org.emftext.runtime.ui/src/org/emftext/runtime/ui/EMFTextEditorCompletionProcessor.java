@@ -35,8 +35,7 @@ import org.emftext.runtime.resource.impl.code_completion.CodeCompletionHelper;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.util.StringUtil;
 
-public class EMFTextEditorCompletionProcessor implements
-	IContentAssistProcessor {
+public class EMFTextEditorCompletionProcessor implements IContentAssistProcessor {
 
 	private EMFTextEditor editor;
 
@@ -44,8 +43,7 @@ public class EMFTextEditorCompletionProcessor implements
 		this.editor = editor;
 	}
 
-	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
-			int offset) {
+	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
 
 		Resource resource = editor.getResource();
 		ITextResource textResource = (ITextResource) resource;
@@ -56,19 +54,15 @@ public class EMFTextEditorCompletionProcessor implements
 		ICompletionProposal[] result = new ICompletionProposal[proposals.size()];
 		int i = 0;
 		for (String proposal : proposals) {
-			IContextInformation info = new ContextInformation(proposal,
-					proposal);
+			IContextInformation info = new ContextInformation(proposal, proposal);
 			String contentBefore = content.substring(0, offset);
 			String insertString = StringUtil.getMissingTail(contentBefore, proposal);
-			result[i++] = new CompletionProposal(insertString, offset,
-					0, insertString.length(), null, proposal, info,
-					proposal);
+			result[i++] = new CompletionProposal(insertString, offset, 0, insertString.length(), null, proposal, info, proposal);
 		}
 		return result;
 	}
 
-	public IContextInformation[] computeContextInformation(ITextViewer viewer,
-			int offset) {
+	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
 		return null;
 	}
 

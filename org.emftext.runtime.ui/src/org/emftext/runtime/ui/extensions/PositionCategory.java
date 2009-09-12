@@ -18,21 +18,11 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.runtime.ui.editor.bg_parsing;
-
-import org.eclipse.emf.ecore.resource.Resource;
+package org.emftext.runtime.ui.extensions;
 
 /**
- * A listener interface for classes that need notification
- * when a background parsing pass has completed.
+ * An enumeration of all position categories.
  */
-public interface IBackgroundParsingListener {
-
-	/**
-	 * Signals that the given resource has been changed and
-	 * the background parsing is completed.
-	 * 
-	 * @param resource the resource that has changed
-	 */
-	public void parsingCompleted(Resource resource);
+public enum PositionCategory {
+	BRACKET, DEFINTION, PROXY
 }

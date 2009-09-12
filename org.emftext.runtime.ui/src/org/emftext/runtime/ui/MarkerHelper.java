@@ -63,11 +63,12 @@ public class MarkerHelper {
         createMarkersFromDiagnostics(resource, file, resource.getWarnings(), IMarker.SEVERITY_WARNING);
     }
 
-	private static void createMarkersFromDiagnostics(Resource resource,
-			IFile file, List<Resource.Diagnostic> diagnostics, int markerSeverity) throws CoreException {
+	private static void createMarkersFromDiagnostics(Resource resource, IFile file, List<Resource.Diagnostic> diagnostics, int markerSeverity) throws CoreException {
 
 		// create a copy because the diagnostics list is modified concurrently
 		// by the background parsing strategy
+		
+		// TODO mseifert: this is not needed anymore. we can simply iterate over the diagnostics
 		Resource.Diagnostic[] copy = diagnostics.toArray(new Resource.Diagnostic[diagnostics.size()]);
 		for (int i = 0; i < copy.length; i++) {
 			Resource.Diagnostic diagnostic = copy[i];
@@ -96,9 +97,10 @@ public class MarkerHelper {
 	}
     
     /**
-     * Removes all markers from a file.
+     * Removes all markers from a given resource.
      * 
-     * @param resource The resource that is the file.
+     * @param resource The resource where to delete markers from.
+     * 
      * @throws CoreException
      */
     public static void unmark(Resource resource) throws CoreException {

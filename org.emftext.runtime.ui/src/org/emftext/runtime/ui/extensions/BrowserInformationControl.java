@@ -60,7 +60,6 @@ import org.eclipse.jface.text.IInformationControlExtension2;
 import org.eclipse.jface.text.IInputChangedListener;
 import org.eclipse.jface.text.TextPresentation;
 
-
 /**
  * Displays HTML information in a {@link org.eclipse.swt.browser.Browser} widget.
  * <p>
@@ -82,7 +81,6 @@ import org.eclipse.jface.text.TextPresentation;
  * @since 3.2
  */
 public class BrowserInformationControl extends AbstractInformationControl implements IInformationControlExtension2, IDelayedInputChangeProvider {
-
 
 	/**
 	 * Tells whether the SWT Browser widget and hence this information
@@ -152,7 +150,7 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	 * input set via {@link #setInformation(String)}.
 	 * @since 3.4
 	 */
-	private boolean fCompleted= false;
+	private boolean fCompleted = false;
 
 	/**
 	 * The listener to be notified when a delayed location changing event happened.
@@ -164,7 +162,7 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	 * The listeners to be notified when the input changed.
 	 * @since 3.4
 	 */
-	private ListenerList/*<IInputChangedListener>*/ fInputChangeListeners= new ListenerList(ListenerList.IDENTITY);
+	private ListenerList fInputChangeListeners= new ListenerList(ListenerList.IDENTITY);
 
 	/**
 	 * The symbolic name of the font used for size computations, or <code>null</code> to use dialog font.
@@ -281,16 +279,17 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 		// The default "overflow:auto" would not result in a predictable width for the client area
 		// and the re-wrapping would cause visual noise
 		String[] styles= null;
-		if (RTL && resizable)
+		if (RTL && resizable) {
 			styles= new String[] { "direction:rtl;", "overflow:scroll;", "word-wrap:break-word;" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		else if (RTL && !resizable)
+		} else if (RTL && !resizable) {
 			styles= new String[] { "direction:rtl;", "overflow:hidden;", "word-wrap:break-word;" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		else if (!resizable)
+		} else if (!resizable) {
 			//XXX: In IE, "word-wrap: break-word;" causes bogus wrapping even in non-broken words :-(see e.g. Javadoc of String).
 			// Re-check whether we really still need this now that the Javadoc Hover header already sets this style.
 			styles= new String[] { "overflow:hidden;"/*, "word-wrap: break-word;"*/ }; //$NON-NLS-1$
-		else
+		} else {
 			styles= new String[] { "overflow:scroll;" }; //$NON-NLS-1$
+		}
 
 		StringBuffer buffer= new StringBuffer(content);
 		HTMLPrinter.insertStyles(buffer, styles);
@@ -306,8 +305,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 		fBrowser.setText(content);
 
 		Object[] listeners= fInputChangeListeners.getListeners();
-		for (int i= 0; i < listeners.length; i++)
+		for (int i= 0; i < listeners.length; i++) {
 			((IInputChangedListener)listeners[i]).inputChanged(fInput);
+		}
 	}
 
 	/*
@@ -315,8 +315,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	 */
 	public void setVisible(boolean visible) {
 		Shell shell= getShell();
-		if (shell.isVisible() == visible)
+		if (shell.isVisible() == visible) {
 			return;
+		}
 
 		if (!visible) {
 			super.setVisible(false);
@@ -329,7 +330,7 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 		 * The fix is to delay the call to setVisible until either loading is completed
 		 * (see ProgressListener in constructor), or a timeout has been reached.
 		 */
-		final Display display= shell.getDisplay();
+		final Display display = shell.getDisplay();
 
         // Make sure the display wakes from sleep after timeout:
         display.timerExec(100, new Runnable() {
@@ -345,16 +346,18 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 			}
 		}
 
-		shell= getShell();
-		if (shell == null || shell.isDisposed())
+		shell = getShell();
+		if (shell == null || shell.isDisposed()) {
 			return;
+		}
 
 		/*
 		 * Avoids flickering when replacing hovers, especially on Vista in ON_CLICK mode.
 		 * Causes flickering on GTK. Carbon does not care.
 		 */
-		if ("win32".equals(SWT.getPlatform())) //$NON-NLS-1$
+		if ("win32".equals(SWT.getPlatform())) {//$NON-NLS-1$
 			shell.moveAbove(null);
+		}
 
         super.setVisible(true);
 	}
@@ -382,11 +385,11 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 
 		// Initialize fonts
 		String symbolicFontName= fSymbolicFontName == null ? JFaceResources.DIALOG_FONT : fSymbolicFontName;
-		Font font= JFaceResources.getFont(symbolicFontName);
+		Font font = JFaceResources.getFont(symbolicFontName);
 		fTextLayout.setFont(font);
 		fTextLayout.setWidth(-1);
-		font= JFaceResources.getFontRegistry().getBold(symbolicFontName);
-		fBoldStyle= new TextStyle(font, null, null);
+		font = JFaceResources.getFontRegistry().getBold(symbolicFontName);
+		fBoldStyle = new TextStyle(font, null, null);
 
 		// Compute and set tab width
 		fTextLayout.setText("    "); //$NON-NLS-1$
@@ -402,9 +405,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	public void dispose() {
 		if (fTextLayout != null) {
 			fTextLayout.dispose();
-			fTextLayout= null;
+			fTextLayout = null;
 		}
-		fBrowser= null;
+		fBrowser = null;
 
 		super.dispose();
 	}
@@ -413,9 +416,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	 * @see IInformationControl#computeSizeHint()
 	 */
 	public Point computeSizeHint() {
-		Point sizeConstraints= getSizeConstraints();
-		Rectangle trim= computeTrim();
-		int height= trim.height;
+		Point sizeConstraints = getSizeConstraints();
+		Rectangle trim = computeTrim();
+		int height = trim.height;
 
 		//FIXME: The html2text does not render <p> like a browser.
 		// Instead of inserting an empty line, it just adds a single line break.
@@ -432,8 +435,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 		Iterator<?> iter= presentation.getAllStyleRangeIterator();
 		while (iter.hasNext()) {
 			StyleRange sr= (StyleRange)iter.next();
-			if (sr.fontStyle == SWT.BOLD)
+			if (sr.fontStyle == SWT.BOLD) {
 				fTextLayout.setStyle(fBoldStyle, sr.start, sr.start + sr.length - 1);
+			}
 		}
 
 		Rectangle bounds= fTextLayout.getBounds(); // does not return minimum width, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=217446
@@ -442,8 +446,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 		for (int i= 0; i < lineCount; i++) {
 			Rectangle rect= fTextLayout.getLineBounds(i);
 			int lineWidth= rect.x + rect.width;
-			if (i == 0)
+			if (i == 0) {
 				lineWidth += fInput.getLeadingImageWidth();
+			}
 			textWidth= Math.max(textWidth, lineWidth);
 		}
 		bounds.width= textWidth;
@@ -459,10 +464,12 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 
 		// Apply max size constraints
 		if (sizeConstraints != null) {
-			if (sizeConstraints.x != SWT.DEFAULT)
+			if (sizeConstraints.x != SWT.DEFAULT) {
 				minWidth= Math.min(sizeConstraints.x, minWidth + trim.width);
-			if (sizeConstraints.y != SWT.DEFAULT)
+			}
+			if (sizeConstraints.y != SWT.DEFAULT) {
 				height= Math.min(sizeConstraints.y, height);
+			}
 		}
 
 		// Ensure minimal size
@@ -476,9 +483,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	 * @see org.eclipse.jface.text.IInformationControlExtension3#computeTrim()
 	 */
 	public Rectangle computeTrim() {
-		Rectangle trim= super.computeTrim();
+		Rectangle trim = super.computeTrim();
 		if (isResizable()) {
-			boolean RTL= (getShell().getStyle() & SWT.RIGHT_TO_LEFT) != 0;
+			boolean RTL = (getShell().getStyle() & SWT.RIGHT_TO_LEFT) != 0;
 			if (RTL) {
 				trim.x-= fgScrollBarSize.x;
 			}
@@ -595,8 +602,9 @@ public class BrowserInformationControl extends AbstractInformationControl implem
 	 * @see org.eclipse.jface.text.IInformationControlExtension5#computeSizeConstraints(int, int)
 	 */
 	public Point computeSizeConstraints(int widthInChars, int heightInChars) {
-		if (fSymbolicFontName == null)
+		if (fSymbolicFontName == null) {
 			return null;
+		}
 
 		GC gc= new GC(fBrowser);
 		Font font= fSymbolicFontName == null ? JFaceResources.getDialogFont() : JFaceResources.getFont(fSymbolicFontName);

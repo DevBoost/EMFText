@@ -35,9 +35,10 @@ import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
 
 /**
- * A hyperlink detector returns hyperlink if the token, where the mouse cursor hovers, is a proxy. 
+ * A hyperlink detector returns hyperlink if the token, where the mouse cursor 
+ * hovers, is a proxy.
+ *  
  * @author Tan-Ky Hoang-Kim
- *
  */
 public class HyperlinkDetector implements IHyperlinkDetector {
 
@@ -51,11 +52,10 @@ public class HyperlinkDetector implements IHyperlinkDetector {
 		textResource = (ITextResource) resource;
 	}
 
-	public IHyperlink[] detectHyperlinks(ITextViewer textViewer,
-			IRegion region, boolean canShowMultipleHyperlinks) {
-		ILocationMap lm = textResource.getLocationMap();
+	public IHyperlink[] detectHyperlinks(ITextViewer textViewer, IRegion region, boolean canShowMultipleHyperlinks) {
+		ILocationMap locationMap = textResource.getLocationMap();
 		String resourceFileExtension = textResource.getURI().fileExtension();
-		List<EObject> elementsAtOffset = lm.getElementsAt(region.getOffset());
+		List<EObject> elementsAtOffset = locationMap.getElementsAt(region.getOffset());
 		EObject resolvedEObject = null;
 		for (EObject eObject : elementsAtOffset) {
 			if (eObject.eIsProxy()) {
@@ -67,9 +67,9 @@ public class HyperlinkDetector implements IHyperlinkDetector {
 										.fileExtension()))) {
 					continue;
 				}
-				int offset = lm.getCharStart(eObject);
-				int length = lm.getCharEnd(eObject) - offset + 1;
-				String text=null;
+				int offset = locationMap.getCharStart(eObject);
+				int length = locationMap.getCharEnd(eObject) - offset + 1;
+				String text = null;
 				try {
 					text = textViewer.getDocument().get(offset, length);
 				} catch (BadLocationException e) {
@@ -80,5 +80,4 @@ public class HyperlinkDetector implements IHyperlinkDetector {
 		}
 		return null;
 	}
-
 }

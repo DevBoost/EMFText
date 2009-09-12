@@ -45,9 +45,15 @@ import org.emftext.runtime.ui.preferences.PreferenceConstants;
 public class BracketSet {
 
 	// the separator between a bracket pair, should not contain escape needed
-	// character, it will be used as regex
+	// character, it will be used as regular expression
 	public final static String BRACKET_SEPARATOR = " and ";
 	private final static PositionHelper positionHelper = new PositionHelper();
+
+	private ArrayList<IBracketPair> bracketPairs;
+	private ISourceViewer viewer;
+	private String languageID;
+	private StyledText textWidget;
+	private IPreferenceStore preferenceStore;
 
 	/**
 	 * A single pair of brackets.
@@ -57,8 +63,7 @@ public class BracketSet {
 		private final String[] brackets;
 		private boolean closingEnabledInside;
 
-		public BracketPair(String opening, String closing,
-				boolean closingEnabledInside) {
+		public BracketPair(String opening, String closing, boolean closingEnabledInside) {
 			brackets = new String[] { opening, closing };
 			this.closingEnabledInside = closingEnabledInside;
 		}
@@ -78,14 +83,12 @@ public class BracketSet {
 		public void setClosingEnabledInside(boolean closingEnabledInside) {
 			this.closingEnabledInside=closingEnabledInside;
 		}
-		
 	}
 
 	/**
-	 * @author Tan-Ky Hoang-Kim A listener for the automatical closing.
+	 * A listener for the automatic closing.
 	 */
-	private final class ClosingListener implements VerifyListener,
-			ModifyListener, VerifyKeyListener {
+	private class ClosingListener implements VerifyListener, ModifyListener, VerifyKeyListener {
 		private int closingLength = -1;
 		private int addedPosition = -1;
 		private boolean closingAdded = false;
@@ -93,15 +96,16 @@ public class BracketSet {
 		private String closing;
 
 		/**
-		 * Automatical closing will be activated if the text about to insert is a
+		 * Automatic closing will be activated if the text about to insert is a
 		 * bracket.
 		 * 
 		 * @see org.eclipse.swt.events.VerifyListener#verifyText(org.eclipse.swt.events.VerifyEvent)
 		 */
 		public void verifyText(VerifyEvent e) {
 			int caret = textWidget.getCaretOffset();
-			if (!isOpeningBracket(e.text))
+			if (!isOpeningBracket(e.text)) {
 				return;
+			}
 			if (caret > 0 && caret < textWidget.getCharCount()) {
 				IBracketPair bracketPair = getBracketPair(
 						textWidget.getTextRange(caret - 1, 1), 
@@ -119,18 +123,16 @@ public class BracketSet {
 		/**
 		 * After a change there are two cases which have to be considered:
 		 * <ul>
-		 * <li>if an automatical closing happened the caret will be set between
+		 * <li>if an automatic closing happened the caret will be set between
 		 * the bracket pair</li>
 		 * <li>if a bracket opening is deleted on the left side of the caret the
 		 * bracket closing on the right side of this caret is deleted as well</li>
 		 * </ul>
-		 * 
 		 */
 		public void modifyText(ModifyEvent e) {
 			if (closingAdded) {
 				closingAdded = false;
-				addedPosition = textWidget.getCaretOffset()
-					- closingLength;
+				addedPosition = textWidget.getCaretOffset() - closingLength;
 				textWidget.setCaretOffset(addedPosition);
 				closingLength = -1;
 			}
@@ -147,35 +149,26 @@ public class BracketSet {
 		 * @see org.eclipse.swt.custom.VerifyKeyListener#verifyKey(org.eclipse.swt.events.VerifyEvent)
 		 */
 		public void verifyKey(VerifyEvent e) {
-			int caret = textWidget.getCaretOffset();
+			int caretOffset = textWidget.getCaretOffset();
+			int caret = caretOffset;
 			// Discard the closing bracket if there is one
 			if (closing != null && closing.equals("" + e.character) && addedPosition == caret) {
-				e.doit=false;
+				e.doit = false;
 				textWidget.setCaretOffset(caret + 1);
 			}
 			closing = null;
 			addedPosition = -1;
 			
-			if (caret == 0 || e.keyCode != SWT.BS
-					|| caret == textWidget.getCharCount()) {
+			if (caret == 0 || e.keyCode != SWT.BS || caret == textWidget.getCharCount()) {
 				return;
 			}
-			String prevStr = textWidget.getTextRange(textWidget
-					.getCaretOffset() - 1, 1);
-			String nextStr = textWidget.getTextRange(textWidget
-					.getCaretOffset(), 1);
-			if (e.keyCode == SWT.BS && isOpeningBracket(prevStr)
-					&& getCounterpart(prevStr).equals(nextStr)) {
+			String prevStr = textWidget.getTextRange(caretOffset - 1, 1);
+			String nextStr = textWidget.getTextRange(caretOffset, 1);
+			if (e.keyCode == SWT.BS && isOpeningBracket(prevStr) && getCounterpart(prevStr).equals(nextStr)) {
 				isEmbraced = true;
 			}
 		}
 	}
-
-	private ArrayList<IBracketPair> bracketPairs;
-	private ISourceViewer viewer;
-	private String languageID;
-	private StyledText textWidget;
-	private IPreferenceStore preferenceStore;
 
 	/**
 	 * Creates a bracket set to manage the bracket pairs.
@@ -192,13 +185,11 @@ public class BracketSet {
 			viewer = sourceViewer;
 			textWidget = viewer.getTextWidget();
 		}
-		preferenceStore = EMFTextRuntimeUIPlugin.getDefault()
-				.getPreferenceStore();
+		preferenceStore = EMFTextRuntimeUIPlugin.getDefault().getPreferenceStore();
 		if (sourceViewer != null && preferenceStore != null) {
 			resetBrackets();
 			addListeners();
 		}
-
 	}
 
 	/**
@@ -227,8 +218,7 @@ public class BracketSet {
 	 */
 	public boolean isBracket(String bracket) {
 		for (IBracketPair bracketPair : bracketPairs) {
-			if (bracket.equals(bracketPair.getOpeningBracket())
-					|| bracket.equals(bracketPair.getClosingBracket())) {
+			if (bracket.equals(bracketPair.getOpeningBracket()) || bracket.equals(bracketPair.getClosingBracket())) {
 				return true;
 			}
 		}
@@ -236,16 +226,18 @@ public class BracketSet {
 	}
 
 	/**
-	 * Returns the bracket pair with the given opening and closing. 
+	 * Returns the bracket pair with the given opening and closing.
+	 * 
 	 * @param opening the opening string
 	 * @param closing the closing string
+	 * 
 	 * @return a bracket pair
 	 */
 	public IBracketPair getBracketPair(String opening, String closing) {
 		for (IBracketPair bracketPair : bracketPairs) {
-			if (bracketPair.getOpeningBracket().equals(opening)
-					&& bracketPair.getClosingBracket().equals(closing))
+			if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {
 				return bracketPair;
+			}
 		}
 		return null;
 	}
@@ -267,13 +259,11 @@ public class BracketSet {
 	 *            the closing bracket
 	 * @return <code>true</code> if successful
 	 */
-	public boolean addBracketPair(String opening, String closing,
-			boolean closingEnabledInside) {
+	public boolean addBracketPair(String opening, String closing, boolean closingEnabledInside) {
 		if (isBracket(opening) || isBracket(closing)) {
 			return false;
 		}
-		bracketPairs
-				.add(new BracketPair(opening, closing, closingEnabledInside));
+		bracketPairs.add(new BracketPair(opening, closing, closingEnabledInside));
 		return true;
 	}
 	
@@ -284,7 +274,7 @@ public class BracketSet {
 	 */
 	public boolean setClosingEnabledInside(IBracketPair bracketPair, boolean closingEnabledInside) {
 		if (bracketPair instanceof BracketPair) {
-			((BracketPair)bracketPair).setClosingEnabledInside(closingEnabledInside);
+			((BracketPair) bracketPair).setClosingEnabledInside(closingEnabledInside);
 			return true;
 		}
 		return false;
@@ -298,8 +288,7 @@ public class BracketSet {
 	 * @see IPreferenceStore
 	 */
 	public boolean resetBrackets() {
-		String bracketPairs = preferenceStore.getString(languageID
-				+ PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
+		String bracketPairs = preferenceStore.getString(languageID + PreferenceConstants.EDITOR_BRACKETS_SUFFIX);
 		if (bracketPairs == null) {
 			return false;
 		}
@@ -337,17 +326,14 @@ public class BracketSet {
 	/**
 	 * Removes the given bracket pair.
 	 * 
-	 * @param opening
-	 *            the opening bracket
-	 * @param closing
-	 *            the closing bracket
-	 * @return the removed bracket pair. If there is none return
-	 *         <code>null</code>.
+	 * @param opening the opening bracket
+	 * @param closing the closing bracket
+	 * 
+	 * @return the removed bracket pair. If there was none null is returned
 	 */
 	public IBracketPair remove(String opening, String closing) {
 		for (IBracketPair bracketPair : bracketPairs) {
-			if (bracketPair.getOpeningBracket().equals(opening)
-					&& bracketPair.getClosingBracket().equals(closing)) {
+			if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {
 				bracketPairs.remove(bracketPair);
 				return bracketPair;
 			}
@@ -385,8 +371,7 @@ public class BracketSet {
 		}
 		bracketPairs = new ArrayList<IBracketPair>();
 		for (int i = 0; i < bracketSet.length() / 3; i++) {
-			addBracketPair("" + bracketSet.charAt(i * 3), ""
-					+ bracketSet.charAt(i * 3 + 1), bracketSet.charAt(i * 3 + 2)!='0');
+			addBracketPair("" + bracketSet.charAt(i * 3), "" + bracketSet.charAt(i * 3 + 1), bracketSet.charAt(i * 3 + 2) != '0');
 		}
 		return true;
 	}
@@ -402,8 +387,7 @@ public class BracketSet {
 		String[] ret = new String[bracketPairs.size()];
 		int i = 0;
 		for (IBracketPair bracketPair : bracketPairs) {
-			ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR
-					+ bracketPair.getClosingBracket();
+			ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR + bracketPair.getClosingBracket();
 			i++;
 		}
 		return ret;
@@ -423,28 +407,27 @@ public class BracketSet {
 		String result = "";
 		for (IBracketPair bracketPair : bracketPairs) {
 			String isClosingStr = "0";
-			if (bracketPair.isClosingEnabledInside())
+			if (bracketPair.isClosingEnabledInside()) {
 				isClosingStr = "1";
-			result += bracketPair.getOpeningBracket()
-					+ bracketPair.getClosingBracket()
-					+ isClosingStr;
+			}
+			result += bracketPair.getOpeningBracket() + bracketPair.getClosingBracket() + isClosingStr;
 		}
 		return result;
 	}
 
 	/**
-	 * Adds listeners to a {@link StyledText} to handle bracket automatical
+	 * Adds listeners to a {@link StyledText} to handle bracket automatic
 	 * closing.
 	 */
 	private void addListeners() {
-		ClosingListener fClosingListener = new ClosingListener();
-		textWidget.addVerifyListener(fClosingListener);
-		textWidget.addVerifyKeyListener(fClosingListener);
-		textWidget.addModifyListener(fClosingListener);
+		ClosingListener closingListener = new ClosingListener();
+		textWidget.addVerifyListener(closingListener);
+		textWidget.addVerifyKeyListener(closingListener);
+		textWidget.addModifyListener(closingListener);
 	}
 
 	/**
-	 * Searchs the matching bracket at the left side of the caret. The position
+	 * Searches the matching bracket at the left side of the caret. The position
 	 * information will be stored in the <code>IDocument</code> in the category
 	 * <code>ExtensionConstants.PositionCategory.BRACKET</code>.
 	 * 
@@ -462,12 +445,12 @@ public class BracketSet {
 		}
 		int caretOffset = textWidget.getCaretOffset();
 		if (projectionViewer != null) {
-			caretOffset = projectionViewer
-					.widgetOffset2ModelOffset(caretOffset);
+			caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
 		}
 		final String prevStr;
-		if (caretOffset == 0)
+		if (caretOffset == 0) {
 			return;
+		}
 		try {
 			prevStr = "" + document.getChar(caretOffset - 1);
 		} catch (BadLocationException e) {
@@ -500,12 +483,8 @@ public class BracketSet {
 			return;
 		}
 		if (position != -1 && position != document.getLength()) {
-			positionHelper.addPosition(document,
-					ExtensionConstants.PositionCategory.BRACKET.toString(),
-					position, 1);
-			positionHelper.addPosition(document,
-					ExtensionConstants.PositionCategory.BRACKET.toString(),
-					caretOffset - 1, 1);
+			positionHelper.addPosition(document, PositionCategory.BRACKET.toString(), position, 1);
+			positionHelper.addPosition(document, PositionCategory.BRACKET.toString(), caretOffset - 1, 1);
 		}
 	}
 }
