@@ -42,11 +42,11 @@ options {
 	protected java.util.List<java.lang.Integer> lexerExceptionsPosition = java.util.Collections.synchronizedList(new java.util.ArrayList<java.lang.Integer>());
 	private int stopIncludingHiddenTokens;
 	private int stopExcludingHiddenTokens;
-	private java.util.Collection<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>> commands;
+	private java.util.Collection<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>> postParseCommands;
 	private boolean terminateParsing;
 	
 	protected void addErrorToResource(final java.lang.String errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {
-		commands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
+		postParseCommands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
 			public boolean execute(org.emftext.runtime.resource.ITextResource resource) {
 				if (resource == null) {
 					// the resource can be null if the parser is used for
@@ -124,7 +124,7 @@ protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element) {
 }
 
 protected void copyLocalizationInfos(final org.eclipse.emf.ecore.EObject source, final org.eclipse.emf.ecore.EObject target) {
-	commands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
+	postParseCommands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
 		public boolean execute(org.emftext.runtime.resource.ITextResource resource) {
 			if (resource == null) {
 				// the resource can be null if the parser is used for
@@ -142,7 +142,7 @@ protected void copyLocalizationInfos(final org.eclipse.emf.ecore.EObject source,
 }
 
 protected void copyLocalizationInfos(final org.antlr.runtime.CommonToken source, final org.eclipse.emf.ecore.EObject target) {
-	commands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
+	postParseCommands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
 		public boolean execute(org.emftext.runtime.resource.ITextResource resource) {
 			if (resource == null) {
 				// the resource can be null if the parser is used for
@@ -304,13 +304,13 @@ protected java.lang.Object getTypeObject() {
 // RecognitionExceptions.
 public org.emftext.runtime.resource.IParseResult parse() {
 	terminateParsing = false;
-	commands = new java.util.ArrayList<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>>();
+	postParseCommands = new java.util.ArrayList<org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>>();
 	try {
 		org.emftext.sdk.concretesyntax.resource.cs.CsParseResult parseResult = new org.emftext.sdk.concretesyntax.resource.cs.CsParseResult();
 		org.eclipse.emf.ecore.EObject result =  doParse();
 		if (lexerExceptions.isEmpty()) {
 			parseResult.setRoot(result);
-			parseResult.getPostParseCommands().addAll(commands);
+			parseResult.getPostParseCommands().addAll(postParseCommands);
 			return parseResult;
 		}
 	} catch (org.antlr.runtime.RecognitionException re) {
@@ -344,7 +344,7 @@ public java.lang.Object recoverFromMismatchedToken(org.antlr.runtime.IntStream i
 	}
 }
 protected <ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> void registerContextDependentProxy(final org.emftext.sdk.concretesyntax.resource.cs.CsContextDependentURIFragmentFactory<ContainerType, ReferenceType> factory, final ContainerType element, final org.eclipse.emf.ecore.EReference reference, final String id, final org.eclipse.emf.ecore.EObject proxy) {
-	commands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
+	postParseCommands.add(new org.emftext.runtime.resource.ICommand<org.emftext.runtime.resource.ITextResource>() {
 		public boolean execute(org.emftext.runtime.resource.ITextResource resource) {
 			if (resource == null) {
 				// the resource can be null if the parser is used for
@@ -474,7 +474,6 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
-				String tokenName = "null";
 				if (a0_0 != null) {
 					if (a0_0 != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__ANNOTATIONS, a0_0);
@@ -505,7 +504,6 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 			}
-			String tokenName = "null";
 			if (a1_0 != null) {
 				if (a1_0 != null) {
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__MODIFIER), a1_0);
@@ -539,7 +537,6 @@ a2 = 'SYNTAXDEF' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a3 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -582,7 +579,6 @@ a4 = 'FOR' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
-		String tokenName = "QUOTED_60_62";
 		if (a5 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
 			tokenResolver.setOptions(getOptions());
@@ -626,7 +622,6 @@ a4 = 'FOR' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
-				String tokenName = "QUOTED_60_62";
 				if (a6 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
 					tokenResolver.setOptions(getOptions());
@@ -684,7 +679,6 @@ a4 = 'FOR' {
 					if (element == null) {
 						element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 					}
-					String tokenName = "QUALIFIED_NAME";
 					if (a8 != null) {
 						org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 						tokenResolver.setOptions(getOptions());
@@ -745,7 +739,6 @@ a4 = 'FOR' {
 							if (element == null) {
 								element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 							}
-							String tokenName = "QUALIFIED_NAME";
 							if (a10 != null) {
 								org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 								tokenResolver.setOptions(getOptions());
@@ -829,7 +822,6 @@ a4 = 'FOR' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
-						String tokenName = "null";
 						if (a13_0 != null) {
 							if (a13_0 != null) {
 								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__IMPORTS, a13_0);
@@ -908,7 +900,6 @@ a4 = 'FOR' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
-						String tokenName = "null";
 						if (a17_0 != null) {
 							if (a17_0 != null) {
 								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__OPTIONS, a17_0);
@@ -998,7 +989,6 @@ a4 = 'FOR' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
-						String tokenName = "null";
 						if (a22_0 != null) {
 							if (a22_0 != null) {
 								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKENS, a22_0);
@@ -1088,7 +1078,6 @@ a4 = 'FOR' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 						}
-						String tokenName = "null";
 						if (a27_0 != null) {
 							if (a27_0 != null) {
 								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__TOKEN_STYLES, a27_0);
@@ -1159,7 +1148,6 @@ a30 = '{' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 				}
-				String tokenName = "null";
 				if (a31_0 != null) {
 					if (a31_0 != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__RULES, a31_0);
@@ -1204,7 +1192,6 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -1247,7 +1234,6 @@ a1 = ':' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 		}
-		String tokenName = "QUOTED_60_62";
 		if (a2 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
 			tokenResolver.setOptions(getOptions());
@@ -1291,7 +1277,6 @@ a1 = ':' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 				}
-				String tokenName = "QUOTED_60_62";
 				if (a3 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
 					tokenResolver.setOptions(getOptions());
@@ -1356,7 +1341,6 @@ a1 = ':' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 				}
-				String tokenName = "QUALIFIED_NAME";
 				if (a6 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 					tokenResolver.setOptions(getOptions());
@@ -1400,7 +1384,6 @@ a1 = ':' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
 						}
-						String tokenName = "QUOTED_60_62";
 						if (a7 != null) {
 							org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_60_62");
 							tokenResolver.setOptions(getOptions());
@@ -1444,7 +1427,6 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -1487,7 +1469,6 @@ a1 = '=' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
 		}
-		String tokenName = "QUOTED_34_34_92";
 		if (a2 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34_92");
 			tokenResolver.setOptions(getOptions());
@@ -1532,7 +1513,6 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 				}
-				String tokenName = "null";
 				if (a0_0 != null) {
 					if (a0_0 != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__ANNOTATIONS, a0_0);
@@ -1560,7 +1540,6 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a1 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -1606,7 +1585,6 @@ a2 = '::=' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 		}
-		String tokenName = "null";
 		if (a3_0 != null) {
 			if (a3_0 != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__DEFINITION), a3_0);
@@ -1648,7 +1626,6 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createSequence();
 			}
-			String tokenName = "null";
 			if (a0_0 != null) {
 				if (a0_0 != null) {
 					addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.SEQUENCE__PARTS, a0_0);
@@ -1679,7 +1656,6 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
 		}
-		String tokenName = "null";
 		if (a0_0 != null) {
 			if (a0_0 != null) {
 				addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a0_0);
@@ -1719,7 +1695,6 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
 				}
-				String tokenName = "null";
 				if (a2_0 != null) {
 					if (a2_0 != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CHOICE__OPTIONS, a2_0);
@@ -1753,7 +1728,6 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCsString();
 		}
-		String tokenName = "QUOTED_34_34_92";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34_92");
 			tokenResolver.setOptions(getOptions());
@@ -1791,7 +1765,6 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -1838,7 +1811,6 @@ a1 = '[' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a2 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -1888,7 +1860,6 @@ a3 = ']' {
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
 			}
-			String tokenName = "null";
 			if (a4_0 != null) {
 				if (a4_0 != null) {
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__CARDINALITY), a4_0);
@@ -1917,7 +1888,6 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -1978,7 +1948,6 @@ a2 = ']' {
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
 			}
-			String tokenName = "null";
 			if (a3_0 != null) {
 				if (a3_0 != null) {
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__CARDINALITY), a3_0);
@@ -2007,7 +1976,6 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -2054,7 +2022,6 @@ a1 = '[' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 		}
-		String tokenName = "QUOTED_39_39_92";
 		if (a2 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39_92");
 			tokenResolver.setOptions(getOptions());
@@ -2097,7 +2064,6 @@ a3 = ',' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 		}
-		String tokenName = "QUOTED_39_39_92";
 		if (a4 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39_92");
 			tokenResolver.setOptions(getOptions());
@@ -2148,7 +2114,6 @@ a3 = ',' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 				}
-				String tokenName = "QUOTED_39_39_92";
 				if (a6 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_39_39_92");
 					tokenResolver.setOptions(getOptions());
@@ -2197,7 +2162,6 @@ a7 = ']' {
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
 			}
-			String tokenName = "null";
 			if (a8_0 != null) {
 				if (a8_0 != null) {
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__CARDINALITY), a8_0);
@@ -2226,7 +2190,6 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -2281,7 +2244,6 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 				}
-				String tokenName = "QUALIFIED_NAME";
 				if (a2 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 					tokenResolver.setOptions(getOptions());
@@ -2336,7 +2298,6 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 						}
-						String tokenName = "QUALIFIED_NAME";
 						if (a4 != null) {
 							org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 							tokenResolver.setOptions(getOptions());
@@ -2384,7 +2345,6 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
 			}
-			String tokenName = "null";
 			if (a5_0 != null) {
 				if (a5_0 != null) {
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__CARDINALITY), a5_0);
@@ -2423,7 +2383,6 @@ a0 = '(' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 		}
-		String tokenName = "null";
 		if (a1_0 != null) {
 			if (a1_0 != null) {
 				element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__DEFINITIONS), a1_0);
@@ -2459,7 +2418,6 @@ a2 = ')' {
 			if (element == null) {
 				element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
 			}
-			String tokenName = "null";
 			if (a3_0 != null) {
 				if (a3_0 != null) {
 					element.eSet(element.eClass().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.COMPOUND_DEFINITION__CARDINALITY), a3_0);
@@ -2488,7 +2446,6 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createWhiteSpaces();
 		}
-		String tokenName = "HEXNUMBER";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("HEXNUMBER");
 			tokenResolver.setOptions(getOptions());
@@ -2537,7 +2494,6 @@ a0 = '!' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createLineBreak();
 		}
-		String tokenName = "NUMBER";
 		if (a1 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("NUMBER");
 			tokenResolver.setOptions(getOptions());
@@ -2582,7 +2538,6 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 				}
-				String tokenName = "null";
 				if (a0_0 != null) {
 					if (a0_0 != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__ANNOTATIONS, a0_0);
@@ -2621,7 +2576,6 @@ a1 = 'DEFINE' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a2 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -2653,7 +2607,6 @@ a1 = 'DEFINE' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 		}
-		String tokenName = "QUOTED_36_36";
 		if (a3 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_36_36");
 			tokenResolver.setOptions(getOptions());
@@ -2715,7 +2668,6 @@ a1 = 'DEFINE' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
 				}
-				String tokenName = "QUALIFIED_NAME";
 				if (a6 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 					tokenResolver.setOptions(getOptions());
@@ -2767,7 +2719,6 @@ a0 = 'PRIORITIZE' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenPriorityDirective();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a1 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -2877,7 +2828,6 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 		}
-		String tokenName = "QUOTED_34_34_92";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34_92");
 			tokenResolver.setOptions(getOptions());
@@ -2920,7 +2870,6 @@ a1 = 'COLOR' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 		}
-		String tokenName = "HEXNUMBER";
 		if (a2 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("HEXNUMBER");
 			tokenResolver.setOptions(getOptions());
@@ -2971,7 +2920,6 @@ a1 = 'COLOR' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 				}
-				String tokenName = "QUALIFIED_NAME";
 				if (a4 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 					tokenResolver.setOptions(getOptions());
@@ -3037,7 +2985,6 @@ a0 = '@' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a1 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -3087,7 +3034,6 @@ a0 = '@' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
 				}
-				String tokenName = "null";
 				if (a3_0 != null) {
 					if (a3_0 != null) {
 						addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a3_0);
@@ -3127,7 +3073,6 @@ a0 = '@' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
 						}
-						String tokenName = "null";
 						if (a5_0 != null) {
 							if (a5_0 != null) {
 								addObjectToList(element, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__PARAMETERS, a5_0);
@@ -3175,7 +3120,6 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
 		}
-		String tokenName = "QUALIFIED_NAME";
 		if (a0 != null) {
 			org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUALIFIED_NAME");
 			tokenResolver.setOptions(getOptions());
@@ -3226,7 +3170,6 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
 				}
-				String tokenName = "QUOTED_34_34_92";
 				if (a2 != null) {
 					org.emftext.runtime.resource.ITokenResolver tokenResolver = tokenResolverFactory.createTokenResolver("QUOTED_34_34_92");
 					tokenResolver.setOptions(getOptions());

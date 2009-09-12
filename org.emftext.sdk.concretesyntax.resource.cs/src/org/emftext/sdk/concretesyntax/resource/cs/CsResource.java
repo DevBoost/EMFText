@@ -41,6 +41,7 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		referenceResolverSwitch.setOptions(options);
 		org.emftext.runtime.resource.IParseResult result = parser.parse();
 		clearState();
+		getContents().clear();
 		if (result != null) {
 			org.eclipse.emf.ecore.EObject root = result.getRoot();
 			if (root != null) {
@@ -452,7 +453,6 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		internalURIFragmentMap.clear();
 		getErrors().clear();
 		getWarnings().clear();
-		getContents().clear();
 		proxyCounter = 0;
 		resolverSwitch = null;
 	}
