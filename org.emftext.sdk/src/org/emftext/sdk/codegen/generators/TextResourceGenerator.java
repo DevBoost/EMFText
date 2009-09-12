@@ -120,11 +120,9 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.addLineBreak();
         
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_TEXT_RESOURCE + " {");
-
-		sc.addLineBreak();
-		sc.add("private " + I_REFERENCE_RESOLVER_SWITCH + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
 		sc.addLineBreak();
 		
+    	addInnerClasses(sc);
     	addFields(sc);
 		addMethods(sc);
     	
@@ -133,6 +131,11 @@ public class TextResourceGenerator extends BaseGenerator {
     	out.print(sc.toString());
     	return true;
     }
+
+	private void addInnerClasses(StringComposite sc) {
+		addElementBasedTextDiagnosticClass(sc);
+    	addPositionBasedTestDiagnosticClass(sc);
+	}
 
 	private void addMethods(StringComposite sc) {
 		addConstructors(sc);
@@ -165,8 +168,6 @@ public class TextResourceGenerator extends BaseGenerator {
     	addAddDefaultLoadOptionsMethod(sc);
     	addLoadOptionsMethod(sc);
     	
-    	addElementBasedTextDiagnosticClass(sc);
-    	addPositionBasedTestDiagnosticClass(sc);
     	addClearStateMethod(sc);
     	addGetContentsMethod(sc);
     	addGetWarningsMethod(sc);
@@ -227,6 +228,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("return false;");
     	sc.add("}");
     	sc.add("}");
+    	sc.addLineBreak();
 	}
 
 	private void addElementBasedTextDiagnosticClass(StringComposite sc) {
@@ -601,11 +603,13 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
+		sc.add("private " + I_REFERENCE_RESOLVER_SWITCH + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
 		sc.add("private static final " + STRING + " ARBITRARY_SYNTAX_NAME = \"*\";");
     	sc.add("private "+ I_LOCATION_MAP + " locationMap;");
     	sc.add("private int proxyCounter = 0;");
     	sc.add("private " + I_TEXT_PARSER + " parser;");
     	sc.add("private " + MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">>();");
+    	sc.addLineBreak();
 	}
 
 	private void addGetSyntaxNameMethod(StringComposite sc) {
