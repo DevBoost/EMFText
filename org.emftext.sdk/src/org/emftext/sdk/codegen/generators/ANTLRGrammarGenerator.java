@@ -94,6 +94,7 @@ import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
+import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
@@ -1638,7 +1639,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 						qualifiedDummyEObjectClassName) + ";");
 		sc.add("}");
 		// TODO mseifert: escape tokeName correctly
-		sc.add("String tokenName = \"" + tokenName + "\";");
+		sc.add(new StringComponent("String tokenName = \"" + tokenName + "\";", "tokenName"));
 		sc.add("if (" + ident + " != null) {");
 		sc.add(resolvements);
 		sc.add("if (" + expressionToBeSet + " != null) {");
