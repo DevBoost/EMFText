@@ -36,10 +36,9 @@ public interface IBackgroundParsingStrategy {
 	 * given event should trigger a complete parse of the 
 	 * text resource.
 	 * 
-	 * @param event
-	 * @return
+	 * @param event the event that changed the document
+	 * @param resource the resource the is associated with the document
+	 * @param editor the editor that shows the document
 	 */
-	public boolean isParsingRequired(DocumentEvent event);
-	
 	public void parse(DocumentEvent event, ITextResource resource, EMFTextEditor editor);
 }
