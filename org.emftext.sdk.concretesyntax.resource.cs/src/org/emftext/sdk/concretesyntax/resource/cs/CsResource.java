@@ -2,13 +2,118 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 
 public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextResource {
 	
-	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
+	public class ElementBasedTextDiagnostic implements org.emftext.runtime.resource.ITextDiagnostic {
+		
+		private final org.emftext.runtime.resource.ILocationMap locationMap;
+		private final org.eclipse.emf.common.util.URI uri;
+		private final org.eclipse.emf.ecore.EObject element;
+		private final org.emftext.runtime.resource.IProblem problem;
+		
+		public ElementBasedTextDiagnostic(org.emftext.runtime.resource.ILocationMap locationMap, org.eclipse.emf.common.util.URI uri, org.emftext.runtime.resource.IProblem problem, org.eclipse.emf.ecore.EObject element) {
+			super();
+			this.uri = uri;
+			this.locationMap = locationMap;
+			this.element = element;
+			this.problem = problem;
+		}
+		
+		public java.lang.String getMessage() {
+			return problem.getMessage();
+		}
+		
+		public org.emftext.runtime.resource.IProblem getProblem() {
+			return problem;
+		}
+		
+		public java.lang.String getLocation() {
+			return uri.toString();
+		}
+		
+		public int getCharStart() {
+			return Math.max(0, locationMap.getCharStart(element));
+		}
+		
+		public int getCharEnd() {
+			return Math.max(0, locationMap.getCharEnd(element));
+		}
+		
+		public int getColumn() {
+			return Math.max(0, locationMap.getColumn(element));
+		}
+		
+		public int getLine() {
+			return Math.max(0, locationMap.getLine(element));
+		}
+		
+		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
+			if (this.element == null) {
+				return false;
+			}
+			return this.element.equals(element);
+		}
+	}
 	
+	public class PositionBasedTextDiagnostic implements org.emftext.runtime.resource.ITextDiagnostic {
+		
+		private final org.eclipse.emf.common.util.URI uri;
+		
+		private int column;
+		private int line;
+		private int charStart;
+		private int charEnd;
+		private org.emftext.runtime.resource.IProblem problem;
+		
+		public PositionBasedTextDiagnostic(org.eclipse.emf.common.util.URI uri, org.emftext.runtime.resource.IProblem problem, int column, int line, int charStart, int charEnd) {
+			
+			super();
+			this.uri = uri;
+			this.column = column;
+			this.line = line;
+			this.charStart = charStart;
+			this.charEnd = charEnd;
+			this.problem = problem;
+		}
+		
+		public org.emftext.runtime.resource.IProblem getProblem() {
+			return problem;
+		}
+		
+		public int getCharStart() {
+			return charStart;
+		}
+		
+		public int getCharEnd() {
+			return charEnd;
+		}
+		
+		public int getColumn() {
+			return column;
+		}
+		
+		public int getLine() {
+			return line;
+		}
+		
+		public java.lang.String getLocation() {
+			return uri.toString();
+		}
+		
+		public java.lang.String getMessage() {
+			return problem.getMessage();
+		}
+		
+		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
+			return false;
+		}
+	}
+	
+	private org.emftext.runtime.resource.IReferenceResolverSwitch resolverSwitch;
 	private static final java.lang.String ARBITRARY_SYNTAX_NAME = "*";
 	private org.emftext.runtime.resource.ILocationMap locationMap;
 	private int proxyCounter = 0;
 	private org.emftext.runtime.resource.ITextParser parser;
 	private java.util.Map<java.lang.String, org.emftext.runtime.resource.IContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>> internalURIFragmentMap = new java.util.HashMap<java.lang.String, org.emftext.runtime.resource.IContextDependentURIFragment<? extends org.eclipse.emf.ecore.EObject>>();
+	
 	public CsResource() {
 		super();
 		resetLocationMap();
@@ -342,110 +447,6 @@ public class CsResource extends org.emftext.runtime.resource.impl.AbstractTextRe
 		}
 	}
 	
-	public class ElementBasedTextDiagnostic implements org.emftext.runtime.resource.ITextDiagnostic {
-		
-		private final org.emftext.runtime.resource.ILocationMap locationMap;
-		private final org.eclipse.emf.common.util.URI uri;
-		private final org.eclipse.emf.ecore.EObject element;
-		private final org.emftext.runtime.resource.IProblem problem;
-		
-		public ElementBasedTextDiagnostic(org.emftext.runtime.resource.ILocationMap locationMap, org.eclipse.emf.common.util.URI uri, org.emftext.runtime.resource.IProblem problem, org.eclipse.emf.ecore.EObject element) {
-			super();
-			this.uri = uri;
-			this.locationMap = locationMap;
-			this.element = element;
-			this.problem = problem;
-		}
-		
-		public java.lang.String getMessage() {
-			return problem.getMessage();
-		}
-		
-		public org.emftext.runtime.resource.IProblem getProblem() {
-			return problem;
-		}
-		
-		public java.lang.String getLocation() {
-			return uri.toString();
-		}
-		
-		public int getCharStart() {
-			return Math.max(0, locationMap.getCharStart(element));
-		}
-		
-		public int getCharEnd() {
-			return Math.max(0, locationMap.getCharEnd(element));
-		}
-		
-		public int getColumn() {
-			return Math.max(0, locationMap.getColumn(element));
-		}
-		
-		public int getLine() {
-			return Math.max(0, locationMap.getLine(element));
-		}
-		
-		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
-			if (this.element == null) {
-				return false;
-			}
-			return this.element.equals(element);
-		}
-	}
-	
-	public class PositionBasedTextDiagnostic implements org.emftext.runtime.resource.ITextDiagnostic {
-		
-		private final org.eclipse.emf.common.util.URI uri;
-		
-		private int column;
-		private int line;
-		private int charStart;
-		private int charEnd;
-		private org.emftext.runtime.resource.IProblem problem;
-		
-		public PositionBasedTextDiagnostic(org.eclipse.emf.common.util.URI uri, org.emftext.runtime.resource.IProblem problem, int column, int line, int charStart, int charEnd) {
-			
-			super();
-			this.uri = uri;
-			this.column = column;
-			this.line = line;
-			this.charStart = charStart;
-			this.charEnd = charEnd;
-			this.problem = problem;
-		}
-		
-		public org.emftext.runtime.resource.IProblem getProblem() {
-			return problem;
-		}
-		
-		public int getCharStart() {
-			return charStart;
-		}
-		
-		public int getCharEnd() {
-			return charEnd;
-		}
-		
-		public int getColumn() {
-			return column;
-		}
-		
-		public int getLine() {
-			return line;
-		}
-		
-		public java.lang.String getLocation() {
-			return uri.toString();
-		}
-		
-		public java.lang.String getMessage() {
-			return problem.getMessage();
-		}
-		
-		public boolean wasCausedBy(org.eclipse.emf.ecore.EObject element) {
-			return false;
-		}
-	}
 	// Extends the super implementation by clearing all information about element positions.
 	protected void clearState() {
 		//clear concrete syntax information

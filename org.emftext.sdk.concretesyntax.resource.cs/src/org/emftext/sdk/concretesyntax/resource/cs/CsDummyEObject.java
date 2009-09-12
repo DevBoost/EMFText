@@ -9,6 +9,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 // is build using the left recursive EStructuralFeature.
 //
 public class CsDummyEObject extends org.eclipse.emf.ecore.impl.EObjectImpl  {
+	
 	private java.util.Map<org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object> keyValueMap;
 	private String recurseFeatureName;
 	private org.eclipse.emf.ecore.EClass type;
