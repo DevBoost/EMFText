@@ -163,16 +163,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private boolean forceEOFToken;
 	private GenClassFinder genClassFinder = new GenClassFinder();
 
-	// TODO mseifert: remove this field, use getContext() instead
-	private GenerationContext context;
-
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
 
 	private ArrayList<String> keywordTokens;
 
 	public ANTLRGrammarGenerator(GenerationContext context) {
 		super(context, EArtifact.ANTLR_GRAMMAR);
-		this.context = context;
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.qualifiedTokenResolverFactoryClassName = context
 				.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
@@ -305,9 +301,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addGetMismatchedTokenRecoveryTriesMethod(sc);
 		addGetMissingSymbolMethod(sc);
 		addGetOptionsMethod(sc);
-    	context.addGetMetaInformationMethod(sc);
+    	getContext().addGetMetaInformationMethod(sc);
 		addGetParseToIndexTypeObjectMethod(sc);
-		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
+		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);
 		//addGetResourceMethod(sc);
 		//addSetTextResourceMethod(sc);
 		addGetTypeObjectMethod(sc);
@@ -436,7 +432,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addParseMethod(StringComposite sc) {
-		String parseResultClassName = context.getQualifiedClassName(EArtifact.PARSE_RESULT);
+		String parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
 
 		sc.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
 		sc.add("// RecognitionExceptions.");
@@ -1597,14 +1593,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 										.getQualifiedInterfaceName(genFeature
 												.getTypeGenClass())
 								+ ">("
-								+ context
+								+ getContext()
 										.getReferenceResolverAccessor(genFeature)
 								+ "), element, (org.eclipse.emf.ecore.EReference) element.eClass().getEStructuralFeature("
 								+ generatorUtil.getFeatureConstant(genClass,
 										genFeature) + "), " + resolvedIdent
 								+ ", " + proxyIdent + ");");
 				// remember that we must resolve proxy objects for this feature
-				context.addNonContainmentReference(genFeature);
+				getContext().addNonContainmentReference(genFeature);
 			} else {
 				// the feature is an EAttribute
 				targetTypeName = genFeature.getQualifiedListItemType(null);
