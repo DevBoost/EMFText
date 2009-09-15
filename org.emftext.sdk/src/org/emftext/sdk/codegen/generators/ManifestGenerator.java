@@ -99,36 +99,22 @@ public class ManifestGenerator implements IGenerator {
 
 	private Set<String> getRequiredBundles(ConcreteSyntax syntax) {
 		Set<String> imports = new LinkedHashSet<String>();
-		imports.add("org.eclipse.core.runtime");
-		imports.add("org.eclipse.jface");
-		imports.add("org.eclipse.ui");
-		imports.add("org.emftext.runtime");
-		imports.add("org.emftext.runtime.ui");
-		imports.add("org.eclipse.ui");
-		imports.add("org.eclipse.ui.views");
-		imports.add("org.eclipse.ui.ide");
-		imports.add("org.eclipse.ui.editors");
-		imports.add("org.eclipse.jface");
-		imports.add("org.eclipse.jface.text");
 		imports.add("org.eclipse.core.resources");
-		imports.add("org.eclipse.emf.ecore");
-		
-		imports.add("org.eclipse.emf.codegen.ecore");
-		imports.add("org.eclipse.emf.workspace");
-		imports.add("org.emftext.runtime");
-		imports.add("org.emftext.runtime.ui");
+		imports.add("org.eclipse.core.runtime");
 		imports.add("org.eclipse.emf");
-		imports.add("org.eclipse.emf.edit.ui");
+		imports.add("org.eclipse.emf.codegen.ecore");
 		imports.add("org.eclipse.emf.ecore");
 		imports.add("org.eclipse.emf.ecore.edit");
-		imports.add("org.eclipse.ui");
-		imports.add("org.eclipse.ui.views");
-		imports.add("org.eclipse.ui.ide");
-		imports.add("org.eclipse.ui.editors");
+		imports.add("org.eclipse.emf.edit.ui");
+		imports.add("org.eclipse.emf.workspace");
 		imports.add("org.eclipse.jface");
 		imports.add("org.eclipse.jface.text");
-		imports.add("org.eclipse.core.resources");
-		imports.add("org.eclipse.core.runtime");
+		imports.add("org.eclipse.ui");
+		imports.add("org.eclipse.ui.editors");
+		imports.add("org.eclipse.ui.ide");
+		imports.add("org.eclipse.ui.views");
+		imports.add("org.emftext.runtime");
+		imports.add("org.emftext.runtime.ui");
 		
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");
