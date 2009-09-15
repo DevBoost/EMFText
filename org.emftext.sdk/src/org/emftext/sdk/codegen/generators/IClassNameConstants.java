@@ -413,9 +413,7 @@ public interface IClassNameConstants {
 	public String EDITOR = Editor.class.getName();
 	public String EDITORS_UI = EditorsUI.class.getName();
 	public String ELEMENT_BASED_TEXT_DIAGNOSTIC = "ElementBasedTextDiagnostic";
-	// TODO mseifert: remove one of these two
 	public String EMFTEXT_RUNTIME_PLUGIN = EMFTextRuntimePlugin.class.getName();
-	public String EMF_TEXT_RUNTIME_PLUGIN = EMFTextRuntimePlugin.class.getName();
 	public String EXCEPTION = Exception.class.getName();
 	public String E_ATTRIBUTE = EAttribute.class.getName();
 	public String E_CLASS = EClass.class.getName();

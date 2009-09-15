@@ -91,7 +91,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add(activatorClassName + ".getDefault().showErrorDialog(\"No EMFText resource.\", \"Sorry, no registered EMFText resource can handle this file type.\");");
 		sc.add("}");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(EMF_TEXT_RUNTIME_PLUGIN + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
+		sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -120,7 +120,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add(MARKER_HELPER + ".unmark(resource);");
 		sc.add(MARKER_HELPER + ".mark(resource);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add(EMF_TEXT_RUNTIME_PLUGIN + ".logError(\"" + EXCEPTION + " while updating markers on resource\", e);");
+		sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"" + EXCEPTION + " while updating markers on resource\", e);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("// Save code folding state");
@@ -289,7 +289,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("viewer.getTextWidget().setSelection(destination);");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(EMF_TEXT_RUNTIME_PLUGIN + ".logError(\"" + EXCEPTION + " in setCaret()\", e);");
+		sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"" + EXCEPTION + " in setCaret()\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -389,7 +389,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();");
 		sc.add("delta.accept(visitor);");
 		sc.add("} catch (" + CORE_EXCEPTION + " exception) {");
-		sc.add(EMF_TEXT_RUNTIME_PLUGIN + ".logError(\"Unexpected Error: \", exception);");
+		sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"Unexpected Error: \", exception);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");

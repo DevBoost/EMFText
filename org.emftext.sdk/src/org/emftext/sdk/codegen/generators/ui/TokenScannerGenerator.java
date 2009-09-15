@@ -2,7 +2,7 @@ package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BAD_LOCATION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMF_TEXT_RUNTIME_PLUGIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUNTIME_PLUGIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
@@ -77,7 +77,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.add("try {");
 		sc.add("lexer.setText(document.get(offset, length));");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
-		sc.add(EMF_TEXT_RUNTIME_PLUGIN + ".logError(\"Unexpected error:\", e);");
+		sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"Unexpected error:\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

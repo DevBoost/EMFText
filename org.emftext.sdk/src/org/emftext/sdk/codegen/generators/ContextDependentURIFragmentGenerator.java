@@ -87,7 +87,7 @@ public class ContextDependentURIFragmentGenerator extends BaseGenerator {
 		sc.add("} else if (list != null) {");
 		sc.add("addResultToList(mapping, proxy, list);");
 		sc.add("} else {");
-		sc.add(EMF_TEXT_RUNTIME_PLUGIN + ".logError(container.eClass().getName() + \".\" + reference.getName() + \" has multiplicity 1 but was resolved to multiple elements\", null);");
+		sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(container.eClass().getName() + \".\" + reference.getName() + \" has multiplicity 1 but was resolved to multiple elements\", null);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");

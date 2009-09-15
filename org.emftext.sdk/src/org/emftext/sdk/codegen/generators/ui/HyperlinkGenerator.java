@@ -1,6 +1,6 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMF_TEXT_RUNTIME_PLUGIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUNTIME_PLUGIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FILE_EDITOR_INPUT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EDITOR_DESCRIPTOR;
@@ -95,7 +95,7 @@ public class HyperlinkGenerator extends BaseGenerator {
 	private void addIsSupportedMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private boolean isSupported(String fileExtension) {");
-		sc.add(LIST + "<" + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + "> extensions = " + EMF_TEXT_RUNTIME_PLUGIN + ".getConcreteSyntaxRegistry();");
+		sc.add(LIST + "<" + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + "> extensions = " + EMFTEXT_RUNTIME_PLUGIN + ".getConcreteSyntaxRegistry();");
 		sc.add("for (" + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + " extension : extensions) {");
 		sc.add("if (extension.getSyntaxName().equals(fileExtension)) {");
 		sc.add("return true;");
