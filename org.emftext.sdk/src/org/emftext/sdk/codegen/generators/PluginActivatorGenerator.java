@@ -1,11 +1,17 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_UI_PLUGIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUNDLE_CONTEXT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DIALOG_CONSTANTS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MESSAGE_DIALOG;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
 
-// TODO move this to org.emftext.sdk.codegen.generators
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+
 public class PluginActivatorGenerator extends BaseGenerator {
 
 	public PluginActivatorGenerator(GenerationContext context) {
