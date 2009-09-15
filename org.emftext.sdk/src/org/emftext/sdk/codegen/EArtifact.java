@@ -65,7 +65,8 @@ public enum EArtifact {
 	BABYLON_SPECIFICATION("Babylon"), 
 	
 	MAIN_PACKAGE("", ""),
-	ANALYSIS_PACKAGE("analysis", "analysis"), DEFAULT_RESOLVER_DELEGATE("analysis", "DefaultResolverDelegate"), 
+	ANALYSIS_PACKAGE("analysis", "analysis"), 
+	DEFAULT_RESOLVER_DELEGATE("analysis", "DefaultResolverDelegate"), 
 	;
 	
 	private String classNameSuffix;
