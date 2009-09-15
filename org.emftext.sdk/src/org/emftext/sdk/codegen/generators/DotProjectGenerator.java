@@ -32,11 +32,8 @@ import org.emftext.sdk.codegen.composites.XMLComposite;
  */
 public class DotProjectGenerator extends BaseGenerator {
 
-	private GenerationContext context;
-
 	public DotProjectGenerator(GenerationContext context) {
-		super("", ".project");
-		this.context = context;
+		super(context, "", ".project");
 	}
 
 	@Override
@@ -45,7 +42,7 @@ public class DotProjectGenerator extends BaseGenerator {
 		
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<projectDescription>");
-		sc.add("<name>" + context.getPluginName() + "</name>");
+		sc.add("<name>" + getContext().getPluginName() + "</name>");
 		sc.add("<comment></comment>");
 		sc.add("<projects>");
 		sc.add("</projects>");

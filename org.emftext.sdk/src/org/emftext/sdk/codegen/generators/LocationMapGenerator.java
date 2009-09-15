@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class LocationMapGenerator extends BaseGenerator {
 
 	public LocationMapGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.LOCATION_MAP));
+		super(context, EArtifact.LOCATION_MAP);
 	}
 
 	public boolean generate(PrintWriter out) {

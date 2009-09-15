@@ -11,7 +11,7 @@ public class ContextDependentURIFragmentGenerator extends BaseGenerator {
 	private String qualifiedReferenceResolveResultClassName;
 
 	public ContextDependentURIFragmentGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT));
+		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
 		qualifiedReferenceResolveResultClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVE_RESULT);
 	}
 

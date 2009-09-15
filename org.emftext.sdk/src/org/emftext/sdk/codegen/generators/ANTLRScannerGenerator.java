@@ -19,7 +19,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 public class ANTLRScannerGenerator extends BaseGenerator {
 
 	public ANTLRScannerGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.ANTLR_SCANNER));
+		super(context, EArtifact.ANTLR_SCANNER);
 	}
 
 	@Override

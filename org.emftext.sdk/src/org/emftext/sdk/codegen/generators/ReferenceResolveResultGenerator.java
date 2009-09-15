@@ -12,7 +12,7 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 	private String qualifiedURIMappingClassName;
 
 	public ReferenceResolveResultGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.REFERENCE_RESOLVE_RESULT));
+		super(context, EArtifact.REFERENCE_RESOLVE_RESULT);
 		qualifiedElementMappingClassName = context.getQualifiedClassName(EArtifact.ELEMENT_MAPPING);
 		qualifiedURIMappingClassName = context.getQualifiedClassName(EArtifact.URI_MAPPING);
 	}

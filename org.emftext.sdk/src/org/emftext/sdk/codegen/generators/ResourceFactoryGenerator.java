@@ -48,7 +48,7 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 	 * which is meant to be instantiated by the ResourceFactory.
 	 */
 	public ResourceFactoryGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.RESOURCE_FACTORY));
+		super(context, EArtifact.RESOURCE_FACTORY);
 		this.qualifiedTextResourceClassName = context.getQualifiedClassName(EArtifact.RESOURCE);
 	}
 

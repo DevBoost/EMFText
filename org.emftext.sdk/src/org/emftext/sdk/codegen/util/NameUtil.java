@@ -24,6 +24,7 @@ import static org.emftext.runtime.util.StringUtil.capitalize;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -45,11 +46,11 @@ public class NameUtil {
 			return resourcePluginID;
 		} else {
 			// use default plug-in name
-			return getPackageName(syntax);
+			return getPackageName(syntax, EArtifact.MAIN_PACKAGE);
 		}
 	}
 
-	public String getPackageName(ConcreteSyntax syntax) {
+	public String getPackageName(ConcreteSyntax syntax, EArtifact artifact) {
 		String packageName = "";
 		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_PACKAGE);
 		if (basePackage != null) {
@@ -64,6 +65,7 @@ public class NameUtil {
 			}
 			packageName += concreteSyntaxPackage.getEcorePackage().getName();
 			packageName += ".resource." + syntax.getName();
+			packageName += ("".equals(artifact.getPackage()) ? "" : "." + artifact.getPackage());
 		}
 		return packageName;
 	}
@@ -73,8 +75,8 @@ public class NameUtil {
 	 * must go to depending on the given syntax.
 	 */
 	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax);
-		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName + ".") + "analysis";
+		String csPackageName = getPackageName(syntax, EArtifact.ANALYSIS_PACKAGE);
+		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
 	}
 
 	public String getReferenceResolverClassName(GenFeature proxyReference) {

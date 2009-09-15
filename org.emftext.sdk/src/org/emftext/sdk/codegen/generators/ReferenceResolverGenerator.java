@@ -49,7 +49,7 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 	private String defaultResolverDelegateName;
 
 	public ReferenceResolverGenerator(GenerationContext context, GenFeature proxyReference) {
-		super(context.getResolverPackageName(), nameUtil.getReferenceResolverClassName(proxyReference));
+		super(context, context.getResolverPackageName(), nameUtil.getReferenceResolverClassName(proxyReference));
 		this.proxyReference = proxyReference;
 		this.defaultResolverDelegateName = context.getQualifiedDefaultResolverDelegateName();
 	}

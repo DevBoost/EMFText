@@ -3,6 +3,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DefaultResolverDelegateGenerator;
@@ -18,7 +19,7 @@ public class DefaultResolverDelegateCreator extends AbstractArtifactCreator {
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-	    File resourceFile = context.getDefaultResolverDelegateFile();
+	    File resourceFile = context.getFile(EArtifact.DEFAULT_RESOLVER_DELEGATE);
 		IGenerator generator = new DefaultResolverDelegateGenerator(context);
 		
 		return createArtifact(

@@ -32,6 +32,30 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.creators.ui.AntlrTokenHelperCreator;
+import org.emftext.sdk.codegen.creators.ui.BracketSetCreator;
+import org.emftext.sdk.codegen.creators.ui.BrowserInformationControlCreator;
+import org.emftext.sdk.codegen.creators.ui.CodeFoldingManagerCreator;
+import org.emftext.sdk.codegen.creators.ui.ColorManagerCreator;
+import org.emftext.sdk.codegen.creators.ui.CompletionProcessorCreator;
+import org.emftext.sdk.codegen.creators.ui.DelayedBackgroundParsingStrategyCreator;
+import org.emftext.sdk.codegen.creators.ui.DocBrowserInformationControlInputCreator;
+import org.emftext.sdk.codegen.creators.ui.EObjectSelectionCreator;
+import org.emftext.sdk.codegen.creators.ui.EditorConfigurationCreator;
+import org.emftext.sdk.codegen.creators.ui.EditorCreator;
+import org.emftext.sdk.codegen.creators.ui.HTMLPrinterCreator;
+import org.emftext.sdk.codegen.creators.ui.HighlightingCreator;
+import org.emftext.sdk.codegen.creators.ui.HyperlinkCreator;
+import org.emftext.sdk.codegen.creators.ui.HyperlinkDetectorCreator;
+import org.emftext.sdk.codegen.creators.ui.MarkerHelperCreator;
+import org.emftext.sdk.codegen.creators.ui.OccurrenceCreator;
+import org.emftext.sdk.codegen.creators.ui.OutlinePageCreator;
+import org.emftext.sdk.codegen.creators.ui.OutlinePageTreeViewerCreator;
+import org.emftext.sdk.codegen.creators.ui.PositionCategoryCreator;
+import org.emftext.sdk.codegen.creators.ui.PositionHelperCreator;
+import org.emftext.sdk.codegen.creators.ui.PropertySheetPageCreator;
+import org.emftext.sdk.codegen.creators.ui.TextHoverCreator;
+import org.emftext.sdk.codegen.creators.ui.TokenScannerCreator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -96,7 +120,34 @@ public class ResourcePluginContentCreator {
 	    creators.add(new URIMappingCreator());
 	    creators.add(new HoverTextProviderCreator());
 	    creators.add(new ParseResultCreator());
-
+	    
+	    // add UI generators
+	    creators.add(new AntlrTokenHelperCreator());
+	    creators.add(new BracketSetCreator());
+	    creators.add(new BrowserInformationControlCreator());
+	    creators.add(new CodeFoldingManagerCreator());
+	    creators.add(new ColorManagerCreator());
+	    creators.add(new CompletionProcessorCreator());
+	    creators.add(new DelayedBackgroundParsingStrategyCreator());
+	    creators.add(new DocBrowserInformationControlInputCreator());
+	    creators.add(new EditorConfigurationCreator());
+	    creators.add(new EditorCreator());
+	    creators.add(new EObjectSelectionCreator());
+	    creators.add(new HighlightingCreator());
+	    creators.add(new HTMLPrinterCreator());
+	    creators.add(new HyperlinkCreator());
+	    creators.add(new HyperlinkDetectorCreator());
+	    creators.add(new MarkerHelperCreator());
+	    creators.add(new OccurrenceCreator());
+	    creators.add(new OutlinePageCreator());
+	    creators.add(new OutlinePageTreeViewerCreator());
+	    creators.add(new PluginActivatorCreator());
+	    creators.add(new PositionCategoryCreator());
+	    creators.add(new PositionHelperCreator());
+	    creators.add(new PropertySheetPageCreator());
+	    creators.add(new TextHoverCreator());
+	    creators.add(new TokenScannerCreator());
+	    
 		for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
 			creator.createArtifacts(context);

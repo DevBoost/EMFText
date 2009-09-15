@@ -110,11 +110,8 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	
-	private GenerationContext context;
-
 	public PluginMetaInformationGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.META_INFORMATION));
-		this.context = context;
+		super(context, EArtifact.META_INFORMATION);
 	}
 	
 	@Override
@@ -149,7 +146,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 
 	private void addGetHoverTextProviderMethod(StringComposite sc) {
 		sc.add("public " + IHoverTextProvider.class.getName() + " getHoverTextProvider() {");
-		sc.add("return new "+context.getQualifiedClassName(EArtifact.HOVER_TEXT_PROVIDER)+"();");
+		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.HOVER_TEXT_PROVIDER)+"();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -158,7 +155,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		sc.add("public " + E_CLASS + "[] getFoldableClasses() {");
 		
 		List<GenClass> foldableClasses = new ArrayList<GenClass>();
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		for (Rule rule : syntax.getAllRules()) {
 			for (Annotation annotation : rule.getAnnotations()) {
 				if (AnnotationType.FOLDABLE == annotation.getType()) {
@@ -207,11 +204,11 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 
 	private void addCreateLexerMethod(StringComposite sc) {
 		sc.add("public " + I_TEXT_SCANNER+ " createLexer() {");
-		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
-			sc.add("return new " + context.getQualifiedClassName(EArtifact.SCANNERLESS_SCANNER) + "();");
+		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
+			sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SCANNERLESS_SCANNER) + "();");
 		} else {
-			final String qualifiedAntlrScannerClassName = context.getQualifiedClassName(EArtifact.ANTLR_SCANNER);
-			final String qualifiedAntlrLexerClassName = context.getQualifiedClassName(EArtifact.ANTLR_LEXER);
+			final String qualifiedAntlrScannerClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_SCANNER);
+			final String qualifiedAntlrLexerClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_LEXER);
 			sc.add("return new " + qualifiedAntlrScannerClassName + "(this, new " + qualifiedAntlrLexerClassName + "());");
 		}
         sc.add("}");
@@ -261,17 +258,17 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 
 	private void addGetTokenNamesMethod(StringComposite sc) {
 		sc.add("public " + STRING +"[] getTokenNames() {");
-		if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
-			sc.add("return new " + context.getQualifiedClassName(EArtifact.SCANNERLESS_PARSER) + "().getTokenNames();");
+		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
+			sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SCANNERLESS_PARSER) + "().getTokenNames();");
 		} else {
-			sc.add("return new " + context.getQualifiedClassName(EArtifact.ANTLR_PARSER) + "(null).getTokenNames();");
+			sc.add("return new " + getContext().getQualifiedClassName(EArtifact.ANTLR_PARSER) + "(null).getTokenNames();");
 		}
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetDefaultStyleMethod(StringComposite sc) {
-		List<TokenStyle> styles = context.getConcreteSyntax().getAllTokenStyles();
+		List<TokenStyle> styles = getContext().getConcreteSyntax().getAllTokenStyles();
 		
 		sc.add("public " + I_TOKEN_STYLE + " getDefaultTokenStyle(" + STRING + " tokenName) {");
 		for (TokenStyle nextStyle : styles) {
@@ -293,29 +290,29 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 
 	private void addGetPathTOCSDefinitionMethod(StringComposite sc) {
 		sc.add("public " + STRING +" getPathToCSDefinition() {");
-        sc.add("return \"" + context.getSyntaxProjectName() + "/" + context.getProjectRelativePathToSyntaxFile() + "\";");
+        sc.add("return \"" + getContext().getSyntaxProjectName() + "/" + getContext().getProjectRelativePathToSyntaxFile() + "\";");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetURIMethod(StringComposite sc) {
 		sc.add("public " + STRING +" getURI() {");
-		sc.add("return \"" + context.getConcreteSyntax().getPackage().getNSURI() + "\";");
+		sc.add("return \"" + getContext().getConcreteSyntax().getPackage().getNSURI() + "\";");
 		sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetConcreteSyntaxName(StringComposite sc) {
 		sc.add("public " + STRING +" getSyntaxName() {");
-    	sc.add("return \"" + context.getConcreteSyntax().getName() + "\";");
+    	sc.add("return \"" + getContext().getConcreteSyntax().getName() + "\";");
     	sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addCreateParserMethod(StringComposite sc) {
-		String parserClassName = context.getQualifiedClassName(EArtifact.ANTLR_PARSER);
-	    if (OptionManager.INSTANCE.useScalesParser(context.getConcreteSyntax())) {
-	    	parserClassName = context.getQualifiedClassName(EArtifact.SCANNERLESS_PARSER);
+		String parserClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_PARSER);
+	    if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
+	    	parserClassName = getContext().getQualifiedClassName(EArtifact.SCANNERLESS_PARSER);
 	    }
 		
 		sc.add("public " + I_TEXT_PARSER + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
@@ -325,7 +322,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addGetClassesWithSyntaxMethod(StringComposite sc) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		
 		Collection<GenClass> classesWithSyntax = generatorUtil.getClassesWithSyntax(syntax);
 		sc.add("public " + E_CLASS + "[] getClassesWithSyntax() {");
@@ -339,7 +336,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		String resolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
+		String resolverSwitchClassName = getContext().getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 
 		sc.add("public " + I_REFERENCE_RESOLVER_SWITCH + " getReferenceResolverSwitch() {");
 		sc.add("return new " + resolverSwitchClassName + "();");
@@ -348,7 +345,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addGetTokenResolverFactoryMethod(StringComposite sc) {
-		String tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
+		String tokenResolverFactoryClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 
 		sc.add("public " + I_TOKEN_RESOLVER_FACTORY + " getTokenResolverFactory() {");
 		sc.add("return new " + tokenResolverFactoryClassName + "();");
@@ -386,7 +383,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void findBracketPairsInCsStrings(
 			Collection<BracketPair> defaultPairs,
 			Collection<BracketPair> foundPairs) {
-		List<Rule> rules = context.getConcreteSyntax().getAllRules();
+		List<Rule> rules = getContext().getConcreteSyntax().getAllRules();
 		for (Rule rule : rules) {
 			Collection<CsString> csStrings = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 			Collection<String> csStringValues = new LinkedHashSet<String>();
@@ -406,7 +403,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void findBracketPairsInQuotedPlaceholders(
 			Collection<BracketPair> defaultPairs,
 			Collection<BracketPair> foundPairs) {
-		List<Rule> rules = context.getConcreteSyntax().getAllRules();
+		List<Rule> rules = getContext().getConcreteSyntax().getAllRules();
 		for (Rule rule : rules) {
 			Collection<PlaceholderInQuotes> placeholdersInQuotes = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
 			for (PlaceholderInQuotes placeholder : placeholdersInQuotes) {

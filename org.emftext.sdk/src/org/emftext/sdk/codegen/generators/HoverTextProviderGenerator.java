@@ -11,9 +11,8 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class HoverTextProviderGenerator extends BaseGenerator {
 	
-	
 	public HoverTextProviderGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.HOVER_TEXT_PROVIDER));
+		super(context, EArtifact.HOVER_TEXT_PROVIDER);
 	}
 
 	@Override

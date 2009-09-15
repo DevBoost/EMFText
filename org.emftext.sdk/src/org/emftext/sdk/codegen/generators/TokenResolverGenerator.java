@@ -59,7 +59,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 	private String qualifiedDefaultTokenResolverClassName;
 	
 	public TokenResolverGenerator(GenerationContext context, TokenDefinition definition) {
-		super(context.getResolverPackageName(), nameUtil.getTokenResolverClassName(context.getConcreteSyntax(), definition));
+		super(context, context.getResolverPackageName(), nameUtil.getTokenResolverClassName(context.getConcreteSyntax(), definition));
 		this.definition = definition;
 		this.qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}

@@ -518,7 +518,207 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PARSE_RESULT(47, "OVERRIDE_PARSE_RESULT", "overrideParseResult");
+	OVERRIDE_PARSE_RESULT(47, "OVERRIDE_PARSE_RESULT", "overrideParseResult"), /**
+	 * The '<em><b>OVERRIDE ANTLR TOKEN HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANTLR_TOKEN_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ANTLR_TOKEN_HELPER(48, "OVERRIDE_ANTLR_TOKEN_HELPER", "overrideAntlrTokenHelper"), /**
+	 * The '<em><b>OVERRIDE BRACKET SET</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BRACKET_SET_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BRACKET_SET(49, "OVERRIDE_BRACKET_SET", "overrideBracketSet"), /**
+	 * The '<em><b>OVERRIDE BROWSER INFORMATION CONTROL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BROWSER_INFORMATION_CONTROL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BROWSER_INFORMATION_CONTROL(50, "OVERRIDE_BROWSER_INFORMATION_CONTROL", "overrideBrowserInformationControl"), /**
+	 * The '<em><b>OVERRIDE CODE FOLDING MANAGER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CODE_FOLDING_MANAGER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CODE_FOLDING_MANAGER(51, "OVERRIDE_CODE_FOLDING_MANAGER", "overrideCodeFoldingManager"), /**
+	 * The '<em><b>OVERRIDE COLOR MANAGER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COLOR_MANAGER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_COLOR_MANAGER(52, "OVERRIDE_COLOR_MANAGER", "overrideColorManager"), /**
+	 * The '<em><b>OVERRIDE COMPLETION PROCESSOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COMPLETION_PROCESSOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_COMPLETION_PROCESSOR(53, "OVERRIDE_COMPLETION_PROCESSOR", "overrideCompletionProcessor"), /**
+	 * The '<em><b>OVERRIDE PARSING STRATEGY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PARSING_STRATEGY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PARSING_STRATEGY(54, "OVERRIDE_PARSING_STRATEGY", "overrideParsingStrategy"), /**
+	 * The '<em><b>OVERRIDE DOC BROWSER INFORMATION CONTROL INPUT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT(55, "OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT", "overrideDocBrowserInformationControlInput"), /**
+	 * The '<em><b>OVERRIDE EDITOR CONFIGURATION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EDITOR_CONFIGURATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EDITOR_CONFIGURATION(55, "OVERRIDE_EDITOR_CONFIGURATION", "overrideEditorConfiguration"), /**
+	 * The '<em><b>OVERRIDE EDITOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EDITOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EDITOR(56, "OVERRIDE_EDITOR", "overrideEditor"), /**
+	 * The '<em><b>OVERRIDE EOBJECT SELECTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EOBJECT_SELECTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EOBJECT_SELECTION(57, "OVERRIDE_E_OBJECT_SELECTION", "overrideEObjectSelection"), /**
+	 * The '<em><b>OVERRIDE HIGHLIGHTING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HIGHLIGHTING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_HIGHLIGHTING(58, "OVERRIDE_HIGHLIGHTING", "overrideHighlighting"), /**
+	 * The '<em><b>OVERRIDE HTML PRINTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HTML_PRINTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_HTML_PRINTER(59, "OVERRIDE_HTML_PRINTER", "overrideHTMLPrinter"), /**
+	 * The '<em><b>OVERRIDE HYPERLINK</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HYPERLINK_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_HYPERLINK(60, "OVERRIDE_HYPERLINK", "overrideHyperlink"), /**
+	 * The '<em><b>OVERRIDE HYPERLINK DETECTOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HYPERLINK_DETECTOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_HYPERLINK_DETECTOR(61, "OVERRIDE_HYPERLINK_DETECTOR", "overrideHyperlinkDetector"), /**
+	 * The '<em><b>OVERRIDE MARKER HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MARKER_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_MARKER_HELPER(62, "OVERRIDE_MARKER_HELPER", "overrideMarkerHelper"), /**
+	 * The '<em><b>OVERRIDE OCCURENCE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OCCURENCE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OCCURENCE(63, "OVERRIDE_OCCURENCE", "overrideOccurrence"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE(64, "OVERRIDE_OUTLINE_PAGE", "overrideOutlinePage"), /**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE TREE VIEWER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OUTLINE_PAGE_TREE_VIEWER(65, "OVERRIDE_OUTLINE_PAGE_TREE_VIEWER", "overrideOutlinePageTreeViewer"), /**
+	 * The '<em><b>OVERRIDE PLUGIN ACTIVATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PLUGIN_ACTIVATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PLUGIN_ACTIVATOR(66, "OVERRIDE_PLUGIN_ACTIVATOR", "overridePluginActivator"), /**
+	 * The '<em><b>OVERRIDE POSITION CATEGORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_POSITION_CATEGORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_POSITION_CATEGORY(67, "OVERRIDE_POSITION_CATEGORY", "overridePositionCategory"), /**
+	 * The '<em><b>OVERRIDE POSITION HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_POSITION_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_POSITION_HELPER(68, "OVERRIDE_POSITION_HELPER", "overridePositionHelper"), /**
+	 * The '<em><b>OVERRIDE PROPERTY SHEET PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROPERTY_SHEET_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PROPERTY_SHEET_PAGE(69, "OVERRIDE_PROPERTY_SHEET_PAGE", "overridePropertySheetPage"), /**
+	 * The '<em><b>OVERRIDE TEXT HOVER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_HOVER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TEXT_HOVER(70, "OVERRIDE_TEXT_HOVER", "overrideTextHover"), /**
+	 * The '<em><b>OVERRIDE TOKEN SCANNER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_SCANNER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TOKEN_SCANNER(71, "OVERRIDE_TOKEN_SCANNER", "overrideTokenScanner");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -1226,6 +1426,381 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_PARSE_RESULT_VALUE = 47;
 
 	/**
+	 * The '<em><b>OVERRIDE ANTLR TOKEN HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ANTLR TOKEN HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANTLR_TOKEN_HELPER
+	 * @model literal="overrideAntlrTokenHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ANTLR_TOKEN_HELPER_VALUE = 48;
+
+	/**
+	 * The '<em><b>OVERRIDE BRACKET SET</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BRACKET SET</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BRACKET_SET
+	 * @model literal="overrideBracketSet"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BRACKET_SET_VALUE = 49;
+
+	/**
+	 * The '<em><b>OVERRIDE BROWSER INFORMATION CONTROL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BROWSER INFORMATION CONTROL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BROWSER_INFORMATION_CONTROL
+	 * @model literal="overrideBrowserInformationControl"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BROWSER_INFORMATION_CONTROL_VALUE = 50;
+
+	/**
+	 * The '<em><b>OVERRIDE CODE FOLDING MANAGER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CODE FOLDING MANAGER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CODE_FOLDING_MANAGER
+	 * @model literal="overrideCodeFoldingManager"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CODE_FOLDING_MANAGER_VALUE = 51;
+
+	/**
+	 * The '<em><b>OVERRIDE COLOR MANAGER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE COLOR MANAGER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COLOR_MANAGER
+	 * @model literal="overrideColorManager"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_COLOR_MANAGER_VALUE = 52;
+
+	/**
+	 * The '<em><b>OVERRIDE COMPLETION PROCESSOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE COMPLETION PROCESSOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COMPLETION_PROCESSOR
+	 * @model literal="overrideCompletionProcessor"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_COMPLETION_PROCESSOR_VALUE = 53;
+
+	/**
+	 * The '<em><b>OVERRIDE PARSING STRATEGY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PARSING STRATEGY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PARSING_STRATEGY
+	 * @model literal="overrideParsingStrategy"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PARSING_STRATEGY_VALUE = 54;
+
+	/**
+	 * The '<em><b>OVERRIDE DOC BROWSER INFORMATION CONTROL INPUT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DOC BROWSER INFORMATION CONTROL INPUT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT
+	 * @model literal="overrideDocBrowserInformationControlInput"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT_VALUE = 55;
+
+	/**
+	 * The '<em><b>OVERRIDE EDITOR CONFIGURATION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EDITOR CONFIGURATION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EDITOR_CONFIGURATION
+	 * @model literal="overrideEditorConfiguration"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EDITOR_CONFIGURATION_VALUE = 55;
+
+	/**
+	 * The '<em><b>OVERRIDE EDITOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EDITOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EDITOR
+	 * @model literal="overrideEditor"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EDITOR_VALUE = 56;
+
+	/**
+	 * The '<em><b>OVERRIDE EOBJECT SELECTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EOBJECT SELECTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EOBJECT_SELECTION
+	 * @model name="OVERRIDE_E_OBJECT_SELECTION" literal="overrideEObjectSelection"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EOBJECT_SELECTION_VALUE = 57;
+
+	/**
+	 * The '<em><b>OVERRIDE HIGHLIGHTING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE HIGHLIGHTING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HIGHLIGHTING
+	 * @model literal="overrideHighlighting"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_HIGHLIGHTING_VALUE = 58;
+
+	/**
+	 * The '<em><b>OVERRIDE HTML PRINTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE HTML PRINTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HTML_PRINTER
+	 * @model literal="overrideHTMLPrinter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_HTML_PRINTER_VALUE = 59;
+
+	/**
+	 * The '<em><b>OVERRIDE HYPERLINK</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE HYPERLINK</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HYPERLINK
+	 * @model literal="overrideHyperlink"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_HYPERLINK_VALUE = 60;
+
+	/**
+	 * The '<em><b>OVERRIDE HYPERLINK DETECTOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE HYPERLINK DETECTOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_HYPERLINK_DETECTOR
+	 * @model literal="overrideHyperlinkDetector"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_HYPERLINK_DETECTOR_VALUE = 61;
+
+	/**
+	 * The '<em><b>OVERRIDE MARKER HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE MARKER HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MARKER_HELPER
+	 * @model literal="overrideMarkerHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_MARKER_HELPER_VALUE = 62;
+
+	/**
+	 * The '<em><b>OVERRIDE OCCURENCE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OCCURENCE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OCCURENCE
+	 * @model literal="overrideOccurrence"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OCCURENCE_VALUE = 63;
+
+	/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE
+	 * @model literal="overrideOutlinePage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_VALUE = 64;
+
+	/**
+	 * The '<em><b>OVERRIDE OUTLINE PAGE TREE VIEWER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OUTLINE PAGE TREE VIEWER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OUTLINE_PAGE_TREE_VIEWER
+	 * @model literal="overrideOutlinePageTreeViewer"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_VALUE = 65;
+
+	/**
+	 * The '<em><b>OVERRIDE PLUGIN ACTIVATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PLUGIN ACTIVATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PLUGIN_ACTIVATOR
+	 * @model literal="overridePluginActivator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PLUGIN_ACTIVATOR_VALUE = 66;
+
+	/**
+	 * The '<em><b>OVERRIDE POSITION CATEGORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE POSITION CATEGORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_POSITION_CATEGORY
+	 * @model literal="overridePositionCategory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_POSITION_CATEGORY_VALUE = 67;
+
+	/**
+	 * The '<em><b>OVERRIDE POSITION HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE POSITION HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_POSITION_HELPER
+	 * @model literal="overridePositionHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_POSITION_HELPER_VALUE = 68;
+
+	/**
+	 * The '<em><b>OVERRIDE PROPERTY SHEET PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PROPERTY SHEET PAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PROPERTY_SHEET_PAGE
+	 * @model literal="overridePropertySheetPage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PROPERTY_SHEET_PAGE_VALUE = 69;
+
+	/**
+	 * The '<em><b>OVERRIDE TEXT HOVER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TEXT HOVER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_HOVER
+	 * @model literal="overrideTextHover"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TEXT_HOVER_VALUE = 70;
+
+	/**
+	 * The '<em><b>OVERRIDE TOKEN SCANNER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TOKEN SCANNER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_SCANNER
+	 * @model literal="overrideTokenScanner"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TOKEN_SCANNER_VALUE = 71;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1280,6 +1855,31 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_URI_MAPPING,
 			OVERRIDE_HOVER_TEXT_PROVIDER,
 			OVERRIDE_PARSE_RESULT,
+			OVERRIDE_ANTLR_TOKEN_HELPER,
+			OVERRIDE_BRACKET_SET,
+			OVERRIDE_BROWSER_INFORMATION_CONTROL,
+			OVERRIDE_CODE_FOLDING_MANAGER,
+			OVERRIDE_COLOR_MANAGER,
+			OVERRIDE_COMPLETION_PROCESSOR,
+			OVERRIDE_PARSING_STRATEGY,
+			OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT,
+			OVERRIDE_EDITOR_CONFIGURATION,
+			OVERRIDE_EDITOR,
+			OVERRIDE_EOBJECT_SELECTION,
+			OVERRIDE_HIGHLIGHTING,
+			OVERRIDE_HTML_PRINTER,
+			OVERRIDE_HYPERLINK,
+			OVERRIDE_HYPERLINK_DETECTOR,
+			OVERRIDE_MARKER_HELPER,
+			OVERRIDE_OCCURENCE,
+			OVERRIDE_OUTLINE_PAGE,
+			OVERRIDE_OUTLINE_PAGE_TREE_VIEWER,
+			OVERRIDE_PLUGIN_ACTIVATOR,
+			OVERRIDE_POSITION_CATEGORY,
+			OVERRIDE_POSITION_HELPER,
+			OVERRIDE_PROPERTY_SHEET_PAGE,
+			OVERRIDE_TEXT_HOVER,
+			OVERRIDE_TOKEN_SCANNER,
 		};
 
 	/**
@@ -1377,6 +1977,30 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_URI_MAPPING_VALUE: return OVERRIDE_URI_MAPPING;
 			case OVERRIDE_HOVER_TEXT_PROVIDER_VALUE: return OVERRIDE_HOVER_TEXT_PROVIDER;
 			case OVERRIDE_PARSE_RESULT_VALUE: return OVERRIDE_PARSE_RESULT;
+			case OVERRIDE_ANTLR_TOKEN_HELPER_VALUE: return OVERRIDE_ANTLR_TOKEN_HELPER;
+			case OVERRIDE_BRACKET_SET_VALUE: return OVERRIDE_BRACKET_SET;
+			case OVERRIDE_BROWSER_INFORMATION_CONTROL_VALUE: return OVERRIDE_BROWSER_INFORMATION_CONTROL;
+			case OVERRIDE_CODE_FOLDING_MANAGER_VALUE: return OVERRIDE_CODE_FOLDING_MANAGER;
+			case OVERRIDE_COLOR_MANAGER_VALUE: return OVERRIDE_COLOR_MANAGER;
+			case OVERRIDE_COMPLETION_PROCESSOR_VALUE: return OVERRIDE_COMPLETION_PROCESSOR;
+			case OVERRIDE_PARSING_STRATEGY_VALUE: return OVERRIDE_PARSING_STRATEGY;
+			case OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT_VALUE: return OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT;
+			case OVERRIDE_EDITOR_VALUE: return OVERRIDE_EDITOR;
+			case OVERRIDE_EOBJECT_SELECTION_VALUE: return OVERRIDE_EOBJECT_SELECTION;
+			case OVERRIDE_HIGHLIGHTING_VALUE: return OVERRIDE_HIGHLIGHTING;
+			case OVERRIDE_HTML_PRINTER_VALUE: return OVERRIDE_HTML_PRINTER;
+			case OVERRIDE_HYPERLINK_VALUE: return OVERRIDE_HYPERLINK;
+			case OVERRIDE_HYPERLINK_DETECTOR_VALUE: return OVERRIDE_HYPERLINK_DETECTOR;
+			case OVERRIDE_MARKER_HELPER_VALUE: return OVERRIDE_MARKER_HELPER;
+			case OVERRIDE_OCCURENCE_VALUE: return OVERRIDE_OCCURENCE;
+			case OVERRIDE_OUTLINE_PAGE_VALUE: return OVERRIDE_OUTLINE_PAGE;
+			case OVERRIDE_OUTLINE_PAGE_TREE_VIEWER_VALUE: return OVERRIDE_OUTLINE_PAGE_TREE_VIEWER;
+			case OVERRIDE_PLUGIN_ACTIVATOR_VALUE: return OVERRIDE_PLUGIN_ACTIVATOR;
+			case OVERRIDE_POSITION_CATEGORY_VALUE: return OVERRIDE_POSITION_CATEGORY;
+			case OVERRIDE_POSITION_HELPER_VALUE: return OVERRIDE_POSITION_HELPER;
+			case OVERRIDE_PROPERTY_SHEET_PAGE_VALUE: return OVERRIDE_PROPERTY_SHEET_PAGE;
+			case OVERRIDE_TEXT_HOVER_VALUE: return OVERRIDE_TEXT_HOVER;
+			case OVERRIDE_TOKEN_SCANNER_VALUE: return OVERRIDE_TOKEN_SCANNER;
 		}
 		return null;
 	}

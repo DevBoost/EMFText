@@ -1,0 +1,161 @@
+package org.emftext.sdk.codegen.generators.ui;
+
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BAD_LOCATION_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMF_TEXT_RUNTIME_PLUGIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_SCANNER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_TOKEN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONVERTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_PROPERTY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SYNTAX_COLORING_HELPER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_ATTRIBUTE;
+
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
+
+// TODO once the text token scanners are generated we might not need
+// ITextResourcePluginMetaInformation.createLexer() anymore
+public class TokenScannerGenerator extends BaseGenerator {
+
+	private String colorManagerClassName;
+	private String pluginActivatorClassName;
+
+	public TokenScannerGenerator(GenerationContext context) {
+		super(context, EArtifact.TEXT_TOKEN_SCANNER);
+		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
+		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
+	}
+
+	public boolean generate(PrintWriter out) {
+		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.add("// An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface");
+		sc.add("// to the EMFText <code>ITextLexer</code> interface.");
+		sc.add("//");
+		sc.add("public class " + getResourceClassName() + " implements " + I_TOKEN_SCANNER + " {");
+		sc.addLineBreak();
+		
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
+		
+		sc.add("}");
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addMethods(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		addGetTokenLengthMethod(sc);
+		addGetTokenOffsetMethod(sc);
+		addNextTokenMethod(sc);
+		addSetRangeMethod(sc);
+		addGetTokenTextMethod(sc);
+	}
+
+	private void addGetTokenTextMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public String getTokenText() {");
+		sc.add("return currentToken.getText();");
+		sc.add("}");
+	}
+
+	private void addSetRangeMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public void setRange(" + I_DOCUMENT + " document, int offset, int length) {");
+		sc.add("this.offset = offset;");
+		sc.add("try {");
+		sc.add("lexer.setText(document.get(offset, length));");
+		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
+		sc.add(EMF_TEXT_RUNTIME_PLUGIN + ".logError(\"Unexpected error:\", e);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addNextTokenMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public " + I_TOKEN + " nextToken() {");
+		sc.add("currentToken = lexer.getNextToken();");
+		sc.add("if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {");
+		sc.add("return " + org.eclipse.jface.text.rules.Token.class.getName() + ".EOF;");
+		sc.add("}");
+		sc.add(TEXT_ATTRIBUTE + " ta = null;");
+		sc.add("String tokenName = currentToken.getName();");
+		sc.add("if (tokenName != null) {");
+		sc.add("String enableKey = " + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".ENABLE);");
+		sc.add("if (store.getBoolean(enableKey)) {");
+		sc.add("String colorKey = " + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".COLOR);");
+		sc.add(COLOR + " color = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(store, colorKey));");
+		sc.add("int style = " + SWT + ".NORMAL;");
+		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".BOLD))) {");
+		sc.add("style = style | " + SWT + ".BOLD;");
+		sc.add("}");
+		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".ITALIC))) {");
+		sc.add("style = style | " + SWT + ".ITALIC;");
+		sc.add("}");
+		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".STRIKETHROUGH))) {");
+		sc.add("style = style | " + TEXT_ATTRIBUTE + ".STRIKETHROUGH;");
+		sc.add("}");
+		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".UNDERLINE))) {");
+		sc.add("style = style | " + TEXT_ATTRIBUTE + ".UNDERLINE;");
+		sc.add("}");
+		sc.add("ta = new " + TEXT_ATTRIBUTE + "(color, null, style);");
+		sc.add("}");
+		sc.add("}");
+		//TODO potential performance improvement for large files in the future:
+		//build a map of tokens and reuse them instead of creating new ones
+		sc.add("return new " + org.eclipse.jface.text.rules.Token.class.getName() + "(ta);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetTokenOffsetMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public int getTokenOffset() {");
+		sc.add("return offset + currentToken.getOffset();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetTokenLengthMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public int getTokenLength() {");
+		sc.add("return currentToken.getLength();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("// @param resource The <code>" + I_TEXT_RESOURCE + "</code> from which the <code>Lexer</code> can be determined.");
+		sc.add("// @param colorManager A manager to obtain color objects");
+		sc.add("public " + getResourceClassName() + "(" + I_TEXT_RESOURCE + " resource, " + colorManagerClassName + " colorManager) {");
+		sc.add("this.lexer = resource.getMetaInformation().createLexer();");
+		sc.add("this.languageId = resource.getMetaInformation().getSyntaxName();");
+		sc.add("this.store = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
+		sc.add("this.colorManager = colorManager;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("private " + I_TEXT_SCANNER + " lexer;");
+		sc.add("private " + I_TEXT_TOKEN + " currentToken;");
+		sc.add("private int offset;");
+		sc.add("private String languageId;");
+		sc.add("private " + I_PREFERENCE_STORE + " store;");
+		sc.add("private " + colorManagerClassName + " colorManager;");
+		sc.addLineBreak();
+	}
+}

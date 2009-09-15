@@ -11,7 +11,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends BaseGenerator {
 	private String qualifiedContextDependentURIFragmentClassName;
 
 	public ContextDependentURIFragmentFactoryGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
+		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 		qualifiedContextDependentURIFragmentClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
 	}
 

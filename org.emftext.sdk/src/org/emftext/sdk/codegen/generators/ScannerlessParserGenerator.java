@@ -99,7 +99,6 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 	
-	private GenerationContext context;
 	private String qualifiedTokenResolverFactoryClassName;
 	private String qualifiedDummyEObjectClassName;
 	private String qualifiedTokenResolveResultClassName;
@@ -107,8 +106,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private Set<String> parseMethods = new LinkedHashSet<String>();
 	
 	public ScannerlessParserGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.SCANNERLESS_PARSER));
-		this.context = context;
+		super(context, EArtifact.SCANNERLESS_PARSER);
 		this.qualifiedTokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		this.qualifiedDummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
 		this.qualifiedTokenResolveResultClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
@@ -473,8 +471,8 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		generatorUtil.addAddMapEntryMethod(sc, qualifiedDummyEObjectClassName);
 		generatorUtil.addAddObjectToListMethod(sc);
 		generatorUtil.addGetFreshTokenResolveResultMethod(sc, qualifiedTokenResolveResultClassName);
-		generatorUtil.addGetReferenceResolverSwitchMethod(context, sc);
-    	context.addGetMetaInformationMethod(sc);
+		generatorUtil.addGetReferenceResolverSwitchMethod(getContext(), sc);
+		getContext().addGetMetaInformationMethod(sc);
 		// this is the two parameter version
 		addAddErrorToResourceMethod(sc);
 		// this is the four parameter version
@@ -658,7 +656,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("public boolean matchUnusedTokens() {");
 		sc.add("while (true) {");
 		sc.add("boolean found = false;");
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		for (TokenDefinition tokenDefinition : syntax.getActiveTokens()) {
 			if (tokenDefinition.isHidden()) {
 				String field = getFieldName(tokenDefinition);
@@ -739,7 +737,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 
 	private void addParseStartSymbolsMethod(StringComposite sc) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		sc.add("public boolean parseStartSymbols() {");
 		sc.add("boolean matches;");
 		for (GenClass startSymbol : syntax.getActiveStartSymbols()) {
@@ -778,7 +776,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 	
 	private void addParseMethod(StringComposite sc) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 
 		sc.add("public " + I_PARSE_RESULT + " parse() {");
 		sc.add("restoreStackMode = false;");
@@ -826,7 +824,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("addParseErrorToResource();");
 		sc.add("// return root element");
-		String parseResultClassName = context.getQualifiedClassName(EArtifact.PARSE_RESULT);
+		String parseResultClassName = getContext().getQualifiedClassName(EArtifact.PARSE_RESULT);
 		sc.add(parseResultClassName + " result = new " + parseResultClassName + "();");
 		sc.add("result.setRoot(context.getCurrentContainer());");
 		sc.add("result.getPostParseCommands().addAll(postParseCommands);");
@@ -872,7 +870,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 
 	private void addProcessParseTrialStackMethod(StringComposite sc) {
-		boolean forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.FORCE_EOF);
+		boolean forceEOFToken = OptionManager.INSTANCE.getBooleanOptionValue(getContext().getConcreteSyntax(), OptionTypes.FORCE_EOF);
 
 		sc.add("public boolean processParseTrialStack() {");
 		sc.add("while (!parseTrials.empty()) {");
@@ -969,7 +967,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 
 	private void addTokenPatterns(StringComposite sc) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<String> tokenNames = new ArrayList<String>();
 		List<TokenDefinition> tokens = syntax.getActiveTokens();
 		for (TokenDefinition tokenDefinition : tokens) {
@@ -1004,7 +1002,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 	
 	private void addTokensField(StringComposite sc) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		Set<String> tokenNames = new LinkedHashSet<String>();
 		List<TokenDefinition> tokens = syntax.getActiveTokens();
 		for (TokenDefinition tokenDefinition : tokens) {
@@ -1026,7 +1024,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 
 	private void addMethodsForRules(StringComposite sc) {
-		ConcreteSyntax syntax = context.getConcreteSyntax();
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
 		List<Rule> rules = syntax.getAllRules();
 		for (Rule rule : rules) {
 			addMethodForRule(sc, syntax, rule);
@@ -1382,9 +1380,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		    	} else {
 		    		proxyType = instanceType;
 		    	}
-				String proxyResolver = context.getReferenceResolverAccessor(genFeature);
+				String proxyResolver = getContext().getReferenceResolverAccessor(genFeature);
 				sc.add("addCommand(new AddProxyCommand<" + genClassFinder.getQualifiedInterfaceName(genFeature.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(instanceType) + ">(offsetBeforeMatch, offsetBeforeMatch + match.length(), \"" + tokenDefinition.getName() + "\", " + featureConstant + ", " + genClassUtil.getAccessor(proxyType) + ", " + proxyResolver + "));");
-            	context.addNonContainmentReference(genFeature);
+				getContext().addNonContainmentReference(genFeature);
 			} else {
 				throw new RuntimeException("Found unknown feature type for terminal.");
 			}

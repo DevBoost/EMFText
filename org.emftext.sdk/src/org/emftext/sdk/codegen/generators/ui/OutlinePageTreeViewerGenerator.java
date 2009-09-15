@@ -1,0 +1,97 @@
+package org.emftext.sdk.codegen.generators.ui;
+
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
+
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
+
+public class OutlinePageTreeViewerGenerator extends BaseGenerator {
+
+	public OutlinePageTreeViewerGenerator(GenerationContext context) {
+		super(context, EArtifact.OUTLINE_PAGE_TREE_VIEWER);
+	}
+
+	public boolean generate(PrintWriter out) {
+		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		sc.add("package " + getResourcePackageName() + ";");
+		sc.addLineBreak();
+		sc.add("// This custom implementation of a TreeViewer expands the tree");
+		sc.add("// automatically up to a specified depth.");
+		sc.add("public class " + getResourceClassName() + " extends " + TREE_VIEWER + " {");
+		sc.addLineBreak();
+		
+		addConstructor(sc);
+		addMethods(sc);
+
+		sc.add("}");
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addMethods(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		addSetSelectionMethod(sc);
+		addRefreshMethod1(sc);
+		addRefreshMethod2(sc);
+		addRefreshMethod3(sc);
+		addRefreshMethod4(sc);
+	}
+
+	private void addRefreshMethod4(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public void refresh(boolean updateLabels) {");
+		sc.add("super.refresh(updateLabels);");
+		sc.add("expandToLevel(getAutoExpandLevel());");
+		sc.add("}");
+	}
+
+	private void addRefreshMethod3(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public void refresh() {");
+		sc.add("super.refresh();");
+		sc.add("expandToLevel(getAutoExpandLevel());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addRefreshMethod2(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public void refresh(Object element) {");
+		sc.add("super.refresh(element);");
+		sc.add("expandToLevel(getAutoExpandLevel());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addRefreshMethod1(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public void refresh(Object element, boolean updateLabels) {");
+		sc.add("super.refresh(element, updateLabels);");
+		sc.add("expandToLevel(getAutoExpandLevel());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSetSelectionMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
+		sc.add("if (selection instanceof " + getContext().getQualifiedClassName(EArtifact.E_OBJECT_SELECTION) + ") {");
+		sc.add("super.setSelection(selection, reveal);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public " + getResourceClassName() + "(" + COMPOSITE + " parent, int style) {");
+		sc.add("super(parent, style);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+}

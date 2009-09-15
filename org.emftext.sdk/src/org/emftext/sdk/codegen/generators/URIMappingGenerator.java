@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class URIMappingGenerator extends BaseGenerator {
 
 	public URIMappingGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.URI_MAPPING));
+		super(context, EArtifact.URI_MAPPING);
 	}
 
 	public boolean generate(PrintWriter out) {

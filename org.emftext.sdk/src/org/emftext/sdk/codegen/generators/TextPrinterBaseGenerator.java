@@ -115,12 +115,10 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	 */
 	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
-	private GenerationContext context;
 
 	public TextPrinterBaseGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.PRINTER_BASE));
+		super(context, EArtifact.PRINTER_BASE);
 
-		this.context = context;
 		this.concretSyntax = context.getConcreteSyntax();
 		this.qualifiedTokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		this.qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
@@ -337,7 +335,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("// the resource can be null if the printer is used stand alone");
 		sc.add("return;");
 		sc.add("}");
-    	sc.add("resource.addProblem(new " + context.getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), cause);");
+    	sc.add("resource.addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), cause);");
 		sc.add("}");
 	}
 
@@ -666,7 +664,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");
 								printStatements.add(printPrefix + "resolver.deResolve(" 
-										+ context.getReferenceResolverAccessor(genFeature)
+										+ getContext().getReferenceResolverAccessor(genFeature)
 										+ ".deResolve((" + genClassFinder.getQualifiedInterfaceName(genFeature.getTypeGenClass()) + ") o, element, (" + E_REFERENCE + ") element.eClass().getEStructuralFeature("
 										+ featureConstant
 										+ ")), element.eClass().getEStructuralFeature("

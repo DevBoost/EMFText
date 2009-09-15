@@ -14,7 +14,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 public class ProblemClassGenerator extends BaseGenerator {
 
 	public ProblemClassGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.PROBLEM));
+		super(context, EArtifact.PROBLEM);
 	}
 
 	@Override

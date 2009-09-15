@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class DummyEObjectGenerator extends BaseGenerator {
 
 	public DummyEObjectGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.DUMMY_E_OBJECT));
+		super(context, EArtifact.DUMMY_E_OBJECT);
 	}
 
 	public boolean generate(PrintWriter out) {

@@ -27,6 +27,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
@@ -111,6 +113,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	
 	private List<GenerationProblem> errors;
 	private List<GenerationProblem> warnings;
+	private GenerationContext context;
 	private String className;
 	private String packageName;
 
@@ -122,10 +125,22 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	 * @param packageName
 	 * @param className
 	 */
-	public BaseGenerator(String packageName, String className) {
+	// TODO pass artifact type instead of package/class name and
+	// derive names from type
+	public BaseGenerator(GenerationContext context, EArtifact artifact) {
 		errors = new LinkedList<GenerationProblem>();
 		warnings = new LinkedList<GenerationProblem>();
 
+		this.context = context;
+		this.packageName = context.getPackageName(artifact);
+		this.className = context.getClassName(artifact);
+	}
+	
+	public BaseGenerator(GenerationContext context, String packageName, String className) {
+		errors = new LinkedList<GenerationProblem>();
+		warnings = new LinkedList<GenerationProblem>();
+
+		this.context = context;
 		this.packageName = packageName;
 		this.className = className;
 	}
@@ -140,7 +155,10 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	 */
 	public abstract boolean generate(PrintWriter out);
 	
-	
+	public GenerationContext getContext() {
+		return context;
+	}
+
 	/**
 	 * Can be used by base classes to collect problems.
 	 * 
@@ -172,6 +190,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
      * @param s a string
      * @return the modified string.
      */
+    // TODO this method does not belong here
     protected static String low(String s) {
         String h = s.substring(0, 1).toLowerCase();
         String t = s.substring(1);      
@@ -186,6 +205,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	 * @param identifier an identifier.
 	 * @return an identifier that does not lead to conflicts.
 	 */
+    // TODO this method does not belong here
     protected static String getLowerCase(String identifier) {
     	identifier = identifier.toLowerCase();
     	if (isReserveredWord(identifier)) {
@@ -194,6 +214,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
     	return identifier;
     }
     
+    // TODO this method does not belong here
     private static boolean isReserveredWord(String identifier) {
 		for (String word : RESERVED_WORDS) {
 			if (word.toLowerCase().equals(identifier)) {

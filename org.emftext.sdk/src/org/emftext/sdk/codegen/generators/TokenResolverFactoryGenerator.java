@@ -50,11 +50,8 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	
 	private final NameUtil nameUtil = new NameUtil();
 	
-	private GenerationContext context;
-	
 	public TokenResolverFactoryGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.TOKEN_RESOLVER_FACTORY));
-		this.context = context;
+		super(context, EArtifact.TOKEN_RESOLVER_FACTORY);
 	}
 	
 	@Override
@@ -142,7 +139,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	private void addFields(StringComposite sc) {
 		sc.add("private " + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> tokenName2TokenResolver;");
 		sc.add("private " + MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + "> featureName2CollectInTokenResolver;");
-		String qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
+		String qualifiedDefaultTokenResolverClassName = getContext().getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 		sc.add("private static " + I_TOKEN_RESOLVER + " defaultResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		sc.addLineBreak();
 	}
@@ -151,7 +148,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("tokenName2TokenResolver = new " + HASH_MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + ">();");
 		sc.add("featureName2CollectInTokenResolver = new " + HASH_MAP + "<" + STRING + ", " + I_TOKEN_RESOLVER + ">();");
-		ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
+		ConcreteSyntax concreteSyntax = getContext().getConcreteSyntax();
 		for (TokenDefinition definition : concreteSyntax.getActiveTokens()) {
 			if (!definition.isUsed()) {
 				continue;

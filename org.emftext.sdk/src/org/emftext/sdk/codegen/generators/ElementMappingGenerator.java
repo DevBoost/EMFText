@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class ElementMappingGenerator extends BaseGenerator {
 
 	public ElementMappingGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.ELEMENT_MAPPING));
+		super(context, EArtifact.ELEMENT_MAPPING);
 	}
 
 	public boolean generate(PrintWriter out) {

@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class DelegatingResolveResultGenerator extends BaseGenerator {
 
 	public DelegatingResolveResultGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.DELEGATING_RESOLVE_RESULT));
+		super(context, EArtifact.DELEGATING_RESOLVE_RESULT);
 	}
 
 	public boolean generate(PrintWriter out) {

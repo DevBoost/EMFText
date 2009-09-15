@@ -100,17 +100,15 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String csSyntaxName;
 	private String qualifiedProblemClassName;
 	private String qualifiedLocationMapClassName;
-	private GenerationContext context;
 
 	public TextResourceGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.RESOURCE));
+		super(context, EArtifact.RESOURCE);
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
 		this.qualifiedResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 		this.qualifiedPrinterClassName = context.getQualifiedClassName(EArtifact.PRINTER);
 		this.qualifiedProblemClassName = context.getQualifiedClassName(EArtifact.PROBLEM);
 		this.qualifiedLocationMapClassName = context.getClassName(EArtifact.LOCATION_MAP);
-		this.context = context;
 	}
 
 	@Override
@@ -145,7 +143,7 @@ public class TextResourceGenerator extends BaseGenerator {
         addDoSaveMethod(sc);
         addGetSyntaxNameMethod(sc);
         addGetReferenceResolverSwitchMethod(sc);
-    	context.addGetMetaInformationMethod(sc);
+    	getContext().addGetMetaInformationMethod(sc);
 
     	addResetLocationMapMethod(sc);
     	addAddURIFragmentMethod(sc);

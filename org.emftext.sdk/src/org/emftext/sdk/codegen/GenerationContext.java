@@ -113,8 +113,8 @@ public abstract class GenerationContext {
 		return nameUtil.getPluginName(concreteSyntax);
 	}
 
-	public String getPackageName() {
-		return nameUtil.getPackageName(concreteSyntax);
+	public String getPackageName(EArtifact artifact) {
+		return nameUtil.getPackageName(concreteSyntax, artifact);
 	}
 
 	/**
@@ -202,9 +202,9 @@ public abstract class GenerationContext {
 		return OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), OptionTypes.GENERATE_TEST_ACTION);
 	}
 
-	public String getPackagePath() {
+	public String getPackagePath(EArtifact artifact) {
 		File targetFolder = getSourceFolder();
-		IPath csPackagePath = new Path(getPackageName().replaceAll("\\.","/"));
+		IPath csPackagePath = new Path(getPackageName(artifact).replaceAll("\\.","/"));
 		String targetFolderPath = targetFolder.getAbsolutePath();
 		String packagePath = targetFolderPath + File.separator + csPackagePath + File.separator;
 		return packagePath;
@@ -229,7 +229,7 @@ public abstract class GenerationContext {
 
 	public File getANTLRGrammarFile() {
 		String antlrName = getCapitalizedConcreteSyntaxName();
-		String packagePath = getPackagePath();
+		String packagePath = getPackagePath(EArtifact.ANTLR_GRAMMAR);
   		File antlrFile = new File(packagePath + antlrName + ANTRL_GRAMMAR_FILE_EXTENSION);
 		return antlrFile;
 	}
@@ -241,20 +241,21 @@ public abstract class GenerationContext {
 	public String getQualifiedDefaultResolverDelegateName() {
 		return getResolverPackageName() + "." + getDefaultResolverDelegateName();
 	}
-	
+	/*
 	public File getDefaultResolverDelegateFile() {
 		return new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + nameUtil.getDefaultResolverDelegateName(getConcreteSyntax()) + JAVA_FILE_EXTENSION);
 	}
+	*/
 
 	public String getClassName(EArtifact artifact) {
 		return getCapitalizedConcreteSyntaxName() + artifact.getClassNameSuffix();
 	}
 
 	public String getQualifiedClassName(EArtifact artifact) {
-		return getPackageName() + "." + getClassName(artifact);
+		return getPackageName(artifact) + "." + getClassName(artifact);
 	}
 
 	public File getFile(EArtifact artifact) {
-		return new File(getPackagePath() + getClassName(artifact) + JAVA_FILE_EXTENSION);
+		return new File(getPackagePath(artifact) + getClassName(artifact) + JAVA_FILE_EXTENSION);
 	}
 }

@@ -57,7 +57,7 @@ public class NewFileWizardGenerator implements IGenerator {
 
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
-		sc.add("package " + context.getPackageName() + ";");
+		sc.add("package " + context.getPackageName(EArtifact.NEW_FILE_WIZARD) + ";");
 		sc.add("public class " + context.getClassName(EArtifact.NEW_FILE_WIZARD) + " extends " + AbstractNewFileWizard.class.getName() + " {");
 		sc.addLineBreak();
 		

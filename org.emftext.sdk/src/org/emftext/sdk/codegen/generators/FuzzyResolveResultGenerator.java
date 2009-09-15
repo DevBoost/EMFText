@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class FuzzyResolveResultGenerator extends BaseGenerator {
 
 	public FuzzyResolveResultGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.FUZZY_RESOLVE_RESULT));
+		super(context, EArtifact.FUZZY_RESOLVE_RESULT);
 	}
 
 	public boolean generate(PrintWriter out) {

@@ -17,7 +17,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 public class ParseResultGenerator extends BaseGenerator {
 	
 	public ParseResultGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.PARSE_RESULT));
+		super(context, EArtifact.PARSE_RESULT);
 	}
 
 	@Override

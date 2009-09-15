@@ -29,6 +29,8 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
  * background parsing is required depending of the change made to a 
  * text document.
  */
+// TODO mseifert: remove this interface the corresponding abstact class once the
+// editors are generated
 public interface IBackgroundParsingStrategy {
 	
 	/**

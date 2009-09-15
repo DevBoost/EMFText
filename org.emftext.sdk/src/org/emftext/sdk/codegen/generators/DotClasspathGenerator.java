@@ -34,17 +34,14 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotClasspathGenerator extends BaseGenerator {
 
-	private GenerationContext context;
-
 	public DotClasspathGenerator(GenerationContext context) {
-		super("", ".classpath");
-		this.context = context;
+		super(context, "", ".classpath");
 	}
 
 	@Override
 	public boolean generate(PrintWriter out) {
 		
-		String sourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(context.getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
+		String sourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
 		String sourceFolder;
 		if (sourceOptionValue == null) {
 			sourceFolder = "src";

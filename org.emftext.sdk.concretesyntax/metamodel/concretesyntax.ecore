@@ -189,6 +189,31 @@
     <eLiterals name="OVERRIDE_URI_MAPPING" value="45" literal="overrideURIMapping"/>
     <eLiterals name="OVERRIDE_HOVER_TEXT_PROVIDER" value="46" literal="overrideHoverTextProvider"/>
     <eLiterals name="OVERRIDE_PARSE_RESULT" value="47" literal="overrideParseResult"/>
+    <eLiterals name="OVERRIDE_ANTLR_TOKEN_HELPER" value="48" literal="overrideAntlrTokenHelper"/>
+    <eLiterals name="OVERRIDE_BRACKET_SET" value="49" literal="overrideBracketSet"/>
+    <eLiterals name="OVERRIDE_BROWSER_INFORMATION_CONTROL" value="50" literal="overrideBrowserInformationControl"/>
+    <eLiterals name="OVERRIDE_CODE_FOLDING_MANAGER" value="51" literal="overrideCodeFoldingManager"/>
+    <eLiterals name="OVERRIDE_COLOR_MANAGER" value="52" literal="overrideColorManager"/>
+    <eLiterals name="OVERRIDE_COMPLETION_PROCESSOR" value="53" literal="overrideCompletionProcessor"/>
+    <eLiterals name="OVERRIDE_PARSING_STRATEGY" value="54" literal="overrideParsingStrategy"/>
+    <eLiterals name="OVERRIDE_DOC_BROWSER_INFORMATION_CONTROL_INPUT" value="55" literal="overrideDocBrowserInformationControlInput"/>
+    <eLiterals name="OVERRIDE_EDITOR_CONFIGURATION" value="55" literal="overrideEditorConfiguration"/>
+    <eLiterals name="OVERRIDE_EDITOR" value="56" literal="overrideEditor"/>
+    <eLiterals name="OVERRIDE_E_OBJECT_SELECTION" value="57" literal="overrideEObjectSelection"/>
+    <eLiterals name="OVERRIDE_HIGHLIGHTING" value="58" literal="overrideHighlighting"/>
+    <eLiterals name="OVERRIDE_HTML_PRINTER" value="59" literal="overrideHTMLPrinter"/>
+    <eLiterals name="OVERRIDE_HYPERLINK" value="60" literal="overrideHyperlink"/>
+    <eLiterals name="OVERRIDE_HYPERLINK_DETECTOR" value="61" literal="overrideHyperlinkDetector"/>
+    <eLiterals name="OVERRIDE_MARKER_HELPER" value="62" literal="overrideMarkerHelper"/>
+    <eLiterals name="OVERRIDE_OCCURENCE" value="63" literal="overrideOccurrence"/>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE" value="64" literal="overrideOutlinePage"/>
+    <eLiterals name="OVERRIDE_OUTLINE_PAGE_TREE_VIEWER" value="65" literal="overrideOutlinePageTreeViewer"/>
+    <eLiterals name="OVERRIDE_PLUGIN_ACTIVATOR" value="66" literal="overridePluginActivator"/>
+    <eLiterals name="OVERRIDE_POSITION_CATEGORY" value="67" literal="overridePositionCategory"/>
+    <eLiterals name="OVERRIDE_POSITION_HELPER" value="68" literal="overridePositionHelper"/>
+    <eLiterals name="OVERRIDE_PROPERTY_SHEET_PAGE" value="69" literal="overridePropertySheetPage"/>
+    <eLiterals name="OVERRIDE_TEXT_HOVER" value="70" literal="overrideTextHover"/>
+    <eLiterals name="OVERRIDE_TOKEN_SCANNER" value="71" literal="overrideTokenScanner"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

@@ -11,7 +11,7 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 	private GenerationContext context;
 
 	public BuildPropertiesGenerator(GenerationContext context) {
-		super("", "build.properties");
+		super(context, "", "build.properties");
 		this.context = context;
 	}
 

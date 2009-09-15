@@ -41,7 +41,7 @@ public class TextPrinterGenerator extends BaseGenerator {
 	private String basePrinterClassName; 
 	
 	public TextPrinterGenerator(GenerationContext context, boolean printerBaseExists){
-		super(context.getPackageName(), context.getClassName(EArtifact.PRINTER));
+		super(context, EArtifact.PRINTER);
 		if (printerBaseExists) { 
 			basePrinterClassName = context.getClassName(EArtifact.PRINTER_BASE);
 		} else {

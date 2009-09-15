@@ -52,11 +52,8 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
-	private final GenerationContext context;
-
 	public ReferenceResolverSwitchGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.REFERENCE_RESOLVER_SWITCH));
-		this.context = context;
+		super(context, EArtifact.REFERENCE_RESOLVER_SWITCH);
 	}
 	
 	@Override
@@ -88,10 +85,10 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     }
 
 	private void generateResolveFuzzyMethod(StringComposite sc) {
-		String qualifiedFuzzyResolveResultClassName = context.getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
+		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
 		
 		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, int position, " + I_REFERENCE_RESOLVE_RESULT + "<" + E_OBJECT + "> result) {");
-		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
+		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
@@ -116,7 +113,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 
 	private void generateSetOptionsMethod(StringComposite sc) {
 		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
-		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
+		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			sc.add(low(generatedClassName) + ".setOptions(options);");			
 		}
@@ -127,11 +124,11 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private void generateFields(StringComposite sc) {
     	List<String> generatedResolvers = new ArrayList<String>();
 
-		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
+		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
-				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);
+				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference);
 				sc.add("protected " + fullClassName + " " + low(generatedClassName) + " = new " + fullClassName + "();");			
 			}
 		}
@@ -141,11 +138,11 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private void generateGetMethods(StringComposite sc) {
     	List<String> generatedResolvers = new ArrayList<String>();
 
-		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
+		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			String generatedClassName = nameUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
-				String fullClassName = context.getQualifiedReferenceResolverClassName(proxyReference);
+				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference);
 				sc.add("public " + fullClassName + " get" + generatedClassName + "() {");
 				sc.add("return " + low(generatedClassName) + ";");			
 				sc.add("}");

@@ -201,7 +201,7 @@ public class OptionManager {
 		if (option == OptionTypes.OVERRIDE_URI_MAPPING) {
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 	public int getIntegerOptionValue(ConcreteSyntax syntax,

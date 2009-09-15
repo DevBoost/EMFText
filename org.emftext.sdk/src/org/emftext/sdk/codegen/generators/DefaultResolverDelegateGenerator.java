@@ -18,6 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -25,7 +26,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 public class DefaultResolverDelegateGenerator extends BaseGenerator {
 
 	public DefaultResolverDelegateGenerator(GenerationContext context) {
-		super(context.getResolverPackageName(), context.getDefaultResolverDelegateName());
+		super(context, EArtifact.DEFAULT_RESOLVER_DELEGATE);
 	}
 
 	@Override

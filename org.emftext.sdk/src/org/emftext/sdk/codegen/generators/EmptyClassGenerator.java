@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -9,7 +10,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 public class EmptyClassGenerator extends BaseGenerator {
 
 	public EmptyClassGenerator(GenerationContext context, String className) {
-		super(context.getPackageName(), className);
+		super(context, context.getPackageName(EArtifact.MAIN_PACKAGE), className);
 	}
 
 	@Override

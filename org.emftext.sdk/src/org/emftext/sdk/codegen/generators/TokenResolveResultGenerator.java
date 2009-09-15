@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class TokenResolveResultGenerator extends BaseGenerator {
 
 	public TokenResolveResultGenerator(GenerationContext context) {
-		super(context.getPackageName(), context.getClassName(EArtifact.TOKEN_RESOLVE_RESULT));
+		super(context, EArtifact.TOKEN_RESOLVE_RESULT);
 	}
 
 	public boolean generate(PrintWriter out) {

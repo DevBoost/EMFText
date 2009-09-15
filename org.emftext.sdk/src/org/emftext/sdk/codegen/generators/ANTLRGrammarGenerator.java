@@ -163,6 +163,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private boolean forceEOFToken;
 	private GenClassFinder genClassFinder = new GenClassFinder();
 
+	// TODO mseifert: remove this field, use getContext() instead
 	private GenerationContext context;
 
 	private GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -170,8 +171,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private ArrayList<String> keywordTokens;
 
 	public ANTLRGrammarGenerator(GenerationContext context) {
-		super(context.getPackageName(), context
-				.getCapitalizedConcreteSyntaxName());
+		super(context, EArtifact.ANTLR_GRAMMAR);
 		this.context = context;
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.qualifiedTokenResolverFactoryClassName = context
