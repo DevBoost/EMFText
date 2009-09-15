@@ -65,8 +65,8 @@ public class NameUtil {
 			}
 			packageName += concreteSyntaxPackage.getEcorePackage().getName();
 			packageName += ".resource." + syntax.getName();
-			packageName += ("".equals(artifact.getPackage()) ? "" : "." + artifact.getPackage());
 		}
+		packageName += ("".equals(artifact.getPackage()) ? "" : "." + artifact.getPackage());
 		return packageName;
 	}
 
@@ -76,6 +76,7 @@ public class NameUtil {
 	 */
 	public String getResolverPackageName(ConcreteSyntax syntax) {
 		String csPackageName = getPackageName(syntax, EArtifact.ANALYSIS_PACKAGE);
+		System.out.println("NameUtil.getResolverPackageName(" + syntax.getName() + "): " + csPackageName);
 		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
 	}
 
