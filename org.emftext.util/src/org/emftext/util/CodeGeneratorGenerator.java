@@ -8,12 +8,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.emftext.runtime.util.StreamUtil;
 import org.emftext.runtime.util.StringUtil;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -24,8 +27,9 @@ import org.emftext.sdk.codegen.generators.IClassNameConstants;
 public class CodeGeneratorGenerator {
 
 	private static final String ADD_QUOTES_HERE = "ADD_QUOTES_HERE";
-	private String OLD_SRC_DIR = "org.emftext.runtime" + File.separator + "src";
+	private String OLD_SRC_DIR = "org.emftext.runtime.ui" + File.separator + "src";
 	private String NEW_SRC_DIR = "org.emftext.util" + File.separator + "src-output";
+	private Set<String> importedClasses = new LinkedHashSet<String>();
 
 	public static void main(String[] args) {
 		new CodeGeneratorGenerator().run();
@@ -41,6 +45,9 @@ public class CodeGeneratorGenerator {
 		List<File> allFiles = findAllFiles(baseFolder);
 		for (File file : allFiles) {
 			handle(oldDir, newDir, file);
+		}
+		for (String importedClass : importedClasses) {
+			System.out.println("public static String " + StringUtil.convertCamelCaseToAllCaps(importedClass) + " = " + importedClass + ".class.getName();");
 		}
 	}
 
@@ -142,11 +149,12 @@ public class CodeGeneratorGenerator {
 		result.append("import " + BaseGenerator.class.getName() + ";\n");
 		result.append("import " + GenerationContext.class.getName() + ";\n");
 		result.append("import " + PrintWriter.class.getName() + ";\n");
+		result.append("import " + EArtifact.class.getName() + ";\n");
 		result.append("\n");
 		result.append("public class " + generatorName + " extends BaseGenerator {\n");
 		result.append("\n");
 		result.append("\tpublic " + generatorName + "(GenerationContext context, boolean printerBaseExists) {\n");
-		result.append("\t\tsuper(context.getPackageName(), context.get" + className + "Name());\n");
+		result.append("\t\tsuper(context, context.getUIPackageName(), context.getClassName(EArtifact." + className + "));\n");
 		result.append("\t}\n");
 		result.append("\n");
 		result.append("\tpublic boolean generate(PrintWriter out) {\n");
@@ -159,6 +167,15 @@ public class CodeGeneratorGenerator {
 			String trimmedLine = line.trim();
 			if (line.startsWith("import ")) {
 				continue;
+			}
+			if (trimmedLine.startsWith("*")) {
+				trimmedLine = "//" + trimmedLine.substring(1);
+			}
+			if (trimmedLine.startsWith("/*")) {
+				trimmedLine = "//" + trimmedLine.substring(2);
+			}
+			if (trimmedLine.equals("*/")) {
+				trimmedLine = "";
 			}
 			if ("".equals(trimmedLine)) {
 				result.append("\t\tsc.addLineBreak();\n");
@@ -186,6 +203,12 @@ public class CodeGeneratorGenerator {
 			}
 			int start = matcher.start();
 			int end = matcher.end();
+			if (("" + fileContent.charAt(start - 1)).matches("([a-z]|[A-Z])")) {
+				// character before occurrence is also a letter
+				// this is probably a variable name and not a type
+				offset = end + 1;
+				continue;
+			}
 			String potentialClassName = fileContent.substring(start, end);
 			//System.out.println("Found potential class name at (" + start + "-" + end + "): " + potentialClassName);
 			boolean isInComment = isInComment(fileContent, start, end);
@@ -194,6 +217,7 @@ public class CodeGeneratorGenerator {
 				String qualifiedClassName = isImported(fileContent, potentialClassName);
 				boolean isImported = qualifiedClassName != null;
 				if (isImported) {
+					importedClasses.add(qualifiedClassName);
 					String qualifiedClassConstant = StringUtil.convertCamelCaseToAllCaps(qualifiedClassName);
 					//System.out.println("Found class " + qualifiedClassName);
 					String newCode = ADD_QUOTES_HERE + " + " + qualifiedClassConstant + " + " + ADD_QUOTES_HERE;
