@@ -63,6 +63,7 @@ import org.emftext.runtime.ui.preferences.PreferenceConstants;
  * @author Tan-Ky Hoang-Kim
  * 
  */
+@Deprecated
 public class Highlighting implements ISelectionProvider, ISelectionChangedListener {
 
 	private final static PositionHelper positionHelper = new PositionHelper();

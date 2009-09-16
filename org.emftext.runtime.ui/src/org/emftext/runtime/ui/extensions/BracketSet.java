@@ -42,6 +42,7 @@ import org.emftext.runtime.ui.preferences.PreferenceConstants;
  * 
  * @author Tan-Ky Hoang-Kim
  */
+@Deprecated
 public class BracketSet {
 
 	// the separator between a bracket pair, should not contain escape needed

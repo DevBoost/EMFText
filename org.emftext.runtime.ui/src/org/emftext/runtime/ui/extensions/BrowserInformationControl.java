@@ -80,6 +80,7 @@ import org.eclipse.jface.text.TextPresentation;
  *
  * @since 3.2
  */
+@Deprecated
 public class BrowserInformationControl extends AbstractInformationControl implements IInformationControlExtension2, IDelayedInputChangeProvider {
 
 	/**

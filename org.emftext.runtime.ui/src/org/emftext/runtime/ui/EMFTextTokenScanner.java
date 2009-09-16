@@ -43,6 +43,7 @@ import org.emftext.runtime.ui.preferences.SyntaxColoringHelper.StyleProperty;
  * TODO once this class is generated we might not need
  * ITextResourcePluginMetaInformation.createLexer() anymore
  */
+@Deprecated
 public class EMFTextTokenScanner implements ITokenScanner {
     
     private ITextScanner lexer;

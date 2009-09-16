@@ -32,6 +32,7 @@ import org.emftext.runtime.ui.extensions.EObjectSelection;
  * This custom implementation of a TreeViewer expands the tree
  * automatically up to a specified depth. 
  */
+@Deprecated
 final class EMFTextOutlinePageTreeViewer extends TreeViewer {
 	
 	EMFTextOutlinePageTreeViewer(Composite parent, int style) {

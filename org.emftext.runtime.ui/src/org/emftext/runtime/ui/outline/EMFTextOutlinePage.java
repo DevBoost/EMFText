@@ -47,6 +47,7 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
 /**
  * Simple Outline Page using the ReflectiveItemAdapters provided by EMF
  */
+@Deprecated
 public class EMFTextOutlinePage extends Page implements ISelectionProvider, ISelectionChangedListener, IContentOutlinePage {
 
 	private EMFTextEditor editor;

@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
+@Deprecated
 public class EObjectSelection implements IStructuredSelection {
 	
 	private final EObject selectedObject;

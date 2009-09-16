@@ -44,6 +44,7 @@ import org.emftext.runtime.ui.extensions.TextHover;
  * This class provides the configuration for all EMFText editors. It registers
  * content assistance and syntax highlighting.
  */
+@Deprecated
 public class EMFTextEditorConfiguration extends SourceViewerConfiguration {
 
 	private ColorManager colorManager;

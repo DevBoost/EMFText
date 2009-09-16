@@ -72,6 +72,7 @@ import org.osgi.framework.Bundle;
  * @author Tan-Ky Hoang-Kim
  * 
  */
+@Deprecated
 public class TextHover implements ITextHover, ITextHoverExtension, ITextHoverExtension2 {
 
 	private EMFTextEditor editor;

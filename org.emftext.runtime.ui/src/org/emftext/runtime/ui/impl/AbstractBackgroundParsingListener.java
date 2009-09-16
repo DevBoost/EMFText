@@ -8,6 +8,7 @@ import org.emftext.runtime.ui.IBackgroundParsingListener;
  * default implementations for new methods that are added to 
  * IBackgroundParsingListener.
  */
+@Deprecated
 public abstract class AbstractBackgroundParsingListener implements IBackgroundParsingListener {
 
 	// Attention: Please do add only code that adapts existing implementations of

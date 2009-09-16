@@ -26,6 +26,7 @@ import org.antlr.runtime.Token;
  * A helper class that decides which tokens can be used for custom
  * syntax highlighting.
  */
+@Deprecated
 public class AntlrTokenHelper {
 
 	public boolean canBeUsedForSyntaxColoring(Token token) {

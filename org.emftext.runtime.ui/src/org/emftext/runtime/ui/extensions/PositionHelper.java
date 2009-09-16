@@ -33,6 +33,7 @@ import org.eclipse.jface.text.Position;
  * 
  * @author Tan-Ky Hoang-Kim
  */
+@Deprecated
 public class PositionHelper {
 
 	/**

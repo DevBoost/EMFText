@@ -26,6 +26,9 @@ import org.eclipse.emf.ecore.resource.Resource;
  * A listener interface for classes that need notification
  * when a background parsing pass has completed.
  */
+@Deprecated
+//TODO mseifert: remove this interface the corresponding abstact class once the
+//editors are generated
 public interface IBackgroundParsingListener {
 
 	/**

@@ -4,6 +4,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+@Deprecated
 public class EMFTextPropertySheetPage extends PropertySheetPage implements ISelectionChangedListener {
 	
 	public void selectionChanged(SelectionChangedEvent event) {

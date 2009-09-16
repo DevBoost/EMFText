@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 /**
  * A class for RGB-based color objects.
  */
+@Deprecated
 public class ColorManager {
 
 	protected Map<RGB, Color> fColorTable = new HashMap<RGB, Color>(10);

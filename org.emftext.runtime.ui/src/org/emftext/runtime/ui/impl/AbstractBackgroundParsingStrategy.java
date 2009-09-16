@@ -8,6 +8,7 @@ import org.emftext.runtime.ui.IBackgroundParsingStrategy;
  * default implementations for new methods that are added to 
  * IBackgroundParsingStrategy.
  */
+@Deprecated
 public abstract class AbstractBackgroundParsingStrategy implements IBackgroundParsingStrategy {
 
 	// Attention: Please do add only code that adapts existing implementations of

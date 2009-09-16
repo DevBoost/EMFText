@@ -39,6 +39,7 @@ import org.eclipse.swt.graphics.FontData;
  * @author Tan-Ky Hoang-Kim
  *
  */
+@Deprecated
 public class HTMLPrinter {
 	
 

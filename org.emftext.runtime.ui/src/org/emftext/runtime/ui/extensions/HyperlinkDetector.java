@@ -40,6 +40,7 @@ import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
  *  
  * @author Tan-Ky Hoang-Kim
  */
+@Deprecated
 public class HyperlinkDetector implements IHyperlinkDetector {
 
 	private ITextResource textResource;

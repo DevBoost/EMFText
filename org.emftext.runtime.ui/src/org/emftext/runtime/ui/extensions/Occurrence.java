@@ -42,6 +42,7 @@ import org.emftext.runtime.ui.EMFTextTokenScanner;
  * 
  * @author Tan-Ky Hoang-Kim
  */
+@Deprecated
 public class Occurrence {
 
 	private final static PositionHelper positionHelper = new PositionHelper();

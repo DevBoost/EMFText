@@ -35,6 +35,7 @@ import org.emftext.runtime.resource.impl.code_completion.CodeCompletionHelper;
 import org.emftext.runtime.ui.editor.EMFTextEditor;
 import org.emftext.runtime.util.StringUtil;
 
+@Deprecated
 public class EMFTextEditorCompletionProcessor implements IContentAssistProcessor {
 
 	private EMFTextEditor editor;

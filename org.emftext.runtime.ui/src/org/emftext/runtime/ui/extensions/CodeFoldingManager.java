@@ -73,6 +73,7 @@ import org.osgi.framework.Bundle;
  * 
  * @author Hoang-Kim, Tan-Ky
  */
+@Deprecated
 public class CodeFoldingManager {
 
 	// TODO replace this with the id of the generated plug-in

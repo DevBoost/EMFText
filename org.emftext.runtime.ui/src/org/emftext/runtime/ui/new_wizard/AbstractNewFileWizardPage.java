@@ -46,6 +46,7 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
  * as the file name. The page will only accept file name without the extension
  * OR with the extension that matches the expected one.
  */
+//TODO mseifert: generate the code in this class
 public class AbstractNewFileWizardPage extends WizardPage {
 	
 	private final String fileExtension;

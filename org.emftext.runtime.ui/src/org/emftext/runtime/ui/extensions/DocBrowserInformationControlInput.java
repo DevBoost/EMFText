@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  * 
  * @author Tan-Ky Hoang-Kim
  */
+@Deprecated
 public class DocBrowserInformationControlInput {
 	
 	private final DocBrowserInformationControlInput fPrevious;

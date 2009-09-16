@@ -66,6 +66,7 @@ import org.emftext.runtime.util.MinimalModelHelper;
  * as a template) is registered for the same extension, it will
  * be able to open it.
  */
+// TODO mseifert: generate the code in this class
 public abstract class AbstractNewFileWizard extends Wizard implements INewWizard {
 	private AbstractNewFileWizardPage page;
 	private ISelection selection;

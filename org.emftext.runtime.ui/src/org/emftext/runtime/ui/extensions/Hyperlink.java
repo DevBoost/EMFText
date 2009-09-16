@@ -49,6 +49,7 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
  * @author Tan-Ky Hoang-Kim
  * 
  */
+@Deprecated
 public class Hyperlink implements IHyperlink {
 
 	private String text;

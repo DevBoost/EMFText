@@ -37,6 +37,7 @@ import org.emftext.runtime.resource.ITextDiagnostic;
  * 
  * @author Jendrik Johannes
  */
+@Deprecated
 public class MarkerHelper {
     
     public static final String MARKER_TYPE = "org.emftext.runtime.ui.problem";

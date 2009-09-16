@@ -16,6 +16,7 @@ import org.emftext.runtime.ui.editor.EMFTextEditor;
  * interval, the delay is reset. If keys are pressed during background
  * parsing the parse thread is stopped and a new parse task is scheduled.
  */
+@Deprecated
 public class DelayedBackgroundParsingStrategy implements IBackgroundParsingStrategy {
 	
 	private static long DELAY = 500;
