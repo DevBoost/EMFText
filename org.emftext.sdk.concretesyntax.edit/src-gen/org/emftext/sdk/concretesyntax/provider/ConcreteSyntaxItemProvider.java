@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -333,8 +334,11 @@ public class ConcreteSyntaxItemProvider
 		String label = concreteSyntax.getName() + " : ";
 		if (!concreteSyntax.eIsProxy()) {
 			GenPackage genPackage = concreteSyntax.getPackage();
-			if (genPackage != null && !genPackage.eIsProxy() && genPackage.getEcorePackage() != null) {
-				label = label + genPackage.getNSURI();
+			if (genPackage != null && !genPackage.eIsProxy()) {
+				EPackage ecorePackage = genPackage.getEcorePackage();
+				if (ecorePackage != null) {
+					label = label + ecorePackage.getNsURI();
+				}
 			}
 		}
 		return label;
