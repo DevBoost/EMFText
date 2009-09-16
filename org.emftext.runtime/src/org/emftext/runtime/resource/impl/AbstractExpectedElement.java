@@ -10,7 +10,7 @@ import org.emftext.runtime.resource.IExpectedElement;
  * excluding those token (i.e., the part of the document containing the
  * relevant characters).
  */
-// TODO generate this class
+// TODO mseifert: generate this class
 public abstract class AbstractExpectedElement implements IExpectedElement {
 
 	private int startIncludingHiddenTokens;

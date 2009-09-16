@@ -5,7 +5,7 @@ package org.emftext.runtime.resource;
  * A scanner is initialized with a text and delivers a 
  * sequence of tokens.
  */
-// TODO add empty class AbstractTextScanner and let generated
+// TODO mseifert: add empty class AbstractTextScanner and let generated
 // implementations inherit instead of implementing the interface
 // directly
 public interface ITextScanner {
