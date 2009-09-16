@@ -3,22 +3,24 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class BuildPropertiesGenerator extends BaseGenerator {
 
-	private GenerationContext context;
+	public BuildPropertiesGenerator() {
+		super();
+	}
 
-	public BuildPropertiesGenerator(GenerationContext context) {
+	private BuildPropertiesGenerator(GenerationContext context) {
 		super(context, "", "build.properties");
-		this.context = context;
 	}
 
 	@Override
 	public boolean generate(PrintWriter out) {
 		
-		String sourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(context.getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
+		String sourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
 		String sourceFolder;
 		if (sourceOptionValue == null) {
 			sourceFolder = "src";
@@ -36,5 +38,9 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		
 		out.write(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new BuildPropertiesGenerator(context);
 	}
 }

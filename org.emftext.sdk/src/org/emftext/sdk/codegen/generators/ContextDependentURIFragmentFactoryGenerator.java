@@ -4,13 +4,19 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 
 public class ContextDependentURIFragmentFactoryGenerator extends BaseGenerator {
 
 	private String qualifiedContextDependentURIFragmentClassName;
 
-	public ContextDependentURIFragmentFactoryGenerator(GenerationContext context) {
+	public ContextDependentURIFragmentFactoryGenerator() {
+		super();
+	}
+
+	private ContextDependentURIFragmentFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 		qualifiedContextDependentURIFragmentClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
 	}
@@ -45,5 +51,9 @@ public class ContextDependentURIFragmentFactoryGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ContextDependentURIFragmentFactoryGenerator(context);
 	}
 }

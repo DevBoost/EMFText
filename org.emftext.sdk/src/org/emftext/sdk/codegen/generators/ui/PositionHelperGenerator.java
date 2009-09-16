@@ -3,12 +3,18 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
 public class PositionHelperGenerator extends BaseGenerator {
 
-	public PositionHelperGenerator(GenerationContext context) {
+	public PositionHelperGenerator() {
+		super();
+	}
+
+	private PositionHelperGenerator(GenerationContext context) {
 		super(context, EArtifact.POSITION_HELPER);
 	}
 
@@ -111,5 +117,9 @@ public class PositionHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new PositionHelperGenerator(context);
 	}
 }

@@ -3,12 +3,18 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
 public class DocBrowserInformationControlInputGenerator extends BaseGenerator {
 
-	public DocBrowserInformationControlInputGenerator(GenerationContext context) {
+	public DocBrowserInformationControlInputGenerator() {
+		super();
+	}
+
+	private DocBrowserInformationControlInputGenerator(GenerationContext context) {
 		super(context, EArtifact.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 	}
 
@@ -162,5 +168,9 @@ public class DocBrowserInformationControlInputGenerator extends BaseGenerator {
 		sc.add("private final String tokenText;");
 		sc.add("private final " + RESOURCE + " resource;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new DocBrowserInformationControlInputGenerator(context);
 	}
 }

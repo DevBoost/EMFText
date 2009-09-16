@@ -4,11 +4,17 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 
 public class LocationMapGenerator extends BaseGenerator {
 
-	public LocationMapGenerator(GenerationContext context) {
+	public LocationMapGenerator() {
+		super();
+	}
+
+	private LocationMapGenerator(GenerationContext context) {
 		super(context, EArtifact.LOCATION_MAP);
 	}
 
@@ -133,5 +139,9 @@ public class LocationMapGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new LocationMapGenerator(context);
 	}
 }

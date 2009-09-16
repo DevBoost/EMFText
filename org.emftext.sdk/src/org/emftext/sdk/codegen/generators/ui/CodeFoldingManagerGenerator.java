@@ -4,13 +4,19 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 
 public class CodeFoldingManagerGenerator extends BaseGenerator {
 
 	private String editorClassName;
 
-	public CodeFoldingManagerGenerator(GenerationContext context) {
+	public CodeFoldingManagerGenerator() {
+		super();
+	}
+
+	private CodeFoldingManagerGenerator(GenerationContext context) {
 		super(context, EArtifact.CODE_FOLDING_MANAGER);
 		this.editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
@@ -450,5 +456,9 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new CodeFoldingManagerGenerator(context);
 	}
 }

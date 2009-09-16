@@ -3,6 +3,8 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
@@ -11,7 +13,11 @@ public class BrowserInformationControlGenerator extends BaseGenerator {
 	private String docBrowserInformationControlInputClassName;
 	private String htmlPrinterClassName;
 
-	public BrowserInformationControlGenerator(GenerationContext context) {
+	public BrowserInformationControlGenerator() {
+		super();
+	}
+
+	private BrowserInformationControlGenerator(GenerationContext context) {
 		super(context, EArtifact.BROWER_INFORMATION_CONTROL);
 		docBrowserInformationControlInputClassName = getContext().getQualifiedClassName(EArtifact.DOC_BROWSER_INFORMATION_CONTROL_INPUT);
 		htmlPrinterClassName = getContext().getQualifiedClassName(EArtifact.HTML_PRINTER);
@@ -551,5 +557,9 @@ public class BrowserInformationControlGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new BrowserInformationControlGenerator(context);
 	}
 }

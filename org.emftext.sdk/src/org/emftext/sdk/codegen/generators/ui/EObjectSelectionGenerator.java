@@ -3,12 +3,18 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
 public class EObjectSelectionGenerator extends BaseGenerator {
 
-	public EObjectSelectionGenerator(GenerationContext context) {
+	public EObjectSelectionGenerator() {
+		super();
+	}
+
+	private EObjectSelectionGenerator(GenerationContext context) {
 		super(context, EArtifact.E_OBJECT_SELECTION);
 	}
 
@@ -134,5 +140,9 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 		sc.add("private final " + E_OBJECT + " selectedObject;");
 		sc.add("private final boolean highlighting;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new EObjectSelectionGenerator(context);
 	}
 }

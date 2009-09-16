@@ -43,7 +43,7 @@ public class DotProjectCreator extends AbstractArtifactCreator {
 		
 	    return createArtifact(
 	    		context,
-	    		new DotProjectGenerator(context),
+	    		new DotProjectGenerator().newInstance(context),
 	    		dotProjectFile,
 	    		"Exception while generating .project file."
 	    );

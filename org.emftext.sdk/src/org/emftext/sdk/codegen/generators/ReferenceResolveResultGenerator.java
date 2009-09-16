@@ -4,6 +4,8 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 
 public class ReferenceResolveResultGenerator extends BaseGenerator {
@@ -11,7 +13,11 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 	private String qualifiedElementMappingClassName;
 	private String qualifiedURIMappingClassName;
 
-	public ReferenceResolveResultGenerator(GenerationContext context) {
+	public ReferenceResolveResultGenerator() {
+		super();
+	}
+
+	private ReferenceResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.REFERENCE_RESOLVE_RESULT);
 		qualifiedElementMappingClassName = context.getQualifiedClassName(EArtifact.ELEMENT_MAPPING);
 		qualifiedURIMappingClassName = context.getQualifiedClassName(EArtifact.URI_MAPPING);
@@ -89,5 +95,9 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ReferenceResolveResultGenerator(context);
 	}
 }

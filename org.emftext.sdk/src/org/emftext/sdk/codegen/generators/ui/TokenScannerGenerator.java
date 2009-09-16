@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 // TODO once the text token scanners are generated we might not need
@@ -29,8 +30,12 @@ public class TokenScannerGenerator extends BaseGenerator {
 	private String colorManagerClassName;
 	private String pluginActivatorClassName;
 
-	public TokenScannerGenerator(GenerationContext context) {
-		super(context, EArtifact.TEXT_TOKEN_SCANNER);
+	public TokenScannerGenerator() {
+		super();
+	}
+
+	private TokenScannerGenerator(GenerationContext context) {
+		super(context, EArtifact.TOKEN_SCANNER);
 		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
 		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
@@ -157,5 +162,9 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.add("private " + I_PREFERENCE_STORE + " store;");
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TokenScannerGenerator(context);
 	}
 }

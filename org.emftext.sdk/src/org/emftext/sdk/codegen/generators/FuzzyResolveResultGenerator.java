@@ -1,14 +1,24 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_MAPPING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
+
+import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
+import org.emftext.sdk.codegen.IGenerator;
 
 public class FuzzyResolveResultGenerator extends BaseGenerator {
 
-	public FuzzyResolveResultGenerator(GenerationContext context) {
+	public FuzzyResolveResultGenerator() {
+		super();
+	}
+
+	private FuzzyResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.FUZZY_RESOLVE_RESULT);
 	}
 
@@ -73,5 +83,9 @@ public class FuzzyResolveResultGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new FuzzyResolveResultGenerator(context);
 	}
 }

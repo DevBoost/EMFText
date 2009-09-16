@@ -1,16 +1,28 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DOCUMENT_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TIMER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TIMER_TASK;
+
 import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class BackgroundParsingStrategyGenerator extends BaseGenerator {
 
 	private String editorClassName;
 
-	public BackgroundParsingStrategyGenerator(GenerationContext context) {
+	public BackgroundParsingStrategyGenerator() {
+		super();
+	}
+
+	private BackgroundParsingStrategyGenerator(GenerationContext context) {
 		super(context, EArtifact.BACKGROUND_PARSING_STRATEGY);
 		editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
@@ -93,5 +105,9 @@ public class BackgroundParsingStrategyGenerator extends BaseGenerator {
 		sc.add("// the background parsing task (may be null)");
 		sc.add("private " + TIMER_TASK + " task;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new BackgroundParsingStrategyGenerator(context);
 	}
 }

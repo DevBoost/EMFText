@@ -8,11 +8,16 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class OutlinePageTreeViewerGenerator extends BaseGenerator {
 
-	public OutlinePageTreeViewerGenerator(GenerationContext context) {
+	public OutlinePageTreeViewerGenerator() {
+		super();
+	}
+
+	private OutlinePageTreeViewerGenerator(GenerationContext context) {
 		super(context, EArtifact.OUTLINE_PAGE_TREE_VIEWER);
 	}
 
@@ -93,5 +98,9 @@ public class OutlinePageTreeViewerGenerator extends BaseGenerator {
 		sc.add("super(parent, style);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new OutlinePageTreeViewerGenerator(context);
 	}
 }

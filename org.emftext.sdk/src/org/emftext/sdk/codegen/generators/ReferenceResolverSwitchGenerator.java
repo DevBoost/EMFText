@@ -34,6 +34,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
@@ -52,7 +53,11 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
-	public ReferenceResolverSwitchGenerator(GenerationContext context) {
+	public ReferenceResolverSwitchGenerator() {
+		super();
+	}
+
+	private ReferenceResolverSwitchGenerator(GenerationContext context) {
 		super(context, EArtifact.REFERENCE_RESOLVER_SWITCH);
 	}
 	
@@ -149,5 +154,9 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			    sc.addLineBreak();
 			}
 		}
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ReferenceResolverSwitchGenerator(context);
 	}
 }

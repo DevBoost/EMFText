@@ -3,6 +3,8 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
@@ -17,7 +19,11 @@ public class EditorGenerator extends BaseGenerator {
 	private String colorManagerClassName;
 	private String backgroundParsingStrategyClassName;
 
-	public EditorGenerator(GenerationContext context) {
+	public EditorGenerator() {
+		super();
+	}
+
+	private EditorGenerator(GenerationContext context) {
 		super(context, EArtifact.EDITOR);
 		editorConfigurationClassName = getContext().getQualifiedClassName(EArtifact.EDITOR_CONFIGURATION);
 		outlinePageClassName = getContext().getQualifiedClassName(EArtifact.OUTLINE_PAGE);
@@ -484,5 +490,9 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
 		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new EditorGenerator(context);
 	}
 }

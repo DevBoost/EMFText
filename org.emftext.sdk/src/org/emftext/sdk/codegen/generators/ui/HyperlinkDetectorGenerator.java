@@ -3,6 +3,8 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
@@ -10,7 +12,11 @@ public class HyperlinkDetectorGenerator extends BaseGenerator {
 
 	private String hyperlinkClassName;
 
-	public HyperlinkDetectorGenerator(GenerationContext context) {
+	public HyperlinkDetectorGenerator() {
+		super();
+	}
+
+	private HyperlinkDetectorGenerator(GenerationContext context) {
 		super(context, EArtifact.HYPERLINK_DETECTOR);
 		hyperlinkClassName = getContext().getQualifiedClassName(EArtifact.HYPERLINK);
 	}
@@ -75,5 +81,9 @@ public class HyperlinkDetectorGenerator extends BaseGenerator {
 		sc.add("textResource = (" + I_TEXT_RESOURCE + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new HyperlinkDetectorGenerator(context);
 	}
 }

@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -42,7 +43,7 @@ public class DotClasspathCreator extends AbstractArtifactCreator {
 		
 		File dotClasspathFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + ".classpath");
 
-		DotClasspathGenerator dotClasspathGenerator = new DotClasspathGenerator(context);
+		IGenerator dotClasspathGenerator = new DotClasspathGenerator().newInstance(context);
 		
 	    return createArtifact(
 	    		context,

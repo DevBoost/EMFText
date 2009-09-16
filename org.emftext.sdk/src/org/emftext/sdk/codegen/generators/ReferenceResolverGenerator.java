@@ -23,12 +23,16 @@ package org.emftext.sdk.codegen.generators;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
@@ -38,28 +42,36 @@ import org.emftext.sdk.finders.GenClassFinder;
 /**
  * A generator that can create basic stub for a single reference resolver.
  */
-public class ReferenceResolverGenerator extends BaseGenerator {
+public class ReferenceResolverGenerator implements IGenerator {
 	
 	private static final NameUtil nameUtil = new NameUtil();
 
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
+	private GenerationContext context;
 	private GenFeature proxyReference;
 	private String defaultResolverDelegateName;
 
-	public ReferenceResolverGenerator(GenerationContext context, GenFeature proxyReference) {
-		super(context, context.getResolverPackageName(), nameUtil.getReferenceResolverClassName(proxyReference));
-		this.proxyReference = proxyReference;
+	public ReferenceResolverGenerator() {
+		super();
+	}
+			
+	private ReferenceResolverGenerator(GenerationContext context) {
+		super();
+		this.context = context;
 		this.defaultResolverDelegateName = context.getQualifiedDefaultResolverDelegateName();
 	}
 	
-	@Override
+	public void setProxyReference(GenFeature proxyReference) {
+		this.proxyReference = proxyReference;
+	}
+
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
-	    sc.add("package " + getResourcePackageName() + ";");	
+	    sc.add("package " + context.getResolverPackageName() + ";");	
 	    sc.addLineBreak();
-	    sc.add("public class " + getResourceClassName() + " extends " + AbstractReferenceResolver.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> {");
+	    sc.add("public class " + nameUtil.getReferenceResolverClassName(proxyReference) + " extends " + AbstractReferenceResolver.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> {");
 	    sc.addLineBreak();
 		addFields(sc);
 		addResolveMethod(sc);
@@ -89,5 +101,17 @@ public class ReferenceResolverGenerator extends BaseGenerator {
 		sc.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);");
 		sc.add("}");
 	    sc.addLineBreak();
+	}
+
+	public Collection<GenerationProblem> getCollectedErrors() {
+		return Collections.emptySet();
+	}
+
+	public Collection<GenerationProblem> getCollectedProblems() {
+		return Collections.emptySet();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ReferenceResolverGenerator(context);
 	}
 }

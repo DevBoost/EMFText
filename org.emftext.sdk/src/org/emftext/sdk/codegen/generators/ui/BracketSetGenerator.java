@@ -23,13 +23,18 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class BracketSetGenerator extends BaseGenerator {
 
 	private String positionCategoryClassName;
 
-	public BracketSetGenerator(GenerationContext context) {
+	public BracketSetGenerator() {
+		super();
+	}
+
+	private BracketSetGenerator(GenerationContext context) {
 		super(context, EArtifact.BRACKET_SET);
 		positionCategoryClassName = getContext().getQualifiedClassName(EArtifact.POSITION_CATEGORY);
 	}
@@ -503,5 +508,9 @@ public class BracketSetGenerator extends BaseGenerator {
 		sc.add("private " + STYLED_TEXT + " textWidget;");
 		sc.add("private " + I_PREFERENCE_STORE + " preferenceStore;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new BracketSetGenerator(context);
 	}
 }

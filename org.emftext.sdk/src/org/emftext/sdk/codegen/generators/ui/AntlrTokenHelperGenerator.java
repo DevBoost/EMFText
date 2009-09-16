@@ -7,11 +7,16 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class AntlrTokenHelperGenerator extends BaseGenerator {
 
-	public AntlrTokenHelperGenerator(GenerationContext context) {
+	public AntlrTokenHelperGenerator() {
+		super();
+	}
+
+	private AntlrTokenHelperGenerator(GenerationContext context) {
 		super(context, EArtifact.ANTLR_TOKEN_HELPER);
 	}
 
@@ -64,5 +69,9 @@ public class AntlrTokenHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new AntlrTokenHelperGenerator(context);
 	}
 }

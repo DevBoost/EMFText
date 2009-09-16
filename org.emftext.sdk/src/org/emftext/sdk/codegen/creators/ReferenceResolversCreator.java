@@ -26,7 +26,6 @@ import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolverGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -54,7 +53,8 @@ public class ReferenceResolversCreator extends AbstractArtifactCreator {
 				continue;
 			}
 			File resolverFile = context.getResolverFile(proxyReference);
-			IGenerator generator = new ReferenceResolverGenerator(context, proxyReference);
+			ReferenceResolverGenerator generator = (ReferenceResolverGenerator) new ReferenceResolverGenerator().newInstance(context);
+			generator.setProxyReference(proxyReference);
 			
 			artifacts.addAll(createArtifact(
 		    		context,

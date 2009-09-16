@@ -91,6 +91,7 @@ import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.GenerationProblem.Severity;
 import org.emftext.sdk.codegen.composites.ANTLRGrammarComposite;
@@ -167,7 +168,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private ArrayList<String> keywordTokens;
 
-	public ANTLRGrammarGenerator(GenerationContext context) {
+	public ANTLRGrammarGenerator() {
+		super();
+	}
+
+	private ANTLRGrammarGenerator(GenerationContext context) {
 		super(context, EArtifact.ANTLR_GRAMMAR);
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.qualifiedTokenResolverFactoryClassName = context
@@ -1769,5 +1774,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		} else {
 			return "*";
 		}
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ANTLRGrammarGenerator(context);
 	}
 }

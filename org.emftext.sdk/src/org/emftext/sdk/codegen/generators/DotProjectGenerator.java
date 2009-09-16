@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 
@@ -32,7 +33,11 @@ import org.emftext.sdk.codegen.composites.XMLComposite;
  */
 public class DotProjectGenerator extends BaseGenerator {
 
-	public DotProjectGenerator(GenerationContext context) {
+	public DotProjectGenerator() {
+		super();
+	}
+
+	private DotProjectGenerator(GenerationContext context) {
 		super(context, "", ".project");
 	}
 
@@ -71,6 +76,10 @@ public class DotProjectGenerator extends BaseGenerator {
 		
 		out.write(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new DotProjectGenerator(context);
 	}
 	
 	/*

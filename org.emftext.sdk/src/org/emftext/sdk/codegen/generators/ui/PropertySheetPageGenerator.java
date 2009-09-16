@@ -8,11 +8,16 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class PropertySheetPageGenerator extends BaseGenerator {
 
-	public PropertySheetPageGenerator(GenerationContext context) {
+	public PropertySheetPageGenerator() {
+		super();
+	}
+
+	private PropertySheetPageGenerator(GenerationContext context) {
 		super(context, EArtifact.PROPERTY_SHEET_PAGE);
 	}
 
@@ -29,5 +34,9 @@ public class PropertySheetPageGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new PropertySheetPageGenerator(context);
 	}
 }

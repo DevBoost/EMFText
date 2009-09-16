@@ -3,12 +3,18 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
 public class HTMLPrinterGenerator extends BaseGenerator {
 
-	public HTMLPrinterGenerator(GenerationContext context) {
+	public HTMLPrinterGenerator() {
+		super();
+	}
+
+	private HTMLPrinterGenerator(GenerationContext context) {
 		super(context, EArtifact.HTML_PRINTER);
 	}
 
@@ -560,5 +566,9 @@ public class HTMLPrinterGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new HTMLPrinterGenerator(context);
 	}
 }

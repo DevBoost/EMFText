@@ -17,13 +17,18 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class CompletionProcessorGenerator extends BaseGenerator {
 
 	private String editorClassName;
 
-	public CompletionProcessorGenerator(GenerationContext context) {
+	public CompletionProcessorGenerator() {
+		super();
+	}
+
+	private CompletionProcessorGenerator(GenerationContext context) {
 		super(context, EArtifact.COMPLETION_PROCESSOR);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 	}
@@ -127,5 +132,9 @@ public class CompletionProcessorGenerator extends BaseGenerator {
 		sc.add("this.editor = editor;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new CompletionProcessorGenerator(context);
 	}
 }

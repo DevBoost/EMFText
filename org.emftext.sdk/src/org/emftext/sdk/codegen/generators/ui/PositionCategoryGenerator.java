@@ -4,11 +4,16 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class PositionCategoryGenerator extends BaseGenerator {
 
-	public PositionCategoryGenerator(GenerationContext context) {
+	public PositionCategoryGenerator() {
+		super();
+	}
+
+	private PositionCategoryGenerator(GenerationContext context) {
 		super(context, EArtifact.POSITION_CATEGORY);
 	}
 
@@ -22,5 +27,9 @@ public class PositionCategoryGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new PositionCategoryGenerator(context);
 	}
 }

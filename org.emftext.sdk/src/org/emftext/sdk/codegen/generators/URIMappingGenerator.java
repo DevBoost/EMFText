@@ -4,11 +4,17 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 
 public class URIMappingGenerator extends BaseGenerator {
 
-	public URIMappingGenerator(GenerationContext context) {
+	public URIMappingGenerator() {
+		super();
+	}
+
+	private URIMappingGenerator(GenerationContext context) {
 		super(context, EArtifact.URI_MAPPING);
 	}
 
@@ -49,5 +55,9 @@ public class URIMappingGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new URIMappingGenerator(context);
 	}
 }

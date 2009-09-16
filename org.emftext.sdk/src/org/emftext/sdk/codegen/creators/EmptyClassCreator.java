@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.EmptyClassGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -24,7 +23,8 @@ public class EmptyClassCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
-		IGenerator generator = new EmptyClassGenerator(context, className);
+		EmptyClassGenerator generator = (EmptyClassGenerator) new EmptyClassGenerator().newInstance(context);
+		generator.setClassName(className);
 		
 	    return createArtifact(
 	    		context,

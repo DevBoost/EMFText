@@ -8,12 +8,17 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class ProblemClassGenerator extends BaseGenerator {
 
-	public ProblemClassGenerator(GenerationContext context) {
+	public ProblemClassGenerator() {
+		super();
+	}
+
+	private ProblemClassGenerator(GenerationContext context) {
 		super(context, EArtifact.PROBLEM);
 	}
 
@@ -64,5 +69,8 @@ public class ProblemClassGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 	}
-	
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ProblemClassGenerator(context);
+	}
 }

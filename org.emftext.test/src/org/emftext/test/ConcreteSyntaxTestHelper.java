@@ -96,7 +96,7 @@ public class ConcreteSyntaxTestHelper {
 			}
 		};
 		GenerationContext context = new TestGenerationContext(concreteSyntax, collector);
-		ANTLRGrammarGenerator antlrGenerator = new ANTLRGrammarGenerator(context);
+		ANTLRGrammarGenerator antlrGenerator = (ANTLRGrammarGenerator) new ANTLRGrammarGenerator().newInstance(context);
 		return antlrGenerator;
 	}
 

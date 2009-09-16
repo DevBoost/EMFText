@@ -1,14 +1,23 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_MAPPING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
+
+import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
+import org.emftext.sdk.codegen.IGenerator;
 
 public class DelegatingResolveResultGenerator extends BaseGenerator {
 
-	public DelegatingResolveResultGenerator(GenerationContext context) {
+	public DelegatingResolveResultGenerator() {
+		super();
+	}
+
+	private DelegatingResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.DELEGATING_RESOLVE_RESULT);
 	}
 
@@ -72,5 +81,9 @@ public class DelegatingResolveResultGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new DelegatingResolveResultGenerator(context);
 	}
 }

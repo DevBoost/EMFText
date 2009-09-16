@@ -13,12 +13,17 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class ANTLRScannerGenerator extends BaseGenerator {
 
-	public ANTLRScannerGenerator(GenerationContext context) {
+	public ANTLRScannerGenerator() {
+		super();
+	}
+	
+	private ANTLRScannerGenerator(GenerationContext context) {
 		super(context, EArtifact.ANTLR_SCANNER);
 	}
 
@@ -100,5 +105,9 @@ public class ANTLRScannerGenerator extends BaseGenerator {
 		sc.add("}");
 		out.write(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ANTLRScannerGenerator(context);
 	}
 }

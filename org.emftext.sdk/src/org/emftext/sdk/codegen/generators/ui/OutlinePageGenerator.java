@@ -3,6 +3,8 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
@@ -11,7 +13,11 @@ public class OutlinePageGenerator extends BaseGenerator {
 	private String editorClassName;
 	private String outlinePageTreeViewerClassName;
 
-	public OutlinePageGenerator(GenerationContext context) {
+	public OutlinePageGenerator() {
+		super();
+	}
+
+	private OutlinePageGenerator(GenerationContext context) {
 		super(context, EArtifact.OUTLINE_PAGE);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 		outlinePageTreeViewerClassName = getContext().getQualifiedClassName(EArtifact.OUTLINE_PAGE_TREE_VIEWER);
@@ -188,5 +194,9 @@ public class OutlinePageGenerator extends BaseGenerator {
 		sc.add("private " + TREE_VIEWER + " treeViewer;");
 		sc.add("private " + LISTENER_LIST + " selectionChangedListeners = new " + LISTENER_LIST + "();");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new OutlinePageGenerator(context);
 	}
 }

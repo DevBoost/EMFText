@@ -39,9 +39,13 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  */
 public class PluginXMLGenerator implements IGenerator {
 
-	private final GenerationContext context;
+	private GenerationContext context;
 
-	public PluginXMLGenerator(GenerationContext context) {
+	public PluginXMLGenerator() {
+		super();
+	}
+
+	private PluginXMLGenerator(GenerationContext context) {
 		super();
 		this.context = context;
 	}
@@ -133,5 +137,9 @@ public class PluginXMLGenerator implements IGenerator {
 
 	public Collection<GenerationProblem> getCollectedProblems() {
 		return Collections.emptyList();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new PluginXMLGenerator(context);
 	}
 }

@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.ManifestGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -43,7 +44,7 @@ public class ManifestCreator extends AbstractArtifactCreator {
 		final File project = context.getPluginProjectFolder();
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
-		ManifestGenerator generator = new ManifestGenerator(context);
+		IGenerator generator = new ManifestGenerator().newInstance(context);
 		
 	    return createArtifact(
 	    		context,

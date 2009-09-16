@@ -4,11 +4,17 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 
 public class DummyEObjectGenerator extends BaseGenerator {
 
-	public DummyEObjectGenerator(GenerationContext context) {
+	public DummyEObjectGenerator() {
+		super();
+	}
+
+	private DummyEObjectGenerator(GenerationContext context) {
 		super(context, EArtifact.DUMMY_E_OBJECT);
 	}
 
@@ -115,5 +121,9 @@ public class DummyEObjectGenerator extends BaseGenerator {
 		sc.add("private String recurseFeatureName;");
 		sc.add("private " + E_CLASS + " type;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new DummyEObjectGenerator(context);
 	}
 }

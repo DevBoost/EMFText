@@ -37,4 +37,6 @@ public interface IGenerator {
 	
 	public Collection<GenerationProblem> getCollectedProblems();
 	public Collection<GenerationProblem> getCollectedErrors();
+
+	public IGenerator newInstance(GenerationContext context);
 }

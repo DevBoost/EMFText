@@ -56,6 +56,7 @@ import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -105,7 +106,11 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private String qualifiedContextDependentURIFragmentFactoryClassName;
 	private Set<String> parseMethods = new LinkedHashSet<String>();
 	
-	public ScannerlessParserGenerator(GenerationContext context) {
+	public ScannerlessParserGenerator() {
+		super();
+	}
+
+	private ScannerlessParserGenerator(GenerationContext context) {
 		super(context, EArtifact.SCANNERLESS_PARSER);
 		this.qualifiedTokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 		this.qualifiedDummyEObjectClassName = context.getQualifiedClassName(EArtifact.DUMMY_E_OBJECT);
@@ -1486,5 +1491,9 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	private int getIndex(EObject object, EObject parent) {
 		EStructuralFeature feature = object.eContainingFeature();
 		return ((List<?>) parent.eGet(feature)).indexOf(object);
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ScannerlessParserGenerator(context);
 	}
 }

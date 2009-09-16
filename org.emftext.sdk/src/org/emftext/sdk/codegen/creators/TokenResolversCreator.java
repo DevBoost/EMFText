@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverGenerator;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -60,7 +59,8 @@ public class TokenResolversCreator extends AbstractArtifactCreator {
 				continue;
 			}
 			File resolverFile = context.getTokenResolverFile(syntax, tokenDefinition);
-			IGenerator resolverGenerator = new TokenResolverGenerator(context, tokenDefinition);
+			TokenResolverGenerator resolverGenerator = (TokenResolverGenerator) new TokenResolverGenerator().newInstance(context);
+			resolverGenerator.setTokenDefinition(tokenDefinition);
 
 			artifacts.addAll(createArtifact(
 		    		context,

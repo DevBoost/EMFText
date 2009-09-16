@@ -4,11 +4,17 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 
 public class TokenResolveResultGenerator extends BaseGenerator {
 
-	public TokenResolveResultGenerator(GenerationContext context) {
+	public TokenResolveResultGenerator() {
+		super();
+	}
+
+	private TokenResolveResultGenerator(GenerationContext context) {
 		super(context, EArtifact.TOKEN_RESOLVE_RESULT);
 	}
 
@@ -51,5 +57,9 @@ public class TokenResolveResultGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TokenResolveResultGenerator(context);
 	}
 }

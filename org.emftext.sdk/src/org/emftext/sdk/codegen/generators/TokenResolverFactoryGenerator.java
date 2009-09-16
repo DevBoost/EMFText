@@ -31,6 +31,7 @@ import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.runtime.resource.impl.AbstractTokenResolverFactory;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.NameUtil;
@@ -50,7 +51,11 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	
 	private final NameUtil nameUtil = new NameUtil();
 	
-	public TokenResolverFactoryGenerator(GenerationContext context) {
+	public TokenResolverFactoryGenerator() {
+		super();
+	}
+
+	private TokenResolverFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.TOKEN_RESOLVER_FACTORY);
 	}
 	
@@ -164,5 +169,9 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 		}
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TokenResolverFactoryGenerator(context);
 	}
 }

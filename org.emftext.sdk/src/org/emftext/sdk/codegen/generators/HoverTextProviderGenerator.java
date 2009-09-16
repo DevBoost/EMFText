@@ -6,12 +6,17 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.runtime.resource.impl.AbstractHoverTextProvider;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class HoverTextProviderGenerator extends BaseGenerator {
 	
-	public HoverTextProviderGenerator(GenerationContext context) {
+	public HoverTextProviderGenerator() {
+		super();
+	}
+
+	private HoverTextProviderGenerator(GenerationContext context) {
 		super(context, EArtifact.HOVER_TEXT_PROVIDER);
 	}
 
@@ -46,6 +51,10 @@ public class HoverTextProviderGenerator extends BaseGenerator {
 		
 		out.write(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new HoverTextProviderGenerator(context);
 	}
 
 }

@@ -4,6 +4,8 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
@@ -20,9 +22,13 @@ public class HighlightingGenerator extends BaseGenerator {
 	private String positionCategoryClassName;
 	private String eObjectSelectClassName;
 
-	public HighlightingGenerator(GenerationContext context) {
+	public HighlightingGenerator() {
+		super();
+	}
+
+	private HighlightingGenerator(GenerationContext context) {
 		super(context, EArtifact.HIGHLIGHTING);
-		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TEXT_TOKEN_SCANNER);
+		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
 		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 		activatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
@@ -471,5 +477,9 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new HighlightingGenerator(context);
 	}
 }

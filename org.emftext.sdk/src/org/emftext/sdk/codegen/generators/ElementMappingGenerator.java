@@ -1,14 +1,21 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_REFERENCE_MAPPING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ELEMENT_MAPPING;
+
+import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
+import org.emftext.sdk.codegen.IGenerator;
 
 public class ElementMappingGenerator extends BaseGenerator {
 
-	public ElementMappingGenerator(GenerationContext context) {
+	public ElementMappingGenerator() {
+		super();
+	}
+
+	private ElementMappingGenerator(GenerationContext context) {
 		super(context, EArtifact.ELEMENT_MAPPING);
 	}
 
@@ -47,5 +54,9 @@ public class ElementMappingGenerator extends BaseGenerator {
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ElementMappingGenerator(context);
 	}
 }

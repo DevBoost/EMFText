@@ -46,7 +46,7 @@ public class BabylonSpecificationCreator extends AbstractArtifactCreator {
 		
 	    return createArtifact(
 	    		context,
-	    		new BabylonSpecificationGenerator(context),
+	    		new BabylonSpecificationGenerator().newInstance(context),
 	    		specificationFile,
 	    		"Exception while generating Babylon specification."
 	    );

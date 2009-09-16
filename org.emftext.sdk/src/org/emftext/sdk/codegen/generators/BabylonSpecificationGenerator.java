@@ -34,7 +34,11 @@ import org.emftext.sdk.codegen.IGenerator;
 // TODO cbuerger implement this class
 public class BabylonSpecificationGenerator implements IGenerator {
 
-	public BabylonSpecificationGenerator(GenerationContext context) {
+	public BabylonSpecificationGenerator() {
+		super();
+	}
+
+	private BabylonSpecificationGenerator(GenerationContext context) {
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -47,5 +51,9 @@ public class BabylonSpecificationGenerator implements IGenerator {
 
 	public Collection<GenerationProblem> getCollectedProblems() {
 		return null;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new BabylonSpecificationGenerator(context);
 	}
 }

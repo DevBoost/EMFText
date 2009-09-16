@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class OccurrenceGenerator extends BaseGenerator {
@@ -26,10 +27,14 @@ public class OccurrenceGenerator extends BaseGenerator {
 	private String bracketSetClassName;
 	private String positionCategoryClassName;
 
-	public OccurrenceGenerator(GenerationContext context) {
+	public OccurrenceGenerator() {
+		super();
+	}
+
+	private OccurrenceGenerator(GenerationContext context) {
 		super(context, EArtifact.OCCURENCE);
 		positionHelperClassName = getContext().getQualifiedClassName(EArtifact.POSITION_HELPER);
-		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TEXT_TOKEN_SCANNER);
+		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
 		bracketSetClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_SET);
 		positionCategoryClassName = getContext().getQualifiedClassName(EArtifact.POSITION_CATEGORY);
 	}
@@ -348,5 +353,9 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("private " + REGION + " tokenRegion;");
 		sc.add("private boolean isPositionsChanged = true;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new OccurrenceGenerator(context);
 	}
 }

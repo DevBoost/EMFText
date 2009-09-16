@@ -3,6 +3,8 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
@@ -10,7 +12,11 @@ public class MarkerHelperGenerator extends BaseGenerator {
 
 	private String markeHelperClassName;
 
-	public MarkerHelperGenerator(GenerationContext context) {
+	public MarkerHelperGenerator() {
+		super();
+	}
+
+	private MarkerHelperGenerator(GenerationContext context) {
 		super(context, EArtifact.MARKER_HELPER);
 		markeHelperClassName = getContext().getQualifiedClassName(EArtifact.MARKER_HELPER);
 	}
@@ -106,5 +112,9 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("createMarkersFromDiagnostics(resource, file, resource.getWarnings(), " + I_MARKER + ".SEVERITY_WARNING);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new MarkerHelperGenerator(context);
 	}
 }

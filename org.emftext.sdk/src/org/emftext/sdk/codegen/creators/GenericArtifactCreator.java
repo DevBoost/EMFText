@@ -6,32 +6,32 @@ import java.util.Collection;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class ScannerlessParserCreator extends AbstractArtifactCreator {
+public class GenericArtifactCreator extends AbstractArtifactCreator {
 
-	private static final String NAME = "scannerless parser";
+	private EArtifact artifact;
 
-	public ScannerlessParserCreator() {
-		super(NAME);
+	public GenericArtifactCreator(EArtifact artifact) {
+		super(artifact.getClassNameSuffix());
+		this.artifact = artifact;
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		
-		File file = context.getFile(EArtifact.SCANNERLESS_PARSER);
-		IGenerator generator = new ScannerlessParserGenerator(context);
+	    File file = context.getFile(artifact);
+		IGenerator generator = artifact.createGenerator(context);
 		
 	    return createArtifact(
 	    		context,
 	    		generator,
 	    		file,
-	    		"Exception while generating " + NAME + "."
+	    		"Exception while generating " + getArtifactDescription() + "."
 	    );
 	}
 
+	@Override
 	public OptionTypes getOverrideOption() {
-		return OptionTypes.OVERRIDE_PARSER;
+		return artifact.getOverrideOption();
 	}
 }

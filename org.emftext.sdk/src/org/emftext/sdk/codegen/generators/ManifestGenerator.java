@@ -47,9 +47,13 @@ public class ManifestGenerator implements IGenerator {
 
 	private final NameUtil nameUtil = new NameUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
-	private final GenerationContext context;
+	private GenerationContext context;
 
-	public ManifestGenerator(GenerationContext context) {
+	public ManifestGenerator() {
+		super();
+	}
+
+	private ManifestGenerator(GenerationContext context) {
 		this.context = context;
 	}
 
@@ -191,5 +195,9 @@ public class ManifestGenerator implements IGenerator {
 
 	public Collection<GenerationProblem> getCollectedProblems() {
 		return Collections.emptyList();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ManifestGenerator(context);
 	}
 }

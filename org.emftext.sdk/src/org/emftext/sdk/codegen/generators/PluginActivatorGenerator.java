@@ -11,10 +11,15 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 
 public class PluginActivatorGenerator extends BaseGenerator {
 
-	public PluginActivatorGenerator(GenerationContext context) {
+	public PluginActivatorGenerator() {
+		super();
+	}
+
+	private PluginActivatorGenerator(GenerationContext context) {
 		super(context, EArtifact.PLUGIN_ACTIVATOR);
 	}
 
@@ -94,5 +99,9 @@ public class PluginActivatorGenerator extends BaseGenerator {
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private static " + getResourceClassName() + " plugin;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new PluginActivatorGenerator(context);
 	}
 }

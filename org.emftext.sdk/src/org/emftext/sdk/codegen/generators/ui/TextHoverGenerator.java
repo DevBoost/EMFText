@@ -47,6 +47,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class TextHoverGenerator extends BaseGenerator {
@@ -58,7 +59,11 @@ public class TextHoverGenerator extends BaseGenerator {
 	private String hyperlinkClassName;
 	private String textHoverClassName;
 
-	public TextHoverGenerator(GenerationContext context) {
+	public TextHoverGenerator() {
+		super();
+	}
+
+	private TextHoverGenerator(GenerationContext context) {
 		super(context, EArtifact.TEXT_HOVER);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 		htmlPrinterClassName = getContext().getQualifiedClassName(EArtifact.HTML_PRINTER);
@@ -490,5 +495,9 @@ public class TextHoverGenerator extends BaseGenerator {
 		
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TextHoverGenerator(context);
 	}
 }

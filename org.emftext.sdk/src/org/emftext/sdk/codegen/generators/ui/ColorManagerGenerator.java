@@ -1,14 +1,26 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RGB;
+
 import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class ColorManagerGenerator extends BaseGenerator {
 
-	public ColorManagerGenerator(GenerationContext context) {
+	public ColorManagerGenerator() {
+		super();
+	}
+
+	private ColorManagerGenerator(GenerationContext context) {
 		super(context, EArtifact.COLOR_MANAGER);
 	}
 
@@ -66,5 +78,9 @@ public class ColorManagerGenerator extends BaseGenerator {
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("protected " + MAP + "<" + RGB + ", " + COLOR + "> fColorTable = new " + HASH_MAP + "<" + RGB + ", " + COLOR + ">(10);");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ColorManagerGenerator(context);
 	}
 }

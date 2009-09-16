@@ -25,7 +25,6 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.TextPrinterGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -46,11 +45,13 @@ public class PrinterCreator extends AbstractArtifactCreator {
 		
 	    File printerFile = context.getFile(EArtifact.PRINTER);
 
-	    IGenerator printerGenerator;
+	    TextPrinterGenerator printerGenerator;
 		if (generatePrinterStubOnly) {
-    		printerGenerator = new TextPrinterGenerator(context, false);
+    		printerGenerator = (TextPrinterGenerator) new TextPrinterGenerator().newInstance(context);
+    		printerGenerator.setPrinterBaseExists(false);
 		} else {
-    		printerGenerator = new TextPrinterGenerator(context, true);
+    		printerGenerator = (TextPrinterGenerator) new TextPrinterGenerator().newInstance(context);
+    		printerGenerator.setPrinterBaseExists(true);
 		}
 	    return createArtifact(
 	    		context,

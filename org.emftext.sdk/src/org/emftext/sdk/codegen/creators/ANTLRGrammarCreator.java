@@ -42,7 +42,7 @@ public class ANTLRGrammarCreator extends AbstractArtifactCreator {
 	    File antlrFile = context.getANTLRGrammarFile();
 	    return createArtifact(
 	    		context,
-	    		new ANTLRGrammarGenerator(context),
+	    		new ANTLRGrammarGenerator().newInstance(context),
 	    		antlrFile,
 	    		"Exception while generating ANTLR grammar."
 	    );

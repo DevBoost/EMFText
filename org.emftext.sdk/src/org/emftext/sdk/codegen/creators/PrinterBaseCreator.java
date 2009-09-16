@@ -49,7 +49,7 @@ public class PrinterBaseCreator extends AbstractArtifactCreator {
 			return new ArrayList<IArtifact>();
 		} else {
 		    File printerBaseFile = context.getFile(EArtifact.PRINTER_BASE);
-	        IGenerator printerBaseGenerator = new TextPrinterBaseGenerator(context);
+	        IGenerator printerBaseGenerator = new TextPrinterBaseGenerator().newInstance(context);
 	        
 		    return createArtifact(
 		    		context,

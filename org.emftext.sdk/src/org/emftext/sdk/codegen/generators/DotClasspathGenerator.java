@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
@@ -34,7 +35,11 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotClasspathGenerator extends BaseGenerator {
 
-	public DotClasspathGenerator(GenerationContext context) {
+	public DotClasspathGenerator() {
+		super();
+	}
+
+	private DotClasspathGenerator(GenerationContext context) {
 		super(context, "", ".classpath");
 	}
 
@@ -61,5 +66,9 @@ public class DotClasspathGenerator extends BaseGenerator {
 		
 		out.write(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new DotClasspathGenerator(context);
 	}
 }

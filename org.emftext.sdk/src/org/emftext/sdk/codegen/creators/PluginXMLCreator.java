@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.PluginXMLGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -43,7 +44,7 @@ public class PluginXMLCreator extends AbstractArtifactCreator {
 		File project = context.getPluginProjectFolder();
 		File pluginXMLFile = new File(project.getAbsolutePath() + File.separator + "plugin.xml");
 
-		PluginXMLGenerator generator = new PluginXMLGenerator(context);
+		IGenerator generator = new PluginXMLGenerator().newInstance(context);
 
 	    return createArtifact(
 	    		context,

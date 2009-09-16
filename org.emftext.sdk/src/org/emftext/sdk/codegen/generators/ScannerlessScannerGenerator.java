@@ -10,12 +10,17 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class ScannerlessScannerGenerator extends BaseGenerator {
 
-	public ScannerlessScannerGenerator(GenerationContext context) {
+	public ScannerlessScannerGenerator() {
+		super();
+	}
+
+	private ScannerlessScannerGenerator(GenerationContext context) {
 		super(context, EArtifact.SCANNERLESS_SCANNER);
 	}
 
@@ -52,6 +57,10 @@ public class ScannerlessScannerGenerator extends BaseGenerator {
 		
 		out.write(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ScannerlessScannerGenerator(context);
 	}
 
 }

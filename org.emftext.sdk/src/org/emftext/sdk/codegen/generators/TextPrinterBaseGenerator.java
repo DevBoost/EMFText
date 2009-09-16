@@ -63,6 +63,7 @@ import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComponent;
@@ -116,7 +117,11 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	private Map<Sequence, Set<String>> sequence2NecessaryFeatures;
 	private Map<Sequence, Set<String>> sequence2ReachableFeatures;
 
-	public TextPrinterBaseGenerator(GenerationContext context) {
+	public TextPrinterBaseGenerator() {
+		super();
+	}
+
+	private TextPrinterBaseGenerator(GenerationContext context) {
 		super(context, EArtifact.PRINTER_BASE);
 
 		this.concretSyntax = context.getConcreteSyntax();
@@ -837,5 +842,9 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			spaces.append(character);
 		}
 		return spaces.toString();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TextPrinterBaseGenerator(context);
 	}
 }

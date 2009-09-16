@@ -27,6 +27,7 @@ import org.emftext.runtime.resource.ITextPrinter;
 import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
@@ -40,10 +41,17 @@ public class TextPrinterGenerator extends BaseGenerator {
 	
 	private String basePrinterClassName; 
 	
-	public TextPrinterGenerator(GenerationContext context, boolean printerBaseExists){
+	public TextPrinterGenerator() {
+		super();
+	}
+
+	private TextPrinterGenerator(GenerationContext context) {
 		super(context, EArtifact.PRINTER);
+	}
+	
+	public void setPrinterBaseExists(boolean printerBaseExists) {
 		if (printerBaseExists) { 
-			basePrinterClassName = context.getClassName(EArtifact.PRINTER_BASE);
+			basePrinterClassName = getContext().getClassName(EArtifact.PRINTER_BASE);
 		} else {
 			basePrinterClassName = null;
 		}
@@ -83,5 +91,9 @@ public class TextPrinterGenerator extends BaseGenerator {
 	    
 	    out.print(sc.toString());
 		return true;
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TextPrinterGenerator(context);
 	}
 }

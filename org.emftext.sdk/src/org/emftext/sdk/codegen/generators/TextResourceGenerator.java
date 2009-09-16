@@ -81,6 +81,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -101,7 +102,11 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String qualifiedProblemClassName;
 	private String qualifiedLocationMapClassName;
 
-	public TextResourceGenerator(GenerationContext context) {
+	public TextResourceGenerator() {
+		super();
+	}
+
+	private TextResourceGenerator(GenerationContext context) {
 		super(context, EArtifact.RESOURCE);
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
@@ -736,5 +741,9 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("return new " + COPIED_E_LIST + "<" + DIAGNOSTIC + ">(super.getErrors());");
         sc.add("}");
         sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TextResourceGenerator(context);
 	}
 }

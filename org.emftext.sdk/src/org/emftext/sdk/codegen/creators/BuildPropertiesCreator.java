@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BuildPropertiesGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -18,7 +19,7 @@ public class BuildPropertiesCreator extends AbstractArtifactCreator {
 		
 		File buildPropertiesFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + "build.properties");
 
-		BuildPropertiesGenerator generator = new BuildPropertiesGenerator(context);
+		IGenerator generator = new BuildPropertiesGenerator().newInstance(context);
 		
 	    return createArtifact(
 	    		context,

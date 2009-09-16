@@ -117,6 +117,10 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	private String className;
 	private String packageName;
 
+	public BaseGenerator() {
+		super();
+	}
+	
 	/**
 	 * Creates a new BaseGenerator that can be used to generate a 
 	 * class with the given name and write it to the specified 

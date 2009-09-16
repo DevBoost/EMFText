@@ -51,7 +51,11 @@ public class NewFileWizardGenerator implements IGenerator {
 	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	private GenerationContext context;
 
-	public NewFileWizardGenerator(GenerationContext context) {
+	public NewFileWizardGenerator() {
+		super();
+	}
+
+	private NewFileWizardGenerator(GenerationContext context) {
 		this.context = context;
 	}
 
@@ -100,5 +104,9 @@ public class NewFileWizardGenerator implements IGenerator {
 
 	public Collection<GenerationProblem> getCollectedProblems() {
 		return new ArrayList<GenerationProblem>();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new NewFileWizardGenerator(context);
 	}
 }

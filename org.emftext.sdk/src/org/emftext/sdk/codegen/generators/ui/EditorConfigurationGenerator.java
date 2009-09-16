@@ -3,6 +3,8 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+
 import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 
@@ -15,12 +17,16 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 	private String textHoverClassName;
 	private String hyperlinkDetectorClassName;
 
-	public EditorConfigurationGenerator(GenerationContext context) {
+	public EditorConfigurationGenerator() {
+		super();
+	}
+
+	private EditorConfigurationGenerator(GenerationContext context) {
 		super(context, EArtifact.EDITOR_CONFIGURATION);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 		colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
 		completionProcessorClassName = getContext().getQualifiedClassName(EArtifact.COMPLETION_PROCESSOR);
-		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TEXT_TOKEN_SCANNER);
+		textTokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
 		textHoverClassName = getContext().getQualifiedClassName(EArtifact.TEXT_HOVER);
 		hyperlinkDetectorClassName = getContext().getQualifiedClassName(EArtifact.HYPERLINK_DETECTOR);
 	}
@@ -155,5 +161,9 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.add("private " + editorClassName + " theEditor;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new EditorConfigurationGenerator(context);
 	}
 }

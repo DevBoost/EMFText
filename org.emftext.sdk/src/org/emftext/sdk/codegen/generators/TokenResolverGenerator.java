@@ -28,10 +28,14 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.GenerationProblem;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.GeneratorUtil;
@@ -50,28 +54,32 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TokenResolverGenerator extends BaseGenerator {
+public class TokenResolverGenerator implements IGenerator {
 	
 	private static NameUtil nameUtil = new NameUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	
+	private GenerationContext context;
 	private TokenDefinition definition;
 	private String qualifiedDefaultTokenResolverClassName;
 	
-	public TokenResolverGenerator(GenerationContext context, TokenDefinition definition) {
-		super(context, context.getResolverPackageName(), nameUtil.getTokenResolverClassName(context.getConcreteSyntax(), definition));
-		this.definition = definition;
+	public TokenResolverGenerator() {
+		super();
+	}
+	
+	private TokenResolverGenerator(GenerationContext context) {
+		super();
+		this.context = context;
 		this.qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
-	@Override
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
 		
-		sc.add("package " + getResourcePackageName()+ ";");
+		sc.add("package " + context.getResolverPackageName()+ ";");
 		sc.addLineBreak();
 
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_TOKEN_RESOLVER + " {");
+		sc.add("public class " + nameUtil.getTokenResolverClassName(context.getConcreteSyntax(), definition) + " extends " + ABSTRACT_TOKEN_RESOLVER + " {");
 		sc.addLineBreak();
 		sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		sc.addLineBreak();
@@ -159,5 +167,21 @@ public class TokenResolverGenerator extends BaseGenerator {
 			suffix = ((QuotedToken) definition).getEscapeCharacter();
 		}
 		return suffix;
+	}
+
+	public Collection<GenerationProblem> getCollectedErrors() {
+		return Collections.emptySet();
+	}
+
+	public Collection<GenerationProblem> getCollectedProblems() {
+		return Collections.emptySet();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new TokenResolverGenerator(context);
+	}
+
+	public void setTokenDefinition(TokenDefinition tokenDefinition) {
+		this.definition = tokenDefinition;
 	}
 }

@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
@@ -41,13 +42,17 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 	
 	private String qualifiedTextResourceClassName;
 	
+	public ResourceFactoryGenerator() {
+		super();
+	}
+
 	/**
 	 * @param className The name of the generated CompilationUnit
 	 * @param packageName The package name of the generated CompilationUnit
 	 * @param qualifiedTextResourceClassName The class name of the generated TextResource 
 	 * which is meant to be instantiated by the ResourceFactory.
 	 */
-	public ResourceFactoryGenerator(GenerationContext context) {
+	private ResourceFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.RESOURCE_FACTORY);
 		this.qualifiedTextResourceClassName = context.getQualifiedClassName(EArtifact.RESOURCE);
 	}
@@ -76,4 +81,8 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 		out.print(sc.toString());
     	return true;	
     }
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new ResourceFactoryGenerator(context);
+	}
 }

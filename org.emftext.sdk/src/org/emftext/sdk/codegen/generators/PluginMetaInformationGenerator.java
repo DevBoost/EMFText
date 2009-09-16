@@ -27,6 +27,7 @@ import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -110,7 +111,11 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	
-	public PluginMetaInformationGenerator(GenerationContext context) {
+	public PluginMetaInformationGenerator() {
+		super();
+	}
+
+	private PluginMetaInformationGenerator(GenerationContext context) {
 		super(context, EArtifact.META_INFORMATION);
 	}
 	
@@ -418,5 +423,9 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 				}
 			}
 		}
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new PluginMetaInformationGenerator(context);
 	}
 }

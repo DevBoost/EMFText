@@ -25,13 +25,18 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class HyperlinkGenerator extends BaseGenerator {
 
 	private String editorClassName;
 
-	public HyperlinkGenerator(GenerationContext context) {
+	public HyperlinkGenerator() {
+		super();
+	}
+
+	private HyperlinkGenerator(GenerationContext context) {
 		super(context, EArtifact.HYPERLINK);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
 	}
@@ -188,5 +193,9 @@ public class HyperlinkGenerator extends BaseGenerator {
 		sc.add("private " + E_OBJECT + " linkTarget;");
 		sc.add("private " + I_REGION + " region;");
 		sc.addLineBreak();
+	}
+
+	public IGenerator newInstance(GenerationContext context) {
+		return new HyperlinkGenerator(context);
 	}
 }
