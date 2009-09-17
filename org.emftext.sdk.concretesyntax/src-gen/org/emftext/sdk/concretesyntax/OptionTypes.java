@@ -734,7 +734,47 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PREFERENCE_CONSTANTS(73, "OVERRIDE_PREFERENCE_CONSTANTS", "overridePreferenceConstants");
+	OVERRIDE_PREFERENCE_CONSTANTS(73, "OVERRIDE_PREFERENCE_CONSTANTS", "overridePreferenceConstants"), /**
+	 * The '<em><b>OVERRIDE OCCURENCE PREFERENCE PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OCCURENCE_PREFERENCE_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_OCCURENCE_PREFERENCE_PAGE(74, "OVERRIDE_OCCURENCE_PREFERENCE_PAGE", "overridePreferencePage"), /**
+	 * The '<em><b>OVERRIDE PIXEL CONVERTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PIXEL_CONVERTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PIXEL_CONVERTER(75, "OVERRIDE_PIXEL_CONVERTER", "overridePixelConverter"), /**
+	 * The '<em><b>OVERRIDE PREFERENCE INITIALIZER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PREFERENCE_INITIALIZER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PREFERENCE_INITIALIZER(76, "OVERRIDE_PREFERENCE_INITIALIZER", "overridePreferenceInitializer"), /**
+	 * The '<em><b>OVERRIDE SYNTAX COLORING HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_COLORING_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SYNTAX_COLORING_HELPER(77, "OVERRIDE_SYNTAX_COLORING_HELPER", "overrideSyntaxColoringHelper"), /**
+	 * The '<em><b>OVERRIDE SYNTAX COLORING PREFERENCE PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE(78, "OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE", "overrideSyntaxColoringPreferencePage");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -1847,6 +1887,81 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_PREFERENCE_CONSTANTS_VALUE = 73;
 
 	/**
+	 * The '<em><b>OVERRIDE OCCURENCE PREFERENCE PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE OCCURENCE PREFERENCE PAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_OCCURENCE_PREFERENCE_PAGE
+	 * @model literal="overridePreferencePage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_OCCURENCE_PREFERENCE_PAGE_VALUE = 74;
+
+	/**
+	 * The '<em><b>OVERRIDE PIXEL CONVERTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PIXEL CONVERTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PIXEL_CONVERTER
+	 * @model literal="overridePixelConverter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PIXEL_CONVERTER_VALUE = 75;
+
+	/**
+	 * The '<em><b>OVERRIDE PREFERENCE INITIALIZER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PREFERENCE INITIALIZER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PREFERENCE_INITIALIZER
+	 * @model literal="overridePreferenceInitializer"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PREFERENCE_INITIALIZER_VALUE = 76;
+
+	/**
+	 * The '<em><b>OVERRIDE SYNTAX COLORING HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SYNTAX COLORING HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_COLORING_HELPER
+	 * @model literal="overrideSyntaxColoringHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SYNTAX_COLORING_HELPER_VALUE = 77;
+
+	/**
+	 * The '<em><b>OVERRIDE SYNTAX COLORING PREFERENCE PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SYNTAX COLORING PREFERENCE PAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE
+	 * @model literal="overrideSyntaxColoringPreferencePage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE_VALUE = 78;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1928,6 +2043,11 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TOKEN_SCANNER,
 			OVERRIDE_BRACKET_PREFERENCE_PAGE,
 			OVERRIDE_PREFERENCE_CONSTANTS,
+			OVERRIDE_OCCURENCE_PREFERENCE_PAGE,
+			OVERRIDE_PIXEL_CONVERTER,
+			OVERRIDE_PREFERENCE_INITIALIZER,
+			OVERRIDE_SYNTAX_COLORING_HELPER,
+			OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE,
 		};
 
 	/**
@@ -2051,6 +2171,11 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TOKEN_SCANNER_VALUE: return OVERRIDE_TOKEN_SCANNER;
 			case OVERRIDE_BRACKET_PREFERENCE_PAGE_VALUE: return OVERRIDE_BRACKET_PREFERENCE_PAGE;
 			case OVERRIDE_PREFERENCE_CONSTANTS_VALUE: return OVERRIDE_PREFERENCE_CONSTANTS;
+			case OVERRIDE_OCCURENCE_PREFERENCE_PAGE_VALUE: return OVERRIDE_OCCURENCE_PREFERENCE_PAGE;
+			case OVERRIDE_PIXEL_CONVERTER_VALUE: return OVERRIDE_PIXEL_CONVERTER;
+			case OVERRIDE_PREFERENCE_INITIALIZER_VALUE: return OVERRIDE_PREFERENCE_INITIALIZER;
+			case OVERRIDE_SYNTAX_COLORING_HELPER_VALUE: return OVERRIDE_SYNTAX_COLORING_HELPER;
+			case OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE_VALUE: return OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE;
 		}
 		return null;
 	}
