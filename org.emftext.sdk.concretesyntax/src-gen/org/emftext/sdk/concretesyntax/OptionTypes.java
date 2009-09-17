@@ -718,7 +718,23 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TOKEN_SCANNER(71, "OVERRIDE_TOKEN_SCANNER", "overrideTokenScanner");
+	OVERRIDE_TOKEN_SCANNER(71, "OVERRIDE_TOKEN_SCANNER", "overrideTokenScanner"), /**
+	 * The '<em><b>OVERRIDE BRACKET PREFERENCE PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BRACKET_PREFERENCE_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BRACKET_PREFERENCE_PAGE(72, "OVERRIDE_BRACKET_PREFERENCE_PAGE", "overrideBracketPreferencePage"), /**
+	 * The '<em><b>OVERRIDE PREFERENCE CONSTANTS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PREFERENCE_CONSTANTS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PREFERENCE_CONSTANTS(73, "OVERRIDE_PREFERENCE_CONSTANTS", "overridePreferenceConstants");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -1801,6 +1817,36 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_TOKEN_SCANNER_VALUE = 71;
 
 	/**
+	 * The '<em><b>OVERRIDE BRACKET PREFERENCE PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BRACKET PREFERENCE PAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BRACKET_PREFERENCE_PAGE
+	 * @model literal="overrideBracketPreferencePage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BRACKET_PREFERENCE_PAGE_VALUE = 72;
+
+	/**
+	 * The '<em><b>OVERRIDE PREFERENCE CONSTANTS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PREFERENCE CONSTANTS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PREFERENCE_CONSTANTS
+	 * @model literal="overridePreferenceConstants"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PREFERENCE_CONSTANTS_VALUE = 73;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1880,6 +1926,8 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_PROPERTY_SHEET_PAGE,
 			OVERRIDE_TEXT_HOVER,
 			OVERRIDE_TOKEN_SCANNER,
+			OVERRIDE_BRACKET_PREFERENCE_PAGE,
+			OVERRIDE_PREFERENCE_CONSTANTS,
 		};
 
 	/**
@@ -2001,6 +2049,8 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_PROPERTY_SHEET_PAGE_VALUE: return OVERRIDE_PROPERTY_SHEET_PAGE;
 			case OVERRIDE_TEXT_HOVER_VALUE: return OVERRIDE_TEXT_HOVER;
 			case OVERRIDE_TOKEN_SCANNER_VALUE: return OVERRIDE_TOKEN_SCANNER;
+			case OVERRIDE_BRACKET_PREFERENCE_PAGE_VALUE: return OVERRIDE_BRACKET_PREFERENCE_PAGE;
+			case OVERRIDE_PREFERENCE_CONSTANTS_VALUE: return OVERRIDE_PREFERENCE_CONSTANTS;
 		}
 		return null;
 	}

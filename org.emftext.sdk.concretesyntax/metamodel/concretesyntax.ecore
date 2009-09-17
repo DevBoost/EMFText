@@ -214,6 +214,8 @@
     <eLiterals name="OVERRIDE_PROPERTY_SHEET_PAGE" value="69" literal="overridePropertySheetPage"/>
     <eLiterals name="OVERRIDE_TEXT_HOVER" value="70" literal="overrideTextHover"/>
     <eLiterals name="OVERRIDE_TOKEN_SCANNER" value="71" literal="overrideTokenScanner"/>
+    <eLiterals name="OVERRIDE_BRACKET_PREFERENCE_PAGE" value="72" literal="overrideBracketPreferencePage"/>
+    <eLiterals name="OVERRIDE_PREFERENCE_CONSTANTS" value="73" literal="overridePreferenceConstants"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

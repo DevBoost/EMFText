@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.generators.URIMappingGenerator;
 import org.emftext.sdk.codegen.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.BackgroundParsingStrategyGenerator;
+import org.emftext.sdk.codegen.generators.ui.BracketPreferencePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.BracketSetGenerator;
 import org.emftext.sdk.codegen.generators.ui.BrowserInformationControlGenerator;
 import org.emftext.sdk.codegen.generators.ui.CodeFoldingManagerGenerator;
@@ -52,6 +53,7 @@ import org.emftext.sdk.codegen.generators.ui.OutlinePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.OutlinePageTreeViewerGenerator;
 import org.emftext.sdk.codegen.generators.ui.PositionCategoryGenerator;
 import org.emftext.sdk.codegen.generators.ui.PositionHelperGenerator;
+import org.emftext.sdk.codegen.generators.ui.PreferenceConstantsGenerator;
 import org.emftext.sdk.codegen.generators.ui.PropertySheetPageGenerator;
 import org.emftext.sdk.codegen.generators.ui.TextHoverGenerator;
 import org.emftext.sdk.codegen.generators.ui.TokenScannerGenerator;
@@ -115,11 +117,14 @@ public enum EArtifact {
 	COMPLETION_PROCESSOR("ui", "CompletionProcessor", new CompletionProcessorGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROCESSOR),
 	BROWER_INFORMATION_CONTROL("ui", "BrowserInformationControl", new BrowserInformationControlGenerator(), OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL),
 	
+	BRACKET_PREFERENCE_PAGE("ui", "BracketPreferencePage", new BracketPreferencePageGenerator(), OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE),
+	PREFERENCE_CONSTANTS("ui", "PreferenceConstants", new PreferenceConstantsGenerator(), OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS),
+	
 	ANTLR_GRAMMAR("", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER), 
 	BABYLON_SPECIFICATION("", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),
 	
 	MAIN_PACKAGE("", "", null, null),
-	ANALYSIS_PACKAGE("analysis", "analysis", null, null), 
+	ANALYSIS_PACKAGE("analysis", "analysis", null, null),   
 	;
 	
 	private String classNameSuffix;
