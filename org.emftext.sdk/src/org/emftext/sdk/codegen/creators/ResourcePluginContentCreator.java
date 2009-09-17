@@ -32,6 +32,13 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.codegen.generators.ui.BracketPreferencePageGenerator;
+import org.emftext.sdk.codegen.generators.ui.OccurrencePreferencePageGenerator;
+import org.emftext.sdk.codegen.generators.ui.PixelConverterGenerator;
+import org.emftext.sdk.codegen.generators.ui.PreferenceConstantsGenerator;
+import org.emftext.sdk.codegen.generators.ui.PreferenceInitializerGenerator;
+import org.emftext.sdk.codegen.generators.ui.SyntaxColoringHelperGenerator;
+import org.emftext.sdk.codegen.generators.ui.SyntaxColoringPreferencePageGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
@@ -124,7 +131,15 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.TEXT_HOVER));
 	    creators.add(new GenericArtifactCreator(EArtifact.TOKEN_SCANNER));
 	    
-		for (IArtifactCreator creator : creators) {
+	    creators.add(new GenericArtifactCreator(EArtifact.BRACKET_PREFERENCE_PAGE));
+	    creators.add(new GenericArtifactCreator(EArtifact.PREFERENCE_CONSTANTS));
+	    creators.add(new GenericArtifactCreator(EArtifact.OCCURRENCE_PREFERENCE_PAGE));
+	    creators.add(new GenericArtifactCreator(EArtifact.PIXEL_CONVERTER));
+	    creators.add(new GenericArtifactCreator(EArtifact.PREFERENCE_INITIALIZER));
+	    creators.add(new GenericArtifactCreator(EArtifact.SYNTAX_COLORING_HELPER));
+	    creators.add(new GenericArtifactCreator(EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE));
+	    
+	    for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
 			creator.createArtifacts(context);
 		    progress.worked(100 / creators.size());

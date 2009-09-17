@@ -682,4 +682,6 @@ public interface IClassNameConstants {
 	public String VIEWER = Viewer.class.getName();
 	public String WINDOW_EVENT = WindowEvent.class.getName();
 	public String XML_MEMENTO = XMLMemento.class.getName();
+	public String SWT_LIST = org.eclipse.swt.widgets.List.class.getName();
+	public String JFACE_DIALOG = org.eclipse.jface.dialogs.Dialog.class.getName();
 }

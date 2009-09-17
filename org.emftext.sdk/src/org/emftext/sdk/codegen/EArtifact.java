@@ -49,12 +49,17 @@ import org.emftext.sdk.codegen.generators.ui.HyperlinkDetectorGenerator;
 import org.emftext.sdk.codegen.generators.ui.HyperlinkGenerator;
 import org.emftext.sdk.codegen.generators.ui.MarkerHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.OccurrenceGenerator;
+import org.emftext.sdk.codegen.generators.ui.OccurrencePreferencePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.OutlinePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.OutlinePageTreeViewerGenerator;
+import org.emftext.sdk.codegen.generators.ui.PixelConverterGenerator;
 import org.emftext.sdk.codegen.generators.ui.PositionCategoryGenerator;
 import org.emftext.sdk.codegen.generators.ui.PositionHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.PreferenceConstantsGenerator;
+import org.emftext.sdk.codegen.generators.ui.PreferenceInitializerGenerator;
 import org.emftext.sdk.codegen.generators.ui.PropertySheetPageGenerator;
+import org.emftext.sdk.codegen.generators.ui.SyntaxColoringHelperGenerator;
+import org.emftext.sdk.codegen.generators.ui.SyntaxColoringPreferencePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.TextHoverGenerator;
 import org.emftext.sdk.codegen.generators.ui.TokenScannerGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -119,6 +124,11 @@ public enum EArtifact {
 	
 	BRACKET_PREFERENCE_PAGE("ui", "BracketPreferencePage", new BracketPreferencePageGenerator(), OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE),
 	PREFERENCE_CONSTANTS("ui", "PreferenceConstants", new PreferenceConstantsGenerator(), OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS),
+	OCCURRENCE_PREFERENCE_PAGE("ui", "OccurrencePreferencePage", new OccurrencePreferencePageGenerator(), OptionTypes.OVERRIDE_OCCURENCE_PREFERENCE_PAGE),
+	PIXEL_CONVERTER("ui", "PixelConverter", new PixelConverterGenerator(), OptionTypes.OVERRIDE_PIXEL_CONVERTER),
+	PREFERENCE_INITIALIZER("ui", "PreferenceInitializer", new PreferenceInitializerGenerator(), OptionTypes.OVERRIDE_PREFERENCE_INITIALIZER),
+	SYNTAX_COLORING_HELPER("ui", "SyntaxColoringHelper", new SyntaxColoringHelperGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_HELPER),
+	SYNTAX_COLORING_PREFERENCE_PAGE("ui", "SyntaxColoringPreferencePage", new SyntaxColoringPreferencePageGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE),
 	
 	ANTLR_GRAMMAR("", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER), 
 	BABYLON_SPECIFICATION("", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),
