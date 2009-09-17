@@ -9,8 +9,10 @@
 		<classpath path="../org.emftext.sdk.ant/bin" />
 		<classpath path="../org.emftext.sdk.antlr/bin" />
 		<classpath path="../org.emftext.sdk.automaton/bin" />
+		<classpath path="../org.emftext.sdk.codegen/bin" />
 		<classpath path="../org.emftext.sdk.concretesyntax/bin" />
 		<classpath path="../org.emftext.sdk.concretesyntax.resource.cs/bin" />	
+		<classpath path="../org.emftext.sdk.concretesyntax.resource.cs.post_processing/bin" />	
 		<!-- for ecore text resource support -->
 		<classpath path="../org.emftext.language.ecore.resource/bin" />	
 		<classpath path="../org.emftext.language.ecore.resource.text/bin" />
