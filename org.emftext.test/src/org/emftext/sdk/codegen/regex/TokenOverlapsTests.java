@@ -21,6 +21,8 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.regex.SorterException;
+import org.emftext.sdk.regex.TokenSorter;
 import org.junit.Before;
 import org.junit.Test;
 

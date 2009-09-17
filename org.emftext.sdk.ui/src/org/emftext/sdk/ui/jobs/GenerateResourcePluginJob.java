@@ -28,16 +28,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.util.TextResourceUtil;
+import org.emftext.sdk.CsProblem;
+import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.syntax_analysis.CsProblem;
-import org.emftext.sdk.syntax_analysis.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**
@@ -57,7 +57,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 	protected IStatus run(IProgressMonitor monitor) {
 
 		try {
-			final ITextResource csResource = TextResourceUtil.getResource(csFile);
+			final CsResource csResource = (CsResource) TextResourceUtil.getResource(csFile);
 			IProblemCollector collector = new IProblemCollector() {
 				public void addProblem(GenerationProblem problem) {
 					addGenerationProblem(csResource, problem);
@@ -103,7 +103,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 		return Status.OK_STATUS;
 	}
 
-	private static void addGenerationProblem(ITextResource csResource,
+	private static void addGenerationProblem(CsResource csResource,
 			GenerationProblem problem) {
 		if (problem.getSeverity() == GenerationProblem.Severity.WARNING) {
 			csResource.addProblem(new CsProblem(problem.getMessage(), ECsProblemType.GENERATION_WARNING), problem.getCause());

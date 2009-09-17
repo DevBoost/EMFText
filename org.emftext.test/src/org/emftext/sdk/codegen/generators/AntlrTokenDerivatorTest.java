@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.generators;
 
 import junit.framework.TestCase;
 
+import org.emftext.sdk.AntlrTokenDerivator;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.junit.Test;

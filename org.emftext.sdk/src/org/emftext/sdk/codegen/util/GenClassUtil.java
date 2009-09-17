@@ -1,5 +1,6 @@
 package org.emftext.sdk.codegen.util;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,16 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 public class GenClassUtil {
 
 	private final GenClassCache genClassCache = new GenClassCache();
+
+	public boolean contains(Collection<GenClass> genClasses,
+			GenClass genClass) {
+		for (GenClass next : genClasses) {
+			if (genClassCache.getQualifiedInterfaceName(next).equals(genClassCache.getQualifiedInterfaceName(genClass))) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean isConcrete(GenClass genClass) {
 		return !genClass.isAbstract() && !genClass.isInterface();

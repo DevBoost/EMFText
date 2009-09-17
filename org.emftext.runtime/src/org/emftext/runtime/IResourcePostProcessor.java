@@ -20,7 +20,7 @@
  ******************************************************************************/
 package org.emftext.runtime;
 
-import org.emftext.runtime.resource.ITextResource;
+import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * Implementors of this interface can be used to post-process
@@ -34,5 +34,5 @@ public interface IResourcePostProcessor {
 	 * 
 	 * @param resource the resource to validate of modify
 	 */
-	public void process(ITextResource resource);
+	public void process(Resource resource);
 }

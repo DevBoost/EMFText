@@ -251,7 +251,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 		return error.trim();
 	}
 
-	public void process(ITextResource resource) {
+	public void process(Resource resource) {
 		EList<EObject> contents = resource.getContents();
 	
 		Set<EObject> distinctObjects = new HashSet<EObject>();

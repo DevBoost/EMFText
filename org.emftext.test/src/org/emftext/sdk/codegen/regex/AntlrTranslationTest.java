@@ -19,6 +19,7 @@ import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.regex.RegexpTranslationHelper;
 import org.junit.Before;
 import org.junit.Test;
 
