@@ -61,7 +61,6 @@ public abstract class GenerationContext {
 	private static final String DEFAULT_ICON_DIR = "icons";
 	
 	private final NameUtil nameUtil = new NameUtil();
-	private final PathUtil pathUtil = new PathUtil();
 
 	private final ConcreteSyntax concreteSyntax;
 	private final IProblemCollector problemCollector;
@@ -104,7 +103,7 @@ public abstract class GenerationContext {
 	}
 
 	public String getPluginName() {
-		return nameUtil.getPluginName(concreteSyntax);
+		return csUtil.getPluginName(concreteSyntax);
 	}
 
 	public String getPackageName(EArtifact artifact) {
@@ -116,7 +115,7 @@ public abstract class GenerationContext {
 	 * must go to.
 	 */
 	public String getResolverPackageName() {
-		return nameUtil.getResolverPackageName(concreteSyntax);
+		return csUtil.getResolverPackageName(concreteSyntax);
 	}
 	
 	public IProblemCollector getProblemCollector() {
@@ -150,7 +149,7 @@ public abstract class GenerationContext {
 	}
 
 	private String getResolverPackageName(GenFeature proxyReference) {
-		return pathUtil.getResolverPackageName(getConcreteSyntax(), proxyReference);
+		return csUtil.getResolverPackageName(getConcreteSyntax(), proxyReference);
 	}
 
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
@@ -205,7 +204,7 @@ public abstract class GenerationContext {
 	}
 
 	public File getSourceFolder() {
-		return pathUtil.getSourceFolder(getConcreteSyntax(), getPluginProjectFolder().getAbsolutePath());
+		return csUtil.getSourceFolder(getConcreteSyntax(), getPluginProjectFolder().getAbsolutePath());
 	}
 
 	public File getResolverFile(GenFeature proxyReference) {
@@ -214,7 +213,7 @@ public abstract class GenerationContext {
 	}
 
 	private IPath getResolverPackagePath() {
-		return pathUtil.getResolverPackagePath(getConcreteSyntax());
+		return csUtil.getResolverPackagePath(getConcreteSyntax());
 	}
 
 	public File getTokenResolverFile(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {

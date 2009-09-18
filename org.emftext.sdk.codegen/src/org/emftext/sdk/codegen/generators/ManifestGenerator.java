@@ -32,7 +32,6 @@ import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.NameUtil;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -45,7 +44,6 @@ import org.emftext.sdk.concretesyntax.Import;
  */
 public class ManifestGenerator implements IGenerator {
 
-	private final NameUtil nameUtil = new NameUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenerationContext context;
 
@@ -137,7 +135,7 @@ public class ManifestGenerator implements IGenerator {
 			ConcreteSyntax concreteSyntax) {
 
 		// first add the syntax itself
-		String syntaxPluginID = nameUtil.getPluginName(concreteSyntax);
+		String syntaxPluginID = csUtil.getPluginName(concreteSyntax);
 		requiredBundles.add(syntaxPluginID);
 		
 		// second add the main generator package

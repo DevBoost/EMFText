@@ -20,8 +20,15 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
+import java.io.File;
+import java.util.Collection;
+
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.emftext.sdk.AbstractPostProcessor;
+import org.emftext.sdk.Constants;
+import org.emftext.sdk.ECsProblemType;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
 
@@ -33,6 +40,8 @@ import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
  */
 public class UnusedResolverAnalyser extends AbstractPostProcessor {
 	
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		// this analyser does only work when the platform is running, because
@@ -41,14 +50,12 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		if (!Platform.isRunning()) {
 			return;
 		}
-		// TODO mseifert: activate this code
-		/*
 		Collection<String> resolverFileNames = csUtil.getResolverFileNames(syntax);
 		String workspaceRootFolder = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
 		
-		String pluginProjectFolder = workspaceRootFolder + File.separator + nameUtil.getPluginName(syntax);
+		String pluginProjectFolder = workspaceRootFolder + File.separator + csUtil.getPluginName(syntax);
 		
-		File resolverPackageFolder = pathUtil.getResolverPackageFile(syntax, pluginProjectFolder);
+		File resolverPackageFolder = csUtil.getResolverPackageFile(syntax, pluginProjectFolder);
 		if (!resolverPackageFolder.exists()) {
 			return;
 		}
@@ -64,6 +71,5 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 				}
 			}
 		}
-		*/
 	}
 }
