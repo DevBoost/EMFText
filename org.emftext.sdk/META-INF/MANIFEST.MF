@@ -30,6 +30,9 @@ Require-Bundle: org.eclipse.emf.codegen.ecore;visibility:=reexport,
  org.eclipse.core.runtime
 Export-Package: org.emftext.sdk,
  org.emftext.sdk.codegen,
- org.emftext.sdk.codegen.composites
+ org.emftext.sdk.codegen.composites,
+ org.emftext.sdk.codegen.util,
+ org.emftext.sdk.finders,
+ org.emftext.sdk.regex
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
 

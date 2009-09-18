@@ -14,5 +14,6 @@ Require-Bundle: org.emftext.runtime,
  org.eclipse.ui.ide,
  org.eclipse.ui.editors,
  org.eclipse.jface.text,
- org.emftext.sdk
+ org.emftext.sdk,
+ org.emftext.sdk.codegen
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
