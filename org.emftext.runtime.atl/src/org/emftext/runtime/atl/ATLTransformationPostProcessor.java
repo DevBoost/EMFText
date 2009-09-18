@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.m2m.atl.drivers.emf4atl.ASMEMFModel;
 import org.eclipse.m2m.atl.drivers.emf4atl.AtlEMFModelHandler;
 import org.eclipse.m2m.atl.engine.vm.AtlLauncher;
@@ -15,14 +16,13 @@ import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
 import org.emftext.runtime.IResourcePostProcessor;
 import org.emftext.runtime.IResourcePostProcessorProvider;
-import org.emftext.runtime.resource.ITextResource;
 
 public abstract class ATLTransformationPostProcessor implements
 		IOptionProvider, IResourcePostProcessorProvider, IResourcePostProcessor {
 
 	private ModelLoader modelLoader;
 	private boolean isInTransformation;
-	protected ITextResource currentResource;
+	protected Resource currentResource;
 
 	protected abstract Map<String, String> getMetamodelURIs();
 
@@ -48,7 +48,7 @@ public abstract class ATLTransformationPostProcessor implements
 		}
 	}
 
-	public void process(ITextResource resource) {
+	public void process(Resource resource) {
 
 		if (isInTransformation)
 			return;
