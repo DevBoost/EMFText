@@ -11,4 +11,5 @@ public interface Constants {
 	public String CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE = "DefaultResolverDelegate";
 
 	public String UI_PACKAGE = "ui";
+	public String ANALYSIS_PACKAGE = "analysis";
 }
