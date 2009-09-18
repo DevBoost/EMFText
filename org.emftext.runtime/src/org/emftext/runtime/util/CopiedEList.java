@@ -19,7 +19,8 @@ public class CopiedEList<E> implements EList<E> {
 	public CopiedEList(EList<E> original) {
 		super();
 		this.original = original;
-		this.copy = new BasicEList<E>(this.original);
+		this.copy = new BasicEList<E>();
+		this.copy.addAll(this.original);
 	}
 
 	public void move(int newPosition, E object) {
