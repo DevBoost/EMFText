@@ -342,7 +342,7 @@ public class ConcreteSyntaxUtil {
 	 * must go to depending on the given syntax.
 	 */
 	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax, Constants.UI_PACKAGE);
+		String csPackageName = getPackageName(syntax, Constants.ANALYSIS_PACKAGE);
 		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
 	}
 
