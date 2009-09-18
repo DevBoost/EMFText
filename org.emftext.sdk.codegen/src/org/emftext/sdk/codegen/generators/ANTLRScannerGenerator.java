@@ -1,13 +1,10 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_EMF_TEXT_SCANNER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_STRING_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMMON_TOKEN;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LEXER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ANTLR_STRING_STREAM;
 
 import java.io.PrintWriter;
 
@@ -33,22 +30,22 @@ public class ANTLRScannerGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_EMF_TEXT_SCANNER + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + getClassNameHelper().getABSTRACT_EMF_TEXT_SCANNER() + " {");
 		sc.addLineBreak();
 
 		sc.add("private " + STRING + "[] tokenNames;");
 		sc.add("private " + LEXER + " antlrLexer;");
 		sc.addLineBreak();
 
-		sc.add("public " + getResourceClassName() + "(" + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + " metaInformation, " + LEXER + " antlrLexer) {");
+		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation, " + LEXER + " antlrLexer) {");
 		sc.add("this.tokenNames = metaInformation.getTokenNames();");
 		sc.add("this.antlrLexer = antlrLexer;");
 		sc.add("}");
 		sc.addLineBreak();
 
-		sc.add("public " + I_TEXT_TOKEN + " getNextToken() {");
+		sc.add("public " + getClassNameHelper().getI_TEXT_TOKEN() + " getNextToken() {");
 		sc.add("final " + TOKEN + " current = antlrLexer.nextToken();");
-		sc.add(I_TEXT_TOKEN + " result = new " + I_TEXT_TOKEN + "() {");
+		sc.add(getClassNameHelper().getI_TEXT_TOKEN() + " result = new " + getClassNameHelper().getI_TEXT_TOKEN() + "() {");
 		sc.addLineBreak();
 		sc.add("public " + STRING + " getName() {");
 		sc.add("return getTokenName(tokenNames, current.getType());");

@@ -4,8 +4,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROJECTION_VIEWER;
@@ -122,7 +120,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private void setHighlightingPositions(" + E_OBJECT + " definitionElement, " + LIST + "<" + E_OBJECT + "> elementsAtDefinition) {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add(I_TOKEN + " token;");
 		sc.add("int defPosition = -1;");
 		sc.add("boolean isNull = definitionElement == null;");
@@ -186,7 +184,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add("tokenRegion = new " + REGION + "(-1,0);");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
 		sc.addLineBreak();
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() < 1) {");
@@ -238,7 +236,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 	private void addGetLengthMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private int getLength(" + E_OBJECT + " eObject) {");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add("return locationMap.getCharEnd(eObject) - locationMap.getCharStart(eObject) + 1;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -265,7 +263,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("int caretOffset = textWidget.getCaretOffset();");
 		sc.add("caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(caretOffset);");
 		sc.addLineBreak();
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.isEmpty()) {");
@@ -325,7 +323,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("// @param tokenScanner");
 		sc.add("//            the token scanner helps to find the searched tokens");
 		sc.add("///");
-		sc.add("public " + getResourceClassName() + "(" + I_TEXT_RESOURCE + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + textTokenScannerClassName + " tokenScanner) {");
+		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + textTokenScannerClassName + " tokenScanner) {");
 		sc.add("this.textResource = textResource;");
 		sc.add("this.projectionViewer = sourceViewer;");
 		sc.addLineBreak();
@@ -348,7 +346,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("private " + textTokenScannerClassName + " tokenScanner;");
 		sc.add("private " + LIST + "<String> quotedTokenArray;");
 		sc.add("private " + PROJECTION_VIEWER + " projectionViewer;");
-		sc.add("private " + I_TEXT_RESOURCE + " textResource;");
+		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource;");
 		sc.add("private String tokenText = \"\";");
 		sc.add("private " + REGION + " tokenRegion;");
 		sc.add("private boolean isPositionsChanged = true;");

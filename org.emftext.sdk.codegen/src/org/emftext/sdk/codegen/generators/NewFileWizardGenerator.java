@@ -21,8 +21,6 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PRINTER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.OutputStream;
@@ -46,7 +44,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
  * The NewFileContentGenerator can be used to create a NewFileWizard that 
  * creates a minimal sample file from a concrete syntax when it is invoked.
  */
-public class NewFileWizardGenerator implements IGenerator {
+public class NewFileWizardGenerator extends BaseGenerator {
 	
 	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	private GenerationContext context;
@@ -56,6 +54,7 @@ public class NewFileWizardGenerator implements IGenerator {
 	}
 
 	private NewFileWizardGenerator(GenerationContext context) {
+		super(context, EArtifact.NEW_FILE_WIZARD);
 		this.context = context;
 	}
 
@@ -73,7 +72,7 @@ public class NewFileWizardGenerator implements IGenerator {
 
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
 
-		sc.add("public " + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + " getMetaInformation() {");
+		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " getMetaInformation() {");
 		sc.add("return new " + context.getQualifiedClassName(EArtifact.META_INFORMATION) + "();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -87,7 +86,7 @@ public class NewFileWizardGenerator implements IGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public " + I_TEXT_PRINTER + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
+		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
 		sc.add("return new " + context.getQualifiedClassName(EArtifact.PRINTER) + "(outputStream, new " + context.getQualifiedClassName(EArtifact.RESOURCE) + "());");
 		sc.add("}");
 

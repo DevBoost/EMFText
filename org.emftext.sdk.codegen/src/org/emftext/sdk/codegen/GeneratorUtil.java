@@ -20,17 +20,12 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PROBLEM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
@@ -96,13 +91,13 @@ public class GeneratorUtil {
 		}
 	}
 
-	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName) {
+	public void addAddMapEntryMethod(StringComposite sc, String qualifiedDummyEObjectClassName, ClassNameHelper classNameHelper) {
 		sc.add("protected void addMapEntry(" + E_OBJECT + " element, " + E_STRUCTURAL_FEATURE + " structuralFeature, " + qualifiedDummyEObjectClassName + " dummy) {");
 		sc.add(OBJECT + " value = element.eGet(structuralFeature);");
 		sc.add(OBJECT + " mapKey = dummy.getValueByName(\"key\");");
 		sc.add(OBJECT + " mapValue = dummy.getValueByName(\"value\");");
 		sc.add("if (value instanceof " + E_MAP + "<?, ?>) {");
-		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + MAP_UTIL + ".castToEMap(value);");
+		sc.add(E_MAP + "<" + OBJECT + ", " + OBJECT + "> valueMap = " + classNameHelper.getMAP_UTIL() + ".castToEMap(value);");
 		sc.add("if (mapKey != null && mapValue != null) {");
 		sc.add("valueMap.put(mapKey, mapValue);");
 		sc.add("}");
@@ -127,7 +122,7 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addRegisterContextDependentProxyMethod(StringComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters) {
+	public void addRegisterContextDependentProxyMethod(StringComposite sc, String qualifiedContextDependentURIFragmentFactoryClassName, boolean addTypeParameters, ClassNameHelper classNameHelper) {
 		String typeParameters = "";
 		if (addTypeParameters) {
 			typeParameters = "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> ";
@@ -135,8 +130,8 @@ public class GeneratorUtil {
 		sc.add("protected " + typeParameters + "void registerContextDependentProxy(final " + qualifiedContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, final " + "ContainerType element, final " + E_REFERENCE + " reference, final String id, final " + E_OBJECT
 				+ " proxy) {");
 
-		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
-		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
+		sc.add("postParseCommands.add(new " + classNameHelper.getI_COMMAND() + "<" + classNameHelper.getI_TEXT_RESOURCE() + ">() {");
+		sc.add("public boolean execute(" + classNameHelper.getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
@@ -158,19 +153,19 @@ public class GeneratorUtil {
         sc.addLineBreak();
 	}
 
-	public void addAddErrorToResourceMethod(StringComposite sc) {
+	public void addAddErrorToResourceMethod(StringComposite sc, ClassNameHelper classNameHelper) {
 		sc.add("protected void addErrorToResource(final " + STRING + " errorMessage, final int line, final int charPositionInLine, final int startIndex, final int stopIndex) {");
 
-		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
-		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
+		sc.add("postParseCommands.add(new " + classNameHelper.getI_COMMAND() + "<" + classNameHelper.getI_TEXT_RESOURCE() + ">() {");
+		sc.add("public boolean execute(" + classNameHelper.getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("resource.addProblem(new " + ABSTRACT_PROBLEM + "() {");
-		sc.add("public " + E_PROBLEM_TYPE + " getType() {");
-		sc.add("return " + E_PROBLEM_TYPE + ".ERROR;");
+		sc.add("resource.addProblem(new " + classNameHelper.getABSTRACT_PROBLEM() + "() {");
+		sc.add("public " + classNameHelper.getE_PROBLEM_TYPE() + " getType() {");
+		sc.add("return " + classNameHelper.getE_PROBLEM_TYPE() + ".ERROR;");
 		sc.add("}");
 		sc.add("public " + STRING + " getMessage() {");
 		sc.add("return errorMessage;");

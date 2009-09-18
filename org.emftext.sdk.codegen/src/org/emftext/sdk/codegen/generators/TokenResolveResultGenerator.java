@@ -1,12 +1,10 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-
-import java.io.PrintWriter;
 
 public class TokenResolveResultGenerator extends BaseGenerator {
 
@@ -24,7 +22,7 @@ public class TokenResolveResultGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("// A basic implementation of the ITokenResolveResult interface.");
 		sc.add("//");
-		sc.add("public class " + getResourceClassName() + " implements " + I_TOKEN_RESOLVE_RESULT + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " {");
 		sc.addLineBreak();
 		sc.add("private String errorMessage;");
 		sc.add("private Object resolvedToken;");

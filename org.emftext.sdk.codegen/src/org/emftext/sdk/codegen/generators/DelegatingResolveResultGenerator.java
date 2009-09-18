@@ -1,8 +1,6 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_MAPPING;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import java.io.PrintWriter;
@@ -31,11 +29,11 @@ public class DelegatingResolveResultGenerator extends BaseGenerator {
 		sc.add("//");
 		sc.add("// @param <ReferenceType> the type of the references that can be contained in this result");
 		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + I_REFERENCE_RESOLVE_RESULT + "<ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> {");
 		sc.addLineBreak();
-		sc.add("private " + I_REFERENCE_RESOLVE_RESULT + "<ReferenceType> delegate;");
+		sc.add("private " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> delegate;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + I_REFERENCE_RESOLVE_RESULT + "<ReferenceType> delegate) {");
+		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> delegate) {");
 		sc.add("this.delegate = delegate;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -43,7 +41,7 @@ public class DelegatingResolveResultGenerator extends BaseGenerator {
 		sc.add("return delegate.getErrorMessage();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + COLLECTION + "<" + I_REFERENCE_MAPPING + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
 		sc.add("return delegate.getMappings();");
 		sc.add("}");
 		sc.addLineBreak();

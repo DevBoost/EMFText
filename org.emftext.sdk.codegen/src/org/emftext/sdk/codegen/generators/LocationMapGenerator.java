@@ -35,7 +35,7 @@ public class LocationMapGenerator extends BaseGenerator {
 		sc.add("// Start:  The lowest of all sources is used for target<br>");
 		sc.add("// End:    The highest of all sources is used for target<br>");
 		sc.add("//");
-		sc.add("public class " + getResourceClassName() + " implements " + I_LOCATION_MAP + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_LOCATION_MAP() + " {");
 		sc.addLineBreak();
 		sc.add("// A basic interface that can be implemented to select");
 		sc.add("// EObjects based of their location in a text resource.");

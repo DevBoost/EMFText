@@ -3,7 +3,6 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DOCUMENT_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TIMER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TIMER_TASK;
 
@@ -64,7 +63,7 @@ public class BackgroundParsingStrategyGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Schedules a task for background parsing that will be started after");
 		sc.add("// a delay.");
-		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + I_TEXT_RESOURCE + " resource, final " + editorClassName + " editor) {");
+		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, final " + editorClassName + " editor) {");
 		sc.add("final String contents = event.getDocument().get();");
 		sc.addLineBreak();
 		sc.add("// this synchronization is needed to avoid the creation");

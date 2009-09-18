@@ -32,9 +32,9 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 		sc.add("//");
 		sc.add("// @param <ReferenceType> the type of the references that can be contained in this result");
 		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + I_REFERENCE_RESOLVE_RESULT + "<ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> {");
 		sc.addLineBreak();
-		sc.add("private " + COLLECTION + "<" + I_REFERENCE_MAPPING + "<ReferenceType>> mappings;");
+		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> mappings;");
 		sc.add("private String errorMessage;");
 		sc.add("private boolean resolveFuzzy;");
 		sc.addLineBreak();
@@ -47,7 +47,7 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 		sc.add("return errorMessage;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + COLLECTION + "<" + I_REFERENCE_MAPPING + "<ReferenceType>> getMappings() {");
+		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>> getMappings() {");
 		sc.add("return mappings;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -76,7 +76,7 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public void addMapping(String identifier, ReferenceType target, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + I_REFERENCE_MAPPING + "<ReferenceType>>();");
+		sc.add("mappings = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>>();");
 		sc.add("}");
 		sc.add("mappings.add(new " + qualifiedElementMappingClassName + "<ReferenceType>(identifier, target, warning));");
 		sc.add("errorMessage = null;");
@@ -88,7 +88,7 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public void addMapping(String identifier, " + URI + " uri, String warning) {");
 		sc.add("if (mappings == null) {");
-		sc.add("mappings = new " + ARRAY_LIST + "<" + I_REFERENCE_MAPPING + "<ReferenceType>>();");
+		sc.add("mappings = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<ReferenceType>>();");
 		sc.add("}");
 		sc.add("mappings.add(new " + qualifiedURIMappingClassName + "<ReferenceType>(identifier, uri, warning));");
 		sc.add("}");

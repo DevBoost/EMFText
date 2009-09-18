@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.emftext.sdk.codegen.ClassNameHelper;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -117,6 +118,8 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	private String className;
 	private String packageName;
 
+	private ClassNameHelper classNameHelper;
+
 	public BaseGenerator() {
 		super();
 	}
@@ -136,6 +139,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		warnings = new LinkedList<GenerationProblem>();
 
 		this.context = context;
+		this.classNameHelper = new ClassNameHelper(context);
 		this.packageName = context.getPackageName(artifact);
 		this.className = context.getClassName(artifact);
 	}
@@ -145,10 +149,15 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		warnings = new LinkedList<GenerationProblem>();
 
 		this.context = context;
+		this.classNameHelper = new ClassNameHelper(context);
 		this.packageName = packageName;
 		this.className = className;
 	}
 	
+	public ClassNameHelper getClassNameHelper() {
+		return classNameHelper;
+	}
+
 	/**
 	 * A ResourceGenerator generates its output on a PrintWriter. All its GenerationProblems should be reported
 	 * via addProblem(GenerationProblem).<br/> 

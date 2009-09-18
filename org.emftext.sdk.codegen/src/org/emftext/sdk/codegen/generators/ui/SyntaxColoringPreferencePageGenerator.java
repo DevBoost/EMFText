@@ -383,8 +383,8 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + "> syntaxPlugins = " + EMFTEXT_RUNTIME_PLUGIN + ".getConcreteSyntaxRegistry();");
-		sc.add("for (" + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + " syntaxPlugin : syntaxPlugins) {");
+		sc.add(LIST + "<" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + "> syntaxPlugins = " + getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".getConcreteSyntaxRegistry();");
+		sc.add("for (" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " syntaxPlugin : syntaxPlugins) {");
 		sc.addLineBreak();
 		sc.add("String languageId = syntaxPlugin.getSyntaxName();");
 		sc.addLineBreak();

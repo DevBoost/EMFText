@@ -35,7 +35,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		addFields(sc);
 		addConstructor(sc);
 		
-		sc.add("private class FoldingUpdateListener implements " + I_BACKGROUND_PARSING_LISTENER + " {");
+		sc.add("private class FoldingUpdateListener implements " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource) {");
 		sc.add("calculatePositions();");
 		sc.add("}");
@@ -326,7 +326,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("protected void calculatePositions() {");
-		sc.add(I_TEXT_RESOURCE + " textResource = (" + I_TEXT_RESOURCE + ") editor.getResource();");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") editor.getResource();");
 		sc.add(I_DOCUMENT + " document = sourceViewer.getDocument();");
 		sc.add("if (textResource == null || document == null) {");
 		sc.add("return;");
@@ -336,7 +336,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add("final " + LIST + "<" + POSITION + "> positions = new " + ARRAY_LIST + "<" + POSITION + ">();");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add(E_CLASS + "[] foldableClasses = textResource.getMetaInformation().getFoldableClasses();");
 		sc.add("if (foldableClasses == null) {");
 		sc.add("return;");

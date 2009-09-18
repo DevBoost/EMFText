@@ -3,15 +3,11 @@ package org.emftext.sdk.codegen.generators;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OPERATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -63,8 +59,8 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
 		sc.add("if(element.eIsProxy()) {");
 		sc.add(STRING + " fragment = ((" + INTERNAL_E_OBJECT + ") element).eProxyURI().fragment();");
-		sc.add("if (fragment != null && fragment.startsWith(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
-		sc.add("fragment = fragment.substring(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
+		sc.add("if (fragment != null && fragment.startsWith(" + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + ".INTERNAL_URI_FRAGMENT_PREFIX)) {");
+		sc.add("fragment = fragment.substring(" + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + ".INTERNAL_URI_FRAGMENT_PREFIX.length());");
 		sc.add("fragment = fragment.substring(fragment.indexOf(\"_\") + 1);");
 		sc.add("}");
 		sc.add("return fragment;");
@@ -81,7 +77,7 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
 		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
-		sc.add(STRING + " result = (" + STRING + ") " + E_OBJECT_UTIL + ".invokeOperation(element, o);");
+		sc.add(STRING + " result = (" + STRING + ") " + getClassNameHelper().getE_OBJECT_UTIL() + ".invokeOperation(element, o);");
 		sc.add("if (result != null) {");
 		sc.add("return result;");
 		sc.add("}");
@@ -129,7 +125,7 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		sc.add("");
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
 		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
-		sc.add(STRING + " result = (" + STRING + ") " + E_OBJECT_UTIL + ".invokeOperation(element, o);");
+		sc.add(STRING + " result = (" + STRING + ") " + getClassNameHelper().getE_OBJECT_UTIL() + ".invokeOperation(element, o);");
 		sc.add(STRING + " match = matches(identifier, result, matchFuzzy);");
 		sc.add("if (match != null) {");
 		sc.add("return match;");
@@ -150,7 +146,7 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 	}
 
 	private void addProduceDeResolveErrorMessage(StringComposite sc) {
-		sc.add("protected " + STRING + " produceDeResolveErrorMessage(" + E_OBJECT + " refObject, " + E_OBJECT + " container, " + E_REFERENCE + " reference, " + I_TEXT_RESOURCE + " resource) {");
+		sc.add("protected " + STRING + " produceDeResolveErrorMessage(" + E_OBJECT + " refObject, " + E_OBJECT + " container, " + E_REFERENCE + " reference, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add(STRING + " msg = getClass().getSimpleName() + \": \" + reference.getEType().getName() + \" \\\"\" + refObject.toString() + \"\\\" not de-resolveable\";");
 		sc.add("return msg;");
 		sc.add("}");
@@ -171,7 +167,7 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 	}
 
 	private void addCheckElementMethod(StringComposite sc) {
-		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, " + STRING + " identifier, boolean resolveFuzzy, " + I_REFERENCE_RESOLVE_RESULT + "<ReferenceType> result) {");
+		sc.add("private boolean checkElement(" + E_OBJECT + " element, " + E_CLASS + " type, " + STRING + " identifier, boolean resolveFuzzy, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
 		sc.add("if (element.eIsProxy()) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -202,10 +198,10 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 	private void addResolveMethod(StringComposite sc) {
 		sc.add("// This standard implementation searches the tree for objects of the ");
 		sc.add("// correct type with a name attribute matching the identifier.");
-		sc.add("protected void resolve(" + STRING + " identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + I_REFERENCE_RESOLVE_RESULT + "<ReferenceType> result) {");
+		sc.add("protected void resolve(" + STRING + " identifier, ContainerType container, " + E_REFERENCE + " reference, int position, boolean resolveFuzzy, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<ReferenceType> result) {");
 		sc.add("try {");
 		sc.add(E_CLASS + " type = reference.getEReferenceType();");
-		sc.add(E_OBJECT + " root = " + E_OBJECT_UTIL + ".findRootContainer(container);");
+		sc.add(E_OBJECT + " root = " + getClassNameHelper().getE_OBJECT_UTIL() + ".findRootContainer(container);");
 		sc.add("// first check whether the root element matches");
 		sc.add("boolean continueSearch = checkElement(root, type, identifier, resolveFuzzy, result);");
 		sc.add("if (!continueSearch) {");

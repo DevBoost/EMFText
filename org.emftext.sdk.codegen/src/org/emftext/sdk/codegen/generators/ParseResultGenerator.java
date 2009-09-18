@@ -1,11 +1,8 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_PARSE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 
 import java.io.PrintWriter;
 
@@ -32,11 +29,11 @@ public class ParseResultGenerator extends BaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " extends " + ABSTRACT_PARSE_RESULT + " {");
+        sc.add("public class " + getResourceClassName()+ " extends " + getClassNameHelper().getABSTRACT_PARSE_RESULT() + " {");
         sc.addLineBreak();
 
         sc.add("private " + E_OBJECT + " root;");
-        sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands = new " + ARRAY_LIST + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">>();");
+        sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> commands = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">>();");
         sc.addLineBreak();
         
 		sc.add("public " + getResourceClassName() + "() {");
@@ -54,7 +51,7 @@ public class ParseResultGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("public " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> getPostParseCommands() {");
+		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> getPostParseCommands() {");
 		sc.add("return commands;");
 		sc.add("}");
 		sc.addLineBreak();

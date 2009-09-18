@@ -20,10 +20,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TOKEN_RESOLVER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
@@ -54,12 +52,11 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TokenResolverGenerator implements IGenerator {
+public class TokenResolverGenerator extends BaseGenerator {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	
-	private GenerationContext context;
 	private TokenDefinition definition;
 	private String qualifiedDefaultTokenResolverClassName;
 	
@@ -68,18 +65,17 @@ public class TokenResolverGenerator implements IGenerator {
 	}
 	
 	private TokenResolverGenerator(GenerationContext context) {
-		super();
-		this.context = context;
+		super(context, context.getResolverPackageName(), null);
 		this.qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
 		
-		sc.add("package " + context.getResolverPackageName()+ ";");
+		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
-		sc.add("public class " + csUtil.getTokenResolverClassName(context.getConcreteSyntax(), definition) + " extends " + ABSTRACT_TOKEN_RESOLVER + " {");
+		sc.add("public class " + csUtil.getTokenResolverClassName(getContext().getConcreteSyntax(), definition) + " extends " + getClassNameHelper().getABSTRACT_TOKEN_RESOLVER() + " {");
 		sc.addLineBreak();
 		sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		sc.addLineBreak();
@@ -119,7 +115,7 @@ public class TokenResolverGenerator implements IGenerator {
 	}
 
 	private void generateResolveMethod(StringComposite sc) {
-		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, " + I_TOKEN_RESOLVE_RESULT + " result) {");
+		sc.add("public void resolve(" + STRING + " lexem, " + E_STRUCTURAL_FEATURE + " feature, " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result) {");
 
 		String suffix = getSuffix();
 		String prefix = getPrefix();

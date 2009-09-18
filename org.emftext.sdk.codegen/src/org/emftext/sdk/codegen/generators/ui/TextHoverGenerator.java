@@ -12,12 +12,10 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.FONT_DATA;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_READER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_HOVER_TEXT_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INFORMATION_CONTROL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INFORMATION_CONTROL_CREATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INFORMATION_CONTROL_EXTENSION4;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INPUT_CHANGED_LISTENER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REGION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_CHANGED_LISTENER;
@@ -26,7 +24,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SHARED_IM
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_HOVER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_HOVER_EXTENSION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_HOVER_EXTENSION2;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.J_FACE_RESOURCES;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -183,7 +180,7 @@ public class TextHoverGenerator extends BaseGenerator {
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private static final String FONT = " + J_FACE_RESOURCES + ".DIALOG_FONT;");
 		sc.add("private " + editorClassName + " editor;");
-		sc.add("private " + I_HOVER_TEXT_PROVIDER + " hoverTextProvider;");
+		sc.add("private " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " hoverTextProvider;");
 		sc.add("// The style sheet (css).");
 		sc.add("private static String styleSheet;");
 		sc.addLineBreak();
@@ -229,8 +226,8 @@ public class TextHoverGenerator extends BaseGenerator {
 	private void addInternalGetHoverInfoMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private " + docBrowserInformationControlInputClassName + " internalGetHoverInfo(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " hoverRegion) {");
-		sc.add(I_TEXT_RESOURCE + " textResource = editor.getResource();");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = editor.getResource();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(hoverRegion.getOffset());");
 		sc.add("if (elementsAtOffset == null || elementsAtOffset.size() == 0) {");
 		sc.add("return null;");
@@ -261,8 +258,8 @@ public class TextHoverGenerator extends BaseGenerator {
 		sc.add("// declaration.");
 		sc.add("String tokenText = \"\";");
 		sc.add("if (proxyObject != null) {");
-		sc.add(I_TEXT_RESOURCE + " textResource = editor.getResource();");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = editor.getResource();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add("int offset = locationMap.getCharStart(proxyObject);");
 		sc.add("int length = locationMap.getCharEnd(proxyObject) + 1 - offset;");
 		sc.add("try {");

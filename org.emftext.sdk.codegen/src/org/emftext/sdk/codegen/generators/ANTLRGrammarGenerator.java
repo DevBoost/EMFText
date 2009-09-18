@@ -32,12 +32,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.FAILED_PRED
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXPECTED_ELEMENT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PARSE_RESULT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
@@ -49,8 +43,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.NO_VIABLE_A
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_UTIL;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.TERMINATE_PARSING_EXCEPTION;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -293,9 +285,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addMethods(String lexerName, String parserName,
 			StringComposite sc) {
-		generatorUtil.addAddErrorToResourceMethod(sc);
+		generatorUtil.addAddErrorToResourceMethod(sc, getClassNameHelper());
 		addAddExpectedElementMethod(sc);
-		generatorUtil.addAddMapEntryMethod(sc, qualifiedDummyEObjectClassName);
+		generatorUtil.addAddMapEntryMethod(sc, qualifiedDummyEObjectClassName, getClassNameHelper());
 		generatorUtil.addAddObjectToListMethod(sc);
 		addApplyMethod(sc);
 		addCollectHiddenTokensMethod(lexerName, sc);
@@ -319,7 +311,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		addParseToExpectedElementsMethod(sc);
 		addRecoverFromMismatchedTokenMethod(sc);
 		generatorUtil.addRegisterContextDependentProxyMethod(sc,
-				qualifiedContextDependentURIFragmentFactoryClassName, true);
+				qualifiedContextDependentURIFragmentFactoryClassName, true, getClassNameHelper());
 		addReportErrorMethod(sc);
 		addReportLexicalErrorsMethod(sc);
 		addSetOptionsMethod(sc);
@@ -393,7 +385,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("tokenName = \"EOF\";");
 		sc.add("} else {");
 		sc.add("tokenName = getTokenNames()[mte.expecting];");
-		sc.add("tokenName = " + STRING_UTIL + ".formatTokenName(tokenName);");
+		sc.add("tokenName = " + getClassNameHelper().getSTRING_UTIL() + ".formatTokenName(tokenName);");
 		sc.add("}");
 		sc.add("message = \"Syntax error on token \\\"\" + e.token.getText() + \"\\\", \\\"\" + tokenName + \"\\\" expected\";");
 		sc.add("} else if (e instanceof " + MISMATCHED_TREE_NODE_EXCEPTION + ") {");
@@ -444,9 +436,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 		sc.add("// Implementation that calls {@link #doParse()}  and handles the thrown");
 		sc.add("// RecognitionExceptions.");
-		sc.add("public " + I_PARSE_RESULT + " parse() {");
+		sc.add("public " + getClassNameHelper().getI_PARSE_RESULT() + " parse() {");
 		sc.add("terminateParsing = false;");
-		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">>();");
+		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">>();");
 		sc.add("try {");
 		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
 		sc.add(E_OBJECT + " result =  doParse();");
@@ -538,7 +530,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add(Map.class.getName() + "<?,?> options = getOptions();");
 		sc.add("if (options != null) {");
-		sc.add("typeObject = options.get(" + I_OPTIONS
+		sc.add("typeObject = options.get(" + getClassNameHelper().getI_OPTIONS()
 				+ ".RESOURCE_CONTENT_TYPE);");
 		sc.add("}");
 		sc.add("return typeObject;");
@@ -736,9 +728,9 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private " + OBJECT + " parseToIndexTypeObject;");
 		sc.add("private int lastTokenIndex = 0;");
 		sc.add("private boolean reachedIndex = false;");
-		sc.add("private " + LIST + "<" + I_EXPECTED_ELEMENT
+		sc.add("private " + LIST + "<" + getClassNameHelper().getI_EXPECTED_ELEMENT()
 				+ "> expectedElements = new " + ARRAY_LIST + "<"
-				+ I_EXPECTED_ELEMENT + ">();");
+				+ getClassNameHelper().getI_EXPECTED_ELEMENT() + ">();");
 		sc.add("private int lastIndex = -1;");
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
 		sc.add("private " + MAP + "<?, ?> options;");
@@ -755,12 +747,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		//sc.add("private int lastNonHiddenTokenIndex;");
 		sc.add("private int stopIncludingHiddenTokens;");
 		sc.add("private int stopExcludingHiddenTokens;");
-		sc.add("private " + COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> postParseCommands;");
+		sc.add("private " + COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> postParseCommands;");
 		sc.add("private boolean terminateParsing;");
 	}
 
 	private void addParseToExpectedElementsMethod(StringComposite sc) {
-		sc.add("public " + LIST + "<" + I_EXPECTED_ELEMENT
+		sc.add("public " + LIST + "<" + getClassNameHelper().getI_EXPECTED_ELEMENT()
 				+ "> parseToExpectedElements(" + E_CLASS + " type) {");
 		sc.add("rememberExpectedElements = true;");
 		sc.add("parseToIndexTypeObject = type;");
@@ -773,14 +765,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addCopyLocalizationInfosMethod1(StringComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + E_OBJECT + " source, final "
 				+ E_OBJECT + " target) {");
-		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
-		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
+		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
+		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add(I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
 		sc.add("locationMap.setCharStart(target, locationMap.getCharStart(source));");
 		sc.add("locationMap.setCharEnd(target, locationMap.getCharEnd(source));");
 		sc.add("locationMap.setColumn(target, locationMap.getColumn(source));");
@@ -795,14 +787,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addCopyLocalizationInfosMethod2(StringComposite sc) {
 		sc.add("protected void copyLocalizationInfos(final " + COMMON_TOKEN
 				+ " source, final " + E_OBJECT + " target) {");
-		sc.add("postParseCommands.add(new " + I_COMMAND + "<" + I_TEXT_RESOURCE + ">() {");
-		sc.add("public boolean execute(" + I_TEXT_RESOURCE + " resource) {");
+		sc.add("postParseCommands.add(new " + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">() {");
+		sc.add("public boolean execute(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the parser is used for");
 		sc.add("// code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add(I_LOCATION_MAP + " locationMap = resource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = resource.getLocationMap();");
 		sc.add("locationMap.setCharStart(target, source.getStartIndex());");
 		sc.add("locationMap.setCharEnd(target, source.getStopIndex());");
 		sc.add("locationMap.setColumn(target, source.getCharPositionInLine());");
@@ -815,7 +807,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addAddExpectedElementMethod(StringComposite sc) {
-		sc.add("public void addExpectedElement(" + I_EXPECTED_ELEMENT
+		sc.add("public void addExpectedElement(" + getClassNameHelper().getI_EXPECTED_ELEMENT()
 				+ " expectedElement, " + STRING + " message) {");
 		// TODO mseifert: use constants for class names
 		//sc.add("if (this.state.failed) {");
@@ -1635,7 +1627,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			String tokenName) {
 		sc.add("{");
 		sc.add("if (terminateParsing) {");
-		sc.add("throw new " + TERMINATE_PARSING_EXCEPTION + "();");
+		sc.add("throw new " + getClassNameHelper().getTERMINATE_PARSING_EXCEPTION() + "();");
 		sc.add("}");
 		sc.add("if (element == null) {");
 		sc.add("element = "

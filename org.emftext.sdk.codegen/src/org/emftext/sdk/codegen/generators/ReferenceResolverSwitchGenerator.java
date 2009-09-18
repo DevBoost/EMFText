@@ -21,8 +21,6 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
@@ -76,7 +74,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
         // TODO EMFTEXT_1.2.0 extend AbstractReferenceResolverSwitch instead
-		sc.add("public class " + getResourceClassName() + " implements " + I_REFERENCE_RESOLVER_SWITCH + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " {");
         sc.addLineBreak();
 		
 		generateFields(sc);
@@ -92,7 +90,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 	private void generateResolveFuzzyMethod(StringComposite sc) {
 		String qualifiedFuzzyResolveResultClassName = getContext().getClassName(EArtifact.FUZZY_RESOLVE_RESULT);
 		
-		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, int position, " + I_REFERENCE_RESOLVE_RESULT + "<" + E_OBJECT + "> result) {");
+		sc.add("public void resolveFuzzy(" + STRING + " identifier, " + E_OBJECT + " container, int position, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + E_OBJECT + "> result) {");
 		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			GenClass genClass = proxyReference.getGenClass();
 			String accessorName = genClass.getGenPackage().getQualifiedPackageInterfaceName() + ".eINSTANCE.get"  + genClass.getName() + "()";

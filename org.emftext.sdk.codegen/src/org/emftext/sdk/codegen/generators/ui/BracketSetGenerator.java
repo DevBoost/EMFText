@@ -1,16 +1,13 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_BRACKET_PAIR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BAD_LOCATION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_BRACKET_PAIR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SOURCE_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MODIFY_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MODIFY_LISTENER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONSTANTS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROJECTION_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLED_TEXT;
@@ -161,7 +158,7 @@ public class BracketSetGenerator extends BaseGenerator {
 		sc.add("return \"\";");
 		sc.add("}");
 		sc.add(STRING + " result = \"\";");
-		sc.add("for (" + I_BRACKET_PAIR + " bracketPair : bracketPairs) {");
+		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add(STRING + " isClosingStr = \"0\";");
 		sc.add("if (bracketPair.isClosingEnabledInside()) {");
 		sc.add("isClosingStr = \"1\";");
@@ -182,7 +179,7 @@ public class BracketSetGenerator extends BaseGenerator {
 		sc.add("public String[] getBracketArray() {");
 		sc.add("String[] ret = new String[bracketPairs.size()];");
 		sc.add("int i = 0;");
-		sc.add("for (" + I_BRACKET_PAIR + " bracketPair : bracketPairs) {");
+		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("ret[i] = bracketPair.getOpeningBracket() + BRACKET_SEPARATOR + bracketPair.getClosingBracket();");
 		sc.add("i++;");
 		sc.add("}");
@@ -206,7 +203,7 @@ public class BracketSetGenerator extends BaseGenerator {
 		sc.add("if (bracketSet.length() % 3 != 0) {");
 		sc.add("return false;");
 		sc.add("}");
-		sc.add("bracketPairs = new " + ARRAY_LIST + "<" + I_BRACKET_PAIR + ">();");
+		sc.add("bracketPairs = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_BRACKET_PAIR() + ">();");
 		sc.add("for (int i = 0; i < bracketSet.length() / 3; i++) {");
 		sc.add("addBracketPair(\"\" + bracketSet.charAt(i * 3), \"\" + bracketSet.charAt(i * 3 + 1), bracketSet.charAt(i * 3 + 2) != '0');");
 		sc.add("}");
@@ -230,8 +227,8 @@ public class BracketSetGenerator extends BaseGenerator {
 	private void addRemoveMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Removes the given bracket pair.");
-		sc.add("public " + I_BRACKET_PAIR + " remove(String opening, String closing) {");
-		sc.add("for (" + I_BRACKET_PAIR + " bracketPair : bracketPairs) {");
+		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " remove(String opening, String closing) {");
+		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
 		sc.add("bracketPairs.remove(bracketPair);");
 		sc.add("return bracketPair;");
@@ -254,7 +251,7 @@ public class BracketSetGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Gets the counter part of a bracket.");
 		sc.add("public String getCounterpart(String bracket) {");
-		sc.add("for (" + I_BRACKET_PAIR + " bracketPair : bracketPairs) {");
+		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
 		sc.add("return bracketPair.getClosingBracket();");
 		sc.add("}");
@@ -271,7 +268,7 @@ public class BracketSetGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Removes all bracket pairs from this bracket set, reload the bracket set from the preference store.");
 		sc.add("public boolean resetBrackets() {");
-		sc.add("String bracketPairs = preferenceStore.getString(languageID + " + PREFERENCE_CONSTANTS + ".EDITOR_BRACKETS_SUFFIX);");
+		sc.add("String bracketPairs = preferenceStore.getString(languageID + " + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_BRACKETS_SUFFIX);");
 		sc.add("if (bracketPairs == null) {");
 		sc.add("return false;");
 		sc.add("}");
@@ -284,7 +281,7 @@ public class BracketSetGenerator extends BaseGenerator {
 	private void addSetClosingInsideMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Sets whether other bracket pairs shall be automatically closed, when used inside of this bracket pair.");
-		sc.add("public boolean setClosingEnabledInside(" + I_BRACKET_PAIR + " bracketPair, boolean closingEnabledInside) {");
+		sc.add("public boolean setClosingEnabledInside(" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair, boolean closingEnabledInside) {");
 		sc.add("if (bracketPair instanceof BracketPair) {");
 		sc.add("((BracketPair) bracketPair).setClosingEnabledInside(closingEnabledInside);");
 		sc.add("return true;");
@@ -309,7 +306,7 @@ public class BracketSetGenerator extends BaseGenerator {
 
 	private void addGetBracketPairMethod2(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("public " + I_BRACKET_PAIR + " getBracketPair(int index) {");
+		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " getBracketPair(int index) {");
 		sc.add("try {");
 		sc.add("return bracketPairs.get(index);");
 		sc.add("} catch (" + EXCEPTION + " e) {");
@@ -322,8 +319,8 @@ public class BracketSetGenerator extends BaseGenerator {
 	private void addGetBracketPairMethod1(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Returns the bracket pair with the given opening and closing.");
-		sc.add("public " + I_BRACKET_PAIR + " getBracketPair(String opening, String closing) {");
-		sc.add("for (" + I_BRACKET_PAIR + " bracketPair : bracketPairs) {");
+		sc.add("public " + getClassNameHelper().getI_BRACKET_PAIR() + " getBracketPair(String opening, String closing) {");
+		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracketPair.getOpeningBracket().equals(opening) && bracketPair.getClosingBracket().equals(closing)) {");
 		sc.add("return bracketPair;");
 		sc.add("}");
@@ -337,7 +334,7 @@ public class BracketSetGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Checks whether the string is a bracket.");
 		sc.add("public boolean isBracket(String bracket) {");
-		sc.add("for (" + I_BRACKET_PAIR + " bracketPair : bracketPairs) {");
+		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracket.equals(bracketPair.getOpeningBracket()) || bracket.equals(bracketPair.getClosingBracket())) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -351,7 +348,7 @@ public class BracketSetGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// Checks whether the given string is an open bracket.");
 		sc.add("public boolean isOpeningBracket(String bracket) {");
-		sc.add("for (" + I_BRACKET_PAIR + " bracketPair : bracketPairs) {");
+		sc.add("for (" + getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair : bracketPairs) {");
 		sc.add("if (bracket.equals(bracketPair.getOpeningBracket())) {");
 		sc.add("return true;");
 		sc.add("}");
@@ -371,7 +368,7 @@ public class BracketSetGenerator extends BaseGenerator {
 		sc.add("//            the file extension of the DSL");
 		sc.add("public " + getResourceClassName() + "(" + I_SOURCE_VIEWER + " sourceViewer, String extension) {");
 		sc.add("languageID = extension;");
-		sc.add("this.bracketPairs = new " + ARRAY_LIST + "<" + I_BRACKET_PAIR + ">();");
+		sc.add("this.bracketPairs = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_BRACKET_PAIR() + ">();");
 		sc.add("if (sourceViewer != null) {");
 		sc.add("viewer = sourceViewer;");
 		sc.add("textWidget = viewer.getTextWidget();");
@@ -409,7 +406,7 @@ public class BracketSetGenerator extends BaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add("if (caret > 0 && caret < textWidget.getCharCount()) {");
-		sc.add(I_BRACKET_PAIR + " bracketPair = getBracketPair(textWidget.getTextRange(caret - 1, 1), textWidget.getTextRange(caret, 1));");
+		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = getBracketPair(textWidget.getTextRange(caret - 1, 1), textWidget.getTextRange(caret, 1));");
 		sc.add("if (bracketPair != null && !bracketPair.isClosingEnabledInside())");
 		sc.add("return;");
 		sc.add("}");
@@ -466,7 +463,7 @@ public class BracketSetGenerator extends BaseGenerator {
 	private void addBracketPairClass(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// A single pair of brackets.");
-		sc.add("private class BracketPair extends " + ABSTRACT_BRACKET_PAIR + " {");
+		sc.add("private class BracketPair extends " + getClassNameHelper().getABSTRACT_BRACKET_PAIR() + " {");
 		sc.addLineBreak();
 		sc.add("private final " + STRING + "[] brackets;");
 		sc.add("private boolean closingEnabledInside;");
@@ -502,7 +499,7 @@ public class BracketSetGenerator extends BaseGenerator {
 		sc.add("// character, it will be used as regular expression");
 		sc.add("public final static " + STRING + " BRACKET_SEPARATOR = \" and \";");
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
-		sc.add("private " + ARRAY_LIST + "<" + I_BRACKET_PAIR + "> bracketPairs;");
+		sc.add("private " + ARRAY_LIST + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> bracketPairs;");
 		sc.add("private " + I_SOURCE_VIEWER + " viewer;");
 		sc.add("private String languageID;");
 		sc.add("private " + STYLED_TEXT + " textWidget;");

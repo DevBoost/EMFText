@@ -26,7 +26,7 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// Helper class to add markers to test files based on EMF's <code>" + RESOURCE + "." + DIAGNOSTIC + "</code>.");
-		sc.add("// If a resource contains <code>" + I_TEXT_DIAGNOSTIC + "</code>s it uses the more precise information of");
+		sc.add("// If a resource contains <code>" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + "</code>s it uses the more precise information of");
 		sc.add("// this extended diagnostic type.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
@@ -71,8 +71,8 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, markerSeverity);");
 		sc.add("marker.setAttribute(" + I_MARKER + ".MESSAGE, diagnostic.getMessage());");
 		sc.add("try {");
-		sc.add("if (diagnostic instanceof " + I_TEXT_DIAGNOSTIC + ") {");
-		sc.add(I_TEXT_DIAGNOSTIC + " textDiagnostic = (" + I_TEXT_DIAGNOSTIC + ") diagnostic;");
+		sc.add("if (diagnostic instanceof " + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") {");
+		sc.add(getClassNameHelper().getI_TEXT_DIAGNOSTIC() + " textDiagnostic = (" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") diagnostic;");
 		sc.add("marker.setAttribute(" + I_MARKER + ".LINE_NUMBER, textDiagnostic.getLine());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_START, textDiagnostic.getCharStart());");
 		sc.add("marker.setAttribute(" + I_MARKER + ".CHAR_END, textDiagnostic.getCharEnd() + 1);");

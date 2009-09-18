@@ -71,7 +71,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.addLineBreak();
-		sc.add("for (" + I_TEXT_RESOURCE_PLUGIN_META_INFORMATION + " metaInformation : " + EMFTEXT_RUNTIME_PLUGIN + ".getConcreteSyntaxRegistry()) {");
+		sc.add("for (" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation : " + getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".getConcreteSyntaxRegistry()) {");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.add("languageIDs.add(languageId);");
 		sc.add("}");
@@ -227,7 +227,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("if (activeEditor != null) {");
 		sc.add("if (activeEditor instanceof " + editorClassName + ") {");
 		sc.add(editorClassName + " emfTextEditor = (" + editorClassName + ") activeEditor;");
-		sc.add(I_TEXT_RESOURCE + " resource = (" + I_TEXT_RESOURCE + ") emfTextEditor.getResource();");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") emfTextEditor.getResource();");
 		sc.add("extension = resource.getMetaInformation().getSyntaxName();");
 		sc.add("}");
 		sc.add("}");
@@ -319,7 +319,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("boolean isClosingInside = true;");
 		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
 		sc.add("for (int index : itemIndices) {");
-		sc.add(I_BRACKET_PAIR + " bracketPair = bracketsTmp.getBracketPair(index);");
+		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(index);");
 		sc.add("if (bracketPair != null");
 		sc.add("&& !bracketPair.isClosingEnabledInside()) {");
 		sc.add("isClosingInside = false;");
@@ -339,7 +339,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("boolean isClosingInside = enableClosingInside.getSelection();");
 		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
 		sc.add("for (int idx : itemIndices) {");
-		sc.add(I_BRACKET_PAIR + " bracketPair = bracketsTmp.getBracketPair(idx);");
+		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(idx);");
 		sc.add("if (bracketPair != null)");
 		sc.add("bracketsTmp.setClosingEnabledInside(bracketPair, isClosingInside);");
 		sc.add("}");

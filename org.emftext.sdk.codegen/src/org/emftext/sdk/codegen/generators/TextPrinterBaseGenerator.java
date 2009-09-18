@@ -24,12 +24,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAYS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUFFERED_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -266,7 +263,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 	}
 
 	private void addGetResourceMethod(StringComposite sc) {
-		sc.add("public " + I_TEXT_RESOURCE + " getResource() {");
+		sc.add("public " + getClassNameHelper().getI_TEXT_RESOURCE() + " getResource() {");
 		sc.add("return resource;");
 		sc.add("}");
 	}
@@ -285,7 +282,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = getResource();");
         sc.add("if (resource == null) {");
         sc.add("return null;");
         sc.add("}");
@@ -319,7 +316,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private void addConstructor(StringComposite sc) {
 		sc.add("public " + super.getResourceClassName()
-				+ "(" + OUTPUT_STREAM + " outputStream, " + I_TEXT_RESOURCE + " resource) {");
+				+ "(" + OUTPUT_STREAM + " outputStream, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("super();");
 		sc.add("this.outputStream = outputStream;");
 		sc.add("this.resource = resource;");
@@ -328,22 +325,22 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private void addMembers(StringComposite sc) {
 		sc.add("protected final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
-		sc.add("protected " + I_TOKEN_RESOLVER_FACTORY + " tokenResolverFactory = new "
+		sc.add("protected " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new "
 						+ qualifiedTokenResolverFactoryClassName + "();");
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
 		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
-		sc.add("private " + I_TEXT_RESOURCE + " resource;");
+		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
 		sc.add("private " + MAP + "<?, ?> options;");
 	}
 
 	private void addAddWarningToResourceMethod(StringComposite sc) {
 		sc.add("protected void addWarningToResource(final " + STRING + " errorMessage, " + E_OBJECT + " cause) {");
-		sc.add(I_TEXT_RESOURCE + " resource = getResource();");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = getResource();");
 		sc.add("if (resource == null) {");
 		sc.add("// the resource can be null if the printer is used stand alone");
 		sc.add("return;");
 		sc.add("}");
-    	sc.add("resource.addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), cause);");
+    	sc.add("resource.addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), cause);");
 		sc.add("}");
 	}
 

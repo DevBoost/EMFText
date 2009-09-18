@@ -1,18 +1,9 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_BRACKET_PAIR;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TOKEN_STYLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_BRACKET_PAIR;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_SCANNER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_RESOLVER_FACTORY;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_STYLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -126,7 +117,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " extends " + ABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION + " {");
+        sc.add("public class " + getResourceClassName()+ " extends " + getClassNameHelper().getABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " {");
         sc.addLineBreak();
         addTokenStyleImplClass(sc);
         addBracketPairClass(sc);
@@ -179,7 +170,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addBracketPairClass(StringComposite sc) {
-		sc.add("public class BracketPair extends " + ABSTRACT_BRACKET_PAIR + " {");
+		sc.add("public class BracketPair extends " + getClassNameHelper().getABSTRACT_BRACKET_PAIR() + " {");
         sc.addLineBreak();
         sc.add("private String opening;");
         sc.add("private String closing;");
@@ -208,7 +199,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
     }
 
 	private void addCreateLexerMethod(StringComposite sc) {
-		sc.add("public " + I_TEXT_SCANNER+ " createLexer() {");
+		sc.add("public " + getClassNameHelper().getI_TEXT_SCANNER()+ " createLexer() {");
 		if (OptionManager.INSTANCE.useScalesParser(getContext().getConcreteSyntax())) {
 			sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SCANNERLESS_SCANNER) + "();");
 		} else {
@@ -221,7 +212,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addTokenStyleImplClass(StringComposite sc) {
-		sc.add("public class TokenStyleImpl extends " + ABSTRACT_TOKEN_STYLE + " {");
+		sc.add("public class TokenStyleImpl extends " + getClassNameHelper().getABSTRACT_TOKEN_STYLE() + " {");
         sc.addLineBreak();
         sc.add("private int[] color;");
         sc.add("private boolean bold;");
@@ -275,7 +266,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void addGetDefaultStyleMethod(StringComposite sc) {
 		List<TokenStyle> styles = getContext().getConcreteSyntax().getAllTokenStyles();
 		
-		sc.add("public " + I_TOKEN_STYLE + " getDefaultTokenStyle(" + STRING + " tokenName) {");
+		sc.add("public " + getClassNameHelper().getI_TOKEN_STYLE() + " getDefaultTokenStyle(" + STRING + " tokenName) {");
 		for (TokenStyle nextStyle : styles) {
 			String name = nextStyle.getTokenName();
 			sc.add("if (\"" + name + "\".equals(tokenName)) {");
@@ -320,7 +311,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	    	parserClassName = getContext().getQualifiedClassName(EArtifact.SCANNERLESS_PARSER);
 	    }
 		
-		sc.add("public " + I_TEXT_PARSER + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
+		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");
 		sc.add("}");
         sc.addLineBreak();
@@ -343,7 +334,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		String resolverSwitchClassName = getContext().getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 
-		sc.add("public " + I_REFERENCE_RESOLVER_SWITCH + " getReferenceResolverSwitch() {");
+		sc.add("public " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " getReferenceResolverSwitch() {");
 		sc.add("return new " + resolverSwitchClassName + "();");
 		sc.add("}");
         sc.addLineBreak();
@@ -352,7 +343,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	private void addGetTokenResolverFactoryMethod(StringComposite sc) {
 		String tokenResolverFactoryClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
 
-		sc.add("public " + I_TOKEN_RESOLVER_FACTORY + " getTokenResolverFactory() {");
+		sc.add("public " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " getTokenResolverFactory() {");
 		sc.add("return new " + tokenResolverFactoryClassName + "();");
 		sc.add("}");
         sc.addLineBreak();
@@ -372,8 +363,8 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		findBracketPairsInCsStrings(defaultPairs, foundPairs);
 		findBracketPairsInQuotedPlaceholders(defaultPairs, foundPairs);
 
-		sc.add("public " + COLLECTION + "<" + I_BRACKET_PAIR + "> getBracketPairs() {");
-		sc.add(COLLECTION + "<" + I_BRACKET_PAIR + "> result = new " + ARRAY_LIST + "<" + I_BRACKET_PAIR + ">();");
+		sc.add("public " + COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> getBracketPairs() {");
+		sc.add(COLLECTION + "<" + getClassNameHelper().getI_BRACKET_PAIR() + "> result = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_BRACKET_PAIR() + ">();");
 		for (BracketPair foundPair : foundPairs) {
 			final String left = StringUtil.escapeToJavaString(foundPair.getOpeningBracket());
 			final String right = StringUtil.escapeToJavaString(foundPair.getClosingBracket());

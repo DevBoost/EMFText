@@ -2,18 +2,12 @@ package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BAD_LOCATION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUNTIME_PLUGIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_SCANNER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONVERTER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_PROPERTY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.SYNTAX_COLORING_HELPER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_ATTRIBUTE;
 
 import java.io.PrintWriter;
@@ -82,7 +76,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.add("try {");
 		sc.add("lexer.setText(document.get(offset, length));");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
-		sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"Unexpected error:\", e);");
+		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Unexpected error:\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -98,21 +92,21 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.add(TEXT_ATTRIBUTE + " ta = null;");
 		sc.add("String tokenName = currentToken.getName();");
 		sc.add("if (tokenName != null) {");
-		sc.add("String enableKey = " + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".ENABLE);");
+		sc.add("String enableKey = " + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".ENABLE);");
 		sc.add("if (store.getBoolean(enableKey)) {");
-		sc.add("String colorKey = " + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".COLOR);");
+		sc.add("String colorKey = " + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".COLOR);");
 		sc.add(COLOR + " color = colorManager.getColor(" + PREFERENCE_CONVERTER + ".getColor(store, colorKey));");
 		sc.add("int style = " + SWT + ".NORMAL;");
-		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".BOLD))) {");
+		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".BOLD))) {");
 		sc.add("style = style | " + SWT + ".BOLD;");
 		sc.add("}");
-		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".ITALIC))) {");
+		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".ITALIC))) {");
 		sc.add("style = style | " + SWT + ".ITALIC;");
 		sc.add("}");
-		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".STRIKETHROUGH))) {");
+		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".STRIKETHROUGH))) {");
 		sc.add("style = style | " + TEXT_ATTRIBUTE + ".STRIKETHROUGH;");
 		sc.add("}");
-		sc.add("if (store.getBoolean(" + SYNTAX_COLORING_HELPER + ".getPreferenceKey(languageId, tokenName, " + STYLE_PROPERTY + ".UNDERLINE))) {");
+		sc.add("if (store.getBoolean(" + getClassNameHelper().getSYNTAX_COLORING_HELPER() + ".getPreferenceKey(languageId, tokenName, " + getClassNameHelper().getSTYLE_PROPERTY() + ".UNDERLINE))) {");
 		sc.add("style = style | " + TEXT_ATTRIBUTE + ".UNDERLINE;");
 		sc.add("}");
 		sc.add("ta = new " + TEXT_ATTRIBUTE + "(color, null, style);");
@@ -143,9 +137,9 @@ public class TokenScannerGenerator extends BaseGenerator {
 
 	private void addConstructor(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("// @param resource The <code>" + I_TEXT_RESOURCE + "</code> from which the <code>Lexer</code> can be determined.");
+		sc.add("// @param resource The <code>" + getClassNameHelper().getI_TEXT_RESOURCE() + "</code> from which the <code>Lexer</code> can be determined.");
 		sc.add("// @param colorManager A manager to obtain color objects");
-		sc.add("public " + getResourceClassName() + "(" + I_TEXT_RESOURCE + " resource, " + colorManagerClassName + " colorManager) {");
+		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, " + colorManagerClassName + " colorManager) {");
 		sc.add("this.lexer = resource.getMetaInformation().createLexer();");
 		sc.add("this.languageId = resource.getMetaInformation().getSyntaxName();");
 		sc.add("this.store = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
@@ -155,8 +149,8 @@ public class TokenScannerGenerator extends BaseGenerator {
 	}
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("private " + I_TEXT_SCANNER + " lexer;");
-		sc.add("private " + I_TEXT_TOKEN + " currentToken;");
+		sc.add("private " + getClassNameHelper().getI_TEXT_SCANNER() + " lexer;");
+		sc.add("private " + getClassNameHelper().getI_TEXT_TOKEN() + " currentToken;");
 		sc.add("private int offset;");
 		sc.add("private String languageId;");
 		sc.add("private " + I_PREFERENCE_STORE + " store;");

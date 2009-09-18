@@ -23,7 +23,7 @@ public class DefaultTokenResolverGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A base implementation for token resolvers. It tries to resolve lexems using java methods.");
-		sc.add("public class " + getResourceClassName() + " implements " + I_TOKEN_RESOLVER + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TOKEN_RESOLVER() + " {");
 		sc.addLineBreak();
 		sc.add("private " + MAP + "<?, ?> options;");
 		sc.addLineBreak();
@@ -34,7 +34,7 @@ public class DefaultTokenResolverGenerator extends BaseGenerator {
 		sc.add("return value.toString();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + I_TOKEN_RESOLVE_RESULT + " result) {");
+		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result) {");
 		sc.addLineBreak();
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
 		sc.add("if (feature.getEType() instanceof " + E_ENUM + ") {");

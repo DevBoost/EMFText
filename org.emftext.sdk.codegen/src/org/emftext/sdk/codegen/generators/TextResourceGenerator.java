@@ -20,61 +20,34 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.CAST_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.COPIED_E_LIST;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.COPIED_E_OBJECT_INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ELEMENT_BASED_TEXT_DIAGNOSTIC;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.EMFTEXT_RUNTIME_PLUGIN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_PROBLEM_TYPE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMMAND;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ELEMENT_MAPPING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INPUT_STREAM_PROCESSOR_PROVIDER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_LOCATION_MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTIONS;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_OPTION_PROVIDER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PARSE_RESULT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROBLEM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_MAPPING;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVER_SWITCH;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_REFERENCE_RESOLVE_RESULT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR_PROVIDER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_DIAGNOSTIC;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_PARSER;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_URI_MAPPING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP_UTIL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.TERMINATE_PARSING_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import java.io.PrintWriter;
@@ -122,7 +95,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
         
-		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_TEXT_RESOURCE + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + getClassNameHelper().getABSTRACT_TEXT_RESOURCE() + " {");
 		sc.addLineBreak();
 		
     	addInnerClasses(sc);
@@ -178,7 +151,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addPositionBasedTestDiagnosticClass(StringComposite sc) {
-		sc.add("public class " + POSITION_BASED_TEXT_DIAGNOSTIC + " implements " + I_TEXT_DIAGNOSTIC + " {");
+		sc.add("public class " + POSITION_BASED_TEXT_DIAGNOSTIC + " implements " + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + " {");
     	sc.addLineBreak();
     	sc.add("private final " + URI + " uri;");
     	sc.addLineBreak();
@@ -186,9 +159,9 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("private int line;");
     	sc.add("private int charStart;");
     	sc.add("private int charEnd;");
-    	sc.add("private " + I_PROBLEM + " problem;");
+    	sc.add("private " + getClassNameHelper().getI_PROBLEM() + " problem;");
     	sc.addLineBreak();
-    	sc.add("public " + POSITION_BASED_TEXT_DIAGNOSTIC + "(" + URI + " uri, " + I_PROBLEM + " problem, int column, int line, int charStart, int charEnd) {");
+    	sc.add("public " + POSITION_BASED_TEXT_DIAGNOSTIC + "(" + URI + " uri, " + getClassNameHelper().getI_PROBLEM() + " problem, int column, int line, int charStart, int charEnd) {");
     	sc.addLineBreak();
     	sc.add("super();");
     	sc.add("this.uri = uri;");
@@ -199,7 +172,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("this.problem = problem;");
     	sc.add("}");
     	sc.addLineBreak();
-    	sc.add("public " + I_PROBLEM + " getProblem() {");
+    	sc.add("public " + getClassNameHelper().getI_PROBLEM() + " getProblem() {");
     	sc.add("return problem;");
     	sc.add("}");
     	sc.addLineBreak();
@@ -235,14 +208,14 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addElementBasedTextDiagnosticClass(StringComposite sc) {
-		sc.add("public class " + ELEMENT_BASED_TEXT_DIAGNOSTIC + " implements " + I_TEXT_DIAGNOSTIC + " {");
+		sc.add("public class " + ELEMENT_BASED_TEXT_DIAGNOSTIC + " implements " + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + " {");
     	sc.addLineBreak();
-    	sc.add("private final " + I_LOCATION_MAP + " locationMap;");
+    	sc.add("private final " + getClassNameHelper().getI_LOCATION_MAP() + " locationMap;");
     	sc.add("private final " + URI + " uri;");
     	sc.add("private final " + E_OBJECT + " element;");
-    	sc.add("private final " + I_PROBLEM + " problem;");
+    	sc.add("private final " + getClassNameHelper().getI_PROBLEM() + " problem;");
     	sc.addLineBreak();
-    	sc.add("public " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(" + I_LOCATION_MAP + " locationMap, " + URI + " uri, " + I_PROBLEM + " problem, " + E_OBJECT + " element) {");
+    	sc.add("public " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(" + getClassNameHelper().getI_LOCATION_MAP() + " locationMap, " + URI + " uri, " + getClassNameHelper().getI_PROBLEM() + " problem, " + E_OBJECT + " element) {");
     	sc.add("super();");
     	sc.add("this.uri = uri;");
     	sc.add("this.locationMap = locationMap;");
@@ -254,7 +227,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("return problem.getMessage();");
     	sc.add("}");
     	sc.addLineBreak();
-    	sc.add("public " + I_PROBLEM + " getProblem() {");
+    	sc.add("public " + getClassNameHelper().getI_PROBLEM() + " getProblem() {");
     	sc.add("return problem;");
     	sc.add("}");
     	sc.addLineBreak();
@@ -300,7 +273,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("// if the current value is a list, we add the new value to");
     	sc.add("// this list");
     	sc.add(LIST + "<?> currentValueAsList = (" + LIST + "<?>) currentValue;");
-    	sc.add(LIST + "<" + OBJECT + "> currentValueAsObjectList = " + LIST_UTIL + ".copySafelyToObjectList(currentValueAsList);");
+    	sc.add(LIST + "<" + OBJECT + "> currentValueAsObjectList = " + getClassNameHelper().getLIST_UTIL() + ".copySafelyToObjectList(currentValueAsList);");
     	sc.add("if (value instanceof " + COLLECTION + "<?>) {");
     	sc.add("currentValueAsObjectList.addAll((" + COLLECTION + "<?>) value);");
     	sc.add("} else {");
@@ -328,16 +301,16 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addAddDefaultLoadOptionsMethod(StringComposite sc) {
 		sc.add("protected " + MAP + "<" + OBJECT + ", " + OBJECT + "> addDefaultLoadOptions(" + MAP + "<?, ?> loadOptions) {");
-    	sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptionsCopy = " + MAP_UTIL + ".copySafelyToObjectToObjectMap(loadOptions); ");
+    	sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptionsCopy = " + getClassNameHelper().getMAP_UTIL() + ".copySafelyToObjectToObjectMap(loadOptions); ");
     	sc.add("if (" + PLATFORM + ".isRunning()) {");
     	sc.add("// find default load option providers");
     	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
-    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + EMFTEXT_RUNTIME_PLUGIN + ".EP_DEFAULT_LOAD_OPTIONS_ID);");
+    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".EP_DEFAULT_LOAD_OPTIONS_ID);");
     	sc.add("for (" + I_CONFIGURATION_ELEMENT + " element : configurationElements) {");
     	sc.add("try {");
-    	sc.add(STRING + " csName = element.getAttribute(" + I_OPTION_PROVIDER + ".CS_NAME);");
+    	sc.add(STRING + " csName = element.getAttribute(" + getClassNameHelper().getI_OPTION_PROVIDER() + ".CS_NAME);");
     	sc.add("if (getSyntaxName().equals(csName) || ARBITRARY_SYNTAX_NAME.equals(csName)) {");
-    	sc.add(I_OPTION_PROVIDER + " provider = (" + I_OPTION_PROVIDER + ") element.createExecutableExtension(\"class\");");
+    	sc.add(getClassNameHelper().getI_OPTION_PROVIDER() + " provider = (" + getClassNameHelper().getI_OPTION_PROVIDER() + ") element.createExecutableExtension(\"class\");");
     	sc.add("final " + MAP + "<?, ?> options = provider.getOptions();");
     	sc.add("final " + COLLECTION + "<?> keys = options.keySet();");
     	sc.add("for (" + OBJECT + " key : keys) {");
@@ -347,7 +320,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("continue;");
     	sc.add("}");
     	sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-    	sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"Exception while getting default options.\", ce);");
+    	sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while getting default options.\", ce);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
@@ -357,22 +330,22 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addAddProblemMethod1(StringComposite sc) {
-		sc.add("public void addProblem(" + I_PROBLEM + " problem, " + E_OBJECT + " element) {");
+		sc.add("public void addProblem(" + getClassNameHelper().getI_PROBLEM() + " problem, " + E_OBJECT + " element) {");
     	sc.add("getDiagnostics(problem.getType()).add(new " + ELEMENT_BASED_TEXT_DIAGNOSTIC + "(locationMap, getURI(), problem, element));");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
 	private void addAddProblemMethod2(StringComposite sc) {
-		sc.add("public void addProblem(" + I_PROBLEM + " problem, int column, int line, int charStart, int charEnd) {");
+		sc.add("public void addProblem(" + getClassNameHelper().getI_PROBLEM() + " problem, int column, int line, int charStart, int charEnd) {");
     	sc.add("getDiagnostics(problem.getType()).add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd));");
     	sc.add("}");
     	sc.addLineBreak();
 	}
 
 	private void addGetDiagnosticsMethod(StringComposite sc) {
-		sc.add("private " + LIST + "<" + DIAGNOSTIC + "> getDiagnostics(" + E_PROBLEM_TYPE + " type) {");
-		sc.add("if (type == " + E_PROBLEM_TYPE + ".ERROR) {");
+		sc.add("private " + LIST + "<" + DIAGNOSTIC + "> getDiagnostics(" + getClassNameHelper().getE_PROBLEM_TYPE() + " type) {");
+		sc.add("if (type == " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR) {");
 		sc.add("return getErrors();");
 		sc.add("} else {");
 		sc.add("return getWarnings();");
@@ -382,7 +355,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addGetLocationMapMethod(StringComposite sc) {
-		sc.add("public " + I_LOCATION_MAP + " getLocationMap() {");
+		sc.add("public " + getClassNameHelper().getI_LOCATION_MAP() + " getLocationMap() {");
     	sc.add("return locationMap;");
     	sc.add("}");
     	sc.addLineBreak();
@@ -412,7 +385,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (loadOptions == null) {");
     	sc.add("return;");
     	sc.add("}");
-    	sc.add(OBJECT + " resourcePostProcessorProvider = loadOptions.get(" + I_OPTIONS + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
+    	sc.add(OBJECT + " resourcePostProcessorProvider = loadOptions.get(" + getClassNameHelper().getI_OPTIONS() + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
     	sc.add("if (resourcePostProcessorProvider != null) {");
     	sc.add("if (resourcePostProcessorProvider instanceof " + I_RESOURCE_POST_PROCESSOR_PROVIDER + ") {");
     	sc.add("((" + I_RESOURCE_POST_PROCESSOR_PROVIDER + ") resourcePostProcessorProvider).getResourcePostProcessor().process(this);");
@@ -420,11 +393,11 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("@SuppressWarnings(\"unchecked\")");
     	sc.add(COLLECTION + "<" + I_RESOURCE_POST_PROCESSOR_PROVIDER + "> resourcePostProcessorProviderCollection = (" + COLLECTION + "<" + I_RESOURCE_POST_PROCESSOR_PROVIDER + ">) resourcePostProcessorProvider;");
     	sc.add("for (" + I_RESOURCE_POST_PROCESSOR_PROVIDER + " processorProvider : resourcePostProcessorProviderCollection) {");
-    	sc.add(I_RESOURCE_POST_PROCESSOR + " postProcessor = processorProvider.getResourcePostProcessor();");
+    	sc.add(getClassNameHelper().getI_RESOURCE_POST_PROCESSOR() + " postProcessor = processorProvider.getResourcePostProcessor();");
     	sc.add("try {");
     	sc.add("postProcessor.process(this);");
     	sc.add("} catch (" + EXCEPTION + " e) {");
-    	sc.add(EMFTEXT_RUNTIME_PLUGIN + ".logError(\"Exception while running a post-processor.\", e);");
+    	sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while running a post-processor.\", e);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
@@ -457,16 +430,16 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addAttachWarningsMethod(StringComposite sc) {
-		sc.add("private void attachWarnings(" + I_REFERENCE_RESOLVE_RESULT + "<? extends " + E_OBJECT + "> result, " + E_OBJECT + " proxy) {");
+		sc.add("private void attachWarnings(" + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<? extends " + E_OBJECT + "> result, " + E_OBJECT + " proxy) {");
     	sc.add("assert result != null;");
     	sc.add("assert result.wasResolved();");
     	sc.add("if (result.wasResolved()) {");
-    	sc.add("for (" + I_REFERENCE_MAPPING + "<? extends " + E_OBJECT + "> mapping : result.getMappings()) {");
+    	sc.add("for (" + getClassNameHelper().getI_REFERENCE_MAPPING() + "<? extends " + E_OBJECT + "> mapping : result.getMappings()) {");
     	sc.add("final " + STRING + " warningMessage = mapping.getWarning();");
     	sc.add("if (warningMessage == null) {");
     	sc.add("continue;");
     	sc.add("}");
-    	sc.add("addProblem(new " + qualifiedProblemClassName + "(warningMessage, " + E_PROBLEM_TYPE + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + qualifiedProblemClassName + "(warningMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
@@ -474,14 +447,14 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addAttachErrorsMethod(StringComposite sc) {
-		sc.add("private void attachErrors(" + I_REFERENCE_RESOLVE_RESULT + "<?> result, " + E_OBJECT + " proxy) {");
+		sc.add("private void attachErrors(" + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<?> result, " + E_OBJECT + " proxy) {");
     	sc.add("// attach errors to resource");
     	sc.add("assert result != null;");
     	sc.add("final " + STRING + " errorMessage = result.getErrorMessage();");
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + qualifiedProblemClassName + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + qualifiedProblemClassName + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
@@ -491,8 +464,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("private void removeDiagnostics(" + E_OBJECT + " proxy, " + LIST + "<" + DIAGNOSTIC + "> diagnostics) {");
     	sc.add("// remove errors/warnings from resource");
     	sc.add("for (" + DIAGNOSTIC + " errorCand : new " + BASIC_E_LIST + "<" + DIAGNOSTIC + ">(diagnostics)) {");
-    	sc.add("if (errorCand instanceof " + I_TEXT_DIAGNOSTIC + ") {");
-    	sc.add("if (((" + I_TEXT_DIAGNOSTIC + ") errorCand).wasCausedBy(proxy)) {");
+    	sc.add("if (errorCand instanceof " + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") {");
+    	sc.add("if (((" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") errorCand).wasCausedBy(proxy)) {");
     	sc.add("diagnostics.remove(errorCand);");
     	sc.add("}");
     	sc.add("}");
@@ -502,9 +475,9 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addGetResultElementMethod(StringComposite sc) {
-		sc.add("private " + E_OBJECT + " getResultElement(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + "> uriFragment, " + I_REFERENCE_MAPPING + "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT + " proxy, final " + STRING + " errorMessage) {");
-    	sc.add("if (mapping instanceof " + I_URI_MAPPING + "<?>) {");
-    	sc.add(URI + " uri = ((" + I_URI_MAPPING + "<? extends " + E_OBJECT + ">)mapping).getTargetIdentifier();");
+		sc.add("private " + E_OBJECT + " getResultElement(" + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + "> uriFragment, " + getClassNameHelper().getI_REFERENCE_MAPPING() + "<? extends " + E_OBJECT + "> mapping, " + E_OBJECT + " proxy, final " + STRING + " errorMessage) {");
+    	sc.add("if (mapping instanceof " + getClassNameHelper().getI_URI_MAPPING() + "<?>) {");
+    	sc.add(URI + " uri = ((" + getClassNameHelper().getI_URI_MAPPING() + "<? extends " + E_OBJECT + ">)mapping).getTargetIdentifier();");
     	sc.add("if (uri != null) {");
     	sc.add(E_OBJECT + " result = null;");
     	sc.add("try {");
@@ -517,19 +490,19 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + qualifiedProblemClassName + "(errorMessage, " + E_PROBLEM_TYPE + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + qualifiedProblemClassName + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("return result;");
     	sc.add("}");
     	sc.add("return null;");
-    	sc.add("} else if (mapping instanceof " + I_ELEMENT_MAPPING + "<?>) {");
-    	sc.add(E_OBJECT + " element = ((" + I_ELEMENT_MAPPING + "<? extends " + E_OBJECT + ">)mapping).getTargetElement();");
+    	sc.add("} else if (mapping instanceof " + getClassNameHelper().getI_ELEMENT_MAPPING() + "<?>) {");
+    	sc.add(E_OBJECT + " element = ((" + getClassNameHelper().getI_ELEMENT_MAPPING() + "<? extends " + E_OBJECT + ">)mapping).getTargetElement();");
     	sc.add(E_REFERENCE + " reference = uriFragment.getReference();");
     	sc.add(E_REFERENCE + " oppositeReference = uriFragment.getReference().getEOpposite();");
     	sc.add("if (!uriFragment.getReference().isContainment() && oppositeReference != null) {");
     	sc.add("if (reference.isMany()) {");
-    	sc.add(MANY_INVERSE + "<" + E_OBJECT + "> list = " + CAST_UTIL + ".cast(element.eGet(oppositeReference, false));					");
+    	sc.add(MANY_INVERSE + "<" + E_OBJECT + "> list = " + getClassNameHelper().getCAST_UTIL() + ".cast(element.eGet(oppositeReference, false));					");
     	sc.add("//avoids duplicate entries in the reference caused by adding to the oppositeReference ");
     	sc.add("list.basicAdd(uriFragment.getContainer(),null);");
     	sc.add("} else {");
@@ -548,9 +521,9 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void addGetEObjectMethod(StringComposite sc) {
 		sc.add("public " + E_OBJECT + " getEObject(String id) {");
     	sc.add("if (internalURIFragmentMap.containsKey(id)) {");
-    	sc.add(I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + "> uriFragment = internalURIFragmentMap.get(id);");
+    	sc.add(getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + "> uriFragment = internalURIFragmentMap.get(id);");
     	sc.add("boolean wasResolvedBefore = uriFragment.isResolved();");
-    	sc.add(I_REFERENCE_RESOLVE_RESULT + "<? extends " + E_OBJECT + "> result = uriFragment.resolve();");
+    	sc.add(getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<? extends " + E_OBJECT + "> result = uriFragment.resolve();");
     	sc.add("if (result == null) {");
     	sc.add("//the resolving did call itself");
     	sc.add("return null;");
@@ -566,7 +539,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("//remove old warnings and attach new");
     	sc.add("removeDiagnostics(uriFragment.getProxy(), getWarnings());");
     	sc.add("attachWarnings(result, uriFragment.getProxy());");
-    	sc.add(I_REFERENCE_MAPPING + "<? extends " + E_OBJECT + "> mapping = result.getMappings().iterator().next();");
+    	sc.add(getClassNameHelper().getI_REFERENCE_MAPPING() + "<? extends " + E_OBJECT + "> mapping = result.getMappings().iterator().next();");
     	sc.add("return getResultElement(uriFragment, mapping, uriFragment.getProxy(), result.getErrorMessage());");
     	sc.add("}");
     	sc.add("} else {");
@@ -583,8 +556,8 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("pos = ((" + LIST + "<?>)container.eGet(reference)).size();");
     	sc.add("}");
     	sc.add(INTERNAL_E_OBJECT + " proxy = (" + INTERNAL_E_OBJECT + ") proxyElement;");
-    	sc.add(STRING + " internalURIFragment = " + I_CONTEXT_DEPENDENT_URI_FRAGMENT+ ".INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + \"_\" + id;");
-    	sc.add(I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<?> uriFragment = factory.create(id, container, reference, pos, proxy);");
+    	sc.add(STRING + " internalURIFragment = " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT()+ ".INTERNAL_URI_FRAGMENT_PREFIX + (proxyCounter++) + \"_\" + id;");
+    	sc.add(getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<?> uriFragment = factory.create(id, container, reference, pos, proxy);");
     	sc.add("proxy.eSetProxyURI(getURI().appendFragment(internalURIFragment));");
     	sc.add("addURIFragment(internalURIFragment, uriFragment);");
     	sc.add("}");
@@ -592,7 +565,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addAddURIFragmentMethod(StringComposite sc) {
-		sc.add("public void addURIFragment(" + STRING + " internalURIFragment, " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + "> uriFragment) {");
+		sc.add("public void addURIFragment(" + STRING + " internalURIFragment, " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + "> uriFragment) {");
     	sc.add("internalURIFragmentMap.put(internalURIFragment, uriFragment);");
     	sc.add("}");
     	sc.addLineBreak();
@@ -606,12 +579,12 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + I_REFERENCE_RESOLVER_SWITCH + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
+		sc.add("private " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
 		sc.add("private static final " + STRING + " ARBITRARY_SYNTAX_NAME = \"*\";");
-    	sc.add("private "+ I_LOCATION_MAP + " locationMap;");
+    	sc.add("private "+ getClassNameHelper().getI_LOCATION_MAP() + " locationMap;");
     	sc.add("private int proxyCounter = 0;");
-    	sc.add("private " + I_TEXT_PARSER + " parser;");
-    	sc.add("private " + MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + I_CONTEXT_DEPENDENT_URI_FRAGMENT + "<? extends " + E_OBJECT + ">>();");
+    	sc.add("private " + getClassNameHelper().getI_TEXT_PARSER() + " parser;");
+    	sc.add("private " + MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">>();");
     	sc.addLineBreak();
 	}
 
@@ -623,7 +596,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		sc.add("public " + I_REFERENCE_RESOLVER_SWITCH + " getReferenceResolverSwitch() {");
+		sc.add("public " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " getReferenceResolverSwitch() {");
         sc.add("if (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
         sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + qualifiedResolverSwitchClassName + "();");
         sc.add("}");
@@ -635,7 +608,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void addDoSaveMethod(StringComposite sc) {
 		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
         sc.add(qualifiedPrinterClassName + " printer = new " + qualifiedPrinterClassName + "(outputStream, this);");
-        sc.add(I_REFERENCE_RESOLVER_SWITCH + " referenceResolverSwitch = getReferenceResolverSwitch();");
+        sc.add(getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add("for(" + E_OBJECT + " root : getContents()) {");
         sc.add("printer.print(root);");
@@ -664,12 +637,12 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add(INPUT_STREAM + " actualInputStream = inputStream;");
         sc.add(OBJECT + " inputStreamPreProcessorProvider = null;");
         sc.add("if (options!=null) {");
-		sc.add("inputStreamPreProcessorProvider = options.get(" + I_OPTIONS + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
+		sc.add("inputStreamPreProcessorProvider = options.get(" + getClassNameHelper().getI_OPTIONS() + ".INPUT_STREAM_PREPROCESSOR_PROVIDER);");
 		sc.add("}");
 		sc.add("if (inputStreamPreProcessorProvider != null) {");
-		sc.add("if (inputStreamPreProcessorProvider instanceof " + I_INPUT_STREAM_PROCESSOR_PROVIDER + ") {");
-		sc.add(I_INPUT_STREAM_PROCESSOR_PROVIDER + " provider = (" + I_INPUT_STREAM_PROCESSOR_PROVIDER + ") inputStreamPreProcessorProvider;");
-		sc.add(INPUT_STREAM_PROCESSOR + " processor = provider.getInputStreamProcessor(inputStream);");
+		sc.add("if (inputStreamPreProcessorProvider instanceof " + getClassNameHelper().getI_INPUT_STREAM_PROCESSOR_PROVIDER() + ") {");
+		sc.add(getClassNameHelper().getI_INPUT_STREAM_PROCESSOR_PROVIDER() + " provider = (" + getClassNameHelper().getI_INPUT_STREAM_PROCESSOR_PROVIDER() + ") inputStreamPreProcessorProvider;");
+		sc.add(getClassNameHelper().getINPUT_STREAM_PROCESSOR() + " processor = provider.getInputStreamProcessor(inputStream);");
 		sc.add("actualInputStream = processor;");
 		sc.add("encoding = processor.getOutputEncoding();");
 		sc.add("}");
@@ -678,9 +651,9 @@ public class TextResourceGenerator extends BaseGenerator {
         
         sc.add("parser = getMetaInformation().createParser(actualInputStream, encoding);");
         sc.add("parser.setOptions(options);");
-        sc.add(I_REFERENCE_RESOLVER_SWITCH + " referenceResolverSwitch = getReferenceResolverSwitch();");
+        sc.add(getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
-        sc.add(I_PARSE_RESULT + " result = parser.parse();");
+        sc.add(getClassNameHelper().getI_PARSE_RESULT() + " result = parser.parse();");
         sc.add("clearState();");
     	sc.add("getContents().clear();");
         sc.add("if (result != null) {");
@@ -688,9 +661,9 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("if (root != null) {");
         sc.add("getContents().add(root);");
         sc.add("}");
-        sc.add(COLLECTION + "<" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">> commands = result.getPostParseCommands();");
+        sc.add(COLLECTION + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">> commands = result.getPostParseCommands();");
         sc.add("if (commands != null) {");
-        sc.add("for (" + I_COMMAND + "<" + I_TEXT_RESOURCE + ">  command : commands) {");
+        sc.add("for (" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">  command : commands) {");
         sc.add("command.execute(this);");
         sc.add("}");
         sc.add("}");
@@ -706,7 +679,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("try {");
         sc.add("isLoaded = false;");
         sc.add("doLoad(inputStream, options);");
-        sc.add("} catch (" + TERMINATE_PARSING_EXCEPTION + " tpe) {");
+        sc.add("} catch (" + getClassNameHelper().getTERMINATE_PARSING_EXCEPTION() + " tpe) {");
         sc.add("// do nothing - the resource is left unchanged if this exception is thrown");
         sc.add("}");
         sc.add("isLoaded = true;");
@@ -716,7 +689,7 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addCancelReloadMethod(StringComposite sc) {
 		sc.add("public void cancelReload() {");
-        sc.add(I_TEXT_PARSER + " parserCopy = parser;");
+        sc.add(getClassNameHelper().getI_TEXT_PARSER() + " parserCopy = parser;");
         sc.add("parserCopy.terminate();");
         sc.add("}");
         sc.addLineBreak();
@@ -724,21 +697,21 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addGetContentsMethod(StringComposite sc) {
 		sc.add("public " + E_LIST + "<" + E_OBJECT + "> getContents() {");
-        sc.add("return new " + COPIED_E_OBJECT_INTERNAL_E_LIST + "((" + INTERNAL_E_LIST + "<" + E_OBJECT + ">) super.getContents());");
+        sc.add("return new " + getClassNameHelper().getCOPIED_E_OBJECT_INTERNAL_E_LIST() + "((" + INTERNAL_E_LIST + "<" + E_OBJECT + ">) super.getContents());");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetWarningsMethod(StringComposite sc) {
 		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getWarnings() {");
-        sc.add("return new " + COPIED_E_LIST + "<" + DIAGNOSTIC + ">(super.getWarnings());");
+        sc.add("return new " + getClassNameHelper().getCOPIED_E_LIST() + "<" + DIAGNOSTIC + ">(super.getWarnings());");
         sc.add("}");
         sc.addLineBreak();
 	}
 
 	private void addGetErrorsMethod(StringComposite sc) {
 		sc.add("public " + E_LIST + "<" + DIAGNOSTIC + "> getErrors() {");
-        sc.add("return new " + COPIED_E_LIST + "<" + DIAGNOSTIC + ">(super.getErrors());");
+        sc.add("return new " + getClassNameHelper().getCOPIED_E_LIST() + "<" + DIAGNOSTIC + ">(super.getErrors());");
         sc.add("}");
         sc.addLineBreak();
 	}

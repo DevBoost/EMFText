@@ -40,14 +40,14 @@ public class HyperlinkDetectorGenerator extends BaseGenerator {
 	}
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("private " + I_TEXT_RESOURCE + " textResource;");
+		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource;");
 		sc.addLineBreak();
 	}
 
 	private void addDetectHyperlinksMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public " + I_HYPERLINK + "[] detectHyperlinks(" + I_TEXT_VIEWER + " textViewer, " + I_REGION + " region, boolean canShowMultipleHyperlinks) {");
-		sc.add(I_LOCATION_MAP + " locationMap = textResource.getLocationMap();");
+		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add("String resourceFileExtension = textResource.getURI().fileExtension();");
 		sc.add(LIST + "<" + E_OBJECT + "> elementsAtOffset = locationMap.getElementsAt(region.getOffset());");
 		sc.add(E_OBJECT + " resolvedEObject = null;");
@@ -78,7 +78,7 @@ public class HyperlinkDetectorGenerator extends BaseGenerator {
 		sc.add("// Creates a hyperlink detector.");
 		sc.add("// @param resource the resource for calculating the locations.");
 		sc.add("public " + getResourceClassName() + "(" + RESOURCE + " resource) {");
-		sc.add("textResource = (" + I_TEXT_RESOURCE + ") resource;");
+		sc.add("textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

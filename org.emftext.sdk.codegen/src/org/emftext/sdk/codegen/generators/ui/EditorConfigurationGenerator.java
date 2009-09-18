@@ -110,7 +110,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.add("protected " + I_TOKEN_SCANNER + " getScanner(String fileName) {");
 		sc.add(FILE_EDITOR_INPUT + " input = (" + FILE_EDITOR_INPUT + ") theEditor.getEditorInput();");
 		sc.add("String path = input.getFile().getFullPath().toString();");
-		sc.add(I_TEXT_RESOURCE + " thisResource = (" + I_TEXT_RESOURCE + ") theEditor.getResourceSet().getResource(" + URI + ".createPlatformResourceURI(path, true), true);");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " thisResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") theEditor.getResourceSet().getResource(" + URI + ".createPlatformResourceURI(path, true), true);");
 		sc.addLineBreak();
 		sc.add("return new " + textTokenScannerClassName + "(thisResource, colorManager);");
 		sc.add("}");

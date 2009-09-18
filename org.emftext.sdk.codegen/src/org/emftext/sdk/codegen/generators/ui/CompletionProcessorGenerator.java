@@ -1,6 +1,5 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.CODE_COMPLETION_HELPER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPLETION_PROPOSAL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTEXT_INFORMATION;
@@ -8,10 +7,8 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_COMPLETIO
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTENT_ASSIST_PROCESSOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_INFORMATION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_INFORMATION_VALIDATOR;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_UTIL;
 
 import java.io.PrintWriter;
 
@@ -108,9 +105,9 @@ public class CompletionProcessorGenerator extends BaseGenerator {
 		sc.add("public " + I_COMPLETION_PROPOSAL + "[] computeCompletionProposals(" + I_TEXT_VIEWER + " viewer, int offset) {");
 		sc.addLineBreak();
 		sc.add(RESOURCE + " resource = editor.getResource();");
-		sc.add(I_TEXT_RESOURCE + " textResource = (" + I_TEXT_RESOURCE + ") resource;");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " textResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") resource;");
 		sc.add("String content = viewer.getDocument().get();");
-		sc.add(CODE_COMPLETION_HELPER + " helper = new " + CODE_COMPLETION_HELPER + "();");
+		sc.add(getClassNameHelper().getCODE_COMPLETION_HELPER() + " helper = new " + getClassNameHelper().getCODE_COMPLETION_HELPER() + "();");
 		sc.add(COLLECTION + "<String> proposals = helper.computeCompletionProposals(textResource.getMetaInformation(), content, offset);");
 		sc.addLineBreak();
 		sc.add(I_COMPLETION_PROPOSAL + "[] result = new " + I_COMPLETION_PROPOSAL + "[proposals.size()];");
@@ -118,7 +115,7 @@ public class CompletionProcessorGenerator extends BaseGenerator {
 		sc.add("for (String proposal : proposals) {");
 		sc.add(I_CONTEXT_INFORMATION + " info = new " + CONTEXT_INFORMATION + "(proposal, proposal);");
 		sc.add("String contentBefore = content.substring(0, offset);");
-		sc.add("String insertString = " + STRING_UTIL + ".getMissingTail(contentBefore, proposal);");
+		sc.add("String insertString = " + getClassNameHelper().getSTRING_UTIL() + ".getMissingTail(contentBefore, proposal);");
 		sc.add("result[i++] = new " + COMPLETION_PROPOSAL + "(insertString, offset, 0, insertString.length(), null, proposal, info, proposal);");
 		sc.add("}");
 		sc.add("return result;");
