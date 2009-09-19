@@ -22,15 +22,21 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.creators.AbstractArtifactCreator;
+import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.generators.IClassNameConstants;
 
 public class CodeGeneratorGenerator {
 
 	private static final String ADD_QUOTES_HERE = "ADD_QUOTES_HERE";
-	private String OLD_SRC_DIR = "org.emftext.runtime.ui" + File.separator + "src";
+	private String OLD_SRC_DIR = "org.emftext.runtime" + File.separator + "src";
 	private String NEW_SRC_DIR = "org.emftext.util" + File.separator + "src-output";
 	private Set<String> importedClasses = new LinkedHashSet<String>();
+	private String[] packageNames = new String[] {"org.emftext.runtime", "org.emftext.runtime.util", "org.emftext.runtime.resource", "org.emftext.runtime.resource.impl", };
+	private Set<String> eArtifactFields = new LinkedHashSet<String>();
+	private Set<String> overrideTypes = new LinkedHashSet<String>();
+	private int counter = 79;
+	private Set<String> creatorCalls = new LinkedHashSet<String>();
 
 	public static void main(String[] args) {
 		new CodeGeneratorGenerator().run();
@@ -48,7 +54,16 @@ public class CodeGeneratorGenerator {
 			handle(oldDir, newDir, file);
 		}
 		for (String importedClass : importedClasses) {
-			System.out.println("public static String " + StringUtil.convertCamelCaseToAllCaps(importedClass) + " = " + importedClass + ".class.getName();");
+			//System.out.println("public static String " + StringUtil.convertCamelCaseToAllCaps(importedClass) + " = " + importedClass + ".class.getName();");
+		}
+		for (String field : eArtifactFields) {
+			System.out.println(field + ",");
+		}
+		for (String type : overrideTypes) {
+			System.out.println(type);
+		}
+		for (String creatorCall : creatorCalls) {
+			System.out.println(creatorCall);
 		}
 	}
 
@@ -65,7 +80,7 @@ public class CodeGeneratorGenerator {
 			String generatorContent = convertToGenerator(packageName, file.getName().replace(".java", ""), fileContent);
 			saveClass(oldDir, newDir, file.getAbsolutePath(), generatorContent, "Generator");
 			String creatorContent = convertToCreator(packageName, file.getName().replace(".java", ""), fileContent);
-			saveClass(oldDir, newDir, file.getAbsolutePath(), creatorContent, "Creator");
+			//saveClass(oldDir, newDir, file.getAbsolutePath(), creatorContent, "Creator");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -160,7 +175,13 @@ public class CodeGeneratorGenerator {
 		result.append("\t}\n");
 		result.append("\n");
 		result.append("\tprivate " + generatorName + "(GenerationContext context) {\n");
-		result.append("\t\tsuper(context, EArtifact." + StringUtil.convertCamelCaseToAllCaps(className) + ");\n");
+		String eArtifactField = StringUtil.convertCamelCaseToAllCaps(className);
+		result.append("\t\tsuper(context, EArtifact." + eArtifactField + ");\n");
+		eArtifactFields.add(eArtifactField + "(\"" + className + "\", new " + className + "Generator(), OptionTypes.OVERRIDE_" + eArtifactField +")");
+		overrideTypes.add("<eLiterals name=\"OVERRIDE_" + eArtifactField + "\" value=\"" + (counter++) + "\" literal=\"override" + className + "\"/>");
+		
+		creatorCalls.add("creators.add(new GenericArtifactCreator(EArtifact." + eArtifactField + "));");
+		
 		result.append("\t}\n");
 		result.append("\n");
 		result.append("\tpublic " + IGenerator.class.getSimpleName() + " newInstance(" + GenerationContext.class.getSimpleName() + " context) {\n");
@@ -199,7 +220,18 @@ public class CodeGeneratorGenerator {
 		result.append("\t\treturn true;\n");
 		result.append("\t}\n");
 		result.append("}\n");
-		return result.toString();
+		String resultAsString = result.toString();
+		for (String declaredPackageName : packageNames) {
+			resultAsString = resultAsString.replace("\"package " + declaredPackageName + ";", "\"package \" + getResourcePackageName() + \";");
+		}
+		for (String type : new String[] {"class", "interface"}) {
+			resultAsString = resultAsString.replace("\"public " + type + " " + className + " {", "\"public " + type + " \" + getResourceClassName() + \" {");
+		}
+		for (String deletes : new String[] {"sc.add(\"//*\");", "sc.add(\"///\");"}) {
+			resultAsString = resultAsString.replace(deletes, "");
+		}
+		
+		return resultAsString;
 	}
 
 	private String replaceClassNamesWithConstants(String fileContent) {
@@ -308,7 +340,7 @@ public class CodeGeneratorGenerator {
 					final boolean isInterface = name.startsWith("I");
 					final boolean isDir = pathname.isDirectory();
 					final boolean isFile = pathname.isFile();
-					return isDir || (isFile && isJavaFile && !isAbstract && !isInterface);
+					return isDir || (isFile && isJavaFile && !isAbstract && isInterface);
 				}
 				
 			});
