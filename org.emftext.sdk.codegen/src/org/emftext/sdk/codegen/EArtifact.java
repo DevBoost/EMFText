@@ -15,6 +15,7 @@ import org.emftext.sdk.codegen.generators.DefaultResolverDelegateGenerator;
 import org.emftext.sdk.codegen.generators.DefaultTokenResolverGenerator;
 import org.emftext.sdk.codegen.generators.DelegatingResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.DummyEObjectGenerator;
+import org.emftext.sdk.codegen.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.generators.ElementMappingGenerator;
 import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
@@ -33,6 +34,40 @@ import org.emftext.sdk.codegen.generators.TextResourceGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.generators.URIMappingGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ICommandGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IConfigurableGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IContextDependentURIFragmentFactoryGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IContextDependentURIFragmentGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IElementMappingGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IExpectedElementGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IHoverTextProviderGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IInputStreamProcessorProviderGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ILocationMapGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IOptionProviderGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IOptionsGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IParseResultGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IProblemGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IReferenceMappingGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IReferenceResolveResultGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IReferenceResolverGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IReferenceResolverSwitchGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IResourcePostProcessorGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IResourcePostProcessorProviderGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextDiagnosticGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextParserGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextPrinterGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextResourceGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextResourcePluginMetaInformationGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextResourcePluginPartGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextScannerGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITextTokenGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITokenResolveResultGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITokenResolverFactoryGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITokenResolverGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.ITokenStyleGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IURIMappingGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.InputStreamProcessorGenerator;
 import org.emftext.sdk.codegen.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.generators.ui.BracketPreferencePageGenerator;
@@ -131,12 +166,48 @@ public enum EArtifact {
 	PREFERENCE_INITIALIZER(UI_PACKAGE, "PreferenceInitializer", new PreferenceInitializerGenerator(), OptionTypes.OVERRIDE_PREFERENCE_INITIALIZER),
 	SYNTAX_COLORING_HELPER(UI_PACKAGE, "SyntaxColoringHelper", new SyntaxColoringHelperGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_HELPER),
 	SYNTAX_COLORING_PREFERENCE_PAGE(UI_PACKAGE, "SyntaxColoringPreferencePage", new SyntaxColoringPreferencePageGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE),
+
+	I_INPUT_STREAM_PROCESSOR_PROVIDER("IInputStreamProcessorProvider", new IInputStreamProcessorProviderGenerator(), OptionTypes.OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER),
+	INPUT_STREAM_PROCESSOR("InputStreamProcessor", new InputStreamProcessorGenerator(), OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR),
+	I_OPTION_PROVIDER("IOptionProvider", new IOptionProviderGenerator(), OptionTypes.OVERRIDE_IOPTION_PROVIDER),
+	I_OPTIONS("IOptions", new IOptionsGenerator(), OptionTypes.OVERRIDE_IOPTIONS),
+	I_RESOURCE_POST_PROCESSOR("IResourcePostProcessor", new IResourcePostProcessorGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR),
+	I_RESOURCE_POST_PROCESSOR_PROVIDER("IResourcePostProcessorProvider", new IResourcePostProcessorProviderGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER),
+	I_BRACKET_PAIR("IBracketPair", new IBracketPairGenerator(), OptionTypes.OVERRIDE_IBRACKET_PAIR),
+	I_COMMAND("ICommand", new ICommandGenerator(), OptionTypes.OVERRIDE_ICOMMAND),
+	I_CONFIGURABLE("IConfigurable", new IConfigurableGenerator(), OptionTypes.OVERRIDE_ICONFIGURABLE),
+	I_CONTEXT_DEPENDENT_URI_FRAGMENT("IContextDependentURIFragment", new IContextDependentURIFragmentGenerator(), OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT),
+	I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY("IContextDependentURIFragmentFactory", new IContextDependentURIFragmentFactoryGenerator(), OptionTypes.OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY),
+	I_ELEMENT_MAPPING("IElementMapping", new IElementMappingGenerator(), OptionTypes.OVERRIDE_IELEMENT_MAPPING),
+	I_EXPECTED_ELEMENT("IExpectedElement", new IExpectedElementGenerator(), OptionTypes.OVERRIDE_IEXPECTED_ELEMENT),
+	I_HOVER_TEXT_PROVIDER("IHoverTextProvider", new IHoverTextProviderGenerator(), OptionTypes.OVERRIDE_IHOVER_TEXT_PROVIDER),
+	I_LOCATION_MAP("ILocationMap", new ILocationMapGenerator(), OptionTypes.OVERRIDE_ILOCATION_MAP),
+	I_PARSE_RESULT("IParseResult", new IParseResultGenerator(), OptionTypes.OVERRIDE_IPARSE_RESULT),
+	I_PROBLEM("IProblem", new IProblemGenerator(), OptionTypes.OVERRIDE_IPROBLEM),
+	I_REFERENCE_MAPPING("IReferenceMapping", new IReferenceMappingGenerator(), OptionTypes.OVERRIDE_IREFERENCE_MAPPING),
+	I_REFERENCE_RESOLVER("IReferenceResolver", new IReferenceResolverGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVER),
+	I_REFERENCE_RESOLVE_RESULT("IReferenceResolveResult", new IReferenceResolveResultGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVE_RESULT),
+	I_REFERENCE_RESOLVER_SWITCH("IReferenceResolverSwitch", new IReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_IREFERENCE_RESOLVER_SWITCH),
+	I_TEXT_DIAGNOSTIC("ITextDiagnostic", new ITextDiagnosticGenerator(), OptionTypes.OVERRIDE_ITEXT_DIAGNOSTIC),
+	I_TEXT_PARSER("ITextParser", new ITextParserGenerator(), OptionTypes.OVERRIDE_ITEXT_PARSER),
+	I_TEXT_PRINTER("ITextPrinter", new ITextPrinterGenerator(), OptionTypes.OVERRIDE_ITEXT_PRINTER),
+	I_TEXT_RESOURCE("ITextResource", new ITextResourceGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE),
+	I_TEXT_RESOURCE_PLUGIN_META_INFORMATION("ITextResourcePluginMetaInformation", new ITextResourcePluginMetaInformationGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION),
+	I_TEXT_RESOURCE_PLUGIN_PART("ITextResourcePluginPart", new ITextResourcePluginPartGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART),
+	I_TEXT_SCANNER("ITextScanner", new ITextScannerGenerator(), OptionTypes.OVERRIDE_ITEXT_SCANNER),
+	I_TEXT_TOKEN("ITextToken", new ITextTokenGenerator(), OptionTypes.OVERRIDE_ITEXT_TOKEN),
+	I_TOKEN_RESOLVER("ITokenResolver", new ITokenResolverGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVER),
+	I_TOKEN_RESOLVE_RESULT("ITokenResolveResult", new ITokenResolveResultGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVE_RESULT),
+	I_TOKEN_RESOLVER_FACTORY("ITokenResolverFactory", new ITokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_ITOKEN_RESOLVER_FACTORY),
+	I_TOKEN_STYLE("ITokenStyle", new ITokenStyleGenerator(), OptionTypes.OVERRIDE_ITOKEN_STYLE),
+	IURI_MAPPING("IURIMapping", new IURIMappingGenerator(), OptionTypes.OVERRIDE_IURI_MAPPING),
+	E_PROBLEM_TYPE("EProblemType", new EProblemTypeGenerator(), OptionTypes.OVERRIDE_EPROBLEM_TYPE),
 	
 	ANTLR_GRAMMAR("", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER), 
 	BABYLON_SPECIFICATION("", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),
 	
 	MAIN_PACKAGE("", "", null, null),
-	ANALYSIS_PACKAGE("analysis", "analysis", null, null),   
+	ANALYSIS_PACKAGE("analysis", "analysis", null, null),    
 	;
 	
 	private String classNameSuffix;

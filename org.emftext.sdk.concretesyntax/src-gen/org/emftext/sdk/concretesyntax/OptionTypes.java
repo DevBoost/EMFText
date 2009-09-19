@@ -774,7 +774,287 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE(78, "OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE", "overrideSyntaxColoringPreferencePage");
+	OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE(78, "OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE", "overrideSyntaxColoringPreferencePage"), /**
+	 * The '<em><b>OVERRIDE IINPUT STREAM PROCESSOR PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER(79, "OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER", "overrideIInputStreamProcessorProvider"), /**
+	 * The '<em><b>OVERRIDE INPUT STREAM PROCESSOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_INPUT_STREAM_PROCESSOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_INPUT_STREAM_PROCESSOR(80, "OVERRIDE_INPUT_STREAM_PROCESSOR", "overrideInputStreamProcessor"), /**
+	 * The '<em><b>OVERRIDE IOPTION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IOPTION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IOPTION_PROVIDER(81, "OVERRIDE_I_OPTION_PROVIDER", "overrideIOptionProvider"), /**
+	 * The '<em><b>OVERRIDE IOPTIONS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IOPTIONS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IOPTIONS(82, "OVERRIDE_I_OPTIONS", "overrideIOptions"), /**
+	 * The '<em><b>OVERRIDE IRESOURCE POST PROCESSOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IRESOURCE_POST_PROCESSOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IRESOURCE_POST_PROCESSOR(83, "OVERRIDE_I_RESOURCE_POST_PROCESSOR", "overrideIResourcePostProcessor"), /**
+	 * The '<em><b>OVERRIDE IRESOURCE POST PROCESSOR PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER(84, "OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER", "overrideIResourcePostProcessorProvider"), /**
+	 * The '<em><b>OVERRIDE IBRACKET PAIR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBRACKET_PAIR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IBRACKET_PAIR(85, "OVERRIDE_I_BRACKET_PAIR", "overrideIBracketPair"), /**
+	 * The '<em><b>OVERRIDE ICOMMAND</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICOMMAND_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ICOMMAND(86, "OVERRIDE_I_COMMAND", "overrideICommand"), /**
+	 * The '<em><b>OVERRIDE ICONFIGURABLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICONFIGURABLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ICONFIGURABLE(87, "OVERRIDE_I_CONFIGURABLE", "overrideIConfigurable"), /**
+	 * The '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT(88, "OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT", "overrideIContextDependentURIFragment"), /**
+	 * The '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY(89, "OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY", "overrideIContextDependentURIFragmentFactory"), /**
+	 * The '<em><b>OVERRIDE IELEMENT MAPPING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IELEMENT_MAPPING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IELEMENT_MAPPING(90, "OVERRIDE_I_ELEMENT_MAPPING", "overrideIElementMapping"), /**
+	 * The '<em><b>OVERRIDE IEXPECTED ELEMENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IEXPECTED_ELEMENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IEXPECTED_ELEMENT(91, "OVERRIDE_I_EXPECTED_ELEMENT", "overrideIExpectedElement"), /**
+	 * The '<em><b>OVERRIDE IHOVER TEXT PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IHOVER_TEXT_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IHOVER_TEXT_PROVIDER(92, "OVERRIDE_I_HOVER_TEXT_PROVIDER", "overrideIHoverTextProvider"), /**
+	 * The '<em><b>OVERRIDE ILOCATION MAP</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ILOCATION_MAP_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ILOCATION_MAP(93, "OVERRIDE_I_LOCATION_MAP", "overrideILocationMap"), /**
+	 * The '<em><b>OVERRIDE IPARSE RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IPARSE_RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IPARSE_RESULT(94, "OVERRIDE_I_PARSE_RESULT", "overrideIParseResult"), /**
+	 * The '<em><b>OVERRIDE IPROBLEM</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IPROBLEM_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IPROBLEM(95, "OVERRIDE_I_PROBLEM", "overrideIProblem"), /**
+	 * The '<em><b>OVERRIDE IREFERENCE MAPPING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_MAPPING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IREFERENCE_MAPPING(96, "OVERRIDE_I_REFERENCE_MAPPING", "overrideIReferenceMapping"), /**
+	 * The '<em><b>OVERRIDE IREFERENCE RESOLVER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_RESOLVER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IREFERENCE_RESOLVER(97, "OVERRIDE_I_REFERENCE_RESOLVER", "overrideIReferenceResolver"), /**
+	 * The '<em><b>OVERRIDE IREFERENCE RESOLVE RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_RESOLVE_RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IREFERENCE_RESOLVE_RESULT(98, "OVERRIDE_I_REFERENCE_RESOLVE_RESULT", "overrideIReferenceResolveResult"), /**
+	 * The '<em><b>OVERRIDE IREFERENCE RESOLVER SWITCH</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_RESOLVER_SWITCH_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IREFERENCE_RESOLVER_SWITCH(99, "OVERRIDE_I_REFERENCE_RESOLVER_SWITCH", "overrideIReferenceResolverSwitch"), /**
+	 * The '<em><b>OVERRIDE ITEXT DIAGNOSTIC</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_DIAGNOSTIC_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_DIAGNOSTIC(100, "OVERRIDE_I_TEXT_DIAGNOSTIC", "overrideITextDiagnostic"), /**
+	 * The '<em><b>OVERRIDE ITEXT PARSER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_PARSER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_PARSER(101, "OVERRIDE_I_TEXT_PARSER", "overrideITextParser"), /**
+	 * The '<em><b>OVERRIDE ITEXT PRINTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_PRINTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_PRINTER(102, "OVERRIDE_I_TEXT_PRINTER", "overrideITextPrinter"), /**
+	 * The '<em><b>OVERRIDE ITEXT RESOURCE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_RESOURCE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_RESOURCE(103, "OVERRIDE_I_TEXT_RESOURCE", "overrideITextResource"), /**
+	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN META INFORMATION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION(104, "OVERRIDE_I_TEXT_RESOURCE_PLUGIN_META_INFORMATION", "overrideITextResourcePluginMetaInformation"), /**
+	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN PART</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART(105, "OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART", "overrideITextResourcePluginPart"), /**
+	 * The '<em><b>OVERRIDE ITEXT SCANNER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_SCANNER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_SCANNER(106, "OVERRIDE_I_TEXT_SCANNER", "overrideITextScanner"), /**
+	 * The '<em><b>OVERRIDE ITEXT TOKEN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_TOKEN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITEXT_TOKEN(107, "OVERRIDE_I_TEXT_TOKEN", "overrideITextToken"), /**
+	 * The '<em><b>OVERRIDE ITOKEN RESOLVER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_RESOLVER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITOKEN_RESOLVER(108, "OVERRIDE_I_TOKEN_RESOLVER", "overrideITokenResolver"), /**
+	 * The '<em><b>OVERRIDE ITOKEN RESOLVE RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_RESOLVE_RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITOKEN_RESOLVE_RESULT(109, "OVERRIDE_I_TOKEN_RESOLVE_RESULT", "overrideITokenResolveResult"), /**
+	 * The '<em><b>OVERRIDE ITOKEN RESOLVER FACTORY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_RESOLVER_FACTORY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITOKEN_RESOLVER_FACTORY(110, "OVERRIDE_I_TOKEN_RESOLVER_FACTORY", "overrideITokenResolverFactory"), /**
+	 * The '<em><b>OVERRIDE ITOKEN STYLE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_STYLE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ITOKEN_STYLE(111, "OVERRIDE_I_TOKEN_STYLE", "overrideITokenStyle"), /**
+	 * The '<em><b>OVERRIDE IURI MAPPING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IURI_MAPPING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IURI_MAPPING(112, "OVERRIDE_IURI_MAPPING", "overrideIURIMapping"), /**
+	 * The '<em><b>OVERRIDE EPROBLEM TYPE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EPROBLEM_TYPE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EPROBLEM_TYPE(113, "OVERRIDE_E_PROBLEM_TYPE", "overrideEProblemType");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -1962,6 +2242,531 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE_VALUE = 78;
 
 	/**
+	 * The '<em><b>OVERRIDE IINPUT STREAM PROCESSOR PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IINPUT STREAM PROCESSOR PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER
+	 * @model name="OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER" literal="overrideIInputStreamProcessorProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER_VALUE = 79;
+
+	/**
+	 * The '<em><b>OVERRIDE INPUT STREAM PROCESSOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE INPUT STREAM PROCESSOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_INPUT_STREAM_PROCESSOR
+	 * @model literal="overrideInputStreamProcessor"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_INPUT_STREAM_PROCESSOR_VALUE = 80;
+
+	/**
+	 * The '<em><b>OVERRIDE IOPTION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IOPTION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IOPTION_PROVIDER
+	 * @model name="OVERRIDE_I_OPTION_PROVIDER" literal="overrideIOptionProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IOPTION_PROVIDER_VALUE = 81;
+
+	/**
+	 * The '<em><b>OVERRIDE IOPTIONS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IOPTIONS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IOPTIONS
+	 * @model name="OVERRIDE_I_OPTIONS" literal="overrideIOptions"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IOPTIONS_VALUE = 82;
+
+	/**
+	 * The '<em><b>OVERRIDE IRESOURCE POST PROCESSOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IRESOURCE POST PROCESSOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IRESOURCE_POST_PROCESSOR
+	 * @model name="OVERRIDE_I_RESOURCE_POST_PROCESSOR" literal="overrideIResourcePostProcessor"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IRESOURCE_POST_PROCESSOR_VALUE = 83;
+
+	/**
+	 * The '<em><b>OVERRIDE IRESOURCE POST PROCESSOR PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IRESOURCE POST PROCESSOR PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER
+	 * @model name="OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER" literal="overrideIResourcePostProcessorProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER_VALUE = 84;
+
+	/**
+	 * The '<em><b>OVERRIDE IBRACKET PAIR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IBRACKET PAIR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBRACKET_PAIR
+	 * @model name="OVERRIDE_I_BRACKET_PAIR" literal="overrideIBracketPair"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IBRACKET_PAIR_VALUE = 85;
+
+	/**
+	 * The '<em><b>OVERRIDE ICOMMAND</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ICOMMAND</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICOMMAND
+	 * @model name="OVERRIDE_I_COMMAND" literal="overrideICommand"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ICOMMAND_VALUE = 86;
+
+	/**
+	 * The '<em><b>OVERRIDE ICONFIGURABLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ICONFIGURABLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICONFIGURABLE
+	 * @model name="OVERRIDE_I_CONFIGURABLE" literal="overrideIConfigurable"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ICONFIGURABLE_VALUE = 87;
+
+	/**
+	 * The '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT
+	 * @model name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT" literal="overrideIContextDependentURIFragment"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_VALUE = 88;
+
+	/**
+	 * The '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ICONTEXT DEPENDENT URI FRAGMENT FACTORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY
+	 * @model name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY" literal="overrideIContextDependentURIFragmentFactory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY_VALUE = 89;
+
+	/**
+	 * The '<em><b>OVERRIDE IELEMENT MAPPING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IELEMENT MAPPING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IELEMENT_MAPPING
+	 * @model name="OVERRIDE_I_ELEMENT_MAPPING" literal="overrideIElementMapping"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IELEMENT_MAPPING_VALUE = 90;
+
+	/**
+	 * The '<em><b>OVERRIDE IEXPECTED ELEMENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IEXPECTED ELEMENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IEXPECTED_ELEMENT
+	 * @model name="OVERRIDE_I_EXPECTED_ELEMENT" literal="overrideIExpectedElement"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IEXPECTED_ELEMENT_VALUE = 91;
+
+	/**
+	 * The '<em><b>OVERRIDE IHOVER TEXT PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IHOVER TEXT PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IHOVER_TEXT_PROVIDER
+	 * @model name="OVERRIDE_I_HOVER_TEXT_PROVIDER" literal="overrideIHoverTextProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IHOVER_TEXT_PROVIDER_VALUE = 92;
+
+	/**
+	 * The '<em><b>OVERRIDE ILOCATION MAP</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ILOCATION MAP</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ILOCATION_MAP
+	 * @model name="OVERRIDE_I_LOCATION_MAP" literal="overrideILocationMap"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ILOCATION_MAP_VALUE = 93;
+
+	/**
+	 * The '<em><b>OVERRIDE IPARSE RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IPARSE RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IPARSE_RESULT
+	 * @model name="OVERRIDE_I_PARSE_RESULT" literal="overrideIParseResult"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IPARSE_RESULT_VALUE = 94;
+
+	/**
+	 * The '<em><b>OVERRIDE IPROBLEM</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IPROBLEM</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IPROBLEM
+	 * @model name="OVERRIDE_I_PROBLEM" literal="overrideIProblem"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IPROBLEM_VALUE = 95;
+
+	/**
+	 * The '<em><b>OVERRIDE IREFERENCE MAPPING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IREFERENCE MAPPING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_MAPPING
+	 * @model name="OVERRIDE_I_REFERENCE_MAPPING" literal="overrideIReferenceMapping"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IREFERENCE_MAPPING_VALUE = 96;
+
+	/**
+	 * The '<em><b>OVERRIDE IREFERENCE RESOLVER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IREFERENCE RESOLVER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_RESOLVER
+	 * @model name="OVERRIDE_I_REFERENCE_RESOLVER" literal="overrideIReferenceResolver"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IREFERENCE_RESOLVER_VALUE = 97;
+
+	/**
+	 * The '<em><b>OVERRIDE IREFERENCE RESOLVE RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IREFERENCE RESOLVE RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_RESOLVE_RESULT
+	 * @model name="OVERRIDE_I_REFERENCE_RESOLVE_RESULT" literal="overrideIReferenceResolveResult"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IREFERENCE_RESOLVE_RESULT_VALUE = 98;
+
+	/**
+	 * The '<em><b>OVERRIDE IREFERENCE RESOLVER SWITCH</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IREFERENCE RESOLVER SWITCH</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IREFERENCE_RESOLVER_SWITCH
+	 * @model name="OVERRIDE_I_REFERENCE_RESOLVER_SWITCH" literal="overrideIReferenceResolverSwitch"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IREFERENCE_RESOLVER_SWITCH_VALUE = 99;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT DIAGNOSTIC</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT DIAGNOSTIC</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_DIAGNOSTIC
+	 * @model name="OVERRIDE_I_TEXT_DIAGNOSTIC" literal="overrideITextDiagnostic"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_DIAGNOSTIC_VALUE = 100;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT PARSER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT PARSER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_PARSER
+	 * @model name="OVERRIDE_I_TEXT_PARSER" literal="overrideITextParser"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_PARSER_VALUE = 101;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT PRINTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT PRINTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_PRINTER
+	 * @model name="OVERRIDE_I_TEXT_PRINTER" literal="overrideITextPrinter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_PRINTER_VALUE = 102;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT RESOURCE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT RESOURCE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_RESOURCE
+	 * @model name="OVERRIDE_I_TEXT_RESOURCE" literal="overrideITextResource"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_RESOURCE_VALUE = 103;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN META INFORMATION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN META INFORMATION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION
+	 * @model name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_META_INFORMATION" literal="overrideITextResourcePluginMetaInformation"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION_VALUE = 104;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN PART</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN PART</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART
+	 * @model name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART" literal="overrideITextResourcePluginPart"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART_VALUE = 105;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT SCANNER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT SCANNER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_SCANNER
+	 * @model name="OVERRIDE_I_TEXT_SCANNER" literal="overrideITextScanner"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_SCANNER_VALUE = 106;
+
+	/**
+	 * The '<em><b>OVERRIDE ITEXT TOKEN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITEXT TOKEN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITEXT_TOKEN
+	 * @model name="OVERRIDE_I_TEXT_TOKEN" literal="overrideITextToken"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITEXT_TOKEN_VALUE = 107;
+
+	/**
+	 * The '<em><b>OVERRIDE ITOKEN RESOLVER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITOKEN RESOLVER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_RESOLVER
+	 * @model name="OVERRIDE_I_TOKEN_RESOLVER" literal="overrideITokenResolver"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITOKEN_RESOLVER_VALUE = 108;
+
+	/**
+	 * The '<em><b>OVERRIDE ITOKEN RESOLVE RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITOKEN RESOLVE RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_RESOLVE_RESULT
+	 * @model name="OVERRIDE_I_TOKEN_RESOLVE_RESULT" literal="overrideITokenResolveResult"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITOKEN_RESOLVE_RESULT_VALUE = 109;
+
+	/**
+	 * The '<em><b>OVERRIDE ITOKEN RESOLVER FACTORY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITOKEN RESOLVER FACTORY</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_RESOLVER_FACTORY
+	 * @model name="OVERRIDE_I_TOKEN_RESOLVER_FACTORY" literal="overrideITokenResolverFactory"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITOKEN_RESOLVER_FACTORY_VALUE = 110;
+
+	/**
+	 * The '<em><b>OVERRIDE ITOKEN STYLE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ITOKEN STYLE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ITOKEN_STYLE
+	 * @model name="OVERRIDE_I_TOKEN_STYLE" literal="overrideITokenStyle"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ITOKEN_STYLE_VALUE = 111;
+
+	/**
+	 * The '<em><b>OVERRIDE IURI MAPPING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IURI MAPPING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IURI_MAPPING
+	 * @model literal="overrideIURIMapping"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IURI_MAPPING_VALUE = 112;
+
+	/**
+	 * The '<em><b>OVERRIDE EPROBLEM TYPE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EPROBLEM TYPE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EPROBLEM_TYPE
+	 * @model name="OVERRIDE_E_PROBLEM_TYPE" literal="overrideEProblemType"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EPROBLEM_TYPE_VALUE = 113;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2048,6 +2853,41 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_PREFERENCE_INITIALIZER,
 			OVERRIDE_SYNTAX_COLORING_HELPER,
 			OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE,
+			OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER,
+			OVERRIDE_INPUT_STREAM_PROCESSOR,
+			OVERRIDE_IOPTION_PROVIDER,
+			OVERRIDE_IOPTIONS,
+			OVERRIDE_IRESOURCE_POST_PROCESSOR,
+			OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER,
+			OVERRIDE_IBRACKET_PAIR,
+			OVERRIDE_ICOMMAND,
+			OVERRIDE_ICONFIGURABLE,
+			OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT,
+			OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY,
+			OVERRIDE_IELEMENT_MAPPING,
+			OVERRIDE_IEXPECTED_ELEMENT,
+			OVERRIDE_IHOVER_TEXT_PROVIDER,
+			OVERRIDE_ILOCATION_MAP,
+			OVERRIDE_IPARSE_RESULT,
+			OVERRIDE_IPROBLEM,
+			OVERRIDE_IREFERENCE_MAPPING,
+			OVERRIDE_IREFERENCE_RESOLVER,
+			OVERRIDE_IREFERENCE_RESOLVE_RESULT,
+			OVERRIDE_IREFERENCE_RESOLVER_SWITCH,
+			OVERRIDE_ITEXT_DIAGNOSTIC,
+			OVERRIDE_ITEXT_PARSER,
+			OVERRIDE_ITEXT_PRINTER,
+			OVERRIDE_ITEXT_RESOURCE,
+			OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION,
+			OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART,
+			OVERRIDE_ITEXT_SCANNER,
+			OVERRIDE_ITEXT_TOKEN,
+			OVERRIDE_ITOKEN_RESOLVER,
+			OVERRIDE_ITOKEN_RESOLVE_RESULT,
+			OVERRIDE_ITOKEN_RESOLVER_FACTORY,
+			OVERRIDE_ITOKEN_STYLE,
+			OVERRIDE_IURI_MAPPING,
+			OVERRIDE_EPROBLEM_TYPE,
 		};
 
 	/**
@@ -2176,6 +3016,41 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_PREFERENCE_INITIALIZER_VALUE: return OVERRIDE_PREFERENCE_INITIALIZER;
 			case OVERRIDE_SYNTAX_COLORING_HELPER_VALUE: return OVERRIDE_SYNTAX_COLORING_HELPER;
 			case OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE_VALUE: return OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE;
+			case OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER_VALUE: return OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER;
+			case OVERRIDE_INPUT_STREAM_PROCESSOR_VALUE: return OVERRIDE_INPUT_STREAM_PROCESSOR;
+			case OVERRIDE_IOPTION_PROVIDER_VALUE: return OVERRIDE_IOPTION_PROVIDER;
+			case OVERRIDE_IOPTIONS_VALUE: return OVERRIDE_IOPTIONS;
+			case OVERRIDE_IRESOURCE_POST_PROCESSOR_VALUE: return OVERRIDE_IRESOURCE_POST_PROCESSOR;
+			case OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER_VALUE: return OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER;
+			case OVERRIDE_IBRACKET_PAIR_VALUE: return OVERRIDE_IBRACKET_PAIR;
+			case OVERRIDE_ICOMMAND_VALUE: return OVERRIDE_ICOMMAND;
+			case OVERRIDE_ICONFIGURABLE_VALUE: return OVERRIDE_ICONFIGURABLE;
+			case OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_VALUE: return OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT;
+			case OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY_VALUE: return OVERRIDE_ICONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY;
+			case OVERRIDE_IELEMENT_MAPPING_VALUE: return OVERRIDE_IELEMENT_MAPPING;
+			case OVERRIDE_IEXPECTED_ELEMENT_VALUE: return OVERRIDE_IEXPECTED_ELEMENT;
+			case OVERRIDE_IHOVER_TEXT_PROVIDER_VALUE: return OVERRIDE_IHOVER_TEXT_PROVIDER;
+			case OVERRIDE_ILOCATION_MAP_VALUE: return OVERRIDE_ILOCATION_MAP;
+			case OVERRIDE_IPARSE_RESULT_VALUE: return OVERRIDE_IPARSE_RESULT;
+			case OVERRIDE_IPROBLEM_VALUE: return OVERRIDE_IPROBLEM;
+			case OVERRIDE_IREFERENCE_MAPPING_VALUE: return OVERRIDE_IREFERENCE_MAPPING;
+			case OVERRIDE_IREFERENCE_RESOLVER_VALUE: return OVERRIDE_IREFERENCE_RESOLVER;
+			case OVERRIDE_IREFERENCE_RESOLVE_RESULT_VALUE: return OVERRIDE_IREFERENCE_RESOLVE_RESULT;
+			case OVERRIDE_IREFERENCE_RESOLVER_SWITCH_VALUE: return OVERRIDE_IREFERENCE_RESOLVER_SWITCH;
+			case OVERRIDE_ITEXT_DIAGNOSTIC_VALUE: return OVERRIDE_ITEXT_DIAGNOSTIC;
+			case OVERRIDE_ITEXT_PARSER_VALUE: return OVERRIDE_ITEXT_PARSER;
+			case OVERRIDE_ITEXT_PRINTER_VALUE: return OVERRIDE_ITEXT_PRINTER;
+			case OVERRIDE_ITEXT_RESOURCE_VALUE: return OVERRIDE_ITEXT_RESOURCE;
+			case OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION_VALUE: return OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION;
+			case OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART_VALUE: return OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART;
+			case OVERRIDE_ITEXT_SCANNER_VALUE: return OVERRIDE_ITEXT_SCANNER;
+			case OVERRIDE_ITEXT_TOKEN_VALUE: return OVERRIDE_ITEXT_TOKEN;
+			case OVERRIDE_ITOKEN_RESOLVER_VALUE: return OVERRIDE_ITOKEN_RESOLVER;
+			case OVERRIDE_ITOKEN_RESOLVE_RESULT_VALUE: return OVERRIDE_ITOKEN_RESOLVE_RESULT;
+			case OVERRIDE_ITOKEN_RESOLVER_FACTORY_VALUE: return OVERRIDE_ITOKEN_RESOLVER_FACTORY;
+			case OVERRIDE_ITOKEN_STYLE_VALUE: return OVERRIDE_ITOKEN_STYLE;
+			case OVERRIDE_IURI_MAPPING_VALUE: return OVERRIDE_IURI_MAPPING;
+			case OVERRIDE_EPROBLEM_TYPE_VALUE: return OVERRIDE_EPROBLEM_TYPE;
 		}
 		return null;
 	}

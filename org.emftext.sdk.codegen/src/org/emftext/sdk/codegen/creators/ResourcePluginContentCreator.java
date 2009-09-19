@@ -132,6 +132,42 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.SYNTAX_COLORING_HELPER));
 	    creators.add(new GenericArtifactCreator(EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE));
 	    
+	    creators.add(new GenericArtifactCreator(EArtifact.I_INPUT_STREAM_PROCESSOR_PROVIDER));
+	    creators.add(new GenericArtifactCreator(EArtifact.INPUT_STREAM_PROCESSOR));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_OPTION_PROVIDER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_OPTIONS));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_RESOURCE_POST_PROCESSOR));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_BRACKET_PAIR));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_COMMAND));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_CONFIGURABLE));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_ELEMENT_MAPPING));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_EXPECTED_ELEMENT));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_HOVER_TEXT_PROVIDER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_LOCATION_MAP));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_PARSE_RESULT));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_PROBLEM));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_MAPPING));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_RESOLVER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_RESOLVE_RESULT));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_REFERENCE_RESOLVER_SWITCH));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_DIAGNOSTIC));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_PARSER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_PRINTER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_RESOURCE));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_RESOURCE_PLUGIN_META_INFORMATION));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_RESOURCE_PLUGIN_PART));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_SCANNER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_TOKEN));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_RESOLVER));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_RESOLVE_RESULT));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_RESOLVER_FACTORY));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_STYLE));
+	    creators.add(new GenericArtifactCreator(EArtifact.IURI_MAPPING));
+	    creators.add(new GenericArtifactCreator(EArtifact.E_PROBLEM_TYPE));
+
 	    for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
 			creator.createArtifacts(context);

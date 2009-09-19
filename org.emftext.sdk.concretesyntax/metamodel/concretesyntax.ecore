@@ -221,6 +221,43 @@
     <eLiterals name="OVERRIDE_PREFERENCE_INITIALIZER" value="76" literal="overridePreferenceInitializer"/>
     <eLiterals name="OVERRIDE_SYNTAX_COLORING_HELPER" value="77" literal="overrideSyntaxColoringHelper"/>
     <eLiterals name="OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE" value="78" literal="overrideSyntaxColoringPreferencePage"/>
+    <eLiterals name="OVERRIDE_I_INPUT_STREAM_PROCESSOR_PROVIDER" value="79" literal="overrideIInputStreamProcessorProvider"/>
+    <eLiterals name="OVERRIDE_INPUT_STREAM_PROCESSOR" value="80" literal="overrideInputStreamProcessor"/>
+    <eLiterals name="OVERRIDE_I_OPTION_PROVIDER" value="81" literal="overrideIOptionProvider"/>
+    <eLiterals name="OVERRIDE_I_OPTIONS" value="82" literal="overrideIOptions"/>
+    <eLiterals name="OVERRIDE_I_RESOURCE_POST_PROCESSOR" value="83" literal="overrideIResourcePostProcessor"/>
+    <eLiterals name="OVERRIDE_I_RESOURCE_POST_PROCESSOR_PROVIDER" value="84" literal="overrideIResourcePostProcessorProvider"/>
+    <eLiterals name="OVERRIDE_I_BRACKET_PAIR" value="85" literal="overrideIBracketPair"/>
+    <eLiterals name="OVERRIDE_I_COMMAND" value="86" literal="overrideICommand"/>
+    <eLiterals name="OVERRIDE_I_CONFIGURABLE" value="87" literal="overrideIConfigurable"/>
+    <eLiterals name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT" value="88" literal="overrideIContextDependentURIFragment"/>
+    <eLiterals name="OVERRIDE_I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY" value="89"
+        literal="overrideIContextDependentURIFragmentFactory"/>
+    <eLiterals name="OVERRIDE_I_ELEMENT_MAPPING" value="90" literal="overrideIElementMapping"/>
+    <eLiterals name="OVERRIDE_I_EXPECTED_ELEMENT" value="91" literal="overrideIExpectedElement"/>
+    <eLiterals name="OVERRIDE_I_HOVER_TEXT_PROVIDER" value="92" literal="overrideIHoverTextProvider"/>
+    <eLiterals name="OVERRIDE_I_LOCATION_MAP" value="93" literal="overrideILocationMap"/>
+    <eLiterals name="OVERRIDE_I_PARSE_RESULT" value="94" literal="overrideIParseResult"/>
+    <eLiterals name="OVERRIDE_I_PROBLEM" value="95" literal="overrideIProblem"/>
+    <eLiterals name="OVERRIDE_I_REFERENCE_MAPPING" value="96" literal="overrideIReferenceMapping"/>
+    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVER" value="97" literal="overrideIReferenceResolver"/>
+    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVE_RESULT" value="98" literal="overrideIReferenceResolveResult"/>
+    <eLiterals name="OVERRIDE_I_REFERENCE_RESOLVER_SWITCH" value="99" literal="overrideIReferenceResolverSwitch"/>
+    <eLiterals name="OVERRIDE_I_TEXT_DIAGNOSTIC" value="100" literal="overrideITextDiagnostic"/>
+    <eLiterals name="OVERRIDE_I_TEXT_PARSER" value="101" literal="overrideITextParser"/>
+    <eLiterals name="OVERRIDE_I_TEXT_PRINTER" value="102" literal="overrideITextPrinter"/>
+    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE" value="103" literal="overrideITextResource"/>
+    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_META_INFORMATION" value="104"
+        literal="overrideITextResourcePluginMetaInformation"/>
+    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART" value="105" literal="overrideITextResourcePluginPart"/>
+    <eLiterals name="OVERRIDE_I_TEXT_SCANNER" value="106" literal="overrideITextScanner"/>
+    <eLiterals name="OVERRIDE_I_TEXT_TOKEN" value="107" literal="overrideITextToken"/>
+    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVER" value="108" literal="overrideITokenResolver"/>
+    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVE_RESULT" value="109" literal="overrideITokenResolveResult"/>
+    <eLiterals name="OVERRIDE_I_TOKEN_RESOLVER_FACTORY" value="110" literal="overrideITokenResolverFactory"/>
+    <eLiterals name="OVERRIDE_I_TOKEN_STYLE" value="111" literal="overrideITokenStyle"/>
+    <eLiterals name="OVERRIDE_IURI_MAPPING" value="112" literal="overrideIURIMapping"/>
+    <eLiterals name="OVERRIDE_E_PROBLEM_TYPE" value="113" literal="overrideEProblemType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
