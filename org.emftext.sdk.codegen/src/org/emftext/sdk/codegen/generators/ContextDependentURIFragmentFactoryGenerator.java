@@ -10,7 +10,8 @@ import java.io.PrintWriter;
 
 public class ContextDependentURIFragmentFactoryGenerator extends BaseGenerator {
 
-	private String qualifiedContextDependentURIFragmentClassName;
+	private String contextDependentURIFragmentClassName;
+	private String iContextDependentURIFragmentFactoryClassName;
 
 	public ContextDependentURIFragmentFactoryGenerator() {
 		super();
@@ -18,7 +19,8 @@ public class ContextDependentURIFragmentFactoryGenerator extends BaseGenerator {
 
 	private ContextDependentURIFragmentFactoryGenerator(GenerationContext context) {
 		super(context, EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
-		qualifiedContextDependentURIFragmentClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
+		contextDependentURIFragmentClassName = context.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT);
+		iContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -32,7 +34,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends BaseGenerator {
 		sc.add("// @param <ContainerType> the type of the class containing the reference to be resolved");
 		sc.add("// @param <ReferenceType> the type of the reference to be resolved");
 		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + ">  implements " + I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY + "<ContainerType, ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + ">  implements " + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("private final " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> resolver;");
 		sc.addLineBreak();
@@ -42,7 +44,7 @@ public class ContextDependentURIFragmentFactoryGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("public " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<?> create(String identifier, ContainerType container, " + E_REFERENCE + " reference, int positionInReference, " + E_OBJECT + " proxy) {");
 		sc.addLineBreak();
-		sc.add("return new " + qualifiedContextDependentURIFragmentClassName + "<ContainerType, ReferenceType>(identifier, container, reference, positionInReference, proxy) {");
+		sc.add("return new " + contextDependentURIFragmentClassName + "<ContainerType, ReferenceType>(identifier, container, reference, positionInReference, proxy) {");
 		sc.add("public " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<ContainerType, ReferenceType> getResolver() {");
 		sc.add("return resolver;");
 		sc.add("}");

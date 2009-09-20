@@ -71,14 +71,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextParser;
-import org.emftext.runtime.resource.ITokenResolveResult;
-import org.emftext.runtime.resource.ITokenResolver;
-import org.emftext.runtime.resource.ITokenResolverFactory;
-import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
 import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
-import org.emftext.runtime.resource.impl.code_completion.ExpectedCsString;
-import org.emftext.runtime.resource.impl.code_completion.ExpectedStructuralFeature;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.codegen.EArtifact;
@@ -163,6 +156,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
+	private String expectedCsStringClassName;
+
+	private String expectedStructuralFeatureClassName;
+
 	public ANTLRGrammarGenerator() {
 		super();
 	}
@@ -178,6 +175,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				.getQualifiedClassName(EArtifact.TOKEN_RESOLVE_RESULT);
 		this.qualifiedContextDependentURIFragmentFactoryClassName = context
 				.getQualifiedClassName(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		expectedCsStringClassName = context.getQualifiedClassName(EArtifact.EXPECTED_CS_STRING);
+		expectedStructuralFeatureClassName = context.getQualifiedClassName(EArtifact.EXPECTED_STRUCTURAL_FEATURE);
 	}
 
 	private void initOptions() {
@@ -221,8 +220,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.addLineBreak();
 
 		sc.add("options {");
-		sc.add("superClass = " + AbstractEMFTextParser.class.getSimpleName()
-				+ ";");
+		sc.add("superClass = " + getContext().getClassName(EArtifact.ANTLR_PARSER_BASE) + ";");
 		sc.add("backtrack = " + backtracking + ";");
 		sc.add("memoize = " + memoize + ";");
 		sc.add("}");
@@ -252,10 +250,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		// the parser: package definition and entry (doParse) method
 		sc.add("@header{");
 		sc.add("package " + super.getResourcePackageName() + ";");
-		sc.addLineBreak();
-
-		printDefaultImports(sc);
-
 		sc.add("}");
 		sc.addLineBreak();
 
@@ -640,13 +634,13 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				String resolveResultIdentifier = identifierPrefix + "Result";
 
 				sc
-						.add(ITokenResolver.class.getName()
+						.add(getClassNameHelper().getI_TOKEN_RESOLVER()
 								+ " "
 								+ resolverIdentifier
 								+ " = tokenResolverFactory.createCollectInTokenResolver(\""
 								+ attributeName + "\");");
 				sc.add(resolverIdentifier + ".setOptions(getOptions());");
-				sc.add(ITokenResolveResult.class.getName() + " "
+				sc.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " "
 						+ resolveResultIdentifier
 						+ " = getFreshTokenResolveResult();");
 				sc.add(resolverIdentifier
@@ -692,7 +686,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addCreateInstanceMethod(String lexerName, String parserName,
 			StringComposite sc) {
-		sc.add("public " + ITextParser.class.getName() + " createInstance("
+		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createInstance("
 				+ InputStream.class.getName() + " actualInputStream, "
 				+ String.class.getName() + " encoding) {");
 		sc.add("try {");
@@ -717,7 +711,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		sc.add("private " + ITokenResolverFactory.class.getName()
+		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY()
 				+ " tokenResolverFactory = new "
 				+ qualifiedTokenResolverFactoryClassName + "();");
 		sc.add("private int lastPosition;");
@@ -1371,7 +1365,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		}
 		System.out.println("addExpectationCodeForCsString(" + message + ")");
 		String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(csString.getValue());
-		sc.add("addExpectedElement(new " + ExpectedCsString.class.getName()
+		sc.add("addExpectedElement(new " + expectedCsStringClassName 
 				+ "(\"" + getScopeID(csString) + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString + "\"), \"" + StringUtil.escapeToJavaStringInANTLRGrammar(message) + "\");");
 	}
 
@@ -1421,7 +1415,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		final GenClass genClass = rule.getMetaclass();
 		final GenFeature genFeature = terminal.getFeature();
 		sc.add("addExpectedElement(new "
-				+ ExpectedStructuralFeature.class.getName() + "(\""
+				+ expectedStructuralFeatureClassName + "(\""
 				+ getScopeID(terminal) + "\", " 
 				+ discardFollowingExpectations + ", "
 				+ genClass.getGenPackage().getReflectionPackageName() + "."
@@ -1519,12 +1513,12 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			String resolvedIdent = "resolved";
 			String preResolved = resolvedIdent + "Object";
 			String resolverIdent = "tokenResolver";
-			resolvements.add(ITokenResolver.class.getName() + " "
+			resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " "
 					+ resolverIdent
 					+ " = tokenResolverFactory.createTokenResolver(\""
 					+ tokenName + "\");");
 			resolvements.add(resolverIdent + ".setOptions(getOptions());");
-			resolvements.add(ITokenResolveResult.class.getName()
+			resolvements.add(getClassNameHelper().getI_TOKEN_RESOLVE_RESULT()
 					+ " result = getFreshTokenResolveResult();");
 			resolvements.add(resolverIdent + ".resolve(" + ident
 					+ ".getText(), element.eClass().getEStructuralFeature("
@@ -1746,13 +1740,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private boolean isKeyword(TokenDefinition definition) {
 		String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length()-1);
 		return this.keywordTokens.contains(assumeKeyword);
-	}
-
-	private void printDefaultImports(StringComposite sc) {
-		// do not add imports here
-		// all classes used by the generated parser must be
-		// fully qualified
-		sc.add("import " + AbstractEMFTextParser.class.getName() + ";");
 	}
 
 	private String computeCardinalityString(Definition definition) {

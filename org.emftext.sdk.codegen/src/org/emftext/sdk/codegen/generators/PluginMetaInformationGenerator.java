@@ -13,7 +13,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.emftext.runtime.resource.IHoverTextProvider;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
@@ -117,7 +116,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " extends " + getClassNameHelper().getABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " {");
+        sc.add("public class " + getResourceClassName()+ " implements " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " {");
         sc.addLineBreak();
         addTokenStyleImplClass(sc);
         addBracketPairClass(sc);
@@ -141,7 +140,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addGetHoverTextProviderMethod(StringComposite sc) {
-		sc.add("public " + IHoverTextProvider.class.getName() + " getHoverTextProvider() {");
+		sc.add("public " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " getHoverTextProvider() {");
 		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.HOVER_TEXT_PROVIDER)+"();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -170,7 +169,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addBracketPairClass(StringComposite sc) {
-		sc.add("public class BracketPair extends " + getClassNameHelper().getABSTRACT_BRACKET_PAIR() + " {");
+		sc.add("public class BracketPair implements " + getClassNameHelper().getI_BRACKET_PAIR() + " {");
         sc.addLineBreak();
         sc.add("private String opening;");
         sc.add("private String closing;");
@@ -212,7 +211,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	private void addTokenStyleImplClass(StringComposite sc) {
-		sc.add("public class TokenStyleImpl extends " + getClassNameHelper().getABSTRACT_TOKEN_STYLE() + " {");
+		sc.add("public class TokenStyleImpl implements " + getClassNameHelper().getI_TOKEN_STYLE() + " {");
         sc.addLineBreak();
         sc.add("private int[] color;");
         sc.add("private boolean bold;");

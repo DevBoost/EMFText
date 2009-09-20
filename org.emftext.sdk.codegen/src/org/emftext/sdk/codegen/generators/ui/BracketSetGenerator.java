@@ -463,7 +463,7 @@ public class BracketSetGenerator extends BaseGenerator {
 	private void addBracketPairClass(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// A single pair of brackets.");
-		sc.add("private class BracketPair extends " + getClassNameHelper().getABSTRACT_BRACKET_PAIR() + " {");
+		sc.add("private class BracketPair implements " + getClassNameHelper().getI_BRACKET_PAIR() + " {");
 		sc.addLineBreak();
 		sc.add("private final " + STRING + "[] brackets;");
 		sc.add("private boolean closingEnabledInside;");

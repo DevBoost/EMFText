@@ -163,7 +163,7 @@ public class GeneratorUtil {
 		sc.add("// code completion");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("resource.addProblem(new " + classNameHelper.getABSTRACT_PROBLEM() + "() {");
+		sc.add("resource.addProblem(new " + classNameHelper.getI_PROBLEM() + "() {");
 		sc.add("public " + classNameHelper.getE_PROBLEM_TYPE() + " getType() {");
 		sc.add("return " + classNameHelper.getE_PROBLEM_TYPE() + ".ERROR;");
 		sc.add("}");

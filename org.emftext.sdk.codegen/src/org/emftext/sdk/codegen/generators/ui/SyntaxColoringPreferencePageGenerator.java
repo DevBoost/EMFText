@@ -14,6 +14,7 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 	private String syntaxColoringHelperClassName;
 	private String antlrTokenHelperClassName;
 	private String pixelConverterClassName;
+	private String metaInformationClassName;
 
 	public SyntaxColoringPreferencePageGenerator() {
 		super();
@@ -26,6 +27,7 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		syntaxColoringHelperClassName = getContext().getQualifiedClassName(EArtifact.SYNTAX_COLORING_HELPER);
 		antlrTokenHelperClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_TOKEN_HELPER);
 		pixelConverterClassName = getContext().getQualifiedClassName(EArtifact.PIXEL_CONVERTER);
+		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
@@ -383,8 +385,7 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + "> syntaxPlugins = " + getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".getConcreteSyntaxRegistry();");
-		sc.add("for (" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " syntaxPlugin : syntaxPlugins) {");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " syntaxPlugin = new " + metaInformationClassName + "();");
 		sc.addLineBreak();
 		sc.add("String languageId = syntaxPlugin.getSyntaxName();");
 		sc.addLineBreak();
@@ -404,7 +405,6 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("terminals.add(item);");
 		sc.add("}");
 		sc.add("content.put(languageId, terminals);");
-		sc.add("}");
 		sc.addLineBreak();
 		sc.add("setPreferenceStore(" + activatorClassName + ".getDefault().getPreferenceStore());");
 		sc.add("setDescription(\"Define the syntax coloring for registered textual syntaxes.\");");

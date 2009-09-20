@@ -29,7 +29,7 @@ public class ParseResultGenerator extends BaseGenerator {
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         
-        sc.add("public class " + getResourceClassName()+ " extends " + getClassNameHelper().getABSTRACT_PARSE_RESULT() + " {");
+        sc.add("public class " + getResourceClassName()+ " implements " + getClassNameHelper().getI_PARSE_RESULT() + " {");
         sc.addLineBreak();
 
         sc.add("private " + E_OBJECT + " root;");

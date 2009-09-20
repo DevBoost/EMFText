@@ -7,6 +7,7 @@ import org.emftext.runtime.resource.IParseResult;
 import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
+import org.emftext.sdk.codegen.generators.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.generators.BabylonSpecificationGenerator;
 import org.emftext.sdk.codegen.generators.ContextDependentURIFragmentFactoryGenerator;
@@ -34,6 +35,10 @@ import org.emftext.sdk.codegen.generators.TextResourceGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.generators.URIMappingGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.AbstractExpectedElementGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.CodeCompletionHelperGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.ExpectedCsStringGenerator;
+import org.emftext.sdk.codegen.generators.code_completion.ExpectedStructuralFeatureGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ICommandGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IConfigurableGenerator;
@@ -68,6 +73,7 @@ import org.emftext.sdk.codegen.generators.interfaces.ITokenResolverGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITokenStyleGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IURIMappingGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.InputStreamProcessorGenerator;
+import org.emftext.sdk.codegen.generators.ui.NewFileWizardPageGenerator;
 import org.emftext.sdk.codegen.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.generators.ui.BracketPreferencePageGenerator;
@@ -99,6 +105,19 @@ import org.emftext.sdk.codegen.generators.ui.SyntaxColoringHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.SyntaxColoringPreferencePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.TextHoverGenerator;
 import org.emftext.sdk.codegen.generators.ui.TokenScannerGenerator;
+import org.emftext.sdk.codegen.generators.util.CastUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.CopiedEListGenerator;
+import org.emftext.sdk.codegen.generators.util.CopiedEObjectInternalEListGenerator;
+import org.emftext.sdk.codegen.generators.util.EClassUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.EObjectUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.ListUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.MapUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.MinimalModelHelperGenerator;
+import org.emftext.sdk.codegen.generators.util.ResourceUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.StreamUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.StringUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.TextResourceUtilGenerator;
+import org.emftext.sdk.codegen.generators.util.UnicodeConverterGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public enum EArtifact {
@@ -106,6 +125,7 @@ public enum EArtifact {
 	ANTLR_LEXER("Lexer", null, OptionTypes.OVERRIDE_PARSER),
 	ANTLR_SCANNER("AntlrScanner", new ANTLRScannerGenerator(), OptionTypes.OVERRIDE_SCANNER),
 	ANTLR_PARSER("Parser", null, OptionTypes.OVERRIDE_PARSER),
+	ANTLR_PARSER_BASE("ANTLRParserBase", new ANTLRParserBaseGenerator(), OptionTypes.OVERRIDE_PARSER),
 	CONTEXT_DEPENDENT_URI_FRAGMENT("ContextDependentURIFragment", new ContextDependentURIFragmentGenerator(), OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT),
 	CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY("ContextDependentURIFragmentFactory", new ContextDependentURIFragmentFactoryGenerator(), OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY),
 	DELEGATING_RESOLVE_RESULT("DelegatingResolveResult", new DelegatingResolveResultGenerator(), OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT),
@@ -166,7 +186,8 @@ public enum EArtifact {
 	PREFERENCE_INITIALIZER(UI_PACKAGE, "PreferenceInitializer", new PreferenceInitializerGenerator(), OptionTypes.OVERRIDE_PREFERENCE_INITIALIZER),
 	SYNTAX_COLORING_HELPER(UI_PACKAGE, "SyntaxColoringHelper", new SyntaxColoringHelperGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_HELPER),
 	SYNTAX_COLORING_PREFERENCE_PAGE(UI_PACKAGE, "SyntaxColoringPreferencePage", new SyntaxColoringPreferencePageGenerator(), OptionTypes.OVERRIDE_SYNTAX_COLORING_PREFERENCE_PAGE),
-
+	NEW_FILE_WIZARD_PAGE("NewFileWizardPage", new NewFileWizardPageGenerator(), OptionTypes.OVERRIDE_NEW_FILE_WIZARD_PAGE),
+	
 	I_INPUT_STREAM_PROCESSOR_PROVIDER("IInputStreamProcessorProvider", new IInputStreamProcessorProviderGenerator(), OptionTypes.OVERRIDE_IINPUT_STREAM_PROCESSOR_PROVIDER),
 	INPUT_STREAM_PROCESSOR("InputStreamProcessor", new InputStreamProcessorGenerator(), OptionTypes.OVERRIDE_INPUT_STREAM_PROCESSOR),
 	I_OPTION_PROVIDER("IOptionProvider", new IOptionProviderGenerator(), OptionTypes.OVERRIDE_IOPTION_PROVIDER),
@@ -203,11 +224,30 @@ public enum EArtifact {
 	IURI_MAPPING("IURIMapping", new IURIMappingGenerator(), OptionTypes.OVERRIDE_IURI_MAPPING),
 	E_PROBLEM_TYPE("EProblemType", new EProblemTypeGenerator(), OptionTypes.OVERRIDE_EPROBLEM_TYPE),
 	
+	CODE_COMPLETION_HELPER("cc", "CodeCompletionHelper", new CodeCompletionHelperGenerator(), OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER),
+	EXPECTED_CS_STRING("cc", "ExpectedCsString", new ExpectedCsStringGenerator(), OptionTypes.OVERRIDE_EXPECTED_CS_STRING),
+	EXPECTED_STRUCTURAL_FEATURE("cc", "ExpectedStructuralFeature", new ExpectedStructuralFeatureGenerator(), OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE),
+	ABSTRACT_EXPECTED_ELEMENT("cc", "AbstractExpectedElement", new AbstractExpectedElementGenerator(), OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT),
+	
+	CAST_UTIL("util", "CastUtil", new CastUtilGenerator(), OptionTypes.OVERRIDE_CAST_UTIL),
+	COPIED_E_LIST("util", "CopiedEList", new CopiedEListGenerator(), OptionTypes.OVERRIDE_COPIED_ELIST),
+	COPIED_E_OBJECT_INTERNAL_E_LIST("util", "CopiedEObjectInternalEList", new CopiedEObjectInternalEListGenerator(), OptionTypes.OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST),
+	E_CLASS_UTIL("util", "EClassUtil", new EClassUtilGenerator(), OptionTypes.OVERRIDE_ECLASS_UTIL),
+	E_OBJECT_UTIL("util", "EObjectUtil", new EObjectUtilGenerator(), OptionTypes.OVERRIDE_EOBJECT_UTIL),
+	LIST_UTIL("util", "ListUtil", new ListUtilGenerator(), OptionTypes.OVERRIDE_LIST_UTIL),
+	MAP_UTIL("util", "MapUtil", new MapUtilGenerator(), OptionTypes.OVERRIDE_MAP_UTIL),
+	MINIMAL_MODEL_HELPER("util", "MinimalModelHelper", new MinimalModelHelperGenerator(), OptionTypes.OVERRIDE_MINIMAL_MODEL_HELPER),
+	RESOURCE_UTIL("util", "ResourceUtil", new ResourceUtilGenerator(), OptionTypes.OVERRIDE_RESOURCE_UTIL),
+	STREAM_UTIL("util", "StreamUtil", new StreamUtilGenerator(), OptionTypes.OVERRIDE_STREAM_UTIL),
+	STRING_UTIL("util", "StringUtil", new StringUtilGenerator(), OptionTypes.OVERRIDE_STRING_UTIL),
+	TEXT_RESOURCE_UTIL("util", "TextResourceUtil", new TextResourceUtilGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL),
+	UNICODE_CONVERTER("util", "UnicodeConverter", new UnicodeConverterGenerator(), OptionTypes.OVERRIDE_UNICODE_CONVERTER),
+
 	ANTLR_GRAMMAR("", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER), 
 	BABYLON_SPECIFICATION("", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),
 	
 	MAIN_PACKAGE("", "", null, null),
-	ANALYSIS_PACKAGE("analysis", "analysis", null, null),    
+	ANALYSIS_PACKAGE("analysis", "analysis", null, null),     
 	;
 	
 	private String classNameSuffix;

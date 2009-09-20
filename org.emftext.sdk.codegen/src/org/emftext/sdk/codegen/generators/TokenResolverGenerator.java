@@ -75,7 +75,7 @@ public class TokenResolverGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
-		sc.add("public class " + csUtil.getTokenResolverClassName(getContext().getConcreteSyntax(), definition) + " extends " + getClassNameHelper().getABSTRACT_TOKEN_RESOLVER() + " {");
+		sc.add("public class " + csUtil.getTokenResolverClassName(getContext().getConcreteSyntax(), definition) + " implements " + getClassNameHelper().getI_TOKEN_RESOLVER() + " {");
 		sc.addLineBreak();
 		sc.add("private " + qualifiedDefaultTokenResolverClassName + " defaultTokenResolver = new " + qualifiedDefaultTokenResolverClassName + "();");
 		sc.addLineBreak();

@@ -9,15 +9,12 @@ import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class IReferenceMappingGenerator extends BaseGenerator {
 
-	private String iReferenceMappingClassName;
-
 	public IReferenceMappingGenerator() {
 		super();
 	}
 
 	private IReferenceMappingGenerator(GenerationContext context) {
 		super(context, EArtifact.I_REFERENCE_MAPPING);
-		iReferenceMappingClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_MAPPING);
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

@@ -26,7 +26,7 @@ public class ProblemClassGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
-		sc.add("public class " + getResourceClassName() + " extends " + getClassNameHelper().getABSTRACT_PROBLEM() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_PROBLEM() + " {");
 		sc.addLineBreak();
 		
 		addFields(sc);

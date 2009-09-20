@@ -37,7 +37,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
@@ -47,6 +46,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.POSITION_BASED_TEXT_DIAGNOSTIC;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOLVER_SWITCH_FIELD_NAME;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_IMPL;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
@@ -74,6 +74,8 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String csSyntaxName;
 	private String qualifiedProblemClassName;
 	private String qualifiedLocationMapClassName;
+	private String iResourcePostProcessorProviderClassName;
+	private String iContextDependentURIFragmentFactoryClassName;
 
 	public TextResourceGenerator() {
 		super();
@@ -87,6 +89,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		this.qualifiedPrinterClassName = context.getQualifiedClassName(EArtifact.PRINTER);
 		this.qualifiedProblemClassName = context.getQualifiedClassName(EArtifact.PROBLEM);
 		this.qualifiedLocationMapClassName = context.getClassName(EArtifact.LOCATION_MAP);
+		this.iResourcePostProcessorProviderClassName = context.getClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
+		this.iContextDependentURIFragmentFactoryClassName = context.getClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
 	@Override
@@ -95,7 +99,7 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
         
-		sc.add("public class " + getResourceClassName() + " extends " + getClassNameHelper().getABSTRACT_TEXT_RESOURCE() + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + RESOURCE_IMPL + " implements " + getClassNameHelper().getI_TEXT_RESOURCE() + " {");
 		sc.addLineBreak();
 		
     	addInnerClasses(sc);
@@ -390,9 +394,9 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (resourcePostProcessorProvider instanceof " + I_RESOURCE_POST_PROCESSOR_PROVIDER + ") {");
     	sc.add("((" + I_RESOURCE_POST_PROCESSOR_PROVIDER + ") resourcePostProcessorProvider).getResourcePostProcessor().process(this);");
     	sc.add("} else if (resourcePostProcessorProvider instanceof " + COLLECTION + "<?>) {");
-    	sc.add("@SuppressWarnings(\"unchecked\")");
-    	sc.add(COLLECTION + "<" + I_RESOURCE_POST_PROCESSOR_PROVIDER + "> resourcePostProcessorProviderCollection = (" + COLLECTION + "<" + I_RESOURCE_POST_PROCESSOR_PROVIDER + ">) resourcePostProcessorProvider;");
-    	sc.add("for (" + I_RESOURCE_POST_PROCESSOR_PROVIDER + " processorProvider : resourcePostProcessorProviderCollection) {");
+    	sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
+    	sc.add(COLLECTION + "<" + iResourcePostProcessorProviderClassName + "> resourcePostProcessorProviderCollection = (" + COLLECTION + "<" + iResourcePostProcessorProviderClassName + ">) resourcePostProcessorProvider;");
+    	sc.add("for (" + iResourcePostProcessorProviderClassName + " processorProvider : resourcePostProcessorProviderCollection) {");
     	sc.add(getClassNameHelper().getI_RESOURCE_POST_PROCESSOR() + " postProcessor = processorProvider.getResourcePostProcessor();");
     	sc.add("try {");
     	sc.add("postProcessor.process(this);");
@@ -550,7 +554,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addRegisterContextDependentProxyMethod(StringComposite sc) {
-		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, " + STRING + " id, " + E_OBJECT + " proxyElement) {");
+		sc.add("public <ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> void registerContextDependentProxy(" + iContextDependentURIFragmentFactoryClassName + "<ContainerType, ReferenceType> factory, ContainerType container, " + E_REFERENCE + " reference, " + STRING + " id, " + E_OBJECT + " proxyElement) {");
     	sc.add("int pos = -1;");
     	sc.add("if (reference.isMany()) {");
     	sc.add("pos = ((" + LIST + "<?>)container.eGet(reference)).size();");

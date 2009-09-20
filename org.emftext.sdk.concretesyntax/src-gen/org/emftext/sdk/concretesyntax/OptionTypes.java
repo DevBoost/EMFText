@@ -1054,7 +1054,151 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_EPROBLEM_TYPE(113, "OVERRIDE_E_PROBLEM_TYPE", "overrideEProblemType");
+	OVERRIDE_EPROBLEM_TYPE(113, "OVERRIDE_E_PROBLEM_TYPE", "overrideEProblemType"), /**
+	 * The '<em><b>OVERRIDE CODE COMPLETION HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CODE_COMPLETION_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CODE_COMPLETION_HELPER(114, "OVERRIDE_CODE_COMPLETION_HELPER", "overrideCodeCompletionHelper"), /**
+	 * The '<em><b>OVERRIDE EXPECTED CS STRING</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_CS_STRING_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EXPECTED_CS_STRING(115, "OVERRIDE_EXPECTED_CS_STRING", "overrideExpectedCsString"), /**
+	 * The '<em><b>OVERRIDE EXPECTED STRUCTURAL FEATURE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_STRUCTURAL_FEATURE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EXPECTED_STRUCTURAL_FEATURE(116, "OVERRIDE_EXPECTED_STRUCTURAL_FEATURE", "overrideExpectedStructuralFeature"), /**
+	 * The '<em><b>OVERRIDE CAST UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CAST_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_CAST_UTIL(117, "OVERRIDE_CAST_UTIL", "overrideCastUtil"), /**
+	 * The '<em><b>OVERRIDE COPIED ELIST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COPIED_ELIST_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_COPIED_ELIST(118, "OVERRIDE_COPIED_E_LIST", "overrideCopiedEList"), /**
+	 * The '<em><b>OVERRIDE COPIED EOBJECT INTERNAL ELIST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST(119, "OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST", "overrideCopiedEObjectInternalEList"), /**
+	 * The '<em><b>OVERRIDE ECLASS UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ECLASS_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ECLASS_UTIL(120, "OVERRIDE_E_CLASS_UTIL", "overrideEClassUtil"), /**
+	 * The '<em><b>OVERRIDE EOBJECT UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EOBJECT_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_EOBJECT_UTIL(121, "OVERRIDE_E_OBJECT_UTIL", "overrideEObjectUtil"), /**
+	 * The '<em><b>OVERRIDE LIST UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LIST_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_LIST_UTIL(122, "OVERRIDE_LIST_UTIL", "overrideListUtil"), /**
+	 * The '<em><b>OVERRIDE MAP UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MAP_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_MAP_UTIL(123, "OVERRIDE_MAP_UTIL", "overrideMapUtil"), /**
+	 * The '<em><b>OVERRIDE MINIMAL MODEL HELPER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MINIMAL_MODEL_HELPER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_MINIMAL_MODEL_HELPER(124, "OVERRIDE_MINIMAL_MODEL_HELPER", "overrideMinimalModelHelper"), /**
+	 * The '<em><b>OVERRIDE RESOURCE UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_RESOURCE_UTIL(125, "OVERRIDE_RESOURCE_UTIL", "overrideResourceUtil"), /**
+	 * The '<em><b>OVERRIDE STREAM UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_STREAM_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_STREAM_UTIL(126, "OVERRIDE_STREAM_UTIL", "overrideStreamUtil"), /**
+	 * The '<em><b>OVERRIDE STRING UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_STRING_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_STRING_UTIL(127, "OVERRIDE_STRING_UTIL", "overrideStringUtil"), /**
+	 * The '<em><b>OVERRIDE TEXT RESOURCE UTIL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_RESOURCE_UTIL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TEXT_RESOURCE_UTIL(128, "OVERRIDE_TEXT_RESOURCE_UTIL", "overrideTextResourceUtil"), /**
+	 * The '<em><b>OVERRIDE UNICODE CONVERTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UNICODE_CONVERTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UNICODE_CONVERTER(129, "OVERRIDE_UNICODE_CONVERTER", "overrideUnicodeConverter"), /**
+	 * The '<em><b>OVERRIDE ABSTRACT EXPECTED ELEMENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ABSTRACT_EXPECTED_ELEMENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ABSTRACT_EXPECTED_ELEMENT(130, "OVERRIDE_ABSTRACT_EXPECTED_ELEMENT", "overrideAbstractExpectedElement"), /**
+	 * The '<em><b>OVERRIDE NEW FILE WIZARD PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_FILE_WIZARD_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_NEW_FILE_WIZARD_PAGE(131, "OVERRIDE_NEW_FILE_WIZARD_PAGE", "overrideNewFileWizardPage");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -2767,6 +2911,276 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_EPROBLEM_TYPE_VALUE = 113;
 
 	/**
+	 * The '<em><b>OVERRIDE CODE COMPLETION HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CODE COMPLETION HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CODE_COMPLETION_HELPER
+	 * @model literal="overrideCodeCompletionHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CODE_COMPLETION_HELPER_VALUE = 114;
+
+	/**
+	 * The '<em><b>OVERRIDE EXPECTED CS STRING</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EXPECTED CS STRING</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_CS_STRING
+	 * @model literal="overrideExpectedCsString"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EXPECTED_CS_STRING_VALUE = 115;
+
+	/**
+	 * The '<em><b>OVERRIDE EXPECTED STRUCTURAL FEATURE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EXPECTED STRUCTURAL FEATURE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EXPECTED_STRUCTURAL_FEATURE
+	 * @model literal="overrideExpectedStructuralFeature"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EXPECTED_STRUCTURAL_FEATURE_VALUE = 116;
+
+	/**
+	 * The '<em><b>OVERRIDE CAST UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE CAST UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_CAST_UTIL
+	 * @model literal="overrideCastUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_CAST_UTIL_VALUE = 117;
+
+	/**
+	 * The '<em><b>OVERRIDE COPIED ELIST</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE COPIED ELIST</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COPIED_ELIST
+	 * @model name="OVERRIDE_COPIED_E_LIST" literal="overrideCopiedEList"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_COPIED_ELIST_VALUE = 118;
+
+	/**
+	 * The '<em><b>OVERRIDE COPIED EOBJECT INTERNAL ELIST</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE COPIED EOBJECT INTERNAL ELIST</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST
+	 * @model name="OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST" literal="overrideCopiedEObjectInternalEList"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST_VALUE = 119;
+
+	/**
+	 * The '<em><b>OVERRIDE ECLASS UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ECLASS UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ECLASS_UTIL
+	 * @model name="OVERRIDE_E_CLASS_UTIL" literal="overrideEClassUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ECLASS_UTIL_VALUE = 120;
+
+	/**
+	 * The '<em><b>OVERRIDE EOBJECT UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE EOBJECT UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_EOBJECT_UTIL
+	 * @model name="OVERRIDE_E_OBJECT_UTIL" literal="overrideEObjectUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_EOBJECT_UTIL_VALUE = 121;
+
+	/**
+	 * The '<em><b>OVERRIDE LIST UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE LIST UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_LIST_UTIL
+	 * @model literal="overrideListUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_LIST_UTIL_VALUE = 122;
+
+	/**
+	 * The '<em><b>OVERRIDE MAP UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE MAP UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MAP_UTIL
+	 * @model literal="overrideMapUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_MAP_UTIL_VALUE = 123;
+
+	/**
+	 * The '<em><b>OVERRIDE MINIMAL MODEL HELPER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE MINIMAL MODEL HELPER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_MINIMAL_MODEL_HELPER
+	 * @model literal="overrideMinimalModelHelper"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_MINIMAL_MODEL_HELPER_VALUE = 124;
+
+	/**
+	 * The '<em><b>OVERRIDE RESOURCE UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE RESOURCE UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_UTIL
+	 * @model literal="overrideResourceUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_RESOURCE_UTIL_VALUE = 125;
+
+	/**
+	 * The '<em><b>OVERRIDE STREAM UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE STREAM UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_STREAM_UTIL
+	 * @model literal="overrideStreamUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_STREAM_UTIL_VALUE = 126;
+
+	/**
+	 * The '<em><b>OVERRIDE STRING UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE STRING UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_STRING_UTIL
+	 * @model literal="overrideStringUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_STRING_UTIL_VALUE = 127;
+
+	/**
+	 * The '<em><b>OVERRIDE TEXT RESOURCE UTIL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TEXT RESOURCE UTIL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_RESOURCE_UTIL
+	 * @model literal="overrideTextResourceUtil"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TEXT_RESOURCE_UTIL_VALUE = 128;
+
+	/**
+	 * The '<em><b>OVERRIDE UNICODE CONVERTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UNICODE CONVERTER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UNICODE_CONVERTER
+	 * @model literal="overrideUnicodeConverter"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UNICODE_CONVERTER_VALUE = 129;
+
+	/**
+	 * The '<em><b>OVERRIDE ABSTRACT EXPECTED ELEMENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ABSTRACT EXPECTED ELEMENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ABSTRACT_EXPECTED_ELEMENT
+	 * @model literal="overrideAbstractExpectedElement"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ABSTRACT_EXPECTED_ELEMENT_VALUE = 130;
+
+	/**
+	 * The '<em><b>OVERRIDE NEW FILE WIZARD PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE NEW FILE WIZARD PAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_FILE_WIZARD_PAGE
+	 * @model literal="overrideNewFileWizardPage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_NEW_FILE_WIZARD_PAGE_VALUE = 131;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2888,6 +3302,24 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ITOKEN_STYLE,
 			OVERRIDE_IURI_MAPPING,
 			OVERRIDE_EPROBLEM_TYPE,
+			OVERRIDE_CODE_COMPLETION_HELPER,
+			OVERRIDE_EXPECTED_CS_STRING,
+			OVERRIDE_EXPECTED_STRUCTURAL_FEATURE,
+			OVERRIDE_CAST_UTIL,
+			OVERRIDE_COPIED_ELIST,
+			OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST,
+			OVERRIDE_ECLASS_UTIL,
+			OVERRIDE_EOBJECT_UTIL,
+			OVERRIDE_LIST_UTIL,
+			OVERRIDE_MAP_UTIL,
+			OVERRIDE_MINIMAL_MODEL_HELPER,
+			OVERRIDE_RESOURCE_UTIL,
+			OVERRIDE_STREAM_UTIL,
+			OVERRIDE_STRING_UTIL,
+			OVERRIDE_TEXT_RESOURCE_UTIL,
+			OVERRIDE_UNICODE_CONVERTER,
+			OVERRIDE_ABSTRACT_EXPECTED_ELEMENT,
+			OVERRIDE_NEW_FILE_WIZARD_PAGE,
 		};
 
 	/**
@@ -3051,6 +3483,24 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ITOKEN_STYLE_VALUE: return OVERRIDE_ITOKEN_STYLE;
 			case OVERRIDE_IURI_MAPPING_VALUE: return OVERRIDE_IURI_MAPPING;
 			case OVERRIDE_EPROBLEM_TYPE_VALUE: return OVERRIDE_EPROBLEM_TYPE;
+			case OVERRIDE_CODE_COMPLETION_HELPER_VALUE: return OVERRIDE_CODE_COMPLETION_HELPER;
+			case OVERRIDE_EXPECTED_CS_STRING_VALUE: return OVERRIDE_EXPECTED_CS_STRING;
+			case OVERRIDE_EXPECTED_STRUCTURAL_FEATURE_VALUE: return OVERRIDE_EXPECTED_STRUCTURAL_FEATURE;
+			case OVERRIDE_CAST_UTIL_VALUE: return OVERRIDE_CAST_UTIL;
+			case OVERRIDE_COPIED_ELIST_VALUE: return OVERRIDE_COPIED_ELIST;
+			case OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST_VALUE: return OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST;
+			case OVERRIDE_ECLASS_UTIL_VALUE: return OVERRIDE_ECLASS_UTIL;
+			case OVERRIDE_EOBJECT_UTIL_VALUE: return OVERRIDE_EOBJECT_UTIL;
+			case OVERRIDE_LIST_UTIL_VALUE: return OVERRIDE_LIST_UTIL;
+			case OVERRIDE_MAP_UTIL_VALUE: return OVERRIDE_MAP_UTIL;
+			case OVERRIDE_MINIMAL_MODEL_HELPER_VALUE: return OVERRIDE_MINIMAL_MODEL_HELPER;
+			case OVERRIDE_RESOURCE_UTIL_VALUE: return OVERRIDE_RESOURCE_UTIL;
+			case OVERRIDE_STREAM_UTIL_VALUE: return OVERRIDE_STREAM_UTIL;
+			case OVERRIDE_STRING_UTIL_VALUE: return OVERRIDE_STRING_UTIL;
+			case OVERRIDE_TEXT_RESOURCE_UTIL_VALUE: return OVERRIDE_TEXT_RESOURCE_UTIL;
+			case OVERRIDE_UNICODE_CONVERTER_VALUE: return OVERRIDE_UNICODE_CONVERTER;
+			case OVERRIDE_ABSTRACT_EXPECTED_ELEMENT_VALUE: return OVERRIDE_ABSTRACT_EXPECTED_ELEMENT;
+			case OVERRIDE_NEW_FILE_WIZARD_PAGE_VALUE: return OVERRIDE_NEW_FILE_WIZARD_PAGE;
 		}
 		return null;
 	}

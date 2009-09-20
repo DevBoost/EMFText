@@ -1676,6 +1676,24 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITOKEN_STYLE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_IURI_MAPPING);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_EPROBLEM_TYPE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_CODE_COMPLETION_HELPER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_EXPECTED_CS_STRING);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_EXPECTED_STRUCTURAL_FEATURE);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_CAST_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_COPIED_ELIST);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_COPIED_EOBJECT_INTERNAL_ELIST);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ECLASS_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_EOBJECT_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_LIST_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_MAP_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_MINIMAL_MODEL_HELPER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_RESOURCE_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_STREAM_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_STRING_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_TEXT_RESOURCE_UTIL);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_UNICODE_CONVERTER);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ABSTRACT_EXPECTED_ELEMENT);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_NEW_FILE_WIZARD_PAGE);
 
 		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
 		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD);

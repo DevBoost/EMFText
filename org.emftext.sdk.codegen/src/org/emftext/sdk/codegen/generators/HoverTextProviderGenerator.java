@@ -1,9 +1,14 @@
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.runtime.resource.impl.AbstractHoverTextProvider;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -26,7 +31,7 @@ public class HoverTextProviderGenerator extends BaseGenerator {
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + AbstractHoverTextProvider.class.getName() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_HOVER_TEXT_PROVIDER() + " {");
 		sc.addLineBreak();
 		sc.add("public " + STRING + " getHoverText(" + E_OBJECT + " object) {");
 		sc.add("if (object == null) {");

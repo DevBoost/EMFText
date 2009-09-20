@@ -14,6 +14,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 	private String bracketSetClassName;
 	private String pluginActivatorClassName;
 	private String editorClassName;
+	private String metaInformationClassName;
 
 	public BracketPreferencePageGenerator() {
 		super();
@@ -25,6 +26,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		bracketSetClassName = getContext().getQualifiedClassName(EArtifact.BRACKET_SET);
 		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 		editorClassName = getContext().getQualifiedClassName(EArtifact.EDITOR);
+		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -71,10 +73,9 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "() {");
 		sc.add("super();");
 		sc.addLineBreak();
-		sc.add("for (" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation : " + getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".getConcreteSyntaxRegistry()) {");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation = new " + metaInformationClassName + "();");
 		sc.add("String languageId = metaInformation.getSyntaxName();");
 		sc.add("languageIDs.add(languageId);");
-		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("//");

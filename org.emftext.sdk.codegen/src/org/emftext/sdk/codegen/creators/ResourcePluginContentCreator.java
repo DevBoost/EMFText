@@ -60,10 +60,12 @@ public class ResourcePluginContentCreator {
 	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_SCANNER), context.getClassName(EArtifact.ANTLR_SCANNER), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_LEXER), context.getClassName(EArtifact.ANTLR_LEXER), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_PARSER), context.getClassName(EArtifact.ANTLR_PARSER), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_PARSER_BASE), context.getClassName(EArtifact.ANTLR_PARSER_BASE), OptionTypes.OVERRIDE_PARSER));
 	    } else {
 	    	creators.add(new GenericArtifactCreator(EArtifact.ANTLR_SCANNER));
 		    creators.add(new ANTLRGrammarCreator());
 		    creators.add(new ANTLRParserCreator());
+		    creators.add(new GenericArtifactCreator(EArtifact.ANTLR_PARSER_BASE));
 	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_SCANNER), context.getClassName(EArtifact.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
 	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_PARSER), context.getClassName(EArtifact.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    }
@@ -75,6 +77,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new ReferenceResolversCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.REFERENCE_RESOLVER_SWITCH));
 	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_WIZARD));
+	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_WIZARD_PAGE));
 	    creators.add(new NewFileIconCreator());
 	    creators.add(new TokenResolversCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.TOKEN_RESOLVER_FACTORY));
@@ -167,6 +170,25 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_STYLE));
 	    creators.add(new GenericArtifactCreator(EArtifact.IURI_MAPPING));
 	    creators.add(new GenericArtifactCreator(EArtifact.E_PROBLEM_TYPE));
+
+	    creators.add(new GenericArtifactCreator(EArtifact.CODE_COMPLETION_HELPER));
+	    creators.add(new GenericArtifactCreator(EArtifact.ABSTRACT_EXPECTED_ELEMENT));
+	    creators.add(new GenericArtifactCreator(EArtifact.EXPECTED_CS_STRING));
+	    creators.add(new GenericArtifactCreator(EArtifact.EXPECTED_STRUCTURAL_FEATURE));
+
+	    creators.add(new GenericArtifactCreator(EArtifact.CAST_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.COPIED_E_LIST));
+	    creators.add(new GenericArtifactCreator(EArtifact.COPIED_E_OBJECT_INTERNAL_E_LIST));
+	    creators.add(new GenericArtifactCreator(EArtifact.E_CLASS_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.E_OBJECT_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.LIST_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.MAP_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.MINIMAL_MODEL_HELPER));
+	    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.STREAM_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.STRING_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.TEXT_RESOURCE_UTIL));
+	    creators.add(new GenericArtifactCreator(EArtifact.UNICODE_CONVERTER));
 
 	    for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");

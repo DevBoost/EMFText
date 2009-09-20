@@ -4,8 +4,10 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_UI
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUNDLE_CONTEXT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DISPLAY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DIALOG_CONSTANTS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MESSAGE_DIALOG;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 
 import java.io.PrintWriter;
 
@@ -45,6 +47,38 @@ public class PluginActivatorGenerator extends BaseGenerator {
 		addStopMethod(sc);
 		addGetDefaultMethod(sc);
 		addShowErrorMethod(sc);
+		addLogErrorMethod(sc);
+	}
+
+	private void addLogErrorMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("// Helper method for error logging.");
+		sc.add("//");
+		sc.add("// @param message");
+		sc.add("//            the error message");
+		sc.add("// @param exception");
+		sc.add("//            the exception that describes the error in detail");
+		sc.add("// @return the status object describing the error");
+		sc.add("//");
+		sc.add("public static " + I_STATUS + " logError(String message, Throwable exception) {");
+		sc.add(I_STATUS + " status;");
+		sc.add("if (exception != null) {");
+		sc.add("status = new " + STATUS + "(" + I_STATUS + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, 0, message, exception);");
+		sc.add("} else {");
+		sc.add("status = new " + STATUS + "(" + I_STATUS + ".ERROR, " + getResourceClassName() + ".PLUGIN_ID, message);");
+		sc.add("}");
+			
+		sc.add("final " + getResourceClassName() + " pluginInstance = " + getResourceClassName() + ".getDefault();");
+		sc.add("if (pluginInstance == null) {");
+		sc.add("System.err.println(message);");
+		sc.add("if (exception != null) {");
+		sc.add("exception.printStackTrace();");
+		sc.add("}");
+		sc.add("} else {");
+		sc.add("pluginInstance.getLog().log(status);");
+		sc.add("}");
+		sc.add("return status;");
+		sc.add("}");
 	}
 
 	private void addShowErrorMethod(
@@ -97,6 +131,8 @@ public class PluginActivatorGenerator extends BaseGenerator {
 	}
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+		sc.add("public static final String PLUGIN_ID = \"" + getContext().getPluginName() + "\";");
+		sc.add("public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + \".default_load_options\";");
 		sc.add("private static " + getResourceClassName() + " plugin;");
 		sc.addLineBreak();
 	}

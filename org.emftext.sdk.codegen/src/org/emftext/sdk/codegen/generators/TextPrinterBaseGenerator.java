@@ -55,8 +55,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.resource.ITokenResolver;
-import org.emftext.runtime.resource.impl.AbstractEMFTextPrinter;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.CollectInFeatureHelper;
 import org.emftext.sdk.codegen.EArtifact;
@@ -208,7 +206,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public abstract class " + getResourceClassName()
-				+ " extends " + AbstractEMFTextPrinter.class.getName() + " {");
+				+ " implements " + getClassNameHelper().getI_TEXT_PRINTER() + " {");
 		sc.addLineBreak();
 		
 		addMembers(sc);
@@ -664,7 +662,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 							String featureConstant = generatorUtil.getFeatureConstant(genClass, genFeature);
 							if (feature instanceof EReference) {
-								printStatements.add(ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
+								printStatements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");
@@ -676,7 +674,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 										+ featureConstant
 										+ "), element));");
 							} else {
-								printStatements.add(ITokenResolver.class.getName() + " resolver = tokenResolverFactory.createTokenResolver(\""
+								printStatements.add(getClassNameHelper().getI_TOKEN_RESOLVER() + " resolver = tokenResolverFactory.createTokenResolver(\""
 										+ tokenName
 										+ "\");");
 								printStatements.add("resolver.setOptions(getOptions());");

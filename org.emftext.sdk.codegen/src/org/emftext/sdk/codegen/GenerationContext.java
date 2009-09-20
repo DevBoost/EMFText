@@ -29,7 +29,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
@@ -158,9 +157,10 @@ public abstract class GenerationContext {
 	}
 
 	public void addGetMetaInformationMethod(StringComposite sc) {
-		sc.add("public " + ITextResourcePluginMetaInformation.class.getName() + " getMetaInformation() {");
+		sc.add("public " + getQualifiedClassName(EArtifact.META_INFORMATION) + " getMetaInformation() {");
 		sc.add("return new " + getQualifiedClassName(EArtifact.META_INFORMATION) + "();");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	/**

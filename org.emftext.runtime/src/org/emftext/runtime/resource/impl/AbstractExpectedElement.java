@@ -15,8 +15,6 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 
 	private int startIncludingHiddenTokens;
 	private int startExcludingHiddenTokens;
-	//private int endIncludingHiddenTokens;
-	//private int endExcludingHiddenTokens;
 	private String prefix;
 	private String scopeID;
 	private boolean discardFollowingExpectations;
@@ -26,38 +24,12 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 		this.discardFollowingExpectations = discardFollowingExpectations;
 	}
 
-	public void setPosition(
-			int startIncludingHiddenTokens, 
-			int startExcludingHiddenTokens 
-			//int endIncludingHiddenTokens,
-			//int endExcludingHiddenTokens
-	) {
-		//startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, startExcludingHiddenTokens);
-		//startIncludingHiddenTokens = Math.min(startIncludingHiddenTokens, endIncludingHiddenTokens);
-		//endIncludingHiddenTokens = Math.min(endIncludingHiddenTokens, endExcludingHiddenTokens);
-
-		/*System.out.println("setPosition: " +
-				toString(startIncludingHiddenTokens) + "(" +
-				toString(startExcludingHiddenTokens) + ") in " + this);*/
-/*		System.out.println("setPosition: " +
-				toString(startIncludingHiddenTokens) + "-" +
-				toString(endIncludingHiddenTokens) + " (" +
-				toString(startExcludingHiddenTokens) + "-" +
-				toString(endExcludingHiddenTokens) + 
-				") in " + this);*/
-		
-		//assert startIncludingHiddenTokens <= endIncludingHiddenTokens;
-		//assert endIncludingHiddenTokens <= endIncludingHiddenTokens;
+	public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {
 		assert startExcludingHiddenTokens <= startExcludingHiddenTokens;
-		//assert endExcludingHiddenTokens <= endExcludingHiddenTokens;
-		
 		assert startIncludingHiddenTokens <= startExcludingHiddenTokens;
-		//assert endExcludingHiddenTokens <= endIncludingHiddenTokens;
 
 		this.startIncludingHiddenTokens = startIncludingHiddenTokens;
 		this.startExcludingHiddenTokens = startExcludingHiddenTokens;
-		//this.endIncludingHiddenTokens = endIncludingHiddenTokens;
-		//this.endExcludingHiddenTokens = endExcludingHiddenTokens;
 	}
 
 	public int getStartIncludingHiddenTokens() {
@@ -72,15 +44,6 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 		return scopeID;
 	}
 
-	/*
-	public int getEndIncludingHiddenTokens() {
-		return endIncludingHiddenTokens;
-	}
-
-	public int getEndExcludingHiddenTokens() {
-		return endExcludingHiddenTokens;
-	}
-*/
 	public String getPrefix() {
 		return prefix;
 	}
@@ -95,8 +58,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	 * (e.g., whitespace).
 	 */
 	public boolean isAt(int cursorIndex) {
-		if (startExcludingHiddenTokens <= cursorIndex &&
-			true) {//endExcludingHiddenTokens >= cursorIndex) {
+		if (startExcludingHiddenTokens <= cursorIndex && true) {
 			return true;
 		}
 		return false;
@@ -107,9 +69,7 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	}
 
 	public boolean isUnknown(int cursorIndex) {
-		return 
-			startIncludingHiddenTokens > cursorIndex &&
-			true; //endIncludingHiddenTokens == Integer.MAX_VALUE;
+		return startIncludingHiddenTokens > cursorIndex && true;
 	}
 	
 	public boolean discardFollowingExpectations() {
@@ -119,8 +79,6 @@ public abstract class AbstractExpectedElement implements IExpectedElement {
 	public String toString() {
 		return 
 		toString(startIncludingHiddenTokens) + "(" + toString(startExcludingHiddenTokens) + ")" +
-		/*" (" + toString(startExcludingHiddenTokens) + "-" + toString(endExcludingHiddenTokens) + ")"*/ 
-		//" prefix = '" + prefix + "'" + 
 		" scope = " + scopeID + "" + 
 		" discardFollowing = " + discardFollowingExpectations;
 	}

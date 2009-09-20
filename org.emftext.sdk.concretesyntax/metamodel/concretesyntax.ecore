@@ -258,6 +258,24 @@
     <eLiterals name="OVERRIDE_I_TOKEN_STYLE" value="111" literal="overrideITokenStyle"/>
     <eLiterals name="OVERRIDE_IURI_MAPPING" value="112" literal="overrideIURIMapping"/>
     <eLiterals name="OVERRIDE_E_PROBLEM_TYPE" value="113" literal="overrideEProblemType"/>
+    <eLiterals name="OVERRIDE_CODE_COMPLETION_HELPER" value="114" literal="overrideCodeCompletionHelper"/>
+    <eLiterals name="OVERRIDE_EXPECTED_CS_STRING" value="115" literal="overrideExpectedCsString"/>
+    <eLiterals name="OVERRIDE_EXPECTED_STRUCTURAL_FEATURE" value="116" literal="overrideExpectedStructuralFeature"/>
+    <eLiterals name="OVERRIDE_CAST_UTIL" value="117" literal="overrideCastUtil"/>
+    <eLiterals name="OVERRIDE_COPIED_E_LIST" value="118" literal="overrideCopiedEList"/>
+    <eLiterals name="OVERRIDE_COPIED_E_OBJECT_INTERNAL_E_LIST" value="119" literal="overrideCopiedEObjectInternalEList"/>
+    <eLiterals name="OVERRIDE_E_CLASS_UTIL" value="120" literal="overrideEClassUtil"/>
+    <eLiterals name="OVERRIDE_E_OBJECT_UTIL" value="121" literal="overrideEObjectUtil"/>
+    <eLiterals name="OVERRIDE_LIST_UTIL" value="122" literal="overrideListUtil"/>
+    <eLiterals name="OVERRIDE_MAP_UTIL" value="123" literal="overrideMapUtil"/>
+    <eLiterals name="OVERRIDE_MINIMAL_MODEL_HELPER" value="124" literal="overrideMinimalModelHelper"/>
+    <eLiterals name="OVERRIDE_RESOURCE_UTIL" value="125" literal="overrideResourceUtil"/>
+    <eLiterals name="OVERRIDE_STREAM_UTIL" value="126" literal="overrideStreamUtil"/>
+    <eLiterals name="OVERRIDE_STRING_UTIL" value="127" literal="overrideStringUtil"/>
+    <eLiterals name="OVERRIDE_TEXT_RESOURCE_UTIL" value="128" literal="overrideTextResourceUtil"/>
+    <eLiterals name="OVERRIDE_UNICODE_CONVERTER" value="129" literal="overrideUnicodeConverter"/>
+    <eLiterals name="OVERRIDE_ABSTRACT_EXPECTED_ELEMENT" value="130" literal="overrideAbstractExpectedElement"/>
+    <eLiterals name="OVERRIDE_NEW_FILE_WIZARD_PAGE" value="131" literal="overrideNewFileWizardPage"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

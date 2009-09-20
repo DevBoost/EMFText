@@ -11,7 +11,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH_PAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKSPACE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKSPACE_ROOT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PART_INIT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM_UI;
@@ -98,13 +97,9 @@ public class HyperlinkGenerator extends BaseGenerator {
 	private void addIsSupportedMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private boolean isSupported(String fileExtension) {");
-		sc.add(LIST + "<" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + "> extensions = " + getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".getConcreteSyntaxRegistry();");
-		sc.add("for (" + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " extension : extensions) {");
-		sc.add("if (extension.getSyntaxName().equals(fileExtension)) {");
+		// TODO this method used to iterate over all registered syntax and
+		// return true if there was a syntax for the given file extension
 		sc.add("return true;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

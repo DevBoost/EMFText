@@ -23,8 +23,6 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.resource.ITextPrinter;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -73,9 +71,9 @@ public class TextPrinterGenerator extends BaseGenerator {
 			sc.add("* is not granted to work in all cases, but should work in most cases.").addLineBreak();
 		}
 		sc.add("*/");
-		sc.add("public class " + getResourceClassName() + (noBaseClass ? " implements " + ITextPrinter.class.getName() : " extends " + basePrinterClassName)+ " {");
+		sc.add("public class " + getResourceClassName() + (noBaseClass ? " implements " + getClassNameHelper().getI_TEXT_PRINTER() : " extends " + basePrinterClassName)+ " {");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(" + java.io.OutputStream.class.getName() + " o, " + ITextResource.class.getName() + " resource) {");
+		sc.add("public " + getResourceClassName() + "(" + java.io.OutputStream.class.getName() + " o, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 	    if (!noBaseClass) {
 	    	sc.add("super(o, resource);");
 	    }
