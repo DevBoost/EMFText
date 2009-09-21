@@ -29,6 +29,7 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.runtime.util.StringUtil;
+import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -89,11 +90,20 @@ public class ManifestGenerator implements IGenerator {
 		sc.add("Bundle-ActivationPolicy: lazy");
 		sc.add("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
 		// export the generated packages
+		// TODO refactor
 		if (csUtil.getResolverFileNames(syntax).size() > 0) {
-			sc.add("Export-Package: " + projectName + ",");
-			sc.add("  " + context.getResolverPackageName());
+			sc.add("Export-Package: " + context.getPackageName(EArtifact.PACKAGE_ROOT) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_ANALYSIS) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_CC) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_MOPP) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UI) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UTIL));
 		} else {
-			sc.add("Export-Package: " + projectName);
+			sc.add("Export-Package: " + context.getPackageName(EArtifact.PACKAGE_ROOT) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_CC) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_MOPP) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UI) + ",");
+			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UTIL));
 		}
 
 		return sc.toString();

@@ -1,5 +1,6 @@
 package org.emftext.sdk.codegen;
 
+import static org.emftext.sdk.Constants.ANALYSIS_PACKAGE;
 import static org.emftext.sdk.Constants.CC_PACKAGE;
 import static org.emftext.sdk.Constants.MOPP_PACKAGE;
 import static org.emftext.sdk.Constants.ROOT_PACKAGE;
@@ -259,8 +260,12 @@ public enum EArtifact {
 	ANTLR_GRAMMAR(MOPP_PACKAGE, "", "", new ANTLRGrammarGenerator(), OptionTypes.OVERRIDE_PARSER), 
 	BABYLON_SPECIFICATION(MOPP_PACKAGE, "", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),
 	
-	MAIN_PACKAGE(MOPP_PACKAGE, "", "", null, null),
-	ANALYSIS_PACKAGE(Constants.ANALYSIS_PACKAGE, "analysis", "analysis", null, null),      
+	PACKAGE_ROOT(ROOT_PACKAGE, "", "", null, null),
+	PACKAGE_MOPP(MOPP_PACKAGE, "", "", null, null),
+	PACKAGE_ANALYSIS(ANALYSIS_PACKAGE, "analysis", "analysis", null, null),      
+	PACKAGE_CC(MOPP_PACKAGE, "", "", null, null),
+	PACKAGE_UI(UI_PACKAGE, "", "", null, null),
+	PACKAGE_UTIL(UTIL_PACKAGE, "", "", null, null),
 	;
 	
 	private String classNamePrefix;

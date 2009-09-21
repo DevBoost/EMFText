@@ -11,6 +11,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
+// TODO check usages of this generator - may not set package correctly
 public class EmptyClassGenerator implements IGenerator {
 
 	private GenerationContext context;
@@ -32,7 +33,7 @@ public class EmptyClassGenerator implements IGenerator {
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
 		
-		sc.add("package " + context.getPackageName(EArtifact.MAIN_PACKAGE) + ";");
+		sc.add("package " + context.getPackageName(EArtifact.PACKAGE_ROOT) + ";");
 		sc.addLineBreak();
 		
 		sc.add("// this empty class was generated to overwrite exiting");
