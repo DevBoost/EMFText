@@ -1222,7 +1222,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION(134, "OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION", "overrideUnexpectedContentTypeException");
+	OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION(134, "OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION", "overrideUnexpectedContentTypeException"), /**
+	 * The '<em><b>OVERRIDE TEXT TOKEN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_TOKEN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TEXT_TOKEN(135, "OVERRIDE_TEXT_TOKEN", "overrideTextToken");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3250,6 +3258,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION_VALUE = 134;
 
 	/**
+	 * The '<em><b>OVERRIDE TEXT TOKEN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TEXT TOKEN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TEXT_TOKEN
+	 * @model literal="overrideTextToken"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TEXT_TOKEN_VALUE = 135;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3392,6 +3415,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_IBACKGROUND_PARSING_LISTENER,
 			OVERRIDE_TERMINATE_PARSING_EXCEPTION,
 			OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION,
+			OVERRIDE_TEXT_TOKEN,
 		};
 
 	/**
@@ -3576,6 +3600,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_IBACKGROUND_PARSING_LISTENER_VALUE: return OVERRIDE_IBACKGROUND_PARSING_LISTENER;
 			case OVERRIDE_TERMINATE_PARSING_EXCEPTION_VALUE: return OVERRIDE_TERMINATE_PARSING_EXCEPTION;
 			case OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION_VALUE: return OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION;
+			case OVERRIDE_TEXT_TOKEN_VALUE: return OVERRIDE_TEXT_TOKEN;
 		}
 		return null;
 	}

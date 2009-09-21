@@ -128,6 +128,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.PROPERTY_SHEET_PAGE));
 	    creators.add(new GenericArtifactCreator(EArtifact.TEXT_HOVER));
 	    creators.add(new GenericArtifactCreator(EArtifact.TOKEN_SCANNER));
+	    creators.add(new GenericArtifactCreator(EArtifact.TEXT_TOKEN));
 	    
 	    creators.add(new GenericArtifactCreator(EArtifact.BRACKET_PREFERENCE_PAGE));
 	    creators.add(new GenericArtifactCreator(EArtifact.PREFERENCE_CONSTANTS));

@@ -206,4 +206,12 @@ public class ClassNameHelper {
 	public String getUNEXPECTED_CONTENT_TYPE_EXCEPTION() {
 		return context.getQualifiedClassName(EArtifact.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
 	}
+
+	public String getTEXT_TOKEN() {
+		return context.getQualifiedClassName(EArtifact.TEXT_TOKEN);
+	}
+
+	public String getMETA_INFORMATION() {
+		return context.getQualifiedClassName(EArtifact.META_INFORMATION);
+	}
 }

@@ -279,6 +279,7 @@
     <eLiterals name="OVERRIDE_I_BACKGROUND_PARSING_LISTENER" value="132" literal="overrideIBackgroundParsingListener"/>
     <eLiterals name="OVERRIDE_TERMINATE_PARSING_EXCEPTION" value="133" literal="overrideTerminateParsingException"/>
     <eLiterals name="OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION" value="134" literal="overrideUnexpectedContentTypeException"/>
+    <eLiterals name="OVERRIDE_TEXT_TOKEN" value="135" literal="overrideTextToken"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

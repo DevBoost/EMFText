@@ -33,6 +33,7 @@ import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessScannerGenerator;
 import org.emftext.sdk.codegen.generators.TerminateParsingExceptionGenerator;
 import org.emftext.sdk.codegen.generators.TextResourceGenerator;
+import org.emftext.sdk.codegen.generators.TextTokenGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.generators.URIMappingGenerator;
@@ -76,7 +77,6 @@ import org.emftext.sdk.codegen.generators.interfaces.ITokenResolverGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITokenStyleGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IURIMappingGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.InputStreamProcessorGenerator;
-import org.emftext.sdk.codegen.generators.ui.NewFileWizardPageGenerator;
 import org.emftext.sdk.codegen.generators.ui.AntlrTokenHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.BackgroundParsingStrategyGenerator;
 import org.emftext.sdk.codegen.generators.ui.BracketPreferencePageGenerator;
@@ -94,6 +94,7 @@ import org.emftext.sdk.codegen.generators.ui.HighlightingGenerator;
 import org.emftext.sdk.codegen.generators.ui.HyperlinkDetectorGenerator;
 import org.emftext.sdk.codegen.generators.ui.HyperlinkGenerator;
 import org.emftext.sdk.codegen.generators.ui.MarkerHelperGenerator;
+import org.emftext.sdk.codegen.generators.ui.NewFileWizardPageGenerator;
 import org.emftext.sdk.codegen.generators.ui.OccurrenceGenerator;
 import org.emftext.sdk.codegen.generators.ui.OccurrencePreferencePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.OutlinePageGenerator;
@@ -154,6 +155,7 @@ public enum EArtifact {
 	HOVER_TEXT_PROVIDER(IHoverTextProvider.class.getSimpleName().substring(1), new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
 	PARSE_RESULT(IParseResult.class.getSimpleName().substring(1), new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
 	PLUGIN_ACTIVATOR("Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),
+	TEXT_TOKEN("TextToken", new TextTokenGenerator(), OptionTypes.OVERRIDE_TEXT_TOKEN),
 	TERMINATE_PARSING_EXCEPTION("TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION),
 	UNEXPECTED_CONTENT_TYPE_EXCEPTION("UnexpectedContentTypeException", new UnexpectedContentTypeExceptionGenerator(), OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION),
 
@@ -253,7 +255,7 @@ public enum EArtifact {
 	BABYLON_SPECIFICATION("", "Babylon", new BabylonSpecificationGenerator(), OptionTypes.OVERRIDE_PARSER),
 	
 	MAIN_PACKAGE("", "", null, null),
-	ANALYSIS_PACKAGE("analysis", "analysis", null, null),     
+	ANALYSIS_PACKAGE("analysis", "analysis", null, null),      
 	;
 	
 	private String classNameSuffix;

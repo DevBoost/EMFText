@@ -204,7 +204,7 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
 		} else {
 			final String qualifiedAntlrScannerClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_SCANNER);
 			final String qualifiedAntlrLexerClassName = getContext().getQualifiedClassName(EArtifact.ANTLR_LEXER);
-			sc.add("return new " + qualifiedAntlrScannerClassName + "(this, new " + qualifiedAntlrLexerClassName + "());");
+			sc.add("return new " + qualifiedAntlrScannerClassName + "(new " + qualifiedAntlrLexerClassName + "());");
 		}
         sc.add("}");
         sc.addLineBreak();
