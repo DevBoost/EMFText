@@ -276,6 +276,9 @@
     <eLiterals name="OVERRIDE_UNICODE_CONVERTER" value="129" literal="overrideUnicodeConverter"/>
     <eLiterals name="OVERRIDE_ABSTRACT_EXPECTED_ELEMENT" value="130" literal="overrideAbstractExpectedElement"/>
     <eLiterals name="OVERRIDE_NEW_FILE_WIZARD_PAGE" value="131" literal="overrideNewFileWizardPage"/>
+    <eLiterals name="OVERRIDE_I_BACKGROUND_PARSING_LISTENER" value="132" literal="overrideIBackgroundParsingListener"/>
+    <eLiterals name="OVERRIDE_TERMINATE_PARSING_EXCEPTION" value="133" literal="overrideTerminateParsingException"/>
+    <eLiterals name="OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION" value="134" literal="overrideUnexpectedContentTypeException"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

@@ -100,6 +100,8 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.HOVER_TEXT_PROVIDER));
 	    creators.add(new GenericArtifactCreator(EArtifact.PARSE_RESULT));
 	    creators.add(new GenericArtifactCreator(EArtifact.PLUGIN_ACTIVATOR));
+	    creators.add(new GenericArtifactCreator(EArtifact.TERMINATE_PARSING_EXCEPTION));
+	    creators.add(new GenericArtifactCreator(EArtifact.UNEXPECTED_CONTENT_TYPE_EXCEPTION));
 	    
 	    // add UI generators
 	    creators.add(new GenericArtifactCreator(EArtifact.ANTLR_TOKEN_HELPER));
@@ -169,6 +171,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_RESOLVER_FACTORY));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TOKEN_STYLE));
 	    creators.add(new GenericArtifactCreator(EArtifact.IURI_MAPPING));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_BACKGROUND_PARSING_LISTENER));
 	    creators.add(new GenericArtifactCreator(EArtifact.E_PROBLEM_TYPE));
 
 	    creators.add(new GenericArtifactCreator(EArtifact.CODE_COMPLETION_HELPER));

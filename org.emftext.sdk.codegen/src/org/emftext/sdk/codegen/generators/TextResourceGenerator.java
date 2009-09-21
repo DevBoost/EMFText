@@ -385,19 +385,23 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	private void addRunPostProcessorsMethod(StringComposite sc) {
-		sc.add("protected void runPostProcessors(" + MAP + "<?, ?> loadOptions) {");
+    	String iOptionsClassName = getClassNameHelper().getI_OPTIONS();
+    	String postProcessorClassName = getClassNameHelper().getI_RESOURCE_POST_PROCESSOR();
+    	String postProcessorProviderClassName = getClassNameHelper().getI_RESOURCE_POST_PROCESSOR_PROVIDER();
+
+    	sc.add("protected void runPostProcessors(" + MAP + "<?, ?> loadOptions) {");
     	sc.add("if (loadOptions == null) {");
     	sc.add("return;");
     	sc.add("}");
-    	sc.add(OBJECT + " resourcePostProcessorProvider = loadOptions.get(" + getClassNameHelper().getI_OPTIONS() + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
+		sc.add(OBJECT + " resourcePostProcessorProvider = loadOptions.get(" + iOptionsClassName + ".RESOURCE_POSTPROCESSOR_PROVIDER);");
     	sc.add("if (resourcePostProcessorProvider != null) {");
-    	sc.add("if (resourcePostProcessorProvider instanceof " + I_RESOURCE_POST_PROCESSOR_PROVIDER + ") {");
-    	sc.add("((" + I_RESOURCE_POST_PROCESSOR_PROVIDER + ") resourcePostProcessorProvider).getResourcePostProcessor().process(this);");
+		sc.add("if (resourcePostProcessorProvider instanceof " + postProcessorProviderClassName + ") {");
+    	sc.add("((" + postProcessorProviderClassName + ") resourcePostProcessorProvider).getResourcePostProcessor().process(this);");
     	sc.add("} else if (resourcePostProcessorProvider instanceof " + COLLECTION + "<?>) {");
     	sc.add("@SuppressWarnings(\"unchecked\")").addLineBreak();
     	sc.add(COLLECTION + "<" + iResourcePostProcessorProviderClassName + "> resourcePostProcessorProviderCollection = (" + COLLECTION + "<" + iResourcePostProcessorProviderClassName + ">) resourcePostProcessorProvider;");
     	sc.add("for (" + iResourcePostProcessorProviderClassName + " processorProvider : resourcePostProcessorProviderCollection) {");
-    	sc.add(getClassNameHelper().getI_RESOURCE_POST_PROCESSOR() + " postProcessor = processorProvider.getResourcePostProcessor();");
+		sc.add(postProcessorClassName + " postProcessor = processorProvider.getResourcePostProcessor();");
     	sc.add("try {");
     	sc.add("postProcessor.process(this);");
     	sc.add("} catch (" + EXCEPTION + " e) {");

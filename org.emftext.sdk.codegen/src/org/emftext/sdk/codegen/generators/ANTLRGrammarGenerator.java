@@ -70,8 +70,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.impl.UnexpectedContentTypeException;
 import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.codegen.EArtifact;
@@ -576,7 +574,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("}");
 		}
 		sc.add("}");
-		sc.add("throw new " + UnexpectedContentTypeException.class.getName()
+		sc.add("throw new " + getClassNameHelper().getUNEXPECTED_CONTENT_TYPE_EXCEPTION()
 				+ "(typeObject);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -702,7 +700,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "(actualInputStream, encoding))));");
 		sc.add("}");
 		sc.add("} catch (" + IOException.class.getName() + " e) {");
-		sc.add(EMFTextRuntimePlugin.class.getName()
+		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN()
 				+ ".logError(\"Error while creating parser.\", e);");
 		sc.add("return null;");
 		sc.add("}");

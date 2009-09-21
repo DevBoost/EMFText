@@ -1198,7 +1198,31 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_FILE_WIZARD_PAGE(131, "OVERRIDE_NEW_FILE_WIZARD_PAGE", "overrideNewFileWizardPage");
+	OVERRIDE_NEW_FILE_WIZARD_PAGE(131, "OVERRIDE_NEW_FILE_WIZARD_PAGE", "overrideNewFileWizardPage"), /**
+	 * The '<em><b>OVERRIDE IBACKGROUND PARSING LISTENER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBACKGROUND_PARSING_LISTENER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_IBACKGROUND_PARSING_LISTENER(132, "OVERRIDE_I_BACKGROUND_PARSING_LISTENER", "overrideIBackgroundParsingListener"), /**
+	 * The '<em><b>OVERRIDE TERMINATE PARSING EXCEPTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TERMINATE_PARSING_EXCEPTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TERMINATE_PARSING_EXCEPTION(133, "OVERRIDE_TERMINATE_PARSING_EXCEPTION", "overrideTerminateParsingException"), /**
+	 * The '<em><b>OVERRIDE UNEXPECTED CONTENT TYPE EXCEPTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION(134, "OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION", "overrideUnexpectedContentTypeException");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3181,6 +3205,51 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_NEW_FILE_WIZARD_PAGE_VALUE = 131;
 
 	/**
+	 * The '<em><b>OVERRIDE IBACKGROUND PARSING LISTENER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE IBACKGROUND PARSING LISTENER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_IBACKGROUND_PARSING_LISTENER
+	 * @model name="OVERRIDE_I_BACKGROUND_PARSING_LISTENER" literal="overrideIBackgroundParsingListener"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_IBACKGROUND_PARSING_LISTENER_VALUE = 132;
+
+	/**
+	 * The '<em><b>OVERRIDE TERMINATE PARSING EXCEPTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TERMINATE PARSING EXCEPTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TERMINATE_PARSING_EXCEPTION
+	 * @model literal="overrideTerminateParsingException"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TERMINATE_PARSING_EXCEPTION_VALUE = 133;
+
+	/**
+	 * The '<em><b>OVERRIDE UNEXPECTED CONTENT TYPE EXCEPTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE UNEXPECTED CONTENT TYPE EXCEPTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION
+	 * @model literal="overrideUnexpectedContentTypeException"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION_VALUE = 134;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3320,6 +3389,9 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_UNICODE_CONVERTER,
 			OVERRIDE_ABSTRACT_EXPECTED_ELEMENT,
 			OVERRIDE_NEW_FILE_WIZARD_PAGE,
+			OVERRIDE_IBACKGROUND_PARSING_LISTENER,
+			OVERRIDE_TERMINATE_PARSING_EXCEPTION,
+			OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION,
 		};
 
 	/**
@@ -3501,6 +3573,9 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_UNICODE_CONVERTER_VALUE: return OVERRIDE_UNICODE_CONVERTER;
 			case OVERRIDE_ABSTRACT_EXPECTED_ELEMENT_VALUE: return OVERRIDE_ABSTRACT_EXPECTED_ELEMENT;
 			case OVERRIDE_NEW_FILE_WIZARD_PAGE_VALUE: return OVERRIDE_NEW_FILE_WIZARD_PAGE;
+			case OVERRIDE_IBACKGROUND_PARSING_LISTENER_VALUE: return OVERRIDE_IBACKGROUND_PARSING_LISTENER;
+			case OVERRIDE_TERMINATE_PARSING_EXCEPTION_VALUE: return OVERRIDE_TERMINATE_PARSING_EXCEPTION;
+			case OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION_VALUE: return OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION;
 		}
 		return null;
 	}

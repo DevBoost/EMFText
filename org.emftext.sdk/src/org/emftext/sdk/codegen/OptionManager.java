@@ -82,7 +82,7 @@ public class OptionManager {
 		// Attention: Any changes made to this default values must be
 		// documented in class OptionTypes!
 		if (option == OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE) {
-			return false;
+			return true;
 		}
 		if (option == OptionTypes.OVERRIDE_PARSE_RESULT) {
 			return true;

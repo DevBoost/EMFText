@@ -29,7 +29,7 @@ public class ScannerlessScannerGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + getClassNameHelper().getABSTRACT_EMF_TEXT_SCANNER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_SCANNER() + " {");
 		sc.addLineBreak();
 		sc.add("private " + LIST + "<" + getClassNameHelper().getI_TEXT_TOKEN() + "> tokens;");
 		sc.addLineBreak();

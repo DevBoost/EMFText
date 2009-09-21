@@ -31,14 +31,17 @@ import org.emftext.sdk.codegen.generators.ReferenceResolverSwitchGenerator;
 import org.emftext.sdk.codegen.generators.ResourceFactoryGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessScannerGenerator;
+import org.emftext.sdk.codegen.generators.TerminateParsingExceptionGenerator;
 import org.emftext.sdk.codegen.generators.TextResourceGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
 import org.emftext.sdk.codegen.generators.URIMappingGenerator;
+import org.emftext.sdk.codegen.generators.UnexpectedContentTypeExceptionGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.AbstractExpectedElementGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.CodeCompletionHelperGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedCsStringGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.ExpectedStructuralFeatureGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IBackgroundParsingListenerGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IBracketPairGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ICommandGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.IConfigurableGenerator;
@@ -150,7 +153,9 @@ public enum EArtifact {
 	META_INFORMATION(ITextResourcePluginMetaInformation.class.getSimpleName().substring("ITextResourcePlugin".length()), new PluginMetaInformationGenerator(), OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS), 
 	HOVER_TEXT_PROVIDER(IHoverTextProvider.class.getSimpleName().substring(1), new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
 	PARSE_RESULT(IParseResult.class.getSimpleName().substring(1), new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
-	PLUGIN_ACTIVATOR("Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR), 
+	PLUGIN_ACTIVATOR("Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),
+	TERMINATE_PARSING_EXCEPTION("TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION),
+	UNEXPECTED_CONTENT_TYPE_EXCEPTION("UnexpectedContentTypeException", new UnexpectedContentTypeExceptionGenerator(), OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION),
 
 	DEFAULT_RESOLVER_DELEGATE("analysis", "DefaultResolverDelegate", new DefaultResolverDelegateGenerator(), OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE), 
 
@@ -194,6 +199,7 @@ public enum EArtifact {
 	I_OPTIONS("IOptions", new IOptionsGenerator(), OptionTypes.OVERRIDE_IOPTIONS),
 	I_RESOURCE_POST_PROCESSOR("IResourcePostProcessor", new IResourcePostProcessorGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR),
 	I_RESOURCE_POST_PROCESSOR_PROVIDER("IResourcePostProcessorProvider", new IResourcePostProcessorProviderGenerator(), OptionTypes.OVERRIDE_IRESOURCE_POST_PROCESSOR_PROVIDER),
+	I_BACKGROUND_PARSING_LISTENER("IBackgroundParsingListener", new IBackgroundParsingListenerGenerator(), OptionTypes.OVERRIDE_IBACKGROUND_PARSING_LISTENER),
 	I_BRACKET_PAIR("IBracketPair", new IBracketPairGenerator(), OptionTypes.OVERRIDE_IBRACKET_PAIR),
 	I_COMMAND("ICommand", new ICommandGenerator(), OptionTypes.OVERRIDE_ICOMMAND),
 	I_CONFIGURABLE("IConfigurable", new IConfigurableGenerator(), OptionTypes.OVERRIDE_ICONFIGURABLE),

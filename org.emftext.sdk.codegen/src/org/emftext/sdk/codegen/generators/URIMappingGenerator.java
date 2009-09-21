@@ -27,7 +27,7 @@ public class URIMappingGenerator extends BaseGenerator {
 		sc.add("//");
 		sc.add("// @param <ReferenceType> unused type parameter which is needed to implement IURIMapping.");
 		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> extends " + getClassNameHelper().getABSTRACT_REFERENCE_MAPPING() + "<ReferenceType> implements " + getClassNameHelper().getI_URI_MAPPING() + "<ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_URI_MAPPING() + "<ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("private " + URI + " uri;");
 		sc.add("private String identifier;");

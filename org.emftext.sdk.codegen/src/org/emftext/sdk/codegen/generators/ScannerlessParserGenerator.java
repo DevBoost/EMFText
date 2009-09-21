@@ -114,7 +114,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("public class " + getResourceClassName() + " extends " + getClassNameHelper().getABSTRACT_EMF_TEXT_PARSER() + " {");
+		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TEXT_PARSER() + " {");
 		sc.addLineBreak();
 		addInnerClasses(sc);
 		addFields(sc);
@@ -903,7 +903,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 
 	private void addConstructor1(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super(null);");
+		sc.add("super();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -917,7 +917,7 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 
 	private void addConstructor2(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
-		sc.add("super(null);");
+		sc.add("super();");
 		sc.add("this.inputStream = new " + INPUT_STREAM_READER + "(inputStream);");
 		// TODO generate more efficient code
 		sc.add("try {");

@@ -462,7 +462,7 @@ public class EditorGenerator extends BaseGenerator {
 
 	private void addMarkerUpdateListenerClass(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("private final class MarkerUpdateListener extends " + getClassNameHelper().getABSTRACT_BACKGROUND_PARSING_LISTENER() + " {");
+		sc.add("private final class MarkerUpdateListener implements " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource) {");
 		sc.add("try {");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");

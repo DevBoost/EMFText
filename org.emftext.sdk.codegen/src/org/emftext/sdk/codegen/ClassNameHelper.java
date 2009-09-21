@@ -1,21 +1,5 @@
 package org.emftext.sdk.codegen;
 
-import org.emftext.runtime.resource.impl.AbstractBracketPair;
-import org.emftext.runtime.resource.impl.AbstractEMFTextParser;
-import org.emftext.runtime.resource.impl.AbstractEMFTextScanner;
-import org.emftext.runtime.resource.impl.AbstractParseResult;
-import org.emftext.runtime.resource.impl.AbstractProblem;
-import org.emftext.runtime.resource.impl.AbstractReferenceMapping;
-import org.emftext.runtime.resource.impl.AbstractTextResource;
-import org.emftext.runtime.resource.impl.AbstractTextResourcePluginMetaInformation;
-import org.emftext.runtime.resource.impl.AbstractTokenResolver;
-import org.emftext.runtime.resource.impl.AbstractTokenStyle;
-import org.emftext.runtime.resource.impl.TerminateParsingException;
-import org.emftext.runtime.ui.AntlrTokenHelper;
-import org.emftext.runtime.ui.IBackgroundParsingListener;
-import org.emftext.runtime.ui.IBackgroundParsingStrategy;
-import org.emftext.runtime.ui.impl.AbstractBackgroundParsingListener;
-import org.emftext.runtime.ui.impl.AbstractBackgroundParsingStrategy;
 
 public class ClassNameHelper {
 
@@ -24,59 +8,6 @@ public class ClassNameHelper {
 	public ClassNameHelper(GenerationContext context) {
 		super();
 		this.context = context;
-	}
-
-	// EMFText Runtime Classes
-	public String getABSTRACT_BACKGROUND_PARSING_STRATEGY() {
-		return AbstractBackgroundParsingStrategy.class.getName();
-	}
-
-	public String getABSTRACT_BACKGROUND_PARSING_LISTENER() {
-		return AbstractBackgroundParsingListener.class.getName();
-	}
-
-	public String getABSTRACT_BRACKET_PAIR() {
-		return AbstractBracketPair.class.getName();
-	}
-
-	public String getABSTRACT_EMF_TEXT_PARSER() {
-		return AbstractEMFTextParser.class.getName();
-	}
-
-	public String getABSTRACT_EMF_TEXT_SCANNER() {
-		return AbstractEMFTextScanner.class.getName();
-	}
-
-	public String getABSTRACT_PARSE_RESULT() {
-		return AbstractParseResult.class.getName();
-	}
-
-	public String getABSTRACT_PROBLEM() {
-		return AbstractProblem.class.getName();
-	}
-
-	public String getABSTRACT_REFERENCE_MAPPING() {
-		return AbstractReferenceMapping.class.getName();
-	}
-
-	public String getABSTRACT_TEXT_RESOURCE() {
-		return AbstractTextResource.class.getName();
-	}
-
-	public String getABSTRACT_TEXT_RESOURCE_PLUGIN_META_INFORMATION() {
-		return AbstractTextResourcePluginMetaInformation.class.getName();
-	}
-
-	public String getABSTRACT_TOKEN_RESOLVER() {
-		return AbstractTokenResolver.class.getName();
-	}
-
-	public String getABSTRACT_TOKEN_STYLE() {
-		return AbstractTokenStyle.class.getName();
-	}
-
-	public String getANTLR_TOKEN_HELPER() {
-		return AntlrTokenHelper.class.getName();
 	}
 
 	public String getCAST_UTIL() {
@@ -95,6 +26,7 @@ public class ClassNameHelper {
 		return context.getQualifiedClassName(EArtifact.COPIED_E_OBJECT_INTERNAL_E_LIST);
 	}
 
+	// TODO rename this method
 	public String getEMFTEXT_RUNTIME_PLUGIN() {
 		return context.getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
@@ -112,11 +44,7 @@ public class ClassNameHelper {
 	}
 
 	public String getI_BACKGROUND_PARSING_LISTENER() {
-		return IBackgroundParsingListener.class.getName();
-	}
-
-	public String getI_BACKGROUND_PARSING_STRATEGY() {
-		return IBackgroundParsingStrategy.class.getName();
+		return context.getQualifiedClassName(EArtifact.I_BACKGROUND_PARSING_LISTENER);
 	}
 
 	public String getI_BRACKET_PAIR() {
@@ -268,6 +196,14 @@ public class ClassNameHelper {
 	}
 
 	public String getTERMINATE_PARSING_EXCEPTION() {
-		return TerminateParsingException.class.getName();
+		return context.getQualifiedClassName(EArtifact.TERMINATE_PARSING_EXCEPTION);
+	}
+
+	public String getI_RESOURCE_POST_PROCESSOR_PROVIDER() {
+		return context.getQualifiedClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
+	}
+
+	public String getUNEXPECTED_CONTENT_TYPE_EXCEPTION() {
+		return context.getQualifiedClassName(EArtifact.UNEXPECTED_CONTENT_TYPE_EXCEPTION);
 	}
 }

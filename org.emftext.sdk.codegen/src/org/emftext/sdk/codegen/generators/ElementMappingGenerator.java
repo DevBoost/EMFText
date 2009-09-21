@@ -24,7 +24,7 @@ public class ElementMappingGenerator extends BaseGenerator {
 		sc.add("//");
 		sc.add("// @param <ReferenceType> the type of the reference that can be mapped to");
 		sc.add("//");
-		sc.add("public class " + getResourceClassName() + "<ReferenceType> extends " + getClassNameHelper().getABSTRACT_REFERENCE_MAPPING() + "<ReferenceType> implements " + getClassNameHelper().getI_ELEMENT_MAPPING() + "<ReferenceType> {");
+		sc.add("public class " + getResourceClassName() + "<ReferenceType> implements " + getClassNameHelper().getI_ELEMENT_MAPPING() + "<ReferenceType> {");
 		sc.addLineBreak();
 		sc.add("private final ReferenceType target;");
 		sc.add("private String identifier;");

@@ -115,8 +115,8 @@ public class ManifestGenerator implements IGenerator {
 		imports.add("org.eclipse.ui.editors");
 		imports.add("org.eclipse.ui.ide");
 		imports.add("org.eclipse.ui.views");
-		imports.add("org.emftext.runtime");
-		imports.add("org.emftext.runtime.ui");
+		imports.add("org.emftext.runtime.antlr");
+		//imports.add("org.emftext.runtime.ui");
 		
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");
