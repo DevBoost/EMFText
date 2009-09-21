@@ -1,10 +1,13 @@
 package org.emftext.test.cct1.resource.cct1.analysis;
 
-public class TypedElementTypeReferenceResolver extends org.emftext.runtime.resource.impl.AbstractReferenceResolver<org.emftext.test.cct1.TypedElement, org.emftext.test.cct1.Class> {
+import org.emftext.test.cct1.resource.cct1.ICct1ReferenceResolveResult;
+import org.emftext.test.cct1.resource.cct1.ICct1ReferenceResolver;
+
+public class TypedElementTypeReferenceResolver implements ICct1ReferenceResolver<org.emftext.test.cct1.TypedElement, org.emftext.test.cct1.Class> {
 	
 	private org.emftext.test.cct1.resource.cct1.analysis.Cct1DefaultResolverDelegate<org.emftext.test.cct1.TypedElement, org.emftext.test.cct1.Class> delegate = new org.emftext.test.cct1.resource.cct1.analysis.Cct1DefaultResolverDelegate<org.emftext.test.cct1.TypedElement, org.emftext.test.cct1.Class>();
 	
-	public void resolve(java.lang.String identifier, org.emftext.test.cct1.TypedElement container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult<org.emftext.test.cct1.Class> result) {
+	public void resolve(java.lang.String identifier, org.emftext.test.cct1.TypedElement container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, ICct1ReferenceResolveResult<org.emftext.test.cct1.Class> result) {
 		delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
 	}
 	

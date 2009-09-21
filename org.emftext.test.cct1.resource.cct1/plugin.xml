@@ -2,12 +2,12 @@
 <?eclipse version="3.2"?>
 <plugin>
 	<extension point="org.eclipse.emf.ecore.extension_parser">
-		<parser class="org.emftext.test.cct1.resource.cct1.Cct1ResourceFactory" type="cct1">
+		<parser class="org.emftext.test.cct1.resource.cct1.mopp.Cct1ResourceFactory" type="cct1">
 		</parser>
 	</extension>
 	
 	<extension point="org.emftext.runtime.syntax">
-		<metaInformationProvider class="org.emftext.test.cct1.resource.cct1.Cct1MetaInformation" id="org.emftext.test.cct1.resource.cct1.Cct1MetaInformation">
+		<metaInformationProvider class="org.emftext.test.cct1.resource.cct1.mopp.Cct1MetaInformation" id="org.emftext.test.cct1.resource.cct1.mopp.Cct1MetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
@@ -19,7 +19,7 @@
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
-		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct1.resource.cct1.Cct1NewFileWizard" id="org.emftext.test.cct1.resource.cct1.Cct1NewFileWizard" name="EMFText .cct1 file">
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct1.resource.cct1.ui.Cct1NewFileWizard" id="org.emftext.test.cct1.resource.cct1.ui.Cct1NewFileWizard" name="EMFText .cct1 file">
 		</wizard>
 	</extension>
 	
