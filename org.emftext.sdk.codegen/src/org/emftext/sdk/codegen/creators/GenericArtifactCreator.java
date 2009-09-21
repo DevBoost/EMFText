@@ -13,7 +13,7 @@ public class GenericArtifactCreator extends AbstractArtifactCreator {
 	private EArtifact artifact;
 
 	public GenericArtifactCreator(EArtifact artifact) {
-		super(artifact.getClassNameSuffix());
+		super(artifact.getClassNamePrefix() + artifact.getClassNameSuffix());
 		this.artifact = artifact;
 	}
 

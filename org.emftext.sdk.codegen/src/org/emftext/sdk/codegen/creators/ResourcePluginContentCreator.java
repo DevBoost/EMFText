@@ -50,7 +50,7 @@ public class ResourcePluginContentCreator {
 		EcoreUtil.resolveAll(csResource);
 	    
 	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
-	    creators.add(new SourceFolderCreator());
+	    creators.add(new SourceFoldersCreator());
 	    creators.add(new DotClasspathCreator());
 	    creators.add(new DotProjectCreator());
 	    creators.add(new BuildPropertiesCreator());

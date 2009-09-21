@@ -27,16 +27,20 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * Creates the source folder for generated text resource plug-ins.
- * The name of this folder may vary depending on the value set for
- * option OptionTypes.SOURCE_FOLDER.
+ * Creates the folders 'src' and 'src-gen' for generated text resource plug-ins.
+ * The names of this folders may vary depending on the values set for
+ * options OptionTypes.SOURCE_FOLDER and OptionTypes.SOURCE_GEN_FOLDER.
  * 
  * @see org.emftext.sdk.concretesyntax.OptionTypes
  */
-public class SourceFolderCreator implements IArtifactCreator {
+public class SourceFoldersCreator implements IArtifactCreator {
 
 	public void createArtifacts(GenerationContext context) {
-		File targetFolder = context.getSourceFolder();
+		createIfNeeded(context.getSourceFolder(false));
+		createIfNeeded(context.getSourceFolder(true));
+	}
+
+	private void createIfNeeded(File targetFolder) {
 		if (!targetFolder.exists()) {
 		   	targetFolder.mkdir();
 		}

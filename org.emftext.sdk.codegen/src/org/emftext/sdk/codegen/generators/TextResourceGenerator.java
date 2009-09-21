@@ -38,7 +38,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONFIGURATION_ELEMENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EXTENSION_REGISTRY;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE_POST_PROCESSOR_PROVIDER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MANY_INVERSE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
@@ -69,11 +68,11 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class TextResourceGenerator extends BaseGenerator {
 
 	private ConcreteSyntax concreteSyntax;
-	private String qualifiedResolverSwitchClassName;
-	private String qualifiedPrinterClassName;
+	private String resolverSwitchClassName;
+	private String printerClassName;
 	private String csSyntaxName;
-	private String qualifiedProblemClassName;
-	private String qualifiedLocationMapClassName;
+	private String problemClassName;
+	private String locationMapClassName;
 	private String iResourcePostProcessorProviderClassName;
 	private String iContextDependentURIFragmentFactoryClassName;
 
@@ -85,12 +84,12 @@ public class TextResourceGenerator extends BaseGenerator {
 		super(context, EArtifact.RESOURCE);
 		this.concreteSyntax = context.getConcreteSyntax();
 		this.csSyntaxName = concreteSyntax.getName();
-		this.qualifiedResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
-		this.qualifiedPrinterClassName = context.getQualifiedClassName(EArtifact.PRINTER);
-		this.qualifiedProblemClassName = context.getQualifiedClassName(EArtifact.PROBLEM);
-		this.qualifiedLocationMapClassName = context.getClassName(EArtifact.LOCATION_MAP);
-		this.iResourcePostProcessorProviderClassName = context.getClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
-		this.iContextDependentURIFragmentFactoryClassName = context.getClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		resolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
+		printerClassName = context.getQualifiedClassName(EArtifact.PRINTER);
+		problemClassName = context.getQualifiedClassName(EArtifact.PROBLEM);
+		locationMapClassName = context.getQualifiedClassName(EArtifact.LOCATION_MAP);
+		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
+		iContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
 	}
 
 	@Override
@@ -447,7 +446,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (warningMessage == null) {");
     	sc.add("continue;");
     	sc.add("}");
-    	sc.add("addProblem(new " + qualifiedProblemClassName + "(warningMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(warningMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");
@@ -462,7 +461,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + qualifiedProblemClassName + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.addLineBreak();
@@ -498,7 +497,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (errorMessage == null) {");
     	sc.add("assert(false);");
     	sc.add("} else {");
-    	sc.add("addProblem(new " + qualifiedProblemClassName + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
+    	sc.add("addProblem(new " + problemClassName + "(errorMessage, " + getClassNameHelper().getE_PROBLEM_TYPE() + ".ERROR), proxy);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("return result;");
@@ -581,7 +580,7 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addResetLocationMapMethod(StringComposite sc) {
 		sc.add("protected void resetLocationMap() {");
-    	sc.add("locationMap = new " + qualifiedLocationMapClassName + "();");
+    	sc.add("locationMap = new " + locationMapClassName + "();");
     	sc.add("}");
     	sc.addLineBreak();
 	}
@@ -606,7 +605,7 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
 		sc.add("public " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " getReferenceResolverSwitch() {");
         sc.add("if (" + RESOLVER_SWITCH_FIELD_NAME + " == null) {");
-        sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + qualifiedResolverSwitchClassName + "();");
+        sc.add(RESOLVER_SWITCH_FIELD_NAME + " = new " + resolverSwitchClassName + "();");
         sc.add("}");
         sc.add("return " + RESOLVER_SWITCH_FIELD_NAME + ";");
         sc.add("}");
@@ -615,7 +614,7 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addDoSaveMethod(StringComposite sc) {
 		sc.add("protected void doSave(java.io.OutputStream outputStream, java.util.Map<?,?> options) throws java.io.IOException {");
-        sc.add(qualifiedPrinterClassName + " printer = new " + qualifiedPrinterClassName + "(outputStream, this);");
+        sc.add(printerClassName + " printer = new " + printerClassName + "(outputStream, this);");
         sc.add(getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " referenceResolverSwitch = getReferenceResolverSwitch();");
         sc.add("referenceResolverSwitch.setOptions(options);");
         sc.add("for(" + E_OBJECT + " root : getContents()) {");

@@ -28,8 +28,10 @@ import org.eclipse.core.runtime.Platform;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.ECsProblemType;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
 
 /**
@@ -55,7 +57,9 @@ public class UnusedResolverAnalyser extends AbstractPostProcessor {
 		
 		String pluginProjectFolder = workspaceRootFolder + File.separator + csUtil.getPluginName(syntax);
 		
-		File resolverPackageFolder = csUtil.getResolverPackageFile(syntax, pluginProjectFolder);
+		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(syntax, overrideOption);
+		File resolverPackageFolder = csUtil.getResolverPackageFile(syntax, doOverride, pluginProjectFolder);
 		if (!resolverPackageFolder.exists()) {
 			return;
 		}

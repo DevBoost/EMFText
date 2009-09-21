@@ -24,9 +24,9 @@ import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
@@ -34,6 +34,8 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * classes used by generated text resource plug-ins.
  */
 public class DotClasspathGenerator extends BaseGenerator {
+
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	public DotClasspathGenerator() {
 		super();
@@ -45,20 +47,15 @@ public class DotClasspathGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		
-		String sourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
-		String sourceFolder;
-		if (sourceOptionValue == null) {
-			sourceFolder = "src";
-		} else {
-			sourceFolder = sourceOptionValue;
-		}
+		String sourceFolderName = csUtil.getSourceFolderName(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
+		String sourceGenFolderName = csUtil.getSourceFolderName(getContext().getConcreteSyntax(), OptionTypes.SOURCE_GEN_FOLDER);
 		
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<classpath>");
-		sc.add("<classpathentry kind=\"src\" path=\"" + sourceFolder + "\"/>");
+		sc.add("<classpathentry kind=\"src\" path=\"" + sourceFolderName + "\"/>");
+		sc.add("<classpathentry kind=\"src\" path=\"" + sourceGenFolderName + "\"/>");
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5\"/>");
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.pde.core.requiredPlugins\"/>");
 		sc.add("<classpathentry kind=\"output\" path=\"bin\"/>");

@@ -361,20 +361,42 @@ public class ConcreteSyntaxUtil {
 		return new Path(getResolverPackageName(syntax).replaceAll("\\.","/"));
 	}
 
-	public File getResolverPackageFile(ConcreteSyntax syntax, String pluginProjectFolder) {
-		return new File(getSourceFolder(syntax, pluginProjectFolder).getAbsolutePath() + File.separator + getResolverPackagePath(syntax));
+	public File getResolverPackageFile(ConcreteSyntax syntax, boolean doOverride, String pluginProjectFolder) {
+		return new File(getSourceFolder(syntax, doOverride, pluginProjectFolder).getAbsolutePath() + File.separator + getResolverPackagePath(syntax));
 	}
 
-	public File getSourceFolder(ConcreteSyntax syntax, String pluginProjectFolder) {
-		String srcFolderName;
-		String srcFolderOptionValue = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.SOURCE_FOLDER);
-		if (srcFolderOptionValue != null) {
+	public File getSourceFolder(ConcreteSyntax syntax, boolean doOverride, String pluginProjectFolder) {
+		String srcFolderName = getSourceFolderName(syntax, OptionTypes.SOURCE_FOLDER);
+		String srcGenFolderName = getSourceFolderName(syntax, OptionTypes.SOURCE_GEN_FOLDER);
+		if (doOverride) {
+			return new File(pluginProjectFolder + File.separator + srcGenFolderName);
+		} else {
+			return new File(pluginProjectFolder + File.separator + srcFolderName);
+		}
+	}
+
+	public String getSourceFolderName(ConcreteSyntax syntax, OptionTypes option) {
+		String defaultValue;
+		if (option == OptionTypes.SOURCE_FOLDER) {
+			defaultValue = "src";
+		} else if (option == OptionTypes.SOURCE_GEN_FOLDER) {
+			defaultValue = "src-gen";
+		} else {
+			throw new RuntimeException("Illegal option: " + option);
+		}
+		return getSourceFolderName(syntax, option, defaultValue);
+	}
+	
+	private String getSourceFolderName(ConcreteSyntax syntax, OptionTypes option, String defaultValue) {
+		String folderName;
+		String folderOptionValue = OptionManager.INSTANCE.getStringOptionValue(syntax, option);
+		if (folderOptionValue != null) {
 			// use package plug-in from option
-			srcFolderName = srcFolderOptionValue;
+			folderName = folderOptionValue;
 		} else {
 			// use default plug-in name
-			srcFolderName = "src";
+			folderName = defaultValue;
 		}
-		return new File(pluginProjectFolder + File.separator + srcFolderName);
+		return folderName;
 	}
 }

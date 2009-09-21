@@ -1230,7 +1230,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_TEXT_TOKEN(135, "OVERRIDE_TEXT_TOKEN", "overrideTextToken");
+	OVERRIDE_TEXT_TOKEN(135, "OVERRIDE_TEXT_TOKEN", "overrideTextToken"), /**
+	 * The '<em><b>SOURCE GEN FOLDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SOURCE_GEN_FOLDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	SOURCE_GEN_FOLDER(136, "SOURCE_GEN_FOLDER", "srcGenFolder");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3273,6 +3281,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_TEXT_TOKEN_VALUE = 135;
 
 	/**
+	 * The '<em><b>SOURCE GEN FOLDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>SOURCE GEN FOLDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #SOURCE_GEN_FOLDER
+	 * @model literal="srcGenFolder"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SOURCE_GEN_FOLDER_VALUE = 136;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3416,6 +3439,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TERMINATE_PARSING_EXCEPTION,
 			OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION,
 			OVERRIDE_TEXT_TOKEN,
+			SOURCE_GEN_FOLDER,
 		};
 
 	/**
@@ -3601,6 +3625,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TERMINATE_PARSING_EXCEPTION_VALUE: return OVERRIDE_TERMINATE_PARSING_EXCEPTION;
 			case OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION_VALUE: return OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION;
 			case OVERRIDE_TEXT_TOKEN_VALUE: return OVERRIDE_TEXT_TOKEN;
+			case SOURCE_GEN_FOLDER_VALUE: return SOURCE_GEN_FOLDER;
 		}
 		return null;
 	}

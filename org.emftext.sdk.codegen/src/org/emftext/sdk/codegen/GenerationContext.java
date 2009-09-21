@@ -48,9 +48,6 @@ import org.emftext.sdk.finders.GenClassFinder;
  * @see org.emftext.sdk.codegen.creators.ResourcePluginContentCreator
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
- * 
- * TODO this class is a total mess. we must figure out what really belongs in here.
- * some of the code has already been move to NameUtil, PathUtil and ConcreteSyntaxUtil.
  */
 public abstract class GenerationContext {
 	
@@ -196,19 +193,23 @@ public abstract class GenerationContext {
 	}
 
 	public String getPackagePath(EArtifact artifact) {
-		File targetFolder = getSourceFolder();
+		OptionTypes overrideOption = artifact.getOverrideOption();
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
+		File targetFolder = getSourceFolder(doOverride);
 		IPath csPackagePath = new Path(getPackageName(artifact).replaceAll("\\.","/"));
 		String targetFolderPath = targetFolder.getAbsolutePath();
 		String packagePath = targetFolderPath + File.separator + csPackagePath + File.separator;
 		return packagePath;
 	}
 
-	public File getSourceFolder() {
-		return csUtil.getSourceFolder(getConcreteSyntax(), getPluginProjectFolder().getAbsolutePath());
+	public File getSourceFolder(boolean doOverride) {
+		return csUtil.getSourceFolder(getConcreteSyntax(), doOverride, getPluginProjectFolder().getAbsolutePath());
 	}
 
 	public File getResolverFile(GenFeature proxyReference) {
-		File resolverFile = new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + csUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
+		OptionTypes overrideOption = OptionTypes.OVERRIDE_REFERENCE_RESOLVERS;
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
+		File resolverFile = new File(getSourceFolder(doOverride) + File.separator + getResolverPackagePath() + File.separator + csUtil.getReferenceResolverClassName(proxyReference) + Constants.JAVA_FILE_EXTENSION);
 		return resolverFile;
 	}
 
@@ -217,7 +218,9 @@ public abstract class GenerationContext {
 	}
 
 	public File getTokenResolverFile(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {
-		return new File(getSourceFolder().getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
+		OptionTypes overrideOption = OptionTypes.OVERRIDE_TOKEN_RESOLVERS;
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(getConcreteSyntax(), overrideOption);
+		return new File(getSourceFolder(doOverride).getAbsolutePath() + File.separator + getResolverPackagePath() + File.separator + csUtil.getTokenResolverClassName(syntax, tokenDefinition) + Constants.JAVA_FILE_EXTENSION);
 	}
 
 	public File getANTLRGrammarFile() {
@@ -234,14 +237,9 @@ public abstract class GenerationContext {
 	public String getQualifiedDefaultResolverDelegateName() {
 		return getResolverPackageName() + "." + getDefaultResolverDelegateName();
 	}
-	/*
-	public File getDefaultResolverDelegateFile() {
-		return new File(getSourceFolder() + File.separator + getResolverPackagePath() + File.separator + nameUtil.getDefaultResolverDelegateName(getConcreteSyntax()) + JAVA_FILE_EXTENSION);
-	}
-	*/
 
 	public String getClassName(EArtifact artifact) {
-		return getCapitalizedConcreteSyntaxName() + artifact.getClassNameSuffix();
+		return artifact.getClassNamePrefix() + getCapitalizedConcreteSyntaxName() + artifact.getClassNameSuffix();
 	}
 
 	public String getQualifiedClassName(EArtifact artifact) {
