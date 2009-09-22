@@ -57,17 +57,17 @@ public class ResourcePluginContentCreator {
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new GenericArtifactCreator(EArtifact.SCANNERLESS_SCANNER));
 	    	creators.add(new GenericArtifactCreator(EArtifact.SCANNERLESS_PARSER));
-	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_SCANNER), context.getClassName(EArtifact.ANTLR_SCANNER), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_LEXER), context.getClassName(EArtifact.ANTLR_LEXER), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_PARSER), context.getClassName(EArtifact.ANTLR_PARSER), OptionTypes.OVERRIDE_PARSER));
-	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_PARSER_BASE), context.getClassName(EArtifact.ANTLR_PARSER_BASE), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_SCANNER), EArtifact.PACKAGE_MOPP, context.getClassName(EArtifact.ANTLR_SCANNER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_LEXER), EArtifact.PACKAGE_MOPP, context.getClassName(EArtifact.ANTLR_LEXER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_PARSER), EArtifact.PACKAGE_MOPP, context.getClassName(EArtifact.ANTLR_PARSER), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.ANTLR_PARSER_BASE), EArtifact.PACKAGE_MOPP, context.getClassName(EArtifact.ANTLR_PARSER_BASE), OptionTypes.OVERRIDE_PARSER));
 	    } else {
 	    	creators.add(new GenericArtifactCreator(EArtifact.ANTLR_SCANNER));
 		    creators.add(new ANTLRGrammarCreator());
 		    creators.add(new ANTLRParserCreator());
 		    creators.add(new GenericArtifactCreator(EArtifact.ANTLR_PARSER_BASE));
-	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_SCANNER), context.getClassName(EArtifact.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
-	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_PARSER), context.getClassName(EArtifact.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_SCANNER), EArtifact.PACKAGE_MOPP, context.getClassName(EArtifact.SCANNERLESS_SCANNER), OptionTypes.OVERRIDE_SCANNER));
+	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_PARSER), EArtifact.PACKAGE_MOPP, context.getClassName(EArtifact.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    }
 	    creators.add(new PluginXMLCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE));
