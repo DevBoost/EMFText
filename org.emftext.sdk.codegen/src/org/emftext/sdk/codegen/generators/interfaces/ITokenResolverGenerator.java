@@ -39,7 +39,7 @@ public class ITokenResolverGenerator extends BaseGenerator {
 		sc.add("// All generated TokenResolvers per default delegate requests to an instance of JavaBasedTokenResolver which performs");
 		sc.add("// a standard conversion to Java Types based on the type of the attribute.");
 		sc.add("//");
-		sc.add("// @see org.emftext.runtime.resource.impl.JavaBasedTokenResolver");
+		sc.add("// @see " + getClassNameHelper().getDEFAULT_TOKEN_RESOLVER());
 		sc.add("// @see org.emftext.sdk.codegen.TokenResolverGenerator");
 		sc.add("//");
 		sc.add("public interface " + getResourceClassName() + " extends " + iConfigurableClassName + " {");
