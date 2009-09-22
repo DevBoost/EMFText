@@ -33,7 +33,7 @@ public class EmptyClassGenerator implements IGenerator {
 	public boolean generate(PrintWriter out) {
 		StringComposite sc = new JavaComposite();
 		
-		sc.add("package " + context.getPackageName(EArtifact.PACKAGE_ROOT) + ";");
+		sc.add("package " + context.getPackageName(EArtifact.PACKAGE_MOPP) + ";");
 		sc.addLineBreak();
 		
 		sc.add("// this empty class was generated to overwrite exiting");
