@@ -112,7 +112,7 @@ public class ManifestGenerator implements IGenerator {
 	private Set<String> getRequiredBundles(ConcreteSyntax syntax) {
 		Set<String> imports = new LinkedHashSet<String>();
 		imports.add("org.eclipse.core.resources");
-		imports.add("org.eclipse.core.runtime");
+		imports.add("org.emftext.access;resolution:=optional");
 		imports.add("org.eclipse.emf");
 		imports.add("org.eclipse.emf.codegen.ecore");
 		imports.add("org.eclipse.emf.ecore");
@@ -126,7 +126,6 @@ public class ManifestGenerator implements IGenerator {
 		imports.add("org.eclipse.ui.ide");
 		imports.add("org.eclipse.ui.views");
 		imports.add("org.emftext.runtime.antlr");
-		//imports.add("org.emftext.runtime.ui");
 		
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");

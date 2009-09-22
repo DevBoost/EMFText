@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -80,7 +79,7 @@ public class PluginXMLGenerator implements IGenerator {
 
 		// register the syntax meta information
 		String metaInformationClass = context.getQualifiedClassName(EArtifact.META_INFORMATION);
-		sc.add("<extension point=\"" + EMFTextRuntimePlugin.EP_SYNTAX_ID + "\">");
+		sc.add("<extension point=\"org.emftext.access.syntax\">");
 		sc.add("<metaInformationProvider class=\"" + metaInformationClass + "\" id=\"" + metaInformationClass + "\">");
 		sc.add("</metaInformationProvider>");
 		sc.add("</extension>");
