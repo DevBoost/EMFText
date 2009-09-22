@@ -28,8 +28,7 @@ import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IReferenceResolveResult;
-import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
+import org.emftext.sdk.codegen.ClassNameHelper;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.GeneratorUtil;
@@ -48,6 +47,7 @@ public class ReferenceResolverGenerator implements IGenerator {
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private GenerationContext context;
+	private ClassNameHelper classNameHelper;
 	private GenFeature proxyReference;
 	private String defaultResolverDelegateName;
 
@@ -60,6 +60,7 @@ public class ReferenceResolverGenerator implements IGenerator {
 	private ReferenceResolverGenerator(GenerationContext context) {
 		super();
 		this.context = context;
+		this.classNameHelper = new ClassNameHelper(context);
 		this.defaultResolverDelegateName = context.getQualifiedDefaultResolverDelegateName();
 	}
 	
@@ -71,7 +72,7 @@ public class ReferenceResolverGenerator implements IGenerator {
 		StringComposite sc = new JavaComposite();
 	    sc.add("package " + context.getResolverPackageName() + ";");	
 	    sc.addLineBreak();
-	    sc.add("public class " + csUtil.getReferenceResolverClassName(proxyReference) + " extends " + AbstractReferenceResolver.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> {");
+	    sc.add("public class " + csUtil.getReferenceResolverClassName(proxyReference) + " implements " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> {");
 	    sc.addLineBreak();
 		addFields(sc);
 		addResolveMethod(sc);
@@ -81,6 +82,10 @@ public class ReferenceResolverGenerator implements IGenerator {
 		
 		out.print(sc.toString());
 		return true;
+	}
+
+	public ClassNameHelper getClassNameHelper() {
+		return classNameHelper;
 	}
 
 	private void addFields(StringComposite sc) {
@@ -97,7 +102,7 @@ public class ReferenceResolverGenerator implements IGenerator {
 	}
 
 	private void addResolveMethod(StringComposite sc) {
-		sc.add("public void resolve(" + STRING + " identifier, " + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + IReferenceResolveResult.class.getName() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> result) {");
+		sc.add("public void resolve(" + STRING + " identifier, " + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> result) {");
 		sc.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);");
 		sc.add("}");
 	    sc.addLineBreak();
