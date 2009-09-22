@@ -28,14 +28,22 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 			sourceFolder = sourceOptionValue;
 		}
 		
+		String genSourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
+		String genSourceFolder;
+		if (sourceOptionValue == null) {
+			genSourceFolder = "src-gen";
+		} else {
+			genSourceFolder = genSourceOptionValue;
+		}
+		
 		StringBuilder sc = new StringBuilder();
 		
 		sc.append("bin.includes = icons/,\\\n");
 		sc.append("plugin.xml,\\\n");
 		sc.append("META-INF/,\\\n");
 		sc.append(".\n");
-		sc.append("source.. = " + sourceFolder + "/\n");
-		
+		sc.append("source.. = " + sourceFolder + "/," + genSourceFolder + "/\n");
+
 		out.write(sc.toString());
 		return true;
 	}
