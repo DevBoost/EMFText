@@ -25,6 +25,10 @@ public class ClassNameHelper {
 	public String getCOPIED_E_OBJECT_INTERNAL_E_LIST() {
 		return context.getQualifiedClassName(EArtifact.COPIED_E_OBJECT_INTERNAL_E_LIST);
 	}
+	
+	public String getDEFAULT_TOKEN_RESOLVER() {
+		return context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
+	}
 
 	// TODO rename this method
 	public String getEMFTEXT_RUNTIME_PLUGIN() {
