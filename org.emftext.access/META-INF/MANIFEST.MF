@@ -4,7 +4,8 @@ Bundle-Name: Access
 Bundle-SymbolicName: org.emftext.access;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.eclipse.emf.workspace
+Require-Bundle: org.eclipse.emf.workspace,
+ org.emftext.runtime.antlr;visibility:=reexport
 Export-Package: org.emftext.access,
  org.emftext.access.resource
 Bundle-Activator: org.emftext.access.EMFTextAccessPlugin
