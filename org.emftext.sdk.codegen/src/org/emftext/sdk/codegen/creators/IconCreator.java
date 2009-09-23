@@ -26,27 +26,32 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.ui.new_wizard.AbstractNewFileWizard;
 import org.emftext.runtime.util.StreamUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
 
 /**
- * Creates a default icon for the NewFileWizard of generated
- * text resources by copying the default_new_icon.gif contained
- * in this package.
+ * Creates default icons for the editor and the NewFileWizard of 
+ * generated text resources by copying the default_icon.gif 
+ * contained in this package.
  */
-public class NewFileIconCreator implements IArtifactCreator {
+public class IconCreator implements IArtifactCreator {
+
+	private File targetFile;
+
+	public IconCreator(File targetFile) {
+		this.targetFile = targetFile;
+	}
 
 	public void createArtifacts(GenerationContext context) {
 		File iconsDir = context.getIconsDir();
 		iconsDir.mkdir();
 		
-		InputStream in = AbstractNewFileWizard.class.getResourceAsStream("default_new_icon.gif");
+		InputStream in = IconCreator.class.getResourceAsStream("default_icon.gif");
 		FileOutputStream fos;
 		try {
-			fos = new FileOutputStream(context.getNewIconFile());
+			fos = new FileOutputStream(targetFile);
 			StreamUtil.copy(in, fos);
 			fos.close();
 		} catch (IOException e) {

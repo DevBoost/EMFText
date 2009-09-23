@@ -54,6 +54,7 @@ public abstract class GenerationContext {
 	private static final String ANTRL_GRAMMAR_FILE_EXTENSION = ".g";
 
 	private static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
+	private static final String DEFAULT_EDITOR_ICON_NAME = "editor_icon.gif";
 	private static final String DEFAULT_ICON_DIR = "icons";
 	
 	private final NameUtil nameUtil = new NameUtil();
@@ -180,6 +181,10 @@ public abstract class GenerationContext {
 
 	public File getNewIconFile() {
 		return new File(getIconsDir().getAbsolutePath() + File.separator + DEFAULT_NEW_ICON_NAME);
+	}
+
+	public File getEditorIconFile() {
+		return new File(getIconsDir().getAbsolutePath() + File.separator + DEFAULT_EDITOR_ICON_NAME);
 	}
 
 	public String getProjectRelativeNewIconPath() {
