@@ -78,8 +78,8 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.REFERENCE_RESOLVER_SWITCH));
 	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_WIZARD));
 	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_WIZARD_PAGE));
-	    creators.add(new IconCreator(context.getNewIconFile()));
-	    creators.add(new IconCreator(context.getEditorIconFile()));
+	    creators.add(new IconCreator("default_new_icon.gif", context.getNewIconFile()));
+	    creators.add(new IconCreator("default_editor_icon.gif", context.getEditorIconFile()));
 	    creators.add(new TokenResolversCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.TOKEN_RESOLVER_FACTORY));
 	    creators.add(new MetaInfFolderCreator());

@@ -38,9 +38,11 @@ import org.emftext.sdk.codegen.IArtifactCreator;
  */
 public class IconCreator implements IArtifactCreator {
 
+	private String sourceFileName;
 	private File targetFile;
 
-	public IconCreator(File targetFile) {
+	public IconCreator(String sourceFileName, File targetFile) {
+		this.sourceFileName = sourceFileName;
 		this.targetFile = targetFile;
 	}
 
@@ -48,7 +50,7 @@ public class IconCreator implements IArtifactCreator {
 		File iconsDir = context.getIconsDir();
 		iconsDir.mkdir();
 		
-		InputStream in = IconCreator.class.getResourceAsStream("default_icon.gif");
+		InputStream in = IconCreator.class.getResourceAsStream(sourceFileName);
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(targetFile);
