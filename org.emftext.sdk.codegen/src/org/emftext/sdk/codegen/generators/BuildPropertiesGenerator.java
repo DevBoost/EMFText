@@ -19,7 +19,7 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 
 	@Override
 	public boolean generate(PrintWriter out) {
-		
+		// TODO replace the (duplicate) code below with calls to GenerationContext
 		String sourceOptionValue = OptionManager.INSTANCE.getStringOptionValue(getContext().getConcreteSyntax(), OptionTypes.SOURCE_FOLDER);
 		String sourceFolder;
 		if (sourceOptionValue == null) {
