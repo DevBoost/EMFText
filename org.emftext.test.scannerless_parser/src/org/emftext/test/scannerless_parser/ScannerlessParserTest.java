@@ -14,14 +14,13 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.resource.ICommand;
-import org.emftext.runtime.resource.IParseResult;
-import org.emftext.runtime.resource.ITextParser;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
-import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresMetaInformation;
-import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresResourceFactory;
-import org.emftext.test.grammar_features.resource.grammar_features.Grammar_featuresScannerlessParser;
+import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresCommand;
+import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresParseResult;
+import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresTextParser;
+import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresTextResource;
+import org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresMetaInformation;
+import org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresResourceFactory;
+import org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresScannerlessParser;
 
 /**
  * A basic test for the scannerless parser generator. It basically
@@ -35,10 +34,10 @@ public class ScannerlessParserTest extends TestCase {
 		private boolean expectedResult;
 		private String expectedModel;
 		private String expectedError;
-		private ITextResourcePluginMetaInformation metaInformation;
-		private ITextParser parser;
+		private Grammar_featuresMetaInformation metaInformation;
+		private IGrammar_featuresTextParser parser;
 
-		public AbstractParseTest(String content, String expectedModel, String expectedError, ITextResourcePluginMetaInformation metaInformation, ITextParser parser) {
+		public AbstractParseTest(String content, String expectedModel, String expectedError, Grammar_featuresMetaInformation metaInformation, IGrammar_featuresTextParser parser) {
 			super("Parse " + content.replace("\n", "").replace("\r", ""));
 			this.metaInformation = metaInformation;
 			this.parser = parser;
@@ -51,11 +50,11 @@ public class ScannerlessParserTest extends TestCase {
 			//ITextParser parser = metaInformation.createParser(in, null);
 			ResourceSet rs = new ResourceSetImpl();
 			URI uri = URI.createURI("test." + metaInformation.getSyntaxName());
-			ITextResource resource = (ITextResource) rs.createResource(uri);
+			IGrammar_featuresTextResource resource = (IGrammar_featuresTextResource) rs.createResource(uri);
 			//parser.setResource(new Grammar_featuresResource(uri));
-			IParseResult result = parser.parse();
+			IGrammar_featuresParseResult result = parser.parse();
 			EObject root = result.getRoot();
-			for (ICommand<ITextResource> command : result.getPostParseCommands()) {
+			for (IGrammar_featuresCommand<IGrammar_featuresTextResource> command : result.getPostParseCommands()) {
 				command.execute(resource);
 			}
 			List<Diagnostic> errors = resource.getErrors();
