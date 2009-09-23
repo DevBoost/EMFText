@@ -111,6 +111,11 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
+		sc.add("<extension point=\"org.eclipse.core.runtime.preferences\">");
+		sc.add("<initializer class=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_INITIALIZER) + "\">");
+		sc.add("</initializer>");
+		sc.add("</extension>");
+
 		sc.add("<extension point=\"org.eclipse.ui.newWizards\">");
 		sc.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");
 		sc.add("</category>");
