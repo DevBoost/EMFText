@@ -179,7 +179,7 @@ public enum EArtifact {
 	OCCURENCE(UI_PACKAGE, "", "Occurrence", new OccurrenceGenerator(), OptionTypes.OVERRIDE_OCCURENCE),
 	TOKEN_SCANNER(UI_PACKAGE, "", "TokenScanner", new TokenScannerGenerator(), OptionTypes.OVERRIDE_TOKEN_SCANNER),
 	MARKER_HELPER(UI_PACKAGE, "", "MarkerHelper", new MarkerHelperGenerator(), OptionTypes.OVERRIDE_MARKER_HELPER),
-	HYPERLINK(UI_PACKAGE, "Hyperlink", "", new HyperlinkGenerator(), OptionTypes.OVERRIDE_HYPERLINK),
+	HYPERLINK(UI_PACKAGE, "", "Hyperlink", new HyperlinkGenerator(), OptionTypes.OVERRIDE_HYPERLINK),
 	HYPERLINK_DETECTOR(UI_PACKAGE, "", "HyperlinkDetector", new HyperlinkDetectorGenerator(), OptionTypes.OVERRIDE_HYPERLINK_DETECTOR), 
 	E_OBJECT_SELECTION(UI_PACKAGE, "", "EObjectSelection", new EObjectSelectionGenerator(), OptionTypes.OVERRIDE_EOBJECT_SELECTION),
 	HIGHLIGHTING(UI_PACKAGE, "", "Highlighting", new HighlightingGenerator(), OptionTypes.OVERRIDE_HIGHLIGHTING),
