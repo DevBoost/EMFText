@@ -85,10 +85,29 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("</extension>");
 		sc.addLineBreak();
 
-		// registers the file extension for the EMF Text Editor
+		// registers the file extension for the editor
 		sc.add("<extension point=\"org.eclipse.core.contenttype.contentTypes\">");
-		sc.add("<file-association content-type=\"org.emftext.filetype\" file-extensions=\"" + concreteSyntaxName + "\">");
+		sc.add("<content-type id=\"org.emftext.filetype." + concreteSyntaxName + "\" name=\"EMFText " + concreteSyntaxName +" Files\">");
+		sc.add("</content-type>");
+		sc.add("<file-association content-type=\"org.emftext.filetype." + concreteSyntaxName + "\" file-extensions=\"" + concreteSyntaxName + "\">");
 		sc.add("</file-association>");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
+		String editorName = context.getQualifiedClassName(EArtifact.EDITOR);
+
+		// registers the editor itself
+		sc.add("<extension point=\"org.eclipse.ui.editors\">");
+		sc.add("<editor class=\"" + editorName + 
+				"\" contributorClass=\"org.eclipse.ui.texteditor.BasicTextEditorActionContributor\" " +
+				"icon=\"icons/editor_icon.gif\" " +
+				"id=\"" + editorName + "\" " + 
+				"name=\"EMFText " + concreteSyntaxName + " Editor\">");
+		sc.add("<contentTypeBinding contentTypeId=\"org.eclipse.core.runtime.text\">");
+		sc.add("</contentTypeBinding>");
+		sc.add("<contentTypeBinding contentTypeId=\"org.emftext.filetype." + concreteSyntaxName + "\" >");
+		sc.add("</contentTypeBinding>");
+		sc.add("</editor>");
 		sc.add("</extension>");
 		sc.addLineBreak();
 		

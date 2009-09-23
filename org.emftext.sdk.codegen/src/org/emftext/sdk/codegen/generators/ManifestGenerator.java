@@ -105,6 +105,7 @@ public class ManifestGenerator implements IGenerator {
 			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UI) + ",");
 			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UTIL));
 		}
+		sc.add("Bundle-Activator: " + context.getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR));
 
 		return sc.toString();
 	}

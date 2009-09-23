@@ -231,6 +231,8 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("protected void createActions() {");
 		sc.add("super.createActions();");
 		sc.addLineBreak();
+		// TODO figure out what this code was for
+		/*
 		sc.add(RESOURCE_BUNDLE + " aResourceBundle = " + RESOURCE_BUNDLE + ".getBundle(\"org.emftext.runtime.ui.EMFTextEditorMessages\");");
 		sc.add("String actionId = \"ConAssActionId\";");
 		sc.addLineBreak();
@@ -238,6 +240,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("action.setActionDefinitionId(" + I_TEXT_EDITOR_ACTION_DEFINITION_IDS + ".CONTENT_ASSIST_PROPOSALS);");
 		sc.add("setAction(actionId, action);");
 		sc.add("markAsStateDependentAction(actionId, true);");
+		*/
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public " + EDITING_DOMAIN + " getEditingDomain() {");

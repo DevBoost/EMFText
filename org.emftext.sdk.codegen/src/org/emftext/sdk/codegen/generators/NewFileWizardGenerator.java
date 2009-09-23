@@ -20,6 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_NEW_WIZARD;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
@@ -94,7 +95,7 @@ public class NewFileWizardGenerator extends BaseGenerator {
 		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("public class " + getResourceClassName() + " extends " + NEW_WIZARD + " {");
+		sc.add("public class " + getResourceClassName() + " extends " + NEW_WIZARD + " implements " + I_NEW_WIZARD + " {");
 		sc.addLineBreak();
 		
 		sc.add("private " + newFileWizardPageClassName + " page;");
