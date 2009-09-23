@@ -4,10 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
-import org.emftext.test.escaping.resource.escaping.EscapingResource;
-
 import junit.framework.TestCase;
+
+import org.eclipse.emf.ecore.EObject;
+import org.emftext.test.escaping.resource.escaping.mopp.EscapingResource;
 
 public class EscapingTest extends TestCase {
 
