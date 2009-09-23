@@ -12,10 +12,25 @@
 	</extension>
 	
 	<extension point="org.eclipse.core.contenttype.contentTypes">
-		<file-association content-type="org.emftext.filetype" file-extensions="grammar_features">
+		<content-type id="org.emftext.filetype.grammar_features" name="EMFText grammar_features Files">
+		</content-type>
+		<file-association content-type="org.emftext.filetype.grammar_features" file-extensions="grammar_features">
 		</file-association>
 	</extension>
 	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" icon="icons/editor_icon.gif" id="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresEditor" name="EMFText grammar_features Editor">
+			<contentTypeBinding contentTypeId="org.eclipse.core.runtime.text">
+			</contentTypeBinding>
+			<contentTypeBinding contentTypeId="org.emftext.filetype.grammar_features" >
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresPreferenceInitializer">
+		</initializer>
+	</extension>
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>

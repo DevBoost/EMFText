@@ -26,3 +26,4 @@ Export-Package: org.emftext.test.cct2.resource.cct2,
   org.emftext.test.cct2.resource.cct2.mopp,
   org.emftext.test.cct2.resource.cct2.ui,
   org.emftext.test.cct2.resource.cct2.util
+Bundle-Activator: org.emftext.test.cct2.resource.cct2.mopp.Cct2Plugin

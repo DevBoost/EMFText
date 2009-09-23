@@ -27,3 +27,4 @@ Export-Package: org.emftext.test.grammar_features.resource.grammar_features,
   org.emftext.test.grammar_features.resource.grammar_features.mopp,
   org.emftext.test.grammar_features.resource.grammar_features.ui,
   org.emftext.test.grammar_features.resource.grammar_features.util
+Bundle-Activator: org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresPlugin

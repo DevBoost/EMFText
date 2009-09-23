@@ -26,3 +26,4 @@ Export-Package: org.emftext.test.escaping.resource.escaping,
   org.emftext.test.escaping.resource.escaping.mopp,
   org.emftext.test.escaping.resource.escaping.ui,
   org.emftext.test.escaping.resource.escaping.util
+Bundle-Activator: org.emftext.test.escaping.resource.escaping.mopp.EscapingPlugin
