@@ -1,10 +1,13 @@
 package org.emftext.test.grammar_features.resource.grammar_features.analysis;
 
-public class OptionalNonContainmentReferenceReferenceResolver extends org.emftext.runtime.resource.impl.AbstractReferenceResolver<org.emftext.test.grammar_features.OptionalNonContainment, org.emftext.test.grammar_features.X> {
+import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresReferenceResolveResult;
+import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresReferenceResolver;
+
+public class OptionalNonContainmentReferenceReferenceResolver implements IGrammar_featuresReferenceResolver<org.emftext.test.grammar_features.OptionalNonContainment, org.emftext.test.grammar_features.X> {
 	
 	private org.emftext.test.grammar_features.resource.grammar_features.analysis.Grammar_featuresDefaultResolverDelegate<org.emftext.test.grammar_features.OptionalNonContainment, org.emftext.test.grammar_features.X> delegate = new org.emftext.test.grammar_features.resource.grammar_features.analysis.Grammar_featuresDefaultResolverDelegate<org.emftext.test.grammar_features.OptionalNonContainment, org.emftext.test.grammar_features.X>();
 	
-	public void resolve(java.lang.String identifier, org.emftext.test.grammar_features.OptionalNonContainment container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, org.emftext.runtime.resource.IReferenceResolveResult<org.emftext.test.grammar_features.X> result) {
+	public void resolve(java.lang.String identifier, org.emftext.test.grammar_features.OptionalNonContainment container, org.eclipse.emf.ecore.EReference reference, int position, boolean resolveFuzzy, IGrammar_featuresReferenceResolveResult<org.emftext.test.grammar_features.X> result) {
 		delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);
 	}
 	
