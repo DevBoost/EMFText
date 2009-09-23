@@ -170,7 +170,7 @@ public enum EArtifact {
 	BRACKET_SET(UI_PACKAGE, "", "BracketSet", new BracketSetGenerator(), OptionTypes.OVERRIDE_BRACKET_SET),
 	POSITION_HELPER(UI_PACKAGE, "", "PositionHelper", new PositionHelperGenerator(), OptionTypes.OVERRIDE_POSITION_HELPER),
 	CODE_FOLDING_MANAGER(UI_PACKAGE, "", "CodeFoldingManager", new CodeFoldingManagerGenerator(), OptionTypes.OVERRIDE_CODE_FOLDING_MANAGER),
-	EDITOR(UI_PACKAGE, "Editor", "", new EditorGenerator(), OptionTypes.OVERRIDE_EDITOR),
+	EDITOR(UI_PACKAGE, "", "Editor", new EditorGenerator(), OptionTypes.OVERRIDE_EDITOR),
 	COLOR_MANAGER(UI_PACKAGE, "", "ColorManager", new ColorManagerGenerator(), OptionTypes.OVERRIDE_COLOR_MANAGER),
 	BACKGROUND_PARSING_STRATEGY(UI_PACKAGE, "", "BackgroundParsingStrategy", new BackgroundParsingStrategyGenerator(), OptionTypes.OVERRIDE_PARSING_STRATEGY),
 	TEXT_HOVER(UI_PACKAGE, "", "TextHover", new TextHoverGenerator(), OptionTypes.OVERRIDE_TEXT_HOVER),
