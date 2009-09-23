@@ -6,7 +6,7 @@
 		</parser>
 	</extension>
 	
-	<extension point="org.emftext.runtime.syntax">
+	<extension point="org.emftext.access.syntax">
 		<metaInformationProvider class="org.emftext.test.cct1.resource.cct1.mopp.Cct1MetaInformation" id="org.emftext.test.cct1.resource.cct1.mopp.Cct1MetaInformation">
 		</metaInformationProvider>
 	</extension>
