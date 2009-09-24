@@ -31,6 +31,9 @@
 		<initializer class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceInitializer">
 		</initializer>
 	</extension>
+	
+	<extension-point id="org.emftext.sdk.concretesyntax.resource.cs.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>

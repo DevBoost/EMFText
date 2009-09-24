@@ -11,20 +11,20 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class DefaultLoadOptionsExtensionPointSchemaCreator extends AbstractArtifactCreator {
 
 	public DefaultLoadOptionsExtensionPointSchemaCreator() {
-		super("default_load_options.xml");
+		super("default_load_options.exsd");
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
-		File pluginXMLFile = new File(context.getSchemaFolder().getAbsolutePath() + File.separator + "default_load_options.xml");
+		File pluginXMLFile = new File(context.getSchemaFolder().getAbsolutePath() + File.separator + "default_load_options.exsd");
 		IGenerator generator = new DefaultLoadOptionsExtensionPointSchemaGenerator(context);
 
 	    return createArtifact(
 	    		context,
 	    		generator,
 	    		pluginXMLFile,
-	    		"Exception while generating default_load_options.xml file."
+	    		"Exception while generating default_load_options.exsd file."
 	    );
 	}
 

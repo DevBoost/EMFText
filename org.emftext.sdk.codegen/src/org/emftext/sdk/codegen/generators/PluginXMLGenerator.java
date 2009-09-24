@@ -39,6 +39,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class PluginXMLGenerator implements IGenerator {
 
 	private GenerationContext context;
+	private String pluginID;
 
 	public PluginXMLGenerator() {
 		super();
@@ -47,6 +48,7 @@ public class PluginXMLGenerator implements IGenerator {
 	private PluginXMLGenerator(GenerationContext context) {
 		super();
 		this.context = context;
+		pluginID = context.getPluginName();
 	}
 
 	public boolean generate(PrintWriter out) {
@@ -115,6 +117,7 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<initializer class=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_INITIALIZER) + "\">");
 		sc.add("</initializer>");
 		sc.add("</extension>");
+		sc.addLineBreak();
 
 		sc.add("<extension point=\"org.eclipse.ui.newWizards\">");
 		sc.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");
@@ -123,6 +126,9 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<wizard category=\"org.emftext.runtime.ui.EMFTextFileCategory\" icon=\"" + context.getProjectRelativeNewIconPath() + "\" class=\"" + newFileWizard + "\" id=\"" + newFileWizard + "\" name=\"EMFText ." + context.getConcreteSyntax().getName() + " file\">");
 		sc.add("</wizard>");
 		sc.add("</extension>");
+		sc.addLineBreak();
+		
+		sc.add("<extension-point id=\"" + pluginID + ".default_load_options\" name=\"Default Load Options\" schema=\"schema/default_load_options.exsd\"/>");
 		sc.addLineBreak();
 
 		if (context.isGenerateTestActionEnabled()) {
