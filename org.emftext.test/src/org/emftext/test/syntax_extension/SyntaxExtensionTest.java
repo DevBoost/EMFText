@@ -31,8 +31,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Definition;
@@ -40,6 +38,8 @@ import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,7 +69,7 @@ public class SyntaxExtensionTest extends TestCase {
 		final String path = "src" + File.separator + "org" + File.separator + "emftext" + File.separator + "test" + File.separator + "syntax_extension" + File.separator;
 		File file = new File(path + filename);
 		
-		ITextResource resource = TextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
+		ICsTextResource resource = CsTextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 		EList<Diagnostic> errors = resource.getErrors();
 		for (Diagnostic error : errors) {

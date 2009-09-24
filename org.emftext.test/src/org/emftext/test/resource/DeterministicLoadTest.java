@@ -39,9 +39,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.access.EMFTextAccessPlugin;
 import org.emftext.sdk.MetamodelHelper;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
 import org.emftext.sdk.finders.GenPackageInRegistryFinder;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +53,7 @@ import org.junit.Test;
 public class DeterministicLoadTest {
 
 	private static final String CS_FILE_EXTENSION = "cs";
-	private static final URI csUri = EMFTextRuntimePlugin
+	private static final URI csUri = EMFTextAccessPlugin
 			.getURIToConcreteSyntaxLocationMap().get(
 					"http://www.emftext.org/sdk/concretesyntax%%cs");
 

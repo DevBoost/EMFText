@@ -16,10 +16,10 @@ import junit.framework.Assert;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.StreamUtil;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsStreamUtil;
 
 /**
  * A utility class that provides some methods to test the generation of
@@ -29,7 +29,7 @@ public class GrammarGenerationTestUtil {
 
 	public String getContent(File file) {
 		try {
-			return StreamUtil.getContent(new FileInputStream(file));
+			return CsStreamUtil.getContent(new FileInputStream(file));
 		} catch (IOException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -37,12 +37,12 @@ public class GrammarGenerationTestUtil {
 	}
 
 	public String getGrammar(URI fileURI) throws CoreException, IOException {
-		ITextResource concreteSyntaxResource = (ITextResource) getConcreteSyntaxResource(fileURI);
+		ICsTextResource concreteSyntaxResource = (ICsTextResource) getConcreteSyntaxResource(fileURI);
 		ConcreteSyntax concreteSyntax = getConcreteSyntax(concreteSyntaxResource);
 		IGenerator antlrGen = createANTLRGenerator(concreteSyntax);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		antlrGen.generate(new PrintWriter(out));
 		InputStream grammarStream = new ByteArrayInputStream(out.toByteArray());
-		return StreamUtil.getContent(grammarStream);
+		return CsStreamUtil.getContent(grammarStream);
 	}
 }

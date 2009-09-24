@@ -15,10 +15,10 @@ import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 import org.emftext.sdk.regex.RegexpTranslationHelper;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,7 +90,7 @@ public class AntlrTranslationTest extends TestCase {
 
 		File file = new File(grammar);
 		
-		ITextResource resource = TextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
+		ICsTextResource resource = CsTextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 	
 		return resource;

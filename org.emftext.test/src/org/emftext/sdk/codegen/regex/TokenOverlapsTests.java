@@ -14,13 +14,13 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.NormalToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 import org.emftext.sdk.regex.SorterException;
 import org.emftext.sdk.regex.TokenSorter;
 import org.junit.Before;
@@ -176,7 +176,7 @@ public class TokenOverlapsTests extends TestCase {
 	private Resource loadResource(String grammar) throws IOException {
 		File file = new File(grammar);
 		
-		ITextResource resource = TextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
+		ICsTextResource resource = CsTextResourceUtil.getResource(file, new SDKOptionProvider().getOptions());
 		assertNotNull(resource);
 	
 		return resource;

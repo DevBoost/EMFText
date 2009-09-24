@@ -41,14 +41,14 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.ResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 
 /**
  * A helper class for all EMFText tests.
@@ -56,7 +56,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 public class ConcreteSyntaxTestHelper {
 
 	public static void registerResourceFactories() {
-		org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory csResourceFactoryImpl = new org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory();
+		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory csResourceFactoryImpl = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory();
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
 				"ecore",
 				new org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl());
@@ -76,8 +76,8 @@ public class ConcreteSyntaxTestHelper {
 	public static Resource getConcreteSyntaxResource(URI fileURI) {
 		ResourceSet rs = new ResourceSetImpl();
 		rs.getLoadOptions().putAll(new SDKOptionProvider().getOptions());
-		ITextResource resource = (ITextResource) rs.getResource(fileURI, true);
-		final List<EObject> proxies = ResourceUtil.findUnresolvedProxies(resource);
+		ICsTextResource resource = (ICsTextResource) rs.getResource(fileURI, true);
+		final List<EObject> proxies = CsResourceUtil.findUnresolvedProxies(resource);
 		for (EObject proxy : proxies) {
 			System.out.println("getConcreteSyntaxResource() unresolved proxy : " + proxy);
 		}

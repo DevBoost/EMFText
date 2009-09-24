@@ -5,10 +5,10 @@ import java.util.Collection;
 
 import junit.framework.TestCase;
 
-import org.emftext.runtime.resource.ITokenResolveResult;
-import org.emftext.runtime.resource.ITokenResolver;
 import org.emftext.sdk.codegen.util.Pair;
-import org.emftext.sdk.concretesyntax.resource.cs.CsTokenResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult;
 import org.junit.Test;
 
 public class QuotenTokenResolversTest extends TestCase {
@@ -32,7 +32,7 @@ public class QuotenTokenResolversTest extends TestCase {
 	
 	@Test
 	public void testResolvers() {
-		ITokenResolver doubleQuoteResolver = new CsQUOTED_34_34_92TokenResolver();
+		ICsTokenResolver doubleQuoteResolver = new CsQUOTED_34_34_92TokenResolver();
 		
 		for (Pair<String,String> pair : testData) {
 			assertResolveTo(doubleQuoteResolver, pair.getLeft(), pair.getRight());
@@ -40,8 +40,8 @@ public class QuotenTokenResolversTest extends TestCase {
 		}
 	}
 
-	public void assertResolveTo(ITokenResolver resolver, String lexem, String expectedResult) {
-		ITokenResolveResult result = new CsTokenResolveResult();
+	public void assertResolveTo(ICsTokenResolver resolver, String lexem, String expectedResult) {
+		ICsTokenResolveResult result = new CsTokenResolveResult();
 		resolver.resolve(lexem, null, result);
 		Object actualResult = result.getResolvedToken();
 		System.out.println("RESOLVE EXP: [" + expectedResult + "]");
@@ -49,7 +49,7 @@ public class QuotenTokenResolversTest extends TestCase {
 		assertEquals(expectedResult, actualResult);
 	}
 
-	public void assertDeResolveTo(ITokenResolver resolver, String value, String expectedResult) {
+	public void assertDeResolveTo(ICsTokenResolver resolver, String value, String expectedResult) {
 		String actualResult = resolver.deResolve(value, null, null);
 		System.out.println("DE-RESOLVE EXP: [" + expectedResult + "]");
 		System.out.println("DE-RESOLVE ACT: [" + actualResult + "]");
