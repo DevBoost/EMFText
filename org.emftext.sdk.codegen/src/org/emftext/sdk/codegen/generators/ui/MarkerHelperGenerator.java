@@ -67,10 +67,10 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add(DIAGNOSTIC + "[] copy = diagnostics.toArray(new " + DIAGNOSTIC + "[diagnostics.size()]);");
 		sc.add("for (int i = 0; i < copy.length; i++) {");
 		sc.add(DIAGNOSTIC + " diagnostic = copy[i];");
+		sc.add("try {");
 		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, markerSeverity);");
 		sc.add("marker.setAttribute(" + I_MARKER + ".MESSAGE, diagnostic.getMessage());");
-		sc.add("try {");
 		sc.add("if (diagnostic instanceof " + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") {");
 		sc.add(getClassNameHelper().getI_TEXT_DIAGNOSTIC() + " textDiagnostic = (" + getClassNameHelper().getI_TEXT_DIAGNOSTIC() + ") diagnostic;");
 		sc.add("marker.setAttribute(" + I_MARKER + ".LINE_NUMBER, textDiagnostic.getLine());");

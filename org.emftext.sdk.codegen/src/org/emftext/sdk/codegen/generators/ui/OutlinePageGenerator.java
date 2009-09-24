@@ -173,7 +173,6 @@ public class OutlinePageGenerator extends BaseGenerator {
 		sc.add("treeViewer.setInput(resources.get(0));");
 		sc.add("if (!resources.isEmpty()) {");
 		sc.add("// Select the root object in the view.");
-		sc.add("//");
 		sc.add("treeViewer.setSelection(new " + STRUCTURED_SELECTION + "(resources.get(0)), true);");
 		sc.add("}");
 		sc.add("}");

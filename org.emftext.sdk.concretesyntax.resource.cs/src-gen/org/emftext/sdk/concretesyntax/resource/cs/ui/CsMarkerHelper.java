@@ -32,10 +32,10 @@ public class CsMarkerHelper {
 		org.eclipse.emf.ecore.resource.Resource.Diagnostic[] copy = diagnostics.toArray(new org.eclipse.emf.ecore.resource.Resource.Diagnostic[diagnostics.size()]);
 		for (int i = 0; i < copy.length; i++) {
 			org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic = copy[i];
-			org.eclipse.core.resources.IMarker marker = file.createMarker(MARKER_TYPE);
-			marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, markerSeverity);
-			marker.setAttribute(org.eclipse.core.resources.IMarker.MESSAGE, diagnostic.getMessage());
 			try {
+				org.eclipse.core.resources.IMarker marker = file.createMarker(MARKER_TYPE);
+				marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, markerSeverity);
+				marker.setAttribute(org.eclipse.core.resources.IMarker.MESSAGE, diagnostic.getMessage());
 				if (diagnostic instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) {
 					org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic textDiagnostic = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic) diagnostic;
 					marker.setAttribute(org.eclipse.core.resources.IMarker.LINE_NUMBER, textDiagnostic.getLine());

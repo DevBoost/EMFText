@@ -383,11 +383,15 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("// reload the resource displayed in the editor");
 		sc.add("resourceSet.getResource(resource.getURI(), true);");
 		sc.add("}");
+		sc.add("if (resource != null) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
+		sc.add("}");
 		sc.add("markerAdapter.setEnabled(true);");
 		sc.add("// reset the selected element in outline and");
 		sc.add("// properties by text position");
+		sc.add("if (highlighting != null) {");
 		sc.add("highlighting.setEObjectSelection();");
+		sc.add("}");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();

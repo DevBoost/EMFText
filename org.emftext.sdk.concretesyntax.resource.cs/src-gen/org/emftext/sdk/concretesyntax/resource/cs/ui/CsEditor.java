@@ -110,11 +110,15 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 									// reload the resource displayed in the editor
 									resourceSet.getResource(resource.getURI(), true);
 								}
-								org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
+								if (resource != null) {
+									org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
+								}
 								markerAdapter.setEnabled(true);
 								// reset the selected element in outline and
 								// properties by text position
-								highlighting.setEObjectSelection();
+								if (highlighting != null) {
+									highlighting.setEObjectSelection();
+								}
 							}
 						}
 						

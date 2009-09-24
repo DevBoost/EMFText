@@ -49,6 +49,14 @@ public class HighlightingGenerator extends BaseGenerator {
 		addFields(sc);
 		addPositionHelperClass(sc);
 		addConstructor(sc);
+		addMethods(sc);
+		sc.add("}");
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addMethods(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		addListenersMethod(sc);
 		addSetHighlightingMethod(sc);
 		addSetCategoryHighlightingMethod(sc);
@@ -58,22 +66,18 @@ public class HighlightingGenerator extends BaseGenerator {
 		addResetValuesMethod(sc);
 		addConvertToWidgedPositionMethod(sc);
 		addGetStyleRangeAtPositionMethod(sc);
-
 		addAddSelectionChangedListenerMethod(sc);
-		addremoveSelectionChangedListenerMethod(sc);
-		addsetSelectionMethod(sc);
-		addgetSelectionMethod(sc);
-		addselectionChangedMethod(sc);
+		addRemoveSelectionChangedListenerMethod(sc);
+		addSetSelectionMethod(sc);
+		addGetSelectionMethod(sc);
+		addSelectionChangedMethod(sc);
 		addHandleContentOutlineSelectionMethod(sc);
-		sc.add("}");
-		out.print(sc.toString());
-		return true;
 	}
 
 	private void addHandleContentOutlineSelectionMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private void handleContentOutlineSelection(" + I_SELECTION + " selection) {");
-		sc.add("if (!selection.isEmpty() && selection instanceof " + I_STRUCTURED_SELECTION + ") {");
+		sc.add("if (!selection.isEmpty() && selection instanceof " + eObjectSelectClassName + ") {");
 		sc.add(OBJECT + " selectedElement = ((" + I_STRUCTURED_SELECTION + ") selection).getFirstElement();");
 		sc.add("if (selectedElement instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " selectedEObject = (" + E_OBJECT + ") selectedElement;");
@@ -87,8 +91,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("// elementCharStart + 1);");
 		sc.add("// this.getSelectionProvider().setSelection(selection);");
 		sc.add(TEXT_SELECTION + " textEditorSelection = new " + TEXT_SELECTION + "(elementCharStart, elementCharEnd - elementCharStart + 1);");
-		sc.add("projectionViewer.getSelectionProvider().setSelection(");
-		sc.add("textEditorSelection);");
+		sc.add("projectionViewer.getSelectionProvider().setSelection(textEditorSelection);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -96,15 +99,14 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addselectionChangedMethod(
+	private void addSelectionChangedMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("public void selectionChanged(");
-		sc.add(SELECTION_CHANGED_EVENT + " event) {");
+		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.addLineBreak();
 		sc.add(OBJECT + " oldSelection = null;");
 		sc.add(OBJECT + " newSelection = null;");
 		sc.add("if (getSelection() instanceof " + I_STRUCTURED_SELECTION + ") {");
-		sc.add("oldSelection = ((" + I_STRUCTURED_SELECTION + ")getSelection()).getFirstElement();");
+		sc.add("oldSelection = ((" + I_STRUCTURED_SELECTION + ") getSelection()).getFirstElement();");
 		sc.add("}");
 		sc.add("if (event.getSelection() instanceof " + I_STRUCTURED_SELECTION + ") {");
 		sc.add("newSelection = ((" + I_STRUCTURED_SELECTION + ")event.getSelection()).getFirstElement();");
@@ -117,7 +119,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addgetSelectionMethod(
+	private void addGetSelectionMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public " + I_SELECTION + " getSelection() {");
 		sc.add("return selection;");
@@ -125,7 +127,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addsetSelectionMethod(
+	private void addSetSelectionMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection) {");
 		sc.add("this.selection = selection;");
@@ -136,7 +138,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addremoveSelectionChangedListenerMethod(
+	private void addRemoveSelectionChangedListenerMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public void removeSelectionChangedListener(");
 		sc.add(I_SELECTION_CHANGED_LISTENER + " listener) {");
