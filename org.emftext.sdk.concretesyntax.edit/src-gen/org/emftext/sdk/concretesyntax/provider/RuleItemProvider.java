@@ -142,7 +142,9 @@ public class RuleItemProvider
 		if (rule != null && !rule.eIsProxy()) {
 			GenClass genClass = rule.getMetaclass();
 			if (genClass != null && !genClass.eIsProxy() && genClass.getEcoreClass() != null) {
-				label = genClass.getName();
+				String name = genClass.getName();
+				// make sure label is not null
+				label = "" + name;
 			}
 		}
 		return label;
