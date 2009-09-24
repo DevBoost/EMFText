@@ -391,13 +391,12 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceviewer, " + colorManagerClassName + " colorManager, " + editorClassName + " editor) {");
 		sc.add("this.display = " + DISPLAY + ".getCurrent();");
 		sc.add("sourceviewer.getSelectionProvider();");
-		sc.add("preferenceStore = " + activatorClassName + ".getDefault()");
-		sc.add(".getPreferenceStore();");
+		sc.add("preferenceStore = " + activatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("textWidget = sourceviewer.getTextWidget();");
 		sc.add("projectionViewer = sourceviewer;");
 		sc.add("scanner = new " + textTokenScannerClassName + "(textResource, colorManager);");
 		sc.add("occurrence = new " + occurenceClassName + "(textResource, sourceviewer, scanner);");
-		sc.add("bracketSet = new " + bracketSetClassName + "(sourceviewer, textResource.getURI().fileExtension());");
+		sc.add("bracketSet = new " + bracketSetClassName + "(sourceviewer, \"" + getContext().getConcreteSyntax().getName() + "\");");
 		sc.add("this.colorManager = colorManager;");
 		sc.add("isHighlightBrackets = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_MATCHING_BRACKETS_CHECKBOX);");
 		sc.add("isHighlightOccurrences = preferenceStore.getBoolean(" + getClassNameHelper().getPREFERENCE_CONSTANTS() + ".EDITOR_OCCURRENCE_CHECKBOX);");

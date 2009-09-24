@@ -328,7 +328,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("this.projectionViewer = sourceViewer;");
 		sc.addLineBreak();
 		sc.add("quotedTokenArray = new " + ARRAY_LIST + "<String>();");
-		sc.add("String[] tokenNames = textResource.getMetaInformation().getTokenNames();");
+		sc.add("String[] tokenNames = new " + getContext().getQualifiedClassName(EArtifact.META_INFORMATION) + "().getTokenNames();");
 		sc.add("for (String tokenName : tokenNames) {");
 		sc.add("// TODO this is ANTLR specific maybe use ANTLRTokenHelper here");
 		sc.add("if (tokenName.startsWith(\"'\") && tokenName.endsWith(\"'\")) {");

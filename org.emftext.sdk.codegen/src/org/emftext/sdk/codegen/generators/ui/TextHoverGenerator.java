@@ -449,7 +449,7 @@ public class TextHoverGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "(" + editorClassName + " editor) {");
 		sc.add("super();");
 		sc.add("this.editor = editor;");
-		sc.add("hoverTextProvider = editor.getResource().getMetaInformation().getHoverTextProvider();");
+		sc.add("hoverTextProvider = new " + getContext().getQualifiedClassName(EArtifact.META_INFORMATION) + "().getHoverTextProvider();");
 		sc.add("}");
 		sc.addLineBreak();
 	}

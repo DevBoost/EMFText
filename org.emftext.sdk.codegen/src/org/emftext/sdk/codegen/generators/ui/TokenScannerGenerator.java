@@ -140,8 +140,9 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.add("// @param resource The <code>" + getClassNameHelper().getI_TEXT_RESOURCE() + "</code> from which the <code>Lexer</code> can be determined.");
 		sc.add("// @param colorManager A manager to obtain color objects");
 		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, " + colorManagerClassName + " colorManager) {");
-		sc.add("this.lexer = resource.getMetaInformation().createLexer();");
-		sc.add("this.languageId = resource.getMetaInformation().getSyntaxName();");
+		String metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
+		sc.add("this.lexer = new " + metaInformationClassName + "().createLexer();");
+		sc.add("this.languageId = new " + metaInformationClassName + "().getSyntaxName();");
 		sc.add("this.store = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("this.colorManager = colorManager;");
 		sc.add("}");
