@@ -43,10 +43,10 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("private class EditorOnCloseListener implements " + I_PART_LISTENER2 + " {");
 		sc.addLineBreak();
-		sc.add("private String uri;");
+		sc.add("private " + editorClassName + " editor;");
 		sc.addLineBreak();
-		sc.add("public EditorOnCloseListener(String uri) {");
-		sc.add("this.uri = uri;");
+		sc.add("public EditorOnCloseListener(" + editorClassName + " editor) {");
+		sc.add("this.editor = editor;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void partActivated(" + I_WORKBENCH_PART_REFERENCE + " partRef) {");
@@ -63,7 +63,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("if (workbenchPart instanceof " + editorClassName + ") {");
 		sc.add(editorClassName + " editor = (" + editorClassName + ") workbenchPart;");
 		sc.add("String uri = editor.getResource().getURI().toString();");
-		sc.add("if (uri.equals(this.uri)) {");
+		sc.add("if (uri.equals(this.editor.getResource().getURI().toString())) {");
 		sc.add("saveCodeFoldingStateFile(uri);");
 		sc.add("editor.getSite().getPage().removePartListener(this);");
 		sc.add("}");
@@ -87,10 +87,9 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private void addCloseListener(final " + editorClassName + " emfTextEditor) {");
-		sc.add("String uri = emfTextEditor.getResource().getURI().toString();");
-		sc.add("emfTextEditor.getSite().getPage().addPartListener(new EditorOnCloseListener(uri));");
-		sc.add("emfTextEditor.addBackgroundParsingListener(new FoldingUpdateListener());");
+		sc.add("private void addCloseListener(final " + editorClassName + " editor) {");
+		sc.add("editor.getSite().getPage().addPartListener(new EditorOnCloseListener(editor));");
+		sc.add("editor.addBackgroundParsingListener(new FoldingUpdateListener());");
 		sc.add("}");
 		sc.addLineBreak();
 		
