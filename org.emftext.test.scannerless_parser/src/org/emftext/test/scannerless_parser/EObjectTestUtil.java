@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.util.StringUtil;
+import org.emftext.test.grammar_features.resource.grammar_features.util.Grammar_featuresStringUtil;
 
 public class EObjectTestUtil {
 
@@ -56,7 +56,7 @@ public class EObjectTestUtil {
 								referenceValues.add(convertToString((EObject) next, false));
 							}
 						}
-						referenceValueString = StringUtil.explode(referenceValues, ";");
+						referenceValueString = Grammar_featuresStringUtil.explode(referenceValues, ";");
 					}
 					if (referenceValue == null) {
 						continue;
@@ -71,7 +71,7 @@ public class EObjectTestUtil {
 				}
 			}
 		}
-		String containedObjects = StringUtil.explode(contentStrings, ",");
+		String containedObjects = Grammar_featuresStringUtil.explode(contentStrings, ",");
 		if (!("".equals(attributes))) {
 			attributes = "(" + attributes + ")";
 		}
