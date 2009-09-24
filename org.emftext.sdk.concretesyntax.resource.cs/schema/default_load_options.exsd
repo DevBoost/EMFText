@@ -77,41 +77,41 @@
 					
 				</documentation>
 			</annotation>
-	</complexType>
-</element>
-
-<annotation>
-	<appinfo>
-		<meta.section type="since">
-		</meta.section>
-	</appinfo>
-	<documentation>
-		[Enter the first release in which this extension point appears.]	</documentation>
-</annotation>
-
-<annotation>
-	<appinfo>
-		<meta.section type="examples"/>
-	</appinfo>
-	<documentation>
-		[Enter extension point usage example here.]	</documentation>
-</annotation>
-
-<annotation>
-	<appinfo>
-		<meta.section type="apiinfo"/>
-	</appinfo>
-	<documentation>
-		[Enter API information here.]	</documentation>
-</annotation>
-
-<annotation>
-	<appinfo>
-		<meta.section type="implementation">
-		</meta.section>
-	</appinfo>
-	<documentation>
-		[Enter information about supplied implementation of this extension point.]	</documentation>
-</annotation>
+		</complexType>
+	</element>
+	
+	<annotation>
+		<appinfo>
+			<meta.section type="since">
+			</meta.section>
+		</appinfo>
+		<documentation>
+			[Enter the first release in which this extension point appears.]		</documentation>
+	</annotation>
+	
+	<annotation>
+		<appinfo>
+			<meta.section type="examples"/>
+		</appinfo>
+		<documentation>
+			[Enter extension point usage example here.]		</documentation>
+	</annotation>
+	
+	<annotation>
+		<appinfo>
+			<meta.section type="apiinfo"/>
+		</appinfo>
+		<documentation>
+			[Enter API information here.]		</documentation>
+	</annotation>
+	
+	<annotation>
+		<appinfo>
+			<meta.section type="implementation">
+			</meta.section>
+		</appinfo>
+		<documentation>
+			[Enter information about supplied implementation of this extension point.]		</documentation>
+	</annotation>
 </schema>
 

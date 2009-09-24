@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g 2009-09-24 11:20:08
+// $ANTLR 3.1.1 C:\\Projects\\Eclipse-Workspaces\\EMFText-Languages-DEV\\org.emftext.sdk.concretesyntax.resource.cs\\src-gen\\org\\emftext\\sdk\\concretesyntax\\resource\\cs\\mopp\\Cs.g 2009-09-24 12:48:35
 
 	package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
