@@ -11,7 +11,8 @@ public class CsCopiedEList<E> implements org.eclipse.emf.common.util.EList<E> {
 	public CsCopiedEList(org.eclipse.emf.common.util.EList<E> original) {
 		super();
 		this.original = original;
-		this.copy = new org.eclipse.emf.common.util.BasicEList<E>(this.original);
+		this.copy = new org.eclipse.emf.common.util.BasicEList<E>();
+		this.copy.addAll(this.original);
 	}
 	
 	public void move(int newPosition, E object) {

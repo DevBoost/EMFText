@@ -8,7 +8,8 @@ public class CsCopiedEObjectInternalEList extends org.emftext.sdk.concretesyntax
 	public CsCopiedEObjectInternalEList(org.eclipse.emf.ecore.util.InternalEList<org.eclipse.emf.ecore.EObject> original) {
 		super(original);
 		this.original = original;
-		this.copy = new org.eclipse.emf.ecore.util.BasicInternalEList<org.eclipse.emf.ecore.EObject>(org.eclipse.emf.ecore.EObject.class, this.original);
+		this.copy = new org.eclipse.emf.ecore.util.BasicInternalEList<org.eclipse.emf.ecore.EObject>(org.eclipse.emf.ecore.EObject.class);
+		this.copy.addAll(this.original);
 	}
 	
 	public boolean basicContains(java.lang.Object object) {
