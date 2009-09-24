@@ -40,9 +40,9 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_WRIT
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -181,12 +181,12 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 
 	private List<Rule> prepare() {
 		List<Rule> rules = concretSyntax.getAllRules();
-		choice2Name = new HashMap<Choice, String>(rules.size());
-		sequence2NecessaryFeatures = new HashMap<Sequence, Set<String>>(rules
+		choice2Name = new LinkedHashMap<Choice, String>(rules.size());
+		sequence2NecessaryFeatures = new LinkedHashMap<Sequence, Set<String>>(rules
 				.size());
-		sequence2ReachableFeatures = new HashMap<Sequence, Set<String>>(rules
+		sequence2ReachableFeatures = new LinkedHashMap<Sequence, Set<String>>(rules
 				.size());
-		rule2SubChoice = new HashMap<Rule, Set<Choice>>(rules.size());
+		rule2SubChoice = new LinkedHashMap<Rule, Set<Choice>>(rules.size());
 		extractChoices(rules, rule2SubChoice, choice2Name,
 				sequence2NecessaryFeatures, sequence2ReachableFeatures);
 		
