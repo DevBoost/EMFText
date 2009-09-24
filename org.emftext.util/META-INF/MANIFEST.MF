@@ -4,16 +4,14 @@ Bundle-Name: Util
 Bundle-SymbolicName: org.emftext.util
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.emftext.util
-Require-Bundle: org.emftext.runtime,
- org.emftext.runtime.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.emftext.runtime,
  org.eclipse.emf.ecore.edit,
  org.eclipse.emf.edit.ui,
  org.eclipse.ui.ide,
  org.eclipse.ui.editors,
  org.eclipse.jface.text,
  org.emftext.sdk,
- org.emftext.sdk.codegen
+ org.emftext.sdk.codegen,
+ org.emftext.sdk.concretesyntax.resource.cs
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

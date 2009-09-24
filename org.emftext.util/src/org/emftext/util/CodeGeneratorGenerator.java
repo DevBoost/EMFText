@@ -14,17 +14,16 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.emftext.runtime.util.StreamUtil;
-import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.creators.AbstractArtifactCreator;
-import org.emftext.sdk.codegen.creators.GenericArtifactCreator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.generators.IClassNameConstants;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsStreamUtil;
+import org.emftext.sdk.util.StringUtil;
 
 public class CodeGeneratorGenerator {
 
@@ -35,7 +34,7 @@ public class CodeGeneratorGenerator {
 	private String[] packageNames = new String[] {"org.emftext.runtime", "org.emftext.runtime.util", "org.emftext.runtime.resource", "org.emftext.runtime.resource.impl", };
 	private Set<String> eArtifactFields = new LinkedHashSet<String>();
 	private Set<String> overrideTypes = new LinkedHashSet<String>();
-	private int counter = 79;
+	private int counter = 114;
 	private Set<String> creatorCalls = new LinkedHashSet<String>();
 
 	public static void main(String[] args) {
@@ -71,7 +70,7 @@ public class CodeGeneratorGenerator {
 		String path = file.getPath();
 		System.out.println("handle(" + path + ")");
 		try {
-			String fileContent = StreamUtil.getContent(new FileInputStream(file));
+			String fileContent = CsStreamUtil.getContent(new FileInputStream(file));
 			String packageName = path.substring(3);
 			packageName = packageName.substring(packageName.indexOf(File.separator) + 1, packageName.length());
 			packageName = packageName.substring(packageName.indexOf(File.separator) + 1, packageName.length());
@@ -340,7 +339,10 @@ public class CodeGeneratorGenerator {
 					final boolean isInterface = name.startsWith("I");
 					final boolean isDir = pathname.isDirectory();
 					final boolean isFile = pathname.isFile();
-					return isDir || (isFile && isJavaFile && !isAbstract && isInterface);
+					boolean hasCorrectName = pathname.getName().startsWith("UnexpectedContentTypeException");
+					boolean isInCorrectPackage = pathname.getAbsolutePath().contains("org.emftext.runtime.resource.impl.code_completion".replace(".", "\\"));
+					isInCorrectPackage |= pathname.getAbsolutePath().contains("org.emftext.runtime.util".replace(".", "\\"));
+					return isDir || (isFile && isJavaFile && hasCorrectName);
 				}
 				
 			});
