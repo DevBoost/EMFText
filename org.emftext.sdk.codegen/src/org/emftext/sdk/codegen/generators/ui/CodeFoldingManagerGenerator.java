@@ -45,7 +45,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("private " + editorClassName + " editor;");
 		sc.addLineBreak();
-		sc.add("public (" + editorClassName + " editor) {");
+		sc.add("public EditorOnCloseListener(" + editorClassName + " editor) {");
 		sc.add("this.editor = editor;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -88,7 +88,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void addCloseListener(final " + editorClassName + " editor) {");
-		sc.add("editor.getSite().getPage().addPartListener(new (editor));");
+		sc.add("editor.getSite().getPage().addPartListener(new EditorOnCloseListener(editor));");
 		sc.add("editor.addBackgroundParsingListener(new FoldingUpdateListener());");
 		sc.add("}");
 		sc.addLineBreak();
