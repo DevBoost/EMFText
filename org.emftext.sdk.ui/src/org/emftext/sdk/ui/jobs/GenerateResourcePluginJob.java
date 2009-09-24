@@ -28,16 +28,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
-import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**
@@ -57,7 +57,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 	protected IStatus run(IProgressMonitor monitor) {
 
 		try {
-			final CsResource csResource = (CsResource) TextResourceUtil.getResource(csFile);
+			final CsResource csResource = CsTextResourceUtil.getResource(csFile);
 			IProblemCollector collector = new IProblemCollector() {
 				public void addProblem(GenerationProblem problem) {
 					addGenerationProblem(csResource, problem);
@@ -71,25 +71,25 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			case ERROR_ABSTRACT_SYNTAX :  {
 				// show error message, because we can not generate plug-ins for
 				// abstract syntaxes
-				EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("Abstract syntax", "Can't generate resource plug-in for abstract syntax definition.");
+				CsPlugin.getDefault().showErrorDialog("Abstract syntax", "Can't generate resource plug-in for abstract syntax definition.");
 				break;
 			}
 			case ERROR_SYNTAX_HAS_ERRORS :  {
 				// show error message, because we can not generate plug-ins for
 				// syntaxes with errors
-				EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains errors.");
+				CsPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains errors.");
 				break;
 			}
 			case ERROR_FOUND_UNRESOLVED_PROXIES :  {
 				// show error message, because we can not generate plug-ins for
 				// syntaxes dangling references
-				EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains references that can not be resolved.");
+				CsPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in, because the syntax definition contains references that can not be resolved.");
 				break;
 			}
 			case ERROR_GEN_PACKAGE_NOT_FOUND :  {
 				// show error message, because we can not generate plug-ins for
 				// syntaxes with missing generator packages
-				EMFTextRuntimeUIPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in. A generator package was not found.");
+				CsPlugin.getDefault().showErrorDialog("Errors in syntax", "Can't generate resource plug-in. A generator package was not found.");
 				break;
 			}
 			case SUCCESS :  {

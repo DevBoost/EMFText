@@ -22,8 +22,8 @@ package org.emftext.sdk.ui.jobs;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.ui.MarkerHelper;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper;
 
 /**
  * Adds errors and warning contained in the given resource as
@@ -33,10 +33,10 @@ import org.emftext.sdk.codegen.generators.IResourceMarker;
 public class WorkspaceMarker implements IResourceMarker {
 
 	public void mark(Resource resource) throws CoreException {
-		MarkerHelper.mark(resource);
+		CsMarkerHelper.mark(resource);
 	}
 
 	public void unmark(Resource resource) throws CoreException {
-		MarkerHelper.unmark(resource);
+		CsMarkerHelper.unmark(resource);
 	}
 }

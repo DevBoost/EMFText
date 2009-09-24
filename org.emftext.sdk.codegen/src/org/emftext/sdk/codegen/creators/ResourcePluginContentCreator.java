@@ -26,8 +26,8 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -46,7 +46,7 @@ public class ResourcePluginContentCreator {
 		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
 	    
 		ConcreteSyntax syntax = context.getConcreteSyntax();
-		ITextResource csResource = (ITextResource) syntax.eResource();
+		Resource csResource = syntax.eResource();
 		EcoreUtil.resolveAll(csResource);
 	    
 	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
