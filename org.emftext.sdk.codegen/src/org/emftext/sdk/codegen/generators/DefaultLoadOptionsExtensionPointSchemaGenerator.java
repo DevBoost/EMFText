@@ -99,13 +99,11 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerat
 		sc.add("</appinfo>");
 		sc.add("</annotation>");
 		sc.add("</attribute>");
-		//sc.add("<attribute name="csName" type="string" use="required">");
 		sc.add("<annotation>");
 		sc.add("<documentation>");
 		sc.addLineBreak();
 		sc.add("</documentation>");
 		sc.add("</annotation>");
-		sc.add("</attribute>");
 		sc.add("</complexType>");
 		sc.add("</element>");
 		sc.addLineBreak();
