@@ -45,7 +45,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("private " + editorClassName + " editor;");
 		sc.addLineBreak();
-		sc.add("public EditorOnCloseListener(" + editorClassName + " editor) {");
+		sc.add("public (" + editorClassName + " editor) {");
 		sc.add("this.editor = editor;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -88,7 +88,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void addCloseListener(final " + editorClassName + " editor) {");
-		sc.add("editor.getSite().getPage().addPartListener(new EditorOnCloseListener(editor));");
+		sc.add("editor.getSite().getPage().addPartListener(new (editor));");
 		sc.add("editor.addBackgroundParsingListener(new FoldingUpdateListener());");
 		sc.add("}");
 		sc.addLineBreak();
@@ -278,7 +278,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		
 		sc.add("private " + FILE + " getCodeFoldingStateFile(String uriString) {");
-		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(PLUGIN_ID);");
+		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID);");
 		sc.add(I_PATH + " path = " + PLATFORM + ".getStateLocation(bundle);");
 		sc.add("if (path == null) {");
 		sc.add("return null;");
@@ -420,8 +420,6 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 	}
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("// TODO replace this with the id of the generated plug-in");
-		sc.add("private static final String PLUGIN_ID = \"org.emftext.runtime.ui\";");
 		sc.add("private static final String VERIFY_KEY = \"verify_key\";");
 		sc.add("private static final String ANNOTATION = \"ANNOTATION\";");
 		sc.add("private static final String IS_COLLAPSED = \"IS_COLLAPED\";");
