@@ -36,7 +36,8 @@ public class CopiedEListGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "(" + E_LIST + "<E> original) {");
 		sc.add("super();");
 		sc.add("this.original = original;");
-		sc.add("this.copy = new " + BASIC_E_LIST + "<E>(this.original);");
+		sc.add("this.copy = new " + BASIC_E_LIST + "<E>();");
+		sc.add("this.copy.addAll(this.original);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void move(int newPosition, E object) {");

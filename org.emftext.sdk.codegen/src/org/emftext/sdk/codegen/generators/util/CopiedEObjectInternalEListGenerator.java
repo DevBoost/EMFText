@@ -37,7 +37,8 @@ public class CopiedEObjectInternalEListGenerator extends BaseGenerator {
 		sc.add("public " + getResourceClassName() + "(" + INTERNAL_E_LIST + "<" + E_OBJECT + "> original) {");
 		sc.add("super(original);");
 		sc.add("this.original = original;");
-		sc.add("this.copy = new " + BASIC_INTERNAL_E_LIST + "<" + E_OBJECT + ">(" + E_OBJECT + ".class, this.original);");
+		sc.add("this.copy = new " + BASIC_INTERNAL_E_LIST + "<" + E_OBJECT + ">(" + E_OBJECT + ".class);");
+		sc.add("this.copy.addAll(this.original);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean basicContains(" + OBJECT + " object) {");
