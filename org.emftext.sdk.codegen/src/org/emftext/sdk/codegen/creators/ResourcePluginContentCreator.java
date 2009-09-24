@@ -50,7 +50,7 @@ public class ResourcePluginContentCreator {
 		EcoreUtil.resolveAll(csResource);
 	    
 	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
-	    creators.add(new SourceFoldersCreator());
+	    creators.add(new FoldersCreator());
 	    creators.add(new DotClasspathCreator());
 	    creators.add(new DotProjectCreator());
 	    creators.add(new BuildPropertiesCreator());
@@ -70,6 +70,7 @@ public class ResourcePluginContentCreator {
 	    	creators.add(new EmptyClassCreator(context.getFile(EArtifact.SCANNERLESS_PARSER), EArtifact.PACKAGE_MOPP, context.getClassName(EArtifact.SCANNERLESS_PARSER), OptionTypes.OVERRIDE_PARSER));
 	    }
 	    creators.add(new PluginXMLCreator());
+	    creators.add(new DefaultLoadOptionsExtensionPointSchemaCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE));
 	    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE_FACTORY));
 	    creators.add(new PrinterBaseCreator());

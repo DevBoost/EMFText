@@ -281,6 +281,8 @@
     <eLiterals name="OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION" value="134" literal="overrideUnexpectedContentTypeException"/>
     <eLiterals name="OVERRIDE_TEXT_TOKEN" value="135" literal="overrideTextToken"/>
     <eLiterals name="SOURCE_GEN_FOLDER" value="136" literal="srcGenFolder"/>
+    <eLiterals name="OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA" value="137"
+        literal="overrideDefaultLoadOptionsExtensionPointSchema"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

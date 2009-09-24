@@ -265,7 +265,7 @@ public enum EArtifact {
 	PACKAGE_ANALYSIS(ANALYSIS_PACKAGE, "analysis", "analysis", null, null),      
 	PACKAGE_CC(MOPP_PACKAGE, "", "", null, null),
 	PACKAGE_UI(UI_PACKAGE, "", "", null, null),
-	PACKAGE_UTIL(UTIL_PACKAGE, "", "", null, null),
+	PACKAGE_UTIL(UTIL_PACKAGE, "", "", null, null), 
 	;
 	
 	private String classNamePrefix;

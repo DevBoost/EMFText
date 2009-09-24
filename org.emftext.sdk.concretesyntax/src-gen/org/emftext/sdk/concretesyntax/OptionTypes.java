@@ -1238,7 +1238,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SOURCE_GEN_FOLDER(136, "SOURCE_GEN_FOLDER", "srcGenFolder");
+	SOURCE_GEN_FOLDER(136, "SOURCE_GEN_FOLDER", "srcGenFolder"), /**
+	 * The '<em><b>OVERRIDE DEFAULT LOAD OPTIONS EXTENSION POINT SCHEMA</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA(137, "OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA", "overrideDefaultLoadOptionsExtensionPointSchema");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3296,6 +3304,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int SOURCE_GEN_FOLDER_VALUE = 136;
 
 	/**
+	 * The '<em><b>OVERRIDE DEFAULT LOAD OPTIONS EXTENSION POINT SCHEMA</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE DEFAULT LOAD OPTIONS EXTENSION POINT SCHEMA</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA
+	 * @model literal="overrideDefaultLoadOptionsExtensionPointSchema"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA_VALUE = 137;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3440,6 +3463,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION,
 			OVERRIDE_TEXT_TOKEN,
 			SOURCE_GEN_FOLDER,
+			OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA,
 		};
 
 	/**
@@ -3626,6 +3650,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION_VALUE: return OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION;
 			case OVERRIDE_TEXT_TOKEN_VALUE: return OVERRIDE_TEXT_TOKEN;
 			case SOURCE_GEN_FOLDER_VALUE: return SOURCE_GEN_FOLDER;
+			case OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA_VALUE: return OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA;
 		}
 		return null;
 	}

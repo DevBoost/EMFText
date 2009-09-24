@@ -56,6 +56,7 @@ public abstract class GenerationContext {
 	private static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
 	private static final String DEFAULT_EDITOR_ICON_NAME = "editor_icon.gif";
 	private static final String DEFAULT_ICON_DIR = "icons";
+	private static final String SCHEMA_DIR = "schema";
 	
 	private final NameUtil nameUtil = new NameUtil();
 
@@ -179,6 +180,10 @@ public abstract class GenerationContext {
 		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + DEFAULT_ICON_DIR);
 	}
 
+	public File getSchemaFolder() {
+		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + SCHEMA_DIR);
+	}
+	
 	public File getNewIconFile() {
 		return new File(getIconsDir().getAbsolutePath() + File.separator + DEFAULT_NEW_ICON_NAME);
 	}
