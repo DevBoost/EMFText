@@ -70,7 +70,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
-import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.LeftRecursionDetector;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
@@ -104,6 +103,7 @@ import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * The text parser generator maps from one or more concrete syntaxes (*.cs) and

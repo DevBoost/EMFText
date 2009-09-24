@@ -39,8 +39,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.util.EObjectUtil;
-import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GeneratorUtil;
@@ -73,6 +71,8 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.regex.ANTLRexpLexer;
 import org.emftext.sdk.regex.ANTLRexpParser;
+import org.emftext.sdk.util.EObjectUtil;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * An experimental implementation of a Packrat parser. Currently a 

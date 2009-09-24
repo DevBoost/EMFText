@@ -23,7 +23,7 @@ package org.emftext.sdk.finders;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
@@ -48,7 +48,7 @@ public class GenPackageByNameFinder extends GenPackageInFileFinder {
 		try {
 			return findGenPackage(getSyntax(container), nsURI, rs, genModelURI);
 		} catch (Exception e) {
-    		EMFTextRuntimePlugin.logError("Error searching for generator model " + nsURI, e);
+    		EMFTextSDKPlugin.logError("Error searching for generator model " + nsURI, e);
 		}
 		
 		return null;

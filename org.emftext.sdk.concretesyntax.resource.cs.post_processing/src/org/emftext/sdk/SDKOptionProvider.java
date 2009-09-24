@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.emftext.runtime.IOptions;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsOptions;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
 import org.emftext.sdk.syntax_analysis.ChoiceAnalyser;
 import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
@@ -111,7 +111,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		
 		postProcessors.add(new SuppressWarnings());
 		
-		options.put(IOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
+		options.put(ICsOptions.RESOURCE_POSTPROCESSOR_PROVIDER, postProcessors);
 		
 		return options;
 	}

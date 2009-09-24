@@ -26,7 +26,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
@@ -70,7 +70,7 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			EMFTextRuntimePlugin.logError("Exception while looking for generator package.", e);
+			EMFTextSDKPlugin.logError("Exception while looking for generator package.", e);
 		}
 		
 		return null;

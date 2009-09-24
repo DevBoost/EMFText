@@ -27,7 +27,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
@@ -39,6 +38,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -101,7 +101,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 	private Collection<Terminal> findUnchangeableReferences(
 			ConcreteSyntax syntax) {
 		Collection<Terminal> unchangeableReferences = new ArrayList<Terminal>(); 
-		Collection<Terminal> teminals = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
+		Collection<Terminal> teminals = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
 		for (Terminal terminal : teminals) {
 			if (!terminal.getFeature().isChangeable()) {
 				unchangeableReferences.add(terminal);
@@ -133,7 +133,7 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 			Collection<Containment> cReferencesToClassesWithoutSyntax,
 			Collection<Placeholder> ncReferencesToAbstractClassesWithoutConcreteSubtypes) {
 		
-		Collection<Terminal> terminals = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
+		Collection<Terminal> terminals = CsEObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
 		for (Terminal terminal : terminals) {
 			GenClass genFeatureType = getGenFeatureType(terminal);
 			if (genFeatureType == null) {

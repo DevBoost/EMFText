@@ -1,12 +1,18 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_UTIL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
+
+import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-
-import java.io.PrintWriter;
 
 public class ContextDependentURIFragmentGenerator extends BaseGenerator {
 

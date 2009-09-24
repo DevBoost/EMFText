@@ -23,13 +23,13 @@ package org.emftext.sdk;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.util.ResourceUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsResourceUtil;
 
 /**
  * An abstract super class for all post processors. It tries to resolve all 
@@ -53,7 +53,7 @@ public abstract class AbstractPostProcessor implements ICsResourcePostProcessorP
 		}
 		if (doResolveProxiesBeforeAnalysis()) {
 			// TODO it is sufficient to do this once (for the first post processor)
-			if (!ResourceUtil.resolveAll(resource)) {
+			if (!CsResourceUtil.resolveAll(resource)) {
 				return;
 			}
 		}

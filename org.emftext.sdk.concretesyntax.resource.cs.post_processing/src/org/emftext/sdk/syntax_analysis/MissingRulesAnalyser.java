@@ -26,12 +26,12 @@ import java.util.Set;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.emftext.runtime.util.EClassUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEClassUtil;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -41,7 +41,7 @@ import org.emftext.sdk.finders.GenClassFinder;
 public class MissingRulesAnalyser extends AbstractPostProcessor {
 
 	private static final String NO_RULE_FOR_META_CLASS = "There is no rule for concrete meta class: ";
-	private static final EClassUtil eClassUtil = new EClassUtil();
+	private static final CsEClassUtil eClassUtil = new CsEClassUtil();
 
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {

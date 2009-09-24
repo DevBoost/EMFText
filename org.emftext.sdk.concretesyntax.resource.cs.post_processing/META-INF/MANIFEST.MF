@@ -13,7 +13,6 @@ Require-Bundle: org.emftext.sdk.concretesyntax,
  org.eclipse.emf.workspace,
  org.emftext.runtime.antlr,
  org.emftext.sdk.automaton,
- org.emftext.runtime,
  org.emftext.sdk
 Export-Package: org.emftext.sdk,
  org.emftext.sdk.syntax_analysis,

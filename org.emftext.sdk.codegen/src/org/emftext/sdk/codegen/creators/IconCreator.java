@@ -25,11 +25,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.util.StreamUtil;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.util.StreamUtil;
 
 /**
  * Creates default icons for the editor and the NewFileWizard of 
@@ -58,7 +58,7 @@ public class IconCreator implements IArtifactCreator {
 			fos.close();
 		} catch (IOException e) {
 			context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying new file icon.", null, GenerationProblem.Severity.ERROR, e));
-			EMFTextRuntimePlugin.logError("Error while copying icon.", e);
+			EMFTextSDKPlugin.logError("Error while copying icon.", e);
 		}
 	}
 

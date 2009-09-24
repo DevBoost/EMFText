@@ -3,7 +3,6 @@ package org.emftext.sdk.syntax_analysis;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -13,6 +12,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 /**
  * A analyser that checks that all token styles refer either to
@@ -28,7 +28,7 @@ public class TokenStyleAnalyser extends AbstractPostProcessor {
 		// on the syntax is not sufficient, because imported rules are not
 		// contained in eAllContents().
 		for (Rule rule : syntax.getAllRules()) {
-			Collection<CsString> csStringsInRule = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
+			Collection<CsString> csStringsInRule = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 			csStrings.addAll(csStringsInRule);
 		}
 

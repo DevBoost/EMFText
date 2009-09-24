@@ -36,8 +36,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextResource;
+import org.emftext.sdk.EMFTextSDKPlugin;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 
 /**
  * A simple Action class for loading model instances from EMFText resources
@@ -71,7 +71,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 		String path = currentSelection.getFullPath().toString();
 		String inName = currentSelection.getName();
 		String outName = "test" + inName;
-		ITextResource currentTextResource = (ITextResource) resourceSet
+		ICsTextResource currentTextResource = (ICsTextResource) resourceSet
 				.getResource(URI.createPlatformResourceURI(path, true), true);
 		try {
 			currentTextResource.load(currentSelection.getContents(), null);
@@ -92,7 +92,7 @@ public class ValidateParserPrinterAction implements IObjectActionDelegate {
 			Shell shell = new Shell();
 			MessageDialog.openInformation(shell, e.getClass().getName(), e
 					.getMessage());
-        	EMFTextRuntimePlugin.logError("Exception while running validate parser action.", e);
+        	EMFTextSDKPlugin.logError("Exception while running validate parser action.", e);
 			return;
 		}
 

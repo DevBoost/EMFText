@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.emftext.runtime.util.UnicodeConverter;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.util.UnicodeConverter;
 
 import dk.brics.automaton.Automaton;
 import dk.brics.automaton.RegExp;

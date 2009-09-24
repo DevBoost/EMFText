@@ -13,8 +13,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.emftext.runtime.util.EObjectUtil;
-import org.emftext.runtime.util.StringUtil;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -32,6 +30,8 @@ import org.emftext.sdk.concretesyntax.FontStyle;
 import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenStyle;
+import org.emftext.sdk.util.EObjectUtil;
+import org.emftext.sdk.util.StringUtil;
 
 // TODO generate information that changes frequently (token styles, classes with syntax, brackets) to
 // separate classes

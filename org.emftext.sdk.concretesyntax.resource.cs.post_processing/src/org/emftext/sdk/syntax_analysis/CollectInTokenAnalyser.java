@@ -2,7 +2,6 @@ package org.emftext.sdk.syntax_analysis;
 
 import java.util.Collection;
 
-import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
@@ -11,6 +10,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 public class CollectInTokenAnalyser extends AbstractPostProcessor {
 
@@ -20,7 +20,7 @@ public class CollectInTokenAnalyser extends AbstractPostProcessor {
 	@Override
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		for (Rule rule : syntax.getAllRules()) {
-			Collection<Placeholder> placeholders = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
+			Collection<Placeholder> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
 			for (Placeholder placeholder : placeholders) {
 				TokenDefinition token = placeholder.getToken();
 				if (token.getAttributeName() != null) {

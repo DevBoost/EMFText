@@ -410,7 +410,6 @@ public class IClassNameConstants {
 	public static String I_CONTENT_ASSISTANT = IContentAssistant.class.getName();
 	public static String I_CONTENT_ASSIST_PROCESSOR = IContentAssistProcessor.class.getName();
 	public static String I_CONTENT_OUTLINE_PAGE = IContentOutlinePage.class.getName();
-	public static String I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY = org.emftext.runtime.resource.IContextDependentURIFragmentFactory.class.getName();
 	public static String I_CONTEXT_INFORMATION = IContextInformation.class.getName();
 	public static String I_CONTEXT_INFORMATION_VALIDATOR = IContextInformationValidator.class.getName();
 	public static String I_DELAYED_INPUT_CHANGE_PROVIDER = IDelayedInputChangeProvider.class.getName();
@@ -449,7 +448,6 @@ public class IClassNameConstants {
 	public static String I_RESOURCE_CHANGE_LISTENER = IResourceChangeListener.class.getName();
 	public static String I_RESOURCE_DELTA = IResourceDelta.class.getName();
 	public static String I_RESOURCE_DELTA_VISITOR = IResourceDeltaVisitor.class.getName();
-	public static String I_RESOURCE_POST_PROCESSOR_PROVIDER = org.emftext.runtime.IResourcePostProcessorProvider.class.getName();
 	public static String I_RUNNABLE_WITH_PROGRESS = IRunnableWithProgress.class.getName();
 	public static String I_SELECTION = ISelection.class.getName();
 	public static String NEW_WIZARD = NewWizard.class.getName();

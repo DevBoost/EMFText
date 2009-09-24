@@ -13,5 +13,5 @@ Export-Package: antlr,antlr.ASdebug,antlr.actions.cpp,antlr.actions.cs
  ocessor,org.antlr,org.antlr.analysis,org.antlr.codegen,org.antlr.guni
  t,org.antlr.misc,org.antlr.stringtemplate,org.antlr.stringtemplate.la
  nguage,org.antlr.stringtemplate.misc,org.antlr.tool
-Require-Bundle: org.emftext.runtime.antlr
+Require-Bundle: org.emftext.runtime.antlr;visibility:=reexport
 

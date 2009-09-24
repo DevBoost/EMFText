@@ -25,7 +25,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.access.EMFTextAccessPlugin;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -39,18 +39,22 @@ public class ConcreteSyntaxInRegistryFinder implements IConcreteSyntaxFinder {
 		ResourceSet rs = resource.getResourceSet();
 		
 		//find all registered concrete syntax definitions
-        final Map<String, URI> uriToCSLocationMap = EMFTextRuntimePlugin.getURIToConcreteSyntaxLocationMap();
-		for (String candCsURI : uriToCSLocationMap.keySet()) {
-        	URI csLocation = uriToCSLocationMap.get(csURI);
-        	if (csLocation == null) {
-        		continue;
-        	}
-        	Resource csResource = rs.getResource(csLocation, true);
-        	ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
-        	if (csURI.equals(candCsURI)) {
-        		return new ConcreteSyntaxFinderResult(concreteSyntax);
-        	}
-        }
+		try {
+	        final Map<String, URI> uriToCSLocationMap = EMFTextAccessPlugin.getURIToConcreteSyntaxLocationMap();
+			for (String candCsURI : uriToCSLocationMap.keySet()) {
+	        	URI csLocation = uriToCSLocationMap.get(csURI);
+	        	if (csLocation == null) {
+	        		continue;
+	        	}
+	        	Resource csResource = rs.getResource(csLocation, true);
+	        	ConcreteSyntax concreteSyntax = (ConcreteSyntax) csResource.getContents().get(0);
+	        	if (csURI.equals(candCsURI)) {
+	        		return new ConcreteSyntaxFinderResult(concreteSyntax);
+	        	}
+	        }
+		} catch (NoClassDefFoundError e) {
+			//if the access plugin is not available!
+		}
 		return null;
 	}
 }

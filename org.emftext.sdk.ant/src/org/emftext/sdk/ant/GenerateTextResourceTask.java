@@ -36,13 +36,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.util.TextResourceUtil;
 import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsTextResourceUtil;
 
 /**
  * A custom task for the ANT build tool that generates
@@ -84,7 +84,7 @@ public class GenerateTextResourceTask extends Task {
 		registerResourceFactories();
 		try {
 			log("loading syntax file...");
-			ITextResource csResource = TextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
+			ICsTextResource csResource = CsTextResourceUtil.getResource(syntaxFile, new SDKOptionProvider().getOptions());
 			EList<EObject> contents = csResource.getContents();
 			if (contents.size() < 1) {
 				throw new BuildException("Generation failed, because the syntax file could not be loaded. Probably it contains syntactical errors.");

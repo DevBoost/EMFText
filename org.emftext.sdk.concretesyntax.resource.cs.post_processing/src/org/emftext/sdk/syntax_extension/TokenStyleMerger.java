@@ -3,7 +3,6 @@ package org.emftext.sdk.syntax_extension;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
-import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
@@ -16,6 +15,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenStyle;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
 public class TokenStyleMerger extends AbstractPostProcessor {
 
@@ -65,7 +65,7 @@ public class TokenStyleMerger extends AbstractPostProcessor {
 
 	private void addTokenStylesForQuotedTokens(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
 		for (Rule rule : syntax.getAllRules()) {
-			Collection<PlaceholderInQuotes> placeholders = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
+			Collection<PlaceholderInQuotes> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
 			for (PlaceholderInQuotes placeholder : placeholders) {
 				String tokenName = placeholder.getToken().getName();
 
@@ -79,7 +79,7 @@ public class TokenStyleMerger extends AbstractPostProcessor {
 
 	private void addTokenStylesForKeywords(ConcreteSyntax syntax, EList<TokenStyle> allStyles) {
 		for (Rule rule : syntax.getAllRules()) {
-			Collection<CsString> csStrings = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
+			Collection<CsString> csStrings = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
 			for (CsString csString : csStrings) {
 				if (csString.getValue().matches("([a-z]|[A-Z]|[:]|[-])+")) {
 					TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();

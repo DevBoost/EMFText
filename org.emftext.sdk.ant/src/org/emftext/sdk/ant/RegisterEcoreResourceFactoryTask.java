@@ -27,7 +27,7 @@ import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.util.MapUtil;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil;
 
 /**
  * A custom ANT task that loads a model using
@@ -70,7 +70,7 @@ public class RegisterEcoreResourceFactoryTask extends Task {
 		try {
 			Class<?> factoryClass = Class.forName(ecoreEcoreResourceFactoryDelegatorClassName);
 			Method m = factoryClass.getMethod("getEcoreResourceFactoriesMap");
-			Map<Object, Object> ecoreFactoriesMap = MapUtil.castToMap(m.invoke(ecoreFactoryDelagator, (Object[]) null));
+			Map<Object, Object> ecoreFactoriesMap = CsMapUtil.castToMap(m.invoke(ecoreFactoryDelagator, (Object[]) null));
 			if (!ecoreFactoriesMap.containsKey(getType())) {
 				ecoreFactoriesMap.put(getType(), newEcoreFactory);
 			}

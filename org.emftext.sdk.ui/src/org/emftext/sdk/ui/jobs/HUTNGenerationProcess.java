@@ -51,7 +51,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.util.GenClassCache;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -159,7 +159,7 @@ public class HUTNGenerationProcess implements IRunnableWithProgress {
 				csResource.save(null);
 			} catch (IOException e) {
 	        	// TODO cwende: this exception should be shown to the user
-				EMFTextRuntimePlugin.logError("Exception while saving resource.", e);
+				EMFTextSDKPlugin.logError("Exception while saving resource.", e);
 			}
 	}
 

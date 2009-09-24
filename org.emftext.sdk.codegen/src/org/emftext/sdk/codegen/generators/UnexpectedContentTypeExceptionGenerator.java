@@ -1,9 +1,12 @@
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.GenerationContext;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
+
 import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 
 public class UnexpectedContentTypeExceptionGenerator extends BaseGenerator {

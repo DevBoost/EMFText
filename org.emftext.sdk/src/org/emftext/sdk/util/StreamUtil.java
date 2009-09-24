@@ -1,0 +1,30 @@
+package org.emftext.sdk.util;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+
+public class StreamUtil {
+	
+	private final static int IO_BUFFER_SIZE = 4 * 1024;
+	   
+	public static void copy(InputStream in, OutputStream out) throws IOException {
+		byte[] b = new byte[IO_BUFFER_SIZE];
+		int read;
+		while ((read = in.read(b)) != -1) {
+			out.write(b, 0, read);
+		}
+		out.flush();
+	}
+
+	public static String getContent(InputStream inputStream) throws IOException {
+		StringBuffer content = new StringBuffer();
+		InputStreamReader reader = new InputStreamReader(inputStream);
+		int next = -1;
+		while ((next = reader.read()) >= 0) {
+			content.append((char) next);
+		}
+		return content.toString();
+	}
+}

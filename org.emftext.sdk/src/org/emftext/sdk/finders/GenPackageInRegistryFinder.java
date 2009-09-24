@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
@@ -77,7 +77,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	    		// this is a workaround for Eclipse Bug 288208
 	    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=288208
 	    		if (!genModelURI.toString().startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml")) {
-		    		EMFTextRuntimePlugin.logError("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
+		    		EMFTextSDKPlugin.logError("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
 	    		}
 	    	}
         }

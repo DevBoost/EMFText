@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.ui.jobs.HUTNGenerationProcess;
 
 /**
@@ -91,13 +91,13 @@ public class GenerateHUTNAction implements IObjectActionDelegate {
         	Shell shell = new Shell();
 			MessageDialog.openInformation(shell, e.getClass().getName(), e
 					.getMessage());
-        	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
+        	EMFTextSDKPlugin.logError("Exception while generating HUTN syntax.", e);
         }
         catch (InterruptedException e) {
         	Shell shell = new Shell();
 			MessageDialog.openInformation(shell, e.getClass().getName(), e
 					.getMessage());
-        	EMFTextRuntimePlugin.logError("Exception while generating HUTN syntax.", e);
+        	EMFTextSDKPlugin.logError("Exception while generating HUTN syntax.", e);
         }
      }
     

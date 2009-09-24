@@ -20,7 +20,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_NEW_WIZARD;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
@@ -33,7 +32,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INVOCATION_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTAINER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_FILE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.NEW_WIZARD;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_NEW_WIZARD;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROGRESS_MONITOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RUNNABLE_WITH_PROGRESS;
@@ -45,6 +44,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKSPACE_ROOT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MESSAGE_BOX;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MESSAGE_DIALOG;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.NEW_WIZARD;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PART_INIT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PLATFORM_UI;

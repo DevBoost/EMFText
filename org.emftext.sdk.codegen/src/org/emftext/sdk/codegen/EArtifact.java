@@ -7,10 +7,6 @@ import static org.emftext.sdk.Constants.ROOT_PACKAGE;
 import static org.emftext.sdk.Constants.UI_PACKAGE;
 import static org.emftext.sdk.Constants.UTIL_PACKAGE;
 
-import org.emftext.runtime.resource.IHoverTextProvider;
-import org.emftext.runtime.resource.IParseResult;
-import org.emftext.runtime.resource.ITextResourcePluginMetaInformation;
-import org.emftext.runtime.resource.ITokenResolverFactory;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRParserBaseGenerator;
@@ -153,11 +149,11 @@ public enum EArtifact {
 	PRINTER_BASE(MOPP_PACKAGE, "", "PrinterBase", null, OptionTypes.OVERRIDE_PRINTER_BASE),
 	RESOURCE(MOPP_PACKAGE, "", "Resource", new TextResourceGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE),
 	RESOURCE_FACTORY(MOPP_PACKAGE, "", "ResourceFactory", new ResourceFactoryGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY),
-	TOKEN_RESOLVER_FACTORY(MOPP_PACKAGE, "", ITokenResolverFactory.class.getSimpleName().substring(1), new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
+	TOKEN_RESOLVER_FACTORY(MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
 	REFERENCE_RESOLVER_SWITCH(MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
-	META_INFORMATION(MOPP_PACKAGE, "", ITextResourcePluginMetaInformation.class.getSimpleName().substring("ITextResourcePlugin".length()), new PluginMetaInformationGenerator(), OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS), 
-	HOVER_TEXT_PROVIDER(MOPP_PACKAGE, "", IHoverTextProvider.class.getSimpleName().substring(1), new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
-	PARSE_RESULT(MOPP_PACKAGE, "", IParseResult.class.getSimpleName().substring(1), new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
+	META_INFORMATION(MOPP_PACKAGE, "", "TextResourcePluginMetaInformation", new PluginMetaInformationGenerator(), OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS), 
+	HOVER_TEXT_PROVIDER(MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
+	PARSE_RESULT(MOPP_PACKAGE, "", "ParseResult", new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
 	PLUGIN_ACTIVATOR(MOPP_PACKAGE, "", "Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),
 	TEXT_TOKEN(MOPP_PACKAGE, "", "TextToken", new TextTokenGenerator(), OptionTypes.OVERRIDE_TEXT_TOKEN),
 	TERMINATE_PARSING_EXCEPTION(MOPP_PACKAGE, "", "TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION),

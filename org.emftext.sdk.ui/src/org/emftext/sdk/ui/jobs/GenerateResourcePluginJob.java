@@ -27,7 +27,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
@@ -97,7 +97,7 @@ public class GenerateResourcePluginJob extends AbstractConcreteSyntaxJob {
 			}
 			}
 		} catch (Exception e) {
-			EMFTextRuntimePlugin.logError("Exception while generating resource plug-in.", e);
+			EMFTextSDKPlugin.logError("Exception while generating resource plug-in.", e);
 			return new Status(Status.ERROR, EMFTextSDKUIPlugin.PLUGIN_ID, CoreException.class.getSimpleName(), new InvocationTargetException(e));
 		}
 		return Status.OK_STATUS;

@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.emftext.runtime.EMFTextRuntimePlugin;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.MetamodelManager;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -137,7 +137,7 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 		            		Resource genModelResource = rs.getResource(genModelURI, true);
 		        			return (GenModel) genModelResource.getContents().get(0);
 		            	} catch (Exception e) {
-		            		EMFTextRuntimePlugin.logError("Error while updating genmodel " + file, e);
+		            		EMFTextSDKPlugin.logError("Error while updating genmodel " + file, e);
 		            	}
 		        	}
 				}

@@ -31,8 +31,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.util.StreamUtil;
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -40,6 +39,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.util.StreamUtil;
 
 /**
  * An abstract superclass for all creators that handles overriding
@@ -115,7 +115,7 @@ public abstract class AbstractArtifactCreator implements IArtifactCreator {
 			// case if an exception this method returns null. This is then
 			// handled in createArtifact() by adding a generation problem
 			// to the problem collector
-			EMFTextRuntimePlugin.logError("Exception while invoking code generator.", e);
+			EMFTextSDKPlugin.logError("Exception while invoking code generator.", e);
 		} finally {
 			out.close();
 			Collection<GenerationProblem> collectedProblems = generator.getCollectedProblems();

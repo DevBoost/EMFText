@@ -20,8 +20,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.util;
 
-import static org.emftext.runtime.util.StringUtil.capitalize;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,8 +33,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.emftext.runtime.util.EClassUtil;
-import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
@@ -52,6 +48,9 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.util.EClassUtil;
+import org.emftext.sdk.util.EObjectUtil;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * A utility class that provides methods used by the code generators
@@ -261,7 +260,7 @@ public class ConcreteSyntaxUtil {
 	}
 
 	public String getReferenceResolverClassName(GenFeature proxyReference) {
-		return proxyReference.getGenClass().getName() + capitalize(proxyReference.getName()) + Constants.CLASS_SUFFIX_REFERENCE_RESOLVER;
+		return proxyReference.getGenClass().getName() + StringUtil.capitalize(proxyReference.getName()) + Constants.CLASS_SUFFIX_REFERENCE_RESOLVER;
 	}
 
 	public String getTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {
@@ -280,7 +279,7 @@ public class ConcreteSyntaxUtil {
 		String csName = "";
 		String[] csNameParts = syntax.getName().split("\\.");
 		for(String part : csNameParts) {
-			csName = csName + capitalize(part);
+			csName = csName + StringUtil.capitalize(part);
 		}
 		return csName;
 	}
