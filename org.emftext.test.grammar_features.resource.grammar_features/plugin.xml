@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.emftext.access.syntax">
-		<metaInformationProvider class="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresMetaInformation" id="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresMetaInformation">
+		<metaInformationProvider class="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresTextResourcePluginMetaInformation" id="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresTextResourcePluginMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
@@ -31,11 +31,14 @@
 		<initializer class="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresPreferenceInitializer">
 		</initializer>
 	</extension>
+	
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresNewFileWizard" id="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresNewFileWizard" name="EMFText .grammar_features file">
 		</wizard>
 	</extension>
+	
+	<extension-point id="org.emftext.test.grammar_features.resource.grammar_features.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
 	
 </plugin>

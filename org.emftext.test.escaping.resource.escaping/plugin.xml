@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.emftext.access.syntax">
-		<metaInformationProvider class="org.emftext.test.escaping.resource.escaping.mopp.EscapingMetaInformation" id="org.emftext.test.escaping.resource.escaping.mopp.EscapingMetaInformation">
+		<metaInformationProvider class="org.emftext.test.escaping.resource.escaping.mopp.EscapingTextResourcePluginMetaInformation" id="org.emftext.test.escaping.resource.escaping.mopp.EscapingTextResourcePluginMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
@@ -31,11 +31,14 @@
 		<initializer class="org.emftext.test.escaping.resource.escaping.ui.EscapingPreferenceInitializer">
 		</initializer>
 	</extension>
+	
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.escaping.resource.escaping.ui.EscapingNewFileWizard" id="org.emftext.test.escaping.resource.escaping.ui.EscapingNewFileWizard" name="EMFText .escaping file">
 		</wizard>
 	</extension>
+	
+	<extension-point id="org.emftext.test.escaping.resource.escaping.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
 	
 </plugin>

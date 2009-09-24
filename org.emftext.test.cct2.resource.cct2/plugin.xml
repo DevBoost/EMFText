@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.emftext.access.syntax">
-		<metaInformationProvider class="org.emftext.test.cct2.resource.cct2.mopp.Cct2MetaInformation" id="org.emftext.test.cct2.resource.cct2.mopp.Cct2MetaInformation">
+		<metaInformationProvider class="org.emftext.test.cct2.resource.cct2.mopp.Cct2TextResourcePluginMetaInformation" id="org.emftext.test.cct2.resource.cct2.mopp.Cct2TextResourcePluginMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
@@ -31,11 +31,14 @@
 		<initializer class="org.emftext.test.cct2.resource.cct2.ui.Cct2PreferenceInitializer">
 		</initializer>
 	</extension>
+	
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.cct2.resource.cct2.ui.Cct2NewFileWizard" id="org.emftext.test.cct2.resource.cct2.ui.Cct2NewFileWizard" name="EMFText .cct2 file">
 		</wizard>
 	</extension>
+	
+	<extension-point id="org.emftext.test.cct2.resource.cct2.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
 	
 </plugin>
