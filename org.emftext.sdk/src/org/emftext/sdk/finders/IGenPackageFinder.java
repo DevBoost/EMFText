@@ -20,7 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
-import org.emftext.runtime.resource.ITextResource;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
@@ -39,5 +39,5 @@ public interface IGenPackageFinder {
 	 *                 shall be preferred)
 	 * @return
 	 */
-	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource);
+	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource);
 }

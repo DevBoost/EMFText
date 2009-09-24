@@ -24,9 +24,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
@@ -37,7 +37,7 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	
 	private Set<String> faultyHints = new HashSet<String>();
 	
-	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
+	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource) {
 		if (locationHint == null) {
 			return null;
 		}
@@ -55,7 +55,7 @@ public class GenPackageByHintFinder extends GenPackageInFileFinder {
 	 * @param platformString
 	 * @return
 	 */
-	private IGenPackageFinderResult findGenPackageUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
+	private IGenPackageFinderResult findGenPackageUsingHint(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource) {
 		if (resource == null) {
 			return null;
 		}

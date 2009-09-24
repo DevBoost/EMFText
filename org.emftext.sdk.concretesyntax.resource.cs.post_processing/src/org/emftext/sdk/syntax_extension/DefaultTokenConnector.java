@@ -23,14 +23,14 @@ package org.emftext.sdk.syntax_extension;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.codegen.EPredefinedTokens;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * The DefaultTokenConnector looks for PlaceholderUsingDefaultToken. 

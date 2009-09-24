@@ -24,9 +24,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.emftext.runtime.IOptionProvider;
 import org.emftext.runtime.IOptions;
-import org.emftext.runtime.IResourcePostProcessorProvider;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsOptionProvider;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
 import org.emftext.sdk.syntax_analysis.ChoiceAnalyser;
 import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
 import org.emftext.sdk.syntax_analysis.CyclicImportAnalyser;
@@ -53,9 +53,9 @@ import org.emftext.sdk.syntax_analysis.UnusedFeatureAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedResolverAnalyser;
 import org.emftext.sdk.syntax_analysis.UnusedTokenAnalyser;
 import org.emftext.sdk.syntax_annotations.SuppressWarnings;
+import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
 import org.emftext.sdk.syntax_extension.DerivedTokenCreator;
 import org.emftext.sdk.syntax_extension.PredefinedTokenAdder;
-import org.emftext.sdk.syntax_extension.DefaultTokenConnector;
 import org.emftext.sdk.syntax_extension.TokenDefinitionMerger;
 import org.emftext.sdk.syntax_extension.TokenStyleMerger;
 
@@ -66,12 +66,12 @@ import org.emftext.sdk.syntax_extension.TokenStyleMerger;
  * checks for cases which might cause problems when parsed 
  * resources are printed are detected.
  */
-public class SDKOptionProvider implements IOptionProvider {
+public class SDKOptionProvider implements ICsOptionProvider {
 
 	public Map<?, ?> getOptions() {
 		Map<String, Object> options = new HashMap<String, Object>();
 
-		LinkedList<IResourcePostProcessorProvider> postProcessors = new LinkedList<IResourcePostProcessorProvider>();
+		LinkedList<ICsResourcePostProcessorProvider> postProcessors = new LinkedList<ICsResourcePostProcessorProvider>();
 		// first: check the generator model and make sure that there
 		// are not cycles in the imports
 		postProcessors.add(new GenModelAnalyser());

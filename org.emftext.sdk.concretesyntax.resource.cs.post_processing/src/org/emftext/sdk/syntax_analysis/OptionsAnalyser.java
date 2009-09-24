@@ -24,12 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Option;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * A post processor that checks whether the values for all code generation

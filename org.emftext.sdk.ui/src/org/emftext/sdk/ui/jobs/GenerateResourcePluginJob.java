@@ -30,14 +30,14 @@ import org.eclipse.core.runtime.Status;
 import org.emftext.runtime.EMFTextRuntimePlugin;
 import org.emftext.runtime.ui.EMFTextRuntimeUIPlugin;
 import org.emftext.runtime.util.TextResourceUtil;
-import org.emftext.sdk.CsProblem;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 import org.emftext.sdk.ui.EMFTextSDKUIPlugin;
 
 /**

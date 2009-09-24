@@ -20,7 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.finders;
 
-import org.emftext.runtime.resource.ITextResource;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.Import;
 
 /**
@@ -36,5 +36,5 @@ public interface IConcreteSyntaxFinder {
 	 * @param resource the resource that triggered the search
 	 * @return
 	 */
-	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, String locationHint,  Import container, ITextResource resource);
+	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, String locationHint,  Import container, Resource resource);
 }

@@ -22,7 +22,6 @@ package org.emftext.sdk.syntax_extension;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.codegen.EPredefinedTokens;
 import org.emftext.sdk.codegen.OptionManager;
@@ -30,7 +29,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxFactory;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 
 /**
  * The PreDefinedTokenAdder adds all predefined tokens to the syntax
@@ -43,11 +42,11 @@ public class PredefinedTokenAdder extends AbstractPostProcessor {
 	 * running this processor.
 	 */
 	@Override
-	public void process(Resource resource) {
+	public void process(CsResource resource) {
 		EList<EObject> objects = resource.getContents();
 		for (EObject next : objects) {
 			if (next instanceof ConcreteSyntax) {
-				analyse((CsResource) resource, (ConcreteSyntax) next);
+				analyse(resource, (ConcreteSyntax) next);
 			}
 		}
 	}

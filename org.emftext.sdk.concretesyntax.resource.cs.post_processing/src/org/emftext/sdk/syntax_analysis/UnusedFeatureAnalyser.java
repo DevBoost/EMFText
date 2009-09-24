@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.CollectInFeatureHelper;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -41,7 +40,8 @@ import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * A analyser that looks for features defined in the meta model that do

@@ -4,14 +4,13 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.CsProblem;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 public class QuotenTokenAnalyser extends AbstractPostProcessor {
 	
@@ -78,7 +77,7 @@ public class QuotenTokenAnalyser extends AbstractPostProcessor {
 		}
 	}
 
-	private void addProblem(ITextResource resource, QuotedToken quotedToken1, QuotedToken quotedToken2, String message) {
+	private void addProblem(CsResource resource, QuotedToken quotedToken1, QuotedToken quotedToken2, String message) {
 		resource.addProblem(new CsProblem(MESSAGE_1, ECsProblemType.QUOTED_TOKEN_CONFLICT), quotedToken1.getAttributeReferences().get(0));
 		resource.addProblem(new CsProblem(MESSAGE_1, ECsProblemType.QUOTED_TOKEN_CONFLICT), quotedToken2.getAttributeReferences().get(0));
 	}

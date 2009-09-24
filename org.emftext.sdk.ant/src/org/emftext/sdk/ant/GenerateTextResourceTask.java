@@ -42,6 +42,7 @@ import org.emftext.sdk.SDKOptionProvider;
 import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
 
 /**
  * A custom task for the ANT build tool that generates
@@ -178,7 +179,7 @@ public class GenerateTextResourceTask extends Task {
 	public void registerResourceFactories() {
 		//in case a old version from last run is registered here
 		EPackage.Registry.INSTANCE.remove("http://www.emftext.org/sdk/concretesyntax");
-		registerFactory("cs", new org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory());
+		registerFactory("cs", new CsResourceFactory());
 		
 		//TODO: the rest of this method is never used in our build scripts at the moment
 		for (GenModelElement genModelElement : genModels) {

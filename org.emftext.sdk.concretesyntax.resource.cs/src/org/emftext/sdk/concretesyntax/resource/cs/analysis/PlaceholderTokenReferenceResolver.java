@@ -24,19 +24,19 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IReferenceResolveResult;
-import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
-import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil;
 
-public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver<Placeholder, TokenDefinition> {
+public class PlaceholderTokenReferenceResolver implements ICsReferenceResolver<Placeholder, TokenDefinition> {
 
 	public void resolve(String identifier, Placeholder container,
 			EReference reference, int position, boolean resolveFuzzy,
-			IReferenceResolveResult<TokenDefinition> result) {
+			ICsReferenceResolveResult<TokenDefinition> result) {
 		// first look in imported syntaxes for the token
 		boolean continueSearch = searchForTokenInImportedSyntaxes(identifier, container, resolveFuzzy,
 				result);
@@ -44,7 +44,7 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 			return;
 		}
 		// then look in the resource itself
-		EObject root = EObjectUtil.findRootContainer(container);
+		EObject root = CsEObjectUtil.findRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return;
 		}
@@ -58,8 +58,8 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 	}
 
 	private boolean searchForTokenInImportedSyntaxes(String identifier,
-			Placeholder container, boolean resolveFuzzy, IReferenceResolveResult<TokenDefinition> result) {
-		EObject root = EObjectUtil.findRootContainer(container);
+			Placeholder container, boolean resolveFuzzy, ICsReferenceResolveResult<TokenDefinition> result) {
+		EObject root = CsEObjectUtil.findRootContainer(container);
 		if (!(root instanceof ConcreteSyntax)) {
 			return false;
 		}
@@ -78,7 +78,7 @@ public class PlaceholderTokenReferenceResolver extends AbstractReferenceResolver
 	}
 
 	private boolean searchForToken(String identifier, boolean resolveFuzzy,
-			IReferenceResolveResult<TokenDefinition> result,
+			ICsReferenceResolveResult<TokenDefinition> result,
 			ConcreteSyntax nextImportedSyntax) {
 		for (TokenDefinition tokenDefinition : nextImportedSyntax.getActiveTokens()) {
 			final String tokenName = tokenDefinition.getName();

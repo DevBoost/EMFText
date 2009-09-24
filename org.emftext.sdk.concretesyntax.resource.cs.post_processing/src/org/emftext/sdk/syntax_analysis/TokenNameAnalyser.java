@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * A analyser that checks that all token names start with a capital letter.

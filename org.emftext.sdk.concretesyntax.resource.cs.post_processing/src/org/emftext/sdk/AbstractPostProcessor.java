@@ -23,25 +23,26 @@ package org.emftext.sdk;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.emftext.runtime.IResourcePostProcessor;
-import org.emftext.runtime.IResourcePostProcessorProvider;
 import org.emftext.runtime.util.ResourceUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * An abstract super class for all post processors. It tries to resolve all 
  * proxy objects and if this succeeds analyse(ITextResource, ConcreteSyntax)
  * is called.
  */
-public abstract class AbstractPostProcessor implements IResourcePostProcessorProvider, IResourcePostProcessor {
+public abstract class AbstractPostProcessor implements ICsResourcePostProcessorProvider, ICsResourcePostProcessor {
 
-	public IResourcePostProcessor getResourcePostProcessor() {
+	public ICsResourcePostProcessor getResourcePostProcessor() {
 		return this;
 	}
 	
-	public void process(Resource resource) {
+	public void process(CsResource resource) {
 		if (!(resource instanceof CsResource)) {
 			return;
 		}

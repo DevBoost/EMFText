@@ -27,7 +27,6 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
@@ -39,7 +38,8 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * An analyser that looks for features that are multiply used in 

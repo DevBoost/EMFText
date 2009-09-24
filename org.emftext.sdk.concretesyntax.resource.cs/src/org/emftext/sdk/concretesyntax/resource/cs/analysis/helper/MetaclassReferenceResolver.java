@@ -26,11 +26,11 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IReferenceResolveResult;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.Pair;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
 import org.emftext.sdk.finders.GenClassFinder;
 
 /**
@@ -78,7 +78,7 @@ public class MetaclassReferenceResolver {
 	}
 
 	public void doResolve(String identifier, EObject container,
-			EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+			EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		
 		if (resolveFuzzy) {
 			doResolveFuzzy(getConcreteSyntax(container), identifier, result, requiredSuperType, canBeAbstract);
@@ -87,7 +87,7 @@ public class MetaclassReferenceResolver {
 		}
 	}
 
-	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+	private void doResolveFuzzy(ConcreteSyntax syntax, final String identifier, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		doResolveMetaclass(syntax, new MetaClassFilter() {
 
 			public String accept(String importPrefix, GenClass genClass) {
@@ -110,7 +110,7 @@ public class MetaclassReferenceResolver {
 		}, identifier, result, requiredSuperType, canBeAbstract);
 	}
 
-	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+	private void doResolveMetaclass(ConcreteSyntax syntax, MetaClassFilter filter, String ident, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		// first collect all generator classes
 		List<Pair<String, GenClass>> prefixedGenClasses = genClassFinder.findAllGenClassesAndPrefixes(syntax, true, true);
 		// then check which are accepted by the filter
@@ -178,7 +178,7 @@ public class MetaclassReferenceResolver {
 	}
 
 	private void doResolveStrict(ConcreteSyntax container,
-			final String identifier, IReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
+			final String identifier, ICsReferenceResolveResult<GenClass> result, GenClass requiredSuperType, boolean canBeAbstract) {
 		
 		doResolveMetaclass(container, new MetaClassFilter() {
 

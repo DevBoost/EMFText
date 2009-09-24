@@ -24,10 +24,10 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * An analyser that looks for explicit choices in the syntax

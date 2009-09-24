@@ -15,7 +15,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenStyle;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 
 public class TokenStyleMerger extends AbstractPostProcessor {
 

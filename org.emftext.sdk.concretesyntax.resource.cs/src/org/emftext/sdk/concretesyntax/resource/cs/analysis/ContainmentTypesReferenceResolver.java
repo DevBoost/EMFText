@@ -25,16 +25,16 @@ import java.util.Map;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IReferenceResolveResult;
-import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.concretesyntax.Containment;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.analysis.helper.MetaclassReferenceResolver;
 
-public class ContainmentTypesReferenceResolver extends AbstractReferenceResolver<Containment, GenClass> {
+public class ContainmentTypesReferenceResolver implements ICsReferenceResolver<Containment, GenClass> {
 	
 	private MetaclassReferenceResolver resolver = new MetaclassReferenceResolver();
 	
-	public void resolve(String identifier, Containment container, EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<GenClass> result) {
+	public void resolve(String identifier, Containment container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenClass> result) {
 		GenClass superType = null;
 		final GenFeature feature = container.getFeature();
 		if (feature != null && feature.getEcoreFeature() != null) {

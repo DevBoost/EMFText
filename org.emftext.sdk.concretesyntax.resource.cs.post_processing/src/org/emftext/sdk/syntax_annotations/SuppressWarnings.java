@@ -8,20 +8,19 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.emftext.runtime.resource.EProblemType;
 import org.emftext.runtime.resource.IProblem;
 import org.emftext.runtime.resource.ITextDiagnostic;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.runtime.util.EObjectUtil;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.CsProblem;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.concretesyntax.Annotation;
 import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.KeyValuePair;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 public class SuppressWarnings extends AbstractPostProcessor {
 
@@ -66,7 +65,7 @@ public class SuppressWarnings extends AbstractPostProcessor {
 		}
 	}
 
-	private Collection<String> getWarningsToSuppress(ITextResource resource, Annotation annotation) {
+	private Collection<String> getWarningsToSuppress(CsResource resource, Annotation annotation) {
 		Collection<String> warningsToSuppress = new LinkedHashSet<String>();
 		List<KeyValuePair> parameters = annotation.getParameters();
 		for (KeyValuePair parameter : parameters) {
@@ -84,7 +83,7 @@ public class SuppressWarnings extends AbstractPostProcessor {
 	private boolean isValidWarningType(String key) {
 		for (ECsProblemType problemType : ECsProblemType.values()) {
 			// errors are not valid
-			if (problemType.getProblemType() == EProblemType.ERROR) {
+			if (problemType.getProblemType() == CsEProblemType.ERROR) {
 				continue;
 			}
 			if (problemType.getName().equals(key)) {

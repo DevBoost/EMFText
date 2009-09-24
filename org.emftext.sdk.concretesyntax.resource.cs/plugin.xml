@@ -2,25 +2,42 @@
 <?eclipse version="3.2"?>
 <plugin>
 	<extension point="org.eclipse.emf.ecore.extension_parser">
-		<parser class="org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory" type="cs">
+		<parser class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory" type="cs">
 		</parser>
 	</extension>
 	
-	<extension point="org.emftext.runtime.syntax">
-		<metaInformationProvider class="org.emftext.sdk.concretesyntax.resource.cs.CsMetaInformation" id="org.emftext.sdk.concretesyntax.resource.cs.CsMetaInformation">
+	<extension point="org.emftext.access.syntax">
+		<metaInformationProvider class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation" id="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
 	<extension point="org.eclipse.core.contenttype.contentTypes">
-		<file-association content-type="org.emftext.filetype" file-extensions="cs">
+		<content-type id="org.emftext.filetype.cs" name="EMFText cs Files">
+		</content-type>
+		<file-association content-type="org.emftext.filetype.cs" file-extensions="cs">
 		</file-association>
+	</extension>
+	
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" icon="icons/editor_icon.gif" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" name="EMFText cs Editor">
+			<contentTypeBinding contentTypeId="org.eclipse.core.runtime.text">
+			</contentTypeBinding>
+			<contentTypeBinding contentTypeId="org.emftext.filetype.cs" >
+			</contentTypeBinding>
+		</editor>
+	</extension>
+	
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceInitializer">
+		</initializer>
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
-		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.sdk.concretesyntax.resource.cs.CsNewFileWizard" id="org.emftext.sdk.concretesyntax.resource.cs.CsNewFileWizard" name="EMFText .cs file">
+		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" name="EMFText .cs file">
 		</wizard>
 	</extension>
-	
+
+	<extension-point id="org.emftext.sdk.concretesyntax.resource.cs.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>	
 </plugin>

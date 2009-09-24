@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -36,7 +35,7 @@ import org.emftext.sdk.concretesyntax.Import;
  */
 public class ConcreteSyntaxInRegistryFinder implements IConcreteSyntaxFinder {
 	
-	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, String locationHint, Import container, ITextResource resource) {
+	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, String locationHint, Import container, Resource resource) {
 		ResourceSet rs = resource.getResourceSet();
 		
 		//find all registered concrete syntax definitions

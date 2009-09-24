@@ -29,7 +29,7 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.emftext.runtime.resource.ITextResource;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
@@ -108,7 +108,7 @@ public class MetamodelManager implements IGenPackageFinder {
 
 	public IGenPackageFinderResult findGenPackage(String nsURI,
 			String locationHint, GenPackageDependentElement container,
-			ITextResource resource) {
+			Resource resource) {
 
 		if (nsURI == null) {
 			return null;
@@ -134,7 +134,7 @@ public class MetamodelManager implements IGenPackageFinder {
 		return null;
 	}
 
-	public ConcreteSyntax findConcreteSyntax(String csName, String locationHint, Import container, GenPackage genPackage, ITextResource textResource) {
+	public ConcreteSyntax findConcreteSyntax(String csName, String locationHint, Import container, GenPackage genPackage, Resource textResource) {
 		if (csName == null || genPackage == null || genPackage.getEcorePackage() == null) {
 			return null;
 		}

@@ -34,7 +34,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.runtime.EMFTextRuntimePlugin;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 
 /**
@@ -121,7 +120,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 
 
 
-	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, ITextResource resource) {
+	public IGenPackageFinderResult findGenPackage(String nsURI, String locationHint, GenPackageDependentElement container, Resource resource) {
 		if (cache.containsKey(nsURI)) {
 			return cache.get(nsURI);
 		}

@@ -25,7 +25,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.emftext.runtime.resource.ITextResource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 
@@ -35,7 +34,7 @@ import org.emftext.sdk.concretesyntax.Import;
  */
 public class ConcreteSyntaxByHintFinder implements IConcreteSyntaxFinder {
 
-	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, String locationHint, Import container, ITextResource resource) {
+	public IConcreteSyntaxFinderResult findConcreteSyntax(String csURI, String locationHint, Import container, Resource resource) {
 		ResourceSet rs = resource.getResourceSet();
 		
 		if (locationHint == null) {

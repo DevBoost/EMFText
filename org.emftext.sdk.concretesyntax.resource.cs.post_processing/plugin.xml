@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-   <extension
-         point="org.emftext.runtime.default_load_options">
+   <extension point="org.emftext.sdk.concretesyntax.resource.cs.default_load_options">
       <provider
             class="org.emftext.sdk.SDKOptionProvider"
-            id="org.emftext.sdk.default_option_provider"
-            csName="cs">
+            id="org.emftext.sdk.default_option_provider" >
       </provider>
    </extension>
 </plugin>

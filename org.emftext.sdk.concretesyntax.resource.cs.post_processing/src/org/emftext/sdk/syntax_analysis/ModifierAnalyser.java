@@ -24,10 +24,10 @@ import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.emftext.sdk.AbstractPostProcessor;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.concretesyntax.Abstract;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * An analyser that checks whether the modifier ABSTRACT is used

@@ -1,8 +1,11 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
-public class CsQUOTED_39_39_92TokenResolver extends org.emftext.runtime.resource.impl.AbstractTokenResolver {
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
+
+public class CsQUOTED_39_39_92TokenResolver implements ICsTokenResolver {
 	
-	private org.emftext.sdk.concretesyntax.resource.cs.CsDefaultTokenResolver defaultTokenResolver = new org.emftext.sdk.concretesyntax.resource.cs.CsDefaultTokenResolver();
+	private CsDefaultTokenResolver defaultTokenResolver = new CsDefaultTokenResolver();
 	
 	public java.lang.String deResolve(java.lang.Object value, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container) {
 		java.lang.String result = defaultTokenResolver.deResolve(value, feature, container);
@@ -13,7 +16,7 @@ public class CsQUOTED_39_39_92TokenResolver extends org.emftext.runtime.resource
 		return result;
 	}
 	
-	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.runtime.resource.ITokenResolveResult result) {
+	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, ICsTokenResolveResult result) {
 		lexem = lexem.substring(1);
 		lexem = lexem.substring(0, lexem.length() - 1);
 		lexem = lexem.replace("\\'", "'");

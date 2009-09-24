@@ -22,10 +22,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
 import java.util.Map;
 
-import org.emftext.runtime.resource.impl.AbstractTokenResolver;
-import org.emftext.sdk.concretesyntax.resource.cs.CsDefaultTokenResolver;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
 
-public class CsHEXNUMBERTokenResolver extends AbstractTokenResolver {
+public class CsHEXNUMBERTokenResolver implements ICsTokenResolver {
 	
 	private CsDefaultTokenResolver defaultResolver = new CsDefaultTokenResolver();
 	
@@ -34,7 +34,7 @@ public class CsHEXNUMBERTokenResolver extends AbstractTokenResolver {
 		return "#" + result;
 	}
 	
-	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, org.emftext.runtime.resource.ITokenResolveResult result) {
+	public void resolve(java.lang.String lexem, org.eclipse.emf.ecore.EStructuralFeature feature, ICsTokenResolveResult result) {
 		lexem = lexem.substring(1);
 		defaultResolver.resolve(lexem, feature, result);
 	}

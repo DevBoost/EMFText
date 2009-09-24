@@ -24,20 +24,19 @@ import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.runtime.resource.IReferenceResolveResult;
-import org.emftext.runtime.resource.ITextResource;
-import org.emftext.runtime.resource.impl.AbstractReferenceResolver;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolveResult;
+import org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolver;
 
-public class GenPackageDependentElementPackageReferenceResolver extends AbstractReferenceResolver<GenPackageDependentElement, GenPackage> {
+public class GenPackageDependentElementPackageReferenceResolver implements ICsReferenceResolver<GenPackageDependentElement, GenPackage> {
 	
 	private Map<?, ?> options;
 	private MetamodelHelper mmHelper = new MetamodelHelper();
 
-	public void resolve(String nsURI, GenPackageDependentElement container, EReference reference, int position, boolean resolveFuzzy, IReferenceResolveResult<GenPackage> result) {
+	public void resolve(String nsURI, GenPackageDependentElement container, EReference reference, int position, boolean resolveFuzzy, ICsReferenceResolveResult<GenPackage> result) {
 		String locationHint = container.getPackageLocationHint();
-		GenPackage genPackage = mmHelper.findGenPackage(options, container, nsURI, locationHint, (ITextResource) container.eResource());
+		GenPackage genPackage = mmHelper.findGenPackage(options, container, nsURI, locationHint, container.eResource());
 		if (genPackage == null) {
 			result.setErrorMessage("Generator model \"" + nsURI + "\" could not be resolved." + 
 					(locationHint == null ? "" : " Maybe " + locationHint + " is wrong?")

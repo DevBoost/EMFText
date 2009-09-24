@@ -27,12 +27,12 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.emftext.sdk.AbstractPostProcessor;
 import org.emftext.sdk.Constants;
-import org.emftext.sdk.ECsProblemType;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * An analyser that checks whether the analysis package in generated

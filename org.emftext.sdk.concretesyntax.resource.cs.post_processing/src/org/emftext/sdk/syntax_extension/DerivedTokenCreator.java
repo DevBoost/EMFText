@@ -30,7 +30,7 @@ import org.emftext.sdk.concretesyntax.PlaceholderInQuotes;
 import org.emftext.sdk.concretesyntax.QuotedToken;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.concretesyntax.TokenDirective;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResource;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 /**
  * The DerivedTokenCreator searches for DerivedPlaceholders in the
  * syntax definition. For each placeholder that has a prefix and a

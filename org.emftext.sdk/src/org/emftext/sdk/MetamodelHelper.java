@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.emftext.runtime.resource.ITextResource;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
 import org.emftext.sdk.concretesyntax.Import;
@@ -56,7 +56,7 @@ public class MetamodelHelper {
 
 	private MetamodelManager mmManager = new MetamodelManager();
 
-	public GenPackage findGenPackage(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, ITextResource resource) {
+	public GenPackage findGenPackage(Map<?,?> options, GenPackageDependentElement container, String uri, String locationHint, Resource resource) {
 		configureMetaModelManager(options);
 		final IGenPackageFinderResult result = mmManager.findGenPackage(uri, locationHint, container, resource);
 		if (result != null) {
@@ -67,7 +67,7 @@ public class MetamodelHelper {
 	}
 
 	public ConcreteSyntax findConcreteSyntax(Map<?, ?> options, String fragment, String locationHint, 
-			Import container, GenPackage genPackage, ITextResource resource) {
+			Import container, GenPackage genPackage, Resource resource) {
 		configureMetaModelManager(options);
 		return mmManager.findConcreteSyntax(fragment, locationHint, container, genPackage, resource);
 	}

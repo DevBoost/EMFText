@@ -10,6 +10,7 @@
       <super type="org.eclipse.core.resources.textmarker"/>
    </extension>
 
+<!-- TODO remove this
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer class="org.emftext.runtime.ui.preferences.PreferenceInitializer"/>
@@ -60,5 +61,5 @@
          </contentTypeBinding> 
       </editor>
    </extension>
-
+-->
 </plugin>
