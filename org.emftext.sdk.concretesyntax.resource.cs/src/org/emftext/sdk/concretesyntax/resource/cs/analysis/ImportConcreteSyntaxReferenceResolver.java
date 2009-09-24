@@ -23,7 +23,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EReference;
-import org.emftext.access.resource.ITextResource;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
@@ -40,7 +39,7 @@ public class ImportConcreteSyntaxReferenceResolver implements ICsReferenceResolv
 		
 		String locationHint = container.getCsLocationHint();
 		ConcreteSyntax concreteSyntax = mmHelper.findConcreteSyntax(options, identifier, locationHint, container,  
-				container.getPackage(), (ITextResource) container.eResource());
+				container.getPackage(), container.eResource());
 
 		if (concreteSyntax == null) {
 			result.setErrorMessage(createErrorMessage(identifier, locationHint));
