@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation;
-
 // An adapter from the Eclipse <code>org.eclipse.jface.text.rules.ITokenScanner</code> interface
 // to the EMFText <code>ITextLexer</code> interface.
 //
@@ -17,8 +15,8 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 	// @param resource The <code>org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource</code> from which the <code>Lexer</code> can be determined.
 	// @param colorManager A manager to obtain color objects
 	public CsTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
-		this.lexer = new CsMetaInformation().createLexer();
-		this.languageId = new CsMetaInformation().getSyntaxName();
+		this.lexer = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().createLexer();
+		this.languageId = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 		this.store = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.getDefault().getPreferenceStore();
 		this.colorManager = colorManager;
 	}

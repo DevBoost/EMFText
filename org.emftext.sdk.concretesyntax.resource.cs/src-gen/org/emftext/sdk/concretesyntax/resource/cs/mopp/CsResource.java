@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
-
 public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource {
 	
 	public class ElementBasedTextDiagnostic implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextDiagnostic {
@@ -345,8 +343,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			} else if (resourcePostProcessorProvider instanceof java.util.Collection<?>) {
 				java.util.Collection<?> resourcePostProcessorProviderCollection = (java.util.Collection<?>) resourcePostProcessorProvider;
 				for (Object processorProvider : resourcePostProcessorProviderCollection) {
-					if (processorProvider instanceof ICsResourcePostProcessorProvider) {
-						ICsResourcePostProcessorProvider csProcessorProvider = (ICsResourcePostProcessorProvider) processorProvider;
+					if (processorProvider instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) {
+						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider csProcessorProvider = (org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider) processorProvider;
 						org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessor postProcessor = csProcessorProvider.getResourcePostProcessor();
 						try {
 							postProcessor.process(this);
@@ -393,7 +391,8 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	protected java.util.Map<java.lang.Object, java.lang.Object> addDefaultLoadOptions(java.util.Map<?, ?> loadOptions) {
-		java.util.Map<java.lang.Object, java.lang.Object> loadOptionsCopy = org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil.copySafelyToObjectToObjectMap(loadOptions); 		if (org.eclipse.core.runtime.Platform.isRunning()) {
+		java.util.Map<java.lang.Object, java.lang.Object> loadOptionsCopy = org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil.copySafelyToObjectToObjectMap(loadOptions);
+		if (org.eclipse.core.runtime.Platform.isRunning()) {
 			// find default load option providers
 			org.eclipse.core.runtime.IExtensionRegistry extensionRegistry = org.eclipse.core.runtime.Platform.getExtensionRegistry();
 			org.eclipse.core.runtime.IConfigurationElement configurationElements[] = extensionRegistry.getConfigurationElementsFor(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.EP_DEFAULT_LOAD_OPTIONS_ID);

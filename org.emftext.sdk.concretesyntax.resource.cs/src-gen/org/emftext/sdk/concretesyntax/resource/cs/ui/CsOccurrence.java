@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation;
-
 // This class finds the positions to highlight and adds them to the document.
 public class CsOccurrence {
 	
@@ -28,7 +26,7 @@ public class CsOccurrence {
 		this.projectionViewer = sourceViewer;
 		
 		quotedTokenArray = new java.util.ArrayList<String>();
-		String[] tokenNames = new CsMetaInformation().getTokenNames();
+		String[] tokenNames = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getTokenNames();
 		for (String tokenName : tokenNames) {
 			// TODO this is ANTLR specific maybe use ANTLRTokenHelper here
 			if (tokenName.startsWith("'") && tokenName.endsWith("'")) {

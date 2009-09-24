@@ -9,6 +9,7 @@ OPTIONS {
 	overrideManifest = "false";
 	overrideNewFileWizard = "false";
 	overrideHoverTextProvider = "false";
+	overrideProblemClass = "false";
 }
 
 TOKENS {

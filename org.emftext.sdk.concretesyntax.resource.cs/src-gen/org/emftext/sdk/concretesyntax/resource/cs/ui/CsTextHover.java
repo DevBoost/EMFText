@@ -1,7 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation;
-
 // A class to display the information of an element.
 // Most of the code is taken from
 // <code>org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover</code>.
@@ -176,7 +174,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	public CsTextHover(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
 		super();
 		this.editor = editor;
-		hoverTextProvider = new CsMetaInformation().getHoverTextProvider();
+		hoverTextProvider = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getHoverTextProvider();
 	}
 	
 	public String getHoverInfo(org.eclipse.jface.text.ITextViewer textViewer, org.eclipse.jface.text.IRegion hoverRegion) {

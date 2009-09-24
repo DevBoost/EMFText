@@ -31,13 +31,11 @@
 		<initializer class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceInitializer">
 		</initializer>
 	</extension>
-	
 	<extension point="org.eclipse.ui.newWizards">
 		<category id="org.emftext.runtime.ui.EMFTextFileCategory" name="EMFText File">
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizard" name="EMFText .cs file">
 		</wizard>
 	</extension>
-
-	<extension-point id="org.emftext.sdk.concretesyntax.resource.cs.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>	
+	
 </plugin>

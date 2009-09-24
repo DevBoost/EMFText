@@ -101,7 +101,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	public CsHighlighting(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, org.eclipse.jface.text.source.projection.ProjectionViewer sourceviewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager, org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
 		this.display = org.eclipse.swt.widgets.Display.getCurrent();
 		sourceviewer.getSelectionProvider();
-		preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.getDefault()		.getPreferenceStore();
+		preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.getDefault().getPreferenceStore();
 		textWidget = sourceviewer.getTextWidget();
 		projectionViewer = sourceviewer;
 		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(textResource, colorManager);

@@ -45,10 +45,10 @@ public class CsCodeFoldingManager {
 	
 	private class EditorOnCloseListener implements org.eclipse.ui.IPartListener2 {
 		
-		private CsEditor editor;
+		private String uri;
 		
-		public EditorOnCloseListener(CsEditor editor) {
-			this.editor = editor;
+		public EditorOnCloseListener(String uri) {
+			this.uri = uri;
 		}
 		
 		public void partActivated(org.eclipse.ui.IWorkbenchPartReference partRef) {
@@ -65,7 +65,7 @@ public class CsCodeFoldingManager {
 			if (workbenchPart instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
 				org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) workbenchPart;
 				String uri = editor.getResource().getURI().toString();
-				if (uri.equals(this.editor.getResource().getURI().toString())) {
+				if (uri.equals(this.uri)) {
 					saveCodeFoldingStateFile(uri);
 					editor.getSite().getPage().removePartListener(this);
 				}
@@ -90,8 +90,8 @@ public class CsCodeFoldingManager {
 	}
 	
 	private void addCloseListener(final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor emfTextEditor) {
-		//String uri = emfTextEditor.getResource().getURI().toString();
-		emfTextEditor.getSite().getPage().addPartListener(new EditorOnCloseListener(emfTextEditor));
+		String uri = emfTextEditor.getResource().getURI().toString();
+		emfTextEditor.getSite().getPage().addPartListener(new EditorOnCloseListener(uri));
 		emfTextEditor.addBackgroundParsingListener(new FoldingUpdateListener());
 	}
 	
