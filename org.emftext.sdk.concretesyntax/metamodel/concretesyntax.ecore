@@ -172,7 +172,7 @@
     <eLiterals name="BASE_PACKAGE" value="27" literal="basePackage"/>
     <eLiterals name="RESOURCE_PLUGIN_ID" value="28" literal="resourcePluginID"/>
     <eLiterals name="OVERRIDE_BUILD_PROPERTIES" value="29" literal="overrideBuildProperties"/>
-    <eLiterals name="OVERRIDE_PLUGIN_META_INFORMATION_CLASS" value="30" literal="overridePluginMetaInformationClass"/>
+    <eLiterals name="OVERRIDE_META_INFORMATION" value="30" literal="overrideMetaInformation"/>
     <eLiterals name="OVERRIDE_DEFAULT_RESOLVER_DELEGATE" value="31" literal="overrideDefaultResolverDelegate"/>
     <eLiterals name="OVERRIDE_PROBLEM_CLASS" value="32" literal="overrideProblemClass"/>
     <eLiterals name="OVERRIDE_SCANNER" value="33" literal="overrideScanner"/>
@@ -247,8 +247,7 @@
     <eLiterals name="OVERRIDE_I_TEXT_PARSER" value="101" literal="overrideITextParser"/>
     <eLiterals name="OVERRIDE_I_TEXT_PRINTER" value="102" literal="overrideITextPrinter"/>
     <eLiterals name="OVERRIDE_I_TEXT_RESOURCE" value="103" literal="overrideITextResource"/>
-    <eLiterals name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_META_INFORMATION" value="104"
-        literal="overrideITextResourcePluginMetaInformation"/>
+    <eLiterals name="OVERRIDE_I_META_INFORMATION" value="104" literal="overrideIMetaInformation"/>
     <eLiterals name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_PART" value="105" literal="overrideITextResourcePluginPart"/>
     <eLiterals name="OVERRIDE_I_TEXT_SCANNER" value="106" literal="overrideITextScanner"/>
     <eLiterals name="OVERRIDE_I_TEXT_TOKEN" value="107" literal="overrideITextToken"/>

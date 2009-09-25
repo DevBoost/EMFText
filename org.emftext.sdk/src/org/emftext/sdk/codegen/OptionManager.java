@@ -90,7 +90,7 @@ public class OptionManager {
 		if (option == OptionTypes.OVERRIDE_PROBLEM_CLASS) {
 			return true;
 		}
-		if (option == OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS) {
+		if (option == OptionTypes.OVERRIDE_META_INFORMATION) {
 			return true;
 		}
 		if (option == OptionTypes.GENERATE_TEST_ACTION) {

@@ -379,16 +379,14 @@ public enum OptionTypes implements Enumerator {
 	 * @ordered
 	 */
 	OVERRIDE_BUILD_PROPERTIES(29, "OVERRIDE_BUILD_PROPERTIES", "overrideBuildProperties"), /**
-	 * The '<em><b>OVERRIDE PLUGIN META INFORMATION CLASS</b></em>' literal object.
+	 * The '<em><b>OVERRIDE META INFORMATION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * If this option is set to false, the meta information class will not be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE
+	 * @see #OVERRIDE_META_INFORMATION_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PLUGIN_META_INFORMATION_CLASS(30, "OVERRIDE_PLUGIN_META_INFORMATION_CLASS", "overridePluginMetaInformationClass"), /**
+	OVERRIDE_META_INFORMATION(30, "OVERRIDE_META_INFORMATION", "overrideMetaInformation"), /**
 	 * The '<em><b>OVERRIDE DEFAULT RESOLVER DELEGATE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * If this option is set to true, the default resolver class will be overridden 
@@ -975,14 +973,14 @@ public enum OptionTypes implements Enumerator {
 	 * @ordered
 	 */
 	OVERRIDE_ITEXT_RESOURCE(103, "OVERRIDE_I_TEXT_RESOURCE", "overrideITextResource"), /**
-	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN META INFORMATION</b></em>' literal object.
+	 * The '<em><b>OVERRIDE IMETA INFORMATION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION_VALUE
+	 * @see #OVERRIDE_IMETA_INFORMATION_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION(104, "OVERRIDE_I_TEXT_RESOURCE_PLUGIN_META_INFORMATION", "overrideITextResourcePluginMetaInformation"), /**
+	OVERRIDE_IMETA_INFORMATION(104, "OVERRIDE_I_META_INFORMATION", "overrideIMetaInformation"), /**
 	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN PART</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1699,19 +1697,19 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_BUILD_PROPERTIES_VALUE = 29;
 
 	/**
-	 * The '<em><b>OVERRIDE PLUGIN META INFORMATION CLASS</b></em>' literal value.
+	 * The '<em><b>OVERRIDE META INFORMATION</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE PLUGIN META INFORMATION CLASS</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>OVERRIDE META INFORMATION</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_PLUGIN_META_INFORMATION_CLASS
-	 * @model literal="overridePluginMetaInformationClass"
+	 * @see #OVERRIDE_META_INFORMATION
+	 * @model literal="overrideMetaInformation"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE = 30;
+	public static final int OVERRIDE_META_INFORMATION_VALUE = 30;
 
 	/**
 	 * The '<em><b>OVERRIDE DEFAULT RESOLVER DELEGATE</b></em>' literal value.
@@ -2809,19 +2807,19 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_ITEXT_RESOURCE_VALUE = 103;
 
 	/**
-	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN META INFORMATION</b></em>' literal value.
+	 * The '<em><b>OVERRIDE IMETA INFORMATION</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN META INFORMATION</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>OVERRIDE IMETA INFORMATION</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION
-	 * @model name="OVERRIDE_I_TEXT_RESOURCE_PLUGIN_META_INFORMATION" literal="overrideITextResourcePluginMetaInformation"
+	 * @see #OVERRIDE_IMETA_INFORMATION
+	 * @model name="OVERRIDE_I_META_INFORMATION" literal="overrideIMetaInformation"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION_VALUE = 104;
+	public static final int OVERRIDE_IMETA_INFORMATION_VALUE = 104;
 
 	/**
 	 * The '<em><b>OVERRIDE ITEXT RESOURCE PLUGIN PART</b></em>' literal value.
@@ -3356,7 +3354,7 @@ public enum OptionTypes implements Enumerator {
 			BASE_PACKAGE,
 			RESOURCE_PLUGIN_ID,
 			OVERRIDE_BUILD_PROPERTIES,
-			OVERRIDE_PLUGIN_META_INFORMATION_CLASS,
+			OVERRIDE_META_INFORMATION,
 			OVERRIDE_DEFAULT_RESOLVER_DELEGATE,
 			OVERRIDE_PROBLEM_CLASS,
 			OVERRIDE_SCANNER,
@@ -3430,7 +3428,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ITEXT_PARSER,
 			OVERRIDE_ITEXT_PRINTER,
 			OVERRIDE_ITEXT_RESOURCE,
-			OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION,
+			OVERRIDE_IMETA_INFORMATION,
 			OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART,
 			OVERRIDE_ITEXT_SCANNER,
 			OVERRIDE_ITEXT_TOKEN,
@@ -3544,7 +3542,7 @@ public enum OptionTypes implements Enumerator {
 			case BASE_PACKAGE_VALUE: return BASE_PACKAGE;
 			case RESOURCE_PLUGIN_ID_VALUE: return RESOURCE_PLUGIN_ID;
 			case OVERRIDE_BUILD_PROPERTIES_VALUE: return OVERRIDE_BUILD_PROPERTIES;
-			case OVERRIDE_PLUGIN_META_INFORMATION_CLASS_VALUE: return OVERRIDE_PLUGIN_META_INFORMATION_CLASS;
+			case OVERRIDE_META_INFORMATION_VALUE: return OVERRIDE_META_INFORMATION;
 			case OVERRIDE_DEFAULT_RESOLVER_DELEGATE_VALUE: return OVERRIDE_DEFAULT_RESOLVER_DELEGATE;
 			case OVERRIDE_PROBLEM_CLASS_VALUE: return OVERRIDE_PROBLEM_CLASS;
 			case OVERRIDE_SCANNER_VALUE: return OVERRIDE_SCANNER;
@@ -3617,7 +3615,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ITEXT_PARSER_VALUE: return OVERRIDE_ITEXT_PARSER;
 			case OVERRIDE_ITEXT_PRINTER_VALUE: return OVERRIDE_ITEXT_PRINTER;
 			case OVERRIDE_ITEXT_RESOURCE_VALUE: return OVERRIDE_ITEXT_RESOURCE;
-			case OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION_VALUE: return OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION;
+			case OVERRIDE_IMETA_INFORMATION_VALUE: return OVERRIDE_IMETA_INFORMATION;
 			case OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART_VALUE: return OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART;
 			case OVERRIDE_ITEXT_SCANNER_VALUE: return OVERRIDE_ITEXT_SCANNER;
 			case OVERRIDE_ITEXT_TOKEN_VALUE: return OVERRIDE_ITEXT_TOKEN;

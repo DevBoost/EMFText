@@ -1592,7 +1592,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.BASE_PACKAGE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.RESOURCE_PLUGIN_ID);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_BUILD_PROPERTIES);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_META_INFORMATION);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PROBLEM_CLASS);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_SCANNER);
@@ -1666,7 +1666,7 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITEXT_PARSER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITEXT_PRINTER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITEXT_RESOURCE);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION);
+		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_IMETA_INFORMATION);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITEXT_SCANNER);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_ITEXT_TOKEN);
