@@ -325,8 +325,8 @@ public class TextHoverGenerator extends BaseGenerator {
 		sc.add("// @return the style sheet, or <code>null</code> if unable to load");
 		sc.add("private static String loadStyleSheet() {");
 		sc.add("// TODO adjust this constant");
-		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(\"org.emftext.runtime.ui\");");
-		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/DocHoverStyleSheet.css\"); ");
+		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID);");
+		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/css/hover_style_sheet.css\");");
 		sc.add("if (styleSheetURL != null) {");
 		sc.add(BUFFERED_READER + " reader = null;");
 		sc.add("try {");
