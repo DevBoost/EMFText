@@ -136,7 +136,7 @@ public class ClassNameHelper {
 	}
 
 	public String getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() {
-		return context.getQualifiedClassName(EArtifact.I_TEXT_RESOURCE_PLUGIN_META_INFORMATION);
+		return context.getQualifiedClassName(EArtifact.I_META_INFORMATION);
 	}
 
 	public String getI_TEXT_SCANNER() {

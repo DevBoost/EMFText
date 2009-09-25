@@ -11,7 +11,7 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
-public class ITextResourcePluginMetaInformationGenerator extends BaseGenerator {
+public class IMetaInformationGenerator extends BaseGenerator {
 
 	private String iTextScannerClassName;
 	private String iTextParserClassName;
@@ -21,12 +21,12 @@ public class ITextResourcePluginMetaInformationGenerator extends BaseGenerator {
 	private String iBracketPairClassName;
 	private String iHoverTextProviderClassName;
 
-	public ITextResourcePluginMetaInformationGenerator() {
+	public IMetaInformationGenerator() {
 		super();
 	}
 
-	private ITextResourcePluginMetaInformationGenerator(GenerationContext context) {
-		super(context, EArtifact.I_TEXT_RESOURCE_PLUGIN_META_INFORMATION);
+	private IMetaInformationGenerator(GenerationContext context) {
+		super(context, EArtifact.I_META_INFORMATION);
 		iTextScannerClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_SCANNER);
 		iTextParserClassName = getContext().getQualifiedClassName(EArtifact.I_TEXT_PARSER);
 		iReferenceResolverSwitchClassName = getContext().getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVER_SWITCH);
@@ -37,7 +37,7 @@ public class ITextResourcePluginMetaInformationGenerator extends BaseGenerator {
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
-		return new ITextResourcePluginMetaInformationGenerator(context);
+		return new IMetaInformationGenerator(context);
 	}
 
 	public boolean generate(PrintWriter out) {

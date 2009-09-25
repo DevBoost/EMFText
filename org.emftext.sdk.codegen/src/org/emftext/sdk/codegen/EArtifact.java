@@ -69,7 +69,7 @@ import org.emftext.sdk.codegen.generators.interfaces.ITextDiagnosticGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITextParserGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITextPrinterGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITextResourceGenerator;
-import org.emftext.sdk.codegen.generators.interfaces.ITextResourcePluginMetaInformationGenerator;
+import org.emftext.sdk.codegen.generators.interfaces.IMetaInformationGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITextResourcePluginPartGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITextScannerGenerator;
 import org.emftext.sdk.codegen.generators.interfaces.ITextTokenGenerator;
@@ -151,7 +151,7 @@ public enum EArtifact {
 	RESOURCE_FACTORY(MOPP_PACKAGE, "", "ResourceFactory", new ResourceFactoryGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY),
 	TOKEN_RESOLVER_FACTORY(MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
 	REFERENCE_RESOLVER_SWITCH(MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
-	META_INFORMATION(MOPP_PACKAGE, "", "TextResourcePluginMetaInformation", new PluginMetaInformationGenerator(), OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS), 
+	META_INFORMATION(MOPP_PACKAGE, "", "MetaInformation", new PluginMetaInformationGenerator(), OptionTypes.OVERRIDE_PLUGIN_META_INFORMATION_CLASS), 
 	HOVER_TEXT_PROVIDER(MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
 	PARSE_RESULT(MOPP_PACKAGE, "", "ParseResult", new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
 	PLUGIN_ACTIVATOR(MOPP_PACKAGE, "", "Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),
@@ -223,7 +223,7 @@ public enum EArtifact {
 	I_TEXT_PARSER(ROOT_PACKAGE, "I", "TextParser", new ITextParserGenerator(), OptionTypes.OVERRIDE_ITEXT_PARSER),
 	I_TEXT_PRINTER(ROOT_PACKAGE, "I", "TextPrinter", new ITextPrinterGenerator(), OptionTypes.OVERRIDE_ITEXT_PRINTER),
 	I_TEXT_RESOURCE(ROOT_PACKAGE, "I", "TextResource", new ITextResourceGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE),
-	I_TEXT_RESOURCE_PLUGIN_META_INFORMATION(ROOT_PACKAGE, "I", "TextResourcePluginMetaInformation", new ITextResourcePluginMetaInformationGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION),
+	I_META_INFORMATION(ROOT_PACKAGE, "I", "MetaInformation", new IMetaInformationGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_META_INFORMATION),
 	I_TEXT_RESOURCE_PLUGIN_PART(ROOT_PACKAGE, "I", "TextResourcePluginPart", new ITextResourcePluginPartGenerator(), OptionTypes.OVERRIDE_ITEXT_RESOURCE_PLUGIN_PART),
 	I_TEXT_SCANNER(ROOT_PACKAGE, "I", "TextScanner", new ITextScannerGenerator(), OptionTypes.OVERRIDE_ITEXT_SCANNER),
 	I_TEXT_TOKEN(ROOT_PACKAGE, "I", "TextToken", new ITextTokenGenerator(), OptionTypes.OVERRIDE_ITEXT_TOKEN),

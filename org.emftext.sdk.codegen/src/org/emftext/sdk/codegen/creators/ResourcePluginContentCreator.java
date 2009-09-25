@@ -165,7 +165,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_PARSER));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_PRINTER));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_RESOURCE));
-	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_RESOURCE_PLUGIN_META_INFORMATION));
+	    creators.add(new GenericArtifactCreator(EArtifact.I_META_INFORMATION));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_RESOURCE_PLUGIN_PART));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_SCANNER));
 	    creators.add(new GenericArtifactCreator(EArtifact.I_TEXT_TOKEN));
