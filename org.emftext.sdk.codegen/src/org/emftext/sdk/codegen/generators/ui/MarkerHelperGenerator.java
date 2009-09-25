@@ -1,12 +1,22 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_MARKER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCES_PLUGIN;
 
 import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class MarkerHelperGenerator extends BaseGenerator {
 
@@ -22,7 +32,7 @@ public class MarkerHelperGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// Helper class to add markers to test files based on EMF's <code>" + RESOURCE + "." + DIAGNOSTIC + "</code>.");
@@ -30,20 +40,27 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("// this extended diagnostic type.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		sc.add("public static final String MARKER_TYPE = " + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID + \".problem\";");
-		
-		sc.addLineBreak();
-		addMarkMethod(sc);
-		addCreateMarkersFromDiagnosticsMethod(sc);
-		addUnmarkMethod(sc);
+
+		addFields(sc);
+		addMethods(sc);
 		
 		sc.add("}");
 		out.print(sc.toString());
 		return true;
 	}
 
-	private void addUnmarkMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
+		addMarkMethod(sc);
+		addCreateMarkersFromDiagnosticsMethod(sc);
+		addUnmarkMethod(sc);
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("public static final String MARKER_TYPE = " + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID + \".problem\";");
+		sc.addLineBreak();
+	}
+
+	private void addUnmarkMethod(StringComposite sc) {
 		sc.add("// Removes all markers from a given resource.");
 		sc.add("//");
 		sc.add("// @param resource The resource where to delete markers from.");
@@ -55,8 +72,7 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	private void addCreateMarkersFromDiagnosticsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addCreateMarkersFromDiagnosticsMethod(StringComposite sc) {
 		sc.add("private static void createMarkersFromDiagnostics(" + RESOURCE + " resource, " + I_FILE + " file, " + LIST + "<" + DIAGNOSTIC + "> diagnostics, int markerSeverity) throws " + CORE_EXCEPTION + " {");
 		sc.addLineBreak();
 		sc.add("for (" + DIAGNOSTIC + " diagnostic : diagnostics) {");
@@ -86,8 +102,7 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addMarkMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMarkMethod(StringComposite sc) {
 		sc.add("// Marks a file with markers.");
 		sc.add("//");
 		sc.add("// @param resource The resource that is the file to mark.");
