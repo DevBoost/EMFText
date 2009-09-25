@@ -18,9 +18,9 @@ import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_feat
 import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresParseResult;
 import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresTextParser;
 import org.emftext.test.grammar_features.resource.grammar_features.IGrammar_featuresTextResource;
+import org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresMetaInformation;
 import org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresResourceFactory;
 import org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresScannerlessParser;
-import org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresTextResourcePluginMetaInformation;
 
 /**
  * A basic test for the scannerless parser generator. It basically
@@ -34,10 +34,10 @@ public class ScannerlessParserTest extends TestCase {
 		private boolean expectedResult;
 		private String expectedModel;
 		private String expectedError;
-		private Grammar_featuresTextResourcePluginMetaInformation metaInformation;
+		private Grammar_featuresMetaInformation metaInformation;
 		private IGrammar_featuresTextParser parser;
 
-		public AbstractParseTest(String content, String expectedModel, String expectedError, Grammar_featuresTextResourcePluginMetaInformation metaInformation, IGrammar_featuresTextParser parser) {
+		public AbstractParseTest(String content, String expectedModel, String expectedError, Grammar_featuresMetaInformation metaInformation, IGrammar_featuresTextParser parser) {
 			super("Parse " + content.replace("\n", "").replace("\r", ""));
 			this.metaInformation = metaInformation;
 			this.parser = parser;
@@ -105,34 +105,34 @@ public class ScannerlessParserTest extends TestCase {
 	public static class GrammarFeatureParseTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseTest(String content, String expectedModel) {
-			super(content, expectedModel == null ? null : expectedModel, null, new Grammar_featuresTextResourcePluginMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, expectedModel == null ? null : expectedModel, null, new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
 	public static class GrammarFeatureParseRootTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseRootTest(String content, String expectedModel) {
-			super(content, expectedModel == null ? null : "Root{" + expectedModel + "}", null, new Grammar_featuresTextResourcePluginMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, expectedModel == null ? null : "Root{" + expectedModel + "}", null, new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
 	public static class GrammarFeatureParseErrorTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseErrorTest(String content, String expectedError) {
-			super(content, null, expectedError, new Grammar_featuresTextResourcePluginMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, null, expectedError, new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
 	public static class GrammarFeatureParseErrorModelTest extends AbstractParseTest {
 		
 		public GrammarFeatureParseErrorModelTest(String content, String expectedModel) {
-			super(content, expectedModel, "", new Grammar_featuresTextResourcePluginMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
+			super(content, expectedModel, "", new Grammar_featuresMetaInformation(), new Grammar_featuresScannerlessParser(new ByteArrayInputStream(content.getBytes()), null));
 		}
 	}
 	
 	public static Test suite() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
-				new Grammar_featuresTextResourcePluginMetaInformation().getSyntaxName(),
+				new Grammar_featuresMetaInformation().getSyntaxName(),
 				new Grammar_featuresResourceFactory());
 		
 		TestSuite suite = new TestSuite("All tests");
