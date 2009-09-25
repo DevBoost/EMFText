@@ -81,26 +81,11 @@ public class OptionManager {
 	private boolean getBooleanOptionsDefaultValue(OptionTypes option) {
 		// Attention: Any changes made to this default values must be
 		// documented in class OptionTypes!
-		if (option == OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_PARSE_RESULT) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_PROBLEM_CLASS) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_META_INFORMATION) {
-			return true;
-		}
 		if (option == OptionTypes.GENERATE_TEST_ACTION) {
 			return false;
 		}
 		if (option == OptionTypes.GENERATE_PRINTER_STUB_ONLY) {
 			return false;
-		}
-		if (option == OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER) {
-			return true;
 		}
 		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVERS) {
 			return false;
@@ -108,98 +93,14 @@ public class OptionManager {
 		if (option == OptionTypes.OVERRIDE_TOKEN_RESOLVERS) {
 			return false;
 		}
-		if (option == OptionTypes.OVERRIDE_PLUGIN_XML) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_MANIFEST) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_BUILD_PROPERTIES) {
-			return true;
-		}
 		if (option == OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL) {
 			return false;
-		}
-		if (option == OptionTypes.OVERRIDE_SCANNER) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_PARSER) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_PRINTER) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_PRINTER_BASE) {
-			return true;
-		}
-		if (option == OptionTypes.FORCE_EOF) {
-			return true;
-		}
-		if (option == OptionTypes.USE_PREDEFINED_TOKENS) {
-			return true;
-		}
-		if (option == OptionTypes.ANTLR_BACKTRACKING) {
-			return true;
-		}
-		if (option == OptionTypes.ANTLR_MEMOIZE) {
-			return true;
 		}
 		if (option == OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION) {
 			return false;
 		}
 		if (option == OptionTypes.RELOAD_GENERATOR_MODEL) {
 			return false;
-		}
-		if (option == OptionTypes.OVERRIDE_DOT_CLASSPATH) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_DOT_PROJECT) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_TEXT_RESOURCE) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_RESOURCE_FACTORY) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_NEW_FILE_WIZARD) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_DELEGATING_RESOLVE_RESULT) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_DUMMY_EOBJECT) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_ELEMENT_MAPPING) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_FUZZY_RESOLVE_RESULT) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_LOCATION_MAP) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_TOKEN_RESOLVE_RESULT) {
-			return true;
-		}
-		if (option == OptionTypes.OVERRIDE_URI_MAPPING) {
-			return true;
 		}
 		return true;
 	}
