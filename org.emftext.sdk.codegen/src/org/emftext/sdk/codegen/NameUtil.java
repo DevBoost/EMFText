@@ -36,7 +36,10 @@ public class NameUtil {
 		return csUtil.getPackageName(syntax, artifact.getPackage());
 	}
 	
-	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition definition) {
-		return csUtil.getResolverPackageName(csUtil.getContainingSyntax(syntax, definition)) + "." + csUtil.getTokenResolverClassName(syntax, definition);
+	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition definition, boolean inImportedSyntax) {
+		if (inImportedSyntax) {
+			syntax = csUtil.getContainingSyntax(syntax, definition);
+		}
+		return csUtil.getResolverPackageName(syntax) + "." + csUtil.getTokenResolverClassName(syntax, definition);
 	}
 }

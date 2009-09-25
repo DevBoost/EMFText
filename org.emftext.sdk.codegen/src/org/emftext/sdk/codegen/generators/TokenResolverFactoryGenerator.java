@@ -156,7 +156,7 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 				continue;
 			}
 			// user defined tokens may stem from an imported syntax
-			String tokenResolverClassName = nameUtil.getQualifiedTokenResolverClassName(concreteSyntax, definition);
+			String tokenResolverClassName = nameUtil.getQualifiedTokenResolverClassName(concreteSyntax, definition, false);
 			if (definition.getAttributeName() != null) {
 				String featureName = definition.getAttributeName();
 				sc.add("registerCollectInTokenResolver(\"" + featureName + "\", new " + tokenResolverClassName + "());");

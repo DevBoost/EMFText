@@ -54,10 +54,6 @@ public class TokenResolversCreator extends AbstractArtifactCreator {
 			if (!tokenDefinition.isUsed()) {
 				continue;
 			}
-			// do not generate a resolver for imported tokens
-			if (csUtil.isImportedToken(syntax, tokenDefinition)) {
-				continue;
-			}
 			File resolverFile = context.getTokenResolverFile(syntax, tokenDefinition);
 			TokenResolverGenerator resolverGenerator = (TokenResolverGenerator) new TokenResolverGenerator().newInstance(context);
 			resolverGenerator.setTokenDefinition(tokenDefinition);
