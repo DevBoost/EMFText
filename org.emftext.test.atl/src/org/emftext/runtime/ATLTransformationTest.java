@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.language.ecore.resource.text.mopp.TextEcoreResourceFactory;
 import org.emftext.runtime.atl.ATLTransformationPostProcessor;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.resource.cs.CsResourceFactory;
+import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory;
 import org.junit.Before;
 
 public class ATLTransformationTest extends TestCase {
