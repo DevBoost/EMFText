@@ -128,6 +128,16 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("</extension>");
 		sc.addLineBreak();
 		
+		sc.add("<extension id=\"" + pluginID + ".problem\" name=\"EMFText Problem\" point=\"org.eclipse.core.resources.markers\">");
+		sc.add("<persistent value=\"true\">");
+		sc.add("</persistent>");
+		sc.add("<super type=\"org.eclipse.core.resources.problemmarker\">");
+		sc.add("</super>");
+		sc.add("<super type=\"org.eclipse.core.resources.textmarker\">");
+		sc.add("</super>");
+		sc.add("</extension>");
+		sc.addLineBreak();
+		
 		sc.add("<extension-point id=\"" + pluginID + ".default_load_options\" name=\"Default Load Options\" schema=\"schema/default_load_options.exsd\"/>");
 		sc.addLineBreak();
 

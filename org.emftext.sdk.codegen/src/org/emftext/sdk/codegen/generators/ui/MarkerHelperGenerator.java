@@ -30,8 +30,7 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("// this extended diagnostic type.");
 		sc.add("public class " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		// TODO do we need a new type for each plug-in?
-		sc.add("public static final String MARKER_TYPE = \"org.emftext.runtime.ui.problem\";");
+		sc.add("public static final String MARKER_TYPE = " + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID + \".problem\";");
 		
 		sc.addLineBreak();
 		addMarkMethod(sc);
@@ -63,10 +62,7 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("// create a copy because the diagnostics list is modified concurrently");
 		sc.add("// by the background parsing strategy");
 		sc.addLineBreak();
-		// TODO mseifert: this is not needed anymore. we can simply iterate over the diagnostics
-		sc.add(DIAGNOSTIC + "[] copy = diagnostics.toArray(new " + DIAGNOSTIC + "[diagnostics.size()]);");
-		sc.add("for (int i = 0; i < copy.length; i++) {");
-		sc.add(DIAGNOSTIC + " diagnostic = copy[i];");
+		sc.add("for (" + DIAGNOSTIC + " diagnostic : diagnostics) {");
 		sc.add("try {");
 		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
 		sc.add("marker.setAttribute(" + I_MARKER + ".SEVERITY, markerSeverity);");
