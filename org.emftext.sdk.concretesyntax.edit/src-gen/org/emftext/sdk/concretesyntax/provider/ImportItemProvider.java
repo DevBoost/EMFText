@@ -13,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -157,7 +158,10 @@ public class ImportItemProvider
 		if (_import != null && !_import.eIsProxy()) {
 			GenPackage genPackage = _import.getPackage();
 			if (genPackage != null && !genPackage.eIsProxy()) {
-				label = label + genPackage.getNSURI();
+				EPackage ecorePackage = genPackage.getEcorePackage();
+				if (ecorePackage != null) {
+					label = label + ecorePackage.getNsPrefix();
+				}
 			}
 		}
 		return label;
