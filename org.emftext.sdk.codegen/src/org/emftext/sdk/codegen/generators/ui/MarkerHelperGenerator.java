@@ -59,9 +59,6 @@ public class MarkerHelperGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private static void createMarkersFromDiagnostics(" + RESOURCE + " resource, " + I_FILE + " file, " + LIST + "<" + DIAGNOSTIC + "> diagnostics, int markerSeverity) throws " + CORE_EXCEPTION + " {");
 		sc.addLineBreak();
-		sc.add("// create a copy because the diagnostics list is modified concurrently");
-		sc.add("// by the background parsing strategy");
-		sc.addLineBreak();
 		sc.add("for (" + DIAGNOSTIC + " diagnostic : diagnostics) {");
 		sc.add("try {");
 		sc.add(I_MARKER + " marker = file.createMarker(MARKER_TYPE);");
