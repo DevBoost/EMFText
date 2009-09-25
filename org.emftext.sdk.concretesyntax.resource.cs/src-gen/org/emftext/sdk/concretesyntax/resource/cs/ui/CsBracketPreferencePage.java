@@ -40,7 +40,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	public CsBracketPreferencePage() {
 		super();
 		
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+		org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 		String languageId = metaInformation.getSyntaxName();
 		languageIDs.add(languageId);
 	}

@@ -6,8 +6,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 // sessions and after closing, opening as well.
 public class CsCodeFoldingManager {
 	
-	// TODO replace this with the id of the generated plug-in
-	private static final String PLUGIN_ID = "org.emftext.runtime.ui";
 	private static final String VERIFY_KEY = "verify_key";
 	private static final String ANNOTATION = "ANNOTATION";
 	private static final String IS_COLLAPSED = "IS_COLLAPED";
@@ -45,10 +43,10 @@ public class CsCodeFoldingManager {
 	
 	private class EditorOnCloseListener implements org.eclipse.ui.IPartListener2 {
 		
-		private String uri;
+		private org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
 		
-		public EditorOnCloseListener(String uri) {
-			this.uri = uri;
+		public EditorOnCloseListener(org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+			this.editor = editor;
 		}
 		
 		public void partActivated(org.eclipse.ui.IWorkbenchPartReference partRef) {
@@ -65,7 +63,7 @@ public class CsCodeFoldingManager {
 			if (workbenchPart instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
 				org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) workbenchPart;
 				String uri = editor.getResource().getURI().toString();
-				if (uri.equals(this.uri)) {
+				if (uri.equals(this.editor.getResource().getURI().toString())) {
 					saveCodeFoldingStateFile(uri);
 					editor.getSite().getPage().removePartListener(this);
 				}
@@ -89,10 +87,9 @@ public class CsCodeFoldingManager {
 		
 	}
 	
-	private void addCloseListener(final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor emfTextEditor) {
-		String uri = emfTextEditor.getResource().getURI().toString();
-		emfTextEditor.getSite().getPage().addPartListener(new EditorOnCloseListener(uri));
-		emfTextEditor.addBackgroundParsingListener(new FoldingUpdateListener());
+	private void addCloseListener(final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+		editor.getSite().getPage().addPartListener(new EditorOnCloseListener(editor));
+		editor.addBackgroundParsingListener(new FoldingUpdateListener());
 	}
 	
 	// Checks whether it is in the <code>org.eclipse.jface.text.source.projection.ProjectionAnnotationModel</code> or in
@@ -274,7 +271,7 @@ public class CsCodeFoldingManager {
 	}
 	
 	private java.io.File getCodeFoldingStateFile(String uriString) {
-		org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle(PLUGIN_ID);
+		org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.PLUGIN_ID);
 		org.eclipse.core.runtime.IPath path = org.eclipse.core.runtime.Platform.getStateLocation(bundle);
 		if (path == null) {
 			return null;

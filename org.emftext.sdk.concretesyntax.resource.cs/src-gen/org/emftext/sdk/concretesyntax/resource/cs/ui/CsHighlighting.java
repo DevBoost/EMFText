@@ -297,12 +297,12 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		return selection;
 	}
 	
-	public void selectionChanged(	org.eclipse.jface.viewers.SelectionChangedEvent event) {
+	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
 		
 		java.lang.Object oldSelection = null;
 		java.lang.Object newSelection = null;
 		if (getSelection() instanceof org.eclipse.jface.viewers.IStructuredSelection) {
-			oldSelection = ((org.eclipse.jface.viewers.IStructuredSelection)getSelection()).getFirstElement();
+			oldSelection = ((org.eclipse.jface.viewers.IStructuredSelection) getSelection()).getFirstElement();
 		}
 		if (event.getSelection() instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 			newSelection = ((org.eclipse.jface.viewers.IStructuredSelection)event.getSelection()).getFirstElement();
@@ -314,7 +314,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	}
 	
 	private void handleContentOutlineSelection(org.eclipse.jface.viewers.ISelection selection) {
-		if (!selection.isEmpty() && selection instanceof CsEObjectSelection) {
+		if (!selection.isEmpty() && selection instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection) {
 			java.lang.Object selectedElement = ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
 			if (selectedElement instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject selectedEObject = (org.eclipse.emf.ecore.EObject) selectedElement;
@@ -328,7 +328,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 					// elementCharStart + 1);
 					// this.getSelectionProvider().setSelection(selection);
 					org.eclipse.jface.text.TextSelection textEditorSelection = new org.eclipse.jface.text.TextSelection(elementCharStart, elementCharEnd - elementCharStart + 1);
-					projectionViewer.getSelectionProvider().setSelection(					textEditorSelection);
+					projectionViewer.getSelectionProvider().setSelection(textEditorSelection);
 				}
 			}
 		}

@@ -33,7 +33,6 @@ public class CsOutlinePage extends org.eclipse.ui.part.Page implements org.eclip
 		treeViewer.setInput(resources.get(0));
 		if (!resources.isEmpty()) {
 			// Select the root object in the view.
-			//
 			treeViewer.setSelection(new org.eclipse.jface.viewers.StructuredSelection(resources.get(0)), true);
 		}
 	}

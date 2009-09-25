@@ -1,7 +1,7 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 public class CsTextToken implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken {
 	
-	private final org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+	private final org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	private final org.antlr.runtime.Token antlrToken;
 	
 	public CsTextToken(org.antlr.runtime.Token antlrToken) {

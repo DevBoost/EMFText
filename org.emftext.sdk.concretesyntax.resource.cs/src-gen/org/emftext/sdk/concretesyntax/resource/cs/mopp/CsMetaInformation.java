@@ -1,6 +1,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginMetaInformation {
+public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation {
 	
 	public class TokenStyleImpl implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenStyle {
 		

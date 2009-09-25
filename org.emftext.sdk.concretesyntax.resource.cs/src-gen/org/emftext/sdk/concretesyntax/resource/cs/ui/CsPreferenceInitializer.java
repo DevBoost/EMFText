@@ -34,7 +34,7 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 		initializeDefaultSyntaxHighlighting(store, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation());
 	}
 	
-	private void initializeDefaultBrackets(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginMetaInformation metaInformation) {
+	private void initializeDefaultBrackets(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation) {
 		String languageId = metaInformation.getSyntaxName();
 		// set default brackets for ITextResource bracket set
 		org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(null, languageId);
@@ -47,7 +47,7 @@ public class CsPreferenceInitializer extends org.eclipse.core.runtime.preference
 		store.setDefault(languageId + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX, bracketSet.getBracketString());
 	}
 	
-	private void initializeDefaultSyntaxHighlighting(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginMetaInformation metaInformation) {
+	private void initializeDefaultSyntaxHighlighting(org.eclipse.jface.preference.IPreferenceStore store, org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation metaInformation) {
 		String languageId = metaInformation.getSyntaxName();
 		String[] tokenNames = metaInformation.getTokenNames();
 		if (tokenNames == null) {

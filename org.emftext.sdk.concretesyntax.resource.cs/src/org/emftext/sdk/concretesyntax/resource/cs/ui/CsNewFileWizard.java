@@ -160,7 +160,7 @@ public class CsNewFileWizard extends org.eclipse.ui.internal.dialogs.NewWizard i
 		return "cs";
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginMetaInformation getMetaInformation() {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation getMetaInformation() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	}
 	

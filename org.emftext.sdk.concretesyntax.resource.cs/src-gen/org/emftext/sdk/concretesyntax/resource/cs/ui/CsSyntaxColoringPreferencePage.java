@@ -460,7 +460,7 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 	public CsSyntaxColoringPreferencePage() {
 		super();
 		
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginMetaInformation syntaxPlugin = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
+		org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation syntaxPlugin = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 		
 		String languageId = syntaxPlugin.getSyntaxName();
 		

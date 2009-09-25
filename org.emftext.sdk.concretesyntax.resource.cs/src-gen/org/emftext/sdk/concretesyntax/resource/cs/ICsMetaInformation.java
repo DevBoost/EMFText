@@ -2,7 +2,7 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 
 // This interface provides information about a generated EMFText
 // text resource plug-in.
-public interface ICsTextResourcePluginMetaInformation {
+public interface ICsMetaInformation {
 	
 	public String getURI();
 	
