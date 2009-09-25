@@ -1,13 +1,41 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.KEY_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.KEY_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MOUSE_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MOUSE_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.POSITION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONVERTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROJECTION_VIEWER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RGB;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLED_TEXT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_RANGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_LISTENER;
 
 import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class HighlightingGenerator extends BaseGenerator {
 
@@ -140,8 +168,7 @@ public class HighlightingGenerator extends BaseGenerator {
 
 	private void addRemoveSelectionChangedListenerMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("public void removeSelectionChangedListener(");
-		sc.add(I_SELECTION_CHANGED_LISTENER + " listener) {");
+		sc.add("public void removeSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
 		sc.add("selectionChangedListeners.remove(listener);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -149,8 +176,7 @@ public class HighlightingGenerator extends BaseGenerator {
 
 	private void addAddSelectionChangedListenerMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("public void addSelectionChangedListener(");
-		sc.add(I_SELECTION_CHANGED_LISTENER + " listener) {");
+		sc.add("public void addSelectionChangedListener(" + I_SELECTION_CHANGED_LISTENER + " listener) {");
 		sc.add("selectionChangedListeners.add(listener);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -175,7 +201,6 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("private " + occurenceClassName + " occurrence;");
 		sc.add("private " + bracketSetClassName + " bracketSet;");
 		sc.add("private " + DISPLAY + " display;");
-		sc.addLineBreak();
 		sc.addLineBreak();
 	}
 
