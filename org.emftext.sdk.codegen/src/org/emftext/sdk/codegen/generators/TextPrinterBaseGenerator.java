@@ -40,7 +40,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_WRIT
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -133,7 +132,7 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			Map<Sequence, Set<String>> reachableMap) {
 		for (Rule rule : rules) {
 			choiceMap.put(rule.getDefinition(), getMethodName(rule));
-			Set<Choice> choices = new HashSet<Choice>();
+			Set<Choice> choices = new LinkedHashSet<Choice>();
 			ruleMap.put(rule, choices);
 			extractChoices(rule.getDefinition(), choices, choiceMap,
 					necessaryMap, reachableMap, null, getMethodName(rule) + "_", 0);
@@ -146,8 +145,8 @@ public class TextPrinterBaseGenerator extends BaseGenerator {
 			Map<Sequence, Set<String>> reachableMap, Sequence parent,
 			String namePrefix, int choiceIndex) {
 		for (Sequence seq : choice.getOptions()) {
-			Set<String> sequenceNecessaryFeatures = new HashSet<String>();
-			Set<String> sequenceReachableFeatures = new HashSet<String>();
+			Set<String> sequenceNecessaryFeatures = new LinkedHashSet<String>();
+			Set<String> sequenceReachableFeatures = new LinkedHashSet<String>();
 			necessaryMap.put(seq, sequenceNecessaryFeatures);
 			reachableMap.put(seq, sequenceReachableFeatures);
 			for (Definition def : seq.getParts()) {
