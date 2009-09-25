@@ -5,7 +5,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 // this extended diagnostic type.
 public class CsMarkerHelper {
 	
-	public static final String MARKER_TYPE = "org.emftext.runtime.ui.problem";
+	public static final String MARKER_TYPE = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.PLUGIN_ID + ".problem";
 	
 	// Marks a file with markers.
 	//
@@ -29,9 +29,7 @@ public class CsMarkerHelper {
 		// create a copy because the diagnostics list is modified concurrently
 		// by the background parsing strategy
 		
-		org.eclipse.emf.ecore.resource.Resource.Diagnostic[] copy = diagnostics.toArray(new org.eclipse.emf.ecore.resource.Resource.Diagnostic[diagnostics.size()]);
-		for (int i = 0; i < copy.length; i++) {
-			org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic = copy[i];
+		for (org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic : diagnostics) {
 			try {
 				org.eclipse.core.resources.IMarker marker = file.createMarker(MARKER_TYPE);
 				marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, markerSeverity);
