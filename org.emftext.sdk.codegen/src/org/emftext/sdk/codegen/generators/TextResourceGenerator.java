@@ -584,7 +584,6 @@ public class TextResourceGenerator extends BaseGenerator {
 
 	private void addFields(StringComposite sc) {
 		sc.add("private " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " " + RESOLVER_SWITCH_FIELD_NAME + ";");
-		sc.add("private static final " + STRING + " ARBITRARY_SYNTAX_NAME = \"*\";");
     	sc.add("private "+ getClassNameHelper().getI_LOCATION_MAP() + " locationMap;");
     	sc.add("private int proxyCounter = 0;");
     	sc.add("private " + getClassNameHelper().getI_TEXT_PARSER() + " parser;");
