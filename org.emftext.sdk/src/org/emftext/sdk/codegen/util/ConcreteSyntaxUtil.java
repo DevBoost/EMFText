@@ -251,10 +251,13 @@ public class ConcreteSyntaxUtil {
 	}
 
 	public Collection<GenFeature> getNonContainmentFeaturesNeedingResolver(ConcreteSyntax syntax) {
-		Collection<Placeholder> placeholders = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
-		Collection<GenFeature> features = new LinkedHashSet<GenFeature>(placeholders.size());
-		for (Placeholder placeholder : placeholders) {
-			features.add(placeholder.getFeature());
+		Collection<GenFeature> features = new LinkedHashSet<GenFeature>();
+		Collection<Rule> allRules = syntax.getAllRules();
+		for (Rule rule : allRules) {
+			Collection<Placeholder> placeholders = EObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
+			for (Placeholder placeholder : placeholders) {
+				features.add(placeholder.getFeature());
+			}
 		}
 		return features;
 	}
@@ -351,9 +354,11 @@ public class ConcreteSyntaxUtil {
 	 * might be part of a resource plug-in that belongs to an imported
 	 * syntax.
 	 */
-	public String getResolverPackageName(ConcreteSyntax syntax, GenFeature genFeature) {
-		ConcreteSyntax featureSyntax = getConcreteSyntax(syntax, genFeature);
-		return getResolverPackageName(featureSyntax);
+	public String getResolverPackageName(ConcreteSyntax syntax, GenFeature genFeature, boolean inImportedSyntax) {
+		if (inImportedSyntax) {
+			syntax = getConcreteSyntax(syntax, genFeature);
+		}
+		return getResolverPackageName(syntax);
 	}
 
 	public IPath getResolverPackagePath(ConcreteSyntax syntax) {

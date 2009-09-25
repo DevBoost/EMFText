@@ -46,12 +46,6 @@ public class ReferenceResolversCreator extends AbstractArtifactCreator {
 		Collection<IArtifact> artifacts = new ArrayList<IArtifact>();
 		
 		for (GenFeature proxyReference : context.getNonContainmentReferences()) {
-			// do not generate resolvers for references in imported rules with 
-			// a syntax defined elsewhere
-			final boolean isImportedReference = context.isImportedWithSyntaxReference(proxyReference);
-			if (isImportedReference) {
-				continue;
-			}
 			File resolverFile = context.getResolverFile(proxyReference);
 			ReferenceResolverGenerator generator = (ReferenceResolverGenerator) new ReferenceResolverGenerator().newInstance(context);
 			generator.setProxyReference(proxyReference);

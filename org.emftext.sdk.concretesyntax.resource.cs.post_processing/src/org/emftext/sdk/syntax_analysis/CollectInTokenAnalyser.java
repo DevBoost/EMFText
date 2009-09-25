@@ -23,6 +23,9 @@ public class CollectInTokenAnalyser extends AbstractPostProcessor {
 			Collection<Placeholder> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholder());
 			for (Placeholder placeholder : placeholders) {
 				TokenDefinition token = placeholder.getToken();
+				if (token == null) {
+					continue;
+				}
 				if (token.getAttributeName() != null) {
 					addProblem(
 							resource,

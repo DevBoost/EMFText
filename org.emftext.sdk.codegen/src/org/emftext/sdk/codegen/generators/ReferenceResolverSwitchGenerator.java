@@ -73,7 +73,6 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
     	StringComposite sc = new JavaComposite();
         sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
-        // TODO EMFTEXT_1.2.0 extend AbstractReferenceResolverSwitch instead
 		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_REFERENCE_RESOLVER_SWITCH() + " {");
         sc.addLineBreak();
 		
@@ -131,7 +130,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
-				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference);
+				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference, false);
 				sc.add("protected " + fullClassName + " " + low(generatedClassName) + " = new " + fullClassName + "();");			
 			}
 		}
@@ -145,7 +144,7 @@ public class ReferenceResolverSwitchGenerator extends BaseGenerator {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
-				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference);
+				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference, false);
 				sc.add("public " + fullClassName + " get" + generatedClassName + "() {");
 				sc.add("return " + low(generatedClassName) + ";");			
 				sc.add("}");

@@ -105,7 +105,11 @@ public abstract class GenerationContext {
 	}
 
 	public String getPackageName(EArtifact artifact) {
-		return nameUtil.getPackageName(concreteSyntax, artifact);
+		return getPackageName(artifact, concreteSyntax);
+	}
+
+	public String getPackageName(EArtifact artifact, ConcreteSyntax syntax) {
+		return nameUtil.getPackageName(syntax, artifact);
 	}
 
 	/**
@@ -120,8 +124,12 @@ public abstract class GenerationContext {
 		return problemCollector;
 	}
 	
+	public String getCapitalizedConcreteSyntaxName(ConcreteSyntax syntax) {
+		return csUtil.getCapitalizedConcreteSyntaxName(syntax);
+	}
+	
 	public String getCapitalizedConcreteSyntaxName() {
-		return csUtil.getCapitalizedConcreteSyntaxName(getConcreteSyntax());
+		return getCapitalizedConcreteSyntaxName(getConcreteSyntax());
 	}
 	
     // TODO remove this method. the nc-references should not be added
@@ -135,19 +143,34 @@ public abstract class GenerationContext {
 	}
 
 	public boolean isImportedWithSyntaxReference(GenFeature genFeature) {
-		//Set<GenClass> classesExceptImports = genClassFinder.findAllGenClasses(concreteSyntax, false, false);
 		ConcreteSyntax containingSyntax = genClassFinder.getContainingSyntax(concreteSyntax, genFeature.getGenClass());
-		if (containingSyntax == null) return false;
-		if (containingSyntax == concreteSyntax) return false;
+		if (containingSyntax == null) {
+			return false;
+		}
+		if (containingSyntax == concreteSyntax) {
+			return false;
+		}
 		return true;
 	}
 
-	public String getQualifiedReferenceResolverClassName(GenFeature proxyReference) {
-		return getResolverPackageName(proxyReference) + "." + csUtil.getReferenceResolverClassName(proxyReference);
+	/**
+	 * Returns the qualified class name of the reference resolver for the given reference. If
+	 * inImportedSyntax is set to true, the name of the resolver in the imported resource plug-in
+	 * is returned if the rule containing the reference is imported. Otherwise (if the containing
+	 * rule is not imported or inImportedSyntax is false), the name of the resolver in the currrent
+	 * resource plug-in is returned.
+	 * 
+	 * @param proxyReference
+	 * @param inImportedSyntax
+	 * 
+	 * @return the fully qualified reference resolver class name
+	 */
+	public String getQualifiedReferenceResolverClassName(GenFeature proxyReference, boolean inImportedSyntax) {
+		return getResolverPackageName(proxyReference, inImportedSyntax) + "." + csUtil.getReferenceResolverClassName(proxyReference);
 	}
 
-	private String getResolverPackageName(GenFeature proxyReference) {
-		return csUtil.getResolverPackageName(getConcreteSyntax(), proxyReference);
+	private String getResolverPackageName(GenFeature proxyReference, boolean inImportedSyntax) {
+		return csUtil.getResolverPackageName(getConcreteSyntax(), proxyReference, inImportedSyntax);
 	}
 
 	public String getReferenceResolverAccessor(GenFeature genFeature) {
@@ -249,11 +272,19 @@ public abstract class GenerationContext {
 	}
 
 	public String getClassName(EArtifact artifact) {
-		return artifact.getClassNamePrefix() + getCapitalizedConcreteSyntaxName() + artifact.getClassNameSuffix();
+		return getClassName(artifact, getConcreteSyntax());
+	}
+
+	public String getClassName(EArtifact artifact, ConcreteSyntax syntax) {
+		return artifact.getClassNamePrefix() + getCapitalizedConcreteSyntaxName(syntax) + artifact.getClassNameSuffix();
 	}
 
 	public String getQualifiedClassName(EArtifact artifact) {
 		return getPackageName(artifact) + "." + getClassName(artifact);
+	}
+
+	public String getQualifiedClassName(EArtifact artifact, ConcreteSyntax syntax) {
+		return getPackageName(artifact, syntax) + "." + getClassName(artifact, syntax);
 	}
 
 	public File getFile(EArtifact artifact) {
