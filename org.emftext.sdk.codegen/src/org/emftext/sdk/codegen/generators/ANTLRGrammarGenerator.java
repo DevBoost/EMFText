@@ -431,13 +431,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("public " + getClassNameHelper().getI_PARSE_RESULT() + " parse() {");
 		sc.add("terminateParsing = false;");
 		sc.add("postParseCommands = new " + ARRAY_LIST + "<" + getClassNameHelper().getI_COMMAND() + "<" + getClassNameHelper().getI_TEXT_RESOURCE() + ">>();");
-		sc.add("try {");
 		sc.add(parseResultClassName + " parseResult = new " + parseResultClassName + "();");
+		sc.add("try {");
 		sc.add(E_OBJECT + " result =  doParse();");
 		sc.add("if (lexerExceptions.isEmpty()) {");
 		sc.add("parseResult.setRoot(result);");
-		sc.add("parseResult.getPostParseCommands().addAll(postParseCommands);");
-		sc.add("return parseResult;");
 		sc.add("}");
 		sc.add("} catch (" + RECOGNITION_EXCEPTION + " re) {");
 		sc.add("reportError(re);");
@@ -452,7 +450,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("for (" + RECOGNITION_EXCEPTION + " re : lexerExceptions) {");
 		sc.add("reportLexicalError(re);");
 		sc.add("}");
-		sc.add("return null;");
+		sc.add("parseResult.getPostParseCommands().addAll(postParseCommands);");
+		sc.add("return parseResult;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
