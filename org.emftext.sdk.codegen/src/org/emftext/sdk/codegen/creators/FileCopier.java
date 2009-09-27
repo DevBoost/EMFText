@@ -32,16 +32,17 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.util.StreamUtil;
 
 /**
- * Creates default icons for the editor and the NewFileWizard of 
- * generated text resources by copying the default_icon.gif 
- * contained in this package.
+ * Creates default icons (for the editor and the NewFileWizard) 
+ * and style sheets (for text hovers) of 
+ * generated text resources by copying the default_icon.gif and
+ * hover_style.css contained in this package.
  */
-public class IconCreator implements IArtifactCreator {
+public class FileCopier implements IArtifactCreator {
 
 	private String sourceFileName;
 	private File targetFile;
 
-	public IconCreator(String sourceFileName, File targetFile) {
+	public FileCopier(String sourceFileName, File targetFile) {
 		this.sourceFileName = sourceFileName;
 		this.targetFile = targetFile;
 	}
@@ -50,19 +51,19 @@ public class IconCreator implements IArtifactCreator {
 		File iconsDir = context.getIconsDir();
 		iconsDir.mkdir();
 		
-		InputStream in = IconCreator.class.getResourceAsStream(sourceFileName);
+		InputStream in = FileCopier.class.getResourceAsStream(sourceFileName);
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(targetFile);
 			StreamUtil.copy(in, fos);
 			fos.close();
 		} catch (IOException e) {
-			context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying new file icon.", null, GenerationProblem.Severity.ERROR, e));
-			EMFTextSDKPlugin.logError("Error while copying icon.", e);
+			context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying " + sourceFileName + ".", null, GenerationProblem.Severity.ERROR, e));
+			EMFTextSDKPlugin.logError("Error while copying " + sourceFileName + ".", e);
 		}
 	}
 
 	public String getArtifactDescription() {
-		return "new file icon";
+		return sourceFileName;
 	}
 }

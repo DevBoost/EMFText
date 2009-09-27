@@ -40,6 +40,7 @@ public class FoldersCreator implements IArtifactCreator {
 		createIfNeeded(context.getSourceFolder(false));
 		createIfNeeded(context.getSourceFolder(true));
 		createIfNeeded(context.getSchemaFolder());
+		createIfNeeded(context.getCSSDir());
 	}
 
 	private void createIfNeeded(File targetFolder) {

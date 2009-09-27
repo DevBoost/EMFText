@@ -56,7 +56,9 @@ public abstract class GenerationContext {
 	private static final String DEFAULT_NEW_ICON_NAME = "default_new_icon.gif";
 	private static final String DEFAULT_EDITOR_ICON_NAME = "editor_icon.gif";
 	private static final String DEFAULT_ICON_DIR = "icons";
+	public static final String DEFAULT_CSS_DIR = "css";
 	private static final String SCHEMA_DIR = "schema";
+	public static final String HOVER_STYLE_FILENAME = "hover_style.css";
 	
 	private final NameUtil nameUtil = new NameUtil();
 
@@ -199,8 +201,14 @@ public abstract class GenerationContext {
 	 */
 	public abstract String getProjectRelativePathToSyntaxFile();
 
+	// TODO we should delete these artifact specific methods and use the generic methods
+	// for EArtifact instead.
 	public File getIconsDir() {
 		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + DEFAULT_ICON_DIR);
+	}
+
+	public File getCSSDir() {
+		return new File(getPluginProjectFolder().getAbsolutePath() + File.separator + DEFAULT_CSS_DIR);
 	}
 
 	public File getSchemaFolder() {
@@ -213,6 +221,10 @@ public abstract class GenerationContext {
 
 	public File getEditorIconFile() {
 		return new File(getIconsDir().getAbsolutePath() + File.separator + DEFAULT_EDITOR_ICON_NAME);
+	}
+
+	public File getHoverStyleFile() {
+		return new File(getCSSDir().getAbsolutePath() + File.separator + HOVER_STYLE_FILENAME);
 	}
 
 	public String getProjectRelativeNewIconPath() {

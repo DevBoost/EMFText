@@ -39,6 +39,7 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		StringBuilder sc = new StringBuilder();
 		
 		sc.append("bin.includes = icons/,\\\n");
+		sc.append("css/,\\\n");
 		sc.append("plugin.xml,\\\n");
 		sc.append("META-INF/,\\\n");
 		sc.append(".\n");

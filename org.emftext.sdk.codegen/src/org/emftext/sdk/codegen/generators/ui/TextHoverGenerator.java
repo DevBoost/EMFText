@@ -326,7 +326,7 @@ public class TextHoverGenerator extends BaseGenerator {
 		sc.add("private static String loadStyleSheet() {");
 		sc.add("// TODO adjust this constant");
 		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID);");
-		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/css/hover_style_sheet.css\");");
+		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + GenerationContext.DEFAULT_CSS_DIR + "/" + GenerationContext.HOVER_STYLE_FILENAME + "\");");
 		sc.add("if (styleSheetURL != null) {");
 		sc.add(BUFFERED_READER + " reader = null;");
 		sc.add("try {");
