@@ -1,12 +1,20 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
 import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class EObjectSelectionGenerator extends BaseGenerator {
 
@@ -19,7 +27,7 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_STRUCTURED_SELECTION + " {");
@@ -34,8 +42,7 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addGetSelectedObjectMethod(sc);
 		addDoHighlightingMethod(sc);
 		addIsEmptyMethod(sc);
@@ -46,8 +53,7 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 		addToListMethod(sc);
 	}
 
-	private void addToListMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addToListMethod(StringComposite sc) {
 		sc.add("public " + LIST + "<?> toList() {");
 		sc.add(ARRAY_LIST + "<" + E_OBJECT + "> list = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.add("list.add(selectedObject);");
@@ -55,24 +61,21 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 		sc.add("}");
 	}
 
-	private void addToArrayMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addToArrayMethod(StringComposite sc) {
 		sc.add("public " + OBJECT + "[] toArray() {");
 		sc.add("return new " + OBJECT + "[] {selectedObject};");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addSizeMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSizeMethod(StringComposite sc) {
 		sc.add("public int size() {");
 		sc.add("return 1;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addIteratorMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIteratorMethod(StringComposite sc) {
 		sc.add("public " + ITERATOR + "<?> iterator() {");
 		sc.add("return new " + ITERATOR + "<" + E_OBJECT + ">() {");
 		sc.addLineBreak();
@@ -94,40 +97,35 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetFirstElementMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetFirstElementMethod(StringComposite sc) {
 		sc.add("public " + OBJECT + " getFirstElement() {");
 		sc.add("return selectedObject;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addIsEmptyMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIsEmptyMethod(StringComposite sc) {
 		sc.add("public boolean isEmpty() {");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addDoHighlightingMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addDoHighlightingMethod(StringComposite sc) {
 		sc.add("public boolean doHighlighting() {");
 		sc.add("return highlighting;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetSelectedObjectMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetSelectedObjectMethod(StringComposite sc) {
 		sc.add("public " + E_OBJECT + " getSelectedObject() {");
 		sc.add("return selectedObject;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "(" + E_OBJECT + " selectedObject, boolean highlighting) {");
 		sc.add("super();");
 		sc.add("this.selectedObject = selectedObject;");
@@ -136,7 +134,7 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private final " + E_OBJECT + " selectedObject;");
 		sc.add("private final boolean highlighting;");
 		sc.addLineBreak();
