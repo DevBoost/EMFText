@@ -42,40 +42,17 @@ import org.eclipse.ocl.Query;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.ecore.OCLExpression;
 import org.eclipse.ocl.util.Tuple;
-import org.emftext.runtime.IResourcePostProcessor;
-import org.emftext.runtime.IResourcePostProcessorProvider;
-import org.emftext.runtime.resource.EProblemType;
-import org.emftext.runtime.resource.IProblem;
-import org.emftext.runtime.resource.ITextResource;
 
 /**
  * A post-processor that retrieves OCL constraints from the meta model of a text
  * resource and evaluates them. 
  */
-public class OCLModelValidator implements IResourcePostProcessor, IResourcePostProcessorProvider {
+public class OCLModelValidator {
 
 	private static final AdapterFactory reflectiveAdapterFactory = new ReflectiveItemProviderAdapterFactory();
 
 	private static final AdapterFactory defaultAdapterFactory = new ComposedAdapterFactory(
 			ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-
-	private ITextResource textResource;
-
-	public void analyse(EObject rootObject) {
-
-		Resource resource = rootObject.eResource();
-
-		// Since the resource is loaded with ETE
-		// it is necessarily a TextResource
-		if (resource instanceof ITextResource) {
-			textResource = (ITextResource) resource;
-		} 
-		TreeIterator<EObject> allContents = resource.getAllContents();
-
-		while (allContents.hasNext()) {
-			evaluate(allContents.next());
-		}
-	}
 
 	private Collection<EClass> getAllMetaclasses(EObject object) {
 		Set<EClass> metaclasses = new HashSet<EClass>();
@@ -114,7 +91,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 		return eval;
 	}
 
-	private void evaluate(EObject targetObject) {
+	private void evaluate(EObject targetObject, IProblemHandler problemHandler) {
 		List<EAnnotation> annotations = new ArrayList<EAnnotation>();
 		Collection<EClass> metaclasses = getAllMetaclasses(targetObject);
 
@@ -147,7 +124,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 					
 
 					if (errorMsg.length() > 0) {
-						addErrorMessage(targetObject, errorMsg);
+						addErrorMessage(problemHandler, targetObject, errorMsg);
 					}
 				}
 			} else if (annotation.getSource().equals("OCL_Derivation")) {
@@ -166,7 +143,7 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 						errorMsg += "Parse Error for OCL Expression: " + value;
 					}
 					if (errorMsg.length() > 0) {
-						addErrorMessage(targetObject, errorMsg);
+						addErrorMessage(problemHandler, targetObject, errorMsg);
 					}
 				}
 
@@ -180,21 +157,8 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 	 * @param resourceFile
 	 * @param errorMesssage
 	 */
-	private void addErrorMessage(EObject targetObject, final String errorMesssage) {
-		if (textResource != null) {
-			textResource.addProblem(
-	    			new IProblem() {
-						
-						public EProblemType getType() {
-							return EProblemType.ERROR;
-						}
-						
-						public String getMessage() {
-							return errorMesssage;
-						}
-	    			}, targetObject);
-		}
-
+	private void addErrorMessage(IProblemHandler problemHandler, EObject targetObject, String errorMesssage) {
+		problemHandler.addProblem(errorMesssage, targetObject, true);
 	}
 	
 
@@ -251,17 +215,26 @@ public class OCLModelValidator implements IResourcePostProcessor, IResourcePostP
 		return error.trim();
 	}
 
-	public void process(Resource resource) {
+	public void process(Resource resource, IProblemHandler problemHandler) {
 		EList<EObject> contents = resource.getContents();
 	
 		Set<EObject> distinctObjects = new HashSet<EObject>();
 		distinctObjects.addAll(contents);
 		for (EObject eobject : distinctObjects) {
-			analyse(eobject);
+			analyse(eobject, problemHandler);
 		}
 	}
 
-	public IResourcePostProcessor getResourcePostProcessor() {
-		return this;
+	public void analyse(EObject rootObject, IProblemHandler problemHandler) {
+
+		Resource resource = rootObject.eResource();
+
+		// Since the resource is loaded with ETE
+		// it is necessarily a TextResource
+		TreeIterator<EObject> allContents = resource.getAllContents();
+
+		while (allContents.hasNext()) {
+			evaluate(allContents.next(), problemHandler);
+		}
 	}
 }
