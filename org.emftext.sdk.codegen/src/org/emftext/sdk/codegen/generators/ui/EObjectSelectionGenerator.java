@@ -74,7 +74,7 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 	private void addIteratorMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public " + ITERATOR + "<?> iterator() {");
-		sc.add("return new " + ITERATOR + "<?>() {");
+		sc.add("return new " + ITERATOR + "<" + E_OBJECT + ">() {");
 		sc.addLineBreak();
 		sc.add("private boolean hasNext = true;");
 		sc.addLineBreak();
