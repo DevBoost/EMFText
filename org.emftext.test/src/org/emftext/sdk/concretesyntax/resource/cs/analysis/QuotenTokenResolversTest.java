@@ -6,7 +6,6 @@ import java.util.Collection;
 import junit.framework.TestCase;
 
 import org.emftext.sdk.codegen.util.Pair;
-import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolveResult;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTokenResolveResult;
 import org.junit.Test;
@@ -41,7 +40,7 @@ public class QuotenTokenResolversTest extends TestCase {
 	}
 
 	public void assertResolveTo(ICsTokenResolver resolver, String lexem, String expectedResult) {
-		ICsTokenResolveResult result = new CsTokenResolveResult();
+		CsTokenResolveResult result = new CsTokenResolveResult();
 		resolver.resolve(lexem, null, result);
 		Object actualResult = result.getResolvedToken();
 		System.out.println("RESOLVE EXP: [" + expectedResult + "]");

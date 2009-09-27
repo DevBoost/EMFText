@@ -22,6 +22,8 @@ package org.emftext.runtime.util;
 
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -29,8 +31,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
-
-import junit.framework.TestCase;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper;
 
 /**
  * A test for the MinimalModelHelper class.
@@ -46,7 +47,7 @@ public class MinimalModelHelperTest extends TestCase {
 		
 		rootPackage.getEClassifiers().add(rootClass);
 		
-		EObject instance = new MinimalModelHelper().getMinimalModel(
+		EObject instance = new CsMinimalModelHelper().getMinimalModel(
 			rootClass,
 			new EClass[] {rootClass}
 		);
@@ -75,7 +76,7 @@ public class MinimalModelHelperTest extends TestCase {
 		rootPackage.getEClassifiers().add(rootClass);
 		rootPackage.getEClassifiers().add(typeClass);
 		
-		EObject instance = new MinimalModelHelper().getMinimalModel(
+		EObject instance = new CsMinimalModelHelper().getMinimalModel(
 				rootClass,
 				new EClass[] {rootClass, typeClass}
 			);
@@ -101,7 +102,7 @@ public class MinimalModelHelperTest extends TestCase {
 
 		rootPackage.getEClassifiers().add(rootClass);
 		
-		EObject instance = new MinimalModelHelper().getMinimalModel(
+		EObject instance = new CsMinimalModelHelper().getMinimalModel(
 				rootClass,
 				new EClass[] {rootClass}
 			);
@@ -145,7 +146,7 @@ public class MinimalModelHelperTest extends TestCase {
 		rootPackage.getEClassifiers().add(concreteClassA);
 		rootPackage.getEClassifiers().add(concreteClassB);
 		
-		EObject instance = new MinimalModelHelper().getMinimalModel(
+		EObject instance = new CsMinimalModelHelper().getMinimalModel(
 				rootClass,
 				new EClass[] {rootClass, superClass, concreteClassA, concreteClassB}
 			);

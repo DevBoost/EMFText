@@ -2,6 +2,8 @@ package org.emftext.runtime.util;
 
 import junit.framework.TestCase;
 
+import org.emftext.sdk.util.StringUtil;
+
 public class StringUtilTest extends TestCase {
 	
 	public void testIsUnicodeSequence() {
