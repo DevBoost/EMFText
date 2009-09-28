@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.emftext.access.syntax">
-		<metaInformationProvider class="org.emftext.test.escaping.resource.escaping.mopp.EscapingMetaInformation" id="org.emftext.test.escaping.resource.escaping.mopp.EscapingMetaInformation">
+		<metaInformationProvider class="org.emftext.test.escaping.resource.escaping.mopp.EscapingTextResourcePluginMetaInformation" id="org.emftext.test.escaping.resource.escaping.mopp.EscapingTextResourcePluginMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
@@ -37,15 +37,6 @@
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.escaping.resource.escaping.ui.EscapingNewFileWizard" id="org.emftext.test.escaping.resource.escaping.ui.EscapingNewFileWizard" name="EMFText .escaping file">
 		</wizard>
-	</extension>
-	
-	<extension id="org.emftext.test.escaping.resource.escaping.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
-		<persistent value="true">
-		</persistent>
-		<super type="org.eclipse.core.resources.problemmarker">
-		</super>
-		<super type="org.eclipse.core.resources.textmarker">
-		</super>
 	</extension>
 	
 	<extension-point id="org.emftext.test.escaping.resource.escaping.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
