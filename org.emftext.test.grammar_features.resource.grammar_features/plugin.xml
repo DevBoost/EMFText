@@ -7,7 +7,7 @@
 	</extension>
 	
 	<extension point="org.emftext.access.syntax">
-		<metaInformationProvider class="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresTextResourcePluginMetaInformation" id="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresTextResourcePluginMetaInformation">
+		<metaInformationProvider class="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresMetaInformation" id="org.emftext.test.grammar_features.resource.grammar_features.mopp.Grammar_featuresMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
@@ -37,6 +37,15 @@
 		</category>
 		<wizard category="org.emftext.runtime.ui.EMFTextFileCategory" icon="/icons/default_new_icon.gif" class="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresNewFileWizard" id="org.emftext.test.grammar_features.resource.grammar_features.ui.Grammar_featuresNewFileWizard" name="EMFText .grammar_features file">
 		</wizard>
+	</extension>
+	
+	<extension id="org.emftext.test.grammar_features.resource.grammar_features.problem" name="EMFText Problem" point="org.eclipse.core.resources.markers">
+		<persistent value="true">
+		</persistent>
+		<super type="org.eclipse.core.resources.problemmarker">
+		</super>
+		<super type="org.eclipse.core.resources.textmarker">
+		</super>
 	</extension>
 	
 	<extension-point id="org.emftext.test.grammar_features.resource.grammar_features.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
