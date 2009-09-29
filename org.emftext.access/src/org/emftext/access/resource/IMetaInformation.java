@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EClass;
  * This interface provides information about a generated EMFText
  * text resource plug-in.
  */
-public interface ITextResourcePluginMetaInformation {
+public interface IMetaInformation {
 
 	public String getURI();
 	

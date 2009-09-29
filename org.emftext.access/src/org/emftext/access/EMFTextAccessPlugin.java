@@ -31,7 +31,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
-import org.emftext.access.resource.ITextResourcePluginMetaInformation;
+import org.emftext.access.resource.IMetaInformation;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -73,7 +73,7 @@ public class EMFTextAccessPlugin extends Plugin {
 	private static Map<String, URI> URIToConcreteSyntaxLocationMap = null;
 	private static List<String>     concreteSyntaxNamesList = null;
 	private static boolean concreteSyntaxRegistryIsInitialized = false;
-	private static List<ITextResourcePluginMetaInformation> concreteSyntaxRegistry;
+	private static List<IMetaInformation> concreteSyntaxRegistry;
 	
 	/**
 	 * Returns the concrete syntax models that are registered through generated plugins. 
@@ -89,8 +89,8 @@ public class EMFTextAccessPlugin extends Plugin {
 		if (URIToConcreteSyntaxLocationMap == null) {
 			URIToConcreteSyntaxLocationMap = new HashMap<String, URI>();
 
-	        List<ITextResourcePluginMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
-	        for (ITextResourcePluginMetaInformation syntaxPlugin : syntaxPlugins) {
+	        List<IMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
+	        for (IMetaInformation syntaxPlugin : syntaxPlugins) {
 	        	String uri       = syntaxPlugin.getURI();
 	            String csName    = syntaxPlugin.getSyntaxName();
 	            String file      = syntaxPlugin.getPathToCSDefinition();
@@ -105,8 +105,8 @@ public class EMFTextAccessPlugin extends Plugin {
 		if (concreteSyntaxNamesList == null) {
 			concreteSyntaxNamesList = new ArrayList<String>();
 
-	        List<ITextResourcePluginMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
-	        for (ITextResourcePluginMetaInformation syntaxPlugin : syntaxPlugins) {
+	        List<IMetaInformation> syntaxPlugins = getConcreteSyntaxRegistry();
+	        for (IMetaInformation syntaxPlugin : syntaxPlugins) {
 	            String csName = syntaxPlugin.getSyntaxName();
 	            concreteSyntaxNamesList.add(csName);
 			}
@@ -114,9 +114,9 @@ public class EMFTextAccessPlugin extends Plugin {
 		return concreteSyntaxNamesList;
 	}
 	
-	public static List<ITextResourcePluginMetaInformation> getConcreteSyntaxRegistry() {
+	public static List<IMetaInformation> getConcreteSyntaxRegistry() {
 		if (!concreteSyntaxRegistryIsInitialized) {
-			concreteSyntaxRegistry = new ArrayList<ITextResourcePluginMetaInformation>();
+			concreteSyntaxRegistry = new ArrayList<IMetaInformation>();
 			concreteSyntaxRegistryIsInitialized = true;
 			// check for syntax extensions
 			if (Platform.isRunning()) {
@@ -137,8 +137,8 @@ public class EMFTextAccessPlugin extends Plugin {
 
 	public static void registerConcreteSyntax(
 			Object metaInformation) {
-		ITextResourcePluginMetaInformation accessProxy = 
-			(ITextResourcePluginMetaInformation) EMFTextAccessProxy.get(metaInformation, ITextResourcePluginMetaInformation.class);
+		IMetaInformation accessProxy = 
+			(IMetaInformation) EMFTextAccessProxy.get(metaInformation, IMetaInformation.class);
 		 getConcreteSyntaxRegistry().add(accessProxy);
 	}
 

@@ -5,9 +5,6 @@ package org.emftext.access.resource;
  * has a name, a length and is found at a certain offset in a
  * document.
  */
-//TODO add empty class AbstractTextToken and let generated
-//implementations inherit instead of implementing the interface
-//directly
 public interface ITextToken {
 
 	/**

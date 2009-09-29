@@ -10,7 +10,7 @@ import org.emftext.access.resource.IParseResult;
 import org.emftext.access.resource.ITextParser;
 import org.emftext.access.resource.ITextPrinter;
 import org.emftext.access.resource.ITextResource;
-import org.emftext.access.resource.ITextResourcePluginMetaInformation;
+import org.emftext.access.resource.IMetaInformation;
 import org.emftext.access.resource.ITextScanner;
 import org.emftext.access.resource.ITextToken;
 
@@ -23,7 +23,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			ITextParser.class,
 			ITextPrinter.class,
 			ITextResource.class,
-			ITextResourcePluginMetaInformation.class,
+			IMetaInformation.class,
 			ITextScanner.class,
 			ITextToken.class
 	};
