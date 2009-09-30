@@ -50,7 +50,6 @@ public class EditorGenerator extends BaseGenerator {
 		addFields(sc);
 		addMarkerUpdateListenerClass(sc);
 		addDocumentListenerClass(sc);
-		addMarkerAdapterClass(sc);
 		addModelResourceChangeListenerClass(sc);
 		
 		addGetAdapterMethod(sc);
@@ -110,7 +109,6 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
-		sc.add("resource.eAdapters().add(markerAdapter);");
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -379,7 +377,6 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("if (deltaKind == " + I_RESOURCE_DELTA + ".REMOVED || deltaKind == " + I_RESOURCE_DELTA + ".CHANGED && delta.getFlags() != " + I_RESOURCE_DELTA + ".MARKERS) {");
 		sc.add(RESOURCE + " changedResource = resourceSet.getResource(" + URI + ".createURI(delta.getFullPath().toString()), false);");
 		sc.add("if (changedResource != null) {");
-		sc.add("markerAdapter.setEnabled(false);");
 		sc.add("changedResource.unload();");
 		sc.add("if (changedResource.equals(resource)) {");
 		sc.add("// reload the resource displayed in the editor");
@@ -388,7 +385,12 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("if (resource != null && resource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
 		sc.add("}");
-		sc.add("markerAdapter.setEnabled(true);");
+		sc.add("try {");
+		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
+		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
+		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while updating markers on resource\", e);");
+		sc.add("}");
 		sc.add("// reset the selected element in outline and");
 		sc.add("// properties by text position");
 		sc.add("if (highlighting != null) {");
@@ -406,49 +408,6 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("} catch (" + CORE_EXCEPTION + " exception) {");
 		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Unexpected Error: \", exception);");
 		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addMarkerAdapterClass(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("// The MarkerAdapter is attached to all resources opened in EMFText editors.");
-		sc.add("// When changes are applied to the resource all existing (potentially");
-		sc.add("// invalid) markers are removed and replaced by new ones. Further the");
-		sc.add("// adapter can be disabled to avoid unnecessary marking when a set of");
-		sc.add("// changes is applied.");
-		sc.add("///");
-		sc.add("private final class MarkerAdapter extends " + ADAPTER_IMPL + " {");
-		sc.addLineBreak();
-		sc.add("private boolean enabled = true;");
-		sc.addLineBreak();
-		sc.add("public boolean isAdapterForType(" + OBJECT + " type) {");
-		sc.add("return type == " + getResourceClassName() + ".class;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void notifyChanged(" + NOTIFICATION + " notification) {");
-		sc.add("if (!enabled) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add(OBJECT + " notifier = notification.getNotifier();");
-		sc.add("if (notifier != null && notifier instanceof " + getClassNameHelper().getI_TEXT_RESOURCE() + ") {");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " resource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") notifier;");
-		sc.add("if (!resource.isLoaded()) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("try {");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
-		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add("e.printStackTrace();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		
-		sc.add("public void setEnabled(boolean enabled) {");
-		sc.add("this.enabled = enabled;");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -493,7 +452,6 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("private " + colorManagerClassName + " colorManager = new " + colorManagerClassName + "();");
 		sc.add("private " + outlinePageClassName + " emfTextEditorOutlinePage;");
 		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
-		sc.add("private MarkerAdapter markerAdapter = new MarkerAdapter();");
 		sc.add("private " + I_RESOURCE_CHANGE_LISTENER + " resourceChangeListener = new ModelResourceChangeListener();");
 		sc.add("private " + propertySheetClassName + " propertySheetPage;");
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
