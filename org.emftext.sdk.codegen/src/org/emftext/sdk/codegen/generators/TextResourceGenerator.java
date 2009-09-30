@@ -22,6 +22,7 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
@@ -122,6 +123,8 @@ public class TextResourceGenerator extends BaseGenerator {
         addReloadMethod(sc);
         addCancelReloadMethod(sc);
         addDoSaveMethod(sc);
+        addSaveOnlyIfChangedWithMemoryBuffer(sc);
+        addGetPrint(sc);
         addGetSyntaxNameMethod(sc);
         addGetReferenceResolverSwitchMethod(sc);
     	getContext().addGetMetaInformationMethod(sc);
@@ -588,6 +591,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("private int proxyCounter = 0;");
     	sc.add("private " + getClassNameHelper().getI_TEXT_PARSER() + " parser;");
     	sc.add("private " + MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">>();");
+    	sc.add("private String textPrintAfterLoading = null;");
     	sc.addLineBreak();
 	}
 
@@ -618,6 +622,25 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("}");
         sc.addLineBreak();
+	}
+	
+	private void addSaveOnlyIfChangedWithMemoryBuffer(StringComposite sc) {
+		sc.add("protected void saveOnlyIfChangedWithMemoryBuffer(" + MAP + "<?, ?> options) throws " + IO_EXCEPTION + " {");
+		sc.add("String currentPrint = getPrint(options);");
+		sc.add("if (textPrintAfterLoading != null && textPrintAfterLoading.equals(currentPrint)) {");
+		sc.add("return;");
+		sc.add("} else {");
+		sc.add("super.saveOnlyIfChangedWithFileBuffer(options);");
+		sc.add("}");
+		sc.add("}");
+	}
+	
+	private void addGetPrint(StringComposite sc) {
+		sc.add("private String getPrint("+ MAP + "<?, ?> options) throws " + IO_EXCEPTION + " {");
+		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " outputStream = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
+		sc.add("doSave(outputStream, options);");
+		sc.add("return outputStream.toString();");
+		sc.add("}");
 	}
 
 	private void addConstructors(StringComposite sc) {
@@ -673,6 +696,7 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("getReferenceResolverSwitch().setOptions(options);");
         sc.add("runPostProcessors(options);");
+        sc.add("textPrintAfterLoading = getPrint(options);");
         sc.add("}");
         sc.addLineBreak();
 	}
