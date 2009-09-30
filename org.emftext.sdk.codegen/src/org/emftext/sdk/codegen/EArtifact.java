@@ -107,6 +107,7 @@ import org.emftext.sdk.codegen.generators.ui.PositionCategoryGenerator;
 import org.emftext.sdk.codegen.generators.ui.PositionHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.PreferenceConstantsGenerator;
 import org.emftext.sdk.codegen.generators.ui.PreferenceInitializerGenerator;
+import org.emftext.sdk.codegen.generators.ui.PreferencePageGenerator;
 import org.emftext.sdk.codegen.generators.ui.PropertySheetPageGenerator;
 import org.emftext.sdk.codegen.generators.ui.SyntaxColoringHelperGenerator;
 import org.emftext.sdk.codegen.generators.ui.SyntaxColoringPreferencePageGenerator;
@@ -189,6 +190,7 @@ public enum EArtifact {
 	COMPLETION_PROCESSOR(UI_PACKAGE, "", "CompletionProcessor", new CompletionProcessorGenerator(), OptionTypes.OVERRIDE_COMPLETION_PROCESSOR),
 	BROWER_INFORMATION_CONTROL(UI_PACKAGE, "", "BrowserInformationControl", new BrowserInformationControlGenerator(), OptionTypes.OVERRIDE_BROWSER_INFORMATION_CONTROL),
 	// preference pages
+	PREFERENCE_PAGE(UI_PACKAGE, "", "PreferencePage", new PreferencePageGenerator(), OptionTypes.OVERRIDE_PREFERENCE_PAGE),
 	BRACKET_PREFERENCE_PAGE(UI_PACKAGE, "", "BracketPreferencePage", new BracketPreferencePageGenerator(), OptionTypes.OVERRIDE_BRACKET_PREFERENCE_PAGE),
 	PREFERENCE_CONSTANTS(UI_PACKAGE, "", "PreferenceConstants", new PreferenceConstantsGenerator(), OptionTypes.OVERRIDE_PREFERENCE_CONSTANTS),
 	OCCURRENCE_PREFERENCE_PAGE(UI_PACKAGE, "", "OccurrencePreferencePage", new OccurrencePreferencePageGenerator(), OptionTypes.OVERRIDE_OCCURENCE_PREFERENCE_PAGE),
@@ -263,7 +265,7 @@ public enum EArtifact {
 	PACKAGE_ANALYSIS(ANALYSIS_PACKAGE, "analysis", "analysis", null, null),      
 	PACKAGE_CC(MOPP_PACKAGE, "", "", null, null),
 	PACKAGE_UI(UI_PACKAGE, "", "", null, null),
-	PACKAGE_UTIL(UTIL_PACKAGE, "", "", null, null), 
+	PACKAGE_UTIL(UTIL_PACKAGE, "", "", null, null),
 	;
 	
 	private String classNamePrefix;

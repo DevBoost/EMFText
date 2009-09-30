@@ -108,6 +108,31 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("</initializer>");
 		sc.add("</extension>");
 		sc.addLineBreak();
+		
+		sc.add("<extension point=\"org.eclipse.ui.preferencePages\">");
+		//main page
+		sc.add("<page name=\"" + context.getCapitalizedConcreteSyntaxName() + " Text Editor\" " + 
+				"id=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\" " +
+				"class=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+		sc.add("</page>");
+		//sub pages
+		sc.add("<page name=\"Syntax Coloring\" " + 
+				"id=\"" + context.getQualifiedClassName(EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE)  + "\" " +
+				"class=\"" + context.getQualifiedClassName(EArtifact.SYNTAX_COLORING_PREFERENCE_PAGE) + "\" " + 
+				"category=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+		sc.add("</page>");
+		sc.add("<page name=\"Brackets\" " + 
+				"id=\"" + context.getQualifiedClassName(EArtifact.BRACKET_PREFERENCE_PAGE) + "\" " +
+				"class=\"" + context.getQualifiedClassName(EArtifact.BRACKET_PREFERENCE_PAGE) + "\" " + 
+				"category=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+		sc.add("</page>");
+		sc.add("<page name=\"Occurrence\" " + 
+				"id=\"" + context.getQualifiedClassName(EArtifact.OCCURRENCE_PREFERENCE_PAGE)  + "\" " +
+				"class=\"" + context.getQualifiedClassName(EArtifact.OCCURRENCE_PREFERENCE_PAGE) + "\" " + 
+				"category=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+		sc.add("</page>");
+		sc.add("</extension>");
+		sc.addLineBreak();
 
 		sc.add("<extension point=\"org.eclipse.ui.newWizards\">");
 		sc.add("<category id=\"org.emftext.runtime.ui.EMFTextFileCategory\" name=\"EMFText File\">");

@@ -286,6 +286,7 @@
         value="138" literal="overrideAdditionalExtensionParserExtensionPointSchema"/>
     <eLiterals name="OVERRIDE_RESOURCE_FACTORY_DELEGATOR" value="139" literal="overrideResourceFactoryDelegator"/>
     <eLiterals name="BASE_RESOURCE_PLUGIN" value="140" literal="baseResourcePlugin"/>
+    <eLiterals name="OVERRIDE_PREFERENCE_PAGE" value="141" literal="OverridePreferencePage"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

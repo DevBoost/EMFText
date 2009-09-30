@@ -1268,7 +1268,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BASE_RESOURCE_PLUGIN(140, "BASE_RESOURCE_PLUGIN", "baseResourcePlugin");
+	BASE_RESOURCE_PLUGIN(140, "BASE_RESOURCE_PLUGIN", "baseResourcePlugin"), /**
+	 * The '<em><b>OVERRIDE PREFERENCE PAGE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PREFERENCE_PAGE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_PREFERENCE_PAGE(141, "OVERRIDE_PREFERENCE_PAGE", "OverridePreferencePage");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3386,6 +3394,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int BASE_RESOURCE_PLUGIN_VALUE = 140;
 
 	/**
+	 * The '<em><b>OVERRIDE PREFERENCE PAGE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE PREFERENCE PAGE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_PREFERENCE_PAGE
+	 * @model literal="OverridePreferencePage"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_PREFERENCE_PAGE_VALUE = 141;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3534,6 +3557,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA,
 			OVERRIDE_RESOURCE_FACTORY_DELEGATOR,
 			BASE_RESOURCE_PLUGIN,
+			OVERRIDE_PREFERENCE_PAGE,
 		};
 
 	/**
@@ -3724,6 +3748,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA_VALUE: return OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA;
 			case OVERRIDE_RESOURCE_FACTORY_DELEGATOR_VALUE: return OVERRIDE_RESOURCE_FACTORY_DELEGATOR;
 			case BASE_RESOURCE_PLUGIN_VALUE: return BASE_RESOURCE_PLUGIN;
+			case OVERRIDE_PREFERENCE_PAGE_VALUE: return OVERRIDE_PREFERENCE_PAGE;
 		}
 		return null;
 	}
