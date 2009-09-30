@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-	<extension point="org.eclipse.emf.ecore.extension_parser">
-		<parser class="org.emftext.test.escaping.resource.escaping.mopp.EscapingResourceFactory" type="escaping">
-		</parser>
-	</extension>
-	
 	<extension point="org.emftext.access.syntax">
 		<metaInformationProvider class="org.emftext.test.escaping.resource.escaping.mopp.EscapingMetaInformation" id="org.emftext.test.escaping.resource.escaping.mopp.EscapingMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
-	<extension point="org.eclipse.core.contenttype.contentTypes">
-		<content-type id="org.emftext.filetype.escaping" name="EMFText escaping Files">
-		</content-type>
-		<file-association content-type="org.emftext.filetype.escaping" file-extensions="escaping">
-		</file-association>
-	</extension>
-	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="org.emftext.test.escaping.resource.escaping.ui.EscapingEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" icon="icons/editor_icon.gif" id="org.emftext.test.escaping.resource.escaping.ui.EscapingEditor" name="EMFText escaping Editor">
-			<contentTypeBinding contentTypeId="org.eclipse.core.runtime.text">
-			</contentTypeBinding>
-			<contentTypeBinding contentTypeId="org.emftext.filetype.escaping" >
-			</contentTypeBinding>
+		<editor class="org.emftext.test.escaping.resource.escaping.ui.EscapingEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="escaping" icon="icons/editor_icon.gif" id="org.emftext.test.escaping.resource.escaping.ui.EscapingEditor" name="EMFText escaping Editor">
 		</editor>
 	</extension>
 	
 	<extension point="org.eclipse.core.runtime.preferences">
 		<initializer class="org.emftext.test.escaping.resource.escaping.ui.EscapingPreferenceInitializer">
 		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Escaping Text Editor" id="org.emftext.test.escaping.resource.escaping.ui.EscapingPreferencePage" class="org.emftext.test.escaping.resource.escaping.ui.EscapingPreferencePage">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.test.escaping.resource.escaping.ui.EscapingSyntaxColoringPreferencePage" class="org.emftext.test.escaping.resource.escaping.ui.EscapingSyntaxColoringPreferencePage" category="org.emftext.test.escaping.resource.escaping.ui.EscapingPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.test.escaping.resource.escaping.ui.EscapingBracketPreferencePage" class="org.emftext.test.escaping.resource.escaping.ui.EscapingBracketPreferencePage" category="org.emftext.test.escaping.resource.escaping.ui.EscapingPreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.test.escaping.resource.escaping.ui.EscapingOccurrencePreferencePage" class="org.emftext.test.escaping.resource.escaping.ui.EscapingOccurrencePreferencePage" category="org.emftext.test.escaping.resource.escaping.ui.EscapingPreferencePage">
+		</page>
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
@@ -49,5 +44,12 @@
 	</extension>
 	
 	<extension-point id="org.emftext.test.escaping.resource.escaping.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.test.escaping.resource.escaping.mopp.EscapingResourceFactoryDelegator" type="escaping">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.test.escaping.resource.escaping.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
 	
 </plugin>

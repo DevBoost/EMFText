@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-	<extension point="org.eclipse.emf.ecore.extension_parser">
-		<parser class="org.emftext.test.cct1.resource.cct1.mopp.Cct1ResourceFactory" type="cct1">
-		</parser>
-	</extension>
-	
 	<extension point="org.emftext.access.syntax">
 		<metaInformationProvider class="org.emftext.test.cct1.resource.cct1.mopp.Cct1MetaInformation" id="org.emftext.test.cct1.resource.cct1.mopp.Cct1MetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
-	<extension point="org.eclipse.core.contenttype.contentTypes">
-		<content-type id="org.emftext.filetype.cct1" name="EMFText cct1 Files">
-		</content-type>
-		<file-association content-type="org.emftext.filetype.cct1" file-extensions="cct1">
-		</file-association>
-	</extension>
-	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="org.emftext.test.cct1.resource.cct1.ui.Cct1Editor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" icon="icons/editor_icon.gif" id="org.emftext.test.cct1.resource.cct1.ui.Cct1Editor" name="EMFText cct1 Editor">
-			<contentTypeBinding contentTypeId="org.eclipse.core.runtime.text">
-			</contentTypeBinding>
-			<contentTypeBinding contentTypeId="org.emftext.filetype.cct1" >
-			</contentTypeBinding>
+		<editor class="org.emftext.test.cct1.resource.cct1.ui.Cct1Editor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cct1" icon="icons/editor_icon.gif" id="org.emftext.test.cct1.resource.cct1.ui.Cct1Editor" name="EMFText cct1 Editor">
 		</editor>
 	</extension>
 	
 	<extension point="org.eclipse.core.runtime.preferences">
 		<initializer class="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferenceInitializer">
 		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Cct1 Text Editor" id="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferencePage" class="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferencePage">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.test.cct1.resource.cct1.ui.Cct1SyntaxColoringPreferencePage" class="org.emftext.test.cct1.resource.cct1.ui.Cct1SyntaxColoringPreferencePage" category="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.test.cct1.resource.cct1.ui.Cct1BracketPreferencePage" class="org.emftext.test.cct1.resource.cct1.ui.Cct1BracketPreferencePage" category="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.test.cct1.resource.cct1.ui.Cct1OccurrencePreferencePage" class="org.emftext.test.cct1.resource.cct1.ui.Cct1OccurrencePreferencePage" category="org.emftext.test.cct1.resource.cct1.ui.Cct1PreferencePage">
+		</page>
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
@@ -49,5 +44,12 @@
 	</extension>
 	
 	<extension-point id="org.emftext.test.cct1.resource.cct1.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.test.cct1.resource.cct1.mopp.Cct1ResourceFactoryDelegator" type="cct1">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.test.cct1.resource.cct1.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
 	
 </plugin>
