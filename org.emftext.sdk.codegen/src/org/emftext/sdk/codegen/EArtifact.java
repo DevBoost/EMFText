@@ -30,6 +30,7 @@ import org.emftext.sdk.codegen.generators.PluginMetaInformationGenerator;
 import org.emftext.sdk.codegen.generators.ProblemClassGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolverSwitchGenerator;
+import org.emftext.sdk.codegen.generators.ResourceFactoryDelegatorGenerator;
 import org.emftext.sdk.codegen.generators.ResourceFactoryGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessScannerGenerator;
@@ -149,6 +150,7 @@ public enum EArtifact {
 	PRINTER_BASE(MOPP_PACKAGE, "", "PrinterBase", null, OptionTypes.OVERRIDE_PRINTER_BASE),
 	RESOURCE(MOPP_PACKAGE, "", "Resource", new TextResourceGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE),
 	RESOURCE_FACTORY(MOPP_PACKAGE, "", "ResourceFactory", new ResourceFactoryGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY),
+	RESOURCE_FACTORY_DELEGATOR(MOPP_PACKAGE, "", "ResourceFactoryDelegator", new ResourceFactoryDelegatorGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR),
 	TOKEN_RESOLVER_FACTORY(MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
 	REFERENCE_RESOLVER_SWITCH(MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
 	META_INFORMATION(MOPP_PACKAGE, "", "MetaInformation", new PluginMetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION), 

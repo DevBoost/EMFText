@@ -32,11 +32,13 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -126,6 +128,12 @@ public class ManifestGenerator implements IGenerator {
 		imports.add("org.eclipse.ui.editors");
 		imports.add("org.eclipse.ui.ide");
 		imports.add("org.eclipse.ui.views");
+		
+		String qualifiedBasePluginName = 
+			OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_RESOURCE_PLUGIN);
+		if (qualifiedBasePluginName != null) {
+			imports.add(qualifiedBasePluginName);
+		}
 		
 		if (context.isGenerateTestActionEnabled()) {
 			imports.add("org.emftext.sdk.ui");

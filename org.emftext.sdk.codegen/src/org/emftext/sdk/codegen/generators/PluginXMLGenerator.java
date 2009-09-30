@@ -29,9 +29,11 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.composites.XMLComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * A generator for the plugin.xml file.
@@ -64,20 +66,20 @@ public class PluginXMLGenerator implements IGenerator {
 	 */
 	private String getContentOfPluginXML() {
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();
-		final String concreteSyntaxName = concreteSyntax.getName();
-		final String qualifiedResourceFactoryClassName = context.getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
+		final String primaryConcreteSyntaxName = getPrimarySyntaxName(concreteSyntax);
+		final String secondaryConcreteSyntaxName = getSecondarySyntaxName(concreteSyntax);
+		final String qualifiedResourceFactoryClassName;
+		if (secondaryConcreteSyntaxName == null) {
+			qualifiedResourceFactoryClassName = context.getQualifiedClassName(EArtifact.RESOURCE_FACTORY_DELEGATOR);
+		}
+		else {
+			qualifiedResourceFactoryClassName = context.getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
+		}
 
 		StringComposite sc = new XMLComposite();
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<?eclipse version=\"3.2\"?>");
 		sc.add("<plugin>");
-
-		// register the generated resource factory
-		sc.add("<extension point=\"org.eclipse.emf.ecore.extension_parser\">");
-		sc.add("<parser class=\"" + qualifiedResourceFactoryClassName + "\" type=\"" + concreteSyntaxName + "\">");
-		sc.add("</parser>");
-		sc.add("</extension>");
-		sc.addLineBreak();
 
 		// register the syntax meta information
 		String metaInformationClass = context.getQualifiedClassName(EArtifact.META_INFORMATION);
@@ -93,10 +95,10 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<extension point=\"org.eclipse.ui.editors\">");
 		sc.add("<editor class=\"" + editorName + 
 				"\" contributorClass=\"org.eclipse.ui.texteditor.BasicTextEditorActionContributor\" " +
-				"extensions=\"" + concreteSyntaxName + "\" " + 
+				"extensions=\"" + primaryConcreteSyntaxName + "\" " + 
 				"icon=\"icons/editor_icon.gif\" " +
 				"id=\"" + editorName + "\" " + 
-				"name=\"EMFText " + concreteSyntaxName + " Editor\">");
+				"name=\"EMFText " + concreteSyntax.getName() + " Editor\">");
 		sc.add("</editor>");
 		sc.add("</extension>");
 		sc.addLineBreak();
@@ -128,7 +130,27 @@ public class PluginXMLGenerator implements IGenerator {
 		
 		sc.add("<extension-point id=\"" + pluginID + ".default_load_options\" name=\"Default Load Options\" schema=\"schema/default_load_options.exsd\"/>");
 		sc.addLineBreak();
-
+		
+		if (secondaryConcreteSyntaxName == null) {
+			// register the generated resource factory
+			sc.add("<extension point=\"org.eclipse.emf.ecore.extension_parser\">");
+			sc.add("<parser class=\"" + qualifiedResourceFactoryClassName + "\" type=\"" + primaryConcreteSyntaxName + "\">");
+			sc.add("</parser>");
+			sc.add("</extension>");
+			sc.addLineBreak();
+			
+			sc.add("<extension-point id=\"" + pluginID + ".additional_extension_parser\" name=\"Additional Extension Parser\" schema=\"schema/additional_extension_parser.exsd\"/>");
+			sc.addLineBreak();
+		}
+		else {
+			String qualifiedBasePluginName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.BASE_RESOURCE_PLUGIN);
+			sc.add("<extension point=\""+  qualifiedBasePluginName + ".additional_extension_parser\">");
+			sc.add("<parser class=\"" + qualifiedResourceFactoryClassName + "\" type=\"" + secondaryConcreteSyntaxName + "\">");
+			sc.add("</parser>");
+			sc.add("</extension>");
+			sc.addLineBreak();
+		}
+		
 		if (context.isGenerateTestActionEnabled()) {
 			sc.add(generateTestActionExtension());
 		}
@@ -138,6 +160,24 @@ public class PluginXMLGenerator implements IGenerator {
 		return sc.toString();
 	}
 
+	private String getPrimarySyntaxName(ConcreteSyntax concreteSyntax) {
+		 String fullConcreteSyntaxName = concreteSyntax.getName();
+		 int idx = fullConcreteSyntaxName.lastIndexOf(".");
+		 if (idx != -1) {
+			 return fullConcreteSyntaxName.substring(idx + 1);
+		 }
+		 return fullConcreteSyntaxName;
+	}
+	
+	private String getSecondarySyntaxName(ConcreteSyntax concreteSyntax) {
+		 String fullConcreteSyntaxName = concreteSyntax.getName();
+		 int idx = fullConcreteSyntaxName.lastIndexOf(".");
+		 if (idx != -1) {
+			 return fullConcreteSyntaxName.substring(0, idx);
+		 }
+		 return null;
+	}
+	
 	private StringComposite generateTestActionExtension() {
 
 		final ConcreteSyntax concreteSyntax = context.getConcreteSyntax();

@@ -1244,7 +1244,31 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA(137, "OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA", "overrideDefaultLoadOptionsExtensionPointSchema");
+	OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA(137, "OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA", "overrideDefaultLoadOptionsExtensionPointSchema"), /**
+	 * The '<em><b>OVERRIDE ADDITIONAL EXTENSION PARSER EXTENSION POINT SCHEMA</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA(138, "OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA", "overrideAdditionalExtensionParserExtensionPointSchema"), /**
+	 * The '<em><b>OVERRIDE RESOURCE FACTORY DELEGATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_FACTORY_DELEGATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_RESOURCE_FACTORY_DELEGATOR(139, "OVERRIDE_RESOURCE_FACTORY_DELEGATOR", "overrideResourceFactoryDelegator"), /**
+	 * The '<em><b>BASE RESOURCE PLUGIN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BASE_RESOURCE_PLUGIN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BASE_RESOURCE_PLUGIN(140, "BASE_RESOURCE_PLUGIN", "baseResourcePlugin");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3317,6 +3341,51 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA_VALUE = 137;
 
 	/**
+	 * The '<em><b>OVERRIDE ADDITIONAL EXTENSION PARSER EXTENSION POINT SCHEMA</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ADDITIONAL EXTENSION PARSER EXTENSION POINT SCHEMA</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA
+	 * @model literal="overrideAdditionalExtensionParserExtensionPointSchema"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA_VALUE = 138;
+
+	/**
+	 * The '<em><b>OVERRIDE RESOURCE FACTORY DELEGATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE RESOURCE FACTORY DELEGATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_RESOURCE_FACTORY_DELEGATOR
+	 * @model literal="overrideResourceFactoryDelegator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_RESOURCE_FACTORY_DELEGATOR_VALUE = 139;
+
+	/**
+	 * The '<em><b>BASE RESOURCE PLUGIN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>BASE RESOURCE PLUGIN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #BASE_RESOURCE_PLUGIN
+	 * @model literal="baseResourcePlugin"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BASE_RESOURCE_PLUGIN_VALUE = 140;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3462,6 +3531,9 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_TEXT_TOKEN,
 			SOURCE_GEN_FOLDER,
 			OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA,
+			OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA,
+			OVERRIDE_RESOURCE_FACTORY_DELEGATOR,
+			BASE_RESOURCE_PLUGIN,
 		};
 
 	/**
@@ -3649,6 +3721,9 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_TEXT_TOKEN_VALUE: return OVERRIDE_TEXT_TOKEN;
 			case SOURCE_GEN_FOLDER_VALUE: return SOURCE_GEN_FOLDER;
 			case OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA_VALUE: return OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA;
+			case OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA_VALUE: return OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA;
+			case OVERRIDE_RESOURCE_FACTORY_DELEGATOR_VALUE: return OVERRIDE_RESOURCE_FACTORY_DELEGATOR;
+			case BASE_RESOURCE_PLUGIN_VALUE: return BASE_RESOURCE_PLUGIN;
 		}
 		return null;
 	}

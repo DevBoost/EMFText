@@ -73,6 +73,10 @@ public class ResourcePluginContentCreator {
 	    creators.add(new DefaultLoadOptionsExtensionPointSchemaCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE));
 	    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE_FACTORY));
+	    if (!syntax.getName().contains(".")) {
+		    creators.add(new AdditionalExtensionParserExtensionPointSchemaCreator());
+		    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE_FACTORY_DELEGATOR));
+	    }
 	    creators.add(new PrinterBaseCreator());
 	    creators.add(new PrinterCreator());
 	    creators.add(new ReferenceResolversCreator());

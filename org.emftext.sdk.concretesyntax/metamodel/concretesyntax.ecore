@@ -282,6 +282,10 @@
     <eLiterals name="SOURCE_GEN_FOLDER" value="136" literal="srcGenFolder"/>
     <eLiterals name="OVERRIDE_DEFAULT_LOAD_OPTIONS_EXTENSION_POINT_SCHEMA" value="137"
         literal="overrideDefaultLoadOptionsExtensionPointSchema"/>
+    <eLiterals name="OVERRIDE_ADDITIONAL_EXTENSION_PARSER_EXTENSION_POINT_SCHEMA"
+        value="138" literal="overrideAdditionalExtensionParserExtensionPointSchema"/>
+    <eLiterals name="OVERRIDE_RESOURCE_FACTORY_DELEGATOR" value="139" literal="overrideResourceFactoryDelegator"/>
+    <eLiterals name="BASE_RESOURCE_PLUGIN" value="140" literal="baseResourcePlugin"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">
