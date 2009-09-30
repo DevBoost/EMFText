@@ -27,6 +27,7 @@ import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.emftext.sdk.concretesyntax.resource.cs.util.CsMapUtil;
 
 /**
@@ -58,7 +59,7 @@ public class RegisterEcoreResourceFactoryTask extends Task {
 		
 		Resource.Factory newEcoreFactory = instantiateFactory(className);
 		String ecoreEcoreResourceFactoryDelegatorClassName = 
-			"org.emftext.language.ecore.resource.EcoreResourceFactoryDelegator";
+			"org.emftext.language.ecore.resource.ecore.mopp.EcoreResourceFactoryDelegator";
 	
 		if (ecoreFactoryDelagator == null) {
 			ecoreFactoryDelagator = (Resource.Factory) instantiateFactory(ecoreEcoreResourceFactoryDelegatorClassName);
@@ -69,11 +70,12 @@ public class RegisterEcoreResourceFactoryTask extends Task {
 
 		try {
 			Class<?> factoryClass = Class.forName(ecoreEcoreResourceFactoryDelegatorClassName);
-			Method m = factoryClass.getMethod("getEcoreResourceFactoriesMap");
+			Method m = factoryClass.getMethod("getResourceFactoriesMap");
 			Map<Object, Object> ecoreFactoriesMap = CsMapUtil.castToMap(m.invoke(ecoreFactoryDelagator, (Object[]) null));
 			if (!ecoreFactoriesMap.containsKey(getType())) {
 				ecoreFactoriesMap.put(getType(), newEcoreFactory);
 			}
+			ecoreFactoriesMap.put("", new EcoreResourceFactoryImpl());
 		} catch (Exception e) {
 			e.printStackTrace();
 			 // Reset the Thread's original ClassLoader.
