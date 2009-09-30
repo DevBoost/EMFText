@@ -433,6 +433,9 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("private final class MarkerUpdateListener implements " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource) {");
 		sc.add("try {");
+		sc.add("if (resource != null && resource.getErrors().isEmpty()) {");
+		sc.add(ECORE_UTIL + ".resolveAll(resource);");
+		sc.add("}");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");

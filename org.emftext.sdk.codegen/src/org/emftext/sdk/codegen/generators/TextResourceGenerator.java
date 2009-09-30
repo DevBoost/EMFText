@@ -711,7 +711,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("public void reload(" + INPUT_STREAM + " inputStream, " + MAP + "<?,?> options) throws " + IO_EXCEPTION + " {");
         sc.add("try {");
         sc.add("isLoaded = false;");
-        sc.add("doLoad(inputStream, options);");
+        sc.add(MAP + "<" + OBJECT + ", " + OBJECT + "> loadOptions = addDefaultLoadOptions(options);");
+        sc.add("doLoad(inputStream, loadOptions);");
         sc.add("} catch (" + getClassNameHelper().getTERMINATE_PARSING_EXCEPTION() + " tpe) {");
         sc.add("// do nothing - the resource is left unchanged if this exception is thrown");
         sc.add("}");
