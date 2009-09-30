@@ -94,7 +94,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("} else {");
 		sc.add("// the resource was not loaded by an EMFText resource, but");
 		sc.add("// some other EMF resource");
-		sc.add(activatorClassName + ".getDefault().showErrorDialog(\"No EMFText resource.\", \"Sorry, no registered EMFText resource can handle this file type.\");");
+		sc.add(activatorClassName + ".showErrorDialog(\"No EMFText resource.\", \"Sorry, no registered EMFText resource can handle this file type.\");");
 		sc.add("}");
 		sc.add("} catch (" + EXCEPTION + " e) {");
 		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");

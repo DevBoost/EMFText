@@ -83,7 +83,7 @@ public class PluginActivatorGenerator extends BaseGenerator {
 
 	private void addShowErrorMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("public void showErrorDialog(final String title, final String message) {");
+		sc.add("public static void showErrorDialog(final String title, final String message) {");
 		sc.add(DISPLAY + ".getDefault().asyncExec(new Runnable() {");
 		sc.add("public void run() {");
 		sc.add(SHELL + " parent = new " + SHELL + "();");
