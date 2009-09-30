@@ -156,6 +156,7 @@ public class PluginXMLGenerator implements IGenerator {
 		sc.add("<extension-point id=\"" + pluginID + ".default_load_options\" name=\"Default Load Options\" schema=\"schema/default_load_options.exsd\"/>");
 		sc.addLineBreak();
 		
+		String qualifiedBasePluginName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.BASE_RESOURCE_PLUGIN);
 		if (secondaryConcreteSyntaxName == null) {
 			// register the generated resource factory
 			sc.add("<extension point=\"org.eclipse.emf.ecore.extension_parser\">");
@@ -167,8 +168,7 @@ public class PluginXMLGenerator implements IGenerator {
 			sc.add("<extension-point id=\"" + pluginID + ".additional_extension_parser\" name=\"Additional Extension Parser\" schema=\"schema/additional_extension_parser.exsd\"/>");
 			sc.addLineBreak();
 		}
-		else {
-			String qualifiedBasePluginName = OptionManager.INSTANCE.getStringOptionValue(concreteSyntax, OptionTypes.BASE_RESOURCE_PLUGIN);
+		else if (qualifiedBasePluginName != null) {
 			sc.add("<extension point=\""+  qualifiedBasePluginName + ".additional_extension_parser\">");
 			sc.add("<parser class=\"" + qualifiedResourceFactoryClassName + "\" type=\"" + secondaryConcreteSyntaxName + "\">");
 			sc.add("</parser>");
