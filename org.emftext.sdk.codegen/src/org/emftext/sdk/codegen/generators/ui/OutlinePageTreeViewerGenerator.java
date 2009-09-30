@@ -3,12 +3,15 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
 
 import java.io.PrintWriter;
 
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class OutlinePageTreeViewerGenerator extends BaseGenerator {
@@ -30,6 +33,9 @@ public class OutlinePageTreeViewerGenerator extends BaseGenerator {
 		sc.add("public class " + getResourceClassName() + " extends " + TREE_VIEWER + " {");
 		sc.addLineBreak();
 		
+		sc.add("boolean suppressNotifications = false;");
+		sc.addLineBreak();
+		
 		addConstructor(sc);
 		addMethods(sc);
 
@@ -45,6 +51,7 @@ public class OutlinePageTreeViewerGenerator extends BaseGenerator {
 		addRefreshMethod2(sc);
 		addRefreshMethod3(sc);
 		addRefreshMethod4(sc);
+		addFireSelectionChangedMethod(sc);
 	}
 
 	private void addRefreshMethod4(
@@ -86,8 +93,18 @@ public class OutlinePageTreeViewerGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public void setSelection(" + I_SELECTION + " selection, boolean reveal) {");
 		sc.add("if (selection instanceof " + getContext().getQualifiedClassName(EArtifact.E_OBJECT_SELECTION) + ") {");
+		sc.add("suppressNotifications = true;");
 		sc.add("super.setSelection(selection, reveal);");
+		sc.add("suppressNotifications = false;");
 		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addFireSelectionChangedMethod(StringComposite sc) {
+		sc.add("protected void fireSelectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+		sc.add("if (suppressNotifications == true) return;");
+		sc.add("super.fireSelectionChanged(event);");
 		sc.add("}");
 		sc.addLineBreak();
 	}

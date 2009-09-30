@@ -199,6 +199,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.WizardPage;
@@ -585,6 +586,7 @@ public class IClassNameConstants {
 	public static String TEXT_LAYOUT = TextLayout.class.getName();
 	public static String TEXT_PRESENTATION = TextPresentation.class.getName();
 	public static String TEXT_SELECTION = TextSelection.class.getName();
+	public static String TREE_SELECTION = TreeSelection.class.getName();
 	public static String TEXT_STYLE = TextStyle.class.getName();
 	public static String TEXT_VIEWER = TextViewer.class.getName();
 	public static String TIMER = Timer.class.getName();

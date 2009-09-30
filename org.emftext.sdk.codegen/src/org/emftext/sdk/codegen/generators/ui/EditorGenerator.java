@@ -1,6 +1,7 @@
 package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -102,13 +103,12 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		
-		sc.add("protected void setResource(" + RESOURCE + " loadedResource) throws " + CORE_EXCEPTION + " {");
+		sc.add("protected void setResource(" + RESOURCE + " loadedResource) {");
 		sc.add("resource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") loadedResource;");
 		sc.add("if (resource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
 		sc.add("}");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
+		sc.add("refreshMarkers(resource);");
 		sc.add("}");
 		sc.addLineBreak();
 		
@@ -122,12 +122,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("super.performSave(overwrite, progressMonitor);");
 		sc.add("// update markers after the resource has been reloaded");
-		sc.add("try {");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while updating markers on resource\", e);");
-		sc.add("}");
+		sc.add("refreshMarkers(resource);");
 		sc.addLineBreak();
 		sc.add("// Save code folding state");
 		sc.add("codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());");
@@ -320,7 +315,11 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("listener.parsingCompleted(resource);");
 		sc.add("}");
 		sc.add("}");
+		
+		addRefreshMarkersMethod(sc);
+		
 		sc.add("}");
+		
 		out.print(sc.toString());
 		return true;
 	}
@@ -385,12 +384,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("if (resource != null && resource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
 		sc.add("}");
-		sc.add("try {");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while updating markers on resource\", e);");
-		sc.add("}");
+		sc.add("refreshMarkers(resource);");
 		sc.add("// reset the selected element in outline and");
 		sc.add("// properties by text position");
 		sc.add("if (highlighting != null) {");
@@ -432,18 +426,35 @@ public class EditorGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private final class MarkerUpdateListener implements " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
 		sc.add("public void parsingCompleted(" + RESOURCE + " resource) {");
-		sc.add("try {");
 		sc.add("if (resource != null && resource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
 		sc.add("}");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
-		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add("e.printStackTrace();");
-		sc.add("}");
+		sc.add("refreshMarkers(resource);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+	
+	private void addRefreshMarkersMethod(
+			org.emftext.sdk.codegen.composites.StringComposite sc) {
+		
+		sc.add("private static void refreshMarkers(final " + RESOURCE + " resource) {");
+		sc.add("if (resource == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("new " + JOB + "(\"marking resource\") {");
+		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("try {");
+		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
+		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
+		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
+		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while updating markers on resource\", e);");
+		sc.add("}");
+		sc.add("return " + STATUS + ".OK_STATUS;");
+		sc.add("}");
+		sc.add("}.schedule();");
+		sc.add("}");
+
 	}
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {

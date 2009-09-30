@@ -27,6 +27,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLED_TEXT
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_RANGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_SELECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.VERIFY_LISTENER;
 
@@ -105,7 +106,7 @@ public class HighlightingGenerator extends BaseGenerator {
 	private void addHandleContentOutlineSelectionMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private void handleContentOutlineSelection(" + I_SELECTION + " selection) {");
-		sc.add("if (!selection.isEmpty() && selection instanceof " + eObjectSelectClassName + ") {");
+		sc.add("if (!selection.isEmpty()) {");
 		sc.add(OBJECT + " selectedElement = ((" + I_STRUCTURED_SELECTION + ") selection).getFirstElement();");
 		sc.add("if (selectedElement instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " selectedEObject = (" + E_OBJECT + ") selectedElement;");
@@ -115,9 +116,6 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add("int elementCharStart = locationMap.getCharStart(selectedEObject);");
 		sc.add("int elementCharEnd = locationMap.getCharEnd(selectedEObject);");
-		sc.add("// selectAndReveal(elementCharStart, elementCharEnd -");
-		sc.add("// elementCharStart + 1);");
-		sc.add("// this.getSelectionProvider().setSelection(selection);");
 		sc.add(TEXT_SELECTION + " textEditorSelection = new " + TEXT_SELECTION + "(elementCharStart, elementCharEnd - elementCharStart + 1);");
 		sc.add("projectionViewer.getSelectionProvider().setSelection(textEditorSelection);");
 		sc.add("}");
@@ -130,17 +128,7 @@ public class HighlightingGenerator extends BaseGenerator {
 	private void addSelectionChangedMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
-		sc.addLineBreak();
-		sc.add(OBJECT + " oldSelection = null;");
-		sc.add(OBJECT + " newSelection = null;");
-		sc.add("if (getSelection() instanceof " + I_STRUCTURED_SELECTION + ") {");
-		sc.add("oldSelection = ((" + I_STRUCTURED_SELECTION + ") getSelection()).getFirstElement();");
-		sc.add("}");
-		sc.add("if (event.getSelection() instanceof " + I_STRUCTURED_SELECTION + ") {");
-		sc.add("newSelection = ((" + I_STRUCTURED_SELECTION + ")event.getSelection()).getFirstElement();");
-		sc.add("}");
-		sc.add("if (newSelection != null && !newSelection.equals(oldSelection)) {");
-		sc.add("selection = event.getSelection();");
+		sc.add("if (event.getSelection() instanceof " + TREE_SELECTION + ") {");
 		sc.add("handleContentOutlineSelection(event.getSelection());");
 		sc.add("}");
 		sc.add("}");
