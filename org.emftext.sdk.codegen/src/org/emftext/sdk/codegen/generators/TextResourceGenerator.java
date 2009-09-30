@@ -699,7 +699,9 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("}");
         sc.add("}");
         sc.add("getReferenceResolverSwitch().setOptions(options);");
+        sc.add("if (getErrors().isEmpty()) {");
         sc.add("runPostProcessors(options);");
+        sc.add("}");
         //TODO #1 sc.add("textPrintAfterLoading = getPrint(options);");
         sc.add("}");
         sc.addLineBreak();

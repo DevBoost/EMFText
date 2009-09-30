@@ -105,7 +105,9 @@ public class EditorGenerator extends BaseGenerator {
 		
 		sc.add("protected void setResource(" + RESOURCE + " loadedResource) throws " + CORE_EXCEPTION + " {");
 		sc.add("resource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") loadedResource;");
+		sc.add("if (resource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
+		sc.add("}");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
 		sc.add("resource.eAdapters().add(markerAdapter);");
@@ -383,7 +385,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("// reload the resource displayed in the editor");
 		sc.add("resourceSet.getResource(resource.getURI(), true);");
 		sc.add("}");
-		sc.add("if (resource != null) {");
+		sc.add("if (resource != null && resource.getErrors().isEmpty()) {");
 		sc.add(ECORE_UTIL + ".resolveAll(resource);");
 		sc.add("}");
 		sc.add("markerAdapter.setEnabled(true);");

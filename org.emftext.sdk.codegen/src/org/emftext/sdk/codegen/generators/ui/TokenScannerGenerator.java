@@ -76,7 +76,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.add("try {");
 		sc.add("lexer.setText(document.get(offset, length));");
 		sc.add("} catch (" + BAD_LOCATION_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Unexpected error:\", e);");
+		sc.add("//ignore this error. It might occur during editing when locations are outdated quickly.");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
