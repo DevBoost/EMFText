@@ -122,7 +122,6 @@ public class ResourceFactoryDelegatorGenerator extends BaseGenerator {
     	sc.add("if (type == null) {");
     	sc.add("type = \"\";");
     	sc.add("}");
-    	sc.add("else {");
     	sc.add(RESOURCE + ".Factory otherFactory = factories.get(type);");
 		sc.add("if (otherFactory != null) {");
 		sc.add("Class<?> superClass = factory.getClass().getSuperclass();");
@@ -137,7 +136,6 @@ public class ResourceFactoryDelegatorGenerator extends BaseGenerator {
 		sc.add("else {");
 		sc.add("factories.put(type, factory);");
 		sc.add("}");
-    	sc.add("}");
     	sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
     	sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while getting default options.\", ce);");
     	sc.add("}");
