@@ -54,7 +54,6 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("private " + BUTTON + " enableCheckbox;");
 		sc.add("private " + BUTTON + " enableClosingInside;");
 		sc.add("private " + BUTTON + " matchingBracketsColorButton;");
-		sc.add("private " + LABEL + " languagesLabel;");
 		sc.add("private " + COMBO + " languagesCombo;");
 		sc.add("private " + LABEL + " bracketTokensLabel;");
 		sc.add("private " + COMBO + " leftBracketTokensCombo;");
@@ -135,16 +134,11 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("languageComposite.setLayout(layout);");
 		sc.add("languageComposite.setLayoutData(gd);");
 		sc.addLineBreak();
-		sc.add("languagesLabel = new " + LABEL + "(languageComposite, " + SWT + ".LEFT);");
-		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".BEGINNING);");
-		sc.add("gd.horizontalAlignment = " + GRID_DATA + ".BEGINNING;");
-		sc.add("languagesLabel.setLayoutData(gd);");
-		sc.add("languagesLabel.setText(\"The available languages\");");
-		sc.addLineBreak();
 		sc.add("languagesCombo = new " + COMBO + "(languageComposite, " + SWT + ".DROP_DOWN");
 		sc.add("| " + SWT + ".READ_ONLY | " + SWT + ".LEFT);");
 		sc.add("gd = new " + GRID_DATA + "(" + GRID_DATA + ".BEGINNING);");
 		sc.add("languagesCombo.setLayoutData(gd);");
+		sc.add("languagesCombo.setVisible(false);");
 		sc.addLineBreak();
 		sc.add("" + COMPOSITE + " tokenSelectionComposite = new " + COMPOSITE + "(settingComposite,");
 		sc.add("" + SWT + ".NONE);");

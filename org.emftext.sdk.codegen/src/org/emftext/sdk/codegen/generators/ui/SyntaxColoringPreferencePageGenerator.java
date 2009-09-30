@@ -1,11 +1,47 @@
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUTTON;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR_SELECTOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTROL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.EDITOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_DATA;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_LAYOUT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EDITOR_PART;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PREFERENCE_STORE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TREE_CONTENT_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LABEL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONVERTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_PAGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RGB;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SCROLLABLE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SCROLL_BAR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRUCTURED_VIEWER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.VIEWER;
+
 import java.io.PrintWriter;
+
 import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 
@@ -59,10 +95,10 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public Object[] getElements(Object inputElement) {");
-		sc.add("" + SET + "<String> contents = content.keySet();");
-		sc.add("" + LIST + "<String> contentsList = new " + ARRAY_LIST + "<String>();");
-		sc.add("contentsList.addAll(contents);");
-		sc.add("" + COLLECTIONS + ".sort(contentsList);");
+		sc.add("" + LIST + "<HighlightingColorListItem> contentsList = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
+		sc.add("for(" + LIST + "<HighlightingColorListItem> l : content.values()) {");
+		sc.add("contentsList.addAll(l);");
+		sc.add("}");
 		sc.add("return contentsList.toArray();");
 		sc.add("}");
 		sc.addLineBreak();
@@ -73,25 +109,15 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public Object[] getChildren(Object parentElement) {");
-		sc.add("if (parentElement instanceof String) {");
-		sc.add("String entry = (String) parentElement;");
-		sc.add(LIST + "<HighlightingColorListItem> items = content.get(entry);");
-		sc.add(LIST + "<HighlightingColorListItem> itemsList = new " + ARRAY_LIST + "<HighlightingColorListItem>();");
-		sc.add("itemsList.addAll(items);");
-		sc.add(COLLECTIONS + ".sort(itemsList);");
-		sc.add("return itemsList.toArray();");
-		sc.add("}");
 		sc.add("return new Object[0];");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public Object getParent(Object element) {");
-		sc.add("if (element instanceof HighlightingColorListItem)");
-		sc.add("return ((HighlightingColorListItem) element).getParent();");
 		sc.add("return null;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean hasChildren(Object element) {");
-		sc.add("return content.containsKey(element);");
+		sc.add("return false;");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
