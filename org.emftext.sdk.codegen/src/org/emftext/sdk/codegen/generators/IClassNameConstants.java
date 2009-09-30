@@ -603,6 +603,7 @@ public class IClassNameConstants {
 	public static String XML_MEMENTO = XMLMemento.class.getName();
 	public static String SWT_LIST = org.eclipse.swt.widgets.List.class.getName();
 	public static String JFACE_DIALOG = org.eclipse.jface.dialogs.Dialog.class.getName();
+	public static String JOB = org.eclipse.core.runtime.jobs.Job.class.getName();
 
 	// EMFText Runtime Classes
 	/*
