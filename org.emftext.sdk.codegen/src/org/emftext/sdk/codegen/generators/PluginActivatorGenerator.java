@@ -11,6 +11,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -132,8 +133,10 @@ public class PluginActivatorGenerator extends BaseGenerator {
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("public static final String PLUGIN_ID = \"" + getContext().getPluginName() + "\";");
+		sc.add("public static final String EMFTEXT_SDK_VERSION = \"" + EMFTextSDKPlugin.getDefault().getBundle().getVersion() + "\";");
 		sc.add("public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + \".default_load_options\";");
 		sc.add("public static final String EP_ADDITIONAL_EXTENSION_PARSER_ID = PLUGIN_ID + \".additional_extension_parser\";");
+		sc.addLineBreak();
 		sc.add("private static " + getResourceClassName() + " plugin;");
 		sc.addLineBreak();
 	}
