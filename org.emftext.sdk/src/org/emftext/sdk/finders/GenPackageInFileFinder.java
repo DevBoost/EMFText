@@ -21,6 +21,7 @@
 package org.emftext.sdk.finders;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,11 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
@@ -159,7 +164,18 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
         	throw new DiagnosticException(diag);
         }
         
-		genModelResource.save(Collections.EMPTY_MAP);
+        new Job("saving genmodel after reconciling") {
+        	
+        	@Override
+        	protected IStatus run(IProgressMonitor monitor) {
+        		try {
+        			genModelResource.save(Collections.EMPTY_MAP);
+        		} catch (IOException e) {
+        			throw new RuntimeException(e);
+        		}
+        		return Status.OK_STATUS;
+        	}
+        }.schedule();
 	}
 
 	protected ConcreteSyntax getSyntax(GenPackageDependentElement container) {
