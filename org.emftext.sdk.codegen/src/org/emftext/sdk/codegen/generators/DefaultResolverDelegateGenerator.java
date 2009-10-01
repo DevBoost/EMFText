@@ -8,6 +8,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNTIME_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
@@ -107,6 +108,24 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 
 	private void addMatchesMethod1(StringComposite sc) {
 		sc.add("private " + STRING + " matches(" + E_OBJECT + " element, " + STRING + " identifier, boolean matchFuzzy) {");
+
+		sc.add("// first check for attributes that have set the ID flag to true");
+		sc.add(LIST + "<" + E_STRUCTURAL_FEATURE + "> features = element.eClass().getEStructuralFeatures();");
+		sc.add("for (" + E_STRUCTURAL_FEATURE + " feature : features) {");
+		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
+		sc.add(E_ATTRIBUTE + " attribute = (" + E_ATTRIBUTE + ") feature;");
+		sc.add("if (attribute.isID()) {");
+		sc.add(OBJECT + " attributeValue = element.eGet(attribute);");
+		sc.add(STRING + " match = matches(identifier, attributeValue, matchFuzzy);");
+		sc.add("if (match != null) {");
+		sc.add("return match;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+		
+		sc.add("// then check for an attribute that is called 'name'");
 		sc.add(E_STRUCTURAL_FEATURE + " nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);");
 		sc.add("if (nameAttr instanceof " + E_ATTRIBUTE + ") {");
 		sc.add(OBJECT + " attributeValue = element.eGet(nameAttr);");
@@ -122,7 +141,8 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("");
+		sc.addLineBreak();
+		
 		sc.add("for (" + E_OPERATION + " o : element.eClass().getEAllOperations()) {");
 		sc.add("if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {");
 		sc.add(STRING + " result = (" + STRING + ") " + getClassNameHelper().getE_OBJECT_UTIL() + ".invokeOperation(element, o);");
