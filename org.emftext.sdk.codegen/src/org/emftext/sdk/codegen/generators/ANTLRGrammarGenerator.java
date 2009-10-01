@@ -20,6 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BIT_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
@@ -488,6 +489,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("return currentTarget;");
 		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetOptionsMethod(StringComposite sc) {
@@ -583,9 +585,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			StringComposite sc) {
 		List<TokenDefinition> collectTokenDefinitions = collectCollectTokenDefinitions(concreteSyntax
 				.getActiveTokens());
-		sc
-				.add("protected void collectHiddenTokens(" + E_OBJECT
-						+ " element) {");
+		sc.add("protected void collectHiddenTokens(" + E_OBJECT + " element) {");
 		if (!collectTokenDefinitions.isEmpty()) {
 			// sc.add("System.out.println(\"collectHiddenTokens(\" + element.getClass().getSimpleName() + \", \" + o + \") \");");
 			sc.add("int currentPos = getTokenStream().index();");
@@ -594,8 +594,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("}");
 			sc.add("int endPos = currentPos - 1;");
 			sc.add("for (; endPos >= lastPosition; endPos--) {");
-			sc.add(org.antlr.runtime.Token.class.getName()
-					+ " token = getTokenStream().get(endPos);");
+			sc.add(TOKEN + " token = getTokenStream().get(endPos);");
 			sc.add("int _channel = token.getChannel();");
 			sc.add("if (_channel != 99) {");
 			sc.add("break;");
@@ -675,7 +674,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 			sc.add("}");
 			sc.add("}");
-			sc.add("lastIndex = (endPos < 0 ? 0 : endPos);");
+			sc.add("lastPosition = (endPos < 0 ? 0 : endPos);");
 		}
 		sc.add("}");
 		sc.addLineBreak();
