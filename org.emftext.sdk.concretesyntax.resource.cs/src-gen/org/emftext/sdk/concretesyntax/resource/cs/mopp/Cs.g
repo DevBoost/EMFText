@@ -304,13 +304,11 @@ protected java.lang.Object getTypeObject() {
 public org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult parse() {
 	terminateParsing = false;
 	postParseCommands = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsCommand<org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource>>();
+	org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult parseResult = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult();
 	try {
-		org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult parseResult = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParseResult();
 		org.eclipse.emf.ecore.EObject result =  doParse();
 		if (lexerExceptions.isEmpty()) {
 			parseResult.setRoot(result);
-			parseResult.getPostParseCommands().addAll(postParseCommands);
-			return parseResult;
 		}
 	} catch (org.antlr.runtime.RecognitionException re) {
 		reportError(re);
@@ -325,7 +323,8 @@ public org.emftext.sdk.concretesyntax.resource.cs.ICsParseResult parse() {
 	for (org.antlr.runtime.RecognitionException re : lexerExceptions) {
 		reportLexicalError(re);
 	}
-	return null;
+	parseResult.getPostParseCommands().addAll(postParseCommands);
+	return parseResult;
 }
 
 public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> parseToExpectedElements(org.eclipse.emf.ecore.EClass type) {

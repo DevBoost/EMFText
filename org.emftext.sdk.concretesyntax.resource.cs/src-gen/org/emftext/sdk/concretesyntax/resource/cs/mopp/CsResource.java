@@ -108,7 +108,6 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 	}
 	
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch resolverSwitch;
-	private static final java.lang.String ARBITRARY_SYNTAX_NAME = "*";
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap;
 	private int proxyCounter = 0;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser;
@@ -160,13 +159,16 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 			}
 		}
 		getReferenceResolverSwitch().setOptions(options);
-		runPostProcessors(options);
+		if (getErrors().isEmpty()) {
+			runPostProcessors(options);
+		}
 	}
 	
 	public void reload(java.io.InputStream inputStream, java.util.Map<?,?> options) throws java.io.IOException {
 		try {
 			isLoaded = false;
-			doLoad(inputStream, options);
+			java.util.Map<java.lang.Object, java.lang.Object> loadOptions = addDefaultLoadOptions(options);
+			doLoad(inputStream, loadOptions);
 		} catch (org.emftext.sdk.concretesyntax.resource.cs.mopp.CsTerminateParsingException tpe) {
 			// do nothing - the resource is left unchanged if this exception is thrown
 		}

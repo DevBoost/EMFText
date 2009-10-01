@@ -145,10 +145,10 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		}
 		
 		public Object[] getElements(Object inputElement) {
-			java.util.Set<String> contents = content.keySet();
-			java.util.List<String> contentsList = new java.util.ArrayList<String>();
-			contentsList.addAll(contents);
-			java.util.Collections.sort(contentsList);
+			java.util.List<HighlightingColorListItem> contentsList = new java.util.ArrayList<HighlightingColorListItem>();
+			for(java.util.List<HighlightingColorListItem> l : content.values()) {
+				contentsList.addAll(l);
+			}
 			return contentsList.toArray();
 		}
 		
@@ -159,24 +159,15 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		}
 		
 		public Object[] getChildren(Object parentElement) {
-			if (parentElement instanceof String) {
-				String entry = (String) parentElement;
-				java.util.List<HighlightingColorListItem> items = content.get(entry);
-				java.util.List<HighlightingColorListItem> itemsList = new java.util.ArrayList<HighlightingColorListItem>();
-				itemsList.addAll(items);
-				java.util.Collections.sort(itemsList);
-				return itemsList.toArray();
-			}
 			return new Object[0];
 		}
 		
 		public Object getParent(Object element) {
-			if (element instanceof HighlightingColorListItem)			return ((HighlightingColorListItem) element).getParent();
 			return null;
 		}
 		
 		public boolean hasChildren(Object element) {
-			return content.containsKey(element);
+			return false;
 		}
 	}
 	

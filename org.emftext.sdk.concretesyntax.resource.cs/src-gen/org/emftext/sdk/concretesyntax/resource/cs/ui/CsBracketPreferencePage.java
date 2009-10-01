@@ -21,7 +21,6 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 	private org.eclipse.swt.widgets.Button enableCheckbox;
 	private org.eclipse.swt.widgets.Button enableClosingInside;
 	private org.eclipse.swt.widgets.Button matchingBracketsColorButton;
-	private org.eclipse.swt.widgets.Label languagesLabel;
 	private org.eclipse.swt.widgets.Combo languagesCombo;
 	private org.eclipse.swt.widgets.Label bracketTokensLabel;
 	private org.eclipse.swt.widgets.Combo leftBracketTokensCombo;
@@ -101,15 +100,10 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 		languageComposite.setLayout(layout);
 		languageComposite.setLayoutData(gd);
 		
-		languagesLabel = new org.eclipse.swt.widgets.Label(languageComposite, org.eclipse.swt.SWT.LEFT);
-		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING);
-		gd.horizontalAlignment = org.eclipse.swt.layout.GridData.BEGINNING;
-		languagesLabel.setLayoutData(gd);
-		languagesLabel.setText("The available languages");
-		
 		languagesCombo = new org.eclipse.swt.widgets.Combo(languageComposite, org.eclipse.swt.SWT.DROP_DOWN		| org.eclipse.swt.SWT.READ_ONLY | org.eclipse.swt.SWT.LEFT);
 		gd = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.BEGINNING);
 		languagesCombo.setLayoutData(gd);
+		languagesCombo.setVisible(false);
 		
 		org.eclipse.swt.widgets.Composite tokenSelectionComposite = new org.eclipse.swt.widgets.Composite(settingComposite,
 		org.eclipse.swt.SWT.NONE);

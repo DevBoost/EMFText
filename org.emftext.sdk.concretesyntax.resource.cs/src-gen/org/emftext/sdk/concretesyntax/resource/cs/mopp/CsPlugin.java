@@ -5,6 +5,7 @@ public class CsPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin {
 	
 	public static final String PLUGIN_ID = "org.emftext.sdk.concretesyntax.resource.cs";
 	public static final String EP_DEFAULT_LOAD_OPTIONS_ID = PLUGIN_ID + ".default_load_options";
+	public static final String EP_ADDITIONAL_EXTENSION_PARSER_ID = PLUGIN_ID + ".additional_extension_parser";
 	private static CsPlugin plugin;
 	
 	public CsPlugin() {
@@ -25,7 +26,7 @@ public class CsPlugin extends org.eclipse.ui.plugin.AbstractUIPlugin {
 		return plugin;
 	}
 	
-	public void showErrorDialog(final String title, final String message) {
+	public static void showErrorDialog(final String title, final String message) {
 		org.eclipse.swt.widgets.Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
 				org.eclipse.swt.widgets.Shell parent = new org.eclipse.swt.widgets.Shell();

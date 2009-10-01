@@ -26,9 +26,6 @@ public class CsMarkerHelper {
 	
 	private static void createMarkersFromDiagnostics(org.eclipse.emf.ecore.resource.Resource resource, org.eclipse.core.resources.IFile file, java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics, int markerSeverity) throws org.eclipse.core.runtime.CoreException {
 		
-		// create a copy because the diagnostics list is modified concurrently
-		// by the background parsing strategy
-		
 		for (org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic : diagnostics) {
 			try {
 				org.eclipse.core.resources.IMarker marker = file.createMarker(MARKER_TYPE);

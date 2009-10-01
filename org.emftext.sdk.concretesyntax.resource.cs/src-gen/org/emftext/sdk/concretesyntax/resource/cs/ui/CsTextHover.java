@@ -284,7 +284,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	private static String loadStyleSheet() {
 		// TODO adjust this constant
 		org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.PLUGIN_ID);
-		java.net.URL styleSheetURL = bundle.getEntry("/css/hover_style_sheet.css");
+		java.net.URL styleSheetURL = bundle.getEntry("/css/hover_style.css");
 		if (styleSheetURL != null) {
 			java.io.BufferedReader reader = null;
 			try {

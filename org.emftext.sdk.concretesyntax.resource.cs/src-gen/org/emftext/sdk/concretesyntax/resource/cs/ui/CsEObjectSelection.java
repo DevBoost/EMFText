@@ -28,7 +28,7 @@ public class CsEObjectSelection implements org.eclipse.jface.viewers.IStructured
 	}
 	
 	public java.util.Iterator<?> iterator() {
-		return new java.util.Iterator<?>() {
+		return new java.util.Iterator<org.eclipse.emf.ecore.EObject>() {
 			
 			private boolean hasNext = true;
 			

@@ -22,7 +22,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet;
 	private org.eclipse.swt.widgets.Display display;
 	
-	
 	// A key and mouse <code>org.eclipse.swt.widgets.Listener</code> for the highlighting. Removes the
 	// highlighting before document change. No highlighting is set after
 	// document change to increase the performance. No finding new occurrences
@@ -278,11 +277,11 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		return styleRange;
 	}
 	
-	public void addSelectionChangedListener(	org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void addSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
 		selectionChangedListeners.add(listener);
 	}
 	
-	public void removeSelectionChangedListener(	org.eclipse.jface.viewers.ISelectionChangedListener listener) {
+	public void removeSelectionChangedListener(org.eclipse.jface.viewers.ISelectionChangedListener listener) {
 		selectionChangedListeners.remove(listener);
 	}
 	
@@ -298,23 +297,13 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 	}
 	
 	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
-		
-		java.lang.Object oldSelection = null;
-		java.lang.Object newSelection = null;
-		if (getSelection() instanceof org.eclipse.jface.viewers.IStructuredSelection) {
-			oldSelection = ((org.eclipse.jface.viewers.IStructuredSelection) getSelection()).getFirstElement();
-		}
-		if (event.getSelection() instanceof org.eclipse.jface.viewers.IStructuredSelection) {
-			newSelection = ((org.eclipse.jface.viewers.IStructuredSelection)event.getSelection()).getFirstElement();
-		}
-		if (newSelection != null && !newSelection.equals(oldSelection)) {
-			selection = event.getSelection();
+		if (event.getSelection() instanceof org.eclipse.jface.viewers.TreeSelection) {
 			handleContentOutlineSelection(event.getSelection());
 		}
 	}
 	
 	private void handleContentOutlineSelection(org.eclipse.jface.viewers.ISelection selection) {
-		if (!selection.isEmpty() && selection instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection) {
+		if (!selection.isEmpty()) {
 			java.lang.Object selectedElement = ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
 			if (selectedElement instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject selectedEObject = (org.eclipse.emf.ecore.EObject) selectedElement;
@@ -324,9 +313,6 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 					org.emftext.sdk.concretesyntax.resource.cs.ICsLocationMap locationMap = textResource.getLocationMap();
 					int elementCharStart = locationMap.getCharStart(selectedEObject);
 					int elementCharEnd = locationMap.getCharEnd(selectedEObject);
-					// selectAndReveal(elementCharStart, elementCharEnd -
-					// elementCharStart + 1);
-					// this.getSelectionProvider().setSelection(selection);
 					org.eclipse.jface.text.TextSelection textEditorSelection = new org.eclipse.jface.text.TextSelection(elementCharStart, elementCharEnd - elementCharStart + 1);
 					projectionViewer.getSelectionProvider().setSelection(textEditorSelection);
 				}

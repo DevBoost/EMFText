@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-	<extension point="org.eclipse.emf.ecore.extension_parser">
-		<parser class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory" type="cs">
-		</parser>
-	</extension>
-	
 	<extension point="org.emftext.access.syntax">
 		<metaInformationProvider class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation" id="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation">
 		</metaInformationProvider>
 	</extension>
 	
-	<extension point="org.eclipse.core.contenttype.contentTypes">
-		<content-type id="org.emftext.filetype.cs" name="EMFText cs Files">
-		</content-type>
-		<file-association content-type="org.emftext.filetype.cs" file-extensions="cs">
-		</file-association>
-	</extension>
-	
 	<extension point="org.eclipse.ui.editors">
-		<editor class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" icon="icons/editor_icon.gif" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" name="EMFText cs Editor">
-			<contentTypeBinding contentTypeId="org.eclipse.core.runtime.text">
-			</contentTypeBinding>
-			<contentTypeBinding contentTypeId="org.emftext.filetype.cs" >
-			</contentTypeBinding>
+		<editor class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" extensions="cs" icon="icons/editor_icon.gif" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor" name="EMFText cs Editor">
 		</editor>
 	</extension>
 	
 	<extension point="org.eclipse.core.runtime.preferences">
 		<initializer class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceInitializer">
 		</initializer>
+	</extension>
+	
+	<extension point="org.eclipse.ui.preferencePages">
+		<page name="Cs Text Editor" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		</page>
+		<page name="Syntax Coloring" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringPreferencePage" category="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		</page>
+		<page name="Brackets" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketPreferencePage" category="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		</page>
+		<page name="Occurrence" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrencePreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrencePreferencePage" category="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		</page>
 	</extension>
 	
 	<extension point="org.eclipse.ui.newWizards">
@@ -49,5 +44,12 @@
 	</extension>
 	
 	<extension-point id="org.emftext.sdk.concretesyntax.resource.cs.default_load_options" name="Default Load Options" schema="schema/default_load_options.exsd"/>
+	
+	<extension point="org.eclipse.emf.ecore.extension_parser">
+		<parser class="org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactoryDelegator" type="cs">
+		</parser>
+	</extension>
+	
+	<extension-point id="org.emftext.sdk.concretesyntax.resource.cs.additional_extension_parser" name="Additional Extension Parser" schema="schema/additional_extension_parser.exsd"/>
 	
 </plugin>

@@ -65,7 +65,7 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 		try {
 			lexer.setText(document.get(offset, length));
 		} catch (org.eclipse.jface.text.BadLocationException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Unexpected error:", e);
+			//ignore this error. It might occur during editing when locations are outdated quickly.
 		}
 	}
 	

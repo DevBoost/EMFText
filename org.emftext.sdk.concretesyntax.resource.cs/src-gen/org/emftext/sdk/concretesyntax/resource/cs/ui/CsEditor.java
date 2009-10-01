@@ -15,7 +15,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsOutlinePage emfTextEditorOutlinePage;
 	private org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource;
-	private MarkerAdapter markerAdapter = new MarkerAdapter();
 	private org.eclipse.core.resources.IResourceChangeListener resourceChangeListener = new ModelResourceChangeListener();
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage propertySheetPage;
 	private org.eclipse.emf.edit.domain.EditingDomain editingDomain;
@@ -23,12 +22,10 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	private final class MarkerUpdateListener implements org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener {
 		public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource resource) {
-			try {
-				org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
-				org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
-			} catch (org.eclipse.core.runtime.CoreException e) {
-				e.printStackTrace();
+			if (resource != null && resource.getErrors().isEmpty()) {
+				org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
 			}
+			refreshMarkers(resource);
 		}
 	}
 	
@@ -40,44 +37,6 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		
 		public void documentChanged(org.eclipse.jface.text.DocumentEvent event) {
 			bgParsingStrategy.parse(event, resource, CsEditor.this);
-		}
-	}
-	
-	// The MarkerAdapter is attached to all resources opened in EMFText editors.
-	// When changes are applied to the resource all existing (potentially
-	// invalid) markers are removed and replaced by new ones. Further the
-	// adapter can be disabled to avoid unnecessary marking when a set of
-	// changes is applied.
-	///
-	private final class MarkerAdapter extends org.eclipse.emf.common.notify.impl.AdapterImpl {
-		
-		private boolean enabled = true;
-		
-		public boolean isAdapterForType(java.lang.Object type) {
-			return type == CsEditor.class;
-		}
-		
-		public void notifyChanged(org.eclipse.emf.common.notify.Notification notification) {
-			if (!enabled) {
-				return;
-			}
-			java.lang.Object notifier = notification.getNotifier();
-			if (notifier != null && notifier instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) {
-				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) notifier;
-				if (!resource.isLoaded()) {
-					return;
-				}
-				try {
-					org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
-					org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
-				} catch (java.lang.Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		public void setEnabled(boolean enabled) {
-			this.enabled = enabled;
 		}
 	}
 	
@@ -104,16 +63,15 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 						if (deltaKind == org.eclipse.core.resources.IResourceDelta.REMOVED || deltaKind == org.eclipse.core.resources.IResourceDelta.CHANGED && delta.getFlags() != org.eclipse.core.resources.IResourceDelta.MARKERS) {
 							org.eclipse.emf.ecore.resource.Resource changedResource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createURI(delta.getFullPath().toString()), false);
 							if (changedResource != null) {
-								markerAdapter.setEnabled(false);
 								changedResource.unload();
 								if (changedResource.equals(resource)) {
 									// reload the resource displayed in the editor
 									resourceSet.getResource(resource.getURI(), true);
 								}
-								if (resource != null) {
+								if (resource != null && resource.getErrors().isEmpty()) {
 									org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
 								}
-								markerAdapter.setEnabled(true);
+								refreshMarkers(resource);
 								// reset the selected element in outline and
 								// properties by text position
 								if (highlighting != null) {
@@ -189,7 +147,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 				} else {
 					// the resource was not loaded by an EMFText resource, but
 					// some other EMF resource
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.getDefault().showErrorDialog("No EMFText resource.", "Sorry, no registered EMFText resource can handle this file type.");
+					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.showErrorDialog("No EMFText resource.", "Sorry, no registered EMFText resource can handle this file type.");
 				}
 			} catch (java.lang.Exception e) {
 				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while loading resource in " + this.getClass().getSimpleName() + ".", e);
@@ -197,12 +155,12 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		}
 	}
 	
-	protected void setResource(org.eclipse.emf.ecore.resource.Resource loadedResource) throws org.eclipse.core.runtime.CoreException {
+	protected void setResource(org.eclipse.emf.ecore.resource.Resource loadedResource) {
 		resource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) loadedResource;
-		org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
-		org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
-		org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
-		resource.eAdapters().add(markerAdapter);
+		if (resource.getErrors().isEmpty()) {
+			org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
+		}
+		refreshMarkers(resource);
 	}
 	
 	public void dispose() {
@@ -214,12 +172,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		
 		super.performSave(overwrite, progressMonitor);
 		// update markers after the resource has been reloaded
-		try {
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
-			org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
-		} catch (org.eclipse.core.runtime.CoreException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while updating markers on resource", e);
-		}
+		refreshMarkers(resource);
 		
 		// Save code folding state
 		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());
@@ -399,5 +352,21 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		for (org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener listener : bgParsingListeners) {
 			listener.parsingCompleted(resource);
 		}
+	}
+	private static void refreshMarkers(final org.eclipse.emf.ecore.resource.Resource resource) {
+		if (resource == null) {
+			return;
+		}
+		new org.eclipse.core.runtime.jobs.Job("marking resource") {
+			protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
+				try {
+					org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
+					org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
+				} catch (org.eclipse.core.runtime.CoreException e) {
+					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while updating markers on resource", e);
+				}
+				return org.eclipse.core.runtime.Status.OK_STATUS;
+			}
+		}.schedule();
 	}
 }
