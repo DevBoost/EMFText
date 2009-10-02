@@ -1,12 +1,15 @@
 package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.OptionTypes;
+import org.emftext.sdk.util.StringUtil;
 
 public class BuildPropertiesGenerator extends BaseGenerator {
 
@@ -38,11 +41,9 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		
 		StringBuilder sc = new StringBuilder();
 		
-		sc.append("bin.includes = icons/,\\\n");
-		sc.append("css/,\\\n");
-		sc.append("plugin.xml,\\\n");
-		sc.append("META-INF/,\\\n");
-		sc.append(".\n");
+		Collection<String> binIncludes = getBinIncludes();
+		sc.append("bin.includes = " + StringUtil.explode(binIncludes, ",\\\n"));
+		sc.append("\n");
 		sc.append("source.. = " + sourceFolder + "/");
 		// only the resource plug-in has a 'src-gen' folder
 		if (plugin == EPlugins.RESOURCE_PLUGIN) {
@@ -52,6 +53,18 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 
 		out.write(sc.toString());
 		return true;
+	}
+
+	private Collection<String> getBinIncludes() {
+		Collection<String> binIncludes = new LinkedHashSet<String>();
+		binIncludes.add("META-INF/");
+		binIncludes.add(".");
+		if (plugin == EPlugins.RESOURCE_PLUGIN) {
+			binIncludes.add("icons/");
+			binIncludes.add("css/");
+			binIncludes.add("plugin.xml");
+		}
+		return binIncludes;
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
