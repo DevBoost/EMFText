@@ -22,6 +22,7 @@ package org.emftext.test;
 
 import java.io.File;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -38,7 +39,7 @@ public class TestGenerationContext extends GenerationContext {
 	}
 
 	@Override
-	public File getPluginProjectFolder() {
+	public File getProjectFolder(EPlugins plugin) {
 		return null;
 	}
 
