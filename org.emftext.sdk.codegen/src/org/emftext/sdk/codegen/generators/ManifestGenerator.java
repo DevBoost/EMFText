@@ -25,13 +25,11 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.emftext.sdk.EPlugins;
-import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.util.StringUtil;
 
 /**
@@ -65,16 +63,14 @@ public abstract class ManifestGenerator implements IGenerator {
 	 */
 	private String getManifestContent() {
 		StringComposite sc = new ManifestComposite();
-		ConcreteSyntax syntax = context.getConcreteSyntax();
-		String projectName = getPlugin().getName(syntax);
 		
 		Collection<String> requiredBundles = getRequiredBundles(context);
 		Collection<String> exportedPackages = getExportedPackages(context);
 
 		sc.add("Manifest-Version: 1.0");
 		sc.add("Bundle-ManifestVersion: 2");
-		sc.add("Bundle-Name: EMFText Parser Plugin: " + syntax.getName());
-		sc.add("Bundle-SymbolicName: " + projectName + ";singleton:=true");
+		sc.add("Bundle-Name: " + getBundleName(context));
+		sc.add("Bundle-SymbolicName: " + getBundleID(context) + ";singleton:=true");
 		sc.add("Bundle-Version: 1.0.0");
 		sc.add("Bundle-Vendor: Software Technology Group - TU Dresden Germany");
 		if (requiredBundles.size() > 0) {
@@ -85,10 +81,22 @@ public abstract class ManifestGenerator implements IGenerator {
 		if (exportedPackages.size() > 0) {
 			sc.add("Export-Package: " + StringUtil.explode(exportedPackages, ",\n  "));
 		}
-		sc.add("Bundle-Activator: " + context.getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR));
+		String activatorClass = getActivatorClass(context);
+		if (activatorClass != null) {
+			sc.add("Bundle-Activator: " + activatorClass);
+		}
 
 		return sc.toString();
 	}
+
+
+	protected String getBundleID(GenerationContext context) {
+		return getPlugin().getName(context.getConcreteSyntax());
+	}
+
+	protected abstract String getBundleName(GenerationContext context);
+
+	protected abstract String getActivatorClass(GenerationContext context);
 
 	protected abstract EPlugins getPlugin();
 

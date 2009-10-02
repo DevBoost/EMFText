@@ -144,4 +144,14 @@ public class ResourcePluginManifestGenerator extends ManifestGenerator {
 	protected EPlugins getPlugin() {
 		return EPlugins.RESOURCE_PLUGIN;
 	}
+
+	@Override
+	protected String getActivatorClass(GenerationContext context) {
+		return context.getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
+	}
+
+	@Override
+	protected String getBundleName(GenerationContext context) {
+		return "EMFText Parser Plugin: " + context.getConcreteSyntax().getName();
+	}
 }

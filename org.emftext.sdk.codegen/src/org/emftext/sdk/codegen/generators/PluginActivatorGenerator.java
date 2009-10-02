@@ -147,4 +147,5 @@ public class PluginActivatorGenerator extends BaseGenerator {
 	public IGenerator newInstance(GenerationContext context) {
 		return new PluginActivatorGenerator(context);
 	}
+
 }

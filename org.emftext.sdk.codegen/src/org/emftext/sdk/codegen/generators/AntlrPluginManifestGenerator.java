@@ -36,4 +36,14 @@ public class AntlrPluginManifestGenerator extends ManifestGenerator {
 	protected EPlugins getPlugin() {
 		return EPlugins.ANTLR_PLUGIN;
 	}
+
+	@Override
+	protected String getActivatorClass(GenerationContext context) {
+		return null;
+	}
+
+	@Override
+	protected String getBundleName(GenerationContext context) {
+		return "ANTLR 3.1.1 Runtime Classes";
+	}
 }
