@@ -31,6 +31,8 @@ import org.osgi.framework.BundleContext;
 public class EMFTextSDKPlugin extends Plugin {
 
 	public static final String PLUGIN_ID = "org.emftext.sdk";
+
+	public static final String VERSION = "1.2.0";
 	
 	private static EMFTextSDKPlugin plugin;
 	
@@ -43,6 +45,9 @@ public class EMFTextSDKPlugin extends Plugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		if (!getBundle().getVersion().toString().startsWith(VERSION)) {
+			logError("Bundle version does not match VERSION constant in " + EMFTextSDKPlugin.class.getSimpleName(), null);
+		}
 	}
 
 	public void stop(BundleContext context) throws Exception {
