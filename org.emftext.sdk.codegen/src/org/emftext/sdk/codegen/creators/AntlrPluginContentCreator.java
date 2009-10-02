@@ -112,8 +112,13 @@ public class AntlrPluginContentCreator {
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {
 			String path = antlrClass.getName().replace(".", File.separator) + ".java";
-			EMFTextSDKAntlrPlugin sdkAntlrPlugin = EMFTextSDKAntlrPlugin.getDefault();
-			creators.add(new FileCopier(sdkAntlrPlugin.getBundle().getResource("src-runtime" + File.separator + path).openStream(), 
+			creators.add(new FileCopier(EMFTextSDKAntlrPlugin.class.getResource(
+					".." + File.separator + 
+					".." + File.separator + 
+					".." + File.separator + 
+					".." + File.separator + 
+					".." + File.separator + 
+					"src-runtime" + File.separator + path).openStream(), 
 					new File(sourceFolder.getAbsolutePath() + File.separator + path)));
 	    }
 	    
