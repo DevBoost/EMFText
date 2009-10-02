@@ -18,13 +18,13 @@ Require-Bundle: org.eclipse.core.resources,
   org.eclipse.ui.editors,
   org.eclipse.ui.ide,
   org.eclipse.ui.views,
+  org.emftext.commons.antlr3_1_1,
   org.emftext.test.cct1
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.emftext.test.cct1.resource.cct1,
-  org.emftext.test.cct1.resource.cct1.analysis,
-  org.emftext.test.cct1.resource.cct1.mopp,
   org.emftext.test.cct1.resource.cct1.mopp,
   org.emftext.test.cct1.resource.cct1.ui,
-  org.emftext.test.cct1.resource.cct1.util
+  org.emftext.test.cct1.resource.cct1.util,
+  org.emftext.test.cct1.resource.cct1.analysis
 Bundle-Activator: org.emftext.test.cct1.resource.cct1.mopp.Cct1Plugin
