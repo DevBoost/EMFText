@@ -30,15 +30,15 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.creators.PluginsCreator;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
-import org.emftext.sdk.codegen.generators.ResourcePluginGenerator;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
 /**
  * A custom generator that creates adds a new project to the current
  * Eclipse workspace before generating the test resource plug-in.
  */
-public class UIResourcePluginGenerator extends ResourcePluginGenerator {
+public class UIResourcePluginGenerator extends PluginsCreator {
 
 	@Override
 	public Result run(ConcreteSyntax concreteSyntax, GenerationContext context,

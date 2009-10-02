@@ -18,7 +18,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *   - initial API and implementation
  ******************************************************************************/
-package org.emftext.sdk.codegen.generators;
+package org.emftext.sdk.codegen.creators;
 
 import java.util.List;
 
@@ -34,17 +34,18 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
-import org.emftext.sdk.codegen.creators.ResourcePluginContentCreator;
+import org.emftext.sdk.codegen.generators.IResourceMarker;
+import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.ResourceUtil;
 
 /**
- * The ResourcePluginGenerator generates the complete resource plug-in.
- * It delegates generation task to the other generators to do so.
+ * The ResourcePluginCreator creates all plug-ins.
+ * It delegates tasks to the other creators.
  */
-public abstract class ResourcePluginGenerator {
+public abstract class PluginsCreator {
 	
 	/**
 	 * An enumeration of all possible results of the generation
@@ -74,6 +75,8 @@ public abstract class ResourcePluginGenerator {
 	protected static final int TICKS_GENERATE_RESOURCE = 56;
 	protected static final int TICKS_GENERATE_METAMODEL_CODE = 40;
 	
+	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	
 	public abstract void createProject(GenerationContext context, SubMonitor progress) throws Exception;
 
 	public Result run(
@@ -93,7 +96,7 @@ public abstract class ResourcePluginGenerator {
 		}
 
 		// perform some initial checks
-		if (isAbstract(concreteSyntax)) {
+		if (csUtil.isAbstract(concreteSyntax)) {
 			return Result.ERROR_ABSTRACT_SYNTAX;
 		}
 		GenPackage genPackage = concreteSyntax.getPackage();
@@ -126,13 +129,6 @@ public abstract class ResourcePluginGenerator {
 		return Result.SUCCESS;
 	}
 
-	private boolean isAbstract(final ConcreteSyntax concreteSyntax) {
-		if (concreteSyntax.getModifier() != null) {
-			return true;
-		}
-		return false;
-	}
-
 	private void generateMetaModelCode(GenPackage genPackage,
 			IProgressMonitor monitor) {
 		monitor.setTaskName("generating metamodel code...");
@@ -153,7 +149,7 @@ public abstract class ResourcePluginGenerator {
 		
 		final ConcreteSyntax cSyntax = context.getConcreteSyntax();
 		
-		// do not generate code for genmodels imported from deployed plugins
+		// do not generate code for generator models imported from deployed plug-ins
 		if (cSyntax.getPackage().eResource().getURI().segments()[0].equals("plugin")) {
 			return;
 		}

@@ -63,6 +63,13 @@ public class ConcreteSyntaxUtil {
 	private final GenClassCache genClassCache = new GenClassCache();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
+	public boolean isAbstract(ConcreteSyntax concreteSyntax) {
+		if (concreteSyntax.getModifier() != null) {
+			return true;
+		}
+		return false;
+	}
+
 	public boolean isImportedToken(ConcreteSyntax syntax, TokenDefinition tokenDefinition) {
 		return !syntax.equals(getContainingSyntax(syntax, tokenDefinition));
 	}

@@ -31,7 +31,7 @@ import org.emftext.sdk.EMFTextSDKPlugin;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IProblemCollector;
-import org.emftext.sdk.codegen.generators.ResourcePluginGenerator.Result;
+import org.emftext.sdk.codegen.creators.PluginsCreator.Result;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem;
