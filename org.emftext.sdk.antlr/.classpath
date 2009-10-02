@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src-sdk"/>
 	<classpathentry kind="src" path="src-runtime"/>
+	<classpathentry kind="src" path="src-activator"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

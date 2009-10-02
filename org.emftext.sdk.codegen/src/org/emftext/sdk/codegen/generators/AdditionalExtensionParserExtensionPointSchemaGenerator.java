@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
@@ -23,13 +24,15 @@ public class AdditionalExtensionParserExtensionPointSchemaGenerator implements I
 	}
 
 	public boolean generate(PrintWriter out) {
+		String resourcePluginName = EPlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
+
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version='1.0' encoding='UTF-8'?>");
-		sc.add("<schema targetNamespace=\"" + context.getPluginName() + "\" xmlns=\"http://www.w3.org/2001/XMLSchema\">");
+		sc.add("<schema targetNamespace=\"" + resourcePluginName + "\" xmlns=\"http://www.w3.org/2001/XMLSchema\">");
 		sc.add("<annotation>");
 		sc.add("<appinfo>");
-		sc.add("<meta.schema plugin=\"" + context.getPluginName() + "\" id=\"" + context.getPluginName() + ".additional_extension_parser\" name=\"Additional Extension Parser\"/>");
+		sc.add("<meta.schema plugin=\"" + resourcePluginName + "\" id=\"" + resourcePluginName + ".additional_extension_parser\" name=\"Additional Extension Parser\"/>");
 		sc.add("</appinfo>");
 		sc.add("<documentation>");
 		sc.add("This extension point can be used to add another parser for '" + context.getConcreteSyntax().getName() + "' files.");

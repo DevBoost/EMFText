@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
@@ -9,12 +10,11 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class BuildPropertiesGenerator extends BaseGenerator {
 
-	public BuildPropertiesGenerator() {
-		super();
-	}
+	private EPlugins plugin;
 
-	private BuildPropertiesGenerator(GenerationContext context) {
+	public BuildPropertiesGenerator(GenerationContext context, EPlugins plugin) {
 		super(context, "", "build.properties");
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -43,13 +43,18 @@ public class BuildPropertiesGenerator extends BaseGenerator {
 		sc.append("plugin.xml,\\\n");
 		sc.append("META-INF/,\\\n");
 		sc.append(".\n");
-		sc.append("source.. = " + sourceFolder + "/," + genSourceFolder + "/\n");
+		sc.append("source.. = " + sourceFolder + "/");
+		// only the resource plug-in has a 'src-gen' folder
+		if (plugin == EPlugins.RESOURCE_PLUGIN) {
+			sc.append("," + genSourceFolder + "/");
+		}
+		sc.append("\n");
 
 		out.write(sc.toString());
 		return true;
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
-		return new BuildPropertiesGenerator(context);
+		throw new UnsupportedOperationException();
 	}
 }

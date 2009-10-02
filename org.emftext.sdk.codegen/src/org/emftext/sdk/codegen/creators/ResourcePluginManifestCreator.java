@@ -23,9 +23,10 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.ManifestGenerator;
+import org.emftext.sdk.codegen.generators.ResourcePluginManifestGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
@@ -33,18 +34,18 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * plug-ins using the ManifestGenerator class to retrieve content for this
  * file.
  */
-public class ManifestCreator extends AbstractArtifactCreator {
+public class ResourcePluginManifestCreator extends AbstractArtifactCreator {
 
-	public ManifestCreator() {
+	public ResourcePluginManifestCreator() {
 		super("manifest");
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		final File project = context.getPluginProjectFolder();
+		final File project = context.getProjectFolder(EPlugins.RESOURCE_PLUGIN);
 		File manifestMFFile = new File(project.getAbsolutePath() + File.separator + "META-INF" + File.separator + "MANIFEST.MF");
 
-		IGenerator generator = new ManifestGenerator().newInstance(context);
+		IGenerator generator = new ResourcePluginManifestGenerator(context);
 		
 	    return createArtifact(
 	    		context,

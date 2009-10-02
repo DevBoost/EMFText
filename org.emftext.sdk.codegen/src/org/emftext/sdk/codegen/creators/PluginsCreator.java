@@ -32,6 +32,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
@@ -70,14 +71,14 @@ public abstract class PluginsCreator {
 	}
 	
 	// these must add up to 100
-	protected static final int TICKS_CREATE_PROJECT = 2;
-	protected static final int TICKS_OPEN_PROJECT = 2;
-	protected static final int TICKS_GENERATE_RESOURCE = 56;
+	protected static final int TICKS_CREATE_PROJECTS = 4;
+	protected static final int TICKS_GENERATE_RESOURCE_PLUGIN = 36;
+	protected static final int TICKS_GENERATE_ANTLR_PLUGIN = 20;
 	protected static final int TICKS_GENERATE_METAMODEL_CODE = 40;
 	
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	
-	public abstract void createProject(GenerationContext context, SubMonitor progress) throws Exception;
+	public abstract void createProject(GenerationContext context, SubMonitor progress, EPlugins plugin) throws Exception;
 
 	public Result run(
 			ConcreteSyntax concreteSyntax, 
@@ -110,12 +111,18 @@ public abstract class PluginsCreator {
 			return result;
 		}
 		
-		// create a project
-		createProject(context, progress);
+		// create the project for the plug-ins
+		createProject(context, progress, EPlugins.RESOURCE_PLUGIN);
+		createProject(context, progress, EPlugins.ANTLR_PLUGIN);
+		progress.internalWorked(TICKS_CREATE_PROJECTS);
 
 		// generate the resource class, parser, and printer
 		ResourcePluginContentCreator pluginGenerator = new ResourcePluginContentCreator();
-		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE));
+		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
+
+		// generate the resource class, parser, and printer
+		AntlrPluginContentCreator antlrPluginGenerator = new AntlrPluginContentCreator();
+		antlrPluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_ANTLR_PLUGIN));
 
 		// errors from parser generator?
 		if (ResourceUtil.containsProblems(csResource)) {

@@ -27,8 +27,7 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
- * Creates the folders 'src', 'src-gen' and 'schema' for generated text 
- * resource plug-ins.
+ * Creates the given folders.
  * The names of this folders may vary depending on the values set for
  * options OptionTypes.SOURCE_FOLDER and OptionTypes.SOURCE_GEN_FOLDER.
  * 
@@ -36,25 +35,30 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class FoldersCreator implements IArtifactCreator {
 
+	private File[] folders;
+
+	public FoldersCreator(File... folders) {
+		this.folders = folders;
+	}
+
 	public void createArtifacts(GenerationContext context) {
-		createIfNeeded(context.getSourceFolder(false));
-		createIfNeeded(context.getSourceFolder(true));
-		createIfNeeded(context.getSchemaFolder());
-		createIfNeeded(context.getCSSDir());
+		for (File folder : folders) {
+			createIfNeeded(folder);
+		}
 	}
 
 	private void createIfNeeded(File targetFolder) {
 		if (!targetFolder.exists()) {
-		   	targetFolder.mkdir();
+		   	targetFolder.mkdirs();
 		}
 	}
 
 	public OptionTypes getOverrideOption() {
-		// there is not option to prevent the creation of the source folder
+		// there is not option to prevent the creation of the folders
 		return null;
 	}
 
 	public String getArtifactDescription() {
-		return "source folder";
+		return "folders";
 	}
 }

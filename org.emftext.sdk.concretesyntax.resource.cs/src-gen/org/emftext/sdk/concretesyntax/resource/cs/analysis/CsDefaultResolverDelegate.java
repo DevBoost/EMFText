@@ -1,5 +1,10 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
+import java.util.List;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
 	public final static java.lang.String NAME_FEATURE = "name";
 	
@@ -73,6 +78,20 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	private java.lang.String matches(org.eclipse.emf.ecore.EObject element, java.lang.String identifier, boolean matchFuzzy) {
+		List<org.eclipse.emf.ecore.EStructuralFeature> features = element.eClass().getEStructuralFeatures();
+		for (EStructuralFeature feature : features) {
+			if (feature instanceof EAttribute) {
+				EAttribute attribute = (EAttribute) feature;
+				if (attribute.isID()) {
+					java.lang.Object attributeValue = element.eGet(attribute);
+					java.lang.String match = matches(identifier, attributeValue, matchFuzzy);
+					if (match != null) {
+						return match;
+					}
+				}
+			}
+		}
+
 		org.eclipse.emf.ecore.EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
 		if (nameAttr instanceof org.eclipse.emf.ecore.EAttribute) {
 			java.lang.Object attributeValue = element.eGet(nameAttr);

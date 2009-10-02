@@ -22,6 +22,7 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -36,13 +37,11 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
 public class DotClasspathGenerator extends BaseGenerator {
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+	private EPlugins plugin;
 
-	public DotClasspathGenerator() {
-		super();
-	}
-
-	private DotClasspathGenerator(GenerationContext context) {
+	public DotClasspathGenerator(GenerationContext context, EPlugins plugin) {
 		super(context, "", ".classpath");
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -55,7 +54,10 @@ public class DotClasspathGenerator extends BaseGenerator {
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<classpath>");
 		sc.add("<classpathentry kind=\"src\" path=\"" + sourceFolderName + "\"/>");
-		sc.add("<classpathentry kind=\"src\" path=\"" + sourceGenFolderName + "\"/>");
+		// only the resource plug-in has a 'src-gen' folder
+		if (plugin == EPlugins.RESOURCE_PLUGIN) {
+			sc.add("<classpathentry kind=\"src\" path=\"" + sourceGenFolderName + "\"/>");
+		}
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5\"/>");
 		sc.add("<classpathentry kind=\"con\" path=\"org.eclipse.pde.core.requiredPlugins\"/>");
 		sc.add("<classpathentry kind=\"output\" path=\"bin\"/>");
@@ -66,6 +68,6 @@ public class DotClasspathGenerator extends BaseGenerator {
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
-		return new DotClasspathGenerator(context);
+		throw new UnsupportedOperationException();
 	}
 }

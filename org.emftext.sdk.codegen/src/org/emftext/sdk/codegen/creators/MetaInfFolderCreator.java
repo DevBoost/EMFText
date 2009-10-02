@@ -22,6 +22,7 @@ package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 
@@ -31,7 +32,7 @@ import org.emftext.sdk.codegen.IArtifactCreator;
 public class MetaInfFolderCreator implements IArtifactCreator {
 
 	public void createArtifacts(GenerationContext context) {
-		File project = context.getPluginProjectFolder();
+		File project = context.getProjectFolder(EPlugins.RESOURCE_PLUGIN);
 		File metaFolder = new File(project.getAbsolutePath() + File.separator +  "META-INF");
 		if (!metaFolder.exists()) {
 			metaFolder.mkdir();

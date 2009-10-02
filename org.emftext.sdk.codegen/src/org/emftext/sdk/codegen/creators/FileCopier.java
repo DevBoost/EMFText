@@ -39,11 +39,11 @@ import org.emftext.sdk.util.StreamUtil;
  */
 public class FileCopier implements IArtifactCreator {
 
-	private String sourceFileName;
+	private InputStream inputStream;
 	private File targetFile;
 
-	public FileCopier(String sourceFileName, File targetFile) {
-		this.sourceFileName = sourceFileName;
+	public FileCopier(InputStream inputStream, File targetFile) {
+		this.inputStream = inputStream;
 		this.targetFile = targetFile;
 	}
 
@@ -51,19 +51,24 @@ public class FileCopier implements IArtifactCreator {
 		File iconsDir = context.getIconsDir();
 		iconsDir.mkdir();
 		
-		InputStream in = FileCopier.class.getResourceAsStream(sourceFileName);
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(targetFile);
-			StreamUtil.copy(in, fos);
+			StreamUtil.copy(inputStream, fos);
 			fos.close();
 		} catch (IOException e) {
-			context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying " + sourceFileName + ".", null, GenerationProblem.Severity.ERROR, e));
-			EMFTextSDKPlugin.logError("Error while copying " + sourceFileName + ".", e);
+			addError(context, e);
+		} catch (NullPointerException e) {
+			addError(context, e);
 		}
 	}
 
+	private void addError(GenerationContext context, Exception e) {
+		context.getProblemCollector().addProblem(new GenerationProblem("Exception while copying " + targetFile.getName() + ".", null, GenerationProblem.Severity.ERROR, e));
+		EMFTextSDKPlugin.logError("Error while copying " + targetFile.getName() + ".", e);
+	}
+
 	public String getArtifactDescription() {
-		return sourceFileName;
+		return targetFile.getName();
 	}
 }

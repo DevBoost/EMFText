@@ -22,6 +22,7 @@ package org.emftext.sdk.codegen.generators;
 
 import java.io.PrintWriter;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
@@ -33,21 +34,22 @@ import org.emftext.sdk.codegen.composites.XMLComposite;
  */
 public class DotProjectGenerator extends BaseGenerator {
 
-	public DotProjectGenerator() {
-		super();
-	}
+	private EPlugins plugin;
 
-	private DotProjectGenerator(GenerationContext context) {
+	public DotProjectGenerator(GenerationContext context, EPlugins plugin) {
 		super(context, "", ".project");
+		this.plugin = plugin;
 	}
 
 	@Override
 	public boolean generate(PrintWriter out) {
+		String resourcePluginName = plugin.getName(getContext().getConcreteSyntax());
+
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		sc.add("<projectDescription>");
-		sc.add("<name>" + getContext().getPluginName() + "</name>");
+		sc.add("<name>" + resourcePluginName + "</name>");
 		sc.add("<comment></comment>");
 		sc.add("<projects>");
 		sc.add("</projects>");
@@ -79,6 +81,6 @@ public class DotProjectGenerator extends BaseGenerator {
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
-		return new DotProjectGenerator(context);
+		throw new UnsupportedOperationException();
 	}
 }

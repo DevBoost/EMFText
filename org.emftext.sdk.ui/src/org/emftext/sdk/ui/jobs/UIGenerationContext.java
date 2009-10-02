@@ -21,11 +21,14 @@
 package org.emftext.sdk.ui.jobs;
 
 import java.io.File;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jdt.core.IJavaProject;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -41,9 +44,13 @@ public class UIGenerationContext extends GenerationContext {
 		super(concreteSyntax, problemCollector);
 	}
 
-	private IJavaProject javaProject;
+	private Map<EPlugins, IJavaProject> javaProjects = new LinkedHashMap<EPlugins, IJavaProject>();
 
-	public IProject getProject() {
+	public IProject getProject(EPlugins plugin) {
+		if (!javaProjects.containsKey(plugin)) {
+			return null;
+		}
+		IJavaProject javaProject = javaProjects.get(plugin);
 		if (javaProject != null) {
 			return javaProject.getProject();
 		} else {
@@ -51,16 +58,19 @@ public class UIGenerationContext extends GenerationContext {
 		}
 	}
 
-	public IJavaProject getJavaProject() {
-		return javaProject;
+	public IJavaProject getJavaProject(EPlugins plugin) {
+		if (!javaProjects.containsKey(plugin)) {
+			return null;
+		}
+		return javaProjects.get(plugin);
 	}
 
-	public void setJavaProject(IJavaProject project) {
-		this.javaProject = project;
+	public void setJavaProject(EPlugins plugin, IJavaProject project) {
+		javaProjects.put(plugin, project);
 	}
 
-	public File getPluginProjectFolder() {
-		return javaProject.getProject().getLocation().toFile().getAbsoluteFile();
+	public File getProjectFolder(EPlugins plugin) {
+		return getProject(plugin).getLocation().toFile().getAbsoluteFile();
 	}
 
 	@Override

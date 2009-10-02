@@ -33,7 +33,7 @@ public class NameUtil {
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	public String getPackageName(ConcreteSyntax syntax, EArtifact artifact) {
-		return csUtil.getPackageName(syntax, artifact.getPackage());
+		return csUtil.getPackageName(syntax, artifact.getPlugin(), artifact.getPackage());
 	}
 	
 	public String getQualifiedTokenResolverClassName(ConcreteSyntax syntax, TokenDefinition definition, boolean inImportedSyntax) {

@@ -22,6 +22,7 @@ package org.emftext.sdk.ant;
 
 import java.io.File;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IProblemCollector;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -46,8 +47,8 @@ public class AntGenerationContext extends GenerationContext {
 		this.syntaxProjectName = syntaxProjectName;
 	}
 
-	public File getPluginProjectFolder() {
-		return new File(workspaceRootFolder.getAbsolutePath() + File.separator + getPluginName());
+	public File getProjectFolder(EPlugins plugin) {
+		return new File(workspaceRootFolder.getAbsolutePath() + File.separator + getPluginName(plugin));
 	}
 
 	@Override

@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.DotClasspathGenerator;
@@ -34,16 +35,19 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotClasspathCreator extends AbstractArtifactCreator {
 
-	public DotClasspathCreator() {
+	private EPlugins plugin;
+
+	public DotClasspathCreator(EPlugins plugin) {
 		super(".classpath file");
+		this.plugin = plugin;
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
-		File dotClasspathFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + ".classpath");
+		File dotClasspathFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + ".classpath");
 
-		IGenerator dotClasspathGenerator = new DotClasspathGenerator().newInstance(context);
+		IGenerator dotClasspathGenerator = new DotClasspathGenerator(context, plugin);
 		
 	    return createArtifact(
 	    		context,

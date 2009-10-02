@@ -20,6 +20,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.creators;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
@@ -42,18 +44,23 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class ResourcePluginContentCreator {
 	
-	public void generate(GenerationContext context, IProgressMonitor monitor)throws IOException{
-		SubMonitor progress = SubMonitor.convert(monitor, "generating resources...", 100);
+	public void generate(GenerationContext context, IProgressMonitor monitor) throws IOException {
+		SubMonitor progress = SubMonitor.convert(monitor, "generating resource plug-in...", 100);
 	    
 		ConcreteSyntax syntax = context.getConcreteSyntax();
 		Resource csResource = syntax.eResource();
 		EcoreUtil.resolveAll(csResource);
 	    
 	    List<IArtifactCreator> creators = new ArrayList<IArtifactCreator>();
-	    creators.add(new FoldersCreator());
-	    creators.add(new DotClasspathCreator());
-	    creators.add(new DotProjectCreator());
-	    creators.add(new BuildPropertiesCreator());
+	    creators.add(new FoldersCreator(new File[] {
+	    		context.getSourceFolder(EPlugins.RESOURCE_PLUGIN, false),
+	    		context.getSourceFolder(EPlugins.RESOURCE_PLUGIN, true),
+	    		context.getSchemaFolder(),
+	    		context.getCSSDir()
+	    }));
+	    creators.add(new DotClasspathCreator(EPlugins.RESOURCE_PLUGIN));
+	    creators.add(new DotProjectCreator(EPlugins.RESOURCE_PLUGIN));
+	    creators.add(new BuildPropertiesCreator(EPlugins.RESOURCE_PLUGIN));
 	    if (OptionManager.INSTANCE.useScalesParser(syntax)) {
 	    	creators.add(new GenericArtifactCreator(EArtifact.SCANNERLESS_SCANNER));
 	    	creators.add(new GenericArtifactCreator(EArtifact.SCANNERLESS_PARSER));
@@ -83,13 +90,13 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.REFERENCE_RESOLVER_SWITCH));
 	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_WIZARD));
 	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_WIZARD_PAGE));
-	    creators.add(new FileCopier("default_new_icon.gif", context.getNewIconFile()));
-	    creators.add(new FileCopier("default_editor_icon.gif", context.getEditorIconFile()));
-	    creators.add(new FileCopier("hover_style.css", context.getHoverStyleFile()));
+	    creators.add(new FileCopier(FileCopier.class.getResourceAsStream("default_new_icon.gif"), context.getNewIconFile()));
+	    creators.add(new FileCopier(FileCopier.class.getResourceAsStream("default_editor_icon.gif"), context.getEditorIconFile()));
+	    creators.add(new FileCopier(FileCopier.class.getResourceAsStream("hover_style.css"), context.getHoverStyleFile()));
 	    creators.add(new TokenResolversCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.TOKEN_RESOLVER_FACTORY));
 	    creators.add(new MetaInfFolderCreator());
-	    creators.add(new ManifestCreator());
+	    creators.add(new ResourcePluginManifestCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.META_INFORMATION));
 	    creators.add(new GenericArtifactCreator(EArtifact.DEFAULT_RESOLVER_DELEGATE));
 	    creators.add(new GenericArtifactCreator(EArtifact.PROBLEM));

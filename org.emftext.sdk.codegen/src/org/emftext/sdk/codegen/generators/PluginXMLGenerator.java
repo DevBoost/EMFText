@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -50,7 +51,7 @@ public class PluginXMLGenerator implements IGenerator {
 	private PluginXMLGenerator(GenerationContext context) {
 		super();
 		this.context = context;
-		pluginID = context.getPluginName();
+		pluginID = EPlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
 	}
 
 	public boolean generate(PrintWriter out) {

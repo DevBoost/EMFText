@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
@@ -22,13 +23,15 @@ public class DefaultLoadOptionsExtensionPointSchemaGenerator implements IGenerat
 	}
 
 	public boolean generate(PrintWriter out) {
+		String resourcePluginName = EPlugins.RESOURCE_PLUGIN.getName(context.getConcreteSyntax());
+
 		StringComposite sc = new XMLComposite();
 		
 		sc.add("<?xml version='1.0' encoding='UTF-8'?>");
-		sc.add("<schema targetNamespace=\"" + context.getPluginName() + "\" xmlns=\"http://www.w3.org/2001/XMLSchema\">");
+		sc.add("<schema targetNamespace=\"" + resourcePluginName + "\" xmlns=\"http://www.w3.org/2001/XMLSchema\">");
 		sc.add("<annotation>");
 		sc.add("<appinfo>");
-		sc.add("<meta.schema plugin=\"" + context.getPluginName() + "\" id=\"" + context.getPluginName() + ".default_load_options\" name=\"Default Load Options\"/>");
+		sc.add("<meta.schema plugin=\"" + resourcePluginName + "\" id=\"" + resourcePluginName + ".default_load_options\" name=\"Default Load Options\"/>");
 		sc.add("</appinfo>");
 		sc.add("<documentation>");
 		sc.add("This extension point can be used to configure the default load options for resources.");

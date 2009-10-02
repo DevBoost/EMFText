@@ -23,38 +23,26 @@ package org.emftext.sdk.codegen.generators;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.ManifestComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.concretesyntax.Import;
-import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.util.StringUtil;
 
 /**
  * A generator that creates the manifest file for the resource
  * plug-in.
  */
-public class ManifestGenerator implements IGenerator {
+public abstract class ManifestGenerator implements IGenerator {
 
-	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private GenerationContext context;
 
-	public ManifestGenerator() {
-		super();
-	}
-
-	private ManifestGenerator(GenerationContext context) {
+	public ManifestGenerator(GenerationContext context) {
 		this.context = context;
 	}
 
@@ -78,131 +66,35 @@ public class ManifestGenerator implements IGenerator {
 	private String getManifestContent() {
 		StringComposite sc = new ManifestComposite();
 		ConcreteSyntax syntax = context.getConcreteSyntax();
-		String projectName = context.getPluginName();
+		String projectName = getPlugin().getName(syntax);
 		
-		Set<String> requiredBundles = getRequiredBundles(syntax);
-		
+		Collection<String> requiredBundles = getRequiredBundles(context);
+		Collection<String> exportedPackages = getExportedPackages(context);
+
 		sc.add("Manifest-Version: 1.0");
 		sc.add("Bundle-ManifestVersion: 2");
 		sc.add("Bundle-Name: EMFText Parser Plugin: " + syntax.getName());
 		sc.add("Bundle-SymbolicName: " + projectName + ";singleton:=true");
 		sc.add("Bundle-Version: 1.0.0");
 		sc.add("Bundle-Vendor: Software Technology Group - TU Dresden Germany");
-		sc.add("Require-Bundle: " + StringUtil.explode(requiredBundles, ",\n  "));
+		if (requiredBundles.size() > 0) {
+			sc.add("Require-Bundle: " + StringUtil.explode(requiredBundles, ",\n  "));
+		}
 		sc.add("Bundle-ActivationPolicy: lazy");
 		sc.add("Bundle-RequiredExecutionEnvironment: J2SE-1.5");
-		// export the generated packages
-		// TODO refactor
-		if (csUtil.getResolverFileNames(syntax).size() > 0) {
-			sc.add("Export-Package: " + context.getPackageName(EArtifact.PACKAGE_ROOT) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_ANALYSIS) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_CC) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_MOPP) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UI) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UTIL));
-		} else {
-			sc.add("Export-Package: " + context.getPackageName(EArtifact.PACKAGE_ROOT) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_CC) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_MOPP) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UI) + ",");
-			sc.add("  " + context.getPackageName(EArtifact.PACKAGE_UTIL));
+		if (exportedPackages.size() > 0) {
+			sc.add("Export-Package: " + StringUtil.explode(exportedPackages, ",\n  "));
 		}
 		sc.add("Bundle-Activator: " + context.getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR));
 
 		return sc.toString();
 	}
 
-	private Set<String> getRequiredBundles(ConcreteSyntax syntax) {
-		Set<String> imports = new LinkedHashSet<String>();
-		imports.add("org.eclipse.core.resources");
-		imports.add("org.emftext.access;resolution:=optional");
-		imports.add("org.eclipse.emf");
-		imports.add("org.eclipse.emf.codegen.ecore");
-		imports.add("org.eclipse.emf.ecore");
-		imports.add("org.eclipse.emf.ecore.edit");
-		imports.add("org.eclipse.emf.edit.ui");
-		imports.add("org.eclipse.emf.workspace");
-		imports.add("org.eclipse.jface");
-		imports.add("org.eclipse.jface.text");
-		imports.add("org.eclipse.ui");
-		imports.add("org.eclipse.ui.editors");
-		imports.add("org.eclipse.ui.ide");
-		imports.add("org.eclipse.ui.views");
-		
-		String qualifiedBasePluginName = 
-			OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_RESOURCE_PLUGIN);
-		if (qualifiedBasePluginName != null) {
-			imports.add(qualifiedBasePluginName);
-		}
-		
-		if (context.isGenerateTestActionEnabled()) {
-			imports.add("org.emftext.sdk.ui");
-		}
+	protected abstract EPlugins getPlugin();
 
-		addImports(imports, syntax);
-		
-		// remove the current plug-in, because we do not
-		// need to import it
-		imports.remove(context.getPluginName());
-		
-		return imports;
-	}
+	protected abstract Collection<String> getRequiredBundles(GenerationContext context);
 
-	private void addImports(Collection<String> requiredBundles,
-			ConcreteSyntax concreteSyntax) {
-
-		// first add the syntax itself
-		String syntaxPluginID = csUtil.getPluginName(concreteSyntax);
-		requiredBundles.add(syntaxPluginID);
-		
-		// second add the main generator package
-		GenPackage mainPackage = concreteSyntax.getPackage();
-		addImports(requiredBundles, mainPackage);
-		
-		// third add imported generator packages and syntaxes recursively
-		for (Import nextImport : concreteSyntax.getImports()) {
-			GenPackage importedPackage = nextImport.getPackage();
-			addImports(requiredBundles, importedPackage);
-
-			ConcreteSyntax importedSyntax = nextImport.getConcreteSyntax();
-			if (importedSyntax != null) {
-				addImports(requiredBundles, importedSyntax);
-			}
-		}
-	}
-
-	/**
-	 * Adds imports for the given generator package and all used
-	 * generator packages.
-	 * 
-	 * @param requiredBundles
-	 * @param genPackage
-	 * @return
-	 */
-	private GenModel addImports(Collection<String> requiredBundles, GenPackage genPackage) {
-		// add the package itself
-		addImport(requiredBundles, genPackage);
-		
-		// add used generator packages
-		GenModel genModel = genPackage.getGenModel();
-		for (GenPackage usedGenPackage : genModel.getUsedGenPackages()) {
-			addImport(requiredBundles, usedGenPackage);
-		}
-		return genModel;
-	}
-
-	/**
-	 * Adds one import for the given generator package.
-	 * 
-	 * @param requiredBundles
-	 * @param genPackage
-	 * @return
-	 */
-	private void addImport(Collection<String> requiredBundles, GenPackage genPackage) {
-		GenModel genModel = genPackage.getGenModel();
-		String modelPluginID = genModel.getModelPluginID();
-		requiredBundles.add(modelPluginID);
-	}
+	protected abstract Collection<String> getExportedPackages(GenerationContext context);
 
 	public Collection<GenerationProblem> getCollectedErrors() {
 		return Collections.emptyList();
@@ -213,6 +105,6 @@ public class ManifestGenerator implements IGenerator {
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
-		return new ManifestGenerator(context);
+		throw new UnsupportedOperationException();
 	}
 }

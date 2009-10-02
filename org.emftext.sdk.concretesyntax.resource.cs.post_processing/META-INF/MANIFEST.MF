@@ -11,7 +11,6 @@ Require-Bundle: org.emftext.sdk.concretesyntax,
  org.eclipse.emf.ecore.edit,
  org.eclipse.emf.codegen.ecore;visibility:=reexport,
  org.eclipse.emf.workspace,
- org.emftext.runtime.antlr,
  org.emftext.sdk.automaton,
  org.emftext.sdk
 Export-Package: org.emftext.sdk,

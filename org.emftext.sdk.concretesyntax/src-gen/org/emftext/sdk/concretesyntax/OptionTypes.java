@@ -740,7 +740,7 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_OCCURENCE_PREFERENCE_PAGE(74, "OVERRIDE_OCCURENCE_PREFERENCE_PAGE", "overridePreferencePage"), /**
+	OVERRIDE_OCCURENCE_PREFERENCE_PAGE(74, "OVERRIDE_OCCURENCE_PREFERENCE_PAGE", "overrideOccurencePreferencePage"), /**
 	 * The '<em><b>OVERRIDE PIXEL CONVERTER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1276,7 +1276,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_PREFERENCE_PAGE(141, "OVERRIDE_PREFERENCE_PAGE", "OverridePreferencePage");
+	OVERRIDE_PREFERENCE_PAGE(141, "OVERRIDE_PREFERENCE_PAGE", "overridePreferencePage"), /**
+	 * The '<em><b>ANTLR PLUGIN ID</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ANTLR_PLUGIN_ID_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ANTLR_PLUGIN_ID(142, "ANTLR_PLUGIN_ID", "antlrPluginID");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -2397,7 +2405,7 @@ public enum OptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_OCCURENCE_PREFERENCE_PAGE
-	 * @model literal="overridePreferencePage"
+	 * @model literal="overrideOccurencePreferencePage"
 	 * @generated
 	 * @ordered
 	 */
@@ -3402,11 +3410,26 @@ public enum OptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #OVERRIDE_PREFERENCE_PAGE
-	 * @model literal="OverridePreferencePage"
+	 * @model literal="overridePreferencePage"
 	 * @generated
 	 * @ordered
 	 */
 	public static final int OVERRIDE_PREFERENCE_PAGE_VALUE = 141;
+
+	/**
+	 * The '<em><b>ANTLR PLUGIN ID</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ANTLR PLUGIN ID</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ANTLR_PLUGIN_ID
+	 * @model literal="antlrPluginID"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ANTLR_PLUGIN_ID_VALUE = 142;
 
 	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
@@ -3558,6 +3581,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_RESOURCE_FACTORY_DELEGATOR,
 			BASE_RESOURCE_PLUGIN,
 			OVERRIDE_PREFERENCE_PAGE,
+			ANTLR_PLUGIN_ID,
 		};
 
 	/**
@@ -3749,6 +3773,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_RESOURCE_FACTORY_DELEGATOR_VALUE: return OVERRIDE_RESOURCE_FACTORY_DELEGATOR;
 			case BASE_RESOURCE_PLUGIN_VALUE: return BASE_RESOURCE_PLUGIN;
 			case OVERRIDE_PREFERENCE_PAGE_VALUE: return OVERRIDE_PREFERENCE_PAGE;
+			case ANTLR_PLUGIN_ID_VALUE: return ANTLR_PLUGIN_ID;
 		}
 		return null;
 	}

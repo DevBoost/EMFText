@@ -26,7 +26,6 @@ import java.util.Collection;
 
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.TokenResolverGenerator;
-import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
@@ -37,8 +36,6 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * for all tokens that are used and that are not imported.
  */
 public class TokenResolversCreator extends AbstractArtifactCreator {
-
-	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 
 	public TokenResolversCreator() {
 		super("token resolvers");

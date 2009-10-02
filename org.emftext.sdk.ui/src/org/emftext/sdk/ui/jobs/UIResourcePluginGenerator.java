@@ -25,10 +25,12 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.creators.PluginsCreator;
 import org.emftext.sdk.codegen.generators.IResourceMarker;
@@ -48,30 +50,34 @@ public class UIResourcePluginGenerator extends PluginsCreator {
 		Result result = super.run(concreteSyntax, context, marker, monitor);
 
 		UIGenerationContext uiContext = (UIGenerationContext) context;
-		IProject project = uiContext.getProject();
-		if (project != null) {
-			project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
-			project.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
-		}
+		refresh(monitor, uiContext, EPlugins.RESOURCE_PLUGIN);
+		refresh(monitor, uiContext, EPlugins.ANTLR_PLUGIN);
 
 		return result;
 	}
 
-	public void createProject(GenerationContext context, SubMonitor progress)
+	private void refresh(IProgressMonitor monitor, UIGenerationContext uiContext, EPlugins plugin)
+			throws CoreException {
+		IProject project = uiContext.getProject(plugin);
+		if (project != null) {
+			project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
+			//project.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
+		}
+	}
+
+	public void createProject(GenerationContext context, SubMonitor progress, EPlugins plugin)
 		throws CoreException, JavaModelException {
 		
 		UIGenerationContext uiContext = (UIGenerationContext) context;
 		
-		String projectName = context.getPluginName();
+		String projectName = plugin.getName(context.getConcreteSyntax());
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		if (!project.exists()) {
-			project.create(progress.newChild(TICKS_CREATE_PROJECT));
-		} else {
-			progress.internalWorked(TICKS_CREATE_PROJECT);
+			project.create(new NullProgressMonitor());
 		}
-		project.open(progress.newChild(TICKS_OPEN_PROJECT));
+		project.open(new NullProgressMonitor());
 		IJavaProject javaProject = JavaCore.create(project);
 		
-		uiContext.setJavaProject(javaProject);
+		uiContext.setJavaProject(plugin, javaProject);
 	}
 }

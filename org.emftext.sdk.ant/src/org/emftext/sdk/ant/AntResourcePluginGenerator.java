@@ -21,6 +21,7 @@
 package org.emftext.sdk.ant;
 
 import org.eclipse.core.runtime.SubMonitor;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.creators.PluginsCreator;
 
@@ -34,6 +35,6 @@ import org.emftext.sdk.codegen.creators.PluginsCreator;
 public class AntResourcePluginGenerator extends PluginsCreator {
 
 	@Override
-	public void createProject(GenerationContext context, SubMonitor progress) {
+	public void createProject(GenerationContext context, SubMonitor progress, EPlugins plugin) {
 	}
 }

@@ -23,6 +23,7 @@ package org.emftext.sdk.codegen.creators;
 import java.io.File;
 import java.util.Collection;
 
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.generators.DotProjectGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -33,17 +34,20 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  */
 public class DotProjectCreator extends AbstractArtifactCreator {
 
-	public DotProjectCreator() {
+	private EPlugins plugin;
+
+	public DotProjectCreator(EPlugins plugin) {
 		super(".project file");
+		this.plugin = plugin;
 	}
 
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
-		File dotProjectFile = new File(context.getPluginProjectFolder().getAbsolutePath() + File.separator + ".project");
+		File dotProjectFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + ".project");
 		
 	    return createArtifact(
 	    		context,
-	    		new DotProjectGenerator().newInstance(context),
+	    		new DotProjectGenerator(context, plugin),
 	    		dotProjectFile,
 	    		"Exception while generating .project file."
 	    );

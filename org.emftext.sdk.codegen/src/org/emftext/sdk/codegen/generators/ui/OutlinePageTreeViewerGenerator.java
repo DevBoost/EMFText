@@ -2,12 +2,11 @@ package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 
 import java.io.PrintWriter;
 
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;

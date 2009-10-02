@@ -30,10 +30,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.emftext.sdk.Constants;
+import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -299,35 +299,17 @@ public class ConcreteSyntaxUtil {
 		return getCapitalizedConcreteSyntaxName(syntax) + Constants.CLASS_SUFFIX_DEFAULT_RESOLVER_DELEFATE;
 	}
 
-	public String getPluginName(ConcreteSyntax syntax) {
-		String resourcePluginID = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.RESOURCE_PLUGIN_ID);
-		if (resourcePluginID != null) {
-			// use package plug-in from option
-			return resourcePluginID;
+	public String getPackageName(ConcreteSyntax syntax, EPlugins plugin, String packageSuffix) {
+		String basePackage = plugin.getBasePackage(syntax);
+		if ("".equals(basePackage)) {
+			return packageSuffix;
 		} else {
-			// use default plug-in name
-			return getPackageName(syntax, "");
-		}
-	}
-
-	public String getPackageName(ConcreteSyntax syntax, String packageSuffix) {
-		String packageName = "";
-		String basePackage = OptionManager.INSTANCE.getStringOptionValue(syntax, OptionTypes.BASE_PACKAGE);
-		if (basePackage != null) {
-			// use package name from option
-			packageName = basePackage;
-		} else {
-			// use default package name
-			GenPackage concreteSyntaxPackage = syntax.getPackage();
-			boolean hasBasePackage = concreteSyntaxPackage.getBasePackage() != null;
-			if (hasBasePackage) {
-				packageName = concreteSyntaxPackage.getBasePackage() + ".";
+			if ("".equals(packageSuffix)) {
+				return basePackage;
+			} else {
+				return basePackage + "." + packageSuffix;
 			}
-			packageName += concreteSyntaxPackage.getEcorePackage().getName();
-			packageName += ".resource." + syntax.getName();
 		}
-		packageName += ("".equals(packageSuffix) ? "" : "." + packageSuffix);
-		return packageName;
 	}
 
 	// feature may be contained in imported rules and thus belong to a different
@@ -351,7 +333,7 @@ public class ConcreteSyntaxUtil {
 	 * must go to depending on the given syntax.
 	 */
 	public String getResolverPackageName(ConcreteSyntax syntax) {
-		String csPackageName = getPackageName(syntax, Constants.ANALYSIS_PACKAGE);
+		String csPackageName = getPackageName(syntax, EPlugins.RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE);
 		return (csPackageName == null || csPackageName.equals("") ? "" : csPackageName);
 	}
 
