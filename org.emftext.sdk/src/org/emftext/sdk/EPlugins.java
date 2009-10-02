@@ -14,7 +14,7 @@ public enum EPlugins {
 
 		@Override
 		public String getPluginName(ConcreteSyntax syntax) {
-			return getBasePackage(syntax) + ".resource." + syntax.getName();
+			return getBasePackage(syntax);
 		}
 
 		@Override
@@ -32,6 +32,7 @@ public enum EPlugins {
 					packageName = concreteSyntaxPackage.getBasePackage() + ".";
 				}
 				packageName += concreteSyntaxPackage.getEcorePackage().getName();
+				packageName += ".resource." + syntax.getName();
 				return packageName;
 			}
 		}
