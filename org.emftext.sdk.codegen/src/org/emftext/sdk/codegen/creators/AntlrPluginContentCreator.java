@@ -111,15 +111,11 @@ public class AntlrPluginContentCreator {
 
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {
-			String path = antlrClass.getName().replace(".", File.separator) + ".java";
+			String pathURL = antlrClass.getName().replace(".", "/") + ".java";
+			String pathFile = antlrClass.getName().replace(".", File.separator) + ".java";
 			creators.add(new FileCopier(EMFTextSDKAntlrPlugin.class.getResource(
-					".." + File.separator + 
-					".." + File.separator + 
-					".." + File.separator + 
-					".." + File.separator + 
-					".." + File.separator + 
-					"src-runtime" + File.separator + path).openStream(), 
-					new File(sourceFolder.getAbsolutePath() + File.separator + path)));
+					"/src-runtime/" + pathURL).openStream(), 
+					new File(sourceFolder.getAbsolutePath() + File.separator + pathFile)));
 	    }
 	    
 	    for (IArtifactCreator creator : creators) {
