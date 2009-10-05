@@ -106,12 +106,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("// @param fileExtension");
 		sc.add("// @return");
-		sc.add("///");
 		sc.add("protected " + I_TOKEN_SCANNER + " getScanner(String fileName) {");
-		sc.add(FILE_EDITOR_INPUT + " input = (" + FILE_EDITOR_INPUT + ") theEditor.getEditorInput();");
-		sc.add("String path = input.getFile().getFullPath().toString();");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " thisResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") theEditor.getResourceSet().getResource(" + URI + ".createPlatformResourceURI(path, true), true);");
-		sc.addLineBreak();
 		sc.add("return new " + textTokenScannerClassName + "(colorManager);");
 		sc.add("}");
 		sc.addLineBreak();
