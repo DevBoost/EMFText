@@ -21,7 +21,7 @@ public class BuildPropertiesCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		
-		File buildPropertiesFile = new File(context.getProjectFolder(EPlugins.RESOURCE_PLUGIN).getAbsolutePath() + File.separator + "build.properties");
+		File buildPropertiesFile = new File(context.getProjectFolder(plugin).getAbsolutePath() + File.separator + "build.properties");
 
 		IGenerator generator = new BuildPropertiesGenerator(context, plugin);
 		
