@@ -21,7 +21,6 @@
 package org.emftext.sdk.ui.jobs;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -61,7 +60,6 @@ public class UIResourcePluginGenerator extends PluginsCreator {
 		IProject project = uiContext.getProject(plugin);
 		if (project != null) {
 			project.refreshLocal(IProject.DEPTH_INFINITE, monitor);
-			//project.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
 		}
 	}
 
