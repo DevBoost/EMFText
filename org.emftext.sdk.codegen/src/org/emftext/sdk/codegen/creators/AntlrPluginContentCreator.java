@@ -120,7 +120,6 @@ public class AntlrPluginContentCreator {
 			String urlString = url.toString().replace("bin/" + packagePath + "/", "");
 			urlString = urlString.replace(packagePath + "/", "");
 			String pathToSourceFile = urlString + "/src-runtime/" + relativePathSourceFile;
-			System.out.println("AntlrPluginContentCreator.generate() pathToSourceFile = " + pathToSourceFile);
 			creators.add(new FileCopier(new URL(pathToSourceFile).openStream(), 
 					new File(sourceFolder.getAbsolutePath() + File.separator + pathFile)));
 	    }
