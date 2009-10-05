@@ -2,6 +2,7 @@ package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,10 +112,16 @@ public class AntlrPluginContentCreator {
 
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {
-			String pathURL = antlrClass.getName().replace(".", "/") + ".java";
+			String relativePathSourceFile = antlrClass.getName().replace(".", "/") + ".java";
 			String pathFile = antlrClass.getName().replace(".", File.separator) + ".java";
-			creators.add(new FileCopier(EMFTextSDKAntlrPlugin.class.getResource(
-					"/src-runtime/" + pathURL).openStream(), 
+			Class<EMFTextSDKAntlrPlugin> antlrPluginClass = EMFTextSDKAntlrPlugin.class;
+			URL url = antlrPluginClass.getResource("");
+			String packagePath = antlrPluginClass.getPackage().getName().replace(".", "/");
+			String urlString = url.toString().replace("bin/" + packagePath + "/", "");
+			urlString = urlString.replace(packagePath + "/", "");
+			String pathToSourceFile = urlString + "/src-runtime/" + relativePathSourceFile;
+			System.out.println("AntlrPluginContentCreator.generate() pathToSourceFile = " + pathToSourceFile);
+			creators.add(new FileCopier(new URL(pathToSourceFile).openStream(), 
 					new File(sourceFolder.getAbsolutePath() + File.separator + pathFile)));
 	    }
 	    

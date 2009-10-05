@@ -34,6 +34,7 @@ public class BuildPropertiesCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
+		// TODO this is wrong! if plugin==ANTRL_PLUGIN we must always override!
 		return OptionTypes.OVERRIDE_BUILD_PROPERTIES;
 	}
 }

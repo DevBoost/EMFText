@@ -54,6 +54,7 @@ public class DotProjectCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
+		// TODO this is wrong! if plugin==ANTRL_PLUGIN we must always override!
 		return OptionTypes.OVERRIDE_DOT_PROJECT;
 	}
 }
