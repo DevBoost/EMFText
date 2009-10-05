@@ -223,4 +223,12 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsHoverTextProvider();
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager createColorManager() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager();
+	}
+	
+	public org.eclipse.jface.text.rules.ITokenScanner createTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
+	}
+	
 }

@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 // TODO once the text token scanners are generated we might not need
@@ -35,7 +36,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface");
@@ -53,8 +54,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addGetTokenLengthMethod(sc);
 		addGetTokenOffsetMethod(sc);
 		addNextTokenMethod(sc);
@@ -62,15 +62,13 @@ public class TokenScannerGenerator extends BaseGenerator {
 		addGetTokenTextMethod(sc);
 	}
 
-	private void addGetTokenTextMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetTokenTextMethod(StringComposite sc) {
 		sc.add("public String getTokenText() {");
 		sc.add("return currentToken.getText();");
 		sc.add("}");
 	}
 
-	private void addSetRangeMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetRangeMethod(StringComposite sc) {
 		sc.add("public void setRange(" + I_DOCUMENT + " document, int offset, int length) {");
 		sc.add("this.offset = offset;");
 		sc.add("try {");
@@ -82,8 +80,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addNextTokenMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addNextTokenMethod(StringComposite sc) {
 		sc.add("public " + I_TOKEN + " nextToken() {");
 		sc.add("currentToken = lexer.getNextToken();");
 		sc.add("if (currentToken == null || !currentToken.canBeUsedForSyntaxHighlighting()) {");
@@ -119,28 +116,25 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenOffsetMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetTokenOffsetMethod(StringComposite sc) {
 		sc.add("public int getTokenOffset() {");
 		sc.add("return offset + currentToken.getOffset();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenLengthMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetTokenLengthMethod(StringComposite sc) {
 		sc.add("public int getTokenLength() {");
 		sc.add("return currentToken.getLength();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("// @param resource The <code>" + getClassNameHelper().getI_TEXT_RESOURCE() + "</code> from which the <code>Lexer</code> can be determined.");
-		sc.add("// @param colorManager A manager to obtain color objects");
-		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, " + colorManagerClassName + " colorManager) {");
+	private void addConstructor(StringComposite sc) {
 		String metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
+
+		sc.add("// @param colorManager A manager to obtain color objects");
+		sc.add("public " + getResourceClassName() + "(" + colorManagerClassName + " colorManager) {");
 		sc.add("this.lexer = new " + metaInformationClassName + "().createLexer();");
 		sc.add("this.languageId = new " + metaInformationClassName + "().getSyntaxName();");
 		sc.add("this.store = " + pluginActivatorClassName + ".getDefault().getPreferenceStore();");
@@ -149,7 +143,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + getClassNameHelper().getI_TEXT_SCANNER() + " lexer;");
 		sc.add("private " + getClassNameHelper().getI_TEXT_TOKEN() + " currentToken;");
 		sc.add("private int offset;");

@@ -118,6 +118,7 @@ protected org.eclipse.emf.ecore.EObject apply(org.eclipse.emf.ecore.EObject targ
 	}
 	return currentTarget;
 }
+
 protected void collectHiddenTokens(org.eclipse.emf.ecore.EObject element) {
 }
 

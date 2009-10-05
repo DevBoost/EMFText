@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import org.emftext.access.resource.IColorManager;
 import org.emftext.access.resource.IConfigurable;
 import org.emftext.access.resource.ILocationMap;
 import org.emftext.access.resource.IParseResult;
@@ -18,6 +19,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 
 	protected static Class<?> [] accessInterfaces = {
 			IConfigurable.class,
+			IColorManager.class,
 			ILocationMap.class,
 			IParseResult.class,
 			ITextParser.class,
@@ -25,13 +27,15 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			ITextResource.class,
 			IMetaInformation.class,
 			ITextScanner.class,
-			ITextToken.class
+			ITextToken.class,
 	};
 
 	protected Object impl;
+	protected Class<?> accessInterface;
 
-	private EMFTextAccessProxy(Object impl) {
+	private EMFTextAccessProxy(Object impl, Class<?> accessInterface) {
 		this.impl = impl;
+		this.accessInterface = accessInterface;
 	}
 
 	public static Object get(Object impl, Class<?> accessInterface) {
@@ -39,7 +43,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		return Proxy.newProxyInstance(
 				impl.getClass().getClassLoader(),
 				new Class[] { accessInterface },
-				new EMFTextAccessProxy(impl));
+				new EMFTextAccessProxy(impl, accessInterface));
 	}
 
 	protected static boolean isAccessInterface(Class<?> type) {
@@ -56,8 +60,27 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		Object result = null;
 		try {
 			Method implMethod;
-			implMethod = impl.getClass().getMethod(method.getName(), method.getParameterTypes());
-			result = implMethod.invoke(impl, args);
+			implMethod = getMethod(method);
+			Object[] proxyArgs = null;
+			if (args != null) {
+				proxyArgs = new Object[args.length];
+				for (int a = 0; a < args.length; a++) {
+					Object arg = args[a];
+					proxyArgs[a] = arg;
+					if (arg instanceof Proxy) {
+						Proxy argProxy = (Proxy) arg;
+						InvocationHandler handler = Proxy.getInvocationHandler(argProxy);
+						if (handler instanceof EMFTextAccessProxy) {
+							EMFTextAccessProxy emfHandler = (EMFTextAccessProxy) handler;
+							if (isAccessInterface(emfHandler.accessInterface)) {
+								// Replace args[a] with emfHandler.impl
+								proxyArgs[a] = emfHandler.impl;
+							}
+						}
+					}
+				}
+			}
+			result = implMethod.invoke(impl, proxyArgs);
 
 			if (result != null && isAccessInterface(method.getReturnType())) {
 				result = EMFTextAccessProxy.get(result, method.getReturnType());
@@ -66,5 +89,26 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			EMFTextAccessPlugin.logError("Required method not defined: " + impl.getClass().getCanonicalName() + "." + method.getName(), null);
 		}
 		return result;
+	}
+
+	private Method getMethod(Method method) throws NoSuchMethodException {
+		String methodName = method.getName();
+		Class<?>[] parameterTypes = method.getParameterTypes();
+		// first look for the exact method
+		try {
+			return impl.getClass().getMethod(methodName, parameterTypes);
+		} catch (NoSuchMethodException e) {
+			EMFTextAccessPlugin.logError("Required method not defined: " + impl.getClass().getCanonicalName() + "." + method.getName(), null);
+		}
+		Method[] methods = impl.getClass().getMethods();
+		// then look for a methods with the same name (do not care about parameter types)
+		// this is needed to find methods that use types from the generated plug-ins as
+		// parameters
+		for (Method nextMethod : methods) {
+			if (methodName.equals(nextMethod.getName())) {
+				return nextMethod;
+			}
+		}
+		throw new NoSuchMethodException();
 	}
 }

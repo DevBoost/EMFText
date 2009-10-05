@@ -409,7 +409,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("preferenceStore = " + activatorClassName + ".getDefault().getPreferenceStore();");
 		sc.add("textWidget = sourceviewer.getTextWidget();");
 		sc.add("projectionViewer = sourceviewer;");
-		sc.add("scanner = new " + textTokenScannerClassName + "(textResource, colorManager);");
+		sc.add("scanner = new " + textTokenScannerClassName + "(colorManager);");
 		sc.add("occurrence = new " + occurenceClassName + "(textResource, sourceviewer, scanner);");
 		sc.add("bracketSet = new " + bracketSetClassName + "(sourceviewer, \"" + getContext().getConcreteSyntax().getName() + "\");");
 		sc.add("this.colorManager = colorManager;");

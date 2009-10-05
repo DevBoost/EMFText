@@ -43,7 +43,7 @@ public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceV
 		String path = input.getFile().getFullPath().toString();
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource thisResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) theEditor.getResourceSet().getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true), true);
 		
-		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(thisResource, colorManager);
+		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
 	}
 	
 	public org.eclipse.jface.text.presentation.IPresentationReconciler getPresentationReconciler(org.eclipse.jface.text.source.ISourceViewer sourceViewer) {

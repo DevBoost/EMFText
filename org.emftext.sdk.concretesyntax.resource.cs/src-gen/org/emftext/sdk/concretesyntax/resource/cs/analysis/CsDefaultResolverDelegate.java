@@ -1,10 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
 	public final static java.lang.String NAME_FEATURE = "name";
 	
@@ -78,10 +73,11 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 	}
 	
 	private java.lang.String matches(org.eclipse.emf.ecore.EObject element, java.lang.String identifier, boolean matchFuzzy) {
-		List<org.eclipse.emf.ecore.EStructuralFeature> features = element.eClass().getEStructuralFeatures();
-		for (EStructuralFeature feature : features) {
-			if (feature instanceof EAttribute) {
-				EAttribute attribute = (EAttribute) feature;
+		// first check for attributes that have set the ID flag to true
+		java.util.List<org.eclipse.emf.ecore.EStructuralFeature> features = element.eClass().getEStructuralFeatures();
+		for (org.eclipse.emf.ecore.EStructuralFeature feature : features) {
+			if (feature instanceof org.eclipse.emf.ecore.EAttribute) {
+				org.eclipse.emf.ecore.EAttribute attribute = (org.eclipse.emf.ecore.EAttribute) feature;
 				if (attribute.isID()) {
 					java.lang.Object attributeValue = element.eGet(attribute);
 					java.lang.String match = matches(identifier, attributeValue, matchFuzzy);
@@ -91,7 +87,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 				}
 			}
 		}
-
+		
+		// then check for an attribute that is called 'name'
 		org.eclipse.emf.ecore.EStructuralFeature nameAttr = element.eClass().getEStructuralFeature(NAME_FEATURE);
 		if (nameAttr instanceof org.eclipse.emf.ecore.EAttribute) {
 			java.lang.Object attributeValue = element.eGet(nameAttr);
@@ -107,7 +104,8 @@ public class CsDefaultResolverDelegate<ContainerType extends org.eclipse.emf.eco
 					}
 				}
 			}
-						for (org.eclipse.emf.ecore.EOperation o : element.eClass().getEAllOperations()) {
+			
+			for (org.eclipse.emf.ecore.EOperation o : element.eClass().getEAllOperations()) {
 				if (o.getName().toLowerCase().endsWith(NAME_FEATURE) && o.getEParameters().size() == 0 ) {
 					java.lang.String result = (java.lang.String) org.emftext.sdk.concretesyntax.resource.cs.util.CsEObjectUtil.invokeOperation(element, o);
 					java.lang.String match = matches(identifier, result, matchFuzzy);

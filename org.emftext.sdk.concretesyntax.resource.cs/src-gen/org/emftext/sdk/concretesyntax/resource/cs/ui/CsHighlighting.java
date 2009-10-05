@@ -103,7 +103,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		preferenceStore = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.getDefault().getPreferenceStore();
 		textWidget = sourceviewer.getTextWidget();
 		projectionViewer = sourceviewer;
-		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(textResource, colorManager);
+		scanner = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
 		occurrence = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsOccurrence(textResource, sourceviewer, scanner);
 		bracketSet = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet(sourceviewer, "cs");
 		this.colorManager = colorManager;

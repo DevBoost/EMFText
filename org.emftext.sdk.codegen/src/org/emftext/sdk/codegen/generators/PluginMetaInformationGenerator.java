@@ -4,6 +4,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -133,6 +134,21 @@ public class PluginMetaInformationGenerator extends BaseGenerator {
         addGetBracketPairsMethod(sc);
         addGetFoldableClassesMethod(sc);
     	addGetHoverTextProviderMethod(sc);
+    	
+    	
+    	String colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
+        String tokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
+        
+		sc.add("public " + colorManagerClassName + " createColorManager() {");
+        sc.add("return new " + colorManagerClassName + "();");
+        sc.add("}");
+        sc.addLineBreak();
+
+        sc.add("public " + I_TOKEN_SCANNER + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
+		sc.add("return new " + tokenScannerClassName + "(colorManager);");
+        sc.add("}");
+        sc.addLineBreak();
+
         sc.add("}");
     	
 		out.print(sc.toString());

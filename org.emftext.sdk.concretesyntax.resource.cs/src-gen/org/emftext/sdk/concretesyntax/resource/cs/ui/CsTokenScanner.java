@@ -12,9 +12,8 @@ public class CsTokenScanner implements org.eclipse.jface.text.rules.ITokenScanne
 	private org.eclipse.jface.preference.IPreferenceStore store;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager;
 	
-	// @param resource The <code>org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource</code> from which the <code>Lexer</code> can be determined.
 	// @param colorManager A manager to obtain color objects
-	public CsTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
+	public CsTokenScanner(org.emftext.sdk.concretesyntax.resource.cs.ui.CsColorManager colorManager) {
 		this.lexer = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().createLexer();
 		this.languageId = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 		this.store = org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.getDefault().getPreferenceStore();

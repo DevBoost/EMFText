@@ -112,7 +112,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.add("String path = input.getFile().getFullPath().toString();");
 		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " thisResource = (" + getClassNameHelper().getI_TEXT_RESOURCE() + ") theEditor.getResourceSet().getResource(" + URI + ".createPlatformResourceURI(path, true), true);");
 		sc.addLineBreak();
-		sc.add("return new " + textTokenScannerClassName + "(thisResource, colorManager);");
+		sc.add("return new " + textTokenScannerClassName + "(colorManager);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
