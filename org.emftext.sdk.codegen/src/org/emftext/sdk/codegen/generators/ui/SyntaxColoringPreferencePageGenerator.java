@@ -542,11 +542,9 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("// Underline preference key.");
 		sc.add("private String fUnderlineKey;");
 		sc.add("private String fEnableKey;");
-		sc.add("private String fparent;");
 		sc.addLineBreak();
 		sc.add("// Initialize the item with the given values.");
 		sc.add("public HighlightingColorListItem(String languageID, String tokenName) {");
-		sc.add("fparent = languageID;");
 		sc.add("fDisplayName = tokenName;");
 		sc.add("fColorKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.COLOR);");
 		sc.add("fBoldKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.BOLD);");
@@ -554,10 +552,6 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("fStrikethroughKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.STRIKETHROUGH);");
 		sc.add("fUnderlineKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.UNDERLINE);");
 		sc.add("fEnableKey = " + syntaxColoringHelperClassName + ".getPreferenceKey(languageID, tokenName, " + syntaxColoringHelperClassName + ".StyleProperty.ENABLE);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public String getParent() {");
-		sc.add("return fparent;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("// @return the bold preference key");
