@@ -98,8 +98,8 @@ public class TextPrinterGenerator extends BaseGenerator {
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
 	private ConcreteSyntax concretSyntax;
-	private String qualifiedTokenResolverFactoryClassName;
-	private String qualifiedReferenceResolverSwitchClassName;
+	private String tokenResolverFactoryClassName;
+	private String referenceResolverSwitchClassName;
 	
 	private int tokenSpace;
 	/** maps all choices to a method name */
@@ -122,8 +122,8 @@ public class TextPrinterGenerator extends BaseGenerator {
 		super(context, EArtifact.PRINTER);
 
 		this.concretSyntax = context.getConcreteSyntax();
-		this.qualifiedTokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
-		this.qualifiedReferenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
+		this.tokenResolverFactoryClassName = context.getQualifiedClassName(EArtifact.TOKEN_RESOLVER_FACTORY);
+		this.referenceResolverSwitchClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVER_SWITCH);
 	}
 
 	private void extractChoices(List<Rule> rules,
@@ -264,8 +264,8 @@ public class TextPrinterGenerator extends BaseGenerator {
 	}
 
 	private void addGetReferenceResolverSwitchMethod(StringComposite sc) {
-		sc.add("protected " + qualifiedReferenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
-        sc.add("return new " + getClassNameHelper().getMETA_INFORMATION() + "().getReferenceResolverSwitch();");
+		sc.add("protected " + referenceResolverSwitchClassName + " getReferenceResolverSwitch() {");
+        sc.add("return (" + referenceResolverSwitchClassName + ") new " + getClassNameHelper().getMETA_INFORMATION() + "().getReferenceResolverSwitch();");
         sc.add("}");
 		sc.addLineBreak();
 	}
@@ -308,7 +308,7 @@ public class TextPrinterGenerator extends BaseGenerator {
 	private void addMembers(StringComposite sc) {
 		sc.add("protected final static " + STRING + " NEW_LINE = java.lang.System.getProperties().getProperty(\"line.separator\");");
 		sc.add("protected " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY() + " tokenResolverFactory = new "
-						+ qualifiedTokenResolverFactoryClassName + "();");
+						+ tokenResolverFactoryClassName + "();");
 		sc.add("protected " +  OUTPUT_STREAM + " outputStream;");
 		sc.add("/** Holds the resource that is associated with this printer. may be null if the printer is used stand alone. */");
 		sc.add("private " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource;");
