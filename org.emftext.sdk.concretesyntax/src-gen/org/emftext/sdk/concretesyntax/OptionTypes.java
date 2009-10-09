@@ -49,20 +49,6 @@ public enum OptionTypes implements Enumerator {
 	GENERATE_CODE_FROM_GENERATOR_MODEL(1, "GENERATE_CODE_FROM_GENERATOR_MODEL", "generateCodeFromGeneratorModel"),
 
 	/**
-	 * The '<em><b>GENERATE PRINTER STUB ONLY</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * If this option is set to true, an empty printer class is generated. This class can be
-	 * subject to manual implementation. Otherwise, a printer and
-	 * a base class containing a default printer implementation are generated.
-	 * The default value for this option is <code>false</code>. 
-	 * <!-- end-user-doc -->
-	 * @see #GENERATE_PRINTER_STUB_ONLY_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	GENERATE_PRINTER_STUB_ONLY(2, "GENERATE_PRINTER_STUB_ONLY", "generatePrinterStubOnly"),
-
-	/**
 	 * The '<em><b>OVERRIDE PLUGIN XML</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * If this option is set to true, the plugin.xml file will be overridden during code
@@ -153,18 +139,6 @@ public enum OptionTypes implements Enumerator {
 	 * @ordered
 	 */
 	OVERRIDE_PRINTER(10, "OVERRIDE_PRINTER", "overridePrinter"),
-
-	/**
-	 * The '<em><b>OVERRIDE PRINTER BASE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * If this option is set to true, the printer base class will be overridden 
-	 * during code generation. The default value for this option is <code>true</code>. 
-	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_PRINTER_BASE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	OVERRIDE_PRINTER_BASE(11, "OVERRIDE_PRINTER_BASE", "overridePrinterBase"),
 
 	/**
 	 * The '<em><b>ANTLR BACKTRACKING</b></em>' literal object.
@@ -1357,21 +1331,6 @@ public enum OptionTypes implements Enumerator {
 	public static final int GENERATE_CODE_FROM_GENERATOR_MODEL_VALUE = 1;
 
 	/**
-	 * The '<em><b>GENERATE PRINTER STUB ONLY</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>GENERATE PRINTER STUB ONLY</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #GENERATE_PRINTER_STUB_ONLY
-	 * @model literal="generatePrinterStubOnly"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int GENERATE_PRINTER_STUB_ONLY_VALUE = 2;
-
-	/**
 	 * The '<em><b>OVERRIDE PLUGIN XML</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -1490,21 +1449,6 @@ public enum OptionTypes implements Enumerator {
 	 * @ordered
 	 */
 	public static final int OVERRIDE_PRINTER_VALUE = 10;
-
-	/**
-	 * The '<em><b>OVERRIDE PRINTER BASE</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>OVERRIDE PRINTER BASE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #OVERRIDE_PRINTER_BASE
-	 * @model literal="overridePrinterBase"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int OVERRIDE_PRINTER_BASE_VALUE = 11;
 
 	/**
 	 * The '<em><b>ANTLR BACKTRACKING</b></em>' literal value.
@@ -3556,7 +3500,6 @@ public enum OptionTypes implements Enumerator {
 		new OptionTypes[] {
 			GENERATE_TEST_ACTION,
 			GENERATE_CODE_FROM_GENERATOR_MODEL,
-			GENERATE_PRINTER_STUB_ONLY,
 			OVERRIDE_PLUGIN_XML,
 			OVERRIDE_MANIFEST,
 			OVERRIDE_PARSER,
@@ -3565,7 +3508,6 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_REFERENCE_RESOLVER_SWITCH,
 			OVERRIDE_TOKEN_RESOLVER_FACTORY,
 			OVERRIDE_PRINTER,
-			OVERRIDE_PRINTER_BASE,
 			ANTLR_BACKTRACKING,
 			ANTLR_MEMOIZE,
 			AUTOFIX_SIMPLE_LEFTRECURSION,
@@ -3754,7 +3696,6 @@ public enum OptionTypes implements Enumerator {
 		switch (value) {
 			case GENERATE_TEST_ACTION_VALUE: return GENERATE_TEST_ACTION;
 			case GENERATE_CODE_FROM_GENERATOR_MODEL_VALUE: return GENERATE_CODE_FROM_GENERATOR_MODEL;
-			case GENERATE_PRINTER_STUB_ONLY_VALUE: return GENERATE_PRINTER_STUB_ONLY;
 			case OVERRIDE_PLUGIN_XML_VALUE: return OVERRIDE_PLUGIN_XML;
 			case OVERRIDE_MANIFEST_VALUE: return OVERRIDE_MANIFEST;
 			case OVERRIDE_PARSER_VALUE: return OVERRIDE_PARSER;
@@ -3763,7 +3704,6 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_REFERENCE_RESOLVER_SWITCH_VALUE: return OVERRIDE_REFERENCE_RESOLVER_SWITCH;
 			case OVERRIDE_TOKEN_RESOLVER_FACTORY_VALUE: return OVERRIDE_TOKEN_RESOLVER_FACTORY;
 			case OVERRIDE_PRINTER_VALUE: return OVERRIDE_PRINTER;
-			case OVERRIDE_PRINTER_BASE_VALUE: return OVERRIDE_PRINTER_BASE;
 			case ANTLR_BACKTRACKING_VALUE: return ANTLR_BACKTRACKING;
 			case ANTLR_MEMOIZE_VALUE: return ANTLR_MEMOIZE;
 			case AUTOFIX_SIMPLE_LEFTRECURSION_VALUE: return AUTOFIX_SIMPLE_LEFTRECURSION;

@@ -1564,7 +1564,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		initEEnum(optionTypesEEnum, OptionTypes.class, "OptionTypes");
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_TEST_ACTION);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_CODE_FROM_GENERATOR_MODEL);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.GENERATE_PRINTER_STUB_ONLY);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PLUGIN_XML);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_MANIFEST);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PARSER);
@@ -1573,7 +1572,6 @@ public class ConcretesyntaxPackageImpl extends EPackageImpl implements Concretes
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PRINTER);
-		addEEnumLiteral(optionTypesEEnum, OptionTypes.OVERRIDE_PRINTER_BASE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ANTLR_BACKTRACKING);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.ANTLR_MEMOIZE);
 		addEEnumLiteral(optionTypesEEnum, OptionTypes.AUTOFIX_SIMPLE_LEFTRECURSION);

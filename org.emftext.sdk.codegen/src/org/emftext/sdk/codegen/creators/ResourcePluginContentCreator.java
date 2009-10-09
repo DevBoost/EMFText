@@ -84,7 +84,7 @@ public class ResourcePluginContentCreator {
 		    creators.add(new AdditionalExtensionParserExtensionPointSchemaCreator());
 		    creators.add(new GenericArtifactCreator(EArtifact.RESOURCE_FACTORY_DELEGATOR));
 	    }
-	    creators.add(new PrinterCreator());
+	    creators.add(new GenericArtifactCreator(EArtifact.PRINTER));
 	    creators.add(new ReferenceResolversCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.REFERENCE_RESOLVER_SWITCH));
 	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_WIZARD));

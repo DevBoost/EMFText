@@ -144,7 +144,6 @@
   <eClassifiers xsi:type="ecore:EEnum" name="OptionTypes">
     <eLiterals name="GENERATE_TEST_ACTION" literal="generateTestAction"/>
     <eLiterals name="GENERATE_CODE_FROM_GENERATOR_MODEL" value="1" literal="generateCodeFromGeneratorModel"/>
-    <eLiterals name="GENERATE_PRINTER_STUB_ONLY" value="2" literal="generatePrinterStubOnly"/>
     <eLiterals name="OVERRIDE_PLUGIN_XML" value="3" literal="overridePluginXML"/>
     <eLiterals name="OVERRIDE_MANIFEST" value="4" literal="overrideManifest"/>
     <eLiterals name="OVERRIDE_PARSER" value="5" literal="overrideParser"/>
@@ -153,7 +152,6 @@
     <eLiterals name="OVERRIDE_REFERENCE_RESOLVER_SWITCH" value="8" literal="overrideReferenceResolverSwitch"/>
     <eLiterals name="OVERRIDE_TOKEN_RESOLVER_FACTORY" value="9" literal="overrideTokenResolverFactory"/>
     <eLiterals name="OVERRIDE_PRINTER" value="10" literal="overridePrinter"/>
-    <eLiterals name="OVERRIDE_PRINTER_BASE" value="11" literal="overridePrinterBase"/>
     <eLiterals name="ANTLR_BACKTRACKING" value="12" literal="backtracking"/>
     <eLiterals name="ANTLR_MEMOIZE" value="13" literal="memoize"/>
     <eLiterals name="AUTOFIX_SIMPLE_LEFTRECURSION" value="14" literal="autofixSimpleLeftrecursion"/>
