@@ -1,6 +1,9 @@
 package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
@@ -32,7 +35,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// This class provides the configuration for the generated editor. It registers");
@@ -48,8 +51,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addGetContentAssistantMethod(sc);
 		addGetConfiguredContentTypesMethod(sc);
 		addGetScannerMethod(sc);
@@ -59,8 +61,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		addGetHyperlinkDetectorsMethod(sc);
 	}
 
-	private void addGetHyperlinkDetectorsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetHyperlinkDetectorsMethod(StringComposite sc) {
 		sc.add("public " + I_HYPERLINK_DETECTOR + "[] getHyperlinkDetectors(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.add("if (sourceViewer == null) {");
 		sc.add("return null;");
@@ -70,24 +71,21 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetTextHoverMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetTextHoverMethod(StringComposite sc) {
 		sc.add("public " + I_TEXT_HOVER + " getTextHover(" + I_SOURCE_VIEWER + " sourceViewer, String contentType) {");
 		sc.add("return new " + textHoverClassName + "(theEditor);");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetAnnotationHoverMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetAnnotationHoverMethod(StringComposite sc) {
 		sc.add("public " + I_ANNOTATION_HOVER + " getAnnotationHover(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.add("return new " + DEFAULT_ANNOTATION_HOVER + "();");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addGetPresentationReconcilerMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetPresentationReconcilerMethod(StringComposite sc) {
 		sc.add("public " + I_PRESENTATION_RECONCILER + " getPresentationReconciler(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.addLineBreak();
 		sc.add(PRESENTATION_RECONCILER + " reconciler = new " + PRESENTATION_RECONCILER + "();");
@@ -102,8 +100,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetScannerMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetScannerMethod(StringComposite sc) {
 		sc.add("// @param fileExtension");
 		sc.add("// @return");
 		sc.add("protected " + I_TOKEN_SCANNER + " getScanner(String fileName) {");
@@ -112,8 +109,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetConfiguredContentTypesMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetConfiguredContentTypesMethod(StringComposite sc) {
 		sc.add("public String[] getConfiguredContentTypes(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.add("return new String[] {");
 		sc.add(I_DOCUMENT + ".DEFAULT_CONTENT_TYPE,");
@@ -122,8 +118,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetContentAssistantMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetContentAssistantMethod(StringComposite sc) {
 		sc.add("public " + I_CONTENT_ASSISTANT + " getContentAssistant(" + I_SOURCE_VIEWER + " sourceViewer) {");
 		sc.addLineBreak();
 		sc.add(CONTENT_ASSISTANT + " assistant = new " + CONTENT_ASSISTANT + "();");
@@ -138,8 +133,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("// Create a new editor configuration.");
 		sc.add("//");
 		sc.add("// @param editor");
@@ -152,7 +146,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private " + colorManagerClassName + " colorManager;");
 		sc.add("private " + editorClassName + " theEditor;");
 		sc.addLineBreak();
