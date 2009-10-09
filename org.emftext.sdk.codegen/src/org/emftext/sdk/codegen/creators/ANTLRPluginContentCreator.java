@@ -13,6 +13,8 @@ import org.emftext.sdk.antlr.EMFTextSDKAntlrPlugin;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
+import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 public class ANTLRPluginContentCreator {
 
@@ -124,9 +126,14 @@ public class ANTLRPluginContentCreator {
 					new File(sourceFolder.getAbsolutePath() + File.separator + pathFile)));
 	    }
 	    
-	    for (IArtifactCreator creator : creators) {
-			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
-			creator.createArtifacts(context);
+		OptionTypes overrideOption = OptionTypes.OVERRIDE_ANTLR_PLUGIN;
+		boolean doOverride = overrideOption == null || OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), overrideOption);
+
+		for (IArtifactCreator creator : creators) {
+			if (doOverride) {
+				progress.setTaskName("creating " + creator.getArtifactDescription() + "...");
+				creator.createArtifacts(context);
+			}
 		    progress.worked(100 / creators.size());
 	    }
 	}

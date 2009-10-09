@@ -31,7 +31,6 @@ public class ANTLRPluginManifestCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		// TODO this is wrong
-		return OptionTypes.OVERRIDE_MANIFEST;
+		return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
 	}
 }
