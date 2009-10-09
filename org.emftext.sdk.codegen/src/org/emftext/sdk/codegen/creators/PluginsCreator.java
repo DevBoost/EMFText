@@ -121,7 +121,7 @@ public abstract class PluginsCreator {
 		pluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_RESOURCE_PLUGIN));
 
 		// generate the resource class, parser, and printer
-		AntlrPluginContentCreator antlrPluginGenerator = new AntlrPluginContentCreator();
+		Antlr2PluginContentCreator antlrPluginGenerator = new Antlr2PluginContentCreator();
 		antlrPluginGenerator.generate(context, progress.newChild(TICKS_GENERATE_ANTLR_PLUGIN));
 
 		// errors from parser generator?

@@ -9,9 +9,9 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.generators.AntlrPluginManifestGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
 
-public class AntlrPluginManifestCreator extends AbstractArtifactCreator {
+public class Antlr2PluginManifestCreator extends AbstractArtifactCreator {
 
-	public AntlrPluginManifestCreator() {
+	public Antlr2PluginManifestCreator() {
 		super("manifest");
 	}
 
