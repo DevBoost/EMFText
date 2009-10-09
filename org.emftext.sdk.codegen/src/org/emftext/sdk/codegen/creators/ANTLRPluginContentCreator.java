@@ -14,7 +14,7 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IArtifactCreator;
 
-public class Antlr2PluginContentCreator {
+public class ANTLRPluginContentCreator {
 
 	private Class<?>[] antlrClassNames = new Class<?>[] {
 			org.antlr.runtime.ANTLRFileStream.class,
@@ -108,7 +108,7 @@ public class Antlr2PluginContentCreator {
 	    creators.add(new DotClasspathCreator(EPlugins.ANTLR_PLUGIN));
 	    creators.add(new DotProjectCreator(EPlugins.ANTLR_PLUGIN));
 	    creators.add(new BuildPropertiesCreator(EPlugins.ANTLR_PLUGIN));
-	    creators.add(new Antlr2PluginManifestCreator());
+	    creators.add(new ANTLRPluginManifestCreator());
 
 	    // add copiers for ANTLR source files
 	    for (Class<?> antlrClass : antlrClassNames) {
