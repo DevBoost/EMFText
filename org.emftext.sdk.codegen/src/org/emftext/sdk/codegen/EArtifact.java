@@ -19,6 +19,7 @@ import org.emftext.sdk.codegen.generators.ANTLRGrammarGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRParserBaseGenerator;
 import org.emftext.sdk.codegen.generators.ANTLRScannerGenerator;
 import org.emftext.sdk.codegen.generators.BabylonSpecificationGenerator;
+import org.emftext.sdk.codegen.generators.BracketInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.ContextDependentURIFragmentFactoryGenerator;
 import org.emftext.sdk.codegen.generators.ContextDependentURIFragmentGenerator;
 import org.emftext.sdk.codegen.generators.DefaultResolverDelegateGenerator;
@@ -27,13 +28,14 @@ import org.emftext.sdk.codegen.generators.DelegatingResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.DummyEObjectGenerator;
 import org.emftext.sdk.codegen.generators.EProblemTypeGenerator;
 import org.emftext.sdk.codegen.generators.ElementMappingGenerator;
+import org.emftext.sdk.codegen.generators.FoldingInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.LocationMapGenerator;
 import org.emftext.sdk.codegen.generators.NewFileWizardGenerator;
 import org.emftext.sdk.codegen.generators.ParseResultGenerator;
 import org.emftext.sdk.codegen.generators.PluginActivatorGenerator;
-import org.emftext.sdk.codegen.generators.PluginMetaInformationGenerator;
+import org.emftext.sdk.codegen.generators.MetaInformationGenerator;
 import org.emftext.sdk.codegen.generators.ProblemClassGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.ReferenceResolverSwitchGenerator;
@@ -41,11 +43,13 @@ import org.emftext.sdk.codegen.generators.ResourceFactoryDelegatorGenerator;
 import org.emftext.sdk.codegen.generators.ResourceFactoryGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessParserGenerator;
 import org.emftext.sdk.codegen.generators.ScannerlessScannerGenerator;
+import org.emftext.sdk.codegen.generators.SyntaxCoverageInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.TerminateParsingExceptionGenerator;
 import org.emftext.sdk.codegen.generators.TextResourceGenerator;
 import org.emftext.sdk.codegen.generators.TextTokenGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.TokenResolverFactoryGenerator;
+import org.emftext.sdk.codegen.generators.TokenStyleInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.URIMappingGenerator;
 import org.emftext.sdk.codegen.generators.UnexpectedContentTypeExceptionGenerator;
 import org.emftext.sdk.codegen.generators.code_completion.AbstractExpectedElementGenerator;
@@ -162,7 +166,7 @@ public enum EArtifact {
 	RESOURCE_FACTORY_DELEGATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactoryDelegator", new ResourceFactoryDelegatorGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR),
 	TOKEN_RESOLVER_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenResolverFactory", new TokenResolverFactoryGenerator(), OptionTypes.OVERRIDE_TOKEN_RESOLVER_FACTORY),
 	REFERENCE_RESOLVER_SWITCH(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
-	META_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new PluginMetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION), 
+	META_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new MetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION), 
 	HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
 	PARSE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ParseResult", new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
 	PLUGIN_ACTIVATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),
@@ -170,6 +174,11 @@ public enum EArtifact {
 	TERMINATE_PARSING_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TerminateParsingException", new TerminateParsingExceptionGenerator(), OptionTypes.OVERRIDE_TERMINATE_PARSING_EXCEPTION),
 	UNEXPECTED_CONTENT_TYPE_EXCEPTION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "UnexpectedContentTypeException", new UnexpectedContentTypeExceptionGenerator(), OptionTypes.OVERRIDE_UNEXPECTED_CONTENT_TYPE_EXCEPTION),
 
+	TOKEN_STYLE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TokenStyleInformationProvider", new TokenStyleInformationProviderGenerator(), OptionTypes.OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER),
+	FOLDING_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "FoldingInformationProvider", new FoldingInformationProviderGenerator(), OptionTypes.OVERRIDE_FOLDING_INFORMATION_PROVIDER),
+	BRACKET_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "BracketInformationProvider", new BracketInformationProviderGenerator(), OptionTypes.OVERRIDE_BRACKET_INFORMATION_PROVIDER),
+	SYNTAX_COVERAGE_INFORMATION_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "SyntaxCoverageInformationProvider", new SyntaxCoverageInformationProviderGenerator(), OptionTypes.OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER),
+	
 	DEFAULT_TOKEN_RESOLVER(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultTokenResolver", new DefaultTokenResolverGenerator(), OptionTypes.OVERRIDE_DEFAULT_TOKEN_RESOLVER),
 	DEFAULT_RESOLVER_DELEGATE(RESOURCE_PLUGIN, Constants.ANALYSIS_PACKAGE, "", "DefaultResolverDelegate", new DefaultResolverDelegateGenerator(), OptionTypes.OVERRIDE_DEFAULT_RESOLVER_DELEGATE), 
 
@@ -278,7 +287,7 @@ public enum EArtifact {
 	PACKAGE_ANTLR_RUNTIME(ANTLR_PLUGIN, ANTLR_RUNTIME_PACKAGE, "", "", null, null),
 	PACKAGE_ANTLR_RUNTIME_DEBUG(ANTLR_PLUGIN, ANTLR_RUNTIME_DEBUG_PACKAGE, "", "", null, null),
 	PACKAGE_ANTLR_RUNTIME_MISC(ANTLR_PLUGIN, ANTLR_RUNTIME_MISC_PACKAGE, "", "", null, null),
-	PACKAGE_ANTLR_RUNTIME_TREE(ANTLR_PLUGIN, ANTLR_RUNTIME_TREE_PACKAGE, "", "", null, null)
+	PACKAGE_ANTLR_RUNTIME_TREE(ANTLR_PLUGIN, ANTLR_RUNTIME_TREE_PACKAGE, "", "", null, null), 
 	;
 	
 	private EPlugins plugin;

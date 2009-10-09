@@ -98,6 +98,10 @@ public class ResourcePluginContentCreator {
 	    creators.add(new MetaInfFolderCreator());
 	    creators.add(new ResourcePluginManifestCreator());
 	    creators.add(new GenericArtifactCreator(EArtifact.META_INFORMATION));
+	    creators.add(new GenericArtifactCreator(EArtifact.TOKEN_STYLE_INFORMATION_PROVIDER));
+	    creators.add(new GenericArtifactCreator(EArtifact.FOLDING_INFORMATION_PROVIDER));
+	    creators.add(new GenericArtifactCreator(EArtifact.BRACKET_INFORMATION_PROVIDER));
+	    creators.add(new GenericArtifactCreator(EArtifact.SYNTAX_COVERAGE_INFORMATION_PROVIDER));
 	    creators.add(new GenericArtifactCreator(EArtifact.DEFAULT_RESOLVER_DELEGATE));
 	    creators.add(new GenericArtifactCreator(EArtifact.PROBLEM));
 	    creators.add(new GenericArtifactCreator(EArtifact.CONTEXT_DEPENDENT_URI_FRAGMENT));

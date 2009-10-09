@@ -1284,7 +1284,47 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ANTLR_PLUGIN_ID(142, "ANTLR_PLUGIN_ID", "antlrPluginID");
+	ANTLR_PLUGIN_ID(142, "ANTLR_PLUGIN_ID", "antlrPluginID"), /**
+	 * The '<em><b>OVERRIDE ANTLR PLUGIN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANTLR_PLUGIN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_ANTLR_PLUGIN(143, "OVERRIDE_ANTLR_PLUGIN", "overrideAntlrPlugin"), /**
+	 * The '<em><b>OVERRIDE TOKEN STYLE INFORMATION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER(144, "OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER", "overrideTokenStyleInformationProvider"), /**
+	 * The '<em><b>OVERRIDE FOLDING INFORMATION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FOLDING_INFORMATION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_FOLDING_INFORMATION_PROVIDER(145, "OVERRIDE_FOLDING_INFORMATION_PROVIDER", "overrideFoldingInformationProvider"), /**
+	 * The '<em><b>OVERRIDE BRACKET INFORMATION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BRACKET_INFORMATION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_BRACKET_INFORMATION_PROVIDER(146, "OVERRIDE_BRACKET_INFORMATION_PROVIDER", "overrideBracketInformationProvider"), /**
+	 * The '<em><b>OVERRIDE SYNTAX COVERAGE INFORMATION PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER(147, "OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER", "overrideSyntaxCoverageInformationProvider");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3432,6 +3472,81 @@ public enum OptionTypes implements Enumerator {
 	public static final int ANTLR_PLUGIN_ID_VALUE = 142;
 
 	/**
+	 * The '<em><b>OVERRIDE ANTLR PLUGIN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE ANTLR PLUGIN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_ANTLR_PLUGIN
+	 * @model literal="overrideAntlrPlugin"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_ANTLR_PLUGIN_VALUE = 143;
+
+	/**
+	 * The '<em><b>OVERRIDE TOKEN STYLE INFORMATION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE TOKEN STYLE INFORMATION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER
+	 * @model literal="overrideTokenStyleInformationProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER_VALUE = 144;
+
+	/**
+	 * The '<em><b>OVERRIDE FOLDING INFORMATION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE FOLDING INFORMATION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_FOLDING_INFORMATION_PROVIDER
+	 * @model literal="overrideFoldingInformationProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_FOLDING_INFORMATION_PROVIDER_VALUE = 145;
+
+	/**
+	 * The '<em><b>OVERRIDE BRACKET INFORMATION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE BRACKET INFORMATION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_BRACKET_INFORMATION_PROVIDER
+	 * @model literal="overrideBracketInformationProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_BRACKET_INFORMATION_PROVIDER_VALUE = 146;
+
+	/**
+	 * The '<em><b>OVERRIDE SYNTAX COVERAGE INFORMATION PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE SYNTAX COVERAGE INFORMATION PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER
+	 * @model literal="overrideSyntaxCoverageInformationProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER_VALUE = 147;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3582,6 +3697,11 @@ public enum OptionTypes implements Enumerator {
 			BASE_RESOURCE_PLUGIN,
 			OVERRIDE_PREFERENCE_PAGE,
 			ANTLR_PLUGIN_ID,
+			OVERRIDE_ANTLR_PLUGIN,
+			OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER,
+			OVERRIDE_FOLDING_INFORMATION_PROVIDER,
+			OVERRIDE_BRACKET_INFORMATION_PROVIDER,
+			OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER,
 		};
 
 	/**
@@ -3774,6 +3894,11 @@ public enum OptionTypes implements Enumerator {
 			case BASE_RESOURCE_PLUGIN_VALUE: return BASE_RESOURCE_PLUGIN;
 			case OVERRIDE_PREFERENCE_PAGE_VALUE: return OVERRIDE_PREFERENCE_PAGE;
 			case ANTLR_PLUGIN_ID_VALUE: return ANTLR_PLUGIN_ID;
+			case OVERRIDE_ANTLR_PLUGIN_VALUE: return OVERRIDE_ANTLR_PLUGIN;
+			case OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER_VALUE: return OVERRIDE_TOKEN_STYLE_INFORMATION_PROVIDER;
+			case OVERRIDE_FOLDING_INFORMATION_PROVIDER_VALUE: return OVERRIDE_FOLDING_INFORMATION_PROVIDER;
+			case OVERRIDE_BRACKET_INFORMATION_PROVIDER_VALUE: return OVERRIDE_BRACKET_INFORMATION_PROVIDER;
+			case OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER_VALUE: return OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER;
 		}
 		return null;
 	}
