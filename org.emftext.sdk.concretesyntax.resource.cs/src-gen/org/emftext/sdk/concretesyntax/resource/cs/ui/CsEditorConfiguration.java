@@ -37,12 +37,7 @@ public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceV
 	
 	// @param fileExtension
 	// @return
-	///
 	protected org.eclipse.jface.text.rules.ITokenScanner getScanner(String fileName) {
-		org.eclipse.ui.part.FileEditorInput input = (org.eclipse.ui.part.FileEditorInput) theEditor.getEditorInput();
-		String path = input.getFile().getFullPath().toString();
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource thisResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) theEditor.getResourceSet().getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true), true);
-		
 		return new org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner(colorManager);
 	}
 	

@@ -71,11 +71,9 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 		// Underline preference key.
 		private String fUnderlineKey;
 		private String fEnableKey;
-		private String fparent;
 		
 		// Initialize the item with the given values.
 		public HighlightingColorListItem(String languageID, String tokenName) {
-			fparent = languageID;
 			fDisplayName = tokenName;
 			fColorKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.COLOR);
 			fBoldKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.BOLD);
@@ -83,10 +81,6 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 			fStrikethroughKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.STRIKETHROUGH);
 			fUnderlineKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.UNDERLINE);
 			fEnableKey = org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.getPreferenceKey(languageID, tokenName, org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringHelper.StyleProperty.ENABLE);
-		}
-		
-		public String getParent() {
-			return fparent;
 		}
 		
 		// @return the bold preference key
