@@ -160,7 +160,6 @@ public enum EArtifact {
 	SCANNERLESS_PARSER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ScannerlessParser", new ScannerlessParserGenerator(), OptionTypes.OVERRIDE_PARSER),
 	PROBLEM(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Problem", new ProblemClassGenerator(), OptionTypes.OVERRIDE_PROBLEM_CLASS),
 	PRINTER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Printer", null, OptionTypes.OVERRIDE_PRINTER),
-	PRINTER_BASE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "PrinterBase", null, OptionTypes.OVERRIDE_PRINTER_BASE),
 	RESOURCE(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Resource", new TextResourceGenerator(), OptionTypes.OVERRIDE_TEXT_RESOURCE),
 	RESOURCE_FACTORY(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactory", new ResourceFactoryGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY),
 	RESOURCE_FACTORY_DELEGATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ResourceFactoryDelegator", new ResourceFactoryDelegatorGenerator(), OptionTypes.OVERRIDE_RESOURCE_FACTORY_DELEGATOR),

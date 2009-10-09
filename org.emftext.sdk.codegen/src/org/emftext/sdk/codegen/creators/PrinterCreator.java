@@ -21,10 +21,12 @@
 package org.emftext.sdk.codegen.creators;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.generators.TextPrinterGenerator;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -42,23 +44,20 @@ public class PrinterCreator extends AbstractArtifactCreator {
 	@Override
 	public Collection<IArtifact> getArtifactsToCreate(GenerationContext context) {
 		boolean generatePrinterStubOnly = OptionManager.INSTANCE.getBooleanOptionValue(context.getConcreteSyntax(), OptionTypes.GENERATE_PRINTER_STUB_ONLY);
-		
-	    File printerFile = context.getFile(EArtifact.PRINTER);
 
-	    TextPrinterGenerator printerGenerator;
 		if (generatePrinterStubOnly) {
-    		printerGenerator = (TextPrinterGenerator) new TextPrinterGenerator().newInstance(context);
-    		printerGenerator.setPrinterBaseExists(false);
+			return new ArrayList<IArtifact>();
 		} else {
-    		printerGenerator = (TextPrinterGenerator) new TextPrinterGenerator().newInstance(context);
-    		printerGenerator.setPrinterBaseExists(true);
-		}
-	    return createArtifact(
-	    		context,
-	    		printerGenerator,
-	    		printerFile,
-	    		"Exception while generating printer."
-	    );
+		    File file = context.getFile(EArtifact.PRINTER);
+	        IGenerator generator = new TextPrinterGenerator().newInstance(context);
+	        
+		    return createArtifact(
+		    		context,
+		    		generator,
+		    		file,
+		    		"Exception while generating printer class."
+		    );
+    	}
 	}
 
 	public OptionTypes getOverrideOption() {
