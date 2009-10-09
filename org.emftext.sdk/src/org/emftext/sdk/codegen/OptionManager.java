@@ -84,9 +84,6 @@ public class OptionManager {
 		if (option == OptionTypes.GENERATE_TEST_ACTION) {
 			return false;
 		}
-		if (option == OptionTypes.GENERATE_PRINTER_STUB_ONLY) {
-			return false;
-		}
 		if (option == OptionTypes.OVERRIDE_REFERENCE_RESOLVERS) {
 			return false;
 		}
