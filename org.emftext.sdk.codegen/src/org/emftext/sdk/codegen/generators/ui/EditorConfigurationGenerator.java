@@ -35,7 +35,7 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// This class provides the configuration for all EMFText editors. It registers");
+		sc.add("// This class provides the configuration for the generated editor. It registers");
 		sc.add("// content assistance and syntax highlighting.");
 		sc.add("public class " + getResourceClassName() + " extends " + SOURCE_VIEWER_CONFIGURATION + " {");
 		sc.addLineBreak();
