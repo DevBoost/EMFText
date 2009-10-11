@@ -62,7 +62,11 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add(I_WORKBENCH_PART + " workbenchPart = partRef.getPart(false);");
 		sc.add("if (workbenchPart instanceof " + editorClassName + ") {");
 		sc.add(editorClassName + " editor = (" + editorClassName + ") workbenchPart;");
-		sc.add("String uri = editor.getResource().getURI().toString();");
+		sc.add(RESOURCE + " editorResource = editor.getResource();");
+		sc.add("if (editorResource == null) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("String uri = editorResource.getURI().toString();");
 		sc.add("if (uri.equals(this.editor.getResource().getURI().toString())) {");
 		sc.add("saveCodeFoldingStateFile(uri);");
 		sc.add("editor.getSite().getPage().removePartListener(this);");

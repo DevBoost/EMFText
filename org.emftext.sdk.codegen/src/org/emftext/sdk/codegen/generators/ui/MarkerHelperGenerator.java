@@ -68,7 +68,9 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		sc.add("// @throws " + CORE_EXCEPTION + "");
 		sc.add("public static void unmark(" + RESOURCE + " resource) throws " + CORE_EXCEPTION + " {");
 		sc.add(I_FILE + " file = (" + I_FILE + ") " + RESOURCES_PLUGIN + ".getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));");
+		sc.add("if (file != null) {");
 		sc.add("file.deleteMarkers(" + markeHelperClassName + ".MARKER_TYPE, false, " + I_RESOURCE + ".DEPTH_ZERO);");
+		sc.add("}");
 		sc.add("}");
 	}
 
