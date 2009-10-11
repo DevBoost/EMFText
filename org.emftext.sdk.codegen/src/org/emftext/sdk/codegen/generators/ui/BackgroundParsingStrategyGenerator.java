@@ -64,7 +64,13 @@ public class BackgroundParsingStrategyGenerator extends BaseGenerator {
 		sc.add("// Schedules a task for background parsing that will be started after");
 		sc.add("// a delay.");
 		sc.add("public void parse(" + DOCUMENT_EVENT + " event, final " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource, final " + editorClassName + " editor) {");
+		sc.add("if (resource == null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add("final String contents = event.getDocument().get();");
+		sc.add("if (contents == null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.addLineBreak();
 		sc.add("// this synchronization is needed to avoid the creation");
 		sc.add("// of multiple tasks. without the synchronization this");
