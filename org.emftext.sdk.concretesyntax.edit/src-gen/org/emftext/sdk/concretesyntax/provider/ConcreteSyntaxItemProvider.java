@@ -330,16 +330,21 @@ public class ConcreteSyntaxItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		ConcreteSyntax concreteSyntax = (ConcreteSyntax)object;
+		ConcreteSyntax concreteSyntax = (ConcreteSyntax) object;
 		String label = concreteSyntax.getName() + " : ";
-		if (!concreteSyntax.eIsProxy()) {
-			GenPackage genPackage = concreteSyntax.getPackage();
-			if (genPackage != null && !genPackage.eIsProxy()) {
-				EPackage ecorePackage = genPackage.getEcorePackage();
-				if (ecorePackage != null) {
-					label = label + ecorePackage.getNsURI();
+		try {
+			if (!concreteSyntax.eIsProxy()) {
+				GenPackage genPackage = concreteSyntax.getPackage();
+				if (genPackage != null && !genPackage.eIsProxy()) {
+					EPackage ecorePackage = genPackage.getEcorePackage();
+					if (ecorePackage != null) {
+						label = label + ecorePackage.getNsURI();
+					}
 				}
 			}
+		} catch (NullPointerException e) {
+			// do nothing
+			// the NPE is sometimes triggered by the background parsing
 		}
 		return label;
 	}
