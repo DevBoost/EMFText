@@ -17,7 +17,13 @@ public class CsBackgroundParsingStrategy {
 	// Schedules a task for background parsing that will be started after
 	// a delay.
 	public void parse(org.eclipse.jface.text.DocumentEvent event, final org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource, final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
+		if (resource == null) {
+			return;
+		}
 		final String contents = event.getDocument().get();
+		if (contents == null) {
+			return;
+		}
 		
 		// this synchronization is needed to avoid the creation
 		// of multiple tasks. without the synchronization this
