@@ -219,7 +219,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("int startOffset = projectionViewer.modelOffset2WidgetOffset(position.offset);");
 		sc.add("int endOffset = projectionViewer.modelOffset2WidgetOffset(position.offset + position.length);");
-		sc.add("if (endOffset - startOffset != position.length || startOffset == -1) {");
+		sc.add("if (endOffset - startOffset != position.length || startOffset == -1 || textWidget.getCharCount() < endOffset) {");
 		sc.add("return null;");
 		sc.add("}");
 		sc.add("return new " + POSITION + "(startOffset, endOffset - startOffset);");

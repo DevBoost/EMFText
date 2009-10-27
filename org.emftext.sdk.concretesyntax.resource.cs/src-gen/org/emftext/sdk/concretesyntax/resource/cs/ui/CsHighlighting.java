@@ -256,7 +256,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		}
 		int startOffset = projectionViewer.modelOffset2WidgetOffset(position.offset);
 		int endOffset = projectionViewer.modelOffset2WidgetOffset(position.offset + position.length);
-		if (endOffset - startOffset != position.length || startOffset == -1) {
+		if (endOffset - startOffset != position.length || startOffset == -1 || textWidget.getCharCount() < endOffset) {
 			return null;
 		}
 		return new org.eclipse.jface.text.Position(startOffset, endOffset - startOffset);
