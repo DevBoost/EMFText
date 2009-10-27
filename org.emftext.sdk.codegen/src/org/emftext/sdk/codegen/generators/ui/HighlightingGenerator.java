@@ -93,7 +93,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		addRemoveHighlightingCategoryMethod(sc);
 		addSetEObjectSelectionMethod(sc);
 		addResetValuesMethod(sc);
-		addConvertToWidgedPositionMethod(sc);
+		addConvertToWidgetPositionMethod(sc);
 		addGetStyleRangeAtPositionMethod(sc);
 		addAddSelectionChangedListenerMethod(sc);
 		addRemoveSelectionChangedListenerMethod(sc);
@@ -211,9 +211,9 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addConvertToWidgedPositionMethod(
+	private void addConvertToWidgetPositionMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
-		sc.add("private " + POSITION + " convertToWidgedPosition(" + POSITION + " position) {");
+		sc.add("private " + POSITION + " convertToWidgetPosition(" + POSITION + " position) {");
 		sc.add("if (position == null) {");
 		sc.add("return null;");
 		sc.add("}");
@@ -264,7 +264,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("if (category.equals(" + positionCategoryClassName + ".BRACKET.toString())) {");
 		sc.add(STYLE_RANGE + " styleRange;");
 		sc.add("for (" + POSITION + " position : positions) {");
-		sc.add(POSITION + " tmpPosition = convertToWidgedPosition(position);");
+		sc.add(POSITION + " tmpPosition = convertToWidgetPosition(position);");
 		sc.add("if (tmpPosition != null) {");
 		sc.add("styleRange = getStyleRangeAtPosition(tmpPosition);");
 		sc.add("styleRange.borderStyle = " + SWT + ".NONE;");
@@ -277,7 +277,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("if (isOccurrence) {");
 		sc.add("for (" + POSITION + " position : positions) {");
-		sc.add(POSITION + " tmpPosition = convertToWidgedPosition(position);");
+		sc.add(POSITION + " tmpPosition = convertToWidgetPosition(position);");
 		sc.add("if (tmpPosition != null) {");
 		sc.add("lastStyleRange.start = tmpPosition.offset;");
 		sc.add("textWidget.setStyleRange(lastStyleRange);");
@@ -326,7 +326,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("for (" + POSITION + " position : positions) {");
-		sc.add(POSITION + " tmpPosition = convertToWidgedPosition(position);");
+		sc.add(POSITION + " tmpPosition = convertToWidgetPosition(position);");
 		sc.add("if (tmpPosition != null) {");
 		sc.add("if (category.equals(" + positionCategoryClassName + ".DEFINTION.toString())) {");
 		sc.add("styleRange = getStyleRangeAtPosition(tmpPosition);");

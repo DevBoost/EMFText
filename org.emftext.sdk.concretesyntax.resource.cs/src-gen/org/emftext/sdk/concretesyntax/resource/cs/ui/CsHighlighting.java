@@ -162,7 +162,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 			}
 		}
 		for (org.eclipse.jface.text.Position position : positions) {
-			org.eclipse.jface.text.Position tmpPosition = convertToWidgedPosition(position);
+			org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
 			if (tmpPosition != null) {
 				if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.DEFINTION.toString())) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
@@ -205,7 +205,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		if (category.equals(org.emftext.sdk.concretesyntax.resource.cs.ui.CsPositionCategory.BRACKET.toString())) {
 			org.eclipse.swt.custom.StyleRange styleRange;
 			for (org.eclipse.jface.text.Position position : positions) {
-				org.eclipse.jface.text.Position tmpPosition = convertToWidgedPosition(position);
+				org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
 				if (tmpPosition != null) {
 					styleRange = getStyleRangeAtPosition(tmpPosition);
 					styleRange.borderStyle = org.eclipse.swt.SWT.NONE;
@@ -218,7 +218,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		
 		if (isOccurrence) {
 			for (org.eclipse.jface.text.Position position : positions) {
-				org.eclipse.jface.text.Position tmpPosition = convertToWidgedPosition(position);
+				org.eclipse.jface.text.Position tmpPosition = convertToWidgetPosition(position);
 				if (tmpPosition != null) {
 					lastStyleRange.start = tmpPosition.offset;
 					textWidget.setStyleRange(lastStyleRange);
@@ -250,7 +250,7 @@ public class CsHighlighting implements org.eclipse.jface.viewers.ISelectionProvi
 		bracketSet.resetBrackets();
 	}
 	
-	private org.eclipse.jface.text.Position convertToWidgedPosition(org.eclipse.jface.text.Position position) {
+	private org.eclipse.jface.text.Position convertToWidgetPosition(org.eclipse.jface.text.Position position) {
 		if (position == null) {
 			return null;
 		}
