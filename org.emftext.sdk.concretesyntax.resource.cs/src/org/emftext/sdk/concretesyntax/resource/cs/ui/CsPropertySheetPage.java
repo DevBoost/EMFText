@@ -10,6 +10,12 @@ import org.eclipse.emf.ecore.EObject;
  * This replacement for the generated PropertySheetPage is 
  * needed because of a bug in the EMF framework, which will
  * not be resolved.
+ * 
+ * TODO move this code to the PropertySheetPageGenerator, since
+ * all languages that import the generator meta model will face
+ * this problem. The instanceof checks should then be replaced
+ * with getClass().getName().equals("org.eclipse.emf.codegen.ecore.genmodel.XYZ")
+ * because no all language do import the EMF generator plug-in.
  */
 public class CsPropertySheetPage extends org.eclipse.ui.views.properties.PropertySheetPage implements org.eclipse.jface.viewers.ISelectionChangedListener {
 	
