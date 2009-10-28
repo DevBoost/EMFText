@@ -1,6 +1,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-// This class provides the configuration for all EMFText editors. It registers
+// This class provides the configuration for the generated editor. It registers
 // content assistance and syntax highlighting.
 public class CsEditorConfiguration extends org.eclipse.jface.text.source.SourceViewerConfiguration {
 	

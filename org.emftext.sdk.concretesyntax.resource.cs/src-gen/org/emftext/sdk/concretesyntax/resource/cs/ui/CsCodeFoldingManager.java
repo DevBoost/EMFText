@@ -62,7 +62,11 @@ public class CsCodeFoldingManager {
 			org.eclipse.ui.IWorkbenchPart workbenchPart = partRef.getPart(false);
 			if (workbenchPart instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) {
 				org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor) workbenchPart;
-				String uri = editor.getResource().getURI().toString();
+				org.eclipse.emf.ecore.resource.Resource editorResource = editor.getResource();
+				if (editorResource == null) {
+					return;
+				}
+				String uri = editorResource.getURI().toString();
 				if (uri.equals(this.editor.getResource().getURI().toString())) {
 					saveCodeFoldingStateFile(uri);
 					editor.getSite().getPage().removePartListener(this);

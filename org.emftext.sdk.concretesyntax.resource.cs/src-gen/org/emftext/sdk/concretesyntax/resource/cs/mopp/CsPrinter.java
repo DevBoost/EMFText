@@ -1652,10 +1652,16 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	public void print_org_emftext_sdk_concretesyntax_NormalToken_1(org.emftext.sdk.concretesyntax.NormalToken element, java.lang.String outertab, java.io.PrintWriter out, java.util.Map<java.lang.String, java.lang.Integer> printCountingMap){
 		int count;
+		//////////////DEFINITION PART BEGINS (WhiteSpaces):
+		out.print(" ");
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print("COLLECT");
+		//////////////DEFINITION PART BEGINS (WhiteSpaces):
+		out.print(" ");
 		//////////////DEFINITION PART BEGINS (CsString):
 		out.print("IN");
+		//////////////DEFINITION PART BEGINS (WhiteSpaces):
+		out.print(" ");
 		//////////////DEFINITION PART BEGINS (PlaceholderUsingDefaultToken):
 		count = printCountingMap.get("attributeName");
 		if (count > 0) {

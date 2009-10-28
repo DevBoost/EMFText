@@ -58,6 +58,8 @@ public class CsMarkerHelper {
 	// @throws org.eclipse.core.runtime.CoreException
 	public static void unmark(org.eclipse.emf.ecore.resource.Resource resource) throws org.eclipse.core.runtime.CoreException {
 		org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(resource.getURI().toPlatformString(true));
-		file.deleteMarkers(org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.MARKER_TYPE, false, org.eclipse.core.resources.IResource.DEPTH_ZERO);
+		if (file != null) {
+			file.deleteMarkers(org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.MARKER_TYPE, false, org.eclipse.core.resources.IResource.DEPTH_ZERO);
+		}
 	}
 }
