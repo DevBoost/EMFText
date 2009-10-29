@@ -38,12 +38,19 @@ public class CsPropertySheetPage extends org.eclipse.ui.views.properties.Propert
 	}
 	
 	private boolean isGenProxy(org.eclipse.emf.ecore.EObject selectedObject) {
-		String className = selectedObject.getClass().getName();
-		boolean isGenMetaclass = "org.eclipse.emf.codegen.ecore.genmodel.GenClass".equals(className);
-		isGenMetaclass |= "org.eclipse.emf.codegen.ecore.genmodel.GenFeature".equals(className);
-		isGenMetaclass |= "org.eclipse.emf.codegen.ecore.genmodel.GenPackage".equals(className);
+		boolean isGenMetaclass = isInstanceOf("org.eclipse.emf.codegen.ecore.genmodel.GenClass", selectedObject);
+		isGenMetaclass |= isInstanceOf("org.eclipse.emf.codegen.ecore.genmodel.GenFeature", selectedObject);
+		isGenMetaclass |= isInstanceOf("org.eclipse.emf.codegen.ecore.genmodel.GenPackage", selectedObject);
 		boolean isProxy = selectedObject.eIsProxy();
 		return isGenMetaclass && isProxy;
 	}
 	
+	private boolean isInstanceOf(String className, Object object) {
+		try {
+			Class<?> clazz = Class.forName(className);
+			return clazz.isInstance(object);
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+	}
 }
