@@ -13,6 +13,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class PropertySheetPageGenerator extends BaseGenerator {
@@ -29,11 +31,25 @@ public class PropertySheetPageGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + PROPERTY_SHEET_PAGE + " implements " + I_SELECTION_CHANGED_LISTENER + " {");
 		sc.addLineBreak();
+		addMethods(sc);
+		sc.add("}");
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addSelectionChangedMethod(sc);
+		addContainsGenProxyMethod(sc);
+		addIsGenProxyMethod(sc);
+		addIsInstanceOfMethod(sc);
+	}
+
+	private void addSelectionChangedMethod(StringComposite sc) {
 		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.add("// this is a workaround for a bug in EMF");
 		sc.add("// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301");
@@ -51,17 +67,9 @@ public class PropertySheetPageGenerator extends BaseGenerator {
 		sc.add("selectionChanged(null, event.getSelection());");
 		sc.add("}");
 		sc.addLineBreak();
-
-		addContainsGenProxyMethod(sc);
-		addIsGenProxyMethod(sc);
-		
-		sc.add("}");
-		out.print(sc.toString());
-		return true;
 	}
 
-	private void addContainsGenProxyMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addContainsGenProxyMethod(StringComposite sc) {
 		sc.add("private boolean containsGenProxy(" + E_OBJECT + " selectedObject) {");
 		sc.add("boolean isGenProxy = isGenProxy(selectedObject);");
 		sc.add("if (isGenProxy) {");
@@ -82,19 +90,28 @@ public class PropertySheetPageGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsGenProxyMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIsGenProxyMethod(StringComposite sc) {
 		sc.add("private boolean isGenProxy(" + E_OBJECT + " selectedObject) {");
-		sc.add("String className = selectedObject.getClass().getName();");
-		sc.add("boolean isGenMetaclass = \"" + GenClass.class.getName() + "\".equals(className);");
-		sc.add("isGenMetaclass |= \"" + GenFeature.class.getName() + "\".equals(className);");
-		sc.add("isGenMetaclass |= \"" + GenPackage.class.getName() + "\".equals(className);");
+		sc.add("boolean isGenMetaclass = isInstanceOf(\"" + GenClass.class.getName() + "\", selectedObject);");
+		sc.add("isGenMetaclass |= isInstanceOf(\"" + GenFeature.class.getName() + "\", selectedObject);");
+		sc.add("isGenMetaclass |= isInstanceOf(\"" + GenPackage.class.getName() + "\", selectedObject);");
 		sc.add("boolean isProxy = selectedObject.eIsProxy();");
 		sc.add("return isGenMetaclass && isProxy;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
+	private void addIsInstanceOfMethod(StringComposite sc) {
+		sc.add("private boolean isInstanceOf(String className, Object object) {");
+		sc.add("try {");
+		sc.add("Class<?> clazz = Class.forName(className);");
+		sc.add("return clazz.isInstance(object);");
+		sc.add("} catch (ClassNotFoundException e) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("}");
+	}
+	
 	public IGenerator newInstance(GenerationContext context) {
 		return new PropertySheetPageGenerator(context);
 	}
