@@ -25,7 +25,6 @@ public class CopiedEListGenerator extends BaseGenerator {
 		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// TODO mseifert: generate this class");
 		sc.add("// TODO override remove() method of iterators");
 		sc.add("public class " + getResourceClassName() + "<E> implements " + E_LIST + "<E> {");
 		sc.addLineBreak();
