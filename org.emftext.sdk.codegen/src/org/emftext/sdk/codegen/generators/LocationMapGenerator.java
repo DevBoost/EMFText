@@ -93,7 +93,7 @@ public class LocationMapGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void setMapValueToMin(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
-		sc.add("// we to synchronize the write access, because other threads may iterate");
+		sc.add("// we need to synchronize the write access, because other threads may iterate");
 		sc.add("// over the map concurrently");
 		sc.add("synchronized (this) {");
 		sc.add("if (element == null || value < 0) return;");
@@ -103,7 +103,7 @@ public class LocationMapGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void setMapValueToMax(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
-		sc.add("// we to synchronize the write access, because other threads may iterate");
+		sc.add("// we need to synchronize the write access, because other threads may iterate");
 		sc.add("// over the map concurrently");
 		sc.add("synchronized (this) {");
 		sc.add("if (element == null || value < 0) return;");
@@ -135,8 +135,8 @@ public class LocationMapGenerator extends BaseGenerator {
 		sc.add("// thus, we collect all of them and sort them afterwards");
 		sc.add(LIST + "<" + E_OBJECT + "> result = new " + ARRAY_LIST + "<" + E_OBJECT + ">();");
 		sc.addLineBreak();
-		sc.add("// we to synchronize the iteration over the map concurrently");
-		sc.add("// because other threads may write to the map concurrently");
+		sc.add("// we need to synchronize the iteration over the map, because");
+		sc.add("// other threads may write to the map concurrently");
 		sc.add("synchronized (this) {");
 		sc.add("for (" + E_OBJECT + " next : charStartMap.keySet()) {");
 		sc.add("int start = charStartMap.get(next);");
