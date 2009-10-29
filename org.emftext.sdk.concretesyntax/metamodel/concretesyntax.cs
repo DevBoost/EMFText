@@ -10,7 +10,6 @@ OPTIONS {
 	overrideNewFileWizard = "false";
 	overrideHoverTextProvider = "false";
 	overrideProblemClass = "false";
-	overridePropertySheetPage = "false";
 }
 
 TOKENS {
