@@ -1,6 +1,5 @@
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
-// TODO mseifert: generate this class
 // TODO override remove() method of iterators
 public class CsCopiedEList<E> implements org.eclipse.emf.common.util.EList<E> {
 	

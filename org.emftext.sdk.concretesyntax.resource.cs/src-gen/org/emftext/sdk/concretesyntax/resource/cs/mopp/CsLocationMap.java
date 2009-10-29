@@ -64,15 +64,23 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 	}
 	
 	private void setMapValueToMin(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
-		if (element == null || value < 0) return;
-		if (map.containsKey(element) && map.get(element) < value) return;
-		map.put(element, value);
+		// we need to synchronize the write access, because other threads may iterate
+		// over the map concurrently
+		synchronized (this) {
+			if (element == null || value < 0) return;
+			if (map.containsKey(element) && map.get(element) < value) return;
+			map.put(element, value);
+		}
 	}
 	
 	private void setMapValueToMax(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
-		if (element == null || value < 0) return;
-		if (map.containsKey(element) && map.get(element) > value) return;
-		map.put(element, value);
+		// we need to synchronize the write access, because other threads may iterate
+		// over the map concurrently
+		synchronized (this) {
+			if (element == null || value < 0) return;
+			if (map.containsKey(element) && map.get(element) > value) return;
+			map.put(element, value);
+		}
 	}
 	
 	public java.util.List<org.eclipse.emf.ecore.EObject> getElementsAt(final int documentOffset) {
@@ -98,11 +106,15 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 		// thus, we collect all of them and sort them afterwards
 		java.util.List<org.eclipse.emf.ecore.EObject> result = new java.util.ArrayList<org.eclipse.emf.ecore.EObject>();
 		
-		for (org.eclipse.emf.ecore.EObject next : charStartMap.keySet()) {
-			int start = charStartMap.get(next);
-			int end = charEndMap.get(next);
-			if (s.accept(start, end)) {
-				result.add(next);
+		// we need to synchronize the iteration over the map, because
+		// other threads may write to the map concurrently
+		synchronized (this) {
+			for (org.eclipse.emf.ecore.EObject next : charStartMap.keySet()) {
+				int start = charStartMap.get(next);
+				int end = charEndMap.get(next);
+				if (s.accept(start, end)) {
+					result.add(next);
+				}
 			}
 		}
 		java.util.Collections.sort(result, new java.util.Comparator<org.eclipse.emf.ecore.EObject>() {
