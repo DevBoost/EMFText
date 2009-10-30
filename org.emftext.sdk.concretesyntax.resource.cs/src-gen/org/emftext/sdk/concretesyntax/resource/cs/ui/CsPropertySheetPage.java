@@ -3,11 +3,15 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 public class CsPropertySheetPage extends org.eclipse.ui.views.properties.PropertySheetPage implements org.eclipse.jface.viewers.ISelectionChangedListener {
 	
 	public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
+		selectionChanged(null, event.getSelection());
+	}
+	
+	public void selectionChanged(org.eclipse.ui.IWorkbenchPart part, org.eclipse.jface.viewers.ISelection iSelection) {
 		// this is a workaround for a bug in EMF
 		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301
 		// unfortunately Ed Merks refuses to fix it, so we need to solve it here
-		if (event.getSelection() instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection) {
-			final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection selection = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection) event.getSelection();
+		if (iSelection instanceof org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection) {
+			final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection selection = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsEObjectSelection) iSelection;
 			final org.eclipse.emf.ecore.EObject selectedObject = selection.getSelectedObject();
 			// check whether the selected object or one of its children contains
 			// a proxy which is a GenXYZClass (e.g., GenFeature, GenClass, GenPackage)
@@ -15,8 +19,20 @@ public class CsPropertySheetPage extends org.eclipse.ui.views.properties.Propert
 				return;
 			}
 		}
+		if (iSelection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
+			org.eclipse.jface.viewers.IStructuredSelection structuredSelection = (org.eclipse.jface.viewers.IStructuredSelection) iSelection;
+			java.util.Iterator<?> it = structuredSelection.iterator();
+			while (it.hasNext()) {
+				final Object next = it.next();
+				if (next instanceof org.eclipse.emf.ecore.EObject) {
+					if (containsGenProxy((org.eclipse.emf.ecore.EObject) next)) {
+						return;
+					}
+				}
+			}
+		}
 		// end of workaround
-		selectionChanged(null, event.getSelection());
+		super.selectionChanged(part, iSelection);
 	}
 	
 	private boolean containsGenProxy(org.eclipse.emf.ecore.EObject selectedObject) {
