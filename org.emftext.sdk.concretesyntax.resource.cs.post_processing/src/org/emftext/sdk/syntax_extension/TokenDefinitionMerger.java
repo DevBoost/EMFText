@@ -175,4 +175,9 @@ public class TokenDefinitionMerger extends AbstractPostProcessor {
 	protected boolean doResolveProxiesBeforeAnalysis() {
 		return false;
 	}
+
+	@Override
+	protected boolean doAnalysisAfterPreviousErrors() {
+		return false;
+	}
 }
