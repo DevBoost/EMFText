@@ -1,7 +1,11 @@
 package org.emftext.sdk.codegen.generators.ui;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH_PART;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROPERTY_SHEET_PAGE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
 
@@ -43,19 +47,20 @@ public class PropertySheetPageGenerator extends BaseGenerator {
 	}
 
 	private void addMethods(StringComposite sc) {
-		addSelectionChangedMethod(sc);
+		addSelectionChangedMethod1(sc);
+		addSelectionChangedMethod2(sc);
 		addContainsGenProxyMethod(sc);
 		addIsGenProxyMethod(sc);
 		addIsInstanceOfMethod(sc);
 	}
 
-	private void addSelectionChangedMethod(StringComposite sc) {
-		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
+	private void addSelectionChangedMethod2(StringComposite sc) {
+		sc.add("public void selectionChanged(" + I_WORKBENCH_PART + " part, " + I_SELECTION + " iSelection) {");
 		sc.add("// this is a workaround for a bug in EMF");
 		sc.add("// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=291301");
 		sc.add("// unfortunately Ed Merks refuses to fix it, so we need to solve it here");
-		sc.add("if (event.getSelection() instanceof " + eObjectSelectionName + ") {");
-		sc.add("final " + eObjectSelectionName + " selection = (" + eObjectSelectionName + ") event.getSelection();");
+		sc.add("if (iSelection instanceof " + eObjectSelectionName + ") {");
+		sc.add("final " + eObjectSelectionName + " selection = (" + eObjectSelectionName + ") iSelection;");
 		sc.add("final " + E_OBJECT + " selectedObject = selection.getSelectedObject();");
 		sc.add("// check whether the selected object or one of its children contains");
 		sc.add("// a proxy which is a GenXYZClass (e.g., GenFeature, GenClass, GenPackage)");
@@ -63,7 +68,28 @@ public class PropertySheetPageGenerator extends BaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add("}");
+		
+		sc.add("if (iSelection instanceof " + I_STRUCTURED_SELECTION + ") {");
+		sc.add(I_STRUCTURED_SELECTION + " structuredSelection = (" + I_STRUCTURED_SELECTION + ") iSelection;");
+		sc.add(ITERATOR + "<?> it = structuredSelection.iterator();");
+		sc.add("while (it.hasNext()) {");
+		sc.add("final Object next = it.next();");
+		sc.add("if (next instanceof " + E_OBJECT + ") {");
+		sc.add("if (containsGenProxy((" + E_OBJECT + ") next)) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		sc.add("}");
+		
 		sc.add("// end of workaround");
+		sc.add("super.selectionChanged(part, iSelection);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addSelectionChangedMethod1(StringComposite sc) {
+		sc.add("public void selectionChanged(" + SELECTION_CHANGED_EVENT + " event) {");
 		sc.add("selectionChanged(null, event.getSelection());");
 		sc.add("}");
 		sc.addLineBreak();
