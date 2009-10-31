@@ -59,6 +59,7 @@ public class EditorGenerator extends BaseGenerator {
 		
 		sc.add("public void createPartControl(" + COMPOSITE + " parent) {");
 		sc.add("super.createPartControl(parent);");
+		sc.add("display = parent.getShell().getDisplay();");
 		sc.addLineBreak();
 		sc.add("// Code Folding");
 		sc.add(PROJECTION_VIEWER + " viewer = (" + PROJECTION_VIEWER + ") getSourceViewer();");
@@ -306,15 +307,18 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("return viewer;");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public void addBackgroundParsingListener(" + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " listener) {");
 		sc.add("bgParsingListeners.add(listener);");
 		sc.add("}");
 		sc.addLineBreak();
+		
 		sc.add("public void notifyBackgroundParsingFinished() {");
 		sc.add("for (" + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " listener : bgParsingListeners) {");
 		sc.add("listener.parsingCompleted(resource);");
 		sc.add("}");
 		sc.add("}");
+		sc.addLineBreak();
 		
 		addRefreshMarkersMethod(sc);
 		
@@ -438,23 +442,23 @@ public class EditorGenerator extends BaseGenerator {
 	private void addRefreshMarkersMethod(
 			org.emftext.sdk.codegen.composites.StringComposite sc) {
 		
-		sc.add("private static void refreshMarkers(final " + RESOURCE + " resource) {");
+		sc.add("private void refreshMarkers(final " + RESOURCE + " resource) {");
 		sc.add("if (resource == null) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("new " + JOB + "(\"marking resource\") {");
-		sc.add("protected " + I_STATUS + " run(" + I_PROGRESS_MONITOR + " monitor) {");
+		sc.add("if (display != null) {");
+		sc.add("display.asyncExec(new " + RUNNABLE + "() {");
+		sc.add("public void run() {");
 		sc.add("try {");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while updating markers on resource\", e);");
+		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while updating markers on resource\", e);");
 		sc.add("}");
-		sc.add("return " + STATUS + ".OK_STATUS;");
 		sc.add("}");
-		sc.add("}.schedule();");
+		sc.add("});");
 		sc.add("}");
-
+		sc.add("}");
 	}
 
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
@@ -470,6 +474,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("private " + propertySheetClassName + " propertySheetPage;");
 		sc.add("private " + EDITING_DOMAIN + " editingDomain;");
 		sc.add("private " + COMPOSED_ADAPTER_FACTORY + " adapterFactory;");
+		sc.add("private " + DISPLAY + " display;");
 		sc.addLineBreak();
 	}
 
