@@ -26,27 +26,33 @@ public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resou
 			// corresponding EClass
 			GenClass genClass = (GenClass) object;
 			EClass ecoreClass = genClass.getEcoreClass();
-			String htmlForEClass = getHTML(ecoreClass);
-			return htmlForEClass + "<br/><br/>" + htmlForObject;
+			if (ecoreClass != null) {
+				String htmlForEClass = getHTML(ecoreClass);
+				return htmlForEClass + "<br/><br/>" + htmlForObject;
+			}
 		}
 		if (object instanceof GenPackage) {
 			// for generator package we do also show the properties of the
 			// corresponding EPackage
 			GenPackage genPackage = (GenPackage) object;
 			EPackage ecorePackage = genPackage.getEcorePackage();
-			String htmlForEPackage = getHTML(ecorePackage);
-			return htmlForEPackage + "<br/><br/>" + htmlForObject;
+			if (ecorePackage != null) {
+				String htmlForEPackage = getHTML(ecorePackage);
+				return htmlForEPackage + "<br/><br/>" + htmlForObject;
+			}
 		}
 		if (object instanceof GenFeature) {
 			// for generator features we do also show the properties of the
 			// corresponding EClass
 			GenFeature genFeature = (GenFeature) object;
 			EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
-			String htmlForEFeature = getHTML(ecoreFeature);
-			// and we want to show the type of the feature
-			EClassifier type = ecoreFeature.getEType();
-			String htmlForEType = getHTML(type);
-			return htmlForEFeature + "<br/><br/>Type:<br/>" + htmlForEType + "<br/><br/>" + htmlForObject;
+			if (ecoreFeature != null) {
+				String htmlForEFeature = getHTML(ecoreFeature);
+				// and we want to show the type of the feature
+				EClassifier type = ecoreFeature.getEType();
+				String htmlForEType = getHTML(type);
+				return htmlForEFeature + "<br/><br/>Type:<br/>" + htmlForEType + "<br/><br/>" + htmlForObject;
+			}
 		}
 		return htmlForObject;
 	}
