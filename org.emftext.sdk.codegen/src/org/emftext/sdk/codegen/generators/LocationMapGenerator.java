@@ -7,6 +7,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 
 import java.io.PrintWriter;
 
@@ -89,7 +90,8 @@ public class LocationMapGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("private int getMapValue(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element) {");
 		sc.add("if (!map.containsKey(element)) return -1;");
-		sc.add("return map.get(element);");
+		sc.add(INTEGER + " value = map.get(element);");
+		sc.add("return value == null ? -1 : value.intValue();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private void setMapValueToMin(" + E_MAP + "<" + E_OBJECT + ", Integer> map, " + E_OBJECT + " element, int value) {");
@@ -139,8 +141,11 @@ public class LocationMapGenerator extends BaseGenerator {
 		sc.add("// other threads may write to the map concurrently");
 		sc.add("synchronized (this) {");
 		sc.add("for (" + E_OBJECT + " next : charStartMap.keySet()) {");
-		sc.add("int start = charStartMap.get(next);");
-		sc.add("int end = charEndMap.get(next);");
+		sc.add(INTEGER + " start = charStartMap.get(next);");
+		sc.add(INTEGER + " end = charEndMap.get(next);");
+		sc.add("if (start == null || end == null) {");
+		sc.add("continue;");
+		sc.add("}");
 		sc.add("if (s.accept(start, end)) {");
 		sc.add("result.add(next);");
 		sc.add("}");
