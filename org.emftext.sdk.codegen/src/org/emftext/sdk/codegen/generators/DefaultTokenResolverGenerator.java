@@ -67,7 +67,7 @@ public class DefaultTokenResolverGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("else if (typeName.equals(\"boolean\") || java.lang.Boolean.class.getName().equals(typeName)){");
-		sc.add("result.setResolvedToken(Boolean.parseBoolean(lexem));");
+		sc.add("result.setResolvedToken(Boolean.parseBoolean(lexem) || feature.getName().equals(lexem));");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("else if (typeName.equals(\"int\") || java.lang.Integer.class.getName().equals(typeName)){");
