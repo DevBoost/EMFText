@@ -60,7 +60,8 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 	
 	private int getMapValue(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element) {
 		if (!map.containsKey(element)) return -1;
-		return map.get(element);
+		java.lang.Integer value = map.get(element);
+		return value == null ? -1 : value.intValue();
 	}
 	
 	private void setMapValueToMin(org.eclipse.emf.common.util.EMap<org.eclipse.emf.ecore.EObject, Integer> map, org.eclipse.emf.ecore.EObject element, int value) {
@@ -110,8 +111,11 @@ public class CsLocationMap implements org.emftext.sdk.concretesyntax.resource.cs
 		// other threads may write to the map concurrently
 		synchronized (this) {
 			for (org.eclipse.emf.ecore.EObject next : charStartMap.keySet()) {
-				int start = charStartMap.get(next);
-				int end = charEndMap.get(next);
+				java.lang.Integer start = charStartMap.get(next);
+				java.lang.Integer end = charEndMap.get(next);
+				if (start == null || end == null) {
+					continue;
+				}
 				if (s.accept(start, end)) {
 					result.add(next);
 				}
