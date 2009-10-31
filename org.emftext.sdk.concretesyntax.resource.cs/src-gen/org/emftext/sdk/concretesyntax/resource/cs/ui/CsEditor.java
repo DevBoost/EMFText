@@ -19,6 +19,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsPropertySheetPage propertySheetPage;
 	private org.eclipse.emf.edit.domain.EditingDomain editingDomain;
 	private org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory;
+	private org.eclipse.swt.widgets.Display display;
 	
 	private final class MarkerUpdateListener implements org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener {
 		public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource resource) {
@@ -112,6 +113,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public void createPartControl(org.eclipse.swt.widgets.Composite parent) {
 		super.createPartControl(parent);
+		display = parent.getShell().getDisplay();
 		
 		// Code Folding
 		org.eclipse.jface.text.source.projection.ProjectionViewer viewer = (org.eclipse.jface.text.source.projection.ProjectionViewer) getSourceViewer();
@@ -353,20 +355,22 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			listener.parsingCompleted(resource);
 		}
 	}
-	private static void refreshMarkers(final org.eclipse.emf.ecore.resource.Resource resource) {
+	
+	private void refreshMarkers(final org.eclipse.emf.ecore.resource.Resource resource) {
 		if (resource == null) {
 			return;
 		}
-		new org.eclipse.core.runtime.jobs.Job("marking resource") {
-			protected org.eclipse.core.runtime.IStatus run(org.eclipse.core.runtime.IProgressMonitor monitor) {
-				try {
-					org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
-					org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
-				} catch (org.eclipse.core.runtime.CoreException e) {
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while updating markers on resource", e);
+		if (display != null) {
+			display.asyncExec(new java.lang.Runnable() {
+				public void run() {
+					try {
+						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
+						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
+					} catch (org.eclipse.core.runtime.CoreException e) {
+						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while updating markers on resource", e);
+					}
 				}
-				return org.eclipse.core.runtime.Status.OK_STATUS;
-			}
-		}.schedule();
+			});
+		}
 	}
 }
