@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class DefaultTokenResolverGenerator extends BaseGenerator {
 
@@ -25,21 +27,41 @@ public class DefaultTokenResolverGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
-		sc.add("// A base implementation for token resolvers. It tries to resolve lexems using java methods.");
+		sc.add("// A default implementation for token resolvers. It tries to resolve lexems using Java methods.");
 		sc.add("public class " + getResourceClassName() + " implements " + getClassNameHelper().getI_TOKEN_RESOLVER() + " {");
 		sc.addLineBreak();
-		sc.add("private " + MAP + "<?, ?> options;");
-		sc.addLineBreak();
-		sc.add("public String deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
-		sc.add("if (value == null) {");
-		sc.add("return \"null\";");
+		addFields(sc);
+		addMethods(sc);
+		
 		sc.add("}");
-		sc.add("return value.toString();");
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addDeResolveMethod(sc);
+		addResolveMethod(sc);
+		addSetOptionsMethod(sc);
+		addGetOptionsMethod(sc);
+	}
+
+	private void addGetOptionsMethod(StringComposite sc) {
+		sc.add("public " + MAP + "<?, ?> getOptions() {");
+		sc.add("return options;");
+		sc.add("}");
+	}
+
+	private void addSetOptionsMethod(StringComposite sc) {
+		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
+		sc.add("this.options = options;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addResolveMethod(StringComposite sc) {
 		sc.add("public void resolve(String lexem, " + E_STRUCTURAL_FEATURE + " feature, " + getClassNameHelper().getI_TOKEN_RESOLVE_RESULT() + " result) {");
 		sc.addLineBreak();
 		sc.add("if (feature instanceof " + E_ATTRIBUTE + ") {");
@@ -103,16 +125,21 @@ public class DefaultTokenResolverGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
-		sc.add("this.options = options;");
+	}
+
+	private void addDeResolveMethod(StringComposite sc) {
+		sc.add("public String deResolve(" + OBJECT + " value, " + E_STRUCTURAL_FEATURE + " feature, " + E_OBJECT + " container) {");
+		sc.add("if (value == null) {");
+		sc.add("return \"null\";");
+		sc.add("}");
+		sc.add("return value.toString();");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public " + MAP + "<?, ?> getOptions() {");
-		sc.add("return options;");
-		sc.add("}");
-		sc.add("}");
-		out.print(sc.toString());
-		return true;
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private " + MAP + "<?, ?> options;");
+		sc.addLineBreak();
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
