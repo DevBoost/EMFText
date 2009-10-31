@@ -1,11 +1,18 @@
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil;
 
 public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resource.cs.ICsHoverTextProvider {
 	
@@ -23,12 +30,23 @@ public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resou
 			return htmlForEClass + "<br/><br/>" + htmlForObject;
 		}
 		if (object instanceof GenPackage) {
-			// for generator classes we do also show the properties of the
-			// corresponding EClass
+			// for generator package we do also show the properties of the
+			// corresponding EPackage
 			GenPackage genPackage = (GenPackage) object;
 			EPackage ecorePackage = genPackage.getEcorePackage();
 			String htmlForEPackage = getHTML(ecorePackage);
 			return htmlForEPackage + "<br/><br/>" + htmlForObject;
+		}
+		if (object instanceof GenFeature) {
+			// for generator features we do also show the properties of the
+			// corresponding EClass
+			GenFeature genFeature = (GenFeature) object;
+			EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
+			String htmlForEFeature = getHTML(ecoreFeature);
+			// and we want to show the type of the feature
+			EClassifier type = ecoreFeature.getEType();
+			String htmlForEType = getHTML(type);
+			return htmlForEFeature + "<br/><br/>Type:<br/>" + htmlForEType + "<br/><br/>" + htmlForObject;
 		}
 		return htmlForObject;
 	}
@@ -38,8 +56,9 @@ public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resou
 			return "";
 		}
 		EClass eClass = object.eClass();
-		
-		String label = "<strong>" + eClass.getName() + "</strong>";
+
+		List<String> booleanAttributes = new ArrayList<String>();
+		StringBuffer nonBooleanAttributes = new StringBuffer();
 		for (EAttribute attribute : eClass.getEAllAttributes()) {
 			Object value = null;
 			try {
@@ -48,9 +67,22 @@ public class CsHoverTextProvider implements org.emftext.sdk.concretesyntax.resou
 				// Exception in eGet, do nothing
 			}
 			if (value != null && value.toString() != null && !value.toString().equals("[]")) {
-				label += "<br />" + attribute.getName() + ": " + object.eGet(attribute).toString();
+				if ("EBoolean".equals(attribute.getEType().getName()) && value instanceof Boolean) {
+					Boolean booleanValue = (Boolean) value;
+					if (booleanValue) {
+						booleanAttributes.add(attribute.getName());
+					}
+				} else {
+					nonBooleanAttributes.append("<br />" + attribute.getName() + ": " + object.eGet(attribute).toString());
+				}
 			}
 		}
+		String booleanAttributeValue = CsStringUtil.explode(booleanAttributes, ", ");
+		if (booleanAttributeValue.length() > 0) {
+			booleanAttributeValue = " (" + booleanAttributeValue + ")";
+		}
+		String label = "<strong>" + eClass.getName() + booleanAttributeValue + "</strong>";
+		label += nonBooleanAttributes.toString();
 		return label;
 	}
 }
