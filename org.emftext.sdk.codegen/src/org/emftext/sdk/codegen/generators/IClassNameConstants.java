@@ -202,6 +202,8 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;
@@ -272,7 +274,6 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.editors.text.FileDocumentProvider;
 import org.eclipse.ui.editors.text.TextEditor;
-import org.eclipse.ui.internal.dialogs.NewWizard;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.part.Page;
@@ -284,6 +285,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.eclipse.ui.wizards.IWizardCategory;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -451,7 +453,6 @@ public class IClassNameConstants {
 	public static String I_RESOURCE_DELTA_VISITOR = IResourceDeltaVisitor.class.getName();
 	public static String I_RUNNABLE_WITH_PROGRESS = IRunnableWithProgress.class.getName();
 	public static String I_SELECTION = ISelection.class.getName();
-	public static String NEW_WIZARD = NewWizard.class.getName();
 	public static String I_SELECTION_CHANGED_LISTENER = ISelectionChangedListener.class.getName();
 	public static String I_SELECTION_PROVIDER = ISelectionProvider.class.getName();
 	public static String I_SHARED_IMAGES = ISharedImages.class.getName();
@@ -469,6 +470,8 @@ public class IClassNameConstants {
 	public static String I_TOKEN_SCANNER = ITokenScanner.class.getName();
 	public static String I_TREE_CONTENT_PROVIDER = ITreeContentProvider.class.getName();
 	public static String I_VERTICAL_RULER = IVerticalRuler.class.getName();
+	public static String I_WIZARD = IWizard.class.getName();
+	public static String I_WIZARD_CATEGORY = IWizardCategory.class.getName();
 	public static String I_WORKBENCH = IWorkbench.class.getName();
 	public static String I_WORKBENCH_PAGE = IWorkbenchPage.class.getName();
 	public static String I_WORKBENCH_PART = IWorkbenchPart.class.getName();
@@ -606,6 +609,7 @@ public class IClassNameConstants {
 	public static String SWT_LIST = org.eclipse.swt.widgets.List.class.getName();
 	public static String JFACE_DIALOG = org.eclipse.jface.dialogs.Dialog.class.getName();
 	public static String JOB = org.eclipse.core.runtime.jobs.Job.class.getName();
+	public static String WIZARD = Wizard.class.getName();
 
 	// EMFText Runtime Classes
 	/*

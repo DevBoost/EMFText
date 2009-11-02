@@ -107,7 +107,8 @@ public class GeneratorUtil {
 	}
 
 	public void addAddObjectToListMethod(StringComposite sc) {
-		//sc.add("@SuppressWarnings(\"unchecked\")");
+		sc.add("@SuppressWarnings(\"unchecked\")");
+		sc.addLineBreak();
         sc.add("private boolean addObjectToList(" + E_OBJECT + " element, int featureID, " + OBJECT + " proxy) {");
         sc.add("return ((" + LIST + "<" + OBJECT + ">) element.eGet(element.eClass().getEStructuralFeature(featureID))).add(proxy);");
         sc.add("}");
@@ -173,8 +174,7 @@ public class GeneratorUtil {
 		sc.add("}, line, charPositionInLine, startIndex, stopIndex);");
 		sc.add("return true;");
 		sc.add("}");
-		sc.add("}");
-		sc.add(");");
+		sc.add("});");
 		sc.add("}");
 		sc.addLineBreak();
 	}

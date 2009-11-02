@@ -464,7 +464,8 @@ public class EditorGenerator extends BaseGenerator {
 	}
 
 	private void addGetAdapterMethod(StringComposite sc) {
-		//sc.add("@SuppressWarnings(\"unchecked\")");
+		sc.add("@SuppressWarnings(\"unchecked\")");
+		sc.addLineBreak();
 		sc.add("public " + OBJECT + " getAdapter(Class required) {");
 		sc.add("if (" + I_CONTENT_OUTLINE_PAGE + ".class.equals(required)) {");
 		sc.add("return getOutlinePage();");

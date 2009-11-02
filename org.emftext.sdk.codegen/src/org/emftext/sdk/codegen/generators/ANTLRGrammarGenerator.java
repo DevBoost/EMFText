@@ -534,7 +534,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addDoParseMethod(String lexerName, StringComposite sc) {
 		sc.add("protected " + E_OBJECT + " doParse() throws "
 				+ RECOGNITION_EXCEPTION + " {");
-		sc.add("lastPosition = 0;");
+		sc.add("this.lastPosition = 0;");
 		sc
 				.add("(("
 						+ lexerName
@@ -593,14 +593,14 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("return;");
 			sc.add("}");
 			sc.add("int endPos = currentPos - 1;");
-			sc.add("for (; endPos >= lastPosition; endPos--) {");
+			sc.add("for (; endPos >= this.lastPosition; endPos--) {");
 			sc.add(TOKEN + " token = getTokenStream().get(endPos);");
 			sc.add("int _channel = token.getChannel();");
 			sc.add("if (_channel != 99) {");
 			sc.add("break;");
 			sc.add("}");
 			sc.add("}");
-			sc.add("for (int pos = lastPosition; pos < endPos; pos++) {");
+			sc.add("for (int pos = this.lastPosition; pos < endPos; pos++) {");
 			sc.add(org.antlr.runtime.Token.class.getName()
 					+ " token = getTokenStream().get(pos);");
 			sc.add("int _channel = token.getChannel();");
@@ -674,7 +674,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 			sc.add("}");
 			sc.add("}");
-			sc.add("lastPosition = (endPos < 0 ? 0 : endPos);");
+			sc.add("this.lastPosition = (endPos < 0 ? 0 : endPos);");
 		}
 		sc.add("}");
 		sc.addLineBreak();
@@ -710,6 +710,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private " + getClassNameHelper().getI_TOKEN_RESOLVER_FACTORY()
 				+ " tokenResolverFactory = new "
 				+ qualifiedTokenResolverFactoryClassName + "();");
+		sc.add("@SuppressWarnings(\"unused\")");
+		sc.addLineBreak();
 		sc.add("private int lastPosition;");
 		sc.add("private " + qualifiedTokenResolveResultClassName
 				+ " tokenResolveResult = new "
@@ -721,7 +723,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("private " + LIST + "<" + getClassNameHelper().getI_EXPECTED_ELEMENT()
 				+ "> expectedElements = new " + ARRAY_LIST + "<"
 				+ getClassNameHelper().getI_EXPECTED_ELEMENT() + ">();");
-		sc.add("private int lastIndex = -1;");
 		sc.add("private int mismatchedTokenRecoveryTries = 0;");
 		sc.add("private " + MAP + "<?, ?> options;");
 		//sc.add("private " + I_TEXT_RESOURCE + " resource;");
