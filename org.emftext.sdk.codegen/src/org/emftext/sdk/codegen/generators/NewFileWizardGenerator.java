@@ -27,7 +27,6 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IDE;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INVOCATION_TARGET_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
@@ -52,6 +51,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCES_P
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.WIZARD;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
