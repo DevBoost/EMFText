@@ -296,11 +296,6 @@ import org.osgi.framework.BundleContext;
  * and use constants instead. 
  */
 public class IClassNameConstants {
-	public static String ANTLR_PARSER = org.antlr.runtime.Parser.class.getName();
-	public static String TOKEN_STREAM = org.antlr.runtime.TokenStream.class.getName();
-	public static String RECOGNIZER_SHARED_STATE = org.antlr.runtime.RecognizerSharedState.class.getName();
-	
-	public static String I_INFORMATION_CONTROL_EXTENSION4 = IInformationControlExtension4.class.getName();
 	public static String ABSTRACT_INFORMATION_CONTROL = AbstractInformationControl.class.getName();
 	public static String ABSTRACT_PREFERENCE_INITIALIZER = AbstractPreferenceInitializer.class.getName();
 	public static String ABSTRACT_REUSABLE_INFORMATION_CONTROL_CREATOR = AbstractReusableInformationControlCreator.class.getName();
@@ -311,6 +306,7 @@ public class IClassNameConstants {
 	public static String ADAPTER_FACTORY_LABEL_PROVIDER = AdapterFactoryLabelProvider.class.getName();
 	public static String ADAPTER_IMPL = AdapterImpl.class.getName();
 	public static String ANNOTATION = Annotation.class.getName();
+	public static String ANTLR_PARSER = org.antlr.runtime.Parser.class.getName();
 	public static String ANTLR_STRING_STREAM = ANTLRStringStream.class.getName();
 	public static String ARRAYS = java.util.Arrays.class.getName();
 	public static String ARRAY_LIST = ArrayList.class.getName();
@@ -320,6 +316,7 @@ public class IClassNameConstants {
 	public static String BASIC_COMMAND_STACK = BasicCommandStack.class.getName();
 	public static String BASIC_E_LIST = BasicEList.class.getName();
 	public static String BASIC_E_MAP = BasicEMap.class.getName();
+	public static String BASIC_INTERNAL_E_LIST = BasicInternalEList.class.getName();
 	public static String BIT_SET = BitSet.class.getName();
 	public static String BROWSER = Browser.class.getName();
 	public static String BUFFERED_OUTPUT_STREAM = BufferedOutputStream.class.getName();
@@ -329,14 +326,8 @@ public class IClassNameConstants {
 	public static String BUTTON = Button.class.getName();
 	public static String BYTE_ARRAY_INPUT_STREAM = ByteArrayInputStream.class.getName();
 	public static String BYTE_ARRAY_OUTPUT_STREAM = ByteArrayOutputStream.class.getName();
-	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
-	public static String TEXT = org.eclipse.swt.widgets.Text.class.getName();
-	public static String CONTAINER_SELECTION_DIALOG = ContainerSelectionDialog.class.getName();
-	public static String WIZARD_PAGE = WizardPage.class.getName();
-	public static String SELECTION_ADAPTER = SelectionAdapter.class.getName();
 	public static String CELL_EDITOR = CellEditor.class.getName();
 	public static String COLLECTION = Collection.class.getName();
-	public static String NOTIFICATION_CHAIN = NotificationChain.class.getName();
 	public static String COLLECTIONS = Collections.class.getName();
 	public static String COLOR = Color.class.getName();
 	public static String COLOR_SELECTOR = ColorSelector.class.getName();
@@ -346,6 +337,7 @@ public class IClassNameConstants {
 	public static String COMPLETION_PROPOSAL = CompletionProposal.class.getName();
 	public static String COMPOSED_ADAPTER_FACTORY = ComposedAdapterFactory.class.getName();
 	public static String COMPOSITE = Composite.class.getName();
+	public static String CONTAINER_SELECTION_DIALOG = ContainerSelectionDialog.class.getName();
 	public static String CONTENT_ASSISTANT = ContentAssistant.class.getName();
 	public static String CONTENT_ASSIST_ACTION = ContentAssistAction.class.getName();
 	public static String CONTEXT_INFORMATION = ContextInformation.class.getName();
@@ -395,14 +387,15 @@ public class IClassNameConstants {
 	public static String GRID_LAYOUT = GridLayout.class.getName();
 	public static String HASH_MAP = HashMap.class.getName();
 	public static String HASH_SET = HashSet.class.getName();
+	public static String IDE = org.eclipse.ui.ide.IDE.class.getName();
 	public static String ILLEGAL_ARGUMENT_EXCEPTION = IllegalArgumentException.class.getName();
 	public static String INPUT_STREAM = InputStream.class.getName();
 	public static String INPUT_STREAM_READER = InputStreamReader.class.getName();
 	public static String INTEGER = Integer.class.getName();
 	public static String INTERNAL_E_LIST = InternalEList.class.getName();
-	public static String BASIC_INTERNAL_E_LIST = BasicInternalEList.class.getName();
 	public static String INTERNAL_E_OBJECT = InternalEObject.class.getName();
 	public static String INT_STREAM = IntStream.class.getName();
+	public static String INVOCATION_TARGET_EXCEPTION = InvocationTargetException.class.getName();
 	public static String IO_EXCEPTION = IOException.class.getName();
 	public static String ITERATOR = Iterator.class.getName();
 	public static String I_ACTION = IAction.class.getName();
@@ -430,6 +423,7 @@ public class IClassNameConstants {
 	public static String I_INFORMATION_CONTROL = IInformationControl.class.getName();
 	public static String I_INFORMATION_CONTROL_CREATOR = IInformationControlCreator.class.getName();
 	public static String I_INFORMATION_CONTROL_EXTENSION2 = IInformationControlExtension2.class.getName();
+	public static String I_INFORMATION_CONTROL_EXTENSION4 = IInformationControlExtension4.class.getName();
 	public static String I_INPUT_CHANGED_LISTENER = IInputChangedListener.class.getName();
 	public static String I_ITEM_PROPERTY_DESCRIPTOR = IItemPropertyDescriptor.class.getName();
 	public static String I_ITEM_PROPERTY_SOURCE = IItemPropertySource.class.getName();
@@ -458,7 +452,6 @@ public class IClassNameConstants {
 	public static String I_SHARED_IMAGES = ISharedImages.class.getName();
 	public static String I_SOURCE_VIEWER = ISourceViewer.class.getName();
 	public static String I_STATUS = IStatus.class.getName();
-	public static String STATUS = Status.class.getName();
 	public static String I_STRUCTURED_SELECTION = IStructuredSelection.class.getName();
 	public static String I_TEXT_EDITOR_ACTION_DEFINITION_IDS = ITextEditorActionDefinitionIds.class.getName();
 	public static String I_TEXT_HOVER = ITextHover.class.getName();
@@ -479,6 +472,8 @@ public class IClassNameConstants {
 	public static String I_WORKBENCH_PREFERENCE_PAGE = IWorkbenchPreferencePage.class.getName();
 	public static String I_WORKSPACE = IWorkspace.class.getName();
 	public static String I_WORKSPACE_ROOT = IWorkspaceRoot.class.getName();
+	public static String JFACE_DIALOG = org.eclipse.jface.dialogs.Dialog.class.getName();
+	public static String JOB = org.eclipse.core.runtime.jobs.Job.class.getName();
 	public static String J_FACE_RESOURCES = JFaceResources.class.getName();
 	public static String KEY_EVENT = KeyEvent.class.getName();
 	public static String KEY_LISTENER = KeyListener.class.getName();
@@ -496,14 +491,13 @@ public class IClassNameConstants {
 	public static String LOCATION_LISTENER = LocationListener.class.getName();
 	public static String MANY_INVERSE = EObjectWithInverseResolvingEList.ManyInverse.class.getCanonicalName();
 	public static String MAP = Map.class.getName();
-	//public static String MARKER = Marker.class.getName();
 	public static String MATCHER = Matcher.class.getName();
 	public static String MATH = Math.class.getName();
-	//public static String MEMENTO = Memento.class.getName();
 	public static String MENU = Menu.class.getName();
+	public static String MESSAGE_BOX = MessageBox.class.getName();
 	public static String MESSAGE_DIALOG = MessageDialog.class.getName();
 	public static String MESSAGE_DIGEST = MessageDigest.class.getName();
-	public static String MESSAGE_BOX = MessageBox.class.getName();
+	public static String METHOD = java.lang.reflect.Method.class.getName();
 	public static String MISMATCHED_NOT_SET_EXCEPTION = MismatchedNotSetException.class.getName();
 	public static String MISMATCHED_RANGE_EXCEPTION = MismatchedRangeException.class.getName();
 	public static String MISMATCHED_SET_EXCEPTION = MismatchedSetException.class.getName();
@@ -514,11 +508,11 @@ public class IClassNameConstants {
 	public static String MOUSE_EVENT = MouseEvent.class.getName();
 	public static String MOUSE_LISTENER = MouseListener.class.getName();
 	public static String NOTIFICATION = Notification.class.getName();
+	public static String NOTIFICATION_CHAIN = NotificationChain.class.getName();
 	public static String NO_SUCH_ALGORITHM_EXCEPTION = NoSuchAlgorithmException.class.getName();
 	public static String NO_VIABLE_ALT_EXCEPTION = NoViableAltException.class.getName();
 	public static String NULL_POINTER_EXCEPTION = NullPointerException.class.getName();
 	public static String OBJECT = Object.class.getName();
-	public static String METHOD = java.lang.reflect.Method.class.getName();
 	public static String OPEN_WINDOW_LISTENER = OpenWindowListener.class.getName();
 	public static String OUTPUT_STREAM = OutputStream.class.getName();
 	public static String OUTPUT_STREAM_WRITER = OutputStreamWriter.class.getName();
@@ -529,7 +523,6 @@ public class IClassNameConstants {
 	public static String PLATFORM = Platform.class.getName();
 	public static String PLATFORM_UI = PlatformUI.class.getName();
 	public static String POINT = Point.class.getName();
-	public static String INVOCATION_TARGET_EXCEPTION = InvocationTargetException.class.getName();
 	public static String POSITION = Position.class.getName();
 	public static String POSITION_BASED_TEXT_DIAGNOSTIC = "PositionBasedTextDiagnostic";
 	public static String PREFERENCE_CONVERTER = PreferenceConverter.class.getName();
@@ -549,14 +542,15 @@ public class IClassNameConstants {
 	public static String PUSHBACK_READER = PushbackReader.class.getName();
 	public static String READER = Reader.class.getName();
 	public static String RECOGNITION_EXCEPTION = RecognitionException.class.getName();
+	public static String RECOGNIZER_SHARED_STATE = org.antlr.runtime.RecognizerSharedState.class.getName();
 	public static String RECTANGLE = Rectangle.class.getName();
 	public static String REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY = ReflectiveItemProviderAdapterFactory.class.getName();
 	public static String REGION = Region.class.getName();
 	public static String RESOLVER_SWITCH_FIELD_NAME = "resolverSwitch";
 	public static String RESOURCE = org.eclipse.emf.ecore.resource.Resource.class.getName();
-	public static String RESOURCE_IMPL = ResourceImpl.class.getName();
 	public static String RESOURCES_PLUGIN = ResourcesPlugin.class.getName();
 	public static String RESOURCE_BUNDLE = ResourceBundle.class.getName();
+	public static String RESOURCE_IMPL = ResourceImpl.class.getName();
 	public static String RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY = ResourceItemProviderAdapterFactory.class.getName();
 	public static String RESOURCE_SET = ResourceSet.class.getName();
 	public static String RESOURCE_SET_IMPL = ResourceSetImpl.class.getName();
@@ -567,6 +561,7 @@ public class IClassNameConstants {
 	public static String SAFE_RUNNER = SafeRunner.class.getName();
 	public static String SCROLLABLE = Scrollable.class.getName();
 	public static String SCROLL_BAR = ScrollBar.class.getName();
+	public static String SELECTION_ADAPTER = SelectionAdapter.class.getName();
 	public static String SELECTION_CHANGED_EVENT = SelectionChangedEvent.class.getName();
 	public static String SELECTION_EVENT = SelectionEvent.class.getName();
 	public static String SELECTION_LISTENER = SelectionListener.class.getName();
@@ -575,6 +570,7 @@ public class IClassNameConstants {
 	public static String SLIDER = Slider.class.getName();
 	public static String SOURCE_VIEWER_CONFIGURATION = SourceViewerConfiguration.class.getName();
 	public static String STACK = Stack.class.getName();
+	public static String STATUS = Status.class.getName();
 	public static String STRING = String.class.getName();
 	public static String STRING_READER = StringReader.class.getName();
 	public static String STRING_WRITER = StringWriter.class.getName();
@@ -584,18 +580,21 @@ public class IClassNameConstants {
 	public static String STYLE_RANGE = StyleRange.class.getName();
 	public static String SWT = SWT.class.getName();
 	public static String SWT_ERROR = SWTError.class.getName();
+	public static String SWT_LIST = org.eclipse.swt.widgets.List.class.getName();
+	public static String TEXT = org.eclipse.swt.widgets.Text.class.getName();
 	public static String TEXT_ATTRIBUTE = TextAttribute.class.getName();
 	public static String TEXT_EDITOR = TextEditor.class.getName();
 	public static String TEXT_LAYOUT = TextLayout.class.getName();
 	public static String TEXT_PRESENTATION = TextPresentation.class.getName();
 	public static String TEXT_SELECTION = TextSelection.class.getName();
-	public static String TREE_SELECTION = TreeSelection.class.getName();
 	public static String TEXT_STYLE = TextStyle.class.getName();
 	public static String TEXT_VIEWER = TextViewer.class.getName();
 	public static String TIMER = Timer.class.getName();
 	public static String TIMER_TASK = TimerTask.class.getName();
 	public static String TOKEN = Token.class.getName();
+	public static String TOKEN_STREAM = org.antlr.runtime.TokenStream.class.getName();
 	public static String TOOL_BAR_MANAGER = ToolBarManager.class.getName();
+	public static String TREE_SELECTION = TreeSelection.class.getName();
 	public static String TREE_VIEWER = TreeViewer.class.getName();
 	public static String URI = org.eclipse.emf.common.util.URI.class.getName();
 	public static String URI_CONVERTER = URIConverter.class.getName();
@@ -605,11 +604,9 @@ public class IClassNameConstants {
 	public static String VERIFY_LISTENER = VerifyListener.class.getName(); 
 	public static String VIEWER = Viewer.class.getName();
 	public static String WINDOW_EVENT = WindowEvent.class.getName();
-	public static String XML_MEMENTO = XMLMemento.class.getName();
-	public static String SWT_LIST = org.eclipse.swt.widgets.List.class.getName();
-	public static String JFACE_DIALOG = org.eclipse.jface.dialogs.Dialog.class.getName();
-	public static String JOB = org.eclipse.core.runtime.jobs.Job.class.getName();
 	public static String WIZARD = Wizard.class.getName();
+	public static String WIZARD_PAGE = WizardPage.class.getName();
+	public static String XML_MEMENTO = XMLMemento.class.getName();
 
 	// EMFText Runtime Classes
 	/*
