@@ -97,6 +97,11 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
 				"Reference '%2$s' is not changeable."
 		);
 	}
+	
+	@Override
+	protected boolean doAnalysisAfterPreviousErrors() {
+		return false;
+	}
 
 	private Collection<Terminal> findUnchangeableReferences(
 			ConcreteSyntax syntax) {
