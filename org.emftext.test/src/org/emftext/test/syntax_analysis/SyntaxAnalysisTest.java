@@ -62,6 +62,7 @@ public class SyntaxAnalysisTest extends TestCase {
 	private static final String START_SYMBOL_IN_ABSTRACT_SYNTAX_FOUND = "Syntax has start symbols (.*), but is declared abstract. Note that these start symbols are thrown away during import.";
 	private static final String COLLECTIN_TOKEN_USED_IN_RULE = "Token.*will never be matched here, since it is a collect-in token.";
 	private static final String CYCLIC_IMPORT = "The syntax.*is imported cyclic.";
+	private static final String EMPTY_CS_STRING_FOUND = "Empty strings are not allowed.";
 
 	@Before
 	public void setUp() {
@@ -97,6 +98,12 @@ public class SyntaxAnalysisTest extends TestCase {
 	public void testDuplicateTokenStyleDetection() throws FileNotFoundException, IOException {
 		// this is a test for bug 740
 		assertProblems("duplicate_tokenstyle.cs", new String[] {DUPLICATE_TOKENSTYLE_FOUND}, NONE);
+	}
+	
+	@Test
+	public void testEmptyCsString() throws FileNotFoundException, IOException {
+		// this is a test for bug 882
+		assertProblems("empty_cs_string.cs", NONE, new String[] {EMPTY_CS_STRING_FOUND});
 	}
 	
 	@Test
