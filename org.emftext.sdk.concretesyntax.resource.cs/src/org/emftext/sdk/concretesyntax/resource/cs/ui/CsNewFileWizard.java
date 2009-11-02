@@ -1,8 +1,8 @@
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
-
-public class CsNewFileWizard extends org.eclipse.ui.internal.dialogs.NewWizard implements org.eclipse.ui.INewWizard {
+public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements org.eclipse.ui.INewWizard {
 	
+	private String categoryId = null;
 	private org.emftext.sdk.concretesyntax.resource.cs.ui.CsNewFileWizardPage page;
 	private org.eclipse.jface.viewers.ISelection selection;
 	private String newName = null;
@@ -10,6 +10,14 @@ public class CsNewFileWizard extends org.eclipse.ui.internal.dialogs.NewWizard i
 	public CsNewFileWizard() {
 		super();
 		setNeedsProgressMonitor(true);
+	}
+	
+	public String getCategoryId() {
+		return categoryId;
+	}
+	
+	public void setCategoryId(String id) {
+		categoryId = id;
 	}
 	
 	// Adds the page to the wizard.
@@ -93,7 +101,7 @@ public class CsNewFileWizard extends org.eclipse.ui.internal.dialogs.NewWizard i
 		monitor.setTaskName("Opening file for editing...");
 		getShell().getDisplay().asyncExec(new Runnable() {
 			public void run() {
-				org.eclipse.ui.IWorkbenchPage page =				org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				try {
 					org.eclipse.ui.ide.IDE.openEditor(page, file, true);
 				} catch (org.eclipse.ui.PartInitException e) {
@@ -157,17 +165,13 @@ public class CsNewFileWizard extends org.eclipse.ui.internal.dialogs.NewWizard i
 	}
 	
 	public java.lang.String getFileExtension() {
-		return "cs";
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation getMetaInformation() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	}
 	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(java.io.OutputStream outputStream) {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter(outputStream, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource());
-	}
-
 	public String getExampleContent() {
 		return "SYNTAXDEF myFileExtension\n" +
 		"FOR <http://www.some-domain.org/myLanguage> <optional/path/to/myLanguage.genmodel>\n" +
@@ -184,5 +188,9 @@ public class CsNewFileWizard extends org.eclipse.ui.internal.dialogs.NewWizard i
 		"\t// syntax definition for class 'AnotherMetaClass'\n" +
 		"\tAnotherMetaClass ::= \"otherKeyword\" aNonContainmentReference[];\n" +
 		"}";
+	}
+	
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(java.io.OutputStream outputStream) {
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter(outputStream, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource());
 	}
 }

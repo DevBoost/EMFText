@@ -100,6 +100,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		}
 	}
 	
+	@SuppressWarnings("unchecked")	
 	public java.lang.Object getAdapter(Class required) {
 		if (org.eclipse.ui.views.contentoutline.IContentOutlinePage.class.equals(required)) {
 			return getOutlinePage();

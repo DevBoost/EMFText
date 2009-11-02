@@ -1,6 +1,6 @@
 package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 
-// A base implementation for token resolvers. It tries to resolve lexems using java methods.
+// A default implementation for token resolvers. It tries to resolve lexems using Java methods.
 public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.resource.cs.ICsTokenResolver {
 	
 	private java.util.Map<?, ?> options;
@@ -39,7 +39,7 @@ public class CsDefaultTokenResolver implements org.emftext.sdk.concretesyntax.re
 						}
 					}
 					else if (typeName.equals("boolean") || java.lang.Boolean.class.getName().equals(typeName)){
-						result.setResolvedToken(Boolean.parseBoolean(lexem));
+						result.setResolvedToken(Boolean.parseBoolean(lexem) || feature.getName().equals(lexem));
 						return;
 					}
 					else if (typeName.equals("int") || java.lang.Integer.class.getName().equals(typeName)){
