@@ -29,6 +29,7 @@ import org.emftext.sdk.concretesyntax.resource.cs.ICsOptions;
 import org.emftext.sdk.concretesyntax.resource.cs.ICsResourcePostProcessorProvider;
 import org.emftext.sdk.syntax_analysis.ChoiceAnalyser;
 import org.emftext.sdk.syntax_analysis.CollectInTokenAnalyser;
+import org.emftext.sdk.syntax_analysis.CsStringAnalyser;
 import org.emftext.sdk.syntax_analysis.CyclicImportAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateReferenceAnalyser;
 import org.emftext.sdk.syntax_analysis.DuplicateRuleAnalyser;
@@ -108,6 +109,7 @@ public class SDKOptionProvider implements ICsOptionProvider {
 		postProcessors.add(new QuotenTokenAnalyser());
 		postProcessors.add(new TokenConflictsAnalyser());
 		postProcessors.add(new CollectInTokenAnalyser());
+		postProcessors.add(new CsStringAnalyser());
 		
 		postProcessors.add(new SuppressWarnings());
 		
