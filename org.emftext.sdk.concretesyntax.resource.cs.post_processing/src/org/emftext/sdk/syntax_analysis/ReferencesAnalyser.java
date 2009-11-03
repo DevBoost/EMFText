@@ -27,7 +27,6 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
 import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource;
 import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
@@ -157,8 +156,8 @@ public class ReferencesAnalyser extends AbstractPostProcessor {
             		}
             	} else {
             		// type is concrete -> check whether it has syntax
-            		Rule rule = csUtil.getRule(syntax, genFeatureType);
-            		if (rule == null) {
+            		boolean hasNoSyntax = csUtil.getRules(syntax, genFeatureType).isEmpty();
+            		if (hasNoSyntax) {
             			cReferencesToClassesWithoutSyntax.add(containment);
             		}
             	}
