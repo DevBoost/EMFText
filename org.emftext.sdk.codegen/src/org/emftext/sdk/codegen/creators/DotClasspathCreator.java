@@ -51,7 +51,10 @@ public class DotClasspathCreator extends AbstractArtifactCreator {
 	}
 
 	public OptionTypes getOverrideOption() {
-		// TODO this is wrong! if plugin==ANTRL_PLUGIN we must always override!
-		return OptionTypes.OVERRIDE_DOT_CLASSPATH;
+		if (plugin == EPlugins.RESOURCE_PLUGIN) {
+			return OptionTypes.OVERRIDE_DOT_PROJECT;
+		} else {
+			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
+		}
 	}
 }
