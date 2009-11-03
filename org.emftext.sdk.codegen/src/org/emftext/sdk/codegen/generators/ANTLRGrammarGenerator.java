@@ -873,29 +873,34 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(":");
 		sc.add("{");
 		int i = 0;
-		for (GenClass aStart : concreteSyntax.getActiveStartSymbols()) {
-			Rule nextStartRule = csUtil.getRule(concreteSyntax, aStart);
-			// TODO mseifert: create new nested scope
-			addExpectationCodeForChoice(sc, nextStartRule, nextStartRule.getDefinition(), "start", "" + i, false);
-			i++;
+		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
+			Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
+			for (Rule startRule : startRules) {
+				// TODO mseifert: create new nested scope
+				addExpectationCodeForChoice(sc, startRule, startRule.getDefinition(), "start", "" + i, false);
+				i++;
+			}
 		}
 		sc.add("}");
 		sc.add("(");
 		int count = 0;
 		i = 0;
-		for (GenClass aStart : concreteSyntax.getActiveStartSymbols()) {
-			if (count > 0) {
-				sc.add("|  ");
+		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
+			// there may also be rule for subclasses of the start symbol class
+			// thus, we create an alternative for each rule
+			Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
+			for (Rule startRule : startRules) {
+				if (count > 0) {
+					sc.add("|  ");
+				}
+				sc.add("{");
+				// TODO mseifert: create new nested scope
+				addExpectationCodeForChoice(sc, startRule, startRule.getDefinition(), "start", "" + i, false);
+				i++;
+				sc.add("}");
+				sc.add("c" + count + " = " + getRuleName(startSymbol) + "{ element = c" + count + "; }");
+				count++;
 			}
-			Rule nextStartRule = csUtil.getRule(concreteSyntax, aStart);
-			sc.add("{");
-			// TODO mseifert: create new nested scope
-			addExpectationCodeForChoice(sc, nextStartRule, nextStartRule.getDefinition(), "start", "" + i, false);
-			i++;
-			sc.add("}");
-			sc.add("c" + count + " = " + getRuleName(aStart) + "{ element = c"
-					+ count + "; }");
-			count++;
 		}
 		sc.add(")");
 		if (forceEOFToken) {

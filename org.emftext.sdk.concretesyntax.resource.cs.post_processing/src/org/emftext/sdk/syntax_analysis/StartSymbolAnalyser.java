@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.syntax_analysis;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -25,6 +26,8 @@ import org.emftext.sdk.concretesyntax.resource.cs.mopp.ECsProblemType;
 
 /**
  * The StartSymbolAnalyser checks that all start symbols have syntax.
+ * A start symbol (i.e., a meta class) is also considered to have
+ * syntax if at least one of its subclasses has syntax.
  */
 public class StartSymbolAnalyser extends AbstractPostProcessor {
 	
@@ -34,8 +37,8 @@ public class StartSymbolAnalyser extends AbstractPostProcessor {
 	public void analyse(CsResource resource, ConcreteSyntax syntax) {
 		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
 		for (GenClass nextStartSymbol : startSymbols) {
-			Rule rule = csUtil.getRule(syntax, nextStartSymbol);
-			if (rule == null) {
+			Collection<Rule> rules = csUtil.getRules(syntax, nextStartSymbol);
+			if (rules.isEmpty()) {
 				addProblem(resource, ECsProblemType.START_SYMBOL_WITHOUT_SYNTAX, "Meta class " + nextStartSymbol.getName() + " has no syntax and can therefore not be used as start element.", syntax);
 			}
 		}

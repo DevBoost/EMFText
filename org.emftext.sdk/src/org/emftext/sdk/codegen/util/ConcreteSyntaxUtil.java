@@ -165,24 +165,6 @@ public class ConcreteSyntaxUtil {
 
 	/**
 	 * Checks whether the given syntax contains rules for the given
-	 * GenClass or a sub type of it. If such rules are found, the first
-	 * one found is returned. If not, null is returned.
-	 * 
-	 * This method is deprecated because callers should use getRules()
-	 * instead and handle all found rules instead of the first one only.
-	 */
-	@Deprecated
-	public Rule getRule(ConcreteSyntax concreteSyntax, GenClass genClass) {
-		Collection<Rule> foundRules = getRules(concreteSyntax, genClass);
-		if (foundRules.isEmpty()) {
-			return null;
-		} else {
-			return foundRules.iterator().next();
-		}
-	}
-	
-	/**
-	 * Checks whether the given syntax contains rules for the given
 	 * GenClass or a sub type of it. If such rules are found, all
 	 * of them are returned.
 	 * 
