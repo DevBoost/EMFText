@@ -1,7 +1,0 @@
-<project name="Test Build" default="build-test-languages" basedir=".">
-	
-	<target name="build-test-languages">
-		<!--<ant antfile="../org.emftext.test.code_completion/build.xml" />-->
-		<ant antfile="../org.emftext.test.grammar_features/build.xml" />
-	</target>
-</project>
