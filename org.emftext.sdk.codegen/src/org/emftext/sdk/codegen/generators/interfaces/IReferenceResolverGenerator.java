@@ -56,7 +56,6 @@ public class IReferenceResolverGenerator extends BaseGenerator {
 		sc.add("// @param <ReferenceType> the type of the reference that is");
 		sc.add("// resolved by this resolver");
 		sc.add("//");
-		sc.add("// @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>");
 		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> extends " + iConfigurableClassName + " {");
 		
 		sc.add("// Attempts to resolve a reference string.");

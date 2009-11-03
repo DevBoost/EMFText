@@ -343,7 +343,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("quotedTokenArray = new " + ARRAY_LIST + "<String>();");
 		sc.add("String[] tokenNames = new " + getContext().getQualifiedClassName(EArtifact.META_INFORMATION) + "().getTokenNames();");
 		sc.add("for (String tokenName : tokenNames) {");
-		sc.add("// TODO this is ANTLR specific maybe use ANTLRTokenHelper here");
+		// TODO this is ANTLR specific maybe use ANTLRTokenHelper here
 		sc.add("if (tokenName.startsWith(\"'\") && tokenName.endsWith(\"'\")) {");
 		sc.add("quotedTokenArray.add(tokenName.substring(1, tokenName.length() - 1).trim());");
 		sc.add("}");

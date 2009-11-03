@@ -48,9 +48,9 @@ public class UnicodeConverterGenerator extends BaseGenerator {
 		sc.add("// is replaced by the respective UTF-8 byte sequence (1 to 4");
 		sc.add("// bytes).");
 		sc.add("//");
-		sc.add("// TODO mseifert: information about replaced sequences must be");
-		sc.add("// passed to the LocationMap or parser to make sure that the");
-		sc.add("// positions of elements found in the stream are correct.");
+		// TODO mseifert: information about replaced sequences must be
+		// passed to the LocationMap or parser to make sure that the
+		// positions of elements found in the stream are correct.
 		sc.add("public class " + getResourceClassName() + " extends " + inputStreamProcessorName + " {");
 		sc.addLineBreak();
 		sc.add("private int[] stack = new int[4];");

@@ -49,7 +49,7 @@ public class IInputStreamProcessorProviderGenerator extends BaseGenerator {
 		sc.add("// is actually lexed and parsed. This can be for example useful to do an");
 		sc.add("// encoding conversion.");
 		sc.add("//");
-		sc.add("// TODO use EMF's load option Resource.OPTION_CIPHER instead");
+		// TODO use EMF's load option Resource.OPTION_CIPHER instead
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
 		

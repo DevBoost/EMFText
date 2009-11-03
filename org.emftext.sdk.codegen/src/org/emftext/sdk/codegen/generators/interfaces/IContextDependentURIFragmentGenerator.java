@@ -62,10 +62,6 @@ public class IContextDependentURIFragmentGenerator extends BaseGenerator {
 		sc.add("//");
 		sc.add("// @param <ReferenceType> the type of the reference that can be resolved by this fragment");
 		sc.add("//");
-		sc.add("// @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>");
-		sc.add("//");
-		sc.add("// TODO jjohannes: figure out whether this interface must really be exposed");
-		
 		sc.add("public interface " + getResourceClassName() + "<ReferenceType extends " + E_OBJECT + "> {");
 		sc.addLineBreak();
 		

@@ -75,7 +75,7 @@ public class ReferenceResolverGenerator implements IGenerator {
 		addFields(sc);
 		addResolveMethod(sc);
 	    addDeResolveMethod(sc);
-	    generatorUtil.addSetOptionsMethod(sc, "// TODO save options in a field or leave method empty if this resolver does not depend on any option");
+	    generatorUtil.addSetOptionsMethod(sc, "// save options in a field or leave method empty if this resolver does not depend on any option");
 		sc.add("}");
 		
 		out.print(sc.toString());

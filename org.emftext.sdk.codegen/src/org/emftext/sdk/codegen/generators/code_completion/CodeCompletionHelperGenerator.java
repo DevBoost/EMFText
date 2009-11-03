@@ -99,13 +99,13 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = getExpectedElements(expectedElements, cursorOffset);");
 		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
-		sc.add("// TODO this is done twice (was already calculated in getFinalExpectedElementAt())");
-		sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
+		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
+		//sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
 		sc.add("System.out.println(\" PARSER returned expectation: \" + expectedElementsAt + \" for offset \" + cursorOffset);");
 		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
 		sc.addLineBreak();
 		sc.add("final " + LIST + "<String> sortedProposals = new " + ARRAY_LIST + "<String>(proposals);");
-		sc.add("" + COLLECTIONS + ".sort(sortedProposals);");
+		sc.add(COLLECTIONS + ".sort(sortedProposals);");
 		sc.add("return sortedProposals;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -124,9 +124,9 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("private void removeDuplicateEntries(" + LIST + "<" + iExpectedElementClassName + "> expectedElements) {");
 		sc.add("for (int i = 0; i < expectedElements.size() - 1; i++) {");
-		sc.add("" + iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
+		sc.add(iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
 		sc.add("for (int j = i + 1; j < expectedElements.size();) {");
-		sc.add("" + iExpectedElementClassName + " elementAtNext = expectedElements.get(j);");
+		sc.add(iExpectedElementClassName + " elementAtNext = expectedElements.get(j);");
 		sc.add("if (elementAtIndex.equals(elementAtNext) &&");
 		sc.add("elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens()) {");
 		sc.add("expectedElements.remove(j);");
@@ -139,11 +139,11 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("private void removeInvalidEntriesAtEnd(" + LIST + "<" + iExpectedElementClassName + "> expectedElements) {");
 		sc.add("for (int i = 0; i < expectedElements.size() - 1;) {");
-		sc.add("" + iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
-		sc.add("" + iExpectedElementClassName + " elementAtNext = expectedElements.get(i + 1);");
+		sc.add(iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
+		sc.add(iExpectedElementClassName + " elementAtNext = expectedElements.get(i + 1);");
 		sc.add("if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&");
 		sc.add("//elementAtIndex.discardFollowingExpectations() &&");
-		sc.add("// TODO mseifert: this is wrong. we must compare the scopeIDs based on their parts!");
+		// TODO mseifert: this is wrong. we must compare the scopeIDs based on their parts!
 		sc.add("shouldRemove(elementAtIndex.getScopeID(), elementAtNext.getScopeID())) {");
 		sc.add("expectedElements.remove(i + 1);");
 		sc.add("} else {");
@@ -185,7 +185,7 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("}");
 
 		/*
-		sc.add("// TODO fix calculation of 'end'");
+		// TODO fix calculation of 'end'
 		sc.add("final int endIncludingHiddenTokens = expectedElement.getEndIncludingHiddenTokens();");
 		sc.add("if (endIncludingHiddenTokens >= 0 && endIncludingHiddenTokens < Integer.MAX_VALUE) {");
 		sc.add("end = endIncludingHiddenTokens;");
@@ -193,7 +193,7 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		*/
 		
 		/*
-		sc.add("// TODO trim?");
+		// TODO trim?
 		sc.add("//");
 		sc.add("int endExcludingHidden = expectedElement.getEndExcludingHiddenTokens();");
 		sc.add("if (endExcludingHidden >= 0) {");
@@ -214,8 +214,8 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private " + COLLECTION + "<String> deriveProposals(");
-		sc.add("" + LIST + "<" + iExpectedElementClassName + "> expectedElements, String content, " + iMetaInformationClassName + " metaInformation, int cursorOffset) {");
-		sc.add("" + COLLECTION + "<String> resultSet = new " + HASH_SET + "<String>();");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElements, String content, " + iMetaInformationClassName + " metaInformation, int cursorOffset) {");
+		sc.add(COLLECTION + "<String> resultSet = new " + HASH_SET + "<String>();");
 		sc.add("for (" + iExpectedElementClassName + " expectedElement : expectedElements) {");
 		sc.add("resultSet.addAll(deriveProposals(expectedElement, content, metaInformation, cursorOffset));");
 		sc.add("}");
@@ -223,7 +223,7 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private " + COLLECTION + "<String> deriveProposals(");
-		sc.add("" + iExpectedElementClassName + " expectedElement, String content, " + iMetaInformationClassName + " metaInformation, int cursorOffset) {");
+		sc.add(iExpectedElementClassName + " expectedElement, String content, " + iMetaInformationClassName + " metaInformation, int cursorOffset) {");
 		sc.add("if (expectedElement instanceof " + expectedCsStringClassName + ") {");
 		sc.add(expectedCsStringClassName + " csString = (" + expectedCsStringClassName + ") expectedElement;");
 		sc.add("return deriveProposal(csString, content, cursorOffset);");
@@ -269,9 +269,9 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add(iReferenceResolverSwitchClassName + " resolverSwitch = metaInformation.getReferenceResolverSwitch();");
 		sc.add(iReferenceResolveResultClassName + "<" + E_OBJECT + "> result = new " + referenceResolveResultClassName + "<" + E_OBJECT + ">(true);");
 		sc.add("resolverSwitch.resolveFuzzy(\"\", container, 0, result);");
-		sc.add("" + COLLECTION + "<" + iReferenceMappingClassName + "<" + E_OBJECT + ">> mappings = result.getMappings();");
+		sc.add(COLLECTION + "<" + iReferenceMappingClassName + "<" + E_OBJECT + ">> mappings = result.getMappings();");
 		sc.add("if (mappings != null) {");
-		sc.add("" + COLLECTION + "<String> resultSet = new " + HASH_SET + "<String>();");
+		sc.add(COLLECTION + "<String> resultSet = new " + HASH_SET + "<String>();");
 		sc.add("for (" + iReferenceMappingClassName + "<" + E_OBJECT + "> mapping : mappings) {");
 		sc.add("final String identifier = mapping.getIdentifier();");
 		sc.add("System.out.println(\"deriveProposals() \" + identifier);");
@@ -292,7 +292,7 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add(iTokenResolverClassName + " tokenResolver = tokenResolverFactory.createTokenResolver(tokenName);");
 		sc.add("if (tokenResolver != null) {");
 		sc.add("String defaultValueAsString = tokenResolver.deResolve(defaultValue, attribute, container);");
-		sc.add("" + COLLECTION + "<String> resultSet = new " + HASH_SET + "<String>();");
+		sc.add(COLLECTION + "<String> resultSet = new " + HASH_SET + "<String>();");
 		sc.add("resultSet.add(defaultValueAsString);");
 		sc.add("return resultSet;");
 		sc.add("}");
@@ -306,22 +306,22 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("if (\"EString\".equals(typeName)) {");
 		sc.add("return \"some\" + " + stringUtilClassName + ".capitalize(attribute.getName());");
 		sc.add("}");
-		sc.add("// TODO mseifert: add more default values for other types");
+		// TODO mseifert: add more default values for other types
 		sc.add("System.out.println(\"CodeCompletionHelper.getDefaultValue() unknown type \" + typeName);");
 		sc.add("return attribute.getDefaultValue();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private " + COLLECTION + "<String> deriveProposals(");
-		sc.add("" + E_CLASS + " type,");
-		sc.add("" + iMetaInformationClassName + " metaInformation,");
+		sc.add(E_CLASS + " type,");
+		sc.add(iMetaInformationClassName + " metaInformation,");
 		sc.add("String content, int cursorOffset) {");
-		sc.add("" + COLLECTION + "<String> allProposals = new " + HASH_SET + "<String>();");
+		sc.add(COLLECTION + "<String> allProposals = new " + HASH_SET + "<String>();");
 		sc.add("// find all sub classes and call parseToExpectedElements() for each");
 		sc.add("// of them");
-		sc.add("" + E_CLASS + "[] availableClasses = metaInformation.getClassesWithSyntax();");
-		sc.add("" + COLLECTION + "<" + E_CLASS + "> allSubClasses = eClassUtil.getSubClasses(type, availableClasses);");
+		sc.add(E_CLASS + "[] availableClasses = metaInformation.getClassesWithSyntax();");
+		sc.add(COLLECTION + "<" + E_CLASS + "> allSubClasses = eClassUtil.getSubClasses(type, availableClasses);");
 		sc.add("for (" + E_CLASS + " subClass : allSubClasses) {");
-		sc.add("" + iTextParserClassName + " parser = metaInformation.createParser(new " + BYTE_ARRAY_INPUT_STREAM + "(new byte[0]), null);");
+		sc.add(iTextParserClassName + " parser = metaInformation.createParser(new " + BYTE_ARRAY_INPUT_STREAM + "(new byte[0]), null);");
 		sc.add("final " + LIST + "<" + iExpectedElementClassName + "> expectedElements = parser.parseToExpectedElements(subClass);");
 		sc.add("if (expectedElements == null) {");
 		sc.add("continue;");
@@ -329,18 +329,18 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("if (expectedElements.size() == 0) {");
 		sc.add("continue;");
 		sc.add("}");
-		sc.add("" + LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = getExpectedElements(expectedElements, 0);");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = getExpectedElements(expectedElements, 0);");
 		sc.add("setPrefix(expectedElementsAt, content, 0);");
 		sc.add("System.out.println(\"computeCompletionProposals() \" + expectedElementsAt + \" for offset \" + cursorOffset);");
-		sc.add("" + COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
+		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
 		sc.add("allProposals.addAll(proposals);");
 		sc.add("}");
 		sc.add("return allProposals;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private " + COLLECTION + "<String> deriveProposals(" + iExpectedElementClassName + " expectedElement, " + E_ENUM + " enumType, String content, int cursorOffset) {");
-		sc.add("" + COLLECTION + "<" + E_ENUM_LITERAL + "> enumLiterals = enumType.getELiterals();");
-		sc.add("" + COLLECTION + "<String> result = new " + HASH_SET + "<String>();");
+		sc.add(COLLECTION + "<" + E_ENUM_LITERAL + "> enumLiterals = enumType.getELiterals();");
+		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>();");
 		sc.add("for (" + E_ENUM_LITERAL + " literal : enumLiterals) {");
 		sc.add("String proposal = literal.getLiteral();");
 		sc.add("if (proposal.startsWith(expectedElement.getPrefix())) {");
@@ -353,7 +353,7 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("private " + COLLECTION + "<String> deriveProposal(" + expectedCsStringClassName + " csString, String content, int cursorOffset) {");
 		sc.add("String proposal = csString.getValue();");
 		sc.addLineBreak();
-		sc.add("" + COLLECTION + "<String> result = new " + HASH_SET + "<String>(1);");
+		sc.add(COLLECTION + "<String> result = new " + HASH_SET + "<String>(1);");
 		sc.add("result.add(proposal);");
 		sc.add("return result;");
 		sc.add("}");
@@ -366,18 +366,18 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("// @param allExpectedElements");
 		sc.add("// @return");
 		
-		sc.add("// TODO mseifert: figure out what other combinations of elements before");
-		sc.add("// and after the cursor position exist and which action should be taken.");
-		sc.add("// For example, when a StructuralFeature is expected right before the");
-		sc.add("// cursor and a CsString right after, we should return both elements.");
+		// TODO mseifert: figure out what other combinations of elements before
+		// and after the cursor position exist and which action should be taken.
+		// For example, when a StructuralFeature is expected right before the
+		// cursor and a CsString right after, we should return both elements.
 		sc.add("public " + LIST + "<" + iExpectedElementClassName + "> getExpectedElements(final " + LIST + "<" + iExpectedElementClassName + "> allExpectedElements,");
 		sc.add("int cursorOffset) {");
 		sc.addLineBreak();
-		sc.add("" + LIST + "<" + iExpectedElementClassName + "> expectedAfterCursor = getElementsExpectedAt(allExpectedElements, cursorOffset);");
-		sc.add("" + LIST + "<" + iExpectedElementClassName + "> expectedBeforeCursor = getElementsExpectedAt(allExpectedElements, cursorOffset - 1);");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAfterCursor = getElementsExpectedAt(allExpectedElements, cursorOffset);");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedBeforeCursor = getElementsExpectedAt(allExpectedElements, cursorOffset - 1);");
 		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
 		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
-		sc.add("" + LIST + "<" + iExpectedElementClassName + "> allExpectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> allExpectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
 		sc.add("allExpectedAtCursor.addAll(expectedAfterCursor);");
 		sc.add("if (expectedBeforeCursor != null) {");
 		sc.add("for (" + iExpectedElementClassName + " expectedBefore : expectedBeforeCursor) {");
@@ -402,9 +402,9 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public " + LIST + "<" + iExpectedElementClassName + "> getElementsExpectedAt(" + LIST + "<" + iExpectedElementClassName + "> allExpectedElements, int cursorOffset) {");
-		sc.add("" + LIST + "<" + iExpectedElementClassName + "> expectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
 		sc.add("for (int i = 0; i < allExpectedElements.size(); i++) {");
-		sc.add("" + iExpectedElementClassName + " expectedElement = allExpectedElements.get(i);");
+		sc.add(iExpectedElementClassName + " expectedElement = allExpectedElements.get(i);");
 		sc.addLineBreak();
 		sc.add("int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();");
 		sc.add("//int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();");
@@ -419,12 +419,12 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private int getEnd(" + LIST + "<" + iExpectedElementClassName + "> allExpectedElements, int indexInList) {");
-		sc.add("" + iExpectedElementClassName + " elementAtIndex = allExpectedElements.get(indexInList);");
+		sc.add(iExpectedElementClassName + " elementAtIndex = allExpectedElements.get(indexInList);");
 		sc.add("int startIncludingHidden = elementAtIndex.getStartIncludingHiddenTokens();");
 		sc.add("int startExcludingHidden = elementAtIndex.getStartExcludingHiddenTokens();");
 		sc.addLineBreak();
 		sc.add("for (int i = indexInList + 1; i < allExpectedElements.size(); i++) {");
-		sc.add("" + iExpectedElementClassName + " elementAtI = allExpectedElements.get(i);");
+		sc.add(iExpectedElementClassName + " elementAtI = allExpectedElements.get(i);");
 		sc.add("int startIncludingHiddenForI = elementAtI.getStartIncludingHiddenTokens();");
 		sc.add("int startExcludingHiddenForI = elementAtI.getStartExcludingHiddenTokens();");
 		sc.add("if (startIncludingHidden != startIncludingHiddenForI || startExcludingHidden != startExcludingHiddenForI) {");
@@ -434,6 +434,7 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		sc.add("return Integer.MAX_VALUE;");
 		sc.add("}");
 		sc.add("}");
+		
 		out.print(sc.toString());
 		return true;
 	}

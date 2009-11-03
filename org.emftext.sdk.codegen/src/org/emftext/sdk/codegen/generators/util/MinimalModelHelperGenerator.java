@@ -114,19 +114,18 @@ public class MinimalModelHelperGenerator extends BaseGenerator {
 		sc.add("subModel = getMinimalModel(typeClass, allAvailableClasses);");
 		sc.add("}");
 		sc.add("else {");
-		sc.add("// TODO jjohannes: can we actually do this? proxies with");
-		sc.add("// URIs that can not be resolved cause problem when printing");
-		sc.add("// them. I think we should rather use object that exists in");
-		sc.add("// the model and fill non-containment references with them.");
-		sc.add("//");
-		sc.add("// the code below prevents the NewFileWizard for the CS language");
-		sc.add("// to work");
-		sc.add("//");
+		// TODO jjohannes: can we actually do this? proxies with
+		// URIs that can not be resolved cause problem when printing
+		// them. I think we should rather use object that exists in
+		// the model and fill non-containment references with them.
+		//
+		// the code below prevents the NewFileWizard for the CS language
+		// to work
 		sc.add("subModel = typeClass.getEPackage().getEFactoryInstance().create(typeClass);");
-		sc.add("//set some proxy URI to make this object a proxy");
+		sc.add("// set some proxy URI to make this object a proxy");
 		sc.add("String initialValue = \"#some\" + " + stringUtilClassName + ".capitalize(typeClass.getName());");
 		sc.add(URI + " proxyURI = " + URI + ".createURI(initialValue);");
-		sc.add("((" + INTERNAL_E_OBJECT + ")subModel).eSetProxyURI(proxyURI);");
+		sc.add("((" + INTERNAL_E_OBJECT + ") subModel).eSetProxyURI(proxyURI);");
 		sc.add("}");
 		sc.add("if (subModel == null) {");
 		sc.add("continue;");

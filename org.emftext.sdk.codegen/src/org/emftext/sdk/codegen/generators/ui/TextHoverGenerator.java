@@ -337,7 +337,7 @@ public class TextHoverGenerator extends BaseGenerator {
 		sc.add("//");
 		sc.add("// @return the style sheet, or <code>null</code> if unable to load");
 		sc.add("private static String loadStyleSheet() {");
-		sc.add("// TODO adjust this constant");
+		// TODO adjust this constant
 		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID);");
 		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + GenerationContext.DEFAULT_CSS_DIR + "/" + GenerationContext.HOVER_STYLE_FILENAME + "\");");
 		sc.add("if (styleSheetURL != null) {");
@@ -434,7 +434,7 @@ public class TextHoverGenerator extends BaseGenerator {
 		sc.add("this.infoControl = infoControl;");
 		sc.add("setText(\"Open Declaration\");");
 		sc.add(I_SHARED_IMAGES + " images = " + PLATFORM_UI + ".getWorkbench().getSharedImages();");
-		sc.add("// TODO: use better image");
+		// TODO use better image
 		sc.add("setImageDescriptor(images.getImageDescriptor(" + I_SHARED_IMAGES + ".IMG_ETOOL_HOME_NAV));");
 		sc.add("}");
 		sc.addLineBreak();

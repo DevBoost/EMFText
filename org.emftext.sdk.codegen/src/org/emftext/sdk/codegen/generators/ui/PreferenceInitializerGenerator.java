@@ -58,7 +58,7 @@ public class PreferenceInitializerGenerator extends BaseGenerator {
 		sc.add("// Class used to initialize default preference values.");
 		sc.add("public class " + getResourceClassName() + " extends " + ABSTRACT_PREFERENCE_INITIALIZER + " {");
 		sc.addLineBreak();
-		sc.add("// TODO this should not be used here!");
+		// TODO this should not be used here!
 		sc.add("private final static " + antlrTokenHelperClassName + " tokenHelper = new " + antlrTokenHelperClassName + "();");
 		sc.addLineBreak();
 		sc.add("public void initializeDefaultPreferences() {");

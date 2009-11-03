@@ -212,7 +212,7 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("try {");
 		sc.add("styleRange = textWidget.getStyleRangeAtOffset(position.offset);");
 		sc.add("} catch (IllegalArgumentException iae) {");
-		sc.add("// TODO: handle exception");
+		// TODO handle exception?
 		sc.add("}");
 		sc.add("if (styleRange == null) {");
 		sc.add("styleRange = new " + STYLE_RANGE + "(position.offset, position.length, black, null);");

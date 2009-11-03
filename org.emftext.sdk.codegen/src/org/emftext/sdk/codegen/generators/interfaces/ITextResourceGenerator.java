@@ -60,8 +60,6 @@ public class ITextResourceGenerator extends BaseGenerator {
 		sc.add("// of each element of its content in a text file. This can be used to give");
 		sc.add("// more detailed error feedback.");
 		sc.add("//");
-		sc.add("// @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>");
-		sc.add("//");
 		sc.add("public interface " + getResourceClassName() + " extends " + RESOURCE + ", " + iTextResourcePluginPartClassName + " {");
 		sc.addLineBreak();
 		

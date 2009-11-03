@@ -45,17 +45,15 @@ public class IContextDependentURIFragmentFactoryGenerator extends BaseGenerator 
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// An interface for factories to create instances of IContextDependentURIFragment.");
+		sc.add("// An interface for factories to create instances of " + iContextDependentURIFragmentClassName + ".");
 		sc.add("//");
 		sc.add("// @param <ContainerType> the type of the class containing the reference to be resolved");
 		sc.add("// @param <ReferenceType> the type of the reference to be resolved");
 		sc.add("//");
-		sc.add("// TODO jjohannes: figure out whether this interface must really be exposed");
-		
 		sc.add("public interface " + getResourceClassName() + "<ContainerType extends " + E_OBJECT + ", ReferenceType extends " + E_OBJECT + "> {");
 		sc.addLineBreak();
 		
-		sc.add("// Create a new instance of the IContextDependentURIFragment interface.");
+		sc.add("// Create a new instance of the " + iContextDependentURIFragmentClassName + " interface.");
 		sc.add("//");
 		sc.add("// @param identifier the identifier that references an " + E_OBJECT + "");
 		sc.add("// @param container the object that contains the reference");
