@@ -43,8 +43,7 @@ public class ClassNameHelper {
 		return context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
-	// TODO rename this method
-	public String getEMFTEXT_RUNTIME_PLUGIN() {
+	public String getPLUGIN_ACTIVATOR() {
 		return context.getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
 

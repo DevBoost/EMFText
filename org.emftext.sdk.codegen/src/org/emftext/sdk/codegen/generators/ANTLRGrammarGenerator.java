@@ -692,7 +692,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				+ "(actualInputStream, encoding))));");
 		sc.add("}");
 		sc.add("} catch (" + IOException.class.getName() + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN()
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR()
 				+ ".logError(\"Error while creating parser.\", e);");
 		sc.add("return null;");
 		sc.add("}");

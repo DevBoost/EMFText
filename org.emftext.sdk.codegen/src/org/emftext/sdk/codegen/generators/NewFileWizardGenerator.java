@@ -164,7 +164,7 @@ public class NewFileWizardGenerator extends BaseGenerator {
 		sc.add("try {");
 		sc.add("printer.print(root);");
 		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while generating example content.\", e);");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"" + EXCEPTION + " while generating example content.\", e);");
 		sc.add("}");
 		sc.add("return buffer.toString();");
 		sc.add("}");
@@ -275,7 +275,7 @@ public class NewFileWizardGenerator extends BaseGenerator {
 		sc.add("try {");
 		sc.add("file = getFile(fileName, containerName);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e1) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while initializing new file\", e1);");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"" + EXCEPTION + " while initializing new file\", e1);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.addLineBreak();
@@ -309,7 +309,7 @@ public class NewFileWizardGenerator extends BaseGenerator {
 		sc.add("} catch (" + INVOCATION_TARGET_EXCEPTION + " e) {");
 		sc.add("Throwable realException = e.getTargetException();");
 		sc.add(MESSAGE_DIALOG + ".openError(getShell(), \"Error\", realException.getMessage());");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " while initializing new file\", e);");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"" + EXCEPTION + " while initializing new file\", e);");
 		sc.add("return false;");
 		sc.add("}");
 		sc.add("return true;");

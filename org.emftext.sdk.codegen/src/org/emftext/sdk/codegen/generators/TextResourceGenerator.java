@@ -304,7 +304,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("if (" + PLATFORM + ".isRunning()) {");
     	sc.add("// find default load option providers");
     	sc.add(I_EXTENSION_REGISTRY + " extensionRegistry = " + PLATFORM + ".getExtensionRegistry();");
-    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".EP_DEFAULT_LOAD_OPTIONS_ID);");
+    	sc.add(I_CONFIGURATION_ELEMENT + " configurationElements[] = extensionRegistry.getConfigurationElementsFor(" + getClassNameHelper().getPLUGIN_ACTIVATOR() + ".EP_DEFAULT_LOAD_OPTIONS_ID);");
     	sc.add("for (" + I_CONFIGURATION_ELEMENT + " element : configurationElements) {");
     	sc.add("try {");
     	sc.add(getClassNameHelper().getI_OPTION_PROVIDER() + " provider = (" + getClassNameHelper().getI_OPTION_PROVIDER() + ") element.createExecutableExtension(\"class\");");
@@ -314,7 +314,7 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("addLoadOption(loadOptionsCopy, key, options.get(key));");
     	sc.add("}");
     	sc.add("} catch (" + CORE_EXCEPTION + " ce) {");
-    	sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while getting default options.\", ce);");
+    	sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while getting default options.\", ce);");
     	sc.add("}");
     	sc.add("}");
     	sc.add("}");

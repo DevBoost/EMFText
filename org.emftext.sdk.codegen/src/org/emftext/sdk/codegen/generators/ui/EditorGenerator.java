@@ -216,7 +216,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("viewer.getTextWidget().setSelection(destination);");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"" + EXCEPTION + " in setCaret()\", e);");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"" + EXCEPTION + " in setCaret()\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -430,7 +430,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add(activatorClassName + ".showErrorDialog(\"No EMFText resource.\", \"Sorry, no registered EMFText resource can handle this file type.\");");
 		sc.add("}");
 		sc.add("} catch (" + EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while loading resource in \" + this.getClass().getSimpleName() + \".\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -538,7 +538,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();");
 		sc.add("delta.accept(visitor);");
 		sc.add("} catch (" + CORE_EXCEPTION + " exception) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Unexpected Error: \", exception);");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Unexpected Error: \", exception);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
@@ -583,7 +583,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
 		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getEMFTEXT_RUNTIME_PLUGIN() + ".logError(\"Exception while updating markers on resource\", e);");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while updating markers on resource\", e);");
 		sc.add("}");
 		sc.add("}");
 		sc.add("});");
