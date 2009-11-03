@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 // A class to display the information of an element.
@@ -81,7 +68,6 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 			this.infoControl = infoControl;
 			setText("Open Declaration");
 			org.eclipse.ui.ISharedImages images = org.eclipse.ui.PlatformUI.getWorkbench().getSharedImages();
-			// TODO: use better image
 			setImageDescriptor(images.getImageDescriptor(org.eclipse.ui.ISharedImages.IMG_ETOOL_HOME_NAV));
 		}
 		
@@ -89,7 +75,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		public void run() {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput infoInput = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput) infoControl.getInput();
 			infoControl.notifyDelayedInputChange(null);
-			infoControl.dispose(); // FIXME: should have protocol to hide, rather than dispose
+			infoControl.dispose(); // FIXME should have protocol to hide, rather than dispose
 			if (infoInput.getInputElement() instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject decEO = (org.eclipse.emf.ecore.EObject) infoInput.getInputElement();
 				if (decEO != null && decEO.eResource() != null) {
@@ -295,7 +281,6 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 	//
 	// @return the style sheet, or <code>null</code> if unable to load
 	private static String loadStyleSheet() {
-		// TODO adjust this constant
 		org.osgi.framework.Bundle bundle = org.eclipse.core.runtime.Platform.getBundle(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.PLUGIN_ID);
 		java.net.URL styleSheetURL = bundle.getEntry("/css/hover_style.css");
 		if (styleSheetURL != null) {

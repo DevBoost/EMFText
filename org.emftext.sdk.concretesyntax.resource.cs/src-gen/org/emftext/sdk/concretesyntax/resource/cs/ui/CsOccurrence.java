@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 // This class finds the positions to highlight and adds them to the document.
@@ -41,7 +28,6 @@ public class CsOccurrence {
 		quotedTokenArray = new java.util.ArrayList<String>();
 		String[] tokenNames = new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getTokenNames();
 		for (String tokenName : tokenNames) {
-			// TODO this is ANTLR specific maybe use ANTLRTokenHelper here
 			if (tokenName.startsWith("'") && tokenName.endsWith("'")) {
 				quotedTokenArray.add(tokenName.substring(1, tokenName.length() - 1).trim());
 			}

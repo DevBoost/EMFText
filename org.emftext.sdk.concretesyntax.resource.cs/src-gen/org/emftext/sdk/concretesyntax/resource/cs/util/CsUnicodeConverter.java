@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
 // A UnicodeConverter can read an input stream and convert
@@ -19,9 +6,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.util;
 // is replaced by the respective UTF-8 byte sequence (1 to 4
 // bytes).
 //
-// TODO mseifert: information about replaced sequences must be
-// passed to the LocationMap or parser to make sure that the
-// positions of elements found in the stream are correct.
 public class CsUnicodeConverter extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsInputStreamProcessor {
 	
 	private int[] stack = new int[4];

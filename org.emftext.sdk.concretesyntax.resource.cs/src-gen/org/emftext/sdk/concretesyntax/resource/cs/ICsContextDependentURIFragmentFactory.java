@@ -1,27 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs;
 
-// An interface for factories to create instances of IContextDependentURIFragment.
+// An interface for factories to create instances of org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.
 //
 // @param <ContainerType> the type of the class containing the reference to be resolved
 // @param <ReferenceType> the type of the reference to be resolved
 //
-// TODO jjohannes: figure out whether this interface must really be exposed
 public interface ICsContextDependentURIFragmentFactory<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> {
 	
-	// Create a new instance of the IContextDependentURIFragment interface.
+	// Create a new instance of the org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment interface.
 	//
 	// @param identifier the identifier that references an org.eclipse.emf.ecore.EObject
 	// @param container the object that contains the reference

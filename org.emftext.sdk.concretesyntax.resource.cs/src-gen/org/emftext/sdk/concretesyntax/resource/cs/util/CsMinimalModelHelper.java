@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.util;
 
 // A helper class that is able to create minimal model instances for Ecore
@@ -65,19 +52,11 @@ public class CsMinimalModelHelper {
 							subModel = getMinimalModel(typeClass, allAvailableClasses);
 						}
 						else {
-							// TODO jjohannes: can we actually do this? proxies with
-							// URIs that can not be resolved cause problem when printing
-							// them. I think we should rather use object that exists in
-							// the model and fill non-containment references with them.
-							//
-							// the code below prevents the NewFileWizard for the CS language
-							// to work
-							//
 							subModel = typeClass.getEPackage().getEFactoryInstance().create(typeClass);
-							//set some proxy URI to make this object a proxy
+							// set some proxy URI to make this object a proxy
 							String initialValue = "#some" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.capitalize(typeClass.getName());
 							org.eclipse.emf.common.util.URI proxyURI = org.eclipse.emf.common.util.URI.createURI(initialValue);
-							((org.eclipse.emf.ecore.InternalEObject)subModel).eSetProxyURI(proxyURI);
+							((org.eclipse.emf.ecore.InternalEObject) subModel).eSetProxyURI(proxyURI);
 						}
 						if (subModel == null) {
 							continue;

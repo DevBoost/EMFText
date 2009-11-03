@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 // A CodeCompletionHelper can be used to derive completion proposals for partial
@@ -41,8 +28,6 @@ public class CsCodeCompletionHelper {
 		}
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = getExpectedElements(expectedElements, cursorOffset);
 		setPrefix(expectedElementsAt, content, cursorOffset);
-		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
-		//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);
 		System.out.println(" PARSER returned expectation: " + expectedElementsAt + " for offset " + cursorOffset);
 		java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
 		
@@ -83,7 +68,6 @@ public class CsCodeCompletionHelper {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtIndex = expectedElements.get(i);
 			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtNext = expectedElements.get(i + 1);
 			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&			//elementAtIndex.discardFollowingExpectations() &&
-			// TODO mseifert: this is wrong. we must compare the scopeIDs based on their parts!
 			shouldRemove(elementAtIndex.getScopeID(), elementAtNext.getScopeID())) {
 				expectedElements.remove(i + 1);
 			} else {
@@ -221,7 +205,6 @@ public class CsCodeCompletionHelper {
 		if ("EString".equals(typeName)) {
 			return "some" + org.emftext.sdk.concretesyntax.resource.cs.util.CsStringUtil.capitalize(attribute.getName());
 		}
-		// TODO mseifert: add more default values for other types
 		System.out.println("CodeCompletionHelper.getDefaultValue() unknown type " + typeName);
 		return attribute.getDefaultValue();
 	}
@@ -278,10 +261,6 @@ public class CsCodeCompletionHelper {
 	// @param cursorOffset
 	// @param allExpectedElements
 	// @return
-	// TODO mseifert: figure out what other combinations of elements before
-	// and after the cursor position exist and which action should be taken.
-	// For example, when a StructuralFeature is expected right before the
-	// cursor and a CsString right after, we should return both elements.
 	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> getExpectedElements(final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> allExpectedElements,
 	int cursorOffset) {
 		

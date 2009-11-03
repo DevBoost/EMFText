@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 // A reference resolver tries to resolve a reference to one or many model elements (EObjects).
@@ -22,7 +9,6 @@ package org.emftext.sdk.concretesyntax.resource.cs;
 // @param <ReferenceType> the type of the reference that is
 // resolved by this resolver
 //
-// @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
 public interface ICsReferenceResolver<ContainerType extends org.eclipse.emf.ecore.EObject, ReferenceType extends org.eclipse.emf.ecore.EObject> extends org.emftext.sdk.concretesyntax.resource.cs.ICsConfigurable {
 	// Attempts to resolve a reference string.
 	//

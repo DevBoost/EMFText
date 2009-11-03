@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 // Displays HTML information in a {@link org.eclipse.swt.browser.org.eclipse.swt.browser.Browser} widget.
@@ -335,9 +322,6 @@ public class CsBrowserInformationControl extends org.eclipse.jface.text.Abstract
 		org.eclipse.swt.graphics.Rectangle trim = computeTrim();
 		int height = trim.height;
 		
-		//FIXME: The html2text does not render <p> like a browser.
-		// Instead of inserting an empty line, it just adds a single line break.
-		// Furthermore, the indentation of <dl><dd> elements is too small (e.g with a long @see line)
 		org.eclipse.jface.text.TextPresentation presentation= new org.eclipse.jface.text.TextPresentation();
 		String text;
 		try {

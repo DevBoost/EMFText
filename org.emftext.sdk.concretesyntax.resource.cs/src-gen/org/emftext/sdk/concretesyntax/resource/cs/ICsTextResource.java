@@ -1,23 +1,8 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 // An extended resource that can hold information about the exact positions
 // of each element of its content in a text file. This can be used to give
 // more detailed error feedback.
-//
-// @author Jendrik Johannes <jendrik.johannes@tu-dresden.de>
 //
 public interface ICsTextResource extends org.eclipse.emf.ecore.resource.Resource, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResourcePluginPart {
 	
