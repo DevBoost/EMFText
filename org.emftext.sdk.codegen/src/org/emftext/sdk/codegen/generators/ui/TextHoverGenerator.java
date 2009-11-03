@@ -442,7 +442,7 @@ public class TextHoverGenerator extends BaseGenerator {
 		sc.add("public void run() {");
 		sc.add(docBrowserInformationControlInputClassName + " infoInput = (" + docBrowserInformationControlInputClassName + ") infoControl.getInput();");
 		sc.add("infoControl.notifyDelayedInputChange(null);");
-		sc.add("infoControl.dispose(); // FIXME: should have protocol to hide, rather than dispose");
+		sc.add("infoControl.dispose(); // FIXME should have protocol to hide, rather than dispose");
 		sc.add("if (infoInput.getInputElement() instanceof " + E_OBJECT + ") {");
 		sc.add(E_OBJECT + " decEO = (" + E_OBJECT + ") infoInput.getInputElement();");
 		sc.add("if (decEO != null && decEO.eResource() != null) {");

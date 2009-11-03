@@ -67,7 +67,7 @@ public class HyperlinkDetectorGenerator extends BaseGenerator {
 		sc.add("for (" + E_OBJECT + " eObject : elementsAtOffset) {");
 		sc.add("if (eObject.eIsProxy()) {");
 		sc.add("resolvedEObject = " + ECORE_UTIL + ".resolve(eObject, textResource);");
-		//FIXME if the hyperlink should be activate for other resource as well
+		// FIXME if the hyperlink should be activate for other resource as well
 		sc.add("if (resolvedEObject == eObject || (resolvedEObject.eResource() != null && !resourceFileExtension.equals(resolvedEObject.eResource().getURI().fileExtension()))) {");
 		sc.add("continue;");
 		sc.add("}");

@@ -132,7 +132,7 @@ public class HyperlinkGenerator extends BaseGenerator {
 		sc.add(I_WORKBENCH + " workbench = " + PLATFORM_UI + ".getWorkbench();");
 		sc.add(I_WORKBENCH_PAGE + " page = workbench.getActiveWorkbenchWindow().getActivePage();");
 		sc.add("try {");
-		//FIXME the EditorID has to be of EMFTextEditor
+		// FIXME the EditorID has to be of EMFTextEditor
 		sc.add(I_EDITOR_PART + " activeEditor = page.getActiveEditor();");
 		sc.add("if (isSupported(file.getFileExtension())) {");
 		sc.add("page.openEditor(new " + FILE_EDITOR_INPUT + "(file), activeEditor.getSite().getId());");

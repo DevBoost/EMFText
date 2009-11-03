@@ -371,9 +371,9 @@ public class BrowserInformationControlGenerator extends BaseGenerator {
 		sc.add(RECTANGLE + " trim = computeTrim();");
 		sc.add("int height = trim.height;");
 		sc.addLineBreak();
-		sc.add("//FIXME: The html2text does not render <p> like a browser.");
-		sc.add("// Instead of inserting an empty line, it just adds a single line break.");
-		sc.add("// Furthermore, the indentation of <dl><dd> elements is too small (e.g with a long @see line)");
+		// FIXME: The html2text does not render <p> like a browser.
+		// Instead of inserting an empty line, it just adds a single line break.
+		// Furthermore, the indentation of <dl><dd> elements is too small (e.g with a long @see line)
 		sc.add(TEXT_PRESENTATION + " presentation= new " + TEXT_PRESENTATION + "();");
 		sc.add("String text;");
 		sc.add("try {");

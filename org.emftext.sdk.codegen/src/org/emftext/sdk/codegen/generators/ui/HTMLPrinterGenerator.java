@@ -228,8 +228,8 @@ public class HTMLPrinterGenerator extends BaseGenerator {
 		sc.add("if (\"dd\".equals(html)) ");
 		sc.add("return \"\t\"; ");
 		sc.addLineBreak();
-		sc.add("// FIXME: this hard-coded prefix does not work for RTL languages, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=91682");
-		sc.add("//This return is taken from org.eclipse.jface.internal.text.html.HTMLMessages.properties");
+		// FIXME: this hard-coded prefix does not work for RTL languages, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=91682
+		//This return is taken from org.eclipse.jface.internal.text.html.HTMLMessages.properties
 		sc.add("if (\"li\".equals(html))  ");
 		sc.add("return LINE_DELIM + \"\\t-\\n \";");
 		sc.addLineBreak();
