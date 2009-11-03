@@ -405,7 +405,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("final " + COMMON_TOKEN + " ct = (" + COMMON_TOKEN + ") e.token;");
 		sc.add("addErrorToResource(finalMessage, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());");
 		sc.add("} else {");
-		sc.add("addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5); // TODO what the heck is this 5?");
+		// TODO what the heck is this 5?
+		sc.add("addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
