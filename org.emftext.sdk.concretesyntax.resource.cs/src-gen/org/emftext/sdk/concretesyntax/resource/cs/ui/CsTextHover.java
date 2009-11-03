@@ -75,7 +75,7 @@ public class CsTextHover implements org.eclipse.jface.text.ITextHover, org.eclip
 		public void run() {
 			org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput infoInput = (org.emftext.sdk.concretesyntax.resource.cs.ui.CsDocBrowserInformationControlInput) infoControl.getInput();
 			infoControl.notifyDelayedInputChange(null);
-			infoControl.dispose(); // FIXME should have protocol to hide, rather than dispose
+			infoControl.dispose();
 			if (infoInput.getInputElement() instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject decEO = (org.eclipse.emf.ecore.EObject) infoInput.getInputElement();
 				if (decEO != null && decEO.eResource() != null) {

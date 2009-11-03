@@ -449,7 +449,7 @@ public class CsParser extends CsANTLRParserBase {
     			final org.antlr.runtime.CommonToken ct = (org.antlr.runtime.CommonToken) e.token;
     			addErrorToResource(finalMessage, ct.getCharPositionInLine(), ct.getLine(), ct.getStartIndex(), ct.getStopIndex());
     		} else {
-    			addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5); // TODO what the heck is this 5?
+    			addErrorToResource(finalMessage, e.token.getCharPositionInLine(), e.token.getLine(), 1, 5);
     		}
     	}
     	
