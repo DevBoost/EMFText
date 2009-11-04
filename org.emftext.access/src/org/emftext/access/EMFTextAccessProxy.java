@@ -111,7 +111,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 		try {
 			return impl.getClass().getMethod(methodName, parameterTypes);
 		} catch (NoSuchMethodException e) {
-			EMFTextAccessPlugin.logError("Required method not defined: " + impl.getClass().getCanonicalName() + "." + method.getName(), null);
+			// ignore exception and continue to search
 		}
 		Method[] methods = impl.getClass().getMethods();
 		// then look for a methods with the same name (do not care about parameter types)

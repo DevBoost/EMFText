@@ -14,6 +14,7 @@
 package org.emftext.access.resource;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -70,9 +71,27 @@ public interface IMetaInformation {
 			String encoding);
 
 	/**
+	 * Creates a new instance of the printer class, which
+	 * can be used to convert models to text.
+	 * 
+	 * @param stream the stream to write to
+	 * @param resource the resource that contains the model (can be null)
+	 * 
+	 * @return
+	 */
+	public ITextPrinter createPrinter(OutputStream stream, ITextResource resource);
+
+	/**
 	 * Returns all meta classes for which syntax was defined. This 
 	 * information is used both by the NewFileWizard and the code
 	 * completion.
 	 */
-	public EClass[] getClassesWithSyntax();	
+	public EClass[] getClassesWithSyntax();
+
+	/**
+	 * Returns the meta classes that can be root elements.
+	 * 
+	 * @return
+	 */
+	public EClass[] getStartSymbols();	
 }
