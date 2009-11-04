@@ -384,6 +384,14 @@ public class CsResource extends org.eclipse.emf.ecore.resource.impl.ResourceImpl
 		getDiagnostics(problem.getType()).add(new PositionBasedTextDiagnostic(getURI(), problem, column, line, charStart, charEnd));
 	}
 	
+	public void addError(java.lang.String message, org.eclipse.emf.ecore.EObject cause) {
+		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR), cause);
+	}
+	
+	public void addWarning(java.lang.String message, org.eclipse.emf.ecore.EObject cause) {
+		addProblem(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsProblem(message, org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.WARNING), cause);
+	}
+	
 	private java.util.List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> getDiagnostics(org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType type) {
 		if (type == org.emftext.sdk.concretesyntax.resource.cs.CsEProblemType.ERROR) {
 			return getErrors();
