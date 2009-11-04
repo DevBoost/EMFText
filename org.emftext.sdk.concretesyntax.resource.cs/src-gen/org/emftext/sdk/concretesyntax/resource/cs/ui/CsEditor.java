@@ -113,6 +113,9 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	public void createPartControl(org.eclipse.swt.widgets.Composite parent) {
 		super.createPartControl(parent);
 		display = parent.getShell().getDisplay();
+		// we might need to refresh the markers, because the display was not set before, which
+		// prevents updates of the markers
+		refreshMarkers(resource);
 		
 		// Code Folding
 		org.eclipse.jface.text.source.projection.ProjectionViewer viewer = (org.eclipse.jface.text.source.projection.ProjectionViewer) getSourceViewer();
