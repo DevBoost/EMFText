@@ -13,9 +13,12 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
+import java.lang.reflect.Method;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -38,8 +41,15 @@ public class EMFTextSDKPlugin extends Plugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		if (!getBundle().getVersion().toString().startsWith(VERSION)) {
-			logError("Bundle version does not match VERSION constant in " + EMFTextSDKPlugin.class.getSimpleName(), null);
+		Bundle bundle = getBundle();
+		// we need to use reflection here, because getVersion()
+		// was not available before Galileo
+		Method getVersionMethod = bundle.getClass().getMethod("getVersion");
+		if (getVersionMethod != null) {
+			Object version = getVersionMethod.invoke(bundle);
+			if (!version.toString().startsWith(VERSION)) {
+				logError("Bundle version does not match VERSION constant in " + EMFTextSDKPlugin.class.getSimpleName(), null);
+			}
 		}
 	}
 
