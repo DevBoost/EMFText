@@ -138,6 +138,8 @@ public class TextResourceGenerator extends BaseGenerator {
 
     	addAddProblemMethod1(sc);
     	addAddProblemMethod2(sc);
+    	addAddErrorMethod(sc);
+    	addAddWarningMethod(sc);
     	addGetDiagnosticsMethod(sc);
 
     	addAddDefaultLoadOptionsMethod(sc);
@@ -333,6 +335,20 @@ public class TextResourceGenerator extends BaseGenerator {
 	private void addAddProblemMethod2(StringComposite sc) {
 		sc.add("public void addProblem(" + getClassNameHelper().getI_PROBLEM() + " problem, int column, int line, int charStart, int charEnd) {");
     	sc.add("getDiagnostics(problem.getType()).add(new " + POSITION_BASED_TEXT_DIAGNOSTIC + "(getURI(), problem, column, line, charStart, charEnd));");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addAddErrorMethod(StringComposite sc) {
+		sc.add("public void addError(" + STRING + " message, " + E_OBJECT + " cause) {");
+    	sc.add("addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(message, " + getContext().getQualifiedClassName(EArtifact.E_PROBLEM_TYPE) + ".ERROR), cause);");
+    	sc.add("}");
+    	sc.addLineBreak();
+	}
+
+	private void addAddWarningMethod(StringComposite sc) {
+		sc.add("public void addWarning(" + STRING + " message, " + E_OBJECT + " cause) {");
+    	sc.add("addProblem(new " + getContext().getQualifiedClassName(EArtifact.PROBLEM) + "(message, " + getContext().getQualifiedClassName(EArtifact.E_PROBLEM_TYPE) + ".WARNING), cause);");
     	sc.add("}");
     	sc.addLineBreak();
 	}

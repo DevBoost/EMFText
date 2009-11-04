@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
@@ -54,5 +55,20 @@ public interface ITextResource extends Resource {
 	 * @return the model element to text location mapping
 	 */
 	public ILocationMap getLocationMap();
-	
+
+	/**
+	 * Adds a new error to this resource.
+	 * 
+	 * @param message
+	 * @param cause
+	 */
+	public void addError(String message, EObject cause);
+
+	/**
+	 * Adds a new warning to this resource.
+	 * 
+	 * @param message
+	 * @param cause
+	 */
+	public void addWarning(String message, EObject cause);
 }
