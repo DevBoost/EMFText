@@ -17,6 +17,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -30,12 +31,17 @@ import org.emftext.sdk.codegen.composites.StringComposite;
 
 public class MetaInformationGenerator extends BaseGenerator {
 
+	private String colorManagerClassName;
+	private String tokenScannerClassName;
+
 	public MetaInformationGenerator() {
 		super();
 	}
 
 	private MetaInformationGenerator(GenerationContext context) {
 		super(context, EArtifact.META_INFORMATION);
+    	colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
+        tokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
 	}
 	
 	@Override
@@ -47,11 +53,36 @@ public class MetaInformationGenerator extends BaseGenerator {
         
         sc.add("public class " + getResourceClassName()+ " implements " + getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " {");
         sc.addLineBreak();
-    	addGetConcreteSyntaxName(sc);
+    	addMethods(sc);
+    	
+        sc.add("}");
+    	
+		out.print(sc.toString());
+    	return true;	
+	}
+
+	private void addCreateTokenScannerMethod(StringComposite sc) {
+		sc.add("public " + I_TOKEN_SCANNER + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
+		sc.add("return new " + tokenScannerClassName + "(colorManager);");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addCreateColorManagerMethod(StringComposite sc) {
+		sc.add("public " + colorManagerClassName + " createColorManager() {");
+        sc.add("return new " + colorManagerClassName + "();");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addMethods(StringComposite sc) {
+		addGetConcreteSyntaxName(sc);
     	addGetURIMethod(sc);
     	addCreateLexerMethod(sc);
 		addCreateParserMethod(sc);
+		addCreatePrinterMethod(sc);
 		addGetClassesWithSyntaxMethod(sc);
+		addGetStartSymbolsMethod(sc);
         addGetReferenceResolverSwitchMethod(sc);
         addGetTokenResolverFactoryMethod(sc);
         addGetPathTOCSDefinitionMethod(sc);
@@ -60,25 +91,15 @@ public class MetaInformationGenerator extends BaseGenerator {
         addGetBracketPairsMethod(sc);
         addGetFoldableClassesMethod(sc);
     	addGetHoverTextProviderMethod(sc);
-    	
-    	
-    	String colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
-        String tokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
-        
-		sc.add("public " + colorManagerClassName + " createColorManager() {");
-        sc.add("return new " + colorManagerClassName + "();");
-        sc.add("}");
-        sc.addLineBreak();
+		addCreateColorManagerMethod(sc);
+        addCreateTokenScannerMethod(sc);
+	}
 
-        sc.add("public " + I_TOKEN_SCANNER + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
-		sc.add("return new " + tokenScannerClassName + "(colorManager);");
-        sc.add("}");
-        sc.addLineBreak();
-
-        sc.add("}");
-    	
-		out.print(sc.toString());
-    	return true;	
+	private void addGetStartSymbolsMethod(StringComposite sc) {
+		sc.add("public " + E_CLASS + "[] getStartSymbols() {");
+		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.SYNTAX_COVERAGE_INFORMATION_PROVIDER) + "().getStartSymbols();");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addGetFoldableClassesMethod(StringComposite sc) {
@@ -169,6 +190,15 @@ public class MetaInformationGenerator extends BaseGenerator {
 		
 		sc.add("public " + getClassNameHelper().getI_TEXT_PARSER() + " createParser(" + INPUT_STREAM + " inputStream, " + STRING + " encoding) {");
 		sc.add("return new " + parserClassName + "().createInstance(inputStream, encoding);");
+		sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addCreatePrinterMethod(StringComposite sc) {
+		String printerClassName = getContext().getQualifiedClassName(EArtifact.PRINTER);
+
+		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " createPrinter(" + OUTPUT_STREAM + " outputStream, " + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("return new " + printerClassName + "(outputStream, resource);");
 		sc.add("}");
         sc.addLineBreak();
 	}

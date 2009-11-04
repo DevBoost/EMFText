@@ -51,6 +51,7 @@ public class SyntaxCoverageInformationProviderGenerator extends BaseGenerator {
         sc.add("public class " + getResourceClassName()+ " {");
         sc.addLineBreak();
 		addGetClassesWithSyntaxMethod(sc);
+		addGetStartSymbolsMethod(sc);
 		sc.add("}");
 		
 		out.write(sc.toString());
@@ -65,6 +66,20 @@ public class SyntaxCoverageInformationProviderGenerator extends BaseGenerator {
 		sc.add("return new " + E_CLASS + "[] {");
 		for (GenClass classWithSyntax : classesWithSyntax) {
 			sc.add(genClassUtil.getAccessor(classWithSyntax) + ",");
+		}
+		sc.add("};");
+		sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addGetStartSymbolsMethod(StringComposite sc) {
+		ConcreteSyntax syntax = getContext().getConcreteSyntax();
+		
+		Collection<GenClass> startSymbols = syntax.getActiveStartSymbols();
+		sc.add("public " + E_CLASS + "[] getStartSymbols() {");
+		sc.add("return new " + E_CLASS + "[] {");
+		for (GenClass startSymbol : startSymbols) {
+			sc.add(genClassUtil.getAccessor(startSymbol) + ",");
 		}
 		sc.add("};");
 		sc.add("}");
