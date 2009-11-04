@@ -16,6 +16,9 @@ public class CsMinimalModelHelper {
 	}
 	
 	public org.eclipse.emf.ecore.EObject getMinimalModel(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allAvailableClasses, String name) {
+		if (!contains(allAvailableClasses, eClass)) {
+			return null;
+		}
 		org.eclipse.emf.ecore.EPackage ePackage = eClass.getEPackage();
 		if (ePackage == null) {
 			return null;
@@ -49,7 +52,8 @@ public class CsMinimalModelHelper {
 					for (int i = 0; i < lowerBound; i++) {
 						org.eclipse.emf.ecore.EObject subModel = null;
 						if (reference.isContainment()) {
-							subModel = getMinimalModel(typeClass, allAvailableClasses);
+							org.eclipse.emf.ecore.EClass[] unusedClasses = getArraySubset(allAvailableClasses, eClass);
+							subModel = getMinimalModel(typeClass, unusedClasses);
 						}
 						else {
 							subModel = typeClass.getEPackage().getEFactoryInstance().create(typeClass);
@@ -93,4 +97,24 @@ public class CsMinimalModelHelper {
 		}
 		return root;
 	}
+	
+	private boolean contains(org.eclipse.emf.ecore.EClass[] allAvailableClasses, org.eclipse.emf.ecore.EClass eClass) {
+		for (org.eclipse.emf.ecore.EClass nextClass : allAvailableClasses) {
+			if (eClass == nextClass) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private org.eclipse.emf.ecore.EClass[] getArraySubset(org.eclipse.emf.ecore.EClass[] allClasses, org.eclipse.emf.ecore.EClass eClassToRemove) {
+		java.util.List<org.eclipse.emf.ecore.EClass> subset = new java.util.ArrayList<org.eclipse.emf.ecore.EClass>();
+		for (org.eclipse.emf.ecore.EClass eClass : allClasses) {
+			if (eClass != eClassToRemove) {
+				subset.add(eClass);
+			}
+		}
+		return subset.toArray(new org.eclipse.emf.ecore.EClass[subset.size()]);
+	}
+	
 }
