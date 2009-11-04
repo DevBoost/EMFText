@@ -441,6 +441,9 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("public void createPartControl(" + COMPOSITE + " parent) {");
 		sc.add("super.createPartControl(parent);");
 		sc.add("display = parent.getShell().getDisplay();");
+		sc.add("// we might need to refresh the markers, because the display was not set before, which");
+		sc.add("// prevents updates of the markers");
+		sc.add("refreshMarkers(resource);");
 		sc.addLineBreak();
 		sc.add("// Code Folding");
 		sc.add(PROJECTION_VIEWER + " viewer = (" + PROJECTION_VIEWER + ") getSourceViewer();");
