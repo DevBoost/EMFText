@@ -18,8 +18,16 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsParser().createInstance(inputStream, encoding);
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter createPrinter(java.io.OutputStream outputStream, org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter(outputStream, resource);
+	}
+	
 	public org.eclipse.emf.ecore.EClass[] getClassesWithSyntax() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxCoverageInformationProvider().getClassesWithSyntax();
+	}
+	
+	public org.eclipse.emf.ecore.EClass[] getStartSymbols() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsSyntaxCoverageInformationProvider().getStartSymbols();
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsReferenceResolverSwitch getReferenceResolverSwitch() {

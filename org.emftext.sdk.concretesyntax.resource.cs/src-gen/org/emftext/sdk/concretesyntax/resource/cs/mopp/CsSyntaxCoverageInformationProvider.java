@@ -30,4 +30,10 @@ public class CsSyntaxCoverageInformationProvider {
 		};
 	}
 	
+	public org.eclipse.emf.ecore.EClass[] getStartSymbols() {
+		return new org.eclipse.emf.ecore.EClass[] {
+			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
+		};
+	}
+	
 }
