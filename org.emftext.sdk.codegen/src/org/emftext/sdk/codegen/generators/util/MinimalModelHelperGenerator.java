@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.util;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
@@ -31,6 +32,8 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class MinimalModelHelperGenerator extends BaseGenerator {
@@ -55,7 +58,7 @@ public class MinimalModelHelperGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
@@ -69,15 +72,40 @@ public class MinimalModelHelperGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("private final static " + eClassUtilClassName + " eClassUtil = new " + eClassUtilClassName + "();");
 		sc.addLineBreak();
+		addMethods(sc);
+		
+		sc.add("}");
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addGetMinimalModel1Method(sc);
+		addGetMinimalModel2Method(sc);
+		addGetMinimalModel3Method(sc);
+		addContainsMethod(sc);
+		addGetArraySubsetMethod(sc);
+	}
+
+	private void addGetMinimalModel1Method(StringComposite sc) {
 		sc.add("public " + E_OBJECT + " getMinimalModel(" + E_CLASS + " eClass, " + COLLECTION + "<" + E_CLASS + "> allAvailableClasses) {");
 		sc.add("return getMinimalModel(eClass, allAvailableClasses.toArray(new " + E_CLASS + "[allAvailableClasses.size()]), null);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetMinimalModel2Method(StringComposite sc) {
 		sc.add("public " + E_OBJECT + " getMinimalModel(" + E_CLASS + " eClass, " + E_CLASS + "[] allAvailableClasses) {");
 		sc.add("return getMinimalModel(eClass, allAvailableClasses, null);");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addGetMinimalModel3Method(StringComposite sc) {
 		sc.add("public " + E_OBJECT + " getMinimalModel(" + E_CLASS + " eClass, " + E_CLASS + "[] allAvailableClasses, String name) {");
+		sc.add("if (!contains(allAvailableClasses, eClass)) {");
+		sc.add("return null;");
+		sc.add("}");
 		sc.add(E_PACKAGE + " ePackage = eClass.getEPackage();");
 		sc.add("if (ePackage == null) {");
 		sc.add("return null;");
@@ -111,12 +139,13 @@ public class MinimalModelHelperGenerator extends BaseGenerator {
 		sc.add("for (int i = 0; i < lowerBound; i++) {");
 		sc.add(E_OBJECT + " subModel = null;");
 		sc.add("if (reference.isContainment()) {");
-		sc.add("subModel = getMinimalModel(typeClass, allAvailableClasses);");
+		sc.add(E_CLASS + "[] unusedClasses = getArraySubset(allAvailableClasses, eClass);");
+		sc.add("subModel = getMinimalModel(typeClass, unusedClasses);");
 		sc.add("}");
 		sc.add("else {");
 		// TODO jjohannes: can we actually do this? proxies with
 		// URIs that can not be resolved cause problem when printing
-		// them. I think we should rather use object that exists in
+		// them. I think we should rather use objects that exists in
 		// the model and fill non-containment references with them.
 		//
 		// the code below prevents the NewFileWizard for the CS language
@@ -162,8 +191,31 @@ public class MinimalModelHelperGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("return root;");
 		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addContainsMethod(StringComposite sc) {
+		sc.add("private boolean contains(" + E_CLASS + "[] allAvailableClasses, " + E_CLASS + " eClass) {");
+		sc.add("for (" + E_CLASS + " nextClass : allAvailableClasses) {");
+		sc.add("if (eClass == nextClass) {");
+		sc.add("return true;");
 		sc.add("}");
-		out.print(sc.toString());
-		return true;
+		sc.add("}");
+		sc.add("return false;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetArraySubsetMethod(StringComposite sc) {
+		sc.add("private " + E_CLASS + "[] getArraySubset(" + E_CLASS + "[] allClasses, " + E_CLASS + " eClassToRemove) {");
+		sc.add(LIST + "<" + E_CLASS + "> subset = new " + ARRAY_LIST + "<" + E_CLASS + ">();");
+		sc.add("for (" + E_CLASS + " eClass : allClasses) {");
+		sc.add("if (eClass != eClassToRemove) {");
+		sc.add("subset.add(eClass);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return subset.toArray(new " + E_CLASS + "[subset.size()]);");
+		sc.add("}");
+		sc.addLineBreak();
 	}
 }
