@@ -14,6 +14,7 @@
 package org.emftext.access;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
@@ -100,6 +101,11 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			}
 		} catch (NoSuchMethodException e) {
 			EMFTextAccessPlugin.logError("Required method not defined: " + impl.getClass().getCanonicalName() + "." + method.getName(), null);
+		} catch (InvocationTargetException e) {
+			Throwable cause = e.getCause();
+			if (cause instanceof IllegalArgumentException) {
+				throw (IllegalArgumentException) cause;
+			}
 		}
 		return result;
 	}
