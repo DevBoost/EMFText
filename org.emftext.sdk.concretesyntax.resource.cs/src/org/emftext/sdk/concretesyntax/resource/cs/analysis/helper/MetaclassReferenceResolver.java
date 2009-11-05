@@ -16,8 +16,10 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis.helper;
 import java.util.List;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.codegen.util.Pair;
@@ -44,7 +46,15 @@ public class MetaclassReferenceResolver {
 	public String deResolve(EObject element, EObject container, EReference reference){
 		GenClass genClass = (GenClass)element;
 		ConcreteSyntax syntax = getConcreteSyntax(container);
-		String packageURI = genClass.getGenPackage().getNSURI();
+		GenPackage genPackage = genClass.getGenPackage();
+		if (genPackage == null) {
+			return null;
+		}
+		EPackage ePackage = genPackage.getEcorePackage();
+		if (ePackage == null) {
+			return null;
+		}
+		String packageURI = ePackage.getNsURI();
 		if(syntax.getPackage().getNSName().equals(packageURI))
 			return genClass.getName();
 		else{

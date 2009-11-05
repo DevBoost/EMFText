@@ -16,6 +16,7 @@ package org.emftext.sdk.concretesyntax.resource.cs.analysis;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.MetamodelHelper;
 import org.emftext.sdk.concretesyntax.GenPackageDependentElement;
@@ -40,6 +41,10 @@ public class GenPackageDependentElementPackageReferenceResolver implements ICsRe
 	}
 	
 	public String deResolve(GenPackage element, GenPackageDependentElement container, EReference reference) {
+		EPackage ePackage = element.getEcorePackage();
+		if (ePackage == null) {
+			return null;
+		}
 		return element.getNSURI();
 	}
 
