@@ -17,7 +17,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.preferencePages">
-		<page name="Cs Text Editor" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
+		<page name="Cs Text Editor" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage" category="org.eclipse.ui.preferencePages.GeneralTextEditor">
 		</page>
 		<page name="Syntax Coloring" id="org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringPreferencePage" class="org.emftext.sdk.concretesyntax.resource.cs.ui.CsSyntaxColoringPreferencePage" category="org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferencePage">
 		</page>
