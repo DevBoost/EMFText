@@ -19,11 +19,11 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ILLEGAL_ARGUMENT_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.NULL_POINTER_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRINTER_WRITER;
@@ -265,7 +265,12 @@ public class TextPrinterGenerator extends BaseGenerator {
 
 	private void addDoPrintMethod(StringComposite sc, List<Rule> rules) {
 		sc.add("protected void doPrint(" + E_OBJECT + " element, " + PRINTER_WRITER + " out, " + STRING + " globaltab) {");
-		sc.add("if (element == null || out == null) throw new " + NULL_POINTER_EXCEPTION + "(\"Nothing to write or to write on.\");");
+		sc.add("if (element == null) {");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write.\");");
+		sc.add("}");
+		sc.add("if (out == null) {");
+		sc.add("throw new " + ILLEGAL_ARGUMENT_EXCEPTION + "(\"Nothing to write on.\");");
+		sc.add("}");
 		sc.addLineBreak();
 		Queue<Rule> ruleQueue = new LinkedList<Rule>(rules);
 		while (!ruleQueue.isEmpty()) {
