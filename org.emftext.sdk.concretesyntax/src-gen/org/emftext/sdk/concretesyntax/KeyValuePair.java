@@ -11,12 +11,6 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-/**
- * <copyright>
- * </copyright>
- *
- * $Id$
- */
 package org.emftext.sdk.concretesyntax;
 
 import org.eclipse.emf.ecore.EObject;
