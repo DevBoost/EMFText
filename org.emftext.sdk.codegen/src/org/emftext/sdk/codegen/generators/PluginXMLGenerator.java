@@ -107,7 +107,8 @@ public class PluginXMLGenerator implements IGenerator {
 		//main page
 		sc.add("<page name=\"" + context.getCapitalizedConcreteSyntaxName() + " Text Editor\" " + 
 				"id=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\" " +
-				"class=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\">");
+				"class=\"" + context.getQualifiedClassName(EArtifact.PREFERENCE_PAGE) + "\" " +
+				"category=\"org.eclipse.ui.preferencePages.GeneralTextEditor\">");
 		sc.add("</page>");
 		//sub pages
 		sc.add("<page name=\"Syntax Coloring\" " + 
