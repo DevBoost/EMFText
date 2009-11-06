@@ -514,7 +514,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("return true;");
 		sc.add("}");
 		sc.add("int deltaKind = delta.getKind();");
-		sc.add("if (deltaKind == " + I_RESOURCE_DELTA + ".REMOVED || deltaKind == " + I_RESOURCE_DELTA + ".CHANGED && delta.getFlags() != " + I_RESOURCE_DELTA + ".MARKERS) {");
+		sc.add("if (deltaKind == " + I_RESOURCE_DELTA + ".CHANGED && delta.getFlags() != " + I_RESOURCE_DELTA + ".MARKERS) {");
 		sc.add(RESOURCE + " changedResource = resourceSet.getResource(" + URI + ".createURI(delta.getFullPath().toString()), false);");
 		sc.add("if (changedResource != null) {");
 		sc.add("changedResource.unload();");

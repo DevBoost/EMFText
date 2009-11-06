@@ -81,7 +81,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 							return true;
 						}
 						int deltaKind = delta.getKind();
-						if (deltaKind == org.eclipse.core.resources.IResourceDelta.REMOVED || deltaKind == org.eclipse.core.resources.IResourceDelta.CHANGED && delta.getFlags() != org.eclipse.core.resources.IResourceDelta.MARKERS) {
+						if (deltaKind == org.eclipse.core.resources.IResourceDelta.CHANGED && delta.getFlags() != org.eclipse.core.resources.IResourceDelta.MARKERS) {
 							org.eclipse.emf.ecore.resource.Resource changedResource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createURI(delta.getFullPath().toString()), false);
 							if (changedResource != null) {
 								changedResource.unload();
