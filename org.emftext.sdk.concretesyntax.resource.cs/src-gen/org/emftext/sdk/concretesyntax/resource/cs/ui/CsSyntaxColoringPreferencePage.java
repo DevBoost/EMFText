@@ -13,6 +13,7 @@
  ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
+
 // Preference page for configuring syntax coloring.
 // <p>
 // <i>Parts of the code were taken from the JDT Java org.eclipse.emf.codegen.ecore.templates.editor.Editor</i>
@@ -477,10 +478,11 @@ public class CsSyntaxColoringPreferencePage extends org.eclipse.jface.preference
 			HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);
 			terminals.add(item);
 		}
+		java.util.Collections.sort(terminals);
 		content.put(languageId, terminals);
 		
 		setPreferenceStore(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.getDefault().getPreferenceStore());
-		setDescription("Define the syntax coloring for registered textual syntaxes.");
+		setDescription("Configure syntax coloring for ." + languageId + " files.");
 	}
 	
 	public void init(org.eclipse.ui.IWorkbench workbench) {
