@@ -439,7 +439,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
 		sc.add("private static final String VERIFY_KEY = \"verify_key\";");
 		sc.add("private static final String ANNOTATION = \"ANNOTATION\";");
-		sc.add("private static final String IS_COLLAPSED = \"IS_COLLAPED\";");
+		sc.add("private static final String IS_COLLAPSED = \"IS_COLLAPSED\";");
 		sc.add("private static final String OFFSET = \"OFFSET\";");
 		sc.add("private static final String LENGTH = \"LENGTH\";");
 		sc.add("private static final String MODEL = \"MODEL\";");
