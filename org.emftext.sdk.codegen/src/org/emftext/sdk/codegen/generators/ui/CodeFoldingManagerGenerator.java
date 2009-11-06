@@ -221,8 +221,7 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("md = " + MESSAGE_DIGEST + ".getInstance(\"MD5\");");
 		sc.add("encryptMsg = md.digest(text.getBytes());");
 		sc.add("} catch (" + NO_SUCH_ALGORITHM_EXCEPTION + " e) {");
-		// TODO write this to the error log
-		sc.add("System.out.println(\"No Such Algorithm " + EXCEPTION + "!\");");
+		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"NoSuchAlgorithmException while creating MD5 checksum.\", e);");
 		sc.add("}");
 		sc.add("String swap = \"\";");
 		sc.add("String byteStr = \"\";");
