@@ -446,7 +446,7 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("content.put(languageId, terminals);");
 		sc.addLineBreak();
 		sc.add("setPreferenceStore(" + activatorClassName + ".getDefault().getPreferenceStore());");
-		sc.add("setDescription(\"Define the syntax coloring for registered textual syntaxes.\");");
+		sc.add("setDescription(\"Configure syntax coloring for .\" + languageId + \" files.\");");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
