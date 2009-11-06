@@ -23,7 +23,26 @@ import java.util.Iterator;
 public class StringUtil {
 
 	public final static String HEX_DIGIT_REGEXP = "[0-9a-fA-F]";
-	public final static String UNICODE_SEQUENCE_REGEXP = "\\A\\\\u" + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP;
+	public final static String UNICODE_SEQUENCE_REGEXP = "\\\\u" + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP + HEX_DIGIT_REGEXP;
+
+	/*
+	ESC	:	'\\'
+			(	'n'
+			|	'r'
+			|	't'
+			|	'b'
+			|	'f'
+			|	'"'
+			|	'\''
+			|	'\\'
+			|	'>'
+			|	'u' XDIGIT XDIGIT XDIGIT XDIGIT
+			|	. // unknown, leave as it is
+			)
+		;
+	*/
+	public final static String ESC_OTHER = "\\\\(n|r|t|b|f|\"|'|>)";
+	public final static String ESC_REGEXP = "\\A((" + UNICODE_SEQUENCE_REGEXP + ")|(" + ESC_OTHER + ")).*";
 
 	/**
      * Capitalizes the first letter of the given string.
@@ -244,7 +263,7 @@ public class StringUtil {
 		int index = result.indexOf("\\");
 		while (index >= 0) {
 			String tail = result.substring(index);
-			if (!tail.matches(UNICODE_SEQUENCE_REGEXP)) {
+			if (!tail.matches(ESC_REGEXP)) {
 				// not Unicode - do escape backslash
 				String head = "";
 				if (index > 0) {
@@ -254,7 +273,7 @@ public class StringUtil {
 			}
 			index = result.indexOf("\\", index + 2);
 		}
-		result.replaceAll("'", "\\\\'");
+		result = result.replace("'", "\\'");
 		return result;
 	}
 	
