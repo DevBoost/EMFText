@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.generators.ui;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUTTON;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR_SELECTOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTROL;
@@ -443,6 +444,7 @@ public class SyntaxColoringPreferencePageGenerator extends BaseGenerator {
 		sc.add("HighlightingColorListItem item = new HighlightingColorListItem(languageId, tokenName);");
 		sc.add("terminals.add(item);");
 		sc.add("}");
+		sc.add(COLLECTIONS + ".sort(terminals);");
 		sc.add("content.put(languageId, terminals);");
 		sc.addLineBreak();
 		sc.add("setPreferenceStore(" + activatorClassName + ".getDefault().getPreferenceStore());");
