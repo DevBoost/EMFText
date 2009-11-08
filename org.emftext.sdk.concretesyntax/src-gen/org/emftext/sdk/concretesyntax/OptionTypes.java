@@ -1305,7 +1305,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER(147, "OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER", "overrideSyntaxCoverageInformationProvider");
+	OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER(147, "OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER", "overrideSyntaxCoverageInformationProvider"), /**
+	 * The '<em><b>SAVE CHANGED RESOURCES ONLY</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SAVE_CHANGED_RESOURCES_ONLY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	SAVE_CHANGED_RESOURCES_ONLY(148, "SAVE_CHANGED_RESOURCES_ONLY", "saveChangedResourcesOnly");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3498,6 +3506,23 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER_VALUE = 147;
 
 	/**
+	 * The '<em><b>SAVE CHANGED RESOURCES ONLY</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If this option is set to true, the generated Resource will remember the text representation of a model
+	 * after loading. Before saving, it performs a string comparison of the loaded and the changed version.
+	 * Only if both versions differ, the text will actually be saved. This options defaults to <i>false</i>,
+	 * because the memorizing and comparison requires additional memory and time.
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #SAVE_CHANGED_RESOURCES_ONLY
+	 * @model literal="saveChangedResourcesOnly"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SAVE_CHANGED_RESOURCES_ONLY_VALUE = 148;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3651,6 +3676,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_FOLDING_INFORMATION_PROVIDER,
 			OVERRIDE_BRACKET_INFORMATION_PROVIDER,
 			OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER,
+			SAVE_CHANGED_RESOURCES_ONLY,
 		};
 
 	/**
@@ -3846,6 +3872,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_FOLDING_INFORMATION_PROVIDER_VALUE: return OVERRIDE_FOLDING_INFORMATION_PROVIDER;
 			case OVERRIDE_BRACKET_INFORMATION_PROVIDER_VALUE: return OVERRIDE_BRACKET_INFORMATION_PROVIDER;
 			case OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER_VALUE: return OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER;
+			case SAVE_CHANGED_RESOURCES_ONLY_VALUE: return SAVE_CHANGED_RESOURCES_ONLY;
 		}
 		return null;
 	}

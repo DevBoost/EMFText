@@ -15,6 +15,7 @@ package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DIAGNOSTIC;
@@ -47,9 +48,11 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.OptionTypes;
 
 /**
  * Generates the resource class. The created <code>doLoad()</code> and 
@@ -68,6 +71,8 @@ public class TextResourceGenerator extends BaseGenerator {
 	private String locationMapClassName;
 	private String iResourcePostProcessorProviderClassName;
 	private String iContextDependentURIFragmentFactoryClassName;
+	
+	private boolean saveChangedResourcesOnly = false;
 
 	public TextResourceGenerator() {
 		super();
@@ -83,6 +88,8 @@ public class TextResourceGenerator extends BaseGenerator {
 		locationMapClassName = context.getQualifiedClassName(EArtifact.LOCATION_MAP);
 		iResourcePostProcessorProviderClassName = context.getQualifiedClassName(EArtifact.I_RESOURCE_POST_PROCESSOR_PROVIDER);
 		iContextDependentURIFragmentFactoryClassName = context.getQualifiedClassName(EArtifact.I_CONTEXT_DEPENDENT_URI_FRAGMENT_FACTORY);
+		saveChangedResourcesOnly = OptionManager.INSTANCE.getBooleanOptionValue(
+				concreteSyntax, OptionTypes.SAVE_CHANGED_RESOURCES_ONLY);
 	}
 
 	@Override
@@ -115,9 +122,12 @@ public class TextResourceGenerator extends BaseGenerator {
         addReloadMethod(sc);
         addCancelReloadMethod(sc);
         addDoSaveMethod(sc);
-        /* TODO #1 Add an option to activate this. Default is disabled. Activate it for TEXT.Ecore
-        addSaveOnlyIfChangedWithMemoryBuffer(sc);
-        addGetPrint(sc);*/
+        
+        if(saveChangedResourcesOnly) {
+        	addSaveOnlyIfChangedWithMemoryBuffer(sc);
+        	addGetPrint(sc);
+        }
+        
         addGetSyntaxNameMethod(sc);
         addGetReferenceResolverSwitchMethod(sc);
     	getContext().addGetMetaInformationMethod(sc);
@@ -600,7 +610,9 @@ public class TextResourceGenerator extends BaseGenerator {
     	sc.add("private int proxyCounter = 0;");
     	sc.add("private " + getClassNameHelper().getI_TEXT_PARSER() + " parser;");
     	sc.add("private " + MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">> internalURIFragmentMap = new " + HASH_MAP + "<" + STRING + ", " + getClassNameHelper().getI_CONTEXT_DEPENDENT_URI_FRAGMENT() + "<? extends " + E_OBJECT + ">>();");
-    	//TODO #1 sc.add("private String textPrintAfterLoading = null;");
+        if(saveChangedResourcesOnly) {
+        	sc.add("private String textPrintAfterLoading = null;");
+        }
     	sc.addLineBreak();
 	}
 
@@ -633,7 +645,6 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.addLineBreak();
 	}
 	
-	/* TODO #1
 	private void addSaveOnlyIfChangedWithMemoryBuffer(StringComposite sc) {
 		sc.add("protected void saveOnlyIfChangedWithMemoryBuffer(" + MAP + "<?, ?> options) throws " + IO_EXCEPTION + " {");
 		sc.add("String currentPrint = getPrint(options);");
@@ -654,7 +665,6 @@ public class TextResourceGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 	}
-	*/
 
 	private void addConstructors(StringComposite sc) {
 		sc.add("public " + getResourceClassName() + "() {");
@@ -711,7 +721,9 @@ public class TextResourceGenerator extends BaseGenerator {
         sc.add("if (getErrors().isEmpty()) {");
         sc.add("runPostProcessors(options);");
         sc.add("}");
-        //TODO #1 sc.add("textPrintAfterLoading = getPrint(options);");
+        if(saveChangedResourcesOnly) {
+        	sc.add("textPrintAfterLoading = getPrint(options);");
+        }
         sc.add("}");
         sc.addLineBreak();
 	}

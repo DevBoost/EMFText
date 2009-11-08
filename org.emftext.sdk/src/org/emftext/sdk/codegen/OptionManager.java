@@ -92,6 +92,9 @@ public class OptionManager {
 		if (option == OptionTypes.RELOAD_GENERATOR_MODEL) {
 			return false;
 		}
+		if (option == OptionTypes.SAVE_CHANGED_RESOURCES_ONLY) {
+			return false;
+		}
 		return true;
 	}
 
