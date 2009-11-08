@@ -13,16 +13,37 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUTTON;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR_SELECTOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMBO;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTROL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_DATA;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_LAYOUT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_EDITOR_PART;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_WORKBENCH_PREFERENCE_PAGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LABEL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LINKED_HASH_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_CONVERTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PREFERENCE_PAGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RGB;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT_LIST;
 
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
-
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
 
 public class BracketPreferencePageGenerator extends BaseGenerator {
 
@@ -58,54 +79,198 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("//");
 		sc.add("public class " + getResourceClassName() + " extends " + PREFERENCE_PAGE + " implements " + I_WORKBENCH_PREFERENCE_PAGE + " {");
 		sc.addLineBreak();
-		sc.add("private static final String[] ALL_LEFT_BRACKETS = new String[] { \"{\", \"(\", \"[\", \"<\", \"\\\"\", \"'\", };");
-		sc.add("private static final String[] ALL_RIGHT_BRACKETS = new String[] { \"}\", \")\", \"]\", \">\", \"\\\"\", \"'\", };");
-		sc.addLineBreak();
-		sc.add("private String BRACKETS_COLOR = " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR;");
-		sc.addLineBreak();
-		sc.add("private " + SET + "<String> languageIDs = new " + LINKED_HASH_SET + "<String>();");
-		sc.addLineBreak();
-		sc.add("private " + COLOR_SELECTOR + " matchingBracketsColorEditor;");
-		sc.add("private " + LABEL + " colorEditorLabel;");
-		sc.add("private " + BUTTON + " enableCheckbox;");
-		sc.add("private " + BUTTON + " enableClosingInside;");
-		sc.add("private " + BUTTON + " matchingBracketsColorButton;");
-		sc.add("private " + LABEL + " bracketTokensLabel;");
-		sc.add("private " + COMBO + " leftBracketTokensCombo;");
-		sc.add("private " + COMBO + " rightBracketTokensCombo;");
-		sc.add("private " + SWT_LIST + " bracketsList;");
-		sc.add("private " + BUTTON + " addBracketButton;");
-		sc.add("private " + BUTTON + " removeBracketButton;");
-		sc.add("private " + MAP + "<String, String> bracketSetTemp = new " + HASH_MAP + "<String, String>();");
-		sc.add("private String language = new " + getContext().getQualifiedClassName(EArtifact.META_INFORMATION) + "().getSyntaxName();");
-		sc.addLineBreak();
-		sc.add("private " + bracketSetClassName + " bracketsTmp;");
-		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// Creates a preference page for bracket setting.");
-		sc.add("//");
-		sc.add("public " + getResourceClassName() + "() {");
-		sc.add("super();");
-		sc.addLineBreak();
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation = new " + metaInformationClassName + "();");
-		sc.add("String languageId = metaInformation.getSyntaxName();");
-		sc.add("languageIDs.add(languageId);");
+		addFields(sc);
+		addConstructor(sc);
+		addMethods(sc);
 		sc.add("}");
-		sc.addLineBreak();
-		sc.add("//");
-		sc.add("// @see");
-		sc.add("// org.eclipse.ui." + I_WORKBENCH_PREFERENCE_PAGE + "#init(org.eclipse.ui." + I_WORKBENCH + ")");
-		sc.add("///");
-		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
-		sc.add("setPreferenceStore(" + pluginActivatorClassName + ".getDefault().getPreferenceStore());");
-		sc.add("setDescription(\"Define the coloring of matching brackets.\");");
-		sc.addLineBreak();
-		sc.add("bracketsTmp = new " + bracketSetClassName + "(null, null);");
-		sc.add("for (String languageID : languageIDs) {");
-		sc.add("bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addMethods(StringComposite sc) {
+		addInitMethod(sc);
+		addCreateContentsMethod(sc);
+		addHandleMatchingBracketsSelectionMethod(sc);
+		addInitializeLanguageMethod(sc);
+		addAddListenersToStyleButtonsMethod(sc);
+		addPerformDefaultsMethod(sc);
+		addPerformOkMethod(sc);
+		addPerformApplyMethod(sc);
+		addUpdateActiveEditorMethod(sc);
+	}
+
+	private void addUpdateActiveEditorMethod(StringComposite sc) {
+		sc.add("// Sets the chosen options to the preference store and refreshs it in the");
+		sc.add("// editor.");
+		sc.add("private void updateActiveEditor() {");
+		sc.add("// set the values after ok or apply");
+		sc.add(PREFERENCE_CONVERTER + ".setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());");
+		sc.add("getPreferenceStore().setValue(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());");
+		sc.add("getPreferenceStore().setValue(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(language));");
+		sc.add(I_WORKBENCH + " workbench = org.eclipse.ui.PlatformUI.getWorkbench();");
+		sc.add(I_EDITOR_PART + " editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
+		sc.add("if (editor != null && editor instanceof " + editorClassName + ") {");
+		sc.add("((" + editorClassName + ") editor).invalidateTextRepresentation();");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addPerformApplyMethod(StringComposite sc) {
+		sc.add("protected void performApply() {");
+		sc.add("updateActiveEditor();");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPerformOkMethod(StringComposite sc) {
+		sc.add("public boolean performOk() {");
+		sc.add("if (!super.performOk()) {");
+		sc.add("return false;");
+		sc.add("}");
+		sc.add("updateActiveEditor();");
+		sc.add("return true;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addPerformDefaultsMethod(StringComposite sc) {
+		sc.add("// Sets the default values for this preference page.");
+		sc.add("protected void performDefaults() {");
+		sc.add("enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(");
+		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
+		sc.add("matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());");
+		sc.add("matchingBracketsColorEditor.setColorValue(" + PREFERENCE_CONVERTER + ".getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));");
+		sc.add("bracketSetTemp.put(language, getPreferenceStore().getDefaultString(");
+		sc.add("language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
+		sc.add("bracketsTmp.setBrackets(bracketSetTemp.get(language));");
+		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
+		sc.add("enableClosingInside.setSelection(false);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addAddListenersToStyleButtonsMethod(StringComposite sc) {
+		sc.add("private void addListenersToStyleButtons() {");
+		sc.add("enableCheckbox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());");
+		sc.add("}");
+		sc.add("});");
+		sc.add("addBracketButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.addLineBreak();
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("String open = leftBracketTokensCombo.getText();");
+		sc.add("String close = rightBracketTokensCombo.getText();");
+		sc.add("if (bracketsTmp.isBracket(open) || bracketsTmp.isBracket(close)) {");
+		sc.add("setErrorMessage(\"One or both bracket parts are set!\");");
+		sc.add("} else {");
+		sc.add("bracketsTmp.addBracketPair(open, close, enableClosingInside.getSelection());");
+		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
+		sc.add("setErrorMessage(null);");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
+		sc.add("}");
+		sc.add("}");
+		sc.add("});");
+		sc.addLineBreak();
+		sc.add("removeBracketButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.addLineBreak();
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("bracketsTmp.removeBracketPairs(bracketsList.getSelection());");
+		sc.add("setErrorMessage(null);");
+		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
+		sc.add("}");
+		sc.add("});");
+		sc.addLineBreak();
+		sc.add("bracketsList.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.addLineBreak();
+		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("boolean isClosingInside = true;");
+		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
+		sc.add("for (int index : itemIndices) {");
+		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(index);");
+		sc.add("if (bracketPair != null");
+		sc.add("&& !bracketPair.isClosingEnabledInside()) {");
+		sc.add("isClosingInside = false;");
+		sc.add("break;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("enableClosingInside.setSelection(isClosingInside);");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("}");
+		sc.add("});");
+		sc.addLineBreak();
+		sc.add("enableClosingInside.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.addLineBreak();
+		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("boolean isClosingInside = enableClosingInside.getSelection();");
+		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
+		sc.add("for (int idx : itemIndices) {");
+		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(idx);");
+		sc.add("if (bracketPair != null)");
+		sc.add("bracketsTmp.setClosingEnabledInside(bracketPair, isClosingInside);");
+		sc.add("}");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
+		sc.add("}");
+		sc.addLineBreak();
+		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
+		sc.add("}");
+		sc.add("});");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addInitializeLanguageMethod(StringComposite sc) {
+		sc.add("public void initializeLanguage() {");
+		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
+		sc.add("bracketsTmp.setBrackets(bracketSetTemp.get(language));");
+		sc.add("leftBracketTokensCombo.setItems(ALL_LEFT_BRACKETS);");
+		sc.add("leftBracketTokensCombo.select(0);");
+		sc.add("rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);");
+		sc.add("rightBracketTokensCombo.select(0);");
+		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addHandleMatchingBracketsSelectionMethod(StringComposite sc) {
+		sc.add("//");
+		sc.add("// Initialize and handle the values of this preference page");
+		sc.add("//");
+		sc.add("private void handleMatchingBracketsSelection() {");
+		sc.add("// not for the case of none existing language");
+		sc.add("enableCheckbox.setSelection(getPreferenceStore().getBoolean(");
+		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
+		sc.add("enableClosingInside.setSelection(false);");
+		sc.add("matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(");
+		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
+		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(),");
+		sc.add("BRACKETS_COLOR);");
+		sc.add("matchingBracketsColorEditor.setColorValue(rgb);");
+		sc.addLineBreak();
+		sc.add("initializeLanguage();");
+		sc.add("bracketsTmp.setBrackets(getPreferenceStore().getString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
+		sc.add("String[] brackets = bracketsTmp.getBracketArray();");
+		sc.add("if (brackets != null) {");
+		sc.add("bracketsList.setItems(brackets);");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addCreateContentsMethod(StringComposite sc) {
 		sc.add("@Override").addLineBreak();
 		sc.add("protected " + CONTROL + " createContents(" + COMPOSITE + " parent) {");
 		sc.addLineBreak();
@@ -201,159 +366,63 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("return settingComposite;");
 		sc.add("}");
 		sc.addLineBreak();
+	}
+
+	private void addInitMethod(StringComposite sc) {
 		sc.add("//");
-		sc.add("// Initialize and handle the values of this preference page");
+		sc.add("// @see");
+		sc.add("// org.eclipse.ui." + I_WORKBENCH_PREFERENCE_PAGE + "#init(org.eclipse.ui." + I_WORKBENCH + ")");
+		sc.add("///");
+		sc.add("public void init(" + I_WORKBENCH + " workbench) {");
+		sc.add("setPreferenceStore(" + pluginActivatorClassName + ".getDefault().getPreferenceStore());");
+		sc.add("setDescription(\"Define the coloring of matching brackets.\");");
+		sc.addLineBreak();
+		sc.add("bracketsTmp = new " + bracketSetClassName + "(null, null);");
+		sc.add("for (String languageID : languageIDs) {");
+		sc.add("bracketSetTemp.put(languageID, getPreferenceStore().getString(languageID + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
+		sc.add("}");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addConstructor(StringComposite sc) {
 		sc.add("//");
-		sc.add("private void handleMatchingBracketsSelection() {");
-		sc.add("// not for the case of none existing language");
-		sc.add("enableCheckbox.setSelection(getPreferenceStore().getBoolean(");
-		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
-		sc.add("enableClosingInside.setSelection(false);");
-		sc.add("matchingBracketsColorButton.setEnabled(getPreferenceStore().getBoolean(");
-		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
-		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(),");
-		sc.add("BRACKETS_COLOR);");
-		sc.add("matchingBracketsColorEditor.setColorValue(rgb);");
+		sc.add("// Creates a preference page for bracket setting.");
+		sc.add("//");
+		sc.add("public " + getResourceClassName() + "() {");
+		sc.add("super();");
 		sc.addLineBreak();
-		sc.add("initializeLanguage();");
-		sc.add("bracketsTmp.setBrackets(getPreferenceStore().getString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
-		sc.add("String[] brackets = bracketsTmp.getBracketArray();");
-		sc.add("if (brackets != null) {");
-		sc.add("bracketsList.setItems(brackets);");
-		sc.add("}");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE_PLUGIN_META_INFORMATION() + " metaInformation = new " + metaInformationClassName + "();");
+		sc.add("String languageId = metaInformation.getSyntaxName();");
+		sc.add("languageIDs.add(languageId);");
 		sc.add("}");
 		sc.addLineBreak();
-		
-		sc.add("public void initializeLanguage() {");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
-		sc.add("bracketsTmp.setBrackets(bracketSetTemp.get(language));");
-		sc.add("leftBracketTokensCombo.setItems(ALL_LEFT_BRACKETS);");
-		sc.add("leftBracketTokensCombo.select(0);");
-		sc.add("rightBracketTokensCombo.setItems(ALL_RIGHT_BRACKETS);");
-		sc.add("rightBracketTokensCombo.select(0);");
-		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
-		sc.add("}");
-		
-		sc.add("private void addListenersToStyleButtons() {");
-		sc.add("enableCheckbox.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("}");
+	}
+
+	private void addFields(StringComposite sc) {
+		sc.add("private static final String[] ALL_LEFT_BRACKETS = new String[] { \"{\", \"(\", \"[\", \"<\", \"\\\"\", \"'\", };");
+		sc.add("private static final String[] ALL_RIGHT_BRACKETS = new String[] { \"}\", \")\", \"]\", \">\", \"\\\"\", \"'\", };");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());");
-		sc.add("}");
-		sc.add("});");
-		sc.add("addBracketButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.add("private String BRACKETS_COLOR = " + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_COLOR;");
 		sc.addLineBreak();
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("}");
+		sc.add("private " + SET + "<String> languageIDs = new " + LINKED_HASH_SET + "<String>();");
 		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("String open = leftBracketTokensCombo.getText();");
-		sc.add("String close = rightBracketTokensCombo.getText();");
-		sc.add("if (bracketsTmp.isBracket(open) || bracketsTmp.isBracket(close)) {");
-		sc.add("setErrorMessage(\"One or both bracket parts are set!\");");
-		sc.add("} else {");
-		sc.add("bracketsTmp.addBracketPair(open, close, enableClosingInside.getSelection());");
-		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
-		sc.add("setErrorMessage(null);");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
-		sc.add("}");
-		sc.add("}");
-		sc.add("});");
+		sc.add("private " + COLOR_SELECTOR + " matchingBracketsColorEditor;");
+		sc.add("private " + LABEL + " colorEditorLabel;");
+		sc.add("private " + BUTTON + " enableCheckbox;");
+		sc.add("private " + BUTTON + " enableClosingInside;");
+		sc.add("private " + BUTTON + " matchingBracketsColorButton;");
+		sc.add("private " + LABEL + " bracketTokensLabel;");
+		sc.add("private " + COMBO + " leftBracketTokensCombo;");
+		sc.add("private " + COMBO + " rightBracketTokensCombo;");
+		sc.add("private " + SWT_LIST + " bracketsList;");
+		sc.add("private " + BUTTON + " addBracketButton;");
+		sc.add("private " + BUTTON + " removeBracketButton;");
+		sc.add("private " + MAP + "<String, String> bracketSetTemp = new " + HASH_MAP + "<String, String>();");
+		sc.add("private String language = new " + getContext().getQualifiedClassName(EArtifact.META_INFORMATION) + "().getSyntaxName();");
 		sc.addLineBreak();
-		sc.add("removeBracketButton.addSelectionListener(new " + SELECTION_LISTENER + "() {");
+		sc.add("private " + bracketSetClassName + " bracketsTmp;");
 		sc.addLineBreak();
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("bracketsTmp.removeBracketPairs(bracketsList.getSelection());");
-		sc.add("setErrorMessage(null);");
-		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
-		sc.add("}");
-		sc.add("});");
-		sc.addLineBreak();
-		sc.add("bracketsList.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("boolean isClosingInside = true;");
-		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
-		sc.add("for (int index : itemIndices) {");
-		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(index);");
-		sc.add("if (bracketPair != null");
-		sc.add("&& !bracketPair.isClosingEnabledInside()) {");
-		sc.add("isClosingInside = false;");
-		sc.add("break;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("enableClosingInside.setSelection(isClosingInside);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("}");
-		sc.add("});");
-		sc.addLineBreak();
-		sc.add("enableClosingInside.addSelectionListener(new " + SELECTION_LISTENER + "() {");
-		sc.addLineBreak();
-		sc.add("public void widgetSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("boolean isClosingInside = enableClosingInside.getSelection();");
-		sc.add("int[] itemIndices = bracketsList.getSelectionIndices();");
-		sc.add("for (int idx : itemIndices) {");
-		sc.add(getClassNameHelper().getI_BRACKET_PAIR() + " bracketPair = bracketsTmp.getBracketPair(idx);");
-		sc.add("if (bracketPair != null)");
-		sc.add("bracketsTmp.setClosingEnabledInside(bracketPair, isClosingInside);");
-		sc.add("}");
-		sc.add("bracketSetTemp.put(language, bracketsTmp.getBracketString());");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
-		sc.add("}");
-		sc.add("});");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("// Sets the default values for this preference page.");
-		sc.add("protected void performDefaults() {");
-		sc.add("enableCheckbox.setSelection(getPreferenceStore().getDefaultBoolean(");
-		sc.add(preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX));");
-		sc.add("matchingBracketsColorButton.setEnabled(enableCheckbox.getSelection());");
-		sc.add("matchingBracketsColorEditor.setColorValue(" + PREFERENCE_CONVERTER + ".getDefaultColor(getPreferenceStore(), BRACKETS_COLOR));");
-		sc.add("bracketSetTemp.put(language, getPreferenceStore().getDefaultString(");
-		sc.add("language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
-		sc.add("bracketsTmp.setBrackets(bracketSetTemp.get(language));");
-		sc.add("bracketsList.setItems(bracketsTmp.getBracketArray());");
-		sc.add("enableClosingInside.setSelection(false);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public boolean performOk() {");
-		sc.add("if (!super.performOk()) {");
-		sc.add("return false;");
-		sc.add("}");
-		sc.add("updateActiveEditor();");
-		sc.add("return true;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("protected void performApply() {");
-		sc.add("updateActiveEditor();");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("// Sets the chosen options to the preference store and refreshs it in the");
-		sc.add("// editor.");
-		sc.add("private void updateActiveEditor() {");
-		sc.add("// set the values after ok or apply");
-		sc.add(PREFERENCE_CONVERTER + ".setValue(getPreferenceStore(), BRACKETS_COLOR, matchingBracketsColorEditor.getColorValue());");
-		sc.add("getPreferenceStore().setValue(" + preferenceConstantsClassName + ".EDITOR_MATCHING_BRACKETS_CHECKBOX, enableCheckbox.getSelection());");
-		sc.add("getPreferenceStore().setValue(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX, bracketSetTemp.get(language));");
-		sc.add(I_WORKBENCH + " workbench = org.eclipse.ui.PlatformUI.getWorkbench();");
-		sc.add(I_EDITOR_PART + " editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();");
-		sc.add("if (editor != null && editor instanceof " + editorClassName + ") {");
-		sc.add("((" + editorClassName + ") editor).invalidateTextRepresentation();");
-		sc.add("}");
-		sc.add("}");
-		sc.add("}");
-		out.print(sc.toString());
-		return true;
 	}
 
 	public IGenerator newInstance(GenerationContext context) {
