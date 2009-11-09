@@ -29,6 +29,8 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.BaseGenerator;
 
 public class OccurrenceGenerator extends BaseGenerator {
@@ -51,7 +53,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 	}
 
 	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		StringComposite sc = new JavaComposite();
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// This class finds the positions to highlight and adds them to the document.");
@@ -67,8 +69,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		return true;
 	}
 
-	private void addMethods(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addMethods(StringComposite sc) {
 		addGetResolvedEObjectMethod(sc);
 		addTryToResolveMethod(sc);
 		addGetEObjectAtCurrentPositionMethod(sc);
@@ -82,8 +83,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		addResetTokenRegionMethod(sc);
 	}
 
-	private void addResetTokenRegionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addResetTokenRegionMethod(StringComposite sc) {
 		sc.add("// Resets the token region to enable remove highlighting if the text is changing.");
 		sc.add("public void resetTokenRegion(){");
 		sc.add("tokenRegion = new " + REGION + "(-1, 0);");
@@ -91,8 +91,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsPositionsChangedMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIsPositionsChangedMethod(StringComposite sc) {
 		sc.add("// Check whether the token region changed to decide to highlight or not.");
 		sc.add("//");
 		sc.add("// @return <code>true</code> if the occurrences should be highlighted");
@@ -102,8 +101,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addIsToRemoveHighlightingMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addIsToRemoveHighlightingMethod(StringComposite sc) {
 		sc.add("// Check whether it is time to remove the occurrence highlighting.");
 		sc.add("//");
 		sc.add("// @return <code>true</code> if the caret changed the token.");
@@ -119,8 +117,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addAddPositionsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addAddPositionsMethod(StringComposite sc) {
 		sc.add("private void addPosition(" + I_DOCUMENT + " document, String positionCategory) {");
 		sc.add("int tokenOffset = tokenScanner.getTokenOffset();");
 		sc.add("int tokenLength = tokenScanner.getTokenLength();");
@@ -129,8 +126,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addSetHighlightingPositionsMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addSetHighlightingPositionsMethod(StringComposite sc) {
 		sc.add("private void setHighlightingPositions(" + E_OBJECT + " definitionElement, " + LIST + "<" + E_OBJECT + "> elementsAtDefinition) {");
 		sc.add(I_DOCUMENT + " document = projectionViewer.getDocument();");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
@@ -176,8 +172,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addHandleOccurrenceHighlightingMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addHandleOccurrenceHighlightingMethod(StringComposite sc) {
 		sc.add("// Finds the positions of the occurrences which will be highlighted. The");
 		sc.add("// brackets and the key words should not be highlighted.");
 		sc.add("//");
@@ -249,8 +244,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetLengthMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetLengthMethod(StringComposite sc) {
 		sc.add("private int getLength(" + E_OBJECT + " eObject) {");
 		sc.add(getClassNameHelper().getI_LOCATION_MAP() + " locationMap = textResource.getLocationMap();");
 		sc.add("return locationMap.getCharEnd(eObject) - locationMap.getCharStart(eObject) + 1;");
@@ -258,8 +252,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetTokenTextMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetTokenTextMethod(StringComposite sc) {
 		sc.add("// Gets the token text at the caret.");
 		sc.add("//");
 		sc.add("// @return the token text");
@@ -269,8 +262,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetEObjectAtCurrentPositionMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetEObjectAtCurrentPositionMethod(StringComposite sc) {
 		sc.add("// @return the eObject at the current cursor position.");
 		sc.add("public " + E_OBJECT + " getEObjectAtCurrentPosition() {");
 		sc.add(STYLED_TEXT + " textWidget = projectionViewer.getTextWidget();");
@@ -300,8 +292,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addTryToResolveMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addTryToResolveMethod(StringComposite sc) {
 		sc.add("// Tries to resolve the first proxy object in a list.");
 		sc.add("//");
 		sc.add("// @param objects");
@@ -320,16 +311,14 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addGetResolvedEObjectMethod(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addGetResolvedEObjectMethod(StringComposite sc) {
 		sc.add("private " + E_OBJECT + " getResolvedEObject(" + E_OBJECT + " eObject) {");
 		sc.add("return eObject.eIsProxy() ? " + ECORE_UTIL + ".resolve(eObject, textResource) : eObject;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 
-	private void addConstructor(
-			org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addConstructor(StringComposite sc) {
 		sc.add("// Creates the Occurrence class to find position to highlight.");
 		sc.add("//");
 		sc.add("// @param textResource");
@@ -338,7 +327,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("//            the source viewer for the text");
 		sc.add("// @param tokenScanner");
 		sc.add("//            the token scanner helps to find the searched tokens");
-		sc.add("///");
+		sc.add("//");
 		sc.add("public " + getResourceClassName() + "(" + getClassNameHelper().getI_TEXT_RESOURCE() + " textResource, " + PROJECTION_VIEWER + " sourceViewer, " + textTokenScannerClassName + " tokenScanner) {");
 		sc.add("this.textResource = textResource;");
 		sc.add("this.projectionViewer = sourceViewer;");
@@ -357,7 +346,7 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.addLineBreak();
 	}
 
-	private void addFields(org.emftext.sdk.codegen.composites.StringComposite sc) {
+	private void addFields(StringComposite sc) {
 		sc.add("private final static " + positionHelperClassName + " positionHelper = new " + positionHelperClassName + "();");
 		sc.add("private " + textTokenScannerClassName + " tokenScanner;");
 		sc.add("private " + LIST + "<String> quotedTokenArray;");
