@@ -184,6 +184,9 @@ public class OccurrenceGenerator extends BaseGenerator {
 		sc.add("// @param bracketSet");
 		sc.add("//            the set of brackets which have to be ignored.");
 		sc.add("public void handleOccurrenceHighlighting(" + bracketSetClassName + " bracketSet) {");
+		sc.add("if (textResource == null) {");
+		sc.add("return;");
+		sc.add("}");
 		sc.add(STYLED_TEXT + " textWidget = projectionViewer.getTextWidget();");
 		sc.add("int caretOffset = textWidget.getCaretOffset();");
 		sc.add("caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);");
