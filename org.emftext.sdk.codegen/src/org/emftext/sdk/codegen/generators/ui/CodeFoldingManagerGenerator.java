@@ -53,6 +53,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.RUNNABLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SAFE_RUNNABLE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SAFE_RUNNER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.XML_MEMENTO;
 
 import java.io.PrintWriter;
@@ -497,7 +498,9 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("return;");
 		sc.add("}");
 		sc.add("String uri = editorResource.getURI().toString();");
-		sc.add("if (uri.equals(this.editor.getResource().getURI().toString())) {");
+		sc.add(RESOURCE + " thisEditorResource = this.editor.getResource();");
+		sc.add(URI + " thisEditorResourceURI = thisEditorResource.getURI();");
+		sc.add("if (uri.equals(thisEditorResourceURI.toString())) {");
 		sc.add("saveCodeFoldingStateFile(uri);");
 		sc.add("editor.getSite().getPage().removePartListener(this);");
 		sc.add("}");
