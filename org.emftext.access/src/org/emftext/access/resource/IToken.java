@@ -18,7 +18,7 @@ package org.emftext.access.resource;
  * has a name, a length and is found at a certain offset in a
  * document.
  */
-public interface ITextToken {
+public interface IToken {
 
 	/**
 	 * Returns the name of this token.

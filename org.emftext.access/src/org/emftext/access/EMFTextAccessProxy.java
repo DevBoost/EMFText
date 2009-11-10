@@ -23,27 +23,27 @@ import org.emftext.access.resource.IConfigurable;
 import org.emftext.access.resource.IEditor;
 import org.emftext.access.resource.ILocationMap;
 import org.emftext.access.resource.IParseResult;
-import org.emftext.access.resource.ITextParser;
-import org.emftext.access.resource.ITextPrinter;
-import org.emftext.access.resource.ITextResource;
+import org.emftext.access.resource.IParser;
+import org.emftext.access.resource.IPrinter;
+import org.emftext.access.resource.IResource;
 import org.emftext.access.resource.IMetaInformation;
-import org.emftext.access.resource.ITextScanner;
-import org.emftext.access.resource.ITextToken;
+import org.emftext.access.resource.IScanner;
+import org.emftext.access.resource.IToken;
 
 public class EMFTextAccessProxy implements InvocationHandler {
 
 	protected static Class<?> [] accessInterfaces = {
-			IConfigurable.class,
 			IColorManager.class,
+			IConfigurable.class,
+			IEditor.class,
 			ILocationMap.class,
-			IParseResult.class,
-			ITextParser.class,
-			ITextPrinter.class,
-			ITextResource.class,
 			IMetaInformation.class,
-			ITextScanner.class,
-			ITextToken.class,
-			IEditor.class
+			IParser.class,
+			IParseResult.class,
+			IPrinter.class,
+			IResource.class,
+			IScanner.class,
+			IToken.class
 	};
 
 	protected Object impl;
@@ -89,7 +89,6 @@ public class EMFTextAccessProxy implements InvocationHandler {
 						if (handler instanceof EMFTextAccessProxy) {
 							EMFTextAccessProxy emfHandler = (EMFTextAccessProxy) handler;
 							if (isAccessInterface(emfHandler.accessInterface)) {
-								// Replace args[a] with emfHandler.impl
 								proxyArgs[a] = emfHandler.impl;
 							}
 						}
@@ -122,7 +121,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			// ignore exception and continue to search
 		}
 		Method[] methods = impl.getClass().getMethods();
-		// then look for a methods with the same name (do not care about parameter types)
+		// then look for a method with the same name (do not care about parameter types)
 		// this is needed to find methods that use types from the generated plug-ins as
 		// parameters
 		for (Method nextMethod : methods) {

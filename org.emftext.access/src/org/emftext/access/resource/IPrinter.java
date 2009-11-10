@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * Converts a tree of <code>EObject</code>s into a plain text.
  */
-public interface ITextPrinter extends IConfigurable {
+public interface IPrinter extends IConfigurable {
 
 	/**
 	 * Prints the given <code>EObject</code> and its content to some 

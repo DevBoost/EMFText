@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.resource.Resource;
  * of each element of its content in a text file. This can be used to give
  * more detailed error feedback.
  */
-public interface ITextResource extends Resource {
+public interface IResource extends Resource {
 	
 	/**
 	 * Try to load the content of this resource from the given stream. If

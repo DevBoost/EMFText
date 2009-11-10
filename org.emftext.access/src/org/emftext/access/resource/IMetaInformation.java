@@ -45,7 +45,7 @@ public interface IMetaInformation {
 	 * 
 	 * @return a lexer instance.
 	 */
-	public ITextScanner createLexer();
+	public IScanner createLexer();
 	
 	public IColorManager createColorManager();
 	
@@ -67,7 +67,7 @@ public interface IMetaInformation {
 	 * @param encoding
 	 * @return
 	 */
-	public ITextParser createParser(InputStream inputStream,
+	public IParser createParser(InputStream inputStream,
 			String encoding);
 
 	/**
@@ -79,7 +79,7 @@ public interface IMetaInformation {
 	 * 
 	 * @return
 	 */
-	public ITextPrinter createPrinter(OutputStream stream, ITextResource resource);
+	public IPrinter createPrinter(OutputStream stream, IResource resource);
 
 	/**
 	 * Returns all meta classes for which syntax was defined. This 

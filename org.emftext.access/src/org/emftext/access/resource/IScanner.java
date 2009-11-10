@@ -13,20 +13,20 @@
  ******************************************************************************/
 package org.emftext.access.resource;
 
-
 /**
- * A text parser parses a text into a tree of <code>EObject</code>s.
- * It is associated with a <code>TextResource</code>.
+ * A common interface for scanners to be used by EMFText.
+ * A scanner is initialized with a text and delivers a 
+ * sequence of tokens.
  */
-public interface ITextParser extends IConfigurable {
+public interface IScanner {
 
-    /**
-     * Parses the content given to the parser and create a tree 
-     * of EObjects. The root of this tree is wrapped together 
-     * with some commands that might be executed after parsing.
-     * 
-     * @return the result of the parse process
-     */
-	public IParseResult parse();
-
+	/**
+	 * Sets the text that must be scanned.
+	 */
+	public void setText(String text);
+	
+	/**
+	 * Returns the next token found in the text.
+	 */
+	public IToken getNextToken();
 }
