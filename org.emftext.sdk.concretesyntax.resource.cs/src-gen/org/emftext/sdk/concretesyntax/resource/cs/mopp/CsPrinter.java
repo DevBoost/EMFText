@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- * Software Technology Group - TU Dresden, Germany
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter {
@@ -46,7 +33,12 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	}
 	
 	protected void doPrint(org.eclipse.emf.ecore.EObject element, java.io.PrintWriter out, java.lang.String globaltab) {
-		if (element == null || out == null) throw new java.lang.NullPointerException("Nothing to write or to write on.");
+		if (element == null) {
+			throw new java.lang.IllegalArgumentException("Nothing to write.");
+		}
+		if (out == null) {
+			throw new java.lang.IllegalArgumentException("Nothing to write on.");
+		}
 		
 		if (element instanceof org.emftext.sdk.concretesyntax.ConcreteSyntax) {
 			print_org_emftext_sdk_concretesyntax_ConcreteSyntax((org.emftext.sdk.concretesyntax.ConcreteSyntax) element, globaltab, out);

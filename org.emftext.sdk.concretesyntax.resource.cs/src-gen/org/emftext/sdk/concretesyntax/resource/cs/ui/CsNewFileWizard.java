@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009 
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *   Software Technology Group - TU Dresden, Germany 
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements org.eclipse.ui.INewWizard {
@@ -153,17 +140,11 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 	}
 	
 	protected String getExampleContent(org.eclipse.emf.ecore.EClass[] startClasses, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax) {
-		String content = "";
-		for (org.eclipse.emf.ecore.EClass next : startClasses) {
-			content = getExampleContent(next, allClassesWithSyntax);
-			if (content.trim().length() > 0) {
-				break;
-			}
-		}
+		String content = "SYNTAXDEF myFileExtension\nFOR <http://www.some-domain.org/myLanguage> <optional/path/to/myLanguage.genmodel>\nSTART StartMetaClass\n\nOPTIONS {\n\treloadGeneratorModel = \"true\";\n}\n\nRULES {\n\t// syntax definition for class 'StartMetaClass'\n\tStartMetaClass   ::= \"myKeyword\" attributeOfStartMetaClass[] aContainmentReference* ;\n\t\n\t// syntax definition for class 'AnotherMetaClass'\n\tAnotherMetaClass ::= \"otherKeyword\" aNonContainmentReference[];\n}".replace("\n", System.getProperty("line.separator"));
 		return content;
 	}
 	
-	private String getExampleContent(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax) {
+	protected String getExampleContent(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax) {
 		// create a minimal model
 		org.eclipse.emf.ecore.EObject root = new org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newName);
 		// use printer to get text for model
@@ -172,7 +153,7 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 		try {
 			printer.print(root);
 		} catch (java.io.IOException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("java.lang.Exception while generating example content.", e);
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while generating example content.", e);
 		}
 		return buffer.toString();
 	}
@@ -185,22 +166,10 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	}
 	
-	public String getExampleContent() {
-		return "SYNTAXDEF myFileExtension\n" +
-		"FOR <http://www.some-domain.org/myLanguage> <optional/path/to/myLanguage.genmodel>\n" +
-		"START StartMetaClass\n" +
-		"\n" +
-		"OPTIONS {\n" +
-		"\treloadGeneratorModel = \"true\";\n" +
-		"}\n" +
-		"\n" +
-		"RULES {\n" +
-		"\t// syntax definition for class 'StartMetaClass'\n" +
-		"\tStartMetaClass   ::= \"myKeyword\" attributeOfStartMetaClass[] aContainmentReference* ;\n" +
-		"\t\n" +
-		"\t// syntax definition for class 'AnotherMetaClass'\n" +
-		"\tAnotherMetaClass ::= \"otherKeyword\" aNonContainmentReference[];\n" +
-		"}";
+	public java.lang.String getExampleContent() {
+		return getExampleContent(new org.eclipse.emf.ecore.EClass[] {
+			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
+		}, getMetaInformation().getClassesWithSyntax());
 	}
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(java.io.OutputStream outputStream) {

@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- * Software Technology Group - TU Dresden, Germany
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 // This manager adds new projection annotations for the code folding and deletes
@@ -18,35 +5,6 @@ package org.emftext.sdk.concretesyntax.resource.cs.ui;
 // states. It provides the ability to restore the toggle states between Eclipse
 // sessions and after closing, opening as well.
 public class CsCodeFoldingManager {
-	
-	private static final String VERIFY_KEY = "verify_key";
-	private static final String ANNOTATION = "ANNOTATION";
-	private static final String IS_COLLAPSED = "IS_COLLAPED";
-	private static final String OFFSET = "OFFSET";
-	private static final String LENGTH = "LENGTH";
-	private static final String MODEL = "MODEL";
-	protected java.util.List<org.eclipse.jface.text.source.projection.ProjectionAnnotation> oldAnnotations = new java.util.ArrayList<org.eclipse.jface.text.source.projection.ProjectionAnnotation>();
-	protected java.util.Map<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position> additions = new java.util.HashMap<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position>();
-	protected org.eclipse.jface.text.source.projection.ProjectionAnnotationModel projectionAnnotationModel;
-	protected org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer;
-	protected org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
-	
-	// Creates a code folding manager to handle the
-	// <code>org.eclipse.jface.text.source.projection.ProjectionAnnotation</code>.
-	//
-	// @param sourceViewer
-	//            the source viewer to calculate the element lines
-	public CsCodeFoldingManager(org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer,org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor textEditor) {
-		this.projectionAnnotationModel = sourceViewer.getProjectionAnnotationModel();
-		this.sourceViewer = sourceViewer;
-		this.editor = textEditor;
-		addCloseListener(textEditor);
-		try {
-			restoreCodeFoldingStateFromFile(editor.getResource().getURI().toString());
-		} catch (java.lang.Exception e) {
-			calculatePositions();
-		}
-	}
 	
 	private class FoldingUpdateListener implements org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener {
 		public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource resource) {
@@ -80,7 +38,9 @@ public class CsCodeFoldingManager {
 					return;
 				}
 				String uri = editorResource.getURI().toString();
-				if (uri.equals(this.editor.getResource().getURI().toString())) {
+				org.eclipse.emf.ecore.resource.Resource thisEditorResource = this.editor.getResource();
+				org.eclipse.emf.common.util.URI thisEditorResourceURI = thisEditorResource.getURI();
+				if (uri.equals(thisEditorResourceURI.toString())) {
 					saveCodeFoldingStateFile(uri);
 					editor.getSite().getPage().removePartListener(this);
 				}
@@ -102,6 +62,35 @@ public class CsCodeFoldingManager {
 		public void partVisible(org.eclipse.ui.IWorkbenchPartReference partRef) {
 		}
 		
+	}
+	
+	private static final String VERIFY_KEY = "verify_key";
+	private static final String ANNOTATION = "ANNOTATION";
+	private static final String IS_COLLAPSED = "IS_COLLAPSED";
+	private static final String OFFSET = "OFFSET";
+	private static final String LENGTH = "LENGTH";
+	private static final String MODEL = "MODEL";
+	protected java.util.List<org.eclipse.jface.text.source.projection.ProjectionAnnotation> oldAnnotations = new java.util.ArrayList<org.eclipse.jface.text.source.projection.ProjectionAnnotation>();
+	protected java.util.Map<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position> additions = new java.util.HashMap<org.eclipse.jface.text.source.projection.ProjectionAnnotation, org.eclipse.jface.text.Position>();
+	protected org.eclipse.jface.text.source.projection.ProjectionAnnotationModel projectionAnnotationModel;
+	protected org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer;
+	protected org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor;
+	
+	// Creates a code folding manager to handle the
+	// <code>org.eclipse.jface.text.source.projection.ProjectionAnnotation</code>.
+	//
+	// @param sourceViewer
+	//            the source viewer to calculate the element lines
+	public CsCodeFoldingManager(org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer,org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor textEditor) {
+		this.projectionAnnotationModel = sourceViewer.getProjectionAnnotationModel();
+		this.sourceViewer = sourceViewer;
+		this.editor = textEditor;
+		addCloseListener(textEditor);
+		try {
+			restoreCodeFoldingStateFromFile(editor.getResource().getURI().toString());
+		} catch (java.lang.Exception e) {
+			calculatePositions();
+		}
 	}
 	
 	private void addCloseListener(final org.emftext.sdk.concretesyntax.resource.cs.ui.CsEditor editor) {
@@ -304,7 +293,7 @@ public class CsCodeFoldingManager {
 			md = java.security.MessageDigest.getInstance("MD5");
 			encryptMsg = md.digest(text.getBytes());
 		} catch (java.security.NoSuchAlgorithmException e) {
-			System.out.println("No Such Algorithm java.lang.Exception!");
+			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("NoSuchAlgorithmException while creating MD5 checksum.", e);
 		}
 		String swap = "";
 		String byteStr = "";

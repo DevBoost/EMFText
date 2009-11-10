@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- * Software Technology Group - TU Dresden, Germany
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 //
@@ -224,9 +211,10 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		
 		super.performSaveAs(progressMonitor);
 		
-		// load and resave
+		// load and resave - input has been changed to new path by super
 		input = (org.eclipse.ui.part.FileEditorInput) getEditorInput();
 		path = input.getFile().getFullPath().toString();
+		platformURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true);
 		org.eclipse.emf.ecore.resource.Resource newFile = resourceSet.createResource(platformURI);
 		newFile.getContents().clear();
 		newFile.getContents().addAll(oldFile.getContents());

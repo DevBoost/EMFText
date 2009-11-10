@@ -1,16 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2006-2009
- * Software Technology Group, Dresden University of Technology
- * 
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- * Software Technology Group - TU Dresden, Germany
- *      - initial API and implementation
- ******************************************************************************/
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 // This class finds the positions to highlight and adds them to the document.
@@ -33,7 +20,7 @@ public class CsOccurrence {
 	//            the source viewer for the text
 	// @param tokenScanner
 	//            the token scanner helps to find the searched tokens
-	///
+	//
 	public CsOccurrence(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource textResource, org.eclipse.jface.text.source.projection.ProjectionViewer sourceViewer, org.emftext.sdk.concretesyntax.resource.cs.ui.CsTokenScanner tokenScanner) {
 		this.textResource = textResource;
 		this.projectionViewer = sourceViewer;
@@ -114,6 +101,9 @@ public class CsOccurrence {
 	// @param bracketSet
 	//            the set of brackets which have to be ignored.
 	public void handleOccurrenceHighlighting(org.emftext.sdk.concretesyntax.resource.cs.ui.CsBracketSet bracketSet) {
+		if (textResource == null) {
+			return;
+		}
 		org.eclipse.swt.custom.StyledText textWidget = projectionViewer.getTextWidget();
 		int caretOffset = textWidget.getCaretOffset();
 		caretOffset = projectionViewer.widgetOffset2ModelOffset(caretOffset);
