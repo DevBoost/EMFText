@@ -351,8 +351,9 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("textWidget.setStyleRange(styleRange);");
 		sc.add("}");
 		sc.add("if (category.equals(" + positionCategoryClassName + ".PROXY.toString())) {");
-		sc.add("if (styleRange == null)");
+		sc.add("if (styleRange == null) {");
 		sc.add("return;");
+		sc.add("}");
 		sc.add("styleRange.start = tmpPosition.offset;");
 		sc.add("textWidget.setStyleRange(styleRange);");
 		sc.add("}");
@@ -360,8 +361,9 @@ public class HighlightingGenerator extends BaseGenerator {
 		sc.add("styleRange = getStyleRangeAtPosition(tmpPosition);");
 		sc.add("styleRange.borderStyle = " + SWT + ".BORDER_SOLID;");
 		sc.add("styleRange.borderColor = bracketColor;");
-		sc.add("if (styleRange.foreground == null)");
+		sc.add("if (styleRange.foreground == null) {");
 		sc.add("styleRange.foreground = black;");
+		sc.add("}");
 		sc.add("textWidget.setStyleRange(styleRange);");
 		sc.add("}");
 		sc.add("}");
