@@ -16,7 +16,7 @@ package org.emftext.access.resource;
 
 /**
  * A text parser parses a text into a tree of <code>EObject</code>s.
- * It is associated with a <code>TextResource</code>.
+ * It is associated with a <code>IResource</code>.
  */
 public interface IParser extends IConfigurable {
 
