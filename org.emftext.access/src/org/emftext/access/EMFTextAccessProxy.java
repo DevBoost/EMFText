@@ -20,6 +20,7 @@ import java.lang.reflect.Proxy;
 
 import org.emftext.access.resource.IColorManager;
 import org.emftext.access.resource.IConfigurable;
+import org.emftext.access.resource.IEditor;
 import org.emftext.access.resource.ILocationMap;
 import org.emftext.access.resource.IParseResult;
 import org.emftext.access.resource.ITextParser;
@@ -42,6 +43,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			IMetaInformation.class,
 			ITextScanner.class,
 			ITextToken.class,
+			IEditor.class
 	};
 
 	protected Object impl;
