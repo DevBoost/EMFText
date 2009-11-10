@@ -334,9 +334,10 @@ public class EditorGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("super.performSaveAs(progressMonitor);");
 		sc.addLineBreak();
-		sc.add("// load and resave");
+		sc.add("// load and resave - input has been changed to new path by super");
 		sc.add("input = (" + FILE_EDITOR_INPUT + ") getEditorInput();");
 		sc.add("path = input.getFile().getFullPath().toString();");
+		sc.add("platformURI = " + URI + ".createPlatformResourceURI(path, true);");
 		sc.add(RESOURCE + " newFile = resourceSet.createResource(platformURI);");
 		sc.add("newFile.getContents().clear();");
 		sc.add("newFile.getContents().addAll(oldFile.getContents());");
