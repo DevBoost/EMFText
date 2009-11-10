@@ -219,7 +219,8 @@ public class CsCodeFoldingManager {
 		}
 		// postset collapse state to prevent wrong displaying folding code.
 		for (org.eclipse.jface.text.source.projection.ProjectionAnnotation annotation : collapsedStates.keySet()) {
-			if (collapsedStates.get(annotation)) {
+			Boolean isCollapsed = collapsedStates.get(annotation);
+			if (isCollapsed != null && isCollapsed.booleanValue()) {
 				projectionAnnotationModel.collapse(annotation);
 			}
 		}
