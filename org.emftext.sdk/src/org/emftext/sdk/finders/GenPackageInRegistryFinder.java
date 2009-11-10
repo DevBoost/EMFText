@@ -70,7 +70,7 @@ public class GenPackageInRegistryFinder implements IGenPackageFinder {
 	    		// this is a workaround for Eclipse Bug 288208
 	    		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=288208
 	    		if (!genModelURI.toString().startsWith("platform:/plugin/org.eclipse.m2m.qvt.oml")) {
-		    		EMFTextSDKPlugin.logError("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
+		    		EMFTextSDKPlugin.logWarning("Exception while looking up generator model (" + nextNS + ") in the registry.", e);
 	    		}
 	    	}
         }

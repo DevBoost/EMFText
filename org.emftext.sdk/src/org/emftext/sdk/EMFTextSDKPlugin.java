@@ -68,7 +68,7 @@ public class EMFTextSDKPlugin extends Plugin {
 	}
 
 	/**
-	 * Helper method for error logging.
+	 * Helper method for logging errors.
 	 * 
 	 * @param message
 	 *            the error message
@@ -77,13 +77,39 @@ public class EMFTextSDKPlugin extends Plugin {
 	 * @return the status object describing the error
 	 */
 	public static IStatus logError(String message, Throwable exception) {
+		return logProblem(Status.ERROR, message, exception);
+	}
+
+	/**
+	 * Helper method for logging warnings.
+	 * 
+	 * @param message
+	 *            the warning message
+	 * @param exception
+	 *            the exception that describes the warning in detail
+	 * @return the status object describing the warning
+	 */
+	public static IStatus logWarning(String message, Throwable exception) {
+		return logProblem(Status.WARNING, message, exception);
+	}
+	
+	/**
+	 * Helper method for logging problems.
+	 * 
+	 * @param message
+	 *            the problem message
+	 * @param exception
+	 *            the exception that describes the problem in detail
+	 * @return the status object describing the problem
+	 */
+	public static IStatus logProblem(int severity, String message, Throwable exception) {
 		IStatus status;
 		if (exception != null) {
-			status = new Status(IStatus.ERROR, EMFTextSDKPlugin.PLUGIN_ID,
+			status = new Status(severity, EMFTextSDKPlugin.PLUGIN_ID,
 					0, message, exception);
 		}
 		else {
-			status = new Status(IStatus.ERROR, EMFTextSDKPlugin.PLUGIN_ID,
+			status = new Status(severity, EMFTextSDKPlugin.PLUGIN_ID,
 					message);
 		}
 		
