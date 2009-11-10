@@ -342,7 +342,8 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("// postset collapse state to prevent wrong displaying folding code.");
 		sc.add("for (" + PROJECTION_ANNOTATION + " annotation : collapsedStates.keySet()) {");
-		sc.add("if (collapsedStates.get(annotation)) {");
+		sc.add("Boolean isCollapsed = collapsedStates.get(annotation);");
+		sc.add("if (isCollapsed != null && isCollapsed.booleanValue()) {");
 		sc.add("projectionAnnotationModel.collapse(annotation);");
 		sc.add("}");
 		sc.add("}");
