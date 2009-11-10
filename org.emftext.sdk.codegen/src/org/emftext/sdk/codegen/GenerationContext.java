@@ -76,7 +76,7 @@ public abstract class GenerationContext {
 	 * @return The concrete syntax to be processed and which is 
 	 * assumed to contain all resolved information.
 	 */
-	public ConcreteSyntax getConcreteSyntax(){
+	public ConcreteSyntax getConcreteSyntax() {
 		return concreteSyntax;
 	}
 	

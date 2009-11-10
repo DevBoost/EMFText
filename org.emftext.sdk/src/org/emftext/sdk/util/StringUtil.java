@@ -228,7 +228,11 @@ public class StringUtil {
 	 */
 	public static String escapeToJavaString(String text) {
 		//for javac: replace one backslash by two and escape double quotes
-		return text.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"");
+		return text.replaceAll("\\\\", "\\\\\\\\").
+			replaceAll("\"", "\\\\\"").
+			replace("\n", "\\n").
+			replace("\r", "\\r").
+			replace("\t", "\\t");
 	}
 
 	/**
