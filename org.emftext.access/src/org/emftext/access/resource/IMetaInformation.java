@@ -102,5 +102,7 @@ public interface IMetaInformation {
 	 * 
 	 * @return
 	 */
-	public Factory createResourceFactory();	
+	public Factory createResourceFactory();
+	
+	public INewFileContentProvider getNewFileContentProvider();
 }

@@ -22,6 +22,7 @@ import org.emftext.access.resource.IColorManager;
 import org.emftext.access.resource.IConfigurable;
 import org.emftext.access.resource.IEditor;
 import org.emftext.access.resource.ILocationMap;
+import org.emftext.access.resource.INewFileContentProvider;
 import org.emftext.access.resource.IParseResult;
 import org.emftext.access.resource.IParser;
 import org.emftext.access.resource.IPrinter;
@@ -38,12 +39,13 @@ public class EMFTextAccessProxy implements InvocationHandler {
 			IEditor.class,
 			ILocationMap.class,
 			IMetaInformation.class,
+			INewFileContentProvider.class,
 			IParser.class,
 			IParseResult.class,
 			IPrinter.class,
 			IResource.class,
 			IScanner.class,
-			IToken.class
+			IToken.class,
 	};
 
 	protected Object impl;
