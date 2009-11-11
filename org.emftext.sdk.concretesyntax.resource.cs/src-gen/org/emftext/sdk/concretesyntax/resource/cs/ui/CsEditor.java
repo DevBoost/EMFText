@@ -29,11 +29,11 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	}
 	
 	private final class MarkerUpdateListener implements org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener {
-		public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource resource) {
-			if (resource != null && resource.getErrors().isEmpty()) {
-				org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
+		public void parsingCompleted(org.eclipse.emf.ecore.resource.Resource parsedResource) {
+			if (parsedResource != null && parsedResource.getErrors().isEmpty()) {
+				org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(parsedResource);
 			}
-			refreshMarkers(resource);
+			refreshMarkers(parsedResource);
 		}
 	}
 	
@@ -44,7 +44,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		}
 		
 		public void documentChanged(org.eclipse.jface.text.DocumentEvent event) {
-			bgParsingStrategy.parse(event, resource, CsEditor.this);
+			bgParsingStrategy.parse(event, getResource(), CsEditor.this);
 		}
 	}
 	
@@ -72,14 +72,15 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 							org.eclipse.emf.ecore.resource.Resource changedResource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createURI(delta.getFullPath().toString()), false);
 							if (changedResource != null) {
 								changedResource.unload();
-								if (changedResource.equals(resource)) {
+								org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = getResource();
+								if (changedResource.equals(currentResource)) {
 									// reload the resource displayed in the editor
-									resourceSet.getResource(resource.getURI(), true);
+									resourceSet.getResource(currentResource.getURI(), true);
 								}
-								if (resource != null && resource.getErrors().isEmpty()) {
-									org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(resource);
+								if (currentResource != null && currentResource.getErrors().isEmpty()) {
+									org.eclipse.emf.ecore.util.EcoreUtil.resolveAll(currentResource);
 								}
-								refreshMarkers(resource);
+								refreshMarkers(currentResource);
 								// reset the selected element in outline and
 								// properties by text position
 								if (highlighting != null) {
@@ -115,12 +116,12 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		display = parent.getShell().getDisplay();
 		// we might need to refresh the markers, because the display was not set before, which
 		// prevents updates of the markers
-		refreshMarkers(resource);
+		refreshMarkers(getResource());
 		
 		// Code Folding
 		org.eclipse.jface.text.source.projection.ProjectionViewer viewer = (org.eclipse.jface.text.source.projection.ProjectionViewer) getSourceViewer();
 		// Occurrence initiation, need ITextResource and ISourceViewer.
-		highlighting = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHighlighting(resource, viewer, colorManager, this);
+		highlighting = new org.emftext.sdk.concretesyntax.resource.cs.ui.CsHighlighting(getResource(), viewer, colorManager, this);
 		
 		projectionSupport = new org.eclipse.jface.text.source.projection.ProjectionSupport(viewer, getAnnotationAccess(), getSharedColors());
 		projectionSupport.install();
@@ -145,13 +146,22 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource loadedResource = (org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) resourceSet.getResource(uri, false);
 		if (loadedResource == null) {
 			try {
-				org.eclipse.emf.ecore.resource.Resource demandLoadedResource = resourceSet.getResource(uri, true);
+				org.eclipse.emf.ecore.resource.Resource demandLoadedResource = null;
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = getResource();
+				if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {
+					//do not attempt to load if file extension has changed in a 'save as' operation	
+				}
+				else {
+					demandLoadedResource = resourceSet.getResource(uri, true);
+				}
 				if (demandLoadedResource instanceof org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) {
 					setResource((org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource) demandLoadedResource);
 				} else {
 					// the resource was not loaded by an EMFText resource, but
 					// some other EMF resource
-					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.showErrorDialog("No EMFText resource.", "Sorry, no registered EMFText resource can handle this file type.");
+					org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.showErrorDialog("No EMFText resource.", "The file '" + uri.lastSegment() + "' of type '" + uri.fileExtension() + "' can not be handled by the CsEditor.");
+					//close this editor because it can not present the resource
+					close(false);
 				}
 			} catch (java.lang.Exception e) {
 				org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while loading resource in " + this.getClass().getSimpleName() + ".", e);
@@ -170,10 +180,10 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		
 		super.performSave(overwrite, progressMonitor);
 		// update markers after the resource has been reloaded
-		refreshMarkers(resource);
+		refreshMarkers(getResource());
 		
 		// Save code folding state
-		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());
+		codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());
 	}
 	
 	public void registerTextPresentationListener(org.eclipse.jface.text.ITextPresentationListener listener) {
@@ -206,22 +216,28 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		super.performSaveAs(progressMonitor);
 		
 		// load and resave - input has been changed to new path by super
-		input = (org.eclipse.ui.part.FileEditorInput) getEditorInput();
-		path = input.getFile().getFullPath().toString();
-		platformURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(path, true);
-		org.eclipse.emf.ecore.resource.Resource newFile = resourceSet.createResource(platformURI);
-		newFile.getContents().clear();
-		newFile.getContents().addAll(oldFile.getContents());
-		try {
+		org.eclipse.ui.part.FileEditorInput newInput = (org.eclipse.ui.part.FileEditorInput) getEditorInput();
+		String newPath = newInput.getFile().getFullPath().toString();
+		org.eclipse.emf.common.util.URI newPlatformURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(newPath, true);
+		org.eclipse.emf.ecore.resource.Resource newFile = resourceSet.createResource(newPlatformURI);
+		// if the extension is the same, saving was already performed by super by saving the plain text
+		if (platformURI.fileExtension().equals(newPlatformURI.fileExtension())) {
 			oldFile.unload();
-			if (newFile.getErrors().isEmpty()) {
-				newFile.save(null);
-			}
-		} catch (java.lang.Exception e) {
-			e.printStackTrace();
+			// save code folding state, is it possible with a new name
+			codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());
 		}
-		// Save code folding state, is it possible with a new name
-		codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());
+		else {
+			newFile.getContents().clear();
+			newFile.getContents().addAll(oldFile.getContents());
+			try {
+				oldFile.unload();
+				if (newFile.getErrors().isEmpty()) {
+					newFile.save(null);
+				}
+			} catch (java.lang.Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
@@ -233,7 +249,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		return resource;
 	}
 	
-	protected void setResource(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
+	private void setResource(org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource resource) {
 		assert resource != null;
 		this.resource = resource;
 		if (this.resource.getErrors().isEmpty()) {
@@ -315,7 +331,7 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 			int destination = locationMap.getCharStart(element);
 			int length = locationMap.getCharEnd(element) + 1 - destination;
 			
-			org.emftext.sdk.concretesyntax.resource.cs.ICsTextScanner lexer = resource.getMetaInformation().createLexer();
+			org.emftext.sdk.concretesyntax.resource.cs.ICsTextScanner lexer = getResource().getMetaInformation().createLexer();
 			try {
 				lexer.setText(viewer.getDocument().get(destination, length));
 				org.emftext.sdk.concretesyntax.resource.cs.ICsTextToken token = lexer.getNextToken();
@@ -353,20 +369,20 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 	
 	public void notifyBackgroundParsingFinished() {
 		for (org.emftext.sdk.concretesyntax.resource.cs.ICsBackgroundParsingListener listener : bgParsingListeners) {
-			listener.parsingCompleted(resource);
+			listener.parsingCompleted(getResource());
 		}
 	}
 	
-	private void refreshMarkers(final org.eclipse.emf.ecore.resource.Resource resource) {
-		if (resource == null) {
+	private void refreshMarkers(final org.eclipse.emf.ecore.resource.Resource resourceToRefresh) {
+		if (resourceToRefresh == null) {
 			return;
 		}
 		if (display != null) {
 			display.asyncExec(new java.lang.Runnable() {
 				public void run() {
 					try {
-						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resource);
-						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resource);
+						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.unmark(resourceToRefresh);
+						org.emftext.sdk.concretesyntax.resource.cs.ui.CsMarkerHelper.mark(resourceToRefresh);
 					} catch (org.eclipse.core.runtime.CoreException e) {
 						org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while updating markers on resource", e);
 					}
