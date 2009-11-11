@@ -18,6 +18,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OUTPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_FACTORY;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
@@ -33,6 +34,7 @@ public class MetaInformationGenerator extends BaseGenerator {
 
 	private String colorManagerClassName;
 	private String tokenScannerClassName;
+	private String resourceFactoryClassName;
 
 	public MetaInformationGenerator() {
 		super();
@@ -42,6 +44,7 @@ public class MetaInformationGenerator extends BaseGenerator {
 		super(context, EArtifact.META_INFORMATION);
     	colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
         tokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
+        resourceFactoryClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
 	}
 	
 	@Override
@@ -64,6 +67,13 @@ public class MetaInformationGenerator extends BaseGenerator {
 	private void addCreateTokenScannerMethod(StringComposite sc) {
 		sc.add("public " + I_TOKEN_SCANNER + " createTokenScanner(" + colorManagerClassName + " colorManager) {");
 		sc.add("return new " + tokenScannerClassName + "(colorManager);");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
+	private void addCreateResourceFactoryMethod(StringComposite sc) {
+		sc.add("public " + RESOURCE_FACTORY + " createResourceFactory() {");
+		sc.add("return new " + resourceFactoryClassName + "();");
         sc.add("}");
         sc.addLineBreak();
 	}
@@ -93,6 +103,7 @@ public class MetaInformationGenerator extends BaseGenerator {
     	addGetHoverTextProviderMethod(sc);
 		addCreateColorManagerMethod(sc);
         addCreateTokenScannerMethod(sc);
+        addCreateResourceFactoryMethod(sc);
 	}
 
 	private void addGetStartSymbolsMethod(StringComposite sc) {

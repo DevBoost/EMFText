@@ -117,6 +117,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
@@ -563,6 +564,7 @@ public class IClassNameConstants {
 	public static String RESOURCE = org.eclipse.emf.ecore.resource.Resource.class.getName();
 	public static String RESOURCES_PLUGIN = ResourcesPlugin.class.getName();
 	public static String RESOURCE_BUNDLE = ResourceBundle.class.getName();
+	public static String RESOURCE_FACTORY = Resource.Factory.class.getCanonicalName();
 	public static String RESOURCE_IMPL = ResourceImpl.class.getName();
 	public static String RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY = ResourceItemProviderAdapterFactory.class.getName();
 	public static String RESOURCE_SET = ResourceSet.class.getName();
