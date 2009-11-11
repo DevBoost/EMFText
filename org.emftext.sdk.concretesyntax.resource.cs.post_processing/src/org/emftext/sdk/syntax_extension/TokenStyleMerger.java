@@ -80,7 +80,11 @@ public class TokenStyleMerger extends AbstractPostProcessor {
 		for (Rule rule : syntax.getAllRules()) {
 			Collection<PlaceholderInQuotes> placeholders = CsEObjectUtil.getObjectsByType(rule.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes());
 			for (PlaceholderInQuotes placeholder : placeholders) {
-				String tokenName = placeholder.getToken().getName();
+				TokenDefinition token = placeholder.getToken();
+				if (token == null) {
+					continue;
+				}
+				String tokenName = token.getName();
 
 				TokenStyle newStyle = ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 				newStyle.setRgb("2A00FF");
