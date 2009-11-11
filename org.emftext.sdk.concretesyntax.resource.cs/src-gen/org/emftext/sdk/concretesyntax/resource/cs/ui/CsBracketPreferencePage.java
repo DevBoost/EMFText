@@ -161,6 +161,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 		org.eclipse.swt.graphics.RGB rgb = org.eclipse.jface.preference.PreferenceConverter.getColor(getPreferenceStore(),
 		BRACKETS_COLOR);
 		matchingBracketsColorEditor.setColorValue(rgb);
+		removeBracketButton.setEnabled(false);
 		
 		initializeLanguage();
 		bracketsTmp.setBrackets(getPreferenceStore().getString(language + org.emftext.sdk.concretesyntax.resource.cs.ui.CsPreferenceConstants.EDITOR_BRACKETS_SUFFIX));
@@ -234,6 +235,7 @@ public class CsBracketPreferencePage extends org.eclipse.jface.preference.Prefer
 					}
 				}
 				enableClosingInside.setSelection(isClosingInside);
+				removeBracketButton.setEnabled(itemIndices.length > 0);
 			}
 			
 			public void widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent e) {
