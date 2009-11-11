@@ -28,8 +28,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticException;
@@ -74,7 +74,17 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 				// reload generator model if option is enabled
 				boolean reloadEnabled = OptionManager.INSTANCE.getBooleanOptionValue(syntax, OptionTypes.RELOAD_GENERATOR_MODEL);
 				if (reloadEnabled) {
-					genModel = reloadGeneratorModel(genModel, rs);
+					// check if the ecore model is not loaded, which means that it was updated in the meantime or not loaded yet
+					List<GenPackage> allGenPackages = genModel.getAllGenPackagesWithClassifiers();
+					for (GenPackage genPackage : allGenPackages) {
+						EObject ecorePackage = (EObject) genPackage.eGet(GenModelPackage.Literals.GEN_PACKAGE__ECORE_PACKAGE, false);
+						if (ecorePackage.eIsProxy()) {
+							// new ecore model version -> reconcile genModel				
+							genModel = reloadGeneratorModel(genModel, rs);
+							break;
+						}
+
+					}
 				}
 
 				if (genModelResource != null) {
@@ -87,9 +97,9 @@ public abstract class GenPackageInFileFinder implements IGenPackageFinder {
 					}
 				}
 				// find the Ecore files used by the generator model 
-				List<GenFeature> allGenFeatures = genModel.getAllGenFeatures();
-				for (GenFeature genFeature : allGenFeatures) {
-					final Resource ecoreResource = genFeature.getEcoreFeature().eResource();
+				List<GenPackage> allGenPackages = genModel.getAllGenPackagesWithClassifiers();
+				for (GenPackage genPackage : allGenPackages) {
+					final Resource ecoreResource = genPackage.getEcorePackage().eResource();
 					if (ecoreResource == null) {
 						continue;
 					}
