@@ -206,6 +206,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("enableClosingInside.setSelection(isClosingInside);");
+		sc.add("removeBracketButton.setEnabled(itemIndices.length > 0);");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void widgetDefaultSelected(" + SELECTION_EVENT + " e) {");
@@ -259,6 +260,7 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		sc.add(RGB + " rgb = " + PREFERENCE_CONVERTER + ".getColor(getPreferenceStore(),");
 		sc.add("BRACKETS_COLOR);");
 		sc.add("matchingBracketsColorEditor.setColorValue(rgb);");
+		sc.add("removeBracketButton.setEnabled(false);");
 		sc.addLineBreak();
 		sc.add("initializeLanguage();");
 		sc.add("bracketsTmp.setBrackets(getPreferenceStore().getString(language + " + preferenceConstantsClassName + ".EDITOR_BRACKETS_SUFFIX));");
