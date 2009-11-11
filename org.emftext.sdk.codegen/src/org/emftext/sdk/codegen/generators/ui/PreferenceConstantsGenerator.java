@@ -18,9 +18,10 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PreferenceConstantsGenerator extends BaseGenerator {
+public class PreferenceConstantsGenerator extends JavaBaseGenerator {
 
 	public PreferenceConstantsGenerator() {
 		super();
@@ -30,8 +31,8 @@ public class PreferenceConstantsGenerator extends BaseGenerator {
 		super(context, EArtifact.PREFERENCE_CONSTANTS);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// An interface that defines some constants used to create");

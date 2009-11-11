@@ -43,9 +43,9 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class BracketPreferencePageGenerator extends BaseGenerator {
+public class BracketPreferencePageGenerator extends JavaBaseGenerator {
 
 	private String preferenceConstantsClassName;
 	private String bracketSetClassName;
@@ -66,8 +66,8 @@ public class BracketPreferencePageGenerator extends BaseGenerator {
 		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// The preference page for the bracket setting with following features:");

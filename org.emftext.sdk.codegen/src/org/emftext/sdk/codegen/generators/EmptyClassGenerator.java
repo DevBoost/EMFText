@@ -21,12 +21,10 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class EmptyClassGenerator implements IGenerator {
+public class EmptyClassGenerator extends JavaBaseGenerator {
 
-	private GenerationContext context;
 	private String className;
 	private EArtifact targetPackage;
 
@@ -38,7 +36,7 @@ public class EmptyClassGenerator implements IGenerator {
 		super();
 		this.context = context;
 	}
-	
+
 	public void setClassName(String className) {
 		this.className = className;
 	}
@@ -47,16 +45,16 @@ public class EmptyClassGenerator implements IGenerator {
 		this.targetPackage = targetPackage;
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+
 		sc.add("package " + context.getPackageName(targetPackage) + ";");
 		sc.addLineBreak();
-		
+
 		sc.add("// this empty class was generated to overwrite exiting");
 		sc.add("// classes");
 		sc.add("public class " + className + " {");
 		sc.add("}");
-		
+
 		out.write(sc.toString());
 		return true;
 	}

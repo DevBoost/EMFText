@@ -13,14 +13,18 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.util;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 
-public class UnicodeConverterGenerator extends BaseGenerator {
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class UnicodeConverterGenerator extends JavaBaseGenerator {
 
 	private String inputStreamProcessorName;
 
@@ -37,8 +41,8 @@ public class UnicodeConverterGenerator extends BaseGenerator {
 		return new UnicodeConverterGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

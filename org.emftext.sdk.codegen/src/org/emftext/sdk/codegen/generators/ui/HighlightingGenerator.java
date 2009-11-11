@@ -49,9 +49,10 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class HighlightingGenerator extends BaseGenerator {
+public class HighlightingGenerator extends JavaBaseGenerator {
 
 	private String textTokenScannerClassName;
 	private String colorManagerClassName;
@@ -81,8 +82,8 @@ public class HighlightingGenerator extends BaseGenerator {
 		eObjectSelectClassName = getContext().getQualifiedClassName(EArtifact.E_OBJECT_SELECTION);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A manager class for the highlighting of occurrences and brackets.");

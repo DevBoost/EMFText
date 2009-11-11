@@ -37,7 +37,7 @@ import org.emftext.sdk.concretesyntax.TokenDefinition;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TokenResolverFactoryGenerator extends BaseGenerator {
+public class TokenResolverFactoryGenerator extends JavaBaseGenerator {
 	
 	private final NameUtil nameUtil = new NameUtil();
 	
@@ -50,8 +50,8 @@ public class TokenResolverFactoryGenerator extends BaseGenerator {
 	}
 	
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

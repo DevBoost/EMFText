@@ -63,9 +63,9 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class CodeFoldingManagerGenerator extends BaseGenerator {
+public class CodeFoldingManagerGenerator extends JavaBaseGenerator {
 
 	private String editorClassName;
 
@@ -78,8 +78,8 @@ public class CodeFoldingManagerGenerator extends BaseGenerator {
 		this.editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// This manager adds new projection annotations for the code folding and deletes");

@@ -19,16 +19,17 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPARATOR;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_MAP;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTEGER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class LocationMapGenerator extends BaseGenerator {
+public class LocationMapGenerator extends JavaBaseGenerator {
 
 	public LocationMapGenerator() {
 		super();
@@ -38,8 +39,8 @@ public class LocationMapGenerator extends BaseGenerator {
 		super(context, EArtifact.LOCATION_MAP);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A basic implementation of the ILocationMap interface. Instances");

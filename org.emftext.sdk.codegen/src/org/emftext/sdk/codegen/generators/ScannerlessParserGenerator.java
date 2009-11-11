@@ -95,7 +95,7 @@ import org.emftext.sdk.util.StringUtil;
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
 // TODO enabled backtracking for the postParseCommands lists
-public class ScannerlessParserGenerator extends BaseGenerator {
+public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
@@ -121,8 +121,8 @@ public class ScannerlessParserGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

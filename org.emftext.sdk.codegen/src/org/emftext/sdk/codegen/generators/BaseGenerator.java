@@ -107,11 +107,11 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	
 	private List<GenerationProblem> errors;
 	private List<GenerationProblem> warnings;
-	private GenerationContext context;
+	protected GenerationContext context;
 	private String className;
 	private String packageName;
 
-	private ClassNameHelper classNameHelper;
+	protected ClassNameHelper classNameHelper;
 
 	public BaseGenerator() {
 		super();

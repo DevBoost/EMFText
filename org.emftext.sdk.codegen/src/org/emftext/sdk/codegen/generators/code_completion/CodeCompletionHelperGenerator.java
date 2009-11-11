@@ -13,14 +13,31 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.code_completion;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ATTRIBUTE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASSIFIER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ENUM;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_ENUM_LITERAL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_REFERENCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-public class CodeCompletionHelperGenerator extends BaseGenerator {
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 
 	private String iExpectedElementClassName;
 	private String eClassUtilClassName;
@@ -61,8 +78,8 @@ public class CodeCompletionHelperGenerator extends BaseGenerator {
 		return new CodeCompletionHelperGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

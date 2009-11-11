@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class ANTLRParserBaseGenerator extends BaseGenerator {
+public class ANTLRParserBaseGenerator extends JavaBaseGenerator {
 
 	public ANTLRParserBaseGenerator() {
 		super();
@@ -36,8 +36,8 @@ public class ANTLRParserBaseGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public abstract class " + getResourceClassName() + " extends " + ANTLR_PARSER + " implements " + getClassNameHelper().getI_TEXT_PARSER() + " {");

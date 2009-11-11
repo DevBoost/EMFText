@@ -28,7 +28,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class HoverTextProviderGenerator extends BaseGenerator {
+public class HoverTextProviderGenerator extends JavaBaseGenerator {
 	
 	public HoverTextProviderGenerator() {
 		super();
@@ -39,8 +39,8 @@ public class HoverTextProviderGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

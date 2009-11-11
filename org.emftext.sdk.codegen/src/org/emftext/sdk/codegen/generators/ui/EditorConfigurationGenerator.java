@@ -13,18 +13,30 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-
-import org.emftext.sdk.codegen.composites.JavaComposite;
-import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTENT_ASSISTANT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DEFAULT_ANNOTATION_HOVER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DEFAULT_DAMAGER_REPAIRER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_ANNOTATION_HOVER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTENT_ASSISTANT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DOCUMENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_HYPERLINK_DETECTOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PRESENTATION_RECONCILER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SOURCE_VIEWER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TEXT_HOVER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_TOKEN_SCANNER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PRESENTATION_RECONCILER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SOURCE_VIEWER_CONFIGURATION;
 
 import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
 
-public class EditorConfigurationGenerator extends BaseGenerator {
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.JavaComposite;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class EditorConfigurationGenerator extends JavaBaseGenerator {
 
 	private String editorClassName;
 	private String colorManagerClassName;
@@ -47,8 +59,8 @@ public class EditorConfigurationGenerator extends BaseGenerator {
 		hyperlinkDetectorClassName = getContext().getQualifiedClassName(EArtifact.HYPERLINK_DETECTOR);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// This class provides the configuration for the generated editor. It registers");

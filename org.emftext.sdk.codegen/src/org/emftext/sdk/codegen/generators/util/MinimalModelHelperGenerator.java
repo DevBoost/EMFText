@@ -34,9 +34,9 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class MinimalModelHelperGenerator extends BaseGenerator {
+public class MinimalModelHelperGenerator extends JavaBaseGenerator {
 
 	private String eClassUtilClassName;
 	private String stringUtilClassName;
@@ -57,8 +57,8 @@ public class MinimalModelHelperGenerator extends BaseGenerator {
 		return new MinimalModelHelperGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

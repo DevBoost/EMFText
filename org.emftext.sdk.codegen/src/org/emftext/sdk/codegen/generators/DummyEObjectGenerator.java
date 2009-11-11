@@ -26,8 +26,9 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class DummyEObjectGenerator extends BaseGenerator {
+public class DummyEObjectGenerator extends JavaBaseGenerator {
 
 	public DummyEObjectGenerator() {
 		super();
@@ -37,8 +38,8 @@ public class DummyEObjectGenerator extends BaseGenerator {
 		super(context, EArtifact.DUMMY_E_OBJECT);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// The DummyEObject is used to build a stack of dummy objects when descending");

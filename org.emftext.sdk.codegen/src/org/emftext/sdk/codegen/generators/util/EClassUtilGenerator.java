@@ -13,14 +13,19 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.util;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 
-public class EClassUtilGenerator extends BaseGenerator {
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class EClassUtilGenerator extends JavaBaseGenerator {
 
 	public EClassUtilGenerator() {
 		super();
@@ -34,8 +39,8 @@ public class EClassUtilGenerator extends BaseGenerator {
 		return new EClassUtilGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

@@ -26,8 +26,9 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class ContextDependentURIFragmentGenerator extends BaseGenerator {
+public class ContextDependentURIFragmentGenerator extends JavaBaseGenerator {
 
 	private String qualifiedReferenceResolveResultClassName;
 
@@ -40,8 +41,8 @@ public class ContextDependentURIFragmentGenerator extends BaseGenerator {
 		qualifiedReferenceResolveResultClassName = context.getQualifiedClassName(EArtifact.REFERENCE_RESOLVE_RESULT);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// Standard implementation of <code>IContextDependentURIFragment</code>.");

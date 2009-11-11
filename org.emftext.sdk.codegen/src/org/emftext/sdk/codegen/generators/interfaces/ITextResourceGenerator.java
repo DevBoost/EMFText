@@ -26,9 +26,10 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class ITextResourceGenerator extends BaseGenerator {
+public class ITextResourceGenerator extends JavaBaseGenerator {
 
 	private String iTextResourcePluginPartClassName;
 	private String iLocationMapClassName;
@@ -51,8 +52,8 @@ public class ITextResourceGenerator extends BaseGenerator {
 		return new ITextResourceGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

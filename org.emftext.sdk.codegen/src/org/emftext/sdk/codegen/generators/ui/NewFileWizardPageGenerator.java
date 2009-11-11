@@ -13,14 +13,36 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BUTTON;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTAINER_SELECTION_DIALOG;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_DATA;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GRID_LAYOUT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTAINER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PATH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LABEL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MODIFY_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MODIFY_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PATH;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCES_PLUGIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_ADAPTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.WIZARD_PAGE;
 
-public class NewFileWizardPageGenerator extends BaseGenerator {
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class NewFileWizardPageGenerator extends JavaBaseGenerator {
 
 	public NewFileWizardPageGenerator() {
 		super();
@@ -34,8 +56,8 @@ public class NewFileWizardPageGenerator extends BaseGenerator {
 		return new NewFileWizardPageGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

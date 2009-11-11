@@ -34,7 +34,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class DefaultResolverDelegateGenerator extends BaseGenerator {
+public class DefaultResolverDelegateGenerator extends JavaBaseGenerator {
 
 	public DefaultResolverDelegateGenerator() {
 		super();
@@ -45,8 +45,8 @@ public class DefaultResolverDelegateGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
         

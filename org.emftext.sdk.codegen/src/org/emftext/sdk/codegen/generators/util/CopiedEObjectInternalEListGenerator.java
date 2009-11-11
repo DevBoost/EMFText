@@ -13,14 +13,25 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.util;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_INTERNAL_E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.INTERNAL_E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.NOTIFICATION_CHAIN;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 
-public class CopiedEObjectInternalEListGenerator extends BaseGenerator {
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class CopiedEObjectInternalEListGenerator extends JavaBaseGenerator {
 
 	private String copiedEListClassName;
 
@@ -37,9 +48,9 @@ public class CopiedEObjectInternalEListGenerator extends BaseGenerator {
 		return new CopiedEObjectInternalEListGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
 		//TODO mseifert: override remove() method of iterators
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + copiedEListClassName + "<" + E_OBJECT + "> implements " + INTERNAL_E_LIST + "<" + E_OBJECT + "> {");

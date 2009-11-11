@@ -22,8 +22,9 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class FuzzyResolveResultGenerator extends BaseGenerator {
+public class FuzzyResolveResultGenerator extends JavaBaseGenerator {
 
 	public FuzzyResolveResultGenerator() {
 		super();
@@ -33,8 +34,8 @@ public class FuzzyResolveResultGenerator extends BaseGenerator {
 		super(context, EArtifact.FUZZY_RESOLVE_RESULT);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A FuzzyResolveResult is an implementation of the IReferenceResolveResult");

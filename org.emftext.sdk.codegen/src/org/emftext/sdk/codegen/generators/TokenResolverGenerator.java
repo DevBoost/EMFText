@@ -47,7 +47,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TokenResolverGenerator extends BaseGenerator {
+public class TokenResolverGenerator extends JavaBaseGenerator {
 	
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
@@ -61,13 +61,12 @@ public class TokenResolverGenerator extends BaseGenerator {
 	}
 	
 	private TokenResolverGenerator(GenerationContext context) {
+		// TODO uses deprecated constructor, check for problems
 		super(context, context.getResolverPackageName(), null);
 		this.qualifiedDefaultTokenResolverClassName = context.getQualifiedClassName(EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
-		
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 
@@ -225,4 +224,6 @@ public class TokenResolverGenerator extends BaseGenerator {
 	public void setTokenDefinition(TokenDefinition tokenDefinition) {
 		this.definition = tokenDefinition;
 	}
+
+
 }

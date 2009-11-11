@@ -29,7 +29,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class DefaultTokenResolverGenerator extends BaseGenerator {
+public class DefaultTokenResolverGenerator extends JavaBaseGenerator {
 
 	public DefaultTokenResolverGenerator() {
 		super();
@@ -39,8 +39,8 @@ public class DefaultTokenResolverGenerator extends BaseGenerator {
 		super(context, EArtifact.DEFAULT_TOKEN_RESOLVER);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A default implementation for token resolvers. It tries to resolve lexems using Java methods.");

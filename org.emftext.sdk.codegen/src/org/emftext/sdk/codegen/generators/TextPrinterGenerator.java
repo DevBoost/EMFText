@@ -83,7 +83,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
  */
-public class TextPrinterGenerator extends BaseGenerator {
+public class TextPrinterGenerator extends JavaBaseGenerator {
 
 	private final static String localtabName = "localtab";
 
@@ -190,10 +190,10 @@ public class TextPrinterGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter writer) {
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
 		List<Rule> rules = prepare();
 		
-		StringComposite sc = new JavaComposite();
+		
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
@@ -206,7 +206,7 @@ public class TextPrinterGenerator extends BaseGenerator {
 
 		sc.add("}");
 		
-		writer.write(sc.toString());
+		out.write(sc.toString());
 		return true;
 	}
 

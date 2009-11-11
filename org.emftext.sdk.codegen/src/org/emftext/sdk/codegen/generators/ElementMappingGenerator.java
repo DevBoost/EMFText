@@ -18,8 +18,9 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class ElementMappingGenerator extends BaseGenerator {
+public class ElementMappingGenerator extends JavaBaseGenerator {
 
 	public ElementMappingGenerator() {
 		super();
@@ -29,8 +30,8 @@ public class ElementMappingGenerator extends BaseGenerator {
 		super(context, EArtifact.ELEMENT_MAPPING);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A basic implementation of the IElementMapping interface.");

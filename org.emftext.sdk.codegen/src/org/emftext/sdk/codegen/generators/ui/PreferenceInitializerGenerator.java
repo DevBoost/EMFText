@@ -22,9 +22,10 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PreferenceInitializerGenerator extends BaseGenerator {
+public class PreferenceInitializerGenerator extends JavaBaseGenerator {
 
 	private String activatorClassName;
 	private String bracketSetClassName;
@@ -51,8 +52,8 @@ public class PreferenceInitializerGenerator extends BaseGenerator {
 		return new PreferenceInitializerGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() +";");
 		sc.addLineBreak();
 		sc.add("// Class used to initialize default preference values.");

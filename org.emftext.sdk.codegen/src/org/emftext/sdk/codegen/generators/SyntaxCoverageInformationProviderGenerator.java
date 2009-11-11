@@ -28,7 +28,7 @@ import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 
-public class SyntaxCoverageInformationProviderGenerator extends BaseGenerator {
+public class SyntaxCoverageInformationProviderGenerator extends JavaBaseGenerator {
 
 	private final ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
 	private final GenClassUtil genClassUtil = new GenClassUtil();
@@ -42,8 +42,8 @@ public class SyntaxCoverageInformationProviderGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

@@ -17,18 +17,19 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.DOCUMENT_EVENT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PROGRESS_MONITOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.JOB;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STATUS;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_STATUS;
 
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class BackgroundParsingStrategyGenerator extends BaseGenerator {
+public class BackgroundParsingStrategyGenerator extends JavaBaseGenerator {
 
 	private String editorClassName;
 
@@ -41,8 +42,8 @@ public class BackgroundParsingStrategyGenerator extends BaseGenerator {
 		editorClassName = context.getQualifiedClassName(EArtifact.EDITOR);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A background parsing strategy that starts parsing after a amount of");

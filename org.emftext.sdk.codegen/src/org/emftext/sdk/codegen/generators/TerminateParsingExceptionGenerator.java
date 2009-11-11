@@ -20,8 +20,9 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class TerminateParsingExceptionGenerator extends BaseGenerator {
+public class TerminateParsingExceptionGenerator extends JavaBaseGenerator {
 
 	public TerminateParsingExceptionGenerator() {
 		super();
@@ -35,8 +36,8 @@ public class TerminateParsingExceptionGenerator extends BaseGenerator {
 		return new TerminateParsingExceptionGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

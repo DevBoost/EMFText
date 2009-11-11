@@ -20,9 +20,10 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IReferenceResolverSwitchGenerator extends BaseGenerator {
+public class IReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 
 	private String iReferenceResolveResultClassName;
 	private String iConfigurableClassName;
@@ -41,8 +42,8 @@ public class IReferenceResolverSwitchGenerator extends BaseGenerator {
 		return new IReferenceResolverSwitchGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

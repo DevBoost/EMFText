@@ -25,7 +25,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class ParseResultGenerator extends BaseGenerator {
+public class ParseResultGenerator extends JavaBaseGenerator {
 	
 	public ParseResultGenerator() {
 		super();
@@ -36,8 +36,8 @@ public class ParseResultGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

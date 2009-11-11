@@ -13,14 +13,23 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.util;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.FILE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_FILE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET_IMPL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
-public class TextResourceUtilGenerator extends BaseGenerator {
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class TextResourceUtilGenerator extends JavaBaseGenerator {
 
 	private String textResourceClassName;
 
@@ -37,8 +46,8 @@ public class TextResourceUtilGenerator extends BaseGenerator {
 		return new TextResourceUtilGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		

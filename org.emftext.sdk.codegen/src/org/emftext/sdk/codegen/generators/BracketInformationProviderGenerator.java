@@ -34,7 +34,7 @@ import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.util.EObjectUtil;
 import org.emftext.sdk.util.StringUtil;
 
-public class BracketInformationProviderGenerator extends BaseGenerator {
+public class BracketInformationProviderGenerator extends JavaBaseGenerator {
 
 	private static class BracketPair {
 		private final String openingBracket;
@@ -106,8 +106,8 @@ public class BracketInformationProviderGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

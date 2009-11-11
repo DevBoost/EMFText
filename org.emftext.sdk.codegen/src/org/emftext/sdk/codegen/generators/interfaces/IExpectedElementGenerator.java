@@ -18,9 +18,10 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class IExpectedElementGenerator extends BaseGenerator {
+public class IExpectedElementGenerator extends JavaBaseGenerator {
 
 	public IExpectedElementGenerator() {
 		super();
@@ -34,8 +35,8 @@ public class IExpectedElementGenerator extends BaseGenerator {
 		return new IExpectedElementGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

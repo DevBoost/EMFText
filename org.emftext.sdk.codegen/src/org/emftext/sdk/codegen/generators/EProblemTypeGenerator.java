@@ -21,7 +21,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class EProblemTypeGenerator extends BaseGenerator {
+public class EProblemTypeGenerator extends JavaBaseGenerator {
 
 	public EProblemTypeGenerator() {
 		super();
@@ -32,8 +32,8 @@ public class EProblemTypeGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

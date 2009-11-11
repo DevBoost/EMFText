@@ -30,7 +30,7 @@ import org.emftext.sdk.codegen.OptionManager;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class MetaInformationGenerator extends BaseGenerator {
+public class MetaInformationGenerator extends JavaBaseGenerator {
 
 	private String colorManagerClassName;
 	private String tokenScannerClassName;
@@ -50,8 +50,8 @@ public class MetaInformationGenerator extends BaseGenerator {
 	}
 	
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

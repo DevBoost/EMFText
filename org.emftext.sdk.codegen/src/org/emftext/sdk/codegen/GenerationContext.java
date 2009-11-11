@@ -63,6 +63,8 @@ public abstract class GenerationContext {
 	private Collection<GenFeature> nonContainmentReferences = new LinkedHashSet<GenFeature>();
 
 	private ConcreteSyntaxUtil csUtil = new ConcreteSyntaxUtil();
+
+	private String licenceText;
 	
 	public GenerationContext(ConcreteSyntax concreteSyntax, IProblemCollector problemCollector) {
 		if (concreteSyntax == null) {
@@ -295,5 +297,13 @@ public abstract class GenerationContext {
 
 	public File getFile(EArtifact artifact) {
 		return new File(getPackagePath(artifact) + getClassName(artifact) + Constants.JAVA_FILE_EXTENSION);
+	}
+
+	public String getLicenceText() {
+		return this.licenceText;
+	}
+
+	public void setLicenceText(String text) {
+		this.licenceText = text;
 	}
 }

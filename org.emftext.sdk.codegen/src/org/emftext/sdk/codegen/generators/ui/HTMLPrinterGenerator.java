@@ -13,15 +13,28 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.FONT_DATA;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.HASH_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PUSHBACK_READER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.READER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_READER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_RANGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_PRESENTATION;
 
 import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
 
-public class HTMLPrinterGenerator extends BaseGenerator {
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class HTMLPrinterGenerator extends JavaBaseGenerator {
 
 	public HTMLPrinterGenerator() {
 		super();
@@ -31,8 +44,8 @@ public class HTMLPrinterGenerator extends BaseGenerator {
 		super(context, EArtifact.HTML_PRINTER);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("//*");

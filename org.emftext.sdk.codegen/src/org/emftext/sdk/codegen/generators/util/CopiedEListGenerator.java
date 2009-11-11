@@ -13,14 +13,22 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.util;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BASIC_E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST_ITERATOR;
 
-public class CopiedEListGenerator extends BaseGenerator {
+import java.io.PrintWriter;
+
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class CopiedEListGenerator extends JavaBaseGenerator {
 
 	public CopiedEListGenerator() {
 		super();
@@ -34,8 +42,8 @@ public class CopiedEListGenerator extends BaseGenerator {
 		return new CopiedEListGenerator(context);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		// TODO override remove() method of iterators

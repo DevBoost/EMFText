@@ -61,7 +61,7 @@ import org.emftext.sdk.concretesyntax.OptionTypes;
  * 
  * @see org.emftext.runtime.resource.ITextResource
  */
-public class TextResourceGenerator extends BaseGenerator {
+public class TextResourceGenerator extends JavaBaseGenerator {
 
 	private ConcreteSyntax concreteSyntax;
 	private String resolverSwitchClassName;
@@ -93,8 +93,8 @@ public class TextResourceGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
         sc.addLineBreak();
         

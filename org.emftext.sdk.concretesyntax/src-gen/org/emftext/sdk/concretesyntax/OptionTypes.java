@@ -1321,7 +1321,17 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	OVERRIDE_NEW_FILE_CONTENT_PROVIDER(149, "OVERRIDE_NEW_FILE_CONTENT_PROVIDER", "overrideNewFileContentProvider");
+	OVERRIDE_NEW_FILE_CONTENT_PROVIDER(149, "OVERRIDE_NEW_FILE_CONTENT_PROVIDER", "overrideNewFileContentProvider"), /**
+	 * The '<em><b>LICENCE HEADER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * This option can be used to refer to the location of a file containing
+	 * a licence header that is prepended every generated Java file
+	 * <!-- end-user-doc -->
+	 * @see #LICENCE_HEADER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LICENCE_HEADER(150, "LICENCE_HEADER", "licenceHeader");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3546,6 +3556,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int OVERRIDE_NEW_FILE_CONTENT_PROVIDER_VALUE = 149;
 
 	/**
+	 * The '<em><b>LICENCE HEADER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>LICENCE HEADER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #LICENCE_HEADER
+	 * @model literal="licenceHeader"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LICENCE_HEADER_VALUE = 150;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3701,6 +3726,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER,
 			SAVE_CHANGED_RESOURCES_ONLY,
 			OVERRIDE_NEW_FILE_CONTENT_PROVIDER,
+			LICENCE_HEADER,
 		};
 
 	/**
@@ -3898,6 +3924,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER_VALUE: return OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER;
 			case SAVE_CHANGED_RESOURCES_ONLY_VALUE: return SAVE_CHANGED_RESOURCES_ONLY;
 			case OVERRIDE_NEW_FILE_CONTENT_PROVIDER_VALUE: return OVERRIDE_NEW_FILE_CONTENT_PROVIDER;
+			case LICENCE_HEADER_VALUE: return LICENCE_HEADER;
 		}
 		return null;
 	}

@@ -13,15 +13,51 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ABSTRACT_INFORMATION_CONTROL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ASSERT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.BROWSER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.DISPLAY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.FONT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.GC;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ITERATOR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_DELAYED_INPUT_CHANGE_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INFORMATION_CONTROL_EXTENSION2;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_INPUT_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.J_FACE_RESOURCES;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.KEY_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.KEY_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LOCATION_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MENU;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.OPEN_WINDOW_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.POINT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROGRESS_ADAPTER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PROGRESS_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECTANGLE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SHELL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SLIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING_READER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STYLE_RANGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT_ERROR;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_LAYOUT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_PRESENTATION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TEXT_STYLE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOOL_BAR_MANAGER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.WINDOW_EVENT;
 
 import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
 
-public class BrowserInformationControlGenerator extends BaseGenerator {
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class BrowserInformationControlGenerator extends JavaBaseGenerator {
 
 	private String docBrowserInformationControlInputClassName;
 	private String htmlPrinterClassName;
@@ -36,8 +72,8 @@ public class BrowserInformationControlGenerator extends BaseGenerator {
 		htmlPrinterClassName = getContext().getQualifiedClassName(EArtifact.HTML_PRINTER);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// Displays HTML information in a {@link org.eclipse.swt.browser." + BROWSER + "} widget.");

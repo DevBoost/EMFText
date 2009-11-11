@@ -74,9 +74,9 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class EditorGenerator extends BaseGenerator {
+public class EditorGenerator extends JavaBaseGenerator {
 
 	private String editorConfigurationClassName;
 	private String outlinePageClassName;
@@ -103,8 +103,8 @@ public class EditorGenerator extends BaseGenerator {
 		backgroundParsingStrategyClassName = getContext().getQualifiedClassName(EArtifact.BACKGROUND_PARSING_STRATEGY);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("//");

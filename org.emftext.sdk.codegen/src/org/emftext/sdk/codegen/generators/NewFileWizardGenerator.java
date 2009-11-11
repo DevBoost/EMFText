@@ -58,7 +58,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
  * The NewFileContentGenerator can be used to create a NewFileWizard that 
  * creates a minimal sample file from a concrete syntax when it is invoked.
  */
-public class NewFileWizardGenerator extends BaseGenerator {
+public class NewFileWizardGenerator extends JavaBaseGenerator {
 	
 	private String newFileWizardPageClassName;
 	private String metaInformationClassName;
@@ -73,8 +73,8 @@ public class NewFileWizardGenerator extends BaseGenerator {
 		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + WIZARD + " implements " + I_NEW_WIZARD + " {");

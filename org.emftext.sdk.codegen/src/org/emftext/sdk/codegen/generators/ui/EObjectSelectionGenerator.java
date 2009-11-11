@@ -27,9 +27,9 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class EObjectSelectionGenerator extends BaseGenerator {
+public class EObjectSelectionGenerator extends JavaBaseGenerator {
 
 	public EObjectSelectionGenerator() {
 		super();
@@ -39,8 +39,8 @@ public class EObjectSelectionGenerator extends BaseGenerator {
 		super(context, EArtifact.E_OBJECT_SELECTION);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " implements " + I_STRUCTURED_SELECTION + " {");

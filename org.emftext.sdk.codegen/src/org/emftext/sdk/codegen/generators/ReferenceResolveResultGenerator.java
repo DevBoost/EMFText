@@ -22,8 +22,9 @@ import java.io.PrintWriter;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
 
-public class ReferenceResolveResultGenerator extends BaseGenerator {
+public class ReferenceResolveResultGenerator extends JavaBaseGenerator {
 
 	private String qualifiedElementMappingClassName;
 	private String qualifiedURIMappingClassName;
@@ -38,8 +39,8 @@ public class ReferenceResolveResultGenerator extends BaseGenerator {
 		qualifiedURIMappingClassName = context.getQualifiedClassName(EArtifact.URI_MAPPING);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// A basic implementation of IResolveResult interface");

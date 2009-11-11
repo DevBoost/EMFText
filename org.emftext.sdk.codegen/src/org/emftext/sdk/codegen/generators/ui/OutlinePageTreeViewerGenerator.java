@@ -24,9 +24,9 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class OutlinePageTreeViewerGenerator extends BaseGenerator {
+public class OutlinePageTreeViewerGenerator extends JavaBaseGenerator {
 
 	public OutlinePageTreeViewerGenerator() {
 		super();
@@ -36,8 +36,8 @@ public class OutlinePageTreeViewerGenerator extends BaseGenerator {
 		super(context, EArtifact.OUTLINE_PAGE_TREE_VIEWER);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// This custom implementation of a TreeViewer expands the tree");

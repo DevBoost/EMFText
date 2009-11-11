@@ -13,15 +13,38 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.ui;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
-import org.emftext.sdk.codegen.GenerationContext;
-import org.emftext.sdk.codegen.IGenerator;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER_FACTORY_CONTENT_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ADAPTER_FACTORY_LABEL_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSED_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COMPOSITE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.CONTROL;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ECORE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_CONTENT_OUTLINE_PAGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_PAGE_SITE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_CHANGED_LISTENER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.I_SELECTION_PROVIDER;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.LISTENER_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.PAGE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.REFLECTIVE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_ITEM_PROVIDER_ADAPTER_FACTORY;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.RESOURCE_SET;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SELECTION_CHANGED_EVENT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRUCTURED_SELECTION;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TREE_VIEWER;
 
 import java.io.PrintWriter;
-import org.emftext.sdk.codegen.EArtifact;
 
-public class OutlinePageGenerator extends BaseGenerator {
+import org.emftext.sdk.codegen.EArtifact;
+import org.emftext.sdk.codegen.GenerationContext;
+import org.emftext.sdk.codegen.IGenerator;
+import org.emftext.sdk.codegen.composites.StringComposite;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
+
+public class OutlinePageGenerator extends JavaBaseGenerator {
 
 	private String editorClassName;
 	private String outlinePageTreeViewerClassName;
@@ -36,8 +59,8 @@ public class OutlinePageGenerator extends BaseGenerator {
 		outlinePageTreeViewerClassName = getContext().getQualifiedClassName(EArtifact.OUTLINE_PAGE_TREE_VIEWER);
 	}
 
-	public boolean generate(PrintWriter out) {
-		org.emftext.sdk.codegen.composites.StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// Simple Outline Page using the ReflectiveItemAdapters provided by EMF");

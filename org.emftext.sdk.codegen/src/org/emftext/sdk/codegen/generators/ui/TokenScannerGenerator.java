@@ -29,11 +29,11 @@ import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
 // TODO once the text token scanners are generated we might not need
 // ITextResourcePluginMetaInformation.createLexer() anymore
-public class TokenScannerGenerator extends BaseGenerator {
+public class TokenScannerGenerator extends JavaBaseGenerator {
 
 	private String colorManagerClassName;
 	private String pluginActivatorClassName;
@@ -48,8 +48,7 @@ public class TokenScannerGenerator extends BaseGenerator {
 		pluginActivatorClassName = getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new org.emftext.sdk.codegen.composites.JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface");

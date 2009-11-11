@@ -31,7 +31,7 @@ import org.emftext.sdk.concretesyntax.AnnotationType;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.Rule;
 
-public class FoldingInformationProviderGenerator extends BaseGenerator {
+public class FoldingInformationProviderGenerator extends JavaBaseGenerator {
 
 	private final GenClassUtil genClassUtil = new GenClassUtil();
 
@@ -44,8 +44,8 @@ public class FoldingInformationProviderGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();

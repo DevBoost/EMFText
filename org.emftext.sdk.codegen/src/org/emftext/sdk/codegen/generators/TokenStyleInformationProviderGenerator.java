@@ -30,7 +30,7 @@ import org.emftext.sdk.concretesyntax.TokenStyle;
  * This generator composes a provider class that can be used to access the 
  * token styles of a syntax.
  */
-public class TokenStyleInformationProviderGenerator extends BaseGenerator {
+public class TokenStyleInformationProviderGenerator extends JavaBaseGenerator {
 
 	public TokenStyleInformationProviderGenerator() {
 		super();
@@ -41,8 +41,8 @@ public class TokenStyleInformationProviderGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
         

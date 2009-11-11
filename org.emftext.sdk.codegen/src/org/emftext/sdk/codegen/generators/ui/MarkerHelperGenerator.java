@@ -29,9 +29,9 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class MarkerHelperGenerator extends BaseGenerator {
+public class MarkerHelperGenerator extends JavaBaseGenerator {
 
 	private String markeHelperClassName;
 
@@ -44,8 +44,8 @@ public class MarkerHelperGenerator extends BaseGenerator {
 		markeHelperClassName = getContext().getQualifiedClassName(EArtifact.MARKER_HELPER);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// Helper class to add markers to test files based on EMF's <code>" + RESOURCE + "." + DIAGNOSTIC + "</code>.");

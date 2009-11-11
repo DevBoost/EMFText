@@ -32,9 +32,9 @@ import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.generators.BaseGenerator;
+import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-public class PropertySheetPageGenerator extends BaseGenerator {
+public class PropertySheetPageGenerator extends JavaBaseGenerator {
 	
 	private String eObjectSelectionName;
 
@@ -47,8 +47,8 @@ public class PropertySheetPageGenerator extends BaseGenerator {
 		eObjectSelectionName = context.getQualifiedClassName(EArtifact.E_OBJECT_SELECTION);
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("public class " + getResourceClassName() + " extends " + PROPERTY_SHEET_PAGE + " implements " + I_SELECTION_CHANGED_LISTENER + " {");

@@ -13,8 +13,9 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.*;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.URI;
 
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -37,13 +38,11 @@ import org.emftext.sdk.finders.GenClassFinder;
 /**
  * A generator that can create basic stub for a single reference resolver.
  */
-public class ReferenceResolverGenerator implements IGenerator {
-	
+public class ReferenceResolverGenerator extends JavaBaseGenerator {
+
 	private final GeneratorUtil generatorUtil = new GeneratorUtil();
 	private final GenClassFinder genClassFinder = new GenClassFinder();
 
-	private GenerationContext context;
-	private ClassNameHelper classNameHelper;
 	private GenFeature proxyReference;
 	private String defaultResolverDelegateName;
 
@@ -54,30 +53,42 @@ public class ReferenceResolverGenerator implements IGenerator {
 	}
 
 	private ReferenceResolverGenerator(GenerationContext context) {
-		super();
 		this.context = context;
 		this.classNameHelper = new ClassNameHelper(context);
-		this.defaultResolverDelegateName = context.getQualifiedDefaultResolverDelegateName();
+		this.defaultResolverDelegateName = context
+				.getQualifiedDefaultResolverDelegateName();
 	}
-	
+
 	public void setProxyReference(GenFeature proxyReference) {
 		this.proxyReference = proxyReference;
 	}
 
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
-	    sc.add("package " + context.getResolverPackageName() + ";");	
-	    sc.addLineBreak();
-	    
-	    sc.add("public class " + csUtil.getReferenceResolverClassName(proxyReference) + " implements " + getClassNameHelper().getI_REFERENCE_RESOLVER() + "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + "> {");
-	    sc.addLineBreak();
-	    
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+
+		sc.add("package " + context.getResolverPackageName() + ";");
+		sc.addLineBreak();
+
+		sc.add("public class "
+				+ csUtil.getReferenceResolverClassName(proxyReference)
+				+ " implements "
+				+ getClassNameHelper().getI_REFERENCE_RESOLVER()
+				+ "<"
+				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+						.getGenClass())
+				+ ", "
+				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+						.getTypeGenClass()) + "> {");
+		sc.addLineBreak();
+
 		addFields(sc);
 		addResolveMethod(sc);
-	    addDeResolveMethod(sc);
-	    generatorUtil.addSetOptionsMethod(sc, "// save options in a field or leave method empty if this resolver does not depend on any option");
+		addDeResolveMethod(sc);
+		generatorUtil
+				.addSetOptionsMethod(
+						sc,
+						"// save options in a field or leave method empty if this resolver does not depend on any option");
 		sc.add("}");
-		
+
 		out.print(sc.toString());
 		return true;
 	}
@@ -87,38 +98,78 @@ public class ReferenceResolverGenerator implements IGenerator {
 	}
 
 	private void addFields(StringComposite sc) {
-		final boolean isImportedReference = context.isImportedWithSyntaxReference(proxyReference);
+		final boolean isImportedReference = context
+				.isImportedWithSyntaxReference(proxyReference);
 		if (isImportedReference) {
-			// for references in imported rules with a syntax defined elsewhere we
+			// for references in imported rules with a syntax defined elsewhere
+			// we
 			// delegate the reference resolving to the original resolver
-			String resolverName = context.getQualifiedReferenceResolverClassName(proxyReference, true);
-			sc.add("private " + resolverName + " delegate = new " + resolverName + "();");
+			String resolverName = context
+					.getQualifiedReferenceResolverClassName(proxyReference,
+							true);
+			sc.add("private " + resolverName + " delegate = new "
+					+ resolverName + "();");
 		} else {
 			// for references in rules in the current syntax we
 			// delegate the reference resolving to default resolver delegate
-			String typeParameters = "<" + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + ", " + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + ">";
-			sc.add("private " + defaultResolverDelegateName + typeParameters + " delegate = new " + defaultResolverDelegateName + typeParameters + "();");
+			String typeParameters = "<"
+					+ genClassFinder.getQualifiedInterfaceName(proxyReference
+							.getGenClass())
+					+ ", "
+					+ genClassFinder.getQualifiedInterfaceName(proxyReference
+							.getTypeGenClass()) + ">";
+			sc.add("private " + defaultResolverDelegateName + typeParameters
+					+ " delegate = new " + defaultResolverDelegateName
+					+ typeParameters + "();");
 		}
-	    sc.addLineBreak();
+		sc.addLineBreak();
 	}
 
 	private void addDeResolveMethod(StringComposite sc) {
-		sc.add("public " + STRING + " deResolve(" + genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass()) + " element, " + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + " container, " + EReference.class.getName() + " reference) {");
+		sc.add("public "
+				+ STRING
+				+ " deResolve("
+				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+						.getTypeGenClass())
+				+ " element, "
+				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+						.getGenClass()) + " container, "
+				+ EReference.class.getName() + " reference) {");
 		sc.add("return delegate.deResolve(element, container, reference);");
 		sc.add("}");
-	    sc.addLineBreak();
+		sc.addLineBreak();
 	}
 
 	private void addResolveMethod(StringComposite sc) {
-		String typeClassName = genClassFinder.getQualifiedInterfaceName(proxyReference.getTypeGenClass());
-		sc.add("public void resolve(" + STRING + " identifier, " + genClassFinder.getQualifiedInterfaceName(proxyReference.getGenClass()) + " container, " + EReference.class.getName() + " reference, int position, boolean resolveFuzzy, final " + getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<" + typeClassName + "> result) {");
+		String typeClassName = genClassFinder
+				.getQualifiedInterfaceName(proxyReference.getTypeGenClass());
+		sc.add("public void resolve("
+				+ STRING
+				+ " identifier, "
+				+ genClassFinder.getQualifiedInterfaceName(proxyReference
+						.getGenClass()) + " container, "
+				+ EReference.class.getName()
+				+ " reference, int position, boolean resolveFuzzy, final "
+				+ getClassNameHelper().getI_REFERENCE_RESOLVE_RESULT() + "<"
+				+ typeClassName + "> result) {");
 
-		final boolean isImportedReference = context.isImportedWithSyntaxReference(proxyReference);
+		final boolean isImportedReference = context
+				.isImportedWithSyntaxReference(proxyReference);
 		if (isImportedReference) {
-			ConcreteSyntax containingSyntax = genClassFinder.getContainingSyntax(context.getConcreteSyntax(), proxyReference.getGenClass());
-			String iReferenceResolveResultClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_RESOLVE_RESULT, containingSyntax);
-			String iReferenceMappingClassName = context.getQualifiedClassName(EArtifact.I_REFERENCE_MAPPING, containingSyntax);
-			sc.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, new " + iReferenceResolveResultClassName + "<" + typeClassName + ">() {");
+			ConcreteSyntax containingSyntax = genClassFinder
+					.getContainingSyntax(context.getConcreteSyntax(),
+							proxyReference.getGenClass());
+			String iReferenceResolveResultClassName = context
+					.getQualifiedClassName(
+							EArtifact.I_REFERENCE_RESOLVE_RESULT,
+							containingSyntax);
+			String iReferenceMappingClassName = context.getQualifiedClassName(
+					EArtifact.I_REFERENCE_MAPPING, containingSyntax);
+			sc
+					.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, new "
+							+ iReferenceResolveResultClassName
+							+ "<"
+							+ typeClassName + ">() {");
 			sc.addLineBreak();
 			sc.add("public boolean wasResolvedUniquely() {");
 			sc.add("return result.wasResolvedUniquely();");
@@ -136,7 +187,8 @@ public class ReferenceResolverGenerator implements IGenerator {
 			sc.add("result.setErrorMessage(message);");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName + "<" + typeClassName + ">> getMappings() {");
+			sc.add("public " + COLLECTION + "<" + iReferenceMappingClassName
+					+ "<" + typeClassName + ">> getMappings() {");
 			sc.add("throw new UnsupportedOperationException();");
 			sc.add("}");
 			sc.addLineBreak();
@@ -144,29 +196,34 @@ public class ReferenceResolverGenerator implements IGenerator {
 			sc.add("return result.getErrorMessage();");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public void addMapping(String identifier, " + URI + " newIdentifier) {");
+			sc.add("public void addMapping(String identifier, " + URI
+					+ " newIdentifier) {");
 			sc.add("result.addMapping(identifier, newIdentifier);");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public void addMapping(String identifier, " + URI + " newIdentifier, String warning) {");
+			sc.add("public void addMapping(String identifier, " + URI
+					+ " newIdentifier, String warning) {");
 			sc.add("result.addMapping(identifier, newIdentifier, warning);");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public void addMapping(String identifier, " + typeClassName + " target) {");
+			sc.add("public void addMapping(String identifier, " + typeClassName
+					+ " target) {");
 			sc.add("result.addMapping(identifier, target);");
 			sc.add("}");
 			sc.addLineBreak();
-			sc.add("public void addMapping(String identifier, " + typeClassName + " target, String warning) {");
+			sc.add("public void addMapping(String identifier, " + typeClassName
+					+ " target, String warning) {");
 			sc.add("result.addMapping(identifier, target, warning);");
 			sc.add("}");
 			sc.add("});");
 			sc.addLineBreak();
 		} else {
-			sc.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);");
+			sc
+					.add("delegate.resolve(identifier, container, reference, position, resolveFuzzy, result);");
 		}
-		
+
 		sc.add("}");
-	    sc.addLineBreak();
+		sc.addLineBreak();
 	}
 
 	public Collection<GenerationProblem> getCollectedErrors() {

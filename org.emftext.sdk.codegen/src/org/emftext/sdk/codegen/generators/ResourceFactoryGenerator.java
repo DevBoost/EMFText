@@ -31,7 +31,7 @@ import org.emftext.sdk.codegen.composites.StringComposite;
  * @see org.emftext.sdk.codegen.generators.TextResourceGenerator
  * @see org.emftext.runtime.resource.ITextResource
  */
-public class ResourceFactoryGenerator extends BaseGenerator {
+public class ResourceFactoryGenerator extends JavaBaseGenerator {
 	
 	private String qualifiedTextResourceClassName;
 	
@@ -51,8 +51,8 @@ public class ResourceFactoryGenerator extends BaseGenerator {
 	}
 
 	@Override
-	public boolean generate(PrintWriter out) {
-		StringComposite sc = new JavaComposite();
+	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
+		
 		
         sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
