@@ -147,7 +147,8 @@ public class CsEditor extends org.eclipse.ui.editors.text.TextEditor implements 
 		if (loadedResource == null) {
 			try {
 				org.eclipse.emf.ecore.resource.Resource demandLoadedResource = null;
-				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = getResource();
+				//here we do not use getResource(), because 'resource' might be null, which is ok when initializing the resource object
+				org.emftext.sdk.concretesyntax.resource.cs.ICsTextResource currentResource = this.resource;
 				if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {
 					//do not attempt to load if file extension has changed in a 'save as' operation	
 				}
