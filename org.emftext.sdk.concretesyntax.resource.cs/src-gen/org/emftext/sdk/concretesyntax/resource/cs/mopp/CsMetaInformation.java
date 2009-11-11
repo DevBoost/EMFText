@@ -74,4 +74,8 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResourceFactory();
 	}
 	
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNewFileContentProvider getNewFileContentProvider() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNewFileContentProvider();
+	}
+	
 }

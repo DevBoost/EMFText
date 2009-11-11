@@ -124,7 +124,7 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 	
 	// We will initialize file contents with a sample text.
 	private java.io.InputStream openContentStream() {
-		return new java.io.ByteArrayInputStream(getExampleContent().getBytes());
+		return new java.io.ByteArrayInputStream(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getNewFileContentProvider().getNewFileContent(newName).getBytes());
 	}
 	
 	private void throwCoreException(String message) throws org.eclipse.core.runtime.CoreException {
@@ -139,25 +139,6 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 		this.selection = selection;
 	}
 	
-	protected String getExampleContent(org.eclipse.emf.ecore.EClass[] startClasses, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax) {
-		String content = "SYNTAXDEF myFileExtension\nFOR <http://www.some-domain.org/myLanguage> <optional/path/to/myLanguage.genmodel>\nSTART StartMetaClass\n\nOPTIONS {\n\treloadGeneratorModel = \"true\";\n}\n\nRULES {\n\t// syntax definition for class 'StartMetaClass'\n\tStartMetaClass   ::= \"myKeyword\" attributeOfStartMetaClass[] aContainmentReference* ;\n\t\n\t// syntax definition for class 'AnotherMetaClass'\n\tAnotherMetaClass ::= \"otherKeyword\" aNonContainmentReference[];\n}".replace("\n", System.getProperty("line.separator"));
-		return content;
-	}
-	
-	protected String getExampleContent(org.eclipse.emf.ecore.EClass eClass, org.eclipse.emf.ecore.EClass[] allClassesWithSyntax) {
-		// create a minimal model
-		org.eclipse.emf.ecore.EObject root = new org.emftext.sdk.concretesyntax.resource.cs.util.CsMinimalModelHelper().getMinimalModel(eClass, allClassesWithSyntax, newName);
-		// use printer to get text for model
-		java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
-		org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter printer = getPrinter(buffer);
-		try {
-			printer.print(root);
-		} catch (java.io.IOException e) {
-			org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin.logError("Exception while generating example content.", e);
-		}
-		return buffer.toString();
-	}
-	
 	public java.lang.String getFileExtension() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation().getSyntaxName();
 	}
@@ -166,13 +147,4 @@ public class CsNewFileWizard extends org.eclipse.jface.wizard.Wizard implements 
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation();
 	}
 	
-	public java.lang.String getExampleContent() {
-		return getExampleContent(new org.eclipse.emf.ecore.EClass[] {
-			org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax(),
-		}, getMetaInformation().getClassesWithSyntax());
-	}
-	
-	public org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter getPrinter(java.io.OutputStream outputStream) {
-		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPrinter(outputStream, new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsResource());
-	}
 }
