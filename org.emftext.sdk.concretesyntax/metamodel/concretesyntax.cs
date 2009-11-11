@@ -2,7 +2,8 @@ SYNTAXDEF cs
 FOR       <http://www.emftext.org/sdk/concretesyntax> <concretesyntax.genmodel>
 START     ConcreteSyntax
 
-OPTIONS {
+OPTIONS {	
+	licenceHeader ="platform:/resource/org.reuseware/licence.txt";
 	tokenspace = "0";
 	defaultTokenName = "QUALIFIED_NAME";
 	usePredefinedTokens = "false";
