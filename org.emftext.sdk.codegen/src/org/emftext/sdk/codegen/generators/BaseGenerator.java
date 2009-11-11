@@ -118,15 +118,11 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	}
 	
 	/**
-	 * Creates a new BaseGenerator that can be used to generate a 
-	 * class with the given name and write it to the specified 
-	 * package.
+	 * Creates a new BaseGenerator that can be used to generate an 
+	 * artifact of the given type.
 	 * 
-	 * @param packageName
-	 * @param className
+	 * @param artifact the type of artifact to be generated
 	 */
-	// TODO pass artifact type instead of package/class name and
-	// derive names from type
 	public BaseGenerator(GenerationContext context, EArtifact artifact) {
 		errors = new LinkedList<GenerationProblem>();
 		warnings = new LinkedList<GenerationProblem>();
@@ -137,6 +133,7 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		this.className = context.getClassName(artifact);
 	}
 	
+	@Deprecated
 	public BaseGenerator(GenerationContext context, String packageName, String className) {
 		errors = new LinkedList<GenerationProblem>();
 		warnings = new LinkedList<GenerationProblem>();
