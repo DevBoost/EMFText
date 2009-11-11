@@ -423,7 +423,8 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("if (loadedResource == null) {");
 		sc.add("try {");
 		sc.add(RESOURCE  + " demandLoadedResource = null;");
-		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = getResource();");
+		sc.add("//here we do not use getResource(), because 'resource' might be null, which is ok when initializing the resource object");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = this.resource;");
 		sc.add("if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {");
 		sc.add("//do not attempt to load if file extension has changed in a 'save as' operation	");
 		sc.add("}");
