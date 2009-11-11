@@ -1313,7 +1313,15 @@ public enum OptionTypes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SAVE_CHANGED_RESOURCES_ONLY(148, "SAVE_CHANGED_RESOURCES_ONLY", "saveChangedResourcesOnly");
+	SAVE_CHANGED_RESOURCES_ONLY(148, "SAVE_CHANGED_RESOURCES_ONLY", "saveChangedResourcesOnly"), /**
+	 * The '<em><b>OVERRIDE NEW FILE CONTENT PROVIDER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_FILE_CONTENT_PROVIDER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	OVERRIDE_NEW_FILE_CONTENT_PROVIDER(149, "OVERRIDE_NEW_FILE_CONTENT_PROVIDER", "overrideNewFileContentProvider");
 
 	/**
 	 * The '<em><b>GENERATE TEST ACTION</b></em>' literal value.
@@ -3523,6 +3531,21 @@ public enum OptionTypes implements Enumerator {
 	public static final int SAVE_CHANGED_RESOURCES_ONLY_VALUE = 148;
 
 	/**
+	 * The '<em><b>OVERRIDE NEW FILE CONTENT PROVIDER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>OVERRIDE NEW FILE CONTENT PROVIDER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #OVERRIDE_NEW_FILE_CONTENT_PROVIDER
+	 * @model literal="overrideNewFileContentProvider"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int OVERRIDE_NEW_FILE_CONTENT_PROVIDER_VALUE = 149;
+
+	/**
 	 * An array of all the '<em><b>Option Types</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3677,6 +3700,7 @@ public enum OptionTypes implements Enumerator {
 			OVERRIDE_BRACKET_INFORMATION_PROVIDER,
 			OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER,
 			SAVE_CHANGED_RESOURCES_ONLY,
+			OVERRIDE_NEW_FILE_CONTENT_PROVIDER,
 		};
 
 	/**
@@ -3873,6 +3897,7 @@ public enum OptionTypes implements Enumerator {
 			case OVERRIDE_BRACKET_INFORMATION_PROVIDER_VALUE: return OVERRIDE_BRACKET_INFORMATION_PROVIDER;
 			case OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER_VALUE: return OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER;
 			case SAVE_CHANGED_RESOURCES_ONLY_VALUE: return SAVE_CHANGED_RESOURCES_ONLY;
+			case OVERRIDE_NEW_FILE_CONTENT_PROVIDER_VALUE: return OVERRIDE_NEW_FILE_CONTENT_PROVIDER;
 		}
 		return null;
 	}

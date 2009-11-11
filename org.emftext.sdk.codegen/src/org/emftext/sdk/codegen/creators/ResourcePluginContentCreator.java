@@ -204,6 +204,7 @@ public class ResourcePluginContentCreator {
 	    creators.add(new GenericArtifactCreator(EArtifact.STRING_UTIL));
 	    creators.add(new GenericArtifactCreator(EArtifact.TEXT_RESOURCE_UTIL));
 	    creators.add(new GenericArtifactCreator(EArtifact.UNICODE_CONVERTER));
+	    creators.add(new GenericArtifactCreator(EArtifact.NEW_FILE_CONTENT_PROVIDER));
 
 	    for (IArtifactCreator creator : creators) {
 			progress.setTaskName("creating " + creator.getArtifactDescription() + "...");

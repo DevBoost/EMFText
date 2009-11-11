@@ -14,11 +14,8 @@
 package org.emftext.sdk.codegen.generators;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_OUTPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.CORE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.EXCEPTION;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_CLASS;
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IDE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.INVOCATION_TARGET_EXCEPTION;
@@ -46,27 +43,16 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.SWT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.WIZARD;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.emftext.sdk.codegen.EArtifact;
 import org.emftext.sdk.codegen.GenerationContext;
 import org.emftext.sdk.codegen.GenerationProblem;
 import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.JavaComposite;
 import org.emftext.sdk.codegen.composites.StringComposite;
-import org.emftext.sdk.codegen.util.GenClassUtil;
-import org.emftext.sdk.concretesyntax.ConcreteSyntax;
-import org.emftext.sdk.util.StreamUtil;
-import org.emftext.sdk.util.StringUtil;
 
 /**
  * The NewFileContentGenerator can be used to create a NewFileWizard that 
@@ -74,9 +60,7 @@ import org.emftext.sdk.util.StringUtil;
  */
 public class NewFileWizardGenerator extends BaseGenerator {
 	
-	private final static GenClassUtil genClassUtil = new GenClassUtil();
 	private String newFileWizardPageClassName;
-	private String mimimalModelHelperClassName;
 	private String metaInformationClassName;
 
 	public NewFileWizardGenerator() {
@@ -86,7 +70,6 @@ public class NewFileWizardGenerator extends BaseGenerator {
 	private NewFileWizardGenerator(GenerationContext context) {
 		super(context, EArtifact.NEW_FILE_WIZARD);
 		newFileWizardPageClassName = getContext().getQualifiedClassName(EArtifact.NEW_FILE_WIZARD_PAGE);
-		mimimalModelHelperClassName = getContext().getQualifiedClassName(EArtifact.MINIMAL_MODEL_HELPER);
 		metaInformationClassName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 	}
 
@@ -118,31 +101,8 @@ public class NewFileWizardGenerator extends BaseGenerator {
 		addOpenContentStreamMethod(sc);
 		addThrowCoreExceptionMethod(sc);
 		addInitMethod(sc);
-		addGetExampleContentMethod1(sc);
-		addGetExampleContentMethod2(sc);
 		addGetFileExtensionMethod(sc);
 		addGetMetaInformationMethod(sc);
-		addGetExampleContentMethod(sc);
-		addGetPrinterMethod(sc);
-	}
-
-	private void addGetPrinterMethod(StringComposite sc) {
-		sc.add("public " + getClassNameHelper().getI_TEXT_PRINTER() + " getPrinter(" + OutputStream.class.getName() + " outputStream) {");
-		sc.add("return new " + getContext().getQualifiedClassName(EArtifact.PRINTER) + "(outputStream, new " + getContext().getQualifiedClassName(EArtifact.RESOURCE) + "());");
-		sc.add("}");
-	}
-
-	private void addGetExampleContentMethod(StringComposite sc) {
-		ConcreteSyntax syntax = getContext().getConcreteSyntax();
-		List<GenClass> startSymbols = syntax.getActiveStartSymbols();
-		sc.add("public " + STRING + " getExampleContent() {");
-		sc.add("return getExampleContent(new " + E_CLASS + "[] {");
-		for (GenClass startSymbol : startSymbols) {
-			sc.add(genClassUtil.getAccessor(startSymbol) + ",");
-		}
-		sc.add("}, getMetaInformation().getClassesWithSyntax());");
-		sc.add("}");
-		sc.addLineBreak();
 	}
 
 	private void addGetMetaInformationMethod(StringComposite sc) {
@@ -156,57 +116,6 @@ public class NewFileWizardGenerator extends BaseGenerator {
 		sc.add("public " + STRING + " getFileExtension() {");
 		String metaInformationName = getContext().getQualifiedClassName(EArtifact.META_INFORMATION);
 		sc.add("return new " + metaInformationName + "().getSyntaxName();");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetExampleContentMethod2(StringComposite sc) {
-		sc.add("protected String getExampleContent(" + E_CLASS + " eClass, " + E_CLASS + "[] allClassesWithSyntax) {");
-		sc.add("// create a minimal model");
-		sc.add(E_OBJECT + " root = new " + mimimalModelHelperClassName + "().getMinimalModel(eClass, allClassesWithSyntax, newName);");
-		sc.add("// use printer to get text for model");
-		sc.add(BYTE_ARRAY_OUTPUT_STREAM + " buffer = new " + BYTE_ARRAY_OUTPUT_STREAM + "();");
-		sc.add(getClassNameHelper().getI_TEXT_PRINTER() + " printer = getPrinter(buffer);");
-		sc.add("try {");
-		sc.add("printer.print(root);");
-		sc.add("} catch (" + IO_EXCEPTION + " e) {");
-		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while generating example content.\", e);");
-		sc.add("}");
-		sc.add("return buffer.toString();");
-		sc.add("}");
-		sc.addLineBreak();
-	}
-
-	private void addGetExampleContentMethod1(StringComposite sc) {
-		sc.add("protected String getExampleContent(" + E_CLASS + "[] startClasses, " + E_CLASS + "[] allClassesWithSyntax) {");
-		ConcreteSyntax syntax = getContext().getConcreteSyntax();
-		Resource resource = syntax.eResource();
-		URI newFileURI = resource.getURI().trimFileExtension().appendFileExtension("newfile").appendFileExtension(syntax.getName());
-		String newFileContent = null;
-		try {
-			InputStream newFileStream = resource.getResourceSet().getURIConverter().createInputStream(newFileURI);
-			newFileContent = StreamUtil.getContent(newFileStream);
-			// replace platform specific line separators with \n,
-			// which will be replaced again by platform specific
-			// separators when the new file wizard is called, which
-			// may happen on a different platform
-			newFileContent = newFileContent.replace("\r\n", "\n");
-			newFileContent = newFileContent.replace("\r", "\n");
-		} catch (IOException e1) {
-			// do nothing - use the minimal model creator instead
-		}
-		if (newFileContent != null) {
-			sc.add("String content = \"" + StringUtil.escapeToJavaString(newFileContent) + "\".replace(\"\\n\", System.getProperty(\"line.separator\"));");
-		} else {
-			sc.add("String content = \"\";");
-			sc.add("for (" + E_CLASS + " next : startClasses) {");
-			sc.add("content = getExampleContent(next, allClassesWithSyntax);");
-			sc.add("if (content.trim().length() > 0) {");
-			sc.add("break;");
-			sc.add("}");
-			sc.add("}");
-		}
-		sc.add("return content;");
 		sc.add("}");
 		sc.addLineBreak();
 	}
@@ -232,7 +141,7 @@ public class NewFileWizardGenerator extends BaseGenerator {
 	private void addOpenContentStreamMethod(StringComposite sc) {
 		sc.add("// We will initialize file contents with a sample text.");
 		sc.add("private " + INPUT_STREAM + " openContentStream() {");
-		sc.add("return new " + BYTE_ARRAY_INPUT_STREAM + "(getExampleContent().getBytes());");
+		sc.add("return new " + BYTE_ARRAY_INPUT_STREAM + "(new " + metaInformationClassName + "().getNewFileContentProvider().getNewFileContent(newName).getBytes());");
 		sc.add("}");
 		sc.addLineBreak();
 	}

@@ -45,6 +45,7 @@ import org.emftext.sdk.codegen.generators.FoldingInformationProviderGenerator;
 import org.emftext.sdk.codegen.generators.FuzzyResolveResultGenerator;
 import org.emftext.sdk.codegen.generators.HoverTextProviderGenerator;
 import org.emftext.sdk.codegen.generators.LocationMapGenerator;
+import org.emftext.sdk.codegen.generators.NewFileContentProviderGenerator;
 import org.emftext.sdk.codegen.generators.NewFileWizardGenerator;
 import org.emftext.sdk.codegen.generators.ParseResultGenerator;
 import org.emftext.sdk.codegen.generators.PluginActivatorGenerator;
@@ -181,6 +182,7 @@ public enum EArtifact {
 	REFERENCE_RESOLVER_SWITCH(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ReferenceResolverSwitch", new ReferenceResolverSwitchGenerator(), OptionTypes.OVERRIDE_REFERENCE_RESOLVER_SWITCH),
 	META_INFORMATION(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "MetaInformation", new MetaInformationGenerator(), OptionTypes.OVERRIDE_META_INFORMATION), 
 	HOVER_TEXT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "HoverTextProvider", new HoverTextProviderGenerator(), OptionTypes.OVERRIDE_HOVER_TEXT_PROVIDER),
+	NEW_FILE_CONTENT_PROVIDER(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "NewFileContentProvider", new NewFileContentProviderGenerator(), OptionTypes.OVERRIDE_NEW_FILE_CONTENT_PROVIDER),
 	PARSE_RESULT(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "ParseResult", new ParseResultGenerator(), OptionTypes.OVERRIDE_PARSE_RESULT),
 	PLUGIN_ACTIVATOR(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "Plugin", new PluginActivatorGenerator(), OptionTypes.OVERRIDE_PLUGIN_ACTIVATOR),
 	TEXT_TOKEN(RESOURCE_PLUGIN, MOPP_PACKAGE, "", "TextToken", new TextTokenGenerator(), OptionTypes.OVERRIDE_TEXT_TOKEN),

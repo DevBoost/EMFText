@@ -292,6 +292,7 @@
     <eLiterals name="OVERRIDE_BRACKET_INFORMATION_PROVIDER" value="146" literal="overrideBracketInformationProvider"/>
     <eLiterals name="OVERRIDE_SYNTAX_COVERAGE_INFORMATION_PROVIDER" value="147" literal="overrideSyntaxCoverageInformationProvider"/>
     <eLiterals name="SAVE_CHANGED_RESOURCES_ONLY" value="148" literal="saveChangedResourcesOnly"/>
+    <eLiterals name="OVERRIDE_NEW_FILE_CONTENT_PROVIDER" value="149" literal="overrideNewFileContentProvider"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Abstract"/>
   <eClassifiers xsi:type="ecore:EClass" name="TokenStyle">

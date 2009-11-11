@@ -35,6 +35,7 @@ public class MetaInformationGenerator extends BaseGenerator {
 	private String colorManagerClassName;
 	private String tokenScannerClassName;
 	private String resourceFactoryClassName;
+	private String newFileContentProviderClassName;
 
 	public MetaInformationGenerator() {
 		super();
@@ -45,6 +46,7 @@ public class MetaInformationGenerator extends BaseGenerator {
     	colorManagerClassName = getContext().getQualifiedClassName(EArtifact.COLOR_MANAGER);
         tokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
         resourceFactoryClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
+        newFileContentProviderClassName = getContext().getQualifiedClassName(EArtifact.NEW_FILE_CONTENT_PROVIDER);
 	}
 	
 	@Override
@@ -78,6 +80,13 @@ public class MetaInformationGenerator extends BaseGenerator {
         sc.addLineBreak();
 	}
 
+	private void addGetNewFileContentProviderMethod(StringComposite sc) {
+		sc.add("public " + newFileContentProviderClassName + " getNewFileContentProvider() {");
+		sc.add("return new " + newFileContentProviderClassName + "();");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
 	private void addCreateColorManagerMethod(StringComposite sc) {
 		sc.add("public " + colorManagerClassName + " createColorManager() {");
         sc.add("return new " + colorManagerClassName + "();");
@@ -104,6 +113,7 @@ public class MetaInformationGenerator extends BaseGenerator {
 		addCreateColorManagerMethod(sc);
         addCreateTokenScannerMethod(sc);
         addCreateResourceFactoryMethod(sc);
+        addGetNewFileContentProviderMethod(sc);
 	}
 
 	private void addGetStartSymbolsMethod(StringComposite sc) {
