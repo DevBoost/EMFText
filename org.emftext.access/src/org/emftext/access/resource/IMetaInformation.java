@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.resource.Resource.Factory;
 
 /**
  * This interface provides information about a generated EMFText
@@ -93,5 +94,13 @@ public interface IMetaInformation {
 	 * 
 	 * @return
 	 */
-	public EClass[] getStartSymbols();	
+	public EClass[] getStartSymbols();
+
+	/**
+	 * Returns a factory that can be used to create resources for
+	 * the generated syntax. 
+	 * 
+	 * @return
+	 */
+	public Factory createResourceFactory();	
 }
