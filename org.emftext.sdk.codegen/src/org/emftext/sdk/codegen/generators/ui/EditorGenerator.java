@@ -153,7 +153,7 @@ public class EditorGenerator extends BaseGenerator {
 	private void addNotifyBackgroundParsingFinishedMethod(StringComposite sc) {
 		sc.add("public void notifyBackgroundParsingFinished() {");
 		sc.add("for (" + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " listener : bgParsingListeners) {");
-		sc.add("listener.parsingCompleted(resource);");
+		sc.add("listener.parsingCompleted(getResource());");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -194,7 +194,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("int destination = locationMap.getCharStart(element);");
 		sc.add("int length = locationMap.getCharEnd(element) + 1 - destination;");
 		sc.addLineBreak();
-		sc.add(getClassNameHelper().getI_TEXT_SCANNER() + " lexer = resource.getMetaInformation().createLexer();");
+		sc.add(getClassNameHelper().getI_TEXT_SCANNER() + " lexer = getResource().getMetaInformation().createLexer();");
 		sc.add("try {");
 		sc.add("lexer.setText(viewer.getDocument().get(destination, length));");
 		sc.add(getClassNameHelper().getI_TEXT_TOKEN() + " token = lexer.getNextToken();");
@@ -303,7 +303,7 @@ public class EditorGenerator extends BaseGenerator {
 	}
 
 	private void addSetResourceMethod(StringComposite sc) {
-		sc.add("protected void setResource(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
+		sc.add("private void setResource(" + getClassNameHelper().getI_TEXT_RESOURCE() + " resource) {");
 		sc.add("assert resource != null;");
 		sc.add("this.resource = resource;");
 		sc.add("if (this.resource.getErrors().isEmpty()) {");
@@ -348,7 +348,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("if (platformURI.fileExtension().equals(newPlatformURI.fileExtension())) {");
 		sc.add("oldFile.unload();");
 		sc.add("// save code folding state, is it possible with a new name");
-		sc.add("codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());");
+		sc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
 		sc.add("}");
 		sc.add("else {");
 		sc.add("newFile.getContents().clear();");
@@ -390,10 +390,10 @@ public class EditorGenerator extends BaseGenerator {
 		sc.addLineBreak();
 		sc.add("super.performSave(overwrite, progressMonitor);");
 		sc.add("// update markers after the resource has been reloaded");
-		sc.add("refreshMarkers(resource);");
+		sc.add("refreshMarkers(getResource());");
 		sc.addLineBreak();
 		sc.add("// Save code folding state");
-		sc.add("codeFoldingManager.saveCodeFoldingStateFile(resource.getURI().toString());");
+		sc.add("codeFoldingManager.saveCodeFoldingStateFile(getResource().getURI().toString());");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void registerTextPresentationListener(" + I_TEXT_PRESENTATION_LISTENER + " listener) {");
@@ -423,7 +423,8 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("if (loadedResource == null) {");
 		sc.add("try {");
 		sc.add(RESOURCE  + " demandLoadedResource = null;");
-		sc.add("if (resource != null && !getResource().getURI().fileExtension().equals(uri.fileExtension())) {");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = getResource();");
+		sc.add("if (currentResource != null && !currentResource.getURI().fileExtension().equals(uri.fileExtension())) {");
 		sc.add("//do not attempt to load if file extension has changed in a 'save as' operation	");
 		sc.add("}");
 		sc.add("else {");
@@ -454,12 +455,12 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("display = parent.getShell().getDisplay();");
 		sc.add("// we might need to refresh the markers, because the display was not set before, which");
 		sc.add("// prevents updates of the markers");
-		sc.add("refreshMarkers(resource);");
+		sc.add("refreshMarkers(getResource());");
 		sc.addLineBreak();
 		sc.add("// Code Folding");
 		sc.add(PROJECTION_VIEWER + " viewer = (" + PROJECTION_VIEWER + ") getSourceViewer();");
 		sc.add("// Occurrence initiation, need ITextResource and ISourceViewer.");
-		sc.add("highlighting = new " + highlightingClassName + "(resource, viewer, colorManager, this);");
+		sc.add("highlighting = new " + highlightingClassName + "(getResource(), viewer, colorManager, this);");
 		sc.addLineBreak();
 		sc.add("projectionSupport = new " + PROJECTION_SUPPORT + "(viewer, getAnnotationAccess(), getSharedColors());");
 		sc.add("projectionSupport.install();");
@@ -529,14 +530,17 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add(RESOURCE + " changedResource = resourceSet.getResource(" + URI + ".createURI(delta.getFullPath().toString()), false);");
 		sc.add("if (changedResource != null) {");
 		sc.add("changedResource.unload();");
-		sc.add("if (changedResource.equals(resource)) {");
+		sc.add(getClassNameHelper().getI_TEXT_RESOURCE() + " currentResource = getResource();");
+		sc.add("if (changedResource.equals(currentResource)) {");
 		sc.add("// reload the resource displayed in the editor");
-		sc.add("resourceSet.getResource(resource.getURI(), true);");
+		sc.add("resourceSet.getResource(currentResource.getURI(), true);");
 		sc.add("}");
-		sc.add("if (resource != null && resource.getErrors().isEmpty()) {");
-		sc.add(ECORE_UTIL + ".resolveAll(resource);");
+		// TODO this is kind of strange, since the code is the same as in setResource()
+		// I was wondering why setResource() is not called after reloading the resource
+		sc.add("if (currentResource != null && currentResource.getErrors().isEmpty()) {");
+		sc.add(ECORE_UTIL + ".resolveAll(currentResource);");
 		sc.add("}");
-		sc.add("refreshMarkers(resource);");
+		sc.add("refreshMarkers(currentResource);");
 		sc.add("// reset the selected element in outline and");
 		sc.add("// properties by text position");
 		sc.add("if (highlighting != null) {");
@@ -567,7 +571,7 @@ public class EditorGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void documentChanged(" + DOCUMENT_EVENT + " event) {");
-		sc.add("bgParsingStrategy.parse(event, resource, " + getResourceClassName() + ".this);");
+		sc.add("bgParsingStrategy.parse(event, getResource(), " + getResourceClassName() + ".this);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
@@ -575,27 +579,28 @@ public class EditorGenerator extends BaseGenerator {
 
 	private void addMarkerUpdateListenerClass(StringComposite sc) {
 		sc.add("private final class MarkerUpdateListener implements " + getClassNameHelper().getI_BACKGROUND_PARSING_LISTENER() + " {");
-		sc.add("public void parsingCompleted(" + RESOURCE + " resource) {");
-		sc.add("if (resource != null && resource.getErrors().isEmpty()) {");
-		sc.add(ECORE_UTIL + ".resolveAll(resource);");
+		sc.add("public void parsingCompleted(" + RESOURCE + " parsedResource) {");
+		// TODO again: this is the same code as in setResource()?
+		sc.add("if (parsedResource != null && parsedResource.getErrors().isEmpty()) {");
+		sc.add(ECORE_UTIL + ".resolveAll(parsedResource);");
 		sc.add("}");
-		sc.add("refreshMarkers(resource);");
+		sc.add("refreshMarkers(parsedResource);");
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
 	}
 	
 	private void addRefreshMarkersMethod(StringComposite sc) {
-		sc.add("private void refreshMarkers(final " + RESOURCE + " resource) {");
-		sc.add("if (resource == null) {");
+		sc.add("private void refreshMarkers(final " + RESOURCE + " resourceToRefresh) {");
+		sc.add("if (resourceToRefresh == null) {");
 		sc.add("return;");
 		sc.add("}");
 		sc.add("if (display != null) {");
 		sc.add("display.asyncExec(new " + RUNNABLE + "() {");
 		sc.add("public void run() {");
 		sc.add("try {");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resource);");
-		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resource);");
+		sc.add(getClassNameHelper().getMARKER_HELPER() + ".unmark(resourceToRefresh);");
+		sc.add(getClassNameHelper().getMARKER_HELPER() + ".mark(resourceToRefresh);");
 		sc.add("} catch (" + CORE_EXCEPTION + " e) {");
 		sc.add(getClassNameHelper().getPLUGIN_ACTIVATOR() + ".logError(\"Exception while updating markers on resource\", e);");
 		sc.add("}");
