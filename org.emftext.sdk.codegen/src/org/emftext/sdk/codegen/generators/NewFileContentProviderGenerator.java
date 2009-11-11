@@ -134,7 +134,7 @@ public class NewFileContentProviderGenerator extends BaseGenerator {
 		} else {
 			sc.add("String content = \"\";");
 			sc.add("for (" + E_CLASS + " next : startClasses) {");
-			sc.add("content = getExampleContent(next, allClassesWithSyntax);");
+			sc.add("content = getExampleContent(next, allClassesWithSyntax, newFileName);");
 			sc.add("if (content.trim().length() > 0) {");
 			sc.add("break;");
 			sc.add("}");
