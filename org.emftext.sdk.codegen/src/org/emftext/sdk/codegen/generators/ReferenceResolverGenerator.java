@@ -52,7 +52,7 @@ public class ReferenceResolverGenerator implements IGenerator {
 	public ReferenceResolverGenerator() {
 		super();
 	}
-			
+
 	private ReferenceResolverGenerator(GenerationContext context) {
 		super();
 		this.context = context;
