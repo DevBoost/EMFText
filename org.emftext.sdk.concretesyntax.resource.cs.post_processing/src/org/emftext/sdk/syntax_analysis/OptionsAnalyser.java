@@ -32,6 +32,7 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 
 	private final List<OptionTypes> BOOLEAN_OPTIONS;
 	private final List<OptionTypes> STRING_OPTIONS;
+	private final List<OptionTypes> NON_STANDARD_OPTIONS;
 	
 	public OptionsAnalyser() {
 		BOOLEAN_OPTIONS = new ArrayList<OptionTypes>();
@@ -61,6 +62,10 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		STRING_OPTIONS.add(OptionTypes.BASE_RESOURCE_PLUGIN);
 		STRING_OPTIONS.add(OptionTypes.ANTLR_PLUGIN_ID);
 		STRING_OPTIONS.add(OptionTypes.LICENCE_HEADER);
+		
+		NON_STANDARD_OPTIONS = new ArrayList<OptionTypes>();
+		NON_STANDARD_OPTIONS.add(OptionTypes.PARSER_GENERATOR);
+		NON_STANDARD_OPTIONS.add(OptionTypes.GENERATE_TEST_ACTION);
 	}
 
 	@Override
@@ -75,6 +80,14 @@ public class OptionsAnalyser extends AbstractPostProcessor {
 		OptionTypes type = option.getType();
 		String value = option.getValue();
 		checkValue(resource, option, type, value);
+		checkForNonStandard(resource, option, type);
+	}
+
+	private void checkForNonStandard(CsResource resource, Option option,
+			OptionTypes type) {
+		if (NON_STANDARD_OPTIONS.contains(type)) {
+			addProblem(resource, ECsProblemType.NON_STANDARD_OPTION, type.getLiteral() + " is a non-standard option, which might not be supported in future versions.", option);
+		}
 	}
 
 	private void checkValue(CsResource resource, Option option, OptionTypes type, String value) {
