@@ -52,7 +52,7 @@ public class DotClasspathCreator extends AbstractArtifactCreator {
 
 	public OptionTypes getOverrideOption() {
 		if (plugin == EPlugins.RESOURCE_PLUGIN) {
-			return OptionTypes.OVERRIDE_DOT_PROJECT;
+			return OptionTypes.OVERRIDE_DOT_CLASSPATH;
 		} else {
 			return OptionTypes.OVERRIDE_ANTLR_PLUGIN;
 		}
