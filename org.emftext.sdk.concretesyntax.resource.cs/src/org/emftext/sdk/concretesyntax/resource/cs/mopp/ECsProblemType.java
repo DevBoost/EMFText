@@ -63,7 +63,8 @@ public enum ECsProblemType {
 	TOKEN_UNREACHABLE(CsEProblemType.ERROR), 
 	TOKEN_OVERLAPPING(CsEProblemType.WARNING), 
 	CYCLIC_SYNTAX_IMPORT(CsEProblemType.ERROR), 
-	EMPTY_CS_STRING(CsEProblemType.ERROR),
+	EMPTY_CS_STRING(CsEProblemType.ERROR), 
+	NON_STANDARD_OPTION(CsEProblemType.WARNING),
 	;
 
 	private CsEProblemType problemType;
