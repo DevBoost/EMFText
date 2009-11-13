@@ -1,32 +1,26 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 1.5.0_20-141 (Apple Inc.)
 Bundle-ManifestVersion: 2
-Bundle-Name: EMFText Parser Plugin: cs
-Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Name: EMFText Concretesyntax Metamodel Text Syntax
+Bundle-SymbolicName: org.emftext.sdk.concretesyntax.resource.cs; singl
+ eton:=true
+Bundle-Version: 1.2.0.v200911130906
 Bundle-Vendor: Software Technology Group - TU Dresden Germany
-Require-Bundle: org.eclipse.core.resources,
- org.emftext.access;resolution:=optional,
- org.eclipse.emf,
- org.eclipse.emf.codegen.ecore,
- org.eclipse.emf.ecore,
- org.eclipse.emf.ecore.edit,
- org.eclipse.emf.edit.ui,
- org.eclipse.emf.workspace,
- org.eclipse.jface,
- org.eclipse.jface.text,
- org.eclipse.ui,
- org.eclipse.ui.editors,
- org.eclipse.ui.ide,
- org.eclipse.ui.views,
- org.emftext.sdk.concretesyntax,
- org.emftext.sdk,
- org.emftext.sdk.antlr;visibility:=reexport
+Require-Bundle: org.eclipse.core.resources,org.emftext.access;resoluti
+ on:=optional,org.eclipse.emf,org.eclipse.emf.codegen.ecore,org.eclips
+ e.emf.ecore,org.eclipse.emf.ecore.edit,org.eclipse.emf.edit.ui,org.ec
+ lipse.emf.workspace,org.eclipse.jface,org.eclipse.jface.text,org.ecli
+ pse.ui,org.eclipse.ui.editors,org.eclipse.ui.ide,org.eclipse.ui.views
+ ,org.emftext.sdk.concretesyntax,org.emftext.sdk,org.emftext.sdk.antlr
+ ;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.emftext.sdk.concretesyntax.resource.cs,
-  org.emftext.sdk.concretesyntax.resource.cs.analysis,
-  org.emftext.sdk.concretesyntax.resource.cs.mopp,
-  org.emftext.sdk.concretesyntax.resource.cs.mopp,
-  org.emftext.sdk.concretesyntax.resource.cs.ui,
-  org.emftext.sdk.concretesyntax.resource.cs.util
-Bundle-Activator: org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPlugin
+Export-Package: org.emftext.sdk.concretesyntax.resource.cs, org.emftex
+ t.sdk.concretesyntax.resource.cs.analysis, org.emftext.sdk.concretesy
+ ntax.resource.cs.mopp, org.emftext.sdk.concretesyntax.resource.cs.mop
+ p, org.emftext.sdk.concretesyntax.resource.cs.ui, org.emftext.sdk.con
+ cretesyntax.resource.cs.util
+Bundle-Activator: org.emftext.sdk.concretesyntax.resource.cs.mopp.CsPl
+ ugin
+

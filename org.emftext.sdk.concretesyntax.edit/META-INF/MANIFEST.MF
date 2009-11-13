@@ -5,7 +5,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EMFText Concretesyntax Metamodel Edit Support
 Bundle-SymbolicName: org.emftext.sdk.concretesyntax.edit; singleton:=t
  rue
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.0.v200911130906
 Bundle-ClassPath: .
 Bundle-Activator: org.emftext.sdk.concretesyntax.provider.Concretesynt
  axEditPlugin$Implementation
