@@ -160,7 +160,7 @@ public class EMFTextAccessProxy implements InvocationHandler {
 				for (int a = 0; a < args.length; a++) {
 					Object arg = args[a];
 					proxyArgs[a] = unwrapIfNeeded(arg);
-					proxyArgs[a] = unwrapArrayIfNeeded(implMethod, arg, implMethod.getParameterTypes()[a]);
+					proxyArgs[a] = unwrapArrayIfNeeded(implMethod, proxyArgs[a], implMethod.getParameterTypes()[a]);
  				}
 			}
 			result = implMethod.invoke(impl, proxyArgs);
