@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resource.cs.ICsMetaInformation {
@@ -89,6 +90,10 @@ public class CsMetaInformation implements org.emftext.sdk.concretesyntax.resourc
 	
 	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNewFileContentProvider getNewFileContentProvider() {
 		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsNewFileContentProvider();
+	}
+	
+	public org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper createCodeCompletionHelper() {
+		return new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsCodeCompletionHelper();
 	}
 	
 }

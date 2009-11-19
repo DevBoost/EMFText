@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 // An adapter from the Eclipse <code>org.eclipse.jface.text.rules.ITokenScanner</code> interface

@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 // A CodeCompletionHelper can be used to derive completion proposals for partial
@@ -32,14 +33,14 @@ public class CsCodeCompletionHelper {
 	public java.util.Collection<String> computeCompletionProposals(org.emftext.sdk.concretesyntax.resource.cs.mopp.CsMetaInformation metaInformation, String content, int cursorOffset) {
 		java.io.ByteArrayInputStream inputStream = new java.io.ByteArrayInputStream(content.getBytes());
 		org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser = metaInformation.createParser(inputStream, null);
-		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements = parseToExpectedElements(parser);
+		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements = java.util.Arrays.asList(parseToExpectedElements(parser));
 		if (expectedElements == null) {
 			return java.util.Collections.emptyList();
 		}
 		if (expectedElements.size() == 0) {
 			return java.util.Collections.emptyList();
 		}
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = getExpectedElements(expectedElements, cursorOffset);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedElements.size()]), cursorOffset));
 		setPrefix(expectedElementsAt, content, cursorOffset);
 		System.out.println(" PARSER returned expectation: " + expectedElementsAt + " for offset " + cursorOffset);
 		java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
@@ -49,17 +50,17 @@ public class CsCodeCompletionHelper {
 		return sortedProposals;
 	}
 	
-	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> parseToExpectedElements(org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] parseToExpectedElements(org.emftext.sdk.concretesyntax.resource.cs.ICsTextParser parser) {
 		final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements = parser.parseToExpectedElements(null);
 		if (expectedElements == null) {
-			return java.util.Collections.emptyList();
+			return new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[0];
 		}
 		removeDuplicateEntries(expectedElements);
 		removeInvalidEntriesAtEnd(expectedElements);
 		for (org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement : expectedElements) {
 			System.out.println("PARSER EXPECTS:   " + expectedElement);
 		}
-		return expectedElements;
+		return expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedElements.size()]);
 	}
 	
 	private void removeDuplicateEntries(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements) {
@@ -239,7 +240,7 @@ public class CsCodeCompletionHelper {
 			if (expectedElements.size() == 0) {
 				continue;
 			}
-			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = getExpectedElements(expectedElements, 0);
+			java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElementsAt = java.util.Arrays.asList(getExpectedElements(expectedElements.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedElements.size()]), 0));
 			setPrefix(expectedElementsAt, content, 0);
 			System.out.println("computeCompletionProposals() " + expectedElementsAt + " for offset " + cursorOffset);
 			java.util.Collection<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);
@@ -274,11 +275,10 @@ public class CsCodeCompletionHelper {
 	// @param cursorOffset
 	// @param allExpectedElements
 	// @return
-	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> getExpectedElements(final java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> allExpectedElements,
-	int cursorOffset) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] getExpectedElements(final org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] allExpectedElements, int cursorOffset) {
 		
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedAfterCursor = getElementsExpectedAt(allExpectedElements, cursorOffset);
-		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedBeforeCursor = getElementsExpectedAt(allExpectedElements, cursorOffset - 1);
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedAfterCursor = java.util.Arrays.asList(getElementsExpectedAt(allExpectedElements, cursorOffset));
+		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedBeforeCursor = java.util.Arrays.asList(getElementsExpectedAt(allExpectedElements, cursorOffset - 1));
 		System.out.println("parseToCursor(" + cursorOffset + ") BEFORE CURSOR " + expectedBeforeCursor);
 		System.out.println("parseToCursor(" + cursorOffset + ") AFTER CURSOR  " + expectedAfterCursor);
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> allExpectedAtCursor = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement>();
@@ -293,7 +293,7 @@ public class CsCodeCompletionHelper {
 				}
 			}
 		}
-		return allExpectedAtCursor;
+		return allExpectedAtCursor.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[allExpectedAtCursor.size()]);
 	}
 	
 	private void setPrefix(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> allExpectedElements, String content, int cursorOffset) {
@@ -305,10 +305,10 @@ public class CsCodeCompletionHelper {
 		}
 	}
 	
-	public java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> getElementsExpectedAt(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> allExpectedElements, int cursorOffset) {
+	public org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] getElementsExpectedAt(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] allExpectedElements, int cursorOffset) {
 		java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedAtCursor = new java.util.ArrayList<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement>();
-		for (int i = 0; i < allExpectedElements.size(); i++) {
-			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement = allExpectedElements.get(i);
+		for (int i = 0; i < allExpectedElements.length; i++) {
+			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement = allExpectedElements[i];
 			
 			int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();
 			//int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();
@@ -318,16 +318,16 @@ public class CsCodeCompletionHelper {
 				expectedAtCursor.add(expectedElement);
 			}
 		}
-		return expectedAtCursor;
+		return expectedAtCursor.toArray(new org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[expectedAtCursor.size()]);
 	}
 	
-	private int getEnd(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> allExpectedElements, int indexInList) {
-		org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtIndex = allExpectedElements.get(indexInList);
+	private int getEnd(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement[] allExpectedElements, int indexInList) {
+		org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtIndex = allExpectedElements[indexInList];
 		int startIncludingHidden = elementAtIndex.getStartIncludingHiddenTokens();
 		int startExcludingHidden = elementAtIndex.getStartExcludingHiddenTokens();
 		
-		for (int i = indexInList + 1; i < allExpectedElements.size(); i++) {
-			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtI = allExpectedElements.get(i);
+		for (int i = indexInList + 1; i < allExpectedElements.length; i++) {
+			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtI = allExpectedElements[i];
 			int startIncludingHiddenForI = elementAtI.getStartIncludingHiddenTokens();
 			int startExcludingHiddenForI = elementAtI.getStartExcludingHiddenTokens();
 			if (startIncludingHidden != startIncludingHiddenForI || startExcludingHidden != startExcludingHiddenForI) {

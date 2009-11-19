@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.ui;
 
 // Displays HTML information in a {@link org.eclipse.swt.browser.org.eclipse.swt.browser.Browser} widget.

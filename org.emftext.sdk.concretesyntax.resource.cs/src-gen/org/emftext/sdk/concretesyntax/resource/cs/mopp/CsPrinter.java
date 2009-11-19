@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICsTextPrinter {
@@ -177,7 +178,7 @@ public class CsPrinter implements org.emftext.sdk.concretesyntax.resource.cs.ICs
 	/** Calls {@link #doPrint(EObject, String)} and writes the result to the underlying output stream. */
 	public void print(org.eclipse.emf.ecore.EObject element)  {
 		java.io.PrintWriter out = new java.io.PrintWriter(new java.io.BufferedOutputStream(outputStream));
-		doPrint(element,out,"");
+		doPrint(element, out, "");
 		out.flush();
 		out.close();
 	}

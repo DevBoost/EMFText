@@ -11,7 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
-//
+
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
 // A representation for a range in a document where a structural feature (e.g.,
@@ -52,8 +52,7 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 	}
 	
 	public String toString() {
-		String simpleName = container == null ? "null" : container.getClass().getSimpleName();
-		return super.toString() + " EFeature \"" + feature.getName() + "\" in " + simpleName;
+		return super.toString() + " EFeature \"" + feature.getName() + "\" in " + feature.getEContainingClass().getName();
 	}
 	
 	public boolean equals(java.lang.Object o) {

@@ -11,6 +11,7 @@
  *   Software Technology Group - TU Dresden, Germany 
  *      - initial API and implementation
  ******************************************************************************/
+
 package org.emftext.sdk.concretesyntax.resource.cs;
 
 // An interface for factories to create instances of org.emftext.sdk.concretesyntax.resource.cs.ICsContextDependentURIFragment.
