@@ -228,7 +228,7 @@ public class TextPrinterGenerator extends JavaBaseGenerator {
 		sc.add("/** Calls {@link #doPrint(EObject, String)} and writes the result to the underlying output stream. */");
 		sc.add("public void print(" + E_OBJECT + " element)  {");
 		sc.add(PRINTER_WRITER + " out = new " + PRINTER_WRITER + "(new " + BUFFERED_OUTPUT_STREAM + "(outputStream));");
-		sc.add("doPrint(element,out,\"\");");
+		sc.add("doPrint(element, out, \"\");");
 		sc.add("out.flush();");
 		sc.add("out.close();");
 		sc.add("}");

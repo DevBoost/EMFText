@@ -44,9 +44,6 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 
 	public boolean generateJavaContents(StringComposite sc, PrintWriter out) {
 		
-		
-		sc.add("//");
-		
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
@@ -91,8 +88,8 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String toString() {");
-		sc.add("String simpleName = container == null ? \"null\" : container.getClass().getSimpleName();");
-		sc.add("return super.toString() + \" EFeature \\\"\" + feature.getName() + \"\\\" in \" + simpleName;");
+		//sc.add("String simpleName = container == null ? \"null\" : container.getClass().getSimpleName();"); // TODO remove this
+		sc.add("return super.toString() + \" EFeature \\\"\" + feature.getName() + \"\\\" in \" + feature.getEContainingClass().getName();");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public boolean equals(" + OBJECT + " o) {");

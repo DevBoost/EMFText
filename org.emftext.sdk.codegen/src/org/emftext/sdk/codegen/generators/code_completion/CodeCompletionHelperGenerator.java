@@ -14,6 +14,7 @@
 package org.emftext.sdk.codegen.generators.code_completion;
 
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAYS;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BYTE_ARRAY_INPUT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTIONS;
@@ -104,41 +105,10 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("// @param cursorOffset");
 		sc.add("// @return");
 		
-		sc.add("public " + COLLECTION + "<String> computeCompletionProposals(" + iMetaInformationClassName + " metaInformation, String content, int cursorOffset) {");
-		sc.add(BYTE_ARRAY_INPUT_STREAM + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM + "(content.getBytes());");
-		sc.add(iTextParserClassName + " parser = metaInformation.createParser(inputStream, null);");
-		sc.add("final " + LIST + "<" + iExpectedElementClassName + "> expectedElements = parseToExpectedElements(parser);");
-		sc.add("if (expectedElements == null) {");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
-		sc.add("}");
-		sc.add("if (expectedElements.size() == 0) {");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
-		sc.add("}");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = getExpectedElements(expectedElements, cursorOffset);");
-		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
-		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
-		//sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
-		sc.add("System.out.println(\" PARSER returned expectation: \" + expectedElementsAt + \" for offset \" + cursorOffset);");
-		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
-		sc.addLineBreak();
-		sc.add("final " + LIST + "<String> sortedProposals = new " + ARRAY_LIST + "<String>(proposals);");
-		sc.add(COLLECTIONS + ".sort(sortedProposals);");
-		sc.add("return sortedProposals;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + LIST + "<" + iExpectedElementClassName + "> parseToExpectedElements(" + iTextParserClassName + " parser) {");
-		sc.add("final " + LIST + "<" + iExpectedElementClassName + "> expectedElements = parser.parseToExpectedElements(null);");
-		sc.add("if (expectedElements == null) {");
-		sc.add("return " + COLLECTIONS + ".emptyList();");
-		sc.add("}");
-		sc.add("removeDuplicateEntries(expectedElements);");
-		sc.add("removeInvalidEntriesAtEnd(expectedElements);");
-		sc.add("for (" + iExpectedElementClassName + " expectedElement : expectedElements) {");
-		sc.add("System.out.println(\"PARSER EXPECTS:   \" + expectedElement);");
-		sc.add("}");
-		sc.add("return expectedElements;");
-		sc.add("}");
-		sc.addLineBreak();
+		addComputeCompletionProposalsMethod(sc);
+		
+		addParseToExpectedElementsMethod(sc);
+
 		sc.add("private void removeDuplicateEntries(" + LIST + "<" + iExpectedElementClassName + "> expectedElements) {");
 		sc.add("for (int i = 0; i < expectedElements.size() - 1; i++) {");
 		sc.add(iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
@@ -346,7 +316,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("if (expectedElements.size() == 0) {");
 		sc.add("continue;");
 		sc.add("}");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = getExpectedElements(expectedElements, 0);");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]), 0));");
 		sc.add("setPrefix(expectedElementsAt, content, 0);");
 		sc.add("System.out.println(\"computeCompletionProposals() \" + expectedElementsAt + \" for offset \" + cursorOffset);");
 		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
@@ -387,11 +357,107 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		// and after the cursor position exist and which action should be taken.
 		// For example, when a StructuralFeature is expected right before the
 		// cursor and a CsString right after, we should return both elements.
-		sc.add("public " + LIST + "<" + iExpectedElementClassName + "> getExpectedElements(final " + LIST + "<" + iExpectedElementClassName + "> allExpectedElements,");
-		sc.add("int cursorOffset) {");
+		addGetExpectedElementsMethod(sc);
+
+		sc.add("private void setPrefix(" + LIST + "<" + iExpectedElementClassName + "> allExpectedElements, String content, int cursorOffset) {");
+		sc.add("if (cursorOffset < 0) {");
+		sc.add("return;");
+		sc.add("}");
+		sc.add("for (" + iExpectedElementClassName + " expectedElementAtCursor : allExpectedElements) {");
+		sc.add("expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, content, cursorOffset));");
+		sc.add("}");
+		sc.add("}");
 		sc.addLineBreak();
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAfterCursor = getElementsExpectedAt(allExpectedElements, cursorOffset);");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedBeforeCursor = getElementsExpectedAt(allExpectedElements, cursorOffset - 1);");
+
+		addGetExpectedElementsAtMethod(sc);
+		
+		sc.add("private int getEnd(" + iExpectedElementClassName + "[] allExpectedElements, int indexInList) {");
+		sc.add(iExpectedElementClassName + " elementAtIndex = allExpectedElements[indexInList];");
+		sc.add("int startIncludingHidden = elementAtIndex.getStartIncludingHiddenTokens();");
+		sc.add("int startExcludingHidden = elementAtIndex.getStartExcludingHiddenTokens();");
+		sc.addLineBreak();
+		sc.add("for (int i = indexInList + 1; i < allExpectedElements.length; i++) {");
+		sc.add(iExpectedElementClassName + " elementAtI = allExpectedElements[i];");
+		sc.add("int startIncludingHiddenForI = elementAtI.getStartIncludingHiddenTokens();");
+		sc.add("int startExcludingHiddenForI = elementAtI.getStartExcludingHiddenTokens();");
+		sc.add("if (startIncludingHidden != startIncludingHiddenForI || startExcludingHidden != startExcludingHiddenForI) {");
+		sc.add("return startIncludingHiddenForI - 1;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return Integer.MAX_VALUE;");
+		sc.add("}");
+		sc.add("}");
+		
+		out.print(sc.toString());
+		return true;
+	}
+
+	private void addComputeCompletionProposalsMethod(StringComposite sc) {
+		sc.add("public " + COLLECTION + "<String> computeCompletionProposals(" + iMetaInformationClassName + " metaInformation, String content, int cursorOffset) {");
+		sc.add(BYTE_ARRAY_INPUT_STREAM + " inputStream = new " + BYTE_ARRAY_INPUT_STREAM + "(content.getBytes());");
+		sc.add(iTextParserClassName + " parser = metaInformation.createParser(inputStream, null);");
+		sc.add("final " + LIST + "<" + iExpectedElementClassName + "> expectedElements = " + ARRAYS + ".asList(parseToExpectedElements(parser));");
+		sc.add("if (expectedElements == null) {");
+		sc.add("return " + COLLECTIONS + ".emptyList();");
+		sc.add("}");
+		sc.add("if (expectedElements.size() == 0) {");
+		sc.add("return " + COLLECTIONS + ".emptyList();");
+		sc.add("}");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]), cursorOffset));");
+		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
+		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
+		//sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
+		sc.add("System.out.println(\" PARSER returned expectation: \" + expectedElementsAt + \" for offset \" + cursorOffset);");
+		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
+		sc.addLineBreak();
+		sc.add("final " + LIST + "<String> sortedProposals = new " + ARRAY_LIST + "<String>(proposals);");
+		sc.add(COLLECTIONS + ".sort(sortedProposals);");
+		sc.add("return sortedProposals;");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addParseToExpectedElementsMethod(StringComposite sc) {
+		sc.add("public " + iExpectedElementClassName + "[] parseToExpectedElements(" + iTextParserClassName + " parser) {");
+		sc.add("final " + LIST + "<" + iExpectedElementClassName + "> expectedElements = parser.parseToExpectedElements(null);");
+		sc.add("if (expectedElements == null) {");
+		sc.add("return new " + iExpectedElementClassName + "[0];");
+		sc.add("}");
+		sc.add("removeDuplicateEntries(expectedElements);");
+		sc.add("removeInvalidEntriesAtEnd(expectedElements);");
+		sc.add("for (" + iExpectedElementClassName + " expectedElement : expectedElements) {");
+		sc.add("System.out.println(\"PARSER EXPECTS:   \" + expectedElement);");
+		sc.add("}");
+		sc.add("return expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetExpectedElementsAtMethod(StringComposite sc) {
+		sc.add("public " + iExpectedElementClassName + "[] getElementsExpectedAt(" + iExpectedElementClassName + "[] allExpectedElements, int cursorOffset) {");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
+		sc.add("for (int i = 0; i < allExpectedElements.length; i++) {");
+		sc.add(iExpectedElementClassName + " expectedElement = allExpectedElements[i];");
+		sc.addLineBreak();
+		sc.add("int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();");
+		sc.add("//int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();");
+		sc.add("int end = getEnd(allExpectedElements, i);");
+		sc.add("//System.out.println(\"END = \" + end + \" for \" + expectedElement);");
+		sc.add("if (cursorOffset >= startIncludingHidden &&");
+		sc.add("cursorOffset <= end) {");
+		sc.add("expectedAtCursor.add(expectedElement);");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return expectedAtCursor.toArray(new " + iExpectedElementClassName + "[expectedAtCursor.size()]);");
+		sc.add("}");
+		sc.addLineBreak();
+	}
+
+	private void addGetExpectedElementsMethod(StringComposite sc) {
+		sc.add("public " + iExpectedElementClassName + "[] getExpectedElements(final " + iExpectedElementClassName + "[] allExpectedElements, int cursorOffset) {");
+		sc.addLineBreak();
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAfterCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset));");
+		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedBeforeCursor = " + ARRAYS + ".asList(getElementsExpectedAt(allExpectedElements, cursorOffset - 1));");
 		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") BEFORE CURSOR \" + expectedBeforeCursor);");
 		sc.add("System.out.println(\"parseToCursor(\" + cursorOffset + \") AFTER CURSOR  \" + expectedAfterCursor);");
 		sc.add(LIST + "<" + iExpectedElementClassName + "> allExpectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
@@ -406,53 +472,8 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.add("}");
-		sc.add("return allExpectedAtCursor;");
+		sc.add("return allExpectedAtCursor.toArray(new " + iExpectedElementClassName + "[allExpectedAtCursor.size()]);");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private void setPrefix(" + LIST + "<" + iExpectedElementClassName + "> allExpectedElements, String content, int cursorOffset) {");
-		sc.add("if (cursorOffset < 0) {");
-		sc.add("return;");
-		sc.add("}");
-		sc.add("for (" + iExpectedElementClassName + " expectedElementAtCursor : allExpectedElements) {");
-		sc.add("expectedElementAtCursor.setPrefix(findPrefix(allExpectedElements, expectedElementAtCursor, content, cursorOffset));");
-		sc.add("}");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + LIST + "<" + iExpectedElementClassName + "> getElementsExpectedAt(" + LIST + "<" + iExpectedElementClassName + "> allExpectedElements, int cursorOffset) {");
-		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedAtCursor = new " + ARRAY_LIST + "<" + iExpectedElementClassName + ">();");
-		sc.add("for (int i = 0; i < allExpectedElements.size(); i++) {");
-		sc.add(iExpectedElementClassName + " expectedElement = allExpectedElements.get(i);");
-		sc.addLineBreak();
-		sc.add("int startIncludingHidden = expectedElement.getStartIncludingHiddenTokens();");
-		sc.add("//int startExcludingHidden = expectedElement.getStartExcludingHiddenTokens();");
-		sc.add("int end = getEnd(allExpectedElements, i);");
-		sc.add("//System.out.println(\"END = \" + end + \" for \" + expectedElement);");
-		sc.add("if (cursorOffset >= startIncludingHidden &&");
-		sc.add("cursorOffset <= end) {");
-		sc.add("expectedAtCursor.add(expectedElement);");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return expectedAtCursor;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("private int getEnd(" + LIST + "<" + iExpectedElementClassName + "> allExpectedElements, int indexInList) {");
-		sc.add(iExpectedElementClassName + " elementAtIndex = allExpectedElements.get(indexInList);");
-		sc.add("int startIncludingHidden = elementAtIndex.getStartIncludingHiddenTokens();");
-		sc.add("int startExcludingHidden = elementAtIndex.getStartExcludingHiddenTokens();");
-		sc.addLineBreak();
-		sc.add("for (int i = indexInList + 1; i < allExpectedElements.size(); i++) {");
-		sc.add(iExpectedElementClassName + " elementAtI = allExpectedElements.get(i);");
-		sc.add("int startIncludingHiddenForI = elementAtI.getStartIncludingHiddenTokens();");
-		sc.add("int startExcludingHiddenForI = elementAtI.getStartExcludingHiddenTokens();");
-		sc.add("if (startIncludingHidden != startIncludingHiddenForI || startExcludingHidden != startExcludingHiddenForI) {");
-		sc.add("return startIncludingHiddenForI - 1;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return Integer.MAX_VALUE;");
-		sc.add("}");
-		sc.add("}");
-		
-		out.print(sc.toString());
-		return true;
 	}
 }

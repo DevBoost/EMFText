@@ -35,6 +35,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
 	private String tokenScannerClassName;
 	private String resourceFactoryClassName;
 	private String newFileContentProviderClassName;
+	private String codeCompletionHelperClassName;
 
 	public MetaInformationGenerator() {
 		super();
@@ -46,6 +47,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
         tokenScannerClassName = getContext().getQualifiedClassName(EArtifact.TOKEN_SCANNER);
         resourceFactoryClassName = getContext().getQualifiedClassName(EArtifact.RESOURCE_FACTORY);
         newFileContentProviderClassName = getContext().getQualifiedClassName(EArtifact.NEW_FILE_CONTENT_PROVIDER);
+        codeCompletionHelperClassName = getContext().getQualifiedClassName(EArtifact.CODE_COMPLETION_HELPER);
 	}
 	
 	@Override
@@ -93,6 +95,13 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
         sc.addLineBreak();
 	}
 
+	private void addCreateCodeCompletionHelperMethod(StringComposite sc) {
+		sc.add("public " + codeCompletionHelperClassName + " createCodeCompletionHelper() {");
+        sc.add("return new " + codeCompletionHelperClassName + "();");
+        sc.add("}");
+        sc.addLineBreak();
+	}
+
 	private void addMethods(StringComposite sc) {
 		addGetConcreteSyntaxName(sc);
     	addGetURIMethod(sc);
@@ -113,6 +122,7 @@ public class MetaInformationGenerator extends JavaBaseGenerator {
         addCreateTokenScannerMethod(sc);
         addCreateResourceFactoryMethod(sc);
         addGetNewFileContentProviderMethod(sc);
+        addCreateCodeCompletionHelperMethod(sc);
 	}
 
 	private void addGetStartSymbolsMethod(StringComposite sc) {
