@@ -139,23 +139,8 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("private boolean shouldRemove(String scopeID1, String scopeID2) {");
-		sc.add("String[] parts1 = scopeID1.split(\"\\\\.\");");
-		sc.add("String[] parts2 = scopeID2.split(\"\\\\.\");");
-		sc.add("for (int p1 = 0; p1 < parts1.length; p1++) {");
-		sc.add("String segment1 = parts1[p1];");
-		sc.add("if (p1 >= parts2.length) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("String segment2 = parts2[p1];");
-		sc.add("int compareTo = segment1.compareTo(segment2);");
-		sc.add("if (compareTo == 0) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		sc.add("}");
-		sc.addLineBreak();
+		
+		addShouldRemoveMethod(sc);
 		
 		sc.add("private String findPrefix(" + LIST + "<" + iExpectedElementClassName + "> expectedElements, " + iExpectedElementClassName + " expectedAtCursor, String content, int cursorOffset) {");
 		sc.add("if (cursorOffset < 0) {");
@@ -390,6 +375,29 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		
 		out.print(sc.toString());
 		return true;
+	}
+
+	private void addShouldRemoveMethod(StringComposite sc) {
+		sc.add("public boolean shouldRemove(String scopeID1, String scopeID2) {");
+		sc.add("return scopeID1.compareTo(scopeID2) != 0;");
+		/*
+		sc.add("String[] parts1 = scopeID1.split(\"\\\\.\");");
+		sc.add("String[] parts2 = scopeID2.split(\"\\\\.\");");
+		sc.add("for (int p1 = 0; p1 < parts1.length; p1++) {");
+		sc.add("String segment1 = parts1[p1];");
+		sc.add("if (p1 >= parts2.length) {");
+		sc.add("return true;");
+		sc.add("}");
+		sc.add("String segment2 = parts2[p1];");
+		sc.add("int compareTo = segment1.compareTo(segment2);");
+		sc.add("if (compareTo == 0) {");
+		sc.add("continue;");
+		sc.add("}");
+		sc.add("}");
+		sc.add("return false;");
+		*/
+		sc.add("}");
+		sc.addLineBreak();
 	}
 
 	private void addComputeCompletionProposalsMethod(StringComposite sc) {

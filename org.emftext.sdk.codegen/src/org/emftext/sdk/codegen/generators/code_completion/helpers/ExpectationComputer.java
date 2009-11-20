@@ -39,12 +39,22 @@ public class ExpectationComputer {
 	 * @param syntaxElement
 	 * @return
 	 */
-	public Set<IExpectedElement> computeExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
+	public Set<IExpectedElement> computeFollowExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> followSet = computeFollowSet(syntax, syntaxElement);
-		// convert 'firstSetOfFollowers' to expectations
+		// convert 'followSet' to expectations
 		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
-		for (EObject nextFirst : followSet) {
-			expectations.add(createExpectedElement(nextFirst));
+		for (EObject next : followSet) {
+			expectations.add(createExpectedElement(next));
+		}
+		return expectations;
+	}
+
+	public Set<IExpectedElement> computeFirstExpectations(ConcreteSyntax syntax, EObject syntaxElement) {
+		Set<EObject> firstSet = computeFirstSet(syntax, syntaxElement);
+		// convert 'firstSet' to expectations
+		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
+		for (EObject next : firstSet) {
+			expectations.add(createExpectedElement(next));
 		}
 		return expectations;
 	}
@@ -56,7 +66,7 @@ public class ExpectationComputer {
 		} else if (nextFirst instanceof Terminal) {
 			Terminal terminal = (Terminal) nextFirst;
 			GenFeature genFeature = terminal.getFeature();
-			return new ExpectedFeature(genFeature.getEcoreFeature(), csUtil.getScopeID(terminal), "");
+			return new ExpectedFeature(genFeature, csUtil.findContainingRule(terminal).getMetaclass(), csUtil.getScopeID(terminal), "");
 		} else {
 			throw new IllegalArgumentException(nextFirst.toString());
 		}
@@ -80,25 +90,32 @@ public class ExpectationComputer {
 		assert rule != null;
 		if (syntaxElement instanceof Definition) {
 			firstSet.addAll(computeFirstSetForDefinition(syntax, rule, (Definition) syntaxElement, "", ""));
-		}
-		if (syntaxElement instanceof Choice) {
+		} else if (syntaxElement instanceof Choice) {
 			firstSet.addAll(computeFirstSetForChoice(syntax, rule, (Choice) syntaxElement, "", ""));
-		}
-		if (syntaxElement instanceof Sequence) {
+		} else if (syntaxElement instanceof Sequence) {
 			firstSet.addAll(computeFirstSetForSequence(syntax, rule, (Sequence) syntaxElement, "", ""));
+		} else if (syntaxElement instanceof Rule) {
+ 			firstSet.addAll(computeFirstSetForChoice(syntax, rule, rule.getDefinition(), "", ""));
+		} else {
+			throw new IllegalArgumentException(syntaxElement.toString());
 		}
 		return firstSet;
 	}
 
 	public Set<EObject> computeFollowSet(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
-
 		// while climbing up the tree to find an element to the right,
 		// we must consider that * and ? compounds are their right element
 		// on their own, because they can be empty
 
 		EReference reference = syntaxElement.eContainmentFeature();
 		EObject container = syntaxElement.eContainer();
+		if (container == null) {
+			return result;
+		}
+		if (container instanceof Rule) {
+			return result;
+		}
 		Object children = container.eGet(reference);
 		// search the next element to the right in the syntax rule tree
 		if (children instanceof List<?>) {

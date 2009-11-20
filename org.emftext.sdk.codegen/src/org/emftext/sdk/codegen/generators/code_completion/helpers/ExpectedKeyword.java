@@ -12,6 +12,14 @@ public class ExpectedKeyword implements IExpectedElement {
 		this.message = message;
 	}
 	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public String getScopeID() {
+		return scopeID;
+	}
+
 	public String toString() {
 		return keyword;
 	}
