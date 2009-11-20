@@ -206,6 +206,9 @@ public class ExpectationComputer {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}
+			if (canBeEmpty(definition)) {
+				continue;
+			}
 			break;
 		}
 		return firstSet;
