@@ -52,7 +52,7 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("public String getPrefix();");
 		sc.add("public void setPrefix(String prefix);");
 		sc.add("public String getScopeID();");
-		sc.add("public boolean discardFollowingExpectations();");
+		//sc.add("public boolean discardFollowingExpectations();");
 		sc.add("}");
 		out.print(sc.toString());
 		return true;

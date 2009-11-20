@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators;
 
-import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.ARRAY_LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.BIT_SET;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.COLLECTION;
@@ -37,6 +36,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.NO_VIABLE_A
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.RECOGNITION_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.TOKEN;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,8 +77,6 @@ import org.emftext.sdk.codegen.composites.StringComponent;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.codegen.util.GenClassUtil;
-import org.emftext.sdk.concretesyntax.Cardinality;
-import org.emftext.sdk.concretesyntax.CardinalityDefinition;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
@@ -88,9 +86,7 @@ import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
 import org.emftext.sdk.concretesyntax.OptionTypes;
-import org.emftext.sdk.concretesyntax.PLUS;
 import org.emftext.sdk.concretesyntax.Placeholder;
-import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -215,6 +211,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("superClass = " + getContext().getClassName(EArtifact.ANTLR_PARSER_BASE) + ";");
 		sc.add("backtrack = " + backtracking + ";");
 		sc.add("memoize = " + memoize + ";");
+		//sc.add("k = 1;");
 		sc.add("}");
 		sc.addLineBreak();
 
@@ -1192,7 +1189,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}
-			String cardinality = computeCardinalityString(definition);
+			String cardinality = csUtil.computeCardinalityString(definition);
 			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
 				sc.add("{");
 				sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
@@ -1305,7 +1302,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}
-			String cardinality = computeCardinalityString(definition);
+			String cardinality = csUtil.computeCardinalityString(definition);
 			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
 				sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
 				// TODO maybe in case of PLUS discardFollowingExpectations must be true?
@@ -1362,46 +1359,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		System.out.println("addExpectationCodeForCsString(" + message + ")");
 		String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(csString.getValue());
 		sc.add("addExpectedElement(new " + expectedCsStringClassName 
-				+ "(\"" + getScopeID(csString) + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString + "\"), \"" + StringUtil.escapeToJavaStringInANTLRGrammar(message) + "\");");
-	}
-
-	private String getScopeID(EObject object) {
-		String scopeID = null;
-		
-		EObject container = object.eContainer();
-		while (container != null) {
-			EReference reference = object.eContainmentFeature();
-			final Object referenceValue = container.eGet(reference);
-			int index = 1;
-			if (referenceValue instanceof List<?>) {
-				List<?> referenceList = (List<?>) referenceValue;
-				index = referenceList.indexOf(object) + 1;
-			}
-			String prefix = "_";
-			if (object instanceof Sequence) {
-				prefix = "s";
-			}
-			if (object instanceof Choice) {
-				prefix = "c";
-			}
-			if (object instanceof Rule) {
-				prefix = "r";
-			}
-			if (object instanceof CsString) {
-				prefix = "C";
-			}
-			if (object instanceof Terminal) {
-				prefix = "T";
-			}
-			if (scopeID == null) {
-				scopeID = index + prefix;
-			} else {
-				scopeID = index + prefix + "." + scopeID;
-			}
-			object = container;
-			container = object.eContainer();
-		}
-		return scopeID;
+				+ "(\"" + csUtil.getScopeID(csString) + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString + "\"), \"" + StringUtil.escapeToJavaStringInANTLRGrammar(message) + "\");");
 	}
 
 	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, String message, String scopeID, boolean discardFollowingExpectations) {
@@ -1412,7 +1370,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		final GenFeature genFeature = terminal.getFeature();
 		sc.add("addExpectedElement(new "
 				+ expectedStructuralFeatureClassName + "(\""
-				+ getScopeID(terminal) + "\", " 
+				+ csUtil.getScopeID(terminal) + "\", " 
 				+ discardFollowingExpectations + ", "
 				+ genClass.getGenPackage().getReflectionPackageName() + "."
 				+ genClass.getGenPackage().getPackageInterfaceName()
@@ -1736,22 +1694,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private boolean isKeyword(TokenDefinition definition) {
 		String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length()-1);
 		return this.keywordTokens.contains(assumeKeyword);
-	}
-
-	private String computeCardinalityString(Definition definition) {
-		Cardinality cardinality = null;
-		if (definition instanceof CardinalityDefinition) {
-			cardinality = ((CardinalityDefinition) definition).getCardinality();
-		}
-		if (cardinality == null) {
-			return "";
-		} else if (cardinality instanceof PLUS) {
-			return "+";
-		} else if (cardinality instanceof QUESTIONMARK) {
-			return "?";
-		} else {
-			return "*";
-		}
 	}
 
 	public IGenerator newInstance(GenerationContext context) {

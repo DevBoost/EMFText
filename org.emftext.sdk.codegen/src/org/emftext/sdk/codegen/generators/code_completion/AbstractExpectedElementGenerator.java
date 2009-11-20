@@ -118,8 +118,8 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("public String toString() {");
 		sc.add("return");
 		sc.add("toString(startIncludingHiddenTokens) + \"(\" + toString(startExcludingHiddenTokens) + \")\" +");
-		sc.add("\" scope = \" + scopeID + \"\" +");
-		sc.add("\" discardFollowing = \" + discardFollowingExpectations;");
+		sc.add("\" scope = \" + scopeID;");// + \"\" +");
+		//sc.add("\" discardFollowing = \" + discardFollowingExpectations;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private String toString(int index) {");
