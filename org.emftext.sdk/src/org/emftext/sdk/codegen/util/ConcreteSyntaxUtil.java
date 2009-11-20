@@ -16,8 +16,10 @@ package org.emftext.sdk.codegen.util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -25,12 +27,17 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.emftext.sdk.Constants;
 import org.emftext.sdk.EPlugins;
 import org.emftext.sdk.codegen.OptionManager;
+import org.emftext.sdk.concretesyntax.Cardinality;
 import org.emftext.sdk.concretesyntax.CardinalityDefinition;
+import org.emftext.sdk.concretesyntax.Choice;
+import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Import;
 import org.emftext.sdk.concretesyntax.OptionTypes;
@@ -39,6 +46,8 @@ import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.QUESTIONMARK;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.STAR;
+import org.emftext.sdk.concretesyntax.Sequence;
+import org.emftext.sdk.concretesyntax.Terminal;
 import org.emftext.sdk.concretesyntax.TokenDefinition;
 import org.emftext.sdk.finders.GenClassFinder;
 import org.emftext.sdk.util.EClassUtil;
@@ -366,5 +375,91 @@ public class ConcreteSyntaxUtil {
 			folderName = defaultValue;
 		}
 		return folderName;
+	}
+
+	public String computeCardinalityString(Definition definition) {
+		Cardinality cardinality = null;
+		if (definition instanceof CardinalityDefinition) {
+			cardinality = ((CardinalityDefinition) definition).getCardinality();
+		}
+		if (cardinality == null) {
+			return "";
+		} else if (cardinality instanceof PLUS) {
+			return "+";
+		} else if (cardinality instanceof QUESTIONMARK) {
+			return "?";
+		} else {
+			return "*";
+		}
+	}
+
+	public String getScopeID(EObject object) {
+		String scopeID = null;
+		
+		EObject container = object.eContainer();
+		while (container != null) {
+			EReference reference = object.eContainmentFeature();
+			final Object referenceValue = container.eGet(reference);
+			int index = 1;
+			if (referenceValue instanceof List<?>) {
+				List<?> referenceList = (List<?>) referenceValue;
+				index = referenceList.indexOf(object) + 1;
+			}
+			String prefix = "_";
+			if (object instanceof Sequence) {
+				prefix = "s";
+			}
+			if (object instanceof Choice) {
+				prefix = "c";
+			}
+			if (object instanceof Rule) {
+				prefix = "r";
+			}
+			if (object instanceof CsString) {
+				prefix = "C";
+			}
+			if (object instanceof Terminal) {
+				prefix = "T";
+			}
+			if (scopeID == null) {
+				scopeID = index + prefix;
+			} else {
+				scopeID = index + prefix + "." + scopeID;
+			}
+			object = container;
+			container = object.eContainer();
+		}
+		return scopeID;
+	}
+
+	public Rule findContainingRule(EObject syntaxElement) {
+		if (syntaxElement == null) {
+			return null;
+		}
+		if (syntaxElement instanceof Rule) {
+			return (Rule) syntaxElement;
+		}
+		return findContainingRule(syntaxElement.eContainer());
+	}
+
+	public CsString findKeyword(ConcreteSyntax syntax, String keyword) {
+		Collection<CsString> keywords = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCsString());
+		for (CsString nextKeyword : keywords) {
+			if (keyword.equals(nextKeyword.getValue())) {
+				return nextKeyword;
+			}
+		}
+		return null;
+	}
+
+	// TODO add check for meta class name
+	public List<CompoundDefinition> findCompounds(ConcreteSyntax syntax, String metaClassName) {
+		Collection<CompoundDefinition> compounds = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getCompoundDefinition());
+		return new ArrayList<CompoundDefinition>(compounds);
+	}
+
+	public List<Terminal> findTerminals(ConcreteSyntax syntax) {
+		Collection<Terminal> terminals = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
+		return new ArrayList<Terminal>(terminals);
 	}
 }
