@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -230,6 +231,10 @@ public class ExpectationComputer {
 			final CsString csString = (CsString) definition;
 			// expected element is a CsString
 			firstSet.addAll(computeFirstSetForKeyword(syntax, csString, scopeID + ": CsString", scopeID));
+		} else if (definition instanceof WhiteSpaces) {
+			// ignore
+		} else if (definition instanceof LineBreak) {
+			// ignore
 		} else {
 			assert definition instanceof Terminal;
 			final Terminal terminal = (Terminal) definition;
@@ -278,6 +283,10 @@ public class ExpectationComputer {
 				*/
 
 		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
+		if (ecoreFeature instanceof EAttribute) {
+			firstSet.add(terminal);
+			return firstSet;
+		}
 		if (!(ecoreFeature instanceof EReference)) {
 			return firstSet;
 		}
