@@ -23,6 +23,5 @@ public interface ICsExpectedElement {
 	public int getStartIncludingHiddenTokens();
 	public String getPrefix();
 	public void setPrefix(String prefix);
-	public String getScopeID();
-	public boolean discardFollowingExpectations();
+	public int getFollowSetID();
 }

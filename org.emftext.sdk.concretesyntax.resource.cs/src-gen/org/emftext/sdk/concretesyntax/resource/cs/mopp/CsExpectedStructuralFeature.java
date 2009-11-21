@@ -21,19 +21,8 @@ public class CsExpectedStructuralFeature extends org.emftext.sdk.concretesyntax.
 	private org.eclipse.emf.ecore.EObject container;
 	private String tokenName;
 	
-	@Deprecated	public CsExpectedStructuralFeature(org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container, String tokenName) {
-		this("0", feature, container, tokenName);
-	}
-	
-	@Deprecated	public CsExpectedStructuralFeature(String scopeID, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container, String tokenName) {
-		super(scopeID, false);
-		this.feature = feature;
-		this.container = container;
-		this.tokenName = tokenName;
-	}
-	
-	public CsExpectedStructuralFeature(String scopeID, boolean discardFollowingExpectations, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container, String tokenName) {
-		super(scopeID, discardFollowingExpectations);
+	public CsExpectedStructuralFeature(int followSetID, org.eclipse.emf.ecore.EStructuralFeature feature, org.eclipse.emf.ecore.EObject container, String tokenName) {
+		super(followSetID);
 		this.feature = feature;
 		this.container = container;
 		this.tokenName = tokenName;

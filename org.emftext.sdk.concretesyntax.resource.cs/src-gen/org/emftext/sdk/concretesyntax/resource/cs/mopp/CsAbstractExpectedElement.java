@@ -26,12 +26,11 @@ public abstract class CsAbstractExpectedElement implements org.emftext.sdk.concr
 	private int startIncludingHiddenTokens;
 	private int startExcludingHiddenTokens;
 	private String prefix;
-	private String scopeID;
+	private int followSetID;
 	private boolean discardFollowingExpectations;
 	
-	public CsAbstractExpectedElement(String scopeID, boolean discardFollowingExpectations) {
-		this.scopeID = scopeID;
-		this.discardFollowingExpectations = discardFollowingExpectations;
+	public CsAbstractExpectedElement(int followSetID) {
+		this.followSetID = followSetID;
 	}
 	
 	public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {
@@ -50,8 +49,8 @@ public abstract class CsAbstractExpectedElement implements org.emftext.sdk.concr
 		return startExcludingHiddenTokens;
 	}
 	
-	public String getScopeID() {
-		return scopeID;
+	public int getFollowSetID() {
+		return followSetID;
 	}
 	
 	public String getPrefix() {
@@ -85,7 +84,7 @@ public abstract class CsAbstractExpectedElement implements org.emftext.sdk.concr
 	}
 	
 	public String toString() {
-		return		toString(startIncludingHiddenTokens) + "(" + toString(startExcludingHiddenTokens) + ")" +		" scope = " + scopeID + "" +		" discardFollowing = " + discardFollowingExpectations;
+		return		toString(startIncludingHiddenTokens) + "(" + toString(startExcludingHiddenTokens) + ")" +		" followSetID = " + followSetID;
 	}
 	
 	private String toString(int index) {

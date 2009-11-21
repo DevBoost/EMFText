@@ -4,6 +4,7 @@ options {
 	superClass = CsANTLRParserBase;
 	backtrack = true;
 	memoize = true;
+	k = 1;
 }
 
 @lexer::header {
@@ -65,7 +66,7 @@ options {
 		});
 	}
 	
-	public void addExpectedElement(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement, java.lang.String message) {
+	public void addExpectedElement(org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedElement) {
 		if (!this.rememberExpectedElements) {
 			return;
 		}
@@ -88,7 +89,6 @@ options {
 		}
 		lastTokenIndex = java.lang.Math.max(0, currentIndex);
 		expectedElement.setPosition(stopExcludingHiddenTokens, stopIncludingHiddenTokens);
-		System.out.println("Adding expected element (" + message + "): " + expectedElement + "");
 		this.expectedElements.add(expectedElement);
 	}
 	
@@ -443,10 +443,12 @@ options {
 start returns [ org.eclipse.emf.ecore.EObject element = null]
 :
 	{
+		// follow set for start rule(s)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(0, "@"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(0, "ABSTRACT"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(0, "SYNTAXDEF"));
 	}
 	(
-		{
-		}
 		c0 = parse_org_emftext_sdk_concretesyntax_ConcreteSyntax{ element = c0; }
 	)
 	EOF	
@@ -456,17 +458,8 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 @init{
 }
 :
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
-	}
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a Terminal
-			}
 			(
 				a0_0 = parse_org_emftext_sdk_concretesyntax_Annotation				{
 					if (terminateParsing) {
@@ -483,20 +476,18 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						copyLocalizationInfos(a0_0, element); 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+			}
 			
 		)
 		
 	)*	{
-		// expected element after STAR or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(2, "ABSTRACT"));
 	}
 	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
-	}
 	(
-		{
-			// expected element is a Terminal
-		}
 		(
 			a1_0 = parse_org_emftext_sdk_concretesyntax_Abstract			{
 				if (terminateParsing) {
@@ -514,10 +505,10 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 		)
 		
-	)?	
-	{
-		// expected element is a CsString
+	)?	{
+		// expected elements (follow set)
 	}
+	
 	a2 = 'SYNTAXDEF' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -525,10 +516,10 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a2, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
 	}
+	
 	(
 		a3 = QUALIFIED_NAME		
 		{
@@ -556,10 +547,10 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
 	}
+	
 	a4 = 'FOR' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -567,10 +558,10 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a4, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
 	}
+	
 	(
 		a5 = QUOTED_60_62		
 		{
@@ -602,18 +593,13 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(7, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__PACKAGE_LOCATION_HINT), element, "QUOTED_60_62"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a Terminal
-			}
 			(
 				a6 = QUOTED_60_62				
 				{
@@ -641,21 +627,18 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+			}
 			
 		)
 		
-	)?	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+	)?	{
+		// expected elements (follow set)
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a7 = 'START' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -663,14 +646,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a7, element);
 			}
-			
 			{
-				// expected element is a Compound
+				// expected elements (follow set)
 			}
+			
 			(
-				{
-					// expected element is a Terminal
-				}
 				(
 					a8 = QUALIFIED_NAME					
 					{
@@ -702,20 +682,27 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						}
 					}
 				)
+				{
+					// expected elements (follow set)
+					addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(11, ","));
+					addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(11, "IMPORTS"));
+					addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(11, "OPTIONS"));
+					addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(11, "TOKENS"));
+					addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(11, "TOKENSTYLES"));
+				}
 				
 			)
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(12, ","));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(12, "IMPORTS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(12, "OPTIONS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(12, "TOKENS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(12, "TOKENSTYLES"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a CsString
-					}
 					a9 = ',' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -723,14 +710,12 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						collectHiddenTokens(element);
 						copyLocalizationInfos((CommonToken)a9, element);
 					}
-					
 					{
-						// expected element is a Compound
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(13, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getConcreteSyntax().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONCRETE_SYNTAX__START_SYMBOLS), element, "QUALIFIED_NAME"));
 					}
+					
 					(
-						{
-							// expected element is a Terminal
-						}
 						(
 							a10 = QUALIFIED_NAME							
 							{
@@ -762,29 +747,47 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								}
 							}
 						)
+						{
+							// expected elements (follow set)
+							addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(14, ","));
+							addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(14, "IMPORTS"));
+							addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(14, "OPTIONS"));
+							addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(14, "TOKENS"));
+							addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(14, "TOKENSTYLES"));
+						}
 						
 					)
+					{
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(15, ","));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(15, "IMPORTS"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(15, "OPTIONS"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(15, "TOKENS"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(15, "TOKENSTYLES"));
+					}
 					
 				)
 				
 			)*			{
-				// expected element after STAR or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(16, "IMPORTS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(16, "OPTIONS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(16, "TOKENS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(16, "TOKENSTYLES"));
 			}
 			
 		)
 		
-	)?	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+	)?	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(17, "IMPORTS"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(17, "OPTIONS"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(17, "TOKENS"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(17, "TOKENSTYLES"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a11 = 'IMPORTS' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -792,10 +795,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a11, element);
 			}
-			
 			{
-				// expected element is a CsString
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(18, "{"));
 			}
+			
 			a12 = '{' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -803,18 +807,13 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a12, element);
 			}
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(19, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), element, "QUALIFIED_NAME"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a Terminal
-					}
 					(
 						a13_0 = parse_org_emftext_sdk_concretesyntax_Import						{
 							if (terminateParsing) {
@@ -831,16 +830,17 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								copyLocalizationInfos(a13_0, element); 							}
 						}
 					)
+					{
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(20, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PREFIX), element, "QUALIFIED_NAME"));
+					}
 					
 				)
 				
 			)*			{
-				// expected element after STAR or PLUS
+				// expected elements (follow set)
 			}
 			
-			{
-				// expected element is a CsString
-			}
 			a14 = '}' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -848,21 +848,24 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a14, element);
 			}
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(22, "OPTIONS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(22, "TOKENS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(22, "TOKENSTYLES"));
+			}
 			
 		)
 		
-	)?	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+	)?	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(23, "OPTIONS"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(23, "TOKENS"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(23, "TOKENSTYLES"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a15 = 'OPTIONS' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -870,10 +873,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a15, element);
 			}
-			
 			{
-				// expected element is a CsString
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(24, "{"));
 			}
+			
 			a16 = '{' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -881,18 +885,13 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a16, element);
 			}
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(25, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), element, "QUALIFIED_NAME"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a Terminal
-					}
 					(
 						a17_0 = parse_org_emftext_sdk_concretesyntax_Option						{
 							if (terminateParsing) {
@@ -909,10 +908,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								copyLocalizationInfos(a17_0, element); 							}
 						}
 					)
-					
 					{
-						// expected element is a CsString
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(26, ";"));
 					}
+					
 					a18 = ';' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -920,16 +920,17 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						collectHiddenTokens(element);
 						copyLocalizationInfos((CommonToken)a18, element);
 					}
+					{
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(27, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__TYPE), element, "QUALIFIED_NAME"));
+					}
 					
 				)
 				
 			)*			{
-				// expected element after STAR or PLUS
+				// expected elements (follow set)
 			}
 			
-			{
-				// expected element is a CsString
-			}
 			a19 = '}' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -937,21 +938,22 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a19, element);
 			}
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(29, "TOKENS"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(29, "TOKENSTYLES"));
+			}
 			
 		)
 		
-	)?	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+	)?	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(30, "TOKENS"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(30, "TOKENSTYLES"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a20 = 'TOKENS' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -959,10 +961,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a20, element);
 			}
-			
 			{
-				// expected element is a CsString
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(31, "{"));
 			}
+			
 			a21 = '{' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -970,18 +973,15 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a21, element);
 			}
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(32, "@"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(32, "DEFINE"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(32, "PRIORITIZE"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a Terminal
-					}
 					(
 						a22_0 = parse_org_emftext_sdk_concretesyntax_TokenDirective						{
 							if (terminateParsing) {
@@ -998,10 +998,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								copyLocalizationInfos(a22_0, element); 							}
 						}
 					)
-					
 					{
-						// expected element is a CsString
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(33, ";"));
 					}
+					
 					a23 = ';' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1009,16 +1010,19 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 						collectHiddenTokens(element);
 						copyLocalizationInfos((CommonToken)a23, element);
 					}
+					{
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(34, "@"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(34, "DEFINE"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(34, "PRIORITIZE"));
+					}
 					
 				)
 				
 			)*			{
-				// expected element after STAR or PLUS
+				// expected elements (follow set)
 			}
 			
-			{
-				// expected element is a CsString
-			}
 			a24 = '}' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1026,21 +1030,20 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a24, element);
 			}
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(36, "TOKENSTYLES"));
+			}
 			
 		)
 		
-	)?	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+	)?	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(37, "TOKENSTYLES"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a25 = 'TOKENSTYLES' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1048,10 +1051,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a25, element);
 			}
-			
 			{
-				// expected element is a CsString
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(38, "{"));
 			}
+			
 			a26 = '{' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1059,18 +1063,13 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a26, element);
 			}
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(39, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), element, "QUOTED_34_34_92"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a Terminal
-					}
 					(
 						a27_0 = parse_org_emftext_sdk_concretesyntax_TokenStyle						{
 							if (terminateParsing) {
@@ -1087,16 +1086,17 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 								copyLocalizationInfos(a27_0, element); 							}
 						}
 					)
+					{
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(40, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getTokenStyle().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.TOKEN_STYLE__TOKEN_NAME), element, "QUOTED_34_34_92"));
+					}
 					
 				)
 				
 			)*			{
-				// expected element after STAR or PLUS
+				// expected elements (follow set)
 			}
 			
-			{
-				// expected element is a CsString
-			}
 			a28 = '}' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1104,13 +1104,16 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a28, element);
 			}
+			{
+				// expected elements (follow set)
+			}
 			
 		)
 		
-	)?	
-	{
-		// expected element is a CsString
+	)?	{
+		// expected elements (follow set)
 	}
+	
 	a29 = 'RULES' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1118,10 +1121,11 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a29, element);
 	}
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(44, "{"));
 	}
+	
 	a30 = '{' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
@@ -1129,18 +1133,14 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a30, element);
 	}
-	
 	{
-		// expected element is a Compound
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(45, "@"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(45, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getRule().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.RULE__METACLASS), element, "QUALIFIED_NAME"));
 	}
+	
 	(
-		{
-			// expected element before STAR or QUESTIONMARK or PLUS
-		}
 		(
-			{
-				// expected element is a Terminal
-			}
 			(
 				a31_0 = parse_org_emftext_sdk_concretesyntax_Rule				{
 					if (terminateParsing) {
@@ -1159,20 +1159,23 @@ parse_org_emftext_sdk_concretesyntax_ConcreteSyntax returns [org.emftext.sdk.con
 			)
 			
 		)*		{
-			// expected element after STAR or PLUS
+			// expected elements (follow set)
 		}
 		
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
 	}
+	
 	a32 = '}' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createConcreteSyntax();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a32, element);
+	}
+	{
+		// expected elements (follow set)
 	}
 	
 ;
@@ -1181,9 +1184,6 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUALIFIED_NAME		
 		{
@@ -1211,10 +1211,11 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(49, ":"));
 	}
+	
 	a1 = ':' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
@@ -1222,10 +1223,11 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a1, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(50, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE), element, "QUOTED_60_62"));
 	}
+	
 	(
 		a2 = QUOTED_60_62		
 		{
@@ -1257,18 +1259,14 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(51, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__PACKAGE_LOCATION_HINT), element, "QUOTED_60_62"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(51, "WITH"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a Terminal
-			}
 			(
 				a3 = QUOTED_60_62				
 				{
@@ -1296,21 +1294,20 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(52, "WITH"));
+			}
 			
 		)
 		
-	)?	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+	)?	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(53, "WITH"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a4 = 'WITH' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
@@ -1318,10 +1315,10 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a4, element);
 			}
-			
 			{
-				// expected element is a CsString
+				// expected elements (follow set)
 			}
+			
 			a5 = 'SYNTAX' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createImport();
@@ -1329,10 +1326,10 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a5, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
 			}
+			
 			(
 				a6 = QUALIFIED_NAME				
 				{
@@ -1364,18 +1361,13 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 					}
 				}
 			)
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(56, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getImport().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.IMPORT__CS_LOCATION_HINT), element, "QUOTED_60_62"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a Terminal
-					}
 					(
 						a7 = QUOTED_60_62						
 						{
@@ -1403,22 +1395,28 @@ parse_org_emftext_sdk_concretesyntax_Import returns [org.emftext.sdk.concretesyn
 							}
 						}
 					)
+					{
+						// expected elements (follow set)
+					}
 					
 				)
 				
-			)?			
+			)?			{
+				// expected elements (follow set)
+			}
+			
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyntax.Option element = null]
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUALIFIED_NAME		
 		{
@@ -1446,10 +1444,11 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(60, "="));
 	}
+	
 	a1 = '=' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createOption();
@@ -1457,10 +1456,11 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a1, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(61, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getOption().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.OPTION__VALUE), element, "QUOTED_34_34_92"));
 	}
+	
 	(
 		a2 = QUOTED_34_34_92		
 		{
@@ -1488,6 +1488,9 @@ parse_org_emftext_sdk_concretesyntax_Option returns [org.emftext.sdk.concretesyn
 			}
 		}
 	)
+	{
+		// expected elements (follow set)
+	}
 	
 ;
 
@@ -1495,17 +1498,8 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 @init{
 }
 :
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
-	}
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a Terminal
-			}
 			(
 				a0_0 = parse_org_emftext_sdk_concretesyntax_Annotation				{
 					if (terminateParsing) {
@@ -1522,16 +1516,17 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 						copyLocalizationInfos(a0_0, element); 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(63, "@"));
+			}
 			
 		)
 		
 	)*	{
-		// expected element after STAR or PLUS
+		// expected elements (follow set)
 	}
 	
-	{
-		// expected element is a Terminal
-	}
 	(
 		a1 = QUALIFIED_NAME		
 		{
@@ -1563,10 +1558,11 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(65, "::="));
 	}
+	
 	a2 = '::=' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
@@ -1574,10 +1570,18 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a2, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), element, "QUOTED_34_34_92"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(66, "("));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(66, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), element, "HEXNUMBER"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(66, "!"));
 	}
+	
 	(
 		a3_0 = parse_org_emftext_sdk_concretesyntax_Choice		{
 			if (terminateParsing) {
@@ -1594,16 +1598,20 @@ parse_org_emftext_sdk_concretesyntax_Rule returns [org.emftext.sdk.concretesynta
 				copyLocalizationInfos(a3_0, element); 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(67, ";"));
 	}
+	
 	a4 = ';' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createRule();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a4, element);
+	}
+	{
+		// expected elements (follow set)
 	}
 	
 ;
@@ -1612,13 +1620,7 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 @init{
 }
 :
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
-	}
 	(
-		{
-			// expected element is a Terminal
-		}
 		(
 			a0_0 = parse_org_emftext_sdk_concretesyntax_Definition			{
 				if (terminateParsing) {
@@ -1637,7 +1639,7 @@ parse_org_emftext_sdk_concretesyntax_Sequence returns [org.emftext.sdk.concretes
 		)
 		
 	)+	{
-		// expected element after STAR or PLUS
+		// expected elements (follow set)
 	}
 	
 ;
@@ -1646,9 +1648,6 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0_0 = parse_org_emftext_sdk_concretesyntax_Sequence		{
 			if (terminateParsing) {
@@ -1665,18 +1664,13 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 				copyLocalizationInfos(a0_0, element); 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(70, "|"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a1 = '|' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createChoice();
@@ -1684,10 +1678,18 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a1, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), element, "QUOTED_34_34_92"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), element, "QUALIFIED_NAME"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), element, "QUALIFIED_NAME"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), element, "QUALIFIED_NAME"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), element, "QUALIFIED_NAME"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(71, "("));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(71, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), element, "HEXNUMBER"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(71, "!"));
 			}
+			
 			(
 				a2_0 = parse_org_emftext_sdk_concretesyntax_Sequence				{
 					if (terminateParsing) {
@@ -1704,11 +1706,15 @@ parse_org_emftext_sdk_concretesyntax_Choice returns [org.emftext.sdk.concretesyn
 						copyLocalizationInfos(a2_0, element); 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(72, "|"));
+			}
 			
 		)
 		
 	)*	{
-		// expected element after STAR or PLUS
+		// expected elements (follow set)
 	}
 	
 ;
@@ -1717,9 +1723,6 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUOTED_34_34_92		
 		{
@@ -1747,6 +1750,9 @@ parse_org_emftext_sdk_concretesyntax_CsString returns [org.emftext.sdk.concretes
 			}
 		}
 	)
+	{
+		// expected elements (follow set)
+	}
 	
 ;
 
@@ -1754,9 +1760,6 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUALIFIED_NAME		
 		{
@@ -1788,10 +1791,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(75, "["));
 	}
+	
 	a1 = '[' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
@@ -1799,10 +1803,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a1, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(76, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__TOKEN), element, "QUALIFIED_NAME"));
 	}
+	
 	(
 		a2 = QUALIFIED_NAME		
 		{
@@ -1834,10 +1839,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(77, "]"));
 	}
+	
 	a3 = ']' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingSpecifiedToken();
@@ -1845,14 +1851,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a3, element);
 	}
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(78, "+"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(78, "*"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(78, "?"));
 	}
+	
 	(
-		{
-			// expected element is a Terminal
-		}
 		(
 			a4_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				if (terminateParsing) {
@@ -1870,16 +1876,16 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingSpecifiedToken returns [org
 			}
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.emftext.sdk.concretesyntax.PlaceholderUsingDefaultToken element = null]
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUALIFIED_NAME		
 		{
@@ -1911,10 +1917,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(80, "["));
 	}
+	
 	a1 = '[' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
@@ -1922,10 +1929,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a1, element);
 	}
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(81, "]"));
 	}
+	
 	a2 = ']' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderUsingDefaultToken();
@@ -1933,14 +1941,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a2, element);
 	}
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(82, "+"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(82, "*"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(82, "?"));
 	}
+	
 	(
-		{
-			// expected element is a Terminal
-		}
 		(
 			a3_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				if (terminateParsing) {
@@ -1958,16 +1966,16 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderUsingDefaultToken returns [org.e
 			}
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sdk.concretesyntax.PlaceholderInQuotes element = null]
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUALIFIED_NAME		
 		{
@@ -1999,10 +2007,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(84, "["));
 	}
+	
 	a1 = '[' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
@@ -2010,10 +2019,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a1, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(85, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__PREFIX), element, "QUOTED_39_39_92"));
 	}
+	
 	(
 		a2 = QUOTED_39_39_92		
 		{
@@ -2041,10 +2051,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(86, ","));
 	}
+	
 	a3 = ',' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
@@ -2052,10 +2063,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a3, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(87, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__SUFFIX), element, "QUOTED_39_39_92"));
 	}
+	
 	(
 		a4 = QUOTED_39_39_92		
 		{
@@ -2083,18 +2095,14 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(88, ","));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(88, "]"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a5 = ',' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
@@ -2102,10 +2110,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a5, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(89, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__ESCAPE_CHARACTER), element, "QUOTED_39_39_92"));
 			}
+			
 			(
 				a6 = QUOTED_39_39_92				
 				{
@@ -2133,13 +2142,18 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(90, "]"));
+			}
 			
 		)
 		
-	)?	
-	{
-		// expected element is a CsString
+	)?	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(91, "]"));
 	}
+	
 	a7 = ']' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPlaceholderInQuotes();
@@ -2147,14 +2161,11 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a7, element);
 	}
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
 	}
+	
 	(
-		{
-			// expected element is a Terminal
-		}
 		(
 			a8_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				if (terminateParsing) {
@@ -2172,16 +2183,16 @@ parse_org_emftext_sdk_concretesyntax_PlaceholderInQuotes returns [org.emftext.sd
 			}
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concretesyntax.Containment element = null]
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUALIFIED_NAME		
 		{
@@ -2213,18 +2224,16 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(94, ":"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(94, "+"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(94, "*"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(94, "?"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a1 = ':' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
@@ -2232,10 +2241,11 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a1, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(95, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), element, "QUALIFIED_NAME"));
 			}
+			
 			(
 				a2 = QUALIFIED_NAME				
 				{
@@ -2267,18 +2277,16 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 					}
 				}
 			)
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(96, ","));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(96, "+"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(96, "*"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(96, "?"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a CsString
-					}
 					a3 = ',' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createContainment();
@@ -2286,10 +2294,11 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 						collectHiddenTokens(element);
 						copyLocalizationInfos((CommonToken)a3, element);
 					}
-					
 					{
-						// expected element is a Terminal
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(97, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__TYPES), element, "QUALIFIED_NAME"));
 					}
+					
 					(
 						a4 = QUALIFIED_NAME						
 						{
@@ -2321,23 +2330,33 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 							}
 						}
 					)
+					{
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(98, ","));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(98, "+"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(98, "*"));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(98, "?"));
+					}
 					
 				)
 				
 			)*			{
-				// expected element after STAR or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(99, "+"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(99, "*"));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(99, "?"));
 			}
 			
 		)
 		
-	)?	
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+	)?	{
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(100, "+"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(100, "*"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(100, "?"));
 	}
+	
 	(
-		{
-			// expected element is a Terminal
-		}
 		(
 			a5_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				if (terminateParsing) {
@@ -2355,16 +2374,16 @@ parse_org_emftext_sdk_concretesyntax_Containment returns [org.emftext.sdk.concre
 			}
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk.concretesyntax.CompoundDefinition element = null]
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = '(' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
@@ -2372,10 +2391,18 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getCsString().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CS_STRING__VALUE), element, "QUOTED_34_34_92"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingSpecifiedToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_SPECIFIED_TOKEN__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderUsingDefaultToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_USING_DEFAULT_TOKEN__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getPlaceholderInQuotes().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.PLACEHOLDER_IN_QUOTES__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getContainment().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.CONTAINMENT__FEATURE), element, "QUALIFIED_NAME"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(102, "("));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(102, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getWhiteSpaces().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.WHITE_SPACES__AMOUNT), element, "HEXNUMBER"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(102, "!"));
 	}
+	
 	(
 		a1_0 = parse_org_emftext_sdk_concretesyntax_Choice		{
 			if (terminateParsing) {
@@ -2392,10 +2419,11 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 				copyLocalizationInfos(a1_0, element); 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(103, ")"));
 	}
+	
 	a2 = ')' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createCompoundDefinition();
@@ -2403,14 +2431,14 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a2, element);
 	}
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(104, "+"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(104, "*"));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(104, "?"));
 	}
+	
 	(
-		{
-			// expected element is a Terminal
-		}
 		(
 			a3_0 = parse_org_emftext_sdk_concretesyntax_Cardinality			{
 				if (terminateParsing) {
@@ -2428,16 +2456,16 @@ parse_org_emftext_sdk_concretesyntax_CompoundDefinition returns [org.emftext.sdk
 			}
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concretesyntax.WhiteSpaces element = null]
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = HEXNUMBER		
 		{
@@ -2465,6 +2493,9 @@ parse_org_emftext_sdk_concretesyntax_WhiteSpaces returns [org.emftext.sdk.concre
 			}
 		}
 	)
+	{
+		// expected elements (follow set)
+	}
 	
 ;
 
@@ -2472,9 +2503,6 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = '!' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createLineBreak();
@@ -2482,10 +2510,11 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(107, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getLineBreak().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.LINE_BREAK__TAB), element, "NUMBER"));
 	}
+	
 	(
 		a1 = NUMBER		
 		{
@@ -2513,6 +2542,9 @@ parse_org_emftext_sdk_concretesyntax_LineBreak returns [org.emftext.sdk.concrete
 			}
 		}
 	)
+	{
+		// expected elements (follow set)
+	}
 	
 ;
 
@@ -2520,17 +2552,8 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 @init{
 }
 :
-	{
-		// expected element before STAR or QUESTIONMARK or PLUS
-	}
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a Terminal
-			}
 			(
 				a0_0 = parse_org_emftext_sdk_concretesyntax_Annotation				{
 					if (terminateParsing) {
@@ -2547,16 +2570,17 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 						copyLocalizationInfos(a0_0, element); 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+			}
 			
 		)
 		
 	)*	{
-		// expected element after STAR or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(110, "DEFINE"));
 	}
 	
-	{
-		// expected element is a CsString
-	}
 	a1 = 'DEFINE' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
@@ -2564,10 +2588,10 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a1, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
 	}
+	
 	(
 		a2 = QUALIFIED_NAME		
 		{
@@ -2595,10 +2619,11 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 			}
 		}
 	)
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(112, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getNormalToken().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.NORMAL_TOKEN__REGEX), element, "QUOTED_36_36"));
 	}
+	
 	(
 		a3 = QUOTED_36_36		
 		{
@@ -2626,18 +2651,13 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(113, "COLLECT"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a4 = 'COLLECT' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
@@ -2645,10 +2665,10 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a4, element);
 			}
-			
 			{
-				// expected element is a CsString
+				// expected elements (follow set)
 			}
+			
 			a5 = 'IN' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createNormalToken();
@@ -2656,10 +2676,10 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a5, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
 			}
+			
 			(
 				a6 = QUALIFIED_NAME				
 				{
@@ -2687,19 +2707,22 @@ parse_org_emftext_sdk_concretesyntax_NormalToken returns [org.emftext.sdk.concre
 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+			}
 			
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext.sdk.concretesyntax.TokenPriorityDirective element = null]
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = 'PRIORITIZE' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenPriorityDirective();
@@ -2707,10 +2730,10 @@ parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
 	}
+	
 	(
 		a1 = QUALIFIED_NAME		
 		{
@@ -2742,6 +2765,9 @@ parse_org_emftext_sdk_concretesyntax_TokenPriorityDirective returns [org.emftext
 			}
 		}
 	)
+	{
+		// expected elements (follow set)
+	}
 	
 ;
 
@@ -2749,15 +2775,15 @@ parse_org_emftext_sdk_concretesyntax_PLUS returns [org.emftext.sdk.concretesynta
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = '+' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createPLUS();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
+	}
+	{
+		// expected elements (follow set)
 	}
 	
 ;
@@ -2766,15 +2792,15 @@ parse_org_emftext_sdk_concretesyntax_STAR returns [org.emftext.sdk.concretesynta
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = '*' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createSTAR();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
+	}
+	{
+		// expected elements (follow set)
 	}
 	
 ;
@@ -2783,15 +2809,15 @@ parse_org_emftext_sdk_concretesyntax_QUESTIONMARK returns [org.emftext.sdk.concr
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = '?' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createQUESTIONMARK();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
+	}
+	{
+		// expected elements (follow set)
 	}
 	
 ;
@@ -2800,15 +2826,15 @@ parse_org_emftext_sdk_concretesyntax_Abstract returns [org.emftext.sdk.concretes
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = 'ABSTRACT' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAbstract();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
+	}
+	{
+		// expected elements (follow set)
 	}
 	
 ;
@@ -2817,9 +2843,6 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUOTED_34_34_92		
 		{
@@ -2847,10 +2870,10 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			}
 		}
 	)
-	
 	{
-		// expected element is a CsString
+		// expected elements (follow set)
 	}
+	
 	a1 = 'COLOR' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
@@ -2858,10 +2881,10 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a1, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
 	}
+	
 	(
 		a2 = HEXNUMBER		
 		{
@@ -2889,18 +2912,14 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(126, ","));
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(126, ";"));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a3 = ',' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
@@ -2908,10 +2927,10 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a3, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
 			}
+			
 			(
 				a4 = QUALIFIED_NAME				
 				{
@@ -2939,22 +2958,28 @@ parse_org_emftext_sdk_concretesyntax_TokenStyle returns [org.emftext.sdk.concret
 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(128, ","));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(128, ";"));
+			}
 			
 		)
 		
 	)*	{
-		// expected element after STAR or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(129, ";"));
 	}
 	
-	{
-		// expected element is a CsString
-	}
 	a5 = ';' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createTokenStyle();
 		}
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a5, element);
+	}
+	{
+		// expected elements (follow set)
 	}
 	
 ;
@@ -2963,9 +2988,6 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 @init{
 }
 :
-	{
-		// expected element is a CsString
-	}
 	a0 = '@' {
 		if (element == null) {
 			element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
@@ -2973,10 +2995,11 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 		collectHiddenTokens(element);
 		copyLocalizationInfos((CommonToken)a0, element);
 	}
-	
 	{
-		// expected element is a Terminal
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(131, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getAnnotation().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.ANNOTATION__TYPE), element, "QUALIFIED_NAME"));
 	}
+	
 	(
 		a1 = QUALIFIED_NAME		
 		{
@@ -3004,18 +3027,13 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(132, "("));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a2 = '(' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
@@ -3023,10 +3041,11 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a2, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(133, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), element, "QUALIFIED_NAME"));
 			}
+			
 			(
 				a3_0 = parse_org_emftext_sdk_concretesyntax_KeyValuePair				{
 					if (terminateParsing) {
@@ -3043,18 +3062,14 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 						copyLocalizationInfos(a3_0, element); 					}
 				}
 			)
-			
 			{
-				// expected element before STAR or QUESTIONMARK or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(134, ","));
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(134, ")"));
 			}
+			
 			(
-				{
-					// expected element is a Compound
-				}
 				(
-					{
-						// expected element is a CsString
-					}
 					a4 = ',' {
 						if (element == null) {
 							element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
@@ -3062,10 +3077,11 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 						collectHiddenTokens(element);
 						copyLocalizationInfos((CommonToken)a4, element);
 					}
-					
 					{
-						// expected element is a Terminal
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(135, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__KEY), element, "QUALIFIED_NAME"));
 					}
+					
 					(
 						a5_0 = parse_org_emftext_sdk_concretesyntax_KeyValuePair						{
 							if (terminateParsing) {
@@ -3082,16 +3098,19 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 								copyLocalizationInfos(a5_0, element); 							}
 						}
 					)
+					{
+						// expected elements (follow set)
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(136, ","));
+						addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(136, ")"));
+					}
 					
 				)
 				
 			)*			{
-				// expected element after STAR or PLUS
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(137, ")"));
 			}
 			
-			{
-				// expected element is a CsString
-			}
 			a6 = ')' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createAnnotation();
@@ -3099,19 +3118,22 @@ parse_org_emftext_sdk_concretesyntax_Annotation returns [org.emftext.sdk.concret
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a6, element);
 			}
+			{
+				// expected elements (follow set)
+			}
 			
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concretesyntax.KeyValuePair element = null]
 @init{
 }
 :
-	{
-		// expected element is a Terminal
-	}
 	(
 		a0 = QUALIFIED_NAME		
 		{
@@ -3139,18 +3161,13 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 			}
 		}
 	)
-	
 	{
-		// expected element before STAR or QUESTIONMARK or PLUS
+		// expected elements (follow set)
+		addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedCsString(140, "="));
 	}
+	
 	(
-		{
-			// expected element is a Compound
-		}
 		(
-			{
-				// expected element is a CsString
-			}
 			a1 = '=' {
 				if (element == null) {
 					element = org.emftext.sdk.concretesyntax.ConcretesyntaxFactory.eINSTANCE.createKeyValuePair();
@@ -3158,10 +3175,11 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 				collectHiddenTokens(element);
 				copyLocalizationInfos((CommonToken)a1, element);
 			}
-			
 			{
-				// expected element is a Terminal
+				// expected elements (follow set)
+				addExpectedElement(new org.emftext.sdk.concretesyntax.resource.cs.mopp.CsExpectedStructuralFeature(141, org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.eINSTANCE.getKeyValuePair().getEStructuralFeature(org.emftext.sdk.concretesyntax.ConcretesyntaxPackage.KEY_VALUE_PAIR__VALUE), element, "QUOTED_34_34_92"));
 			}
+			
 			(
 				a2 = QUOTED_34_34_92				
 				{
@@ -3189,10 +3207,16 @@ parse_org_emftext_sdk_concretesyntax_KeyValuePair returns [org.emftext.sdk.concr
 					}
 				}
 			)
+			{
+				// expected elements (follow set)
+			}
 			
 		)
 		
-	)?	
+	)?	{
+		// expected elements (follow set)
+	}
+	
 ;
 
 parse_org_emftext_sdk_concretesyntax_TokenDirective returns [org.emftext.sdk.concretesyntax.TokenDirective element = null]

@@ -14,22 +14,13 @@
 
 package org.emftext.sdk.concretesyntax.resource.cs.mopp;
 
-// A representation for a range in a document where a CsString (e.g.,
-// a keyword) is expected.
+// A representation for a range in a document where a keyword (i.e.,
+// a static string) is expected.
 public class CsExpectedCsString extends org.emftext.sdk.concretesyntax.resource.cs.mopp.CsAbstractExpectedElement {
 	private String value;
 	
-	public CsExpectedCsString(String value) {
-		this("0", value);
-	}
-	
-	public CsExpectedCsString(String scopeID, String value) {
-		super(scopeID, false);
-		this.value = value;
-	}
-	
-	public CsExpectedCsString(String scopeID, boolean discardFollowingExpectations, String value) {
-		super(scopeID, discardFollowingExpectations);
+	public CsExpectedCsString(int followSetID, String value) {
+		super(followSetID);
 		this.value = value;
 	}
 	

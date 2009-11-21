@@ -81,8 +81,7 @@ public class CsCodeCompletionHelper {
 		for (int i = 0; i < expectedElements.size() - 1;) {
 			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtIndex = expectedElements.get(i);
 			org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement elementAtNext = expectedElements.get(i + 1);
-			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&			//elementAtIndex.discardFollowingExpectations() &&
-			shouldRemove(elementAtIndex.getScopeID(), elementAtNext.getScopeID())) {
+			if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() && shouldRemove(elementAtIndex.getFollowSetID(), elementAtNext.getFollowSetID())) {
 				expectedElements.remove(i + 1);
 			} else {
 				i++;
@@ -90,21 +89,8 @@ public class CsCodeCompletionHelper {
 		}
 	}
 	
-	private boolean shouldRemove(String scopeID1, String scopeID2) {
-		String[] parts1 = scopeID1.split("\\.");
-		String[] parts2 = scopeID2.split("\\.");
-		for (int p1 = 0; p1 < parts1.length; p1++) {
-			String segment1 = parts1[p1];
-			if (p1 >= parts2.length) {
-				return true;
-			}
-			String segment2 = parts2[p1];
-			int compareTo = segment1.compareTo(segment2);
-			if (compareTo == 0) {
-				continue;
-			}
-		}
-		return false;
+	public boolean shouldRemove(int followSetID1, int followSetID2) {
+		return followSetID1 != followSetID2;
 	}
 	
 	private String findPrefix(java.util.List<org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement> expectedElements, org.emftext.sdk.concretesyntax.resource.cs.ICsExpectedElement expectedAtCursor, String content, int cursorOffset) {
