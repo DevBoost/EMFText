@@ -111,14 +111,13 @@ import org.emftext.sdk.util.StringUtil;
  * allows to create model instances from plain text files.
  * 
  * @author Sven Karol (Sven.Karol@tu-dresden.de)
- * 
- * TODO rename parameter 'level' to 'scopeID'
  */
 public class ANTLRGrammarGenerator extends BaseGenerator {
 	
 	// this is a temporary flag used to develop the code
 	// completion feature
-	public static boolean ADD_EXPECTATION_ELEMEMT_CALLS = false;
+	// TODO mseifert: remove this flag
+	public static boolean ADD_EXPECTATION_ELEMEMT_CALLS = true;
 
 	/**
 	 * The name of the EOF token which can be printed to force end of file after
@@ -156,6 +155,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private int followSetID;
 
+	private ExpectationComputer computer = new ExpectationComputer();
+	
 	public ANTLRGrammarGenerator() {
 		super();
 	}
@@ -220,7 +221,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("superClass = " + getContext().getClassName(EArtifact.ANTLR_PARSER_BASE) + ";");
 		sc.add("backtrack = " + backtracking + ";");
 		sc.add("memoize = " + memoize + ";");
-		//sc.add("k = 1;"); // this is needed to make the code completion work
+		sc.add("k = 1;"); // this is needed to make the code completion work
 		sc.add("}");
 		sc.addLineBreak();
 
@@ -799,7 +800,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 
 	private void addAddExpectedElementMethod(StringComposite sc) {
 		sc.add("public void addExpectedElement(" + getClassNameHelper().getI_EXPECTED_ELEMENT()
-				+ " expectedElement, " + STRING + " message) {");
+				+ " expectedElement) {");
 		// TODO mseifert: use constants for class names
 		//sc.add("if (this.state.failed) {");
 		//sc.add("return;");
@@ -827,7 +828,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("}");
 		sc.add("lastTokenIndex = java.lang.Math.max(0, currentIndex);");
 		sc.add("expectedElement.setPosition(stopExcludingHiddenTokens, stopIncludingHiddenTokens);");
-		sc.add("System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
+		//sc.add("System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
 		sc.add("this.expectedElements.add(expectedElement);");
 		sc.add("}");
 		sc.addLineBreak();
@@ -880,26 +881,19 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("returns [ " + E_OBJECT + " element = null]");
 		sc.add(":");
 		sc.add("{");
-		int i = 0;
 		Set<IExpectedElement> expectations = new LinkedHashSet<IExpectedElement>();
 		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
 			Collection<Rule> startRules = csUtil.getRules(concreteSyntax, startSymbol);
 			for (Rule startRule : startRules) {
-				// TODO reuse
-				ExpectationComputer computer = new ExpectationComputer();
 				expectations.addAll(computer.computeFirstExpectations(syntax, startRule));
-				// TODO mseifert: create new nested scope
-				//addExpectationCodeForChoice(sc, startRule, startRule.getDefinition(), "start", "" + i, false);
-				// TODO add follow set for start rule
-				i++;
 			}
 		}
-		sc.add("// expectation for start rule");
+		sc.add("// follow set for start rule(s)");
 		addExpectationsCode(sc, expectations);
 		sc.add("}");
 		sc.add("(");
 		int count = 0;
-		i = 0;
+		int i = 0;
 		for (GenClass startSymbol : concreteSyntax.getActiveStartSymbols()) {
 			// there may also be rule for subclasses of the start symbol class
 			// thus, we create an alternative for each rule
@@ -908,13 +902,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 				if (count > 0) {
 					sc.add("|  ");
 				}
-				sc.add("{");
-				// TODO mseifert: create new nested scope
-				//addExpectationCodeForChoice(sc, startRule, startRule.getDefinition(), "start", "" + i, false);
-				// TODO add follow set for start rule
 				i++;
-				sc.add("}");
-				sc.add("c" + count + " = " + getRuleName(startSymbol) + "{ element = c" + count + "; }");
+				sc.add("c" + count + " = " + getRuleName(startRule.getMetaclass()) + "{ element = c" + count + "; }");
 				count++;
 			}
 		}
@@ -1207,8 +1196,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
 				continue;
 			}
-			// TODO reuse the computer
-			ExpectationComputer computer = new ExpectationComputer();
 			ConcreteSyntax syntax = getContext().getConcreteSyntax();
 			Set<IExpectedElement> expectations = computer.computeFollowExpectations(syntax, definition);
 			String cardinality = csUtil.computeCardinalityString(definition);
@@ -1263,187 +1250,36 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			sc.add("// expected elements (follow set)");
 			addExpectationsCode(sc, expectations);
 			sc.add("}");
-			/*
-			if ("*".equals(cardinality) || "+".equals(cardinality)) {
-				sc.add("{");
-				sc.add("// expected element after STAR or PLUS");
-				addExpectationCodeForDefinition(sc, rule, definition, scopeID + ": After * or +", scopeID, false);
-				sc.add("}");
-			}
-			*/
 
 			sc.addLineBreak();
 		}
 		return count;
 	}
 
-	/*
-	private void addExpectationCodeForDefinition(StringComposite sc, Rule rule, Definition definition,
-			String message, String scopeID, boolean discardFollowingExpectations) {
-
-		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
-			return;
-		}
-		if (definition instanceof CompoundDefinition) {
-			addExpectationCodeForCompound(sc, rule, (CompoundDefinition) definition, message, scopeID, discardFollowingExpectations);
-		} else if (definition instanceof CsString) {
-			addExpectationCodeForCsString(sc, (CsString) definition, message, scopeID, discardFollowingExpectations);
-		} else if (definition instanceof Terminal) {
-			addExpectationCodeForTerminal(sc, rule, (Terminal) definition, message, scopeID, discardFollowingExpectations);
-		} else {
-			System.out.println("ANTLRGrammarGenerator.addExpectationCode() unknown definition type "
-							+ definition.getClass().getName());
-			assert false;
-		}
-	}
-
-	private void addExpectationCodeForCompound(StringComposite sc, Rule rule,
-			CompoundDefinition compoundDef, String message, String scopeID, boolean discardFollowingExpectations) {
-		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
-			return;
-		}
-		Choice choice = compoundDef.getDefinitions();
-		addExpectationCodeForChoice(sc, rule, choice, message, scopeID, discardFollowingExpectations);
-	}
-
-	private void addExpectationCodeForChoice(StringComposite sc, Rule rule, Choice choice,
-			String message, String scopeID, boolean discardFollowingExpectations) {
-		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
-			return;
-		}
-		System.out.println("addExpectationCodeForChoice(" + message + ")");
-		List<Sequence> options = choice.getOptions();
-		int i = 0;
-		for (Sequence sequence : options) {
-			// TODO mseifert: create new nested scope
-			addExpectationCodeForSequence(sc, rule, sequence, message, scopeID + "." + i, discardFollowingExpectations);
-			i++;
-		}
-	}
-
-	private void addExpectationCodeForSequence(StringComposite sc, Rule rule, Sequence sequence,
-			String message, String scopeID, boolean discardFollowingExpectations) {
-		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
-			return;
-		}
-		System.out.println("addExpectationCodeForSequence(" + message + ")");
-		int i = 0;
-		for (Definition definition : sequence.getParts()) {
-			if (definition instanceof LineBreak || definition instanceof WhiteSpaces) {
-				continue;
-			}
-			String cardinality = csUtil.computeCardinalityString(definition);
-			if ("*".equals(cardinality) || "?".equals(cardinality) || "+".equals(cardinality)) {
-				sc.add("// expected element before STAR or QUESTIONMARK or PLUS");
-				// TODO maybe in case of PLUS discardFollowingExpectations must be true?
-				addExpectationCodeForDefinition(sc, rule, definition, scopeID + ": Before * or + or ?", scopeID, false);
-			}
-			if (definition instanceof CompoundDefinition) {
-				CompoundDefinition compoundDef = (CompoundDefinition) definition;
-				sc.add("// expected element is a Compound");
-				addExpectationCodeForCompound(sc, rule, compoundDef, scopeID + ": Compound", scopeID + "." + i, true);
-				i++;
-			} else if (definition instanceof CsString) {
-				final CsString csString = (CsString) definition;
-				sc.add("// expected element is a CsString");
-				addExpectationCodeForCsString(sc, csString, scopeID + ": CsString", scopeID, true);
-			} else {
-				assert definition instanceof Terminal;
-				final Terminal terminal = (Terminal) definition;
-				sc.add("// expected element is a Terminal");
-				addExpectationCodeForTerminal(sc, rule, terminal, "Terminal", scopeID, true);
-			}
-			if ("*".equals(cardinality) || "+".equals(cardinality)) {
-				sc.add("// expected element after STAR or PLUS");
-				addExpectationCodeForDefinition(sc, rule, definition, scopeID + ": After * or +", scopeID, false);
-			}
-
-			sc.addLineBreak();
-			break;
-		}
-	}
-	
-	private void addExpectationCodeForCsString(StringComposite sc, CsString csString,
-			String message, String scopeID, boolean discardFollowingExpectations) {
-		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
-			return;
-		}
-		System.out.println("addExpectationCodeForCsString(" + message + ")");
-		String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(csString.getValue());
-		sc.add("addExpectedElement(new " + expectedCsStringClassName 
-				+ "(\"" + csUtil.getScopeID(csString) + "\", "+ discardFollowingExpectations + ", \"" + escapedCsString + "\"), \"" + StringUtil.escapeToJavaStringInANTLRGrammar(message) + "\");");
-	}
-
-	private void addExpectationCodeForTerminal(StringComposite sc, Rule rule, Terminal terminal, String message, String scopeID, boolean discardFollowingExpectations) {
-		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
-			return;
-		}
-		final GenClass genClass = rule.getMetaclass();
-		final GenFeature genFeature = terminal.getFeature();
-		sc.add("addExpectedElement(new "
-				+ expectedStructuralFeatureClassName + "(\""
-				+ csUtil.getScopeID(terminal) + "\", " 
-				+ discardFollowingExpectations + ", "
-				+ genClass.getGenPackage().getReflectionPackageName() + "."
-				+ genClass.getGenPackage().getPackageInterfaceName()
-				+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
-				+ "()" + ".getEStructuralFeature("
-				+ generatorUtil.getFeatureConstant(genClass, genFeature)
-				+ "), element, \"" + message + "\"), \"" + scopeID + ": Terminal\");");
-
-		final EStructuralFeature ecoreFeature = genFeature.getEcoreFeature();
-		if (!(ecoreFeature instanceof EReference)) {
-			return;
-		}
-		EReference ecoreReference = (EReference) ecoreFeature;
-		GenClass featureType = genFeature.getTypeGenClass();
-		if (featureType == null) {
-			System.out.println("addExpectationCodeForTerminal() feature " + genFeature.getName() + " has type null!");
-			return;
-		}
-		if (!ecoreReference.isContainment()) {
-			return;
-		}
-		Collection<Rule> featureTypeRules = csUtil.getRules(concreteSyntax, featureType);
-		int i = 0;
-		for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
-			Rule nextFeatureTypeRule = (Rule) iterator.next();
-			String featurePath = genFeature.getName() + "->" + nextFeatureTypeRule.getMetaclass().getName();
-			System.out.println("Handling subrule " + featurePath);
-			Choice choice = nextFeatureTypeRule.getDefinition();
-			addExpectationCodeForChoice(sc, nextFeatureTypeRule, choice, "containment for " + featurePath, scopeID + "." + i, false);
-			i++;
-		}
-	}
-	*/
-
 	private void addExpectationsCode(StringComposite sc, Set<IExpectedElement> expectations) {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
-		sc.add("System.out.println(\"-- new follow set --\");");
 		for (IExpectedElement expectedElement : expectations) {
 			if (expectedElement instanceof ExpectedFeature) {
 				ExpectedFeature expectedFeature = (ExpectedFeature) expectedElement;
 				GenFeature genFeature = expectedFeature.getGenFeature();
-				GenClass genClass = expectedFeature.getGenClass();
+				GenClass genClass = expectedFeature.getRuleMetaClass();
 				sc.add("addExpectedElement(new "
-						+ expectedStructuralFeatureClassName + "(\""
-						//+ csUtil.getScopeID(genFeature) + "\", " 
-						+ followSetID + "\", "
-						+ "true" + ", "
+						+ expectedStructuralFeatureClassName + 
+						"(" + followSetID + ", "
 						+ genClass.getGenPackage().getReflectionPackageName() + "."
 						+ genClass.getGenPackage().getPackageInterfaceName()
 						+ ".eINSTANCE.get" + genClass.getClassifierAccessorName()
-						+ "()" + ".getEStructuralFeature("
+						+ "().getEStructuralFeature("
 						+ generatorUtil.getFeatureConstant(genClass, genFeature)
-						+ "), element, \"message\"), \"" + expectedFeature.getScopeID() + ": Terminal\");");
+						+ "), element, \"" + expectedFeature.getTokenName() +"\"));");
 			} else if (expectedElement instanceof ExpectedKeyword) {
 				ExpectedKeyword expectedKeyword = (ExpectedKeyword) expectedElement;
 				String escapedCsString = StringUtil.escapeToJavaStringInANTLRGrammar(expectedKeyword.getKeyword());
 				sc.add("addExpectedElement(new " + expectedCsStringClassName 
 						//+ "(\"" + expectedKeyword.getScopeID() + "\", true, \"" + escapedCsString + "\"), \"message\");");
-						+ "(\"" + followSetID + "\", true, \"" + escapedCsString + "\"), \"message\");");
+						+ "(" + followSetID + ", \"" + escapedCsString + "\"));");
 			} else {
 				throw new RuntimeException("Unknown expected element type: " + expectedElement);
 			}

@@ -55,12 +55,11 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("private int startIncludingHiddenTokens;");
 		sc.add("private int startExcludingHiddenTokens;");
 		sc.add("private String prefix;");
-		sc.add("private String scopeID;");
+		sc.add("private int followSetID;");
 		sc.add("private boolean discardFollowingExpectations;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(String scopeID, boolean discardFollowingExpectations) {");
-		sc.add("this.scopeID = scopeID;");
-		sc.add("this.discardFollowingExpectations = discardFollowingExpectations;");
+		sc.add("public " + getResourceClassName() + "(int followSetID) {");
+		sc.add("this.followSetID = followSetID;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens) {");
@@ -79,8 +78,8 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("return startExcludingHiddenTokens;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public String getScopeID() {");
-		sc.add("return scopeID;");
+		sc.add("public int getFollowSetID() {");
+		sc.add("return followSetID;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("public String getPrefix() {");
@@ -118,8 +117,7 @@ public class AbstractExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("public String toString() {");
 		sc.add("return");
 		sc.add("toString(startIncludingHiddenTokens) + \"(\" + toString(startExcludingHiddenTokens) + \")\" +");
-		sc.add("\" scope = \" + scopeID;");// + \"\" +");
-		//sc.add("\" discardFollowing = \" + discardFollowingExpectations;");
+		sc.add("\" followSetID = \" + followSetID;");
 		sc.add("}");
 		sc.addLineBreak();
 		sc.add("private String toString(int index) {");

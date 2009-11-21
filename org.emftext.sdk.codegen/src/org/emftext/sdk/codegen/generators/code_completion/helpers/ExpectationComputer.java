@@ -19,6 +19,7 @@ import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
+import org.emftext.sdk.concretesyntax.Placeholder;
 import org.emftext.sdk.concretesyntax.Rule;
 import org.emftext.sdk.concretesyntax.Sequence;
 import org.emftext.sdk.concretesyntax.Terminal;
@@ -63,11 +64,11 @@ public class ExpectationComputer {
 	private IExpectedElement createExpectedElement(EObject nextFirst) {
 		if (nextFirst instanceof CsString) {
 			CsString keyword = (CsString) nextFirst;
-			return new ExpectedKeyword(keyword.getValue(), csUtil.getScopeID(keyword), "");
-		} else if (nextFirst instanceof Terminal) {
-			Terminal terminal = (Terminal) nextFirst;
-			GenFeature genFeature = terminal.getFeature();
-			return new ExpectedFeature(genFeature, csUtil.findContainingRule(terminal).getMetaclass(), csUtil.getScopeID(terminal), "");
+			return new ExpectedKeyword(keyword.getValue());
+		} else if (nextFirst instanceof Placeholder) {
+			Placeholder placeholder = (Placeholder) nextFirst;
+			GenFeature genFeature = placeholder.getFeature();
+			return new ExpectedFeature(genFeature, csUtil.findContainingRule(placeholder).getMetaclass(), placeholder.getToken().getName());
 		} else {
 			throw new IllegalArgumentException(nextFirst.toString());
 		}

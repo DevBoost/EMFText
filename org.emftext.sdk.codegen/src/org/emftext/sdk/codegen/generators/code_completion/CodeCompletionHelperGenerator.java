@@ -128,10 +128,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("for (int i = 0; i < expectedElements.size() - 1;) {");
 		sc.add(iExpectedElementClassName + " elementAtIndex = expectedElements.get(i);");
 		sc.add(iExpectedElementClassName + " elementAtNext = expectedElements.get(i + 1);");
-		sc.add("if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() &&");
-		sc.add("//elementAtIndex.discardFollowingExpectations() &&");
-		// TODO mseifert: this is wrong. we must compare the scopeIDs based on their parts!
-		sc.add("shouldRemove(elementAtIndex.getScopeID(), elementAtNext.getScopeID())) {");
+		sc.add("if (elementAtIndex.getStartExcludingHiddenTokens() == elementAtNext.getStartExcludingHiddenTokens() && shouldRemove(elementAtIndex.getFollowSetID(), elementAtNext.getFollowSetID())) {");
 		sc.add("expectedElements.remove(i + 1);");
 		sc.add("} else {");
 		sc.add("i++;");
@@ -378,24 +375,8 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 	}
 
 	private void addShouldRemoveMethod(StringComposite sc) {
-		sc.add("public boolean shouldRemove(String scopeID1, String scopeID2) {");
-		sc.add("return scopeID1.compareTo(scopeID2) != 0;");
-		/*
-		sc.add("String[] parts1 = scopeID1.split(\"\\\\.\");");
-		sc.add("String[] parts2 = scopeID2.split(\"\\\\.\");");
-		sc.add("for (int p1 = 0; p1 < parts1.length; p1++) {");
-		sc.add("String segment1 = parts1[p1];");
-		sc.add("if (p1 >= parts2.length) {");
-		sc.add("return true;");
-		sc.add("}");
-		sc.add("String segment2 = parts2[p1];");
-		sc.add("int compareTo = segment1.compareTo(segment2);");
-		sc.add("if (compareTo == 0) {");
-		sc.add("continue;");
-		sc.add("}");
-		sc.add("}");
-		sc.add("return false;");
-		*/
+		sc.add("public boolean shouldRemove(int followSetID1, int followSetID2) {");
+		sc.add("return followSetID1 != followSetID2;");
 		sc.add("}");
 		sc.addLineBreak();
 	}

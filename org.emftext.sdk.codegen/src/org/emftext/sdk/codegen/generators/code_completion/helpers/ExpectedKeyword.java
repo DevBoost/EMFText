@@ -1,23 +1,20 @@
 package org.emftext.sdk.codegen.generators.code_completion.helpers;
 
+/**
+ * ExpectedKeywords are used to denote that a follow set of
+ * a syntax element contains a keyword (i.e., a fixed string 
+ * in the syntax definition).
+ */
 public class ExpectedKeyword implements IExpectedElement {
 
 	private String keyword;
-	private String scopeID;
-	private String message;
 
-	public ExpectedKeyword(String keyword, String scopeID, String message) {
+	public ExpectedKeyword(String keyword) {
 		this.keyword = keyword;
-		this.scopeID = scopeID;
-		this.message = message;
 	}
 	
 	public String getKeyword() {
 		return keyword;
-	}
-
-	public String getScopeID() {
-		return scopeID;
 	}
 
 	public String toString() {

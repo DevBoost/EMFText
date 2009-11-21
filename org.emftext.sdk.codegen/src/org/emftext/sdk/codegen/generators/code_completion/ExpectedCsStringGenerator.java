@@ -43,22 +43,13 @@ public class ExpectedCsStringGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		
-		sc.add("// A representation for a range in a document where a CsString (e.g.,");
-		sc.add("// a keyword) is expected.");
+		sc.add("// A representation for a range in a document where a keyword (i.e.,");
+		sc.add("// a static string) is expected.");
 		sc.add("public class " + getResourceClassName() + " extends " + abstractExpectedElementClassName + " {");
 		sc.add("private String value;");
 		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(String value) {");
-		sc.add("this(\"0\", value);");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(String scopeID, String value) {");
-		sc.add("super(scopeID, false);");
-		sc.add("this.value = value;");
-		sc.add("}");
-		sc.addLineBreak();
-		sc.add("public " + getResourceClassName() + "(String scopeID, boolean discardFollowingExpectations, String value) {");
-		sc.add("super(scopeID, discardFollowingExpectations);");
+		sc.add("public " + getResourceClassName() + "(int followSetID, String value) {");
+		sc.add("super(followSetID);");
 		sc.add("this.value = value;");
 		sc.add("}");
 		sc.addLineBreak();
