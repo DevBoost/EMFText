@@ -79,13 +79,7 @@ public class LeftRecursionDetector {
 					continue;
 				}
 				
-				Collection<GenClass> featureTypes = new ArrayList<GenClass>();
-				if (c.getTypes().size() == 0) {
-					featureTypes.add(feature.getTypeGenClass());
-				}
-				else {
-					featureTypes.addAll(c.getTypes());
-				}
+				Collection<GenClass> featureTypes = csUtil.getAllowedSubTypes(c);
 				if (featureTypes.contains(metaclass) || 
 						isSubtypeofOneOf(metaclass, featureTypes)) {
 					return currentRule;

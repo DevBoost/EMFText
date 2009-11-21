@@ -16,6 +16,7 @@ import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
+import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.LineBreak;
@@ -309,15 +310,20 @@ public class ExpectationComputer {
 		}
 		// TODO we probably need to consider subclass restrictions that may
 		// be set for the terminal
-		Collection<Rule> featureTypeRules = csUtil.getRules(syntax, featureType);
-		int i = 0;
-		for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
-			Rule nextFeatureTypeRule = (Rule) iterator.next();
-			String featurePath = genFeature.getName() + "->" + nextFeatureTypeRule.getMetaclass().getName();
-			System.out.println("Handling subrule " + featurePath);
-			Choice choice = nextFeatureTypeRule.getDefinition();
-			firstSet.addAll(computeFirstSetForChoice(syntax, nextFeatureTypeRule, choice, "containment for " + featurePath, scopeID + "." + i));
-			i++;
+		assert terminal instanceof Containment;
+		Containment containment = (Containment) terminal;
+		List<GenClass> subTypes = csUtil.getAllowedSubTypes(containment);
+		for (GenClass subType : subTypes) {
+			Collection<Rule> featureTypeRules = csUtil.getRules(syntax, subType);
+			int i = 0;
+			for (Iterator<Rule> iterator = featureTypeRules.iterator(); iterator.hasNext();) {
+				Rule nextFeatureTypeRule = (Rule) iterator.next();
+				String featurePath = genFeature.getName() + "->" + nextFeatureTypeRule.getMetaclass().getName();
+				System.out.println("Handling subrule " + featurePath);
+				Choice choice = nextFeatureTypeRule.getDefinition();
+				firstSet.addAll(computeFirstSetForChoice(syntax, nextFeatureTypeRule, choice, "containment for " + featurePath, scopeID + "." + i));
+				i++;
+			}
 		}
 		return firstSet;
 	}

@@ -1321,14 +1321,7 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 			assert ((EReference) eFeature).isContainment();
 			Containment containment = (Containment) terminal;
 
-			EList<GenClass> types;
-			// is there an explicit type defined?
-			if (!containment.getTypes().isEmpty()) {
-				types = containment.getTypes();
-			} else {
-				types = new BasicEList<GenClass>();
-				types.add(genFeature.getTypeGenClass());
-			}
+			EList<GenClass> types = csUtil.getAllowedSubTypes(containment);
 
 			int internalCount = 0;
 			for (GenClass type : types) {

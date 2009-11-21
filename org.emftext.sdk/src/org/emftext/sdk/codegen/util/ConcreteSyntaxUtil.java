@@ -16,7 +16,6 @@ package org.emftext.sdk.codegen.util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +24,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -37,6 +38,7 @@ import org.emftext.sdk.concretesyntax.Choice;
 import org.emftext.sdk.concretesyntax.CompoundDefinition;
 import org.emftext.sdk.concretesyntax.ConcreteSyntax;
 import org.emftext.sdk.concretesyntax.ConcretesyntaxPackage;
+import org.emftext.sdk.concretesyntax.Containment;
 import org.emftext.sdk.concretesyntax.CsString;
 import org.emftext.sdk.concretesyntax.Definition;
 import org.emftext.sdk.concretesyntax.Import;
@@ -461,5 +463,17 @@ public class ConcreteSyntaxUtil {
 	public List<Terminal> findTerminals(ConcreteSyntax syntax) {
 		Collection<Terminal> terminals = EObjectUtil.getObjectsByType(syntax.eAllContents(), ConcretesyntaxPackage.eINSTANCE.getTerminal());
 		return new ArrayList<Terminal>(terminals);
+	}
+
+	public EList<GenClass> getAllowedSubTypes(Containment containment) {
+		EList<GenClass> types;
+		// is there an explicit type defined?
+		if (!containment.getTypes().isEmpty()) {
+			types = containment.getTypes();
+		} else {
+			types = new BasicEList<GenClass>();
+			types.add(containment.getFeature().getTypeGenClass());
+		}
+		return types;
 	}
 }
