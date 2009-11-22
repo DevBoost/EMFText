@@ -196,6 +196,12 @@ public class ExpectationComputer {
 	}
 
 	private boolean canBeEmpty(ConcreteSyntax syntax, EObject syntaxElement) {
+		if (syntaxElement instanceof WhiteSpaces) {
+			return true;
+		}
+		if (syntaxElement instanceof LineBreak) {
+			return true;
+		}
 		// the check for emptiness works recursively by computing the
 		// first set. if the first set contains the empty sentence (epsilon)
 		// the syntax for the subtree induced by the given syntax element
