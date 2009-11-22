@@ -30,6 +30,7 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.util.ConcreteSyntaxUtil;
 import org.emftext.sdk.finders.GenClassFinder;
+import org.emftext.sdk.util.StringUtil;
 
 /**
  * A generator that creates a multiplexing reference resolver.
@@ -99,7 +100,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 			sc.add(org.eclipse.emf.ecore.EStructuralFeature.class.getName() + " feature = container.eClass().getEStructuralFeature(\"" + genFeature.getName() + "\");");
 			
 			sc.add("if (feature instanceof " + org.eclipse.emf.ecore.EReference.class.getName() + ") {");
-			sc.add(low(generatedClassName) + ".resolve(identifier, (" + genClassFinder.getQualifiedInterfaceName(genClass) + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, frr);");
+			sc.add(StringUtil.low(generatedClassName) + ".resolve(identifier, (" + genClassFinder.getQualifiedInterfaceName(genClass) + ") container, (" + org.eclipse.emf.ecore.EReference.class.getName() + ") feature, position, true, frr);");
 			sc.add("}");
 			sc.add("}");
 		}
@@ -110,7 +111,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 		sc.add("public void setOptions(" + MAP + "<?, ?> options) {");
 		for (GenFeature proxyReference : getContext().getNonContainmentReferences()) {
 			String generatedClassName = csUtil.getReferenceResolverClassName(proxyReference);
-			sc.add(low(generatedClassName) + ".setOptions(options);");			
+			sc.add(StringUtil.low(generatedClassName) + ".setOptions(options);");			
 		}
 		sc.add("}");
 		sc.addLineBreak();
@@ -124,7 +125,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 			if (!generatedResolvers.contains(generatedClassName)) {
 				generatedResolvers.add(generatedClassName);
 				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference, false);
-				sc.add("protected " + fullClassName + " " + low(generatedClassName) + " = new " + fullClassName + "();");			
+				sc.add("protected " + fullClassName + " " + StringUtil.low(generatedClassName) + " = new " + fullClassName + "();");			
 			}
 		}
 	    sc.addLineBreak();
@@ -139,7 +140,7 @@ public class ReferenceResolverSwitchGenerator extends JavaBaseGenerator {
 				generatedResolvers.add(generatedClassName);
 				String fullClassName = getContext().getQualifiedReferenceResolverClassName(proxyReference, false);
 				sc.add("public " + fullClassName + " get" + generatedClassName + "() {");
-				sc.add("return " + low(generatedClassName) + ";");			
+				sc.add("return " + StringUtil.low(generatedClassName) + ";");			
 				sc.add("}");
 			    sc.addLineBreak();
 			}

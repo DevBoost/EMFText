@@ -720,6 +720,11 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private void addAddExpectedElementMethod(StringComposite sc) {
+		// TODO potential memory consumption improvement:
+		// we can throw away expected elements that are not important
+		// for the current parse run. the concrete set of element that
+		// can be thrown away is determined by the cursor index where
+		// code completion is requested
 		sc.add("public void addExpectedElement(" + getClassNameHelper().getI_EXPECTED_ELEMENT()
 				+ " expectedElement) {");
 		//sc.add("if (this.state.failed) {");
@@ -1180,6 +1185,10 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		if (!ADD_EXPECTATION_ELEMEMT_CALLS) {
 			return;
 		}
+		// TODO potential performance improvement: instead of creating
+		// new instances for the expected elements we could create all
+		// of them beforehand (e.g., as final static fields) and reuse 
+		// them afterwards
 		for (IExpectedElement expectedElement : expectations) {
 			if (expectedElement instanceof ExpectedFeature) {
 				ExpectedFeature expectedFeature = (ExpectedFeature) expectedElement;
@@ -1488,7 +1497,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add(":");
 
 		sc.add(definition.getRegex());
-
+		// TODO why do we handle the keyword tokens differently?
+		// we must document this behavior!
 		if (definition.isHidden() && !isKeyword(definition)) {
 			sc.add("{ _channel = 99; }");
 		}
@@ -1496,6 +1506,8 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	}
 
 	private boolean isKeyword(TokenDefinition definition) {
+		// TODO this comparison of the regular expression should be
+		// replaced by a comparison of the two automata
 		String assumeKeyword = definition.getRegex().substring(1, definition.getRegex().length() - 1);
 		return keywordTokens.contains(assumeKeyword);
 	}

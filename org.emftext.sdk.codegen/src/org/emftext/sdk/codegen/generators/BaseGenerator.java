@@ -34,62 +34,6 @@ import org.emftext.sdk.codegen.IProblemCollector;
  */
 public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 	
-	private static String[] RESERVED_WORDS = new String[] {
-		"abstract", 
-		"assert", 
-		"boolean", 
-		"break", 
-		"byte", 
-		"case", 
-		"catch", 
-		"char", 
-		"class", 
-		"const", 
-		"continue",  
-		"default", 
-		"do", 
-		"double", 
-		"else", 
-		"enum", 
-		"extends",
-		"false", 
-		"final", 
-		"finally", 
-		"float", 
-		"for", 
-		"goto", 
-		"if", 
-		"implements", 
-		"import", 
-		"instanceof", 
-		"int", 
-		"interface", 
-		"long", 
-		"native", 
-		"new", 
-		"null",
-		"package", 
-		"private", 
-		"protected", 
-		"public", 
-		"return", 
-		"short", 
-		"static", 
-		"strictfp", 
-		"super", 
-		"switch", 
-		"synchronized", 
-		"this", 
-		"throw", 
-		"throws", 
-		"transient",
-		"true",
-		"try", 
-		"void", 
-		"volatile", 
-		"while", 
-	};
-	
 	protected static final Map<String, String> javaNativeTypeMapping;
 	static {
 		javaNativeTypeMapping = new HashMap<String, String>();
@@ -187,46 +131,6 @@ public abstract class BaseGenerator implements IGenerator, IProblemCollector {
 		return allProblems;
 	}
 	
-    /**
-     * Converts the first letter of the given string to lower case.
-     * 
-     * @param s a string
-     * @return the modified string.
-     */
-    // TODO this method does not belong here
-    protected static String low(String s) {
-        String h = s.substring(0, 1).toLowerCase();
-        String t = s.substring(1);      
-        return h + t ;
-    }
-	
-	/**
-	 * Returns a valid identifier using the list of <code>RESERVED_WORDS</code>. If the given
-	 * identifier is a Java keywords it is prefixed with an underscore. Otherwise the identifier 
-	 * itself is returned. The identifier is also converted to lower string.
-	 * 
-	 * @param identifier an identifier.
-	 * @return an identifier that does not lead to conflicts.
-	 */
-    // TODO this method does not belong here
-    protected static String getLowerCase(String identifier) {
-    	identifier = identifier.toLowerCase();
-    	if (isReserveredWord(identifier)) {
-    		return "keyword" + identifier;
-    	}
-    	return identifier;
-    }
-    
-    // TODO this method does not belong here
-    private static boolean isReserveredWord(String identifier) {
-		for (String word : RESERVED_WORDS) {
-			if (word.toLowerCase().equals(identifier)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	protected String getResourceClassName() {
     	return className;
     }

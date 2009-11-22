@@ -338,7 +338,6 @@ public class TextHoverGenerator extends JavaBaseGenerator {
 		sc.add("//");
 		sc.add("// @return the style sheet, or <code>null</code> if unable to load");
 		sc.add("private static String loadStyleSheet() {");
-		// TODO adjust this constant
 		sc.add(BUNDLE + " bundle = " + PLATFORM + ".getBundle(" + getContext().getQualifiedClassName(EArtifact.PLUGIN_ACTIVATOR) + ".PLUGIN_ID);");
 		sc.add(URL + " styleSheetURL = bundle.getEntry(\"/" + GenerationContext.DEFAULT_CSS_DIR + "/" + GenerationContext.HOVER_STYLE_FILENAME + "\");");
 		sc.add("if (styleSheetURL != null) {");

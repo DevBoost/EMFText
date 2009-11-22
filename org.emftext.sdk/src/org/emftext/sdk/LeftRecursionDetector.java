@@ -13,7 +13,6 @@
  ******************************************************************************/
 package org.emftext.sdk;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 

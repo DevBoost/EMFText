@@ -31,8 +31,6 @@ import org.emftext.sdk.codegen.IGenerator;
 import org.emftext.sdk.codegen.composites.StringComposite;
 import org.emftext.sdk.codegen.generators.JavaBaseGenerator;
 
-// TODO once the text token scanners are generated we might not need
-// ITextResourcePluginMetaInformation.createLexer() anymore
 public class TokenScannerGenerator extends JavaBaseGenerator {
 
 	private String colorManagerClassName;
@@ -52,7 +50,7 @@ public class TokenScannerGenerator extends JavaBaseGenerator {
 		sc.add("package " + getResourcePackageName() + ";");
 		sc.addLineBreak();
 		sc.add("// An adapter from the Eclipse <code>" + I_TOKEN_SCANNER + "</code> interface");
-		sc.add("// to the EMFText <code>ITextLexer</code> interface.");
+		sc.add("// to the generated lexer.");
 		sc.add("//");
 		sc.add("public class " + getResourceClassName() + " implements " + I_TOKEN_SCANNER + " {");
 		sc.addLineBreak();

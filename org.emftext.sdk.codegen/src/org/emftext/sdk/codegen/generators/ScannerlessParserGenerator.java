@@ -93,7 +93,7 @@ import org.emftext.sdk.util.StringUtil;
  * 
  * See: http://pdos.csail.mit.edu/~baford/packrat/thesis/thesis.pdf
  */
-// TODO enabled backtracking for the postParseCommands lists
+// TODO enable backtracking for the postParseCommands lists
 public class ScannerlessParserGenerator extends JavaBaseGenerator {
 	
 	private final GenClassUtil genClassUtil = new GenClassUtil();
