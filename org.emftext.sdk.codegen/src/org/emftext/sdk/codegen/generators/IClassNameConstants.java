@@ -56,9 +56,11 @@ import java.util.regex.Matcher;
 
 import javax.swing.event.DocumentListener;
 
+import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.BitSet;
 import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.EarlyExitException;
 import org.antlr.runtime.FailedPredicateException;
 import org.antlr.runtime.IntStream;
@@ -622,4 +624,7 @@ public class IClassNameConstants {
 	public static String WIZARD = Wizard.class.getName();
 	public static String WIZARD_PAGE = WizardPage.class.getName();
 	public static String XML_MEMENTO = XMLMemento.class.getName();
+	public static String COMMON_TOKEN_STREAM = CommonTokenStream.class.getName();
+	public static String ANTLR_INPUT_STREAM = ANTLRInputStream.class.getName();
+
 }
