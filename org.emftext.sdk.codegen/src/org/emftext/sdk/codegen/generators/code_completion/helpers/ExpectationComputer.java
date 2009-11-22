@@ -30,7 +30,7 @@ import org.emftext.sdk.concretesyntax.WhiteSpaces;
 
 /**
  * The ExpectationComputer can be used to compute all possible
- * elements that can follow a given element in a syntax. If uses
+ * elements that can follow a given element in a syntax. It uses
  * the well-known construction of FIRST and FOLLOW sets from
  * context-free grammars.
  */
