@@ -24,7 +24,7 @@ import org.emftext.sdk.codegen.IGenerator;
  * An experimental (not yet implemented) generator for the Babylon compiler
  * framework.
  */
-// TODO cbuerger implement this class
+// TODO cbuerger: implement this class
 public class BabylonSpecificationGenerator implements IGenerator {
 
 	public BabylonSpecificationGenerator() {

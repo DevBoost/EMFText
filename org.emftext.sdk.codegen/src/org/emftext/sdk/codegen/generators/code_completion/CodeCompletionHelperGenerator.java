@@ -330,7 +330,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 
 		/*
-		// TODO fix calculation of 'end'
+		// TODO mseifert: fix calculation of 'end'
 		sc.add("final int endIncludingHiddenTokens = expectedElement.getEndIncludingHiddenTokens();");
 		sc.add("if (endIncludingHiddenTokens >= 0 && endIncludingHiddenTokens < Integer.MAX_VALUE) {");
 		sc.add("end = endIncludingHiddenTokens;");
@@ -338,7 +338,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		*/
 		
 		/*
-		// TODO trim?
+		// TODO mseifert: trim?
 		sc.add("//");
 		sc.add("int endExcludingHidden = expectedElement.getEndExcludingHiddenTokens();");
 		sc.add("if (endExcludingHidden >= 0) {");
@@ -422,7 +422,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("}");
 		sc.add(LIST + "<" + iExpectedElementClassName + "> expectedElementsAt = " + ARRAYS + ".asList(getExpectedElements(expectedElements.toArray(new " + iExpectedElementClassName + "[expectedElements.size()]), cursorOffset));");
 		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
-		// TODO this is done twice (was already calculated in getFinalExpectedElementAt())
+		// TODO mseifert: this is done twice (was already calculated in getFinalExpectedElementAt())
 		//sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
 		sc.add("System.out.println(\" PARSER returned expectation: \" + expectedElementsAt + \" for offset \" + cursorOffset);");
 		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");

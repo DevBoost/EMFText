@@ -16,6 +16,7 @@ package org.emftext.sdk.codegen.generators.code_completion;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_OBJECT;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.E_STRUCTURAL_FEATURE;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.OBJECT;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
 
 import java.io.PrintWriter;
 
@@ -74,8 +75,7 @@ public class ExpectedStructuralFeatureGenerator extends JavaBaseGenerator {
 		sc.add("return tokenName;");
 		sc.add("}");
 		sc.addLineBreak();
-		sc.add("public String toString() {");
-		//sc.add("String simpleName = container == null ? \"null\" : container.getClass().getSimpleName();"); // TODO remove this
+		sc.add("public " + STRING + " toString() {");
 		sc.add("return super.toString() + \" EFeature \\\"\" + feature.getName() + \"\\\" in \" + feature.getEContainingClass().getName();");
 		sc.add("}");
 		sc.addLineBreak();

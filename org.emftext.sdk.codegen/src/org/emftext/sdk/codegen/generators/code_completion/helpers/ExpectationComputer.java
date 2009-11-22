@@ -171,7 +171,7 @@ public class ExpectationComputer {
 
 	private Set<EObject> computeFollowSetIfObjectCanBeEmpty(ConcreteSyntax syntax, EObject syntaxElement) {
 		Set<EObject> result = new LinkedHashSet<EObject>();
-		// TODO the check for emptiness must be extended work recursively
+		// TODO mseifert: the check for emptiness must be extended work recursively
 		// (i.e., the first set contains the empty sentence - epsilon)
 		if (canBeEmpty(syntaxElement)) {
 			result.addAll(computeFollowSet(syntax, syntaxElement));
