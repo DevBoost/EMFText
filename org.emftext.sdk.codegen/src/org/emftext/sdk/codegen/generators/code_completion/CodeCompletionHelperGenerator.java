@@ -424,6 +424,7 @@ public class CodeCompletionHelperGenerator extends JavaBaseGenerator {
 		sc.add("setPrefix(expectedElementsAt, content, cursorOffset);");
 		// TODO mseifert: this is done twice (was already calculated in getFinalExpectedElementAt())
 		//sc.add("//IExpectedElement expectedAtCursor = getExpectedElementAt(offset, expectedElements);");
+		// TODO remove this debug statement
 		sc.add("System.out.println(\" PARSER returned expectation: \" + expectedElementsAt + \" for offset \" + cursorOffset);");
 		sc.add(COLLECTION + "<String> proposals = deriveProposals(expectedElementsAt, content, metaInformation, cursorOffset);");
 		sc.addLineBreak();
