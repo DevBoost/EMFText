@@ -32,6 +32,7 @@ import static org.emftext.sdk.codegen.generators.IClassNameConstants.INT_STREAM;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.IO_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.LIST;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MAP;
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.MATH;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_NOT_SET_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_RANGE_EXCEPTION;
 import static org.emftext.sdk.codegen.generators.IClassNameConstants.MISMATCHED_SET_EXCEPTION;
@@ -721,7 +722,6 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 	private void addAddExpectedElementMethod(StringComposite sc) {
 		sc.add("public void addExpectedElement(" + getClassNameHelper().getI_EXPECTED_ELEMENT()
 				+ " expectedElement) {");
-		// TODO mseifert: use constants for class names
 		//sc.add("if (this.state.failed) {");
 		//sc.add("return;");
 		//sc.add("}");
@@ -731,22 +731,22 @@ public class ANTLRGrammarGenerator extends BaseGenerator {
 		sc.add("if (this.reachedIndex) {");
 		sc.add("return;");
 		sc.add("}");
-		sc.add("int currentIndex = java.lang.Math.max(0, input.index());");
-		sc.add("//System.out.println(\"addExpectedElement() currentIndex = \" + currentIndex);");
+		sc.add("int currentIndex = " + MATH + ".max(0, input.index());");
+		//sc.add("//System.out.println(\"addExpectedElement() currentIndex = \" + currentIndex);");
 		//sc.add("int startExcludingHidden = currentIndex;");
 		sc.add("for (int index = lastTokenIndex; index < currentIndex; index++) {");
-		sc.add("//System.out.println(\"addExpectedElement() index = \" + index);");
+		//sc.add("//System.out.println(\"addExpectedElement() index = \" + index);");
 		sc.add("if (index >= input.size()) {");
 		sc.add("break;");
 		sc.add("}");
-		sc.add("org.antlr.runtime.CommonToken tokenAtIndex = (org.antlr.runtime.CommonToken) input.get(index);");
-		sc.add("//System.out.println(\"addExpectedElement() tokenAtIndex = \" + tokenAtIndex);");
+		sc.add(COMMON_TOKEN + " tokenAtIndex = (" + COMMON_TOKEN + ") input.get(index);");
+		//sc.add("//System.out.println(\"addExpectedElement() tokenAtIndex = \" + tokenAtIndex);");
 		sc.add("stopIncludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
 		sc.add("if (tokenAtIndex.getChannel() != 99) {");
 		sc.add("stopExcludingHiddenTokens = tokenAtIndex.getStopIndex() + 1;");
 		sc.add("}");
 		sc.add("}");
-		sc.add("lastTokenIndex = java.lang.Math.max(0, currentIndex);");
+		sc.add("lastTokenIndex = " + MATH + ".max(0, currentIndex);");
 		sc.add("expectedElement.setPosition(stopExcludingHiddenTokens, stopIncludingHiddenTokens);");
 		//sc.add("System.out.println(\"Adding expected element (\" + message + \"): \" + expectedElement + \"\");");
 		sc.add("this.expectedElements.add(expectedElement);");

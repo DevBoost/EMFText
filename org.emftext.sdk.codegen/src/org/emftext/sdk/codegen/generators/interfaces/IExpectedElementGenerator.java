@@ -13,6 +13,8 @@
  ******************************************************************************/
 package org.emftext.sdk.codegen.generators.interfaces;
 
+import static org.emftext.sdk.codegen.generators.IClassNameConstants.STRING;
+
 import java.io.PrintWriter;
 
 import org.emftext.sdk.codegen.EArtifact;
@@ -45,12 +47,11 @@ public class IExpectedElementGenerator extends JavaBaseGenerator {
 		sc.add("// stream.");
 		sc.add("public interface " + getResourceClassName() + " {");
 		sc.addLineBreak();
-		// TODO mseifert: remove this
 		sc.add("public void setPosition(int startIncludingHiddenTokens, int startExcludingHiddenTokens);");
 		sc.add("public int getStartExcludingHiddenTokens();");
 		sc.add("public int getStartIncludingHiddenTokens();");
-		sc.add("public String getPrefix();");
-		sc.add("public void setPrefix(String prefix);");
+		sc.add("public " + STRING + " getPrefix();");
+		sc.add("public void setPrefix(" + STRING + " prefix);");
 		sc.add("public int getFollowSetID();");
 		sc.add("}");
 		out.print(sc.toString());
